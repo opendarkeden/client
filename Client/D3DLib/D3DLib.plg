@@ -1,0 +1,336 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: D3DLib - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSPF2C5.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\dxlib" /I "..\\" /I "..\spritelib" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/D3DLib.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\project\opendarkeden\client\Client\D3DLib\CD3DMath.cpp"
+"C:\project\opendarkeden\client\Client\D3DLib\CD3DObject.cpp"
+"C:\project\opendarkeden\client\Client\D3DLib\CD3DTextureEffect.cpp"
+"C:\project\opendarkeden\client\Client\D3DLib\CDirect3D.cpp"
+"C:\project\opendarkeden\client\Client\D3DLib\CTexturePack.cpp"
+"C:\project\opendarkeden\client\Client\D3DLib\d3dutil.cpp"
+]
+Creating command line "cl.exe @C:\Users\genius\AppData\Local\Temp\RSPF2C5.tmp" 
+Creating command line "link.exe -lib /nologo /out:"Debug\DX3D.lib"  .\Debug\CD3DMath.obj .\Debug\CD3DObject.obj .\Debug\CD3DTextureEffect.obj .\Debug\CDirect3D.obj .\Debug\CTexturePack.obj .\Debug\d3dutil.obj "
+<h3>Output Window</h3>
+Compiling...
+CD3DMath.cpp
+CD3DObject.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : error C2146: syntax error : missing ';' before identifier 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : warning C4183: 'GetDevice': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(108) : error C2146: syntax error : missing ';' before identifier 'm_pD3D'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(108) : error C2501: 'm_pD3D' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(109) : error C2146: syntax error : missing ';' before identifier 'm_pD3DD'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(109) : error C2373: 'LPDIRECT3DDEVICE7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'LPDIRECT3DDEVICE7'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(109) : error C2501: 'm_pD3DD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(110) : error C2146: syntax error : missing ';' before identifier 'm_pDDZBuffer'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(110) : error C2501: 'm_pDDZBuffer' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.h(78) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.h(78) : error C2501: 'D3DMATERIAL7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.h(78) : error C2501: 'GetMaterial' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.h(78) : warning C4183: 'GetMaterial': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.h(79) : error C2061: syntax error : identifier 'D3DMATERIAL7'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.h(127) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.h(127) : error C2501: 'D3DMATERIAL7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.h(127) : error C2501: 'm_pMaterial' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(26) : error C2065: 'm_pMaterial' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(39) : error C2541: delete : cannot delete objects that are not pointers
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(194) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(194) : error C2227: left of '->SetMaterial' must point to class/struct/union
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(200) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(200) : error C2227: left of '->GetTransform' must point to class/struct/union
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(204) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(204) : error C2227: left of '->SetTransform' must point to class/struct/union
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(209) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(209) : error C2227: left of '->DrawIndexedPrimitive' must point to class/struct/union
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(210) : error C2065: 'D3DFVF_VERTEX' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(235) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(235) : error C2227: left of '->SetTransform' must point to class/struct/union
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(254) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(254) : error C2227: left of '->SetMaterial' must point to class/struct/union
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(260) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(260) : error C2227: left of '->SetTransform' must point to class/struct/union
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(265) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(265) : error C2227: left of '->DrawIndexedPrimitive' must point to class/struct/union
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(277) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(277) : error C2227: left of '->SetTransform' must point to class/struct/union
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(594) : error C2065: 'D3DMATERIAL7' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(594) : error C2065: 'mtrl' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(595) : error C2448: '<Unknown>' : function-style initializer appears to be a function definition
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(940) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(940) : error C2227: left of '->GetTransform' must point to class/struct/union
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(941) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cd3dobject.cpp(941) : error C2227: left of '->GetTransform' must point to class/struct/union
+CD3DTextureEffect.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : error C2146: syntax error : missing ';' before identifier 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : warning C4183: 'GetDevice': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(108) : error C2146: syntax error : missing ';' before identifier 'm_pD3D'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(108) : error C2501: 'm_pD3D' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(109) : error C2146: syntax error : missing ';' before identifier 'm_pD3DD'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(109) : error C2373: 'LPDIRECT3DDEVICE7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'LPDIRECT3DDEVICE7'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(109) : error C2501: 'm_pD3DD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(110) : error C2146: syntax error : missing ';' before identifier 'm_pDDZBuffer'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(110) : error C2501: 'm_pDDZBuffer' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cd3dtextureeffect.cpp(57) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cd3dtextureeffect.cpp(57) : error C2227: left of '->DrawPrimitive' must point to class/struct/union
+c:\project\opendarkeden\client\client\d3dlib\cd3dtextureeffect.cpp(58) : error C2065: 'D3DFVF_TLVERTEX' : undeclared identifier
+CDirect3D.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : error C2146: syntax error : missing ';' before identifier 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : warning C4183: 'GetDevice': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(108) : error C2146: syntax error : missing ';' before identifier 'm_pD3D'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(108) : error C2501: 'm_pD3D' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(109) : error C2146: syntax error : missing ';' before identifier 'm_pD3DD'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(109) : error C2373: 'LPDIRECT3DDEVICE7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'LPDIRECT3DDEVICE7'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(109) : error C2501: 'm_pD3DD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(110) : error C2146: syntax error : missing ';' before identifier 'm_pDDZBuffer'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(110) : error C2501: 'm_pDDZBuffer' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(30) : error C2065: 'D3DDEVICEDESC7' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(30) : error C2065: 'ddDevDesc' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(30) : error C2182: 'D3DUtil_InitDeviceDesc' : illegal use of type 'void'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2065: 'DDSURFACEDESC2' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2065: 'ddsd' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2275: 'DWORD' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\windef.h(141) : see declaration of 'DWORD'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2146: syntax error : missing ')' before identifier 'dwFlags'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2182: 'D3DUtil_InitSurfaceDesc' : illegal use of type 'void'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2078: too many initializers
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2275: 'DWORD' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\windef.h(141) : see declaration of 'DWORD'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(32) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2065: 'D3DMATERIAL7' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2065: 'mtrl' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2275: 'FLOAT' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\windef.h(145) : see declaration of 'FLOAT'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2146: syntax error : missing ')' before identifier 'r'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2182: 'D3DUtil_InitMaterial' : illegal use of type 'void'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2078: too many initializers
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2275: 'FLOAT' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\windef.h(145) : see declaration of 'FLOAT'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(34) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2065: 'D3DLIGHT7' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2065: 'light' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2275: 'D3DLIGHTTYPE' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\d3dtypes.h(621) : see declaration of 'D3DLIGHTTYPE'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2146: syntax error : missing ')' before identifier 'ltType'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2182: 'D3DUtil_InitLight' : illegal use of type 'void'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2078: too many initializers
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2275: 'D3DLIGHTTYPE' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\d3dtypes.h(621) : see declaration of 'D3DLIGHTTYPE'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(36) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.cpp(18) : error C2039: 'm_pD3D' : is not a member of 'CDirect3D'
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(31) : see declaration of 'CDirect3D'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.cpp(18) : error C2146: syntax error : missing ';' before identifier 'm_pD3D'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.cpp(18) : error C2501: 'LPDIRECT3D7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.cpp(18) : fatal error C1004: unexpected end of file found
+CTexturePack.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : error C2146: syntax error : missing ';' before identifier 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : warning C4183: 'GetDevice': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(108) : error C2146: syntax error : missing ';' before identifier 'm_pD3D'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(108) : error C2501: 'm_pD3D' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(109) : error C2146: syntax error : missing ';' before identifier 'm_pD3DD'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(109) : error C2373: 'LPDIRECT3DDEVICE7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'LPDIRECT3DDEVICE7'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(109) : error C2501: 'm_pD3DD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(110) : error C2146: syntax error : missing ';' before identifier 'm_pDDZBuffer'
+c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(110) : error C2501: 'm_pDDZBuffer' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(199) : error C2065: 'D3DDEVICEDESC7' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(199) : error C2146: syntax error : missing ';' before identifier 'ddDesc'
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(199) : error C2065: 'ddDesc' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(200) : error C2352: 'CDirect3D::GetDevice' : illegal call of non-static member function
+        c:\project\opendarkeden\client\client\d3dlib\cdirect3d.h(56) : see declaration of 'GetDevice'
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(200) : error C2227: left of '->GetCaps' must point to class/struct/union
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(204) : error C2228: left of '.dwMaxTextureWidth' must have class/struct/union type
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(204) : error C2228: left of '.dwMaxTextureWidth' must have class/struct/union type
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(205) : error C2228: left of '.dwMaxTextureHeight' must have class/struct/union type
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(205) : error C2228: left of '.dwMaxTextureHeight' must have class/struct/union type
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(245) : error C2228: left of '.dpcTriCaps' must have class/struct/union type
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(245) : error C2228: left of '.dwTextureCaps' must have class/struct/union type
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(255) : error C2228: left of '.dpcTriCaps' must have class/struct/union type
+c:\project\opendarkeden\client\client\d3dlib\ctexturepack.cpp(255) : error C2228: left of '.dwTextureCaps' must have class/struct/union type
+d3dutil.cpp
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(30) : error C2065: 'D3DDEVICEDESC7' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(30) : error C2065: 'ddDevDesc' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(30) : error C2182: 'D3DUtil_InitDeviceDesc' : illegal use of type 'void'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2065: 'DDSURFACEDESC2' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2065: 'ddsd' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2275: 'DWORD' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\windef.h(141) : see declaration of 'DWORD'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2146: syntax error : missing ')' before identifier 'dwFlags'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2182: 'D3DUtil_InitSurfaceDesc' : illegal use of type 'void'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2078: too many initializers
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : error C2275: 'DWORD' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\windef.h(141) : see declaration of 'DWORD'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(32) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2065: 'D3DMATERIAL7' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2065: 'mtrl' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2275: 'FLOAT' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\windef.h(145) : see declaration of 'FLOAT'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2146: syntax error : missing ')' before identifier 'r'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2182: 'D3DUtil_InitMaterial' : illegal use of type 'void'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2078: too many initializers
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : error C2275: 'FLOAT' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\windef.h(145) : see declaration of 'FLOAT'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(34) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2065: 'D3DLIGHT7' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2065: 'light' : undeclared identifier
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2275: 'D3DLIGHTTYPE' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\d3dtypes.h(621) : see declaration of 'D3DLIGHTTYPE'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2146: syntax error : missing ')' before identifier 'ltType'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2182: 'D3DUtil_InitLight' : illegal use of type 'void'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2078: too many initializers
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : error C2275: 'D3DLIGHTTYPE' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\d3dtypes.h(621) : see declaration of 'D3DLIGHTTYPE'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(36) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(58) : error C2275: 'DWORD' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\windef.h(141) : see declaration of 'DWORD'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(58) : error C2146: syntax error : missing ')' before identifier 'dwFlags'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(58) : error C2182: 'D3DUtil_InitSurfaceDesc' : illegal use of type 'void'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(58) : error C2374: 'D3DUtil_InitSurfaceDesc' : redefinition; multiple initialization
+        c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(31) : see declaration of 'D3DUtil_InitSurfaceDesc'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(58) : error C2078: too many initializers
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(58) : error C2275: 'DWORD' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\windef.h(141) : see declaration of 'DWORD'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(59) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(60) : error C2143: syntax error : missing ';' before '{'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(60) : error C2447: missing function header (old-style formal list?)
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(75) : error C2275: 'FLOAT' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\windef.h(145) : see declaration of 'FLOAT'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(75) : error C2146: syntax error : missing ')' before identifier 'r'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(75) : error C2182: 'D3DUtil_InitMaterial' : illegal use of type 'void'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(75) : error C2374: 'D3DUtil_InitMaterial' : redefinition; multiple initialization
+        c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(33) : see declaration of 'D3DUtil_InitMaterial'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(75) : error C2078: too many initializers
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(75) : error C2275: 'FLOAT' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\windef.h(145) : see declaration of 'FLOAT'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(76) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(77) : error C2143: syntax error : missing ';' before '{'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(77) : error C2447: missing function header (old-style formal list?)
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(92) : error C2275: 'D3DLIGHTTYPE' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\d3dtypes.h(621) : see declaration of 'D3DLIGHTTYPE'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(92) : error C2146: syntax error : missing ')' before identifier 'ltType'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(92) : error C2182: 'D3DUtil_InitLight' : illegal use of type 'void'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(92) : error C2374: 'D3DUtil_InitLight' : redefinition; multiple initialization
+        c:\project\opendarkeden\client\client\d3dlib\d3dutil.h(35) : see declaration of 'D3DUtil_InitLight'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(92) : error C2078: too many initializers
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(92) : error C2275: 'D3DLIGHTTYPE' : illegal use of this type as an expression
+        c:\program files (x86)\microsoft visual studio\vc98\include\d3dtypes.h(621) : see declaration of 'D3DLIGHTTYPE'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(93) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(94) : error C2143: syntax error : missing ';' before '{'
+c:\project\opendarkeden\client\client\d3dlib\d3dutil.cpp(94) : error C2447: missing function header (old-style formal list?)
+Ö´ÐÐ cl.exe Ê±³ö´í.
+
+
+
+<h3>Results</h3>
+DX3D.lib - 1 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

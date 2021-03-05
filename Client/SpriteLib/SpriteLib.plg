@@ -1,0 +1,806 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Sprite Library - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSP6817.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\dxlib" /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\project\opendarkeden\client\Client\SpriteLib\CAlphaSprite.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CAlphaSprite555.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CAlphaSprite565.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CAlphaSpritePal.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CFilter.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CIndexSprite.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CIndexSprite555.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CIndexSprite565.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CIndexSpritePack.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CShadowSprite.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSprite.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSprite555.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSprite565.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpriteDef.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpriteOutlineManager.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpritePack.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpritePackList.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpritePal.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpritePalBase.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpriteSet.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpriteSetManager.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpriteSurface.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CStorageSurface.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\MPalette.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\MPalettePack.cpp"
+]
+Creating command line "cl.exe @C:\Users\genius\AppData\Local\Temp\RSP6817.tmp" 
+Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSP6818.tmp" with contents
+[
+/nologo /out:"Debug\SP.lib" 
+.\Debug\CAlphaSprite.obj
+.\Debug\CAlphaSprite555.obj
+.\Debug\CAlphaSprite565.obj
+.\Debug\CAlphaSpritePal.obj
+.\Debug\CFilter.obj
+.\Debug\CIndexSprite.obj
+.\Debug\CIndexSprite555.obj
+.\Debug\CIndexSprite565.obj
+.\Debug\CIndexSpritePack.obj
+.\Debug\CShadowSprite.obj
+.\Debug\CSprite.obj
+.\Debug\CSprite555.obj
+.\Debug\CSprite565.obj
+.\Debug\CSpriteDef.obj
+.\Debug\CSpriteOutlineManager.obj
+.\Debug\CSpritePack.obj
+.\Debug\CSpritePackList.obj
+.\Debug\CSpritePal.obj
+.\Debug\CSpritePalBase.obj
+.\Debug\CSpriteSet.obj
+.\Debug\CSpriteSetManager.obj
+.\Debug\CSpriteSurface.obj
+.\Debug\CStorageSurface.obj
+.\Debug\MPalette.obj
+.\Debug\MPalettePack.obj
+]
+Creating command line "link.exe -lib @C:\Users\genius\AppData\Local\Temp\RSP6818.tmp"
+<h3>Output Window</h3>
+Compiling...
+CAlphaSprite.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CAlphaSprite555.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CAlphaSprite565.cpp
+CAlphaSpritePal.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CFilter.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+CIndexSprite.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CIndexSprite555.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CIndexSprite565.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CIndexSpritePack.cpp
+CShadowSprite.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CSprite.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CSprite555.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CSprite565.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CSpriteDef.cpp
+CSpriteOutlineManager.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CSpritePack.cpp
+CSpritePackList.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CSpritePal.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CSpritePalBase.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+CSpriteSet.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+Generating Code...
+Compiling...
+CSpriteSetManager.cpp
+CSpriteSurface.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(148) : error C2065: 'm_ddsd' : undeclared identifier
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(148) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(149) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(346) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(347) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(349) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(350) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(355) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(356) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(374) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(375) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(421) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(422) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(424) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(425) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(430) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(431) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(449) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(450) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(495) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(496) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(498) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(499) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(504) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(505) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(523) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(524) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(712) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(712) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(749) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(749) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(796) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(796) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(822) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(822) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(835) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(835) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(840) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(840) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(944) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(944) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(981) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(981) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1028) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1028) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1054) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1054) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1067) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1067) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1072) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1072) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1176) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1176) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1213) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1213) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1260) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1260) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1286) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1286) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1299) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1299) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1304) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1304) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1340) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1341) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1610) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(1611) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(2002) : error C2228: left of '.lpSurface' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(2003) : error C2228: left of '.lPitch' must have class/struct/union type
+c:\project\opendarkeden\client\client\spritelib\cspritesurface.cpp(2003) : fatal error C1003: error count exceeds 100; stopping compilation
+CStorageSurface.cpp
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2146: syntax error : missing ';' before identifier 'm_pDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : error C2501: 'm_pDD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2146: syntax error : missing ';' before identifier 'm_pDDSPrimary'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(33) : error C2501: 'm_pDDSPrimary' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2146: syntax error : missing ';' before identifier 'm_pDDSBack'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2086: 'LPDIRECTDRAWSURFACE7' : redefinition
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(34) : error C2501: 'm_pDDSBack' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2146: syntax error : missing ';' before identifier 'm_ddsd'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(35) : error C2501: 'm_ddsd' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2146: syntax error : missing ';' before identifier 'm_pDDGammaControl'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(37) : error C2501: 'm_pDDGammaControl' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2146: syntax error : missing ';' before identifier 'm_DDGammaRamp'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(54) : error C2501: 'm_DDGammaRamp' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2146: syntax error : missing ';' before identifier 'GetDD'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : error C2373: 'LPDIRECTDRAW7' : redefinition; different type modifiers
+        c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(32) : see declaration of 'LPDIRECTDRAW7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdraw.h(97) : warning C4183: 'GetDD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2433: 'LPDIRECTDRAWSURFACE7' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : error C2501: 'GetSurface' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(127) : warning C4183: 'GetSurface': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2143: syntax error : missing ';' before '*'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2433: 'DDSURFACEDESC2' : 'inline' not permitted on data declarations
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : error C2501: 'GetDDSD' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(128) : warning C4183: 'GetDDSD': member function definition looks like a ctor, but name does not match enclosing class
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2146: syntax error : missing ';' before identifier 'LPDIRECTDRAWSURFACE7'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: '.?BH' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2586: incorrect user-defined conversion syntax : illegal indirections
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2143: syntax error : missing ';' before '&'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2059: syntax error : ')'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(176) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2146: syntax error : missing ';' before identifier 'm_pDDSurface'
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'LPDIRECTDRAWSURFACE7' : missing storage-class or type specifiers
+c:\project\opendarkeden\client\client\dxlib\cdirectdrawsurface.h(183) : error C2501: 'm_pDDSurface' : missing storage-class or type specifiers
+MPalette.cpp
+MPalettePack.cpp
+Generating Code...
+Ö´ÐÐ cl.exe Ê±³ö´í.
+
+
+
+<h3>Results</h3>
+SP.lib - 1 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

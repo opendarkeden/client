@@ -1,0 +1,74 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: MZLib - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSPE16F.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/MZLib.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\project\opendarkeden\client\Client\MZLib\adler32.c"
+"C:\project\opendarkeden\client\Client\MZLib\compress.c"
+"C:\project\opendarkeden\client\Client\MZLib\crc32.c"
+"C:\project\opendarkeden\client\Client\MZLib\deflate.c"
+"C:\project\opendarkeden\client\Client\MZLib\gzio.c"
+"C:\project\opendarkeden\client\Client\MZLib\infblock.c"
+"C:\project\opendarkeden\client\Client\MZLib\infcodes.c"
+"C:\project\opendarkeden\client\Client\MZLib\inffast.c"
+"C:\project\opendarkeden\client\Client\MZLib\inflate.c"
+"C:\project\opendarkeden\client\Client\MZLib\inftrees.c"
+"C:\project\opendarkeden\client\Client\MZLib\infutil.c"
+"C:\project\opendarkeden\client\Client\MZLib\minigzip.c"
+"C:\project\opendarkeden\client\Client\MZLib\trees.c"
+"C:\project\opendarkeden\client\Client\MZLib\uncompr.c"
+"C:\project\opendarkeden\client\Client\MZLib\zutil.c"
+]
+Creating command line "cl.exe @C:\Users\genius\AppData\Local\Temp\RSPE16F.tmp" 
+Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSPE170.tmp" with contents
+[
+/nologo /out:"Debug\ZLib.lib" 
+.\Debug\adler32.obj
+.\Debug\compress.obj
+.\Debug\crc32.obj
+.\Debug\deflate.obj
+.\Debug\gzio.obj
+.\Debug\infblock.obj
+.\Debug\infcodes.obj
+.\Debug\inffast.obj
+.\Debug\inflate.obj
+.\Debug\inftrees.obj
+.\Debug\infutil.obj
+.\Debug\minigzip.obj
+.\Debug\trees.obj
+.\Debug\uncompr.obj
+.\Debug\zutil.obj
+]
+Creating command line "link.exe -lib @C:\Users\genius\AppData\Local\Temp\RSPE170.tmp"
+<h3>Output Window</h3>
+Compiling...
+adler32.c
+compress.c
+crc32.c
+deflate.c
+gzio.c
+infblock.c
+infcodes.c
+inffast.c
+inflate.c
+inftrees.c
+infutil.c
+minigzip.c
+trees.c
+uncompr.c
+zutil.c
+Creating library...
+
+
+
+<h3>Results</h3>
+ZLib.lib - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
