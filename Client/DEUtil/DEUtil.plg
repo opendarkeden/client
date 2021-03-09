@@ -6,11 +6,41 @@
 --------------------Configuration: DEUtil - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\FreeSoft\LOCALS~1\Temp\RSP22.tmp" with contents
+[
+/nologo /MT /W3 /GX /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "DEUTIL_EXPORTS" /Fo"Release/" /Fd"Release/" /FD /c 
+"H:\game(800)\designed\project\Client\MStatusManager.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\FreeSoft\LOCALS~1\Temp\RSP22.tmp" 
+Creating temporary file "C:\DOCUME~1\FreeSoft\LOCALS~1\Temp\RSP24.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"Release/DEUtil.pdb" /machine:I386 /out:"Release/DEUtil.dll" /implib:"Release/DEUtil.lib" 
+".\Release\DEUtil.obj"
+".\Release\MStatusManager.obj"
+".\Release\StdAfx.obj"
+]
+Creating command line "link.exe @C:\DOCUME~1\FreeSoft\LOCALS~1\Temp\RSP24.tmp"
+<h3>Output Window</h3>
+Compiling...
+MStatusManager.cpp
+H:\game(800)\designed\project\Client\MStatusManager.cpp(44) : warning C4273: 'g_StatusManager' : inconsistent dll linkage.  dllexport assumed.
+H:\game(800)\designed\project\Client\MStatusManager.cpp(53) : warning C4273: 'MStatusManager::MStatusManager' : inconsistent dll linkage.  dllexport assumed.
+H:\game(800)\designed\project\Client\MStatusManager.cpp(62) : warning C4273: 'MStatusManager::~MStatusManager' : inconsistent dll linkage.  dllexport assumed.
+H:\game(800)\designed\project\Client\MStatusManager.cpp(81) : warning C4273: 'GetTOHIT' : inconsistent dll linkage.  dllexport assumed.
+H:\game(800)\designed\project\Client\MStatusManager.cpp(141) : warning C4273: 'GetDefense' : inconsistent dll linkage.  dllexport assumed.
+H:\game(800)\designed\project\Client\MStatusManager.cpp(187) : warning C4273: 'GetProtection' : inconsistent dll linkage.  dllexport assumed.
+H:\game(800)\designed\project\Client\MStatusManager.cpp(239) : warning C4273: 'GetMinDAM' : inconsistent dll linkage.  dllexport assumed.
+H:\game(800)\designed\project\Client\MStatusManager.cpp(298) : warning C4273: 'GetMaxDAM' : inconsistent dll linkage.  dllexport assumed.
+H:\game(800)\designed\project\Client\MStatusManager.cpp(359) : warning C4273: 'GetAttackSpeed' : inconsistent dll linkage.  dllexport assumed.
+H:\game(800)\designed\project\Client\MStatusManager.cpp(420) : warning C4273: 'Set' : inconsistent dll linkage.  dllexport assumed.
+H:\game(800)\designed\project\Client\MStatusManager.cpp(434) : warning C4273: 'SetCurrentWeaponDomain' : inconsistent dll linkage.  dllexport assumed.
+Linking...
+   Creating library Release/DEUtil.lib and object Release/DEUtil.exp
 
 
 
 <h3>Results</h3>
-DEUtil.dll - 0 error(s), 0 warning(s)
+DEUtil.dll - 0 error(s), 11 warning(s)
 </pre>
 </body>
 </html>
