@@ -70,7 +70,8 @@ CDirect3D::EnumTextureCallback( DDPIXELFORMAT* pddpf,
 WORD 
 CDirect3D::GetNumberOfBits( DWORD dwMask )
 {
-    for( WORD wBits = 0; dwMask; wBits++ )
+	WORD wBits;
+    for(  wBits = 0; dwMask; wBits++ )
         dwMask = dwMask & ( dwMask - 1 );  
 
     return wBits;
