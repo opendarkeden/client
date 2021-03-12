@@ -45,13 +45,13 @@ class CFrameSetManager : public CSetManager<TYPE_FRAMEID, TYPE_FRAMEID> {
 		//--------------------------------------------------------
 		// FramePack IndexFile로부터 FrameSet IndexFile을 생성한다.
 		//--------------------------------------------------------
-		bool		SaveFrameSetIndex(class ofstream& setIndex, class ifstream& packIndex);
+		bool		SaveFrameSetIndex(ofstream& setIndex, ifstream& packIndex);
 
 		//--------------------------------------------------------
 		// FrameSet과 관련된 SpriteID를 선택해서
 		// SpritePack IndexFile로부터 SpriteSet IndexFile을 생성한다.
 		//--------------------------------------------------------
-		//virtual bool		SaveSpriteSetIndex(class ofstream& setIndex, class ifstream& packIndex) = 0;
+		//virtual bool		SaveSpriteSetIndex(ofstream& setIndex, ifstream& packIndex) = 0;
 		
 
 	protected :

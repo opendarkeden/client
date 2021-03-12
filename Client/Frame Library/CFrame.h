@@ -22,8 +22,6 @@
 #define	__CFRAME_H__
 
 #include <Windows.h>
-class ofstream;
-class ifstream;
 #include "DrawTypeDef.h"
 #include "TArray.h"
 
@@ -52,8 +50,8 @@ class CFrame {
 		//---------------------------------------------------------------
 		// file I/O
 		//---------------------------------------------------------------
-		void	SaveToFile(class ofstream& file);
-		void	LoadFromFile(class ifstream& file);
+		void	SaveToFile(ofstream& file);
+		void	LoadFromFile(ifstream& file);
 
 		//---------------------------------------------------------------
 		// get		
@@ -119,8 +117,8 @@ class CEffectFrame : public CFrame {
 		//---------------------------------------------------------------
 		// File I/O
 		//---------------------------------------------------------------
-		void	SaveToFile(class ofstream& file);
-		void	LoadFromFile(class ifstream& file);
+		void	SaveToFile(ofstream& file);
+		void	LoadFromFile(ifstream& file);
 
 		// Get
 		char	GetLight() const		{ return m_Light; }		

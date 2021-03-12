@@ -23,7 +23,7 @@ class CAnimationFrameSetManager : public CFrameSetManager {
 		// AnimationFrameSet과 관련된 SpriteID를 선택해서
 		// SpritePack IndexFile로부터 SpriteSet IndexFile을 생성한다.
 		//--------------------------------------------------------
-		bool	SaveSpriteSetIndex(CAnimationFramePack* pAnimationFramePack, class ofstream& setIndex, class ifstream& packIndex);
+		bool	SaveSpriteSetIndex(CAnimationFramePack* pAnimationFramePack, ofstream& setIndex, ifstream& packIndex);
 };
 
 #endif

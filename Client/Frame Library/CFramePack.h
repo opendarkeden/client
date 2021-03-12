@@ -31,7 +31,7 @@ class CFramePack : public TArray<Type, TYPE_FRAMEID> {
 		//--------------------------------------------------------
 		// File I/O
 		//--------------------------------------------------------
-		bool		SaveToFile(class ofstream& packFile, class ofstream& indexFile);		
+		bool		SaveToFile(ofstream& packFile, ofstream& indexFile);		
 
 	protected :
 
@@ -50,12 +50,12 @@ class CFramePack : public TArray<Type, TYPE_FRAMEID> {
 //
 //----------------------------------------------------------------------
 template <class Type>
-CFramePack<Type>::CFramePack<Type>()
+CFramePack<Type>::CFramePack()
 {
 }
 
 template <class Type>
-CFramePack<Type>::~CFramePack<Type>()
+CFramePack<Type>::~CFramePack()
 {
 }
 
@@ -73,7 +73,7 @@ CFramePack<Type>::~CFramePack<Type>()
 //----------------------------------------------------------------------
 template <class Type>
 bool
-CFramePack<Type>::SaveToFile(class ofstream& packFile, class ofstream& indexFile)
+CFramePack<Type>::SaveToFile(ofstream& packFile, ofstream& indexFile)
 {
 	//--------------------------------------------------
 	// Size저장 : 0이라도 개수는 저장한다.

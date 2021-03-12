@@ -16,8 +16,6 @@
 #define	__CFRAMESET_H__
 
 #include "CFrame.h"
-class ifstream;
-class ofstream;
 
 
 template <class Type>
@@ -37,7 +35,7 @@ class CFrameSet {
 		//--------------------------------------------------------
 		// FramePack File에서 Frame를 Load한다.
 		// indexFile = FilePointer File, packFile = FramePack File
-		bool		LoadFromFile(class ifstream& indexFile, class ifstream& packFile);
+		bool		LoadFromFile(ifstream& indexFile, ifstream& packFile);
 		
 
 		//--------------------------------------------------------
@@ -129,7 +127,7 @@ CFrameSet<Type>::Release()
 //----------------------------------------------------------------------
 template <class Type>
 bool		
-CFrameSet<Type>::LoadFromFile(class ifstream& indexFile, class ifstream& packFile)
+CFrameSet<Type>::LoadFromFile(ifstream& indexFile, ifstream& packFile)
 {
 	TYPE_FRAMEID	count;
 	
