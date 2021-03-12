@@ -41,7 +41,7 @@ CSpriteSetManager::SaveSpriteSetIndex(ofstream& setIndex, ifstream& spkIndex)
 		return false;
 
 
-	TYPE_SPRITEID	count;
+	size_t	count;
 
 	//---------------------------------------------------------------
 	// SpritePack IndexFile의 Sprite개수를 읽는다.

@@ -4,7 +4,7 @@
 #include "Client_PCH.h"
 #include "CAlphaSprite.h"
 #include "CAlphaSprite565.h"
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 //

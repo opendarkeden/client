@@ -9,9 +9,6 @@
 #include "CSpriteSurface.h"
 #include "CSpriteDef.h"
 class CFilter;
-class ofstream;
-class ifstream;
-
 
 //----------------------------------------------------------------------
 // width * height만큼의 pixel을 저장해둔다.
@@ -73,8 +70,8 @@ class CSprite
 		//---------------------------------------------------------
 		// fstream에서 save/load를 한다.
 		//---------------------------------------------------------
-		virtual bool		SaveToFile(class ofstream& file) = 0;
-		virtual bool		LoadFromFile(class ifstream& file) = 0;		
+		virtual bool		SaveToFile(ofstream& file) = 0;
+		virtual bool		LoadFromFile(ifstream& file) = 0;		
 		//virtual bool		LoadFromFileToBuffer(ifstream& file) = 0;
 		//void		LoadFromBuffer();
 			

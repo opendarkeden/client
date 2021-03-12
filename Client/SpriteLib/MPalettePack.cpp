@@ -27,7 +27,7 @@
 //	return re;
 //}
 //
-//bool MPalettePack::LoadFromFile(class ifstream &file, bool b565)
+//bool MPalettePack::LoadFromFile(ifstream &file, bool b565)
 //{
 ////	Release();
 //	

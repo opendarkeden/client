@@ -17,7 +17,7 @@ typedef CTypePack2<MPalette, MPalette555, MPalette565> MPalettePack;
 //	//--------------------------------------------------------
 //	// file I/O
 //	//--------------------------------------------------------
-//	bool LoadFromFile(class ifstream &file, bool b565 = true);
+//	bool LoadFromFile(ifstream &file, bool b565 = true);
 //	bool LoadFromFile(LPCTSTR lpszFilename, bool b565 = true);
 //	
 //protected:

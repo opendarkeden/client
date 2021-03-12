@@ -19,7 +19,7 @@ class CFileIndexTable {
 		//--------------------------------------------------------
 		// file I/O		
 		//--------------------------------------------------------		
-		bool			LoadFromFile(class ifstream& indexFile);		
+		bool			LoadFromFile(ifstream& indexFile);		
 
 		WORD				GetSize()					{ return m_Size; }
 

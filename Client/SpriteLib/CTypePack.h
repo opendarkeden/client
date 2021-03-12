@@ -2,7 +2,7 @@
 #define __CTYPEPACK_H__
 
 #include <windows.h>
-#include <fstream.h>
+#include <fstream>
 #include "CSpriteSetManager.h"
 #include "COrderedList.h"
 #include "CDirectDraw.h"
@@ -35,8 +35,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	virtual bool LoadFromFile(class ifstream &file);
-	virtual bool SaveToFile(class ofstream &dataFile, class ofstream &indexFile);
+	virtual bool LoadFromFile(ifstream &file);
+	virtual bool SaveToFile(ofstream &dataFile, ofstream &indexFile);
 	
 	virtual bool LoadFromFileRunning(LPCTSTR lpszFilename);
 	virtual bool LoadFromFile(LPCTSTR lpszFilename);
@@ -56,7 +56,7 @@ protected:
 
 	// runtime loading
 	WORD			m_nLoadData;	// Loading 된 CSprite의 개수
-	class ifstream	*m_file;
+	ifstream	*m_file;
 	int*			m_file_index;
 };
 
@@ -146,7 +146,7 @@ Type &CTypePack<Type>::Get(WORD n)
 template <class Type>
 bool CTypePack<Type>::LoadFromFile(LPCTSTR lpszFilename)
 {
-	class ifstream file(lpszFilename, ios::binary);
+	ifstream file(lpszFilename, ios::binary);
 	bool re = LoadFromFile(file);
 	file.close();
 
@@ -159,8 +159,8 @@ bool CTypePack<Type>::SaveToFile(LPCTSTR lpszFilename)
 	char szIndexFilename[512];
 	sprintf(szIndexFilename, "%si", lpszFilename);
 
-	class ofstream dataFile(lpszFilename, ios::binary);
-	class ofstream indexFile(szIndexFilename, ios::binary);
+	ofstream dataFile(lpszFilename, ios::binary);
+	ofstream indexFile(szIndexFilename, ios::binary);
 
 	bool re = SaveToFile(dataFile, indexFile);
 
@@ -172,7 +172,7 @@ bool CTypePack<Type>::SaveToFile(LPCTSTR lpszFilename)
 
 
 template <class Type>
-bool CTypePack<Type>::LoadFromFile(class ifstream &file)
+bool CTypePack<Type>::LoadFromFile(ifstream &file)
 {
 //	Release();
 
@@ -201,13 +201,13 @@ bool CTypePack<Type>::LoadFromFileRunning(LPCTSTR lpszFilename)
 	//인덱스 파일 로딩
 	std::string filename = lpszFilename;
 	filename += 'i';
-	class ifstream indexFile(filename.c_str(), ios::binary);
+	ifstream indexFile(filename.c_str(), ios::binary);
 	indexFile.read((char *)&m_Size, 2); 
 	Init(m_Size);
 
 	if(m_file == NULL)
 	{
-		m_file = new class ifstream;
+		m_file = new ifstream;
 	}
 	
 	m_file_index = new int[m_Size];
@@ -229,7 +229,7 @@ bool CTypePack<Type>::LoadFromFileRunning(LPCTSTR lpszFilename)
 }
 
 template <class Type>
-bool CTypePack<Type>::SaveToFile(class ofstream &dataFile, class ofstream &indexFile)
+bool CTypePack<Type>::SaveToFile(ofstream &dataFile, ofstream &indexFile)
 {
 	//--------------------------------------------------
 	// index file을 생성하기 위한 정보
@@ -350,14 +350,14 @@ bool CTypePack<Type>::LoadFromFileData(int dataID, int fileID, LPCTSTR packFilen
 		return false;
 	}
 
-	class ifstream dataFile(packFilename, ios::binary | ios::nocreate);
+	ifstream dataFile(packFilename, ios::binary | ios::nocreate);
 	
 	if (!dataFile.is_open())
 	{
 		return false;
 	}
 	
-	class ifstream indexFile(indexFilename, ios::binary | ios::nocreate);
+	ifstream indexFile(indexFilename, ios::binary | ios::nocreate);
 	
 	if (!indexFile.is_open())
 	{
@@ -417,8 +417,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	virtual bool LoadFromFile(class ifstream &file);
-	virtual bool SaveToFile(class ofstream &dataFile, class ofstream &indexFile);
+	virtual bool LoadFromFile(ifstream &file);
+	virtual bool SaveToFile(ofstream &dataFile, ofstream &indexFile);
 	
 	virtual bool LoadFromFileRunning(LPCTSTR lpszFilename);
 	virtual bool LoadFromFile(LPCTSTR lpszFilename);
@@ -440,7 +440,7 @@ protected:
 
 	// runtime loading
 	WORD			m_nLoadData;	// Loading 된 CSprite의 개수
-	class ifstream	*m_file;
+	ifstream	*m_file;
 	int*			m_file_index;
 	bool			m_bSecond;
 };
@@ -535,7 +535,7 @@ TypeBase &CTypePack2<TypeBase, Type1, Type2>::Get(WORD n)
 template <class TypeBase, class Type1, class Type2>
 bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFile(LPCTSTR lpszFilename)
 {
-	class ifstream file(lpszFilename, ios::binary);
+	ifstream file(lpszFilename, ios::binary);
 	bool re = LoadFromFile(file);
 	file.close();
 
@@ -548,8 +548,8 @@ bool CTypePack2<TypeBase, Type1, Type2>::SaveToFile(LPCTSTR lpszFilename)
 	char szIndexFilename[512];
 	sprintf(szIndexFilename, "%si", lpszFilename);
 
-	class ofstream dataFile(lpszFilename, ios::binary);
-	class ofstream indexFile(szIndexFilename, ios::binary);
+	ofstream dataFile(lpszFilename, ios::binary);
+	ofstream indexFile(szIndexFilename, ios::binary);
 
 	bool re = SaveToFile(dataFile, indexFile);
 
@@ -561,7 +561,7 @@ bool CTypePack2<TypeBase, Type1, Type2>::SaveToFile(LPCTSTR lpszFilename)
 
 
 template <class TypeBase, class Type1, class Type2>
-bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFile(class ifstream &file)
+bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFile(ifstream &file)
 {
 //	Release();
 
@@ -590,13 +590,13 @@ bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFileRunning(LPCTSTR lpszFilenam
 	//인덱스 파일 로딩
 	std::string filename = lpszFilename;
 	filename += 'i';
-	class ifstream indexFile(filename.c_str(), ios::binary);
+	ifstream indexFile(filename.c_str(), ios::binary);
 	indexFile.read((char *)&m_Size, 2); 
 	Init(m_Size);
 
 	if(m_file == NULL)
 	{
-		m_file = new class ifstream;
+		m_file = new ifstream;
 	}
 	
 	m_file_index = new int[m_Size];
@@ -618,7 +618,7 @@ bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFileRunning(LPCTSTR lpszFilenam
 }
 
 template <class TypeBase, class Type1, class Type2>
-bool CTypePack2<TypeBase, Type1, Type2>::SaveToFile(class ofstream &dataFile, class ofstream &indexFile)
+bool CTypePack2<TypeBase, Type1, Type2>::SaveToFile(ofstream &dataFile, ofstream &indexFile)
 {
 	//--------------------------------------------------
 	// index file을 생성하기 위한 정보
@@ -739,14 +739,14 @@ bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFileData(int dataID, int fileID
 		return false;
 	}
 
-	class ifstream dataFile(packFilename, ios::binary | ios::nocreate);
+	ifstream dataFile(packFilename, ios::binary | ios::nocreate);
 	
 	if (!dataFile.is_open())
 	{
 		return false;
 	}
 	
-	class ifstream indexFile(indexFilename, ios::binary | ios::nocreate);
+	ifstream indexFile(indexFilename, ios::binary | ios::nocreate);
 	
 	if (!indexFile.is_open())
 	{

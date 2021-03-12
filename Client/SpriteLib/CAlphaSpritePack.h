@@ -30,13 +30,13 @@ class CAlphaSpritePack {
 		//------------------------------------------------------------
 		// file I/O
 		//------------------------------------------------------------
-		bool		SaveToFile(class ofstream& spkFile, class ofstream& indexFile);
-		bool		SaveToFileSpriteOnly(class ofstream& spkFile, long &filePosition);
-		void		LoadFromFile(class ifstream& file);		
-		void		LoadFromFilePart(class ifstream& file, long filePosition,
+		bool		SaveToFile(ofstream& spkFile, ofstream& indexFile);
+		bool		SaveToFileSpriteOnly(ofstream& spkFile, long &filePosition);
+		void		LoadFromFile(ifstream& file);		
+		void		LoadFromFilePart(ifstream& file, long filePosition,
 									 TYPE_SPRITEID firstSpriteID, TYPE_SPRITEID lastSpriteID);
 
-		bool		LoadFromFileSprite(int spriteID, int fileSpriteID, class ifstream& spkFile, class ifstream& indexFile);
+		bool		LoadFromFileSprite(int spriteID, int fileSpriteID, ifstream& spkFile, ifstream& indexFile);
 		bool		LoadFromFileSprite(int spriteID, int fileSpriteID, const char* spkFilename, const char* indexFilename);
 
 		//--------------------------------------------------------

@@ -23,8 +23,8 @@
 #include <deque>
 #include <bitset>
 #include <algorithm>
-#include <iostream.h>
-#include <fstream.h>
+#include <iostream>
+#include <fstream>
 #include <windows.h>
 #include <MMSystem.h>
 #include <Digitalv.h>
@@ -44,6 +44,9 @@ using std::map;
 using std::list;
 using std::deque;
 using std::bitset;
+
+using std::ifstream;
+using std::ofstream;
 
 extern BOOL g_MyFull;
 extern RECT g_GameRect;

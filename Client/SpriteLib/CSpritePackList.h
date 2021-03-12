@@ -49,13 +49,13 @@ class CSpritePackList {
 		//---------------------------------------------------
 		// get size
 		//---------------------------------------------------
-		TYPE_SPRITEID	GetSize() const	{ return m_listSprite.size(); }
+		size_t	GetSize() const	{ return m_listSprite.size(); }
 
 		//---------------------------------------------------
 		// file I/O
 		//---------------------------------------------------
-		bool				SaveToFile(class ofstream& spkFile, class ofstream& indexFile);
-		virtual void		LoadFromFile(class ifstream& file) = 0;
+		bool				SaveToFile(ofstream& spkFile, ofstream& indexFile);
+		virtual void		LoadFromFile(ifstream& file) = 0;
 
 	protected :		
 		SPRITE_LIST		m_listSprite;		// CSprite들을 저장해둔다.
@@ -93,13 +93,13 @@ class CSpritePalPackList {
 		//---------------------------------------------------
 		// get size
 		//---------------------------------------------------
-		TYPE_SPRITEID	GetSize() const	{ return m_listSprite.size(); }
+		size_t	GetSize() const	{ return m_listSprite.size(); }
 
 		//---------------------------------------------------
 		// file I/O
 		//---------------------------------------------------
-		bool				SaveToFile(class ofstream& spkFile, class ofstream& indexFile);
-		void		LoadFromFile(class ifstream& file);
+		bool				SaveToFile(ofstream& spkFile, ofstream& indexFile);
+		void		LoadFromFile(ifstream& file);
 
 	protected :		
 		SPRITEPAL_LIST		m_listSprite;		// CSprite들을 저장해둔다.

@@ -30,8 +30,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	virtual bool	SaveToFile(class ofstream& file) { return false; };
-	virtual bool	LoadFromFile(class ifstream& file) { return false; };		
+	virtual bool	SaveToFile(ofstream& file) { return false; };
+	virtual bool	LoadFromFile(ifstream& file) { return false; };		
 
 	bool IsInit() const { return (m_Size == 0)?false:true; }
 	
@@ -46,8 +46,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(ifstream &file);
+	bool SaveToFile(ofstream &file);
 };
 
 class MPalette565 : public MPalette
@@ -56,8 +56,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(ifstream &file);
+	bool SaveToFile(ofstream &file);
 };
 
 #endif

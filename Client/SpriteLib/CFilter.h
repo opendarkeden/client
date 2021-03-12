@@ -13,8 +13,6 @@
 
 #include <Windows.h>
 #include "CTypePack.h"
-class ifstream;
-class ofstream;
 
 class CFilter {
 	public :
@@ -57,8 +55,8 @@ class CFilter {
 		//---------------------------------------------------------
 		// File I/O
 		//---------------------------------------------------------
-		bool		SaveToFile(class ofstream& file);
-		bool		LoadFromFile(class ifstream& file);
+		bool		SaveToFile(ofstream& file);
+		bool		LoadFromFile(ifstream& file);
 
 		//---------------------------------------------------------
 		// Get

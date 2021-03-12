@@ -36,7 +36,7 @@ class CSpriteSetManager : public CSetManager<TYPE_SPRITEID, TYPE_SPRITEID> {
 		//--------------------------------------------------------
 		// SpritePack IndexFile로부터 SpriteSet IndexFile을 생성한다.
 		//--------------------------------------------------------
-		bool		SaveSpriteSetIndex(class ofstream& setIndex, class ifstream& spkIndex);
+		bool		SaveSpriteSetIndex(ofstream& setIndex, ifstream& spkIndex);
 		
 
 	protected :
