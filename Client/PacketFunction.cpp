@@ -90,7 +90,7 @@ extern CNPGameLib npgl;
 extern MScreenEffectManager*	g_pInventoryEffectManager;
 extern DWORD	g_PreviousCreatureType;
 
-extern bool FileOpenBinary(const char* filename, class ifstream& file);
+extern bool FileOpenBinary(const char* filename, ifstream& file);
 
 extern BOOL g_bSetHotKey;
 
@@ -479,7 +479,7 @@ SetGoreLevel(bool bGoreLevel)
 			//-----------------------------------
 			// Load From File
 			//-----------------------------------
-			class ifstream actionInfoFile2;//(FILE_INFO_ACTION, ios::binary);
+			ifstream actionInfoFile2;//(FILE_INFO_ACTION, std::ios::binary);
 			if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_ACTION").c_str(), actionInfoFile2))
 				return;
 

@@ -55,7 +55,7 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 
 	///*
 	// Index File을 Load한다.
-//	class ifstream indexFile(indexFilename, ios::binary);
+//	ifstream indexFile(indexFilename, std::ios::binary);
 //	m_SPKIndex.LoadFromFile( indexFile );
 //	indexFile.close();
 //
@@ -63,7 +63,7 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 //	m_SPK.Init( m_SPKIndex.GetSize());//, CDirectDraw::Is565() );
 //
 //	// SPK File을 열어둔다.
-//	m_SPKFile.open(spkFilename, ios::binary);
+//	m_SPKFile.open(spkFilename, std::ios::binary);
 //	
 //	TYPE_SPRITEID size;
 //	m_SPKFile.read((char*)&size, SIZE_SPRITEID);
@@ -261,7 +261,7 @@ CNormalSpriteTexturePartManager::Clear()
 	CPartManager<WORD, WORD, CSpriteSurface*>::Init( m_nIndex, m_nPart );
 
 	// NULL로 초기화
-	for (i=0; i<m_nPart; i++)
+	for (int i=0; i<m_nPart; i++)
 	{
 		m_pData[i] = NULL;
 	}

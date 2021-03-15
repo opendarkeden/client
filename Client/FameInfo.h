@@ -3,8 +3,8 @@
 
 #include "CTypeTable.h"
 
-class ifstream;
-class ofstream;
+ifstream;
+std::ofstream;
 
 typedef unsigned char	BYTE;
 
@@ -14,8 +14,8 @@ public :
 	FameInfo();
 	~FameInfo();
 	
-	void	LoadFromFile(class ifstream& file);
-	void	SaveToFile(class ofstream& file);
+	void	LoadFromFile(ifstream& file);
+	void	SaveToFile(std::ofstream& file);
 	DWORD	GetFame( SKILLDOMAIN type );
 
 private :	

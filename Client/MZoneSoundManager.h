@@ -17,8 +17,8 @@
 #include "CTypeMap.h"
 #include <DSound.h>
 #include <map>
-class ifstream;
-class ofstream;
+ifstream;
+std::ofstream;
 
 //-----------------------------------------------------------------------------
 // ZONESOUND_NODE
@@ -58,8 +58,8 @@ class ZONESOUND_NODE
 		//---------------------------------------------------------------
 		// File I/O
 		//---------------------------------------------------------------
-		void					SaveToFile(class ofstream& file);
-		void					LoadFromFile(class ifstream& file);
+		void					SaveToFile(std::ofstream& file);
+		void					LoadFromFile(ifstream& file);
 
 	protected :
 		TYPE_SOUNDID				m_SoundID;				// Sound ID

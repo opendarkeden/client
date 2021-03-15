@@ -61,8 +61,8 @@ public:
 	virtual ~MHelpMessage();
 
 	// file func
-	void SaveToFile(class ofstream &file);
-	void LoadFromFile(class ifstream &file);
+	void SaveToFile(std::ofstream &file);
+	void LoadFromFile(ifstream &file);
 	void SaveToFile(const char * filename);
 	void LoadFromFile(const char * filename);
 };
@@ -107,8 +107,8 @@ public:
 	int							m_KeyCnt;; // 갯수
 	int							m_SenderCnt;; // 갯수
 	// 파일관련 함수
-	void SaveToFile(class ofstream &file);
-	void LoadFromFile(class ifstream &file);
+	void SaveToFile(std::ofstream &file);
+	void LoadFromFile(ifstream &file);
 	void SaveToFile(const char * filename);
 	void LoadFromFile(const char * filename);	
 	CRarFile					m_pack_file;  // rpk  파일 

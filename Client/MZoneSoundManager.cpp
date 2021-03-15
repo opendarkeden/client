@@ -62,7 +62,7 @@ ZONESOUND_NODE::~ZONESOUND_NODE()
 // Save To File
 //-----------------------------------------------------------------------------
 void					
-ZONESOUND_NODE::SaveToFile(class ofstream& file)
+ZONESOUND_NODE::SaveToFile(ofstream& file)
 {
 	// 사실 이거는 file 입출력할 필요가 없당.
 }
@@ -71,7 +71,7 @@ ZONESOUND_NODE::SaveToFile(class ofstream& file)
 // Load From File
 //-----------------------------------------------------------------------------
 void					
-ZONESOUND_NODE::LoadFromFile(class ifstream& file)
+ZONESOUND_NODE::LoadFromFile(ifstream& file)
 {
 	// 사실 이거는 file 입출력할 필요가 없당.
 }

@@ -49,7 +49,7 @@ public :
 	SocketInputStream ( Socket * sock , uint BufferSize = DefaultSocketInputBufferSize ) throw ( Error );
 	
 	// destructor
-	virtual ~SocketInputStream () throw ( Error );
+	virtual ~SocketInputStream ();
 
 	
 //////////////////////////////////////////////////

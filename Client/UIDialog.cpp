@@ -894,7 +894,7 @@ UIDialog::PopupHelpDlg(int x, int y)
 	{	
 		MStringArray	helpMessage;
 		
-		class ifstream file(FILE_INFO_HELP, ios::binary);
+		ifstream file(FILE_INFO_HELP, std::ios::binary);
 		helpMessage.LoadFromFile( file );
 		file.close();
 

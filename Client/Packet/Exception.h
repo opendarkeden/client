@@ -10,12 +10,12 @@
 #define __EXCEPTION_H__
 
 // include files
-#include "Types.h"
+#include "Types/SystemTypes.h"
 #include "StringStream.h"
 
-#if __WINDOWS__
-#pragma warning ( disable : 4786 )
-#endif
+// #ifdef __WINDOWS__
+// #pragma warning ( disable : 4786 )
+// #endif
 
 #include <list>
 
@@ -653,7 +653,7 @@ public :
 		//
 		// Portal Exception
 		//
-		// PC °¡ Æ÷Å»À» ¹â¾ÒÀ»¶§...Ä
+		// PC °¡ Æ÷Å»À» ¹â¾ÒÀ»¶§...?
 
 		//
 		//////////////////////////////////////////////////////////////////////

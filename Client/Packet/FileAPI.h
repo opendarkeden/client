@@ -41,13 +41,13 @@ void close_ex ( int fd )
 //
 // exception version of read ()
 //
-uint read_ex ( int fd , void * buf , uint len ) 
+unsigned int read_ex ( int fd , void * buf , unsigned int len ) 
      throw ( IOException , Error );
 
 //
 // exception version of write ()
 //
-uint write_ex ( int fd , const void * buf , uint len ) 
+unsigned int write_ex ( int fd , const void * buf , unsigned int len ) 
      throw ( IOException , Error );
 
 //
@@ -97,7 +97,7 @@ void setfilenonblocking_ex2 ( int fd , bool on )
 //
 // using ioctl_ex()
 //
-uint availablefile_ex ( int fd )
+unsigned int availablefile_ex ( int fd )
      throw ( Error );
 
 //

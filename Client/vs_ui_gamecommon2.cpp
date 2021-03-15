@@ -1145,7 +1145,7 @@ void	C_VS_UI_IMAGE_NOTICE::AddNotice(const char* name, DWORD id)
 std::string C_VS_UI_IMAGE_NOTICE::LoadInfo(DWORD ID)
 {
 	CEventGiftInfo *Event = new CEventGiftInfo;
-	ifstream info("data\\info\\eventquest.inf", ios::binary );
+	ifstream info("data\\info\\eventquest.inf", std::ios::binary );
 	Event->LoadFromFile ( info );
 	info.close();
 	
@@ -4337,7 +4337,7 @@ C_VS_UI_HORN::C_VS_UI_HORN(int currentZoneID)
 //	UI_PORTAL_FLAG portal;
 //	UI_PORTAL_LIST portalList;
 //
-//	ifstream hornInfoFile(FILE_INFO_HORN, ios::binary);
+//	ifstream hornInfoFile(FILE_INFO_HORN, std::ios::binary);
 //	hornInfoFile.read((char *)&zoneNum, sizeof(int));
 //	for(int zone = 0; zone < zoneNum; zone++)
 //	{
@@ -5591,7 +5591,7 @@ C_VS_UI_MAILBOX::C_VS_UI_MAIL::~C_VS_UI_MAIL()
 }
 
 
-void C_VS_UI_MAILBOX::C_VS_UI_MAIL::SaveToFile(class ofstream &file)
+void C_VS_UI_MAILBOX::C_VS_UI_MAIL::SaveToFile(ofstream &file)
 {
 	file.write((const char *)&id, sizeof(DWORD));
 	file.write((const char *)&mark, sizeof(bool));
@@ -5602,7 +5602,7 @@ void C_VS_UI_MAILBOX::C_VS_UI_MAIL::SaveToFile(class ofstream &file)
 	file.write((const char *)&windowSize, sizeof(SIZE));
 }
 
-void C_VS_UI_MAILBOX::C_VS_UI_MAIL::LoadFromFile(class ifstream &file)
+void C_VS_UI_MAILBOX::C_VS_UI_MAIL::LoadFromFile(ifstream &file)
 {
 	file.read((char *)&id, sizeof(DWORD));
 	file.read((char *)&mark, sizeof(bool));
@@ -5615,7 +5615,7 @@ void C_VS_UI_MAILBOX::C_VS_UI_MAIL::LoadFromFile(class ifstream &file)
 
 void C_VS_UI_MAILBOX::C_VS_UI_MAIL::SaveToFile(std::string filename)
 {
-	ofstream file(filename.c_str(), ios::binary);
+	ofstream file(filename.c_str(), std::ios::binary);
 	
 	if(file)
 	{
@@ -5627,7 +5627,7 @@ void C_VS_UI_MAILBOX::C_VS_UI_MAIL::SaveToFile(std::string filename)
 
 void C_VS_UI_MAILBOX::C_VS_UI_MAIL::LoadFromFile(std::string filename)
 {
-	ifstream file(filename.c_str(), ios::binary | ios::nocreate);
+	ifstream file(filename.c_str(), std::ios::binary | std::ios::in);
 	
 	if(file)
 	{
@@ -5636,7 +5636,7 @@ void C_VS_UI_MAILBOX::C_VS_UI_MAIL::LoadFromFile(std::string filename)
 	}
 }
 
-void C_VS_UI_MAILBOX::SaveToFile(class ofstream &file)
+void C_VS_UI_MAILBOX::SaveToFile(ofstream &file)
 {
 	DWORD flag = 0;
 	file.write((const char *)&flag, sizeof(DWORD));
@@ -5660,7 +5660,7 @@ void C_VS_UI_MAILBOX::SaveToFile(class ofstream &file)
 	}
 }
 
-void C_VS_UI_MAILBOX::LoadFromFile(class ifstream &file)
+void C_VS_UI_MAILBOX::LoadFromFile(ifstream &file)
 {
 	DWORD flag = 0;
 	file.read((char *)&flag, sizeof(DWORD));
@@ -5686,7 +5686,7 @@ void C_VS_UI_MAILBOX::LoadFromFile(class ifstream &file)
 
 void C_VS_UI_MAILBOX::SaveToFile(std::string filename)
 {
-	ofstream file(filename.c_str(), ios::binary);
+	ofstream file(filename.c_str(), std::ios::binary);
 	
 	if(file)
 	{
@@ -5698,7 +5698,7 @@ void C_VS_UI_MAILBOX::SaveToFile(std::string filename)
 
 void C_VS_UI_MAILBOX::LoadFromFile(std::string filename)
 {
-	ifstream file(filename.c_str(), ios::binary | ios::nocreate);
+	ifstream file(filename.c_str(), std::ios::binary | std::ios::in);
 	
 	if(file)
 	{
@@ -10707,7 +10707,7 @@ bool C_VS_UI_HELPDESC::MouseControl(UINT message, int _x, int _y)
 
 void C_VS_UI_HELPDESC::LoadCustomstr(char * customstrfilename)
 {
-	ifstream file(customstrfilename, ios::binary| ios::nocreate);
+	ifstream file(customstrfilename, std::ios::binary| std::ios::in);
 	if(!file) return;
 	char sztemp[1024];
 	

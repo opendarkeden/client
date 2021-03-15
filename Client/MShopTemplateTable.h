@@ -17,8 +17,8 @@ class MShopTemplate {
 		MShopTemplate();
 		~MShopTemplate();
 
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(ifstream& file);
 
 	public :
 		//UINT				m_ID;

@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 // include files
-#include "Client_PCH.h"
+//#include "Client_PCH.h"
 #include "CGConnectSetKey.h"
 #include "Assert.h"
 #include "Player.h"

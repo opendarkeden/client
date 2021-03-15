@@ -11,8 +11,8 @@
 
 #include "CTypeMap2.h"
 #include "MString.h"
-class ifstream;
-class ofstream;
+ifstream;
+std::ofstream;
 
 //----------------------------------------------------------------------
 // SERVER_INFO

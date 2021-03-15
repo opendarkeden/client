@@ -28,8 +28,8 @@ class SOUND_SOURCE
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(class ofstream& file);		
-		void			LoadFromFile(class ifstream& file);		
+		void			SaveToFile(ofstream& file);		
+		void			LoadFromFile(ifstream& file);		
 };
 */
 
@@ -86,7 +86,7 @@ ZONETABLE_INFO::GetRandomSoundID() const
 // Save
 //----------------------------------------------------------------------
 void			
-ZONETABLE_INFO::SaveToFile(class ofstream& file)
+ZONETABLE_INFO::SaveToFile(ofstream& file)
 {
 	file.write((const char*)&ID, SIZE_ZONEID);
 	Name.SaveToFile( file );
@@ -129,7 +129,7 @@ ZONETABLE_INFO::SaveToFile(class ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-ZONETABLE_INFO::LoadFromFile(class ifstream& file)
+ZONETABLE_INFO::LoadFromFile(ifstream& file)
 {
 	file.read((char*)&ID, SIZE_ZONEID);
 	Name.LoadFromFile( file );
@@ -259,7 +259,7 @@ CZoneTable::Get(TYPE_ZONEID id)
 // size , 각각의 ZoneInfo
 //----------------------------------------------------------------------
 void				
-CZoneTable::SaveToFile(class ofstream& file)
+CZoneTable::SaveToFile(ofstream& file)
 {
 	//---------------------------------------------
 	// 전체 개수 저장
@@ -292,7 +292,7 @@ CZoneTable::SaveToFile(class ofstream& file)
 // size , 각각의 ZoneInfo
 //----------------------------------------------------------------------
 void				
-CZoneTable::LoadFromFile(class ifstream& file)
+CZoneTable::LoadFromFile(ifstream& file)
 {
 	//---------------------------------------------
 	// 기존에 있던 메모리 삭제

@@ -17,13 +17,13 @@ MActionEffectSpriteTypeTable*	g_pActionEffectSpriteTypeTable = NULL;
 //
 //----------------------------------------------------------------------
 void		
-FRAME_TYPE::SaveToFile(class ofstream& file)
+FRAME_TYPE::SaveToFile(ofstream& file)
 {
 	file.write((const char*)&FrameID, SIZE_FRAMEID);
 }
 
 void		
-FRAME_TYPE::LoadFromFile(class ifstream& file)
+FRAME_TYPE::LoadFromFile(ifstream& file)
 {
 	file.read((char*)&FrameID, SIZE_FRAMEID);
 }
@@ -69,7 +69,7 @@ EFFECTSPRITETYPETABLE_INFO::EFFECTSPRITETYPETABLE_INFO()
 }
 
 void			
-EFFECTSPRITETYPETABLE_INFO::SaveToFile(class ofstream& file)
+EFFECTSPRITETYPETABLE_INFO::SaveToFile(ofstream& file)
 {
 	BYTE bt = (BYTE)BltType;
 	file.write((const char*)&bt, 1);
@@ -107,7 +107,7 @@ EFFECTSPRITETYPETABLE_INFO::SaveToFile(class ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-EFFECTSPRITETYPETABLE_INFO::LoadFromFile(class ifstream& file)
+EFFECTSPRITETYPETABLE_INFO::LoadFromFile(ifstream& file)
 {
 	BYTE bt;
 	file.read((char*)&bt, 1);

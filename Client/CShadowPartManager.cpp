@@ -12,7 +12,7 @@
 //#define	new			DEBUG_NEW
 //#define	delete		DEBUG_DELETE
 
-extern bool FileOpenBinary(const char* filename, class ifstream& fil);
+extern bool FileOpenBinary(const char* filename, ifstream& fil);
 
 extern bool		g_bZonePlayerInLarge;
 
@@ -71,7 +71,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 	Release();
 	///*
 	// Index File을 Load한다.
-	class ifstream indexFile;//(indexFilename, ios::binary);
+	ifstream indexFile;//(indexFilename, std::ios::binary);
 //	if (!FileOpenBinary(indexFilename, indexFile))
 //		return;
 //
@@ -82,7 +82,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 //	m_SSPK.Init( m_SSPKIndex.GetSize() );
 //
 //	// SSPK File을 열어둔다.
-//	m_SSPKFile.open(SSPKFilename, ios::binary);
+//	m_SSPKFile.open(SSPKFilename, std::ios::binary);
 //	
 //	TYPE_SPRITEID size;
 //	m_SSPKFile.read((char*)&size, SIZE_SPRITEID);

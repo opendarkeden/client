@@ -1858,7 +1858,7 @@ CheckActivate(BOOL bActiveGame)
 LONG
 FileThreadProc(LPVOID lpParameter)
 {
-	class ifstream file;
+	ifstream file;
 
 	while ( 1 )
 	{		
@@ -1877,7 +1877,7 @@ FileThreadProc(LPVOID lpParameter)
 			//--------------------------------------------------------
 			case THREADJOB_LOAD_IMAGEOBJECT_LARGEZONE :	
 				g_bZoneLargeLoadImage = false;
-				file.open((*g_pZoneTable).Get(g_nZoneLarge)->Filename, ios::binary);
+				file.open((*g_pZoneTable).Get(g_nZoneLarge)->Filename, std::ios::binary);
 
 				// Tile Loading
 				if (g_ThreadJob==THREADJOB_LOAD_IMAGEOBJECT_LARGEZONE)
@@ -1930,7 +1930,7 @@ FileThreadProc(LPVOID lpParameter)
 			//--------------------------------------------------------
 			case THREADJOB_LOAD_IMAGEOBJECT_SMALLZONE :
 				g_bZoneSmallLoadImage = false;
-				file.open((*g_pZoneTable).Get(g_nZoneSmall)->Filename, ios::binary);
+				file.open((*g_pZoneTable).Get(g_nZoneSmall)->Filename, std::ios::binary);
 
 				// Tile Loading
 				if (g_ThreadJob==THREADJOB_LOAD_IMAGEOBJECT_SMALLZONE)
@@ -2446,7 +2446,7 @@ LoadZone(int n)
 					filename = pZoneInfo->TeenFilename;
 			}
 
-			class ifstream file;
+			ifstream file;
 			if (!FileOpenBinary(filename, file))
 			{
 				// priority를 정상으로
@@ -2513,8 +2513,8 @@ LoadZone(int n)
 				filename = (*g_pZoneTable).Get(g_nZoneSmall)->TeenFilename;
 		}
 
-		class ifstream file;
-		file.open(filename, ios::binary);
+		ifstream file;
+		file.open(filename, std::ios::binary);
 
 		file.seekg(g_pZone->GetTileFilePosition(), ios::beg);
 		g_pTopView->LoadFromFileTileSPKSmallZone( file );
@@ -2665,7 +2665,7 @@ LoadZone(int n)
 					filename = pZoneInfo->TeenFilename;
 			}
 			
-			class ifstream file;
+			ifstream file;
 			if (!FileOpenBinary(filename, file))
 			{
 				// priority를 정상으로
@@ -2728,8 +2728,8 @@ LoadZone(int n)
 				filename = (*g_pZoneTable).Get(g_nZoneLarge)->TeenFilename;
 		}
 
-		class ifstream file;
-		file.open(filename, ios::binary);
+		ifstream file;
+		file.open(filename, std::ios::binary);
 
 		file.seekg(g_pZone->GetTileFilePosition(), ios::beg);
 		g_pTopView->LoadFromFileTileSPKLargeZone( file );
@@ -3044,7 +3044,7 @@ LoadZoneInfo(int n)
 	// ZoneInfo
 	//------------------------------------------------
 //	MZoneInfo zoneInfo;
-	class ifstream zoneInfoFile(pZoneInfo->InfoFilename.GetString(), ios::binary | ios::nocreate);
+	ifstream zoneInfoFile(pZoneInfo->InfoFilename.GetString(), std::ios::binary | std::ios::in);
 
 	//------------------------------------------------
 	// File이 있는 경우만 loading한다.
@@ -4508,14 +4508,14 @@ SetLightning(DWORD delay)
 // Open File
 //---------------------------------------------------------------------------
 bool 
-FileOpenBinary(const char* filename, class ifstream& file)
+FileOpenBinary(const char* filename, ifstream& file)
 {
 	if (file.is_open())
 	{
 		file.close();
 	}
 
-	file.open(filename, ios::binary | ios::nocreate);
+	file.open(filename, std::ios::binary | std::ios::in);
 	
 	if (!file.is_open())
 	{
@@ -4801,7 +4801,7 @@ UpdateDisconnected()
 	CSpritePack		SPK;
 	CFileIndexTable	FIT;
 	
-	class ifstream indexFile(g_pFileDef->getProperty("FILE_SPRITEINDEX_UI").c_str(), ios::binary);
+	ifstream indexFile(g_pFileDef->getProperty("FILE_SPRITEINDEX_UI").c_str(), std::ios::binary);
 	FIT.LoadFromFile( indexFile );
 	indexFile.close();
 
@@ -4816,7 +4816,7 @@ UpdateDisconnected()
 		|| pSpriteDisconectedCloseFocused->IsNotInit()
 		|| pSpriteDisconectedClosePushed->IsNotInit())
 	{
-		class ifstream spkFile(g_pFileDef->getProperty("FILE_SPRITE_UI").c_str(), ios::binary);
+		ifstream spkFile(g_pFileDef->getProperty("FILE_SPRITE_UI").c_str(), std::ios::binary);
 		
 		if (pSpriteDisconected->IsNotInit())
 		{

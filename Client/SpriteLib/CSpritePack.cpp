@@ -22,7 +22,7 @@
 //
 //bool CSpritePack::LoadFromFile(LPCTSTR lpszFilename, bool b565)
 //{
-//	ifstream file(lpszFilename, ios::binary);
+//	ifstream file(lpszFilename, std::ios::binary);
 //	bool re = LoadFromFile(file, b565);
 //	file.close();
 //	
@@ -55,7 +55,7 @@
 //	//인덱스 파일 로딩
 //	std::string filename = lpszFilename;
 //	filename += 'i';
-//	ifstream indexFile(filename.c_str(), ios::binary);
+//	ifstream indexFile(filename.c_str(), std::ios::binary);
 //	indexFile.read((char *)&m_Size, 2); 
 //	Init(m_Size, b565);
 //
@@ -72,7 +72,7 @@
 //	indexFile.close();
 //	
 //	// file에서 sprite 개수를 읽어온다.	
-//	m_file->open(lpszFilename, ios::binary);
+//	m_file->open(lpszFilename, std::ios::binary);
 //	
 //	m_file->read((char*)&m_Size, 2);
 //	

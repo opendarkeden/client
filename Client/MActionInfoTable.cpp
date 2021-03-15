@@ -70,7 +70,7 @@ ACTION_INFO_NODE::SetChildMode()
 // Save
 //----------------------------------------------------------------------
 void			
-ACTION_INFO_NODE::SaveToFile(class ofstream& file)
+ACTION_INFO_NODE::SaveToFile(ofstream& file)
 {			
 	file.write((const char*)&EffectGeneratorID, SIZE_EFFECTGENERATORID);			
 	file.write((const char*)&EffectSpriteType, SIZE_EFFECTSPRITETYPE);
@@ -87,7 +87,7 @@ ACTION_INFO_NODE::SaveToFile(class ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-ACTION_INFO_NODE::LoadFromFile(class ifstream& file)
+ACTION_INFO_NODE::LoadFromFile(ifstream& file)
 {			
 	file.read((char*)&EffectGeneratorID, SIZE_EFFECTGENERATORID);			
 	file.read((char*)&EffectSpriteType, SIZE_EFFECTSPRITETYPE);
@@ -162,7 +162,7 @@ MActionInfo::MActionInfo()
 	m_bUseGrade = false;
 	m_bUseActionStep = false;
 	
-	for( i = 0 ; i< MAX_ACTION_STEP ;i ++ )
+	for(int i = 0 ; i< MAX_ACTION_STEP ;i ++ )
 	{
 		m_ActionStep[i] = 0;
 	}
@@ -249,7 +249,7 @@ MActionInfo::SetChildMode()
 // Save
 //----------------------------------------------------------------------
 void			
-MActionInfo::SaveToFile(class ofstream& file)
+MActionInfo::SaveToFile(ofstream& file)
 {
 	// 임시로 계산.. - -;
 	// startframe이 늦은 만큼 delay도 줄어든다
@@ -344,7 +344,7 @@ MActionInfo::SaveToFile(class ofstream& file)
 	file.write((const char*)&flag, sizeof(char) );
 	if( m_bUseActionStep )
 	{
-		for( i = 0;i<MAX_ACTION_STEP; i++)
+		for(int i = 0;i<MAX_ACTION_STEP; i++)
 		{
 			file.write((const char*)&m_ActionStep[i],sizeof( TYPE_ACTIONINFO ) );
 		}
@@ -370,7 +370,7 @@ MActionInfo::SaveToFile(class ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-MActionInfo::LoadFromFile(class ifstream& file)
+MActionInfo::LoadFromFile(ifstream& file)
 {
 	m_Name.LoadFromFile( file );
 
@@ -443,7 +443,7 @@ MActionInfo::LoadFromFile(class ifstream& file)
 	
 	if( m_bUseActionStep )
 	{
-		for( i = 0;i<MAX_ACTION_STEP; i++)
+		for(int i = 0;i<MAX_ACTION_STEP; i++)
 		{
 			file.read((char*)&m_ActionStep[i],sizeof( TYPE_ACTIONINFO ) );
 		}
@@ -543,7 +543,7 @@ MActionInfoTable::SetChildMode()
 // Save To File
 //----------------------------------------------------------------------
 void		
-MActionInfoTable::SaveToFile(class ofstream& file)
+MActionInfoTable::SaveToFile(ofstream& file)
 {
 	file.write((const char*)&m_nMinResultActionInfo, 4);
 	file.write((const char*)&m_nMaxResultActionInfo, 4);
@@ -555,7 +555,7 @@ MActionInfoTable::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-MActionInfoTable::LoadFromFile(class ifstream& file)
+MActionInfoTable::LoadFromFile(ifstream& file)
 {
 	file.read((char*)&m_nMinResultActionInfo, 4);
 	file.read((char*)&m_nMaxResultActionInfo, 4);

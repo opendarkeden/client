@@ -19,7 +19,7 @@
 #include "DrawTypeDef.h"
 #include <list>
 #include "CShadowSprite.h"
-class ifstream;
+ifstream;
 class CFileIndexTable;
 
 // <전체개수, 사용개수, 사용Data>
@@ -63,7 +63,7 @@ class CShadowPartManager : public CPartManager<WORD, WORD, CSpriteSurface*>
 
 	protected :
 //		bool				m_bOpen;		// SSPK File을 Open했는가?
-//		class ifstream		m_SSPKFile;		// SSPK File
+//		ifstream		m_SSPKFile;		// SSPK File
 //		CFileIndexTable		m_SSPKIndex;	// SSPK Index 정보
 		CShadowSpritePack	m_SSPK;			// SSPK
 

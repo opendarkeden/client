@@ -29,8 +29,8 @@ public:
 	const char *	GetCallStack() const						{ return m_CallStack.GetString(); }
 	const char *	GetMessage() const							{ return m_Message.GetString(); }
 
-	void	LoadFromFile(class ifstream &file);
-	void	SaveToFile(class ofstream &file);
+	void	LoadFromFile(ifstream &file);
+	void	SaveToFile(std::ofstream &file);
 	
 };
 

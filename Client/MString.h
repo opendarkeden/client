@@ -10,10 +10,8 @@
 #define	MAX_BUFFER_LENGTH		1024
 
 #include <string.h>
-//#include <fstream>
-class ofstream;
-class ifstream;
-//using namespace std;
+#include <fstream>
+
 class MString {
 	public :
 		MString();
@@ -57,8 +55,8 @@ class MString {
 		//----------------------------------------------------
 		// File I/O
 		//----------------------------------------------------
-		virtual void	SaveToFile(class ofstream& file);
-		virtual void	LoadFromFile(class ifstream& file);
+		virtual void	SaveToFile(ofstream& file);
+		virtual void	LoadFromFile(ifstream& file);
 
 	protected :
 		size_t	m_Length;

@@ -27,7 +27,7 @@ MShopTemplate::~MShopTemplate()
 // Save To File
 //-----------------------------------------------------------------------------
 void		
-MShopTemplate::SaveToFile(class ofstream& file)
+MShopTemplate::SaveToFile(ofstream& file)
 {
 	//file.write((const char*)&m_ID,        szShopTemplateID);
 	file.write((const char*)&Type,      1);
@@ -42,7 +42,7 @@ MShopTemplate::SaveToFile(class ofstream& file)
 // Load From File
 //-----------------------------------------------------------------------------
 void		
-MShopTemplate::LoadFromFile(class ifstream& file)
+MShopTemplate::LoadFromFile(ifstream& file)
 {
 	//file.read((char*)&m_ID,        szShopTemplateID);
 	file.read((char*)&Type,      1);

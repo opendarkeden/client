@@ -65,7 +65,7 @@ ITEM_WEARINFO::operator = (const ITEM_WEARINFO& info)
 // Save To File
 //----------------------------------------------------------------------
 void		
-ITEM_WEARINFO::SaveToFile(class ofstream& file)
+ITEM_WEARINFO::SaveToFile(ofstream& file)
 {
 	file.write((const char*)&skinColor, 2);
 	file.write((const char*)&hairColor, 2);
@@ -89,7 +89,7 @@ ITEM_WEARINFO::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-ITEM_WEARINFO::LoadFromFile(class ifstream& file)
+ITEM_WEARINFO::LoadFromFile(ifstream& file)
 {
 	file.read((char*)&skinColor, 2);
 	file.read((char*)&hairColor, 2);
@@ -247,7 +247,7 @@ CREATURETABLE_INFO::GetActionMax() const
 // Save To File
 //----------------------------------------------------------------------
 void			
-CREATURETABLE_INFO::SaveToFile(class ofstream& file)
+CREATURETABLE_INFO::SaveToFile(ofstream& file)
 {
 	Name.SaveToFile( file );
 
@@ -285,7 +285,7 @@ CREATURETABLE_INFO::SaveToFile(class ofstream& file)
 	}
 
 	// 각각의 CountID를 저장한다.
-	for (i=0; i<max; i++)
+	for (int i=0; i<max; i++)
 	{
 		file.write((const char*)&m_pActionCount[i], 4);
 	}
@@ -307,7 +307,7 @@ CREATURETABLE_INFO::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void			
-CREATURETABLE_INFO::LoadFromFile(class ifstream& file)
+CREATURETABLE_INFO::LoadFromFile(ifstream& file)
 {
 	Name.LoadFromFile( file );
 
@@ -349,7 +349,7 @@ CREATURETABLE_INFO::LoadFromFile(class ifstream& file)
 	}
 
 	// 각각의 SoundID를 load한다.
-	for (i=0; i<max; i++)
+	for (int i=0; i<max; i++)
 	{
 		file.read((char*)&m_pActionCount[i], 4);
 	}
@@ -411,7 +411,7 @@ CREATURETABLE_INFO::operator = (const CREATURETABLE_INFO& creatureInfo)
 	}
 
 	// 각각의 SoundID를 load한다.
-	for (i=0; i<max; i++)
+	for (int i=0; i<max; i++)
 	{
 		m_pActionCount[i] = creatureInfo.m_pActionCount[i];
 	}
@@ -530,7 +530,7 @@ CreatureSpriteTypeMapper::GetRandomCreatureType(TYPE_SPRITEID spriteID) const
 // Save To File
 //----------------------------------------------------------------------
 void				
-CreatureSpriteTypeMapper::SaveToFile(class ofstream& file)
+CreatureSpriteTypeMapper::SaveToFile(ofstream& file)
 {
 	int numSpriteTypes = m_CreatureSpriteTypes.capacity();
 
@@ -564,7 +564,7 @@ CreatureSpriteTypeMapper::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void				
-CreatureSpriteTypeMapper::LoadFromFile(class ifstream& file)
+CreatureSpriteTypeMapper::LoadFromFile(ifstream& file)
 {
 	int numSpriteTypes;
 	

@@ -109,7 +109,7 @@ UserOption::~UserOption()
 void	
 UserOption::SaveToFile(const char* filename)
 {
-	class ofstream file(filename, ios::binary);	
+	ofstream file(filename, std::ios::binary);	
 
 	DWORD flag = 0;
 	file.write((const char*)&flag, 4);
@@ -175,7 +175,7 @@ UserOption::SaveToFile(const char* filename)
 bool	
 UserOption::LoadFromFile(const char* filename)
 {
-	class ifstream file(filename, ios::binary | ios::nocreate);	
+	ifstream file(filename, std::ios::binary | std::ios::in);	
 
 	if (!file || !file.is_open())
 	{

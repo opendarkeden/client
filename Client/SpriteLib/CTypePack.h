@@ -535,7 +535,7 @@ TypeBase &CTypePack2<TypeBase, Type1, Type2>::Get(WORD n)
 template <class TypeBase, class Type1, class Type2>
 bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFile(LPCTSTR lpszFilename)
 {
-	ifstream file(lpszFilename, ios::binary);
+	ifstream file(lpszFilename, std::ios::binary);
 	bool re = LoadFromFile(file);
 	file.close();
 
@@ -548,8 +548,8 @@ bool CTypePack2<TypeBase, Type1, Type2>::SaveToFile(LPCTSTR lpszFilename)
 	char szIndexFilename[512];
 	sprintf(szIndexFilename, "%si", lpszFilename);
 
-	ofstream dataFile(lpszFilename, ios::binary);
-	ofstream indexFile(szIndexFilename, ios::binary);
+	ofstream dataFile(lpszFilename, std::ios::binary);
+	ofstream indexFile(szIndexFilename, std::ios::binary);
 
 	bool re = SaveToFile(dataFile, indexFile);
 
@@ -590,7 +590,7 @@ bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFileRunning(LPCTSTR lpszFilenam
 	//인덱스 파일 로딩
 	std::string filename = lpszFilename;
 	filename += 'i';
-	ifstream indexFile(filename.c_str(), ios::binary);
+	ifstream indexFile(filename.c_str(), std::ios::binary);
 	indexFile.read((char *)&m_Size, 2); 
 	Init(m_Size);
 
@@ -607,7 +607,7 @@ bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFileRunning(LPCTSTR lpszFilenam
 	indexFile.close();
 	
 	// file에서 sprite 개수를 읽어온다.	
-	m_file->open(lpszFilename, ios::binary);
+	m_file->open(lpszFilename, std::ios::binary);
 	
 	m_file->read((char*)&m_Size, 2);
 	
@@ -739,14 +739,14 @@ bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFileData(int dataID, int fileID
 		return false;
 	}
 
-	ifstream dataFile(packFilename, ios::binary | ios::nocreate);
+	ifstream dataFile(packFilename, std::ios::binary | ios::nocreate);
 	
 	if (!dataFile.is_open())
 	{
 		return false;
 	}
 	
-	ifstream indexFile(indexFilename, ios::binary | ios::nocreate);
+	ifstream indexFile(indexFilename, std::ios::binary | ios::nocreate);
 	
 	if (!indexFile.is_open())
 	{

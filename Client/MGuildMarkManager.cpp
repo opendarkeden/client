@@ -290,8 +290,8 @@ MGuildMarkManager::LoadGuildMark(WORD guildID)
 		strcpy(spkiFilename, m_GuildMarkSPKFilename.GetString());
 		strcat(spkiFilename, "i");
 
-		class ifstream spkFile(m_GuildMarkSPKFilename.GetString(), ios::binary | ios::nocreate);
-		class ifstream spkiFile(spkiFilename, ios::binary | ios::nocreate);
+		ifstream spkFile(m_GuildMarkSPKFilename.GetString(), std::ios::binary | std::ios::in);
+		ifstream spkiFile(spkiFilename, std::ios::binary | std::ios::in);
 
 		TYPE_SPRITEID maxSpkSize = 0;
 
@@ -386,7 +386,7 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 		// file에 sprite를 추가한다.
 		// index도 추가해야 한다.
 		//---------------------------------------------------------
-		class ifstream spkInputFile(m_GuildMarkSPKFilename.GetString(), ios::binary | ios::nocreate);
+		ifstream spkInputFile(m_GuildMarkSPKFilename.GetString(), std::ios::binary | std::ios::in);
 
 		TYPE_SPRITEID maxSpkSize = 0;
 
@@ -401,8 +401,8 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 		}
 
 		
-		class ofstream spkFile(m_GuildMarkSPKFilename.GetString(), ios::binary | ios::ate);
-		class ofstream spkiFile(spkiFilename, ios::binary | ios::ate);
+		ofstream spkFile(m_GuildMarkSPKFilename.GetString(), std::ios::binary | ios::ate);
+		ofstream spkiFile(spkiFilename, std::ios::binary | ios::ate);
 		
 		if (spkFile.is_open()
 			&& spkiFile.is_open())
@@ -480,10 +480,10 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 			}			
 			
 			// file에서 guildID부분만 newSpriteID로 바꾸면 된다.
-			//class fstream mapperFile(m_GuildMarkSpriteMapperFilename.GetString(), ios::binary | ios::ate | ios::in | ios::out);
+			//class fstream mapperFile(m_GuildMarkSpriteMapperFilename.GetString(), std::ios::binary | ios::ate | ios::in | ios::out);
 			//g_pGuildInfoMapper->ChangeValueToFile(m_GuildMarkSpriteMapperFilename.GetString(), guildID);
 
-			class ofstream file(m_GuildMarkSpriteMapperFilename.GetString(), ios::binary);
+			ofstream file(m_GuildMarkSpriteMapperFilename.GetString(), std::ios::binary);
 
 			if (file.is_open())
 			{
@@ -535,9 +535,9 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		// (SPKApp의 0 --> orgSize가 된다)
 		// (SPKAppIndex의 0 --> fpOrg-2(size부분)가 된다.)
 		//---------------------------------------------------------
-		class ifstream spkInputFile(pSPKFilenameOrg, ios::binary | ios::nocreate);
-		class ifstream spkInputFileApp(pSPKFilenameApp, ios::binary | ios::nocreate);
-		class ifstream spkiInputFileApp(pSPKIFilenameApp, ios::binary | ios::nocreate);
+		ifstream spkInputFile(pSPKFilenameOrg, std::ios::binary | std::ios::in);
+		ifstream spkInputFileApp(pSPKFilenameApp, std::ios::binary | std::ios::in);
+		ifstream spkiInputFileApp(pSPKIFilenameApp, std::ios::binary | std::ios::in);
 
 		TYPE_SPRITEID orgSize = 0;			// 원래 개수
 		TYPE_SPRITEID appSize = 0;			// 추가할 개수
@@ -618,8 +618,8 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		//-----------------------------------------------------------------------------
 		// GuildMark.spki 를 수정해서 추가한다.
 		//-----------------------------------------------------------------------------
-		class ofstream spkiFileOrg(pSPKIFilenameOrg, ios::binary | ios::ate);
-		class ifstream spkiFileApp(pSPKIFilenameApp, ios::binary | ios::nocreate);
+		ofstream spkiFileOrg(pSPKIFilenameOrg, std::ios::binary | ios::ate);
+		ifstream spkiFileApp(pSPKIFilenameApp, std::ios::binary | std::ios::in);
 
 		TYPE_SPRITEID newSize = orgSize + appSize;
 
@@ -653,8 +653,8 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		MGuildInfoMapper mapperOrg;
 		MGuildInfoMapper mapperApp;
 
-		class ifstream mapperFileOrg(pIDMapperFilenameOrg, ios::binary | ios::nocreate);
-		class ifstream mapperFileApp(pIDMapperFilenameApp, ios::binary | ios::nocreate);
+		ifstream mapperFileOrg(pIDMapperFilenameOrg, std::ios::binary | std::ios::in);
+		ifstream mapperFileApp(pIDMapperFilenameApp, std::ios::binary | std::ios::in);
 
 		if (mapperFileOrg.is_open())
 		{
@@ -702,7 +702,7 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		}
 
 		// MapperOrg를 다시 저장한다.
-		class ofstream mapperOutputFileOrg(pIDMapperFilenameOrg, ios::binary);
+		ofstream mapperOutputFileOrg(pIDMapperFilenameOrg, std::ios::binary);
 		mapperOrg.SaveToFile( mapperOutputFileOrg );
 		mapperOutputFileOrg.close();
 

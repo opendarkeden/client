@@ -295,14 +295,14 @@ CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, const char*
 		return false;
 	}
 
-	ifstream spkFile(spkFilename, ios::binary | ios::nocreate);
+	ifstream spkFile(spkFilename, std::ios::binary | std::ios::in);
 
 	if (!spkFile.is_open())
 	{
 		return false;
 	}
 
-	ifstream indexFile(indexFilename, ios::binary | ios::nocreate);
+	ifstream indexFile(indexFilename, std::ios::binary | std::ios::in);
 
 	if (!indexFile.is_open())
 	{

@@ -24,8 +24,8 @@
 #include "MString.h"
 #include <list>
 #include <vector>
-class ifstream;
-class ofstream;
+ifstream;
+std::ofstream;
 
 //----------------------------------------------------------------------
 // Creature¿« ¡æ¡∑
@@ -90,8 +90,8 @@ class ITEM_WEARINFO
 		ITEM_WEARINFO();
 
 		void		operator = (const ITEM_WEARINFO& info);
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(ifstream& file);
 };
 
 
@@ -156,8 +156,8 @@ class CREATURETABLE_INFO {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void				SaveToFile(class ofstream& file);
-		void				LoadFromFile(class ifstream& file);	
+		void				SaveToFile(std::ofstream& file);
+		void				LoadFromFile(ifstream& file);	
 		
 	protected :
 		void				InitActionType(int nMaxAction = 0);				
@@ -186,8 +186,8 @@ class CreatureSpriteTypeMapper {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void				SaveToFile(class ofstream& file);
-		void				LoadFromFile(class ifstream& file);	
+		void				SaveToFile(std::ofstream& file);
+		void				LoadFromFile(ifstream& file);	
 
 	protected :
 		CREATURE_SPRITE_TYPES	m_CreatureSpriteTypes;

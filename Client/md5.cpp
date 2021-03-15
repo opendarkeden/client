@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////
 //md5.cpp
 /////
-#include "Client_PCH.h"
+// #include "Client_PCH.h"
 #include "StdAfx.h"
 #include "md5.h"
 #include <conio.h>
@@ -127,7 +127,7 @@ bool CMd5::Init()
 }
 bool CMd5::OpenFile()
 {
-	Sfile.open(fname,ios::in|ios::nocreate|ios::binary);
+	Sfile.open(fname,ios::in|std::ios::in|std::ios::binary);
 	if(!Sfile)
 	{   
 		SetErr(0);

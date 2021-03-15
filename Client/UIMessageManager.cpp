@@ -1721,7 +1721,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 				if (!g_bTestMode)
 				{
 					int version;
-					class ifstream versionFile;//(FILE_INFO_ACTION, ios::binary);
+					ifstream versionFile;//(FILE_INFO_ACTION, std::ios::binary);
 					if (!FileOpenBinary(FILE_INFO_VERSION, versionFile))
 						return;
 					versionFile.read((char*)&version, 4);
@@ -1917,7 +1917,7 @@ UIMessageManager::Execute_UI_LOGIN(int left, int right, void* void_ptr)
 					//--------------------------------------------------
 					#if !defined(_DEBUG) && !defined(OUTPUT_DEBUG)
 						int version = g_pUserInformation->GameVersion;
-//						class ifstream versionFile;//(FILE_INFO_ACTION, ios::binary);
+//						ifstream versionFile;//(FILE_INFO_ACTION, std::ios::binary);
 //						if (!FileOpenBinary(FILE_INFO_VERSION, versionFile))
 //						{
 //							DeleteNewArray(login->sz_id);
@@ -2196,7 +2196,7 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 
 	#ifdef OUTPUT_DEBUG
 		DEBUG_ADD("MasterCheck");
-		class ifstream file("master.txt", ios::nocreate);
+		ifstream file("master.txt", std::ios::in);
 
 		char str[256];
 		while (!file.eof())

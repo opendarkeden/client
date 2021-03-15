@@ -10,7 +10,7 @@
 #pragma warning(disable:4786)
 
 #include <map>
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 // CTypeMap (id, DataType*)의 map
@@ -39,8 +39,8 @@ class CTypeMap : public std::map<unsigned int, DataType*> {
 		//-----------------------------------------------------
 		// File I/O
 		//-----------------------------------------------------
-		virtual void		SaveToFile(class ofstream& file);
-		virtual void		LoadFromFile(class ifstream& file);
+		virtual void		SaveToFile(std::ofstream& file);
+		virtual void		LoadFromFile(ifstream& file);
 
 	protected :
 };
@@ -155,7 +155,7 @@ CTypeMap<DataType>::RemoveData( unsigned int id )
 //----------------------------------------------------------------------
 template <class DataType>
 void		
-CTypeMap<DataType>::SaveToFile(class ofstream& file)
+CTypeMap<DataType>::SaveToFile(std::ofstream& file)
 {
 	TYPE_MAP::iterator iData = begin();
 
@@ -185,7 +185,7 @@ CTypeMap<DataType>::SaveToFile(class ofstream& file)
 //----------------------------------------------------------------------
 template <class DataType>
 void		
-CTypeMap<DataType>::LoadFromFile(class ifstream& file)
+CTypeMap<DataType>::LoadFromFile(ifstream& file)
 {
 	//-----------------------------------------------------
 	// 기존에 있던것 제거

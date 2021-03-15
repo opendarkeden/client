@@ -11,7 +11,7 @@
 #include <Windows.h>
 #include "ExpInfo.h"
 #include "RaceType.h"
-class ifstream;
+ifstream;
 
 //---------------------------------------------------------------------------------
 // ExperienceTable
@@ -45,16 +45,16 @@ class ExperienceTable {
 		//----------------------------------------------------------------
 		// Load From File
 		//----------------------------------------------------------------
-		void				LoadFromFileSTR(class ifstream& file);
-		void				LoadFromFileDEX(class ifstream& file);
-		void				LoadFromFileINT(class ifstream& file);
-		void				LoadFromFileVampire(class ifstream& file);
-		void				LoadFromFileOusters(class ifstream& file);
-		void				LoadFromFileSlayerRank(class ifstream& file);
-		void				LoadFromFileVampireRank(class ifstream& file);
-		void				LoadFromFileOustersRank(class ifstream& file);
-		void				LoadFromFilePetExp(class ifstream& file);
-		void				LoadFromFileAdvanceMent(class ifstream& file);
+		void				LoadFromFileSTR(ifstream& file);
+		void				LoadFromFileDEX(ifstream& file);
+		void				LoadFromFileINT(ifstream& file);
+		void				LoadFromFileVampire(ifstream& file);
+		void				LoadFromFileOusters(ifstream& file);
+		void				LoadFromFileSlayerRank(ifstream& file);
+		void				LoadFromFileVampireRank(ifstream& file);
+		void				LoadFromFileOustersRank(ifstream& file);
+		void				LoadFromFilePetExp(ifstream& file);
+		void				LoadFromFileAdvanceMent(ifstream& file);
 
 	public :
 		ExpTable			m_STRExp;

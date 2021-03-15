@@ -25,8 +25,8 @@ public  :
 	
 	void			SetTimeLimit(DWORD time) { m_TimeLimit = time; }
 	
-	void			LoadFromFile(class ifstream& file);
-	void			SaveToFile(class ofstream& file );
+	void			LoadFromFile(ifstream& file);
+	void			SaveToFile(std::ofstream& file );
 	void			SetType(QUEST_INFO_TYPE type) { m_Type = type; }
 	
 protected :

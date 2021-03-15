@@ -2360,7 +2360,7 @@ MSkillInfoTable::Init()
 // Load From File  ServerSkillInfo
 //----------------------------------------------------------------------
 void			
-MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
+MSkillInfoTable::LoadFromFileServerSkillInfo(ifstream& file)
 {
 	int num, skillType;
 

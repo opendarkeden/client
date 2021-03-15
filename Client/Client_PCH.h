@@ -7,11 +7,10 @@
 #pragma once
 
 #pragma warning(disable:4290)
-#pragma warning(disable:4018)
-#pragma warning(disable:4244)
-#pragma warning(disable:4018)
-#pragma warning(disable:4786)
-
+// #pragma warning(disable:4018)
+// #pragma warning(disable:4244)
+// #pragma warning(disable:4018)
+// #pragma warning(disable:4786)
 
 #pragma warning(push)
 
@@ -26,14 +25,14 @@
 #include <iostream>
 #include <fstream>
 #include <windows.h>
-#include <MMSystem.h>
-#include <Digitalv.h>
-#include <DDraw.h>
+// #include <MMSystem.h>
+// #include <Digitalv.h>
+// #include <DDraw.h>
 #include <stdio.h>
-#include <stdarg.h>
+// #include <stdarg.h>
 #include <io.h>
 #include <fcntl.h>
-#include <sys/types.h>
+// #include <sys/types.h>
 #include <sys/stat.h> 
 //#include "GAME1024.h"
 #pragma warning(pop)

@@ -21,7 +21,7 @@
 #include <Windows.h>
 #include <map>
 #include <string>
-#include <fstream.h>
+#include <fstream>
 #include "DebugInfo.h"
 
 //----------------------------------------------------------------------

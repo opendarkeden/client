@@ -18,7 +18,7 @@ WavePackFileManager*	g_pWavePackFileManager = NULL;
 //
 //--------------------------------------------------------------------------
 bool		
-WavePackFileInfo::SaveToFileData(class ofstream& file)
+WavePackFileInfo::SaveToFileData(ofstream& file)
 {
 	if (m_Filename.c_str()==NULL)
 	{
@@ -85,7 +85,7 @@ WavePackFileInfo::SaveToFileData(class ofstream& file)
 // Load From File Data
 //--------------------------------------------------------------------------
 LPDIRECTSOUNDBUFFER		
-WavePackFileInfo::LoadFromFileData(class ifstream& file)
+WavePackFileInfo::LoadFromFileData(ifstream& file)
 {
 	DWORD cksize;
 	WAVEFORMATEX wavefmt;
@@ -161,7 +161,7 @@ WavePackFileManager::LoadFromFileData(TYPE_SOUNDID id)
 
 	if (pInfo!=NULL)
 	{
-		class ifstream file(m_DataFilename.c_str(), ios::binary);
+		ifstream file(m_DataFilename.c_str(), std::ios::binary);
 		file.seekg( pInfo->GetFilePosition() );
 		
 		LPDIRECTSOUNDBUFFER pBuffer = pInfo->LoadFromFileData(file);

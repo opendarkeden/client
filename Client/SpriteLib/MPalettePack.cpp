@@ -20,7 +20,7 @@
 //
 //bool MPalettePack::LoadFromFile(LPCTSTR lpszFilename, bool b565)
 //{
-//	ifstream file(lpszFilename, ios::binary);
+//	ifstream file(lpszFilename, std::ios::binary);
 //	bool re = LoadFromFile(file, b565);
 //	file.close();
 //	

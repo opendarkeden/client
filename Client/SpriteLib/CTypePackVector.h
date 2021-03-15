@@ -50,7 +50,7 @@ protected:
 template <class Type>
 bool CTypePackVector<Type>::LoadFromFile(LPCTSTR lpszFilename)
 {
-	ifstream file(lpszFilename, ios::binary);
+	ifstream file(lpszFilename, std::ios::binary);
 	bool re = LoadFromFile(file);
 	file.close();
 
@@ -63,8 +63,8 @@ bool CTypePackVector<Type>::SaveToFile(LPCTSTR lpszFilename)
 	char szIndexFilename[512];
 	sprintf(szIndexFilename, "%si", lpszFilename);
 
-	ofstream dataFile(lpszFilename, ios::binary);
-	ofstream indexFile(szIndexFilename, ios::binary);
+	ofstream dataFile(lpszFilename, std::ios::binary);
+	ofstream indexFile(szIndexFilename, std::ios::binary);
 
 	bool re = SaveToFile(dataFile, indexFile);
 

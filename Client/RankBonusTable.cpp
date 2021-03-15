@@ -27,7 +27,7 @@ RankBonusInfo::RankBonusInfo()
 }
 
 void				
-RankBonusInfo::LoadFromFile(class ifstream& file)
+RankBonusInfo::LoadFromFile(ifstream& file)
 {
 	file.read((char*)&m_type, 2);
 	m_Name.LoadFromFile(file);
@@ -39,7 +39,7 @@ RankBonusInfo::LoadFromFile(class ifstream& file)
 
 #ifndef __GAME_CLIENT__
 void		
-RankBonusInfo::SaveToFile(class ofstream& file)
+RankBonusInfo::SaveToFile(ofstream& file)
 {
 	file.write((const char*)&m_type, 2);
 	m_Name.SaveToFile(file);

@@ -292,7 +292,7 @@ void		SetWeather(int weather, int level);
 void		SetLightning(DWORD delay);
 
 // file¿­±â
-bool		FileOpenBinary(const char* filename, class ifstream& file);
+bool		FileOpenBinary(const char* filename, ifstream& file);
 
 // 2004, 3, 29 sobeit add start
 void		Add_GDR_Ghost(int ZoneID);

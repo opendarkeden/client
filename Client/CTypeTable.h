@@ -7,8 +7,6 @@
 
 //#include "DebugInfo.h"
 //#define	 new DEBUG_NEW
-class ifstream;
-class ofstream;
 
 //----------------------------------------------------------------------
 //
@@ -43,11 +41,11 @@ class CTypeTable {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(class ofstream& file);
-		void			LoadFromFile(class ifstream& file);
+		void			SaveToFile(std::ofstream& file);
+		void			LoadFromFile(ifstream& file);
 		void			SaveToFile(const char *filename);
 		void			LoadFromFile(const char *filename);
-		bool			LoadFromFile_NickNameString(class ifstream& file);
+		bool			LoadFromFile_NickNameString(ifstream& file);
 	protected :		
 		int			m_Size;					// Type 종류 수
 		Type*		m_pTypeInfo;			// Type 정보
@@ -122,7 +120,7 @@ CTypeTable<Type>::Release()
 //----------------------------------------------------------------------
 template <class Type>
 void			
-CTypeTable<Type>::SaveToFile(class ofstream& file)
+CTypeTable<Type>::SaveToFile(std::ofstream& file)
 {
 	// size 저장
 	file.write((const char*)&m_Size, 4);
@@ -147,7 +145,7 @@ CTypeTable<Type>::SaveToFile(class ofstream& file)
 //----------------------------------------------------------------------
 template <class Type>
 void			
-CTypeTable<Type>::LoadFromFile(class ifstream& file)
+CTypeTable<Type>::LoadFromFile(ifstream& file)
 {
 	int numSize=0;
 
@@ -179,7 +177,7 @@ template <class Type>
 void
 CTypeTable<Type>::LoadFromFile(const char* lpszFilename)
 {
-	class ifstream file(lpszFilename, ios::binary | ios::nocreate);
+	ifstream file(lpszFilename, std::ios::binary | ios::nocreate);
 	if(file.is_open())
 	{
 		LoadFromFile(file);
@@ -191,7 +189,7 @@ template <class Type>
 void
 CTypeTable<Type>::SaveToFile(const char* lpszFilename)
 {
-	class ofstream file(lpszFilename, ios::binary);
+	std::ofstream file(lpszFilename, std::ios::binary);
 	SaveToFile(file);
 	file.close();
 }
@@ -201,7 +199,7 @@ CTypeTable<Type>::SaveToFile(const char* lpszFilename)
 //----------------------------------------------------------------------
 template <class Type>
 bool			
-CTypeTable<Type>::LoadFromFile_NickNameString(class ifstream& file)
+CTypeTable<Type>::LoadFromFile_NickNameString(ifstream& file)
 {
 	int numSize;
 	WORD wIndex;

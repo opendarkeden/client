@@ -26,7 +26,7 @@
 #endif
 
 #ifdef __GAME_CLIENT__
-	bool	FileOpenBinary(const char* filename, class ifstream& file);
+	bool	FileOpenBinary(const char* filename, ifstream& file);
 
 	// MItem.cpp에 있다.
 	bool	IsBombMaterial(const MItem* pItem);
@@ -110,7 +110,7 @@ SKILLINFO_NODE::SKILLINFO_NODE()
 // Load From File ServerSkillInfo
 //----------------------------------------------------------------------
 void		
-SKILLINFO_NODE::LoadFromFileServerSkillInfo(class ifstream& file)
+SKILLINFO_NODE::LoadFromFileServerSkillInfo(ifstream& file)
 {
 	int ll;
 	MString name;
@@ -209,7 +209,7 @@ SKILLINFO_NODE::AddNextSkill(ACTIONINFO id)
 // Save To File
 //----------------------------------------------------------------------
 void		
-SKILLINFO_NODE::SaveToFile(class ofstream& file)
+SKILLINFO_NODE::SaveToFile(ofstream& file)
 {
 
 	m_Name.SaveToFile( file );							// 기술 이름
@@ -244,7 +244,7 @@ SKILLINFO_NODE::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-SKILLINFO_NODE::LoadFromFile(class ifstream& file)
+SKILLINFO_NODE::LoadFromFile(ifstream& file)
 {
 	m_Name.LoadFromFile( file );					// 기술 이름
 	m_HName.LoadFromFile( file );
@@ -2544,7 +2544,7 @@ MSkillDomain::AddSkillStep(SKILL_STEP ss, ACTIONINFO ai)
 // Skill ID를 File에 저장한다.
 //----------------------------------------------------------------------
 void		
-MSkillDomain::SaveToFile(class ofstream& file)
+MSkillDomain::SaveToFile(ofstream& file)
 {
 	SKILLID_MAP::iterator	iSkill = m_mapSkillID.begin();
 
@@ -2571,7 +2571,7 @@ MSkillDomain::SaveToFile(class ofstream& file)
 // Skill ID를 File에서 읽어온다.
 //----------------------------------------------------------------------
 void		
-MSkillDomain::LoadFromFile(class ifstream& file)
+MSkillDomain::LoadFromFile(ifstream& file)
 {
 	Clear();
 	//m_mapSkillID.clear();
@@ -2598,7 +2598,7 @@ MSkillDomain::LoadFromFile(class ifstream& file)
 // LoadFromFileServerDomainInfo
 //----------------------------------------------------------------------
 void		
-MSkillDomain::LoadFromFileServerDomainInfo(class ifstream& file)
+MSkillDomain::LoadFromFileServerDomainInfo(ifstream& file)
 {	
 	int level;
 
@@ -2690,7 +2690,7 @@ MSkillManager::Init()
 		//------------------------------------------------
 		// Server 정보를 loading한다.
 		//------------------------------------------------
-		class ifstream serverDomainInfoFile;//(FILE_INFO_skill, ios::binary);
+		ifstream serverDomainInfoFile;//(FILE_INFO_skill, std::ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_SKILL_DOMAIN_EXP").c_str(), serverDomainInfoFile))
 			return;
 
@@ -2721,7 +2721,7 @@ MSkillManager::InitSkillList()
 // LoadFromFileServerSkillInfo
 //----------------------------------------------------------------------
 void		
-MSkillManager::LoadFromFileServerDomainInfo(class ifstream& file)
+MSkillManager::LoadFromFileServerDomainInfo(ifstream& file)
 {
 	int num, domain;
 

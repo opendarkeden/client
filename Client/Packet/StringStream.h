@@ -12,7 +12,7 @@
 #pragma warning(disable:4786)
 
 // include files
-#include "Types.h"
+#include "Types/SystemTypes.h"
 #include <list>
 #include <string>
 
@@ -35,13 +35,13 @@ public :
 	// add string to stream
 	StringStream & operator << ( bool T ) throw ();
 	StringStream & operator << ( char T ) throw ();
-	StringStream & operator << ( uchar T ) throw ();
+	StringStream & operator << ( unsigned char T ) throw ();
 	StringStream & operator << ( short T ) throw ();
-	StringStream & operator << ( ushort T ) throw ();
+	StringStream & operator << ( unsigned short T ) throw ();
 	StringStream & operator << ( int T ) throw ();
-	StringStream & operator << ( uint T ) throw ();
+	StringStream & operator << ( unsigned int T ) throw ();
 	StringStream & operator << ( long T ) throw ();
-	StringStream & operator << ( ulong T ) throw ();
+	StringStream & operator << ( unsigned long T ) throw ();
 	StringStream & operator << ( float T ) throw ();
 	StringStream & operator << ( double T ) throw ();
 	StringStream & operator << ( const char * str ) throw ();
@@ -59,7 +59,7 @@ private :
 	std::list<std::string> m_Strings;
 
 	// size of string which will be generated
-	ushort m_Size;
+	unsigned short m_Size;
 	
 	// inserted flag 
 	mutable bool m_bInserted;

@@ -55,7 +55,7 @@
 	 g_SkillManager.Init()만 하면 된다.
 
 
-	class ofstream logFile("log\\sword.txt");
+	std::ofstream logFile("log\\sword.txt");
 
 	//---------------------------------------------------------------------
 	//
@@ -121,8 +121,8 @@
 #include "ExpInfo.h"
 #include "RaceType.h"
 
-class ifstream;
-class ofstream;
+ifstream;
+std::ofstream;
 
 
 //----------------------------------------------------------------------
@@ -265,13 +265,13 @@ class SKILLINFO_NODE {
 		//------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(ifstream& file);
 
 		//------------------------------------------------------
 		// Load SERVER_SKILLINFO
 		//------------------------------------------------------
-		void		LoadFromFileServerSkillInfo(class ifstream& file);
+		void		LoadFromFileServerSkillInfo(ifstream& file);
 
 	protected :
 		
@@ -533,13 +533,13 @@ class MSkillDomain {
 		//------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(ifstream& file);
 
 		//------------------------------------------------------
 		// Load SERVER_SKILLINFO
 		//------------------------------------------------------
-		void		LoadFromFileServerDomainInfo(class ifstream& file);
+		void		LoadFromFileServerDomainInfo(ifstream& file);
 
 		//------------------------------------------------------
 		// Exp
@@ -606,7 +606,7 @@ class MSkillInfoTable : public CTypeTable<SKILLINFO_NODE> {
 		// 바뀌는 정보만 초기화
 		void			Init();
 
-		void			LoadFromFileServerSkillInfo(class ifstream& file);
+		void			LoadFromFileServerSkillInfo(ifstream& file);
 };
 
 extern MSkillInfoTable*		g_pSkillInfoTable;
@@ -629,7 +629,7 @@ class MSkillManager : public CTypeTable<MSkillDomain>
 		//------------------------------------------------------
 		// Load SERVER_SKILLINFO
 		//------------------------------------------------------
-		void		LoadFromFileServerDomainInfo(class ifstream& file);
+		void		LoadFromFileServerDomainInfo(ifstream& file);
 };
 
 //----------------------------------------------------------------------
