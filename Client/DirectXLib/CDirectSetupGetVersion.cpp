@@ -10,8 +10,10 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <ddraw.h>
+
+#define DIRECTINPUT_VERSION 0x0700
 #include <dinput.h>
-#include <dmusici.h>
+// #include <dmusici.h>
 #include "CDirectSetup.h"
 
 typedef HRESULT(WINAPI * DIRECTDRAWCREATE)( GUID*, LPDIRECTDRAW*, IUnknown* );
@@ -278,6 +280,7 @@ CDirectSetup::GetVersion( DWORD* pdwDXVersion, DWORD* pdwDXPlatform )
     ///////////////////////////////////////////////////////////////////////////
 
     // Check for DMusic, which was introduced with DX6.1
+    /*
     LPDIRECTMUSIC pDMusic = NULL;
     CoInitialize( NULL );
     hr = CoCreateInstance( CLSID_DirectMusic, NULL, CLSCTX_INPROC_SERVER,
@@ -293,7 +296,7 @@ CDirectSetup::GetVersion( DWORD* pdwDXVersion, DWORD* pdwDXPlatform )
     (*pdwDXVersion) = 0x601;
     pDMusic->Release();
     CoUninitialize();
-    
+    */
 
     ///////////////////////////////////////////////////////////////////////////
     // DirectX 7.0 Checks

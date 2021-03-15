@@ -823,7 +823,7 @@ void CDirectDraw::SetGammaRamp(WORD step)
 
 		WORD r, g, b;
 		 
-		for (i=0; i<256; i++)
+		for (int i=0; i<256; i++)
 		{
 			r = m_DDGammaRamp.red[i];
 			g = m_DDGammaRamp.green[i];

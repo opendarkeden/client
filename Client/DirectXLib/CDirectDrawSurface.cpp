@@ -1388,7 +1388,7 @@ CDirectDrawSurface::ShowFPS(int x, int y, COLORREF fcolor, COLORREF bcolor)
 
 	frame++;
 	thisTickTime = GetTickCount();
-	if (abs(thisTickTime - oldTickTime) >= 1000)
+	if (abs((long)(thisTickTime - oldTickTime)) >= 1000)
 	{
 		fps = frame;
 		frame = 0;
