@@ -1202,7 +1202,8 @@ void C_VS_UI_PERSNALSHOP::Show()
 				{
 					RECT rt;
 					rt.right = x+GetSlotX(i)+SLOT_WIDTH;
-					for(int depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
+					int depth, number;
+					for(depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
 					if(depth == 0) depth = 1;
 					rt.left = rt.right - 7*depth;
 					rt.bottom = y+GetSlotY(i)+SLOT_HEIGHT;

@@ -8,11 +8,13 @@
 // #include <DMusicI.h>
 // #include <DMusicF.h>
 
-typedef enum DIRECTMUSIC_TYPE	
-{
-	DIRECTMUSIC_TYPE_HW,	// hardware midi
-	DIRECTMUSIC_TYPE_SW		// microsoft software synthesizer
-};
+//typedef enum DIRECTMUSIC_TYPE	
+//{
+//	DIRECTMUSIC_TYPE_HW,	// hardware midi
+//	DIRECTMUSIC_TYPE_SW		// microsoft software synthesizer
+//};
+
+typedef int DIRECTMUSIC_TYPE;
 
 class CDirectMusic {
 	public :
@@ -22,7 +24,7 @@ class CDirectMusic {
 		//-----------------------------------------------------------
 		// Init / Release
 		//-----------------------------------------------------------
-		bool		Init(HWND hWnd, DIRECTMUSIC_TYPE type=DIRECTMUSIC_TYPE_SW);
+		bool		Init(HWND hWnd, DIRECTMUSIC_TYPE type);
 		void		Release();
 
 	

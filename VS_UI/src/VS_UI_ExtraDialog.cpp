@@ -67,7 +67,8 @@ C_VS_UI_EDIT_DIALOG::C_VS_UI_EDIT_DIALOG(int _x, int _y, int center_x, int cente
 
 	m_max_val = max_val;	
 	m_lev_value.SetDigitOnlyMode(true);
-	for(int digit_count = 0, number = max_val; number > 0; number/=10, digit_count++);
+	int digit_count, number;
+	for(digit_count = 0, number = max_val; number > 0; number/=10, digit_count++);
 	m_lev_value.SetByteLimit(digit_count);
 	Attach(&m_lev_value);
 	m_default_val = cur_val;
@@ -316,7 +317,7 @@ void	C_VS_UI_EDIT_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 		}
 
 	m_lev_value.KeyboardControl(message, key, extra);
-
+	int digit_count, number;
 	for(digit_count = 0, number = GetValue(); number > 0; number/=10, digit_count++);
 	while(digit_count < m_lev_value.Size())m_lev_value.EraseCharacterBegin();
 	
@@ -3221,7 +3222,8 @@ void C_VS_UI_FILE_DIALOG::RefreshFileList(char *sz_dirname)
 			sz_filename = "\\";
 			sz_filename += fd.cFileName;
 
-			for(int i = 0; i < m_vs_file_list.size(); i++)
+			int i;
+			for(i = 0; i < m_vs_file_list.size(); i++)
 			{
 				if(m_vs_file_list[i] > sz_filename || m_vs_file_list[i][0] != '\\')
 				{

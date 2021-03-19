@@ -5860,7 +5860,7 @@ C_VS_UI_MAILBOX::C_VS_UI_MAIL::~C_VS_UI_MAIL()
 }
 
 
-void C_VS_UI_MAILBOX::C_VS_UI_MAIL::SaveToFile(class ofstream &file)
+void C_VS_UI_MAILBOX::C_VS_UI_MAIL::SaveToFile(ofstream &file)
 {
 	file.write((const char *)&id, sizeof(DWORD));
 	file.write((const char *)&mark, sizeof(bool));
@@ -5871,7 +5871,7 @@ void C_VS_UI_MAILBOX::C_VS_UI_MAIL::SaveToFile(class ofstream &file)
 	file.write((const char *)&windowSize, sizeof(SIZE));
 }
 
-bool C_VS_UI_MAILBOX::C_VS_UI_MAIL::LoadFromFile(class ifstream &file)
+bool C_VS_UI_MAILBOX::C_VS_UI_MAIL::LoadFromFile(ifstream &file)
 {
 	file.read((char *)&id, sizeof(DWORD));
 	file.read((char *)&mark, sizeof(bool));
@@ -5908,7 +5908,7 @@ void C_VS_UI_MAILBOX::C_VS_UI_MAIL::LoadFromFile(std::string filename)
 	}
 }
 
-void C_VS_UI_MAILBOX::SaveToFile(class ofstream &file)
+void C_VS_UI_MAILBOX::SaveToFile(ofstream &file)
 {
 	DWORD flag = 0;
 	file.write((const char *)&flag, sizeof(DWORD));
@@ -5932,7 +5932,7 @@ void C_VS_UI_MAILBOX::SaveToFile(class ofstream &file)
 	}
 }
 
-void C_VS_UI_MAILBOX::LoadFromFile(class ifstream &file)
+void C_VS_UI_MAILBOX::LoadFromFile(ifstream &file)
 {
 	DWORD flag = 0;
 	file.read((char *)&flag, sizeof(DWORD));

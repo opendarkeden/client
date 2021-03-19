@@ -662,7 +662,7 @@ bool CTypePack2<TypeBase, Type1, Type2>::SaveToFile(ofstream &dataFile, ofstream
 	//--------------------------------------------------
 	// index ¿˙¿Â
 	//--------------------------------------------------
-	for (i=0; i<vIndex.size(); i++)
+	for (int i=0; i<vIndex.size(); i++)
 	{
 		indexFile.write((const char*)&vIndex[i], 4);
 	}
@@ -739,14 +739,14 @@ bool CTypePack2<TypeBase, Type1, Type2>::LoadFromFileData(int dataID, int fileID
 		return false;
 	}
 
-	ifstream dataFile(packFilename, std::ios::binary | ios::nocreate);
+	ifstream dataFile(packFilename, std::ios::binary | std::ios::in);
 	
 	if (!dataFile.is_open())
 	{
 		return false;
 	}
 	
-	ifstream indexFile(indexFilename, std::ios::binary | ios::nocreate);
+	ifstream indexFile(indexFilename, std::ios::binary | std::ios::in);
 	
 	if (!indexFile.is_open())
 	{

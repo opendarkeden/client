@@ -15,7 +15,7 @@
 #pragma warning(push)
 
 #include <string>
-#include <assert.h>
+#include <cassert>
 #include <vector>
 #include <map>
 #include <list>

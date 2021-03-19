@@ -1233,8 +1233,8 @@ void C_VS_UI_SLAYER_QUICKITEM::Show()
 				// 개수표시 AlphaBox만 찍고, 숫자는 뒤에서 찍는다
 				if(p_item->IsPileItem())
 				{
-					
-					for(int depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
+					int depth, number;
+					for(depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
 					if(depth == 0) depth = 1;
 
 					rect[len].right = temp_x + QUICKSLOT_W+2;
@@ -3153,7 +3153,7 @@ void C_VS_UI_SLAYER::Show()
 						m_pC_main_spk->BltLockedClip(x+bar_x+3, y+bar_y+bar_gap*2+3, rect, EXP_BAR);
 					}
 					
-					for(i = 0; i < 3; i++)
+					for(int i = 0; i < 3; i++)
 					{
 						const int domain_level = (*g_pSkillManager)[domain[i]].GetDomainLevel();
 						const int exp_remain = (*g_pSkillManager)[domain[i]].GetDomainExpRemain();
@@ -3181,7 +3181,7 @@ void C_VS_UI_SLAYER::Show()
 				wsprintf(sz_temp, "%d", g_char_slot_ingame.INT_CUR);
 				g_PrintColorStrShadow(x+num_x, y+bar_y+bar_gap*2, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE, RGB_BLACK);
 				
-				for(i = 0; i < 3; i++)
+				for(int i = 0; i < 3; i++)
 				{
 					g_PrintColorStrShadow(x+str_x, y+bar_y+bar_gap*(3+i), domain_string[domain[i]-SKILLDOMAIN_BLADE], gpC_base->m_chatting_pi, RGB_WHITE, RGB_BLACK);
 					const int domain_level = (*g_pSkillManager)[domain[i]].GetDomainLevel();

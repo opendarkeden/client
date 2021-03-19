@@ -10,8 +10,6 @@
 #include "CTypeTable.h"
 #include "MTypeDef.h"
 #include "MString.h"
-std::ofstream;
-ifstream;
 
 //#define	MAX_PARTNAME_LENGTH		48
 #define UNIQUE_ITEM_COLOR		0xffff

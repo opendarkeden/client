@@ -1,6 +1,7 @@
 // VS_UI_Base.cpp
 
 #include "client_PCH.h"
+#include <cassert>
 #include "VS_UI_Base.h"
 #include <windows.h>
 //----------------------------------------------------------------------------

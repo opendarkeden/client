@@ -584,7 +584,8 @@ void C_VS_UI_STORAGE::Show()
 				{
 					RECT rt;
 					rt.right = x+GetSlotX(i)+SLOT_WIDTH;
-					for(int depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
+					int depth, number;
+					for(depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
 					if(depth == 0) depth = 1;
 					rt.left = rt.right - 7*depth;
 					rt.bottom = y+GetSlotY(i)+SLOT_HEIGHT;
@@ -652,7 +653,7 @@ void C_VS_UI_STORAGE::Show()
 			char money_buf[512];
 			wsprintf(money_buf, "%d", m_pStorage->GetMoneyManager()->GetMoney());
 			std::string sstr = money_buf;
-			for(i = 3; i <= 13; i += 4)
+			for(int i = 3; i <= 13; i += 4)
 				if(sstr.size() > i)sstr.insert(sstr.size()-i, ",");
 			sprintf(money_buf, "%s", sstr.c_str());
 			g_Print(x+m_money_button_offset_x+147, y+m_money_button_offset_y+4, money_buf, &gpC_base->m_money2_pi);

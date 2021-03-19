@@ -1378,8 +1378,8 @@ void C_VS_UI_OUSTERS_QUICKITEM::Show()
 				// 개수표시 AlphaBox만 찍고, 숫자는 뒤에서 찍는다
 				if(p_item->IsPileItem())
 				{
-					
-					for(int depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
+					int depth, number;
+					for(depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
 					if(depth == 0) depth = 1;
 
 					rect[len].right = temp_x + QUICKSLOT_W+2;

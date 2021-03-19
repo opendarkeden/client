@@ -100,7 +100,7 @@ C_VS_UI_PROGRESS::C_VS_UI_PROGRESS()
 	else
 	{
 		m_pC_progress = new CSpritePack;
-		ifstream progress_file(SPK_PROGRESS, ios::binary);
+		ifstream progress_file(SPK_PROGRESS, std::ios::binary);
 		m_pC_progress->LoadFromFile(progress_file);
 		progress_file.close();
 		

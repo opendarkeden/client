@@ -221,7 +221,7 @@ C_VS_UI_ITEM::C_VS_UI_ITEM()
 #ifndef _LIB
 	
 	// Item option table load.
-	ifstream file("data\\info\\itemoption.inf",ios::binary);
+	ifstream file("data\\info\\itemoption.inf",std::ios::binary);
 	g_pItemOptionTable->LoadFromFile( file );
 	file.close();
 

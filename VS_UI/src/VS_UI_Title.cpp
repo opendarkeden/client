@@ -1132,7 +1132,7 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 	// character ISPK & CFPK
 //	int num;
 
-//	m_slayer_ispk_file.open(ISPK_SLAYER, ios::binary|ios::nocreate);
+//	m_slayer_ispk_file.open(ISPK_SLAYER, std::ios::binary|std::ios::in);
 //	if (!m_slayer_ispk_file)
 //		_Error(FILE_OPEN);
 //
@@ -1141,13 +1141,13 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 //	m_pC_slayer_ispk.Init(num, CDirectDraw::Is565());
 //
 //	{
-//		ifstream indexFile( ISPKI_SLAYER, ios::binary);
+//		ifstream indexFile( ISPKI_SLAYER, std::ios::binary);
 //		m_SlayerPackIndex.LoadFromFile( indexFile );
 //		indexFile.close();
 //	}
 	m_slayer_ispk.LoadFromFileRunning(ISPK_SLAYER);
 
-//	m_vampire_ispk_file.open(ISPK_VAMPIRE, ios::binary|ios::nocreate);
+//	m_vampire_ispk_file.open(ISPK_VAMPIRE, std::ios::binary|std::ios::in);
 //	if (!m_vampire_ispk_file)
 //		_Error(FILE_OPEN);
 //
@@ -1156,7 +1156,7 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 //	m_vampire_ispk.Init(num, CDirectDraw::Is565());
 //
 //	{
-//		ifstream indexFile( ISPKI_VAMPIRE, ios::binary);
+//		ifstream indexFile( ISPKI_VAMPIRE, std::ios::binary);
 //		m_VampirePackIndex.LoadFromFile( indexFile );
 //		indexFile.close();
 //	}
@@ -1170,11 +1170,11 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 	m_AdvancementSlayerManIspk.LoadFromFileRunning( ISPK_ADVANCEMENT_SLAYER_MAN );
 	m_AdvancementSlayerWomanIspk.LoadFromFileRunning( ISPK_ADVANCEMENT_SLAYER_WOMAN );
 
-	ifstream file_man(CFPK_SLAYER, ios::binary|ios::nocreate);
+	ifstream file_man(CFPK_SLAYER, std::ios::binary|std::ios::in);
 	if (!file_man)
 		_Error(FILE_OPEN);
 	m_slayer_cfpk.LoadFromFile(file_man);
-	ifstream file_vampire(CFPK_VAMPIRE, ios::binary|ios::nocreate);
+	ifstream file_vampire(CFPK_VAMPIRE, std::ios::binary|std::ios::in);
 	file_man.close();
 
 	if (!file_vampire)
@@ -1182,51 +1182,51 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 	m_vampire_cfpk.LoadFromFile(file_vampire);
 	file_vampire.close();
 
-	ifstream file_ousters(CFPK_OUSTERS, ios::binary|ios::nocreate);
+	ifstream file_ousters(CFPK_OUSTERS, std::ios::binary|std::ios::in);
 	if (!file_ousters)
 		_Error(FILE_OPEN);
 	m_ousters_cfpk.LoadFromFile(file_ousters);
 	file_ousters.close();
 	
-	ifstream file_ac_ousters( CFPK_ADVANCEMENT_OUSTERS, ios::binary|ios::nocreate );
+	ifstream file_ac_ousters( CFPK_ADVANCEMENT_OUSTERS, std::ios::binary|std::ios::in );
 	if( !file_ac_ousters )
 		_Error( FILE_OPEN );
 	m_AdvancementOustersCfpk.LoadFromFile( file_ac_ousters );
 	file_ac_ousters.close();
 
-	ifstream file_ac_vampire( CFPK_ADVANCEMENT_VAMPIRE_MAN, ios::binary|ios::nocreate );
+	ifstream file_ac_vampire( CFPK_ADVANCEMENT_VAMPIRE_MAN, std::ios::binary|std::ios::in );
 	if( !file_ac_vampire )
 		_Error( FILE_OPEN );
 	m_AdvancementVampireManCfpk.LoadFromFile( file_ac_vampire );
 	file_ac_vampire.close();
 
-	ifstream file_ac_vampire2( CFPK_ADVANCEMENT_VAMPIRE_WOMAN, ios::binary|ios::nocreate );
+	ifstream file_ac_vampire2( CFPK_ADVANCEMENT_VAMPIRE_WOMAN, std::ios::binary|std::ios::in );
 	if( !file_ac_vampire2 )
 		_Error( FILE_OPEN );
 	m_AdvancementVampireWomanCfpk.LoadFromFile( file_ac_vampire2 );
 	file_ac_vampire2.close();
 
 
-	ifstream file_ac_slayerman( CFPK_ADVANCEMENT_SLAYER_MAN,ios::binary|ios::nocreate );
+	ifstream file_ac_slayerman( CFPK_ADVANCEMENT_SLAYER_MAN,std::ios::binary|std::ios::in );
 	if( !file_ac_slayerman )
 		_Error( FILE_OPEN );
 	m_AdvancementSlayerManCfpk.LoadFromFile( file_ac_slayerman );
 	file_ac_slayerman.close();
 
-	ifstream file_ac_slayerwoman( CFPK_ADVANCEMENT_SLAYER_WOMAN,ios::binary|ios::nocreate );
+	ifstream file_ac_slayerwoman( CFPK_ADVANCEMENT_SLAYER_WOMAN,std::ios::binary|std::ios::in );
 	if( !file_ac_slayerwoman )
 		_Error( FILE_OPEN );
 	m_AdvancementSlayerWomanCfpk.LoadFromFile( file_ac_slayerwoman );
 	file_ac_slayerwoman.close();
 
 	/*
-	ifstream file_ac_slayer( CFPK_ADVANCEMENT_SLAYER, ios::binary | ios::nocreate );
+	ifstream file_ac_slayer( CFPK_ADVANCEMENT_SLAYER, std::ios::binary | std::ios::in );
 	if( !file_ac_slayer )
 		_Error( FILE_OPEN );
 	m_AdvancementSlayerCfpk.LoadFromFile( file_ac_slayer );
 	file_ac_slayer.close();
 	
-	ifstream file_ac_vampire( CFPK_ADVANCEMENT_VAMPIRE, ios::binary | ios::nocreate );
+	ifstream file_ac_vampire( CFPK_ADVANCEMENT_VAMPIRE, std::ios::binary | std::ios::in );
 	if( !file_ac_vampire )
 		_Error( FILE_OPEN );
 	m_AdvancementVampireCfpk.LoadFromFile( file_ac_vampire );
@@ -4324,7 +4324,7 @@ void C_VS_UI_LOGIN::Start()
 	}
 
 	// prev-set
-//	ifstream file(FILE_BACKUP_ID, ios::binary);
+//	ifstream file(FILE_BACKUP_ID, std::ios::binary);
 //	if (file)
 //	{
 //		file.seekg(0, ios::end); // to get file size
@@ -5914,7 +5914,7 @@ void C_VS_UI_OPTION::Run(id_t id)
 //			char sz_filename[512];
 //			wsprintf(sz_filename, "UserSet\\%s.set", g_char_slot_ingame.sz_name);
 //			
-//			ofstream file(sz_filename, ios::binary);
+//			ofstream file(sz_filename, std::ios::binary);
 //			
 //			if(file)
 //			{
@@ -5930,7 +5930,7 @@ void C_VS_UI_OPTION::Run(id_t id)
 //			char sz_filename[512];
 //			wsprintf(sz_filename, "UserSet\\%s.set", g_char_slot_ingame.sz_name);
 //			
-//			ifstream file(sz_filename, ios::binary | ios::nocreate);
+//			ifstream file(sz_filename, std::ios::binary | std::ios::in);
 //			
 //			if(file)
 //			{

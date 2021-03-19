@@ -910,7 +910,7 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 		int plus = 0;
 		int width, height;
 		
-		for (i=0; i < m_menu_count; i++, plus += (m_menu_str_height-TEXT_EXTRA_HGAP)*height+TEXT_EXTRA_HGAP)
+		for (int i=0; i < m_menu_count; i++, plus += (m_menu_str_height-TEXT_EXTRA_HGAP)*height+TEXT_EXTRA_HGAP)
 		{
 			if(!m_p_menu[i].sz_menu_str.empty())
 			{

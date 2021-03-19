@@ -1183,7 +1183,8 @@ void	C_VS_UI_EXCHANGE::Show()
 			{
 				RECT rt;
 				rt.right = print_x;
-				for(int depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
+				int depth, number;
+				for(depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
 				if(depth == 0) depth = 1;
 				rt.left = print_x - 7*depth;
 				rt.top = print_y;
@@ -1323,7 +1324,8 @@ void	C_VS_UI_EXCHANGE::Show()
 			{
 				RECT rt;
 				rt.right = print_x;
-				for(int depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
+				int depth, number;
+				for(depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
 				if(depth == 0) depth = 1;
 				rt.left = print_x - 7*depth;
 				rt.top = print_y;
@@ -1352,7 +1354,7 @@ void	C_VS_UI_EXCHANGE::Show()
 
 	char sz_num[10];
 	COLORREF markColor = RGB(220, 220, 220);//RGB(140, 140, 255);
-	for(int i = 0; i < vNum.size(); i++)
+	for(int i = 0; i < (int)vNum.size(); i++)
 	{
 		wsprintf(sz_num, "%d", vNum[i]);
 		g_PrintColorStr(vNumRect[i].left, vNumRect[i].top, sz_num, gpC_base->m_item_desc_pi, markColor);
@@ -1374,8 +1376,8 @@ void	C_VS_UI_EXCHANGE::Show()
 		{
 			wsprintf(money_buf, "%d", g_pMoneyManager->GetMoney());
 			std::string sstr = money_buf;
-			for(i = 3; i <= 13; i += 4)
-				if(sstr.size() > i)sstr.insert(sstr.size()-i, ",");
+			for(int i = 3; i <= 13; i += 4)
+				if((int)sstr.size() > i)sstr.insert(sstr.size()-i, ",");
 			sprintf(money_buf, "$%s", sstr.c_str());
 			g_Print(x+m_inventory_money_button_point.x+150, y+m_inventory_money_button_point.y+2, money_buf, &gpC_base->m_money2_pi);
 		}
@@ -1402,8 +1404,8 @@ void	C_VS_UI_EXCHANGE::Show()
 		{
 			wsprintf(money_buf, "%d", g_pTradeManager->GetMyMoneyManager()->GetMoney());
 			std::string sstr = money_buf;
-			for(i = 3; i <= 13; i += 4)
-				if(sstr.size() > i)sstr.insert(sstr.size()-i, ",");
+			for(int i = 3; i <= 13; i += 4)
+				if((int)sstr.size() > i)sstr.insert(sstr.size()-i, ",");
 			sprintf(money_buf, "$%s", sstr.c_str());
 			g_Print(x+m_money_button_point.x+150, y+m_money_button_point.y+2, money_buf, &gpC_base->m_money2_pi);
 		}
@@ -1430,8 +1432,8 @@ void	C_VS_UI_EXCHANGE::Show()
 		{
 			wsprintf(money_buf, "%d", g_pTradeManager->GetOtherMoneyManager()->GetMoney());
 			std::string sstr = money_buf;
-			for(i = 3; i <= 13; i += 4)
-				if(sstr.size() > i)sstr.insert(sstr.size()-i, ",");
+			for(int i = 3; i <= 13; i += 4)
+				if((int)sstr.size() > i)sstr.insert(sstr.size()-i, ",");
 			sprintf(money_buf, "$%s", sstr.c_str());
 			g_Print(x+m_your_money_button_point.x+150, y+m_your_money_button_point.y+2, money_buf, &gpC_base->m_money2_pi);
 		}
