@@ -22,8 +22,8 @@
 #define	__MANIMATIONOBJECT_H__
 
 #include <Windows.h>
-std::ofstream;
-ifstream;
+class ofstream;
+class ifstream;
 #include "MTypeDef.h"
 #include "MImageObject.h"
 #include "CAnimationFrame.h"
@@ -59,8 +59,8 @@ class MAnimationObject : public MImageObject, public CAnimationFrame, public Sho
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		virtual void	SaveToFile(std::ofstream& file);
-		virtual void	LoadFromFile(ifstream& file);
+		virtual void	SaveToFile(class ofstream& file);
+		virtual void	LoadFromFile(class ifstream& file);
 
 		static void		NextLoopFrame()					{ LoopFrameCount++; }
 		

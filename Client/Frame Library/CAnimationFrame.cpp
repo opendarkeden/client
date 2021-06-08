@@ -35,7 +35,7 @@ CAnimationFrame::~CAnimationFrame()
 // Save To File
 //----------------------------------------------------------------------
 void	
-CAnimationFrame::SaveToFile(ofstream& file)
+CAnimationFrame::SaveToFile(class ofstream& file)
 {
 	file.write((const char*)&m_FrameID, SIZE_FRAMEID);
 	file.write((const char*)&m_MaxFrame, 1);
@@ -46,7 +46,7 @@ CAnimationFrame::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void	
-CAnimationFrame::LoadFromFile(ifstream& file)
+CAnimationFrame::LoadFromFile(class ifstream& file)
 {
 	file.read((char*)&m_FrameID, SIZE_FRAMEID);
 	file.read((char*)&m_MaxFrame, 1);

@@ -505,88 +505,6 @@ enum GAME_STRINGID
 	UI_STRING_MESSAGE_TIMORE,						//Æ¼¸ð¸£ È£¼ö 
 
 	UI_STRING_MESSAGE_ZONEINFO_XY,					// X:%d Y:%d
-//	UI_STRING_MESSAGE_ESLANIA_NE,					//"¿¡½½¶ó´Ï¾È NE", 
-//	UI_STRING_MESSAGE_ESLANIA_NW,					//"¿¡½½¶ó´Ï¾È NW", 
-//	UI_STRING_MESSAGE_ESLANIA_SE,					//"¿¡½½¶ó´Ï¾È SE", 
-//	UI_STRING_MESSAGE_ESLANIA_SW,					//"¿¡½½¶ó´Ï¾È SW",
-//	UI_STRING_MESSAGE_LIMBOLAIR_NE,					//"¸²º¸¼º NE", 
-//	UI_STRING_MESSAGE_LIMBOLAIR_NW,					//"¸²º¸¼º NW", 
-//	UI_STRING_MESSAGE_LIMBOLAIR_SE,					//"¸²º¸¼º SE", 
-//	UI_STRING_MESSAGE_LIMBOLAIR_SW,					//"¸²º¸¼º SW",
-//	UI_STRING_MESSAGE_DROBETA_NE,					//"µå·Îº£Å¸ NE", 
-//	UI_STRING_MESSAGE_DROBETA_NW,					//"µå·Îº£Å¸ NW", 
-//	UI_STRING_MESSAGE_DROBETA_SE,					//"µå·Îº£Å¸ SE", "
-//	UI_STRING_MESSAGE_DROBETA_SW,					//µå·Îº£Å¸ SW",
-//	UI_STRING_MESSAGE_RODIN_NE,						//"·Îµò»ê NE", 
-//	UI_STRING_MESSAGE_RODIN_NW,						//"·Îµò»ê NW", 
-//	UI_STRING_MESSAGE_RODIN_SE,						//"·Îµò»ê SE", 
-//	UI_STRING_MESSAGE_RODIN_SW,						//"·Îµò»ê SW",
-//	UI_STRING_MESSAGE_TIMORE_NE,					//"Æ¼¸ð¸£ È£¼ö NE", 
-//	UI_STRING_MESSAGE_TIMORE_NW,					//"Æ¼¸ð¸£ È£¼ö NW", 
-//	UI_STRING_MESSAGE_TIMORE_SE,					//"Æ¼¸ð¸£ È£¼ö SE", 
-//	UI_STRING_MESSAGE_TIMORE_SW,					//"Æ¼¸ð¸£ È£¼ö SW",
-//	UI_STRING_MESSAGE_PERONA_NE,					//"Æä·Î³ª NE", 
-//	UI_STRING_MESSAGE_PERONA_NW,					//"Æä·Î³ª NW", 
-//	UI_STRING_MESSAGE_PERONA_SE,					//"Æä·Î³ª SE", 
-//	UI_STRING_MESSAGE_PERONA_SW,					//"Æä·Î³ª SW",
-//
-//		// ´øÁ¯ & ¸¶À»
-//	UI_STRING_MESSAGE_UNDERGROUND_WATERWAY,			// "ÁöÇÏ ¼ö·Î", 
-//	UI_STRING_MESSAGE_ESLANIA_DUNGEON,				// "¿¡½½¶ó´Ï¾È ´øÀü", 
-//	UI_STRING_MESSAGE_IN_LIMBOLAIR,					// "¸²º¸¼º ³»ºÎ",
-//	UI_STRING_MESSAGE_LIMBOLAIR_DEONGEON,			//"¸²º¸¼º ´øÀü", 
-//	UI_STRING_MESSAGE_EVENTOX,						//"ÀÌº¥Æ® OX", 		
-//	UI_STRING_MESSAGE_EVENT_STADIUM,				//"ÀÌº¥Æ® °æ±âÀå", 
-//	UI_STRING_MESSAGE_IN_RASENCASTLE,				//"¶ó¼¾¼º ³»ºÎ", 
-//	UI_STRING_MESSAGE_KALI_CAVE,					//"Ä®¸® ¼®±¼", 
-//	UI_STRING_MESSAGE_RASEN_TRAINING,				//"¶ó¼¾ ¿¡ÀÌ³ª¸ó", 
-//	UI_STRING_MESSAGE_PEIAC_TUNNEL,					//"ÆäÀÌ¾Ç ÅÍ³Î",
-//	UI_STRING_MESSAGE_BATHORY_B1,					//"¹ÙÅä¸® ´øÀü B1", 
-//	UI_STRING_MESSAGE_BATHORY_B2,					//"¹ÙÅä¸® ´øÀü B2", 
-//	UI_STRING_MESSAGE_BATHORY_B3,					//"¹ÙÅä¸® ´øÀü B3", 
-//	UI_STRING_MESSAGE_BATHORY_B4,					//"¹ÙÅä¸® ´øÀü B4", 
-//	UI_STRING_MESSAGE_BATHORY_LAIR,					//"¹ÙÅä¸® ·¹¾î", 
-//	UI_STRING_MESSAGE_GHORGOBA_TUNNEL,				//"°í¸£°í¹Ù ÅÍ³Î",
-//	UI_STRING_MESSAGE_RASEN_YARD,					//"¶ó¼¾ ¿Ü¼º 1F", 
-//	UI_STRING_MESSAGE_CASTLE_RASEN_1F,				//"¶ó¼¾ ³»¼º 1F", 
-//	UI_STRING_MESSAGE_CASTLE_RASEN_2F,				//"¶ó¼¾ ³»¼º 2F", 
-//	UI_STRING_MESSAGE_TEPES_LAIR,					//"Å×ÆäÁî ·¹¾î",
-//	UI_STRING_MESSAGE_SLAYER_BATTLEZONE1,			//"¶ó¿È ¼ºÁö",
-//	UI_STRING_MESSAGE_SLAYER_BATTLEZONE2,			//"Å×¸Þ¸®¿¡ ¼ºÁö", 
-//	UI_STRING_MESSAGE_BATHORY_BATTLEZONE,			//"Èú¶ó³ð ¼ºÁö", 
-//	UI_STRING_MESSAGE_RASEN_BATTLEZONE,				//"¾ÆÀÌ¼¾ ¼ºÁö",
-//		// °Ç¹°
-//	UI_STRING_MESSAGE_GUILD_ARMY_B1,				//"±ºÀÎ ±æµå B1", 
-//	UI_STRING_MESSAGE_GUILD_ARMY_1F,				//"±ºÀÎ ±æµå 1F", 
-//	UI_STRING_MESSAGE_GUILD_ARMY_2F,				//"±ºÀÎ ±æµå 2F", 
-//	UI_STRING_MESSAGE_GUILD_ARMY_3F,				//"±ºÀÎ ±æµå 3F", 
-//	UI_STRING_MESSAGE_GUILD_ARMY_4F,				//"±ºÀÎ ±æµå ¿Á»ó",
-//	UI_STRING_MESSAGE_GUILD_CELRIC_B1,				//"¼ºÁ÷ÀÚ ±æµå B1", 
-//	UI_STRING_MESSAGE_GUILD_CELRIC_1F,				//"¼ºÁ÷ÀÚ ±æµå 1F", 
-//	UI_STRING_MESSAGE_GUILD_CELRIC_2F,				//"¼ºÁ÷ÀÚ ±æµå 2F", 
-//	UI_STRING_MESSAGE_GUILD_CELRIC_3F,				//"¼ºÁ÷ÀÚ ±æµå 3F", 
-//	UI_STRING_MESSAGE_GUILD_CELRIC_4F,				//"¼ºÁ÷ÀÚ ±æµå ¿Á»ó",
-//	UI_STRING_MESSAGE_GUILD_KNIGHT_B1,				//"¹«»ç ±æµå B1",
-//	UI_STRING_MESSAGE_GUILD_KNIGHT_1F,				//"¹«»ç ±æµå 1F",
-//	UI_STRING_MESSAGE_GUILD_KNIGHT_2F,				//"¹«»ç ±æµå 2F",
-//	UI_STRING_MESSAGE_GUILD_KNIGHT_3F,				//"¹«»ç ±æµå 3F", 
-//	UI_STRING_MESSAGE_GUILD_KNIGHT_4F,				//"¹«»ç ±æµå ¿Á»ó",
-//		// Æ©Åä¸®¾ó
-//	UI_STRING_MESSAGE_TUTORIAL_N,					//"¾ßÀü»ç·ÉºÎ", 
-//	UI_STRING_MESSAGE_TUTORIAL_S,					//"½Ã ¿Ü°ûÁö¿ª",
-//		// ±æµå
-//	UI_STRING_MESSAGE_GUILD_HOUSE,					//"±æµå ¾ÆÁöÆ®",
-//	UI_STRING_MESSAGE_CLAN_HOUSE,					//"Å¬·£ ¾ÆÁöÆ®",
-//		// ¹ìÆÄÀÌ¾î ´øÁ¯¸Ê
-//	UI_STRING_MESSAGE_LOST_TAIYAN_B1,				//"·Î½ºÆ® Å¸ÀÌ¾á B1",
-//	UI_STRING_MESSAGE_LOST_TAIYAN_B2,				//"·Î½ºÆ® Å¸ÀÌ¾á B2",
-//	
-//	// ½½·¹ÀÌ¾î ´øÁ¯¸Ê
-//	UI_STRING_MESSAGE_ASYLION_DUNGEON,				//"¾Æ½Ç¸®¿Â ´øÁ¯",
-//		// °¡Â¥
-//	UI_STRING_MESSAGE_TAKE_HELICOPTER,				//"Çï±â Å¾½Â",
-//	UI_STRING_MESSAGE_TAKE_ELIVATOR,				//"¿¤¸®º£ÀÌÅÍ",
-//	UI_STRING_MESSAGE_UNKNOW,						// "¾Ë ¼ö ¾øÀ½",
 
 	// Accelerator Name
 	UI_STRING_MESSAGE_ACCELERATOR_NULL,				//"AcceleratorNULL",
@@ -813,13 +731,12 @@ enum GAME_STRINGID
 	UI_STRING_MESSAGE_ITEM_TYPE_NORMAL,					//"ÀÏ¹Ý ¾ÆÀÌÅÛ",
 	UI_STRING_MESSAGE_ITEM_TYPE_SPECIAL,				//"Æ¯¼ö ¾ÆÀÌÅÛ",
 	UI_STRING_MESSAGE_ITEM_TYPE_MISTERIOUS,				//"¾Ë¼ö¾ø´Â ¾ÆÀÌÅÛ",
-		
+	
+	
 	// Storage
 	UI_STRING_MESSAGE_STORAGE_FIRST,					//"Ã¹¹øÂ° º¸°üÇÔ",
 	UI_STRING_MESSAGE_STORAGE_SECOND,					//"µÎ¹øÂ° º¸°üÇÔ",
 	UI_STRING_MESSAGE_STORAGE_THIRD,					//"¼¼¹øÂ° º¸°üÇÔ",
-	UI_STRING_MESSAGE_STORAGE_FOURTH,					//"³×¹øÂ° º¸°üÇÔ",
-	UI_STRING_MESSAGE_STORAGE_FIVE,						//"´Ù¼¸¹øÂ° º¸°üÇÔ",		
 	UI_STRING_MESSAGE_BRING_MONEY_FROM_STORAGE,			//"µ·À» Ã£½À´Ï´Ù."
 
 	// Char Manager
@@ -1992,6 +1909,11 @@ enum GAME_STRINGID
 	UI_STRING_MESSAGE_PERSONAL_STORE,//] = "°³ÀÎ »óÁ¡";
 	UI_STRING_MESSAGE_POWER_JJANG,//] = "ÆÄ¿öÂ¯";
 
+	//add by viva for NONKOWNMESSAGE
+	UI_STRING_MESSAGE_NONKOWN1,//×°±¸ÉÌ³ÇµÀ¾ß
+	UI_STRING_MESSAGE_NONKOWN2,//¹ºÂòÉÌ³ÇµÀ¾ß
+	//end
+
 	UI_STRING_MESSAGE_SELL_MONEY_IN_DIALOG,	  //	{  "¾ÆÀÌÅÛ ÆÈ °¡°ÝÀ» ÀÔ·ÂÇÏ¼¼¿ä." } ,
 	UI_STRING_MESSAGE_PERSNALSHOP_MESSAGE,	  //	{  "¾ÆÀÌÅÛ ±¤°í¸Þ¼¼Áö " } ,
 	UI_STRING_MESSAGE_PERSNALSHOP_OK,	  //	    "°³ÀÎ»óÁ¡À» ¿ÀÇÂÇÕ´Ï´Ù."
@@ -2081,48 +2003,33 @@ enum GAME_STRINGID
 	UI_STRING_MESSAGE_CANNOT_USE_HIGH_GRADE,//] = "6±Þ ÀÌ»ó ¾ÆÀÌÅÛÀº ÀÎÃ¦Æ® ÇÒ ¼ö ¾ø½À´Ï´Ù.";
 	UI_STRING_MESSAGE_CANNOT_USE_ADVANCEMENT_ITEM,//] = "½ÂÁ÷ Àü¿ë ¾ÆÀÌÅÛÀº ÀÎÃ¦Æ® ÇÒ ¼ö ¾ø½À´Ï´Ù.";
 	UI_STRING_MESSAGE_CANNOT_USE_OVER_TWO_OPTION,//] = "¿É¼ÇÀÌ 2°³ ÀÌ»óÀÎ ¾ÆÀÌÅÛÀº ÀÎÃ¦Æ® ÇÒ ¼ö ¾ø½À´Ï´Ù.";
-
-	UI_STRING_MESSAGE_WEDDING_CONTRIBUTION_REQUEST,//] = "ÃàÀÇ±Ý ±Ý¾×À» Á÷Á¢ ³Ö¾îÁÖ¼¼¿ä.(±Ý¾× 10,000 ´ÜÀ§ / ÃÖ¼Ò 10,000 ~ ÃÖ´ë 100,000 ).";
-	UI_STRING_MESSAGE_WEDDING_CONTRIBUTION_THANKS,//] = "°¨»çÇÕ´Ï´Ù. Àß Àü´ÞÇØ µå¸®°Ú½À´Ï´Ù.";
-	UI_STRING_MESSAGE_WEDDING_CONTRIBUTION_FAIL,//] = "±âºÎÀÚ ¸í´Ü¿¡ ÀÖ±º¿ä. Áßº¹ÇÏ¿© ±âºÎµÇÁö ¾Ê½À´Ï´Ù.";
-	UI_STRING_MESSAGE_NETMARBLE_AGREEMENT, // ³Ý¸¶ºí ¾à°ü µ¿ÀÇ ¸Þ½ÃÁö
-	UI_STRING_MESSAGE_I_AGREE, // À§ ³»¿ë¿¡ µ¿ÀÇÇÕ´Ï´Ù.
-	UI_STRING_MESSAGE_CAN_NOT_CONNECT_AGREEMENT,
-	UI_STRING_MESSAGE_USE_ADVANCEMENTCLASS, //½ÂÁ÷ÇÏÁö ¾ÊÀº ÄÉ·ºÅÍ´Â »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.
-	UI_STRING_MESSAGE_USE_NOTADVANCEMENTCLASS , //99ÀÌÇÏ³ª Ä³¸¯ÅÍ³ª ½ÂÁ÷Ä³·ºÅÍ´Â »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.
-	UI_STRING_MESSAGE_ADD_COLOR,// ÀÌ¹Ì Àû¿ëµÈ »ö»ó ÀÔ´Ï´Ù
-	UI_STRING_MESSAGE_EFFECT_APPLY,//È¿°ú°¡ Àû¿ëµÇ¾ú½À´Ï´Ù
-
-	UI_STRING_MESSAGE_SCROLL_EFFECT_ITEMDEL,//Æ÷½º ½ºÅ©·Ñ È¿°ú°¡ »ç¶óÁø ÈÄ ÀÌ¿ë °¡´ÉÇÕ´Ï´Ù
-	UI_STRING_MESSAGE_USE_ITEM_DEL,//ÇÑ¹ø »ç¿ëÇÏ¸é ÇØ´ç ¾ÆÀÌÅÛÀº »ç¶óÁö°Ô µË´Ï´Ù.»ç¿ëÇÏ½Ã°Ú½À´Ï±î?
-	UI_STRING_MESSAGE_NOTUSE_ITEM,//»ç¿ëÇÒ ¼ö ¾ø´Â Á¾·ùÀÇ ¾ÆÀÌÅÛÀÔ´Ï´Ù
-
-	UI_STRING_MESSAGE_PORTAL_ITEM_DESC,//»ç¿ëÇÒ ¶§ ¸¶´Ù ÀÏÁ¤ °Öµå°¡ ¼ÒºñµË´Ï´Ù.";
-	UI_STRING_MESSAGE_PORTAL_ITEM_NOUSE,//°Öµå°¡ ºÎÁ·ÇØ¼­ ½Ç(Seal)À» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
-	UI_STRING_MESSAGE_CHARGE_DESC,//·¹º§¿¡ µû¶ó ÃæÀüºñ¿ëÀÌ ´Ù¸¨´Ï´Ù."
-	UI_STRING_MESSAGE_CHARGE_ITEM_NOUSE,//ÃæÀüÇÏ¿© »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù."
-
-	UI_STRING_MESSAGE_SUMMER_COMEBACK_LOGIN_AFTER,//"ÃàÇÏÇÕ´Ï´Ù! Summer COME BACK, 2005 ÀÌº¥Æ® ´ë»óÀÚÀÌ½Ê´Ï´Ù.\n\nÀÌº¥Æ®±â°£ ³» ·Î±×ÀÎ ½ÃÁ¡ºÎÅÍ 5ÀÏ°£ ÇÁ¸®¹Ì¾ö ÇýÅÃÀ» ¹ÞÀ» ¼ö ÀÖ´ä´Ï´Ù.\n\n¶ÇÇÑ ÀÌº¥Æ® ±â³ä ¾ÆÀÌÅÛµµ È¹µæÇÏ½Ç ¼ö ÀÖÀ¸´Ï ÇØ´ç Á¾Á·ÀÇNPC¸¦ Ã£¾Æ°¡½Ã±â ¹Ù¶ø´Ï´Ù.\n\n(´Ü, ÀÌº¥Æ® ¾ÆÀÌÅÛÀº ÇÑ °èÁ¤´ç ÇÑÄ³¸¯ÅÍ¿¡ ÇÑÇØ¼­¸¸ ¹ÞÀ» ¼ö ÀÖ½À´Ï´Ù.)\n\n*ÀÌº¥Æ®NPC\n\n½½·¹ÀÌ¾î: Å©¸®½ºÆ¾ (¼ºÁ÷ÀÚ±æµå1Ãþ)\n\n¹ìÆÄÀÌ¾î: ½ê¾² (¸²º¸¼º³»ºÎ)\n\n¾Æ¿ì½ºÅÍÁî: È£¶ó (¾Æ¿ì½ºÅÍÁî ¸¶À»³»ºÎ)\n\n";
-	UI_STRING_MESSAGE_SUMMER_COMEBACK_SETTLEMENT_AFTER,//"°áÁ¦°¡ ¼º°øÀûÀ¸·Î ÀÌ·ç¾îÁ³½À´Ï´Ù. ÀÌÁ¦ ÇÁ¸®¹Ì¾ö ÇýÅÃÀ» ¹ÞÀ¸½Ã¸é¼­ ´ÙÅ©¿¡µ§À» ´õ¿í Àç¹ÌÀÖ°Ô Áñ±â½Ç ¼ö ÀÖ°Ô µÇ¾ú½À´Ï´Ù.\n\nÀÌ¹ø ÀÌº¥Æ®¿¡ ´ëÇÑ º¸³Ê½º ÇýÅÃÀ¸·Î ´Ùµ§¸¶ÄÏ¿¡¼­ ÆÇ¸ÅÇÏ°í ÀÖ´Â ¿­·¦¼¼Æ®¸¦ ¼±¹°·Î µå¸®°í ÀÖ½À´Ï´Ù.\n\n(´Ü, ÀÌº¥Æ® ¾ÆÀÌÅÛÀº ÇÑ °èÁ¤´ç ÇÑÄ³¸¯ÅÍ¿¡ ÇÑÇØ¼­¸¸ ¹ÞÀ» ¼ö ÀÖ½À´Ï´Ù.)\n\n*ÀÌº¥Æ®NPC\n\n½½·¹ÀÌ¾î: Å©¸®½ºÆ¾ (¼ºÁ÷ÀÚ±æµå1Ãþ)\n\n¹ìÆÄÀÌ¾î: ½ê¾² (¸²º¸¼º³»ºÎ)\n\n¾Æ¿ì½ºÅÍÁî: È£¶ó (¾Æ¿ì½ºÅÍÁî ¸¶À»³»ºÎ)\n\n±×·³ ¿­·¦¼¼Æ® ¾ÆÀÌÅÛÀ» ÀÔ°í ´ÙÅ©¿¡µ§À» 200% Áñ°Üº¸¼¼¿ä.\n\n";
-	UI_STRING_MESSAGE_SUMMER_COMEBACK_RECOMMENDER	,//ÃàÇÏÇÕ´Ï´Ù. Summer COME BACK, 2005 ÀÌº¥Æ® ´ë»óÀÚ·ÎºÎÅÍ ÃßÃµ ¹ÞÀ¸¼Ì½À´Ï´Ù.\n\nÃßÃµÀÎ¿¡°Ô´Â ¼ÒÁ¤ÀÇ ¼±¹°ÀÌ ÁÖ¾îÁö´Ï ÀÌº¥Æ® NPC¸¦ Ã£¾Æ°¡¼­ ¹ÞÀ¸½Ã±â ¹Ù¶ø´Ï´Ù.\n\n(´Ü, ÀÌº¥Æ® ¾ÆÀÌÅÛÀº ÇÑ °èÁ¤´ç ÇÑÄ³¸¯ÅÍ¿¡ ÇÑÇØ¼­¸¸ ¹ÞÀ» ¼ö ÀÖ½À´Ï´Ù.)\n\n*ÀÌº¥Æ®NPC\n\n½½·¹ÀÌ¾î: Å©¸®½ºÆ¾ (¼ºÁ÷ÀÚ±æµå1Ãþ)\n\n¹ìÆÄÀÌ¾î: ½ê¾² (¸²º¸¼º³»ºÎ)\n\n¾Æ¿ì½ºÅÍÁî: È£¶ó (¾Æ¿ì½ºÅÍÁî ¸¶À»³»ºÎ)\n\n°¨»çÇÕ´Ï´Ù.";
-
-	UI_STRING_MESSAGE_BLOOD_BURST_ATTACK , 
-	UI_STRING_MESSAGE_BLOOD_BURST_DEFENSE , 
-	UI_STRING_MESSAGE_BLOOD_BURST_PARTY , 
-
-	UI_STRING_MESSAGE_PET_ATTRIBUTE_CLEANER_POTION,
-	UI_STRING_MESSAGE_NOT_PET_ATTRIBUTE_CLEANER_POTION,
-	UI_STRING_MESSAGE_MASK_OF_MONSTER,
-	UI_STRING_MESSAGE_MAGICAL_PET_CHANGER,
-	UI_STRING_MESSAGE_ORNAMENTS_ITEM,
-	UI_STRING_MESSAGE_GRADE_SKILL_CLEANER_POTION,
-	UI_STRING_MESSAGE_NOT_ADD_MULTIPACK4X6,
-	UI_STRING_MESSAGE_MAGICAL_PET_CHANGER_ACTIVE , 
-	UI_STRING_MESSAGE_ITEM_STRENGTHENING,
-	
-	UI_STRING_MESSAGE_CHILDGUARD_DENYED_NOTUSE ,
-
+	STRING_ERROR_IP_DENY,
+	UI_STRING_MESSAGE_CHECK_VERSION_ERROR,
+	STRING_STATUS_NOT_FIND_SKILL_CRAD,
+	UI_STRING_MESSAGE_SYSTEM,
+	UI_STRING_MESSAGE_PLAYER_SAY,
+	UI_STRING_NO_ITEM_MESSAGE,				//Ã»ÓÐÎïÆ·
+	//add by viva : friend button description
+	UI_STRING_MESSAGE_FRIEND,
+	UI_STRING_MESSAGE_FRIEND_LIST,
+	UI_STRING_MESSAGE_FRIEND_BLACKLIST,
+	UI_STRING_MESSAGE_FRIEND_TAG,
+	UI_STRING_MESSAGE_FRIEND_UP,
+	UI_STRING_MESSAGE_FRIEND_DOWN,
+	UI_STRING_MESSAGE_FRIEND_FIND,
+	UI_STRING_MESSAGE_FRIEND_ADD,
+	UI_STRING_MESSAGE_FRIEND_SETUP,
+	//add by viva : ask_friend_dialog
+	UI_STRING_ASK_FRIEND_REQUEST,
+	UI_STRING_ASK_FRIEND_REFUSE,
+	UI_STRING_ASK_FRIEND_WAIT,
+	UI_STRING_ASK_FRIEND_EXSIT,
+	UI_STRING_ASK_FRIEND_BLACK,
+	UI_STRING_ASK_FRIEND_DELETE,
+	//end
 	MAX_GAME_STRING,
 };
+
+
 
 #endif

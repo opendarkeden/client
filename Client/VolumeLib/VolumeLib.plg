@@ -6,6 +6,19 @@
 --------------------Configuration: VolumeLib - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSP25A6.tmp" with contents
+[
+/nologo /MT /W3 /GX /O1 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "__TEST_SUB_INVENTORY__" /Fp"Release/VolumeLib.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\Game(800)\designed\project\Client\VolumeLib\VolumeOutMaster.cpp"
+"C:\Game(800)\designed\project\Client\VolumeLib\VolumeOutWave.cpp"
+]
+Creating command line "cl.exe @C:\Users\genius\AppData\Local\Temp\RSP25A6.tmp" 
+Creating command line "link.exe -lib /nologo /out:"Release\Volume.lib"  ".\Release\VolumeOutMaster.obj" ".\Release\VolumeOutWave.obj" "
+<h3>Output Window</h3>
+Compiling...
+VolumeOutMaster.cpp
+VolumeOutWave.cpp
+Creating library...
 
 
 

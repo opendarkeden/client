@@ -90,7 +90,7 @@ extern CNPGameLib npgl;
 extern MScreenEffectManager*	g_pInventoryEffectManager;
 extern DWORD	g_PreviousCreatureType;
 
-extern bool FileOpenBinary(const char* filename, ifstream& file);
+extern bool FileOpenBinary(const char* filename, class ifstream& file);
 
 extern BOOL g_bSetHotKey;
 
@@ -178,22 +178,34 @@ InitPacketItemTable()
 	//------------------------------------------------------------
 	MHelm* pHelm1 = new MHelm;	 pHelm1->SetItemType( 0 ); pHelm1->ClearItemOption(); 
 	MHelm* pHelm2 = new MHelm;	 pHelm2->SetItemType( 3 ); pHelm2->ClearItemOption();
+	MHelm* pHelm3 = new MHelm;	 pHelm3->SetItemType( 15 ); pHelm3->ClearItemOption();//by viva  //15
+	MHelm* pHelm4 = new MHelm;	 pHelm4->SetItemType( 16 ); pHelm4->ClearItemOption();//by viva  //16
+	MHelm* pHelm5 = new MHelm;	 pHelm5->SetItemType( 17 ); pHelm5->ClearItemOption();//by viva  //17
 
 	g_pPacketItemHelm[HELMET_NONE]	= NULL;
 	g_pPacketItemHelm[HELMET1]		= pHelm1;
 	g_pPacketItemHelm[HELMET2]		= pHelm2;
+	g_pPacketItemHelm[HELMET3]		= pHelm3;//by viva
+	g_pPacketItemHelm[HELMET4]		= pHelm4;//by viva
+	g_pPacketItemHelm[HELMET5]		= pHelm5;//by viva
 
 	//------------------------------------------------------------
 	// COAT
 	//------------------------------------------------------------
-	MCoat* pCoat1 = new MCoat;	pCoat1->SetItemType( 0 ); pCoat1->ClearItemOption();
+	MCoat* pCoat1 = new MCoat;	pCoat1->SetItemType( 0 );	pCoat1->ClearItemOption();
 	MCoat* pCoat2 = new MCoat;	pCoat2->SetItemType( 4 );	pCoat2->ClearItemOption();
 	MCoat* pCoat3 = new MCoat;	pCoat3->SetItemType( 8 );	pCoat3->ClearItemOption();
+	MCoat* pCoat4 = new MCoat;	pCoat4->SetItemType( 28 );	pCoat4->ClearItemOption();//add by viva //28 29
+	MCoat* pCoat5 = new MCoat;	pCoat5->SetItemType( 30 );	pCoat5->ClearItemOption();//add by viva //30 31
+	MCoat* pCoat6 = new MCoat;	pCoat6->SetItemType( 32 );	pCoat6->ClearItemOption();//add by viva //32 33
 
 	g_pPacketItemJacket[JACKET_BASIC]	= NULL;	// pCoat1
 	g_pPacketItemJacket[JACKET1]		= pCoat1;
 	g_pPacketItemJacket[JACKET2]		= pCoat2;
 	g_pPacketItemJacket[JACKET3]		= pCoat3;
+	g_pPacketItemJacket[JACKET4]		= pCoat4;	//add by viva
+	g_pPacketItemJacket[JACKET5]		= pCoat5;	//add by viva
+	g_pPacketItemJacket[JACKET6]		= pCoat6;	//add by viva
 
 	//------------------------------------------------------------
 	// TROUSER
@@ -211,35 +223,72 @@ InitPacketItemTable()
 	// WEAPON
 	//------------------------------------------------------------
 	MSword*	pSword = new MSword;	pSword->SetItemType( 0 );	pSword->ClearItemOption();
+	MSword*	pSword1 = new MSword;	pSword1->SetItemType( 16 );	pSword1->ClearItemOption();//by viva //16 17 18
+
 	MBlade*	pBlade = new MBlade;	pBlade->SetItemType( 0 );	pBlade->ClearItemOption();
+	MBlade*	pBlade1 = new MBlade;	pBlade1->SetItemType( 16 );	pBlade1->ClearItemOption();//by viva //16 17 18
+
 	MGunAR*	pGunAR = new MGunAR;	pGunAR->SetItemType( 0 );	pGunAR->ClearItemOption();
+	MGunAR*	pGunAR1 = new MGunAR;	pGunAR1->SetItemType( 14 );	pGunAR1->ClearItemOption();//by viva //14
+	MGunAR*	pGunAR2 = new MGunAR;	pGunAR2->SetItemType( 15 );	pGunAR2->ClearItemOption();//by viva //15
+	MGunAR*	pGunAR3 = new MGunAR;	pGunAR3->SetItemType( 16 );	pGunAR3->ClearItemOption();//by viva //16 17 18
+
 	MGunTR*	pGunSR = new MGunTR;	pGunSR->SetItemType( 0 );	pGunSR->ClearItemOption();
+	MGunTR*	pGunSR1 = new MGunTR;	pGunSR1->SetItemType( 14 );	pGunSR1->ClearItemOption();//by viva //14
+	MGunTR*	pGunSR2 = new MGunTR;	pGunSR2->SetItemType( 15 );	pGunSR2->ClearItemOption();//by viva //15
+	MGunTR*	pGunSR3 = new MGunTR;	pGunSR3->SetItemType( 16 );	pGunSR3->ClearItemOption();//by viva //16 17 18
+
 	MGunSG*	pGunSG = new MGunSG;	pGunSG->SetItemType( 0 );	pGunSG->ClearItemOption();
+
 	MGunSMG*pGunSMG = new MGunSMG;	pGunSMG->SetItemType( 0 );	pGunSMG->ClearItemOption();
+
 	MCross*	pCross = new MCross;	pCross->SetItemType( 0 );	pCross->ClearItemOption();
+	MCross*	pCross1 = new MCross;	pCross1->SetItemType( 14 );	pCross1->ClearItemOption();//by viva //14 15 16
+
 	MMace*  pMace  = new MMace;     pMace->SetItemType( 0 );	pMace->ClearItemOption();
+	MMace*  pMace1  = new MMace;     pMace1->SetItemType( 14 );	pMace1->ClearItemOption();//by viva //14 15 16
 
 	g_pPacketItemWeapon[WEAPON_NONE]			= NULL;
 	g_pPacketItemWeapon[WEAPON_SWORD]			= pSword;
+	g_pPacketItemWeapon[WEAPON_SWORD1]			= pSword1;//by viva
+
 	g_pPacketItemWeapon[WEAPON_BLADE]			= pBlade;
+	g_pPacketItemWeapon[WEAPON_BLADE1]			= pBlade1;//by viva
+
 	//g_pPacketItemWeapon[WEAPON_SHIELD]			= NULL;
 	//g_pPacketItemWeapon[WEAPON_SWORD_SHIELD]	= pSword;
 	g_pPacketItemWeapon[WEAPON_AR]				= pGunAR;
+	g_pPacketItemWeapon[WEAPON_AR1]				= pGunAR1;//by viva
+	g_pPacketItemWeapon[WEAPON_AR2]				= pGunAR2;//by viva
+	g_pPacketItemWeapon[WEAPON_AR3]				= pGunAR3;//by viva
+
 	g_pPacketItemWeapon[WEAPON_SR]				= pGunSR;
+	g_pPacketItemWeapon[WEAPON_SR1]				= pGunSR1;//by viva
+	g_pPacketItemWeapon[WEAPON_SR2]				= pGunSR2;//by viva
+	g_pPacketItemWeapon[WEAPON_SR3]				= pGunSR3;//by viva
+
 	g_pPacketItemWeapon[WEAPON_SG]				= pGunSG;
 	g_pPacketItemWeapon[WEAPON_SMG]				= pGunSMG;
+
 	g_pPacketItemWeapon[WEAPON_CROSS]			= pCross;	
+	g_pPacketItemWeapon[WEAPON_CROSS1]			= pCross1;//by viva
+
 	g_pPacketItemWeapon[WEAPON_MACE]			= pMace;
+	g_pPacketItemWeapon[WEAPON_MACE1]			= pMace1;//by viva
 
 	//------------------------------------------------------------
 	// SHIELD
 	//------------------------------------------------------------
 	MShield* pShield1 = new MShield; pShield1->SetItemType( 0 ); pShield1->ClearItemOption();
 	MShield* pShield2 = new MShield; pShield2->SetItemType( 5 ); pShield2->ClearItemOption();
+	MShield* pShield3 = new MShield; pShield3->SetItemType( 15 ); pShield3->ClearItemOption();//by viva //15 16
+	MShield* pShield4 = new MShield; pShield4->SetItemType( 17 ); pShield4->ClearItemOption();//by viva //17
 
 	g_pPacketItemShield[SHIELD_NONE] = NULL;
 	g_pPacketItemShield[SHIELD1] = pShield1;
 	g_pPacketItemShield[SHIELD2] = pShield2;
+	g_pPacketItemShield[SHIELD3] = pShield3;//by viva
+	g_pPacketItemShield[SHIELD4] = pShield4;//by viva
 	
 	//------------------------------------------------------------
 	// motorcycle
@@ -259,12 +308,11 @@ InitPacketItemTable()
 	//------------------------------------------------------------
 	// shouler
 	//------------------------------------------------------------
-	
-	//Start 이유 Global 변수와 같은 이름을 사용 해서 메모리가 삭제되지 않음
-	//MItem*		g_pPacketItemShoulder[SHOULDER_MAX] = { NULL, };
-	//2005. 04.13 둘리 End
 
+	MItem*		g_pPacketItemShoulder[SHOULDER_MAX] = { NULL, };
+	
 	MShoulderArmor* pShoulder1 = new MShoulderArmor;	pShoulder1->SetItemType( 0 ); pShoulder1->ClearItemOption();
+
 	g_pPacketItemShoulder[SHOULDER_NONE]	= NULL;
 	g_pPacketItemShoulder[SHOULDER1]		= pShoulder1;
 	
@@ -479,7 +527,7 @@ SetGoreLevel(bool bGoreLevel)
 			//-----------------------------------
 			// Load From File
 			//-----------------------------------
-			ifstream actionInfoFile2;//(FILE_INFO_ACTION, std::ios::binary);
+			class ifstream actionInfoFile2;//(FILE_INFO_ACTION, ios::binary);
 			if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_ACTION").c_str(), actionInfoFile2))
 				return;
 
@@ -875,6 +923,7 @@ SetAddonToSlayer(MCreatureWear* pCreature, const PCSlayerInfo3* pInfo)
 	// 복장
 	//----------------------------------------	
 	MItem* pCoat		= g_pPacketItemJacket[pInfo->getJacketType()];
+//	MItem* pCoat		= g_pPacketItemJacket[JACKET_BASIC];//by viva
 	MItem* pTrouser		= g_pPacketItemPants[pInfo->getPantsType()];
 	MItem* pHelm		= g_pPacketItemHelm[pInfo->getHelmetType()];
 	MItem* pWeapon		= g_pPacketItemWeapon[pInfo->getWeaponType()];
@@ -2789,15 +2838,6 @@ SetPCSlayerInfo(PCSlayerInfo2* pInfo)
 	g_pPlayer->SetStatus( MODIFY_RANK_EXP_REMAIN, pInfo->getRankExp() );
 	g_pPlayer->SetStatus( MODIFY_ADVANCEMENT_CLASS_LEVEL, pInfo->getAdvancementLevel() );
 
-	
-	// Sjheon 2005.08.02 Add
-	g_pPlayer->SetStatus( MODIFY_ATTACK_BLOOD_BURST_POINT, pInfo->getAttackBloodBurstPoint() );
-	g_pPlayer->SetStatus( MODIFY_DEFENSE_BLOOD_BURST_POINT, pInfo->getDefenseBloodBurstPoint() );
-	g_pPlayer->SetStatus( MODIFY_PARTY_BLOOD_BURST_POINT, pInfo->getPartyBloodBurstPoint() );
-	//UI_SetBloodBurstSetGage() ; 
-	// Sjheon 2005.08.02 End
-	
-
 	// 2005, 1, 18, sobeit add start - 승직 슬레는 보너스 포인트가 있다.
 	int Bonus	= pInfo->getAttrBonus();
 	g_pPlayer->SetStatus( MODIFY_BONUS_POINT, Bonus);
@@ -2933,6 +2973,7 @@ SetPCVampireInfo(PCVampireInfo2* pInfo)
 		if (pInfo->getCompetence()==0)
 		{
 			g_pPlayer->SetCompetence( 0 );
+			// edit by Coffee 2006.11.5
 			g_pPlayer->SetCreatureType( CREATURETYPE_VAMPIRE_OPERATOR );
 			g_pPlayer->SetMale( pInfo->getSex()==MALE );
 		}
@@ -3101,15 +3142,6 @@ SetPCVampireInfo(PCVampireInfo2* pInfo)
 	g_pPlayer->SetStatus( MODIFY_RANK, pInfo->getRank() );
 	g_pPlayer->SetStatus( MODIFY_RANK_EXP_REMAIN, pInfo->getRankExp() );
 	g_pPlayer->SetStatus( MODIFY_ADVANCEMENT_CLASS_LEVEL, pInfo->getAdvancementLevel() );
-
-	
-	// Sjheon 2005.08.02 Add
-	g_pPlayer->SetStatus( MODIFY_ATTACK_BLOOD_BURST_POINT, pInfo->getAttackBloodBurstPoint() );
-	g_pPlayer->SetStatus( MODIFY_DEFENSE_BLOOD_BURST_POINT, pInfo->getDefenseBloodBurstPoint() );
-	g_pPlayer->SetStatus( MODIFY_PARTY_BLOOD_BURST_POINT, pInfo->getPartyBloodBurstPoint() );
-	// Sjheon 2005.08.02 End
-
-	
 
 	//g_pPlayer->SetStatus( MODIFY_STR_EXP, STR_EXP);
 	//g_pPlayer->SetStatus( MODIFY_DEX_EXP, DEX_EXP);
@@ -3375,14 +3407,6 @@ SetPCOustersInfo(PCOustersInfo2* pInfo)
 	g_pPlayer->SetStatus( MODIFY_RANK_EXP_REMAIN, pInfo->getRankExp() );
 	g_pPlayer->SetStatus( MODIFY_ADVANCEMENT_CLASS_LEVEL, pInfo->getAdvancementLevel() );	
 
-	
-	// Sjheon 2005.08.02 Add
-	g_pPlayer->SetStatus( MODIFY_ATTACK_BLOOD_BURST_POINT, pInfo->getAttackBloodBurstPoint() );
-	g_pPlayer->SetStatus( MODIFY_DEFENSE_BLOOD_BURST_POINT, pInfo->getDefenseBloodBurstPoint() );
-	g_pPlayer->SetStatus( MODIFY_PARTY_BLOOD_BURST_POINT, pInfo->getPartyBloodBurstPoint() );
-	// Sjheon 2005.08.02 End
-	
-
 	//g_pPlayer->SetStatus( MODIFY_STR_EXP, STR_EXP);
 	//g_pPlayer->SetStatus( MODIFY_DEX_EXP, DEX_EXP);
 	//g_pPlayer->SetStatus( MODIFY_INT_EXP, INT_EXP);	
@@ -3565,8 +3589,11 @@ PopupErrorMessage(ErrorID errorID)
 			g_pUIDialog->PopupFreeMessageDlg((*g_pGameStringTable)[STRING_ERROR_LOGIN_DENY].GetString(), -1,-1,UI_DIALOG_OK, true);
 			break;
 		case IP_DENYED:
-			g_pUIDialog->PopupFreeMessageDlg("You can't play this. Play your country version, Please.", -1,-1,UI_DIALOG_OK, true);
+//			g_pUIDialog->PopupFreeMessageDlg("퀭쏟莖돨댄轎되쩌늴鑒법뜩샀賈痰죄렷랬棍밈넋埼，헝瞳24鬼珂빈疼되쩌", -1,-1,UI_DIALOG_OK, true);
+			g_pUIDialog->PopupFreeMessageDlg((*g_pGameStringTable)[STRING_ERROR_IP_DENY].GetString(), -1,-1,UI_DIALOG_OK, true);
 			break;
+		case CHECK_VERSION_ERROR:
+			g_pUIDialog->PopupFreeMessageDlg((*g_pGameStringTable)[UI_STRING_MESSAGE_CHECK_VERSION_ERROR].GetString(), -1,-1,UI_DIALOG_OK, true);
 		default : //case ETC_ERROR : 
 				g_pUIDialog->PopupFreeMessageDlg((*g_pGameStringTable)[STRING_ERROR_ETC_ERROR].GetString());
 				
@@ -3606,6 +3633,39 @@ SetServerName( const char* pName )
 //-----------------------------------------------------------------------------
 // Potion사용
 //-----------------------------------------------------------------------------
+
+bool UseSkillCardOK(BYTE CardType)
+{
+	MItem* pItem = NULL;
+	if(g_pPlayer->IsSlayer())
+		pItem = g_pInventory->FindItem(ITEM_CLASS_MOON_CARD, 5);
+	else if(g_pPlayer->IsOusters())
+		pItem = g_pInventory->FindItem(ITEM_CLASS_MOON_CARD, 7);
+	else if(g_pPlayer->IsVampire())
+		pItem = g_pInventory->FindItem(ITEM_CLASS_MOON_CARD, 6);
+	if(pItem!=NULL)
+	{
+		if(CardType == 1) // TimeLimitItem
+		{
+
+		}
+		else	//NonLimit
+		{
+			pItem->SetNumber( max(0, pItem->GetNumber() - 1) );
+			if(pItem->GetNumber() == 0)
+			{
+				g_pInventory->RemoveItem( (TYPE_OBJECTID)pItem->GetID() );
+
+				UI_RemoveDescriptor( (void*)pItem );
+
+				delete pItem;	
+			}
+		}
+	}
+	else
+		return false;
+	return true;
+}
 bool
 UseItemOK()
 {
@@ -3688,7 +3748,11 @@ UseItemOK()
 		if (status==MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY)			
 		{			
 			// Item Check Buffer를 지운다.
+			
+		#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 			DWORD SubInvetoryID = g_pPlayer->GetItemIDCheckBufferSubInventory();
+		#endif
+
 			g_pPlayer->ClearItemCheckBuffer();
 
 			//-------------------------------------------------
@@ -3712,7 +3776,8 @@ UseItemOK()
 			//-------------------------------------------------
 			// 사용하는 아이템인 경우는 숫자를 줄인다.
 			//-------------------------------------------------
-			if ((pItem->IsChargeItem() || pItem->IsPileItem())  && (pItem->GetItemClass() != ITEM_CLASS_VAMPIRE_PORTAL_ITEM))
+			if (pItem->IsChargeItem() 
+				|| pItem->IsPileItem())
 			{
 				pItem->SetNumber( max(0, pItem->GetNumber() - 1) );
 			}
@@ -3812,32 +3877,23 @@ UseItemOK()
 					g_pPlayer->SetBatColor( colorset_list[myColor] );
 					UI_PopupMessage( STRING_MESSAGE_SUCCESS_CHANGED_BAT_COLOR );
 				}
-				else if( ItemType >= 58 && ItemType <= 61 )
+				else if( ItemType >= 58 && ItemType <= 62 )
 				{
 					if(ItemType == 61)
 						g_pPlayer->ChangeMasterEffectType(0);
 					else
 						g_pPlayer->ChangeMasterEffectType(ItemType - 57);
-					UI_PopupMessage( UI_STRING_MESSAGE_EFFECT_APPLY );
-					//UI_PopupMessage( STRING_MESSAGE_SUCCESS_CHANGE );
+					UI_PopupMessage( STRING_MESSAGE_SUCCESS_CHANGE );
+				}
 
-				}
-				else if( ItemType >= 62 && ItemType <= 63 )
-				{
-					// sjheon	2005.05.16
-					if(ItemType == 63)
-						g_pPlayer->ChangeMasterEffectType(0);
-					else
-						g_pPlayer->ChangeMasterEffectType(4);
-					UI_PopupMessage( UI_STRING_MESSAGE_EFFECT_APPLY );
-					// sjheon	2005.05.16
-				}
 			}
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 			else if(pItem->GetItemClass() == ITEM_CLASS_SUB_INVENTORY )
 			{
 				// sub inventory 처리는 GCSubInventoryInfo에서 한다.
 				g_pPlayer->SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
 			}
+	#endif
 			// 2004, 6, 18 sobeit add start - naming pet used
 //			if(pItem->GetItemClass() == ITEM_CLASS_EVENT_GIFT_BOX )
 //			{
@@ -3854,8 +3910,9 @@ UseItemOK()
 				|| pItem->IsChargeItem() && pItem->GetNumber()>0
 				|| pItem->GetItemClass()==ITEM_CLASS_SLAYER_PORTAL_ITEM
 				|| pItem->GetItemClass()==ITEM_CLASS_OUSTERS_SUMMON_ITEM
-				|| pItem->GetItemClass()==ITEM_CLASS_PET_ITEM
-				|| pItem->GetItemClass()==ITEM_CLASS_SUB_INVENTORY)
+				|| pItem->GetItemClass()==ITEM_CLASS_PET_ITEM)
+				//add by zdj
+				//|| pItem->GetItemClass()==ITEM_CLASS_SUB_INVENTORY)
 			{
 			}
 			//-------------------------------------------------
@@ -3863,6 +3920,8 @@ UseItemOK()
 			//-------------------------------------------------
 			else
 			{
+				#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+
 				if(SubInvetoryID != 0 && SubInvetoryID != OBJECTID_NULL)
 				{
 					MSubInventory* SubInventoryItem = (MSubInventory*)g_pInventory->GetItem(SubInvetoryID);
@@ -3887,6 +3946,18 @@ UseItemOK()
 					// memory에서 제거
 					delete pItem;			
 				}
+				#else
+					// inventory에서 제거
+					g_pInventory->RemoveItem( (TYPE_OBJECTID)pItem->GetID() );
+
+					// item정보 제거
+					UI_RemoveDescriptor( (void*)pItem );
+
+					// memory에서 제거
+					delete pItem;	
+
+				#endif
+		
 			}
 		
 		}
@@ -4123,6 +4194,9 @@ NewFakeCreature(MCreature* pCreature, int x, int y)
 	pFakeCreature->SetWeaponSpeed( pCreature->GetWeaponSpeed() );
 	pFakeCreature->SetBasicActionInfo( pCreature->GetBasicActionInfo() );
 	pFakeCreature->SetSpecialActionInfo( pCreature->GetSpecialActionInfo() );
+
+	// add by Coffee
+	//pFakeCreature->SetCreatureType(pFakeCreature->GetCreatureType());
 
 	return pFakeCreature;
 }
@@ -4675,9 +4749,12 @@ SkillIllendue(MCreature* pUserCreature, MCreature* pTargetCreature, int skillID)
 		{ -2, 0 },
 		{ 0, -2 },
 	};
-
-	POINT *Position = (pUserCreature->GetDirection() & 0x1) ? Diagonal : Straight;
 	
+	POINT *Position = (pUserCreature->GetDirection() & 0x1) ? Diagonal : Straight;
+	if (skillID ==TEMP_SKILL_ILLUSION_INVERSION)
+	{
+		Position = Straight;	
+	}
 	for (int i=0; i<4; i++)
 	{	
 		//MFakeCreature* pFakeCreature = NewFakeCreature( pUserCreature, pTargetCreature->GetX() + Position[i].x, pTargetCreature->GetY() + Position[i].y);
@@ -4692,7 +4769,8 @@ SkillIllendue(MCreature* pUserCreature, MCreature* pTargetCreature, int skillID)
 		//------------------------------------------------------
 		// 잔상 한번 보여주고 사라지게 설정
 		//------------------------------------------------------
-		//pFakeCreature->SetFakeCreatureType( MFakeCreature::FAKE_CREATURE_BRIGHTNESS );						
+		//pFakeCreature->SetFakeCreatureType( MFakeCreature::FAKE_CREATURE_BRIGHTNESS );	
+		
 		pFakeCreature->SetFakeCreatureType( MFakeCreature::FAKE_CREATURE_FAST_MOVE_ACTION );
 
 		//------------------------------------------------------
@@ -4917,10 +4995,6 @@ SetPetInfo(PetInfo* pPetInfo, TYPE_OBJECTID objectID)
 				if(pFakeCreature != NULL)
 				{
 					g_pZone->RemoveFakeCreature(pCreature->GetPetID());
-					if(pCreature == g_pPlayer)	// 자기 펫인 경우
-					{
-						UI_RemoveEffectStatus(EFFECTSTATUS_CLIENT_MAGICAL_PET_CHANGER) ; 
-					}
 				}
 				else
 				{
@@ -4940,6 +5014,8 @@ SetPetInfo(PetInfo* pPetInfo, TYPE_OBJECTID objectID)
 
 			if(pCreature == g_pPlayer)		// 자기 펫인 경우
 			{
+
+			#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 				DWORD SubInvetoryID = g_pPlayer->GetItemIDCheckBufferSubInventory();
 				if(SubInvetoryID != 0 && SubInvetoryID != OBJECTID_NULL)
 				{
@@ -4956,6 +5032,11 @@ SetPetInfo(PetInfo* pPetInfo, TYPE_OBJECTID objectID)
 
 				//	pItem = dynamic_cast<MPetItem *>(g_pInventory->GetItemToModify(itemID));
 				}
+			#else
+				pItem = dynamic_cast<MPetItem *>(g_pInventory->GetItemToModify(itemID));
+			#endif
+
+
 			}
 			else
 			{
@@ -5056,7 +5137,6 @@ SetPetInfo(PetInfo* pPetInfo, TYPE_OBJECTID objectID)
 					int dir = rand()%8;
 					pFakeCreature = NewFakeCreature(pPetInfo->getPetCreatureType(), p.x, p.y, dir );
 
-
 					//------------------------------------------------------
 					// Fake Creature를 Zone에 추가
 					//------------------------------------------------------
@@ -5147,19 +5227,8 @@ SetPetInfo(PetInfo* pPetInfo, TYPE_OBJECTID objectID)
 						if(pCreature == g_pPlayer)	// 자기 펫인 경우
 						{
 							g_pSystemMessage->AddFormat((*g_pGameStringTable)[STRING_MESSAGE_PET_SUMMON].GetString(), pItem->GetPetName().c_str());
-							//if(pPetInfo->getMagicRemainSec() > 0 )
-							//{ 
-							//	UI_AddEffectStatus(EFFECTSTATUS_CLIENT_MAGICAL_PET_CHANGER , pPetInfo->getMagicRemainSec() << 4) ;   
-							//}
 						}
 					}
-
-					if(pPetInfo->getMagicRemainSec() > 0  && pCreature == g_pPlayer)
-					{ 
-						UI_AddEffectStatus(EFFECTSTATUS_CLIENT_MAGICAL_PET_CHANGER , pPetInfo->getMagicRemainSec() << 4) ;   
-					}
-					
-
 				}
 			}
 			else
@@ -5198,6 +5267,7 @@ SetPetInfo(PetInfo* pPetInfo, TYPE_OBJECTID objectID)
 					petInfo.OPTION = pPetItem->GetItemOptionList().front();
 				petInfo.ITEM_TYPE = pPetItem->GetItemType();
 				petInfo.ITEM_ID = pPetItem->GetID();
+				
 				petInfo.NAME = pPetItem->GetPetName();
 				petInfo.ATTACK = pPetItem->IsCanAttack();
 			}
@@ -5473,78 +5543,91 @@ CheckMacScreenMode()
 	typedef std::map<std::string,std::string>			MACINFO_MAP;
 	MACINFO_MAP MacInfo_Map;
 
-
-	// 프로그램팀 
-	//배재형
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0E-A6-74-38-F7", "222.106.218.181")); // ip	
-	//양승명
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-11-D8-57-33-5C", "222.106.218.187")); // ip	
-	//심재헌
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-11-2F-69-D2-CC", "222.106.218.186")); // ip	
-	
-	
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0E-A6-27-B4-F3", "222.106.218.185")); // ip	
-
-	//MacInfo_Map.insert(MACINFO_MAP::value_type("00-11-2F-69-D2-CC", "222.106.218.186")); // ip	
-
-	//MacInfo_Map.insert(MACINFO_MAP::value_type("00-11-2F-69-D2-CC", "222.106.218.186")); // ip	
-
-
-	
-	// 기획팀 
-	//박한수
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-C0-26-8A-2C-D7", "222.106.218.246")); // ip	
-	//주성빈
-	//MacInfo_Map.insert(MACINFO_MAP::value_type("00-C0-26-8A-27-D0", "222.106.218.247")); // ip	
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0B-2B-0A-B9-0B", "222.106.218.247")); // ip	
-	//김충연
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0E-A6-3C-A4-96", "222.106.218.248")); // ip	
-
-	
-	// DB 팀
-	//장홍창
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0B-2B-01-E2-B3", "222.106.218.196")); // ip	
-	//이청환
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-10-5A-69-FD-52", "222.106.218.197")); // ip	
-	//정주광
-	//MacInfo_Map.insert(MACINFO_MAP::value_type("00-00-00-00-00-00", "222.106.218.198")); // ip	
-
-	// 고객지원팀
-	//조장용
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B2-DF", "222.106.218.141")); // ip	
-	//추연우
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-75", "222.106.218.142")); // ip	
-	//김훈
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-87", "222.106.218.143")); // ip	
-	//김정수
-	//MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-88", "222.106.218.144")); // ip	
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-11-D8-D9-73-F1", "222.106.218.144")); // ip	
-	//백경은
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-89", "222.106.218.145")); // ip	
-	//김진한
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-8B", "222.106.218.146")); // ip	
-	//신동일
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-71", "222.106.218.147")); // ip	
-	//이재성
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-7F", "222.106.218.148")); // ip	
-	//김이동
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-7E", "222.106.218.149")); // ip	
-	//김건형
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B3-78", "222.106.218.150")); // ip	
-	//길주현
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B3-66", "222.106.218.151")); // ip	
-		
-
-
-	// 네트워크팀
-	//박정우
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B1-AB", "222.106.218.201")); // ip	
-	//고승범
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0C-6E-5D-B5-91", "222.106.218.204")); // ip	
-
-	// 마케팅팀
-	//유경민
-	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B2-DD", "222.106.218.163")); // ip	
+	// ip, MacAddress insert
+	// 프로그램팀_박숭욱.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0E-A6-74-38-F7", "220.117.154.99")); // ip
+	// Report-심철 하드웨어.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-E0-4C-ED-43-AE", "220.117.154.77")); // ip
+	// D1기획최서우.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-E0-4C-0B-C5-B2", "220.117.154.110")); // ip
+	// (기획팀 박한수).htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-C0-26-8A-2C-D7", "220.117.154.75")); // ip
+	// 리키한 PC사양.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-50-04-C0-88-5C", "220.117.154.79")); // ip
+	// D1 그래픽팀 한광식 대리.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-04-75-9D-04-7F", "220.117.154.85")); // ip
+	// D1 그래픽팀 최호진 대리.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-E0-4C-0B-BC-AA", "220.117.154.81")); // ip
+	// D1 그래픽팀 이준호 과장.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-04-75-99-30-3C", "220.117.154.82")); // ip
+	// D1 그래픽팀 이승환 사원.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-04-75-99-07-A9", "220.117.154.90")); // ip
+	// 프로그램팀_DB백업서버.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0C-6E-60-78-E8", "220.117.154.78")); // ip
+	// 프로그램팀_한민훈.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B3-05", "221.148.70.152")); // ip
+	// 프로그램팀_장홍창.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0D-60-2D-A8-67", "220.117.154.124")); // ip
+	// 프로그램팀_이청환.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-3F", "221.148.70.153")); // ip
+	// 프로그램팀_소스세이프서버.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-E0-4C-ED-28-51", "220.117.154.106")); // ip
+	// 프로그램팀_모니터링.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-E0-29-38-D8-A5", "220.117.154.103")); // ip
+	// 프로그램팀_지성욱.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0B-2B-0A-B9-0B", "220.117.154.74")); // ip
+	// 프로그램팀_손희승.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0E-A6-8D-E9-C8", "220.117.154.71")); // ip
+	// 프로그램팀_양승명.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-50-CE-30-B6-12", "220.117.154.70")); // ip
+	// 프로그램팀_해외테스트컴퓨터.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-50-DA-6E-42-C8", "192.168.1.12")); // ip
+	// 프로그램팀_최석민.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-E0-18-FB-1A-D6", "220.117.154.72")); // ip
+	// 고객지원팀_추연우.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-75", "221.148.70.132")); // ip
+	// 고객지원팀_주성빈.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-4F", "221.148.70.133")); // ip
+	// 프로그램팀_배재형.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0E-A6-27-B4-F3", "220.117.154.69")); // ip
+	// 프로그램팀_이창규.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0B-6A-F4-2D-5A", "220.117.154.92")); // ip
+	// 고객지원팀_조장용.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B2-DF", "221.148.70.136")); // ip
+	// 고객지원팀_이재성.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-7F", "221.148.70.141")); // ip
+	// 고객지원팀_김이동.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-7E", "221.148.70.134")); // ip
+//	// 고객지원팀_서보경.htm
+//	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-88", "221.148.70.140")); // ip
+	// 고객지원팀_김충연.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-8C", "221.148.70.142")); // ip
+	// 고객지원팀_김진한.htm -  이분껀 없네..-_-
+	//MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-8C", "221.148.70.142")); // ip
+//	// 고객지원팀_이수정.htm
+//	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-7F", "221.148.70.143")); // ip
+	// 고객지원팀_박세화.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-87", "221.148.70.135")); // ip
+	// 고객지원팀_신동일.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-71", "221.148.70.138")); // ip
+	// 지과장님 노트북.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-E0-91-02-07-3A", "192.168.1.100")); // ip
+	// 지과장님 노트북.htm
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-0E-35-0F-11-DC", "192.168.1.100")); // ip
+	// 운영팀 신영은
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-43", "221.148.70.150")); // ip
+	// 운영팀 김진한
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-8B", "221.148.70.139")); // ip
+	// 운영팀 김정수
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-88", "221.148.70.137")); // ip
+	// 시스템팀 고승범씨
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-86", "221.148.70.180")); // ip
+	// 운영팀 백경은 
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B6-89", "221.148.70.140")); // ip
+	// GM파트 김건형
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B3-78", "221.148.70.147")); // ip
+	// 스스템팀 박정우씨
+	MacInfo_Map.insert(MACINFO_MAP::value_type("00-02-78-F7-B1-AB", "221.148.70.182")); // ip
 
 	char szMyMac[32];
 	sprintf(szMyMac, "%02X-%02X-%02X-%02X-%02X-%02X", g_macAddress[0], g_macAddress[1], g_macAddress[2], g_macAddress[3], g_macAddress[4], g_macAddress[5]);
@@ -5558,7 +5641,8 @@ CheckMacScreenMode()
 			if(IDYES == MessageBox(g_hWnd, "윈도우 모드로 접속하시겠습니까?", "QUESTION", MB_YESNO|MB_ICONQUESTION))
 				g_bFullScreen = false;
 			else
-				g_bFullScreen = true;
+			g_bFullScreen = true;
+//yckou					g_bFullScreen = false;
 			
 			MacInfo_Map.clear();
 			return ;
@@ -6133,10 +6217,9 @@ void SetDragonTorando(int Type, DWORD ObjectID, int TileX, int TileY)
 	}
 }
 // 2005, 1, 6, sobeit add end
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 
-
-void
-SetSubInventoryInfo(InventoryInfo* pInventoryInfo)
+void SetSubInventoryInfo(InventoryInfo* pInventoryInfo)
 {
 	DEBUG_ADD( "Set SubInventory Info" );
 	
@@ -6356,3 +6439,6 @@ SetSubInventoryInfo(InventoryInfo* pInventoryInfo)
 		delete pSlotInfo;
 	}
 }
+
+#endif
+

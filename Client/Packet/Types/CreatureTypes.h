@@ -7,7 +7,6 @@
 #define __CREATURE_TYPES_H__
 
 #include "SystemTypes.h"
-
 #ifdef __GAME_CLIENT__
 	#include "ModifyDef.h"
 	#include "PacketItemDef.h"

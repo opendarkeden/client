@@ -97,7 +97,6 @@
 #include "packet\Cpackets\CGGQuestAccept.h"
 #include "packet\Cpackets\CGGQuestCancel.h"
 #include "packet\Cpackets\CGUseItemFromGQuestInventory.h"
-#include "packet\Cpackets\CLAgreement.h"
 
 #include "RequestFunction.h"
 #include "RequestServerPlayerManager.h"
@@ -162,8 +161,12 @@
 #include "Packet\Cpackets\CGRequestPowerPoint.h"
 #include "Packet\Cpackets\CGDonationMoney.h"
 #include "Packet\Cpackets\CGGetEventItem.h"
+#include "Packet\Cpackets\CGUseMessageItemFromInventory.h"
 
-#include "Packet\Cpackets\CGRequestWebMarket.h"
+//add by viva
+#include "Packet\Cpackets\CGConnectSetKey.h"
+#include "Packet\Gpackets\GCFriendChatting.h"
+//end
 
 //-----------------------------------------------------------------------------
 // Chat¿¡¼­ »ç¿ëÇÏ´Â Æ¯¼öÇÑ ¹®ÀÚ
@@ -198,7 +201,8 @@ int g_C2G = 0;
 bool							g_bEventQuestEnding = false;
 extern bool		LoadingAddonSPK(bool bLoading);
 extern CGameUpdate*		g_pCGameUpdate;
-
+extern BOOL g_MyFull;
+extern RECT g_GameRect;
 //-----------------------------------------------------------------------------
 // Global
 //-----------------------------------------------------------------------------
@@ -210,6 +214,8 @@ extern bool g_bWatchMode;
 extern bool	g_bTestMode;
 extern bool g_bHolyLand;
 extern bool g_bZoneSafe;
+extern DWORD g_dwSeqNumL;
+extern DWORD g_dwSeqNumG;
 
 //-----------------------------------------------------------------------------
 // Execute Logout
@@ -851,7 +857,21 @@ UIMessageManager::Init()
 	m_UIMessageFunction[UI_SELECT_TEAM_MEMBER_LIST] = Execute_UI_SELECT_TEAM_MEMBER_LIST;		// void_ptr = TEAM_NAME
 	m_UIMessageFunction[UI_SELECT_READY_TEAM_LIST] = Execute_UI_SELECT_READY_TEAM_LIST;		// void_ptr = TEAM_NAME
 	m_UIMessageFunction[UI_SELECT_REGIST_TEAM_LIST] = Execute_UI_SELECT_REGIST_TEAM_LIST;		// void_ptr = TEAM_NAME
-
+//add by viva
+	m_UIMessageFunction[UI_CLOSE_FRIEND_CHATTING_INFO] = Execute_UI_CLOSE_FRIEND_CHATTING_INFO;
+	m_UIMessageFunction[UI_OPEN_FRIEND_CHATTING_INFO] = Execute_UI_OPEN_FRIEND_CHATTING_INFO;
+	//friend message
+	m_UIMessageFunction[UI_FRIEND_CHATTING_SEND_MESSAGE] = Execute_UI_FRIEND_CHATTING_SEND_MESSAGE;
+	m_UIMessageFunction[UI_FRIEND_CHATTING_UPDATE] = Execute_UI_FRIEND_CHATTING_UPDATE;
+	m_UIMessageFunction[UI_FRIEND_CHATTING_ADD_FRIEND] = Execute_UI_FRIEND_CHATTING_ADD_FRIEND;
+	//ask_friend_request
+	m_UIMessageFunction[UI_FRIEND_REQUEST_ACCEPT] = Execute_UI_FRIEND_REQUEST_ACCEPT;
+	//ask_friend_ask_close
+	m_UIMessageFunction[UI_FRIEND_ASK_CLOSE] = Execute_UI_FRIEND_ASK_CLOSE;
+	//ask_friend_delete_request
+	m_UIMessageFunction[UI_FRIEND_DELETE_ASK] = Execute_UI_FRIEND_DELETE_ASK;
+	m_UIMessageFunction[UI_FRIEND_DELETE_ACCEPT] = Execute_UI_FRIEND_DELETE_ACCEPT;
+//end
 	m_UIMessageFunction[UI_JOIN_READY_TEAM] = Execute_UI_JOIN_READY_TEAM;				// void_ptr = TEAM_NAME
 	m_UIMessageFunction[UI_JOIN_REGIST_TEAM] = Execute_UI_JOIN_REGIST_TEAM;			// void_ptr = TEAM_NAME
 
@@ -1040,20 +1060,13 @@ UIMessageManager::Init()
 
 	m_UIMessageFunction[UI_REQUEST_EVENT_ITEM] =	 Execute_UI_REQUEST_EVENT_ITEM;
 
-	m_UIMessageFunction[UI_CLOSE_INVENTORY_SUB]			=	 Execute_UI_CLOSE_INVENTORY_SUB;
-	m_UIMessageFunction[UI_ITEM_DROP_TO_INVENTORY_SUB]		=	 Execute_UI_ITEM_DROP_TO_INVENTORY_SUB;
-	m_UIMessageFunction[UI_ITEM_PICKUP_FROM_INVENTORY_SUB]	=	 Execute_UI_ITEM_PICKUP_FROM_INVENTORY_SUB;
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+		m_UIMessageFunction[UI_CLOSE_INVENTORY_SUB]			=	 Execute_UI_CLOSE_INVENTORY_SUB;
+		m_UIMessageFunction[UI_ITEM_DROP_TO_INVENTORY_SUB]		=	 Execute_UI_ITEM_DROP_TO_INVENTORY_SUB;
+		m_UIMessageFunction[UI_ITEM_PICKUP_FROM_INVENTORY_SUB]	=	 Execute_UI_ITEM_PICKUP_FROM_INVENTORY_SUB;
 
-	m_UIMessageFunction[UI_ITEM_USE_SUBINVENTORY]	=	 Execute_UI_ITEM_USE_SUBINVENTORY;
-	
-	m_UIMessageFunction[UI_WEDDING_CONTRIBUTION]	=	 Execute_UI_WEDDING_CONTRIBUTION;
-
-
-	m_UIMessageFunction[UI_NETMARBLE_AGREEMENT] = Execute_UI_NETMARBLE_AGREEMENT;
-
-	m_UIMessageFunction[UI_BLOOD_BURST] = Execute_UI_BLOOD_BURST;
-	m_UIMessageFunction[UI_CLIENT_REMOVE_EFFECT_STATUS] = Execute_UI_CLIENT_REMOVE_EFFECT_STATUS;
-	m_UIMessageFunction[UI_MARKET_ACCOUNT] = Execute_UI_MARKET_ACCOUNT;
+		m_UIMessageFunction[UI_ITEM_USE_SUBINVENTORY]	=	 Execute_UI_ITEM_USE_SUBINVENTORY;
+	#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -1276,8 +1289,13 @@ UIMessageManager::Execute_UI_RUN_NEWUSER_REGISTRATION(int left, int right, void*
 			sprintf(str, "%s\\Explorer.exe", str);
 			
 			CDirectDraw::GetDD()->RestoreDisplayMode();
+#ifdef __YHDK2__
+			_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://www.yhdk2.cn", NULL);
+#else
+			_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://www.ttdk2.com", NULL);
+#endif
 
-			_spawnl(_P_NOWAIT, str, "Explorer.exe", g_pClientConfig->URL_HOMEPAGE_NEW_USER.GetString(), NULL);
+			//_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://www.ttdk2.cn", NULL);
 		}
 		break;
 
@@ -1721,7 +1739,7 @@ UIMessageManager::Execute_UI_NEW_USER_REGISTRATION(int left, int right, void* vo
 				if (!g_bTestMode)
 				{
 					int version;
-					ifstream versionFile;//(FILE_INFO_ACTION, std::ios::binary);
+					class ifstream versionFile;//(FILE_INFO_ACTION, ios::binary);
 					if (!FileOpenBinary(FILE_INFO_VERSION, versionFile))
 						return;
 					versionFile.read((char*)&version, 4);
@@ -1857,6 +1875,9 @@ UIMessageManager::Execute_UI_LOGIN(int left, int right, void* void_ptr)
 {
 	DEBUG_ADD("[UI] UI_LOGIN");
 
+	g_dwSeqNumL = rand()%1024;
+	g_dwSeqNumG = 0;
+
 	UI_SaveUserOption();
 
 	//
@@ -1917,7 +1938,7 @@ UIMessageManager::Execute_UI_LOGIN(int left, int right, void* void_ptr)
 					//--------------------------------------------------
 					#if !defined(_DEBUG) && !defined(OUTPUT_DEBUG)
 						int version = g_pUserInformation->GameVersion;
-//						ifstream versionFile;//(FILE_INFO_ACTION, std::ios::binary);
+//						class ifstream versionFile;//(FILE_INFO_ACTION, ios::binary);
 //						if (!FileOpenBinary(FILE_INFO_VERSION, versionFile))
 //						{
 //							DeleteNewArray(login->sz_id);
@@ -1934,8 +1955,14 @@ UIMessageManager::Execute_UI_LOGIN(int left, int right, void* void_ptr)
 
 						
 					#endif
-					
-
+					//add by viva
+					CGConnectSetKey cgConnectSetKey;
+					cgConnectSetKey.setEncryptKey(rand());
+					cgConnectSetKey.setHashKey(rand());
+					g_pSocket->sendPacket(&cgConnectSetKey);
+					UpdateSocketOutput();
+					cgConnectSetKey.execute(g_pSocket);
+					Sleep(500);
 					//--------------------------------------------------
 					// CLLogin
 					//--------------------------------------------------
@@ -2149,7 +2176,7 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 			//-----------------------------------------------------------------		
 			point.x = 0;
 			point.y = 0;
-			RECT rect = { 0, 0, SURFACE_WIDTH, SURFACE_HEIGHT };
+			RECT rect = { 0, 0, g_GameRect.right, g_GameRect.bottom };
 			g_pBack->BltNoColorkey( &point, g_pLast, &rect );	
 		}
 		CDirectDraw::Flip();
@@ -2196,7 +2223,7 @@ UIMessageManager::Execute_UI_CONNECT(int left, int right, void* void_ptr)
 
 	#ifdef OUTPUT_DEBUG
 		DEBUG_ADD("MasterCheck");
-		ifstream file("master.txt", std::ios::in);
+		class ifstream file("master.txt", ios::nocreate);
 
 		char str[256];
 		while (!file.eof())
@@ -2452,6 +2479,49 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 							UI_AddChatToHistory( temp, g_pUserInformation->CharacterID.GetString(), CLD_ZONECHAT, right );
 							return;
 						}
+					}
+					// ×Ô¶¯Ê¹ÓÃÈ«¾ÖÁÄÌì
+					//UI_STRING_MESSAGE_PLAYER_SAY
+					if(0 == strncmp(str, (*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetString(),(*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetLength()))
+					{
+						// ²éÕÒÎïÆ·
+						// ²éÕÒÂÌÉ«
+						MItem* pItem = g_pInventory->FindItem(ITEM_CLASS_EFFECT_ITEM,10);
+						if (pItem == NULL)
+						{
+							// ²éÕÒÀ¶É«
+							pItem = g_pInventory->FindItem(ITEM_CLASS_EFFECT_ITEM,11);
+							if (pItem == NULL)
+							{
+								// ²éÕÒ»ÆÉ«
+								pItem = g_pInventory->FindItem(ITEM_CLASS_EFFECT_ITEM,12);
+							}
+						}
+						if (pItem!=NULL)
+						{
+							char TempBuffer[128]; 
+							if (strlen(str)>60)
+							{
+								str[(*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetLength()+60]=NULL;
+							}
+							
+							strcpy(TempBuffer, str+(*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetLength());	
+							string msg="";
+							msg = g_pUserInformation->CharacterID.GetString();
+							msg +=">";
+							msg +=TempBuffer;
+							CGUseMessageItemFromInventory _CGUseMessageItemFromInventory;
+							_CGUseMessageItemFromInventory.setObjectID( pItem->GetID() );
+							_CGUseMessageItemFromInventory.setX( pItem->GetGridX() );
+							_CGUseMessageItemFromInventory.setY( pItem->GetGridY() );
+							_CGUseMessageItemFromInventory.setMessage( msg );
+							g_pSocket->sendPacket( &_CGUseMessageItemFromInventory );
+							g_pPlayer->SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
+						}else
+						{
+							g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[UI_STRING_NO_ITEM_MESSAGE].GetString() );
+						}
+						return;
 					}
 					// 2004, 10, 25, sobeit add end - µå·¹°ï ¾ÆÀÌ °ü·Ã
 					if (bZoneChat && str[0]!=SYMBOL_WHISPER
@@ -3286,7 +3356,6 @@ UIMessageManager::Execute_UI_SELECT_SKILL(int left, int right, void* void_ptr)
 	//
 	if (g_pPlayer!=NULL)
 	{
-		//left = SKILL_OUSTERS_COMBO ; 
 		g_pPlayer->SetSpecialActionInfo( left );
 		
 		// ¹Ýº¹µ¿ÀÛÁß¿¡ actionCount°¡ ÀÌ»óÇØÁö´Â °æ¿ì°¡ ÀÖ¾î¼­
@@ -3510,13 +3579,7 @@ UIMessageManager::Execute_UI_ITEM_DROP_TO_CLIENT(int left, int right, void* void
 			&& (pItem->GetItemClass() == ITEM_CLASS_CODE_SHEET && !gC_vs_ui.IsRunningQuestInventory() ) )
 			&& !(pItem->GetItemClass() == ITEM_CLASS_LUCKY_BAG && pItem->GetItemType() == 3)
 			&& !(pItem->GetItemClass() == ITEM_CLASS_EVENT_ITEM && (pItem->GetItemType() == 28||pItem->GetItemType() == 31))
-			
-
-			// sjheon Ç³¼± ¸Ó¸®¶ì  ÀÌº¥Æ® ¾ÆÀÌÅÛÀÎ °æ¿ì ¸ø ¹ö¸°´Ù. 2005.05.02 Add
-			//&& (pItem->GetItemClass() == ITEM_CLASS_EVENT_ETC && (pItem->GetItemType() == 18))		// ÆÐ¹Ð¸® ÄÚÀÎ 
-			&& !(pItem->GetItemClass() == ITEM_CLASS_EVENT_ITEM && (pItem->GetItemType() >= 32 && pItem->GetItemType() <= 36))		// Ç³¼± ¸Ó¸®¶ì 
-			&& !(pItem->GetItemClass() == ITEM_CLASS_SLAYER_PORTAL_ITEM) 		// ¹«Àü±â 
-			// sjheon º½³ªµéÀÌ ÀÌº¥Æ® ¾ÆÀÌÅÛÀÎ °æ¿ì ¸ø ¹ö¸°´Ù. 2005.05.02 End 
+				
 			)
 		{
 			//-----------------------------------------------------------------------
@@ -4251,7 +4314,7 @@ UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_QUICKSLOT(int left, int right, voi
 void
 UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_INVENTORY(int left, int right, void* void_ptr)
 {
-	DEBUG_ADD("[UI] UI_ITEM_PICKUP_FROM_INVENTORY"); 
+	DEBUG_ADD("[UI] UI_ITEM_PICKUP_FROM_INVENTORY");
 	
 	if (g_Mode!=MODE_GAME || g_pPlayer->IsDead())
 	{
@@ -4663,6 +4726,11 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 		DEBUG_ADD("[Error] InvenItem is NULL");
 		return;
 	}
+	// add by Coffee 2006.11.4  ÐÞÕýÈÎÎñÎïÆ·²»ÄÜµþ¼Ó
+	if (pItem->IsQuestItem())
+	{
+		return;
+	}
 
 	TYPE_OBJECTID mouseItemID = ((pMouseItem==NULL)?OBJECTID_NULL : pMouseItem->GetID());
 
@@ -4709,7 +4777,27 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_INVENTORY(int left, int right, voi
 				// pMouseItemÀ» pItem¿¡ Ãß°¡½ÃÅ²´Ù.
 				//----------------------------------------------------
 				int total = pMouseItem->GetNumber() + pItem->GetNumber();
-				if ( total > pItem->GetMaxNumber() )
+				//yckou
+				if(!bAcceptOtherTrade && (pItem->GetItemClass() == ITEM_CLASS_MONEY))
+				{
+					if(total>99)
+					{
+						pMouseItem->SetNumber( total - 99 );
+						pItem->SetNumber( 99 );
+					}
+					else
+					{
+						// ¸ðµÎ pItem¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+						pItem->SetNumber( total );
+						UI_DropItem();
+						
+						delete pMouseItem;
+					}
+				}
+				else
+				//end yckou
+				
+				if ( total > pItem->GetMaxNumber())
 				{
 					// ÇÑ°è ¼öÄ¡¸¦ ³Ñ¾î°¥ °æ¿ì
 					pMouseItem->SetNumber( total - pItem->GetMaxNumber() );
@@ -4959,7 +5047,7 @@ UIMessageManager::Execute_UI_ITEM_INSERT_FROM_QUICKSLOT(int left, int right, voi
 //
 //-----------------------------------------------------------------------------
 void
-UIMessageManager::Execute_UI_CLOSE_SHOP(int left, int right, void* void_ptr) 
+UIMessageManager::Execute_UI_CLOSE_SHOP(int left, int right, void* void_ptr)
 {
 	DEBUG_ADD("[UI] UI_CLOSE_SHOP");
 	
@@ -6508,12 +6596,6 @@ UIMessageManager::Execute_UI_SELECT_STORAGE_SLOT(int left, int right, void* void
 		BOOL bSendPacket = TRUE;
 
 		TYPE_OBJECTID mouseItemID = pMouseItem->GetID();		
-
-		if(pMouseItem->GetItemClass() == ITEM_CLASS_SUB_INVENTORY && pMouseItem->GetEnchantLevel()>0) 
-		{
-			g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_CANNOT_STORAGE].GetString());
-			return ;
-		}
 	
 		// Event GiftBox ¾ÆÀÌÅÛÀÎ °æ¿ì ¸ø ³õ´Â´Ù.
 		if (pMouseItem->GetItemClass()!=ITEM_CLASS_EVENT_GIFT_BOX
@@ -6526,10 +6608,6 @@ UIMessageManager::Execute_UI_SELECT_STORAGE_SLOT(int left, int right, void* void
 			&& pMouseItem->GetItemClass() != ITEM_CLASS_EVENT_ITEM
 			&& pMouseItem->GetItemClass() != ITEM_CLASS_CODE_SHEET
 			&& !(pMouseItem->GetItemClass() == ITEM_CLASS_LUCKY_BAG && pMouseItem->GetItemType() == 3)
-			// sjheo 2005.05.02 Ç³¼± ¾ÆÀÌÅÛ ÀÏ¶§ º¸°üÇÔ Ã³¸®  Add 
-			&& !(pMouseItem->GetItemClass() == ITEM_CLASS_EVENT_ETC && (pMouseItem->GetItemType() == 18))
-			&& !(pMouseItem->GetItemClass() == ITEM_CLASS_EVENT_ITEM && (pMouseItem->GetItemType() >= 32 && pMouseItem->GetItemType() <= 36))
-			// sjheo 2005.05.02 Ç³¼± ¾ÆÀÌÅÛ ÀÏ¶§ º¸°üÇÔ Ã³¸® End
 			)
 		{
 			//---------------------------------------------------
@@ -6962,14 +7040,7 @@ UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* voi
 				return;
 			}
 		}
-		else if((pItem->GetItemClass() == ITEM_CLASS_SUB_INVENTORY && pItem->GetEnchantLevel()>0) 
-			   || (pItem->GetItemClass() == ITEM_CLASS_EVENT_ITEM && (pItem->GetItemType() >= 32 && pItem->GetItemType() <= 36))
-			   || (pItem->GetItemClass() == ITEM_CLASS_SLAYER_PORTAL_ITEM)
-			   )
-		{
-			UI_PopupMessage( STRING_MESSAGE_CANNOT_TRADE );
-			return;
-		}
+	
 
 		//---------------------------------------------------------
 		// ±³È¯Áß¿¡ OK ´­·¶À»¶§´Â °ËÁõÀ» ¹Þ¾Æ¾ß ÇÑ´Ù.
@@ -7956,7 +8027,7 @@ UIMessageManager::Execute_UI_CLOSE_TUTORIAL_EXIT(int left, int right, void* void
 	if (g_Mode!=MODE_GAME)
 	{
 		DEBUG_ADD("Not Mode MODE_GAME");
-		return; 
+		return;
 	}
 
 	
@@ -9169,6 +9240,107 @@ UIMessageManager::Execute_UI_SELECT_READY_TEAM_LIST(int left, int right, void* v
 	}
 }
 
+//add by viva
+void
+UIMessageManager::Execute_UI_CLOSE_FRIEND_CHATTING_INFO(int left, int right, void* void_ptr)
+{
+	C_VS_UI_FRIEND_CHATTING_INFO* pInfo = (C_VS_UI_FRIEND_CHATTING_INFO*)void_ptr;
+	gC_vs_ui.CloseFriendChattingInfo(pInfo);
+}
+
+void
+UIMessageManager::Execute_UI_OPEN_FRIEND_CHATTING_INFO(int left, int right, void* void_ptr)
+{
+	C_VS_UI_FRIEND_INFO::FRIEND_LIST* pList = (C_VS_UI_FRIEND_INFO::FRIEND_LIST*)void_ptr;
+	gC_vs_ui.OpenFriendChattingInfo(pList);
+}
+
+////////////////////////friend message////////////////////////////////////////////////////////
+void UIMessageManager::Execute_UI_FRIEND_CHATTING_SEND_MESSAGE(int left, int right, void* void_ptr)
+{
+	C_VS_UI_FRIEND_CHATTING_INFO::FRIEND_SEND_MESSAGE* pMessage = (C_VS_UI_FRIEND_CHATTING_INFO::FRIEND_SEND_MESSAGE*)void_ptr;
+	GCFriendChatting gcFriend;
+	gcFriend.setCommand(CG_MESSAGE);
+	gcFriend.setPlayerName(pMessage->Name);
+	gcFriend.setMessage(pMessage->Message);
+	g_pSocket->sendPacket( &gcFriend );
+	delete pMessage;
+}
+void UIMessageManager::Execute_UI_FRIEND_CHATTING_UPDATE(int left, int right, void* void_ptr)
+{
+	GCFriendChatting gcFriend;
+	gcFriend.setCommand(CG_UPDATE);
+	g_pSocket->sendPacket( &gcFriend  );
+}
+void UIMessageManager::Execute_UI_FRIEND_CHATTING_ADD_FRIEND(int left, int right, void* void_ptr)
+{
+	if(!gC_vs_ui.IsFriendWaitAskRuning())
+	{
+		char* pName = (char*)void_ptr;
+		GCFriendChatting gcFriend;
+		gcFriend.setCommand(CG_ADD_FRIEND);
+		gcFriend.setPlayerName(string(pName));
+		g_pSocket->sendPacket( &gcFriend );
+//		Delete(pName);
+	}
+//	gC_vs_ui.SendAddFriend(pName);
+}
+
+//////////////////////////ask_friend_request///////////////////////////////////////////////////
+void UIMessageManager::Execute_UI_FRIEND_REQUEST_ACCEPT(int left, int right, void* void_ptr)
+{
+	C_VS_UI_ASK_DIALOG* pDialog = (C_VS_UI_ASK_DIALOG*)void_ptr;
+	char* pName = (char*)pDialog->GetpTemporayValue();
+	bool IsAgree = (bool)left;
+	GCFriendChatting gcFriend;
+
+	if(left == 0)
+		gcFriend.setCommand(CG_ADD_FRIEND_AGREE);
+	else if(left == 1)
+		gcFriend.setCommand(CG_ADD_FRIEND_REFUSE);
+	else if(left == 2)
+		gcFriend.setCommand(CG_ADD_FRIEND_BLACK);
+
+	gcFriend.setPlayerName(string(pName));
+	g_pSocket->sendPacket(&gcFriend);
+	
+	DeleteNew(pDialog);
+	DeleteNew(pName);
+}
+////////////////////////////////////////////ask_friend_close///////////////////////////////////
+void UIMessageManager::Execute_UI_FRIEND_ASK_CLOSE(int left, int right, void* void_ptr)
+{
+	C_VS_UI_ASK_DIALOG* pDialog = (C_VS_UI_ASK_DIALOG*)void_ptr;
+	char* pName = (char*)pDialog->GetpTemporayValue();
+	if(pDialog->GetAskType() == C_VS_UI_ASK_DIALOG::ASK_FRIEND_WAIT)
+		gC_vs_ui.setFriendWaitAskNull();
+
+	DeleteNew(pDialog);
+	DeleteNew(pName);
+}
+//////////////////////////////////////////////ask_friend_delete_ask//////////////////////////////
+void UIMessageManager::Execute_UI_FRIEND_DELETE_ASK(int left, int right, void* void_ptr)
+{
+	C_VS_UI_FRIEND_INFO::FRIEND_LIST* pList = (C_VS_UI_FRIEND_INFO::FRIEND_LIST*)void_ptr;
+	char* pName = new char[pList->Name.size()+1];
+	strcpy(pName, pList->Name.c_str());
+	gC_vs_ui.RunFriendDeleteAsk(pName);
+}
+////////////////////////////////////////////////ask_friend_delete_accept/////////////////////////
+void UIMessageManager::Execute_UI_FRIEND_DELETE_ACCEPT(int left, int right, void* void_ptr)
+{
+	C_VS_UI_ASK_DIALOG* pDialog = (C_VS_UI_ASK_DIALOG*)void_ptr;
+	char* pName = (char*)pDialog->GetpTemporayValue();
+	GCFriendChatting gcFriend;
+	gcFriend.setCommand(CG_FRIEND_DELETE);
+	gcFriend.setPlayerName(string(pName));
+	g_pSocket->sendPacket(&gcFriend);
+
+	DeleteNew(pDialog);
+	DeleteNew(pName);
+}
+//end
+
 void
 UIMessageManager::Execute_UI_SELECT_REGIST_TEAM_LIST(int left, int right, void* void_ptr)		// void_ptr = TEAM_NAME
 {
@@ -9343,7 +9515,7 @@ UIMessageManager::Execute_UI_ENCHANT_ACCEPT(int left, int right, void* void_ptr)
 	//----------------------------------------------------
 	if(g_pTempInformation->GetMode() == TempInformation::MODE_NULL && g_pPlayer->IsItemCheckBufferNULL())
 	{
-		CGAddItemToItem _CGAddItemToItem; 
+		CGAddItemToItem _CGAddItemToItem;
 		_CGAddItemToItem.setObjectID( mouseItemID );
 		_CGAddItemToItem.setX( pItem->GetGridX() );
 		_CGAddItemToItem.setY( pItem->GetGridY() );								
@@ -9677,7 +9849,7 @@ UIMessageManager::Execute_GO_BILING_PAGE(int left, int right, void* void_ptr)
 		
 		CDirectDraw::GetDD()->RestoreDisplayMode();
 		
-		_spawnl(_P_NOWAIT, str, "Explorer.exe", g_pClientConfig->URL_HOMEPAGE_BILING.GetString(), NULL);
+	//	_spawnl(_P_NOWAIT, str, "Explorer.exe", g_pClientConfig->URL_HOMEPAGE_BILING.GetString(), NULL);
 	}	
 }
 
@@ -10705,7 +10877,7 @@ UIMessageManager::Execute_UI_CHANGE_CUSTOM_NAMING(int left, int right, void* voi
 
 void	 
 UIMessageManager::Execute_UI_RUN_NAMING_CHANGE(int left, int right, void* void_ptr)
-{ 
+{
 	if (g_Mode!=MODE_GAME)
 	{
 		DEBUG_ADD("Not Mode MODE_GAME");
@@ -11524,334 +11696,164 @@ UIMessageManager::Execute_UI_REQUEST_EVENT_ITEM(int left, int right, void* void_
 	}
 }
 // 2005, 1, 24, sobeit add end - ¾ÆÀÌÅÛ ¹Þ±â ÀÌº¥Æ® °ü·Ã
-
-// 2005, 2, 25, sobeit add start - ¼­ºê ÀÎº¥Åä¸®¸¦ ´Ý´Â´Ù.
-void
-UIMessageManager::Execute_UI_CLOSE_INVENTORY_SUB(int left, int right, void* void_ptr)
-{
-	DEBUG_ADD("[UI] Execute_UI_CLOSE_INVENTORY_SUB");
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+	// 2005, 2, 25, sobeit add start - ¼­ºê ÀÎº¥Åä¸®¸¦ ´Ý´Â´Ù.
+	void
+	UIMessageManager::Execute_UI_CLOSE_INVENTORY_SUB(int left, int right, void* void_ptr)
 	{
-		gC_vs_ui.CloseSubInventory();
-	}
-}
-
-void
-UIMessageManager::Execute_UI_ITEM_DROP_TO_INVENTORY_SUB(int left, int right, void* void_ptr)
-{
-	DEBUG_ADD("[UI] Execute_UI_ITEM_DROP_TO_INVENTORY_SUB");
-	
-	if (g_Mode!=MODE_GAME || g_pPlayer->IsDead() || !gC_vs_ui.IsRunningSubInventory())
-	{
-		DEBUG_ADD("Not Mode MODE_GAME or Dead");
-		return;
+		DEBUG_ADD("[UI] Execute_UI_CLOSE_INVENTORY_SUB");
+		{
+			gC_vs_ui.CloseSubInventory();
+		}
 	}
 
-	MItem* pMultiPackItem = gC_vs_ui.GetSubInventoryItem();
-
-	if(NULL == pMultiPackItem)
-		return;
-
-	MItem* pMouseItem = UI_GetMouseItem();	// ÇöÀç mouseÀÇ item
-
-
-	//-----------------------------------------------------------------
-	// °ËÁõ¹ÞÀ»°Ô ¾ø´Â °æ¿ì
-	//-----------------------------------------------------------------
-	if (g_pPlayer->IsItemCheckBufferNULL() && pMouseItem!=NULL
-		&& g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
-	{		
-		if(pMouseItem->GetItemClass() == ITEM_CLASS_SUB_INVENTORY)
+	void
+	UIMessageManager::Execute_UI_ITEM_DROP_TO_INVENTORY_SUB(int left, int right, void* void_ptr)
+	{
+		DEBUG_ADD("[UI] Execute_UI_ITEM_DROP_TO_INVENTORY_SUB");
+		
+		if (g_Mode!=MODE_GAME || g_pPlayer->IsDead() || !gC_vs_ui.IsRunningSubInventory())
+		{
+			DEBUG_ADD("Not Mode MODE_GAME or Dead");
 			return;
-		TYPE_OBJECTID toInventoryItemID = (pMouseItem==NULL)? OBJECTID_NULL : pMouseItem->GetID();
-		
-		CGAddMouseToInventory _CGAddMouseToInventory;
-		_CGAddMouseToInventory.setObjectID( toInventoryItemID );
-		_CGAddMouseToInventory.setInvenX( left );//pItem->GetGridX() );
-		_CGAddMouseToInventory.setInvenY( right );//pItem->GetGridY() );
-		_CGAddMouseToInventory.setInventoryItemObjectID(pMultiPackItem->GetID());
-
-		g_pSocket->sendPacket( &_CGAddMouseToInventory );
-
-		MItem* pOldItem = NULL;
-		if (gC_vs_ui.ReplaceSubInventoryItem(pMouseItem,		// Ãß°¡ÇÒ item
-											left, right,	// Ãß°¡ÇÒ À§Ä¡ 
-											pOldItem))		// ¿ø·¡ÀÖ´ø item
-		{
-			if (pOldItem != NULL) // replace µÇ¾ú´Â°¡?
-			{				
-				UI_PickUpItem( pOldItem );
-			}
-			else
-			{
-				UI_DropItem();
-			}
 		}
-	}
-	//-----------------------------------------------------------------
-	// °ËÁõ ¹Þ¾Æ¾ßÇÒ ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ÀÖ´Â °æ¿ì
-	//-----------------------------------------------------------------
-	else
-	{
-		DEBUG_ADD( "[Error] There is another item in ItemCheckBuffer or Mouse NULL");		
 
-		if(!g_pPlayer->IsItemCheckBufferNULL())
-			DEBUG_ADD_FORMAT("[ITEMDROP] !g_pPlayer->IsItemCheckBufferNULL() %d", g_pPlayer->GetItemCheckBufferStatus());
-		if(pMouseItem == NULL)
-			DEBUG_ADD("[ITEMDROP] pMouseItem == NULL)");
-		if(g_pTempInformation->GetMode()!=TempInformation::MODE_NULL)
-			DEBUG_ADD_FORMAT("[ITEMPDROP] g_pTempInformation->Mode!=TempInformation::MODE_NULL %d", g_pTempInformation->Mode);
-	}
-}
+		MItem* pMultiPackItem = gC_vs_ui.GetSubInventoryItem();
+
+		if(NULL == pMultiPackItem)
+			return;
+
+		MItem* pMouseItem = UI_GetMouseItem();	// ÇöÀç mouseÀÇ item
 
 
-void
-UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_INVENTORY_SUB(int left, int right, void* void_ptr)
-{
-	DEBUG_ADD("[UI] UI_ITEM_PICKUP_FROM_INVENTORY"); 
-	
-	if (g_Mode!=MODE_GAME || g_pPlayer->IsDead() || !gC_vs_ui.IsRunningSubInventory())
-	{
-		DEBUG_ADD("Not Mode MODE_GAME or Dead");
-		return;
-	}
-	MItem* pItem = (MItem*)void_ptr;
-
-	MItem* pMultiPackItem = gC_vs_ui.GetSubInventoryItem();
-
-	TYPE_OBJECTID MultiPackItemID = (pMultiPackItem==NULL)? OBJECTID_NULL : pMultiPackItem->GetID();
-
-	UI_PickUpItem( pItem );
-	//---------------------------------------------------
-	// Inventory¿¡ ÀÖ´ø itemÀ» mouse¿¡ ºÙ¿´´Ù(-_-;)°í
-	// server·Î packetÀ» º¸³½´Ù.
-	//---------------------------------------------------
-	CGAddInventoryToMouse _CGAddInventoryToMouse;
-	_CGAddInventoryToMouse.setObjectID( pItem->GetID() );
-	_CGAddInventoryToMouse.setX( pItem->GetGridX() );
-	_CGAddInventoryToMouse.setY( pItem->GetGridY() );
-	_CGAddInventoryToMouse.setInventoryItemObjectID(MultiPackItemID);
-	
-	g_pSocket->sendPacket( &_CGAddInventoryToMouse );				
-}
-
-// 2005, 2, 25, sobeit add end - ¼­ºê ÀÎº¥Åä¸®¸¦ ´Ý´Â´Ù.
-
-
-// 2005, 3, 2, sobeit add start
-void
-UIMessageManager::Execute_UI_ITEM_USE_SUBINVENTORY(int left, int right, void* void_ptr)
-{
-	DEBUG_ADD("[UI] Execute_UI_ITEM_USE_SUBINVENTORY"); 
-	
-	if (g_Mode!=MODE_GAME || g_pPlayer->IsDead() )
-	{
-		DEBUG_ADD("Not Mode MODE_GAME or Dead");
-		return;
-	}
-	MItem* pSubInventory = g_pInventory->GetItem(right);
-
-	if(NULL == pSubInventory)
-		return;
-
-	MItem* pItem = ((MSubInventory*)pSubInventory)->GetItemToModify( left );//(MItem*)void_ptr;
-
-	if (pItem!=NULL && g_pPlayer->IsItemCheckBufferNULL())
-	{
-		// ÀÚ±âÁ¾Á· ¾ÆÀÌÅÛ¸¸ ¾²Àð-¤µ-;
-		if(g_pPlayer->IsSlayer() && pItem->IsSlayerItem() ||
-			g_pPlayer->IsVampire() && pItem->IsVampireItem() ||
-			g_pPlayer->IsOusters() && pItem->IsOustersItem())
-		{
-			pItem->UseInventory(pSubInventory->GetID());
-		}
-	}
-	//----------------------------------------------------
-	// item check buffer not null
-	//----------------------------------------------------
-	else
-	{
-		#ifdef OUTPUT_DEBUG
-			if (pItem==NULL)
-			{
-				DEBUG_ADD("[Wait] Item is NULL");
-			}
-			else 
-			{
-				DEBUG_ADD("[Wait] Item Check Buffer is Not NULL");
-			}
-		#endif
-	}
-}
-
-// 2005, 3, 2, sobeit add end
-
-
-
-// 2005, 4, 21, sjheon add start -°áÈ¥ÃàÀÇ±Ý  °ü·Ã
-void
-UIMessageManager::Execute_UI_WEDDING_CONTRIBUTION(int left, int right, void* void_ptr)
-{
-	DEBUG_ADD("[UI] Execute_UI_WEDDING_CONTRIBUTION");
-	
-	// °áÈ¥  ÃàÀÇ±Ý 
-
-	if(left>0)
-	{
-		CGDonationMoney _CGDonationMoney;
-		_CGDonationMoney.setGold(left*10000);
-		_CGDonationMoney.setDonationType(right);
-		g_pSocket->sendPacket( &_CGDonationMoney );
-	}
-// 2005, 4, 21, sjheon add end - °áÈ¥ÃàÀÇ±Ý  °ü·Ã
-}
-
-void 
-UIMessageManager::Execute_UI_NETMARBLE_AGREEMENT( int left, int right, void* void_ptr )
-{
-	CLAgreement _CLAgreement;	
-	_CLAgreement.setAgree( left == 1 );
-
-	g_pSocket->sendPacket( &_CLAgreement);
-}
-
-void 
-UIMessageManager::Execute_UI_BLOOD_BURST( int left, int right, void* void_ptr )
-{
-	int SkillType = 0; 
-
-	if(left == 1)
-	{
-		if(g_pPlayer->IsSlayer())
-		{
-			int domain_level_Sword = (*g_pSkillManager)[SKILLDOMAIN_SWORD].GetDomainLevel();
-			int domain_level_Blade = (*g_pSkillManager)[SKILLDOMAIN_BLADE].GetDomainLevel();
-			int domain_level_Gun = (*g_pSkillManager)[SKILLDOMAIN_GUN].GetDomainLevel();
-			int domain_level_Heal = (*g_pSkillManager)[SKILLDOMAIN_HEAL].GetDomainLevel();
-			int domain_level_Enchant = (*g_pSkillManager)[SKILLDOMAIN_ENCHANT].GetDomainLevel();
-
-			int domainLevel = 0 ;			
-			domainLevel = max(domain_level_Sword , domain_level_Blade)  ;
-			domainLevel = max(domainLevel , domain_level_Gun)  ;
-			domainLevel = max(domainLevel , domain_level_Heal)  ;
-			domainLevel = max(domainLevel , domain_level_Enchant)  ; 
-		
-			if(domainLevel == domain_level_Sword)
-				SkillType = SKILL_HOLY_SWORD ; 
-			else if(domainLevel == domain_level_Blade)
-				SkillType = SKILL_HOLY_BLADE ; 
-			else if(domainLevel == domain_level_Gun)
-				SkillType = SKILL_BURST_GUN ; 
-			else if(domainLevel == domain_level_Enchant)
-				SkillType = SKILL_HOLY_MACE ; 
-			else if(domainLevel == domain_level_Heal)
-				SkillType = SKILL_HOLY_CROSS ; 
+		//-----------------------------------------------------------------
+		// °ËÁõ¹ÞÀ»°Ô ¾ø´Â °æ¿ì
+		//-----------------------------------------------------------------
+		if (g_pPlayer->IsItemCheckBufferNULL() && pMouseItem!=NULL
+			&& g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
+		{		
+			if(pMouseItem->GetItemClass() == ITEM_CLASS_SUB_INVENTORY)
+				return;
+			TYPE_OBJECTID toInventoryItemID = (pMouseItem==NULL)? OBJECTID_NULL : pMouseItem->GetID();
 			
-			//SkillType = SKILL_HOLY_CROSS ; 
-		}
-		else if(g_pPlayer->IsVampire())
-			SkillType = SKILL_DARK_FORCE ; 
-		
-		else if(g_pPlayer->IsOusters())
-		{
-		
-			MCreatureWear *pCreatureWear = (MCreatureWear *)g_pPlayer;
-			const MCreatureWear::ADDON_INFO& addonInfoChakram = g_pPlayer->GetAddonInfo(ADDON_RIGHTHAND);
-			bool bChakram = addonInfoChakram.bAddon && addonInfoChakram.ItemClass == ITEM_CLASS_OUSTERS_CHAKRAM;
+			CGAddMouseToInventory _CGAddMouseToInventory;
+			_CGAddMouseToInventory.setObjectID( toInventoryItemID );
+			_CGAddMouseToInventory.setInvenX( left );//pItem->GetGridX() );
+			_CGAddMouseToInventory.setInvenY( right );//pItem->GetGridY() );
+			_CGAddMouseToInventory.setInventoryItemObjectID(pMultiPackItem->GetID());
 
-			bool bWristlet = addonInfoChakram.bAddon && addonInfoChakram.ItemClass == ITEM_CLASS_OUSTERS_WRISTLET;
-			
-			
-			if(bChakram)
-				SkillType = SKILL_NATURAL_FORCE ; 
-			else if(bWristlet)
+			g_pSocket->sendPacket( &_CGAddMouseToInventory );
+
+			MItem* pOldItem = NULL;
+			if (gC_vs_ui.ReplaceSubInventoryItem(pMouseItem,		// Ãß°¡ÇÒ item
+												left, right,	// Ãß°¡ÇÒ À§Ä¡ 
+												pOldItem))		// ¿ø·¡ÀÖ´ø item
 			{
-				int ItemClass = addonInfoChakram.ItemClass	; 
-				int ItemType  = addonInfoChakram.ItemType	;
-				ITEMTABLE_INFO iInfo = (*g_pItemTable)[ItemClass][ItemType];
-				
-				if(iInfo.ElementalType == ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE)
-					SkillType = SKILL_FIRE_FORCE ; 
-				else if(iInfo.ElementalType == ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER)
-					SkillType = SKILL_WATER_FORCE ; 
-				else if(iInfo.ElementalType == ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH)
-					SkillType = SKILL_EARTH_FORCE ; 
-
+				if (pOldItem != NULL) // replace µÇ¾ú´Â°¡?
+				{				
+					UI_PickUpItem( pOldItem );
+				}
+				else
+				{
+					UI_DropItem();
+				}
 			}
-			else return ;
+		}
+		//-----------------------------------------------------------------
+		// °ËÁõ ¹Þ¾Æ¾ßÇÒ ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ÀÖ´Â °æ¿ì
+		//-----------------------------------------------------------------
+		else
+		{
+			DEBUG_ADD( "[Error] There is another item in ItemCheckBuffer or Mouse NULL");		
+
+			if(!g_pPlayer->IsItemCheckBufferNULL())
+				DEBUG_ADD_FORMAT("[ITEMDROP] !g_pPlayer->IsItemCheckBufferNULL() %d", g_pPlayer->GetItemCheckBufferStatus());
+			if(pMouseItem == NULL)
+				DEBUG_ADD("[ITEMDROP] pMouseItem == NULL)");
+			if(g_pTempInformation->GetMode()!=TempInformation::MODE_NULL)
+				DEBUG_ADD_FORMAT("[ITEMPDROP] g_pTempInformation->Mode!=TempInformation::MODE_NULL %d", g_pTempInformation->Mode);
 		}
 	}
-	else if(left ==  2)
+
+
+	void
+	UIMessageManager::Execute_UI_ITEM_PICKUP_FROM_INVENTORY_SUB(int left, int right, void* void_ptr)
 	{
-		if(g_pPlayer->IsSlayer())
-			SkillType = SKILL_LOSE_SIGHT ; 
-		else if(g_pPlayer->IsVampire())
-			SkillType = SKILL_WIDE_BLOOD_DRAIN ; 
-		else if(g_pPlayer->IsOusters())
-			SkillType = SKILL_NATURAL_PEACE ; 
-	}
-	else if(left ==  3)
-	{
-		SkillType = SKILL_PARTY_AURA ; 
-	}
+		DEBUG_ADD("[UI] UI_ITEM_PICKUP_FROM_INVENTORY"); 
+		
+		if (g_Mode!=MODE_GAME || g_pPlayer->IsDead() || !gC_vs_ui.IsRunningSubInventory())
+		{
+			DEBUG_ADD("Not Mode MODE_GAME or Dead");
+			return;
+		}
+		MItem* pItem = (MItem*)void_ptr;
 
-	CGSkillToSelf _CGSkillToSelf; 
-	_CGSkillToSelf.setSkillType( SkillType );
-	_CGSkillToSelf.setCEffectID( 0 );
-	g_pSocket->sendPacket( &_CGSkillToSelf );
+		MItem* pMultiPackItem = gC_vs_ui.GetSubInventoryItem();
 
+		TYPE_OBJECTID MultiPackItemID = (pMultiPackItem==NULL)? OBJECTID_NULL : pMultiPackItem->GetID();
 
-	// 2001.8.20 ÁÖ¼®Ã³¸®
-	g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS, SkillType );
-}
-
-void 
-UIMessageManager::Execute_UI_CLIENT_REMOVE_EFFECT_STATUS( int left, int right, void* void_ptr )
-{
-	int iEffectState = 0 ; 
-	if(left == SKILL_CLIENT_MAGICAL_PET_CHANGER)
-	{	
-		UI_RemoveEffectStatus(EFFECTSTATUS_CLIENT_MAGICAL_PET_CHANGER) ; 
-	}
-	
-}
-
-
-void 
-UIMessageManager::Execute_UI_MARKET_ACCOUNT( int left, int right, void* void_ptr )
-{
-	if(left == 0 && right == 0)
-	{
-		CGRequestWebMarket	_CGRequestWebMarket	;
-		_CGRequestWebMarket.setCode(CGRequestWebMarket::REQUEST_WEB_MARKET)	; 
-		g_pSocket->sendPacket( &_CGRequestWebMarket );	
-	}	
-	
-	else if(left == 0 && right == 1)
-	{
-		CGRequestWebMarket	_CGRequestWebMarket	;
-		_CGRequestWebMarket.setCode(CGRequestWebMarket::REQUEST_BUY_COMPLETE)	; 
-		g_pSocket->sendPacket( &_CGRequestWebMarket );	
-	}	
-
-		//if(gC_vs_ui.IsRunningWebBrowser())
-	//		gC_vs_ui.CloseWebBrowser(); 
-	//	else if(left == 0 && !gC_vs_ui.IsRunningWebBrowser())
-	//		gC_vs_ui.RunWebBrowser(g_hWnd,"http://gmk.darkeden.com/?userid=tezar" , g_hInstance) ;
-	//	else if(left == 2 && !gC_vs_ui.IsRunningWebBrowser())
-	//		
-	
-	
-	
-	//gC_vs_ui.RunWebBrowser(g_hWnd,"http://gmk.darkeden.com/?userid=sjheon" , g_hInstance) ;
-
-
-	//}
-	else if(left == 1 && right == 0 )
-	{
-		CGRequestWebMarket	_CGRequestWebMarket	; 
-		_CGRequestWebMarket.setCode(CGRequestWebMarket::REQUEST_GOODS_LIST)	; 
-		g_pSocket->sendPacket( &_CGRequestWebMarket );	
+		UI_PickUpItem( pItem );
+		//---------------------------------------------------
+		// Inventory¿¡ ÀÖ´ø itemÀ» mouse¿¡ ºÙ¿´´Ù(-_-;)°í
+		// server·Î packetÀ» º¸³½´Ù.
+		//---------------------------------------------------
+		CGAddInventoryToMouse _CGAddInventoryToMouse;
+		_CGAddInventoryToMouse.setObjectID( pItem->GetID() );
+		_CGAddInventoryToMouse.setX( pItem->GetGridX() );
+		_CGAddInventoryToMouse.setY( pItem->GetGridY() );
+		_CGAddInventoryToMouse.setInventoryItemObjectID(MultiPackItemID);
+		
+		g_pSocket->sendPacket( &_CGAddInventoryToMouse );				
 	}
 
-}
+	// 2005, 2, 25, sobeit add end - ¼­ºê ÀÎº¥Åä¸®¸¦ ´Ý´Â´Ù.
 
+
+	// 2005, 3, 2, sobeit add start
+	void
+	UIMessageManager::Execute_UI_ITEM_USE_SUBINVENTORY(int left, int right, void* void_ptr)
+	{
+		DEBUG_ADD("[UI] Execute_UI_ITEM_USE_SUBINVENTORY"); 
+		
+		if (g_Mode!=MODE_GAME || g_pPlayer->IsDead() )
+		{
+			DEBUG_ADD("Not Mode MODE_GAME or Dead");
+			return;
+		}
+		MItem* pSubInventory = g_pInventory->GetItem(right);
+
+		if(NULL == pSubInventory)
+			return;
+
+		MItem* pItem = ((MSubInventory*)pSubInventory)->GetItemToModify( left );//(MItem*)void_ptr;
+
+		if (pItem!=NULL && g_pPlayer->IsItemCheckBufferNULL())
+		{
+			// ÀÚ±âÁ¾Á· ¾ÆÀÌÅÛ¸¸ ¾²Àð-¤µ-;
+			if(g_pPlayer->IsSlayer() && pItem->IsSlayerItem() ||
+				g_pPlayer->IsVampire() && pItem->IsVampireItem() ||
+				g_pPlayer->IsOusters() && pItem->IsOustersItem())
+			{
+				pItem->UseInventory(pSubInventory->GetID());
+			}
+		}
+		//----------------------------------------------------
+		// item check buffer not null
+		//----------------------------------------------------
+		else
+		{
+			#ifdef OUTPUT_DEBUG
+				if (pItem==NULL)
+				{
+					DEBUG_ADD("[Wait] Item is NULL");
+				}
+				else 
+				{
+					DEBUG_ADD("[Wait] Item Check Buffer is Not NULL");
+				}
+			#endif
+		}
+	}
+
+	// 2005, 3, 2, sobeit add end
+#endif

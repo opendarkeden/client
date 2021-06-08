@@ -63,7 +63,7 @@ CSpriteTexturePartManager::Init(const char* spkFilename, WORD partSize)
 
 	///*
 	// Index File을 Load한다.
-//	ifstream indexFile(indexFilename, std::ios::binary);
+//	class ifstream indexFile(indexFilename, ios::binary);
 //	m_SPKIndex.LoadFromFile( indexFile );
 //	indexFile.close();
 //
@@ -71,7 +71,7 @@ CSpriteTexturePartManager::Init(const char* spkFilename, WORD partSize)
 //	m_SPK.Init( m_SPKIndex.GetSize());//, CDirectDraw::Is565() );
 //
 //	// SPK File을 열어둔다.
-//	m_SPKFile.open(spkFilename, std::ios::binary);
+//	m_SPKFile.open(spkFilename, ios::binary);
 //	
 //	TYPE_SPRITEID size;
 //	m_SPKFile.read((char*)&size, SIZE_SPRITEID);
@@ -100,7 +100,7 @@ CSpriteTexturePartManager::Init(const char* spkFilename, WORD partSize)
 	m_pWidth = new int [allSize];
 	m_pHeight = new int [allSize];
 
-	for (int i=0; i<allSize; i++)
+	for (i=0; i<allSize; i++)
 	{
 		m_pWidth[i] = 0;
 		m_pHeight[i] = 0;

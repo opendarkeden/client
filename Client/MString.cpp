@@ -168,7 +168,7 @@ MString::Format(const char* format, ...)
 // Save To File
 //--------------------------------------------------------------------------
 void		
-MString::SaveToFile( ofstream& file)
+MString::SaveToFile(class ofstream& file)
 {
 	file.write((const char*)&m_Length, 4);
 
@@ -183,7 +183,7 @@ MString::SaveToFile( ofstream& file)
 // Load From File
 //--------------------------------------------------------------------------
 void		
-MString::LoadFromFile( ifstream& file)
+MString::LoadFromFile(class ifstream& file)
 {
 	if (m_pString!=NULL)
 	{

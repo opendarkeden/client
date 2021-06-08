@@ -26,7 +26,7 @@
 #endif
 
 #ifdef __GAME_CLIENT__
-	bool	FileOpenBinary(const char* filename, ifstream& file);
+	bool	FileOpenBinary(const char* filename, class ifstream& file);
 
 	// MItem.cpp에 있다.
 	bool	IsBombMaterial(const MItem* pItem);
@@ -105,12 +105,68 @@ SKILLINFO_NODE::SKILLINFO_NODE()
 	ElementalDomain= 0;
 	CanDelete = 0;
 }
-
+//----------------------------------------------------------------------
+// Save From File ServerSkillInfo
+//----------------------------------------------------------------------
+void 
+SKILLINFO_NODE::SaveFromFileServerSkillInfo(ofstream &file)
+{
+	
+	file.write((char*)&m_LearnLevel, 4);
+	file.write((char*)&DomainType, 4);
+	m_Name.SaveToFile( file );
+	m_HName.SaveToFile( file );
+	file.write((char*)&minDamage, 4);		// 최소 데미지 또는 효과치.
+	file.write((char*)&maxDamage, 4);		// 최대 데미지 또는 효과치.
+	file.write((char*)&minDelay, 4);			// 최소 사용 딜레이.
+	file.write((char*)&maxDelay, 4);			// 최대 사용 딜레이.
+	file.write((char*)&minDuration, 4);		// 최소 캐스팅 타임.
+	file.write((char*)&maxDuration, 4);		// 최대 캐스팅 타임.
+	file.write((char*)&m_MP, 4);					// 마나 소모량.(m_MP)
+	file.write((char*)&minRange, 4);			// 최소 사정거리
+	file.write((char*)&maxRange, 4);			// 최대 사정거리
+	file.write((char*)&maxExp, 4);			// 그 기술의 100% 경험치. 1 회당 + 1 씩 올라감	
+	
+	if(DomainType == SKILLDOMAIN_OUSTERS)
+	{
+		file.write((char*)&SkillPoint,		sizeof(int));
+		file.write((char*)&LevelUpPoint,		sizeof(int));
+		int szSkill= SkillTypeList.size();
+		file.write((char*)&szSkill,			sizeof(int));
+		SKILLTYPE_LIST::const_iterator iSkillID = SkillTypeList.begin();
+		while (iSkillID!=SkillTypeList.end())
+ 		{
+ 			int skillType = *iSkillID;
+ 
+ 			file.write((const char*)&skillType, sizeof(int));
+ 
+ 			iSkillID++;
+ 		}
+// 		for(int i = 0; i < szSkill; i++)
+// 		{
+// 			int skillType;
+// 			file.write((char*)&skillType,		sizeof(int));
+// 			SkillTypeList.push_back(skillType);
+// 		}
+		file.write((char*)&Fire,				sizeof(int));
+		file.write((char*)&Water,			sizeof(int));
+		file.write((char*)&Earth,			sizeof(int));
+		file.write((char*)&Wind,				sizeof(int));
+		file.write((char*)&Sum,				sizeof(int));
+		file.write((char*)&Wristlet,			sizeof(int));
+		file.write((char*)&Stone1,			sizeof(int));
+		file.write((char*)&Stone2,			sizeof(int));
+		file.write((char*)&Stone3,			sizeof(int));
+		file.write((char*)&Stone4,			sizeof(int));
+		file.write((char*)&ElementalDomain,	sizeof(int));
+		file.write((char*)&CanDelete,		sizeof(BYTE));
+	} 
+}
 //----------------------------------------------------------------------
 // Load From File ServerSkillInfo
 //----------------------------------------------------------------------
 void		
-SKILLINFO_NODE::LoadFromFileServerSkillInfo(ifstream& file)
+SKILLINFO_NODE::LoadFromFileServerSkillInfo(class ifstream& file)
 {
 	int ll;
 	MString name;
@@ -209,7 +265,7 @@ SKILLINFO_NODE::AddNextSkill(ACTIONINFO id)
 // Save To File
 //----------------------------------------------------------------------
 void		
-SKILLINFO_NODE::SaveToFile(ofstream& file)
+SKILLINFO_NODE::SaveToFile(class ofstream& file)
 {
 
 	m_Name.SaveToFile( file );							// 기술 이름
@@ -244,7 +300,7 @@ SKILLINFO_NODE::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-SKILLINFO_NODE::LoadFromFile(ifstream& file)
+SKILLINFO_NODE::LoadFromFile(class ifstream& file)
 {
 	m_Name.LoadFromFile( file );					// 기술 이름
 	m_HName.LoadFromFile( file );
@@ -895,7 +951,7 @@ MSkillSet::SetAvailableSkills()
 
 				ITEM_CLASS itemClass = pItem->GetItemClass();
 
-				// 2005, 3, 2, sobeit add start - 서브 인벤도 뒤지자..-_-; 소스가 깝깝하네..ㅋ
+			#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 				if(itemClass == ITEM_CLASS_SUB_INVENTORY)
 				{
 					MSubInventory* pSubItem = (MSubInventory*)pItem;
@@ -913,8 +969,7 @@ MSkillSet::SetAvailableSkills()
 						pSubItem->Next();
 					}
 				}
-
-				// 2005, 3, 2, sobeit add end
+			#endif
 
 				//-----------------------------------------------------
 				// Portal
@@ -1134,13 +1189,27 @@ MSkillSet::SetAvailableSkills()
 				|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_FEMALE2
 				|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_MALE3
 				|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_FEMALE3
+				// add by Coffee 2006.12.7
+				|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_MALE4
+				|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_FEMALE4
+				//add by viva
+				|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_MALE5
+				|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_FEMALE5
+				//add by viva
+				|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_MALE6
+				|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_FEMALE6
+				// end
 				|| g_pPlayer->GetCreatureType()==CREATURETYPE_VAMPIRE_OPERATOR)
+
 			{
 				MSkillDomain& vampireDomain = (*g_pSkillManager)[SKILLDOMAIN_VAMPIRE];
 				
 				vampireDomain.SetBegin();		
 
+			#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 				MItem* pSubInventory = NULL;
+			#endif
+
 				while (vampireDomain.IsNotEnd())
 				{
 					MSkillDomain::SKILLSTATUS	status	= vampireDomain.GetSkillStatus();
@@ -1161,19 +1230,28 @@ MSkillSet::SetAvailableSkills()
 							flag = FLAG_SKILL_ENABLE;					
 						}
 
-
 						// Item 사용하는거 체크
 						switch (id)
 						{
 							case MAGIC_BLOODY_MARK :
+
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 								if (NULL == ((MItemManager*)g_pInventory)->FindItemAll( MVampirePortalItemFinder( false ) , pSubInventory))
+							#else
+								if (NULL == ((MItemManager*)g_pInventory)->FindItem( MVampirePortalItemFinder( false ) ))
+							#endif
 								{
 									flag = 0;
 								}							
 							break;
 
 							case MAGIC_BLOODY_TUNNEL :
+
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 								if (NULL == ((MItemManager*)g_pInventory)->FindItemAll( MVampirePortalItemFinder( true ) , pSubInventory ))
+							#else
+								if (NULL == ((MItemManager*)g_pInventory)->FindItem( MVampirePortalItemFinder( true ) ))
+							#endif
 								{
 									flag = 0;
 								}
@@ -1187,7 +1265,12 @@ MSkillSet::SetAvailableSkills()
 							break;
 
 							case MAGIC_TRANSFORM_TO_BAT :
+
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 								if (NULL == g_pInventory->FindItemAll( MItemClassTypeFinder(ITEM_CLASS_VAMPIRE_ETC , 1), pSubInventory ))
+							#else
+								if (NULL == g_pInventory->FindItem( ITEM_CLASS_VAMPIRE_ETC, 1 ))
+							#endif
 								{
 									flag = 0;
 								}							
@@ -1384,12 +1467,20 @@ MSkillSet::SetAvailableSkills()
 							}
 						}
 
+					#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 						if( id == SKILL_SUMMON_SYLPH )
 						{
 							MItem* pSubInventory = NULL;
 							if(NULL == ((MItemManager*)g_pInventory)->FindItemAll( MOustersSummonGemItemFinder(), pSubInventory ))
 								flag = 0;
 						}
+					#else
+						if( id == SKILL_SUMMON_SYLPH &&
+							NULL == g_pInventory->FindItem( ITEM_CLASS_OUSTERS_SUMMON_ITEM ))
+						{
+							flag = 0;
+						}
+					#endif
 
 						insert(SKILLID_MAP::value_type( id, SKILLID_NODE(id, flag) ));
 					}
@@ -1612,6 +1703,16 @@ MSkillSet::SetAvailableVampireSkills()
 		&& PlayerCreatureType!=CREATURETYPE_VAMPIRE_FEMALE2
 		&& PlayerCreatureType!=CREATURETYPE_VAMPIRE_MALE3
 		&& PlayerCreatureType!=CREATURETYPE_VAMPIRE_FEMALE3
+		// add by Coffee 2006.12.7
+		&& PlayerCreatureType!=CREATURETYPE_VAMPIRE_MALE4
+		&& PlayerCreatureType!=CREATURETYPE_VAMPIRE_FEMALE4
+		//add by viva
+		&& PlayerCreatureType!=CREATURETYPE_VAMPIRE_MALE5
+		&& PlayerCreatureType!=CREATURETYPE_VAMPIRE_FEMALE5
+		//add by viva
+		&& PlayerCreatureType!=CREATURETYPE_VAMPIRE_MALE6
+		&& PlayerCreatureType!=CREATURETYPE_VAMPIRE_FEMALE6
+		// end 
 		&& PlayerCreatureType!=CREATURETYPE_VAMPIRE_OPERATOR)
 	{			
 		flag = FLAG_SKILL_ENABLE;
@@ -2544,7 +2645,7 @@ MSkillDomain::AddSkillStep(SKILL_STEP ss, ACTIONINFO ai)
 // Skill ID를 File에 저장한다.
 //----------------------------------------------------------------------
 void		
-MSkillDomain::SaveToFile(ofstream& file)
+MSkillDomain::SaveToFile(class ofstream& file)
 {
 	SKILLID_MAP::iterator	iSkill = m_mapSkillID.begin();
 
@@ -2571,7 +2672,7 @@ MSkillDomain::SaveToFile(ofstream& file)
 // Skill ID를 File에서 읽어온다.
 //----------------------------------------------------------------------
 void		
-MSkillDomain::LoadFromFile(ifstream& file)
+MSkillDomain::LoadFromFile(class ifstream& file)
 {
 	Clear();
 	//m_mapSkillID.clear();
@@ -2598,7 +2699,7 @@ MSkillDomain::LoadFromFile(ifstream& file)
 // LoadFromFileServerDomainInfo
 //----------------------------------------------------------------------
 void		
-MSkillDomain::LoadFromFileServerDomainInfo(ifstream& file)
+MSkillDomain::LoadFromFileServerDomainInfo(class ifstream& file)
 {	
 	int level;
 
@@ -2690,7 +2791,7 @@ MSkillManager::Init()
 		//------------------------------------------------
 		// Server 정보를 loading한다.
 		//------------------------------------------------
-		ifstream serverDomainInfoFile;//(FILE_INFO_skill, std::ios::binary);
+		class ifstream serverDomainInfoFile;//(FILE_INFO_skill, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_SKILL_DOMAIN_EXP").c_str(), serverDomainInfoFile))
 			return;
 
@@ -2721,7 +2822,7 @@ MSkillManager::InitSkillList()
 // LoadFromFileServerSkillInfo
 //----------------------------------------------------------------------
 void		
-MSkillManager::LoadFromFileServerDomainInfo(ifstream& file)
+MSkillManager::LoadFromFileServerDomainInfo(class ifstream& file)
 {
 	int num, domain;
 

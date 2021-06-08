@@ -11,6 +11,7 @@
 
 #include "mgamestringtable.h"
 #include "UserInformation.h"
+extern RECT g_GameRect;
 //-----------------------------------------------------------------------------
 // WindowEventReceiver
 //
@@ -152,22 +153,22 @@ C_VS_UI_DIALOG::C_VS_UI_DIALOG(int _x, int _y, int width, int height, void (*exe
 
 	// -1 = center
 	if (_x == -1)
-		x = RESOLUTION_X/2-w/2;
+		x = g_GameRect.right/2-w/2;
 	else
 		x = _x;
 	if (_y == -1 && h != -1)
-		y = RESOLUTION_Y/2-h/2;
+		y = g_GameRect.bottom/2-h/2;
 	else
 		y = _y;
 
 	// x좌표 보정
 	// 화면밖으로 넘어가면 땡김...
-	if (Right() >= RESOLUTION_X)
-		x = RESOLUTION_X - w;
+	if (Right() >= g_GameRect.right)
+		x = g_GameRect.right - w;
 	if (x < 0)
 		x = 0;
-	if (Down() >= RESOLUTION_Y && h != -1)
-		y = RESOLUTION_Y - h;
+	if (Down() >= g_GameRect.bottom && h != -1)
+		y = g_GameRect.bottom - h;
 	if (y < 0 && h != -1)
 		y = 0;
 
@@ -178,6 +179,9 @@ C_VS_UI_DIALOG::C_VS_UI_DIALOG(int _x, int _y, int width, int height, void (*exe
 		if (m_ddb & DIALOG_OK)
 			m_button_count++;
 		if (m_ddb & DIALOG_CANCEL)
+			m_button_count++;
+		//add by viva : black button
+		if (m_ddb & DIALOG_FRIEND_BLACK)
 			m_button_count++;
 	}
 
@@ -198,11 +202,12 @@ C_VS_UI_DIALOG::C_VS_UI_DIALOG(int _x, int _y, int width, int height, void (*exe
 	if (m_ddb & DIALOG_OK && h != -1)
 	{
 		m_pC_button_group->Add(	new C_VS_UI_EVENT_BUTTON(DIALOG_BUTTON_POS(BS_OK), DIALOG_BUTTON_Y, DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT, DIALOG_EXECID_OK, this, C_GLOBAL_RESOURCE::AB_BUTTON_OK));
-
+		//m_pC_button_group->Add(	new C_VS_UI_EVENT_BUTTON(150, DIALOG_BUTTON_Y, DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT, DIALOG_EXECID_OK, this, C_GLOBAL_RESOURCE::AB_BUTTON_OK));
 		// 두 버튼 다 있는 경우
 		if (m_ddb & DIALOG_CANCEL)
 		{
 			m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(DIALOG_BUTTON_POS(BS_CANCEL), DIALOG_BUTTON_Y, DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT, DIALOG_EXECID_CANCEL, this, C_GLOBAL_RESOURCE::AB_BUTTON_CANCEL));
+			//m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(200, DIALOG_BUTTON_Y, DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT, DIALOG_EXECID_CANCEL, this, C_GLOBAL_RESOURCE::AB_BUTTON_CANCEL));
 		}
 	}
 	else
@@ -211,7 +216,13 @@ C_VS_UI_DIALOG::C_VS_UI_DIALOG(int _x, int _y, int width, int height, void (*exe
 		if (m_ddb & DIALOG_CANCEL && h != -1)
 		{
 			m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(DIALOG_BUTTON_POS(BS_OK), DIALOG_BUTTON_Y, DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT, DIALOG_EXECID_CANCEL, this, C_GLOBAL_RESOURCE::AB_BUTTON_CANCEL));
+			//m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(150, DIALOG_BUTTON_Y, DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT, DIALOG_EXECID_CANCEL, this, C_GLOBAL_RESOURCE::AB_BUTTON_CANCEL));
 		}
+	}
+	if(m_ddb & DIALOG_FRIEND_BLACK && h != -1)		//add by viva
+	{
+		m_pC_button_group->Add( new C_VS_UI_EVENT_BUTTON(DIALOG_BUTTON_POS(BS_OK)-gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_FRIEND_BLACK) -10, DIALOG_BUTTON_Y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_FRIEND_BLACK), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_FRIEND_BLACK), DIALOG_EXECID_FRIEND_BLACK, this, C_GLOBAL_RESOURCE::AB_BUTTON_FRIEND_BLACK));
+		//m_pC_button_group->Add( new C_VS_UI_EVENT_BUTTON(125, DIALOG_BUTTON_Y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_FRIEND_BLACK), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_FRIEND_BLACK), DIALOG_EXECID_FRIEND_BLACK, this, C_GLOBAL_RESOURCE::AB_BUTTON_FRIEND_BLACK));
 	}
 	
 	
@@ -302,6 +313,7 @@ void C_VS_UI_DIALOG::Run(id_t id)
 
 		case DIALOG_EXECID_CANCEL:
 		case DIALOG_EXECID_EXIT:
+		case DIALOG_EXECID_FRIEND_BLACK:
 			Finish();
 			break;
 	}
@@ -475,7 +487,9 @@ void C_VS_UI_DIALOG::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 
 	// Menu button과 그냥 Button을 다르게 처리. 
 	if (p_button->GetID() == DIALOG_EXECID_OK ||
-		 p_button->GetID() == DIALOG_EXECID_CANCEL)
+		 p_button->GetID() == DIALOG_EXECID_CANCEL ||
+		 p_button->GetID() == DIALOG_EXECID_FRIEND_BLACK
+		 )
 	{
 		if (p_button->GetFocusState())
 		{
@@ -829,7 +843,7 @@ void C_VS_UI_DIALOG::Finish()
 // 만약 일반 다이알로그에서 문제가 생길시 주석처리된 ----[Fix] 부분을 주석처리를 해제해주도록 한다.
 // 수정사항에서는 이부분만 변경되었다.
 //-----------------------------------------------------------------------------
-void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE_OPTION mode, BOOL bLineCheck ,  int iMsgWidth)
+void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE_OPTION mode)
 {
 	assert(sz_msg != NULL);
 	assert(line_count > 0);
@@ -858,30 +872,13 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 			if(g_PossibleStringCut(cur, row))check = 0; else check = 1;
 
 			char_temp = cur[row - check];
-			
-			if(bLineCheck)
-			{
-				char *pChar = strtok(cur ,"\n") ; 
-			
-				while( pChar != NULL )
-			   {
-				  int iLength = strlen(pChar) ; 
-				  m_vs_msg.push_back( pChar );
-				  pChar = strtok( NULL, "\n" );
-				  
-			   }
-			   if(!pChar) break; 	
-			}
-			else
-			{
-				cur[row - check] = '\0';
-				m_vs_msg.push_back( cur );
+			cur[row - check] = '\0';
+			m_vs_msg.push_back( cur );
 
-				if(strlen(cur) < row-check) break;
-				cur += row-check;
-				*cur = char_temp;
-				if(*cur == ' ')cur++;
-			}
+			if(strlen(cur) < row-check) break;
+			cur += row-check;
+			*cur = char_temp;
+			if(*cur == ' ')cur++;
 		}
 	}
 
@@ -902,7 +899,7 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 		m_client_rect.h = h-DECORATE_GAP*2-_EXTRA;
 
 		if (y == -1)
-			y = (RESOLUTION_Y-102*2)/2-h/2+90;
+			y = (g_GameRect.bottom-102*2)/2-h/2+90;
 
 		m_client_rect.y = y+DECORATE_GAP+_EXTRA;
 		m_menu_rect.y = (m_client_rect.y+m_client_rect.h-GetButtonGap()) - m_menu_rect.h;
@@ -910,7 +907,7 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 		int plus = 0;
 		int width, height;
 		
-		for (int i=0; i < m_menu_count; i++, plus += (m_menu_str_height-TEXT_EXTRA_HGAP)*height+TEXT_EXTRA_HGAP)
+		for (i=0; i < m_menu_count; i++, plus += (m_menu_str_height-TEXT_EXTRA_HGAP)*height+TEXT_EXTRA_HGAP)
 		{
 			if(!m_p_menu[i].sz_menu_str.empty())
 			{
@@ -934,9 +931,9 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 		}
 	}
 
-	m_msg_rect.x = m_client_rect.x ;
-	m_msg_rect.w = m_client_rect.w ;
-	m_msg_rect.y = m_client_rect.y ;	
+	m_msg_rect.x = m_client_rect.x;
+	m_msg_rect.w = m_client_rect.w;
+	m_msg_rect.y = m_client_rect.y;	
 	
 	// 2002년 7월 23일 수정 부분.
 	// 메뉴가 있으면 현재 다이알로그의 높이의 반을 기준을 잡는다.
@@ -948,7 +945,7 @@ void C_VS_UI_DIALOG::SetMessage(char ** sz_msg, UINT line_count, SETMESSAGE_MODE
 	}
 	else
 	{
-		m_msg_rect.h = m_client_rect.h-m_menu_rect.h-GetButtonGap() + iMsgWidth  ; //; //  + 100;
+		m_msg_rect.h = m_client_rect.h-m_menu_rect.h-GetButtonGap();
 		if (m_menu_count > 0)
 			m_msg_rect.h -= 14;
 	}

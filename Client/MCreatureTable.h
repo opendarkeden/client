@@ -24,8 +24,8 @@
 #include "MString.h"
 #include <list>
 #include <vector>
-ifstream;
-std::ofstream;
+class ifstream;
+class ofstream;
 
 //----------------------------------------------------------------------
 // Creature狼 辆练
@@ -46,16 +46,31 @@ enum CREATURETRIBE
 //----------------------------------------------------------------------
 #define	CREATURETYPE_SLAYER_MALE		0
 #define	CREATURETYPE_SLAYER_FEMALE		1
+
 #define	CREATURETYPE_VAMPIRE_MALE1		2
 #define	CREATURETYPE_VAMPIRE_FEMALE1	3
+
 #define	CREATURETYPE_VAMPIRE_MALE2		514
 #define	CREATURETYPE_VAMPIRE_FEMALE2	515
+
 #define	CREATURETYPE_VAMPIRE_MALE3		558
 #define	CREATURETYPE_VAMPIRE_FEMALE3	559
+// add by Coffee 2006.11.24  增加鬼族亚麻形象
+#define	CREATURETYPE_VAMPIRE_MALE4		807
+#define	CREATURETYPE_VAMPIRE_FEMALE4	808
+//add by viva  195
+#define	CREATURETYPE_VAMPIRE_MALE5		809
+#define	CREATURETYPE_VAMPIRE_FEMALE5	810
+//add by viva  215
+#define	CREATURETYPE_VAMPIRE_MALE6		811
+#define	CREATURETYPE_VAMPIRE_FEMALE6	812
+
+// end
 #define	CREATURETYPE_BAT				185
 #define	CREATURETYPE_WOLF				186
 #define	CREATURETYPE_SLAYER_OPERATOR	367
-#define	CREATURETYPE_VAMPIRE_OPERATOR	369
+#define	CREATURETYPE_VAMPIRE_OPERATOR	369//805//765//804//369
+//#define	CREATURETYPE_VAMPIRE_OPERATOR	810//add by viva
 #define	CREATURETYPE_OUSTERS_OPERATOR	652
 #define CREATURETYPE_OUSTERS			651
 #define CREATURETYPE_WER_WOLF			671
@@ -90,8 +105,8 @@ class ITEM_WEARINFO
 		ITEM_WEARINFO();
 
 		void		operator = (const ITEM_WEARINFO& info);
-		void		SaveToFile(std::ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(class ofstream& file);
+		void		LoadFromFile(class ifstream& file);
 };
 
 
@@ -156,8 +171,8 @@ class CREATURETABLE_INFO {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void				SaveToFile(std::ofstream& file);
-		void				LoadFromFile(ifstream& file);	
+		void				SaveToFile(class ofstream& file);
+		void				LoadFromFile(class ifstream& file);	
 		
 	protected :
 		void				InitActionType(int nMaxAction = 0);				
@@ -186,8 +201,8 @@ class CreatureSpriteTypeMapper {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void				SaveToFile(std::ofstream& file);
-		void				LoadFromFile(ifstream& file);	
+		void				SaveToFile(class ofstream& file);
+		void				LoadFromFile(class ifstream& file);	
 
 	protected :
 		CREATURE_SPRITE_TYPES	m_CreatureSpriteTypes;

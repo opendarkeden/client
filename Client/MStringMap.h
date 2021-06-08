@@ -15,8 +15,8 @@
 #pragma warning(disable:4786)
 
 #include "MString.h"
-ifstream;
-std::ofstream;
+class ifstream;
+class ofstream;
 
 //----------------------------------------------------------------------
 // MString*의 값을 비교한다. 적은게 먼저..
@@ -58,8 +58,8 @@ class MStringMap : public std::map<MString*, MString*, MStringPointerCompare> {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void				SaveToFile(std::ofstream& file);
-		void				LoadFromFile(ifstream& file);
+		void				SaveToFile(class ofstream& file);
+		void				LoadFromFile(class ifstream& file);
 
 	protected :
 		

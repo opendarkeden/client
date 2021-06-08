@@ -2,11 +2,12 @@
 
 #include "client_PCH.h"
 #include <assert.h>
-#include <fstream>
+#include <fstream.h>
 #include <stdlib.h>
 #include "VS_UI_base.h"
 #include "VS_UI_util.h"
 
+extern	BOOL g_MyFull;
 //#define TEMP_FILE			"_000_TEMP"
 
 //----------------------------------------------------------------------------
@@ -808,9 +809,18 @@ void C_SPRITE_PACK::BltClip(int x, int y, Rect &rect, SPRITE_ID sprite_id)
 		RECT rt;
 		rt.left = max(-x, rect.x);
 		rt.top = max(-y, rect.y);
-		rt.right = min(rect.x+rect.w, 800-x);
-		rt.bottom = min(rect.y+rect.h, 600-y);
-		
+		// add by Sonic 2006.9.26
+		if(g_MyFull)
+		{
+			rt.right = min(rect.x+rect.w, 1024-x);
+			rt.bottom = min(rect.y+rect.h, 768-y);
+		}
+		else
+		{
+			rt.right = min(rect.x+rect.w, 800-x);
+			rt.bottom = min(rect.y+rect.h, 600-y);
+		}
+		// end
 		if(rt.left < rt.right && rt.top < rt.bottom)
 		{
 			
@@ -1130,8 +1140,18 @@ void C_SPRITE_PACK::BltLockedClip(int x, int y, Rect &rect, SPRITE_ID sprite_id)
 	RECT rt;
 	rt.left = max(-x, rect.x);
 	rt.top = max(-y, rect.y);
-	rt.right = min(rect.x+rect.w, 800-x);
-	rt.bottom = min(rect.y+rect.h, 600-y);
+	// add by Sonic 2006.9.26
+	if(g_MyFull)
+	{
+		rt.right = min(rect.x+rect.w, 1024-x);
+		rt.bottom = min(rect.y+rect.h, 768-y);
+	}
+	else
+	{
+		rt.right = min(rect.x+rect.w, 800-x);
+		rt.bottom = min(rect.y+rect.h, 600-y);
+	}
+	// end
 	
 	if(rt.left >= rt.right || rt.top >= rt.bottom)return;
 

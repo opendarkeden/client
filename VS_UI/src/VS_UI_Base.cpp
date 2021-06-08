@@ -1,9 +1,9 @@
 // VS_UI_Base.cpp
 
 #include "client_PCH.h"
-#include <cassert>
 #include "VS_UI_Base.h"
 #include <windows.h>
+extern RECT g_GameRect;
 //----------------------------------------------------------------------------
 // Globals
 //----------------------------------------------------------------------------
@@ -351,10 +351,9 @@ void Base::InitFont()
 void Base::InitSurface(CSpriteSurface *surface)
 {
 	assert(surface);
-
 	m_p_DDSurface_back = surface;
 
-	bool ret = m_DDSurface_offscreen.InitOffsurface(RESOLUTION_X, RESOLUTION_Y, DDSCAPS_SYSTEMMEMORY);
+	bool ret = m_DDSurface_offscreen.InitOffsurface(g_GameRect.right, g_GameRect.bottom, DDSCAPS_SYSTEMMEMORY);
 	if (!ret)
 		_Error(FAILED_JOB);
 

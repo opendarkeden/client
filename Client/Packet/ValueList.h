@@ -31,8 +31,8 @@ public:
 #ifdef __GAME_CLIENT__
 	std::string toString () const throw ();
 	std::list<T>&					GetList() { return m_Values; }
-	typename std::list<T>::const_iterator		Begin() { return m_Values.begin(); }
-	typename std::list<T>::const_iterator		End() { return m_Values.end(); }
+	std::list<T>::const_iterator		Begin() { return m_Values.begin(); }
+	std::list<T>::const_iterator		End() { return m_Values.end(); }
 	bool						IsEmpty() { return m_Values.empty(); }
 #endif
 

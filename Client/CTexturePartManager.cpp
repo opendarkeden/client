@@ -62,7 +62,7 @@ CTexturePartManager::Init(const char* aspkFilename, WORD partSize)
 
 	///*
 	// Index File을 Load한다.
-//	ifstream indexFile(indexFilename, std::ios::binary);
+//	class ifstream indexFile(indexFilename, ios::binary);
 //	m_ASPKIndex.LoadFromFile( indexFile );
 //	indexFile.close();
 //
@@ -70,7 +70,7 @@ CTexturePartManager::Init(const char* aspkFilename, WORD partSize)
 //	m_ASPK.Init( m_ASPKIndex.GetSize(), CDirectDraw::Is565() );
 //
 //	// ASPK File을 열어둔다.
-//	m_ASPKFile.open(aspkFilename, std::ios::binary);
+//	m_ASPKFile.open(aspkFilename, ios::binary);
 //	
 //	TYPE_SPRITEID size;
 //	m_ASPKFile.read((char*)&size, SIZE_SPRITEID);

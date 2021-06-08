@@ -10,7 +10,7 @@
 #include "MGameStringTable.H"
 
 #define PROGRESS_MAX 25
-
+extern	BOOL g_MyFull;
 
 //-----------------------------------------------------------------------------
 // C_VS_UI_PROGRESS
@@ -71,36 +71,39 @@ C_VS_UI_PROGRESS::C_VS_UI_PROGRESS()
 	m_pC_progress = NULL;
 	m_pC_event_progress = NULL;
 	m_pC_character = NULL;
-
+	// add by coffee 2006-12-21
+	//num=PROGRESS_MAX;
+	// end 2006-12-21
 	if(num >= PROGRESS_MAX)
 	{
 		m_Event_Num = 0;
-		int iEventStartID = 0 ; int iEventCount = 0; 
+		if (g_MyFull)
+		{
+			m_pC_event_progress = new C_SPRITE_PACK(SPK_PROGRESS_EVENT_1024);
+		}
+		else
+		{
+			m_pC_event_progress = new C_SPRITE_PACK(SPK_PROGRESS_EVENT);
+		}
 
-		m_pC_event_progress = new C_SPRITE_PACK(SPK_PROGRESS_EVENT);
-		
-		// 확률처리 
-		//int iEventPerSent = (rand() % 100) ; 
-		//if(iEventPerSent < 34)
-		//{
-		//	iEventCount   = 3 ; 
-		//	iEventStartID = (m_pC_event_progress->GetSize() >> 1) - iEventCount ; 
-		//	m_Event_Num = iEventStartID + (rand() % iEventCount );
-		//}
-		//else
-		//{	
-		//	iEventCount = (m_pC_event_progress->GetSize() >> 1) - 3 ; 
-		//	m_Event_Num = (rand() % iEventCount );
 		m_Event_Num = (rand() % m_pC_event_progress->GetSize())/2;
-
-		//}
-
 		Set(0, 0, m_pC_event_progress->GetWidth(), m_pC_event_progress->GetHeight());
 	}
 	else
 	{
 		m_pC_progress = new CSpritePack;
-		ifstream progress_file(SPK_PROGRESS, std::ios::binary);
+		char* pSpk_progressPathc;
+		if(g_MyFull)
+		{
+			pSpk_progressPathc =SPK_PROGRESS_1024;
+			//ifstream progress_file(SPK_PROGRESS_1024, ios::binary);
+		}
+		else
+		{
+			pSpk_progressPathc =SPK_PROGRESS;
+			//ifstream progress_file(SPK_PROGRESS, ios::binary);
+		}
+		ifstream progress_file(pSpk_progressPathc, ios::binary);
 		m_pC_progress->LoadFromFile(progress_file);
 		progress_file.close();
 		
@@ -427,9 +430,18 @@ void C_VS_UI_PROGRESS::Show()
 			rect.Set(0, 0, (*m_pC_character)[0].GetWidth(), (*m_pC_character)[0].GetHeight()*(100-m_percent)/100);
 			rt.left = max(-p.x, rect.x);
 			rt.top = max(-p.y, rect.y);
-			rt.right = min(rect.x+rect.w, 800-p.x);
-			rt.bottom = min(rect.y+rect.h, 600-p.y);
-			
+			// add by Sonic 2006.9.26
+			if(g_MyFull)
+			{
+				rt.right = min(rect.x+rect.w, 1024-p.x);
+				rt.bottom = min(rect.y+rect.h, 768-p.y);
+			}
+			else
+			{
+				rt.right = min(rect.x+rect.w, 800-p.x);
+				rt.bottom = min(rect.y+rect.h, 600-p.y);
+			}
+			// end
 			if(rt.left < rt.right && rt.top < rt.bottom)
 			{
 				WORD * p_dest = (WORD *)surface_info.p_surface+p.x+rt.left;
@@ -441,9 +453,18 @@ void C_VS_UI_PROGRESS::Show()
 			SetRect((RECT *)&rect, 0, (*m_pC_character)[0].GetHeight()*(100-m_percent)/100, (*m_pC_character)[0].GetWidth(), (*m_pC_character)[0].GetHeight() - (*m_pC_character)[0].GetHeight()*(100-m_percent)/100);
 			rt.left = max(-p.x, rect.x);
 			rt.top = max(-p.y, rect.y);
-			rt.right = min(rect.x+rect.w, 800-p.x);
-			rt.bottom = min(rect.y+rect.h, 600-p.y);
-			
+			// add by Sonic 2006.9.26
+			if(g_MyFull)
+			{
+				rt.right = min(rect.x+rect.w, 1024-p.x);
+				rt.bottom = min(rect.y+rect.h, 768-p.y);
+			}
+			else
+			{
+				rt.right = min(rect.x+rect.w, 800-p.x);
+				rt.bottom = min(rect.y+rect.h, 600-p.y);
+			}
+			// end
 			if(rt.left < rt.right && rt.top < rt.bottom)
 			{
 				
@@ -461,14 +482,31 @@ void C_VS_UI_PROGRESS::Show()
 			
 			
 			//캐릭터이름찍기(하단큰거)
-			p.x = 800 - (*m_pC_progress)[CHAR_NAME_BACK].GetWidth()-10;
-			p.y = 600 - (*m_pC_progress)[CHAR_NAME_BACK].GetHeight()-45;
-			gpC_base->m_p_DDSurface_back->SetEffect( CSpriteSurface::EFFECT_GRAY_SCALE_VARIOUS );
-			gpC_base->m_p_DDSurface_back->BltSpriteEffect(&p, &(*m_pC_progress)[CHAR_NAME_BACK]);
-			
-			p.x = 800 - (*m_pC_progress)[CHAR_NAME_BACK].GetWidth()/2 -(*m_pC_character)[1].GetWidth()/2-10;
-			p.y = 600 - (*m_pC_progress)[CHAR_NAME_BACK].GetHeight()/2 -(*m_pC_character)[1].GetHeight()/2-25;
-			gpC_base->m_p_DDSurface_back->BltSprite(&p, &(*m_pC_character)[1]);
+			// add by Sonic 2006.9.26
+			if(g_MyFull)
+			{
+				p.x = 1024 - (*m_pC_progress)[CHAR_NAME_BACK].GetWidth()-10;
+				p.y = 768 - (*m_pC_progress)[CHAR_NAME_BACK].GetHeight()-45;
+				gpC_base->m_p_DDSurface_back->SetEffect( CSpriteSurface::EFFECT_GRAY_SCALE_VARIOUS );
+				gpC_base->m_p_DDSurface_back->BltSpriteEffect(&p, &(*m_pC_progress)[CHAR_NAME_BACK]);
+				
+				p.x = 1024 - (*m_pC_progress)[CHAR_NAME_BACK].GetWidth()/2 -(*m_pC_character)[1].GetWidth()/2-10;
+				p.y = 768 - (*m_pC_progress)[CHAR_NAME_BACK].GetHeight()/2 -(*m_pC_character)[1].GetHeight()/2-25;
+				gpC_base->m_p_DDSurface_back->BltSprite(&p, &(*m_pC_character)[1]);
+			}
+			else
+			{
+				p.x = 800 - (*m_pC_progress)[CHAR_NAME_BACK].GetWidth()-10;
+				p.y = 600 - (*m_pC_progress)[CHAR_NAME_BACK].GetHeight()-45;
+				gpC_base->m_p_DDSurface_back->SetEffect( CSpriteSurface::EFFECT_GRAY_SCALE_VARIOUS );
+				gpC_base->m_p_DDSurface_back->BltSpriteEffect(&p, &(*m_pC_progress)[CHAR_NAME_BACK]);
+				
+				p.x = 800 - (*m_pC_progress)[CHAR_NAME_BACK].GetWidth()/2 -(*m_pC_character)[1].GetWidth()/2-10;
+				p.y = 600 - (*m_pC_progress)[CHAR_NAME_BACK].GetHeight()/2 -(*m_pC_character)[1].GetHeight()/2-25;
+				gpC_base->m_p_DDSurface_back->BltSprite(&p, &(*m_pC_character)[1]);
+
+			}
+			// end
 		}
 		
 		gpC_base->m_p_DDSurface_back->Unlock();

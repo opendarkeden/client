@@ -12,8 +12,8 @@
 
 #include "CIndexSprite.h"
 #include "CTypeTable.h"
-std::ofstream;
-ifstream;
+class ofstream;
+class ifstream;
 
 
 class USINGCOLORSET_NODE {
@@ -36,8 +36,8 @@ class USINGCOLORSET_NODE {
 		//-------------------------------------------------
 		// File I/O
 		//-------------------------------------------------
-		void			SaveToFile(std::ofstream& file);
-		bool			LoadFromFile(ifstream& file);
+		void			SaveToFile(class ofstream& file);
+		bool			LoadFromFile(class ifstream& file);
 
 	protected :
 		bool			m_bEnable[MAX_COLORSET];

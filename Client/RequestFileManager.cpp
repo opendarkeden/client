@@ -88,7 +88,7 @@ ReceiveFileInfo::StartReceive(DWORD filesize)
 		m_FileStream.close();
 	}
 
-	m_FileStream.open( m_FilenameTemp.c_str() , ios::out | std::ios::binary | ios::trunc );
+	m_FileStream.open( m_FilenameTemp.c_str() , ios::out | ios::binary | ios::trunc );
 
 	// 받아야할 byte수
 	m_FileSizeLeft = filesize;
@@ -244,7 +244,7 @@ SendFileInfo::StartSend()
 {
 	m_Mode = REQUEST_FILE_MODE_SEND;
 
-	m_FileStream.open( m_Filename.c_str(), ios::in | std::ios::binary);// | std::ios::in );
+	m_FileStream.open( m_Filename.c_str(), ios::in | ios::binary);// | ios::nocreate );
 
 	if (m_FileStream.is_open())
 	{

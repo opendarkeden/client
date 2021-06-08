@@ -73,26 +73,6 @@ namespace {
 };
 
 
-int AdvanceComboActionFrameShadowTable[7][3][4] = 
-{
-	// 슬레이어 남 / 여자 검  
-	13,26,39,58, 10,21,32,49, 8,17,26,41 ,
-	13,26,39,58, 10,21,32,49, 8,17,26,41 ,
-
-	// 슬레이어 남 / 여자 도
-	14,29,44,65, 12,25,38,57, 10,21,32,49 ,
-	14,29,44,65, 12,25,38,57, 10,21,32,49 ,
-
-	// 벰파이어 남 / 여자
-	12,25,38,57, 10,21,32,49, 8,17,26,41,  
-	12,26,40,59, 10,21,32,49, 8,17,26,41,  
-
-    // 아우스터  
-	12,26,40,59, 10,21,32,49, 8,17,26,41 ,
-};
-
-
-
 int GetAdvancementPartFromItemClass( ITEM_CLASS itemClass , TYPE_FRAMEID frameID);
 int ConvAdvancementSlayerActionFromSlayerAction( int CurAction, MCreatureWear* pCreatureWear );
 int ConvAdvancementOustersActionFromOusterAction( int CurAction, bool bChakram );
@@ -381,18 +361,6 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 			creature_type = pCreature->GetHalluCreatureType();
 		}
 
-		//////////////////////////////////////////////////////
-		// 2005.11.21 by chyaya
-		// 할루시네이션에 걸렸을 경우 캐릭터를 몬스터로 처리하기 때문에
-		// 승직 캐릭터로 취급하지 않고 일반 캐릭터로 취급해 처리한다.
-		// 아래의 변수를 사용하여 하드 코딩했다 -_-;;
-
-			bool bHallu = pCreature->IsHallu();
-
-		//
-		//////////////////////////////////////////////////////
-
-
 		// 성물은 무조건 아래, 크리스마스트리
 		if(
 			creature_type >= 371 && creature_type <= 376 || 
@@ -572,7 +540,8 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 					if (pSprite!=NULL)
 					{
 						// tile의 중심에서 세운다.
-						pointTemp.x = pPoint->x + TILE_X_HALF - (pSpriteImage->GetWidth()>>1);
+						pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSpriteImage->GetWidth()>>1);
+
 						pointTemp.y = pPoint->y + TILE_Y - pSpriteImage->GetHeight();
 
 						const POINT shadowPoint[] =
@@ -649,7 +618,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 			bool bWolf = pCreature->GetCreatureType() == CREATURETYPE_WOLF;
 			bool bWerWolf = pCreature->GetCreatureType() == CREATURETYPE_WER_WOLF;
 
-			if( pCreature->IsAdvancementClass() && !bBat && !bWolf && !bWerWolf && !bHallu )
+			if( pCreature->IsAdvancementClass() && !bBat && !bWolf && !bWerWolf )
 				DrawShadowAdvancementClassVampireCharacter( pPoint, pCreature, action, direction, frame, body, bBlendingShadow, bSlayerPet_ShowTurret );		
 			else
 				DrawShadowVampireCharacter( pPoint, pCreature, action, direction, frame, body, bBlendingShadow, bSlayerPet_ShowTurret );		
@@ -667,14 +636,14 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 		//if (pCreature->IsWear())
 		if (isSlayerCharacter)
 		{
-			if( pCreature->IsAdvancementClass() && !bHallu)
+			if( pCreature->IsAdvancementClass() )
 				DrawShadowAdvancementClassSlayerCharacter( pPoint, pCreature, action, direction, frame );
 			else
 				DrawShadowSlayerCharacter( pPoint, pCreature, action, direction, frame );
 		}
 		else if(isOustersCharacter)
 		{
-			if( pCreature->IsAdvancementClass() && !bHallu)
+			if( pCreature->IsAdvancementClass() )
 				DrawShadowAdvancementClassOustersCharacter( pPoint, pCreature, action, direction, frame );
 			else
 				DrawShadowOustersCharacter( pPoint, pCreature, action, direction, frame );
@@ -1007,41 +976,13 @@ void	MTopView::DrawShadowAdvancementClassSlayerCharacter( POINT *pPoint, MCreatu
 		else
 			action -= ADVANCEMENT_ACTION_START;
 		
-		// 2005.08.12 Sjheon 콤보 스킬 관련 Add
-		/*
-		int		iComboCnt = pCreature->GetCombo();
-		if((action >= (ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_SLOW - ADVANCEMENT_ACTION_START)) && (iComboCnt < 4 && iComboCnt > 0 ))
-		{
-			//frame -= 8 ; 
-			WORD  fCreatureType	= action - 	(ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_SLOW  - ADVANCEMENT_ACTION_START)  ; 
-
-			WORD  fWeaponSpeed = pCreature->GetWeaponSpeed() ;
-
-			WORD Frame = AdvanceComboActionFrameShadowTable[fCreatureType][fWeaponSpeed][iComboCnt - 1] + 1 ; 
-
-			if(frame > (Frame - 1) )
-			{
-				
-				frame = frame  - (Frame - 1) ; // ame_Save - (Frame  - ((iComboCnt -1) *2)); 
-				frame += (2 * (iComboCnt - 1)) ; 
-				//AdvanceComboCancelFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 1])
-
-				action = action + 6 ; 
-			}
-		}*/
-		// 2005.08.12 Sjheon 콤보 스킬 관련 End
-		
-
 		int clothes;
 		BYTE clothesType;
 
 		CCreatureFramePack& slayerFPK = pCreature->IsMale() ? m_AdvancementSlayerManShadowFPK : m_AdvancementSlayerWomanShadowFPK;
 		CShadowSpritePack& addonSSPK = pCreature->IsMale() ? m_AdvancementSlayerManSSPK : m_AdvancementSlayerWomanSSPK;
-		
-		int Frame_Save = frame ; 
-		int Action_Save= action;
 
-		for (int i=0; i<AC_ADDON_MAX; i++)  // sjheon 2005.06.07
+		for (int i=0; i<AC_ADDON_MAX; i++)
 		{
 			// Creature의 현재 방향에 따라서...
 			// 옷을 출력해주는 순서가 다를 수 있다.
@@ -1056,7 +997,6 @@ void	MTopView::DrawShadowAdvancementClassSlayerCharacter( POINT *pPoint, MCreatu
 
 				if( clothes == -1 )
 					continue;
-				
 				
 				FRAME_ARRAY &FA = slayerFPK[clothes][action][direction];
 				
@@ -1105,25 +1045,6 @@ void	MTopView::DrawShadowAdvancementClassVampireCharacter( POINT *pPoint, MCreat
 	else
 		action -= ADVANCEMENT_ACTION_START;
 
-	// 2005.08.12 Sjheon 콤보 스킬 관련 Add
-	/*
-	int		iComboCnt = pCreature->GetCombo();
-
-	if((action >= (ACTION_ADVANCEMENT_COMBO_SLOW - ADVANCEMENT_ACTION_START)) && (iComboCnt < 4 && iComboCnt > 0 ))
-	{
-		//frame -= 8 ; 
-		WORD  fCreatureType	= action - 	(ACTION_ADVANCEMENT_COMBO_SLOW  - ADVANCEMENT_ACTION_START)  ; 
-
-		WORD  fWeaponSpeed = pCreature->GetWeaponSpeed() ;
-
-		WORD Frame = AdvanceComboActionFrameShadowTable[fCreatureType][fWeaponSpeed][iComboCnt - 1] + 1 ; 
-
-		if(frame > (Frame - 1) )
-		{
-			frame -= Frame  - ((iComboCnt -1) *2); 
-			action += 3 ; 
-		}
-	}*/
 
 	FRAME_ARRAY &FA = advanceVampireFPK[0][action][direction];
 	
@@ -1262,29 +1183,7 @@ void	MTopView::DrawShadowAdvancementClassOustersCharacter( POINT *pPoint, MCreat
 		return;
 	else
 		tempAction -= ADVANCEMENT_ACTION_START;
-
-	// 2005.08.12 Sjheon 콤보 스킬 관련 Add
-	/*
-	int		iComboCnt = pCreature->GetCombo();
-
-	if((action >= (ACTION_ADVANCEMENT_OUSTERS_COMBO_SLOW - ADVANCEMENT_ACTION_START)) && (iComboCnt < 4 && iComboCnt > 0 ))
-	{
-		//frame -= 8 ; 
-		WORD  fCreatureType	= action - 	(ACTION_ADVANCEMENT_OUSTERS_COMBO_SLOW  - ADVANCEMENT_ACTION_START)  ; 
-
-		WORD  fWeaponSpeed = pCreature->GetWeaponSpeed() ;
-
-		WORD Frame = AdvanceComboActionFrameShadowTable[fCreatureType][fWeaponSpeed][iComboCnt - 1] + 1 ; 
-
-		if(frame > (Frame - 1) )
-		{
-			frame -= Frame  - ((iComboCnt -1) *2); 
-			tempAction += 3 ; 
-		}
-	}*/
-	// 2005.08.12 Sjheon 콤보 스킬 관련 End
 	
-
 	// 몸을 찍고 챠크람을 찍는다
 	const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(ADDON_COAT);
 	
@@ -1322,9 +1221,6 @@ void	MTopView::DrawShadowAdvancementClassOustersCharacter( POINT *pPoint, MCreat
 	{
 		int clothes = addonInfoChakram.FrameID;
 		
-		
-	
-
 		FRAME_ARRAY &FA = m_AdvancementOustersShadowFPK[0][tempAction][direction];
 		
 		// 있는 동작인 경우

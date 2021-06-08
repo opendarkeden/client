@@ -43,8 +43,7 @@
 #ifdef __GAME_CLIENT__
 	#include "DebugInfo.h"
 	#include "MCreature.h"
-	#include "MTopView.h"
-	#include "RankBonusTable.h"	
+	#include "MTopView.h"	
 #endif
 
 extern DWORD g_CurrentFrame;
@@ -266,7 +265,9 @@ MItem::s_NewItemClassTable[MAX_ITEM_CLASS] =
 	MFascia::NewItem,
 	MMitten::NewItem,
 	
-	MSubInventory::NewItem,
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		MSubInventory::NewItem,
+	#endif
 
 };
 
@@ -2236,7 +2237,11 @@ MLuckyBag::GetMaxNumber() const
 //	Item Use
 //
 ///////////////////////////////////////////////////////////////////////////
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MUsePotionItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MUsePotionItem::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 	CGUsePotionFromInventory _CGUsePotionFromInventory;
@@ -2256,8 +2261,12 @@ void	MUsePotionItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MWater::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MWater::UseInventory()
+	#endif
+
 {
 #ifdef __GAME_CLIENT__
 	bool bUseOK = false;
@@ -2295,19 +2304,17 @@ void	MWater::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 
 				if( bCreateHolyWater )
 				{
-					if (GetMakeItemFitPosition(this, 
-												ITEM_CLASS_HOLYWATER, 
-												GetItemType(), 
-												fitPoint))
+//								if (GetMakeItemFitPosition(pItem, 
+//															ITEM_CLASS_HOLYWATER, 
+//															pItem->GetItemType(), 
+//															fitPoint))
 					{
 						CGSkillToInventory _CGSkillToInventory;
 						_CGSkillToInventory.setObjectID( GetID() );
 						_CGSkillToInventory.setX( GetGridX() );
 						_CGSkillToInventory.setY( GetGridY() );
-						_CGSkillToInventory.setTargetX( fitPoint.x );
-						_CGSkillToInventory.setTargetY( fitPoint.y );
-//						_CGSkillToInventory.setTargetX( GetGridX() );
-//						_CGSkillToInventory.setTargetY( GetGridY() );
+						_CGSkillToInventory.setTargetX( GetGridX() );
+						_CGSkillToInventory.setTargetY( GetGridY() );
 						_CGSkillToInventory.setSkillType( useSkill );
 
 						g_pSocket->sendPacket( &_CGSkillToInventory );								
@@ -2374,8 +2381,12 @@ void	MWater::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MMagazine::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MMagazine::UseInventory()
+	#endif
+
 {
 #ifdef __GAME_CLIENT__
 	bool		bPossible = false;
@@ -2498,8 +2509,12 @@ void	MMagazine::UseQuickItem()
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MBombMaterial::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MBombMaterial::UseInventory()
+	#endif
+
 {
 #ifdef __GAME_CLIENT__
 	//int playerSkill = g_pPlayer->GetSpecialActionInfo();
@@ -2589,7 +2604,38 @@ void	MBombMaterial::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 #endif
 }
 
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+void	MMoney::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MMoney::UseInventory()
+	#endif
+{
+#ifdef __GAME_CLIENT__
+	// 2俺 捞惑 乐绢具 盒府 等促.
+	if(GetNumber() > 1)
+	{
+		// 酒捞袍 盒府
+		CGAddInventoryToMouse _CGAddInventoryToMouse;
+		_CGAddInventoryToMouse.setObjectID( 0 );	// 盒府茄促绰 狼固
+		_CGAddInventoryToMouse.setX( GetGridX() );
+		_CGAddInventoryToMouse.setY( GetGridY() );
+		
+		g_pSocket->sendPacket( &_CGAddInventoryToMouse );				
+		
+		//----------------------------------------------------
+		// Inventory俊辑 item阑 割俺 靛绰 吧 八刘罐绰促.
+		// 老窜篮 1俺父 甸府档废 茄促.
+		//----------------------------------------------------
+		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_PICKUP_SOME_FROM_INVENTORY);
+	}
+#endif
+}
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MMine::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MMine::UseInventory()
+	#endif
+
 {
 #ifdef __GAME_CLIENT__
 	bool bUseOK = true;
@@ -2647,13 +2693,14 @@ void	MMine::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MSlayerPortalItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MSlayerPortalItem::UseInventory()
+	#endif
+
 {
 #ifdef __GAME_CLIENT__
-	
-
-
 	if(g_bHolyLand == false					// 己瘤啊 酒聪绢具 窍绊
 		&& g_pZoneTable->Get( g_pZone->GetID() )->CannotUseSpecialItem == false		// 泅犁 粮捞 胶其既 酒捞袍阑 荤侩且 荐 乐绢具 窍绊
 		&& IsAffectStatus()						// 利侩 啊瓷秦具 窍绊
@@ -2666,35 +2713,31 @@ void	MSlayerPortalItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 		_CGUseItemFromInventory.setObjectID( GetID() );
 		_CGUseItemFromInventory.setX( GetGridX() );
 		_CGUseItemFromInventory.setY( GetGridY() );
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		if(0 != SubInventoryItemID)
 			_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
+	#else
 
+	#endif
 		g_pSocket->sendPacket( &_CGUseItemFromInventory );
 
-		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY, SubInventoryItemID);
 		
+		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MVampirePortalItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MVampirePortalItem::UseInventory()
+	#endif
+
 {
 #ifdef __GAME_CLIENT__
-
-	int itemPrice = this->GetPrice();
-	int money = g_pMoneyManager->GetMoney();
-	if(money < itemPrice) 
-	{   
-		UI_PopupMessage(UI_STRING_MESSAGE_PORTAL_ITEM_NOUSE); 
-		return ; 
-	}
-
-
 	if(g_bHolyLand == false					// 己瘤啊 酒聪绢具 窍绊
 		&& g_pZoneTable->Get( g_pZone->GetID() )->CannotUseSpecialItem == false		// 泅犁 粮捞 胶其既 酒捞袍阑 荤侩且 荐 乐绢具 窍绊
 		&& IsAffectStatus()						// 利侩 啊瓷秦具 窍绊
-		//&& IsChargeItem() && GetNumber() > 0	// 面傈酒捞袍捞哥 箭磊啊 0焊促 目具 茄促.
+		&& IsChargeItem() && GetNumber() > 0	// 面傈酒捞袍捞哥 箭磊啊 0焊促 目具 茄促.
 		)
 	{
 		ACTIONINFO useSkill;					
@@ -2719,13 +2762,10 @@ void	MVampirePortalItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 			_CGSkillToInventory.setSkillType( useSkill );
 			//_CGSkillToInventory.setCEffectID( 0 );	// -_-;;							
 
-			if(0 != SubInventoryItemID)
-				_CGSkillToInventory.setInventoryItemObjectID( SubInventoryItemID );
-
 			g_pSocket->sendPacket( &_CGSkillToInventory );
 				
 			g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
-			g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY , SubInventoryItemID);
+			g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY );
 
 			(*g_pSkillInfoTable)[useSkill].SetNextAvailableTime();
 
@@ -2744,8 +2784,12 @@ void	MVampirePortalItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MEventStarItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MEventStarItem::UseInventory()
+	#endif
+
 {
 #ifdef __GAME_CLIENT__
 	// 2俺 捞惑 乐绢具 盒府 等促.
@@ -2767,12 +2811,15 @@ void	MEventStarItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MMixingItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MMixingItem::UseInventory()
+	#endif
+
 {
 #ifdef __GAME_CLIENT__
-	if( GetItemType() >= 0 && GetItemType() <= 8 
-		|| GetItemType() >= 19 && GetItemType() <= 21 )
+	if( GetItemType() >= 0 && GetItemType() <= 8 )
 	{
 		if( GetNumber() > 1 )	// 酒捞袍 盒府
 		{
@@ -2804,27 +2851,11 @@ void	MMixingItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 				fc = C_VS_UI_MIXING_FORGE::CLASS_ACCESSORY;
 				ft = C_VS_UI_MIXING_FORGE::FORGE_TYPE(C_VS_UI_MIXING_FORGE::TYPE_A + (GetItemType()-6));
 			}
-			else if(GetItemType() == 19)
-			{
-				fc = C_VS_UI_MIXING_FORGE::CLASS_WEAPON;
-				ft = C_VS_UI_MIXING_FORGE::TYPE_D;
-			}
-			else if(GetItemType() == 20)
-			{
-				fc = C_VS_UI_MIXING_FORGE::CLASS_ARMOR;
-				ft = C_VS_UI_MIXING_FORGE::TYPE_D;
-			}
-			else if(GetItemType() == 21)
-			{
-				fc = C_VS_UI_MIXING_FORGE::CLASS_ACCESSORY;
-				ft = C_VS_UI_MIXING_FORGE::TYPE_D;
-			}
 			gC_vs_ui.RunMixingForge(fc,ft);
 			g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_MIXING_ITEM );			
 		}
 	} else
-	if( GetItemType() >= 9 && GetItemType() <= 18 
-		|| GetItemType() >= 22 && GetItemType() <= 25 )
+	if( GetItemType() >= 9 && GetItemType() <= 18 )
 	{
 		// Puritas 绰 快努腐窍搁 盒府茄促.
 		CGAddInventoryToMouse _CGAddInventoryToMouse;
@@ -2837,38 +2868,22 @@ void	MMixingItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void MEffectItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void MEffectItem::UseInventory()
+	#endif
+
 {
 #ifdef __GAME_CLIENT__
-	// 犬己扁鞍篮巴..
-
-	// sjheon 2005.05.16 Add
-	if(GetItemType() >= 7 && GetItemType() <= 9)
+	// add by Coffee 2007-8-5 
+	if (GetItemType() >= 10 && GetItemType() <= 12)
 	{
-		bool bEsBethmothForce  =  UI_GetEffectStatus(EFFECTSTATUS_BEHEMOTH_FORCE_SCROLL) ; 
-		bool bEsSafeForce	   =  UI_GetEffectStatus(EFFECTSTATUS_SAFE_FORCE_SCROLL) ; 
-		bool bEsCarnelianForce =  UI_GetEffectStatus(EFFECTSTATUS_CARNELIAN_FORCE_SCROLL) ; 
-		
-		if(bEsBethmothForce == true || bEsSafeForce == true || bEsCarnelianForce == true)
-		{
-			UI_PopupMessage(UI_STRING_MESSAGE_SCROLL_EFFECT_ITEMDEL) ;	
-			return ; 
-		}
-
-		if(!UI_IsRunAskUseItemDialog())
-		{
-			UI_RunAskUseItemDialog(C_VS_UI_ASK_DIALOG::ASK_USE_DYE_POTION) ; 
-			return ; 
-		}
-		else
-		{
-			UI_SetUseAskIitemRunning(false) ; 
-		}
-
-	}	
-	// sjheon 2005.05.16 End
-
+		gC_vs_ui.RunBulletinBoardWindow(this);
+		return;
+	}
+	
+	// 犬己扁鞍篮巴..
 	CGUseItemFromInventory _CGUseItemFromInventory;
 	
 	_CGUseItemFromInventory.setObjectID( GetID() );
@@ -2878,8 +2893,11 @@ void MEffectItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY );
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void MItemETC::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void MItemETC::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 	if(GetItemType() == 1 )
@@ -2893,8 +2911,11 @@ void MItemETC::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void MVampireETC::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void MVampireETC::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 	//----------------------------------------------------
@@ -2906,32 +2927,11 @@ void MVampireETC::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	{				
 		ACTIONINFO useSkill;// = g_pPlayer->GetSpecialActionInfo();
 
-		
-		
-		MCreature* pCreature = g_pZone->GetCreature( g_pZone->GetID());
-
-		if(pCreature)		// Sjheon 2005.09.15 Add
-		{
-			if(pCreature->GetAction() == ACTION_VAMPIRE_DRAIN)
-			{
-				if ( GetItemClass() == ITEM_CLASS_SKULL  || GetItemType()==0 || GetItemType()==1 ) // 戳措 赣府
-				{
-					return ; 
-				}
-				
-			}
-		}
-		// Sjheon 2005.09.15 End 
-		
-		
-
-
-		
-		if ( GetItemClass() == ITEM_CLASS_SKULL ) // 戳措 赣府
+		if ( GetItemClass() == ITEM_CLASS_SKULL )						// 戳措 赣府
 		{
 			useSkill = SKILL_TRANSFORM_TO_WERWOLF;
 		}
-		else if (GetItemType()==0 )
+		else if (GetItemType()==0)
 		{
 			useSkill = MAGIC_TRANSFORM_TO_WOLF;
 		}
@@ -2961,10 +2961,7 @@ void MVampireETC::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 		// skill捞 力措肺 汲沥等 版快
 		//----------------------------------------------------
 		if (useSkill != ACTIONINFO_NULL)
-		{	
-			if(g_pPlayer->IsVampire() && g_pPlayer->GetAction() ==  ACTION_VAMPIRE_DRAIN)
-					return  ; 
-
+		{
 			if (//(*g_pActionInfoTable)[playerSkill].IsTargetItem()
 				g_pSkillAvailable->IsEnableSkill( useSkill )
 				&& (*g_pSkillInfoTable)[useSkill].IsAvailableTime())					
@@ -2981,9 +2978,10 @@ void MVampireETC::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 					_CGSkillToInventory.setY( GetGridY() );
 					_CGSkillToInventory.setSkillType( useSkill );
 					//_CGSkillToInventory.setCEffectID( 0 );	// -_-;;							
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 					if(0 != SubInventoryItemID)
 						_CGSkillToInventory.setInventoryItemObjectID( SubInventoryItemID );
+	#endif
 					g_pSocket->sendPacket( &_CGSkillToInventory );
 
 					
@@ -2994,7 +2992,12 @@ void MVampireETC::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 					// Inventory俊辑 item阑 荤侩窍绰 吧 八刘罐扁甫 扁促赴促.
 					//----------------------------------------------------
 					g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
+				#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 					g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY, SubInventoryItemID );
+				#else
+					g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY );
+				#endif
+					
 
 					(*g_pSkillInfoTable)[useSkill].SetNextAvailableTime();
 
@@ -3011,8 +3014,12 @@ void MVampireETC::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MSkull::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MSkull::UseInventory()
+	#endif
+
 {
 #ifdef __GAME_CLIENT__
 	//----------------------------------------------------
@@ -3023,23 +3030,6 @@ void	MSkull::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	if (g_pZoneTable->Get( g_pZone->GetID() )->CannotUseSpecialItem == false )
 	{				
 		ACTIONINFO useSkill;// = g_pPlayer->GetSpecialActionInfo();
-
-		
-		MCreature* pCreature = g_pZone->GetCreature( g_pZone->GetID());
-		// Sjheon 2005.09.15 Add
-		if(pCreature)		// Sjheon 2005.09.15 Add
-		{
-			if(pCreature->GetAction() == ACTION_VAMPIRE_DRAIN)
-			{
-				if ( ( GetItemClass() == ITEM_CLASS_SKULL && GetItemType() == 39)  || GetItemType()==0 || GetItemType()==1 ) // 戳措 赣府
-				{
-					return ; 
-				}
-				
-			}
-		}
-		// Sjheon 2005.09.15 End 
-
 
 		if ( GetItemClass() == ITEM_CLASS_SKULL && GetItemType() == 39)						// 戳措 赣府
 		{
@@ -3076,9 +3066,6 @@ void	MSkull::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 		//----------------------------------------------------
 		if (useSkill != ACTIONINFO_NULL)
 		{
-			if(g_pPlayer->IsVampire() && g_pPlayer->GetAction() ==  ACTION_VAMPIRE_DRAIN)
-				return ; 
-
 			if (//(*g_pActionInfoTable)[playerSkill].IsTargetItem()
 				g_pSkillAvailable->IsEnableSkill( useSkill )
 				&& (*g_pSkillInfoTable)[useSkill].IsAvailableTime())					
@@ -3127,7 +3114,11 @@ void	MSkull::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 // 秦寸 农府媚狼 林函俊 盔窍绰 矫眉啊 乐绰瘤 八荤茄促.
 extern bool IsExistCorpseFromPlayer(MCreature* OriginCreature, int creature_type);
 
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MKey::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MKey::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 	// 林函俊 标惯捞 绝绢具 茄促.
@@ -3137,12 +3128,21 @@ void	MKey::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 		_CGUseItemFromInventory.setObjectID( GetID() );
 		_CGUseItemFromInventory.setX( GetGridX() );
 		_CGUseItemFromInventory.setY( GetGridY() );
+		
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		if(0 != SubInventoryItemID)
 			_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
-
+	#endif
 		g_pSocket->sendPacket( &_CGUseItemFromInventory );
 
+	//modify by viva for notice : i don't understand it :(
+//	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+//		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY, SubInventoryItemID );
+//	#else
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
+//	#endif
+	//end
+		
 	} else
 	{
 		g_pSystemMessage->Add((*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_ACTION_MOTORCYCLE_FLAG].GetString() );
@@ -3181,7 +3181,11 @@ void	MKey::UseQuickItem()
 
 #endif
 }
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MEventTreeItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MEventTreeItem::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 	if(GetItemType() == 12 ||
@@ -3265,13 +3269,14 @@ void	MEventTreeItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MEventEtcItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MEventEtcItem::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 	bool bUseOK = true;
-
-	if(GetItemType() == 18 ) return ; 
 
 	if(IsPlayerInSafePosition() == 2 
 		&& GetItemType() != 14 
@@ -3316,9 +3321,6 @@ void	MEventEtcItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 void	MEventEtcItem::UseQuickItem()
 {
 #ifdef __GAME_CLIENT__
-
-	if(GetItemType() == 18 ) return ; 
-
 	if(GetItemType() == 14||
 		GetItemType() == 15||
 		GetItemType() == 16||
@@ -3377,102 +3379,34 @@ void	MEventEtcItem::UseQuickItem()
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MDyePotionItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MDyePotionItem::UseInventory()
+	#endif
+
 {
 #ifdef __GAME_CLIENT__
 	// 酒快胶磐令绰 己捞 绝扁 锭巩俊 己傈券 酒捞袍阑 荤侩且 荐 绝促
-
-	
-	const int domain_level_Sword = (*g_pSkillManager)[SKILLDOMAIN_SWORD].GetDomainLevel();
-	const int domain_level_Blade = (*g_pSkillManager)[SKILLDOMAIN_BLADE].GetDomainLevel();
-	const int domain_level_Gun = (*g_pSkillManager)[SKILLDOMAIN_GUN].GetDomainLevel();
-	const int domain_level_Heal = (*g_pSkillManager)[SKILLDOMAIN_HEAL].GetDomainLevel();
-	const int domain_level_Enchant = (*g_pSkillManager)[SKILLDOMAIN_ENCHANT].GetDomainLevel();
-
-
 	if( g_pPlayer->IsOusters() && GetItemType() == 48 )
 	{
 		UI_PopupMessage(STRING_MESSAGE_CANNOT_USE_OUSTERS);
 	}
 	else
 	{
-		// 2005, 2, 22, sobeit add start
-		if(g_pPlayer->IsAdvancementClass() && GetItemType() >= 58 && GetItemType() <= 61)
-		{ // 铰流 蜡历绰 付胶磐 捞棋飘 祸惑 官操绰 酒捞袍阑 给静霸 茄促匙..炌鳖...?
-			UI_PopupMessage(UI_STRING_MESSAGE_USE_NOTADVANCEMENTCLASS);
-			return;
-		}
+		// edit by sonic 2006.10.29  去除二转后不能使用改变火颜色道具
 
-		if((g_pPlayer->GetLEVEL() < 99 && domain_level_Sword < 99 &&  domain_level_Blade < 99  &&
-			 domain_level_Gun < 99 && domain_level_Heal < 99 && domain_level_Enchant < 99)  && GetItemType() >= 58 && GetItemType() <= 61)
-		{ // 铰流 蜡历绰 付胶磐 捞棋飘 祸惑 官操绰 酒捞袍阑 给静霸 茄促匙..炌鳖...?
-			UI_PopupMessage(UI_STRING_MESSAGE_USE_NOTADVANCEMENTCLASS);
-			return;
-		}
+			/*	
+				// 2005, 2, 22, sobeit add start
+				if(g_pPlayer->IsAdvancementClass() && GetItemType() >= 58 && GetItemType() <= 61)
+				{ // 铰流 蜡历绰 付胶磐 捞棋飘 祸惑 官操绰 酒捞袍阑 给静霸 茄促匙..炌鳖...?
+					UI_PopupMessage(UI_STRING_MESSAGE_CANNOT_USE_ADVANCEMENTCLASS);
+					return;
+				}
+				// 2005, 2, 22, sobeit add end
+			*/
 
-		else if(!g_pPlayer->IsAdvancementClass() && GetItemType() >= 62 && GetItemType() <= 63)
-		{
-			UI_PopupMessage(UI_STRING_MESSAGE_USE_ADVANCEMENTCLASS);
-			return;
-		}
-		//else if((g_pPlayer->IsAdvancementClass() && g_pPlayer->GetLEVEL() < 99) && GetItemType() >= 58 && GetItemType() <= 61)
-		//{
-		//	UI_PopupMessage(UI_STRING_MESSAGE_USE_NOTADVANCEMENTCLASS);
-		//	return;
-		//}
-
-		else if(!g_pPlayer->IsAdvancementClass() && GetItemType() >= 58 && GetItemType() <= 61)
-		{
-			if(!UI_IsRunAskUseItemDialog())
-			{
-				UI_RunAskUseItemDialog(C_VS_UI_ASK_DIALOG::ASK_USE_DYE_POTION) ; 
-				return ; 
-			}
-			else
-			{
-				UI_SetUseAskIitemRunning(false) ; 
-			}
-		}
-
-		else if(g_pPlayer->IsAdvancementClass() && GetItemType() >= 62 && GetItemType() <= 63)
-		{
-			if(!UI_IsRunAskUseItemDialog())
-			{
-				UI_RunAskUseItemDialog(C_VS_UI_ASK_DIALOG::ASK_USE_DYE_POTION) ; 
-				return ; 
-			}
-			else
-			{
-				UI_SetUseAskIitemRunning(false) ; 
-			}
-		}
-		
-		else if( GetItemType() == 64)
-		{	
-			BOOL	bType =  FALSE ; 
-			for(int type = 0 ; type < g_pRankBonusTable->GetSize() ;  type++)
-			{
-				if((*g_pRankBonusTable)[type].GetStatus() == RankBonusInfo::STATUS_LEARNED)
-					bType  = TRUE  ; 
-			}	
-			
-			if(bType  == FALSE)
-				return ;
-
-			if(!UI_IsRunAskUseItemDialog())
-			{
-				UI_RunAskUseItemDialog(C_VS_UI_ASK_DIALOG::ASK_USE_DYE_POTION , 1) ; 
-				return ; 
-			}
-			else
-			{
-				UI_SetUseAskIitemRunning(false) ;  
-			}
-		}
-	
-
-		// 2005, 2, 22, sobeit add end
+		// 2006.10.29,Sonic edit end
 		CGUseItemFromInventory _CGUseItemFromInventory;
 		_CGUseItemFromInventory.setObjectID( GetID() );
 		_CGUseItemFromInventory.setX( GetGridX() );
@@ -3546,8 +3480,11 @@ void	MDyePotionItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 //	}
 //#endif
 //}
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MOustersSummonGem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MOustersSummonGem::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 	if( IsChargeItem() && GetNumber() > 0 && IsAffectStatus() && !g_bZoneSafe &&
@@ -3557,18 +3494,29 @@ void	MOustersSummonGem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 		_CGUseItemFromInventory.setObjectID( GetID() );
 		_CGUseItemFromInventory.setX( GetGridX() );
 		_CGUseItemFromInventory.setY( GetGridY() );
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		if(0 != SubInventoryItemID)
 			_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
+	#endif
 
 		g_pSocket->sendPacket( &_CGUseItemFromInventory );
+
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY, SubInventoryItemID);
+	#else
+		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
+	#endif
+		
 		(*g_pSkillInfoTable)[SKILL_SUMMON_SYLPH].SetAvailableTime( 4000 );
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MCodeSheetItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MCodeSheetItem::UseInventory()
+	#endif
+
 {
 #ifdef __GAME_CLIENT__
 	if( GetItemType() == 0 && GetItemOptionListCount() == 30)
@@ -3697,8 +3645,11 @@ void	MVampireCoupleRing::UseGear()
 	g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_GEAR );
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MPetItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MPetItem::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 // 泅犁 脐捞 乐栏搁 脐阑 龋免窍瘤 给窍档废 沁栏唱 脐阑 绝举锭档 鞍捞 荤侩窍骨肺 林籍贸府沁澜
@@ -3712,18 +3663,29 @@ void	MPetItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 		_CGUseItemFromInventory.setObjectID( GetID() );
 		_CGUseItemFromInventory.setX( GetGridX() );
 		_CGUseItemFromInventory.setY( GetGridY() );
+
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		if(0 != SubInventoryItemID)
 			_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
-		
+	#endif
+
 		g_pSocket->sendPacket( &_CGUseItemFromInventory );
-		
+
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY, SubInventoryItemID);
+	#else
+		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
+	#endif
+		
 	}
 //	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MPetFood::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MPetFood::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 	const TYPE_OBJECTID petID = g_pPlayer->GetPetID();
@@ -3735,12 +3697,19 @@ void	MPetFood::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 		_CGUseItemFromInventory.setObjectID( GetID() );
 		_CGUseItemFromInventory.setX( GetGridX() );
 		_CGUseItemFromInventory.setY( GetGridY() );
+		
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		if(0 != SubInventoryItemID)
 			_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
-		
+	#endif
 		g_pSocket->sendPacket( &_CGUseItemFromInventory );
-		
+
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY, SubInventoryItemID);
+	#else
+		g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
+	#endif
+		
 	}
 	else
 	{
@@ -3764,8 +3733,11 @@ void	MPetFood::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MSms_item::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MSms_item::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 	if(g_pPlayer != NULL )
@@ -3781,12 +3753,13 @@ void	MSms_item::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MPetEnchantItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MPetEnchantItem::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
-
-	
 	// 2俺 捞惑 乐绢具 盒府 等促.
 	if(GetNumber() > 1)
 	{
@@ -3819,7 +3792,7 @@ MPetItem::MPetItem()
 std::string MPetItem::GetPetOptionName()
 {
 	std::string petOptionName;
-	if(GetSilver() > 0)
+	if(GetSilver() > 0/* && GetEnchantLevel()!=0xFFFF by viva */)
 	{
 		ITEMOPTION_TABLE::ITEMOPTION_PART optionPart = static_cast<ITEMOPTION_TABLE::ITEMOPTION_PART>(GetEnchantLevel());
 		int optionLevel = (GetNumber()-10)/10;
@@ -3938,13 +3911,21 @@ std::string MPetItem::GetPetName()
 	case 5:
 		petName += (*g_pCreatureTable)[711].Name.GetString();
 		break;
+		// add by coffee 2006-12-22
+	case 6:
+		petName += (*g_pCreatureTable)[400].Name.GetString();
+		break;
+		// end 2006-12-22
 	
 	}
 
 	return petName;
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void	MEventGiftBoxItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void	MEventGiftBoxItem::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 	if(GetItemType() >= 6)
@@ -3960,12 +3941,17 @@ void	MEventGiftBoxItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	}
 #endif
 }
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void MMoonCardItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void MMoonCardItem::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 	// 2俺 捞惑 乐绢具 盒府 等促.
-	if(GetItemType() == 2 && GetNumber() > 1 && GetNumber() < GetMaxNumber())
+	// edit by sonic 2006.11.1  将四叶草设为可分开
+	//if(GetItemType() == 2 && GetNumber() > 1 && GetNumber() < GetMaxNumber())
+	if(GetItemType() == 2 || GetItemType() ==3 && GetNumber() > 1 && GetNumber() < GetMaxNumber())
 	{
 		// 酒捞袍 盒府
 		CGAddInventoryToMouse _CGAddInventoryToMouse;
@@ -3984,8 +3970,11 @@ void MMoonCardItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 #endif
 }
 
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 void MTrapItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
+	#else
+void MTrapItem::UseInventory()
+	#endif
 {
 #ifdef __GAME_CLIENT__
 	CGUseItemFromInventory _CGUseItemFromInventory;
@@ -3998,6 +3987,9 @@ void MTrapItem::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 	g_pPlayer->SetItemCheckBuffer( this, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
 #endif
 }
+	
+
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 
 void MSubInventory::UseInventory(TYPE_OBJECTID SubInventoryItemID)
 {
@@ -4083,3 +4075,5 @@ MSubInventory::CanReplaceItem(MItem* pItem, BYTE X, BYTE Y, MItem*& pOldItem)
 {
 	return MGridItemManager::CanReplaceItem( pItem, X, Y, pOldItem );
 }
+
+#endif

@@ -648,8 +648,6 @@ MCreature::MCreature()
 	m_MoveCountMax		= 0;
 	m_NextMoveCount		= 0;
 
-	m_ComboCnt			= 0;
-	m_CurrentCombo	   	= 0;
 	// ³ôÀÌ
 	m_Z		= 0;
 	
@@ -927,7 +925,16 @@ bool IsCreatureTypeVampirePC(int type)
 		type == CREATURETYPE_VAMPIRE_FEMALE1 ||
 		type == CREATURETYPE_VAMPIRE_FEMALE2 ||
 		type == CREATURETYPE_VAMPIRE_FEMALE3 ||
-		type == CREATURETYPE_WER_WOLF;
+		type == CREATURETYPE_WER_WOLF	||	
+				// add by Coffee 2006.11.24  Ôö¼Ó¹í×åÑÇÂéÐÎÏó
+		type == CREATURETYPE_VAMPIRE_FEMALE4 ||
+		type == CREATURETYPE_VAMPIRE_MALE4	||
+		//add by viva
+		type == CREATURETYPE_VAMPIRE_MALE5	||
+		type == CREATURETYPE_VAMPIRE_FEMALE5	||
+		type == CREATURETYPE_VAMPIRE_MALE6	||
+		type == CREATURETYPE_VAMPIRE_FEMALE6;
+
 }
 
 //----------------------------------------------------------------------
@@ -951,8 +958,8 @@ MCreature::SetCreatureType(TYPE_CREATURETYPE type)
 		
 		type = 0;
 	}
-
-	m_CreatureType		= type; 
+//	type = 812;//add by viva
+	m_CreatureType		= type;   
 
 	m_ActionCount		= 0;
 	m_ActionCountMax	= 0; 
@@ -1294,10 +1301,11 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 		case EFFECTSTATUS_SUMMON_SYLPH_BLACK :
 		case EFFECTSTATUS_SUMMON_SYLPH:
 			SetMoveDevice(MOVE_DEVICE_WALK);
-			if(IsAdvancementClass())
+			if(IsAdvancementClass() && status==EFFECTSTATUS_SUMMON_SYLPH)
 			{
 				pTypes = EFFECTSPRITETYPE_OUSTERS_FASTMOVE_LOOP;
-				ExecuteActionInfoFromMainNode(SKILL_CLIENT_ADVANCEMENT_SUMMON_SYLPH_END,GetX(), GetY(), 0,GetDirection(),	GetID(),	
+				ExecuteActionInfoFromMainNode(SKILL_CLIENT_ADVANCEMENT_SUMMON_SYLPH_END,
+					GetX(), GetY(), 0,GetDirection(),	GetID(),	
 					GetX(), GetY(), 0, 8, NULL, false);
 			}
 		break;
@@ -1331,6 +1339,9 @@ MCreature::RemoveEffectStatus(EFFECTSTATUS status)
 		//------------------------------------------------------------
 		// ¸¶ºñ Ç®¸± ¶§
 		//------------------------------------------------------------
+		// add by Coffee 2007-3-21
+		case EFFECTSTATUS_SATELLITE_BOMB_AIM :
+		// end	
 		case EFFECTSTATUS_GUN_SHOT_GUIDANCE_AIM :
 			if (m_bAlive)
 			{
@@ -1646,7 +1657,7 @@ bool
 MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 {
 	DEBUG_ADD_FORMAT("[AddEffectStatus] id=%d, status=%d, delay=%d", m_ID, (int)status, delayFrame);
-//	if( status == EFFECTSTATUS_VIEW_HP ) 
+//	if( status == EFFECTSTATUS_VIEW_HP )
 //	{
 //		int a = 0;
 //	}
@@ -1694,12 +1705,15 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 	case EFFECTSTATUS_SUMMON_SYLPH:
 		{
 			SetMoveDevice(MOVE_DEVICE_SUMMON_SYLPH);
-			if(IsAdvancementClass())
+			/********  Edit By sonic È¥³ýÄ§Áé¶þ×ªºó±äÇòÐ§¹û********/
+			
+			if(IsAdvancementClass() && status==EFFECTSTATUS_SUMMON_SYLPH)
 			{
 				type = EFFECTSPRITETYPE_OUSTERS_FASTMOVE_LOOP;
 				ExecuteActionInfoFromMainNode(SKILL_CLIENT_ADVANCEMENT_SUMMON_SYLPH_START,GetX(), GetY(), 0,GetDirection(),	GetID(),	
-					GetX(), GetY(), 0, 8, NULL, false);
+				GetX(), GetY(), 0, 8, NULL, false);
 			}
+			/********End *******************************************/
 		}
 		break;
 
@@ -1722,6 +1736,10 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 		//------------------------------------------------------------
 		// EFFECTSTATUS_GUN_SHOT_GUIDANCE_AIM
 		//------------------------------------------------------------
+
+		// add by Coffee 2007-3-21
+		case EFFECTSTATUS_SATELLITE_BOMB_AIM :
+		// end		
 		case EFFECTSTATUS_GUN_SHOT_GUIDANCE_AIM :
 #ifdef OUTPUT_DEBUG					
 				DEBUG_ADD_FORMAT("[GSG] Set");
@@ -2301,29 +2319,31 @@ MCreature::AddEffectStatus(enum EFFECTSTATUS status, DWORD delayFrame)
 			ExecuteActionInfoFromMainNode(SKILL_CLIENT_FIERCE_FLAME,GetX(), GetY(), 0,GetDirection(),	GetID(),	
 					GetX(), GetY(), 0, delayFrame, NULL, false);
 			break;
-
+		// add by Coffee 2007-5-3 »ð·¨	
+		case EFFECTSTATUS_DUMMY_DRAKE:
+			ExecuteActionInfoFromMainNode(SKILL_CLIENT_DUMMY_DRAKE,GetX(), GetY(), 0,GetDirection(),	GetID(),	
+					GetX(), GetY(), 0, delayFrame, NULL, false);
+			break;
+		case EFFECTSTATUS_HYDRO_CONVERGENCE: //Ë®·¨
+			ExecuteActionInfoFromMainNode(SKILL_CLIENT_HYDRO_CONVERGENCE,GetX(), GetY(), 0,GetDirection(),	GetID(),	
+					GetX(), GetY(), 0, delayFrame, NULL, false);
+			break;
+		case EFFECTSTATUS_HETER_CHAKRAM: //ÃôÕ½
+			ExecuteActionInfoFromMainNode(SKILL_CLIENT_SKILL_DUMMY_DRAKE,GetX(), GetY(), 0,GetDirection(),	GetID(),	
+					GetX(), GetY(), 0, delayFrame, NULL, false);
+			break;	
+		case EFFECTSTATUS_BLOOD_CURSE: // ÎüÑª¹í¼¼ÄÜ
+			ExecuteActionInfoFromMainNode(SKILL_CLIENT_BLOOD_CURSE,GetX(), GetY(), 0,GetDirection(),	GetID(),	
+					GetX(), GetY(), 0, delayFrame, NULL, false);
+			break;
+		// end 	
 		case EFFECTSTATUS_PASSING_HEAL:
 				delayFrame = 20;
 			break;
 		case EFFECTSTATUS_DONATION_200501:
 			ExecuteActionInfoFromMainNode(SKILL_CLIENT_CANDLE,GetX(), GetY(), 0,GetDirection(),	GetID(),	
 								GetX(), GetY(), 0, delayFrame, NULL, false);
-			break;
-		//case EFFECTSTATUS_LOSE_SIGHT :
-		//case EFFECTSTATUS_NATURAL_PEACE :
-
-		case EFFECTSTATUS_SLAYER_BLOOD_BURST_HIT  :
-		case EFFECTSTATUS_OUSTERS_BLOOD_BURST_HIT :
-		case EFFECTSTATUS_VAMPIRE_BLOOD_BURST_HIT :
-			 delayFrame = 16 ;
-			 PlaySound( SOUND_BLOODBURST_ATTACK ,	false, GetX(), GetY()	);
-			break;
-		case EFFECTSPRITETYPE_BLOOD_BURST_HEAL	:
-			 delayFrame = 20 ; 
-			break;
-		case EFFECTSTATUS_WATER_FORCE_HEAL	:
-			 delayFrame = 26 ; 
-			break;
+			break;	
 			
 	}
 
@@ -7501,9 +7521,7 @@ MCreature::Action()
 		HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_5 ) || HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_6 ) ||
 		HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_7 ) || HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_8 ) ||
 		HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_9 ) || HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_10 ) ||
-		HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_11 ) || HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_12 ) ||
-		HasEffectStatus( EFFECTSTATUS_NATURAL_PEACE )
-
+		HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_11 ) || HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_12 )
 		)
 	{
 		if (g_CurrentFrame & 0x01)
@@ -7634,7 +7652,7 @@ MCreature::Action()
 	//--------------------------------------------------------
 	// ¸¶ºñ µÆÀ» ¶§..
 	//--------------------------------------------------------
-	if((HasEffectStatus(EFFECTSTATUS_CAUSE_CRITICAL_WOUNDS) && !IsSlayer()) || HasEffectStatus(EFFECTSTATUS_LOSE_SIGHT) )
+	if(HasEffectStatus(EFFECTSTATUS_CAUSE_CRITICAL_WOUNDS) && !IsSlayer())
 	{
 		//--------------------------------------------------------
 		// ±â¼úÀ» »ç¿ëÇÏ·Á´Â °æ¿ì
@@ -7702,7 +7720,6 @@ MCreature::Action()
 		//--------------------------------------------------------
 		// Action Ã³¸®
 		//--------------------------------------------------------
-
 		if (m_ActionCount < GetActionCountMax())
 		{		
 			//--------------------------------------------------------
@@ -8235,6 +8252,7 @@ MCreature::GetActionInfoAction(TYPE_ACTIONINFO nActionInfo, bool IsSelfAction)
 
 	int action;
 	
+	
 	// 2004, 11, 23, sobeit add start - set afire
 //	if(nActionInfo == SKILL_SET_AFIRE && !IsFastMove())
 //		return ACTION_ATTACK;
@@ -8248,30 +8266,9 @@ MCreature::GetActionInfoAction(TYPE_ACTIONINFO nActionInfo, bool IsSelfAction)
 	}
 	else
 	{
-		action = (*g_pActionInfoTable)[nActionInfo].GetAction();
+		action = (*g_pActionInfoTable)[nActionInfo].GetAction();	
 	}
-	
-	//2005.07.06 Sjheon  Combo ±â¼úÃ³¸®¸¦ À§ÇØ Add
-/*	if(IsAdvancementClass() && (*g_pActionInfoTable)[action].IsAttack())
-	{ 
-		if(m_ComboCnt ==  0)
-		{
-			if((IsOusters() && (action == ACTION_ATTACK || action == ACTION_OUSTERS_CHAKRAM_SLOW)) ||
-			   (IsVampire() && action == ACTION_ATTACK) ||
-			   (IsSlayer()  && (action == ACTION_SLAYER_SWORD || action == ACTION_SLAYER_BLADE))
-			)	
-				m_ComboCnt = 1 ;
-			else if((IsOusters() && action == ACTION_OUSTERS_CHAKRAM) ||
-					(IsVampire() && action == ACTION_VAMPIRE_SKILL_ATTACK) || 
-					(IsSlayer()  && (action == ACTION_SLAYER_SWORD_2 || action == ACTION_SLAYER_BLADE_2 || action ==  ACTION_SLAYER_BLADE_2_FAST))
-			)	
-				m_ComboCnt = 2 ;
-			
-		}
-	}*/
 
-	//2005.07.06 Sjheon  Combo ±â¼úÃ³¸®¸¦ À§ÇØ End 
-	
 	if(action == ACTION_MAGIC && IsAdvancementClass())
 	{
 		if(!(*g_pActionInfoTable)[nActionInfo].IsTargetSelf() && !IsSelfAction)
@@ -8925,28 +8922,6 @@ MCreature::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJ
 	SetTraceID( id );
 	m_TraceX	= sX;
 	m_TraceY	= sY;
-	
-
-	//--------------------------------------------------------
-	// ±â¼úµ¿ÀÛ ¿¡ ¸Â´Â »çµÐµå (³²ÀÚ / ¿©ÀÚ ±¸º° )¸¦ Ãâ·ÂÇØÁØ´Ù. 
-	//--------------------------------------------------------
-	// 2005.08.12 Sjheon ½ÃÀü½Ã ³²ÀÚ / ¿©ÀÚ / ¾Æ¿ì½ºÅÍÁî ¿¡ µû¸® ½ÃÀü »ç¿îµå °¡  ´Þ¶óÁø´Ù.
-	int soundID = 0 ; 
-	if(IsOusters())
-	{
-		soundID = (*g_pActionInfoTable)[nResultActionInfo].GetMaleSoundID() ; 
-	}
-	else 
-	{	
-		if(IsMale())
-			soundID = (*g_pActionInfoTable)[nResultActionInfo].GetMaleSoundID() ; 
-		else
-			soundID = (*g_pActionInfoTable)[nResultActionInfo].GetFemaleSoundID() ; 
-	}
-
-	if(soundID != SOUNDID_NULL)
-		PlaySound( soundID ,	false, sX, sY	);
-	//--------------------------------------------------------
 
 	// Test Code
 	/*
@@ -10570,6 +10545,15 @@ MCreature::CheckRegen()
 		case CREATURETYPE_VAMPIRE_OPERATOR :
 		case CREATURETYPE_WOLF :
 		case CREATURETYPE_WER_WOLF :
+		// add by coffee 2006.11.24  
+		case CREATURETYPE_VAMPIRE_FEMALE4:
+		case CREATURETYPE_VAMPIRE_MALE4:
+		//add by viva
+		case CREATURETYPE_VAMPIRE_MALE5:
+		case CREATURETYPE_VAMPIRE_FEMALE5:
+		case CREATURETYPE_VAMPIRE_MALE6:
+		case CREATURETYPE_VAMPIRE_FEMALE6:
+		// add end
 			SetRegen( g_pClientConfig->REGEN_AMOUNT_VAMPIRE, 1000 );	// 2¾¿ 1ÃÊ¸¶´Ù			
 		break;
 
@@ -10892,44 +10876,34 @@ MCreature::GetMasterEffectType(DWORD Status)
 	TYPE_EFFECTSPRITETYPE type = (*g_pEffectStatusTable)[Status].EffectSpriteType;
 	int MarketType = GetMasterEffectType();
 	
-	if(MarketType>5) return 0;
+	//if(MarketType>3) return 0;
 	
 	switch(Status)
 	{
 		case EFFECTSTATUS_GRAND_MASTER_SLAYER:
 			{
-				if(MarketType == 5) 
-					type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_100_COLOR5;
-				else if(MarketType != 5 && MarketType != 4 && MarketType != 0 ) 
+				if(MarketType) 
 					type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_100_FEAR + MarketType - 1;
 			}
 			break;
 		case EFFECTSTATUS_GRAND_MASTER_VAMPIRE:
 			{
-				if(MarketType == 5) 
-					type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_100_COLOR5;
-				else if(MarketType != 5 && MarketType != 4 && MarketType != 0 ) 
+				if(MarketType) 
 					type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_100_FEAR + MarketType - 1;
 			}
 			break;
 		case EFFECTSTATUS_GRAND_MASTER_OUSTERS:
 			{
-				if(MarketType == 5) 
-					type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_100_COLOR5;
-				else if(MarketType != 5 && MarketType != 4 && MarketType != 0 ) 
+				if(MarketType) 
 					type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_100_FEAR + MarketType - 1;
 			}
 			break;
-
 			
-		
 		case EFFECTSTATUS_GRAND_MASTER_SLAYER_130:
 			{
 				RemoveEffectStatus(EFFECTSTATUS_GRAND_MASTER_SLAYER);
 				if(IsDead()) return 0; //Á×Àº³ÑÇÑÅÙ ÀÌÆåÆ® ¹«½Ã
-				if(MarketType == 5) 
-					type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_130_COLOR5;
-				else if(MarketType != 5 && MarketType != 4 && MarketType != 0 ) 
+				if(MarketType) 
 					type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_130_FEAR + MarketType - 1;
 			}
 			break;
@@ -10938,34 +10912,41 @@ MCreature::GetMasterEffectType(DWORD Status)
 				RemoveEffectStatus(EFFECTSTATUS_GRAND_MASTER_SLAYER_130);
 				if(IsAdvancementClass())
 				{
+					switch(MarketType)
+					{
+					//case 0:
+					case 1:
+					case 2:
+					case 3:
+						type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_150_FEAR + MarketType - 1;
+					    break;
+					case 4:
+						type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_150_ADVANCE_NEW_4;
+						break;
+					}
 					// ½ÂÁ÷ Ä³¸¯ÅÍ´Â Market Master Effect Àû¿ë ÇÏÁö ¸»¶ó°í ÇØ¼­ ÁÖ¼® Ã³¸® ÇÔ..
 					// ³ªÁß¿¡ ¶Ç ¸» ¹Ù²Ù¸é ÁÖ¼® Ç®¾îÁÖ¸é µÊ.
 //					if(MarketType) 
 //						type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_150_ADVANCE_FEAR + MarketType - 1;
 //					else
-					if(MarketType == 4) //sjheon 2005.05.12
-						type = EFFECTSPRITETYPE_ADVANCEMENT_AURA_CRYSTAL_SLAYER ;
-					else if(MarketType == 5) //sjheon 2005.05.12
-						type = EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_ADVANCE_COLOR5 ;
-					else if(MarketType != 5  && MarketType != 4)
-						type = EFFECTSPRITETYPE_ADVANCEMENT_MASTER_SLAYER;
+					// edit By Sonic 2006.10.28 È¥³ý¶þ×ªºó½ÇÉ«ÉíÉÏµÄ¹âÎÞÐ§¹û
+
+					//	type = EFFECTSPRITETYPE_ADVANCEMENT_MASTER_SLAYER;
+// 					if(MarketType)
+// 						type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_150_FEAR + MarketType - 1;
+					// end  By Sonic 2006.10.28
 				}
 				else
 				{
-					if(MarketType == 5) 
-						type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_150_COLOR5;
-					else if(MarketType != 5 && MarketType != 4 && MarketType != 0 ) 
+					if(MarketType) 
 						type =  EFFECTSPRITETYPE_MARKET_MASTER_SLAYER_150_FEAR + MarketType - 1;
 				}
 			}
 			break;
-
 		case EFFECTSTATUS_GRAND_MASTER_VAMPIRE_130:
 			{
 				RemoveEffectStatus(EFFECTSTATUS_GRAND_MASTER_VAMPIRE);
-				if(MarketType == 5) 
-					type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_130_COLOR5;
-				else if(MarketType != 5 && MarketType != 4 && MarketType != 0 ) 
+				if(MarketType) 
 					type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_130_FEAR + MarketType - 1;
 			}
 			break;
@@ -10974,37 +10955,41 @@ MCreature::GetMasterEffectType(DWORD Status)
 				RemoveEffectStatus(EFFECTSTATUS_GRAND_MASTER_VAMPIRE_130);
 				if(IsAdvancementClass())
 				{
+					switch(MarketType)
+					{
+					//case 0:
+					case 1:
+					case 2:
+					case 3:
+						type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_150_FRONT_FEAR + MarketType - 1;
+					    break;
+					case 4:
+						type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_150_ADVANCE_NEW_4;
+						break;	
+					}
 					// ½ÂÁ÷ Ä³¸¯ÅÍ´Â Market Master Effect Àû¿ë ÇÏÁö ¸»¶ó°í ÇØ¼­ ÁÖ¼® Ã³¸® ÇÔ..
 					// ³ªÁß¿¡ ¶Ç ¸» ¹Ù²Ù¸é ÁÖ¼® Ç®¾îÁÖ¸é µÊ.
 //					if(MarketType) 
 //						type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_150_FRONT_ADVANCE_FEAR + MarketType - 1;
 //					else
-					if(MarketType == 4) // sjheon 2005.05.12
-						type = EFFECTSPRITETYPE_ADVANCEMENT_AURA_CRYSTAL_VAMPIRE;
-					else if(MarketType == 5) // sjheon 2005.05.12
-						type = EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_150_BACK_COLOR5;
-					else if(MarketType != 5  && MarketType != 4)
-						type =  EFFECTSPRITETYPE_ADVANCEMENT_MASTER_VAMPIRE_BACK;
-
+						// edit by sonic 2006.10.28   È¥³ý¶þ×ªºó¿´²»µ½ÉíÉÏ»ðÑÕÉ«Ð§¹û
+							//type =  EFFECTSPRITETYPE_ADVANCEMENT_MASTER_VAMPIRE_BACK;
+// 							if(MarketType)
+// 								type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_150_FRONT_FEAR + MarketType - 1;
+						// end by sonic 2006.10.28
 						
 				}
 				else
 				{
-					if(MarketType == 5) 
-						type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_150_BACK_COLOR5;
-					else if(MarketType != 5 && MarketType != 4 && MarketType != 0 ) 
+					if(MarketType) 
 						type =  EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_150_FRONT_FEAR + MarketType - 1;
 				}
 			}
 			break;
-
-	
 		case EFFECTSTATUS_GRAND_MASTER_OUSTERS_130:
 			{
 				RemoveEffectStatus(EFFECTSTATUS_GRAND_MASTER_OUSTERS);
-				if(MarketType == 5) // sjheon 2005.05.17
-					type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_130_COLOR5;
-				else if(MarketType != 5 && MarketType != 4 && MarketType != 0)
+				if(MarketType) 
 					type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_130_FEAR + MarketType - 1;
 			}
 			break;
@@ -11014,31 +10999,40 @@ MCreature::GetMasterEffectType(DWORD Status)
 	
 				if(IsAdvancementClass())
 				{
+					switch(MarketType)
+					{
+					//case 0:
+					case 1:
+					case 2:
+					case 3:
+						type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_150_FEAR + MarketType - 1;
+					    break;
+					case 4:
+						type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_150_ADVANCE_NEW_4;
+						break;	
+					}	
 					// ½ÂÁ÷ Ä³¸¯ÅÍ´Â Market Master Effect Àû¿ë ÇÏÁö ¸»¶ó°í ÇØ¼­ ÁÖ¼® Ã³¸® ÇÔ..
 					// ³ªÁß¿¡ ¶Ç ¸» ¹Ù²Ù¸é ÁÖ¼® Ç®¾îÁÖ¸é µÊ.
 //					if(MarketType) 
 //						type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_150_ADVANCE_FEAR + MarketType - 1;
 //					else
-					if(MarketType == 4) // sjheon 2005.05.12
-						type = EFFECTSPRITETYPE_ADVANCEMENT_AURA_CRYSTAL_OUSTER;
-					else if(MarketType == 5) // sjheon 2005.05.17
-						type = EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_ADVANCE_COLOR5;
-					else if(MarketType != 5  && MarketType != 4)
-						type =  EFFECTSPRITETYPE_ADVANCEMENT_MASTER_OUSTER;
-						
+					// edit by sonic 2006.10.28  ÐÞÕý¶þ×ªºó½ÇÉ«»ðÑÕÉ«ÎÊÌâ
+						//type =  EFFECTSPRITETYPE_ADVANCEMENT_MASTER_OUSTER;
+// 					if(MarketType)
+// 					type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_150_FEAR + MarketType - 1;
+
+					// end by sonic 2006.10.28
 				}
 				else
 				{
-					if(MarketType == 5)
-						type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_150_COLOR5;
-					else if(MarketType != 5 && MarketType != 4 && MarketType != 0)  
+					if(MarketType) 
 						type =  EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_150_FEAR + MarketType - 1;
-					
 				}
 
 			}
 			break;
 	}
+	
 	return type;
 }
 
@@ -11139,16 +11133,3 @@ MCreature::ChangeMasterEffectType(int MarketEffect)
 
 }
 // 2005, 2, 22, sobeit add end
-
-// 2005.07.08 combo Skill USE My Creature  ¸¸ Àû¿ë  Sjheon
-void	MCreature::UseSkill_Effect()
-{
-	int originalSkill = GetUsedActionInfo() ; 
-	if((*g_pActionInfoTable)[originalSkill].GetComboAttackSkill())
-	{
-		int EffectSkill = (*g_pActionInfoTable)[originalSkill].GetomboActionResultEffect() ; 
-		AffectUsedActionInfo(EffectSkill);
-	}
-}
-
-// 2005.07.08 combo Skill USE My Creature  ¸¸ Àû¿ë  Sjheon

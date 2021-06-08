@@ -31,7 +31,7 @@ MNPCScriptTable*		g_pNPCScriptTable = NULL;
 // Save To File
 //---------------------------------------------------------------------------
 void				
-NPC_SCRIPT::SaveToFile(ofstream& file)
+NPC_SCRIPT::SaveToFile(class ofstream& file)
 {
 	//file.write((const char*)&ScriptID, 4);
 	OwnerID.SaveToFile( file );
@@ -44,7 +44,7 @@ NPC_SCRIPT::SaveToFile(ofstream& file)
 // Load From File
 //---------------------------------------------------------------------------
 void				
-NPC_SCRIPT::LoadFromFile(ifstream& file)
+NPC_SCRIPT::LoadFromFile(class ifstream& file)
 {
 	//file.read((char*)&ScriptID, 4);
 	OwnerID.LoadFromFile( file );
@@ -138,7 +138,7 @@ MNPCScriptTable::GetContent(int scriptID, int contentID) const
 // Save To File
 //----------------------------------------------------------------------
 void		
-MNPCScriptTable::SaveToFile(ofstream& file)
+MNPCScriptTable::SaveToFile(class ofstream& file)
 {
 	TYPE_MAP::iterator iData = begin();
 
@@ -167,7 +167,7 @@ MNPCScriptTable::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-MNPCScriptTable::LoadFromFile(ifstream& file)
+MNPCScriptTable::LoadFromFile(class ifstream& file)
 {
 	//-----------------------------------------------------
 	// 기존에 있던것 제거

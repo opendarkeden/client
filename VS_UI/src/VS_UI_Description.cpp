@@ -3,10 +3,7 @@
 #include "client_PCH.h"
 
 #include "VS_UI_Description.h"
-//#include "VS_UI_GameCommon.h"
 #include "VS_UI_GameCommon.h"
-#include "VS_UI_GameCommon2.h"
-
 #include "VS_UI_Shop.h"
 #include "VS_UI_mouse_pointer.h"
 
@@ -36,6 +33,8 @@ enum
 	NAME_STRING_LEN = 100, // 100 ÀÌÇÏ°ÚÁö?
 	VALUE_GAP = 5,
 };
+
+extern RECT g_GameRect;
 
 #define ITEM_NAME_NORMAL_COLOR			RGB_WHITE
 #define ITEM_NAME_OPTION_COLOR			RGB_YELLOW
@@ -139,34 +138,6 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 		if(p_item->IsUniqueItem() || p_item->IsQuestItem() )
 		{
 			WORD temp_color;
-
-			/*if( (p_item->GetItemClass() == ITEM_CLASS_SWORD  && (p_item->GetItemType() >= 15  && p_item->GetItemType() <= 17 )) ||
-				(p_item->GetItemClass() == ITEM_CLASS_BLADE  && (p_item->GetItemType() >= 15  && p_item->GetItemType() <= 17 )) ||
-				(p_item->GetItemClass() == ITEM_CLASS_CROSS  && (p_item->GetItemType() >= 13  && p_item->GetItemType() <= 15 )) ||
-				(p_item->GetItemClass() == ITEM_CLASS_SG     && (p_item->GetItemType() >= 14  && p_item->GetItemType() <= 16 )) ||
-				(p_item->GetItemClass() == ITEM_CLASS_SMG    && (p_item->GetItemType() >= 14  && p_item->GetItemType() <= 16 )) ||
-				(p_item->GetItemClass() == ITEM_CLASS_AR     && (p_item->GetItemType() >= 15  && p_item->GetItemType() <= 17 )) ||
-				(p_item->GetItemClass() == ITEM_CLASS_SR     && (p_item->GetItemType() >= 15  && p_item->GetItemType() <= 17 )) ||
-				(p_item->GetItemClass() == ITEM_CLASS_MACE   && (p_item->GetItemType() >= 13  && p_item->GetItemType() <= 15 )) ||
-				(p_item->GetItemClass() == ITEM_CLASS_VAMPIRE_PORTAL_ITEM && (p_item->GetItemType() >= 18  && p_item->GetItemType() <= 23 )) ||
-				(p_item->GetItemClass() == ITEM_CLASS_VAMPIRE_WEAPON   && (p_item->GetItemType() >= 20  && p_item->GetItemType() <= 22)) ||
-				(p_item->GetItemClass() == ITEM_CLASS_OUSTERS_CHAKRAM   && (p_item->GetItemType() >= 15  && p_item->GetItemType() <= 17)) ||
-				(p_item->GetItemClass() == ITEM_CLASS_OUSTERS_WRISTLET   && (p_item->GetItemType() >= 45  && p_item->GetItemType() <= 53))
-			)
-			{	
-				temp_color  =(unsigned short) RGB(0,69,255) ; // RGB_ORANGE ;
-				name_color  = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3); 
-				ename_color = name_color ; 
-				shadow_color = 
-				
-				//if( p_item->IsQuestItem() )
-				//	temp_color = CIndexSprite::ColorSet[MItem::GetQuestItemColorset()][29];			
-				//else
-				//	temp_color = CIndexSprite::ColorSet[MItem::GetUniqueItemColorset()][29];				
-				//shadow_color = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
-			}
-			else
-			{*/
 			if( p_item->IsQuestItem() )
 				temp_color = CIndexSprite::ColorSet[MItem::GetQuestItemColorset()][15];
 			else
@@ -179,7 +150,6 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 			else
 				temp_color = CIndexSprite::ColorSet[MItem::GetUniqueItemColorset()][29];				
 			shadow_color = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
-			//}
 		}
 		else if(p_item->GetItemClass() == ITEM_CLASS_PET_ITEM)
 		{
@@ -202,7 +172,9 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				p_item->GetItemClass() != ITEM_CLASS_VAMPIRE_COUPLE_RING
 				&& p_item->GetItemClass() != ITEM_CLASS_CODE_SHEET )
 		{
-			for(int i=0;i<min(2,p_item->GetItemOptionListCount());i++)
+				//add by sonic 2006.10.28 ÏÔÊ¾Èý¸öÊôÐÔ×°±¸Ãû×Ö
+			//for(int i=0;i<min(2,p_item->GetItemOptionListCount());i++)
+			for(int i=0;i<min(3,p_item->GetItemOptionListCount());i++)
 			{
 				if(p_item->GetItemOptionName(i)!=NULL)
 				{
@@ -215,12 +187,21 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 					strcat(sz_ename, " "); // add 'space'
 				}
 			}
-			if(p_item->GetItemOptionListCount() > 1)			// Rare ¾ÆÀÌÅÛÀÎ °æ¿ì
+			if(p_item->GetItemOptionListCount() == 2 )			// Rare ¾ÆÀÌÅÛÀÎ °æ¿ì
 			{
 				name_color = g_pClientConfig->COLOR_NAME_ITEM_RARE_OPTION;
 				shadow_color = ITEM_NAME_RARE_OPTION_SHADE;
 				ename_color = ITEM_ENAME_RARE_COLOR;
-			} else
+			} 
+			// add by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈýÊôÐÔ×°±¸ÎªºìÉ«
+			else if(p_item->GetItemOptionListCount() > 2)
+			{
+				name_color = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
+				shadow_color = 0;//g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
+				ename_color = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
+			}
+			// end by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈýÊôÐÔ×°±¸ÎªºìÉ«
+			else
 			{
 				name_color = ITEM_NAME_OPTION_COLOR;
 				shadow_color = ITEM_NAME_OPTION_SHADE;
@@ -252,40 +233,7 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 			sz_ename[i] = '?';
 	}
 
-	if(!p_item->IsQuestItem())
-	{
-		if( (p_item->GetItemClass() == ITEM_CLASS_SWORD  && (p_item->GetItemType() >= 15  && p_item->GetItemType() <= 17 )) ||
-			(p_item->GetItemClass() == ITEM_CLASS_BLADE  && (p_item->GetItemType() >= 15  && p_item->GetItemType() <= 17 )) ||
-			(p_item->GetItemClass() == ITEM_CLASS_CROSS  && (p_item->GetItemType() >= 13  && p_item->GetItemType() <= 15 )) ||
-			(p_item->GetItemClass() == ITEM_CLASS_SG     && (p_item->GetItemType() >= 14  && p_item->GetItemType() <= 16 )) ||
-			(p_item->GetItemClass() == ITEM_CLASS_SMG    && (p_item->GetItemType() >= 14  && p_item->GetItemType() <= 16 )) ||
-			(p_item->GetItemClass() == ITEM_CLASS_AR     && (p_item->GetItemType() >= 15  && p_item->GetItemType() <= 17 )) ||
-			(p_item->GetItemClass() == ITEM_CLASS_SR     && (p_item->GetItemType() >= 15  && p_item->GetItemType() <= 17 )) ||
-			(p_item->GetItemClass() == ITEM_CLASS_MACE   && (p_item->GetItemType() >= 13  && p_item->GetItemType() <= 15 )) ||
-			(p_item->GetItemClass() == ITEM_CLASS_VAMPIRE_PORTAL_ITEM && (p_item->GetItemType() >= 18  && p_item->GetItemType() <= 23 )) ||
-			(p_item->GetItemClass() == ITEM_CLASS_VAMPIRE_WEAPON   && (p_item->GetItemType() >= 20  && p_item->GetItemType() <= 22)) ||
-			(p_item->GetItemClass() == ITEM_CLASS_OUSTERS_CHAKRAM   && (p_item->GetItemType() >= 15  && p_item->GetItemType() <= 17)) ||
-			(p_item->GetItemClass() == ITEM_CLASS_OUSTERS_WRISTLET   && (p_item->GetItemType() >= 45  && p_item->GetItemType() <= 53))
-		)
-		{	
-			//temp_color  =(unsigned short) RGB(255,69,0) ; // RGB_ORANGE ;
-			name_color  = (unsigned short) RGB(200,100,100); // 
-			//WORD temp_color = 0 ; 
-			//temp_color =   100  ;
-			//temp_color +=  (100 << 5) ;
-			//temp_color +=  (255 << 11) ; //   RGB(100,100,255) ;
-			//name_color  = RGB(CDirectDraw::Red(temp_color), CDirectDraw::Green(temp_color), CDirectDraw::Blue(temp_color)); 
-			ename_color = name_color ; 
-			shadow_color = 0 ; 
-			
-			//if( p_item->IsQuestItem() )
-			//	temp_color = CIndexSprite::ColorSet[MItem::GetQuestItemColorset()][29];			
-			//else
-			//	temp_color = CIndexSprite::ColorSet[MItem::GetUniqueItemColorset()][29];				
-			//shadow_color = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
-		}
-
-	}
+	
 
 	g_FL2_GetDC();
 	// name
@@ -407,16 +355,12 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 					py += SMALL_FONT_Y_GAP;
 				}
 
-				if(p_item->GetSilver() > 0)
+				if(p_item->GetSilver() > 0/* && p_item->GetEnchantLevel()!=0xFFFF add by viva */)
 				{
 					vx = g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_PET_ATTR].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
-					//int iEnchantLevel  = p_item->GetEnchantLevel() ; 
-					//if(iEnchantLevel !=  0xffff)
-					//{
 					sprintf(sz_buf, "%s +%d", g_pItemOptionTable->ITEMOPTION_PARTNAME[p_item->GetEnchantLevel()].GetString(), p_item->GetSilver());				
 					g_PrintColorStr(vx, py, sz_buf, gpC_base->m_item_desc_pi, RGB_WHITE);				
 					py += SMALL_FONT_Y_GAP;
-					//}
 				}
 
 				// Á×¾ú´Ù
@@ -619,35 +563,13 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				}
 				
 				// Charge size
-				// Sjheon 2005.05.30  ChargeItem ¾ÆÀÌÅÛ ¼³¸íÁß ³²Àº »ç¿ë È¸¼ö Á¦°Å Start
 				if (p_item->IsChargeItem() == true)
 				{
-					
-
-					//if (!(gbl_buy_running == true && !g_pTimeItemManager->IsExist( p_item->GetID())) && p_item->GetItemClass() == ITEM_CLASS_VAMPIRE_PORTAL_ITEM)
-					//{	
-					//}
-					//else
-
-			
-					if(p_item->GetItemClass() != ITEM_CLASS_VAMPIRE_PORTAL_ITEM)
-					{
-						vx = g_PrintColorStr(px, py,(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LEFT_NUM].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
-						sprintf(sz_buf, "%d/%d", p_item->GetNumber(), p_item->GetMaxNumber());
-						g_PrintColorStr(vx, py, sz_buf, gpC_base->m_item_desc_pi, RGB_WHITE);				
-						py += SMALL_FONT_Y_GAP;
-					}
-
-					if (!(gbl_buy_running == true && !g_pTimeItemManager->IsExist( p_item->GetID())) && p_item->GetItemClass() == ITEM_CLASS_SLAYER_PORTAL_ITEM)
-					{	
-						vx = g_PrintColorStr(px, py,(*g_pGameStringTable)[UI_STRING_MESSAGE_CHARGE_ITEM_NOUSE].GetString(), gpC_base->m_item_desc_pi, RGB_RED);
-						py += SMALL_FONT_Y_GAP;
-					}
-					
-
-
+					vx = g_PrintColorStr(px, py,(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LEFT_NUM].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
+					sprintf(sz_buf, "%d/%d", p_item->GetNumber(), p_item->GetMaxNumber());
+					g_PrintColorStr(vx, py, sz_buf, gpC_base->m_item_desc_pi, RGB_WHITE);				
+					py += SMALL_FONT_Y_GAP;
 				}
-				// Sjheon 2005.05.30  ChargeItem ¾ÆÀÌÅÛ ¼³¸íÁß ³²Àº »ç¿ë È¸¼ö Á¦°Å Start End 
 
 				// lucky value
 				if (p_item->GetLucky() != - 9999 && itemClass != ITEM_CLASS_COUPLE_RING && itemClass != ITEM_CLASS_VAMPIRE_COUPLE_RING &&  itemClass != ITEM_CLASS_CORE_ZAP)
@@ -818,7 +740,6 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 			}
 			
 			// Charge size
-			// Sjheon 2005.05.30  ChargeItem ¾ÆÀÌÅÛ ¼³¸íÁß ³²Àº »ç¿ë È¸¼ö Á¦°Å Start
 			if (p_item->IsChargeItem() == true)
 			{
 				vx = g_PrintColorStr(px, py,(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LEFT_NUM].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
@@ -826,7 +747,6 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				g_PrintColorStr(vx, py, sz_buf, gpC_base->m_item_desc_pi, RGB_WHITE);				
 				py += SMALL_FONT_Y_GAP;
 			}
-			// Sjheon 2005.05.30  ChargeItem ¾ÆÀÌÅÛ ¼³¸íÁß ³²Àº »ç¿ë È¸¼ö Á¦°Å Start End 
 			// lucky value
 			if (p_item->GetLucky() != - 9999)
 			{
@@ -1041,36 +961,14 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				
 				sprintf(sz_buf, (*g_pGameStringTable)[UI_STRING_MESSAGE_ZONEINFO_XY].GetString(), temp_item->GetZoneX(), temp_item->GetZoneY());
 				g_PrintColorStr(vx, py, sz_buf, gpC_base->m_item_desc_pi, RGB_WHITE);
-				
 			}
 			else
 			{
 				sprintf(sz_buf, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_NOT_EXIST].GetString());
 				g_PrintColorStr(vx, py, sz_buf, gpC_base->m_item_desc_pi, RGB_WHITE);
-
-			}
-			
-			if (!(gbl_buy_running == true && !g_pTimeItemManager->IsExist( p_item->GetID()))   )
-			{
-				
-				if(!(p_item->GetGridX() > 9 || p_item->GetGridY() > 5))
-				{
-					py += SMALL_FONT_Y_GAP;
-					vx = g_PrintColorStr(px, py,(*g_pGameStringTable)[UI_STRING_MESSAGE_PORTAL_ITEM_DESC].GetString(), gpC_base->m_item_desc_pi, RGB_RED);
-				}
 			}
 			py += SMALL_FONT_Y_GAP;
 		}
-		// Sjheon 2005.05.30  ChargeItem ¾ÆÀÌÅÛ ¼³¸íÃß°¡  Start	
-		//if (p_item->IsChargeItem() == true)
-		//{
-		//	vx = g_PrintColorStr(px, py,(*g_pGameStringTable)[UI_STRING_MESSAGE_PORTAL_ITEM_DESC].GetString(), gpC_base->m_item_desc_pi, RGB_RED);
-		//	//sprintf(sz_buf, "%d/%d", p_item->GetNumber(), p_item->GetMaxNumber());
-			//g_PrintColorStr(vx, py, sz_buf, gpC_base->m_item_desc_pi, RGB_RED);				
-		//	py += SMALL_FONT_Y_GAP;
-		//}
-		// Sjheon 2005.05.30  ChargeItem ¾ÆÀÌÅÛ ¼³¸íÃß°¡  End 	
-
 		// Add option
 		if(p_item->IsIdentified())
 		{			
@@ -1374,8 +1272,10 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 						
 						int LevelGrade = (RequireAdvancementLevel-1)/10;
 						int LevelUnits = (RequireAdvancementLevel-1)%10;
-
-						sprintf(sz_buf, (*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_0+LevelGrade].GetString(), LevelUnits+1);
+						// edit by Coffee  2007-5-20 ÐÞÕý×°±¸ÏÔÊ¾¶þ×ªµÈ¼¶²»ÕýÎÊÌâ
+						//sprintf(sz_buf, (*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_0+LevelGrade].GetString(), LevelUnits+1);
+						sprintf(sz_buf, (*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_0+LevelGrade].GetString(), RequireAdvancementLevel);
+						// edit end 
 						if(g_char_slot_ingame.m_AdvancementLevel >= RequireAdvancementLevel)
 							vx = g_PrintColorStr(vx, py, sz_buf, gpC_base->m_item_desc_pi, RGB_GREEN);
 						else
@@ -1635,18 +1535,6 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 			}
 			
 			py += SMALL_FONT_Y_GAP;
-
-			//if ((gbl_buy_running == true && !g_pTimeItemManager->IsExist( p_item->GetID())) && p_item->GetItemClass() == ITEM_CLASS_SLAYER_PORTAL_ITEM)
-			if (p_item->GetItemClass() == ITEM_CLASS_SLAYER_PORTAL_ITEM)
-			{
-				if(!(p_item->GetGridX() > 9 || p_item->GetGridY() > 5))
-				{
-					vx = g_PrintColorStr(px, py,(*g_pGameStringTable)[UI_STRING_MESSAGE_CHARGE_DESC].GetString(), gpC_base->m_item_desc_pi, RGB_RED);
-					py += SMALL_FONT_Y_GAP;
-				}
-
-			}
-
 		}
 		
 		if (gbl_repair_running == true && !g_pTimeItemManager->IsExist( p_item->GetID() ) && p_item->GetItemClass() != ITEM_CLASS_VAMPIRE_AMULET&& p_item->GetItemClass() != ITEM_CLASS_CORE_ZAP)
@@ -1658,10 +1546,8 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 			else
 				vx = g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_REPAIR_PRICE].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 
-			std::string sstr;   
-			int TempPrice = 0 ; 
-			TempPrice = max( 0, g_pPriceManager->GetItemPrice(p_item, MPriceManager::REPAIR) );
-			
+			std::string sstr;
+			int TempPrice = max( 0, g_pPriceManager->GetItemPrice(p_item, MPriceManager::REPAIR) );
 			if(gC_ci->IsKorean() && g_pUserOption->ShowGameMoneyWithHANGUL)
 			{
 				sstr = "$";
@@ -1678,11 +1564,6 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				g_PrintColorStr(vx, py, sz_buf, gpC_base->m_item_desc_pi, RGB_WHITE);
 			}			
 			py += SMALL_FONT_Y_GAP;
-
-
-		
-			
-
 		}
 		
 		if (gbl_silvering_running == true)
@@ -1777,6 +1658,35 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 		if(p_item->GetItemOptionListCount()>1)
 			bCanUpgrade = false;
 
+// add by Coffee 2006.11.4  ÐÞÕý×ãÇòÎªÀ¶±¦Ê¯£¬²¢ÏÔÊ¾ÄÜ³äÈýÊôÐÔ×°±¸
+		if(pMouseItem->GetItemType() == 6)					// ºí·ç ¹öµå´Â ¿É¼Ç µÎ°³¸¸
+		{
+			if(p_item->GetItemOptionListCount() != 3)
+				bCanUpgrade = false;
+			else
+			{
+				bCanUpgrade = true;
+				itr = optionList.begin();
+				int allUpgrade=0;
+				while(itr != optionList.end() )
+				{
+					if((*g_pItemOptionTable)[*itr].UpgradeOptionType == 0)
+					{
+						//bCanUpgrade = false;
+						//break;
+						allUpgrade++;
+					}
+					itr++;
+				}
+				if (allUpgrade>=3)
+					bCanUpgrade = false;
+				
+			}
+		} else
+		if(p_item->GetItemOptionListCount()>2)
+			bCanUpgrade = false;
+
+// end by Coffee À¶±¦Ê¯Ð§¹û
 		if(pMouseItem->GetItemType() == 16 )			// Æ®·£½º ¾ÆÀÌÅÛ Å°Æ®
 		{
 			if(!p_item->IsGenderForAll())
@@ -1784,11 +1694,46 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 			else
 				bCanUpgrade = false;
 		} else
-		if( pMouseItem->GetItemType() == 22) // ¿»·Î¿ì µå·Ó
+		// add by svi 2009-07-01 ÏÔÊ¾»ÆÉ«Ë®µÎ¿ÉÒÔÉý¼¶1,2ÊôÐÔÎïÆ·
+		if(pMouseItem->GetItemType() == 22 )			// »ÆÉ«Ë®µÎ
 		{
-			if(p_item->GetGrade() > 0 &&  p_item->GetGrade() <= 9)
+			if(p_item->GetItemOptionListCount() == 1 || p_item->GetItemOptionListCount() == 2)
 				bCanUpgrade = true;
-		} 
+			else
+				bCanUpgrade = false;
+		} else
+
+		if( pMouseItem->GetItemType() == 23) // Ô¶¹ÅË®µÎ
+		{
+			// modified by svi 2009-06-25 :  "> 0" -> ">= 0"  
+			if(p_item->GetGrade() >= 0 &&  p_item->GetGrade() <= 10)
+				bCanUpgrade = true;
+		} else
+		// end
+
+		// add by svi 2009-07-15 ÊôÐÔÏû³ý±¦Ê¯
+		if(pMouseItem->GetItemType() == 24 )			// ÔÂ¹âÊ¯
+		{
+			if(p_item->GetItemOptionListCount() >= 1 && p_item->GetItemOptionListCount() <= 3)
+				bCanUpgrade = true;
+			else
+				bCanUpgrade = false;
+		}else
+		if(pMouseItem->GetItemType() == 25 )			// ×ÏÑ»Ê¯
+		{
+			if(p_item->GetItemOptionListCount() == 2 || p_item->GetItemOptionListCount() == 3)
+				bCanUpgrade = true;
+			else
+				bCanUpgrade = false;
+		}else
+		if(pMouseItem->GetItemType() == 26 )			// ÁâÐ¿Ê¯
+		{
+			if(p_item->GetItemOptionListCount() == 3)
+				bCanUpgrade = true;
+			else
+				bCanUpgrade = false;
+		}
+		// end
 
 		if(bCanUpgrade)
 		{
@@ -1796,10 +1741,8 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 				g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_ONLY_PICK_UP_ITEM_ONE].GetString(), gpC_base->m_item_desc_pi, RGB(150, 150, 255));
 			else
 			{
-				if(pMouseItem->GetItemType() == 16 ) 
+				if(pMouseItem->GetItemType() == 16 )
 					g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_TRANS].GetString(), gpC_base->m_item_desc_pi, RGB(150, 150, 255));				
-				else if( pMouseItem->GetItemType() >= 26 && pMouseItem->GetItemType() <= 31)
-					g_PrintColorStr(px, py, (*g_pGameStringTable)[STRING_MESSAGE_ITEM_TO_ITEM_IMPOSIBLE].GetString(),gpC_base->m_item_desc_pi, RGB(255, 150, 150));
 				else
 				{
 					g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_ENCHANT].GetString(), gpC_base->m_item_desc_pi, RGB(150, 150, 255));
@@ -1810,9 +1753,6 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 		{
 			if( pMouseItem->GetItemType() == 16)
 				g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_CANNOT_USE].GetString(),gpC_base->m_item_desc_pi, RGB(255, 150, 150));
-			else if( pMouseItem->GetItemType() >= 26 && pMouseItem->GetItemType() <= 31)
-				g_PrintColorStr(px, py, (*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_ENCHANT].GetString(),gpC_base->m_item_desc_pi, RGB(150, 150, 255));
-
 			else
 				g_PrintColorStr(px, py, (*g_pGameStringTable)[STRING_MESSAGE_ITEM_TO_ITEM_IMPOSIBLE].GetString(), gpC_base->m_item_desc_pi, RGB(255, 150, 150));
 		}
@@ -1842,12 +1782,6 @@ void	_Item_Description_Show(Rect rect, void * void_ptr, long left, long right)
 		if(pMouseItem->GetItemType() == 15 && // 15´Â ·¹µå ¹öµå
 			pPetItem->GetNumber() == 49 && pPetItem->GetItemOptionListCount() == 0)
 			bCanUpgrade = 1;
-		
-		if(pMouseItem->GetItemType() >= 22 || pMouseItem->GetItemType() <= 24)
-		{
-			bCanUpgrade = 1;
-		}
-
 
 //		if( !pPetItem->IsCanGamble() )
 //			bCanUpgrade = 0;
@@ -2975,61 +2909,12 @@ void _Item_Description_Calculator(void (*fp_show)(Rect, void *, long, long), int
 				if ((gbl_sell_running || gbl_buy_running || (gbl_repair_running&&(itemClass!=ITEM_CLASS_VAMPIRE_AMULET)) || gbl_silvering_running))
 					line_count++;
 			}
-			
-			
 			if (itemClass == ITEM_CLASS_VAMPIRE_PORTAL_ITEM && p_item->IsIdentified())
 			{
-				if (!(gbl_buy_running == true && !g_pTimeItemManager->IsExist( p_item->GetID()))   )
-				{
-					rect.w = max(rect.w,g_GetStringWidth((*g_pGameStringTable)[UI_STRING_MESSAGE_PORTAL_ITEM_DESC].GetString(), gpC_base->m_item_desc_pi.hfont));
-					
-				}
-				
-				//line_count++; 
 				if(((MVampirePortalItem *)p_item)->IsMarked())
-				{
-					//if(!(p_item->GetGridX() > 9 || p_item->GetGridY() > 5))
-					//{
-					//	line_count++;
-					//}
-					//else	
-					//{
-					//	if ((gbl_buy_running == true && !g_pTimeItemManager->IsExist( p_item->GetID())))
-					//		line_count++;
-						 
-					//}
-
-					if(!(p_item->GetGridX() > 9 || p_item->GetGridY() > 5) && gbl_buy_running != true)
-					{
-						line_count++;
-					}
-					line_count ++;
-				}
+					line_count+=2;
 				else
-				{	
-					if(!(p_item->GetGridX() > 9 || p_item->GetGridY() > 5) && gbl_buy_running != true)
-					{
-						line_count++;
-					}
-
-					//{
-					//if (gbl_buy_running != true)
-					//	line_count++;
-					//}
-				}
-			}
-
-			
-			if (itemClass == ITEM_CLASS_SLAYER_PORTAL_ITEM) //  && p_item->IsIdentified())
-			{
-				if(!(p_item->GetGridX() > 9 || p_item->GetGridY() > 5) && (gbl_buy_running == true))
-				{
 					line_count++;
-				}
-				else if(!(p_item->GetGridX() > 9 || p_item->GetGridY() > 5) && (gbl_buy_running == false))
-				{
-					line_count++;
-				}		
 			}
 			
 			if(itemClass != ITEM_CLASS_COUPLE_RING && itemClass != ITEM_CLASS_VAMPIRE_COUPLE_RING &&
@@ -3261,12 +3146,12 @@ void _Item_Description_Calculator(void (*fp_show)(Rect, void *, long, long), int
 
 	if (rect.x < 0)
 		rect.x = 0;
-	if (rect.x+rect.w > RESOLUTION_X)
-		rect.x = RESOLUTION_X-rect.w;
+	if (rect.x+rect.w > g_GameRect.right)
+		rect.x = g_GameRect.right-rect.w;
 	if (rect.y < 0)
 		rect.y = y+(p_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y);
-	if (rect.y+rect.h > RESOLUTION_Y)
-		rect.y = RESOLUTION_Y-rect.h;
+	if (rect.y+rect.h > g_GameRect.bottom)
+		rect.y = g_GameRect.bottom-rect.h;
 
 	//////////////////////////////// end calculation
 
@@ -3342,8 +3227,8 @@ void _Skill_Description_Calculator(void (*fp_show)(Rect, void *, long, long), in
 
 	if (rect.x < 0)
 		rect.x = 0;
-	if (rect.x+rect.w > RESOLUTION_X)
-		rect.x = RESOLUTION_X-rect.w;
+	if (rect.x+rect.w > g_GameRect.right)
+		rect.x = g_GameRect.right-rect.w;
 	if (rect.y < 0)
 		rect.y = y+right;
 	//////////////////////////////// end calculation
@@ -3379,8 +3264,8 @@ void _Info_Description_Calculator(void (*fp_show)(Rect, void *, long, long), int
 
 	if (rect.x < 0)
 		rect.x = 0;
-	if (rect.x+rect.w > RESOLUTION_X)
-		rect.x = RESOLUTION_X-rect.w;
+	if (rect.x+rect.w > g_GameRect.right)
+		rect.x = g_GameRect.right-rect.w;
 	if (rect.y < 0)
 		rect.y = y+right;
 	//////////////////////////////// end calculation
@@ -3423,8 +3308,8 @@ void _Strings_Description_Calculator(void (*fp_show)(Rect, void *, long, long), 
 
 	if (rect.x < 0)
 		rect.x = 0;
-	if (rect.x+rect.w > RESOLUTION_X)
-		rect.x = RESOLUTION_X-rect.w;
+	if (rect.x+rect.w > g_GameRect.right)
+		rect.x = g_GameRect.right-rect.w;
 	if (rect.y < 0)
 		rect.y = y+right;
 	//////////////////////////////// end calculation
@@ -3531,8 +3416,8 @@ void _SkillTree_Description_Calculator(void (*fp_show)(Rect, void *, long, long)
 
 	if (rect.x < 0)
 		rect.x = 0;
-	if (rect.x+rect.w > RESOLUTION_X)
-		rect.x = RESOLUTION_X-rect.w;
+	if (rect.x+rect.w > g_GameRect.right)
+		rect.x = g_GameRect.right-rect.w;
 	if (rect.y < 0)
 		rect.y = y+right;
 	//////////////////////////////// end calculation
@@ -3580,8 +3465,8 @@ void _Help_Description_Calculator(void (*fp_show)(Rect, void *, long, long), int
 
 	if (rect.x < 0)
 		rect.x = 0;
-	if (rect.x+rect.w > RESOLUTION_X)
-		rect.x = RESOLUTION_X-rect.w;
+	if (rect.x+rect.w > g_GameRect.right)
+		rect.x = g_GameRect.right-rect.w;
 	if (rect.y < 0)
 		rect.y = 0;
 //		rect.y = y+right;
@@ -3662,8 +3547,8 @@ void _BloodBible_Description_Calculator(void (*fp_show)(Rect, void *, long, long
 
 	if (rect.x < 0)
 		rect.x = 0;
-	if (rect.x+rect.w > RESOLUTION_X)
-		rect.x = RESOLUTION_X-rect.w;
+	if (rect.x+rect.w > g_GameRect.right)
+		rect.x = g_GameRect.right-rect.w;
 	if (rect.y < 0)
 		rect.y = 0;
 //		rect.y = y+right;
@@ -3715,8 +3600,8 @@ void _Multiline_Info_Calculator(void (*fp_show)(Rect, void *, long, long), int x
 
 	if (rect.x < 0)
 		rect.x = 0;
-	if (rect.x+rect.w > RESOLUTION_X)
-		rect.x = RESOLUTION_X-rect.w;
+	if (rect.x+rect.w > g_GameRect.right)
+		rect.x = g_GameRect.right-rect.w;
 	if (rect.y < 0)
 		rect.y = y+right;
 	//////////////////////////////// end calculation

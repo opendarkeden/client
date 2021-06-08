@@ -1,0 +1,25 @@
+SCC = This is a Source Code Control file
+
+[Client.dsw]
+SCC_Aux_Path = "K:\DK2_DESIGEN"
+SCC_Project_Name = "$/DARKEDEN/Client/designed/project/Client", KWABAAAA
+
+[Client.dsp]
+SCC_Aux_Path = "K:\DK2_DESIGEN"
+SCC_Project_Name = "$/DARKEDEN/Client/designed/project/Client", KWABAAAA
+
+[DEUtil.dsp]
+SCC_Aux_Path = "K:\DK2_DESIGEN"
+SCC_Project_Name = "$/DARKEDEN/Client/designed/project/Client", KWABAAAA
+
+[DirectXLib.dsp]
+SCC_Aux_Path = "K:\DK2_DESIGEN"
+SCC_Project_Name = "$/DARKEDEN/Client/designed/project/Client", KWABAAAA
+
+[MZLib.dsp]
+SCC_Aux_Path = "K:\DK2_DESIGEN"
+SCC_Project_Name = "$/DARKEDEN/Client/designed/project/Client", KWABAAAA
+
+[VolumeLib.dsp]
+SCC_Aux_Path = "K:\DK2_DESIGEN"
+SCC_Project_Name = "$/DARKEDEN/Client/designed/project/Client", KWABAAAA

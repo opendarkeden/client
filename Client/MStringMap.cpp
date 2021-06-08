@@ -240,7 +240,7 @@ MStringMap::Get(const char* pKey) const
 // Save To File
 //----------------------------------------------------------------------
 void				
-MStringMap::SaveToFile(ofstream& file)
+MStringMap::SaveToFile(class ofstream& file)
 {
 	int num = size();
 
@@ -291,7 +291,7 @@ MStringMap::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void				
-MStringMap::LoadFromFile(ifstream& file)
+MStringMap::LoadFromFile(class ifstream& file)
 {	
 	int num;
 

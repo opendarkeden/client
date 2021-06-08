@@ -197,7 +197,7 @@ AcceleratorManager::Function_ACCEL_SKILL(void* pVoid)
 void		
 AcceleratorManager::Function_ACCEL_INVENTORY(void* pVoid)
 {
-	gC_vs_ui.HotKey_Inventory(true);
+	gC_vs_ui.HotKey_Inventory();
 }
 
 //-----------------------------------------------------------------------------

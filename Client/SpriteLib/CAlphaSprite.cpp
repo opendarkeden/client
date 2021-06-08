@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // CAlphaSprite.cpp
 //----------------------------------------------------------------------
-// #include "Client_PCH.h"
+#include "Client_PCH.h"
 #include "CSpriteSurface.h"
 #include "CAlphaSprite.h"
 

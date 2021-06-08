@@ -30,7 +30,7 @@ PackFileInfo::~PackFileInfo()
 // Save To File
 //--------------------------------------------------------------------------
 void				
-PackFileInfo::SaveToFile(ofstream& file)
+PackFileInfo::SaveToFile(class ofstream& file)
 {
 	file.write((const char*)&m_ID, 4);
 	
@@ -48,7 +48,7 @@ PackFileInfo::SaveToFile(ofstream& file)
 // Load From File
 //--------------------------------------------------------------------------
 void				
-PackFileInfo::LoadFromFile(ifstream& file)
+PackFileInfo::LoadFromFile(class ifstream& file)
 {
 	file.read((char*)&m_ID, 4);
 	
@@ -69,7 +69,7 @@ PackFileInfo::LoadFromFile(ifstream& file)
 // Save To File Data
 //--------------------------------------------------------------------------
 bool		
-PackFileInfo::SaveToFileData(ofstream& file)
+PackFileInfo::SaveToFileData(class ofstream& file)
 {
 	return true;
 }

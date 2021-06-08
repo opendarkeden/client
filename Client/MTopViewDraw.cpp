@@ -84,8 +84,6 @@ namespace {
 	RECT rect;
 };
 
-
-
 int AdvancementOustersActionConvTable[ ACTION_MAX_SLAYER ] =
 {
 	ACTION_STAND,		// 따로 조건 변환 필요
@@ -101,14 +99,14 @@ int AdvancementOustersActionConvTable[ ACTION_MAX_SLAYER ] =
 	ACTION_ADVANCEMENT_OUSTERS_MAGIC_ATTACK,
 	ACTION_ADVANCEMENT_OUSTERS_ABSORB_SOUL,
 	ACTION_ADVANCEMENT_OUSTERS_FAST_MOVE_STOP,		// 따로 조건 변환 필요	(공중정지)
-	ACTION_ADVANCEMENT_OUSTERS_FAST_MOVE,		    // 따로 조건 변환 필요  (공중이동)
+	ACTION_ADVANCEMENT_OUSTERS_FAST_MOVE,		// 따로 조건 변환 필요  (공중이동)
 	ACTION_ADVANCEMENT_OUSTERS_ATTACK_SLOW,
 	ACTION_ADVANCEMENT_OUSTERS_ATTACK_FAST,
 	ACTION_ADVANCEMENT_OUSTERS_SKILL_SLOW,
 	ACTION_ADVANCEMENT_OUSTERS_SKILL_FAST,
 	-1,
 };
-
+// by viva
 int AdvancementSlayerActionConvTable[ ACTION_MAX_SLAYER ] = 
 {
 	ACTION_STAND,	// 따로 조건 변환 필요
@@ -118,18 +116,18 @@ int AdvancementSlayerActionConvTable[ ACTION_MAX_SLAYER ] =
 	ACTION_DAMAGED,
 	ACTION_ADVANCEMENT_SLAYER_DRAINED,
 	ACTION_ADVANCEMENT_SLAYER_DIE,
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_NORMAL,		//SR
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_NORMAL,		//AR
+	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_NORMAL,	// SR
+	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_NORMAL,	// AR
 	ACTION_ADVANCEMENT_SLAYER_ATTACK_SWORD_NORMAL,
 	ACTION_ADVANCEMENT_SLAYER_ATTACK_BLADE_NORMAL,
-	-1,													//폭탄 던지기
+	-1,												// 폭탄 던지기
 	ACTION_ADVANCEMENT_SLAYER_BIKE_MOVE,
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_NORMAL,		//SG
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_NORMAL,		//SMG
+	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_NORMAL,	// SG
+	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_NORMAL,	// SMG
 	ACTION_ADVANCEMENT_SLAYER_SKILL_SWORD_NORMAL,
 	ACTION_ADVANCEMENT_SLAYER_SKILL_BLADE_NORMAL,
-	-1,													//성수 던지기
-	ACTION_ADVANCEMENT_SLAYER_BIKE_STOP,				//18
+	-1,												// 성수 던지기
+	ACTION_ADVANCEMENT_SLAYER_BIKE_STOP,			// 18
 	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_SLOW,		//SR
 	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_FAST,		//SR
 	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_SLOW,		//AR
@@ -178,7 +176,6 @@ int AdvancementVampireActionConvTable[ ACTION_MAX_SLAYER ] =
 	-1,
 	-1,
 	-1,
-
 	-1,
 	-1,
 	-1, // 30
@@ -187,187 +184,6 @@ int AdvancementVampireActionConvTable[ ACTION_MAX_SLAYER ] =
 	-1,
 	-1,
 };
-
-/*
-int AdvancementOustersActionConvTable[ ACTION_MAX_SLAYER ] =
-{
-	ACTION_STAND,		// 따로 조건 변환 필요
-	ACTION_MOVE,		// 따로 조건 변환 필요
-	ACTION_ADVANCEMENT_OUSTERS_COMBO_NORMAL , //ACTION_ADVANCEMENT_OUSTERS_ATTACK_NORMAL,
-	ACTION_ADVANCEMENT_OUSTERS_MAGIC,
-	ACTION_ADVANCEMENT_OUSTERS_DAMAGED,
-	ACTION_ADVANCEMENT_OUSTERS_DRAINED,
-	ACTION_ADVANCEMENT_OUSTERS_DIE,
-	ACTION_STAND,		// 따로 조건 변환 필요	(서있기)
-	ACTION_MOVE,		// 따로 조건 변환 필요	(걷기)
-	ACTION_ADVANCEMENT_OUSTERS_COMBO_NORMAL,		//ACTION_ADVANCEMENT_OUSTERS_SKILL_NORMAL,
-	ACTION_ADVANCEMENT_OUSTERS_MAGIC_ATTACK,
-	ACTION_ADVANCEMENT_OUSTERS_ABSORB_SOUL,
-	ACTION_ADVANCEMENT_OUSTERS_FAST_MOVE_STOP,		// 따로 조건 변환 필요	(공중정지)
-	ACTION_ADVANCEMENT_OUSTERS_FAST_MOVE,		    // 따로 조건 변환 필요  (공중이동)
-	ACTION_ADVANCEMENT_OUSTERS_COMBO_SLOW ,			// ACTION_ADVANCEMENT_OUSTERS_ATTACK_SLOW,
-	ACTION_ADVANCEMENT_OUSTERS_COMBO_FAST,			// ACTION_ADVANCEMENT_OUSTERS_ATTACK_FAST,
-	ACTION_ADVANCEMENT_OUSTERS_COMBO_SLOW,			//ACTION_ADVANCEMENT_OUSTERS_SKILL_SLOW,
-	ACTION_ADVANCEMENT_OUSTERS_COMBO_FAST ,			//ACTION_ADVANCEMENT_OUSTERS_SKILL_FAST,
-	-1,
-};
-
-int AdvancementSlayerActionConvTable[ ACTION_MAX_SLAYER ] = 
-{
-	ACTION_STAND,	// 따로 조건 변환 필요
-	ACTION_MOVE,	// 따로 조건 변환 필요
-	-1,	// 따로 조건 변환 필요
-	ACTION_ADVANCEMENT_SLAYER_MAGIC,
-	ACTION_DAMAGED,
-	ACTION_ADVANCEMENT_SLAYER_DRAINED,
-	ACTION_ADVANCEMENT_SLAYER_DIE,
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_NORMAL,		//SR
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_NORMAL,		//AR
-	ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_NORMAL,		//ACTION_ADVANCEMENT_SLAYER_ATTACK_SWORD_NORMAL,
-	ACTION_ADVANCEMENT_SLAYER_COMBO_BLADE_NORMAL,		//ACTION_ADVANCEMENT_SLAYER_ATTACK_BLADE_NORMAL,
-	-1,													//폭탄 던지기
-	ACTION_ADVANCEMENT_SLAYER_BIKE_MOVE,
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_NORMAL,		//SG
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_NORMAL,		//SMG
-	ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_NORMAL,		//ACTION_ADVANCEMENT_SLAYER_SKILL_SWORD_NORMAL,
-	ACTION_ADVANCEMENT_SLAYER_COMBO_BLADE_NORMAL,		//ACTION_ADVANCEMENT_SLAYER_SKILL_BLADE_NORMAL,
-	-1,													//성수 던지기
-	ACTION_ADVANCEMENT_SLAYER_BIKE_STOP,				//18
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_SLOW,		//SR
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_FAST,		//SR
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_SLOW,		//AR
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_FAST,		//AR
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_SLOW,		//SG
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_FAST,		//SG
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_SLOW,		//SMG
-	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_FAST,		//SMG
-	ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_SLOW,			//ACTION_ADVANCEMENT_SLAYER_ATTACK_SWORD_SLOW,
-	ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_FAST,			//ACTION_ADVANCEMENT_SLAYER_ATTACK_SWORD_FAST,
-	ACTION_ADVANCEMENT_SLAYER_COMBO_BLADE_SLOW,			//ACTION_ADVANCEMENT_SLAYER_ATTACK_BLADE_SLOW,
-	ACTION_ADVANCEMENT_SLAYER_COMBO_BLADE_FAST,			//ACTION_ADVANCEMENT_SLAYER_ATTACK_BLADE_FAST,
-	ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_SLOW,			//ACTION_ADVANCEMENT_SLAYER_SKILL_SWORD_SLOW,
-	ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_FAST,			//ACTION_ADVANCEMENT_SLAYER_SKILL_SWORD_FAST,
-	ACTION_ADVANCEMENT_SLAYER_COMBO_BLADE_SLOW,			//ACTION_ADVANCEMENT_SLAYER_SKILL_BLADE_SLOW,
-	ACTION_ADVANCEMENT_SLAYER_COMBO_BLADE_FAST,			//ACTION_ADVANCEMENT_SLAYER_SKILL_BLADE_FAST,
-};
-	
-int AdvancementVampireActionConvTable[ ACTION_MAX_SLAYER ] =
-{
-	ACTION_ADVANCEMENT_STOP,
-	ACTION_ADVANCEMENT_MOVE,
-	ACTION_ADVANCEMENT_COMBO_NORMAL ,	//ACTION_ADVANCEMENT_ATTACK_NORMAL,
-	ACTION_ADVANCEMENT_MAGIC,
-	ACTION_ADVANCEMENT_DAMAGED,
-	ACTION_ADVANCEMENT_DRAINED,
-	ACTION_ADVANCEMENT_DIE,
-	ACTION_ADVANCEMENT_DRAIN,
-	ACTION_ADVANCEMENT_COMBO_SLOW,		//ACTION_ADVANCEMENT_ATTACK_SLOW,				
-	ACTION_ADVANCEMENT_COMBO_FAST,		//ACTION_ADVANCEMENT_ATTACK_FAST,
-	ACTION_ADVANCEMENT_COMBO_SLOW,		//ACTION_ADVANCEMENT_SKILL_SLOW,		// 10
-	ACTION_ADVANCEMENT_COMBO_NORMAL,	//ACTION_ADVANCEMENT_SKILL_NORMAL,	// 11
-	ACTION_ADVANCEMENT_COMBO_FAST ,		//ACTION_ADVANCEMENT_SKILL_FAST,		// 12
-	ACTION_ADVANCEMENT_MAGIC_ATTACK,
-	ACTION_ADVANCEMENT_SPECIAL,
-	ACTION_ADVANCEMENT_CREATE_WEAPON,
-	ACTION_ADVANCEMENT_DESTROY_WEAPON,	// 16
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1, // 30
-	-1,
-	-1,
-	-1,
-	-1,
-};
-
-
-int AdvanceComboActionFrameTable[7][3][4] = 
-{
-	// 슬레이어 남 / 여자 검  
-	13,26,39,58, 10,21,32,49, 8,17,26,41 ,
-	13,26,39,58, 10,21,32,49, 8,17,26,41 ,
-
-	// 슬레이어 남 / 여자 도
-	14,29,44,65, 12,25,38,57, 10,21,32,49 ,
-	14,29,44,65, 12,25,38,57, 10,21,32,49 ,
-
-	// 벰파이어 남 / 여자
-	12,25,38,57, 10,21,32,49, 8,17,26,41,  
-	12,26,40,59, 10,21,32,49, 8,17,26,41,  
-
-    // 아우스터  
-	12,26,40,59, 10,21,32,49, 8,17,26,41 ,
-};
-
-
-int AdvanceComboNextActionTable[12] = 
-{
-	// 슬레이어
-	ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_SWARD_SLOW,
-	ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_SWARD_NORMAL,
-	ACTION_ADVANCEMENT_SLAYERN_COMBO_CANCEL_SWARD_FAST,
-
-	ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_BLADE_SLOW,
-	ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_BLADE_NORMAL,
-	ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_BLADE_FAST,
-	
-	// 벰파이어
-	ACTION_ADVANCEMENT_OUSTERS_COMBO_CANCEL_SLOW ,//ACTION_ADVANCEMENT_COMBO_CANCEL_SLOW,
-	ACTION_ADVANCEMENT_OUSTERS_COMBO_CANCEL_SLOW,//ACTION_ADVANCEMENT_COMBO_CANCEL_NORMAL,
-	ACTION_ADVANCEMENT_OUSTERS_COMBO_CANCEL_SLOW,//ACTION_ADVANCEMENT_COMBO_CANCEL_FAST,
-    // 아우스터
-	ACTION_ADVANCEMENT_OUSTERS_COMBO_CANCEL_SLOW,
-	ACTION_ADVANCEMENT_OUSTERS_COMBO_CANCEL_NORMAL,
-	ACTION_ADVANCEMENT_OUSTERS_COMBO_CANCEL_FAST,
-};
-
-
-
-
-int AdvanceComboNextRepeatActionTable[12] = 
-{
-	// 슬레이어
-	ACTION_SLAYER_SWORD_SLOW,
-	ACTION_SLAYER_SWORD,
-	ACTION_SLAYER_SWORD_FAST,
-
-	ACTION_SLAYER_BLADE_SLOW,
-	ACTION_SLAYER_BLADE,
-	ACTION_SLAYER_BLADE_FAST,
-	
-	// 벰파이어
-	ACTION_VAMPIRE_ATTACK_SLOW ,
-	ACTION_ATTACK,
-	ACTION_VAMPIRE_ATTACK_FAST,
-    // 아우스터
-	ACTION_OUSTERS_ATTACK_SLOW,
-	ACTION_ATTACK,
-	ACTION_OUSTERS_ATTACK_FAST,
-};
-
-
-int AdvanceComboCancelFrameTable[5][3][3] = 
-{
-	// 슬레이어 남 / 여자 
-	1,3,5, 1,3,5, 1,3,5,
-	1,3,5, 1,3,5, 1,3,5,
-	// 벰파이어 남 / 여자 
-	1,3,5, 1,3,5, 1,3,5,
-	1,3,5, 1,3,5, 1,3,5,
-    // 아우스터
-	1,3,5, 1,3,5, 1,3,5,
-};
-*/
 
 BYTE GetCreatureActionCountMax( const MCreature* pCreature, int action );
 
@@ -378,7 +194,16 @@ int GetAdvancementVampireActionFromVampireAction( int CurAction, const MCreature
 
 	return AdvancementVampireActionConvTable[ CurAction ];
 }
-
+//add by viva
+int GetNewVampireActionFromVampireAction( int CurAction )
+{
+	int Action=CurAction;
+	if(CurAction==13)
+		Action=16;
+	else if(CurAction==12)
+		Action=7;
+	return Action;
+}
 int GetAdvancementPartFromItemClass( ITEM_CLASS itemClass , TYPE_FRAMEID frameID)
 {
 //	assert(false && "님하 즐드333");
@@ -504,7 +329,83 @@ int GetAdvancementSlayerAttackActionFromItemClass( ITEM_CLASS itemClass, MCreatu
 
 	return -1;
 }
-
+//add by viva
+int ConvNewSlayerActionFromSlayerAction(int CurAction, MCreatureWear* pCreatureWear)
+{
+	Assert(pCreatureWear!=NULL);
+	int Action=CurAction;
+	if(CurAction==ACTION_STAND)
+	{
+		const MCreatureWear::ADDON_INFO& addon = pCreatureWear->GetAddonInfo( ADDON_RIGHTHAND );
+		if(	addon.ItemClass==ITEM_CLASS_SG
+		||addon.ItemClass==ITEM_CLASS_SMG
+		||addon.ItemClass==ITEM_CLASS_AR
+		||addon.ItemClass==ITEM_CLASS_SR
+		)
+			return ACTION_NEW_SLAYER_STOP_GUN;
+	}
+	else if(CurAction==ACTION_MOVE)
+	{
+		const MCreatureWear::ADDON_INFO& addon = pCreatureWear->GetAddonInfo( ADDON_RIGHTHAND );
+		if(	addon.ItemClass==ITEM_CLASS_SG
+		||addon.ItemClass==ITEM_CLASS_SMG
+		||addon.ItemClass==ITEM_CLASS_AR
+		||addon.ItemClass==ITEM_CLASS_SR
+		)
+			return ACTION_NEW_SLAYER_MOVE_GUN;	
+	}
+	else if(CurAction==ACTION_SLAYER_GUN_SG)	//9
+		Action=ACTION_NEW_SLAYER_GUN_SG;
+	else if(CurAction==ACTION_SLAYER_GUN_SMG)	//10
+		Action=ACTION_NEW_SLAYER_GUN_SMG;
+	else if(CurAction==ACTION_SLAYER_SWORD)	//11
+		Action=ACTION_NEW_SLAYER_SWORD;
+	else if(CurAction==ACTION_SLAYER_BLADE)	//12
+		Action=ACTION_NEW_SLAYER_BLADE;
+	else if(CurAction==ACTION_SLAYER_SWORD_2)	//13
+		Action=ACTION_NEW_SLAYER_SWORD_2;
+	else if(CurAction==ACTION_SLAYER_BLADE_2)	//14
+		Action=ACTION_NEW_SLAYER_BLADE_2;
+	else if(CurAction==ACTION_SLAYER_MOTOR_MOVE)	//15
+		Action=ACTION_NEW_SLAYER_MOTOR_MOVE;
+	else if(CurAction==ACTION_SLAYER_MOTOR_STAND)	//16
+		Action=ACTION_NEW_SLAYER_MOTOR_STAND;
+	else if(CurAction==ACTION_SLAYER_GUN_SR_SLOW)	//17
+		Action=ACTION_NEW_SLAYER_GUN_SR_SLOW;
+	else if(CurAction==ACTION_SLAYER_GUN_SR_FAST)	//18
+		Action=ACTION_NEW_SLAYER_GUN_SR_FAST;
+	else if(CurAction==ACTION_SLAYER_GUN_AR_SLOW)	//19
+		Action=ACTION_NEW_SLAYER_GUN_AR_SLOW;
+	else if(CurAction==ACTION_SLAYER_GUN_AR_FAST)	//20
+		Action=ACTION_NEW_SLAYER_GUN_AR_FAST;
+	else if(CurAction==ACTION_SLAYER_GUN_SG_SLOW)	//21
+		Action=ACTION_NEW_SLAYER_GUN_SG_SLOW;
+	else if(CurAction==ACTION_SLAYER_GUN_SG_FAST)	//22
+		Action=ACTION_NEW_SLAYER_GUN_SG_FAST;
+	else if(CurAction==ACTION_SLAYER_GUN_SMG_SLOW)	//23
+		Action=ACTION_NEW_SLAYER_GUN_SMG_SLOW;
+	else if(CurAction==ACTION_SLAYER_GUN_SMG_FAST)	//24
+		Action=ACTION_NEW_SLAYER_GUN_SMG_FAST;
+	else if(CurAction==ACTION_SLAYER_SWORD_SLOW)	//25
+		Action=ACTION_NEW_SLAYER_SWORD_SLOW;
+	else if(CurAction==ACTION_SLAYER_SWORD_FAST)	//26
+		Action=ACTION_NEW_SLAYER_SWORD_FAST;
+	else if(CurAction==ACTION_SLAYER_BLADE_SLOW)	//27
+		Action=ACTION_NEW_SLAYER_BLADE_SLOW;
+	else if(CurAction==ACTION_SLAYER_BLADE_FAST)	//28
+		Action=ACTION_NEW_SLAYER_BLADE_FAST;
+	else if(CurAction==ACTION_SLAYER_SWORD_2_SLOW)	//29
+		Action=ACTION_NEW_SLAYER_SWORD_2_SLOW;
+	else if(CurAction==ACTION_SLAYER_SWORD_2_FAST)	//30
+		Action=ACTION_NEW_SLAYER_SWORD_2_FAST;
+	else if(CurAction==ACTION_SLAYER_BLADE_2_SLOW)	//31
+		Action=ACTION_NEW_SLAYER_BLADE_2_SLOW;
+	else if(CurAction==ACTION_SLAYER_BLADE_2_FAST)	//32
+		Action=ACTION_NEW_SLAYER_BLADE_2_FAST;
+	else if(CurAction==130)//폅都加丹
+		Action=37;
+	return Action;
+}
 int ConvAdvancementSlayerActionFromSlayerAction( int CurAction, MCreatureWear* pCreatureWear )
 {
 	Assert( pCreatureWear != NULL );
@@ -678,17 +579,6 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			creature_type = pCreature->GetHalluCreatureType();
 		}
 
-		//////////////////////////////////////////////////////
-		// 2005.11.21 by chyaya
-		// 할루시네이션에 걸렸을 경우 캐릭터를 몬스터로 처리하기 때문에
-		// 승직 캐릭터로 취급하지 않고 일반 캐릭터로 취급해 처리한다.
-		// 아래의 변수를 사용하여 하드 코딩했다 -_-;;
-
-			bool bHallu = pCreature->IsHallu();
-
-		//
-		//////////////////////////////////////////////////////
-
 		bool bGildreDead = false;
 		bool bSlayerPet_ShowTurret = false;
 		GENERATE_OPTION  OutLineOption = GENERATE_ALL;
@@ -773,8 +663,6 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 		// 2004, 7, 23 sobeit modify end
 		
 		// 2004, 11, 22, sobeit add start - set afire 관련
-		//int		ComboActionCnt = pCreature->GetCombo();
-		//int		MaxFrame       = pCreature->GetActionCountMax();
 		if(pCreature->GetID() != g_pPlayer->GetID())
 		{
 			if(pCreature->GetSpecialActionInfo() == SKILL_SET_AFIRE)
@@ -785,10 +673,6 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 					frame = 3+((frame)%4);
 				}
 			}
-			// 콤보 Action 일때 처리  Sjheon 2005.06.10 Add
-			//if(pCreature->IsAdvancementClass())  // 콤보 기술은 승직 케렉터 만 가능하다  Sjheon 2005.06.10
-			//	frame = GetAdvancementComboFrame(pCreature ,frame , action , ComboActionCnt , MaxFrame) ; 
-			// 콤보 Action 일때 처리  Sjheon 2005.06.10 End
 		}
 		else
 		{
@@ -800,10 +684,6 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 					frame = 3+((frame)%4);
 				}
 			}
-            // 콤보 Action 일때 처리  Sjheon 2005.06.10 Add
-			//if(pCreature->IsAdvancementClass())  // 콤보 기술은 승직 케렉터 만 가능하다  Sjheon 2005.06.10
-			//	frame = GetAdvancementComboFrame(pCreature ,frame , action , ComboActionCnt , MaxFrame) ; 
-			// 콤보 Action 일때 처리  Sjheon 2005.06.10 End
 		}
 		// 2004, 11, 22, sobeit add end - set afire 관련
 		// 성물은 무조건 아래, 크리스마스트리
@@ -1067,21 +947,21 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 		{	
 			if(isSlayerCharacter)
 			{
-				if( pCreature->IsAdvancementClass() && !bHallu )
+				if( pCreature->IsAdvancementClass() )
 					DrawDivineGuidanceAdvancementClassSlayerCharacter( pPoint, pCreature, direction );
 				else
 					DrawDivineGuidanceSlayerCharacter( pPoint, pCreature, direction );
 			}
 			else if(isOustersCharacter)
 			{
-				if( pCreature->IsAdvancementClass() && !bHallu )
+				if( pCreature->IsAdvancementClass() )
 					DrawDivineGuidanceAdvancementClassOustersCharacter( pPoint, pCreature, direction );
 				else
 					DrawDivineGuidanceOustersCharacter( pPoint, pCreature, direction );				
 			}
 			else
 			{
-				if( pCreature->IsAdvancementClass() && !bHallu )
+				if( pCreature->IsAdvancementClass() )
 					DrawDivineGuidanceAdvancementClassVampireCharacter( pPoint, pCreature, direction, body );
 				else
 					DrawDivineGuidanceVampireCharacter( pPoint, pCreature, direction, body );
@@ -1175,8 +1055,9 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			//---------------------------------------- 		
 			if (body!=FRAMEID_NULL)
 			{
-				// body 수정 필요
-				if( pCreature->IsAdvancementClass() && !bHallu )
+				// body 수정 필요     
+				if( pCreature->IsAdvancementClass() 
+					)		//by viva Selected Vampire
 					DrawSelectedAdvancementVampireCreature( pPoint, pCreature, action, direction, frame, 0, FrameIndex );
 				else
 					DrawSelectedVampireCreature( pPoint, pCreature, action, direction, frame, body, FrameIndex );
@@ -1207,7 +1088,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 					DrawInstallTurret( pPoint, pCreature, action, direction, frame, FrameIndex );
 				else
 				{
-					if( pCreature->IsAdvancementClass() && !bHallu )
+					if( pCreature->IsAdvancementClass() )
 						DrawSelectedAdvancementSlayerCreature(pPoint, pCreature, action, direction, frame );
 					else
 						DrawSelectedSlayerCreature( pPoint, pCreature, action, direction, frame );
@@ -1215,7 +1096,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			}
 			else if(isOustersCharacter)
 			{
-				if( pCreature->IsAdvancementClass() && !bHallu )
+				if( pCreature->IsAdvancementClass() )
 					DrawSelectedAdvancementOustersCreature(pPoint, pCreature, action, direction, frame );
 				else
 					DrawSelectedOustersCreature( pPoint, pCreature, action, direction, frame );
@@ -1297,7 +1178,8 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				bool bWolf = pCreature->GetCreatureType() == CREATURETYPE_WOLF;
 				bool bWerWolf = pCreature->GetCreatureType() == CREATURETYPE_WER_WOLF;
 
-				if( pCreature->IsAdvancementClass() && !bBat && !bWolf && !bWerWolf && !bHallu )
+				if( pCreature->IsAdvancementClass() && !bBat && !bWolf && !bWerWolf
+					) //by viva
 					DrawAdvancementClassVampireCharacter( pPoint, pCreature, action, direction, frame, body, FrameIndex );
 				else
 					DrawVampireCharacter( pPoint, pCreature, action, direction, frame, body, FrameIndex );			
@@ -1323,14 +1205,14 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			//if (pCreature->IsWear())
 			if (isSlayerCharacter)
 			{
-				if( pCreature->IsAdvancementClass() && !bHallu )
+				if( pCreature->IsAdvancementClass() )   //by viva
 					DrawAdvancementClassSlayerCharacter( pPoint, pCreature, action, direction, frame, FrameIndex );
 				else
 					DrawSlayerCharacter( pPoint, pCreature, action, direction, frame, FrameIndex );
 			}
 			else if(isOustersCharacter)
 			{
-				if( pCreature->IsAdvancementClass() && !bHallu )
+				if( pCreature->IsAdvancementClass() )
 					DrawAdvancementClassOustersCharacter( pPoint, pCreature, action, direction, frame );
 				else
 					DrawOustersCharacter( pPoint, pCreature, action, direction, frame );
@@ -1477,7 +1359,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				DEBUG_ADD("partySight");
 			#endif
 
-			int pX = pCreature->GetPixelX() - m_FirstZonePixel.x + TILE_X_HALF;
+			int pX = pCreature->GetPixelX() - m_FirstZonePixel.x + g_TILE_X_HALF;
 			int pY = pCreature->GetPixelY() - m_FirstZonePixel.y - TILE_Y;
 
 			//int addLight = (pCreature->GetCreatureType()==CREATURETYPE_BAT ? 3 : 0);
@@ -1531,7 +1413,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 		if(gpC_item != NULL && pCreature != NULL && pCreature->GetHeadSkin() != 0)
 		{
 			int spriteID = pCreature->GetHeadSkin();
-			int pX = pCreature->GetPixelX() - m_FirstZonePixel.x + TILE_X_HALF-gpC_item->GetWidth(spriteID)/2;
+			int pX = pCreature->GetPixelX() - m_FirstZonePixel.x + g_TILE_X_HALF-gpC_item->GetWidth(spriteID)/2;
 			int pY = pCreature->GetPixelY() - m_FirstZonePixel.y - TILE_Y -18-gpC_item->GetHeight(spriteID);
 			CIndexSprite::SetUsingColorSet(377, 0);
 			gpC_item->BltLocked(pX, pY, spriteID);
@@ -1813,37 +1695,18 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 	// 관 출력정보
 	//------------------------------------------------
 	int casketValue = pCreature->GetCasketCount();
-	int creature_type = pCreature->GetCreatureType();
+	int creature_type = pCreature->GetCreatureType();  //add by viva
+	//int creature_type = 814;
 	bool bInCasket = pCreature->IsInCasket();
 	bool bCasketOnly = (bInCasket && casketValue==0);
 	
-	BOOL	bAffterEffect = FALSE ; 
-	//------------------------------------------------------------
-	// 잔상 그리는지 여부 처리 
-	//------------------------------------------------------------
-	if ( (pCreature->HasEffectStatus( EFFECTSTATUS_DARK_FORCE) )
-	)
-	{
-			if( ((action >=  ACTION_MOVE				&& action <=  ACTION_ATTACK)  ||
-				(action >=  ACTION_VAMPIRE_ATTACK_SLOW	&& action <=  ACTION_VAMPIRE_ATTACK_FAST)  ||
-				(action >=  ACTION_VAMPIRE_SKILL_ATTACK	&& action <=  ACTION_VAMPIRE_SKILL_ATTACK_FAST))
-			)
-			{
-				//bAffterEffect = TRUE ; 
-			}
-				
-	}
-
-	//if(direction != 6 && bAffterEffect)
-	//	DrawAfterVampire( pPoint, pCreature, action, direction, frame , body );
-
 	//----------------------------------------------------
 	// 완전히 관만 출력하는 경우는 몸 출력을 안한다.
 	//----------------------------------------------------
 	if (!bCasketOnly)
 	{
 		FRAME_ARRAY& FA = m_CreatureFPK[body][action][direction];
-		
+	//	try{	
 		if (FA.GetSize() > frame)
 		{
 			CFrame& Frame =	FA[frame];
@@ -1880,9 +1743,9 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 			if (bCutHeight)
 			{
 				previousClipBottom = m_pSurface->GetClipBottom();
-				m_pSurface->SetClipBottom( rect.bottom - TILE_Y_HALF );
+				m_pSurface->SetClipBottom( rect.bottom - g_TILE_Y_HALF );
 				
-				pointTemp.y += pCreature->GetCutHeightCount() - TILE_Y_HALF;
+				pointTemp.y += pCreature->GetCutHeightCount() - g_TILE_Y_HALF;
 			}
 			
 			//-----------------------------------------------------------
@@ -2169,8 +2032,6 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 							m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 							
 						}
-						//if(direction == 6 && bAffterEffect)
-						//	DrawAfterVampire( pPoint, pCreature, action, direction, frame , body );
 					}
 				}
 			}
@@ -2187,9 +2048,10 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 				UI_ShowTargetArrow(pPoint->x + 12 ,pPoint->y- pCreature->GetHeight()-20);
 			}
 		// 2004, 10, 28, sobeit add end
-
+		
 
 		}
+//		}catch(...){} 
 	}
 		
 	//----------------------------------------------------
@@ -2207,7 +2069,7 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 			if (pSprite!=NULL)
 			{
 				// tile의 중심에서 세운다.
-				pointTemp.x = pPoint->x + TILE_X_HALF - (pSprite->GetWidth()>>1);
+				pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSprite->GetWidth()>>1);
 				pointTemp.y = pPoint->y + TILE_Y - pSprite->GetHeight();
 				
 				//---------------------------------------- 
@@ -2243,10 +2105,6 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 	}		
 }
 
-
-
-
-
 void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int action, int direction, int frame )
 {
 	//  챠크람이 있다
@@ -2274,32 +2132,6 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 	const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(ADDON_COAT);
 	const MCreatureWear::ADDON_INFO& bootsAddonInfo = pCreatureWear->GetAddonInfo(ADDON_TROUSER);
 	
-	BOOL	bAffterEffect  = FALSE ; 
-
-	//------------------------------------------------------------
-	// 잔상 그리는지 여부 처리 
-	//------------------------------------------------------------
-	if ( (pCreature->HasEffectStatus( EFFECTSTATUS_NATURAL_FORCE)  || 
-		  pCreature->HasEffectStatus( EFFECTSTATUS_FIRE_FORCE)	||
-		  pCreature->HasEffectStatus( EFFECTSTATUS_EARTH_FORCE))
-	)
-	{
-			if( ((action >=  ACTION_MOVE				&& action <=  ACTION_ATTACK)  ||
-				(action >=  ACTION_OUSTERS_ATTACK_SLOW	&& action <=  ACTION_OUSTERS_CHAKRAM_FAST)  ||
-				(action >=  ACTION_OUSTERS_MOVE)
-				) 
-			)
-			{
-				//bAffterEffect = TRUE ; 
-			}
-				
-				
-	}
-
-
-//	if(direction != 6 && bAffterEffect)
-//		DrawAfterOusters( pPoint, pCreature, action, direction, frame );
-
 	if (addonInfo.bAddon && !pCreatureWear->IsGhost(1))
 	{
 		//				DEBUG_ADD("[DrawCreature] DrawCloth");
@@ -2410,8 +2242,6 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 				{
 					m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 				}
-				//if(direction == 6 && bAffterEffect)
-				//	DrawAfterOusters( pPoint, pCreature, action, direction, frame );
 			}			
 		}
 	}
@@ -2468,8 +2298,6 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 				{
 					m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 				}
-				//if(direction == 6 && bAffterEffect)
-				//	DrawAfterOusters( pPoint, pCreature, action, direction, frame );
 			}						
 			
 		}
@@ -2501,63 +2329,10 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 	else
 		tempAction -= ADVANCEMENT_ACTION_START;
 	
-	// 2005.08.12 Sjheon 콤보 스킬 관련 Add
-	/*
-	int		iComboCnt = pCreature->GetCombo();
-
-	if((action >= (ACTION_ADVANCEMENT_OUSTERS_COMBO_SLOW - ADVANCEMENT_ACTION_START))  && (iComboCnt < 4)) //  ; && iComboCnt > 0 ))
-	{
-		//frame -= 8 ; 
-		WORD  fCreatureType	= action - 	(ACTION_ADVANCEMENT_OUSTERS_COMBO_SLOW  - ADVANCEMENT_ACTION_START)  ; 
-
-		WORD  fWeaponSpeed = pCreature->GetWeaponSpeed() ;
-
-		WORD Frame = AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][iComboCnt - 1] + 1 ; 
-
-		if(frame > (Frame - 1) )
-		{
-			frame -= Frame  - ((iComboCnt -1) *2); 
-			action += 3 ; 
-		}
-	}
-	*/
-	// 2005.08.12 Sjheon 콤보 스킬 관련 End	
-	
-
 	// 몸을 찍고 챠크람을 찍는다
 	const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(ADDON_COAT);
 	const MCreatureWear::ADDON_INFO& bootsAddonInfo = pCreatureWear->GetAddonInfo(ADDON_TROUSER);
 	
-	BOOL	bAffterEffect  = FALSE ; 
-
-	//------------------------------------------------------------
-	// 잔상 그리는지 여부 처리 
-	//------------------------------------------------------------
-	if ( (pCreature->HasEffectStatus( EFFECTSTATUS_NATURAL_FORCE)  || 
-		  pCreature->HasEffectStatus( EFFECTSTATUS_FIRE_FORCE)	||
-		  pCreature->HasEffectStatus( EFFECTSTATUS_EARTH_FORCE))
-	)
-	{
-		int AdvancementAction = ACTION_ADVANCEMENT_OUSTERS_CHAKRAM_STOP + action ; 
-
-		//if( ((AdvancementAction >=  ACTION_ADVANCEMENT_OUSTERS_CHAKRAM_MOVE	  && 
-		//	 AdvancementAction <=  ACTION_ADVANCEMENT_OUSTERS_WRISTLET_MOVE)  ||
-		//	(AdvancementAction >=  ACTION_ADVANCEMENT_OUSTERS_COMBO_SLOW      && 
-		//	 AdvancementAction <=  ACTION_ADVANCEMENT_OUSTERS_COMBO_FAST)     ||
-		//	(AdvancementAction >=  ACTION_ADVANCEMENT_OUSTERS_MAGIC_ATTACK)	  ||	
-		//	(AdvancementAction >=  	ACTION_ADVANCEMENT_OUSTERS_MAGIC)		  ||	
-		//	(AdvancementAction >=  	ACTION_ADVANCEMENT_OUSTERS_FAST_MOVE))
-		//)	
-		//{
-			//bAffterEffect  = TRUE ; 
-		//}
-
-	}
-	//------------------------------------------------------------
-
-	//if(direction != 6 && bAffterEffect)
-	//	DrawAfterACOusters( pPoint, pCreature, action, direction, frame );
-
 	if (addonInfo.bAddon && !pCreatureWear->IsGhost(1))
 	{
 		//				DEBUG_ADD("[DrawCreature] DrawCloth");
@@ -2565,7 +2340,6 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 		
 		
 		//FRAME_ARRAY &FA = m_OustersFPK[clothes][tempAction][direction];
-		
 		FRAME_ARRAY &FA = m_AdvancementOustersFPK[ 1 ][ tempAction ][ direction ];
 		
 		// 있는 동작인 경우
@@ -2662,7 +2436,6 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// 팔
 				}
 				
-				
 				// 어둡게 찍기
 				if (pCreature->IsFade())
 				{
@@ -2672,8 +2445,6 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 				{
 					m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 				}
-				//if(direction == 6 && bAffterEffect)
-				//	DrawAfterACOusters( pPoint, pCreature, action, direction, frame );
 			}			
 		}
 	}
@@ -2684,10 +2455,6 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 		int clothes = addonInfoChakram.FrameID;
 		
 		//FRAME_ARRAY &FA = m_OustersFPK[clothes][tempAction][direction];
-		
-		
-		
-
 		FRAME_ARRAY &FA = m_AdvancementOustersFPK[ 0 ][ tempAction ][ direction ];
 		
 		// 있는 동작인 경우
@@ -2727,9 +2494,6 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 				if( colorset2 == QUEST_ITEM_COLOR || colorset2 == UNIQUE_ITEM_COLOR )
 					colorset2 = MItem::GetSpecialColorItemColorset( colorset2 );
 				CIndexSprite::SetUsingColorSet( colorset1, colorset2 );
-
-				
-
 				// 어둡게 찍기
 				if (pCreature->IsFade())
 				{
@@ -2739,8 +2503,6 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 				{
 					m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 				}
-				//if(direction == 6 && bAffterEffect)
-				//	DrawAfterACOusters( pPoint, pCreature, action, direction, frame );
 			}						
 			
 		}
@@ -2771,27 +2533,6 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 		WORD clothes;
 		BYTE clothesType;
 		
-		BOOL	bAffterEffect  = FALSE ; 
-		//------------------------------------------------------------
-		// 잔상 그리는지 여부 처리 
-		//------------------------------------------------------------
-		if ( (pCreature->HasEffectStatus( EFFECTSTATUS_HOLY_SWORD) || 
-			  pCreature->HasEffectStatus( EFFECTSTATUS_HOLY_BLADE) ||
-			  pCreature->HasEffectStatus( EFFECTSTATUS_BURST_GUN)  || 	
-			 pCreature->HasEffectStatus( EFFECTSTATUS_HOLY_MACE))
-		)
-		{
-				if( ((action >=  ACTION_MOVE				&& action <=  ACTION_ATTACK)  ||
-					(action >=  ACTION_SLAYER_GUN_SR	    && action <=  ACTION_SLAYER_THROW_WEAPON)  ||
-					(action >=  ACTION_SLAYER_GUN_SG	    && action <=  ACTION_SLAYER_THROW_POTION)  ||
-					(action >=  ACTION_SLAYER_GUN_SR_SLOW	&& action <=  ACTION_SLAYER_BLADE_2_FAST) ) && (direction != 2) 
-				)
-				{	
-					//bAffterEffect = TRUE ; 
-				}
-					
-		}
-		
 		//------------------------------------------------------------
 		// Fade Out 출력
 		//------------------------------------------------------------
@@ -2800,10 +2541,6 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 			DrawFadeOut( pPoint, pCreature, action, direction, frame);
 		}
 		
-	//	if(direction != 6 && bAffterEffect)
-	//		DrawAfterSlayer( pPoint, pCreature, action, direction, frame );
-
-
 		//------------------------------------------------------------
 		// Fast Move 출력
 		//------------------------------------------------------------
@@ -2843,12 +2580,11 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 				
 				// i번째 종류의 옷을 입고 있다면 출력해 준다.
 				const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(clothesType);
-				
+				//by viva NewSlayer
 				if (addonInfo.bAddon)
 				{
 					clothes = addonInfo.FrameID;
-					
-					
+
 					FRAME_ARRAY &FA = m_AddonFPK[clothes][action][direction];
 					
 					// 있는 동작인 경우
@@ -2859,10 +2595,8 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 						int cx		= Frame.GetCX();	//m_AddonFPK[clothes][action][direction][frame].GetCX();
 						int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
 						
-						
 						CIndexSprite* pSprite = &m_AddonSPK[ sprite ];
-						
-						
+								
 						pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 						pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 						
@@ -2904,9 +2638,6 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 							
 							CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 							
-							//if(direction == 6 && bAffterEffect)
-							//	DrawAfterSlayer( pPoint, pCreature, action, direction, frame );
-							
 							// 어둡게 찍기
 							if (pCreature->IsFade())
 							{
@@ -2934,46 +2665,21 @@ DEBUG_ADD("dcOK");
 
 void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pCreature, int action, int direction, int frame, int FrameIndex )
 {
+	//add by viva
+	int action_viva = action;
 	if(pCreature->HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))
 		DrawInstallTurret( pPoint, pCreature, action, direction, frame, FrameIndex );
 	else
 	{
-		
 		// ToT 시간없다.. 하드 코딩.. by sonee
 		action = ConvAdvancementSlayerActionFromSlayerAction( action, dynamic_cast< MCreatureWear* >(pCreature) );
-
+		
 		if( action == -1 )
 			return;
 		else
 			action -= ADVANCEMENT_ACTION_START;
-
-		// 2005.08.12 Sjheon 콤보 스킬 관련 Add
-		/*int Frame_Save = frame ; 
-		int Action_Save= action;
-	
-		int		iComboCnt = pCreature->GetCombo();
-
-		if((action >= (ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_SLOW - ADVANCEMENT_ACTION_START)) && (iComboCnt < 4 && iComboCnt > 0 ))
-		{
-			//frame -= 8 ; 
-			WORD  fCreatureType	= action - 	(ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_SLOW  - ADVANCEMENT_ACTION_START)  ; 
-
-			WORD  fWeaponSpeed = pCreature->GetWeaponSpeed() ;
-
-			WORD Frame = AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][iComboCnt - 1] + 1 ; 
-
-			if(frame > (Frame - 1) )
-			{
-				
-				frame = frame  - (Frame - 1) ; // ame_Save - (Frame  - ((iComboCnt -1) *2)); 
-				frame += (2 * (iComboCnt - 1)) ; 
-				//AdvanceComboCancelFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 1])
-
-				action = action + 6 ; 
-			}
-		}*/
-		// 2005.08.12 Sjheon 콤보 스킬 관련 End
-	
+		
+		
 		MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
 		
 		// Creature의 Action에 맞는 add-on을 출력한다.
@@ -2981,57 +2687,28 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 		
 		int clothes;
 		BYTE clothesType;
-		BOOL	bAffterEffect  = FALSE ; 
-		//------------------------------------------------------------
-		// 잔상 그리는지 여부 처리 
-		//------------------------------------------------------------
-		if ( (pCreature->HasEffectStatus( EFFECTSTATUS_HOLY_SWORD) || 
-			  pCreature->HasEffectStatus( EFFECTSTATUS_HOLY_BLADE) ||
-			  pCreature->HasEffectStatus( EFFECTSTATUS_BURST_GUN)  || 	
-			 pCreature->HasEffectStatus( EFFECTSTATUS_HOLY_MACE))
-		)
-		{
-			int AdvancementAction = ACTION_ADVANCEMENT_SLAYER_STOP_SWORD + action ; 
-			//if( ((AdvancementAction >=  ACTION_ADVANCEMENT_SLAYER_MOVE_SWORD		  && 
-			//	 AdvancementAction <=  ACTION_ADVANCEMENT_SLAYER_MOVE_MACE_AND_CROSS) ||
-			//	(AdvancementAction >=  ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_SLOW	  && 
-			//	 AdvancementAction <=  ACTION_ADVANCEMENT_SLAYER_COMBO_BLADE_FAST)	  ||
-			//	(AdvancementAction >=  ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_SLOW   && 
-			//	 AdvancementAction <=  ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_FAST)) 
-			//)/
-			//{
-				//bAffterEffect = TRUE ; 
-			//}
-		}
-		//------------------------------------------------------------
 		
 		//------------------------------------------------------------
 		// Fade Out 출력
 		//------------------------------------------------------------
 		if (pCreature->HasEffectStatus( EFFECTSTATUS_FADE_OUT ))
 		{
-			DrawFadeOutForACSlayer( pPoint, pCreature, action, direction, frame);			
+			DrawFadeOutForACSlayer( pPoint, pCreature, action_viva, direction, frame);	//by viva	modifyed	try
 		}
-		
-	//	if(direction == 2 && bAffterEffect)
-	//	{
-	//		DrawAfterACSlayer( pPoint, pCreature, action, direction, frame );
-	//	}
-				
 		
 		//------------------------------------------------------------
 		// Fast Move 출력
 		//------------------------------------------------------------
 		if (pCreature->IsFastMove())
 		{
-			DrawFastMoveForACSlayer( pPoint, pCreature, action, direction, frame );				
+			DrawFastMoveForACSlayer( pPoint, pCreature, action_viva, direction, frame );	//by viva	modifyed try		
 		}
 		//------------------------------------------------------------
 		// Invisible  - Slayer는 snipping mode에서 투명이다.
 		//------------------------------------------------------------
 		else if (pCreature->IsInvisible())
 		{
-			DrawInvisibleForACSlayer( pPoint, pCreature, action, direction, frame );			
+			DrawInvisibleForACSlayer( pPoint, pCreature, action_viva, direction, frame );		//by viva	modifyed try
 		}
 		//------------------------------------------------------------
 		// 무기 잔상 기술
@@ -3043,13 +2720,20 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 			)
 			)
 		{
-			DrawWeaponFadeOutForACSlayer( pPoint, pCreature, action, direction, frame );
+			DrawWeaponFadeOutForACSlayer( pPoint, pCreature, action_viva, direction, frame );	//by viva	modifyed try
 		}
 		//------------------------------------------------------------
 		// 일반적인 출력
 		//------------------------------------------------------------
 		else
 		{
+			//by viva AdvancemnetSlayer
+			action_viva = ConvNewSlayerActionFromSlayerAction(action_viva, dynamic_cast< MCreatureWear* >(pCreature));
+//			if(action_viva>32)	
+//				action_viva=36;
+			CCreatureFramePack& newslayerFPK = pCreature->IsMale() ? m_NewSlayerManFPK : m_NewSlayerWomanFPK;
+			CIndexSpritePack& newaddonISPK = pCreature->IsMale() ? m_NewSlayerManSPK : m_NewSlayerWomanSPK;
+			
 			CCreatureFramePack& slayerFPK = pCreature->IsMale() ? m_AdvancementSlayerManFPK : m_AdvancementSlayerWomanFPK;
 			CIndexSpritePack& addonISPK = pCreature->IsMale() ? m_AdvancementSlayerManSPK : m_AdvancementSlayerWomanSPK;
 			
@@ -3058,91 +2742,169 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 				clothesType = MCreatureWear::s_ACAddonOrder[ direction ][ i ];
 				
 				const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetACAddonInfo( clothesType );
-			
-				if( addonInfo.bAddon || clothesType == AC_ADDON_BODY )
-				{
-					// 지금은 파트 그대로를 사용한다. 추후에 옷이 추가 되었을때 다음 변수를 세팅 해서 쓴다.
-					// addonInfo.FrameID 에 옷 정보를 넣고 세팅하여 쓰면된다.
-
-					clothes = GetAdvancementPartFromItemClass( addonInfo.ItemClass, addonInfo.FrameID );
-
-					if( clothes == -1 ) continue;
-
-					
-					//int iFrame = FA.GetSize() ; 
-
-					//if(action >= ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_SLOW)
-					//	iFrame = 8  ; 
-		
-					
-
-					//int Frame_Save = frame ; 
-					//int Action_Save= action;
-
-					FRAME_ARRAY& FA = slayerFPK[ clothes ][ action ][ direction ];
-
-					if( FA.GetSize() > frame )
+				//if(addonInfo.ItemClass==ITEM_CLASS_MOTORCYCLE) break;
+				if( addonInfo.bAddon )
+				{	
+					if(addonInfo.ItemClass==ITEM_CLASS_COAT && addonInfo.ItemType>=28			//11
+						||	addonInfo.ItemClass==ITEM_CLASS_SWORD && addonInfo.ItemType>=16		//14
+						||	addonInfo.ItemClass==ITEM_CLASS_BLADE && addonInfo.ItemType>=16		//15
+						||	addonInfo.ItemClass==ITEM_CLASS_SHIELD && addonInfo.ItemType>=15	//16
+						||  addonInfo.ItemClass==ITEM_CLASS_CROSS && addonInfo.ItemType>=14		//17
+						||	addonInfo.ItemClass==ITEM_CLASS_HELM && addonInfo.ItemType>=15		//19
+						||  addonInfo.ItemClass==ITEM_CLASS_AR && addonInfo.ItemType>=16		//22
+						||  addonInfo.ItemClass==ITEM_CLASS_SR && addonInfo.ItemType>=16		//23
+						||  addonInfo.ItemClass==ITEM_CLASS_MACE && addonInfo.ItemType>=14		//35
+//						||	addonInfo.ItemClass==ITEM_CLASS_MOTORCYCLE	//1
+						)
 					{
-						CFrame &Frame = FA[frame];					
-						int sprite	= Frame.GetSpriteID();	//m_AddonFPK[clothes][action][direction][frame].GetSpriteID();
-						int cx		= Frame.GetCX();	//m_AddonFPK[clothes][action][direction][frame].GetCX();
-						int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
-
-						CIndexSprite* pSprite = &addonISPK[ sprite ];
-						pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
-						pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
-						
-						//---------------------------------------- 
-						// 캐릭터 선택 사각형 영역 설정
-						//---------------------------------------- 	
-						rect.left	= pointTemp.x;
-						rect.top	= pointTemp.y;
-						rect.right	= rect.left + pSprite->GetWidth();
-						rect.bottom = rect.top + pSprite->GetHeight();
-						pCreature->AddScreenRect( &rect );
-						
-						//---------------------------------------- 
-						// 캐릭터 부분 색깔이 바뀌는 경우
-						//---------------------------------------- 
-						if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
-						{
-							m_pSurface->BltIndexSpriteColorSet(&pointTemp, pSprite, 
-								addonInfo.EffectColorSet);
-						}
-						//---------------------------------------- 
-						// 정상적인 캐릭터 출력
-						//---------------------------------------- 
-						else
-						{
-							if( addonInfo.bAddon )
+						int k = 1;
+						if(clothesType == AC_ADDON_BODY)	k = 2;
+						for(int i=0;i<k;i++)
+						{	
+						//	if(addonInfo.ItemClass==ITEM_CLASS_MOTORCYCLE)
+						//		clothes = 14;
+						//	else
+								clothes=addonInfo.FrameID + i;
+							if( clothes == -1 ) continue;
+							if( clothes > newslayerFPK.GetSize() -1 ) continue;
+							if(action_viva > newslayerFPK[clothes].GetSize() -1) continue;
+							try{
+							FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
+							
+							if( FA.GetSize() > frame )
 							{
-								int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
-								if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
+								CFrame &Frame = FA[frame];					
+								int sprite	= Frame.GetSpriteID();	//m_AddonFPK[clothes][action][direction][frame].GetSpriteID();
+								int cx		= Frame.GetCX();	//m_AddonFPK[clothes][action][direction][frame].GetCX();
+								int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
+								
+								CIndexSprite* pSprite = &newaddonISPK[ sprite ];
+								pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
+								pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
+								
+								//---------------------------------------- 
+								// 캐릭터 선택 사각형 영역 설정
+								//---------------------------------------- 	
+								rect.left	= pointTemp.x;
+								rect.top	= pointTemp.y;
+								rect.right	= rect.left + pSprite->GetWidth();
+								rect.bottom = rect.top + pSprite->GetHeight();
+								pCreature->AddScreenRect( &rect );
+								
+								//---------------------------------------- 
+								// 캐릭터 부분 색깔이 바뀌는 경우
+								//---------------------------------------- 
+								if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 								{
-									colorSet2 = MItem::GetSpecialColorItemColorset( colorSet2 );
-									if(addonInfo.ItemClass != ITEM_CLASS_COAT && addonInfo.ItemClass != ITEM_CLASS_TROUSER)
-										colorSet1 = colorSet2;
+									m_pSurface->BltIndexSpriteColorSet(&pointTemp, pSprite, 
+										addonInfo.EffectColorSet);
 								}
-								CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
+								//---------------------------------------- 
+								// 정상적인 캐릭터 출력
+								//---------------------------------------- 
+								else
+								{
+									if( addonInfo.bAddon )
+									{
+										int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
+										if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
+										{
+											colorSet2 = MItem::GetSpecialColorItemColorset( colorSet2 );
+											if(addonInfo.ItemClass != ITEM_CLASS_COAT && addonInfo.ItemClass != ITEM_CLASS_TROUSER)
+												colorSet1 = colorSet2;
+										}
+										CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
+									}
+									else
+										CIndexSprite::SetUsingColorSet( 375, 375 );
+									
+									// 어둡게 찍기
+									if (pCreature->IsFade())
+									{
+										m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
+									}
+									else
+									{
+										m_pSurface->BltIndexSprite(&pointTemp, pSprite);
+									}
+								}						
 							}
-							else
-								CIndexSprite::SetUsingColorSet( 375, 375 );
+							}catch(...){}
+						}
+					}
+					else
+					{
+						
+						// 지금은 파트 그대로를 사용한다. 추후에 옷이 추가 되었을때 다음 변수를 세팅 해서 쓴다.
+						// addonInfo.FrameID 에 옷 정보를 넣고 세팅하여 쓰면된다.
+						
+						clothes = GetAdvancementPartFromItemClass( addonInfo.ItemClass, addonInfo.FrameID );
+						
+						if( clothes == -1 ) continue;
+//						clothes =14;
+						try{
+						FRAME_ARRAY& FA = slayerFPK[ clothes ][ action ][ direction ];
+						
+						
+						if( FA.GetSize() > frame )
+						{
+							CFrame &Frame = FA[frame];					
+							int sprite	= Frame.GetSpriteID();	//m_AddonFPK[clothes][action][direction][frame].GetSpriteID();
+							int cx		= Frame.GetCX();	//m_AddonFPK[clothes][action][direction][frame].GetCX();
+							int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
 							
-
-						//	if(direction != 2 && bAffterEffect)
-						//	{
-						//		DrawAfterACSlayer( pPoint, pCreature, action, direction, frame );
-						//	}
+							CIndexSprite* pSprite = &addonISPK[ sprite ];
+							pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
+							pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 							
-							if (pCreature->IsFade())
-							{	
-								m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
+							//---------------------------------------- 
+							// 캐릭터 선택 사각형 영역 설정
+							//---------------------------------------- 	
+							rect.left	= pointTemp.x;
+							rect.top	= pointTemp.y;
+							rect.right	= rect.left + pSprite->GetWidth();
+							rect.bottom = rect.top + pSprite->GetHeight();
+							pCreature->AddScreenRect( &rect );
+							
+							//---------------------------------------- 
+							// 캐릭터 부분 색깔이 바뀌는 경우
+							//---------------------------------------- 
+							if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
+							{
+								m_pSurface->BltIndexSpriteColorSet(&pointTemp, pSprite, 
+									addonInfo.EffectColorSet);
 							}
+							//---------------------------------------- 
+							// 정상적인 캐릭터 출력
+							//---------------------------------------- 
 							else
 							{
-								m_pSurface->BltIndexSprite(&pointTemp, pSprite);
-							}
-						}						
+								if( addonInfo.bAddon )
+								{
+									int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
+									if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
+									{
+										colorSet2 = MItem::GetSpecialColorItemColorset( colorSet2 );
+										if(addonInfo.ItemClass != ITEM_CLASS_COAT && addonInfo.ItemClass != ITEM_CLASS_TROUSER)
+											colorSet1 = colorSet2;
+									}
+									CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
+								}
+								else
+									CIndexSprite::SetUsingColorSet( 375, 375 );
+								
+								// 어둡게 찍기
+								if (pCreature->IsFade())
+								{
+									m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
+								}
+								else
+								{
+									m_pSurface->BltIndexSprite(&pointTemp, pSprite);
+								}
+							}						
+						}
+						}catch(...){}
 					}
 				}
 			}
@@ -3166,73 +2928,43 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 		return;
 	else
 		action -= ADVANCEMENT_ACTION_START;
-	
-	// 2005.08.12 Sjheon 콤보 스킬 관련 Add
-	/*
-	int		iComboCnt = pCreature->GetCombo();
+//add by viva
 
-	if((action >= (ACTION_ADVANCEMENT_COMBO_SLOW - ADVANCEMENT_ACTION_START)) && (iComboCnt < 4 && iComboCnt > 0 ))
-	{
-		//frame -= 8 ; 
-		WORD  fCreatureType	= action - 	(ACTION_ADVANCEMENT_COMBO_SLOW  - ADVANCEMENT_ACTION_START)  ; 
+	//CCreatureFramePack& advanceVampireFPK = pCreature->IsMale() ? m_AdvancementVampireManFPK : m_AdvancementVampireWomanFPK;
+	//CIndexSpritePack& advanceVampireSPK = pCreature->IsMale() ? m_AdvancementVampireManSPK : m_AdvancementVampireWomanSPK;
+	CCreatureFramePack& advanceVampireFPK = (creature_type>=807&&creature_type<=812) ? m_NewVampireFPK : pCreature->IsMale() ? m_AdvancementVampireManFPK : m_AdvancementVampireWomanFPK;
+	CIndexSpritePack& advanceVampireSPK = (creature_type>=807&&creature_type<=812) ? m_NewVampireSPK : pCreature->IsMale() ? m_AdvancementVampireManSPK : m_AdvancementVampireWomanSPK;
 
-		WORD  fWeaponSpeed = pCreature->GetWeaponSpeed() ;
+//end
 
-		WORD Frame = AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][iComboCnt - 1] + 1 ; 
-
-		if(frame > (Frame - 1) )
-		{
-			frame -= Frame  - ((iComboCnt -1) *2); 
-			action += 3 ; 
-		}
-	}*/
-	// 2005.08.12 Sjheon 콤보 스킬 관련 End
-
-	CCreatureFramePack& advanceVampireFPK = pCreature->IsMale() ? m_AdvancementVampireManFPK : m_AdvancementVampireWomanFPK;
-	CIndexSpritePack& advanceVampireSPK = pCreature->IsMale() ? m_AdvancementVampireManSPK : m_AdvancementVampireWomanSPK;
-	
-	BOOL	bAffterEffect  = FALSE ; 
-	int iAction = GetAdvancementVampireActionFromVampireAction(action , pCreature) ; 
-	//------------------------------------------------------------
-	// 잔상 그리는지 여부 처리 
-	//------------------------------------------------------------
-	if ( (pCreature->HasEffectStatus( EFFECTSTATUS_DARK_FORCE))
-	)
-	{
-		int AdvancementAction = ACTION_ADVANCEMENT_STOP + action ; 
-
- 
-		//if( (AdvancementAction >=  	ACTION_ADVANCEMENT_MOVE)		   ||	
-		//	((AdvancementAction >=  ACTION_ADVANCEMENT_MAGIC		   && 
-		//	 AdvancementAction <=  ACTION_ADVANCEMENT_DESTROY_WEAPON)  ||
-		//	(AdvancementAction >=  ACTION_ADVANCEMENT_COMBO_SLOW      && 
-		//	 AdvancementAction <=  ACTION_ADVANCEMENT_COMBO_FAST))
-		//)
-		//{
-		//	if( iAction != -1 )
-		//		iAction -= ADVANCEMENT_ACTION_START;
-			//bAffterEffect  = TRUE ; 
-		//}
-
-	}
-	//------------------------------------------------------------
-	
-
-	//if(direction != 6 && bAffterEffect)
-	//{
-	//	if( iAction != -1 )
-	//	{
-		//	iAction -= ADVANCEMENT_ACTION_START;
-	//		DrawAfterACVampire( pPoint, pCreature, iAction, direction, frame );
-	//	}
-	//}
+	if(creature_type>=807&&creature_type<=812)
+		action = GetNewVampireActionFromVampireAction(action);
 	//----------------------------------------------------
 	// 완전히 관만 출력하는 경우는 몸 출력을 안한다.
 	//----------------------------------------------------
 	if (!bCasketOnly)
 	{
-		
-		FRAME_ARRAY& FA = advanceVampireFPK[0][action][direction];
+		//add by viva
+		int viva_body=0;
+		if(creature_type==807)
+			viva_body=2;
+		else if(creature_type==808)
+			viva_body=3;
+		else if(creature_type==809)
+			viva_body=4;
+		else if(creature_type==810)
+			viva_body=5;
+		else if(creature_type==811)
+			viva_body=6;
+		else if(creature_type==812)
+			viva_body=7;
+		else
+			viva_body=0;
+
+		if(action>advanceVampireFPK[viva_body].GetSize()-1) return;
+		FRAME_ARRAY& FA = advanceVampireFPK[viva_body][action][direction];
+	
+		//end
 		
 		if (FA.GetSize() > frame)
 		{
@@ -3264,9 +2996,9 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 			if (bCutHeight)
 			{
 				previousClipBottom = m_pSurface->GetClipBottom();
-				m_pSurface->SetClipBottom( rect.bottom - TILE_Y_HALF );
+				m_pSurface->SetClipBottom( rect.bottom - g_TILE_Y_HALF );
 				
-				pointTemp.y += pCreature->GetCutHeightCount() - TILE_Y_HALF;
+				pointTemp.y += pCreature->GetCutHeightCount() - g_TILE_Y_HALF;
 			}
 			
 			//-----------------------------------------------------------
@@ -3457,7 +3189,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 								m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 							}
 						}
-
+						
 						// 0, 1, 2, 3, 4, 5
 						const int darkbits[6] =
 						{
@@ -3502,7 +3234,6 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 							cyStep += cyInc;
 							
 							m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite_f, darkbits[f]);																		
-
 						}
 						
 						if (bDrawShadowFirst)
@@ -3515,7 +3246,6 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 							{
 								m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 							}
-
 						}
 					}
 					//----------------------------------------
@@ -3533,15 +3263,6 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 							m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 							
 						}
-					//	if(direction == 6 && bAffterEffect)
-					//	{
-					//		if( iAction != -1 )
-					//		{
-					//		//	iAction -= ADVANCEMENT_ACTION_START;
-					//			DrawAfterACVampire( pPoint, pCreature, iAction, direction, frame );
-					//		}
-					//		
-					//	}
 					}
 				}
 			}
@@ -3568,7 +3289,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 
 		if( bWeapon && !bBat && !bWolf && !bWerWolf )
 		{
-			
+
 			FRAME_ARRAY& FAWEAPON = advanceVampireFPK[1][action][direction];
 			if (FAWEAPON.GetSize() > frame)
 			{
@@ -3600,9 +3321,9 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 				if (bCutHeight)
 				{
 					previousClipBottom = m_pSurface->GetClipBottom();
-					m_pSurface->SetClipBottom( rect.bottom - TILE_Y_HALF );
+					m_pSurface->SetClipBottom( rect.bottom - g_TILE_Y_HALF );
 					
-					pointTemp.y += pCreature->GetCutHeightCount() - TILE_Y_HALF;
+					pointTemp.y += pCreature->GetCutHeightCount() - g_TILE_Y_HALF;
 				}
 				
 				//-----------------------------------------------------------
@@ -3630,7 +3351,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 						CIndexSprite::SetEffect( CIndexSprite::EFFECT_NET );
 						
 						m_pSurface->BltIndexSpriteEffect(&pointTemp, pSprite);
-
+						
 					}
 				}
 				else if (pCreature->IsInvisible())
@@ -3672,7 +3393,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 							CIndexSprite::SetEffect( CIndexSprite::EFFECT_WIPE_OUT );
 							
 							m_pSurface->BltIndexSpriteEffect(&pointTemp, pSprite);
-						}
+						}							
 					}
 				}					
 				else
@@ -3816,14 +3537,6 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 								m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 								
 							}
-						//	if(direction == 6 && bAffterEffect)
-						//	{
-						//		if( iAction != -1 )
-						//		{
-						//			//iAction -= ADVANCEMENT_ACTION_START;
-						//			DrawAfterACVampire( pPoint, pCreature, iAction, direction, frame );
-						//		}
-						//	}			
 						}
 					}
 				}
@@ -3846,13 +3559,13 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 			if (pSprite!=NULL)
 			{
 				// tile의 중심에서 세운다.
-				pointTemp.x = pPoint->x + TILE_X_HALF - (pSprite->GetWidth()>>1);
+				pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSprite->GetWidth()>>1);
 				pointTemp.y = pPoint->y + TILE_Y - pSprite->GetHeight();
 				
 				//---------------------------------------- 
 				// 캐릭터 선택 사각형 영역 설정
 				//---------------------------------------- 	
-				rect.left	= pointTemp.x; 
+				rect.left	= pointTemp.x;
 				rect.top	= pointTemp.y;
 				rect.right	= rect.left + pSprite->GetWidth();
 				rect.bottom = rect.top + pSprite->GetHeight();
@@ -3861,7 +3574,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 				
 				if (casketValue==0)
 				{
-					m_pSurface->BltSprite(&pointTemp, pSprite);					
+					m_pSurface->BltSprite(&pointTemp, pSprite);						
 				}
 				else if (casketValue==64)
 				{
@@ -4032,7 +3745,7 @@ MTopView::DrawSelectedVampireCreature( POINT* pPoint, MCreature* pCreature, int 
 			if (pSprite!=NULL)
 			{
 				// tile의 중심에서 세운다.
-				pointTemp.x = pPoint->x + TILE_X_HALF - (pSprite->GetWidth()>>1);
+				pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSprite->GetWidth()>>1);
 				pointTemp.y = pPoint->y + TILE_Y - pSprite->GetHeight();
 				
 				//---------------------------------------- 
@@ -4062,24 +3775,52 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 	int casketValue = pCreature->GetCasketCount();
 	bool bInCasket = pCreature->IsInCasket();
 	bool bCasketOnly = (bInCasket && casketValue==0);
-
+	int creature_type = pCreature->GetCreatureType();	//add by viva
 	action = GetAdvancementVampireActionFromVampireAction( action, pCreature );
 
 	if( action == -1 )
 		return;
 	else
 		action -= ADVANCEMENT_ACTION_START;
-
-	CCreatureFramePack& advanceVampireFPK = pCreature->IsMale() ? m_AdvancementVampireManFPK : m_AdvancementVampireWomanFPK;
-	CIndexSpritePack& advanceVampireSPK = pCreature->IsMale() ? m_AdvancementVampireManSPK : m_AdvancementVampireWomanSPK;	
+//by viva selected vampire
+	//CCreatureFramePack& advanceVampireFPK = pCreature->IsMale() ? m_AdvancementVampireManFPK : m_AdvancementVampireWomanFPK;
+	//CIndexSpritePack& advanceVampireSPK = pCreature->IsMale() ? m_AdvancementVampireManSPK : m_AdvancementVampireWomanSPK;	
 	
+	CCreatureFramePack& advanceVampireFPK = creature_type>=807&&creature_type<=812 ? m_NewVampireFPK : pCreature->IsMale() ? m_AdvancementVampireManFPK : m_AdvancementVampireWomanFPK;
+	CIndexSpritePack& advanceVampireSPK = (creature_type>=807&&creature_type<=812) ? m_NewVampireSPK : pCreature->IsMale() ? m_AdvancementVampireManSPK : m_AdvancementVampireWomanSPK;
+
+//end
+
+	//----------------------------------------------------
+	// 완전히 관만 출력하는 경우는 몸 출력을 안한다.
+	//----------------------------------------------------
+
 	if (!bCasketOnly)
 	{	
 		for( int i = body; i <= body+1; ++i )
 		{
 			// 0:body 1: 무기 착탈에 따라 나중에 수정 
-			FRAME_ARRAY& FA = advanceVampireFPK[i][action][direction];
-			
+
+			//add by viva	select vampire
+			int viva_body=i;
+			if(creature_type==807)
+				viva_body=2;
+			else if(creature_type==808)
+				viva_body=3;
+			else if(creature_type==809)
+				viva_body=4;
+			else if(creature_type==810)
+				viva_body=5;
+			else if(creature_type==811)
+				viva_body=6;
+			else if(creature_type==812)
+				viva_body=7;
+			else
+				viva_body=i;
+
+			FRAME_ARRAY& FA = advanceVampireFPK[viva_body][action][direction];
+		//	FRAME_ARRAY& FA = advanceVampireFPK[i][action][direction];
+			//end
 			if (FA.GetSize() > frame)
 			{			
 				CFrame&	Frame = FA[frame];
@@ -4217,7 +3958,7 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 			if (pSprite!=NULL)
 			{
 				// tile의 중심에서 세운다.
-				pointTemp.x = pPoint->x + TILE_X_HALF - (pSprite->GetWidth()>>1);
+				pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSprite->GetWidth()>>1);
 				pointTemp.y = pPoint->y + TILE_Y - pSprite->GetHeight();
 				
 				//---------------------------------------- 
@@ -4241,99 +3982,188 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 
 void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* pCreature, int action, int direction, int frame )
 {
+	int action_viva=action;
 	action = ConvAdvancementSlayerActionFromSlayerAction( action, dynamic_cast< MCreatureWear* >(pCreature) );
-
+	
 	if( action == -1 )
 		return;
 	else
 		action -= ADVANCEMENT_ACTION_START;
-
+	
 	MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
 	// Creature의 Action에 맞는 add-on을 출력한다.
 	//action = pCreature->GetAction();	
 	int clothes;
 	BYTE clothesType;
-
+	
+	//by viva AdvancemnetSlayer
+	action_viva = ConvNewSlayerActionFromSlayerAction(action_viva, dynamic_cast< MCreatureWear* >(pCreature));
+	
+	CCreatureFramePack& newslayerFPK = pCreature->IsMale() ? m_NewSlayerManFPK : m_NewSlayerWomanFPK;
+	CIndexSpritePack& newaddonISPK = pCreature->IsMale() ? m_NewSlayerManSPK : m_NewSlayerWomanSPK;
+	
 	CCreatureFramePack& slayerFPK = pCreature->IsMale() ? m_AdvancementSlayerManFPK : m_AdvancementSlayerWomanFPK;
 	CIndexSpritePack& addonISPK = pCreature->IsMale() ? m_AdvancementSlayerManSPK : m_AdvancementSlayerWomanSPK;
 	
-	for (int i=0; i<AC_ADDON_MAX; i++)
+	for( int i = 0; i < AC_ADDON_MAX; ++i )
 	{
-		// Creature의 현재 방향에 따라서...
-		// 옷을 출력해주는 순서가 다를 수 있다.
 		clothesType = MCreatureWear::s_ACAddonOrder[ direction ][ i ];
 		
-		// i번째 종류의 옷을 입고 있다면 출력해 준다.
 		const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetACAddonInfo( clothesType );
 		
-		if (addonInfo.bAddon || i == AC_ADDON_BODY )
-		{
-			// 지금은 파트 그대로를 사용한다. 추후에 옷이 추가 되었을때 다음 변수를 세팅 해서 쓴다.
-			// addonInfo.FrameID 에 옷 정보를 넣고 세팅하여 쓰면된다.
-
-			clothes = GetAdvancementPartFromItemClass( addonInfo.ItemClass , addonInfo.FrameID);
-
-			if( clothes == -1 )
-				continue;
-			
-			FRAME_ARRAY &FA = slayerFPK[clothes][action][direction];
-			
-			// 있는 동작인 경우
-			if (FA.GetSize() > frame)
+		if( addonInfo.bAddon )
+		{	
+			if(addonInfo.ItemClass==ITEM_CLASS_COAT && addonInfo.ItemType>=28			//11
+				||	addonInfo.ItemClass==ITEM_CLASS_SWORD && addonInfo.ItemType>=16		//14
+				||	addonInfo.ItemClass==ITEM_CLASS_BLADE && addonInfo.ItemType>=16		//15
+				||	addonInfo.ItemClass==ITEM_CLASS_SHIELD && addonInfo.ItemType>=15	//16
+				||  addonInfo.ItemClass==ITEM_CLASS_CROSS && addonInfo.ItemType>=14		//17
+				||	addonInfo.ItemClass==ITEM_CLASS_HELM && addonInfo.ItemType>=15		//19
+				||  addonInfo.ItemClass==ITEM_CLASS_AR && addonInfo.ItemType>=16		//22
+				||  addonInfo.ItemClass==ITEM_CLASS_SR && addonInfo.ItemType>=16		//23
+				||  addonInfo.ItemClass==ITEM_CLASS_MACE && addonInfo.ItemType>=14		//35
+				)
 			{
-				CFrame &Frame = FA[frame];					
-				int sprite	= Frame.GetSpriteID();	//m_AddonFPK[clothes][action][direction][frame].GetSpriteID();
-				int cx		= Frame.GetCX();	//m_AddonFPK[clothes][action][direction][frame].GetCX();
-				int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
-				
-				pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
-				pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
-				
-				CIndexSprite* pSprite = &addonISPK[ sprite ];
-				
-				// 복장Sprite가 초기화 되지 않은 경우
-				//						if (pSprite->IsNotInit())
-				//						{
-				//							LoadFromFileAddonSPK( clothes, action );
-				//							//continue;
-				//						}
-				
-				//---------------------------------------- 
-				// 캐릭터 선택 사각형 영역 설정
-				//---------------------------------------- 	
-				rect.left	= pointTemp.x;
-				rect.top	= pointTemp.y;
-				rect.right	= rect.left + pSprite->GetWidth();
-				rect.bottom = rect.top + pSprite->GetHeight();
-				pCreature->AddScreenRect( &rect );
-				
-				// SpriteOutlineManager에 추가
-				//CIndexSprite::SetUsingColorSet((pCreature->GetID()+3*(clothesType,1),7)%MAX_COLORSET, ((pCreature->GetID()*pCreature->GetID(),7*(clothesType+2)))%MAX_COLORSET);
-				//CIndexSprite::SetUsingColorSet((c1+3*(clothesType+1)+7)%MAX_COLORSET, ((c2*c2+7*(clothesType+2)))%MAX_COLORSET);
-				//---------------------------------------- 
-				// 캐릭터 부분 색깔이 바뀌는 경우
-				//---------------------------------------- 
-				if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
-				{
-					m_SOM.Add( pointTemp.x, pointTemp.y, pSprite, addonInfo.EffectColorSet );
-				}
-				//---------------------------------------- 
-				// 원래색대로..
-				//---------------------------------------- 
-				else
-				{
-					int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
-					if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
-					{
-						if(colorSet2 == QUEST_ITEM_COLOR || colorSet2 == UNIQUE_ITEM_COLOR )
-							colorSet2 = MItem::GetSpecialColorItemColorset( colorSet2 );
-						
-						if(addonInfo.ItemClass != ITEM_CLASS_COAT && addonInfo.ItemClass != ITEM_CLASS_TROUSER)
-							colorSet1 = colorSet2;
-					}							
+				int k = 1;
+				if(clothesType == AC_ADDON_BODY)	k = 2;
+				for(int i=0;i<k;i++)
+				{							
+					clothes=addonInfo.FrameID + i;
+					if( clothes == -1 ) continue;
+					if( clothes > newslayerFPK.GetSize() -1 ) continue;
+					if(action_viva > newslayerFPK[clothes].GetSize() -1) continue;
 					
-					CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
-					m_SOM.Add( pointTemp.x, pointTemp.y, pSprite );
+					FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
+					// 있는 동작인 경우
+					if (FA.GetSize() > frame)
+					{
+						CFrame &Frame = FA[frame];					
+						int sprite	= Frame.GetSpriteID();	//m_AddonFPK[clothes][action][direction][frame].GetSpriteID();
+						int cx		= Frame.GetCX();	//m_AddonFPK[clothes][action][direction][frame].GetCX();
+						int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
+						
+						pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
+						pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
+						
+						CIndexSprite* pSprite = &newaddonISPK[ sprite ];
+						
+						// 복장Sprite가 초기화 되지 않은 경우
+						//						if (pSprite->IsNotInit())
+						//						{
+						//							LoadFromFileAddonSPK( clothes, action );
+						//							//continue;
+						//						}
+						
+						//---------------------------------------- 
+						// 캐릭터 선택 사각형 영역 설정
+						//---------------------------------------- 	
+						rect.left	= pointTemp.x;
+						rect.top	= pointTemp.y;
+						rect.right	= rect.left + pSprite->GetWidth();
+						rect.bottom = rect.top + pSprite->GetHeight();
+						pCreature->AddScreenRect( &rect );
+						
+						// SpriteOutlineManager에 추가
+						//CIndexSprite::SetUsingColorSet((pCreature->GetID()+3*(clothesType,1),7)%MAX_COLORSET, ((pCreature->GetID()*pCreature->GetID(),7*(clothesType+2)))%MAX_COLORSET);
+						//CIndexSprite::SetUsingColorSet((c1+3*(clothesType+1)+7)%MAX_COLORSET, ((c2*c2+7*(clothesType+2)))%MAX_COLORSET);
+						//---------------------------------------- 
+						// 캐릭터 부분 색깔이 바뀌는 경우
+						//---------------------------------------- 
+						if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
+						{
+							m_SOM.Add( pointTemp.x, pointTemp.y, pSprite, addonInfo.EffectColorSet );
+						}
+						//---------------------------------------- 
+						// 원래색대로..
+						//---------------------------------------- 
+						else
+						{
+							int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
+							if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
+							{
+								if(colorSet2 == QUEST_ITEM_COLOR || colorSet2 == UNIQUE_ITEM_COLOR )
+									colorSet2 = MItem::GetSpecialColorItemColorset( colorSet2 );
+								
+								if(addonInfo.ItemClass != ITEM_CLASS_COAT && addonInfo.ItemClass != ITEM_CLASS_TROUSER)
+									colorSet1 = colorSet2;
+							}							
+							
+							CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
+							m_SOM.Add( pointTemp.x, pointTemp.y, pSprite );
+						}
+					}
+					
+				}
+			}
+			else
+			{		
+				// 지금은 파트 그대로를 사용한다. 추후에 옷이 추가 되었을때 다음 변수를 세팅 해서 쓴다.
+				// addonInfo.FrameID 에 옷 정보를 넣고 세팅하여 쓰면된다.
+				
+				clothes = GetAdvancementPartFromItemClass( addonInfo.ItemClass , addonInfo.FrameID);
+				
+				if( clothes == -1 )
+					continue;
+				
+				FRAME_ARRAY &FA = slayerFPK[clothes][action][direction];
+				
+				// 있는 동작인 경우
+				if (FA.GetSize() > frame)
+				{
+					CFrame &Frame = FA[frame];					
+					int sprite	= Frame.GetSpriteID();	//m_AddonFPK[clothes][action][direction][frame].GetSpriteID();
+					int cx		= Frame.GetCX();	//m_AddonFPK[clothes][action][direction][frame].GetCX();
+					int cy		= Frame.GetCY();	//m_AddonFPK[clothes][action][direction][frame].GetCY();
+					
+					pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
+					pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
+					
+					CIndexSprite* pSprite = &addonISPK[ sprite ];
+					
+					// 복장Sprite가 초기화 되지 않은 경우
+					//						if (pSprite->IsNotInit())
+					//						{
+					//							LoadFromFileAddonSPK( clothes, action );
+					//							//continue;
+					//						}
+					
+					//---------------------------------------- 
+					// 캐릭터 선택 사각형 영역 설정
+					//---------------------------------------- 	
+					rect.left	= pointTemp.x;
+					rect.top	= pointTemp.y;
+					rect.right	= rect.left + pSprite->GetWidth();
+					rect.bottom = rect.top + pSprite->GetHeight();
+					pCreature->AddScreenRect( &rect );
+					
+					// SpriteOutlineManager에 추가
+					//CIndexSprite::SetUsingColorSet((pCreature->GetID()+3*(clothesType,1),7)%MAX_COLORSET, ((pCreature->GetID()*pCreature->GetID(),7*(clothesType+2)))%MAX_COLORSET);
+					//CIndexSprite::SetUsingColorSet((c1+3*(clothesType+1)+7)%MAX_COLORSET, ((c2*c2+7*(clothesType+2)))%MAX_COLORSET);
+					//---------------------------------------- 
+					// 캐릭터 부분 색깔이 바뀌는 경우
+					//---------------------------------------- 
+					if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
+					{
+						m_SOM.Add( pointTemp.x, pointTemp.y, pSprite, addonInfo.EffectColorSet );
+					}
+					//---------------------------------------- 
+					// 원래색대로..
+					//---------------------------------------- 
+					else
+					{
+						int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
+						if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
+						{
+							if(colorSet2 == QUEST_ITEM_COLOR || colorSet2 == UNIQUE_ITEM_COLOR )
+								colorSet2 = MItem::GetSpecialColorItemColorset( colorSet2 );
+							
+							if(addonInfo.ItemClass != ITEM_CLASS_COAT && addonInfo.ItemClass != ITEM_CLASS_TROUSER)
+								colorSet1 = colorSet2;
+						}							
+						
+						CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
+						m_SOM.Add( pointTemp.x, pointTemp.y, pSprite );
+					}
 				}
 			}
 		}
@@ -4501,432 +4331,3 @@ void	MTopView::DrawSelectedAdvancementOustersCreature( POINT* pPoint, MCreature*
 		}
 	}
 }
-
-/*
-int	MTopView::GetAdvancementComboFrame(MCreature* pCreature,int &Frame , int &action , int &ComboActionCnt, int &MaxFrame)
-{
-	int	 frame = Frame	;
-	int  iStartFrame	= 0	 ;
-	int	 iCancelAction	= 0  ;
-	WORD fAttect_Cancel_Type = 0 ; 
-	WORD fWeaponType	= 0 ; 
-	WORD fWeaponSpeed	= 0 ;
-	WORD fCreatureType	= 0 ; 	
-	BYTE byCurrenCombo	= 0 ;
-	
-	
-	if(pCreature->IsSlayer())  // 슬레이어 
-	{
-		if( ((action >= ACTION_SLAYER_SWORD) && (action <= ACTION_SLAYER_BLADE)) ||
-			((action >= ACTION_SLAYER_SWORD_2) && (action <= ACTION_SLAYER_BLADE_2)) ||
-			((action >= ACTION_SLAYER_SWORD_SLOW) && (action <= ACTION_SLAYER_BLADE_2_FAST)) ||
-			((action >= ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_SWARD_SLOW) && (action <= ACTION_ADVANCEMENT_SLAYERN_COMBO_CANCEL_SWARD_FAST))
-		)
-		{
-			//WORD fWeaponType = 3 ;  //(*g_pActionInfoTable)[action].GetWeaponType();
-			
-			// 칼 
-			if( (action == ACTION_SLAYER_SWORD) || (action == ACTION_SLAYER_SWORD_2) ||
-				(action == ACTION_SLAYER_SWORD_SLOW) || (action == ACTION_SLAYER_SWORD_2_SLOW) ||
-				(action == ACTION_SLAYER_SWORD_FAST) || (action == ACTION_SLAYER_SWORD_2_FAST) ||
-				((action >= ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_SWARD_SLOW) && (action <= ACTION_ADVANCEMENT_SLAYERN_COMBO_CANCEL_SWARD_FAST)) 
-			)
-			{	
-				//if(!(fWeaponType == FLAG_ACTIONINFO_WEAPON_SWORD || fWeaponType == FLAG_ACTIONINFO_WEAPON_BLADE))
-				//	return frame;
-				fWeaponType = 0 ; // 칼 
-				//if(fWeaponType == FLAG_ACTIONINFO_WEAPON_BLADE) fWeaponType = 3 ; // 도
-			}
-			// 도 
-			else  // action >= ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_SWARD_SLOW) && (action <= ACTION_ADVANCEMENT_SLAYERN_COMBO_CANCEL_SWARD_FAST))
-			{
-				//fWeaponType = 0 ; // 칼
-				
-				fWeaponType = 3 ; // 도
-			}
-
-			//fWeaponType = 0 ; // 칼 
-			//fWeaponSpeed = 1 ; 
-
-			/*if(action == ACTION_SLAYER_SWORD_SLOW   || action == ACTION_SLAYER_BLADE_SLOW || 
-               action == ACTION_SLAYER_SWORD_2_SLOW || action == ACTION_SLAYER_BLADE_2_SLOW ||   
-			   action == ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_SWARD_SLOW || action == ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_BLADE_SLOW)   
-				fWeaponSpeed = 0 ; 
-			else if(action == ACTION_SLAYER_SWORD_FAST   || action == ACTION_SLAYER_BLADE_FAST || 
-               action == ACTION_SLAYER_SWORD_2_FAST || action == ACTION_SLAYER_BLADE_2_FAST ||   
-			   action == ACTION_ADVANCEMENT_SLAYERN_COMBO_CANCEL_SWARD_FAST || action == ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_BLADE_SLOW)   
-				fWeaponSpeed = 2 ; 
-			*/
-			/*fWeaponSpeed = pCreature->GetWeaponSpeed() ;
-
-			fCreatureType = 0  ;
-			if(pCreature->IsMale()) 	fCreatureType = 1 ;
-
-			if(fWeaponType == 3)	fCreatureType += 2 ; 
-		
-			
-			//fCreatureType = 0 ; // 슬레이어 
-			
-			if(!(action >= ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_SWARD_SLOW) && (action <= ACTION_ADVANCEMENT_SLAYERN_COMBO_CANCEL_SWARD_FAST))
-			{
-				fAttect_Cancel_Type = 1 ;
-				if(ComboActionCnt >= 1 && ComboActionCnt <= 3)
-				{
-					iCancelAction = AdvanceComboNextActionTable[fWeaponSpeed + fWeaponType] ;
-				}
-			}
-			else
-			{
-				fAttect_Cancel_Type = 2 ;
-			}
-		}
-	}
-	else if(pCreature->IsVampire()) // 벰파이어 
-	{
-		if( (action == ACTION_ATTACK) ||
-			((action >= ACTION_VAMPIRE_ATTACK_SLOW) && (action <= ACTION_VAMPIRE_SKILL_ATTACK_FAST)) ||
-			((action >= ACTION_ADVANCEMENT_COMBO_CANCEL_SLOW) && (action <= ACTION_ADVANCEMENT_COMBO_CANCEL_FAST))
-		)
-		{
-			fCreatureType = 5 ;
-			if(pCreature->IsMale()) 	fCreatureType = 4 ;
-			
-
-			fWeaponSpeed = pCreature->GetWeaponSpeed() ;
-			
-			
-			if(!(action >= ACTION_ADVANCEMENT_COMBO_CANCEL_SLOW) && (action <= ACTION_ADVANCEMENT_COMBO_CANCEL_FAST))
-			{
-				fAttect_Cancel_Type = 1 ;
-				if(ComboActionCnt >= 1 && ComboActionCnt <= 3)
-				{
-					iCancelAction = AdvanceComboNextActionTable[ 6 + fWeaponSpeed + fWeaponType] ;
-				}
-			}
-			else
-			{
-				fAttect_Cancel_Type = 2 ;
-			}
-		}
-	}
-	
-	else if(pCreature->IsOusters()) // 아우스터 
-	{
-		if( (action == ACTION_ATTACK) ||
-			(action == ACTION_OUSTERS_CHAKRAM) || 
-			((action >= ACTION_OUSTERS_ATTACK_SLOW) && (action <= ACTION_OUSTERS_CHAKRAM_FAST)) ||
-			((action >= ACTION_ADVANCEMENT_OUSTERS_COMBO_CANCEL_SLOW) && (action <= ACTION_ADVANCEMENT_OUSTERS_COMBO_CANCEL_FAST))
-		)
-		{
-			fWeaponSpeed = pCreature->GetWeaponSpeed() ;
-			fCreatureType = 6 ; // 아우스터 
-			
-			if(!(action >= ACTION_ADVANCEMENT_OUSTERS_COMBO_CANCEL_SLOW) && (action <= ACTION_ADVANCEMENT_OUSTERS_COMBO_CANCEL_FAST))
-			{
-				fAttect_Cancel_Type = 1 ;
-				if(ComboActionCnt >= 1 && ComboActionCnt <= 3)
-				{
-					iCancelAction = AdvanceComboNextActionTable[ 9 + fWeaponSpeed + fWeaponType] ;
-				}
-			}
-			else
-			{
-				fAttect_Cancel_Type = 2 ;
-			}
-		}
-	}
-	
-	if(fAttect_Cancel_Type == 1)  // Attack 동작 
-	{	
-		if(ComboActionCnt < 1 || ComboActionCnt >4) return frame ; 
-
-		if(ComboActionCnt < 4)
-		{
-			if(pCreature  == g_pPlayer)
-			{
-				if(g_pPlayer->IsRepeatAction())
-					pCreature->SetActionCountMax(AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 1] + 2)  ; 
-				else
-				pCreature->SetActionCountMax(AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 1])  ; 
-			}
-		}
-
-		//AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][3] = (MaxFrame - 1) ;
-		frame = Frame % (AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 1] + 1)  ;
-		
-		//======================================================================================================
-		// 현재 콤보값 가져오기 
-		//======================================================================================================
-		if(frame <= AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][0])
-			byCurrenCombo = 1 ; 
-		else if(frame <= AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][1] )
-			byCurrenCombo = 2 ; 
-		else if(frame <= AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][2] )
-			byCurrenCombo = 3 ; 
-		else
-			byCurrenCombo = 4 ; 
-		//======================================================================================================
-		
-		// 크리쳐가 죽었을때 와 타격 이펙트 처리  Sjheon 2005.07.14 Add
-		MCreature* TargetCreature = NULL;
-		TargetCreature = g_pZone->GetCreature(pCreature->GetTraceID());
-		
-		if(TargetCreature)
-		{
-			if(TargetCreature->IsDead())	// 현재 콤보 기술을  동작을 할 콤보 스텝으로 바꾼다 
-			{
-				ComboActionCnt	= byCurrenCombo ; 
-			}
-			else
-			{
-				//int originalSkill = g_pPlayer->GetUsedActionInfo() ; 
-				if(byCurrenCombo && (frame >= (AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][byCurrenCombo - 1] - 2)))
-				{
-					int iCurAction = pCreature->GetCurrentCombo() ; 
-					if(iCurAction != byCurrenCombo)
-					{
-						pCreature->UseSkill_Effect() ; 
-						pCreature->SetCurrentCombo(byCurrenCombo);
-					}
-				}
-			}
-		}
-		// 크리쳐가 죽었을때 와 타격 이펙트 처리  Sjheon 2005.07.14 End 
-
-		if(frame == AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 1] )
-		{  
-			if(ComboActionCnt != 4)
-			{
-				pCreature->SetAction(iCancelAction) ;  //  + iComboType) ;	
-			}
-			pCreature->SetCurrentCombo(0)	;
-			//bSendAction[0] = bSendAction[1] = bSendAction[2] = bSendAction[3] = false  ; 
-		}
-	}
-	
-	else if(fAttect_Cancel_Type == 2 && ComboActionCnt != 4) // 취소 동작 
-	{
-		if(ComboActionCnt < 1 || ComboActionCnt >4) return frame ; 
-		if(ComboActionCnt != 1)  iStartFrame = AdvanceComboCancelFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 2] +1 ;  
-		frame = iStartFrame + Frame % (AdvanceComboCancelFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 1] + 1)  ;
-		//pCreature->SetFrame(frame) ; 
-		
-		/*if(frame == (AdvanceComboCancelFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 1] - 1)  && !pCreature->GetComCencel())
-		{
-			pCreature->SetAction(pCreature->GetAction()) ;
-			pCreature->SetComboCencel(TRUE) ;
-			//Sleep(280) ;
-
-		}
-		else if(frame == (AdvanceComboCancelFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 1] - 1)  && !pCreature->GetComCencel1())
-		{
-			pCreature->SetAction(pCreature->GetAction()) ;
-			pCreature->SetComboCencel1(TRUE) ;
-			//Sleep(280) ;
-
-		}
-
-		else*//*	if(frame == AdvanceComboCancelFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 1])
-		{	
-			if(pCreature  == g_pPlayer)
-			{
-				if(g_pPlayer->IsRepeatAction())
-				{
-					pCreature->SetAction(AdvanceComboNextRepeatActionTable[fWeaponSpeed + fWeaponType]) ; //ACTION_STAND)	;
-					//pCreature->SetCurrentCombo(ComboActionCnt)	;	// 엑션 Step을 초기화 한
-					pCreature->SetCurrentCombo(1)	;	// 엑션 Step을 초기화 한
-					//pCreature->SetCombo(0);
-					//OutputDebugString("asdfsdf재헌\n") ; 
-				}
-				else
-				{
-					pCreature->SetActionCountMax(AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 1])  ; 
-					pCreature->SetAction(ACTION_STAND)	;
-					pCreature->SetCurrentCombo(0)	;	// 엑션 Step을 초기화 한
-				}	
-			}
-			else
-			{
-				pCreature->SetAction(ACTION_STAND)	;
-				pCreature->SetCurrentCombo(0)	;	// 엑션 Step을 초기화 한
-			}
-			//pCreature->SetCurrentCombo(0)	;	// 엑션 Step을 초기화 한
-			pCreature->SetCombo(0);
-			//pCreature->SetComboCencel(FALSE) ;
-			//pCreature->SetComboCencel1(FALSE) ;
-
-
-			//pCreature->id
-			//OutputDebugString("sdafasf"); 
-			//pCreature->SetAction(ACTION_SLAYER_SWORD) ; //ACTION_STAND)	;
-			//pCreature->SetCurrentCombo(1)	;	// 엑션 Step을 초기화 한다.
-			//if(pCreature == g_pPlayer)
-			//{
-			//	g_pPlayer->SetComboSkillSend(TRUE) ;
-			//}
-			
-		}
-		
-	}
-	return  frame;
-}*/
-
-/*
-int	MTopView::GetAdvancementComboFrame(MCreature* pCreature,int &Frame , int &action , int &ComboActionCnt, int &MaxFrame)
-{
-	int	 frame = Frame	;
-	int  iStartFrame	= 0	 ;
-	int	 iCancelAction	= 0  ;
-	WORD fAttect_Cancel_Type = 0 ; 
-	WORD fWeaponType	= 0 ; 
-	WORD fWeaponSpeed	= 0 ;
-	WORD fCreatureType	= 0 ; 	
-	BYTE byCurrenCombo	= 0 ;
-	
-
-	int iAdvanceAction = 0 ; 
-	
-//	if(ComboActionCnt < 4) return frame  ; 
-	
-//	if(ComboActionCnt >= 0) return frame  ; 
-
-	if(pCreature->IsSlayer())  // 슬레이어 
-	{
-		if(action >= ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_SLOW)
-			iAdvanceAction = action ; 
-		else 	
-			iAdvanceAction = AdvancementSlayerActionConvTable[action];
-		
-		if(iAdvanceAction >= ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_SLOW)
-		{
-			int iComboIdx = iAdvanceAction - ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_SLOW ;
-			iComboIdx = iComboIdx / 3 ; 
-			if(iComboIdx == 0 || iComboIdx == 2)
-			   fWeaponType = 0 ; // 칼 	
-			else if(iComboIdx == 1 || iComboIdx == 3)
-			   fWeaponType = 3 ; // 도
-			
-			fWeaponSpeed = pCreature->GetWeaponSpeed() ;
-
-			fCreatureType = 0  ;
-			if(pCreature->IsMale()) 	fCreatureType = 1 ;
-
-			if(fWeaponType == 3)	fCreatureType += 2 ; 
-		
-			
-			//fCreatureType = 0 ; // 슬레이어 
-			
-			if(!(iAdvanceAction >= ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_SWARD_SLOW) && (iAdvanceAction <= ACTION_ADVANCEMENT_SLAYER_COMBO_CANCEL_BLADE_FAST))
-			{
-				fAttect_Cancel_Type = 1 ;
-				if(ComboActionCnt >= 1 && ComboActionCnt <= 3) 
-				{
-					iCancelAction = AdvanceComboNextActionTable[fWeaponSpeed + fWeaponType] ;
-				}
-			}
-			else
-			{
-				//fAttect_Cancel_Type = 2 ;
-			}
-		}
-		
-	}		
-	else if(pCreature->IsVampire()) // 벰파이어 
-	{	
-		if(action >= ACTION_ADVANCEMENT_COMBO_SLOW)
-			iAdvanceAction = action ; 
-		else 		
-			iAdvanceAction = AdvancementVampireActionConvTable[action];
-			
-		if(iAdvanceAction >= ACTION_ADVANCEMENT_COMBO_SLOW)
-		{
-			fCreatureType = 5 ;
-			if(pCreature->IsMale()) 	fCreatureType = 4 ;
-			
-
-			fWeaponSpeed = pCreature->GetWeaponSpeed() ;
-			
-			
-			if(!(iAdvanceAction >= ACTION_ADVANCEMENT_COMBO_CANCEL_SLOW) && (iAdvanceAction <= ACTION_ADVANCEMENT_COMBO_CANCEL_FAST))
-			{
-				fAttect_Cancel_Type = 1 ;
-				if(ComboActionCnt >= 1 && ComboActionCnt <= 3)
-				{
-					iCancelAction = AdvanceComboNextActionTable[ 6 + fWeaponSpeed + fWeaponType] ;
-				}
-			}
-			else
-			{
-				//fAttect_Cancel_Type = 2 ;
-			}	
-		}
-
-	}		
-	else if(pCreature->IsOusters()) // 아우스터 
-	{
-		if(action >= ACTION_ADVANCEMENT_OUSTERS_COMBO_SLOW)
-			iAdvanceAction = action ; 
-		else 		
-			iAdvanceAction	= AdvancementOustersActionConvTable[ action ]; 
-		
-		if(iAdvanceAction >= ACTION_ADVANCEMENT_OUSTERS_COMBO_SLOW)
-		{
-			fWeaponSpeed = pCreature->GetWeaponSpeed() ;
-			fCreatureType = 6 ; // 아우스터 
-			
-			if(!(iAdvanceAction >= ACTION_ADVANCEMENT_OUSTERS_COMBO_CANCEL_SLOW) && (iAdvanceAction <= ACTION_ADVANCEMENT_OUSTERS_COMBO_CANCEL_FAST))
-			{
-				fAttect_Cancel_Type = 1 ;
-				if(ComboActionCnt >= 1 && ComboActionCnt <= 3)
-				{
-					iCancelAction = AdvanceComboNextActionTable[ 9 + fWeaponSpeed + fWeaponType] ;
-				}
-			}
-			else
-			{
-				//fAttect_Cancel_Type = 2 ;
-			}
-		}
-	}
-	
-	if(fAttect_Cancel_Type == 1)  // Attack 동작 
-	{	
-		
-		
-		//else
-	///	{
-		//if(ComboActionCnt < 1 || ComboActionCnt >4) return frame ; 
-		if(ComboActionCnt < 4)
-			pCreature->SetActionCountMax(AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][ComboActionCnt - 1]+2)  ; 
-		else 
-			pCreature->SetActionCountMax(AdvanceComboActionFrameTable[fCreatureType][fWeaponSpeed][3])  ; 
-		// 크리쳐가 죽었을때 와 타격 이펙트 처리  Sjheon 2005.07.14 Add
-	
-		//}
-		
-		MCreature* TargetCreature = NULL;
-		TargetCreature = g_pZone->GetCreature(pCreature->GetTraceID());
-		if(TargetCreature)
-		{
-			if(TargetCreature->IsDead())	// 현재 콤보 기술을  동작을 할 콤보 스텝으로 바꾼다 
-			{
-				//pCreature->SetAction(ACTION_STAND)	;
-				pCreature->SetCombo(1);
-			}
-		}
-		
-		if(action ==  ACTION_ATTACK  && 	ComboActionCnt == 0)
-		{
-			pCreature->SetCombo(1);
-		}
-		else if((action ==  ACTION_SLAYER_BLADE_2 || action == ACTION_SLAYER_BLADE_2_FAST || action == ACTION_SLAYER_SWORD_2_FAST)  && 	ComboActionCnt == 0)
-		{
-			pCreature->SetCombo(2);
-		}
-		//else if(action ==  ACTION_ATTACK && 	ComboActionCnt == 0)   
-		//{
-		//	pCreature->SetCombo(1);
-		//}
-	}
-	return  frame;
-}*/

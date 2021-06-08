@@ -17,11 +17,32 @@ class MItem;
 class MShop;
 class MStorage;
 class MCreature;
+////////////////////////////////////////////////////////////////////////
+//  FirendChatting //by viva
+///////////////////////////////////////////////////////////////////////
+class GCFriendChatting;
+
+extern void		UI_FriendChatting_UpdateFriendList(GCFriendChatting* pPacket);
+extern void		UI_FriendChatting_Message(GCFriendChatting* pPacket);
+//-----------------
+class C_VS_UI_ASK_DIALOG;
+extern void		UI_RunFriendRequest(GCFriendChatting* pPacket);
+//extern void		UI_CanncelFriendRequest(C_VS_UI_ASK_DIALOG* pDialog);
+//extern void		UI_CloseFriendRequest(C_VS_UI_ASK_DIALOG* pDialog);
+extern void		UI_RunFriendRefuse(GCFriendChatting* pPacket);
+extern void		UI_RunFriendWait(GCFriendChatting* pPacket);
+extern void		UI_RunFriendOK(GCFriendChatting* pPacket);
+extern void		UI_RunFriendExist(GCFriendChatting* pPacket);
+extern void		UI_RunFriendBlack(GCFriendChatting* pPacket);
+extern void		UI_RunFriendDelete(GCFriendChatting* pPakcet);
+
+
+
 
 //-----------------------------------------------------------------------------
 // Mode
 //-----------------------------------------------------------------------------
-extern void		UI_StartCharacterManager( bool bAgree );
+extern void		UI_StartCharacterManager();
 extern void		UI_DeleteCharacterOK();
 extern void		UI_DeleteCharacterFailed();
 extern void		UI_NewCharacterCreateOk();
@@ -61,7 +82,6 @@ extern void		UI_SetBonusPoint(int bp);
 extern void		UI_SetSkillPoint(int sp);
 extern void		UI_AddEffectStatus(int es, DWORD delayFrame);
 extern void		UI_RemoveEffectStatus(int es);
-extern bool		UI_GetEffectStatus(int es); 
 
 //-----------------------------------------------------------------------------
 // Char Info
@@ -363,8 +383,6 @@ extern void		UI_Show_Swap_Advancement_Item();
 extern bool		UI_IsRunningSwapAdvancementItem();
 
 extern void		UI_Run_Campaign_Help_Unfortunate_Neighbors(int value);
-extern void		UI_Run_Wedding_Contribution_Unfortunate_Neighbors(int value);
-
 extern void		UI_Run_Confirm_GetEventItem(int value);
 extern void		UI_Run_WebBrowser(char* szURL);
 extern bool		UI_IsRunning_WebBrowser();
@@ -372,16 +390,12 @@ extern int		UI_GetMouseCursorInfo_WebBrowser();
 extern void		UI_Close_WebBrowser();
 extern void		UI_ShowWindowCursor();
 extern void		UI_HiddenWindowCursor();
-extern void		UI_RunSubInventory(MItem* pItem);
-extern void		UI_CloseSubInventory();
-extern bool		UI_AddItemToSubInventory(MItem *pItem, int X, int Y);
-extern bool		UI_IsRunAskUseItemDialog() ; 
-extern void		UI_RunAskUseItemDialog(int AskType , int value = 0) ; 
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		extern void		UI_RunSubInventory(MItem* pItem);
+		extern void		UI_CloseSubInventory();
+		extern bool		UI_AddItemToSubInventory(MItem *pItem, int X, int Y);
+	#endif
 
-extern void		UI_SetUseAskIitemRunning(bool bRunning) ; 
-extern void		UI_PopupSummerComBack(int	value) ; 
-extern void		UI_SetBloodBurstSetGage() ; 
-extern void		UI_SetMagicRemainSec(int MagicRemainSec) ; 	
 
 
 #endif

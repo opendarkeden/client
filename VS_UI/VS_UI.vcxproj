@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Template|Win32">
+      <Configuration>Template</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName>"$/", aaaaaaaa</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <ProjectGuid>{50782975-5798-4A91-ACB6-DC168A69C592}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>\Game(800)\designed\project\client;\Game(800)\designed\project\client\dxlib;\Game(800)\designed\project\client\d3dlib;\Game(800)\designed\project\client\spriteLib;\Game(800)\designed\project\client\frameLib;src\widget;src\hangul;src\header;src\imm;\Game(800)\designed\project\lib;..\client\sxml;..\xerces\include;..\basic;\Game(800)\designed\project\VS_UI\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;__TEST_SUB_INVENTORY__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerOutput>All</AssemblerOutput>
+      <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
+      <BrowseInformation>true</BrowseInformation>
+      <PrecompiledHeaderOutputFile>.\Release\VS_UI.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Release\VS_UI.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\VS_UI.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>.\Release\VS_UI.exe</OutputFile>
+      <AdditionalLibraryDirectories>..\lib;..\lib\ui;h:\study\lib;..\client\jpegLib;..\Client\DirectXLib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>dsound.lib;winmm.lib;imm32.lib;PS.lib;BasicS.lib;Timer.lib;rbt.lib;dinput.lib;ddraw.lib;dxguid.lib;sp.lib;fr.lib;dx.lib;gl.lib;odbc32.lib;odbccp32.lib;rar_release.lib;ifc22.lib;jpeg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);.;src\hangul;..\Client\DirectXLib;..\Client\Packet;src\header;..\Client;lib;..\Client\SpriteLib;..\Client\Frame Library;..\basic;src\Imm</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;DIRECTINPUT_VERSION=0x0700;_WIN32_WINNT=0x0502;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
+      <BrowseInformation>true</BrowseInformation>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <ObjectFileName>.\Debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\Debug\VS_UI.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug\VS_UI.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;libc.lib;libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <OutputFile>.\Debug\VS_UI.exe</OutputFile>
+      <AdditionalLibraryDirectories>..\lib\;..\lib\ui;h:\study\lib;..\xerces\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>dsound.lib;winmm.lib;imm32.lib;PS.lib;BasicS.lib;Timer.lib;dinput.lib;ddraw.lib;dxguid.lib;..\client\spritelib\debug\sp.lib;..\client\framelib\debug\fr.lib;..\client\DirectXLib\debug\dx.lib;gl.lib;odbc32.lib;odbccp32.lib;rar_release.lib;ifc22.lib;..\client\jpeglib\jpeg.lib;xerces-c_2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\client\ClientConfig.cpp" />
+    <ClCompile Include="..\client\ClientFunction.cpp" />
+    <ClCompile Include="..\client\CMessageArray.cpp" />
+    <ClCompile Include="..\client\CSoundPartManager.cpp" />
+    <ClCompile Include="..\client\DebugInfo.cpp" />
+    <ClCompile Include="..\client\ExperienceTable.cpp" />
+    <ClCompile Include="..\client\ExpInfo.cpp" />
+    <ClCompile Include="..\client\FameInfo.cpp" />
+    <ClCompile Include="..\client\LeakMemoryDumper.cpp" />
+    <ClCompile Include="..\client\MCreatureTable.cpp" />
+    <ClCompile Include="..\client\MEventManager.cpp" />
+    <ClCompile Include="..\client\MFunctionManager.cpp" />
+    <ClCompile Include="..\client\MGameStringTable.cpp" />
+    <ClCompile Include="..\client\MGridItemManager.cpp" />
+    <ClCompile Include="..\client\MGuildInfoMapper.cpp" />
+    <ClCompile Include="..\client\MGuildMarkManager.cpp" />
+    <ClCompile Include="..\client\MHelpMessageManager.cpp" />
+    <ClCompile Include="..\client\MInventory.cpp" />
+    <ClCompile Include="..\client\MItem.cpp" />
+    <ClCompile Include="..\client\MItemManager.cpp" />
+    <ClCompile Include="..\client\MItemOptionTable.cpp" />
+    <ClCompile Include="..\client\MItemTable.cpp" />
+    <ClCompile Include="..\client\MMoneyManager.cpp" />
+    <ClCompile Include="..\client\MMonsterKillQuestInfo.cpp" />
+    <ClCompile Include="..\client\MNPCTable.cpp" />
+    <ClCompile Include="..\client\MObject.cpp" />
+    <ClCompile Include="..\client\MOustersGear.cpp" />
+    <ClCompile Include="..\client\MParty.cpp" />
+    <ClCompile Include="..\client\MPlayerGear.cpp" />
+    <ClCompile Include="..\client\MPriceManager.cpp" />
+    <ClCompile Include="..\client\MQuestInfo.cpp" />
+    <ClCompile Include="..\client\MQuickSlot.cpp" />
+    <ClCompile Include="..\client\MShop.cpp" />
+    <ClCompile Include="..\client\MShopShelf.cpp" />
+    <ClCompile Include="..\client\MShopTemplate.cpp" />
+    <ClCompile Include="..\client\MSkillInfoTable.cpp" />
+    <ClCompile Include="..\client\MSkillManager.cpp" />
+    <ClCompile Include="..\client\MSlayerGear.cpp" />
+    <ClCompile Include="..\client\MSlotItemManager.cpp" />
+    <ClCompile Include="..\client\MSortedItemManager.cpp" />
+    <ClCompile Include="..\client\MSoundTable.cpp" />
+    <ClCompile Include="..\client\MStorage.cpp" />
+    <ClCompile Include="..\client\MString.cpp" />
+    <ClCompile Include="..\client\MStringArray.cpp" />
+    <ClCompile Include="..\client\MTimeItemManager.CPP" />
+    <ClCompile Include="..\client\MTradeManager.cpp" />
+    <ClCompile Include="..\client\MVampireGear.cpp" />
+    <ClCompile Include="..\client\MZoneTable.cpp" />
+    <ClCompile Include="..\client\packet\Properties.cpp" />
+    <ClCompile Include="..\client\packet\StringStream.cpp" />
+    <ClCompile Include="..\client\ProfileManager.cpp" />
+    <ClCompile Include="..\client\Profiler.cpp" />
+    <ClCompile Include="..\client\RankBonusTable.cpp" />
+    <ClCompile Include="..\client\ShrineInfoManager.cpp" />
+    <ClCompile Include="..\client\SXml\SXml.cpp" />
+    <ClCompile Include="..\client\SystemAvailabilities.cpp" />
+    <ClCompile Include="..\client\UserInformation.cpp" />
+    <ClCompile Include="..\client\UserOption.cpp" />
+    <ClCompile Include="..\client\UtilityFunction.cpp" />
+    <ClCompile Include="MitemTableInit.cpp" />
+    <ClCompile Include="src\AcceleratorDef.cpp" />
+    <ClCompile Include="src\AcceleratorManager.cpp" />
+    <ClCompile Include="src\hangul\Ci.cpp" />
+    <ClCompile Include="src\hangul\FL2.cpp" />
+    <ClCompile Include="src\Imm\CImm.cpp" />
+    <ClCompile Include="src\KeyAccelerator.cpp" />
+    <ClCompile Include="src\SkinManager.cpp" />
+    <ClCompile Include="src\VS_UI.cpp" />
+    <ClCompile Include="src\VS_UI_Base.cpp" />
+    <ClCompile Include="src\VS_UI_bbs.cpp" />
+    <ClCompile Include="src\VS_UI_DESC.cpp" />
+    <ClCompile Include="src\VS_UI_Description.cpp" />
+    <ClCompile Include="src\VS_UI_descriptor.cpp" />
+    <ClCompile Include="src\VS_UI_Dialog.cpp" />
+    <ClCompile Include="src\VS_UI_ELEVATOR.cpp" />
+    <ClCompile Include="src\VS_UI_Exception.cpp" />
+    <ClCompile Include="src\VS_UI_Exchange.cpp" />
+    <ClCompile Include="src\VS_UI_ExtraDialog.cpp" />
+    <ClCompile Include="src\VS_UI_Game.cpp" />
+    <ClCompile Include="src\VS_UI_GameCommon.cpp" />
+    <ClCompile Include="src\vs_ui_gamecommon2.cpp" />
+    <ClCompile Include="src\VS_UI_GameOusters.cpp" />
+    <ClCompile Include="src\VS_UI_GameSlayer.cpp" />
+    <ClCompile Include="src\VS_UI_GameVampire.cpp" />
+    <ClCompile Include="src\VS_UI_GlobalResource.cpp" />
+    <ClCompile Include="src\VS_UI_Helper.cpp" />
+    <ClCompile Include="src\VS_UI_item.cpp" />
+    <ClCompile Include="src\VS_UI_Message.cpp" />
+    <ClCompile Include="src\VS_UI_mouse_pointer.cpp" />
+    <ClCompile Include="src\VS_UI_PetStorage.cpp" />
+    <ClCompile Include="src\VS_UI_progress.cpp" />
+    <ClCompile Include="src\VS_UI_Shop.cpp" />
+    <ClCompile Include="src\VS_UI_skill_tree.cpp" />
+    <ClCompile Include="src\VS_UI_SKILL_VIEW.cpp" />
+    <ClCompile Include="src\VS_UI_Storage.cpp" />
+    <ClCompile Include="src\VS_UI_title.cpp" />
+    <ClCompile Include="src\VS_UI_TITLE_SHOWCHAR.CPP" />
+    <ClCompile Include="src\VS_UI_Tutorial.cpp" />
+    <ClCompile Include="src\VS_UI_ui_result_receiver.cpp" />
+    <ClCompile Include="src\VS_UI_util.cpp" />
+    <ClCompile Include="src\VS_UI_WebBrowser.cpp" />
+    <ClCompile Include="src\VS_UI_widget.cpp" />
+    <ClCompile Include="src\widget\mother.cpp" />
+    <ClCompile Include="src\widget\pi_core.cpp" />
+    <ClCompile Include="src\widget\u_button.cpp" />
+    <ClCompile Include="src\widget\U_edit.cpp" />
+    <ClCompile Include="src\widget\u_scrollbar.cpp" />
+    <ClCompile Include="src\widget\u_window.cpp" />
+    <ClCompile Include="WinMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\client\ClientConfig.h" />
+    <ClInclude Include="..\client\ClientFunction.h" />
+    <ClInclude Include="..\client\Client_PCH.h" />
+    <ClInclude Include="..\client\CMessageArray.h" />
+    <ClInclude Include="..\client\CSoundPartManager.h" />
+    <ClInclude Include="..\client\CTypeTable.h" />
+    <ClInclude Include="..\client\DebugInfo.h" />
+    <ClInclude Include="..\client\ExperienceTable.h" />
+    <ClInclude Include="..\client\ExpInfo.h" />
+    <ClInclude Include="..\client\FameInfo.h" />
+    <ClInclude Include="..\client\LeakMemoryDumper.h" />
+    <ClInclude Include="..\client\MCreatureTable.h" />
+    <ClInclude Include="..\client\MEventManager.h" />
+    <ClInclude Include="..\client\MFunctionManager.h" />
+    <ClInclude Include="..\client\MGameStringTable.h" />
+    <ClInclude Include="..\client\MGridItemManager.h" />
+    <ClInclude Include="..\client\MGuildInfoMapper.h" />
+    <ClInclude Include="..\client\MGuildMarkManager.h" />
+    <ClInclude Include="..\client\MHelpMessageManager.h" />
+    <ClInclude Include="..\client\MInventory.h" />
+    <ClInclude Include="..\client\MItem.h" />
+    <ClInclude Include="..\client\MItemManager.h" />
+    <ClInclude Include="..\client\MItemOptionTable.h" />
+    <ClInclude Include="..\client\MItemTable.h" />
+    <ClInclude Include="..\client\MMoneyManager.h" />
+    <ClInclude Include="..\client\MMonsterKillQuestInfo.h" />
+    <ClInclude Include="..\client\MNPCTable.h" />
+    <ClInclude Include="..\client\MObject.h" />
+    <ClInclude Include="..\client\MOustersGear.h" />
+    <ClInclude Include="..\client\MParty.h" />
+    <ClInclude Include="..\client\MPlayerGear.h" />
+    <ClInclude Include="..\client\MPriceManager.h" />
+    <ClInclude Include="..\client\MQuestInfo.h" />
+    <ClInclude Include="..\client\MQuickSlot.h" />
+    <ClInclude Include="..\client\MShop.h" />
+    <ClInclude Include="..\client\MShopShelf.h" />
+    <ClInclude Include="..\client\MShopTemplateTable.h" />
+    <ClInclude Include="..\client\MSlayerGear.h" />
+    <ClInclude Include="..\client\MSlotItemManager.h" />
+    <ClInclude Include="..\client\MSortedItemManager.h" />
+    <ClInclude Include="..\client\MSoundTable.h" />
+    <ClInclude Include="..\client\MStorage.h" />
+    <ClInclude Include="..\client\MString.h" />
+    <ClInclude Include="..\client\MStringArray.h" />
+    <ClInclude Include="..\client\MTimeItemManager.h" />
+    <ClInclude Include="..\client\MTradeManager.h" />
+    <ClInclude Include="..\client\MVampireGear.h" />
+    <ClInclude Include="..\client\MZoneTable.h" />
+    <ClInclude Include="..\client\packet\Properties.h" />
+    <ClInclude Include="..\client\packet\StringStream.h" />
+    <ClInclude Include="..\client\ProfileManager.h" />
+    <ClInclude Include="..\client\Profiler.h" />
+    <ClInclude Include="..\client\RankBonusDef.h" />
+    <ClInclude Include="..\client\RankBonusTable.h" />
+    <ClInclude Include="..\client\ShrineInfoManager.h" />
+    <ClInclude Include="..\client\SXml\SXml.h" />
+    <ClInclude Include="..\client\UserInformation.h" />
+    <ClInclude Include="..\client\UserOption.h" />
+    <ClInclude Include="..\client\UtilityFunction.h" />
+    <ClInclude Include="src\hangul\Ci.h" />
+    <ClInclude Include="src\hangul\Fl2.h" />
+    <ClInclude Include="src\header\AcceleratorDef.h" />
+    <ClInclude Include="src\header\AcceleratorManager.h" />
+    <ClInclude Include="src\header\KeyAccelerator.h" />
+    <ClInclude Include="src\header\SkinManager.h" />
+    <ClInclude Include="src\header\VS_UI.h" />
+    <ClInclude Include="src\header\VS_UI_Base.h" />
+    <ClInclude Include="src\header\VS_UI_bbs.h" />
+    <ClInclude Include="src\header\VS_UI_DESC.h" />
+    <ClInclude Include="src\header\VS_UI_Description.h" />
+    <ClInclude Include="src\header\VS_UI_descriptor.h" />
+    <ClInclude Include="src\header\VS_UI_Dialog.h" />
+    <ClInclude Include="src\header\VS_UI_ELEVATOR.h" />
+    <ClInclude Include="src\header\VS_UI_Exception.h" />
+    <ClInclude Include="src\header\VS_UI_Exchange.h" />
+    <ClInclude Include="src\header\VS_UI_ExtraDialog.h" />
+    <ClInclude Include="src\header\VS_UI_filepath.h" />
+    <ClInclude Include="src\header\VS_UI_Game.h" />
+    <ClInclude Include="src\header\VS_UI_GameCommon.h" />
+    <ClInclude Include="src\header\VS_UI_GameCommon2.h" />
+    <ClInclude Include="src\header\VS_UI_GameOusters.h" />
+    <ClInclude Include="src\header\VS_UI_GameSlayer.h" />
+    <ClInclude Include="src\header\VS_UI_GameVampire.h" />
+    <ClInclude Include="src\header\VS_UI_GlobalResource.h" />
+    <ClInclude Include="src\header\VS_UI_Helper.h" />
+    <ClInclude Include="src\header\VS_UI_item.h" />
+    <ClInclude Include="src\header\VS_UI_Message.h" />
+    <ClInclude Include="src\header\VS_UI_mouse_pointer.h" />
+    <ClInclude Include="src\header\VS_UI_PetStorage.h" />
+    <ClInclude Include="src\header\VS_UI_progress.h" />
+    <ClInclude Include="src\header\VS_UI_Shop.h" />
+    <ClInclude Include="src\header\VS_UI_skill_tree.h" />
+    <ClInclude Include="src\header\VS_UI_SKILL_VIEW.h" />
+    <ClInclude Include="src\header\VS_UI_Storage.h" />
+    <ClInclude Include="src\header\VS_UI_title.h" />
+    <ClInclude Include="src\header\VS_UI_Tutorial.h" />
+    <ClInclude Include="src\header\VS_UI_UIMessage.h" />
+    <ClInclude Include="src\header\VS_UI_ui_result_receiver.h" />
+    <ClInclude Include="src\header\VS_UI_util.h" />
+    <ClInclude Include="src\header\VS_UI_WebBrowser.h" />
+    <ClInclude Include="src\header\VS_UI_widget.h" />
+    <ClInclude Include="src\Imm\CImm.h" />
+    <ClInclude Include="src\Imm\FeelitAPI.h" />
+    <ClInclude Include="src\Imm\IFC.h" />
+    <ClInclude Include="src\Imm\IFCErrors.h" />
+    <ClInclude Include="src\Imm\ImmBaseTypes.h" />
+    <ClInclude Include="src\Imm\ImmBox.h" />
+    <ClInclude Include="src\Imm\ImmCompoundEffect.h" />
+    <ClInclude Include="src\Imm\ImmCondition.h" />
+    <ClInclude Include="src\Imm\ImmConstant.h" />
+    <ClInclude Include="src\Imm\ImmDamper.h" />
+    <ClInclude Include="src\Imm\ImmDevice.h" />
+    <ClInclude Include="src\Imm\ImmDevices.h" />
+    <ClInclude Include="src\Imm\ImmDXDevice.h" />
+    <ClInclude Include="src\Imm\ImmEffect.h" />
+    <ClInclude Include="src\Imm\ImmEffectSuite.h" />
+    <ClInclude Include="src\Imm\ImmEllipse.h" />
+    <ClInclude Include="src\Imm\ImmEnclosure.h" />
+    <ClInclude Include="src\Imm\ImmFriction.h" />
+    <ClInclude Include="src\Imm\ImmGrid.h" />
+    <ClInclude Include="src\Imm\ImmIFR.h" />
+    <ClInclude Include="src\Imm\ImmInertia.h" />
+    <ClInclude Include="src\Imm\ImmMouse.h" />
+    <ClInclude Include="src\Imm\ImmPeriodic.h" />
+    <ClInclude Include="src\Imm\ImmProjects.h" />
+    <ClInclude Include="src\Imm\ImmRamp.h" />
+    <ClInclude Include="src\Imm\ImmSpring.h" />
+    <ClInclude Include="src\Imm\ImmTexture.h" />
+    <ClInclude Include="src\widget\mother.h" />
+    <ClInclude Include="src\widget\PI.H" />
+    <ClInclude Include="src\widget\pi_core.h" />
+    <ClInclude Include="src\widget\SimpleDataList.h" />
+    <ClInclude Include="src\widget\unicorn.h" />
+    <ClInclude Include="src\widget\u_button.h" />
+    <ClInclude Include="src\widget\U_edit.h" />
+    <ClInclude Include="src\widget\u_scrollbar.h" />
+    <ClInclude Include="src\widget\u_window.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

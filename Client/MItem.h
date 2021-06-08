@@ -223,7 +223,11 @@ class MItem : public MObject, public CAnimationFrame {
 		virtual bool		IsQuickItem() const			{ return false; }
 
 		// 荤侩 啊瓷茄 酒捞袍牢啊?
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		virtual void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0)	{}
+	#else
+		virtual void		UseInventory()				{}
+	#endif
 		virtual void		UseQuickItem()				{}
 		virtual void		UseGear()					{}
 
@@ -477,8 +481,8 @@ class MItem : public MObject, public CAnimationFrame {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		//void	SaveToFile(std::ofstream& file);
-		//void	LoadFromFile(ifstream& file);
+		//void	SaveToFile(class ofstream& file);
+		//void	LoadFromFile(class ifstream& file);
 
 	public :		
 		// NewItem()俊 措茄 functions pointer
@@ -619,7 +623,12 @@ class MPileItem : public MItem {
 class MUsePotionItem : public MPileItem
 {
 public:
-	virtual void	UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		virtual void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		virtual void	UseInventory();
+	#endif
+	
 };
 
 //----------------------------------------------------------------------
@@ -789,7 +798,11 @@ class MWater : public MPileItem {
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		// 荤侩 啊瓷茄 酒捞袍捞促.
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 
 		static MItem*	NewItem()	{ return new MWater; }
 };
@@ -833,7 +846,11 @@ class MMagazine : public MPileItem {
 		bool		IsQuickItem() const			{ return true; }
 
 		// use item
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 		void		UseQuickItem();
 
 		// 促弗 Item俊 眠啊瞪 荐 乐绰啊?
@@ -1238,7 +1255,11 @@ class MItemETC : public MPileItem {
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		// use item
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 
 		static MItem*	NewItem()	{ return new MItemETC; }
 };
@@ -1280,7 +1301,11 @@ class MKey : public MItem {
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_KEY; }
 
 		// use item
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 		void		UseQuickItem();
 		bool		IsQuickItem() const { return true; }
 
@@ -1315,7 +1340,11 @@ class MBombMaterial : public MPileItem {
 
 		ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_BOMB_MATERIAL; }
 
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 
 		static MItem*	NewItem()	{ return new MBombMaterial; }
 };
@@ -1348,6 +1377,13 @@ class MMoney : public MPileItem {
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		static MItem*	NewItem()	{ return new MMoney; }
+
+		//yckou
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 
 };
 
@@ -1394,7 +1430,11 @@ class MMine : public MPileItem {
 		void	UnSetInstalled() 			{ m_bInstalled = false; }
 
 		// use item
-		void	UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 
 		static MItem*	NewItem()			{ return new MMine; }
 
@@ -1524,7 +1564,11 @@ class MSkull : public MPileItem {
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		// use item
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 
 		static MItem*	NewItem()	{ return new MSkull; }
 };
@@ -1564,7 +1608,11 @@ class MVampireETC : public MPileItem {
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		// use item
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 
 		static MItem*	NewItem()	{ return new MVampireETC; }
 };
@@ -1590,7 +1638,11 @@ class MSlayerPortalItem : public MItem {
 		void				SetEnchantLevel(WORD s);
 
 		// use item
-		void				UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 
 		static MItem*	NewItem()	{ return new MSlayerPortalItem; }
 };
@@ -1626,7 +1678,11 @@ class MVampirePortalItem : public MItem {
 		void				SetEnchantLevel(WORD s);
 
 		// use item
-		void				UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 
 		static MItem*	NewItem()	{ return new MVampirePortalItem; }
 
@@ -1646,7 +1702,11 @@ class MEventGiftBoxItem : public MItem {
 
 		ITEM_CLASS	GetItemClass() const			{ return ITEM_CLASS_EVENT_GIFT_BOX; }
 
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 		
 		static MItem*	NewItem()	{ return new MEventGiftBoxItem; }
 };
@@ -1663,7 +1723,11 @@ class MEventStarItem : public MPileItem {
 
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 		
 		static MItem*	NewItem()	{ return new MEventStarItem; }
 };
@@ -1727,7 +1791,11 @@ class MEventTreeItem : public MItem {
 
 		ITEM_CLASS	GetItemClass() const			{ return ITEM_CLASS_EVENT_TREE; }
 
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 		
 		static MItem*	NewItem()	{ return new MEventTreeItem; }
 };
@@ -1745,7 +1813,11 @@ class MEventEtcItem : public MPileItem {
 		TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 		// use item
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 		void		UseQuickItem();
 		bool		IsQuickItem() const { return (GetItemType()>=14&& GetItemType()<=17)?true:false; }
 
@@ -1835,7 +1907,11 @@ public :
 	ITEM_CLASS	GetItemClass() const		{ return ITEM_CLASS_DYE_POTION; }
 
 	// use item
-	void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 //	void		UseQuickItem();
 //	bool		IsQuickItem() const { return true; }
 
@@ -1863,7 +1939,11 @@ public :
 	TYPE_ITEM_NUMBER	GetMaxNumber() const;
 
 	// use item
-	void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 
 	static MItem* NewItem() { return new MMixingItem; }
 };
@@ -2158,7 +2238,11 @@ public :
 	void				SetEnchantLevel(WORD s);
 
 	// use item
-	void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 	
 	bool				IsChargeItem() const				{ return true; }
 };
@@ -2174,7 +2258,11 @@ public :
 	static MItem* NewItem()		{ return new MEffectItem; }
 
 	// use item
-	void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 
 	TYPE_ITEM_NUMBER			GetMaxNumber() const;
 };
@@ -2187,7 +2275,11 @@ public :
 	ITEM_CLASS	GetItemClass() const			{ return ITEM_CLASS_CODE_SHEET; }
 
 	// use item
-	void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 
 	static MItem* NewItem()		{ return new MCodeSheetItem; }
 };
@@ -2198,7 +2290,11 @@ public :
 	~MMoonCardItem() { }
 
 	// use item
-	void					UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 	
 	ITEM_CLASS				GetItemClass() const		{ return ITEM_CLASS_MOON_CARD; }	
 	static MItem*			NewItem()					{ return new MMoonCardItem; }	
@@ -2255,7 +2351,11 @@ public :
 	std::string				GetPetOptionEName();
 	
 	// use item
-	void					UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 	
 	static MItem*			NewItem()					{ return new MPetItem; }
 };
@@ -2270,7 +2370,11 @@ public :
 	TYPE_ITEM_NUMBER		GetMaxNumber() const;
 	
 	// use item
-	void					UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 	
 	static MItem*			NewItem()					{ return new MPetFood; }
 };
@@ -2281,7 +2385,11 @@ public :
 	~MPetEnchantItem() { }
 
 	// use item
-	void					UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 	
 	TYPE_ITEM_NUMBER		GetMaxNumber() const;
 
@@ -2311,7 +2419,11 @@ public :
 
 
 	// use item
-	void					UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 	
 	static MItem*			NewItem()					{ return new MSms_item; }
 };
@@ -2349,7 +2461,11 @@ public :
 	~MTrapItem() { }
 
 	// use item
-	void					UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		void		UseInventory(TYPE_OBJECTID SubInventoryItemID = 0);
+	#else
+		void		UseInventory();
+	#endif
 	
 	ITEM_CLASS				GetItemClass() const		{ return ITEM_CLASS_TRAP_ITEM; }
 	static MItem*			NewItem()					{ return new MTrapItem; }
@@ -2487,6 +2603,8 @@ class MMitten : public MArmorItem {
 		bool	IsDurationAlwaysOkay() const		{ return true; }	// 郴备 眉农 救窍绰 酒捞袍
 };
 
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+
 class MSubInventory : public MItem , public MGridItemManager {
 	public :
 		MSubInventory() {}
@@ -2525,5 +2643,5 @@ class MSubInventory : public MItem , public MGridItemManager {
 		//------------------------------------------------
 		bool			CanReplaceItem(MItem* pItem,BYTE X, BYTE Y, MItem*& pOldItem);
 };
-
+#endif
 #endif

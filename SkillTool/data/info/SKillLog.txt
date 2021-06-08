@@ -1,0 +1,394 @@
+SkillID: 5 EN: Double Impact HN: 더블 임팩트
+SkillID: 6 EN: Triple Slasher HN: 트리플 슬래셔
+SkillID: 7 EN: Rainbow Slasher HN: 레인보우 슬래셔
+SkillID: 8 EN: Thunder Spark HN: 썬더 스파크
+SkillID: 9 EN: Dancing Sword HN: 댄싱 소드
+SkillID: 10 EN: Cross Counter HN: 크로스 카운터
+SkillID: 11 EN: Flash Sliding HN: 플래쉬 슬라이딩
+SkillID: 12 EN: Lightning Hand HN: 라이트닝 핸드
+SkillID: 13 EN: Snake Combo HN: 스네이크 콤보
+SkillID: 14 EN: Sword Wave HN: 소드 웨이브
+SkillID: 15 EN: Empty Skill HN: EmptySkill
+SkillID: 16 EN: Empty Skill HN: EmptySkill
+SkillID: 17 EN: Empty Skill HN: EmptySkill
+SkillID: 18 EN: Single Blow HN: 싱글 블로우
+SkillID: 19 EN: Spiral Slay HN: 스파이럴 슬레이
+SkillID: 20 EN: Triple Break HN: 트리플 브레이크
+SkillID: 21 EN: Wild Smash HN: 와일드 스매쉬
+SkillID: 22 EN: Ghost Blade HN: 고스트 블레이드
+SkillID: 23 EN: Potential Explosion HN: 포텐셜 익스플로젼
+SkillID: 24 EN: Shadow Walk HN: 쉐도우 워크
+SkillID: 25 EN: Charging Power HN: 챠징 파워
+SkillID: 26 EN: Hurricane Combo HN: 허리케인 콤보
+SkillID: 27 EN: Tornado Sever HN: 토네이도 세버
+SkillID: 28 EN: Empty Skill HN: EmptySkill
+SkillID: 29 EN: Empty Skill HN: EmptySkill
+SkillID: 30 EN: Empty Skill HN: EmptySkill
+SkillID: 31 EN: Fast Reload HN: 패스트 리로드
+SkillID: 32 EN: Quick Fire HN: 퀵 파이어
+SkillID: 33 EN: SMG Mastery HN: SMG마스터리
+SkillID: 34 EN: Multi Shot HN: 멀티 샷
+SkillID: 35 EN: Head Shot HN: 헤드 샷
+SkillID: 36 EN: AR Mastery HN: AR마스터리
+SkillID: 37 EN: Piercing HN: 피어싱
+SkillID: 38 EN: Sniping HN: 스나이핑
+SkillID: 39 EN: SG Mastery HN: SG마스터리
+SkillID: 40 EN: Revealer HN: 리빌러
+SkillID: 41 EN: Create Bomb HN: 크리에이트 봄
+SkillID: 42 EN: SR Mastery HN: SR마스터리
+SkillID: 43 EN: Empty Skill HN: EmptySkill
+SkillID: 44 EN: Install Mine HN: 인스톨 마인
+SkillID: 45 EN: Create Mine HN: 크리에이트 마인
+SkillID: 46 EN: Create Holy Water HN: 크리에이트 홀리 워터
+SkillID: 47 EN: Light HN: 라이트
+SkillID: 48 EN: Detect Hidden HN: 디텍트 히든
+SkillID: 49 EN: Aura Ball HN: 오라 볼
+SkillID: 50 EN: Bless HN: 블레스
+SkillID: 51 EN: Continual Light HN: 컨티뉴얼 라이트
+SkillID: 52 EN: Flare HN: 플레어
+SkillID: 53 EN: Purify HN: 퓨리파이
+SkillID: 54 EN: Aura Ring HN: 오라 링
+SkillID: 55 EN: Striking HN: 스트라이킹
+SkillID: 56 EN: Detect Invisibility HN: 디텍트 인비져빌리티
+SkillID: 57 EN: Empty Skill HN: EmptySkill
+SkillID: 58 EN: Aura Shield HN: 오라 쉴드
+SkillID: 59 EN: Empty Skill HN: EmptySkill
+SkillID: 60 EN: Visible HN: 비져블
+SkillID: 61 EN: Empty Skill HN: EmptySkill
+SkillID: 62 EN: Empty Skill HN: EmptySkill
+SkillID: 63 EN: Cure Light Wounds HN: 큐어 라이트 운즈
+SkillID: 64 EN: Cure Poison HN: 큐어 포이즌
+SkillID: 65 EN: Protection From Poison HN: 프로텍션 프롬 포이즌
+SkillID: 66 EN: Cause Light Wounds HN: 커즈 라이트 운즈
+SkillID: 67 EN: Cure Serious Wounds HN: 큐어 시리어스 운즈
+SkillID: 68 EN: Remove Curse HN: 리무브 커스
+SkillID: 69 EN: Protection From Curse HN: 프로텍션 프롬 커스
+SkillID: 70 EN: Cause Serious Wounds HN: 커즈 시리어스 운즈
+SkillID: 71 EN: Cure Critical Wounds HN: 큐어 크리티컬 운즈
+SkillID: 72 EN: Protection From Acid HN: 프로텍션 프롬 애시드
+SkillID: 73 EN: Sacrifice HN: 새크리파이스
+SkillID: 74 EN: Cause Critical Wounds HN: 커즈 크리티컬 운즈
+SkillID: 75 EN: Cure All HN: 큐어 올
+SkillID: 76 EN: Regeneration HN: 리제너레이션
+SkillID: 77 EN: Empty Skill HN: EmptySkill
+SkillID: 78 EN: Empty Skill HN: EmptySkill
+SkillID: 79 EN: Blood Drain HN: 흡혈
+SkillID: 80 EN: Poisonous Hands HN: 포이즈너스 핸즈
+SkillID: 81 EN: Green Poison HN: 그린 포이즌
+SkillID: 82 EN: Yellow Poison HN: 옐로우 포이즌
+SkillID: 83 EN: Darkblue Poison HN: 다크블루 포이즌
+SkillID: 84 EN: Green Stalker HN: 그린 스토커
+SkillID: 85 EN: Acid Touch HN: 애시드 터치
+SkillID: 86 EN: Acid Bolt HN: 애시드 볼트
+SkillID: 87 EN: Acid Ball HN: 애시드 볼
+SkillID: 88 EN: Acid Swamp HN: 애시드 스웜
+SkillID: 89 EN: Paralyze HN: 페럴라이즈
+SkillID: 90 EN: Doom HN: 둠
+SkillID: 91 EN: Hallucination HN: 할루시네이션
+SkillID: 92 EN: Death HN: 데스
+SkillID: 93 EN: Bloody Nail HN: 블러디 네일
+SkillID: 94 EN: Bloody Knife HN: 블러디 나이프
+SkillID: 95 EN: Bloody Ball HN: 블러디 볼
+SkillID: 96 EN: Bloody Wall HN: 블러디 월
+SkillID: 97 EN: Bloody Spear HN: 블러디 스피어
+SkillID: 98 EN: Hide HN: 하이드
+SkillID: 99 EN: Darkness HN: 다크니스
+SkillID: 100 EN: Invisibility HN: 인비져빌리티
+SkillID: 101 EN: Transform To Wolf HN: 트랜스폼 투 울프
+SkillID: 102 EN: Transform To Bat HN: 트랜스폼 투 뱃
+SkillID: 103 EN: Summon Wolf HN: SummonWolf
+SkillID: 104 EN: Summon Casket HN: 서먼 캐스킷
+SkillID: 105 EN: Raising Dead HN: RaisingDead
+SkillID: 106 EN: Summon Servant HN: SummonServant
+SkillID: 111 EN: Eat Corpse HN: 잇 콥스
+SkillID: 112 EN: Howl HN: 호울
+SkillID: 113 EN: Empty Skill HN: EmptySkill
+SkillID: 114 EN: Bloody Mark HN: 블러디 마크
+SkillID: 115 EN: Bloody Tunnel HN: 블러디 터널
+SkillID: 116 EN: Seduction HN: 시덕션
+SkillID: 117 EN: Wind Divider HN: 윈드 디바이더
+SkillID: 118 EN: Earthquake HN: 어스퀘이크
+SkillID: 119 EN: Resurrect HN: 리져렉트
+SkillID: 120 EN: Prayer HN: 프레이어
+SkillID: 121 EN: Meditation HN: 메디테이션
+SkillID: 122 EN: Thunder Bolt HN: 썬더 볼트
+SkillID: 123 EN: Expansion HN: 익스팬션
+SkillID: 124 EN: Empty Skill HN: EmptySkill
+SkillID: 125 EN: Empty Skill HN: EmptySkill
+SkillID: 126 EN: Empty Skill HN: EmptySkill
+SkillID: 127 EN: Invincible HN: Invincible
+SkillID: 128 EN: Berserker HN: 버서커
+SkillID: 129 EN: Moonlight Sever HN: 문라이트 세버
+SkillID: 130 EN: Shadow Dancing HN: 쉐도우 댄싱
+SkillID: 131 EN: Typhoon HN: 타이푼
+SkillID: 132 EN: Empty Skill HN: EmptySkill
+SkillID: 133 EN: Empty Skill HN: EmptySkill
+SkillID: 134 EN: Empty Skill HN: EmptySkill
+SkillID: 135 EN: Empty Skill HN: EmptySkill
+SkillID: 136 EN: Empty Skill HN: EmptySkill
+SkillID: 137 EN: Empty Skill HN: EmptySkill
+SkillID: 138 EN: Activation HN: 액티베이션
+SkillID: 139 EN: Peace HN: 피스
+SkillID: 140 EN: Aura Storm HN: 오라 스톰
+SkillID: 141 EN: Exorcism HN: Exorcism
+SkillID: 142 EN: Sanctuary HN: 생츄어리
+SkillID: 143 EN: Reflection HN: 리플렉션
+SkillID: 144 EN: Armageddon HN: Armageddon
+SkillID: 145 EN: Poison Strike HN: 포이즌 스트라이크
+SkillID: 146 EN: Poison Storm HN: 포이즌 스톰
+SkillID: 147 EN: Acid Strike HN: 애시드 스트라이크
+SkillID: 148 EN: Acid Storm HN: 애시드 스톰
+SkillID: 149 EN: Bloody Strike HN: 블러디 스트라이크
+SkillID: 150 EN: Bloody Storm HN: 블러디 스톰
+SkillID: 154 EN: Mephistopheles HN: 메피스토펠레스
+SkillID: 156 EN: Transfusion HN: 트렌스퓨션
+SkillID: 157 EN: Dark Revenge HN: 다크 리벤지
+SkillID: 158 EN: Bloody Wave HN: 블러디 웨이브
+SkillID: 159 EN: Throw Bomb HN: 드로우 봄
+SkillID: 160 EN: Double Shot HN: 더블 샷
+SkillID: 161 EN: Triple Shot HN: 트리플 샷
+SkillID: 164 EN: Critical Ground HN: CriticalGround
+SkillID: 165 EN: Vigor Drop HN: 비거 드롭
+SkillID: 166 EN: Sword Mastery HN: 소드 마스터리
+SkillID: 167 EN: Shield Mastery HN: 쉴드 마스터리
+SkillID: 168 EN: Thunder Storm HN: 썬더 스톰
+SkillID: 169 EN: Concentration HN: 컨센트레이션
+SkillID: 170 EN: Evasion HN: 이베이션
+SkillID: 171 EN: Holy Blast HN: HolyBlast
+SkillID: 172 EN: Hymn HN: Hymn
+SkillID: 173 EN: Mental Sword HN: 멘탈 소드
+SkillID: 174 EN: Observing Eye HN: 옵져빙 아이
+SkillID: 177 EN: Open Casket HN: 오픈 캐스킷
+SkillID: 178 EN: Summon Monsters HN: SummonMonsters
+SkillID: 179 EN: Ground Attack HN: GroundAttack
+SkillID: 180 EN: Meteor Strike HN: 메테오 스트라이크
+SkillID: 181 EN: Duplicate Self HN: DuplicateSelf
+SkillID: 182 EN: Bloody Master Wave HN: BloodyMasterWave
+SkillID: 183 EN: Bloody Warp HN: BloodyWarp
+SkillID: 184 EN: Bloody Snake HN: BloodySnake
+SkillID: 185 EN: Soul Chain HN: 소울 체인
+SkillID: 186 EN: Liveness HN: 라이브니스
+SkillID: 190 EN: Sharp Shield HN: 샤프 쉴드
+SkillID: 191 EN: Wide Lightning HN: 와이드 라이트닝
+SkillID: 192 EN: Air Shield HN: 에어 쉴드
+SkillID: 193 EN: Power Of Land HN: 파워 오브 랜드
+SkillID: 194 EN: Bullet Of Light HN: 불릿 오브 라이트
+SkillID: 195 EN: Gun Shot Guidance HN: 건샷 가이던스
+SkillID: 196 EN: Rebuke HN: 리뷰크
+SkillID: 197 EN: Spirit Guard HN: 스피릿 가드
+SkillID: 198 EN: Turn Undead HN: 턴 언데드
+SkillID: 199 EN: Hands Of Wisdom HN: 핸즈 오브 위즈덤
+SkillID: 200 EN: Light Ball HN: 라이트 볼
+SkillID: 201 EN: Holy Arrow HN: 홀리 애로우
+SkillID: 202 EN: Bloody Breaker HN: 블러디 브레이커
+SkillID: 203 EN: Rapid Gliding HN: 래피드 글라이딩
+SkillID: 204 EN: Magic Elusion HN: 매직 엘루젼
+SkillID: 205 EN: Poison Mesh HN: 포이즌 메시
+SkillID: 206 EN: Illusion Of Avenge HN: 일루젼 오브 어벤지
+SkillID: 207 EN: Will Of Life HN: 윌 오브 라이프
+SkillID: 208 EN: Denial Magic HN: 디나이얼 매직
+SkillID: 209 EN: Requital HN: 리퀘이틀
+SkillID: 210 EN: Concealment HN: 컨실먼트
+SkillID: 211 EN: Sword Ray HN: 소드 레이
+SkillID: 212 EN: Multi Amputate HN: 멀티 엠퓨테이트
+SkillID: 213 EN: Nail Mastery HN: 네일 마스터리
+SkillID: 214 EN: Hit Convert HN: 히트 컨버트
+SkillID: 215 EN: Wild Typhoon HN: 와일드 타이푼
+SkillID: 216 EN: Ultimate Blow HN: 얼티메이트 블로우
+SkillID: 217 EN: Illendue HN: 일렌듀
+SkillID: 218 EN: Lightness HN: 라이트니스
+SkillID: 219 EN: Flourish HN: 플러리쉬
+SkillID: 220 EN: Evade HN: 이베이드
+SkillID: 221 EN: Sharp Round HN: 샤프 라운드
+SkillID: 222 EN: Hide Sight HN: 하이드 사이트
+SkillID: 223 EN: Back Stab HN: 백스탭
+SkillID: 224 EN: Blunting HN: 블런팅
+SkillID: 225 EN: Gamma chop HN: 감마 촙
+SkillID: 226 EN: Cross Guard HN: 크로스 가드
+SkillID: 227 EN: Fire of Soul Stone HN: 파이어 오브 소울스톤
+SkillID: 228 EN: Ice of Soul Stone HN: 아이스 오브 소울스톤
+SkillID: 229 EN: Sand of Soul Stone HN: 샌드 오브 소울스톤
+SkillID: 230 EN: Block Head HN: 블럭헤드
+SkillID: 231 EN: Kasa's Arrow HN: 카사스 애로우
+SkillID: 232 EN: Hands of Fire HN: 핸즈 오브 파이어
+SkillID: 233 EN: Prominence HN: 프로미넌스
+SkillID: 234 EN: Ring of Flare HN: 링 오브 플레어
+SkillID: 235 EN: Blaze Bolt HN: 블레이즈 볼트
+SkillID: 236 EN: Ice Field HN: 아이스 필드
+SkillID: 237 EN: Water Barrier HN: 워터 배리어
+SkillID: 238 EN: Hands of Nizie HN: 핸즈 오브 닉시
+SkillID: 239 EN: Nymph Recovery HN: 님프 리커버리
+SkillID: 240 EN: Liberty HN: 리버티
+SkillID: 241 EN: Tendril HN: 텐드릴
+SkillID: 242 EN: Gnome's Whisper HN: 놈즈 위스퍼
+SkillID: 243 EN: Stone Auger HN: 스톤 오거
+SkillID: 244 EN: Refusal Ether HN: 리퓨셜 에테르
+SkillID: 245 EN: Earth's Teeth HN: 어스즈 티쓰
+SkillID: 246 EN: Absorb Soul HN: 흡영
+SkillID: 247 EN: Summon Sylph HN: 서먼 실프
+SkillID: 248 EN: Drifting Soul HN: 드리프팅 소울
+SkillID: 249 EN: Critical Magic HN: 크리티컬 매직
+SkillID: 250 EN: Emission Water HN: 에미션 워터
+SkillID: 251 EN: Beat Head HN: 비트 헤드
+SkillID: 252 EN: Divine Spirits HN: 디바인 스피릿즈
+SkillID: 253 EN: Blitz Sliding HN: 블리츠 슬라이딩
+SkillID: 254 EN: Blaze Walk HN: 블레이즈 워크
+SkillID: 255 EN: Jabbing Vein HN: 재빙 베인
+SkillID: 256 EN: Great Heal HN: 그레이트 힐
+SkillID: 257 EN: Divine Guidance HN: 디바인 가디언스
+SkillID: 258 EN: Bloody Zenith HN: 블러디 제니스
+SkillID: 259 EN: Rediance HN: 레디언스
+SkillID: 260 EN: Lar Slash HN: 라 슬래시
+SkillID: 261 EN: Heart Catalyst HN: 하트 카탈리스트
+SkillID: 262 EN: Arms Mastery 1 HN: 암스 마스터리 1
+SkillID: 263 EN: Vivid Magazine HN: 비비드 매거진
+SkillID: 264 EN: Trident HN: 트라이던트
+SkillID: 265 EN: Arms Mastery 2 HN: 암스 마스터리 2
+SkillID: 266 EN: Mole Shot HN: 모울 샷
+SkillID: 267 EN: Eternity HN: 이터니티
+SkillID: 268 EN: Protection From Blood HN: 프로텍션 프롬 블러드
+SkillID: 269 EN: Install Trap HN: 인스톨 트랩
+SkillID: 270 EN: Create Holy Potion HN: 크리에이트 홀리포션
+SkillID: 271 EN: Mercy Ground HN: 머시 그라운드
+SkillID: 272 EN: Holy Armor HN: 홀리 아머
+SkillID: 273 EN: Transform To WerWolf HN: 트랜스폼 투 워울프
+SkillID: 274 EN: Stone Skin HN: 스톤 스킨
+SkillID: 275 EN: Acid Eruption HN: 애시드 이럽션
+SkillID: 276 EN: Talon Of Crow HN: 탈론 오브 크로우
+SkillID: 277 EN: Gray Darkness HN: 그레이 다크니스
+SkillID: 278 EN: Bite Of Death HN: 바이트 오브 데쓰
+SkillID: 280 EN: Teleport HN: 텔레포트
+SkillID: 281 EN: Fire Piercing HN: 파이어 피어싱
+SkillID: 282 EN: Summon Fire Elemental HN: 서먼 파이어 엘리멘탈
+SkillID: 283 EN: Magnum Spear HN: 매그넘 스피어
+SkillID: 284 EN: Hellfire HN: 헬파이어
+SkillID: 285 EN: Ice Lance HN: 아이스 랜스
+SkillID: 286 EN: Frozen Armor HN: 프로즌 아머
+SkillID: 287 EN: Summon Water Elemental HN: 서먼 워터 엘리멘탈
+SkillID: 288 EN: Explosion Water HN: 익스플로젼 워터
+SkillID: 289 EN: Soul Rebirth HN: 소울 리버스
+SkillID: 290 EN: Soul Rebirth Mastery HN: 소울 리버스 마스터리
+SkillID: 291 EN: Reactive Armor HN: 리액티브 아머
+SkillID: 292 EN: Ground Bless HN: 그라운드 블레스
+SkillID: 293 EN: Summon Ground Elemental HN: 서먼 그라운드 엘리멘탈
+SkillID: 294 EN: Meteor Storm HN: 메테오 스톰
+SkillID: 295 EN: Sharp Chakram HN: 샤프 차크람
+SkillID: 296 EN: Shift Break HN: 시프트 브레이크
+SkillID: 297 EN: Water Shield HN: 워터 실드
+SkillID: 298 EN: Destruction Spear HN: 디스트럭션 스피어
+SkillID: 299 EN: Bless Fire HN: 블레스 파이어
+SkillID: 300 EN: Fatal Snick HN: 페이틀 스니크
+SkillID: 301 EN: Sand Cross HN: 샌드 크로스
+SkillID: 302 EN: Ducking Wallop HN: 더킹 월러프
+SkillID: 303 EN: Charging Attack HN: 차징 어택
+SkillID: 304 EN: Distance Blitz HN: 디스턴스 블리츠
+SkillID: 305 EN: Fabulous Soul HN: 패뷸러스 소울
+SkillID: 306 EN: Will of Iron HN: 윌 오브 아이언
+SkillID: 307 EN: Wide Ice Field HN: WideIceField
+SkillID: 308 EN: Glacier 1 HN: (null)
+SkillID: 309 EN: Glacier 2 HN: (null)
+SkillID: 310 EN: Ice Auger HN: (null)
+SkillID: 311 EN: Ice Hail HN: (null)
+SkillID: 312 EN: Wide Ice Hail HN: (null)
+SkillID: 313 EN: Ice Wave HN: (null)
+SkillID: 314 EN: Land Mine Explosion HN: LandMineExplosion
+SkillID: 315 EN: Claymore Explosion HN: ClaymoreExplosion
+SkillID: 316 EN: Pleasure Explosion HN: PleasureExplosion
+SkillID: 317 EN: Deleo Efficio HN: 딜레오 에피시오
+SkillID: 318 EN: Reputo Factum HN: 리푸토 팩텀
+SkillID: 319 EN: Sword Of Thor HN: 소드 오브 토르
+SkillID: 320 EN: Burning Sol HN: 버닝 솔
+SkillID: 321 EN: Burning Sol Launch HN: 버닝 솔 발사
+SkillID: 322 EN: Install Turret HN: 인스톨 터렛
+SkillID: 323 EN: Turret Fire HN: 터렛 파이어
+SkillID: 324 EN: Sweep Vice HN: 스윕 바이스
+SkillID: 325 EN: Sweep Vice 2 HN: 스윕 바이스 2
+SkillID: 326 EN: Sweep Vice 3 HN: 스윕 바이스 3
+SkillID: 327 EN: Whitsuntide HN: 위트선타이드
+SkillID: 328 EN: Violent Phantom HN: 바이어런트 팬텀
+SkillID: 329 EN: Summon Gore Gland HN: 서먼 고어 그랜드
+SkillID: 330 EN: Gore Gland Fire HN: 고어 그랜드 파이어
+SkillID: 331 EN: Destruction Spear Mastery HN: 디스트럭션 스피어 마스터리
+SkillID: 332 EN: Fatal Snick Mastery HN: 페이틀 스니크 마스터리
+SkillID: 333 EN: Magnum Spear Mastery HN: 매그넘 스피어 마스터리
+SkillID: 334 EN: Ice Lance Mastery HN: 아이스 랜스 마스터리
+SkillID: 335 EN: Reactive Armor Mastery HN: 리액티브 아머 마스터리
+SkillID: 336 EN: Throwing Axe HN: 쓰로잉 액스
+SkillID: 337 EN: Chopping Firewood HN: 장작 패기
+SkillID: 338 EN: Chain Throwing Axe HN: 트리플 쓰로잉 액스
+SkillID: 339 EN: Multi Throwing Axe HN: 멀티 쓰로잉 액스
+SkillID: 340 EN: Playing With Fire HN: 불장난
+SkillID: 341 EN: Infinity Thunderbolt HN: 인피너티 썬더볼트
+SkillID: 342 EN: Spit Stream HN: 스핏 스트림
+SkillID: 343 EN: Plasma Rocket Launcher HN: 플라즈마 로켓 런쳐
+SkillID: 344 EN: Intimate Grail HN: 인터맷 그레일
+SkillID: 345 EN: Bombing Star HN: 버밍 스타
+SkillID: 346 EN: Set Afire HN: 셋 어 파이어
+SkillID: 347 EN: Noose Of Wraith HN: 누스 오브 레이스
+SkillID: 348 EN: Sharp Hail HN: 샤프 헤일
+SkillID: 349 EN: Summon Miga HN: 써먼 미가
+SkillID: 350 EN: Summon Miga Attack HN: 써먼 미가 어택
+SkillID: 351 EN: Ice Horizon HN: 아이스 호라이즌
+SkillID: 352 EN: Fury Of Gnome HN: 퓨리 오브 노옴
+SkillID: 353 EN: Cannonade HN: 박격포 발사
+SkillID: 354 EN: Self Destruction HN: 자폭
+SkillID: 355 EN: AR Attack HN: AR 공격
+SkillID: 356 EN: SMG Attack HN: SMG 공격
+SkillID: 357 EN: Grenade Attack HN: Grenade 공격
+SkillID: 358 EN: Dragon Tornado HN: 드래곤 토네이도
+SkillID: 359 EN: Bike Crash HN: 바이크 크래쉬
+SkillID: 360 EN: Harpoon Bomb HN: 하푼 봄
+SkillID: 361 EN: Passing Heal HN: 패싱 힐
+SkillID: 362 EN: Rotten Apple HN: 로튼 애플
+SkillID: 363 EN: Wild Wolf HN: 와일드 울프
+SkillID: 364 EN: Aberration HN: 애버레이션
+SkillID: 365 EN: Halo HN: 헤일로
+SkillID: 366 EN: Destinies HN: 데스티니즈
+SkillID: 367 EN: Fierce Flame HN: 피어스 프레임
+SkillID: 368 EN: Shadow of Storm HN: 쉐도우 오브 스톰
+SkillID: 370 EN: Grenade Attack HN: Grenade 공격
+SkillID: 371 EN: Grenade Attack HN: Grenade 공격
+SkillID: 372 EN: Grenade Attack HN: Grenade 공격
+SkillID: 373 EN: Grenade Attack HN: Grenade 공격
+SkillID: 374 EN: Unterfeldwebel Fire HN: 운터펠트베벨 공격
+SkillID: 375 EN: Feldwebel Fire HN: 펠트베벨 공격
+SkillID: 376 EN: Feeble Virus HN: 피블 바이러스
+SkillID: 377 EN: Sword Combo HN: 소드 콤보
+SkillID: 378 EN: Blade Combo HN: 블레이드 콤보
+SkillID: 379 EN: Vampire Combo HN: 뱀파이어 콤보
+SkillID: 380 EN: Ousters Combo HN: 아우스터즈 콤보
+SkillID: 381 EN: Holy Sword HN: 홀리 소드
+SkillID: 382 EN: Holy Blade HN: 홀리 블레이드
+SkillID: 383 EN: Burst Gun HN: 버스트 건
+SkillID: 384 EN: Holy Mace HN: 홀리 메이스
+SkillID: 385 EN: Holy Cross HN: 홀리 크로스
+SkillID: 386 EN: Dark Force HN: 다크 포스
+SkillID: 387 EN: Natural Force HN: 네츄럴 포스
+SkillID: 388 EN: Fire Force HN: 파이어 포스
+SkillID: 389 EN: Water Force HN: 워터 포스
+SkillID: 390 EN: Earth Force HN: 어스 포스
+SkillID: 391 EN: Lose Sight HN: 루즈 사이트
+SkillID: 392 EN: Wide Blood Drain HN: 와이드 블러드 드레인
+SkillID: 393 EN: Natural Peace HN: 네츄럴 피스
+SkillID: 394 EN: Party Aura HN: 파티 오라
+SkillID: 395 EN: Multi Doom HN: 멀티 둠
+SkillID: 396 EN: Multi Paralyze HN: 멀티 페럴라이즈
+SkillID: 397 EN: Brandish HN: 휘두르기
+SkillID: 398 EN: Parasite HN: 패러사이트
+SkillID: 399 EN: Sound Wave HN: 음파공격
+SkillID: 400 EN: Fire Wave HN: 파이어 웨이브
+SkillID: 401 EN: Target Summon Monster HN: 타겟 서먼 몬스터
+SkillID: 402 EN: Bloody Burst HN: 공격 폭주
+SkillID: 403 EN: Trace Creature HN: 트레이스 크리쳐
+SkillID: 404 EN: Shine Sword HN: 샤인 스워드
+SkillID: 405 EN: Bomb Crash Walk HN: 범 크래쉬 워크
+SkillID: 406 EN: Satellite Bomb HN: 세터라이트 범
+SkillID: 407 EN: Illusion Inversion HN: 일루전 인버스
+SkillID: 408 EN: Heaven Ground HN: 헤븐 그라운드
+SkillID: 409 EN: Bloody Scarify HN: 블러디 스케러파이
+SkillID: 415 EN: Bloods Symposion HN: 피의 향연
+SkillID: 414 EN: Blood Curse HN: 피의 저주
+SkillID: 411 EN: Dummy Drake HN: 더미 드레이크
+SkillID: 412 EN: Hydro Convergence HN: 하이드로 컨버전스
+SkillID: 413 EN: Summon Clay HN: 서먼 클레이
+SkillID: 410 EN: Heter Chakram HN: 헤테르 차크람

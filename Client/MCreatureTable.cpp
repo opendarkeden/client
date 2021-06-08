@@ -65,7 +65,7 @@ ITEM_WEARINFO::operator = (const ITEM_WEARINFO& info)
 // Save To File
 //----------------------------------------------------------------------
 void		
-ITEM_WEARINFO::SaveToFile(ofstream& file)
+ITEM_WEARINFO::SaveToFile(class ofstream& file)
 {
 	file.write((const char*)&skinColor, 2);
 	file.write((const char*)&hairColor, 2);
@@ -89,7 +89,7 @@ ITEM_WEARINFO::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-ITEM_WEARINFO::LoadFromFile(ifstream& file)
+ITEM_WEARINFO::LoadFromFile(class ifstream& file)
 {
 	file.read((char*)&skinColor, 2);
 	file.read((char*)&hairColor, 2);
@@ -247,7 +247,7 @@ CREATURETABLE_INFO::GetActionMax() const
 // Save To File
 //----------------------------------------------------------------------
 void			
-CREATURETABLE_INFO::SaveToFile(ofstream& file)
+CREATURETABLE_INFO::SaveToFile(class ofstream& file)
 {
 	Name.SaveToFile( file );
 
@@ -285,7 +285,7 @@ CREATURETABLE_INFO::SaveToFile(ofstream& file)
 	}
 
 	// 각각의 CountID를 저장한다.
-	for (int i=0; i<max; i++)
+	for (i=0; i<max; i++)
 	{
 		file.write((const char*)&m_pActionCount[i], 4);
 	}
@@ -307,7 +307,7 @@ CREATURETABLE_INFO::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void			
-CREATURETABLE_INFO::LoadFromFile(ifstream& file)
+CREATURETABLE_INFO::LoadFromFile(class ifstream& file)
 {
 	Name.LoadFromFile( file );
 
@@ -316,10 +316,24 @@ CREATURETABLE_INFO::LoadFromFile(ifstream& file)
 #ifndef __INIT_INFO_
 	SpriteTypes.Init(stcount);
 #endif
+	//add by viva
 	for(int st = 0; st < stcount; st++) 
 	{	
 		file.read((char*)&SpriteTypes[st], 4);
+/*		if(Name == "NewVampireMale180")
+			SpriteTypes[st] = 0xFC;
+		else if(Name == "NewVampireFeMale180")
+			SpriteTypes[st] = 0xFD;
+		else if(Name == "NewVampireMale195")
+			SpriteTypes[st] = 0xFC;
+		else if(Name == "NewVampireFeMale195")
+			SpriteTypes[st] = 0xFD;
+		else if(Name == "NewVampireMale215")
+			SpriteTypes[st] = 0xFC;
+		else if(Name == "NewVampireFeMale215")
+			SpriteTypes[st] = 0xFD;			*/
 	}
+	
 
 	file.read((char*)&bMale, 1);
 
@@ -331,6 +345,10 @@ CREATURETABLE_INFO::LoadFromFile(ifstream& file)
 	file.read((char*)&MoveRatio, 1);
 	file.read((char*)&MoveTimesMotor, 1);
 	file.read((char*)&Height, 4);
+	// add by Coffee 2006.11.3  劤경굶灌列鑒앴
+	//DWORD dwLaJi=0;
+	//file.read((char*)&dwLaJi,4);
+	// end 
 	file.read((char*)&DeadHeight, 4);
 	file.read((char*)&DeadActionInfo, SIZE_ACTIONINFO);
 	file.read((char*)&ColorSet, 4);
@@ -349,11 +367,18 @@ CREATURETABLE_INFO::LoadFromFile(ifstream& file)
 	}
 
 	// 각각의 SoundID를 load한다.
-	for (int i=0; i<max; i++)
+	for (i=0; i<max; i++)
 	{
 		file.read((char*)&m_pActionCount[i], 4);
 	}
-
+	//add by viva
+	bool isread=true;
+	if(m_CreatureTribe==4||m_CreatureTribe==5)
+	{
+		char temp[24];
+//		file.read(temp,24);
+		isread = false;
+	}
 	//---------------------------------------------------------------
 	// 슬레이어 NPC 복장 정보
 	//---------------------------------------------------------------
@@ -367,7 +392,7 @@ CREATURETABLE_INFO::LoadFromFile(ifstream& file)
 	
 	file.read((char*)&bExistItemWearInfo, 1);
 
-	if (bExistItemWearInfo)
+	if (bExistItemWearInfo&&isread/*add by viva*/)
 	{
 		pItemWearInfo = new ITEM_WEARINFO;
 		pItemWearInfo->LoadFromFile( file );
@@ -411,7 +436,7 @@ CREATURETABLE_INFO::operator = (const CREATURETABLE_INFO& creatureInfo)
 	}
 
 	// 각각의 SoundID를 load한다.
-	for (int i=0; i<max; i++)
+	for (i=0; i<max; i++)
 	{
 		m_pActionCount[i] = creatureInfo.m_pActionCount[i];
 	}
@@ -530,7 +555,7 @@ CreatureSpriteTypeMapper::GetRandomCreatureType(TYPE_SPRITEID spriteID) const
 // Save To File
 //----------------------------------------------------------------------
 void				
-CreatureSpriteTypeMapper::SaveToFile(ofstream& file)
+CreatureSpriteTypeMapper::SaveToFile(class ofstream& file)
 {
 	int numSpriteTypes = m_CreatureSpriteTypes.capacity();
 
@@ -564,7 +589,7 @@ CreatureSpriteTypeMapper::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void				
-CreatureSpriteTypeMapper::LoadFromFile(ifstream& file)
+CreatureSpriteTypeMapper::LoadFromFile(class ifstream& file)
 {
 	int numSpriteTypes;
 	

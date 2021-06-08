@@ -59,8 +59,10 @@ C_GLOBAL_RESOURCE::~C_GLOBAL_RESOURCE()
 void C_GLOBAL_RESOURCE::LoadAssemble()
 {
 	FreeAssemble();
-
-	m_pC_scroll_bar_spk = new C_SPRITE_PACK(SPK_SCROLL_BAR);
+	if(g_MyFull)
+		m_pC_scroll_bar_spk = new C_SPRITE_PACK(SPK_SCROLL_BAR_1024);
+	else
+		m_pC_scroll_bar_spk = new C_SPRITE_PACK(SPK_SCROLL_BAR);
 	m_pC_box_spk = new C_SPRITE_PACK(SPK_BOX);
 
 	switch(g_eRaceInterface)

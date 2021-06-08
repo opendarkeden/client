@@ -27,8 +27,8 @@
 #include <Windows.h>
 #include <map>
 #include <string>
-std::ofstream;
-ifstream;
+class ofstream;
+class ifstream;
 
 /*
 class CharacterConfig {
@@ -63,8 +63,8 @@ class PlayerConfig {
 		//--------------------------------------------------------
 		// File I/O
 		//--------------------------------------------------------
-		void		SaveToFile(std::ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(class ofstream& file);
+		void		LoadFromFile(class ifstream& file);
 
 	protected :
 		std::string	m_PlayerID;
@@ -99,8 +99,8 @@ class PlayerConfigTable : public std::map<std::string, PlayerConfig*> {
 		//--------------------------------------------------------
 		// File I/O
 		//--------------------------------------------------------
-		void		SaveToFile(std::ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(class ofstream& file);
+		void		LoadFromFile(class ifstream& file);
 
 };
 

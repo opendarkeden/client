@@ -1,6 +1,6 @@
 #include "Client_PCH.h"
 #define MOTORCYCLE_LIGHT		2
-
+extern RECT g_GameRect;
 //----------------------------------------------------------------------
 //
 // Define Function¤¤
@@ -356,7 +356,7 @@
 				m_pSurface->HLine(left-1, rect.top-1, width, color);	\
 			}															\
 																		\
-			if (rect.bottom < CLIPSURFACE_HEIGHT)						\
+			if (rect.bottom < g_GameRect.bottom)						\
 			{															\
 				m_pSurface->HLine(left-1, rect.bottom, CHAT_BOX_TAIL_X, color);		\
 				m_pSurface->HLine(left+CHAT_BOX_TAIL_X-1+6, rect.bottom, width-CHAT_BOX_TAIL_X-6, color);	\
@@ -367,7 +367,7 @@
 				m_pSurface->VLine(rect.left-1, top-1, height, color);		\
 			}																\
 																			\
-			if (rect.right < CLIPSURFACE_WIDTH)								\
+			if (rect.right < g_GameRect.right)								\
 			{																\
 				m_pSurface->VLine(rect.right, top-1, height, color);		\
 			}																\
@@ -405,8 +405,8 @@
 			};														\
 																	\
 			if (x>=0 && y+1>=0										\
-					&& x+5<CLIPSURFACE_WIDTH						\
-					&& y+8<CLIPSURFACE_HEIGHT)						\
+					&& x+5<g_GameRect.right						\
+					&& y+8<g_GameRect.bottom)						\
 			{														\
 				for (int i=0; i<ptNum; i++)							\
 				{													\
@@ -421,8 +421,8 @@
 					int y = pt[i].y;									\
 																		\
 					if (x>=0 && y>=0									\
-						&& x<CLIPSURFACE_WIDTH							\
-						&& y<CLIPSURFACE_HEIGHT)						\
+						&& x<g_GameRect.right							\
+						&& y<g_GameRect.bottom)						\
 					{													\
 						*(lpSurface + pitch_2*y + x) = color;			\
 					}													\

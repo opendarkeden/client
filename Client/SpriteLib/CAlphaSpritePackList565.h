@@ -20,7 +20,7 @@ class CAlphaSpritePackList565 : public CAlphaSpritePackList {
 		//---------------------------------------------------
 		// file I/O		
 		//---------------------------------------------------
-		void		LoadFromFile(ifstream& file);
+		void		LoadFromFile(class ifstream& file);
 };
 
 #endif

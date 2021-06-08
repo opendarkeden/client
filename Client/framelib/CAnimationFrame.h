@@ -24,6 +24,8 @@
 
 #include <Windows.h>
 #include "DrawTypeDef.h"
+class ofstream;
+class ifstream;
 
 
 class CAnimationFrame {
@@ -45,8 +47,8 @@ class CAnimationFrame {
 		//--------------------------------------------------------
 		// file I/O
 		//--------------------------------------------------------
-		void	SaveToFile(ofstream& file);
-		void	LoadFromFile(ifstream& file);
+		void	SaveToFile(class ofstream& file);
+		void	LoadFromFile(class ifstream& file);
 
 		//-------------------------------------------------------
 		// 출력 방식

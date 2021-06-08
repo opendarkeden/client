@@ -53,8 +53,8 @@ class CAlphaSpritePackList {
 		//---------------------------------------------------
 		// file I/O
 		//---------------------------------------------------
-		bool				SaveToFile(ofstream& spkFile, ofstream& indexFile);
-		virtual void		LoadFromFile(ifstream& file) = 0;
+		bool				SaveToFile(class ofstream& spkFile, class ofstream& indexFile);
+		virtual void		LoadFromFile(class ifstream& file) = 0;
 
 	protected :		
 		ALPHASPRITE_LIST		m_listSprite;		// CAlphaSprite들을 저장해둔다.

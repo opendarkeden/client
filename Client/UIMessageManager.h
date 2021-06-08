@@ -149,6 +149,23 @@ class UIMessageManager {
 		static void Execute_UI_SELECT_READY_TEAM_LIST(int left, int right, void *void_ptr);		// void_ptr = TEAM_NAME
 		static void Execute_UI_SELECT_REGIST_TEAM_LIST(int left, int right, void *void_ptr);		// void_ptr = TEAM_NAME
 
+		//add by viva
+		static void Execute_UI_CLOSE_FRIEND_CHATTING_INFO(int left, int right, void* void_ptr);
+		static void Execute_UI_OPEN_FRIEND_CHATTING_INFO(int left, int right, void* void_ptr);
+		////friend message
+		static void Execute_UI_FRIEND_CHATTING_SEND_MESSAGE(int left, int right, void* void_ptr);
+		static void Execute_UI_FRIEND_CHATTING_UPDATE(int left, int right, void* void_ptr);
+		static void Execute_UI_FRIEND_CHATTING_ADD_FRIEND(int left, int right, void* void_ptr);
+		/////ask_friend_request
+		static void Execute_UI_FRIEND_REQUEST_ACCEPT(int left, int right, void* void_ptr);
+		//////ask_friend_ask_close
+		static void	Execute_UI_FRIEND_ASK_CLOSE(int left, int right, void* void_ptr);
+		///////ask_friend_delete
+		static void Execute_UI_FRIEND_DELETE_ASK(int left, int right, void* void_ptr);
+		static void	Execute_UI_FRIEND_DELETE_ACCEPT(int left, int right, void* void_ptr);
+
+		//end
+
 		static void Execute_UI_JOIN_READY_TEAM(int left, int right, void *void_ptr);				// void_ptr = TEAM_NAME
 		static void Execute_UI_JOIN_REGIST_TEAM(int left, int right, void *void_ptr);			// void_ptr = TEAM_NAME
 
@@ -315,17 +332,16 @@ class UIMessageManager {
 
 		static void	Execute_UI_REQUEST_EVENT_ITEM(int left, int right, void* void_ptr);
 
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+
 		static void	Execute_UI_CLOSE_INVENTORY_SUB(int left, int right, void* void_ptr);
 		static void	Execute_UI_ITEM_DROP_TO_INVENTORY_SUB(int left, int right, void* void_ptr);
 		static void	Execute_UI_ITEM_PICKUP_FROM_INVENTORY_SUB(int left, int right, void* void_ptr);
-
 		static void	Execute_UI_ITEM_USE_SUBINVENTORY(int left, int right, void* void_ptr);
-		static void	Execute_UI_WEDDING_CONTRIBUTION(int left, int right, void* void_ptr);
+	#endif
 		
-		static void Execute_UI_NETMARBLE_AGREEMENT( int left, int right, void* void_ptr );
-		static void Execute_UI_BLOOD_BURST( int left, int right, void* void_ptr );	
-		static void Execute_UI_CLIENT_REMOVE_EFFECT_STATUS( int left, int right, void* void_ptr );	
-		static void Execute_UI_MARKET_ACCOUNT( int left, int right, void* void_ptr );	
+
+		
 		
 
 		

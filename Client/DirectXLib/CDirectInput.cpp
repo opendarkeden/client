@@ -1,5 +1,4 @@
 #include <windows.h>
-#define DIRECTINPUT_VERSION 0x0700
 #include "CDirectInput.h"
 
 #define MSB		0x80

@@ -261,20 +261,7 @@ class MCreature : public MObject, public MStatus {
 		void	SetDirection(BYTE d)		{ m_Direction = d; }
 		void	SetCurrentDirection(BYTE d)		{ m_CurrentDirection = d; }
 		void	SetDirectionToPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);		
-		
-		// Sjheon 2005.07.13 Combo Skill  Add
-		void	SetCombo(int ComboCnt)				{	m_ComboCnt = 	ComboCnt ;	}
-		void	SetCurrentCombo(int CurrentCombo)	{	m_CurrentCombo = CurrentCombo ; }
-		void	UseSkill_Effect() ; 
-		// Sjheon 2005.07.13 Combo Skill  End 
 		virtual void	SetAction(BYTE action);
-					
-		void	SetActionCountMax(BYTE	ActionCountMax)
-		{
-			m_ActionCountMax = ActionCountMax ; 
-		}
-	
-
 		//void	SetFrame(BYTE f)			{ m_ActionCount = f; }
 		//void	SetZ(short z)				{ m_Z = z; }	
 		
@@ -312,13 +299,6 @@ class MCreature : public MObject, public MStatus {
 		BYTE		GetActionCountMax() const;//{ return m_ActionCountMax; }
 		BYTE		GetMoveCount() const		{ return m_MoveCount; }
 		BYTE		GetMoveCountMax() const		{ return m_MoveCountMax; }
-
-
-		// Sjheon 2005.07.13 Combo Skill  Add
-		int			GetCombo()			{ return m_ComboCnt; }
-		int			GetCurrentCombo()	{ return m_CurrentCombo; }
-		// Sjheon 2005.07.13 Combo Skill  End
-
 		BYTE		GetFrame() const			
 		{ 
 			// 특별한 action이 없이 움직이고 있는 경우
@@ -770,7 +750,6 @@ class MCreature : public MObject, public MStatus {
 		BYTE			GetActionGrade() { return m_GradeActionInfo; }
 		
 		virtual	void	SetTraceID( TYPE_OBJECTID id );
-		TYPE_OBJECTID	GetTraceID() const				{ return m_TraceID; }
 
 		void			SetActionDelay(short time)			{ m_DelayLastAction = time; }
 		short			GetActionDelay()		const		{ return m_DelayLastAction; }
@@ -829,6 +808,10 @@ class MCreature : public MObject, public MStatus {
 		BOOL					m_bExistBody;
 		DWORD					m_TraceTimer;				// 따라가기 제한시간
 
+		//add by viva
+		BYTE					m_MoveCount;		// 이동한 회수
+		//end
+
 		//--------------------------------------------------
 		// 색깔
 		//--------------------------------------------------
@@ -877,24 +860,21 @@ class MCreature : public MObject, public MStatus {
 
 		// 현재 frame에 대한 정보
 		BYTE					m_Action;			// Action에 대한 ID
-		BYTE					m_CurrentDirection;	// 현재의 Direction
-		BYTE					m_Direction;		// 바라봐야 하는 Direction
-		BYTE					m_DirectionMove;	// 이동할 방향
-		BYTE					m_DirectionMoved;	// 이동한 방향		
-		BYTE					m_ActionCount;		// ActionCount == Frame
-		BYTE					m_ActionCountMax;	// ActionCountMax
-		BYTE					m_MoveCount;		// 이동한 회수
-		BYTE					m_MoveCountMax;		// 이동하는 목표 회수
-		BYTE					m_MoveTableCount;	// cX,YTable의 count
-		BYTE					m_NextMoveCount;	// 다음에 이동해야하는 count수
-		
-		// Sjheon 2005.07.13 Combo Skill Add 
-		int						m_ComboCnt; // 동작할 콤보 개수 
-		int						m_CurrentCombo; // 현재 콤보 개수 
-		// Sjheon 2005.07.13 Combo Skill  End
+		//add by viva for no increase speed
+		//BYTE					m_CurrentDirection;	// 현재의 Direction
+		//BYTE					m_Direction;		// 바라봐야 하는 Direction
+		//BYTE					m_DirectionMove;	// 이동할 방향
+		//BYTE					m_DirectionMoved;	// 이동한 방향		
+		//BYTE					m_ActionCount;		// ActionCount == Frame
+		//BYTE					m_ActionCountMax;	// ActionCountMax
+		//BYTE					m_MoveCount;		// 이동한 회수
+		//BYTE					m_MoveCountMax;		// 이동하는 목표 회수
+		//BYTE					m_MoveTableCount;	// cX,YTable의 count
+		//BYTE					m_NextMoveCount;	// 다음에 이동해야하는 count수
 
-		BYTE					m_NextAction;
-		
+
+		//BYTE					m_NextAction;
+		//end
 		// 기술 종류		
 		TYPE_ACTIONINFO			m_nBasicActionInfo;		// 선택되어 있는 기본 기술 종류				
 		TYPE_ACTIONINFO			m_nSpecialActionInfo;	// 선택되어 있는 특수 기술 종류
@@ -931,7 +911,7 @@ class MCreature : public MObject, public MStatus {
 		char**					m_ChatString;
 		DWORD					m_ChatTime;
 		BYTE					m_PersonalShopOpenTime;
-
+		
 		// ActionInfo에 대한 결과(Server로부터 검증된 것)
 		MActionResult*			m_pActionResult;
 
@@ -946,7 +926,9 @@ class MCreature : public MObject, public MStatus {
 
 		// 가지고 있는 item 개수 [ TEST CODE ] - -;;
 		int						m_ItemCount;
-
+		//add by viva
+		BYTE					m_DirectionMove;	// 이동할 방향
+		//end
 		// 기술의 지속 시간 설정
 		TYPE_ACTIONINFO			m_DelayActionInfo;
 		DWORD					m_EffectDelayFrame;
@@ -957,7 +939,9 @@ class MCreature : public MObject, public MStatus {
 		// 길드
 		int						m_GuildNumber;
 		int						m_nUnionGuildID;
-
+		//add by viva
+		BYTE					m_Direction;		// 바라봐야 하는 Direction
+		//end
 		// fast move
 		bool					m_bFastMove;
 
@@ -983,7 +967,9 @@ class MCreature : public MObject, public MStatus {
 		int						m_RecoveryMPTimes;
 		int						m_RecoveryMPAmount;
 		//DWORD					m_RecoveryPart;		// hp, mp?
-
+		//add by viva
+		BYTE					m_NextAction;
+		//end
 		// 자동 regen - -;
 		DWORD					m_RegenDelayTime;
 		DWORD					m_RegenNextTime;
@@ -991,7 +977,9 @@ class MCreature : public MObject, public MStatus {
 		DWORD					m_RegenBonusDelayTime;
 		DWORD					m_RegenBonusNextTime;
 		int						m_RegenBonusAmount;
-
+		//add by viva
+		BYTE					m_ActionCountMax;	// ActionCountMax
+		//end
 		//--------------------------------------------------
 		// 머리가 있나?
 		//--------------------------------------------------
@@ -1002,7 +990,9 @@ class MCreature : public MObject, public MStatus {
 		//--------------------------------------------------
 		bool					m_bFade;
 		int						m_ShadowCount;
-
+		//add by viva
+		BYTE					m_NextMoveCount;	// 다음에 이동해야하는 count수
+		//end
 		//--------------------------------------------------
 		// 성별
 		//--------------------------------------------------
@@ -1033,7 +1023,9 @@ class MCreature : public MObject, public MStatus {
 		int						m_CasketCount;
 		int						m_CasketCountInc;
 		int						m_CasketType;
-
+		//add by viva
+		BYTE					m_MoveTableCount;	// cX,YTable의 count
+		//end
 		//--------------------------------------------------
 		// 다 그릴까 말까..
 		//--------------------------------------------------
@@ -1059,7 +1051,9 @@ class MCreature : public MObject, public MStatus {
 		//----------------------------------------------------
 		bool					m_bCauseCriticalWounds; 
 		int						m_CauseCriticalWoundsCount; 
-		
+		//add by viva
+		BYTE					m_ActionCount;		// ActionCount == Frame
+		//end
 		//----------------------------------------------------
 		// Bloody Zenith에 묶여 있을때 흡혈 당하는 동작
 		//----------------------------------------------------
@@ -1077,7 +1071,9 @@ class MCreature : public MObject, public MStatus {
 		//----------------------------------------------------
 		bool					m_bArmageddon; 
 		int						m_ArmageddonCount; 
-		
+		//add by viva
+		BYTE					m_CurrentDirection;	// 현재의 Direction
+		//end
 		//----------------------------------------------------
 		// Teleport에 묶여 있을 때
 		//----------------------------------------------------
@@ -1112,7 +1108,9 @@ class MCreature : public MObject, public MStatus {
 		BYTE					m_HalluFrame;
 		WORD					m_HalluName;	// 일단 임시로...
 		short					m_DelayLastAction;					// 해당 액션을 한 후에 일반 액션으로 돌아올때 딜레이
-		
+		//add by viva
+		BYTE					m_DirectionMoved;	// 이동한 방향	
+		//end
 		//--------------------------------------------------		
 		// 운영자
 		//--------------------------------------------------		
@@ -1153,6 +1151,10 @@ class MCreature : public MObject, public MStatus {
 		BYTE					m_bInstallTurretCount;
 		BYTE					m_bInstallTurretDirect;
 		int						m_current_sprite_index;
+
+		//add by viva for no increase speed
+		BYTE					m_MoveCountMax;		// 이동하는 목표 회수
+		//end
 
 		string					m_PersnalMessage;
 		int						m_Persnal_flag;

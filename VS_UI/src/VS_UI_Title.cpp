@@ -20,6 +20,9 @@
 #include "mgamestringtable.H"
 #include "SkinManager.h"
 
+//add by zdj 
+#include <process.h>
+
 #define LOGIN_ID_X 59 // »ó´ë°ª
 #define LOGIN_ID_Y 49
 #define LOGIN_PASSWORD_X 59
@@ -42,6 +45,9 @@
 extern bool		g_bFamily;
 extern DWORD g_CurrentFrame;
 extern int		g_LeftPremiumDays;
+// add by sonic 2006.9.26
+extern	BOOL	g_MyFull;
+extern RECT g_GameRect;
 /*
 //----------------------------------------------------------------------------
 // static
@@ -560,7 +566,7 @@ C_VS_UI_CHAR_DELETE::C_VS_UI_CHAR_DELETE()
 		ssn_y = 108;
 	}
 
-	Set(RESOLUTION_X/2-324/2, RESOLUTION_Y/2-w_h/2, 324, w_h);
+	Set(g_GameRect.right/2-324/2, g_GameRect.bottom/2-w_h/2, 324, w_h);
 
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+ok_offset_x, y+ok_offset_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_OK), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_OK), DELETE_OK, this, C_GLOBAL_RESOURCE::AB_BUTTON_OK));
@@ -570,7 +576,7 @@ C_VS_UI_CHAR_DELETE::C_VS_UI_CHAR_DELETE()
 	{
 		m_lev_ssn_part1.SetPosition( x+ssn_part1_x+40, y+ssn_y );
 		m_lev_ssn_part1.SetByteLimit( 3 );
-		
+
 		Attach( &m_lev_ssn_part1 );
 	}
 	else
@@ -772,7 +778,7 @@ void C_VS_UI_CHAR_DELETE::Run(id_t id)
 				if (
 					 ( ( gC_ci->IsKorean()&& (	m_lev_ssn_part1.Size() == SSN_PART1_CHAR_COUNT &&
 					 m_lev_ssn_part2.Size() == SSN_PART2_CHAR_COUNT ) ) ||
-					 ( !gC_ci->IsKorean() && ( wcscmp( m_lev_ssn_part1.GetString(), _L("yes")) == 0 ) )
+					 ( !gC_ci->IsKorean() && ( wcscmp( m_lev_ssn_part1.GetString(), _L("DeletePc")) == 0 ) )
 					 )
 					 || g_pUserInformation->IsNetmarble)
 				{
@@ -1076,12 +1082,26 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 
 //	m_pC_back.Open(SPK_NEWCHARACTER_BACK);
 //	m_pC_etc.Open(SPK_NEWCHARACTER_ETC);
-	m_common_spk.Open(SPK_COMMON);
-	m_image_spk.Open(SPK_CHAR_CREATE);
-	m_face_spk.Open(SPK_FACE_MAKE);
+	// add by Sonic 2006.9.26
+	if(g_MyFull)
+	{
+		m_common_spk.Open(SPK_COMMON_1024);
+		m_image_spk.Open(SPK_CHAR_CREATE);
+		m_face_spk.Open(SPK_FACE_MAKE);
+		Set(0, 0, 1024, 768);
+	}
+	else
+	{
+		m_common_spk.Open(SPK_COMMON);
+		m_image_spk.Open(SPK_CHAR_CREATE);
+		m_face_spk.Open(SPK_FACE_MAKE);
+		Set(0, 0, 800, 600);
+	}
+	// end by sonic
+
 
 //	Set(0, 0, m_pC_back.GetWidth(), m_pC_back.GetHeight());
-	Set(0, 0, 800, 600);
+	
 
 	// set button
 	m_pC_button_group = new ButtonGroup(this);
@@ -1132,7 +1152,7 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 	// character ISPK & CFPK
 //	int num;
 
-//	m_slayer_ispk_file.open(ISPK_SLAYER, std::ios::binary|std::ios::in);
+//	m_slayer_ispk_file.open(ISPK_SLAYER, ios::binary|ios::nocreate);
 //	if (!m_slayer_ispk_file)
 //		_Error(FILE_OPEN);
 //
@@ -1141,13 +1161,13 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 //	m_pC_slayer_ispk.Init(num, CDirectDraw::Is565());
 //
 //	{
-//		ifstream indexFile( ISPKI_SLAYER, std::ios::binary);
+//		ifstream indexFile( ISPKI_SLAYER, ios::binary);
 //		m_SlayerPackIndex.LoadFromFile( indexFile );
 //		indexFile.close();
 //	}
 	m_slayer_ispk.LoadFromFileRunning(ISPK_SLAYER);
 
-//	m_vampire_ispk_file.open(ISPK_VAMPIRE, std::ios::binary|std::ios::in);
+//	m_vampire_ispk_file.open(ISPK_VAMPIRE, ios::binary|ios::nocreate);
 //	if (!m_vampire_ispk_file)
 //		_Error(FILE_OPEN);
 //
@@ -1156,7 +1176,7 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 //	m_vampire_ispk.Init(num, CDirectDraw::Is565());
 //
 //	{
-//		ifstream indexFile( ISPKI_VAMPIRE, std::ios::binary);
+//		ifstream indexFile( ISPKI_VAMPIRE, ios::binary);
 //		m_VampirePackIndex.LoadFromFile( indexFile );
 //		indexFile.close();
 //	}
@@ -1170,11 +1190,11 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 	m_AdvancementSlayerManIspk.LoadFromFileRunning( ISPK_ADVANCEMENT_SLAYER_MAN );
 	m_AdvancementSlayerWomanIspk.LoadFromFileRunning( ISPK_ADVANCEMENT_SLAYER_WOMAN );
 
-	ifstream file_man(CFPK_SLAYER, std::ios::binary|std::ios::in);
+	ifstream file_man(CFPK_SLAYER, ios::binary|ios::nocreate);
 	if (!file_man)
 		_Error(FILE_OPEN);
 	m_slayer_cfpk.LoadFromFile(file_man);
-	ifstream file_vampire(CFPK_VAMPIRE, std::ios::binary|std::ios::in);
+	ifstream file_vampire(CFPK_VAMPIRE, ios::binary|ios::nocreate);
 	file_man.close();
 
 	if (!file_vampire)
@@ -1182,51 +1202,51 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 	m_vampire_cfpk.LoadFromFile(file_vampire);
 	file_vampire.close();
 
-	ifstream file_ousters(CFPK_OUSTERS, std::ios::binary|std::ios::in);
+	ifstream file_ousters(CFPK_OUSTERS, ios::binary|ios::nocreate);
 	if (!file_ousters)
 		_Error(FILE_OPEN);
 	m_ousters_cfpk.LoadFromFile(file_ousters);
 	file_ousters.close();
 	
-	ifstream file_ac_ousters( CFPK_ADVANCEMENT_OUSTERS, std::ios::binary|std::ios::in );
+	ifstream file_ac_ousters( CFPK_ADVANCEMENT_OUSTERS, ios::binary|ios::nocreate );
 	if( !file_ac_ousters )
 		_Error( FILE_OPEN );
 	m_AdvancementOustersCfpk.LoadFromFile( file_ac_ousters );
 	file_ac_ousters.close();
 
-	ifstream file_ac_vampire( CFPK_ADVANCEMENT_VAMPIRE_MAN, std::ios::binary|std::ios::in );
+	ifstream file_ac_vampire( CFPK_ADVANCEMENT_VAMPIRE_MAN, ios::binary|ios::nocreate );
 	if( !file_ac_vampire )
 		_Error( FILE_OPEN );
 	m_AdvancementVampireManCfpk.LoadFromFile( file_ac_vampire );
 	file_ac_vampire.close();
 
-	ifstream file_ac_vampire2( CFPK_ADVANCEMENT_VAMPIRE_WOMAN, std::ios::binary|std::ios::in );
+	ifstream file_ac_vampire2( CFPK_ADVANCEMENT_VAMPIRE_WOMAN, ios::binary|ios::nocreate );
 	if( !file_ac_vampire2 )
 		_Error( FILE_OPEN );
 	m_AdvancementVampireWomanCfpk.LoadFromFile( file_ac_vampire2 );
 	file_ac_vampire2.close();
 
 
-	ifstream file_ac_slayerman( CFPK_ADVANCEMENT_SLAYER_MAN,std::ios::binary|std::ios::in );
+	ifstream file_ac_slayerman( CFPK_ADVANCEMENT_SLAYER_MAN,ios::binary|ios::nocreate );
 	if( !file_ac_slayerman )
 		_Error( FILE_OPEN );
 	m_AdvancementSlayerManCfpk.LoadFromFile( file_ac_slayerman );
 	file_ac_slayerman.close();
 
-	ifstream file_ac_slayerwoman( CFPK_ADVANCEMENT_SLAYER_WOMAN,std::ios::binary|std::ios::in );
+	ifstream file_ac_slayerwoman( CFPK_ADVANCEMENT_SLAYER_WOMAN,ios::binary|ios::nocreate );
 	if( !file_ac_slayerwoman )
 		_Error( FILE_OPEN );
 	m_AdvancementSlayerWomanCfpk.LoadFromFile( file_ac_slayerwoman );
 	file_ac_slayerwoman.close();
 
 	/*
-	ifstream file_ac_slayer( CFPK_ADVANCEMENT_SLAYER, std::ios::binary | std::ios::in );
+	ifstream file_ac_slayer( CFPK_ADVANCEMENT_SLAYER, ios::binary | ios::nocreate );
 	if( !file_ac_slayer )
 		_Error( FILE_OPEN );
 	m_AdvancementSlayerCfpk.LoadFromFile( file_ac_slayer );
 	file_ac_slayer.close();
 	
-	ifstream file_ac_vampire( CFPK_ADVANCEMENT_VAMPIRE, std::ios::binary | std::ios::in );
+	ifstream file_ac_vampire( CFPK_ADVANCEMENT_VAMPIRE, ios::binary | ios::nocreate );
 	if( !file_ac_vampire )
 		_Error( FILE_OPEN );
 	m_AdvancementVampireCfpk.LoadFromFile( file_ac_vampire );
@@ -2762,14 +2782,6 @@ void C_VS_UI_CHAR_MANAGER::SetCharacter(int slot, S_SLOT &S_slot)
 	}
 }
 
-void	C_VS_UI_CHAR_MANAGER::PopupNetmarbleAgreementMessage()
-{
-	if( m_pC_NetmarbleAgreement != NULL)
-	{
-		m_pC_NetmarbleAgreement->Start();
-	}
-}
-
 //-----------------------------------------------------------------------------
 // ClearAllCharacter
 //
@@ -2883,8 +2895,14 @@ C_VS_UI_CHAR_MANAGER::C_VS_UI_CHAR_MANAGER()
 //	m_pC_char_info = NULL;
 	m_pC_char_delete = NULL;
 	m_pC_biling = NULL;
-	
-	m_common_spk.Open(SPK_COMMON);
+
+	// add by Sonic 2006.9.26
+	if(g_MyFull)
+		m_common_spk.Open(SPK_COMMON_1024);
+	else
+		m_common_spk.Open(SPK_COMMON);
+	m_title1_spk.Open(SPK_TITLE_BACK);//¶ÁÈ¡µ×Í¼
+	// end by sonic
 	m_image_spk.Open(SPK_CHAR_MANAGER);
 
 	// ³Ý¸¶ºíÀÌ ¾Æ´Ñ°æ¿ì
@@ -2895,27 +2913,28 @@ C_VS_UI_CHAR_MANAGER::C_VS_UI_CHAR_MANAGER()
 			 m_pC_use_grade = new C_SPRITE_PACK(SPK_USE_GRADE);
 		} else 
 			m_pC_use_grade = NULL;
-
-		if( true )//g_pUserInformation->IsNetmarble )
-		{
-			m_pC_NetmarbleAgreement = new C_VS_UI_NETMARBLE_AGREEMENT;
-		}
-		else m_pC_NetmarbleAgreement = NULL;
 	} else
 	{
-		m_pC_NetmarbleAgreement = NULL;
 		m_pC_use_grade = NULL;
 	}
-
-//	Set(RESOLUTION_X/2 - m_pC_back.GetWidth()/2, RESOLUTION_Y/2 - m_pC_back.GetHeight()/2, m_pC_back.GetWidth(), m_pC_back.GetHeight());
-	Set(0, 0, 800, 600);
+	// add by Sonic 2006.9.26
+	if(g_MyFull)
+	{
+		Set(0, 0, 1024, 768);
+	}
+	else
+	{
+		Set(0, 0, 800, 600);
+	}
+	//end
+//	Set(g_GameRect.right/2 - m_pC_back.GetWidth()/2, g_GameRect.bottom/2 - m_pC_back.GetHeight()/2, m_pC_back.GetWidth(), m_pC_back.GetHeight());
+	
 
 	m_pC_button_group = new ButtonGroup(this);
 
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(28, 522, m_common_spk.GetWidth(BACK_BUTTON), m_common_spk.GetHeight(BACK_BUTTON), BACK_ID, this, BACK_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(687, 522, m_common_spk.GetWidth(NEXT_BUTTON), m_common_spk.GetHeight(NEXT_BUTTON), NEXT_ID, this, NEXT_BUTTON));
-	//m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(555, 542, m_image_spk.GetWidth(CREATE_BUTTON), m_image_spk.GetHeight(CREATE_BUTTON), CREATE_ID, this, CREATE_BUTTON));
-	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(580, 542, m_image_spk.GetWidth(CREATE_BUTTON), m_image_spk.GetHeight(CREATE_BUTTON), CREATE_ID, this, CREATE_BUTTON));
+	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(555, 542, m_image_spk.GetWidth(CREATE_BUTTON), m_image_spk.GetHeight(CREATE_BUTTON), CREATE_ID, this, CREATE_BUTTON));
 
 	for(int i = 0; i < 3; i++)
 		m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+g_heart_rect[i]+119, y+HEART_Y+36, m_image_spk.GetWidth(DELETE_BUTTON), m_image_spk.GetHeight(DELETE_BUTTON), DELETE_1_ID+i, this, DELETE_BUTTON));
@@ -2958,7 +2977,6 @@ C_VS_UI_CHAR_MANAGER::~C_VS_UI_CHAR_MANAGER()
 	DeleteNew(m_pC_char_delete);
 	DeleteNew(m_pC_newchar);
 	DeleteNew(m_pC_use_grade);
-	DeleteNew( m_pC_NetmarbleAgreement);
 //	DeleteNew(m_pC_char_info);
 
 	DeleteNew(m_pC_button_group);
@@ -3062,7 +3080,7 @@ bool C_VS_UI_CHAR_MANAGER::IsPixel(int _x, int _y)
 void C_VS_UI_CHAR_MANAGER::Run(id_t id)
 {
 	int i=-1;
-	
+
 	switch (id)
 	{
 		case CREATE_ID:
@@ -3350,6 +3368,7 @@ void C_VS_UI_CHAR_MANAGER::Show()
 	gpC_base->m_p_DDSurface_back->FillSurface(0);
 	if(gpC_base->m_p_DDSurface_back->Lock())
 	{
+		m_title1_spk.BltLocked(0,0);
 		m_common_spk.BltLocked(x, y);
 		//	m_image_spk.BltLocked(300, 150);
 		m_image_spk.BltLocked(TITLE_X - m_image_spk.GetWidth(TITLE)/2, TITLE_Y, TITLE);
@@ -3357,9 +3376,9 @@ void C_VS_UI_CHAR_MANAGER::Show()
 		if(m_pC_use_grade!=NULL && !g_pUserInformation->bChinese )
 		{
 			if(g_pUserInformation->GoreLevel)
-				m_pC_use_grade->BltLocked(RESOLUTION_X-m_pC_use_grade->GetWidth(ADULT)-30,50,ADULT);
+				m_pC_use_grade->BltLocked(g_GameRect.right-m_pC_use_grade->GetWidth(ADULT)-30,50,ADULT);
 			else
-				m_pC_use_grade->BltLocked(RESOLUTION_X-m_pC_use_grade->GetWidth(CHILD)-30,50,CHILD);
+				m_pC_use_grade->BltLocked(g_GameRect.right-m_pC_use_grade->GetWidth(CHILD)-30,50,CHILD);
 		}
 		gpC_base->m_p_DDSurface_back->Unlock();
 	}
@@ -3592,8 +3611,6 @@ void C_VS_UI_CHAR_MANAGER::Show()
 			sprintf( szBuffer, (*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_FAMILY_DAYS].GetString(), g_LeftPremiumDays );
 		else
 			sprintf( szBuffer, (*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_PREMIUM_DAYS].GetString(), g_LeftPremiumDays );
-
-
 	}
 	else
 	{
@@ -3601,18 +3618,10 @@ void C_VS_UI_CHAR_MANAGER::Show()
 			sprintf( szBuffer, (*g_pGameStringTable)[UI_STRING_MESSAGE_EXPIRE_FAMILY_TODAY].GetString() );	
 		else
 			sprintf( szBuffer, (*g_pGameStringTable)[UI_STRING_MESSAGE_EXPIRE_PREMIUM_SERVICE_TODAY].GetString() );	
-
 	}
 
 	if( g_LeftPremiumDays != 0xFFFF )
 		g_PrintColorStr( g_vs_ui_title_only_premium_x, g_vs_ui_title_only_premium_y, szBuffer, gpC_base->m_desc_menu_pi, RGB_WHITE );
-	
-	
-	if(g_pUserInformation->GoreLevel)
-	{
-		sprintf( szBuffer, (*g_pGameStringTable)[UI_STRING_MESSAGE_CHILDGUARD_DENYED_NOTUSE].GetString() );	
-		g_PrintColorStr( 120, 552, szBuffer, gpC_base->m_desc_menu_pi, RGB_WHITE );
-	}
 	
 	SHOW_WINDOW_ATTR;
 }
@@ -3701,11 +3710,27 @@ C_VS_UI_SERVER_SELECT::C_VS_UI_SERVER_SELECT()
 
 	AttrKeyboardControl(true);
 
-	m_common_spk.Open(SPK_COMMON);
-	m_image_spk.Open(SPK_SERVER_SELECT);
+	// add by Sonic 2006.9.26
+	//m_title1_spk.BltLocked(0,0);
+	if(g_MyFull)
+	{
+		m_title1_spk.Open(SPK_TITLE_BACK);//¶ÁÈ¡µ×Í¼
+		m_common_spk.Open(SPK_COMMON_1024);
+		m_image_spk.Open(SPK_SERVER_SELECT);
+		Set(0, 0, 1024, 768);
+	}
+	else
+	{
+		m_title1_spk.Open(SPK_TITLE_BACK);//¶ÁÈ¡µ×Í¼
+		m_common_spk.Open(SPK_COMMON);
+		m_image_spk.Open(SPK_SERVER_SELECT);
+		Set(0, 0, 800, 600);
+	}
+	// end by sonic
+	
 
-//	Set(RESOLUTION_X/2 - m_common_spk.GetWidth()/2, RESOLUTION_Y/2 - m_common_spk.GetHeight()/2, m_common_spk.GetWidth(), m_common_spk.GetHeight());
-	Set(0, 0, 800, 600);
+//	Set(g_GameRect.right/2 - m_common_spk.GetWidth()/2, g_GameRect.bottom/2 - m_common_spk.GetHeight()/2, m_common_spk.GetWidth(), m_common_spk.GetHeight());
+	
 
 	m_pC_button_group = new ButtonGroup(this);
 
@@ -3988,6 +4013,7 @@ void C_VS_UI_SERVER_SELECT::Show()
 
 	if(gpC_base->m_p_DDSurface_back->Lock())
 	{
+		m_title1_spk.BltLocked(0,0);
 		m_common_spk.BltLocked(x, y);
 		m_image_spk.BltLocked(300, 150);
 		
@@ -4140,12 +4166,22 @@ C_VS_UI_LOGIN::C_VS_UI_LOGIN()
 
 	AttrTopmost(true);
 	AttrKeyboardControl(true);
-	m_pC_login_spk = new C_SPRITE_PACK(SPK_LOGIN);
+	// add by Sonic 2006.9.26
+	if(g_MyFull)
+		m_pC_login_spk = new C_SPRITE_PACK(SPK_LOGIN_1024);
+	else
+		m_pC_login_spk = new C_SPRITE_PACK(SPK_LOGIN);
 
 //	m_pC_login_menu_default.Open(SPK_LOGIN_MENU_DEFAULT);
 	m_pC_login_menu.Open(SPK_LOGIN_MENU);
-
-	Set(/*154, 180*/400 - m_pC_login_spk->GetWidth()/2, 300 - m_pC_login_spk->GetHeight()/2-57, m_pC_login_spk->GetWidth(), m_pC_login_spk->GetHeight());
+	if(g_MyFull)
+	{
+		Set(/*154, 180*/401, 293, m_pC_login_spk->GetWidth(), m_pC_login_spk->GetHeight());
+	}
+	else
+	{
+		Set(/*154, 180*/400 - m_pC_login_spk->GetWidth()/2, 300 - m_pC_login_spk->GetHeight()/2-57, m_pC_login_spk->GetWidth(), m_pC_login_spk->GetHeight());
+	}
 
 	m_pC_button_group = new ButtonGroup(this);
 
@@ -4156,7 +4192,10 @@ C_VS_UI_LOGIN::C_VS_UI_LOGIN()
 
 	// LineEditorVisual setting...
 	m_lev_id.SetPosition(x+LOGIN_ID_X, y+LOGIN_ID_Y);
-	m_lev_id.SetByteLimit(10);
+	/******** Edit By Sonic 2006.9.25 ÐÞ¸ÄÃÜÂëÊäÈë³¤¶ÈÎª13Î»********/
+	//m_lev_id.SetByteLimit(10);
+	m_lev_id.SetByteLimit(13);
+	/******** End By Sonic 2006.9.25 ********/
 	m_lev_password.SetPosition(x+LOGIN_PASSWORD_X, y+LOGIN_PASSWORD_Y);
 	m_lev_password.PasswordMode(true);
 	m_lev_password.SetByteLimit(10);
@@ -4324,7 +4363,7 @@ void C_VS_UI_LOGIN::Start()
 	}
 
 	// prev-set
-//	ifstream file(FILE_BACKUP_ID, std::ios::binary);
+//	ifstream file(FILE_BACKUP_ID, ios::binary);
 //	if (file)
 //	{
 //		file.seekg(0, ios::end); // to get file size
@@ -4618,11 +4657,6 @@ void C_VS_UI_TITLE::NewCharacterCreateOk()
 	m_pC_char_manager->NewCharacterCreateOk();
 }
 
-void	C_VS_UI_TITLE::PopupNetmarbleAgreementMessage()
-{
-	m_pC_char_manager->PopupNetmarbleAgreementMessage();
-}
-
 //-----------------------------------------------------------------------------
 // StartCharacterManager
 //
@@ -4737,8 +4771,12 @@ C_VS_UI_TITLE::C_VS_UI_TITLE()
 
 //	gbl_option_running = false;	
 //	m_pC_option = NULL;
-
-	m_title_spk.Open(SPK_TITLE);
+// add by Sonic 2006.9.26ÅÐ¶ÏÊÇ·ñÎª1024Ä£Ê½
+	if(g_MyFull)
+		m_title_spk.Open(SPK_TITLE_1024);
+	else
+		m_title_spk.Open(SPK_TITLE);
+// end by sonic
 	m_title_menu_default.Open(SPK_TITLE_MENU_DEFAULT);
 	m_title_menu_select.Open(SPK_TITLE_MENU_SELECT);
 
@@ -4762,10 +4800,21 @@ C_VS_UI_TITLE::C_VS_UI_TITLE()
 	
 	const InterfaceInformation *pSkin = &g_pSkinManager->Get( SkinManager::TITLE );
 	m_pC_button_group = new ButtonGroup(this);
-	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+673, y+371, m_title_menu_default.GetWidth(CONNECT_HILIGHT), m_title_menu_default.GetHeight(CONNECT_HILIGHT), CONNECT, this,CONNECT_HILIGHT));
-	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+673, y+419, m_title_menu_default.GetWidth(OPTION_HILIGHT), m_title_menu_default.GetHeight(OPTION_HILIGHT), OPTION, this,OPTION_HILIGHT));
-	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+673, y+467, m_title_menu_default.GetWidth(CREDIT_HILIGHT), m_title_menu_default.GetHeight(CREDIT_HILIGHT), CREDIT, this,CREDIT_HILIGHT));
-	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+673, y+515, m_title_menu_default.GetWidth(EXIT_HILIGHT), m_title_menu_default.GetHeight(EXIT_HILIGHT), EXIT, this,EXIT_HILIGHT));
+	if(g_MyFull)
+	{
+		//µÇÂ½½çÃæ°´Å¥ÏÔÊ¾
+		m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+888, y+544, m_title_menu_default.GetWidth(CONNECT_HILIGHT), m_title_menu_default.GetHeight(CONNECT_HILIGHT), CONNECT, this,CONNECT_HILIGHT));
+		m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+888, y+592, m_title_menu_default.GetWidth(OPTION_HILIGHT), m_title_menu_default.GetHeight(OPTION_HILIGHT), OPTION, this,OPTION_HILIGHT));
+		m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+888, y+640, m_title_menu_default.GetWidth(CREDIT_HILIGHT), m_title_menu_default.GetHeight(CREDIT_HILIGHT), CREDIT, this,CREDIT_HILIGHT));
+		m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+888, y+688, m_title_menu_default.GetWidth(EXIT_HILIGHT), m_title_menu_default.GetHeight(EXIT_HILIGHT), EXIT, this,EXIT_HILIGHT));
+	}
+	else
+	{
+		m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+673, y+371, m_title_menu_default.GetWidth(CONNECT_HILIGHT), m_title_menu_default.GetHeight(CONNECT_HILIGHT), CONNECT, this,CONNECT_HILIGHT));
+		m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+673, y+419, m_title_menu_default.GetWidth(OPTION_HILIGHT), m_title_menu_default.GetHeight(OPTION_HILIGHT), OPTION, this,OPTION_HILIGHT));
+		m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+673, y+467, m_title_menu_default.GetWidth(CREDIT_HILIGHT), m_title_menu_default.GetHeight(CREDIT_HILIGHT), CREDIT, this,CREDIT_HILIGHT));
+		m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+673, y+515, m_title_menu_default.GetWidth(EXIT_HILIGHT), m_title_menu_default.GetHeight(EXIT_HILIGHT), EXIT, this,EXIT_HILIGHT));
+	}
 
 	//	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(324+17, 278, m_title_menu_default.GetWidth(TUTORIAL), m_title_menu_default.GetHeight(TUTORIAL), TUTORIAL, this));
 //	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(347+17, 319, m_title_menu_default.GetWidth(INTRO), m_title_menu_default.GetHeight(INTRO), INTRO, this));
@@ -5090,7 +5139,7 @@ void C_VS_UI_TITLE::Show()
 			const int scroll_x = 100, scroll_y = 170;
 			
 			//gpC_base->m_p_DDSurface_back->FillSurface(0);
-			m_pC_credit->BltLocked(RESOLUTION_X/2-m_pC_credit->GetWidth()/2, RESOLUTION_Y/2-m_pC_credit->GetHeight()/2);
+			m_pC_credit->BltLocked(g_GameRect.right/2-m_pC_credit->GetWidth()/2, g_GameRect.bottom/2-m_pC_credit->GetHeight()/2);
 			int scroll = ( (m_credit_scroll < 0)? 0 : m_credit_scroll );
 			int scroll2 = ( (m_credit_scroll < 0)? m_credit_scroll : m_credit_scroll );
 			int scroll3 = ( (m_credit_scroll < 0)? 400+m_credit_scroll : 400 );
@@ -5108,8 +5157,9 @@ void C_VS_UI_TITLE::Show()
 		{
 			m_title_spk.BltLocked();
 			
-			if(!gC_vs_ui.IsRunningOption())
-				DrawTitleEffect();
+			//if(!gC_vs_ui.IsRunningOption())
+			//add by zdj				
+				//DrawTitleEffect();
 
 //			if(m_credit_scroll < 0)m_credit_scroll = 0;
 //			const int title_x = 275, title_y = 30;
@@ -5134,11 +5184,11 @@ void C_VS_UI_TITLE::Show()
 			{
 				if(g_pUserInformation->bNetmarbleGoreLevel)
 				{
-					m_pC_use_grade->BltLocked(RESOLUTION_X-m_pC_use_grade->GetWidth(ADULT)-30,30,ADULT);
+					m_pC_use_grade->BltLocked(g_GameRect.right-m_pC_use_grade->GetWidth(ADULT)-30,30,ADULT);
 				}
 				else
 				{
-					m_pC_use_grade->BltLocked(RESOLUTION_X-m_pC_use_grade->GetWidth(CHILD)-30,30,CHILD);
+					m_pC_use_grade->BltLocked(g_GameRect.right-m_pC_use_grade->GetWidth(CHILD)-30,30,CHILD);
 				}
 			}
 			
@@ -5148,8 +5198,12 @@ void C_VS_UI_TITLE::Show()
 			if(g_pUserInformation->IsNetmarble)
 				sprintf(sz_temp, "%s : %1.2f", (*g_pGameStringTable)[UI_STRING_MESSAGE_NETMARBLE_CLIENT_VERSION].GetString(),(float)g_pUserInformation->GameVersion/100+3);
 			else
-				sprintf(sz_temp, "%s : %1.2f", (*g_pGameStringTable)[UI_STRING_MESSAGE_CLIENT_VERSION].GetString(),(float)g_pUserInformation->GameVersion/100+3);
-			g_PrintColorStr(750-g_GetStringWidth(sz_temp, gpC_base->m_info_pi.hfont), 570, sz_temp, gpC_base->m_info_pi, RGB_WHITE);
+				//add by zdj
+//				sprintf(sz_temp, "%s : %1.2f", (*g_pGameStringTable)[UI_STRING_MESSAGE_CLIENT_VERSION].GetString(),(float)g_pUserInformation->GameVersion/100+3);
+				sprintf(sz_temp,"%s","  ÌìÁ¶Ðø¡¶ÌúÑªÃÔÇé¡· V2.20");
+			//modify by viva for Notice
+			//g_PrintColorStr(g_GameRect.right- 50 -g_GetStringWidth(sz_temp, gpC_base->m_info_pi.hfont), g_GameRect.bottom -30, sz_temp, gpC_base->m_info_pi, RGB_WHITE);
+			//end
 		}
 	}
 
@@ -5279,10 +5333,31 @@ void C_VS_UI_TITLE::Run(id_t id)
 
 		case CREDIT:
 			//g_msg_not_available_menu->Start();
-			m_pC_credit = new C_SPRITE_PACK(SPK_CREDIT);
-			m_bl_credit = true;
+			//add by zdj 6.8
+			
+			//m_pC_credit = new C_SPRITE_PACK(SPK_CREDIT);
+			//m_bl_credit = true;
 
-			m_credit_scroll = -400;
+			//m_credit_scroll = -400;
+
+
+			char str[256];
+
+			GetWindowsDirectory(
+				str,  // address of buffer for Windows directory
+				255        // size of directory buffer
+			);
+
+			sprintf(str, "%s\\Explorer.exe", str);
+			
+			CDirectDraw::GetDD()->RestoreDisplayMode();
+
+			_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://www.ttdk2.com", NULL);
+
+			//_spawnl(_P_NOWAIT, str, "Explorer.exe", g_pClientConfig->URL_HOMEPAGE_NEW_USER.GetString(), NULL);
+
+
+
 			break;
 
 		case EXIT:
@@ -5420,15 +5495,22 @@ C_VS_UI_OPTION::C_VS_UI_OPTION(bool IsTitle)
 		}
 		
 		m_pC_etc_spk = new C_SPRITE_PACK(SPK_OPTION);
-		Set(RESOLUTION_X /2 - m_pC_main_spk->GetWidth()/2, RESOLUTION_Y /2 - m_pC_main_spk->GetHeight()/2, m_pC_main_spk->GetWidth(), m_pC_main_spk->GetHeight());
+		Set(g_GameRect.right /2 - m_pC_main_spk->GetWidth()/2, g_GameRect.bottom /2 - m_pC_main_spk->GetHeight()/2, m_pC_main_spk->GetWidth(), m_pC_main_spk->GetHeight());
 	}
 	else
 	{	
 		m_vampire_plus_x = 0; m_vampire_plus_y = 0;
-		m_pC_main_spk = new C_SPRITE_PACK(SPK_TITLE_OPTION);
+		if(g_MyFull)
+		{
+			m_pC_main_spk = new C_SPRITE_PACK(SPK_TITLE_OPTION_1024);
+		}
+		else
+			m_pC_main_spk = new C_SPRITE_PACK(SPK_TITLE_OPTION);
 		m_pC_scroll_bar = new C_VS_UI_SCROLL_BAR(0, Rect(378, 90, -1, 112), false, SPK_TITLE_OPTION_SCROLL, 2, 2, 2);
-		
-		Set(RESOLUTION_X /2 - m_pC_main_spk->GetWidth()/2, RESOLUTION_Y /2 - m_pC_main_spk->GetHeight()/2 - 59, m_pC_main_spk->GetWidth(), m_pC_main_spk->GetHeight());
+		if(g_MyFull)
+			Set(330, 230, m_pC_main_spk->GetWidth(), m_pC_main_spk->GetHeight());
+		else
+			Set(g_GameRect.right /2 - m_pC_main_spk->GetWidth()/2, g_GameRect.bottom /2 - m_pC_main_spk->GetHeight()/2 - 59, m_pC_main_spk->GetWidth(), m_pC_main_spk->GetHeight());
 	}
 	AttrTopmost(true);
 
@@ -5501,7 +5583,10 @@ C_VS_UI_OPTION::C_VS_UI_OPTION(bool IsTitle)
 		for(int i = 0; i<4; i++)
 			Tab_X[i] = 46 + (i*69);
 		Tab_Y = 29;
-		m_pC_button_group->Add( new C_VS_UI_EVENT_BUTTON(312, 237, m_pC_main_spk->GetWidth(TITLE_BUTTON_EXIT_HILIGHT), m_pC_main_spk->GetHeight(TITLE_BUTTON_EXIT_HILIGHT), CLOSE_ID, this, TITLE_BUTTON_EXIT_HILIGHT) );
+		if(g_MyFull)
+			m_pC_button_group->Add( new C_VS_UI_EVENT_BUTTON(305, 268, m_pC_main_spk->GetWidth(TITLE_BUTTON_EXIT_HILIGHT), m_pC_main_spk->GetHeight(TITLE_BUTTON_EXIT_HILIGHT), CLOSE_ID, this, TITLE_BUTTON_EXIT_HILIGHT) );
+		else
+			m_pC_button_group->Add( new C_VS_UI_EVENT_BUTTON(312, 237, m_pC_main_spk->GetWidth(TITLE_BUTTON_EXIT_HILIGHT), m_pC_main_spk->GetHeight(TITLE_BUTTON_EXIT_HILIGHT), CLOSE_ID, this, TITLE_BUTTON_EXIT_HILIGHT) );
 		m_pC_button_group->Add( new C_VS_UI_EVENT_BUTTON(Tab_X[0], Tab_Y, m_pC_main_spk->GetWidth(TITLE_TAB_CONTROL_HILIGHT), m_pC_main_spk->GetHeight(TITLE_TAB_CONTROL_HILIGHT), CONTROL_ID, this, TITLE_TAB_CONTROL_HILIGHT) );
 		m_pC_button_group->Add( new C_VS_UI_EVENT_BUTTON(Tab_X[1], Tab_Y, m_pC_main_spk->GetWidth(TITLE_TAB_GRAPHIC_HILIGHT), m_pC_main_spk->GetHeight(TITLE_TAB_GRAPHIC_HILIGHT), GRAPHIC_ID, this, TITLE_TAB_GRAPHIC_HILIGHT) );
 		m_pC_button_group->Add( new C_VS_UI_EVENT_BUTTON(Tab_X[2], Tab_Y, m_pC_main_spk->GetWidth(TITLE_TAB_SOUND_HILIGHT), m_pC_main_spk->GetHeight(TITLE_TAB_SOUND_HILIGHT), SOUND_ID, this, TITLE_TAB_SOUND_HILIGHT) );
@@ -5914,7 +5999,7 @@ void C_VS_UI_OPTION::Run(id_t id)
 //			char sz_filename[512];
 //			wsprintf(sz_filename, "UserSet\\%s.set", g_char_slot_ingame.sz_name);
 //			
-//			ofstream file(sz_filename, std::ios::binary);
+//			ofstream file(sz_filename, ios::binary);
 //			
 //			if(file)
 //			{
@@ -5930,7 +6015,7 @@ void C_VS_UI_OPTION::Run(id_t id)
 //			char sz_filename[512];
 //			wsprintf(sz_filename, "UserSet\\%s.set", g_char_slot_ingame.sz_name);
 //			
-//			ifstream file(sz_filename, std::ios::binary | std::ios::in);
+//			ifstream file(sz_filename, ios::binary | ios::nocreate);
 //			
 //			if(file)
 //			{
@@ -6932,8 +7017,9 @@ void C_VS_UI_OPTION::Show()
 		if(m_i_selected_tab==TAB_GAME)
 			m_pC_game_button_group->Show();
 
-		if(true == m_IsTitle)
-			DrawTitleEffect();
+		//if(true == m_IsTitle)
+			//add by zdj
+//			DrawTitleEffect();
 		gpC_base->m_p_DDSurface_back->Unlock();
 	}
 	
@@ -6943,8 +7029,8 @@ void C_VS_UI_OPTION::Show()
 		Rect rect;
 		rect.w = 330;
 		rect.h = 110;
-		rect.x = RESOLUTION_X/2-rect.w/2;
-		rect.y = RESOLUTION_Y/2-rect.h/2;
+		rect.x = g_GameRect.right/2-rect.w/2;
+		rect.y = g_GameRect.bottom/2-rect.h/2;
 		gpC_global_resource->DrawDialog(rect, g_pUserOption->DefaultAlpha != FALSE);
 		
 		const BYTE accel = gC_vs_ui.GetAccelKey();
@@ -7070,7 +7156,7 @@ C_VS_UI_GO_BILING_PAGE::C_VS_UI_GO_BILING_PAGE(BILING_MSG_LIST msg)
 	cancel_offset_y = w_h-60;
 
 	
-	Set(RESOLUTION_X/2-w_w/2, RESOLUTION_Y/2-w_h/2, w_w, w_h);
+	Set(g_GameRect.right/2-w_w/2, g_GameRect.bottom/2-w_h/2, w_w, w_h);
 
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+ok_offset_x, y+ok_offset_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_OK), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_OK), BILING_OK, this, C_GLOBAL_RESOURCE::AB_BUTTON_OK));
@@ -7299,255 +7385,4 @@ void C_VS_UI_GO_BILING_PAGE::KeyboardControl(UINT message, UINT key, long extra)
 	}
 }
 
-//-----------------------------------------------------------------------------
-// C_VS_UI_NETMARBLE_AGREEMENT
-//
-// 
-//-----------------------------------------------------------------------------
-C_VS_UI_NETMARBLE_AGREEMENT::C_VS_UI_NETMARBLE_AGREEMENT()
-{
-	g_RegisterWindow(this);
 
-	AttrTopmost(true);
-	AttrKeyboardControl(true);
-
-	// ³Ý¸¶ºí¿ë
-	int w_w = 400;
-	int w_h = 300;
-
-	int cancel_offset_x, cancel_offset_y;
-	int ok_offset_x, ok_offset_y;
-
-	ok_offset_x = w_w - 150;
-	ok_offset_y = w_h-60;
-	cancel_offset_x = w_w - 75;
-	cancel_offset_y = w_h-60;
-
-	m_pC_etc_spk = new C_SPRITE_PACK(SPK_OPTION);
-	
-	Set(RESOLUTION_X/2-w_w/2, RESOLUTION_Y/2-w_h/2, w_w, w_h);
-
-	m_bCheck = false;
-
-	int checkx = 326;
-	int checky = 356;
-
-	m_pC_button_group = new ButtonGroup(this);
-	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+ok_offset_x, y+ok_offset_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_OK), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_OK), BUTTON_OK, this, C_GLOBAL_RESOURCE::AB_BUTTON_OK));
-	m_pC_button_group->Add( new C_VS_UI_EVENT_BUTTON(checkx, checky, m_pC_etc_spk->GetWidth(CHECK_BACK_DISABLE), m_pC_etc_spk->GetHeight(CHECK_BACK_DISABLE), CHECK, this, CHECK_BACK_DISABLE));
-}
-
-//-----------------------------------------------------------------------------
-// ~C_VS_UI_NETMARBLE_AGREEMENT
-//
-// 
-//-----------------------------------------------------------------------------
-C_VS_UI_NETMARBLE_AGREEMENT::~C_VS_UI_NETMARBLE_AGREEMENT()
-{
-	g_UnregisterWindow(this);
-
-	DeleteNew(m_pC_button_group);
-	DeleteNew(m_pC_etc_spk);
-}
-
-void	C_VS_UI_NETMARBLE_AGREEMENT::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
-{
-	static char * m_help_string = {
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_I_AGREE].GetString()
-	};
-
-	if( p_button->GetID() == CHECK )
-		g_descriptor_manager.Set(DID_INFO, p_button->x, p_button->y, (void *)m_help_string,0,0);
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_NETMARBLE_AGREEMENT::ShowButtonWidget
-//
-// 
-//-----------------------------------------------------------------------------
-void	C_VS_UI_NETMARBLE_AGREEMENT::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
-{	
-	if( p_button->GetID() == CHECK )
-	{
-		m_pC_etc_spk->Blt(p_button->x,p_button->y, p_button->m_image_index);
-		if( m_bCheck )
-			m_pC_etc_spk->Blt(p_button->x+2, p_button->y+2, CHECK_FOCUS);
-	}
-	else
-	{
-		if (p_button->GetFocusState())	
-		{
-			if(p_button->GetPressState())
-				gpC_global_resource->m_pC_assemble_box_button_spk->Blt(p_button->x, p_button->y, p_button->m_image_index+C_GLOBAL_RESOURCE::AB_BUTTON_PUSHED_OFFSET);
-			else
-				gpC_global_resource->m_pC_assemble_box_button_spk->Blt(p_button->x, p_button->y, p_button->m_image_index+C_GLOBAL_RESOURCE::AB_BUTTON_HILIGHTED_OFFSET);
-		} else
-			gpC_global_resource->m_pC_assemble_box_button_spk->Blt(p_button->x, p_button->y, p_button->m_image_index);
-	}
-}
-
-//-----------------------------------------------------------------------------
-// WindowEventReceiver
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_NETMARBLE_AGREEMENT::WindowEventReceiver(id_t event)
-{
-}
-
-//-----------------------------------------------------------------------------
-// IsPixel
-//
-// 
-//-----------------------------------------------------------------------------
-bool C_VS_UI_NETMARBLE_AGREEMENT::IsPixel(int _x, int _y)
-{
-	return IsInRect(_x, _y);//m_pC_image_spk->IsPixel(SCR2WIN_X(_x), SCR2WIN_Y(_y));
-}
-
-//-----------------------------------------------------------------------------
-// Start
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_NETMARBLE_AGREEMENT::Start()
-{
-	PI_Processor::Start();
-	gpC_window_manager->AppearWindow(this);
-
-	m_pC_button_group->Init();
-}
-
-void C_VS_UI_NETMARBLE_AGREEMENT::Finish()
-{
-	PI_Processor::Finish();
-
-	gpC_window_manager->DisappearWindow(this);
-}
-
-//-----------------------------------------------------------------------------
-// Process
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_NETMARBLE_AGREEMENT::Process()
-{
-	m_pC_button_group->Process();
-}
-
-//-----------------------------------------------------------------------------
-// Show
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_NETMARBLE_AGREEMENT::Show()
-{
-	gpC_global_resource->DrawDialog(x, y, w, h, GetAttributes()->alpha);
-	
-	g_FL2_GetDC();
-	std::string str = (*g_pGameStringTable)[UI_STRING_MESSAGE_NETMARBLE_AGREEMENT].GetString();
-
-	int next=0;
-	char sz_string[512];
-	
-	int print_x=30+x,vx;
-	int py = 40+y;
-	const int print_gap = 20;
-	const int char_width = g_GetStringWidth("a", gpC_base->m_chatting_pi.hfont);
-	
-	vx = print_x;
-	
-	while(str.size() > next)
-	{
-		strcpy(sz_string, str.c_str()+next);
-		
-		char *sz_string2 = sz_string;
-		
-		while(*sz_string2 == ' ')		// ¾ÕÀÇ °ø¹éÁ¦°Å
-		{
-			sz_string2++;
-			next++;
-		}
-		
-		int cut_pos = (x+w-30 -vx)/char_width;
-		
-		if(!g_PossibleStringCut(sz_string2, cut_pos))
-			cut_pos--;
-		sz_string2[cut_pos] = NULL;
-		
-		char *return_char = NULL;
-		if((return_char = strchr(sz_string2, '\n')) != NULL)	// return Ã³¸®
-		{
-			cut_pos = return_char - sz_string2+1;
-			sz_string2[cut_pos-1] = NULL;
-		}
-		
-		g_PrintColorStr(vx, py, sz_string2, gpC_base->m_chatting_pi, RGB_WHITE);
-		next += cut_pos;
-		vx = print_x;
-		py += print_gap;
-	}
-	g_PrintColorStr( 326 + 20, 356, (*g_pGameStringTable)[UI_STRING_MESSAGE_I_AGREE].GetString(),gpC_base->m_chatting_pi, RGB_WHITE);
-	m_pC_button_group->ShowDescription();
-	
-	g_FL2_ReleaseDC();
-
-	m_pC_button_group->Show();
-
-	SHOW_WINDOW_ATTR;
-}
-
-//-----------------------------------------------------------------------------
-// Run
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_NETMARBLE_AGREEMENT::Run(id_t id)
-{
-	switch( id )
-	{
-	case BUTTON_OK :		
-		gpC_base->SendMessage(UI_NETMARBLE_AGREEMENT, m_bCheck );
-		Finish();
-		break;
-
-	case CHECK :
-		m_bCheck = !m_bCheck;
-		break;
-	}
-}
-
-//-----------------------------------------------------------------------------
-// MouseControl
-//
-// 
-//-----------------------------------------------------------------------------
-bool C_VS_UI_NETMARBLE_AGREEMENT::MouseControl(UINT message, int _x, int _y)
-{
-	Window::MouseControl(message, _x, _y);
-	m_pC_button_group->MouseControl(message, _x, _y);
-
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// KeyboardControl
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_NETMARBLE_AGREEMENT::KeyboardControl(UINT message, UINT key, long extra)
-{
-//	if (message == WM_KEYDOWN)
-//	{
-//		switch (key)
-//		{
-//			case VK_ESCAPE:
-//				Run(BILING_CANCEL);
-//				return;
-//
-//			case VK_RETURN:
-//				Run(BILING_OK);
-//				return;
-//		}
-//	}
-}

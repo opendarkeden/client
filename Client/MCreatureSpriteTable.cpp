@@ -36,7 +36,7 @@ CREATURESPRITETABLE_INFO::~CREATURESPRITETABLE_INFO()
 // Save To File
 //----------------------------------------------------------------------
 void			
-CREATURESPRITETABLE_INFO::SaveToFile(ofstream& file)
+CREATURESPRITETABLE_INFO::SaveToFile(class ofstream& file)
 {
 	file.write((const char*)&FrameID, SIZE_FRAMEID);	
 	file.write((const char*)&SpriteFilePosition, 4);
@@ -52,7 +52,7 @@ CREATURESPRITETABLE_INFO::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void			
-CREATURESPRITETABLE_INFO::LoadFromFile(ifstream& file)
+CREATURESPRITETABLE_INFO::LoadFromFile(class ifstream& file)
 {
 	file.read((char*)&FrameID, SIZE_FRAMEID);
 	file.read((char*)&SpriteFilePosition, 4);
@@ -61,5 +61,8 @@ CREATURESPRITETABLE_INFO::LoadFromFile(ifstream& file)
 	file.read((char*)&LastSpriteID, SIZE_SPRITEID);
 	file.read((char*)&FirstShadowSpriteID, SIZE_SPRITEID);
 	file.read((char*)&LastShadowSpriteID, SIZE_SPRITEID);
-	file.read((char*)&CreatureType, 1);		
+	file.read((char*)&CreatureType, 1);
+	//add by viva  //McreatureSpriteTable  NewVampire180 CreatureType:0xFC,0xFD
+//	if(FrameID==247||FrameID==248)
+//		CreatureType = 18;
 }

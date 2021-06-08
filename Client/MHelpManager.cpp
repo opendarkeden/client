@@ -122,7 +122,7 @@ MCompareHelpNode::SetFalse(MHelpNode* pNode)
 // Save To File
 //---------------------------------------------------------------------------
 void		
-MCompareHelpNode::SaveToFile(ofstream& file)
+MCompareHelpNode::SaveToFile(class ofstream& file)
 {
 	//---------------------------------------------------
 	// 검사해볼려는 조건
@@ -169,7 +169,7 @@ MCompareHelpNode::SaveToFile(ofstream& file)
 // Load From File
 //---------------------------------------------------------------------------
 void		
-MCompareHelpNode::LoadFromFile(ifstream& file)
+MCompareHelpNode::LoadFromFile(class ifstream& file)
 {
 	//---------------------------------------------------
 	// 검사해볼려는 조건
@@ -246,7 +246,7 @@ MOutputHelpNode::GetOutputType() const
 // Save To File
 //---------------------------------------------------------------------------
 void		
-MOutputHelpNode::SaveToFile(ofstream& file)
+MOutputHelpNode::SaveToFile(class ofstream& file)
 {
 	//-----------------------------------------------
 	// ID 개수 저장
@@ -272,7 +272,7 @@ MOutputHelpNode::SaveToFile(ofstream& file)
 // Load From File
 //---------------------------------------------------------------------------
 void		
-MOutputHelpNode::LoadFromFile(ifstream& file)
+MOutputHelpNode::LoadFromFile(class ifstream& file)
 {
 	//-----------------------------------------------
 	// ID 개수 
@@ -374,7 +374,7 @@ MHelpManager::ClearEventOccured()
 // Save To File
 //---------------------------------------------------------------------------
 void		
-MHelpManager::SaveToFile(ofstream& file)
+MHelpManager::SaveToFile(class ofstream& file)
 {
 	//---------------------------------------------------------
 	// size 저장
@@ -413,7 +413,7 @@ MHelpManager::SaveToFile(ofstream& file)
 // Load From File
 //---------------------------------------------------------------------------
 void		
-MHelpManager::LoadFromFile(ifstream& file)
+MHelpManager::LoadFromFile(class ifstream& file)
 {
 	int size;
 

@@ -166,8 +166,7 @@ CDirectSoundStream::Load(LPSTR filename)
 														  (VOID**)&m_pDSNotify ) ) )
 				return;
 
-			int i;
-			for( i = 0; i < NUM_PLAY_NOTIFICATIONS; i++ )
+			for( int i = 0; i < NUM_PLAY_NOTIFICATIONS; i++ )
 			{
 				m_aPosNotify[i].dwOffset = (m_dwNotifySize * i) + m_dwNotifySize - 1;
 				m_aPosNotify[i].hEventNotify = m_hNotificationEvents[0];             

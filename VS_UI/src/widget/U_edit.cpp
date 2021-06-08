@@ -1341,7 +1341,7 @@ void CI_CHINESE::IME_Composition()
 void CI_CHINESE::IME_NextComposition()
 {
 	// 입력된 버퍼
-
+//by viva
 	bool LastErase=false;
 	const char *temp_str=gC_ci->GetComposingStringPtr();
 	char_t *temps;
@@ -1365,7 +1365,10 @@ void CI_CHINESE::IME_NextComposition()
 		{
 			// Skip Ascii.
 			gpC_focused_line_editor->EditToCursorPosition( ascii_temp );
+		//	gpC_focused_line_editor->EditToCursorPositionForIME( ascii_temp );
 			j++;
+		//	gpC_focused_line_editor->IncreaseCursor();
+		//	gC_ci->ForceShowCursor();
 			continue;
 		}
 

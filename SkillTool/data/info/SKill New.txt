@@ -1,0 +1,47 @@
+SkillID: 370 EN: Grenade Attack HN: Grenade 공격
+SkillID: 371 EN: Grenade Attack HN: Grenade 공격
+SkillID: 372 EN: Grenade Attack HN: Grenade 공격
+SkillID: 373 EN: Grenade Attack HN: Grenade 공격
+SkillID: 374 EN: Unterfeldwebel Fire HN: 운터펠트베벨 공격
+SkillID: 375 EN: Feldwebel Fire HN: 펠트베벨 공격
+SkillID: 376 EN: Feeble Virus HN: 피블 바이러스
+SkillID: 377 EN: Sword Combo HN: 소드 콤보
+SkillID: 378 EN: Blade Combo HN: 블레이드 콤보
+SkillID: 379 EN: Vampire Combo HN: 뱀파이어 콤보
+SkillID: 380 EN: Ousters Combo HN: 아우스터즈 콤보
+SkillID: 381 EN: Holy Sword HN: 홀리 소드
+SkillID: 382 EN: Holy Blade HN: 홀리 블레이드
+SkillID: 383 EN: Burst Gun HN: 버스트 건
+SkillID: 384 EN: Holy Mace HN: 홀리 메이스
+SkillID: 385 EN: Holy Cross HN: 홀리 크로스
+SkillID: 386 EN: Dark Force HN: 다크 포스
+SkillID: 387 EN: Natural Force HN: 네츄럴 포스
+SkillID: 388 EN: Fire Force HN: 파이어 포스
+SkillID: 389 EN: Water Force HN: 워터 포스
+SkillID: 390 EN: Earth Force HN: 어스 포스
+SkillID: 391 EN: Lose Sight HN: 루즈 사이트
+SkillID: 392 EN: Wide Blood Drain HN: 와이드 블러드 드레인
+SkillID: 393 EN: Natural Peace HN: 네츄럴 피스
+SkillID: 394 EN: Party Aura HN: 파티 오라
+SkillID: 395 EN: Multi Doom HN: 멀티 둠
+SkillID: 396 EN: Multi Paralyze HN: 멀티 페럴라이즈
+SkillID: 397 EN: Brandish HN: 휘두르기
+SkillID: 398 EN: Parasite HN: 패러사이트
+SkillID: 399 EN: Sound Wave HN: 음파공격
+SkillID: 400 EN: Fire Wave HN: 파이어 웨이브
+SkillID: 401 EN: Target Summon Monster HN: 타겟 서먼 몬스터
+SkillID: 402 EN: Bloody Burst HN: 공격 폭주
+SkillID: 403 EN: Trace Creature HN: 트레이스 크리쳐
+SkillID: 404 EN: Shine Sword HN: 샤인 스워드
+SkillID: 405 EN: Bomb Crash Walk HN: 범 크래쉬 워크
+SkillID: 406 EN: Satellite Bomb HN: 세터라이트 범
+SkillID: 407 EN: Illusion Inversion HN: 일루전 인버스
+SkillID: 408 EN: Heaven Ground HN: 헤븐 그라운드
+SkillID: 409 EN: Bloody Scarify HN: 블러디 스케러파이
+SkillID: 415 EN: Bloods Symposion HN: 피의 향연
+SkillID: 414 EN: Blood Curse HN: 피의 저주
+SkillID: 411 EN: Dummy Drake HN: 더미 드레이크
+SkillID: 412 EN: Hydro Convergence HN: 하이드로 컨버전스
+SkillID: 413 EN: Summon Clay HN: 서먼 클레이
+SkillID: 410 EN: Heter Chakram HN: 헤테르 차크람
+

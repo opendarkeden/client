@@ -1,0 +1,119 @@
+//{{NO_DEPENDENCIES}}
+// Microsoft Developer Studio generated include file.
+// Used by SpriteManager.rc
+//
+#define IDD_SPRITEMANAGER_DIALOG        102
+#define IDR_MAINFRAME                   128
+#define IDR_MENU1                       129
+#define IDC_CURSOR_DRAG                 130
+#define IDC_CURSOR_DRAG_ADD             131
+#define IDD_DIALOG_ANI                  131
+#define IDD_DIALOG_MAKE_SPRITE          132
+#define IDD_DIALOG_SEARCH               133
+#define IDD_DIALOG_PROGRESS             134
+#define IDB_BITMAP1                     135
+#define IDB_BITMAP2                     136
+#define IDB_BITMAP3                     137
+#define IDB_BITMAP4                     138
+#define IDD_DIALOG_INPUT_COUNT          143
+#define IDD_DIALOG1                     145
+#define IDD_DIALOG2                     146
+#define IDR_ACCELERATOR1                147
+#define IDD_DIALOG_PROGRESS1            147
+#define IDC_COMBO_TYPE                  1002
+#define IDC_COMBO_ACTION                1003
+#define IDC_COMBO_DIRECTION             1004
+#define IDC_BUTTON_DIRECTORY            1005
+#define IDC_BUTTON_SAVE                 1006
+#define IDC_BUTTON_EXIT                 1007
+#define IDC_BUTTON_PLAY                 1008
+#define IDC_COMBO_PART                  1009
+#define IDC_SLIDER_IMAGES               1011
+#define IDC_SLIDER_ANIMATION            1012
+#define IDC_STATIC_ANIMATION            1013
+#define IDC_STATIC_IMAGES               1014
+#define IDC_BUTTON_SCRIPT               1015
+#define IDC_BUTTON_LOAD                 1015
+#define IDC_BUTTON_SEARCH               1016
+#define IDC_STATIC_INFO                 1017
+#define IDC_BUTTON_MAKE_SPRITE          1018
+#define IDC_COMBO_HAT                   1019
+#define IDC_COMBO_HEAD                  1020
+#define IDC_COMBO_SHIRT                 1021
+#define IDC_COMBO_PANTS                 1022
+#define IDC_COMBO_BOOTS                 1023
+#define IDC_COMBO_LEFT_HAND             1024
+#define IDC_COMBO_RIGHT_HAND            1025
+#define IDC_COMBO_CLOAK                 1026
+#define IDC_COMBO_MOTOR                 1027
+#define IDC_COMBO_BG                    1028
+#define IDC_RECT                        1029
+#define IDC_BUTTON_PREV                 1031
+#define IDC_BUTTON_NEXT                 1032
+#define IDC_CHECK_RESIZE                1033
+#define IDC_CHECK_SLAYER_MAN            1035
+#define IDC_CHECK_SLAYER_WOMAN          1036
+#define IDC_CHECK_IMAGE                 1036
+#define IDC_CHECK_VAMPIRE               1037
+#define IDC_CHECK_ANI                   1037
+#define IDC_PROGRESS                    1037
+#define IDC_CHECK_SHOW_TILE             1038
+#define IDC_CHECK_NPC                   1038
+#define IDC_EDIT_FPS                    1039
+#define IDC_CHECK_MIDLEVEL_MOB          1039
+#define IDC_CHECK_VAMPIRE2              1040
+#define IDC_BUTTON_BG                   1042
+#define IDC_CANCEL                      1043
+#define IDC_EDIT_NPC_NAME               1044
+#define IDC_EDIT1                       1045
+#define IDC_EDIT_MIDLEVEL_MOB_NAME      1045
+#define IDC_BUTTON1                     1046
+#define IDC_EDIT2                       1046
+#define IDC_BUTTON_UNDO                 1047
+#define IDC_BUTTON_REDO                 1048
+#define IDC_BUTTON_OPEN_FILE_FOR_NPC    1048
+#define IDC_BUTTON_OPEN_FILE_FOR_MID_MOB 1049
+#define IDC_ANIMATION_LIST              1049
+#define IDC_LISTUP                      1052
+#define IDC_LISTDOWN                    1053
+#define IDC_LISTCOPY                    1054
+#define IDC_LISTPASTE                   1055
+#define IDC_COMBO_VAMPIRE               1055
+#define IDC_LISTDELETE                  1056
+#define IDC_COMBO_OUSTERS               1056
+#define IDC_LISTCUT                     1057
+#define IDC_OUSTERS                     1057
+#define IDC_COMBO_OUSTERS_WEAPON        1057
+#define IDC_LISTADD                     1058
+#define IDC_PROMOTION_SLAYER_MAN        1058
+#define IDC_PROMOTION_SLAYER_WOMAN      1059
+#define IDC_PROMOTION_VAMPIRE_MAN       1060
+#define IDC_PROMOTION_VAMPIRE_WOMAN     1061
+#define IDC_PROMOTION_OUSTERS           1062
+#define IDC_AC_HELMET                   1063
+#define IDC_AC_LEFTHAND                 1064
+#define IDC_AC_RIGHTHAND                1065
+#define IDC_AC_SHOULDER                 1066
+#define IDC_AC_MOTOR                    1067
+#define IDC_AC_BODY                     1071
+#define IDC_ACVAMP_WEAPON               1072
+#define ID_MENU_DELETE_ANI              32771
+#define ID_MENU_DELETE_ALL_ANIS         32772
+#define ID_MENU_SEND_ALL                32773
+#define ID_MENU_SEND                    32774
+#define ID_REPEAT_COPY                  32775
+#define ID_UNDO                         32777
+#define ID_REDO                         32778
+#define ID_COPY                         32779
+#define ID_PASTE                        32781
+
+// Next default values for new objects
+// 
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NEXT_RESOURCE_VALUE        152
+#define _APS_NEXT_COMMAND_VALUE         32782
+#define _APS_NEXT_CONTROL_VALUE         1073
+#define _APS_NEXT_SYMED_VALUE           101
+#endif
+#endif

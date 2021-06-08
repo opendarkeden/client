@@ -585,7 +585,7 @@ CWaitUIUpdate::UpdateDraw()
 //
 //			if (first)
 //			{
-//				ifstream file("fog.aspk", std::ios::binary);
+//				class ifstream file("fog.aspk", ios::binary);
 //				ASPK.LoadFromFile(file);
 //				file.close();
 //

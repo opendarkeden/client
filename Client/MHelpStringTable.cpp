@@ -56,7 +56,7 @@ MHelpStringTable::ClearDisplayed()
 // Load From File
 //---------------------------------------------------------------------------
 void			
-MHelpStringTable::LoadFromFile(ifstream& file)
+MHelpStringTable::LoadFromFile(class ifstream& file)
 {
 	MStringArray::LoadFromFile( file );
 

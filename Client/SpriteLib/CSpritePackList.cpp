@@ -4,7 +4,7 @@
 
 #include "CSprite.h"
 #include "CSpritePackList.h"
-#include <fstream>
+#include <fstream.h>
 
 //----------------------------------------------------------------------
 //
@@ -178,7 +178,7 @@ CSpritePackList::ChangeSprite(TYPE_SPRITEID n, TYPE_SPRITEID m)
 	//------------------------------------------------------
 	temp = m-n;
 	SPRITE_LIST::iterator	iSecondSprite = iFirstSprite;
-	for (int i=n; i<temp; i++)
+	for (i=n; i<temp; i++)
 		iSecondSprite++;
 	
 	//------------------------------------------------------

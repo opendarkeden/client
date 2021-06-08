@@ -9,6 +9,9 @@
 #include "CSpriteDef.h"
 #include "CIndexSprite.h"
 #include "CSprite.h"
+class ofstream;
+class ifstream;
+
 
 //----------------------------------------------------------------------
 // width * height만큼의 pixel을 저장해둔다.
@@ -63,8 +66,8 @@ class CShadowSprite
 		//---------------------------------------------------------
 		// fstream에서 save/load를 한다.
 		//---------------------------------------------------------
-		bool		SaveToFile(ofstream& file);
-		bool		LoadFromFile(ifstream& file);
+		bool		SaveToFile(class ofstream& file);
+		bool		LoadFromFile(class ifstream& file);
 	
 		//---------------------------------------------------------
 		// CDirectDrawSurface의 영역을 읽어서 m_Pixels에 저장한다.

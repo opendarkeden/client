@@ -17,7 +17,7 @@
 #include "MGameStringTable.H"
 #include "ClientConfig.H"
 #include "MNpcTable.h"
-
+extern RECT g_GameRect;
 #include <algorithm>
 
 Window* g_desc_dialog_window_id = NULL;
@@ -67,8 +67,7 @@ C_VS_UI_EDIT_DIALOG::C_VS_UI_EDIT_DIALOG(int _x, int _y, int center_x, int cente
 
 	m_max_val = max_val;	
 	m_lev_value.SetDigitOnlyMode(true);
-	int digit_count, number;
-	for(digit_count = 0, number = max_val; number > 0; number/=10, digit_count++);
+	for(int digit_count = 0, number = max_val; number > 0; number/=10, digit_count++);
 	m_lev_value.SetByteLimit(digit_count);
 	Attach(&m_lev_value);
 	m_default_val = cur_val;
@@ -317,7 +316,7 @@ void	C_VS_UI_EDIT_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 		}
 
 	m_lev_value.KeyboardControl(message, key, extra);
-	int digit_count, number;
+
 	for(digit_count = 0, number = GetValue(); number > 0; number/=10, digit_count++);
 	while(digit_count < m_lev_value.Size())m_lev_value.EraseCharacterBegin();
 	
@@ -368,6 +367,7 @@ void	C_VS_UI_MONEY_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 	C_VS_UI_DIALOG::KeyboardControl(message, key, extra);
 
 	int _MAX_MONEY = 0;
+
 	// by sigi
 	switch (m_type)
 	{
@@ -407,18 +407,15 @@ void	C_VS_UI_MONEY_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 		case MONEY_CAMPAIGN_HELP:
 			_MAX_MONEY = g_pMoneyManager->GetMoney()/10000;
 			break;
-		case MONEY_WEDDING_CONTRIBUTION :			// ÃàÀÇ±Ý ÃÖ´ë 100,000 À»³ÑÁö ¾Ê´Â´Ù.
-			_MAX_MONEY = 10 ; 
-			break;
-
 	}
 
-	if (GetValue() > _MAX_MONEY )
+	if (GetValue() > _MAX_MONEY)
 	{
 		char buf[30];
 		sprintf(buf, "%d", _MAX_MONEY);
 		m_lev_value.EraseAll();
 		m_lev_value.AddString(buf);
+
 		if(m_bPrintMessage == false)
 		{
 			m_bPrintMessage = true;
@@ -427,6 +424,7 @@ void	C_VS_UI_MONEY_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 			case MONEY_DEPOSIT:
 				gC_vs_ui.RunDepositLimit();
 				break;
+
 			case MONEY_WITHDRAW:
 				gC_vs_ui.RunWithdrawLimit();
 			case MONEY_BRING_FEE :
@@ -450,33 +448,28 @@ void	C_VS_UI_MONEY_DIALOG::Show()
 	gpC_global_resource->m_pC_assemble_box_button_spk->Blt(m_money_dialog_pt.x, m_money_dialog_pt.y, C_GLOBAL_RESOURCE::AB_MONEY_BAR);
 //	m_p_image_spk->Blt(m_money_dialog_pt.x, m_money_dialog_pt.y, MONEY_DIALOG);
 
-	if((m_type == MONEY_CAMPAIGN_HELP)|| (m_type == MONEY_WEDDING_CONTRIBUTION))
+	if(m_type == MONEY_CAMPAIGN_HELP)
 	{
 		if(g_FL2_GetDC())
-		{	
-			int iHeight = 0 ; 
-			if(m_type == MONEY_WEDDING_CONTRIBUTION)	iHeight = 14 ; 
-
+		{		
 			switch(g_eRaceInterface)
 			{
 			case RACE_SLAYER:
-				g_PrintColorStr(x+185, y+64 + iHeight, (*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_UNITS_SLAYER].GetString(), gpC_base->m_item_name_pi, RGB_WHITE);
+				g_PrintColorStr(x+185, y+64, (*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_UNITS_SLAYER].GetString(), gpC_base->m_item_name_pi, RGB_WHITE);
 				break;
 
 			case RACE_VAMPIRE:
-				g_PrintColorStr(x+185, y+64 + iHeight, (*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_UNITS_VAMPIRE].GetString(), gpC_base->m_item_name_pi, RGB_WHITE);
+				g_PrintColorStr(x+185, y+64, (*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_UNITS_VAMPIRE].GetString(), gpC_base->m_item_name_pi, RGB_WHITE);
 				break;
 
 			case RACE_OUSTERS:
-				g_PrintColorStr(x+185, y+64 + iHeight, (*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_UNITS_OUSTERS].GetString(), gpC_base->m_item_name_pi, RGB_WHITE);
+				g_PrintColorStr(x+185, y+64, (*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_UNITS_OUSTERS].GetString(), gpC_base->m_item_name_pi, RGB_WHITE);
 				break;		
 			}
 			g_FL2_ReleaseDC();
 		}
-
-
-		int TempValue =  GetValue();
-		if(TempValue > 0)
+		int TempValue = GetValue();
+		if(TempValue>0)
 		{
 			Point TempPoint = m_lev_value.GetPosition();
 			char TempBuffer[64];
@@ -556,15 +549,12 @@ C_VS_UI_MONEY_DIALOG::C_VS_UI_MONEY_DIALOG(int _x, int _y, int center_x, int cen
 	m_sz_question_msg[6][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_MODIFY_TAX].GetString();	
 	m_sz_question_msg[7][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_SELL_MONEY_IN_DIALOG].GetString();	
 	m_sz_question_msg[8][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_REQUEST].GetString();	
-	m_sz_question_msg[9][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_WEDDING_CONTRIBUTION_REQUEST].GetString();	 	
+	
 
 	m_type = type;										
 
-	if(m_type != MONEY_WEDDING_CONTRIBUTION)
-		SetMessage(m_sz_question_msg[m_type], 1 ) ;//, SMO_NOFIT);		// by sigi
-	else
-		SetMessage(m_sz_question_msg[m_type], 1 , SMO_FIT  , TRUE ,   105); //, SMO_NOFIT);		// by sigi
-	
+	SetMessage(m_sz_question_msg[type], 1);//, SMO_NOFIT);		// by sigi
+
 	if (digit_count < 0)
 		digit_count = 0;
 
@@ -575,12 +565,9 @@ C_VS_UI_MONEY_DIALOG::C_VS_UI_MONEY_DIALOG(int _x, int _y, int center_x, int cen
 	//	m_p_image_spk = new C_SPRITE_PACK(SPK_MONEY_DIALOG);
 
 	m_money_dialog_pt.x = m_client_rect.x + 0;
-	if(m_type == MONEY_WEDDING_CONTRIBUTION)
-		m_money_dialog_pt.y = m_client_rect.y + 40;
-	else
-		m_money_dialog_pt.y = m_client_rect.y + 25;
+	m_money_dialog_pt.y = m_client_rect.y + 25;
 
-	m_lev_value.SetPosition(m_money_dialog_pt.x, m_money_dialog_pt.y+3);
+	m_lev_value.SetPosition(m_money_dialog_pt.x+5, m_money_dialog_pt.y+3);
 }
 
 //-----------------------------------------------------------------------------
@@ -641,14 +628,6 @@ void	C_VS_UI_ASK_DIALOG::InitString()
 	m_sz_question_msg[7][2]=(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_RESSURECT].GetString();
 	m_sz_question_msg[7][3]=(*g_pGameStringTable)[UI_STRING_MESSAGE_REMOVE_PET_OPTION].GetString();
 	m_sz_question_msg[7][4]=(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_MUTANT].GetString();
-	m_sz_question_msg[7][5]=(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_ITEM_DEL].GetString();
-	m_sz_question_msg[7][6]=(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_ATTRIBUTE_CLEANER_POTION].GetString();
-	m_sz_question_msg[7][7]=(*g_pGameStringTable)[UI_STRING_MESSAGE_MASK_OF_MONSTER].GetString();
-	m_sz_question_msg[7][8]=(*g_pGameStringTable)[UI_STRING_MESSAGE_MAGICAL_PET_CHANGER].GetString();
-	m_sz_question_msg[7][9]=(*g_pGameStringTable)[UI_STRING_MESSAGE_ORNAMENTS_ITEM].GetString();
-	m_sz_question_msg[7][10]=(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_STRENGTHENING].GetString();
-
-	
 	
 	m_sz_question_msg[8][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_DEPOSIT_LIMIT].GetString();
 	m_sz_question_msg[8][1]="";
@@ -679,22 +658,24 @@ void	C_VS_UI_ASK_DIALOG::InitString()
 
 	m_sz_question_msg[17][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUEST_GET_EVENT_ITEM].GetString();
 	m_sz_question_msg[17][1]="";
-
-	m_sz_question_msg[18][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_ITEM_DEL].GetString();
+//---------------------------------------------------friend string : add by viva-----------------------------------
+	m_sz_question_msg[18][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_REQUEST].GetString();
 	m_sz_question_msg[18][1]="";
 
-	m_sz_question_msg[18][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_ITEM_DEL].GetString();
-	m_sz_question_msg[18][1]="";
-
-
-	m_sz_question_msg[19][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_ITEM_DEL].GetString();
+	m_sz_question_msg[19][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_REFUSE].GetString();
 	m_sz_question_msg[19][1]="";
-	
-	m_sz_question_msg[20][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_ITEM_DEL].GetString();
-	m_sz_question_msg[20][1]="";
 
-	m_sz_question_msg[21][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_ITEM_DEL].GetString();
+	m_sz_question_msg[20][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_WAIT].GetString();
+	m_sz_question_msg[20][1]="";
+	
+	m_sz_question_msg[21][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_EXSIT].GetString();
 	m_sz_question_msg[21][1]="";
+
+	m_sz_question_msg[22][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_BLACK].GetString();
+	m_sz_question_msg[22][1]="";
+
+	m_sz_question_msg[23][0]=(*g_pGameStringTable)[UI_STRING_ASK_FRIEND_DELETE].GetString();
+	m_sz_question_msg[23][1]="";
 }
 //-----------------------------------------------------------------------------
 // C_VS_UI_ASK_DIALOG::C_VS_UI_ASK_DIALOG
@@ -831,34 +812,6 @@ C_VS_UI_ASK_DIALOG::C_VS_UI_ASK_DIALOG(int _x, int _y, int center_x, int center_
 				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
 				break;
 
-			case 5:		// Æê º¯½Å
-				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][5])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][5]);
-				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-				break;
-
-			case 6:		// Æê ¼Ó¼ºÀ» ÃÊ±â
-				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][6])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][6]);
-				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-				break;
-
-			case 7:		// ¹«±â¸¦ °­È­
-				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][9])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][9]);
-				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-				break;
-			case 8:		// Æê °³·®
-				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][8])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][8]); 
-				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-
-			case 9:		// ¾ÆÀÌÅÛ °­È­ 
-				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][10])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][10]); 
-				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);
-				
-			break;		
 
 			}
 		}
@@ -900,15 +853,53 @@ C_VS_UI_ASK_DIALOG::C_VS_UI_ASK_DIALOG(int _x, int _y, int center_x, int center_
 			sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
 			SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT );
 			break;
-		case ASK_USE_DYE_POTION : 
-			if(value == 1)
+
+			//add by viva--------------------------------------ASK_FRIEND_REQUEST-----------------------
+		case ASK_FRIEND_REQUEST :
+		case ASK_FRIEND_REFUSE:
+		case ASK_FRIEND_WAIT:
+		case ASK_FRIEND_EXIST:
+		case ASK_FRIEND_BLACK:
+		case ASK_FRIEND_DELETE:
 			{
-				m_sz_question_msg_temp[0] = new char [strlen( m_sz_question_msg[type][0])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
-				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT );
+				const char* pName = (const char*)m_pTemporayValue;
+				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+strlen(pName)+5];
+				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0], pName);
+				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
+				break;
 			}
-			m_sz_question_msg[18][0] =	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_SKILL_CLEANER_POTION].GetString();
-		
+		//case ASK_FRIEND_REFUSE:
+		//	{
+		//		const char* pName = (const char*)m_pTemporayValue;
+		//		m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+strlen(pName)+5];
+		//		sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0], pName);
+		//		SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
+		//		break;
+		//	}
+		//case ASK_FRIEND_WAIT:
+		//	{
+		//		const char* pName = (const char*)m_pTemporayValue;
+		//		m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+strlen(pName)+5];
+		//		sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0], pName);
+		//		SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
+		//		break;
+		//	}
+		//case ASK_FRIEND_EXIST:
+		//	{
+		//		const char* pName = (const char*)m_pTemporayValue;
+		//		m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+strlen(pName)+5];
+		//		sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0], pName);
+		//		SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
+		//		break;
+		//	}
+		//case ASK_FRIEND_BLACK:
+		//	{
+		//		const char* pName = (const char*)m_pTemporayValue;
+		//		m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+strlen(pName)+5];
+		//		sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0], pName);
+		//		SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
+		//		break;
+		//	}
 		default :
 			SetMessage(m_sz_question_msg[type], 1, SMO_NOFIT);	
 	}
@@ -1244,7 +1235,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 	}
 	
 	w = 540; h = 405;
-	Set(RESOLUTION_X/2-w/2, RESOLUTION_Y/2-h/2, w, h);
+	Set(g_GameRect.right/2-w/2, g_GameRect.bottom/2-h/2, w, h);
 
 	m_pC_scroll_bar = new C_VS_UI_SCROLL_BAR(0, Rect(510, 55, -1, 265));
 	std::string filename;
@@ -1450,10 +1441,17 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 					temp_color = CIndexSprite::ColorSet[g_pClientConfig->UniqueItemColorSet+13][31];					
 				title_color = RGB(CDirectDraw::Red(temp_color)<<3, CDirectDraw::Green(temp_color)<<3, CDirectDraw::Blue(temp_color)<<3);
 			} else
-			if(p_item->GetItemOptionListCount() > 1)			// Rare Item ? 
+			if(p_item->GetItemOptionListCount() == 2 )			// Rare Item ? 
 			{
 				title_color = g_pClientConfig->COLOR_NAME_ITEM_RARE_OPTION;
-			} else
+			} 
+			// add by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈýÊôÐÔ×°±¸ÎªºìÉ«
+			else if(p_item->GetItemOptionListCount() > 2)
+			{
+				title_color = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
+			}
+			// end by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈýÊôÐÔ×°±¸ÎªºìÉ«
+			else
 				title_color = RGB_YELLOW;						// Normal Item
 			pi = gpC_base->m_desc_msg_pi;
 			color = RGB_WHITE;
@@ -2326,8 +2324,8 @@ C_VS_UI_FILE_DIALOG::C_VS_UI_FILE_DIALOG(MODE Mode)
 
 	w = 400;
 	h = 400;
-	x = RESOLUTION_X/2 - w/2;
-	y = RESOLUTION_Y/2 - h/2;
+	x = g_GameRect.right/2 - w/2;
+	y = g_GameRect.bottom/2 - h/2;
 	
 	help_x_offset = w-150;
 	help_y_offset = h-50;
@@ -2347,7 +2345,7 @@ C_VS_UI_FILE_DIALOG::C_VS_UI_FILE_DIALOG(MODE Mode)
 //	m_scroll_y = 95;
 //	m_scroll_h = 212;
 	
-//	Set(RESOLUTION_X/2-m_p_image_spk->GetWidth()/2, RESOLUTION_Y/2-m_p_image_spk->GetHeight()/2, m_p_image_spk->GetWidth(), m_p_image_spk->GetHeight());
+//	Set(g_GameRect.right/2-m_p_image_spk->GetWidth()/2, g_GameRect.bottom/2-m_p_image_spk->GetHeight()/2, m_p_image_spk->GetWidth(), m_p_image_spk->GetHeight());
 	
 	m_pC_button_group = new ButtonGroup(this);
 //	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(scroll_x_offset, scroll_up_y_offset, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_UP), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_UP), SCROLL_UP_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_UP));
@@ -3222,8 +3220,7 @@ void C_VS_UI_FILE_DIALOG::RefreshFileList(char *sz_dirname)
 			sz_filename = "\\";
 			sz_filename += fd.cFileName;
 
-			int i;
-			for(i = 0; i < m_vs_file_list.size(); i++)
+			for(int i = 0; i < m_vs_file_list.size(); i++)
 			{
 				if(m_vs_file_list[i] > sz_filename || m_vs_file_list[i][0] != '\\')
 				{
@@ -3366,383 +3363,4 @@ int		C_VS_UI_FILE_DIALOG::GetMode()
 {
 	return m_mode;
 }
-
-
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_NPC_DIALOG::C_VS_UI_NPC_DIALOG
-//
-// 
-//-----------------------------------------------------------------------------
-C_VS_UI_SUMMER_COME_BACK::C_VS_UI_SUMMER_COME_BACK(int _x, int _y, int center_x, int center_y, void (*exec_fp)(C_VS_UI_DIALOG *, id_t), WORD dd_button, TYPE_SUMMER_COME_BACK_DIALOG type)  : 
-							C_VS_UI_DIALOG(_x, _y, center_x, center_y, exec_fp, dd_button)
-{
-	
-	g_RegisterWindow(this);
-
-	AttrTopmost(true);
-	AttrKeyboardControl(true);
-
-	int w_w = 530	;
-	int w_h = 400	;
-
-	int ok_offset_x, ok_offset_y;
-
-	ok_offset_x = w_w - 90;
-	ok_offset_y = w_h-60;
-	
-	Set(RESOLUTION_X/2-w_w/2, RESOLUTION_Y/2-w_h/2, w_w, w_h);
-
-	m_type = type ; 
-
-	m_pC_button_group = new ButtonGroup(this);
-	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+ok_offset_x, y+ok_offset_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_OK), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_OK), BUTTON_OK, this, C_GLOBAL_RESOURCE::AB_BUTTON_OK));
-	
-
-}
-C_VS_UI_SUMMER_COME_BACK::~C_VS_UI_SUMMER_COME_BACK()
-{
-		g_UnregisterWindow(this);
-}
-
-//-----------------------------------------------------------------------------
-// Run
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SUMMER_COME_BACK::Run(id_t id)
-{
-	switch( id )
-	{
-	case BUTTON_OK :		
-		Finish();
-		break;
-	}
-}
-
-
-void	C_VS_UI_SUMMER_COME_BACK::Start()
-{
-	PI_Processor::Start();
-	gpC_window_manager->AppearWindow(this);
-
-	m_pC_button_group->Init();
-}
-
-void C_VS_UI_SUMMER_COME_BACK::Finish()
-{
-	PI_Processor::Finish();
-
-	gpC_window_manager->DisappearWindow(this);
-}
-
-
-void	C_VS_UI_SUMMER_COME_BACK::KeyboardControl(UINT message, UINT key, long extra)
-{
-	if (message == WM_KEYDOWN)
-	{
-		switch (key)
-		{
-			case VK_RETURN:
-				Run(BUTTON_OK);
-				return;
-		}
-	}	
-}
-
-//-----------------------------------------------------------------------------
-// MouseControl
-//
-// 
-//-----------------------------------------------------------------------------
-bool C_VS_UI_SUMMER_COME_BACK::MouseControl(UINT message, int _x, int _y)
-{
-	Window::MouseControl(message, _x, _y);
-	m_pC_button_group->MouseControl(message, _x, _y);
-
-	return true;
-}
-
-
-//-----------------------------------------------------------------------------
-// Process
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SUMMER_COME_BACK::Process()
-{
-	m_pC_button_group->Process();
-}
-
-
-void	C_VS_UI_SUMMER_COME_BACK::Show()
-{
-	gpC_global_resource->DrawDialog(x, y, w, h, GetAttributes()->alpha);
-	
-	g_FL2_GetDC();
-	std::string str ; 	
-	if(m_type == COME_BACK_LOGIN_AFTER)
-		str = (*g_pGameStringTable)[UI_STRING_MESSAGE_SUMMER_COMEBACK_LOGIN_AFTER].GetString();
-	else if(m_type == COME_BACK_SETTLEMENT_AFTER)
-		str = (*g_pGameStringTable)[UI_STRING_MESSAGE_SUMMER_COMEBACK_SETTLEMENT_AFTER].GetString();
-	else if(m_type == COME_BACK_RECOMMENDER)
-		str = (*g_pGameStringTable)[UI_STRING_MESSAGE_SUMMER_COMEBACK_RECOMMENDER].GetString();
-
-	int next=0;
-	char sz_string[512];
-	
-	int print_x=30+x,vx;
-	int py = 40+y;
-	const int print_gap = 20;
-	const int char_width = g_GetStringWidth("a", gpC_base->m_chatting_pi.hfont);
-	
-	vx = print_x;
-	
-	while(str.size() > next)
-	{
-		strcpy(sz_string, str.c_str()+next);
-		
-		char *sz_string2 = sz_string;
-		
-		while(*sz_string2 == ' ')		// ¾ÕÀÇ °ø¹éÁ¦°Å
-		{
-			sz_string2++;
-			next++;
-		}
-		
-		int cut_pos = (x+w-30 -vx)/char_width;
-		
-		if(!g_PossibleStringCut(sz_string2, cut_pos))
-			cut_pos--;
-		sz_string2[cut_pos] = NULL;
-		
-		char *return_char = NULL;
-		if((return_char = strchr(sz_string2, '\n')) != NULL)	// return Ã³¸®
-		{
-			cut_pos = return_char - sz_string2+1;
-			sz_string2[cut_pos-1] = NULL;
-		}
-		
-		g_PrintColorStr(vx, py, sz_string2, gpC_base->m_chatting_pi, RGB_WHITE);
-		next += cut_pos;
-		vx = print_x;
-		py += print_gap;
-	}
-	//g_PrintColorStr( 326 + 20, 356, (*g_pGameStringTable)[UI_STRING_MESSAGE_I_AGREE].GetString(),gpC_base->m_chatting_pi, RGB_WHITE);
-
-	m_pC_button_group->ShowDescription();
-	
-	g_FL2_ReleaseDC();
-
-	m_pC_button_group->Show();
-
-	SHOW_WINDOW_ATTR;
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_NETMARBLE_AGREEMENT::ShowButtonWidget
-//
-// 
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SUMMER_COME_BACK::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
-{	
-	
-	if (p_button->GetFocusState())	
-	{
-		if(p_button->GetPressState())
-			gpC_global_resource->m_pC_assemble_box_button_spk->Blt(p_button->x, p_button->y, p_button->m_image_index+C_GLOBAL_RESOURCE::AB_BUTTON_PUSHED_OFFSET);
-		else
-			gpC_global_resource->m_pC_assemble_box_button_spk->Blt(p_button->x, p_button->y, p_button->m_image_index+C_GLOBAL_RESOURCE::AB_BUTTON_HILIGHTED_OFFSET);
-	} else
-		gpC_global_resource->m_pC_assemble_box_button_spk->Blt(p_button->x, p_button->y, p_button->m_image_index);
-	
-}
-
-
-/*
-C_VS_UI_ASK_DIALOG::C_VS_UI_ASK_DIALOG(int _x, int _y, int center_x, int center_y, void (*exec_fp)(C_VS_UI_DIALOG *, id_t), WORD dd_button, TYPE_ASK_DIALOG type, int value, void* pValue) :
-							C_VS_UI_DIALOG(_x, _y, center_x, center_y, exec_fp, dd_button)
-{
-	m_sz_question_msg_temp[0] = NULL;	
-	m_sz_question_msg_temp[1] = NULL;	
-
-	m_type = type;										
-
-	m_dwTemporayValue = value;
-	m_pTemporayValue = pValue;
-
-	InitString();
-	char *PartyName = (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_PARTY_NAME].GetString();
-
-	AttrKeyboardControl(true);
-
-	switch (type)
-	{	
-		// ¼ýÀÚ°¡ ÇÏ³ª µé¾î°¡´Â °æ¿ì.. - -;
-		case ASK_STORAGE_BUY :
-		{
-			m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+20];
-			sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0], value);
-			SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-		}
-		break;
-
-		case ASK_EXCHANGE :
-		{
-			const char* pName = (const char*)m_pTemporayValue;
-
-			m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+strlen(pName)+5];
-			sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0], pName);
-			SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-		}
-		break;
-
-		case ASK_EXCHANGE_CANCEL :
-		{
-			const char* pName = (const char*)m_pTemporayValue;
-			m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+strlen(pName)+5];
-			m_sz_question_msg_temp[1] = new char [strlen(m_sz_question_msg[type][1])+1];
-			sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0], pName);
-			sprintf(m_sz_question_msg_temp[1], m_sz_question_msg[type][1]);
-			SetMessage(m_sz_question_msg_temp, 2, SMO_NOFIT);	
-		}
-		break;
-
-//		case ASK_TUTORIAL_EXIT :	// by larosel
-//		{
-//			const char* pName = (const char*)m_pTemporayValue;
-//
-//			m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+12];
-//			m_sz_question_msg_temp[1] = new char [strlen(m_sz_question_msg[type][1])+1];
-//			sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0], pName);
-//			sprintf(m_sz_question_msg_temp[1], m_sz_question_msg[type][1]);
-//			SetMessage(m_sz_question_msg_temp, 2, SMO_NOFIT);	
-//		}
-//		break;
-
-		case ASK_PARTY_REQUEST :
-		{
-			const char* pName = (const char*)m_pTemporayValue;
-
-			m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+strlen(pName)+5];
-			sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0], pName, PartyName);
-			SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-		}
-		break;
-
-		case ASK_PARTY_INVITE :
-		{
-			const char* pName = (const char*)m_pTemporayValue;
-
-			m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+strlen(pName)+5];
-			sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0], pName, PartyName);
-			SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-		}
-		break;
-
-		case ASK_PARTY_CANCEL :
-		{
-			const char* pName = (const char*)m_pTemporayValue;
-
-			m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+strlen(pName)+5];
-			m_sz_question_msg_temp[1] = new char [strlen(m_sz_question_msg[type][1])+1];
-			sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0], pName);
-			sprintf(m_sz_question_msg_temp[1], m_sz_question_msg[type][1]);
-			SetMessage(m_sz_question_msg_temp, 2, SMO_NOFIT);	
-		}
-		break;
-
-		case ASK_ENCHANT :
-		{
-			switch(value)
-			{
-			case 0:		// ÀÏ¹Ý ¾ÆÀÌÅÛ ÀÎÃ¾Æ®
-				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
-				m_sz_question_msg_temp[1] = new char [strlen(m_sz_question_msg[type][1])+1];
-				sprintf(m_sz_question_msg_temp[1], m_sz_question_msg[type][1]);
-				
-				SetMessage(m_sz_question_msg_temp, 2, SMO_NOFIT);	
-				break;
-				
-			case 1:		// Æê ÀÎÃ¾Æ®
-				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
-				
-				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-				break;
-				
-			case 2:		// Æê ºÎÈ°
-				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][2])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][2]);
-				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-				break;
-
-			case 3:		// Æê Ç»¸®Å¸½º
-				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][3])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][3]);
-				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-				break;
-
-			case 4:		// Æê º¯½Å
-				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][4])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][4]);
-				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-				break;
-
-			case 5:		// Æê º¯½Å
-				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][5])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][5]);
-				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
-				break;
-
-
-			}
-		}
-		break;
-
-		case ASK_TRANS_ITEM :
-		{
-			m_sz_question_msg_temp[0] = new char [strlen( m_sz_question_msg[type][0])+1];
-			sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
-			SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT );
-		}
-		break;		
-
-		case ASK_USE_PET_FOOD :
-			{
-				m_sz_question_msg_temp[0] = new char [strlen( m_sz_question_msg[type][0])+1];
-				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
-				m_sz_question_msg_temp[1] = new char [strlen( m_sz_question_msg[type][1])+1];
-				sprintf(m_sz_question_msg_temp[1], m_sz_question_msg[type][1]);
-				
-				SetMessage(m_sz_question_msg_temp, 2, SMO_NOFIT );
-			}
-			break;		
-
-		case ASK_KEEP_PETITEM:
-			m_sz_question_msg_temp[0] = new char [strlen( m_sz_question_msg[type][0])+1];
-			sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
-			SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT );
-			break;
-			
-		case ASK_GET_KEEP_PETITEM:
-			m_sz_question_msg_temp[0] = new char [strlen( m_sz_question_msg[type][0])+1];
-			sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
-			SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT );
-			break;
-
-		case ASK_USE_SMSITEM:
-			m_sz_question_msg_temp[0] = new char [strlen( m_sz_question_msg[type][0])+1];
-			sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
-			SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT );
-			break;
-		default :
-			SetMessage(m_sz_question_msg[type], 1, SMO_NOFIT);	
-	}
-}
-*/
-
-
-
 

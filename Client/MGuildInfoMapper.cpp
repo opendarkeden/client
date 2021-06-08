@@ -35,7 +35,7 @@ GUILD_INFO::~GUILD_INFO()
 // Save To File
 //----------------------------------------------------------------------
 void	
-GUILD_INFO::SaveToFile(ofstream& file)
+GUILD_INFO::SaveToFile(class ofstream& file)
 {
 	file.write((const char*)&m_SpriteID, SIZE_SPRITEID);
 //	m_GuildName.SaveToFile( file );
@@ -46,7 +46,7 @@ GUILD_INFO::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void	
-GUILD_INFO::LoadFromFile(ifstream& file)
+GUILD_INFO::LoadFromFile(class ifstream& file)
 {
 	file.read((char*)&m_SpriteID, SIZE_SPRITEID);
 //	MString tempString;
@@ -178,7 +178,7 @@ MGuildInfoMapper::Set(WORD guildID, GUILD_INFO* pInfo)
 // Save To File
 //----------------------------------------------------------------------
 void	
-MGuildInfoMapper::SaveToFile(ofstream& file)
+MGuildInfoMapper::SaveToFile(class ofstream& file)
 {
 	int num = size();
 
@@ -202,7 +202,7 @@ MGuildInfoMapper::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void	
-MGuildInfoMapper::LoadFromFile(ifstream& file)
+MGuildInfoMapper::LoadFromFile(class ifstream& file)
 {
 	int num;
 
@@ -232,7 +232,7 @@ MGuildInfoMapper::LoadFromFile(ifstream& file)
 void	
 MGuildInfoMapper::ChangeValueToFile(const char* pFilename, WORD guildID) const
 {
-	ofstream file(pFilename, std::ios::binary | ios::ate);
+	class ofstream file(pFilename, ios::binary | ios::ate);
 
 	file.seekp( 4 + guildID*(sizeof(WORD)+SIZE_SPRITEID), ios::beg );
 
@@ -247,7 +247,7 @@ MGuildInfoMapper::ChangeValueToFile(const char* pFilename, WORD guildID) const
 //void	
 //MGuildInfoMapper::SaveInfoToFile(const char* pFilename)
 //{
-//	ofstream file( pFilename );
+//	class ofstream file( pFilename );
 //
 //	GUILD_INFO_MAP::iterator iID = begin();
 //

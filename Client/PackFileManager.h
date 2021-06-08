@@ -46,9 +46,9 @@ class PackFileInfo {
 		//-------------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------------
-		virtual void		SaveToFile(std::ofstream& file);
-		virtual void		LoadFromFile(ifstream& file);
-		virtual bool		SaveToFileData(std::ofstream& file);
+		virtual void		SaveToFile(class ofstream& file);
+		virtual void		LoadFromFile(class ifstream& file);
+		virtual bool		SaveToFileData(class ofstream& file);
 
 	protected :
 		DWORD				m_ID;			// ID
@@ -88,8 +88,8 @@ class PackFileManager {
 		// Load Data
 		//---------------------------------------------------------------
 		void				SetDataFilename(const char* pFilename)	{ m_DataFilename = pFilename; }
-		bool				GetInputFileStream(const char* pFilename, ifstream& file) const;
-		bool				GetInputFileStream(DWORD id, ifstream& file) const;
+		bool				GetInputFileStream(const char* pFilename, class ifstream& file) const;
+		bool				GetInputFileStream(DWORD id, class ifstream& file) const;
 
 		//---------------------------------------------------------------
 		// Merge
@@ -348,7 +348,7 @@ template <class FileInfoType>
 bool					
 PackFileManager<FileInfoType>::SaveToFileInfo(const char* pFilename)
 {
-	std::ofstream file(pFilename, std::ios::binary | ios::trunc);
+	class ofstream file(pFilename, ios::binary | ios::trunc);
 
 	// 개수
 	WORD num = m_IDInfos.size();
@@ -380,7 +380,7 @@ PackFileManager<FileInfoType>::LoadFromFileInfo(const char* pFilename)
 {
 	Release();
 
-	ifstream file(pFilename, std::ios::binary | ios::nocreate);
+	class ifstream file(pFilename, ios::binary | ios::nocreate);
 
 	// 개수
 	if (file.is_open())
@@ -413,7 +413,7 @@ template <class FileInfoType>
 bool					
 PackFileManager<FileInfoType>::SaveToFileData(const char* pFilename)
 {
-	std::ofstream file(pFilename, std::ios::binary | ios::trunc);
+	class ofstream file(pFilename, ios::binary | ios::trunc);
 
 	// 개수
 	WORD num = m_IDInfos.size();
@@ -446,7 +446,7 @@ PackFileManager<FileInfoType>::SaveToFileData(const char* pFilename)
 //--------------------------------------------------------------------------
 template <class FileInfoType>
 bool
-PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, ifstream& file) const
+PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, class ifstream& file) const
 {
 	if (m_DataFilename.c_str()==NULL 
 		|| pFilename==NULL)
@@ -460,7 +460,7 @@ PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, ifstrea
 	{
 		FileInfoType* pInfo = iInfo->second;
 
-		file.open(m_DataFilename.c_str(), std::ios::binary);
+		file.open(m_DataFilename.c_str(), ios::binary);
 
 		file.seekg( pInfo->GetFilePosition() );
 
@@ -475,7 +475,7 @@ PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, ifstrea
 //--------------------------------------------------------------------------
 template <class FileInfoType>
 bool
-PackFileManager<FileInfoType>::GetInputFileStream(DWORD id, ifstream& file) const
+PackFileManager<FileInfoType>::GetInputFileStream(DWORD id, class ifstream& file) const
 {
 	if (m_DataFilename.c_str()==NULL)
 	{
@@ -488,7 +488,7 @@ PackFileManager<FileInfoType>::GetInputFileStream(DWORD id, ifstream& file) cons
 	{
 		FileInfoType* pInfo = iInfo->second;
 
-		file.open(m_DataFilename.c_str(), std::ios::binary);
+		file.open(m_DataFilename.c_str(), ios::binary);
 
 		file.seekg( pInfo->GetFilePosition() );
 
@@ -509,10 +509,10 @@ PackFileManager<FileInfoType>::Merge(const char* pInfoFilenameOrg,
 						const char* pInfoFilenameApp,
 						const char* pDataFilenameApp)
 {
-	//class fstream fileInfoOrg(pInfoFilenameOrg, ios::in | ios::out | std::ios::binary | ios::ate);	
-	//class fstream fileDataOrg(pDataFilenameOrg, ios::in | ios::out | std::ios::binary | ios::ate);
-	//ifstream fileInfoApp(pInfoFilenameApp, std::ios::binary);
-	//ifstream fileDataApp(pDataFilenameApp, std::ios::binary);
+	//class fstream fileInfoOrg(pInfoFilenameOrg, ios::in | ios::out | ios::binary | ios::ate);	
+	//class fstream fileDataOrg(pDataFilenameOrg, ios::in | ios::out | ios::binary | ios::ate);
+	//class ifstream fileInfoApp(pInfoFilenameApp, ios::binary);
+	//class ifstream fileDataApp(pDataFilenameApp, ios::binary);
 
 	// pInfoFilenameOrg의 개수 변경
 	// pInfoFilenameOrg의 끝에 pInfoFilenameApp를 붙인다.

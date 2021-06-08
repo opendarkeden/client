@@ -16,7 +16,7 @@
 -----------------------------------------------------------------------------*/
 extern void g_SetItemRefPoint(int item_rect_w, int item_rect_h);
 extern bool gbl_item_lock;
-
+extern RECT g_GameRect;
 C_VS_UI_MOUSE_POINTER *	gpC_mouse_pointer;
 
 //#define MOUSE_CURSOR_SLAYER_NORMAL			0
@@ -322,9 +322,9 @@ void C_VS_UI_MOUSE_POINTER::Show()
 					SetRect(&rect, m_mouse_x-5, m_mouse_y-5-60, m_mouse_x+5 + g_GetStringWidth(m_string.c_str(), gpC_base->m_item_pi.hfont), m_mouse_y-60 + g_GetStringHeight(m_string.c_str(), gpC_base->m_item_name_pi.hfont));
 
 				if(rect.top < 0){ rect.bottom += -rect.top; rect.top = 0; }
-				else if(rect.bottom > RESOLUTION_Y){ rect.top -= rect.bottom - RESOLUTION_Y; rect.bottom = RESOLUTION_Y -1; }
+				else if(rect.bottom > g_GameRect.bottom){ rect.top -= rect.bottom - g_GameRect.bottom; rect.bottom = g_GameRect.bottom -1; }
 				if(rect.left < 0){ rect.right += -rect.left; rect.left = 0; }
-				else if(rect.right >= RESOLUTION_X){ rect.left -= rect.right - RESOLUTION_X; rect.right = RESOLUTION_X -1; }
+				else if(rect.right >= g_GameRect.right){ rect.left -= rect.right - g_GameRect.right; rect.right = g_GameRect.right -1; }
 
 //				gpC_base->m_p_DDSurface_back->ChangeBrightnessBit(&rect, 1);
 				DrawAlphaBox(&rect, 100, 100, 100, g_pUserOption->ALPHA_DEPTH);
@@ -568,4 +568,9 @@ void	C_VS_UI_MOUSE_POINTER::SetCursorAttack()
 		SetCursor(CURSOR_OUSTERS_ATTACK);
 		break;
 	}
+}
+/////add by viva for SetCurAddFriend
+void	C_VS_UI_MOUSE_POINTER::SetCursorAddFriend()
+{
+	SetCursor(CURSOR_ADDFRIEND);
 }

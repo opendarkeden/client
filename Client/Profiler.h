@@ -21,11 +21,8 @@
 #include <Windows.h>
 #include <map>
 #include <string>
-#include <fstream>
+#include <fstream.h>
 #include "DebugInfo.h"
-
-using std::ifstream;
-using std::ofstream;
 
 //----------------------------------------------------------------------
 // ProfilerInfo

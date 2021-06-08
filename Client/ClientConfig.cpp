@@ -281,7 +281,7 @@ ClientConfig::~ClientConfig()
 void	
 ClientConfig::SaveToFile(const char* filename)
 {
-	ofstream file(filename, std::ios::binary);	
+	class ofstream file(filename, ios::binary);	
 
 	file.write((const char*)&FPS, 4);
 
@@ -454,7 +454,7 @@ ClientConfig::SaveToFile(const char* filename)
 bool	
 ClientConfig::LoadFromFile(const char* filename)
 {
-	ifstream file(filename, std::ios::binary | std::ios::in);	
+	class ifstream file(filename, ios::binary | ios::nocreate);	
 
 	if (!file || !file.is_open())
 	{

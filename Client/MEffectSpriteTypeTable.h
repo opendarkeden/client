@@ -21,8 +21,8 @@
 #include "DrawTypeDef.h"
 #include "CTypeTable.h"
 //#include "EffectSpriteTypeDef.h"
-ifstream;
-std::ofstream;
+class ifstream;
+class ofstream;
 
 //----------------------------------------------------------------------
 //
@@ -48,8 +48,8 @@ class EFFECTSPRITETYPETABLE_INFO {
 		//-------------------------------------------------------
 		// Save
 		//-------------------------------------------------------
-		void			SaveToFile(std::ofstream& file);	
-		void			LoadFromFile(ifstream& file);
+		void			SaveToFile(class ofstream& file);	
+		void			LoadFromFile(class ifstream& file);
 		
 };
 
@@ -66,8 +66,8 @@ class FRAME_TYPE {
 		TYPE_FRAMEID		FrameID;
 
 	public :
-		void		SaveToFile(std::ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(class ofstream& file);
+		void		LoadFromFile(class ifstream& file);
 };
 
 typedef CTypeTable<FRAME_TYPE>	FRAMEID_ARRAY;

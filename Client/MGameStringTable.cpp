@@ -20,2138 +20,1615 @@ void
 InitGameStringTable()
 {	
 	(*g_pGameStringTable).Init( MAX_GAME_STRING );
-
-
-	(*g_pGameStringTable)[STRING_NETWORK_CONDITION_BAD] = "雀急 惑怕啊 救 亮嚼聪促.";
-	(*g_pGameStringTable)[STRING_RESURRECTION_AFTER_SECONDS] = "%d檬 饶俊 登混酒朝 荐 乐嚼聪促.";
+	(*g_pGameStringTable)[STRING_NETWORK_CONDITION_BAD] = "连接状态不太好。";
+	(*g_pGameStringTable)[STRING_RESURRECTION_AFTER_SECONDS] = "%d秒之后可以复活。";
 	(*g_pGameStringTable)[STRING_DRAW_ZONE_NAME] = "%s (%d,%d)";
 	(*g_pGameStringTable)[STRING_DRAW_GAME_DATE] = "%d/%d/%d";
 	(*g_pGameStringTable)[STRING_DRAW_GAME_TIME] = "%02d:%02d:%02d";
 	(*g_pGameStringTable)[STRING_DRAW_ITEM_NAME_MONEY] = "%s(%d)";
-
-	(*g_pGameStringTable)[STRING_USER_REGISTER_DENY] = "货 荤侩磊 殿废捞 阂啊瓷钦聪促.";
-	(*g_pGameStringTable)[STRING_USER_REGISTER_HOMEPAGE] = "权其捞瘤俊辑 殿废且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_USER_REGISTER_EMPTY_FIELD] = "鞘荐亲格捞 涝仿登瘤 臼疽嚼聪促.";
-	(*g_pGameStringTable)[STRING_USER_REGISTER_INVALID_ID] = "肋给等 酒捞叼(ID)涝聪促.";
-	(*g_pGameStringTable)[STRING_USER_REGISTER_ID_LENGTH] = "酒捞叼(ID)绰 %d~%d磊涝聪促";
-	(*g_pGameStringTable)[STRING_USER_REGISTER_ID_SPECIAL] = "酒捞叼(ID)俊辑 漂荐巩磊甫 哗林技夸.";
-	(*g_pGameStringTable)[STRING_USER_REGISTER_PASSWORD_LENGTH] = "菩胶况靛绰 %d~%d磊涝聪促";
-	(*g_pGameStringTable)[STRING_USER_REGISTER_PASSWORD_SPECIAL] = "菩胶况靛俊辑 漂荐巩磊甫 哗林技夸.";
-	(*g_pGameStringTable)[STRING_USER_REGISTER_PASSWORD_NUMBER] = "菩胶况靛绰 箭磊父 荤侩且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_USER_REGISTER_NAME_LENGTH] = "捞抚篮 %d磊鳖瘤涝聪促";
-	(*g_pGameStringTable)[STRING_USER_REGISTER_INVALID_SSN] = "肋给等 林刮殿废锅龋涝聪促.";
-	(*g_pGameStringTable)[STRING_USER_REGISTER_SSN_FORMAT] = "林刮殿废锅龋 屈侥 : 123456-1234567";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_NO_SPACE] = "后 磊府啊 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_NO_MONEY] = "捣捞 何练钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_NO_ITEM] = "酒捞袍捞 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_SELL] = "迫 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_REPAIR] = "荐府且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_SILVERING] = "篮档陛 且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_MORE] = "歹 捞惑 混 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_STORAGE] = "焊包窃俊 持阑荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_STORAGE_BUY] = "焊包窃阑 或嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NO_STORAGE] = "焊包窃捞 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_REJECTED] = "芭贰啊 芭何登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_NOBODY] = "芭贰且 荤恩捞 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_CANNOT_ON_MOTORCYCLE] = "坷配官捞甫 鸥绊 芭贰且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_SAFETY_ZONE_ONLY] = "救傈瘤措俊辑父 芭贰且 荐 乐嚼聪促.";	
-	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_BUSY] = "背券且 荐 绝绰 惑怕涝聪促.";	
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_TRADE] = "芭贰且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_TRADE_ALREADY_TRADING] = "捞固 芭贰吝涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_TRADE_NO_SPACE] = "背券且 傍埃捞 何练钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_SKILL_DIFFER_DOMAIN] = "扁贱 档皋牢捞 促辅聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_SKILL_EXCEED_LEVEL] = "扁贱 饭骇捞 臭嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_SKILL_CANNOT_LEARN] = "酒流 硅匡 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_SKILL_NOT_SUPPORT] = "酒流 瘤盔登瘤 臼绰 扁贱涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_FIND_MOTOR_NO_WHERE] = "绢叼乐绰瘤 葛福摆焙夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_FIND_MOTOR_NO_KEY] = "坷配官捞 凯艰啊 绝焙夸";
-	(*g_pGameStringTable)[STRING_MESSAGE_FIND_MOTOR_OK] = "%s狼 (%d, %d)俊 乐焙夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_USE_BONUS_POINT] = "焊呈胶 器牢飘甫 荤侩且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_WHAT_SKILL_TO_LEARN] = "%s 扁贱甸 吝俊辑 公郊 扁贱阑 硅快摆嚼聪鳖?";
-	(*g_pGameStringTable)[STRING_MESSAGE_NO_SKILL_TO_LEARN] = "泅犁绰 硅匡 荐 乐绰 扁贱捞 绝焙夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NEW_SKILL_AVAILABLE] = "货肺款 扁贱阑 硅匡 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NEW_DOMAIN_LEVEL_1] = "%s 档皋牢 饭骇捞 %d啊 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NEW_DOMAIN_LEVEL_2] = "%s 档皋牢 饭骇捞 %d捞 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_MOVE_SAFETY_ZONE_RELIC] = "己拱阑 甸绊 乐栏搁 磊扁祈狼 救傈瘤措俊绰 甸绢哎 荐 绝嚼聪促!";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_ALREADY_JOIN] = "绢叼 茄锅 杭鳖? 磊匙绰 捞固 促弗评 家加捞扼绊 唱客 乐焙";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_QUIT_TIMEOUT] = "磊匙绰 促弗 评阑 呕硼茄瘤 倔付 登瘤 臼疽焙. 炼陛 歹 脚吝窍霸 积阿窍绊 青悼窍霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_CANCEL_TIMEOUT] = "磊匙绰 评阑 秒家 寸茄 瘤 倔付 登瘤 臼疽焙. 殿废 炼扒俊 何钦窍档废 磊脚阑 粱 歹 扁福绊 坷霸. 粱 歹 脚吝窍霸 扁雀甫 砍焊档废 窍霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_LEVEL] = "惹涪窍瘤父 府歹肺结狼 磊龙篮 粱 何练茄 巴 鞍焙. 角仿阑 篡绊 坷霸唱";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_MONEY] = "评阑 父甸妨搁 腹篮 捣捞 鞘夸窍促匙. 磊匙绰 捣捞 绝绢 焊捞绰焙...";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_FAME] = "%s捞扼.. 抄 酒流 弊繁 捞抚篮 甸绢焊瘤档 给沁促匙. 弊扒 磊匙啊 遣郴扁扼绰 巴阑 狼固窍瘤. 角仿阑 篡绊 促矫 茫酒坷霸唱";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_NAME] = "评 捞抚捞 捞固 静捞绊 乐焙, 促弗 捞抚阑 积阿秦 焊霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_DENY] = "啊涝脚没捞 芭何登菌嚼聪促";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_ALREADY_JOIN] = "寸脚篮 捞固 促弗 评俊 啊涝登绢 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_QUIT_TIMEOUT] = "磊匙绰 促弗 评阑 呕硼茄瘤 倔付 登瘤 臼疽焙. 炼陛 歹 脚吝窍霸 积阿窍绊 青悼窍霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_CANCEL_TIMEOUT] = "磊匙绰 评阑 秒家 寸茄 瘤 倔付 登瘤 臼疽焙. 炼扒俊 何钦窍档废 磊脚阑 粱 歹 扁福绊 坷霸. 粱 歹 脚吝窍霸 扁雀甫 砍焊档废 窍霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_LEVEL] = "磊匙绰 酒流 何练茄 痢捞 腹酒 焊捞绰备父. 炼陛 歹 角仿阑 篡绊 茫霸唱.";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_MONEY] = "%s, 评 殿废阑 困秦辑绰 捣捞 歹 鞘夸窍促匙";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_FAME] = "%s捞扼.. 抄 酒流 弊繁 捞抚篮 甸绢焊瘤档 给沁促匙. 弊扒 磊匙啊 遣郴扁扼绰 巴阑 狼固窍瘤. 角仿阑 篡绊 促矫 茫酒坷霸唱";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_DENY] = "啊涝脚没捞 芭何登菌嚼聪促";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_ALREADY_JOIN] = "绢叼 茄锅 杭鳖? 磊匙绰 捞固 促弗努罚苞 辑距阑 肝篮 惑怕扼绊 唱客 乐焙";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_QUIT_TIMEOUT] = "磊匙绰 促弗 努罚阑 呕硼茄瘤 倔付登瘤 臼疽焙. 呈公 捞府历府 颗败 促聪绰 巴篮 亮瘤 臼瘤. 脚吝阑 扁窍霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_CANCEL_TIMEOUT] = "磊匙绰 努罚阑 秒家 寸茄 瘤 倔付 登瘤 臼疽焙. 粱 歹 脚吝窍霸 扁雀甫 砍焊档废 窍霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_LEVEL] = "惹涪窍瘤父 快滴赣府肺结狼 磊龙篮 粱 何练茄 巴 鞍焙. 角仿阑 篡绊 坷霸唱.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_MONEY] = "努罚阑 殿废窍妨搁 腹篮 捣捞 鞘夸窍促匙. 磊匙绰 捣捞 绝绢焊捞绰焙...";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_FAME] = "%s捞扼.. 酒流 绢赴 轨颇捞绢牢啊焊焙. 歹 腹篮 乔甫 付矫绊 促矫 茫酒坷霸唱.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_NAME] = "努罚 捞抚捞 捞固 静捞绊 乐焙, 促弗 捞抚阑 积阿秦 焊霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_DENY] = "啊涝脚没捞 芭何登菌嚼聪促";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_ALREADY_JOIN] = "寸脚篮 捞固 促弗 努罚俊 啊涝登绢 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_QUIT_TIMEOUT] = "磊匙绰 促弗 努罚阑 呕硼茄瘤 倔付登瘤 臼疽焙. 呈公 捞府历府 颗败 促聪绰 巴篮 亮瘤 臼瘤. 脚吝阑 扁窍霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_CANCEL_TIMEOUT] = "磊匙绰 努罚阑 秒家 寸茄 瘤 倔付 登瘤 臼疽焙. 粱 歹 脚吝窍霸 扁雀甫 砍焊档废 窍霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_LEVEL] = "惹涪茄 炼仿磊啊 登扁俊绰 磊龙捞 粱 何练茄 巴 鞍焙. 啊辑 粱歹 荐访阑 窍绊 坷霸唱";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_MONEY] = "扁贱捞 岿殿秦档 努罚阑 蜡瘤且 荐 乐绰 捣捞 何练窍搁 弊 努罚篮 公呈瘤扁 奖惑捞瘤";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_FAME] = "%s捞扼.. 抄 酒流 弊繁 捞抚篮 甸绢焊瘤档 给沁促匙. 弊扒 磊匙啊 遣郴扁扼绰 巴阑 狼固窍瘤. 角仿阑 篡绊 促矫 茫酒坷霸唱";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_DENY] = "啊涝脚没捞 芭何登菌嚼聪促";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_INTRO] = "涝仿登瘤 臼篮 亲格捞 乐嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_STATUS_HP_MAX_1] = "积疙仿(HP) 弥措摹啊 %d啊 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_STATUS_HP_MAX_2] = "积疙仿(HP) 弥措摹啊 %d捞 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_STATUS_MP_MAX_1] = "付过仿(MP) 弥措摹啊 %d啊 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_STATUS_MP_MAX_2] = "付过仿(MP) 弥措摹啊 %d捞 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_STATUS_STR_1] = "塞(STR)捞 %d啊 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_STATUS_STR_2] = "塞(STR)捞 %d捞 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_STATUS_DEX_1] = "刮酶己(DEX)捞 %d啊 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_STATUS_DEX_2] = "刮酶己(DEX)捞 %d捞 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_STATUS_INT_1] = "瘤侥(INT)捞 %d啊 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_STATUS_INT_2] = "瘤侥(INT)捞 %d捞 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_STATUS_LEVEL] = "%d 饭骇(Level)捞 登菌嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_LEARN_SKILL] = "[%s] 扁贱阑 硅奎嚼聪促.";
-	(*g_pGameStringTable)[STRING_CHANGE_ALIGNMENT] = "己氢捞 %s栏肺 官差菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_CHANGE_ALIGNMENT2] = "己氢捞 %s肺 官差菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_CHANGE_TO_BAD_ALIGNMENT] = "己氢捞 唱狐脸嚼聪促.";
-	(*g_pGameStringTable)[STRING_CHANGE_TO_GOOD_ALIGNMENT] = "己氢捞 亮酒脸嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_ERROR_INVALID_ID_PASSWORD] = "酒捞叼(ID)唱 鞠龋(Password)啊 撇啡嚼聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_ALREADY_CONNECTED] = "捞固 立加 登绢 乐嚼聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_ALREADY_REGISTER_ID] = "捞固 殿废等 酒捞叼(ID)涝聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_ALREADY_REGISTER_SSN] = "捞固 殿废等 林刮殿废锅龋涝聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_EMPTY_ID] = "酒捞叼(ID)啊 绝嚼聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_SMALL_ID_LENGTH] = "酒捞叼(ID)辨捞啊 陋嚼聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_EMPTY_PASSWORD] = "鞠龋(Password)啊 绝嚼聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_SMALL_PASSWORD_LENGTH] = "鞠龋(Password) 辨捞啊 陋嚼聪促"; 
-	(*g_pGameStringTable)[STRING_ERROR_EMPTY_NAME] = "捞抚捞 绝嚼聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_EMPTY_SSN] = "林刮殿废锅龋啊 绝嚼聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_INVALID_SSN] = "林刮殿废锅龋啊 撇啡嚼聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_NOT_FOUND_PLAYER] = "敲贰捞绢啊 绝嚼聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_NOT_FOUND_ID] = "酒捞叼啊 绝嚼聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_LOGIN_DENY] = "捞 拌沥篮 厚沥惑利牢 惑怕涝聪促. 绊按瘤盔季磐(darkeden@darkeden.com)肺 巩狼秦林技夸.";
-	(*g_pGameStringTable)[STRING_ERROR_ETC_ERROR] = "肋给登菌嚼聪促."; 
-	(*g_pGameStringTable)[STRING_ERROR_NOT_ALLOW_ACCOUNT] = "捞 拌沥篮 厚沥惑利牢 惑怕涝聪促. 绊按瘤盔季磐(darkeden@darkeden.com)肺 巩狼秦林技夸.";
-	(*g_pGameStringTable)[STRING_ERROR_NOT_PAY_ACCOUNT] = "荤侩扁埃捞 父丰登菌嚼聪促. 绊按瘤盔季磐(darkeden@darkeden.com)肺 巩狼秦林技夸.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_ITEM_BROKEN] = "酒捞袍捞 何辑脸嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_WHISPER_FAILED] = "庇加富捞 傈秦瘤瘤 臼疽嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_WHISPER_SELF] = "磊脚俊霸绰 庇加富阑 且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_IGNORE] = "%s丛苞狼 措拳甫 芭何钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_ACCEPT] = "%s丛苞狼 措拳甫 倾侩钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_IGNORE_ALL] = "措拳甫 葛滴 芭何钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_ACCEPT_ALL] = "措拳甫 葛滴 倾侩钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_BE_GOOD] = "官福绊 绊款 富阑 荤侩钦矫促. :)";
-	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_ACCEPT_CURSE] = "葛电 富阑 弊措肺 促 免仿钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_FILTER_CURSE] = "亮瘤 臼篮 富篮 力芭窍绊 免仿钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_LOGOUT_DIED] = "磷篮 惑怕俊辑绰 肺弊酒眶(Logout)且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_GLOBAL_SAY] = "瘤陛篮 寇摹扁甫 且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_WAIT] = "泪矫 扁促妨 林技夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CONNECTING_SERVER] = "辑滚俊 立加窍绰 吝涝聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_DONATION_OK] = "扁何沁嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_DONATION_FAIL] = "扁何 且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_PARTY_REJECTED] = "檬措啊 芭何登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PARTY_NOBODY] = "檬措且 荤恩捞 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PARTY_SAFETY_ZONE_ONLY] = "救傈瘤措俊辑父 且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PARTY_BUSY] = "檬措甫 且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_RACE_DIFFER] = "辆练捞 促辅聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NOT_NORMAL_FORM] = "函脚 惑怕俊辑绰 且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NO_AUTHORITY] = "颇萍 啊涝饶 茄 矫埃捞 瘤唱具邓聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_ERROR_PARTY] = "颇萍甫 且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_KICK_PARTY_MEMBER_OK] = "%s 丛阑 颇萍俊辑 眠规沁嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_KICKED_FROM_PARTY] = "%s 丛俊霸 眠规寸沁嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_KICK_PARTY_MEMBER] = "%s 丛捞 %s 丛阑 颇萍俊辑 眠规沁嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_REMOVE_PARTY] = "颇萍啊 秦眉登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_REMOVE_PARTY_HIMSELF] = "%s 丛捞 颇萍俊辑 栋车嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_REMOVE_PARTY_MYSELF] = "颇萍俊辑 栋车嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_IN_ANOTHER_PARTY] = "捞固 促弗 颇萍俊 加秦 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PARTY_FULL] = "颇萍 牢盔捞 菜 谩嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_SOMEONE_JOINED_PARTY] = "%s 丛捞 颇萍俊 甸绢吭嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_LOGOUT_AFTER_SECOND] = "%d檬 饶俊 肺弊酒眶 邓聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_NO_STAR] = "喊捞 何练钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY] = "混 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_CAN_REGISTER_NAME] = "殿废窍角 荐 乐嚼聪促.";
-
-	// 2002.3.20 眠啊
-	(*g_pGameStringTable)[STRING_MESSAGE_HELP_KEY] = "档框富篮 CTRL+H涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_HOW_TO_GET_BASIC_WEAPON] = "具傈荤飞何狼 磊农俊霸辑 扁夯 公扁甫 罐阑 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_WAIT_FOR_CHARACTER_SELECT_MODE] = "   某腐磐 急琶芒栏肺 啊绰 吝涝聪促.     泪矫 扁促妨林技夸.";	
-
-	(*g_pGameStringTable)[STRING_MESSAGE_ITEM_TO_ITEM_IMPOSIBLE] = "牢忙飘(Enchant)且 荐 绝嚼聪促.";	
-
-	// UI 眠啊	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_ENCHANT]= "牢忙飘(Enchant) 且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ONLY_PICK_UP_ITEM_ONE]= "茄 俺究 甸绊 窍寂具 钦聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELL_CONFIRM] = "捞 酒捞袍阑 颇矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALL_SELL_CONFIRM] = "颇矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALL_PRICE]= "葛滴 $%s 涝聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REPAIR_CONFIRM] = "绊摹矫摆嚼聪鳖?";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLICK_TRADE_ITEM] = "芭贰且 酒捞袍阑 努腐窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLICK_REPAIR_ITEM] = "绊磨 酒捞袍阑 努腐窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLICK_OK_BUTTON_TO_END] = "场郴矫妨搁 犬牢 滚瓢阑 努腐窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLICK_SILVERING_ITEM] = "篮档陛 且 酒捞袍阑 努腐窍技夸.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_THIS_ITEM_REPAIR_CONFIRM] = "捞 酒捞袍阑 绊磨鳖夸?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_THIS_ITEM_CHARGE_CONFIRM] = "捞 酒捞袍阑 面傈 且鳖夸?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_THIS_ITEM_SILVERING_CONFIRM] = "捞 酒捞袍阑 篮档陛 且鳖夸?";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ALPHA_WINDOW] ="芒阑 馆捧疙栏肺 免仿钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_NO_ALPHA_WINDOW] = "芒阑 馆捧疙栏肺 免仿窍瘤 臼嚼聪促";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_EQUIP] = "厘馒 且 荐 乐嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_EQUIP] = "厘馒 且 荐 绝嚼聪促";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_THROW_MONEY] = "捣阑 滚赋聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ITEM_DESCRIPTION] = "酒捞袍 汲疙阑 壕聪促";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DEPOSIT_MONEY] = "捣阑 焊包钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INVITE_PARTY] =	"颇萍 啊涝檬没 皋技瘤啊 甸绢客 乐嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUEST_PARTY] = "颇萍 啊涝脚没 皋技瘤啊 甸绢客 乐嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RESURRECTION] = "瘤沥 困摹俊辑 何劝茄促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVACUATION]	= "瘤沥 困摹肺 饶价等促";		
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_UP_LEVEL] = "歹捞惑 饭骇诀捞 登瘤 臼嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_UP_STAT]= "歹捞惑 瓷仿摹啊 棵扼啊瘤 臼嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_JOIN] = "啊涝钦聪促";
-	
-	
-	// UI_TIP
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIP_SELL_ALL_VAMPIRE_HEAD]="屏 : 轨颇捞绢狼 赣府甸阑 茄波锅俊 迫妨搁 坷弗率 努腐阑 窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIP_REPAIR_ALL_ITEM] = "屏 : 厘厚甸阑 茄波锅俊 绊摹妨搁 坷弗率 努腐阑 窍技夸.";
-
-	// UI 皋牢芒 Description	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_ON] = "磊悼见辫 脑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_OFF] = "磊悼见辫 阐";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GAME_MENU] = "霸烙皋春";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MENU] = "皋春(Menu)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EXP] = "版氰摹(Exp)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM] = "评(Team)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MESSAGE] = "皋技瘤(Message)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HELP] = "档框富(Help)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INVENTORY] = "酒捞袍芒(Inventory)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GEAR_WINDOW] = "厘馒芒(Gear Window)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INFO_WINDOW] = "沥焊芒(Info Window)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PARTY_WINDOW] = "颇萍芒(Party Window)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_WINDOW] = "涅胶飘(Quest Window)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO] = "评 沥焊(Team Info)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_MEMBER_LIST] = "评盔 府胶飘(Team Member List)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BASIC_HELP] = "扁夯 档框富";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHATTING_HELP] = "盲泼 档框富";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WAR_HELP] = "傈捧 档框富";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SKILL_HELP] = "扁贱 档框富";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_HELP] = "评 档框富";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN] = "努罚(Clan)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_INFO] = "努罚 沥焊(Clan Info)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_MEMBER_LIST] = "努罚盔 府胶飘(Clan Member List)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_HELP] = "努罚 档框富";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MAGIC_HELP] = "付过 档框富";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CURRENT_EXP] = "泅犁 版氰摹 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NEXT_LEVEL] =  "促澜   饭骇 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_EXP] = "巢篮 版氰摹 : ";	
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_HELM] = "葛磊甫 厘馒钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_NECKLACE] = "格吧捞甫 厘馒钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_ARMOR] = "癌渴阑 厘馒钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_SHIELD] = "规菩甫 厘馒钦聪促";	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_WEAPON] = "公扁甫 厘馒钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_GLOVE] = "厘癌阑 厘馒钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_BELT]	= "骇飘甫 厘馒钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_TROUSER] = "官瘤甫 厘馒钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_BRACELET]	= "迫骂甫 厘馒钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_RING]	= "馆瘤甫 厘馒钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_SHOES] = "脚惯阑 厘馒钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_VAMPIRE_COAT] = "渴阑 厘馒钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_EARRING] = "蓖吧捞甫 厘馒钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_AMULET] =	"酒鼓房阑 厘馒钦聪促";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FIRST_GEAR_SET] = "霉锅掳 公扁悸";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SECOND_GEAR_SET] = "滴锅掳 公扁悸";
-
-	// 盲泼
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SPECIAL_CHARACTER] = "漂荐巩磊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SET_LETTER_COLOR] = "臂揪祸瘤沥";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_INPUT_LANGUAGE] ="茄/康 傈券";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_WHISPER_ID] ="庇加富 沁带 酒捞叼 焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NORMAL_CHATING]	= "老馆盲泼 窍扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ZONE_CHATTING]	= "粮盲泼 窍扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WHISPER_CHATTING] =	"庇加富 窍扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PARTY_CHATTING]	= "颇萍盲泼 窍扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_CHATTING] = "评盲泼 窍扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_NORMAL_CHATTING] = "老馆盲泼 焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ZONE_CHATTING]	= 	"粮盲泼 焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_WHISPER_CHATTING] = "庇加富 焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_PARTY_CHATTING] = "颇萍盲泼 焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_TEAM_CHATTING]	= "评盲泼 焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_NORMAL_CHATTING] = "老馆盲泼 救焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_ZONE_CHATTING]	= "粮盲泼 救焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_WHISPER_CHATTING] = "庇加富 救焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_PARTY_CHATTING] = "颇萍盲泼 救焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_TEAM_CHATTING]	= "评盲泼 救焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_CLAN_CHATTING]	= "努罚盲泼 救焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_CLAN_CHATTING]	= "努罚盲泼 焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_CHATTING] = "努罚盲泼 窍扁";
-
-	// Party Window
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EXPEL] = "呕硼";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SECEDE] = "眠规";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SET_INVITE_DENY_MODE] = "檬没 芭何葛靛 汲沥";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_INVITE_DENY_MODE] = "檬没 芭何葛靛 秦力";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SET_JOIN_DENY_MODE] = "啊涝 芭何葛靛 汲沥";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_JOIN_DENY_MODE] = "啊涝 芭何葛靛 秦力";
-		
-	// Level Up
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_UP_STR] = "塞阑 棵赋聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_UP_DEX]	= "刮酶己阑 棵赋聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_UP_INT]	= "瘤侥阑 棵赋聪促";
-
-	// INFO WINDOW
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_BLADE_INFO] = "档拌凯狼 沥焊甫 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_SWORD_INFO] = "八拌凯狼 沥焊甫 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_GUN_INFO] = "醚拌凯狼 沥焊甫 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HEAL_INFO] = "雀汗拌凯狼 沥焊甫 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ENCHANT_INFO] = "绵汗拌凯狼 沥焊甫 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ALL_INFO] = "傈眉拌凯狼 沥焊甫 壕聪促";	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_POISON_INFO] =	"刀拌凯狼 沥焊甫 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ACID_INFO]	= "魂拌凯狼 沥焊甫 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_CURSE_INFO] = "历林拌凯狼 沥焊甫 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_SUMMON_INFO] = "家券拌凯狼 沥焊甫 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_BLOOD_INFO] = "趋拌凯狼 沥焊甫 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ESSENCE_INFO] = "绊蜡拌凯狼 沥焊甫 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_SKILL_INFO_WINDOW]	= "胶懦 沥焊芒阑 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_CHARACTER_INFO_WINDOW]	= "某腐磐 沥焊芒阑 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_MAGIC_INFO_WINDOW]	= "付过 沥焊芒阑 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ADVANTE_INFO_WINODW] = "傈流 沥焊芒阑 壕聪促";
-	
-	// SHOW HELP WINDOW
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_INVENTORY_WINDOW] = "牢亥配府(Inventory)芒狼 档框富阑 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_GEAR_WINDOW] = "厘馒(Gear)芒狼 档框富阑 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_CHARACTER_INFO_WINDOW]= "某腐磐 沥焊芒狼 档框富阑 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_MAGIC_INFO_WINDOW]= "付过 沥焊芒狼 档框富阑 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_SKILL_INFO_WINDOW]= "胶懦 沥焊芒狼 档框富阑 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_PARTY_MANAGER] = "颇萍(PartyManager)芒狼 档框富阑 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_SHOP_WINDOW] ="惑痢(Shop)芒狼 档框富阑 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_STORAGE_WINDOW]="焊包窃(Storage)芒狼 档框富阑 壕聪促";
-	
-	// Close Window
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_MAGIC_INFO_WINDOW] = "付过 沥焊芒阑 摧嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_SKILL_INFO_WINDOW] = "胶懦 沥焊芒阑 摧嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_PARTY_MANAGER] = "颇萍(PartyManager)芒阑 摧嚼聪促";	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_CHARACTER_INFO_WINDOW] = "某腐磐 沥焊芒阑 摧嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_INVENTORY_WINDOW] = "牢亥配府(Inventory)芒阑 摧嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_GEAR_WINDOW] = "厘馒(Gear) 芒阑 摧嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_DESC_WINDOW] ="汲疙芒阑 摧嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_WINDOW]="芒阑 摧嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_SHOP_WINDOW] ="厘馒(Shop)芒阑 摧嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_STORAGE_WINDOW]="焊包窃(Storage)芒阑 摧嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_BOOKCASE]= "氓厘阑 摧嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_BOOK] = "氓阑 摧嚼聪促";
-	
-	// 扁鸥
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_JOIN_ANY_TEAM] ="殿废等 评 绝澜";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_JOIN_ANY_CLAN] ="殿废等 努罚 绝澜";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INFRA_RED_HELMET]="牢橇扼饭靛 胶某醋 秋镐";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INFRA_HELMET]="牢橇扼 胶某醋 秋镐";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUIT_COMPUTER] ="哪腔磐甫 辆丰钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_NEXT_PAGE]="促澜 其捞瘤甫 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_PREV_PAGE] = "捞傈 其捞瘤甫 壕聪促";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_STR] = "STR ";						// STR
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DEX] = "DEX ";						// DEX
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_INT] = "INT ";				// INT
-
+	(*g_pGameStringTable)[STRING_USER_REGISTER_DENY] = "新用户不能登录。";
+	(*g_pGameStringTable)[STRING_USER_REGISTER_HOMEPAGE] = "可以在主页上进行登录。";
+	(*g_pGameStringTable)[STRING_USER_REGISTER_EMPTY_FIELD] = "必须的项目没有输入。";
+	(*g_pGameStringTable)[STRING_USER_REGISTER_INVALID_ID] = "错误的ID。";
+	(*g_pGameStringTable)[STRING_USER_REGISTER_ID_LENGTH] = "(ID)为%d~%d位";
+	(*g_pGameStringTable)[STRING_USER_REGISTER_ID_SPECIAL] = "在(ID)中请不要使用特殊文字。";
+	(*g_pGameStringTable)[STRING_USER_REGISTER_PASSWORD_LENGTH] = "密码为%d~%d位";
+	(*g_pGameStringTable)[STRING_USER_REGISTER_PASSWORD_SPECIAL] = "请不要在密码中写入特殊文字。";
+	(*g_pGameStringTable)[STRING_USER_REGISTER_PASSWORD_NUMBER] = "密码不能为纯数字。";
+	(*g_pGameStringTable)[STRING_USER_REGISTER_NAME_LENGTH] = "名字只能有%d个字符";
+	(*g_pGameStringTable)[STRING_USER_REGISTER_INVALID_SSN] = "身份证号码错误。";
+	(*g_pGameStringTable)[STRING_USER_REGISTER_SSN_FORMAT] = "终身密码样例 : 123456789012345678";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_NO_SPACE] = "没有空位。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_NO_MONEY] = "金钱不足。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_NO_ITEM] = "没有道具。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_SELL] = "不能出售。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_REPAIR] = "不能修理。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_SILVERING] = "不能镀银。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_MORE] = "不能再购买新的保险箱了。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_STORAGE] = "不能放入保管箱。";
+	(*g_pGameStringTable)[STRING_MESSAGE_STORAGE_BUY] = "已经购买了保管箱。";
+	(*g_pGameStringTable)[STRING_MESSAGE_NO_STORAGE] = "还没有购买保管箱。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_REJECTED] = "对方拒绝交易。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_NOBODY] = "没有交易对象。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_CANNOT_ON_MOTORCYCLE] = "骑摩托车时不能交易。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_SAFETY_ZONE_ONLY] = "只能在安全地带进行交易。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_BUSY] = "现在的状态下不能交换。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_TRADE] = "无法进行交易。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_TRADE_ALREADY_TRADING] = "正在交易中。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_TRADE_NO_SPACE] = "交换空间不足。";
+	(*g_pGameStringTable)[STRING_MESSAGE_SKILL_DIFFER_DOMAIN] = "技能领域不同。";
+	(*g_pGameStringTable)[STRING_MESSAGE_SKILL_EXCEED_LEVEL] = "技能等级偏高。";
+	(*g_pGameStringTable)[STRING_MESSAGE_SKILL_CANNOT_LEARN] = "现在还不能学习。";
+	(*g_pGameStringTable)[STRING_MESSAGE_SKILL_NOT_SUPPORT] = "目前尚不支持该技能。";
+	(*g_pGameStringTable)[STRING_MESSAGE_FIND_MOTOR_NO_WHERE] = "不知道在哪。";
+	(*g_pGameStringTable)[STRING_MESSAGE_FIND_MOTOR_NO_KEY] = "摩托车钥匙丢了";
+	(*g_pGameStringTable)[STRING_MESSAGE_FIND_MOTOR_OK] = "在%s的(%d, %d)里。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_USE_BONUS_POINT] = "不能使用奖励点数。";
+	(*g_pGameStringTable)[STRING_MESSAGE_WHAT_SKILL_TO_LEARN] = "%s 这些技能中想学什么技能呢?";
+	(*g_pGameStringTable)[STRING_MESSAGE_NO_SKILL_TO_LEARN] = "目前没有你能学的技能。";
+	(*g_pGameStringTable)[STRING_MESSAGE_NEW_SKILL_AVAILABLE] = "可以学新的技能。";
+	(*g_pGameStringTable)[STRING_MESSAGE_NEW_DOMAIN_LEVEL_1] = "%s 区域等级变成了%d。";
+	(*g_pGameStringTable)[STRING_MESSAGE_NEW_DOMAIN_LEVEL_2] = "%s 区域等级变成了%d。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_MOVE_SAFETY_ZONE_RELIC] = "拿着圣水不能进入自己伙的安全地带！";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_ALREADY_JOIN] = "让我看一下？这里显示你已经属于其他组队了。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_QUIT_TIMEOUT] = "你刚退队不久。慎重考虑再行动吧。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_CANCEL_TIMEOUT] = "你刚被退队不久。为了达到登录条件多加练习再过来吧。请慎重考虑自己的机会";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_LEVEL] = " 你很优秀，不过离领导者还有点距离。先提高自己的实力再来吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_MONEY] = "想组织团队需要很多钱。看起来你还没有那么多钱……";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_FAME] = "是%s啊……我还没有听过这个名字。看来你还是个新手啊。先提高自己实力再过来找我吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_NAME] = "团队名字已经被使用，选择其他名字吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_REGIST_FAIL_DENY] = "加入申请已被拒绝";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_ALREADY_JOIN] = "你已经被加入到其他团队里。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_QUIT_TIMEOUT] = "你刚退队不久。慎重考虑再行动吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_CANCEL_TIMEOUT] = "你刚被退队不久。为了符合条件，先多加练习再过来吧。要慎重考虑机会。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_LEVEL] = "你看起来不足的地方还很多。提高实力之后再过来吧。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_MONEY] = "%s，团队登录还需要更多的钱";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_FAME] = "是%s啊……我还没有听过这个名字。看来你还是个新手啊。先提高自己实力再过来找我吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_STARTING_FAIL_DENY] = "加入申请被拒绝";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_ALREADY_JOIN] = "让我看看? 这里显示了你已经跟其他派别处在誓约状态";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_QUIT_TIMEOUT] = "你刚退派不久。别总换来换去这样不太好哦。慎重点吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_CANCEL_TIMEOUT] = "你刚被退派不久。再慎重考虑机会吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_LEVEL] = "你很优秀，不过离领导者还有点距离。提高实力后再过来找我吧。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_MONEY] = "要登录派队需要很多钱。看起来你的钱还不够……";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_FAME] = "是%s啊……看起来你还是年幼的吸血鬼。吸取更多的血之后再过来找我吧。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_NAME] = "派别名字已被使用，请选择其他的名字";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_REGIST_FAIL_DENY] = "加入申请被拒绝";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_ALREADY_JOIN] = "你已被其他派队加入。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_QUIT_TIMEOUT] = "你刚退出派别不久。别总换来换去这样不太好哦。慎重点";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_CANCEL_TIMEOUT] = "你刚被退派队不久。慎重考虑机会吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_LEVEL] = "你离优秀的领导者还有点距离。回去再修炼一下吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_MONEY] = "缺钱的情况下技术再怎么优秀的派别也会垮掉的";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_FAME] = "是%s啊……我还没有听过这样的名字。这说明你是新手。提高实力之后再过来吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_STARTING_FAIL_DENY] = "加入申请被拒绝";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_INTRO] = "存在无法输入的项目";
+	(*g_pGameStringTable)[STRING_STATUS_HP_MAX_1] = "生命力(HP)最大值变成了%d。";
+	(*g_pGameStringTable)[STRING_STATUS_HP_MAX_2] = "生命力(HP)最大值变成了%d。";
+	(*g_pGameStringTable)[STRING_STATUS_MP_MAX_1] = "魔法力(MP)最大值变成了%d。";
+	(*g_pGameStringTable)[STRING_STATUS_MP_MAX_2] = "魔法力(MP)最大值变成了%d。";
+	(*g_pGameStringTable)[STRING_STATUS_STR_1] = "力量(STR)变成了%d。";
+	(*g_pGameStringTable)[STRING_STATUS_STR_2] = "力量(STR)变成了%d。";
+	(*g_pGameStringTable)[STRING_STATUS_DEX_1] = "敏捷性(DEX)变成了%d。";
+	(*g_pGameStringTable)[STRING_STATUS_DEX_2] = "敏捷性(DEX)变成了%d";
+	(*g_pGameStringTable)[STRING_STATUS_INT_1] = "知识(INT)变成了 %d。";
+	(*g_pGameStringTable)[STRING_STATUS_INT_2] = "知识(INT)变成了%d。";
+	(*g_pGameStringTable)[STRING_STATUS_LEVEL] = "等级变成了%d(Level)。";
+	(*g_pGameStringTable)[STRING_LEARN_SKILL] = "学会了[%s]技能。";
+	(*g_pGameStringTable)[STRING_CHANGE_ALIGNMENT] = "趋向变为%s。";
+	(*g_pGameStringTable)[STRING_CHANGE_ALIGNMENT2] = "趋向改为%s。";
+	(*g_pGameStringTable)[STRING_CHANGE_TO_BAD_ALIGNMENT] = "趋向变差了一些。";
+	(*g_pGameStringTable)[STRING_CHANGE_TO_GOOD_ALIGNMENT] = "趋向变好了一些。";
+	(*g_pGameStringTable)[STRING_ERROR_INVALID_ID_PASSWORD] = "用户名(ID)和密码 (Password)不正确。";
+	(*g_pGameStringTable)[STRING_ERROR_ALREADY_CONNECTED] = "已连接。";
+	(*g_pGameStringTable)[STRING_ERROR_ALREADY_REGISTER_ID] = "已被使用过的用户名(ID)。";
+	(*g_pGameStringTable)[STRING_ERROR_ALREADY_REGISTER_SSN] = "已被使用过的身份证号码。";
+	(*g_pGameStringTable)[STRING_ERROR_EMPTY_ID] = "用户名忘记填了(ID)。";
+	(*g_pGameStringTable)[STRING_ERROR_SMALL_ID_LENGTH] = "用户名(ID)太短了。";
+	(*g_pGameStringTable)[STRING_ERROR_EMPTY_PASSWORD] = "密码忘记填了(Password)。";
+	(*g_pGameStringTable)[STRING_ERROR_SMALL_PASSWORD_LENGTH] = "密码(Password)太短了。";
+	(*g_pGameStringTable)[STRING_ERROR_EMPTY_NAME] = "名字忘记填了。";
+	(*g_pGameStringTable)[STRING_ERROR_EMPTY_SSN] = "身份证号码忘记填了。";
+	(*g_pGameStringTable)[STRING_ERROR_INVALID_SSN] = "身份证号码错误。";
+	(*g_pGameStringTable)[STRING_ERROR_NOT_FOUND_PLAYER] = "没有玩家。";
+	(*g_pGameStringTable)[STRING_ERROR_NOT_FOUND_ID] = "没有用户名。";
+	(*g_pGameStringTable)[STRING_ERROR_LOGIN_DENY] = " 您的帐号因为异常状况被系统封停,请联系官方客服";
+	(*g_pGameStringTable)[STRING_ERROR_ETC_ERROR] = "发生错误。";
+	(*g_pGameStringTable)[STRING_ERROR_NOT_ALLOW_ACCOUNT] = " 您的帐号因为异常状况被系统封停,请联系官方客服";
+	(*g_pGameStringTable)[STRING_ERROR_NOT_PAY_ACCOUNT] = " 帐号的使用期限已到。请联系官方客服";
+	(*g_pGameStringTable)[STRING_MESSAGE_ITEM_BROKEN] = "道具坏了。";
+	(*g_pGameStringTable)[STRING_MESSAGE_WHISPER_FAILED] = "无法发送密语。";
+	(*g_pGameStringTable)[STRING_MESSAGE_WHISPER_SELF] = "不能给自己发送密语。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_IGNORE] = "拒绝与%s的对话。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_ACCEPT] = "允许与%s的对话。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_IGNORE_ALL] = "拒绝所有对话。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_ACCEPT_ALL] = "允许所有对话。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_BE_GOOD] = "请使用文明语言 :)";
+	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_ACCEPT_CURSE] = "所有语言直接显示。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CHAT_FILTER_CURSE] = "删除脏话再显示。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_LOGOUT_DIED] = "死亡状态下不能注销(Logout)。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_GLOBAL_SAY] = "现在不能喊话.";
+	(*g_pGameStringTable)[STRING_MESSAGE_WAIT] = "请稍候。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CONNECTING_SERVER] = "服务器连接中。";
+	(*g_pGameStringTable)[STRING_MESSAGE_DONATION_OK] = "可以捐助。";
+	(*g_pGameStringTable)[STRING_MESSAGE_DONATION_FAIL] = "不可以捐助。";
+	(*g_pGameStringTable)[STRING_MESSAGE_PARTY_REJECTED] = "邀请被拒绝。";
+	(*g_pGameStringTable)[STRING_MESSAGE_PARTY_NOBODY] = "没有可以邀请的人。";
+	(*g_pGameStringTable)[STRING_MESSAGE_PARTY_SAFETY_ZONE_ONLY] = "只有在安全地带才行。";
+	(*g_pGameStringTable)[STRING_MESSAGE_PARTY_BUSY] = "无法邀请。";
+	(*g_pGameStringTable)[STRING_MESSAGE_RACE_DIFFER] = "种族不同。";
+	(*g_pGameStringTable)[STRING_MESSAGE_NOT_NORMAL_FORM] = "在变身状态下不可以。";
+	(*g_pGameStringTable)[STRING_MESSAGE_NO_AUTHORITY] = "组队后过一个小时才可以。";
+	(*g_pGameStringTable)[STRING_MESSAGE_ERROR_PARTY] = "无法建立队伍。";
+	(*g_pGameStringTable)[STRING_MESSAGE_KICK_PARTY_MEMBER_OK] = "%s从队伍中被逐出";
+	(*g_pGameStringTable)[STRING_MESSAGE_KICKED_FROM_PARTY] = "被%s逐出";
+	(*g_pGameStringTable)[STRING_MESSAGE_KICK_PARTY_MEMBER] = "%s把%s从队伍中逐出";
+	(*g_pGameStringTable)[STRING_MESSAGE_REMOVE_PARTY] = "队伍被解散。";
+	(*g_pGameStringTable)[STRING_MESSAGE_REMOVE_PARTY_HIMSELF] = "%s离开了队伍";
+	(*g_pGameStringTable)[STRING_MESSAGE_REMOVE_PARTY_MYSELF] = "离开了队伍。";
+	(*g_pGameStringTable)[STRING_MESSAGE_IN_ANOTHER_PARTY] = "您已在另一个队伍。";
+	(*g_pGameStringTable)[STRING_MESSAGE_PARTY_FULL] = "队伍已经满员。";
+	(*g_pGameStringTable)[STRING_MESSAGE_SOMEONE_JOINED_PARTY] = "%s进入组队";
+	(*g_pGameStringTable)[STRING_MESSAGE_LOGOUT_AFTER_SECOND] = "%d秒之后注销。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_NO_STAR] = "星星不足。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY] = "无法复活。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CAN_REGISTER_NAME] = "可以登录。";
+	(*g_pGameStringTable)[STRING_MESSAGE_HELP_KEY] = "需要帮助请按CTRL+H。";
+	(*g_pGameStringTable)[STRING_MESSAGE_HOW_TO_GET_BASIC_WEAPON] = "在野战司令部的杰克那里领取基本的武器。";
+	(*g_pGameStringTable)[STRING_MESSAGE_WAIT_FOR_CHARACTER_SELECT_MODE] = "   正在打开角色选择窗口。请稍候。";
+	(*g_pGameStringTable)[STRING_MESSAGE_ITEM_TO_ITEM_IMPOSIBLE] = "无法祝福。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ONLY_PICK_UP_ITEM_ONE] = "只能拿一个。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_ENCHANT] = "可以祝福。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELL_CONFIRM] = "想出售这个道具吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALL_SELL_CONFIRM] = "真的要出售吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALL_PRICE] = "一共是$%s。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REPAIR_CONFIRM] = "要修理吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLICK_TRADE_ITEM] = "请点击要交易的道具。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLICK_REPAIR_ITEM] = "请点击要修理的道具。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLICK_OK_BUTTON_TO_END] = "要结束请点击确认键。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_THIS_ITEM_REPAIR_CONFIRM] = "修理这个道具吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_THIS_ITEM_CHARGE_CONFIRM] = "这个道具充电吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_THIS_ITEM_SILVERING_CONFIRM] = "要把这个道具镀银吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLICK_SILVERING_ITEM] = "请点击要镀银的道具。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ALPHA_WINDOW] = "窗口显示为半透明";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_NO_ALPHA_WINDOW] = "窗口不显示为半透明";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_EQUIP] = "可以使用";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_EQUIP] = "不可以使用";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_THROW_MONEY] = "扔钱";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ITEM_DESCRIPTION] = "查看道具说明";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DEPOSIT_MONEY] = "存钱";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INVITE_PARTY] = "你有组队邀请信息";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUEST_PARTY] = "你有组队邀请信息";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RESURRECTION] = "在指定位置复活";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVACUATION] = "传送到指定位置";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_UP_LEVEL] = "无法再升级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_UP_STAT] = "无法提高能力值";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_JOIN] = "加入";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIP_SELL_ALL_VAMPIRE_HEAD] = "附加：想卖掉全部吸血鬼头请点击右边。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIP_REPAIR_ALL_ITEM] = "附加：想修理全部装备请点击右边。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_ON] = "打开自动隐藏";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_OFF] = "关闭自动隐藏";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GAME_MENU] = "游戏菜单";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MENU] = "菜单(Menu)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EXP] = "经验值(Exp)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM] = "公会(Team)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MESSAGE] = "情报(Message)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HELP] = "帮助 (Help)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INVENTORY] = "道具窗口(Inventory)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GEAR_WINDOW] = "装备窗口(Gear Window)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INFO_WINDOW] = "情报窗口(Info Window)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PARTY_WINDOW] = "组队窗口(Party Window)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_WINDOW] = "任务窗口(Quest Window)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO] = "公会情报(Team Info)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_MEMBER_LIST] = "公会成员(Team Member List)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BASIC_HELP] = "基本帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHATTING_HELP] = "聊天帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_WAR_HELP] = "战斗帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SKILL_HELP] = "技术帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_HELP] = "公会帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN] = "公会";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_INFO] = "公会情报(Guild Info)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_MEMBER_LIST] = "公会成员(Guild Member List)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_HELP] = "派别帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MAGIC_HELP] = "魔法帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CURRENT_EXP] = "现在经验值：";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NEXT_LEVEL] = "下一级需要：";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_EXP] = "还需经验值：";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_HELM] = "戴帽子";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_NECKLACE] = "戴项链";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_ARMOR] = "穿盔甲";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_SHIELD] = "戴盾牌";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_WEAPON] = "拿武器";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_GLOVE] = "戴手套";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_BELT] = "戴腰戴";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_TROUSER] = "穿裤子";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_BRACELET] = "戴手镯";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_RING] = "戴戒指";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_SHOES] = "穿鞋";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_VAMPIRE_COAT] = "穿衣服";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_EARRING] = "戴耳环 ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_AMULET] = "带护身符";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FIRST_GEAR_SET] = "第一个武器";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SECOND_GEAR_SET] = "第二个武器";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SPECIAL_CHARACTER] = "特殊文字";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SET_LETTER_COLOR] = "文字颜色指定";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_INPUT_LANGUAGE] = "汉/英转换";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_WHISPER_ID] = "查看悄悄话过的用户名";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NORMAL_CHATING] = "一般聊天(C)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ZONE_CHATTING] = "区域聊天(Z)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_WHISPER_CHATTING] = "悄悄话(W)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PARTY_CHATTING] = "组队聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_CHATTING] = "公会聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_NORMAL_CHATTING] = "查看一般聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ZONE_CHATTING] = "查看地区聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_WHISPER_CHATTING] = "查看悄悄话";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_PARTY_CHATTING] = "查看组队聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_TEAM_CHATTING] = "查看公会聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_NORMAL_CHATTING] = "不看一般聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_ZONE_CHATTING] = "不看区域聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_WHISPER_CHATTING] = "不看悄悄话";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_PARTY_CHATTING] = "不看组队聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_TEAM_CHATTING] = "关闭公会聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_CLAN_CHATTING] = "关闭派队聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_CLAN_CHATTING] = "查看排队聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_CHATTING] = "派队聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EXPEL] = "脱离";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SECEDE] = "解除";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SET_INVITE_DENY_MODE] = "设定拒绝邀请模式";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_INVITE_DENY_MODE] = "解除邀请拒绝模式";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SET_JOIN_DENY_MODE] = "设定加入拒绝模式";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_JOIN_DENY_MODE] = "解除加入拒绝模式";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_UP_STR] = "提高力量";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_UP_DEX] = "提高敏捷性";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_UP_INT] = "提高知识";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_SKILL_INFO_WINDOW] = "查看技术情报窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_CHARACTER_INFO_WINDOW] = "查看人物情报窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_MAGIC_INFO_WINDOW] = "查看魔法情报窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ADVANTE_INFO_WINODW] = "查看转职情报窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_BLADE_INFO] = "查看刀系列的情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_SWORD_INFO] = "查看剑系列的情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_GUN_INFO] = "查看枪系列的情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HEAL_INFO] = "查看恢复系列的情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ENCHANT_INFO] = "查看祝福系列的情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ALL_INFO] = "查看全部系列的情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_POISON_INFO] = "查看毒系列情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ACID_INFO] = "查看酸系列的情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_CURSE_INFO] = "查看诅咒系列的情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_SUMMON_INFO] = "查看召唤系列的情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_BLOOD_INFO] = "查看血系列的情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ESSENCE_INFO] = "查看默认系列的情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_MAGIC_INFO_WINDOW] = "查看魔法情报窗口的帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_SKILL_INFO_WINDOW] = "查看技术情报窗口的帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_INVENTORY_WINDOW] = "查看道具窗口的帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_PARTY_MANAGER] = "查看组队窗口的帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_CHARACTER_INFO_WINDOW] = "查看人物情报窗口的帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_GEAR_WINDOW] = "查看装备窗口的帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_STORAGE_WINDOW] = "查看保管箱窗口的帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_SHOP_WINDOW] = "查看商店窗口的帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_SHOW_EXCHANGE_WINDOW] = "查看交换窗口的帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_INVENTORY_WINDOW] = "关闭道具窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_PARTY_MANAGER] = "关闭组队窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_CHARACTER_INFO_WINDOW] = "关闭人物情报窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_GEAR_WINDOW] = "关闭装备窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_MAGIC_INFO_WINDOW] = "关闭魔法情报窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_SKILL_INFO_WINDOW] = "关闭技术情报窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_DESC_WINDOW] = "关闭说明窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_STORAGE_WINDOW] = "关闭保管箱窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_SHOP_WINDOW] = "关闭装备窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_BOOKCASE] = "关闭书架";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_BOOK] = "合上书";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_JOIN_ANY_TEAM] = "没有登录的公会";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_JOIN_ANY_CLAN] = "没有登录公会";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INFRA_RED_HELMET] = "红外扫描头盔";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INFRA_HELMET] = "红外扫描头盔";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUIT_COMPUTER] = "正在关闭计算机";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_NEXT_PAGE] = "翻到下一页";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_PREV_PAGE] = "翻到上一页";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_STR] = "力量 ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DEX] = "敏捷 ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_INT] = "智力 ";
 	(*g_pGameStringTable)[UI_STRING_MESSAGE_MASTER_NAME] = "GM";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIMIT_STRING_COUNT] = "档硅窍瘤 付技夸!!!";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HELP_MESSAGE] = "档框富";	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_STR]= "塞";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DEX]= "刮酶己";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INT]= "瘤侥";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HP]	= "积疙仿";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MP] = "付过仿";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCURACY] = "疙吝伏";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DAMAGE]	= "单固瘤";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_AVOID]	= "雀乔啦";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DEFENCE]= "规绢啦";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALIGNMENT] = "己氢";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALIGN_VERY_BAD]="概快 厩窃";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALIGN_BAD] ="厩窃";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALIGN_NORMAL] ="吝赋";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALIGN_GOOD]	 ="急窃";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALIGN_VERY_GOOD] ="概快 急窃";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_STR_PURE] =	"鉴   荐   塞 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DEX_PURE] =	"鉴荐  刮酶己 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INT_PURE] =	"鉴 荐  瘤 侥 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_STATUS_SUM_PURE] =	"鉴荐瓷仿摹钦 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_STATUS_SUM]	="瓷 仿 摹  钦 : %d";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SPEED_SLOW] ="蠢覆";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SPEED_NORMAL] =	"焊烹";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SPEED_FAST]	="狐抚";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ATTACK_SPEED] =	"傍拜加档 : %s[%d]";
-
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PASSIVE]= "Passive";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_PASSIVE] ="菩矫宏";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_LEVEL_DESCRIPTION] ="饭骇 :%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EXP_DESCRIPTION] ="版氰摹(EXP):%s/%s (巢篮 版氰摹:%s)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_MP_DESCRIPTION] =	"付过仿(MP):%d/%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_HP_DESCRIPTION_WITH_SILVERING] = "积疙仿(HP):%d/%d(S:%d)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_HP_DESCRIPTION] =	"积疙仿(HP):%d/%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_CHANGE_VAMPIRE_DAY] =	"%d老 %d矫埃 %d盒 饶俊 轨颇捞绢肺 函钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_CHANGE_VAMPIRE_HOUR] ="%d矫埃 %d盒 饶俊 轨颇捞绢肺 函钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_CHANGE_VAMPIRE_MINUTE] ="%d盒 饶俊 轨颇捞绢肺 函钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_CHANGE_VAMPIRE_SOON]	="梆 轨颇捞绢肺 函钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_SET_LARGE] ="积疙仿(HP) 芒阑 技肺肺 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_SET_SMALL] ="积疙仿(HP) 芒阑 累霸 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_SET_WIDTH] ="积疙仿(HP) 芒阑 啊肺肺 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_SET_HEIGHT] = "积疙仿(HP) 芒阑 农霸 壕聪促";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_WIDTH] ="啊肺肺 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HEIGHT] ="技肺肺 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP]=	"档框富阑 壕聪促";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REGIST]	="殿废钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIST_UP]="拉格废";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIST_DOWN]	="酒贰格废";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REFRESH_LIST]="格废阑 促矫 罐酒可聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SORT_TEAM_NAME]	="评捞抚栏肺 沥纺钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SORT_LEADER_NAME]	="府歹捞抚栏肺 沥纺钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SORT_EXPIRE_DATE]="父扁老肺 沥纺钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SORT_NUMBER_MEMBER]="糕滚荐肺 沥纺钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SORT_RANKING]="鉴困肺 沥纺钦聪促";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_FIND_MODE]="八祸 规过 函版";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FIND]="八祸窍扁";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_GRADE_MASTER]="付胶磐";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_GRADE_SUB_MASTER]="辑宏 付胶磐";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_GRADE_WAIT]="殿废 措扁磊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_GRADE_MEMBER]="雀盔";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_GRADE] = "殿鞭(Grade) : %s";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_NAME] = "捞抚(Name) : %s";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_LEADER] = "府歹(Leader) : %s";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_REG_FEE] = "啊涝厚(Reg. Fee) : $%s";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_MEMBERS] = "雀盔(Members) : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_INTRODUCTION] = "家俺(Introduction) : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_CLAN_INTRODUCTION] = "努罚 家俺(Clan Introduction) : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_TEAM_INTRODUCTION] = "评 家俺(Team Introduction) : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_RANKING]="鉴困(Ranking) : %d";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_TEAM_NAME] = "评 捞抚(Team Name) : %s";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_CLAN_NAME] = "努罚 捞抚(Clan Name) : %s";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_REGISTRATION_FEE] = "啊涝厚(Registration Fee) : $%s";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_SELF_INTRODUCTION]= "磊扁 家俺(Self Introduction) : ";
-
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_UP] = "困肺";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DOWN] = "酒贰肺";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_EXPEL] = "眠规钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_JOIN_ACCEPT]="啊涝倾啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_JOIN_DENY] = "啊涝芭何";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL]="秒家";
-
-	
-	// Zone Name
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIMBOLAIR]="覆焊己";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ESLANIA]="俊浇扼聪救";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RODIN]=	"肺凋魂";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DROBETA]="靛肺海鸥";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERONA]="其肺唱惫档";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIMORE]="萍葛福 龋荐";
-
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIMIT_STRING_COUNT] = "不要随意粘贴!!!";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HELP_MESSAGE] = "帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_STR] = "力量";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DEX] = "敏捷性";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INT] = "知识";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HP] = "生命力";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MP] = "魔法力";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCURACY] = "命中率";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DAMAGE] = "杀伤力";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_AVOID] = "回避率";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DEFENCE] = "防御";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALIGNMENT] = "善恶倾向";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALIGN_VERY_BAD] = "非常邪恶";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALIGN_BAD] = "邪恶";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALIGN_NORMAL] = "中立";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALIGN_GOOD] = "善良";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALIGN_VERY_GOOD] = "非常善良";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_STR_PURE] = "纯   力   量 :%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DEX_PURE] = "纯   敏   捷 :%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INT_PURE] = "纯   智   力 :%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_STATUS_SUM_PURE] = "纯能力值总和 :%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_STATUS_SUM] = "能力值总和:%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SPEED_SLOW] = "缓慢";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SPEED_NORMAL] = "一般";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SPEED_FAST] = "快";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ATTACK_SPEED] = "攻击速度: %s[%d]";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PASSIVE] = "被动";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_PASSIVE] = "被动";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_LEVEL_DESCRIPTION] = "等级 :%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EXP_DESCRIPTION] = "经验值 (EXP):%s/%s (?? ???:%s)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_MP_DESCRIPTION] = "魔法力 (MP):%d/%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_HP_DESCRIPTION_WITH_SILVERING] = "生命力 (HP):%d/%d(S:%d)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_HP_DESCRIPTION] = "生命力 (HP):%d/%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_CHANGE_VAMPIRE_DAY] = "%d天%d小时%d分钟之后变成吸血鬼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_CHANGE_VAMPIRE_HOUR] = "%d时%d分之后变成吸血鬼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_CHANGE_VAMPIRE_MINUTE] = "%d分钟之后变成吸血鬼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_CHANGE_VAMPIRE_SOON] = "即将变成吸血鬼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_SET_LARGE] = "竖看 (HP)条";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_SET_SMALL] = "缩小 (HP)条";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_SET_WIDTH] = "横看 (HP)条";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_SET_HEIGHT] = "放大 (HP)条";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_WIDTH] = "横排显示";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HEIGHT] = "竖排显示";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP] = "查看帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_WINDOW] = "关闭窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REGIST] = "登录";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIST_UP] = "上一目录";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIST_DOWN] = "下一目录";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REFRESH_LIST] = "重新领取目录";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SORT_TEAM_NAME] = "以公会名称排序";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SORT_LEADER_NAME] = "一列表名称排序";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SORT_EXPIRE_DATE] = "按截止日排序";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SORT_NUMBER_MEMBER] = "以成员数目排序";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SORT_RANKING] = "以顺序排列";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_FIND_MODE] = "改变搜索方式";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FIND] = "搜索";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_GRADE_MASTER] = "领袖";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_GRADE_SUB_MASTER] = "副会长";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_GRADE_WAIT] = "等待登录人员";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_GRADE_MEMBER] = "会员";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_GRADE] = "等级(Grade) : %s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_NAME] = "名字(Name) : %s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_LEADER] = "领袖(Leader) : %s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_REG_FEE] = "加入费 (Reg. Fee) : $%s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_MEMBERS] = "会员 (Members) : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_INTRODUCTION] = "介绍 (Introduction) : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_CLAN_INTRODUCTION] = "公会介绍 (Clan Introduction) : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_TEAM_INTRODUCTION] = "工会介绍(Team Introduction) : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_RANKING] = "排名(Ranking) : %d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_TEAM_NAME] = "公会名(Team Name) : %s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_CLAN_NAME] = "公会名 (Clan Name) : %s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_REGISTRATION_FEE] = "加入费 (Registration Fee) : $%s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_SELF_INTRODUCTION] = "自我介绍 (Self Introduction) : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_UP] = "往上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DOWN] = "往下";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_EXPEL] = "逐出";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_JOIN_ACCEPT] = "允许加入";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_JOIN_DENY] = "拒绝加入";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL] = "取消";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIMBOLAIR] = "林宝诚";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ESLANIA] = "城";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RODIN] = "洛丁山";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DROBETA] = "德洛贝塔";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERONA] = "配罗那国土";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIMORE] = "蒂莫尔湖.";
 	(*g_pGameStringTable)[UI_STRING_MESSAGE_ZONEINFO_XY] = "X:%d Y:%d";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_ESLANIA_NE]	="俊浇扼聪救 NE"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_ESLANIA_NW]	="俊浇扼聪救 NW"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_ESLANIA_SE]	="俊浇扼聪救 SE"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_ESLANIA_SW]	="俊浇扼聪救 SW";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIMBOLAIR_NE]="覆焊己 NE"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIMBOLAIR_NW]="覆焊己 NW"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIMBOLAIR_SE]="覆焊己 SE"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIMBOLAIR_SW]="覆焊己 SW";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_DROBETA_NE]	="靛肺海鸥 NE"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_DROBETA_NW]	="靛肺海鸥 NW"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_DROBETA_SE]	="靛肺海鸥 SE"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_DROBETA_SW]	="靛肺海鸥 SW";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_RODIN_NE]="肺凋魂 NE"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_RODIN_NW]="肺凋魂 NW"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_RODIN_SE]="肺凋魂 SE"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_RODIN_SW]="肺凋魂 SW";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIMORE_NE]="萍葛福 龋荐 NE"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIMORE_NW]="萍葛福 龋荐 NW"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIMORE_SE]="萍葛福 龋荐 SE"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIMORE_SW]="萍葛福 龋荐 SW";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERONA_NE]="其肺唱 NE"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERONA_NW]="其肺唱 NW"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERONA_SE]="其肺唱 SE"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERONA_SW]="其肺唱 SW";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_UNDERGROUND_WATERWAY]="瘤窍 荐肺"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_ESLANIA_DUNGEON]="俊浇扼聪救 带傈"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_IN_LIMBOLAIR]="覆焊己 郴何";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_LIMBOLAIR_DEONGEON]	="覆焊己 带傈"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENTOX]="捞亥飘 OX"; 		
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_STADIUM]	="捞亥飘 版扁厘"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_IN_RASENCASTLE]	="扼季己 郴何"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_KALI_CAVE]	="漠府 籍奔"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_RASEN_TRAINING]	="扼季 俊捞唱阁"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_PEIAC_TUNNEL]="其捞厩 磐澄";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_BATHORY_B1]	="官配府 带傈 B1"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_BATHORY_B2]	="官配府 带傈 B2"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_BATHORY_B3]	="官配府 带傈 B3"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_BATHORY_B4]	="官配府 带傈 B4"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_BATHORY_LAIR]	="官配府 饭绢"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GHORGOBA_TUNNEL]="绊福绊官 磐澄";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_RASEN_YARD]	="扼季 寇己 1F"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_CASTLE_RASEN_1F]="扼季 郴己 1F"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_CASTLE_RASEN_2F]="扼季 郴己 2F"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEPES_LAIR]	="抛其令 饭绢";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_SLAYER_BATTLEZONE1]="扼咳 己瘤";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_SLAYER_BATTLEZONE2]="抛皋府俊 己瘤"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_BATHORY_BATTLEZONE]	="鳃扼仇 己瘤"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_RASEN_BATTLEZONE]="酒捞季 己瘤";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_ARMY_B1]="焙牢 辨靛 B1"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_ARMY_1F]="焙牢 辨靛 1F"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_ARMY_2F]="焙牢 辨靛 2F"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_ARMY_3F]="焙牢 辨靛 3F"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_ARMY_4F]="焙牢 辨靛 苛惑";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_CELRIC_B1]="己流磊 辨靛 B1"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_CELRIC_1F]="己流磊 辨靛 1F"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_CELRIC_2F]="己流磊 辨靛 2F"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_CELRIC_3F]="己流磊 辨靛 3F"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_CELRIC_4F]="己流磊 辨靛 苛惑";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_KNIGHT_B1]="公荤 辨靛 B1";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_KNIGHT_1F]="公荤 辨靛 1F";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_KNIGHT_2F]="公荤 辨靛 2F";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_KNIGHT_3F]="公荤 辨靛 3F"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_KNIGHT_4F]="公荤 辨靛 苛惑";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_TUTORIAL_N]	="具傈荤飞何"; 
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_TUTORIAL_S]	="矫 寇胞瘤开";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_HOUSE]="辨靛 酒瘤飘";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_HOUSE]	="努罚 酒瘤飘";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_LOST_TAIYAN_B1]	="肺胶飘 鸥捞踞 B1";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_LOST_TAIYAN_B2]	="肺胶飘 鸥捞踞 B2";	
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASYLION_DUNGEON]="酒角府柯 带怜";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_TAKE_HELICOPTER]="秋扁 啪铰";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_TAKE_ELIVATOR]=	"郡府海捞磐";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_UNKNOW]	= "舅 荐 绝澜";
-
-	// Accelerator Name
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_NULL]	="AcceleratorNULL";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F1]	="F1";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F2]	="F2";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F3]	="F3";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F4]	="F4";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F5]	="F5";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F6]	="F6";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F7]	="F7";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F8]	="F8";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F9]	="F9";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F10]="F10";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F11]="F11";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F12]="F12";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_ESC]="ESC";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_SKILL]="SKILL";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_INVENTORY]=	"INVENTORY";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_GEAR]="GEAR";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_CHARINFO]="CHARINFO";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_SKILLINFO]=	"SKILLINFO";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_MINIMAP]="MINIMAP";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_PARTY]="PARTY";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_MARK]="MARK";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_HELP]="HELP";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_QUICKITEM_SLOT]="QUICKITEM_SLOT";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_EXTEND_CHAT]="EXTEND_CHAT";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_CHAR]="CHAT";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_GUILD_CHAT]="GUILD_CHAT";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_ZONE_CHAT]=	"ZONE_CHAT";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_WHISPER]="WHISPER";
-
-	// Item Class Name
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_SWORD]="八(SWORD)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_BLADE]="档(BLADE)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_CROSS]="绞磊啊(CROSS)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_MACE]="皋捞胶(MACE)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_MINE]="瘤汾(MINE)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_BOMB]="气藕(BOMB)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_MINE_MATERIAL]="瘤汾 犁丰(MINE MATERIAL)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_BOMB_MATERIAL]=	"气藕 犁丰(BOMB MATERIAL)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_SG]=	"魂藕醚(SG)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_SMG]="磊悼家醚(SMG)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_AR]=	"家醚(AR)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_SR]="历拜醚(SR)";
-	
-	// Description Dialog
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CLASS]="拌凯 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DURABILITY]="郴备己 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_SILVERING]="篮档陛 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DAMAGE]="单固瘤 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CRITICALHIT]="农府萍拿 洒飘 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DEFENSE]	="雀乔啦 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_PROTECTION]="规绢啦 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ACCURACY]="疙吝伏 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_HP]="积疙仿(HP) : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_MP]="付过仿(MP) : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_RANGE]	="荤沥芭府 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_MAGAZINE_NUM]	="藕券荐 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_POCKET_NUM]	="林赣聪 俺荐 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ITEM_NUM]	="酒捞袍 俺荐 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LEFT_NUM]	="巢篮 荤侩雀荐 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ARRIVAL_LOCATION]	="档馒困摹 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_NOT_EXIST]	="绝澜";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_NUMBER] = "俺";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_MAGAZINE_COUNT]= "惯";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_TILE_PIECE] = "沫";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_PARTY_NAME] = "颇萍";		
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_OPTION] ="可记 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_REQUIRE] = "夸备炼扒 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_REQUIRE_STAT] = "%d 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ONLY_MALE] = "巢己侩";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ONLY_FEMALE] = "咯己侩";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ONLY_SLAYER] = "浇饭捞绢 傈侩";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ONLY_VAMPIRE] = "轨颇捞绢 傈侩";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ALL_STAT_SUM] = "瓷仿摹 醚钦 ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LEVEL]="饭骇 ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_PRICE] = "啊拜 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_SILVERING_PRICE] ="篮档陛 啊拜 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CHARGE_PRICE] = "面傈啊拜 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_REPAIR_PRICE] = "荐府啊拜 : ";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONSUME_HP]	= "积疙仿(HP)家葛樊 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONSUME_MP] = "付过仿(MP)家葛樊 : ";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_LEVEL] = "夸备 饭骇 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_EXP]="版氰摹 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LIMIT_LEVEL]="己厘力茄饭骇 : ";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CANNOT_LEARN_SKILL]= "\"酒流 硅匡 荐 绝嚼聪促.\"";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CAN_LEARN_SKILL] ="\"硅匡 荐 乐嚼聪促.\"";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MOVE] ="捞悼钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_MOVE] = "捞悼阑 秒家钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MOVE_F1] = "1摸栏肺 癌聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MOVE_F2] = "2摸栏肺 癌聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MOVE_F3] = "3摸栏肺 癌聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MOVE_F4] = "4摸栏肺 癌聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MOVE_B1] = "瘤窍1摸栏肺 癌聪促";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CLICK_EXCHANGE] =	"背券窍矫妨搁 喘矾林技夸";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CANCEL_OK_BUTTON] = "OK茄巴阑 秒家钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CANCEL_EXCHANGE] = "背券窍扁肺 茄 吧 秒家钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_SHOW_EXCHANGE_WINDOW] ="背券(Exchange)芒狼 档框富阑 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_BRING_MONEY] =	"背券窍扁肺 茄 捣阑 登茫嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_EXCHANGE_MONEY] ="捣阑 背券钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_EXCHANGE_YOUR_MONEY] ="惑措规捞 背券窍扁肺 茄 捣";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LEFT_MONEY_AFTER_EXCHANGE] ="背券窍绊 唱搁 巢绰 陛咀";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_WILL_EXCHANGE_MONEY] = "背券且 陛咀";
-
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TRHOW_MONEY_IN_DIALOG] = "滚副 陛咀阑 涝仿窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SAVE_MONEY_IN_DIALOG] = "焊包且 陛咀阑 涝仿窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BRING_MONEY_IN_DIALOG] = "茫阑 陛咀阑 涝仿窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TRADE_MONEY_IN_DIALOG] = "芭贰且 陛咀阑 涝仿窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DIVIDE_MONEY_IN_DIALOG] = "哗尘 陛咀阑 涝仿窍技夸.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BUY_ITEM] ="捞 酒捞袍阑 荤矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BUY_ITEM_NUM] = "捞 酒捞袍            俺甫 荤矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_BUY_STORAGE] = "焊包窃阑 $%d俊 荤矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_TRADE_OTHER_PLAYER]= "%s 丛苞 芭贰窍摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_WAIT_OTHER_PLAYER]= "%s 丛狼 览翠阑 扁促赋聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_CANCEL]	="秒家窍矫妨搁 秒家滚瓢阑 穿福技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_REQUEST_JOIN]= "%s 丛捞 寸脚狼 %s俊 啊涝阑 夸没窍绊 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_INVITE]= "%s 丛捞 寸脚阑 %s俊 檬没窍继嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_FIND_RESULT]= "八祸 搬苞甫 茫阑 荐 绝嚼聪促." ;
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENCHANT_CONFIRM]= "捞 酒捞袍阑 牢忙飘(Enchant)窍矫摆嚼聪鳖?";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_ITEM_CLASS_SG] = "\t拌凯 : SG";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_ITEM_CLASS_SMG] = "\t拌凯 : SMG";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_ITEM_CLASS_AR] = "\t拌凯 : AR";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_ITEM_CLASS_SR] = "\t拌凯 : SR";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_DURABILITY]="\t郴备己 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_SILVERING]= "\t篮档陛 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_DAMAGE]= "\t单固瘤 : %d~%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_CRITICALHIT]= "\t农府萍拿 洒飘 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_DEFENSE]= "\t雀乔啦 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_PROTECTION]= "\t规绢啦 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_ACCURACY]= "\t疙吝伏 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_HP]= "\tHP : +%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_MP]= "\tMP : +%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_RANGE]= "\t荤沥芭府 : %d 沫";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_MAGAZINE_NUM]= "\t藕券荐 : %d 惯";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_POCKET_NUM]= "\t林赣聪 俺荐 : %d 俺";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_OPTION]="\t可记 : %s +%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_OPTION2]="\t可记 : %s";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_OPTION_EMPTY]="\t       %s +%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_OPTION_EMPTY2]="\t       %s";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE_EMPTY]= "\t           ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE]="\t夸备炼扒 : ";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE_STR]= "STR %d 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE_DEX] ="DEX %d 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE_INT]  ="INT %d 捞惑";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE_ALL_STAT_SUM] = "瓷仿摹 醚钦 %d 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE_LEVEL] ="饭骇 %d 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_PRICE] = "\t啊拜 : %s";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FILE_DIALOG_SELECT_PROFILE_PICTURE]="橇肺鞘俊 静老 荤柳阑 急琶窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FILE_DIALOG_SELECT_FILE]="傈价且 颇老甸阑 急琶窍技夸(汗荐急琶CTRL).";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FILE_DIALOG_SELECT_FILE_OK]="秦寸 颇老阑 急琶钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FILE_DIALOG_CANCEL]="秒家窍绊 芒阑 摧嚼聪促";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_BLADE]="BLADE";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_SWORD]="SWORD";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_ENCHANT]="ENCHANT";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_GUN]	="GUN";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_HEAL]="HEAL";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SUPPORT_MENU]    ="酒流 瘤盔登瘤 臼绰 皋春涝聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_INPUT_ID_OR_PASSWORD]    ="酒捞叼(ID) 肚绰 鞠龋(Password)甫 涝仿窍瘤 臼疽嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WRONG_SSN]="林刮殿废锅龋涝仿捞 官福瘤 臼嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INPUT_NAME] ="捞抚阑 涝仿窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_CONNECT_SERVER]    ="辑滚俊 楷搬且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_CHARACTER] ="某腐磐甫 急琶窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DELETE_CHARACTER] ="某腐磐啊 昏力登菌嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALL_SLOT_EMPTY] ="某腐磐甫 货肺 父甸绊, 父甸绢柳 某腐磐甫 急琶窍寂具 钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NO_MORE_CREATE_CHARACTER] ="某腐磐甫 歹 捞惑 父甸 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_CREATE_CHARACTER] ="某腐磐 积己俊 角菩窍看嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NO_INPUT_NEED_INFO] ="鞘荐亲格捞 葛滴 涝仿登瘤 臼疽嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALREADY_USE_ID] ="荤侩吝牢 酒捞叼(ID) 涝聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_USE_ID] ="荤侩窍角 荐 乐绰 酒捞叼(ID) 涝聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RE_INPUT_PASSWORD] ="厚剐锅龋甫 促矫 涝仿窍技夸.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_TNDEAD] ="磐醋单靛";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_ARKHAN] ="舅沫";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_ESTROIDER] ="俊胶飘肺捞歹";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_GOLEMER] =	"榜饭赣";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_DARKSCREAMER] ="促农胶农府赣";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_DEADBODY] ="单靛官叼";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_MODERAS] =	"葛单扼胶";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_VANDALIZER] ="龟代扼捞历";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_DIRTYSTRIDER] ="歹萍胶飘扼捞歹";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_HELLWIZARD] ="秋困磊靛";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_TNSOUL] ="磐醋家匡";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_IRONTEETH] ="酒捞攫萍静";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_REDEYE] ="饭靛酒捞";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_CRIMSONSLAUGTHER] ="农覆郊浇肺磐";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_HELLGUARDIAN] ="秋啊叼攫";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_SOLDIER] =	"贾廉";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_RIPPER] ="府欺";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_BIGFANG] =	"候曝";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_LORDCHAOS] ="肺靛墨坷胶";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_CHAOSGUARDIAN] ="墨坷胶啊叼攫";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_HOBBLE] ="龋喉";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_CHAOSNIGHT] ="墨坷胶唱捞飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_WIDOWS] ="困档快胶";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_KID] ="虐靛";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_SHADOWWING] ="绩档快喇";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_VERY_GOOD]="概快 亮澜";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_GOOD]	="亮澜";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_NORMAL]="盔劝";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_BAD]="焊烹";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_VERY_BAD]	="鸥辑滚 捞侩鼻厘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_DOWN]	="辑滚 促款";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_OPEN]	="凯覆";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_CLOSE]="摧塞";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_TYPE_NORMAL] ="老馆 酒捞袍";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_TYPE_SPECIAL] ="漂荐 酒捞袍";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_TYPE_MISTERIOUS] ="舅荐绝绰 酒捞袍";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_FIRST]="霉锅掳 焊包窃";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_SECOND]="滴锅掳 焊包窃";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_THIRD]="技锅掳 焊包窃";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_FOURTH]="匙锅掳 焊包窃";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_FIVE]="促几锅掳 焊包窃";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BRING_MONEY_FROM_STORAGE]="捣阑 茫嚼聪促";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_DELETE]="昏力钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_CANCEL]="秒家钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_DELETE_CONFIRM]="捞 某腐磐甫 沥富 昏力窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RE_INPUT_CORRECT_SSN]="林刮殿废锅龋甫 沥犬洒 涝仿窍技夸.";	
-
-	// 某腐磐 包府 拳搁
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_NAME]="捞抚 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_LEVEL]="饭骇 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_STR_PURE]="鉴荐塞 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_DEX_PURE]="鉴荐刮酶己 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_INT_PURE]="鉴荐瘤侥 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_SWORD_LEVEL]="八 档皋牢 饭骇 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_BLADE_LEVEL]="档 档皋牢 饭骇 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_GUN_LEVEL]="醚 档皋牢 饭骇 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_HEAL_LEVEL]="雀汗 档皋牢 饭骇 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_ENCHANT_LEVEL]="绵汗 档皋牢 饭骇 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_FAME]="疙己 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_CREATEMSG1]="父甸扁甫 穿福矫搁 货 某腐磐甫";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_CREATEMSG2]="父靛角 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_GRADE] = "拌鞭 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_GRADE_EXP] = "拌鞭 版氰摹 : ";
-
-	// Title Version
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLIENT_VERSION]="滚傈";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NETMARBLE_CLIENT_VERSION]="齿付喉 滚傈";
-
-
-	// Option Menu
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_3D_ACCEL]="3D 啊加 荤侩窍扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_ALPHA_HPBAR]="捧疙茄 HP(MP)官";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_SHED_BLOOD]="(HP 30% 捞窍老 锭) 乔汝府扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_HIDE_SOFT]=	"芒 磊悼见辫 何靛反霸";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_GAME_BRIGHT]="霸烙 灌扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_CHATTING_TALK]=	"盲泼 富浅急栏肺 焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_PUT_FPS]="FPS免仿";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_WINDOW_ALPHA]="扁夯芒 馆捧疙窍扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_DENSITY_ALPHA]=	"馆捧疙 丑档";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_SOUND_VOLUME]="瓤苞澜 农扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_MUSIC_VOLUME]="硅版澜厩 农扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_SHOW_BASIC_HELP]="檬焊磊侩 档框富 焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_NO_LISTEN_BAD_TALK]="唱慧富 佃瘤 臼扁",
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_LOAD_ALL_IMAGE]	="甘捞悼且 锭 阁胶磐 捞固瘤 阂矾坷扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_CHATTING_COLOR_WHITE]="盲泼 葛滴 闰祸栏肺 焊扁",
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_RUN_TEEN_VERSION]="凭滚怜栏肺 焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_OPEN_WINDOW_WHEN_WHISPER]="庇加富 吭阑锭 盲泼芒 剁快扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_NOT_SEND_MY_INFO]= "郴 某腐磐 沥焊 厚傍俺";
-
-	// Grade
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_PIVATE] =	"乔海捞飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_SERENT] =	"辑繁飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_FEACEL] =	"乔伎";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_LITENA] =	"府抛唱";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_KAINEL] =	"纳捞澄";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_GENEAL] =	"瘤聪倔";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_FORE_GENEAL] = "器绢 瘤聪倔";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_MAJORIS_GENEAL] =	"皋捞历府胶 瘤聪倔";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_CLOEL_GENEAL] = "努肺郡 瘤聪倔";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_MARSHAL] = "付迹";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_RITTER]="府磐";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_REICHSRITTER]	="扼洒胶府磐";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_BARONET]="官肺匙飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_PREYHER]="橇扼捞庆福";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_GRAF]	="弊扼橇";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_MARKGRAF]	="付福农弊扼橇";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_PFALZGRAF]="迫明弊扼橇";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_FURST]="嵌福胶飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_HERZOG]="庆福檬农";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_LANDESHER]="鄂单胶庆福";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_MSG1]= "货肺 瘤沥且 窜绵虐甫 涝仿窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_MSG2]= "秒家窍绊 酵栏矫搁 ESC虐甫 穿福技夸.";
-
-	// OTHER INFO
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_STR_PURE]="鉴荐塞 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_DEX_PURE]="鉴荐刮酶己 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_INT_PURE]="鉴荐瘤瓷  : ";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_STR_CUR]="泅犁塞 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_DEX_CUR]="泅犁刮酶己 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_INT_CUR]="泅犁瘤瓷  : ";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_FAME] = "疙己";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_TEAM_NAME] = "评 捞抚 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_CLAN_NAME] = "努罚 捞抚 : ";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIP_CHANGE_PICTURE_CLICK_HERE] = "荤柳阑 官曹 荐 乐嚼聪促";
-
-
-	(*g_pGameStringTable)[STRING_MESSAGE_UP_TO_GRADE] = "拌鞭捞 铰鞭沁嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_NAME] ="拌鞭 捞抚 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_LEVEL] ="拌鞭 饭骇 : ";
-	
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_BLADE2]="Blade";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_SWORD2]="Sword";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_ENCHANT2]="Enchant";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_GUN2]	="Gun";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_HEAL2]="Heal";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CLASS2]="拌凯";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_ITEM_TO_ITEM_FAIL_NO_PREMIUM_SLAYER] =  "橇府固决 荤侩磊捞绢具 窍芭唱, 辨靛郴俊急 荤侩且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_ITEM_TO_ITEM_FAIL_NO_PREMIUM_VAMPIRE] = "橇府固决 荤侩磊捞绢具 窍芭唱, 付阑郴俊急 荤侩且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_DISMISS_AFTER_SECOND] = "%d檬 饶俊 卵败吵聪促.";
-	
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_ENTER_CHATTING]= "浚磐盲泼";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_NORMAL_CHATTING]="老馆盲泼";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MODIFY_INFO] = "家俺 富阑 函版钦聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_START_TRACE] = "眠利 矫累";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_TRACE] ="眠利 秒家";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TRACE] = "%s 某腐磐 眠利吝";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_TRACE] = "%s 某腐磐 眠利 角菩";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_DO_NOT_WAR_MSG] ="傈里包访 皋矫瘤 焊瘤 臼扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_DO_NOT_LAIR_MSG] = "饭绢付胶磐包访 皋矫瘤 焊瘤 臼扁";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_GRADE1_INFO_WINDOW] = "窍困 拌鞭 胶懦芒阑 壕聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_GRADE2_INFO_WINDOW] = "惑困 拌鞭 胶懦芒阑 壕聪促";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_CRITICAL_10]="农府萍拿(Critical) 傍拜仿 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_DEFENSE_5]="雀乔啦(Defense) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_TOHIT_5]="疙吝伏(To hit) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_HP_10]="积疙仿(HP) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_MP_15]="付过仿(MP) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_DAMAGE_3]="单固瘤(Damage) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_ATTACKSPEED_15]="傍拜加档 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_HP_20]="积疙仿(HP) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_DEFENSE_10]="雀乔啦(Defense) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_PROTECTION_10]="规绢啦(Protection) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DECREASE_HP_EXHAUSTION_10_PERCENT]="胶懦 荤侩矫 积疙仿(HP) 家葛樊 皑家";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_ENCHANT_DAMAGE_10_PERCENT]="牢忙飘(Enchant) 拌凯 傍拜扁贱 单固瘤 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_HEAL_DAMAGE_10_PERCENT]="鳃(Heal) 拌凯 傍拜扁贱 单固瘤 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_NEAR_ATTACK_DAMAGE_10_PERCENT]="辟立 傍拜 拌凯 胶懦 单固瘤 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_HP_RESTORE_SPEED_15_PERCENT]="积疙仿(HP) 雀汗加档 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_RESISTANCE_ACID_15_PERCENT]="局矫靛(Acid) 历亲 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_RESISTANCE_BLOODY_15_PERCENT]="喉矾靛(Blood) 历亲 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_RESISTANCE_CURSE_15_PERCENT]="目胶(Curse) 历亲 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_RESISTANCE_POISON_15_PERCENT]="器捞琉(Poison) 历亲 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_DAMAGE_STORM_20_PERCENT]="胶盆(Storm) 拌凯 胶懦 单固瘤 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_RANGE_STORM_5_BY_5]="胶盆(Storm) 拌凯 胶懦 裹困 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_SUCCESS_RATIO_POISON_10_PERCENT]="刀(Poison) 拌凯 己傍伏 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_SUCCESS_RATIO_ACID_10_PERCENT]="魂(Acid) 拌凯 己傍伏 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_SUCCESS_RATIO_CURSE_10_PERCENT]="目胶(Curse) 拌凯 己傍伏 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_SUCCESS_RATIO_BLOODY_10_PERCENT]="乔(Blood) 拌凯 己傍伏 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_SUCCESS_RATIO_INNATE_10_PERCENT]="绊蜡(Innate) 拌凯 己傍伏 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_SUCCESS_RATIO_SUMMON_10_PERCENT]="家券(Summon) 拌凯 己傍伏 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DECREASE_MP_EXHAUSTION_10_PERCENT]="胶懦 荤侩矫 MP 家葛樊 皑家";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_HP_STEAL_2_PERCENT]="积疙仿(HP) 胶瓶 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_MP_STEAL_2_PERCENT]="付过仿(MP) 胶瓶 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_LUCKY_2]="青款(Lucky) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_KEEP_TIME_ACID_SWAMP_20_PERCENT]="局矫靛 胶窥橇(Acid Swamp) 瘤加矫埃 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_KEEP_TIME_PARALYZE_20_PERCENT]="菩凡扼捞令(Paralyze) 瘤加矫埃 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_KEEP_TIME_DARKNESS_30_PERCENT]="促农聪胶(Darkness) 瘤加矫埃 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_RANGE_DARKNESS_5_BY_5]="促农聪胶(Darkness) 裹困 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_UP_GRADE]="歹捞惑 拌鞭捞 坷福瘤 臼嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_SELECT_PC_CANNOT_PLAY] = "蜡丰拌沥捞 酒聪扼辑 霸烙阑 且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_SELECT_PC_NOT_BILLING_CHECK] = "酒流 搬力 沥焊啊 犬牢登瘤 臼疽嚼聪促. 泪矫父 扁促妨林技夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_SELECT_PC_CANNOT_PLAY_BY_ATTR] = "某腐磐 瓷仿摹啊 公丰 辑厚胶 力茄俊 档崔秦辑 蜡丰 辑厚胶甫 荤侩窍寂具父 立加且 荐 乐嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NEVER_CANNOT_LEARN_SKILL] = "\"硅匡 荐 绝绰 胶懦涝聪促.\"";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALREADY_LEARNED_SKILL] =    "\"捞固 硅款 胶懦涝聪促.\"   ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_LEARN_SKILL_YET] =   "\"酒流 硅匡 荐 绝嚼聪促.\"  ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_LEARN_SKILL_NOW]=       "\"瘤陛 硅匡 荐 乐嚼聪促.\"  ";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_GRADE1]="GRADE1";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_GRADE2]="GRADE2";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEARN_GRADE_SKILL_CONFIRM]= "捞 胶懦阑 硅快搁 泅犁 拌鞭狼 促弗 拌鞭 胶懦阑 硅匡 荐 绝嚼聪促. 沥富肺 硅快矫摆嚼聪鳖?";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TREE_OK] = "飘府甫 荤侩钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TREE_CANCEL] = "飘府 荤侩阑 秒家钦聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_GIFT_BOX_OK] = "皋府 农府胶付胶~*";
-	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_GIFT_BOX_NO_ITEM] = "模备甸俊霸辑 急拱阑 罐酒辑 促矫 坷霸唱.";
-	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_GIFT_BOX_ALREADY_TRADE] = "垮缴里捞 鞍栏聪扼绊, 解 波瘤瘤 给秦!";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_XMAS_TREE_CANNOT_USE] = "林困狼 促弗 飘府客 呈公 啊滨嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_XMAS_CARD_CANNOT_USE] = "后 亲格捞 乐嚼聪促. 葛电 亲格阑 盲况林技夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NOT_USE_SAFETY_POSITION] = "救傈瘤措俊辑绰 荤侩且荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NOT_USE_SAFETY_ZONE] = "付阑救捞唱 辨靛救俊辑绰 荤侩且荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENCHANT_CONFIRM_2] = "角菩 窍搁 酒捞袍捞 何辑龙 荐 乐嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DEPOSIT_LIMIT] = "焊包窃俊 20撅 捞惑 焊包且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WITHDRAW_LIMIT] = "20撅 捞惑 家瘤且 荐 绝嚼聪促.";
-
-	// 2003.1.14
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_PREMIUM_HALF_SLAYER] = "泅犁 粮俊辑绰 沮敲阑 例馆 啊拜栏肺 备涝窍角 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_PREMIUM_HALF_VAMPIRE] = "泅犁 粮俊辑绰 趋没阑 例馆 啊拜栏肺 备涝窍角 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_PREMIUM_HALF_SLAYER_END] = "沮敲阑 例馆 啊拜栏肺 备涝且 荐 乐绰 捞亥飘啊 辆丰登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_PREMIUM_HALF_VAMPIRE_END] = "趋没阑 例馆 啊拜栏肺 备涝且 荐 乐绰 捞亥飘啊 辆丰登菌嚼聪促.";
-
-	// 2003.1.15
-	(*g_pGameStringTable)[STRING_MESSAGE_REWARD_OK] = "焊惑阑 罐疽嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_REWARD_FAIL] = "焊惑阑 罐阑 荐 绝嚼聪促.";
-    (*g_pGameStringTable)[STRING_MESSAGE_NO_EMPTY_SLOT] = "后 磊府啊 绝嚼聪促.";
-
-	// 2003.1.20
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_DO_NOT_HOLY_LAND_MSG]= "酒淬狼 己瘤包访 皋矫瘤 焊瘤 臼扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOLY_LAND_TOTAL_FEE] = "醚 技陛";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOLY_LAND_CAN_BRING_FEE] = "啊廉棵 技陛";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOLY_LAND_TOTAL_FEE_DESC] = "啊廉棵 荐 乐绰 醚 技陛";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOLY_LAND_CLICK_INPUT_FEE] = "努腐窍矫搁 啊廉棵 技陛阑 涝仿钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOLY_LAND_OK] ="涝仿茄 技陛阑 啊廉可聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOLY_LAND_INPUT_BRING_FEE] = "啊廉棵 技陛阑 涝仿窍技夸";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_NO_TEAM] = "评俊 家加登绢 乐瘤 臼嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NO_CLAN] = "努罚俊 家加登绢 乐瘤 臼嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NOT_TEAM_MASTER] = "评 付胶磐啊 酒凑聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NOT_CLAN_MASTER] = "努罚 付胶磐啊 酒凑聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_HAS_NO_CASTLE] = "评捞 啊柳 己捞 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_HAS_NO_CASTLE] = "努罚捞 啊柳 己捞 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_NOT_YOUR_CASTLE] = "评捞 家蜡茄 己捞 酒凑聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_NOT_YOUR_CASTLE] = "努罚捞 家蜡茄 己捞 酒凑聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_SUCCESS_BRING_FEE] = "技陛阑 茫疽嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_FAIL_BRING_FEE] = "技陛阑 茫绰单 角菩窍看嚼聪促.";	
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BRING_FEE_MSG] = " 己阑 家蜡茄 评捞唱 努罚 付胶磐绰 捞 己俊辑 掘篮 技陛阑 啊廉哎 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BRING_FEE_LIMIT] = "啊廉哎 技陛苞 泅犁 家瘤吝牢 捣狼 钦捞 20撅阑 逞阑 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RACE_WAR]= "辆练埃 傈里";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_WAR_SCHEDULE_FULL] = "傈里 胶纳领捞 菜 谩嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_WAR_ALREADY_REGISTERED] = "捞固 傈里 脚没阑 沁嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_WAR_NOT_ENOUGH_MONEY] = "捣捞 何练钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_WAR_REGISTRATION_OK] = "傈里 胶纳领俊 殿废 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_MOVE_SAFETY_ZONE_BLOOD_BIBLE] = "乔狼己辑甫 甸绊 乐栏搁, 磊扁祈狼 救傈瘤措俊绰 甸绢哎 荐 绝嚼聪促!";
-	(*g_pGameStringTable)[STRING_MESSAGE_ALREADY_HAS_CASTLE] = "捞固 己阑 啊瘤绊 乐嚼聪促.";
-	//(*g_pGameStringTable)[STRING_MESSAGE_WAR_UNAVAILABLE] = "瘤陛篮 傈里 脚没捞 登瘤 臼嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_WAR_UNAVAILABLE] = "傈里 脚没阑 且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_STATUS_TIME_FORMAT] = "%d矫埃 %d盒";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_STATUS_LEFT_TIME] = "巢篮 矫埃";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_WAR] = "悼练埃 傈里";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_ARMEGA] = "扁贱 荤侩矫 付过仿(MP) 趣篮 积疙仿(HP) 家葛樊 50% 皑家";  
-	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_MIHOLE] = "青款 +10";  
-	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_KIRO] = "瘤侥 +7, 刮酶己 +7";  
-	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_INI] = "拱府傍拜 单固瘤 +10";  
-	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_GREGORI] = "矫具 +5, 葛电 瓷仿摹 +4";  
-	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_CONCILIA] = "葛电 历亲仿 +9";  
-	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_LEGIOS] = "付过傍拜单固瘤 +10";  
-	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_HILLEL] = "鸥辆练狼 攫绢 烹开";  
-	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_JAVE] = "白喉啊拜 50% 且牢";  
-	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_NEMA] = "拱距蔼 50% 且牢";  
-	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_AROSA] = "积疙仿(HP) +50";  
-	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_CHASPA] = "塞 +7, 瘤侥 +7";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_ARMEGA] = "酒福皋啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_MIHOLE] = "固龋饭";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_KIRO] = "虐肺";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_LEGIOS] = "饭瘤坷胶";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_HILLEL] = "鳃副";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_JAVE] = "鲤宏";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_INI] = "酒捞聪";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_GREGORI] = "弊饭绊府";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_CONCILIA] = "能磨府酒";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_NEMA] = "匙付";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_AROSA] = "酒肺荤";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_CHASPA] = "瞒胶颇";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_ARMEGA_ENG] = "ARMEGA";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_MIHOLE_ENG] = "MIHOLE";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_KIRO_ENG] = "KIRO";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_INI_ENG] = "INI";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_GREGORI_ENG] = "GREGORI";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_CONCILIA_ENG] = "CONCILIA";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_LEGIOS_ENG] = "LEGIOS";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_HILLEL_ENG] = "HILLEL";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_JAVE_ENG] = "JAVE";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_NEMA_ENG] = "NEMA";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_AROSA_ENG] = "AROSA";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_CHASPA_ENG] = "CHASPA";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_DROP] = "顶俊 冻绢廉 乐嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_HAS_SLAYER] = "浇饭捞绢啊 啊瘤绊 乐嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_HAS_VAMPIRE] = "轨颇捞绢啊 啊瘤绊 乐嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_NONE] = "沥焊甫 舅 荐 绝嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_SLAYER] = "浇饭捞绢狼 荐龋己窜俊 乐嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_VAMPIRE] = "轨颇捞绢狼 荐龋己窜俊 乐嚼聪促";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_DESC_POSITION] = "困摹 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_DESC_STATUS] = "惑怕 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_DESC_PLAYER] = "家瘤磊 : ";	
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_ATTACK_GUILD] = "傍拜";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_DEFENSE_GUILD] = "规绢";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_RACE_WAR_JOIN_FAILED] = "%s丛 饭骇措狼 辆练 傈里 脚没牢盔捞 菜 谩嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_RACE_WAR_JOIN_OK] = "辆练 傈里 曼啊 脚没阑 沁嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_DESC_SHRINE_RACE] = "弥辆 家蜡 : ";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_SLAYER] = "浇饭捞绢";
-	(*g_pGameStringTable)[STRING_MESSAGE_VAMPIRE] = "轨颇捞绢";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_RACE_WAR_GO_FIRST_SERVER] = "辆练 傈里篮 阿 岿靛狼 霉锅掳 辑滚俊辑父 脚没 棺 曼啊啊 啊瓷钦聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_GIVE_EVENT_ITEM_FAIL_NOW] = "瘤陛篮 捞亥飘 酒捞袍阑 罐阑 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_GIVE_EVENT_ITEM_FAIL] = "捞亥飘 酒捞袍阑 罐阑 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_GIVE_EVENT_ITEM_OK] = "捞亥飘俊 蝶弗 酒捞袍阑 罐疽嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_GIVE_PREMIUM_USER_ONLY] = "橇府固决辑厚胶 荤侩磊父 罐阑 荐 乐嚼聪促.";
-
-//	(*g_pGameStringTable)[STRING_MESSAGE_WAIT_FOR_MEET_COUPLE] = "目敲 脚没 且 惑措狼 捞抚阑 涝仿窍技夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_MEET_SUCCESS] = "目敲捞 己荤登菌嚼聪促. 牢亥配府俊 目敲酒捞袍捞 眠啊登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_CANNOT_MEET] = "目敲捞 己荤瞪 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_MEET_WAIT_TIME_EXPIRED] = "矫埃捞 瘤唱辑 脚没捞 秒家登菌嚼聪促.";
-
-//	(*g_pGameStringTable)[STRING_MESSAGE_WAIT_FOR_APART_COUPLE] = "庆绢龙 惑措狼 捞抚阑 涝仿窍技夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_APART_SUCCESS] = "庆绢脸嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NOT_COUPLE] = "瘤陛篮 庆绢龙 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_APART_WAIT_TIME_EXPIRED] = "矫埃捞 瘤唱辑 脚没捞 秒家登菌嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOPE_COUPLE_MSG] = "目敲篮 辑肺埃狼 钦狼 窍俊 捞风绢廉具 钦聪促. \n脚没 规过篮, 目敲捞 登辨 盔窍绰 楷牢狼 捞抚阑 涝仿茄 饶 脚没 罐篮 楷牢捞 1盒 救俊 历俊霸 客辑 悼狼 窍矫搁, 目敲捞 己赋邓聪促. 捞 荤亲甸阑 扁撅窍绞矫坷.\n弊烦, 楷牢捞 登辨 盔窍矫绰 盒狼 捞抚阑 涝仿窍咯 林绞矫坷.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BREAK_UP_COUPLE_MSG] = "钦狼 搬喊篮 辑肺埃狼 钦狼 窍俊 捞风绢 廉具 窍哥, 泅犁 庆绢瘤绊磊 窍绰 楷牢狼 捞抚阑 涝仿茄 饶 楷牢捞 1盒 救俊 历俊霸 客辑 悼狼 窍矫搁, 搬喊捞 己赋邓聪促. 庆绢咙苞 窃膊 滴 荤恩狼 荤尔狼 刘钎牢 目敲傅篮 荤扼笼聪促. 捞 荤亲甸阑 扁撅窍绞矫坷.\n弊烦, 楷牢狼 捞抚阑 涝仿窍咯 林绞矫坷.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPLETE] = "肯丰";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_PLAYER_NAME] = "惑措规狼 某腐磐 捞抚";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FORCE_BREAK_UP_COUPLE] = "老规利牢 庆绢咙篮 惑措规狼 悼狼 绝捞 搬喊捞 啊瓷窍唱, 磊脚狼 己氢俊辑 惑寸樊捞 皑家钦聪促. 泅犁 磊脚狼 楷牢狼 捞抚阑 涝仿窍矫搁, 搬喊捞 己赋邓聪促. 搬喊 己赋苞 窃膊 滴 荤恩狼 荤尔狼 刘钎牢 目敲傅篮 荤扼笼聪促.  捞 荤亲甸阑 扁撅窍绞矫坷.\n弊烦, 楷牢狼 捞抚阑 涝仿窍咯 林绞矫坷.";
-	
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE] = "目敲";
-	(*g_pGameStringTable)[STRING_MESSAGE_MOVE_DELAY_SEC] = "%d檬 饶俊 捞悼钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_MOVE_START] = "目敲 某腐磐甫 茫绊 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_CAN_NOT_FIND] = "目敲 某腐磐甫 茫阑 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NOT_EVENT_TERM] = "目敲 捞亥飘 扁埃捞 酒凑聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_ALREADY_WAITING] = "捞固 惑措甫 扁促府绊 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_LOGOFF] = "惑措规捞 肺弊牢 窍瘤 臼疽嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_DIFFERENT_RACE] = "辑肺 促弗 辆练涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_SAME_SEX] = "巢赤 荤捞俊父 目敲捞 己赋邓聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NOT_PAY_PLAYER] = "蜡丰 荤侩磊啊 酒凑聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_ALREADY_COUPLE] = "捞固 目敲涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_WAS_COUPLE] = "目敲阑 肝篮 利捞 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NOT_ENOUGH_GOLD] = "家瘤陛捞 何练钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NOT_ENOUGH_ATTR] = "瓷仿摹啊 何练钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NOT_ENOUGH_LEVEL] = "饭骇捞 何练钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_INVENTORY_FULL] = "目敲傅阑 罐阑 傍埃捞 何练钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NO_WAITING] = "寸脚阑 扁促府绰 颇飘呈啊 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NOT_COUPLE] = "目敲捞 酒凑聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LOVE_CHAIN] = "目敲捞 乐绰镑栏肺 捞悼且 荐 乐绰 胶懦涝聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WILL_YOU_GO_BILING_PAGE] = "搬力 其捞瘤肺 捞悼窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GO_BILING_PAGE] = "搬力 其捞瘤肺 捞悼钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_LOGOUT_BY_PAYTIME] = "蜡丰 荤侩矫埃捞 父丰登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_LOGOUT_BY_FREEPLAY_LEVEL] = "瓷仿摹啊 公丰 辑厚胶 力茄俊 档崔沁嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_LOGOUT_BY_LEVEL] = "饭骇捞 公丰 辑厚胶 力茄俊 档崔沁嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_UP_LEVEL_BY_FAME] = "疙己捞 何练窍咯 饭骇诀阑 且 荐 绝嚼聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NEED_FAME] = "鞘夸 疙己摹";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_HAN] = "府固萍靛";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_ENG] = "Limited";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DAY] = "%d老";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOUR] = "%d矫埃";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MINUTE] = "%d盒";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SECOND] = "%d檬";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_TIME] = "巢篮 荤侩 矫埃 :";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EXPIRED_ITEM] = "肺弊酒眶窍矫搁 荤扼笼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_QUEST_SLAYER] = "捞锅 烙公绰 E.V.E俊辑 流立 狼汾 茄 荤亲栏肺, 鞭拜洒 疵绢啊绰 轨颇捞绢甫 瓤苞利栏肺 硼摹窍扁 困秦辑 货肺款 瘤飞阑 瘤矫窍看嚼聪促. 固府 老沥 轨颇捞绢甫 急琶窍绊绰 林绢瘤绰 荐樊阑 硼摹窍绰 巴涝聪促. 涅胶飘绰 茄锅俊 窍唱究 急琶窍咯 荐青窍寂具 窍哥, 涅胶飘 档吝 肺弊 酒眶 矫俊绰 涅胶飘啊 秒家邓聪促. 轨颇捞绢 荐樊篮 急琶茄 辆幅俊 蝶扼 瞒捞啊 乐嚼聪促. 捞 烙公甫 荐青窍角 版快俊绰 E.V.E俊辑 漂喊茄 焊惑捞 林绢笼聪促. 盔窍矫绰 涅胶飘甫 急琶秦 林技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_QUEST_VAMPIRE] = "力啊 盔窍绰 老阑 该酒林角 荐 乐摆嚼聪鳖? 儒儒..力 秒固 积劝 锭巩捞瘤父 历绰 酒抚翠瘤 给茄 巴甸阑 必档肺 区坷 茄翠聪促. 快府甸 轨颇捞绢狼 鉴荐窍绊 绊搬茄 趋烹阑 困窍咯, 免贸甫 舅 荐 绝绰 窍鞭 茄 巴甸阑 沥府且 鞘夸啊 乐促绊 积阿窍绰单ˇ儒儒.. 绢栋绞聪鳖? 历客 蛆仿窍咯 固玫茄 公府甫 沥府秦 林矫扁 臼栏矫摆嚼聪鳖? 涅胶飘绰 茄锅俊 窍唱究 急琶窍咯 荐青窍寂具 窍哥, 涅胶飘 档吝 肺弊 酒眶 矫俊绰 涅胶飘啊 秒家邓聪促. 阁胶磐 荐樊篮 急琶茄 阁胶磐 辆幅俊 蝶扼 瞒捞啊 乐栏哥, 荤成阑 秦坷矫搁 邓聪促. 绢痘霸 窍矫摆嚼聪鳖? 措啊绰 犬角洒 靛府摆嚼聪促. 盔窍矫绰 涅胶飘甫 急琶秦 林绞矫坷.";	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_SELECT_QUEST] = "促澜 扁雀俊 曼咯窍瘤.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_LEARN_SKILL] = "促澜俊 硅快摆嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NUMBER_OF_ANIMALS]= "付府";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FINISH_MONSTER_KILL_QUEST] = "阁胶磐 棱扁 涅胶飘狼 矫埃捞 辆丰登菌嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EXPIRED_TIME_MONSTER_KILL_QUEST] = "阁胶磐 荤成 涅胶飘狼 矫埃捞 辆丰登菌嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FINISH_MONSTER_KILL_QUEST] = "阁胶磐 荤成 涅胶飘 格钎啊 崔己登菌嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_REQUITAL_FROM_NPC] = "郴俊 NPC俊霸 焊惑阑 罐阑 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_START_MONSTER_KILL_QUEST] = "阁胶磐 荤成 涅胶飘啊 矫累登菌嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_ALREADY_START_MONSTER_KILL_QUEST] = "捞固 涅胶飘啊 柳青吝涝聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_MONSTER_KILL_QUEST_BY_STATUS] = "瓷仿摹啊 嘎瘤 臼酒 涅胶飘甫 柳青且荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SUCCESS_MONSTER_KILL_QUEST] = "阁胶磐 荤成 涅胶飘甫 己傍窍看嚼聪促. 牢亥配府俊 涅胶飘 酒捞袍捞 眠啊登菌嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_YET_COMPLETE_MONSTER_KILL_QUEST] = "阁胶磐 荤成 涅胶飘啊 酒流 肯丰登瘤 臼疽嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_INVENTORY_FULL_MONSTER_KILL_QUEST] = "牢亥配府俊 傍埃捞 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_IN_QUEST] = "涅胶飘吝捞 酒凑聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_QUEST_EXPIRED_TIME] = "力茄矫埃捞 檬苞登绢 涅胶飘甫 角菩沁嚼聪促.";	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIME_LIMIT] = "力茄矫埃 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_APPLY_QUEST] = "瘤陛篮 涅胶飘甫 脚没且 荐 绝嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPLETE_QUEST] = "涅胶飘 格钎 崔己";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_TIME_OVER_QUEST] = "力茄矫埃 檬苞";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MEET_NPC] = "%s 父唱扁";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_INVALID_NPC] = "秦寸 NPC 俊霸 焊惑 罐阑 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_BUG] = "巩力啊 惯积窍看嚼聪促. 促矫 矫档窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GATHER_ITEM] = "%s 茫扁";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_MONSTER_KILL_QUEST_STRING_SET] = "弊烦 %s %d付府甫 %s 郴俊 棱酒坷档废 窍霸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_MONSTER_KILL_QUEST_STRING_SET_VAMPIRE] = "弊烦 %s %d付府甫 %s 郴俊 棱酒坷档废 窍绞矫坷.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANCEL_MONSTER_KILL_QUEST] = "厘厚甫 痢八茄 饶俊 促矫 倒酒坷摆嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_YES_I_SEE] = "抗, 舅摆嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_MONSTER_KILL] = "阁胶磐 荤成 涅胶飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_MEET_NPC] = "NPC 父唱扁 涅胶飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_GATHER_ITEM] = "酒捞袍 备窍扁 涅胶飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_DESCRIPTION_TIME_TOTAL] = "醚 力茄矫埃 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_DESCRIPTION_TIME_ELAPSE] = "版 苞 矫 埃 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_DESCRIPTION_TIME_REMAIN] = "巢 篮 矫 埃 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_DESCRIPTION_TIME_NO_REMAIN] = "绝澜";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_QUEST] = "涅胶飘 角菩";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_EVENT_GIFT] = "%d窜拌 捞亥飘 惑前吝 窍唱甫 绊福技夸";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PLEASE_SCRATCH_IMAGE] = "惑窜狼 捞固瘤甫 避绢 林技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WIN_A_PRIZE_SAME_IMAGE] = "鞍篮 弊覆捞 3俺搁 寸梅涝聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONGRATULATIONS] = "绵窍钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WIN_A_PRIZE] = "俊 寸梅 登继嚼聪促.";
-	
-	(*g_pGameStringTable)[STRING_MESSAGE_MEET_NPC_SLAYER] = "酒快胶磐令肺 眠螟登绰 扁功茄 积辫货狼 荤恩阑 焊疽促绰 林刮篮 俊浇扼聪酒 何辟俊 芭林窍绰 巴栏肺 焊绊登菌促. 舅摆栏搁 瘤陛 寸厘 格拜磊甫 茫酒 弥措茄 腹篮 沥焊甫 掘绢坷档废.";
-	(*g_pGameStringTable)[STRING_MESSAGE_MEET_NPC_VAMPIRE] ="酒快胶磐令肺 眠螟登绰 扁功茄 积辫货狼 荤恩阑 焊疽促绰 林刮 笛捞 覆焊己 何辟阑 疤档 绝捞 倒酒促聪绊 乐促绊 窍匙夸. 瘤陛 寸厘 弊甸阑 茫酒 弥措茄 腹篮 沥焊甫 掘绢坷档废 窍技夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANCEL_QUEST_VAMPIRE] = "付仿阑 焊面茄 饶 促矫 倒酒坷摆嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_LOTTERY] = "酒奖霸档 寸梅登瘤 臼栏继嚼聪促.\\n促澜 扁雀甫 捞侩秦林技夸.\\n捞亥飘 涅胶飘甫 促矫 荐青窍矫搁 汗鼻阑 罐栏角 荐 乐绰 扁雀甫 靛赋聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WIN_A_PRIZE2] = "惑前俊 寸梅 登继嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_USER_1] = "丛膊辑";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_1] = "寸脚捞 啊廉促霖 沥飞籍捞 墨府荤胶丛狼 康去阑 磷澜狼 技拌俊辑 秦规矫难林菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_2] = "磊, 焊绞矫坷. 何劝茄 快府甸狼 悼练甸阑ˇ 捞 葛滴 寸脚 傣盒涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_3] = "13锅掳 乔狼 己辑扼绊夸? 龋龋龋龋龋龋龋泉ˇ ";
-	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_4] = "开矫 牢埃甸捞鄂 沥富ˇ 绢府籍扁 娄捞 绝焙夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_5] = "弊巴篮 技加利牢 寸脚甸狼 颊俊 甸绢啊扁俊绰 呈公 困氰茄 拱扒涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_6] = "快府 老练甸篮 弊巴阑 瘤虐扁 困秦 柄绢抄 巴涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_7] = "夯贰 捞镑俊 柯 捞饶肺绰 酒淬狼 己瘤甫 瘤虐绊 乐菌瘤夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_8] = "弊扒 弊犯绊 寸脚篮 呈公 腹篮 荤角阑 舅酒滚啡嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_9] = "弊矾聪 捞力 康盔茄 绢狄 加俊辑 魔宫阑 瘤难林继栏搁 绊缚摆嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_1] = "寸脚捞 啊廉促霖 沥飞籍捞 墨府荤胶丛狼 康去阑 磷澜狼 技拌俊辑 秦规矫难林菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_2] = "磊, 焊绞矫坷. 何劝茄 快府甸狼 悼练甸阑ˇ 捞 葛滴 寸脚 傣盒涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_3] = "13锅掳 乔狼 己辑扼绊夸? 龋龋龋龋龋龋龋泉ˇ ";
-	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_4] = "弊 歹矾款 垮噶篮 500斥捞 瘤唱档 函窃捞 绝焙夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_5] = "弊巴篮 疵 乔俊 隶绢 混酒啊绰 寸脚甸狼 颊俊 甸绢啊扁俊绰 呈公 困氰茄 拱扒涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_6] = "快府 老练甸篮 弊巴阑 瘤虐扁 困秦 柄绢抄 巴涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_7] = "夯贰 捞镑俊 柯 捞饶肺绰 酒淬狼 己瘤甫 瘤虐绊 乐菌瘤夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_8] = "弊扒 弊犯绊 寸脚篮 呈公 腹篮 荤角阑 舅酒滚啡嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_9] = "弊矾聪 捞力 康盔茄 绢狄 加俊辑 魔宫阑 瘤难林继栏搁 绊缚摆嚼聪促.";	
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_NAME_FIND_ANCIENT_DOCUMENT] = "绊措 巩清 茫扁 涅胶飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_NAME_FIND_ANCIENT_MAP] = "绊措 瘤档 茫扁 涅胶飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_NAME_FIND_SOUL_STONE] = "沥飞籍 茫扁 涅胶飘";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_IN_QUEST2] = "泅犁 柳青吝牢 涅胶飘啊 绝嚼聪促.";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST_1] = "1.酒快胶磐令狼 如利\\n格利:阁胶磐 Killing";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST_2] = "2.绊措傈汲狼 弊覆磊\\n格利:沥焊甫啊柳 NPC 茫扁";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST_3] = "3.蜡拱俊 巢败柳 传拱  格利:绊措 巩清 炼阿 荐笼";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST_4] = "4.惯磊秒甫 茫酒辑\\n格利:涅胶飘 阁胶磐 Killing & 瘤档 裙垫";
-//	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST_5] = "5.酒快胶磐令客狼 炼快\\n格利:酒快胶磐令甫 何劝矫懦 沥飞籍 茫扁";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TAKE_OUT_OK] = "酒捞袍阑 牢亥配府肺 啊廉吭嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TAKE_OUT_FAIL] = "酒捞袍阑 牢亥配府肺 啊廉坷瘤 给沁嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_TAKE_OUT_ITEM_FROM_SHOP] = "瘤陛篮 备涝茄 酒捞袍阑 茫阑 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONFIRM_SELECT_ITEM_FROM_SHOP] = "急琶窍脚 酒捞袍阑 啊廉坷矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_SHOP] = "酒捞袍 捞抚阑 努腐窍矫搁 急琶茄 酒捞袍阑 啊廉可聪促.";
-	
-	(*g_pGameStringTable)[STRING_MESSAGE_CLEAR_RANK_BONUS_OK] = "急琶窍脚 拌鞭狼 胶懦捞 昏力 登菌嚼聪促.";
-    (*g_pGameStringTable)[STRING_MESSAGE_NO_RANK_BONUS] = "秦寸 磊拜捞 绝嚼聪促.";
-    (*g_pGameStringTable)[STRING_MESSAGE_ALREADY_CLEAR_RANK_BONUS] = "急琶窍脚 拌鞭 胶懦阑 昏力茄 利捞 乐嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BULLETIN_BOARD_OK] = "霸矫魄阑 荤侩钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BULLETIN_BOARD_CANCEL] = "霸矫魄 荤侩阑 秒家钦聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_BULLETIN_BOARD_CANNOT_USE] = "林困狼 促弗 霸矫魄苞 呈公 啊滨嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_TRANS] = "酒捞袍狼 馒侩力茄 己喊阑 傈券且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TRANS_ITEM] = "捞 酒捞袍狼 馒侩力茄 己喊阑 傈券窍矫摆嚼聪鳖?";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RESURRECT_BY_ELIXIR] = "郡腐辑甫 荤侩窍咯 何劝钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RESURRECT_BY_SCROLL] = "何劝 胶农费阑 荤侩窍咯 何劝钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_CANNOT_USE] = "荤侩且 荐 绝嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MIXING_FORGE_OK] = "雇教器瘤甫 荤侩钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MIXING_FORGE_CANCEL] = "雇教器瘤 荤侩阑 秒家钦聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPLETE_MERGE_ITEM] = "滴 酒捞袍捞 己傍利栏肺 钦媚脸嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_MERGE_ITEM] = "酒捞袍阑 钦摹绰单 角菩窍看嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_USE_GUILD_MEMBER_ONLY] = "己阑 家蜡茄 辨靛盔父 荤侩 啊瓷钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_USE_RIDE_MOTORCYCLE] = "坷配官捞甫 鸥绊 荤侩且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_MIXING_SPECIAL_ITEM]= "蜡聪农 酒捞袍捞唱 府固萍靛 酒捞袍篮 雇教且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_MIXING_OPTION_COUNT] = "可记捞 茄俺牢 酒捞袍父 雇教且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_MIXING_ITEM_CLASS] = "酒捞袍 辆幅啊 崔扼辑 急琶且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_MIXING_ITEM_TYPE] = "酒捞袍 鸥涝捞 崔扼辑 急琶且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_MIXING_ITEM_OPTION] = "滴 酒捞袍狼 可记捞 鞍酒辑 急琶且 荐 绝嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WHAT_OPTION_REMOVE] = "绢恫 可记阑 力芭窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONFIRM_REMOVE_OPTION] = "急琶窍脚 可记阑 沥富肺 力芭窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_REMOVE_OPTION] = "酒捞袍狼 可记阑 力芭且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSGAE_CANNOT_REMOVE_OPTION] = "酒捞袍狼 可记阑 力芭且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_OPTION] = "%s 可记阑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUESTION_REMOVE_OPTION] = "力芭 窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[STRING_MESSAGE_FAILED_REMOVE_OPTION] = "可记阑 瘤快绰单 角菩窍看嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_SUCCESS_REMOVE_OPTION] = "急琶茄 可记捞 力芭登菌嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_OTHER_TRIBE] = "鸥辆练 傈侩";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONSUME_EP] = "EP家葛樊 : ";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_CIRCLET] = "辑努复阑 厘馒钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_COAT] = "渴阑 厘馒钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_WEAPON] = "铆农恩/府胶撇复阑 厘馒钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_BOOTS] = "何明甫 厘馒钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_ARMSBAND] = "鞠胶龟靛阑 厘馒钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_RING] = "馆瘤甫 厘馒钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_PENDENT] = "格吧捞甫 厘馒钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_STONE] = "沥飞籍阑 厘馒钦聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OUSTERS_STONE] = "%s狼 沥飞 饭骇 : ";
-
-	// 酒快胶磐令 拌鞭
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_MALCHUT] =	"付福捻飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_YESOD] =	"抗家靛";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_HOD] =	"龋靛";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_NETRETH] =	"匙瞒农";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_TIPHRETH] =	"萍颇饭飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_GEBURAH] =	"霸宏扼";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_CHESED] = "们技靛";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_BINAH] =	"官捞唱";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_CHOKMA] = "龋农付";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_KEATHER] = "纳抛福";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SKILL_LEVEL] = "胶懦 饭骇 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ELEMENTAL_LEVEL] = "夸备 加己 饭骇 (%s)(%d)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEARN_SKILL] = "捞 胶懦阑 硅快矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEARN_SKILL2] = "捞 胶懦阑 劳洒矫搁 拌凯捞 搬沥邓聪促. 促澜 胶懦何磐绰 捞 拌凯俊 秦寸登绰 胶懦父 硅匡 荐 乐霸 邓聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SKILL_LEVEL_UP] = "捞 胶懦狼 饭骇阑 棵府矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_SKILL_POINT] = "鞘夸 胶懦 器牢飘 : %d 器牢飘";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_FIRE] = "阂";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_WATER] = "拱";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_EARTH] = "措瘤";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_WIND] = "官恩";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_SUM] = "钦";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EP] = "康仿";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_GUILD_CHATTING] = "辨靛盲泼 救焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_GUILD_CHATTING] = "辨靛盲泼 焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_CHATTING] = "辨靛盲泼 窍扁";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WOOD_SKIN] = "规绢啦(Protection) 刘啊";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WIND_SENSE] = "雀乔啦(Defense) 刘啊";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_HOMING_EYE] = "疙吝伏(To Hit) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_LIFE_ENERGY] = "积疙仿(HP) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SOUL_ENERGY] = "康仿(EP) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_STONE_MAUL] = "傈捧扁贱 拌凯 单固瘤(Damage) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SWIFT_ARM] = "傍拜加档 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_FIRE_ENDOW] = "阂(Fire) 拌凯 傍拜付过 单固瘤(Damage) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WATER_ENDOW] = "拱(Water) 拌凯 傍拜付过 单固瘤(Damage) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_EARTH_ENDOW] = "措瘤(Earth) 拌凯 傍拜付过 单固瘤(Damage) 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ANTI_ACID_SKIN] = "魂(Acid) 历亲仿 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ANTI_BLOODY_SKIN] = "乔(Bloody) 历亲仿 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ANTI_CURSE_SKIN] = "历林(Curse) 历亲仿 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ANTI_POISON_SKIN] = "刀(Poison) 历亲仿 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ANTI_SILVER_DAMAGE_SKIN] = "篮 单固瘤 皑家";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BLESS_OF_NATURE] = "胶懦荤侩矫 康仿(EP) 家葛樊 皑家";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_LIFE_ABSORB] = "积疙仿(HP) 胶瓶 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SOUL_ABSORB] = "康仿(EP) 胶瓶 刘啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_MYSTIC_RULE] = "青款(Lucky) 刘啊";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EP_DESCRIPTION] = "康仿(EP):%d/%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_BONUS_POINT] = "焊呈胶 器牢飘甫 盒硅窍寂具 钦聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD] = "辨靛(Guild)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_INFO] = "辨靛 沥焊(Guild Info)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_MEMBER_LIST] = "辨靛盔 府胶飘(Guild Member List)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_HELP] = "辨靛 档框富";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_FIRE_DESCRIPTION] =  "Fire :%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_WATER_DESCRIPTION] = "Water:%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_EARTH_DESCRIPTION] = "Earth:%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_WIND_DESCRIPTION] =  "Wind :%d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_EP]="EP : ";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PREV_MAP] = "捞傈 甘阑 壕聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NEXT_MAP] = "促澜 甘阑 壕聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_HORN] = "措瘤 沥飞狼 辉阑 秒家钦聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ATTACK_SPEED] = "傍拜加档 : ";
-
-	(*g_pGameStringTable)[STRING_STATUS_EP_MAX_1] = "康仿(EP) 弥措摹啊 %d啊 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_STATUS_EP_MAX_2] = "康仿(EP) 弥措摹啊 %d捞 登菌嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_MAGIC_DAMAGE] = "付过 单固瘤 : ";
-	
-	(*g_pGameStringTable)[STRING_MESSAGE_OPEN_LAIR]	= "%s啊 凯啡嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CLOSED_LAIR]= "%s啊 摧躯嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_LEFT_TIME_LAIR]= "%s狼 免涝 啊瓷 矫埃捞 %d盒 巢疽嚼聪促.";	
-	
-	(*g_pGameStringTable)[STRING_MESSAGE_CONTRACT_GNOMES_HORN]="矫坷恩俊霸 啊辑 拌距阑 肝栏寂具 荤侩窍角 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CONTRACT_GNOMES_HORN_OK] = "措瘤 沥飞狼 辉阑 荤侩窍扁 困茄 拌距阑 肝菌嚼聪促.";
-	
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_DOWN_SKILL] = "胶懦饭骇阑 撤免 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NOT_ENOUGH_MONEY_FOR_DOWN_SKILL] = "家瘤陛捞 何练窍咯 胶懦饭骇阑 撤免 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONFIRM_DOWN_SKILL] = "%s 胶懦狼 胶懦 饭骇捞 %d 俊辑 %d肺 函版邓聪促. 家夸厚侩篮 $%s 涝聪促. 函版窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[STRING_MESSAGE_SUCCESS_CHANGE] = "己傍利栏肺 函版登菌嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WITHDRAW_POINT] = "雀荐 胶懦 器牢飘 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DOWN_SKILL] = "捞 胶懦狼 饭骇阑 撤眠矫摆嚼聪鳖?";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_NOT_OUSTERS] = "酒快胶磐令啊 酒凑聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_TOO_LOW_SKILL_LEVEL] = "胶懦饭骇捞 呈公 撤嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_TOO_HIGH_SKILL_LEVEL] = "胶懦饭骇捞 呈公 臭嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_INVALID_SKILL] = "肋给等 胶懦涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NOT_LEARNED_SKILL] = "酒流 硅快瘤 臼篮 胶懦涝聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONFIRM_UP_TO_LAST_SKILL_LEVEL] = "胶懦饭骇阑 弥绊窜拌牢 30鳖瘤 棵副 版快 捞甫 雀荐且 荐 绝嚼聪促. 30饭骇肺 惑铰矫虐档废 窍摆嚼聪鳖?";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_USE_OUSTERS] = "酒快胶磐令绰 荤侩且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_MIXING_FORGE_FAILED_SAME_OPTION_GROUP]= "酒捞袍狼 可记 弊缝捞 鞍酒辑 集阑 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONFIRM_CHANGE_SEX]= "沥富肺 己喊阑 傈券窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_CHANGE_SEX_BY_WEAR] = "渴阑 涝篮惑怕俊辑绰 己喊阑 傈券且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_CHANGE_SEX_BY_COUPLE] = "目敲捞 乐绰 某腐磐绰 己喊阑 傈券且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST2_1] = "1.瘤驱狼 缴魄\\n格利:林绢柳 欺榴 荐青";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST2_2] = "2.搬拌狼 凯艰\\n格利:饭骇俊 蝶扼 瘤沥等 堡拱 荐笼(8俺)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST2_3] = "3.焊捞瘤 臼绰 寒\\n格利:固肺甫 烹苞窍咯 府乔聪框 裙垫";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST2_4] = "4.富窍绰 牢屈\\n瘤沥等 带傈俊辑 欺榴 炼阿阑 茫酒 炼钦";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST2_5] = "5.固贰甫 咯绰巩\\n漂沥 努贰胶狼 阁胶磐甸俊霸辑 付籍阑 茫酒 内靛钎 炼钦";	
-
-	(*g_pGameStringTable)[STRING_MESSAGE_SELECT_MINI_GAME] = "滴 啊瘤 矫氰捞 付访登绢 乐嚼聪促. 捞吝 茄啊瘤甫 急琶窍绞矫坷.";
-	(*g_pGameStringTable)[STRING_MESSAGE_SELECT_ARROW_TILES] = "Arrow Tiles. 拳混钎甫 蝶扼 榜 瘤痢鳖瘤 公荤洒 捞悼窍绰 霸烙涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_SELECT_CRAZY_MINE] = "Crazy Mine. 箭磊 具备客 瘤汾 茫扁啊 钦媚柳 欺榴霸烙涝聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_GET_RIFINIUM] = "府乔聪框阑 裙垫窍看嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_STATUS_ARROW_TILES] = "Arrow Tiles";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_STATUS_CRAZY_MINE] = "Crazy Mine";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SUCCESS_MINIGAME] ="All Stage Clear!";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_ALREADY_JOIN] = "绢叼 茄锅 杭鳖? 磊匙绰 捞固 %s 辨靛 家加捞扼绊 唱客 乐焙";
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_QUIT_TIMEOUT] = "磊匙绰 促弗 辨靛甫 呕硼茄瘤 倔付 登瘤 臼疽焙. 炼陛 歹 脚吝窍霸 积阿窍绊 青悼窍霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_CANCEL_TIMEOUT] = "磊匙绰 辨靛甫 秒家 寸茄 瘤 倔付 登瘤 臼疽焙. 殿废 炼扒俊 何钦窍档废 磊脚阑 粱 歹 扁福绊 坷霸. 粱 歹 脚吝窍霸 扁雀甫 砍焊档废 窍霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_LEVEL] = "惹涪窍瘤父 府歹肺结狼 磊龙篮 粱 何练茄 巴 鞍焙. 角仿阑 篡绊 坷霸唱";
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_MONEY] = "辨靛甫 父甸妨搁 腹篮 捣捞 鞘夸窍促匙. 磊匙绰 捣捞 绝绢 焊捞绰焙...";
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_FAME] = "%s捞扼.. 抄 酒流 弊繁 捞抚篮 甸绢焊瘤档 给沁促匙. 弊扒 磊匙啊 遣郴扁扼绰 巴阑 狼固窍瘤. 角仿阑 篡绊 促矫 茫酒坷霸唱";
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_NAME] = "辨靛 捞抚捞 捞固 静捞绊 乐焙, 促弗 捞抚阑 积阿秦 焊霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_DENY] = "芭何登菌嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_STARTING_FAIL_ALREADY_JOIN] = "寸脚篮 捞固 促弗 辨靛俊 啊涝登绢 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_STARTING_FAIL_QUIT_TIMEOUT] = "磊匙绰 促弗 辨靛甫 呕硼茄瘤 倔付 登瘤 臼疽焙. 炼陛 歹 脚吝窍霸 积阿窍绊 青悼窍霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_STARTING_FAIL_CANCEL_TIMEOUT] = "磊匙绰 辨靛甫 秒家 寸茄 瘤 倔付 登瘤 臼疽焙. 炼扒俊 何钦窍档废 磊脚阑 粱 歹 扁福绊 坷霸. 粱 歹 脚吝窍霸 扁雀甫 砍焊档废 窍霸";
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_STARTING_FAIL_LEVEL] = "磊匙绰 酒流 何练茄 痢捞 腹酒 焊捞绰备父. 炼陛 歹 角仿阑 篡绊 茫霸唱.";
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_STARTING_FAIL_MONEY] = "%s, 辨靛 殿废阑 困秦辑绰 捣捞 歹 鞘夸窍促匙";
-	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_STARTING_FAIL_FAME] = "%s捞扼.. 抄 酒流 弊繁 捞抚篮 甸绢焊瘤档 给沁促匙. 弊扒 磊匙啊 遣郴扁扼绰 巴阑 狼固窍瘤. 角仿阑 篡绊 促矫 茫酒坷霸唱";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLICK_TO_SHOW_DETIAL] = "努腐窍矫搁 技何 郴侩阑 焊角 荐 乐嚼聪促.";
-	
-	(*g_pGameStringTable)[STRING_MESSAGE_OUSTERS] = "酒快胶磐令";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WAR_READY] = "5盒第俊 Capture the Flag! 捞亥飘甫 角矫钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WAR_START] = "Capture the Flag! 捞亥飘啊 矫累登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WAR_FINISH] = "Capture the Flag! 捞亥飘啊 辆丰登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WAR_WINNER] = "%s 辆练捞 %d俺狼 标惯阑 葛酒辑 铰府窍看嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WILL_POUR_ITEM_AFTER_3MIN] = "3盒饶俊 标惯瘤开俊辑 酒捞袍捞 磐笼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_POURED_ITEM] = "Capture the Flag 捞亥飘 酒捞袍捞 唱吭嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_FLAG_STATUS] = "裙垫茄 标惯荐 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MUTE] = "款康磊俊 狼秦辑 盲泼捞 陛瘤登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_MOVE_SAFETY_ZONE_FLAG] = "标惯阑 甸绊 救傈瘤措肺 甸绢哎 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_DROP_ITEM_BY_FLAG] = "标措 林函俊绰 酒捞袍阑 滚副 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_POUR_ITEM_AFTER_SECOND] = "%d 檬 饶俊 标惯瘤开俊辑 酒捞袍捞 磐笼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_ACTION_MOTORCYCLE_FLAG] = "标措 林函俊辑绰 坷配官捞甫 鸥芭唱 郴副 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_GUILD_NAME] = "辨靛 捞抚 : %s";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_GUILD_INTRODUCTION] = "辨靛 家俺 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_GUILD_NAME] = "辨靛 捞抚 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_JOIN_ANY_GUILD] = "殿废等 辨靛 绝澜";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_ETERNITY_FOR_RESURRECT] = "捞磐聪萍 胶懦阑 荤侩窍咯 混酒吵聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_RELOAD_BY_VIVID_MAGAZINE]= "厚厚靛 概芭柳 胶懦阑 硅况具 荤侩且 荐 乐嚼聪促.";
-	
-	(*g_pGameStringTable)[STRING_MESSAGE_RESURRECT_AFTER_SECONDS] = "%d 檬 饶俊 何劝钦聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_TRADE_SUMMON_SYLPH] = "官恩狼 沥飞阑 藕 惑怕俊辑绰 芭贰且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_USE_SUMMON_SYLPH] = "官恩狼 沥飞阑 藕 惑怕俊辑 荤侩且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_MODIFY_SKILL_LEVEL_1] = "%s 胶懦 饭骇捞 %d捞 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_MODIFY_SKILL_LEVEL_2] = "%s 胶懦 饭骇捞 %d啊 登菌嚼聪促.";
-
-	// 2003.09.29
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GO_TO_BEGINNER_ZONE] = "檬焊 傈侩 荤成磐肺 捞悼钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_PREMIUM_DAYS] = "橇府固决 辑厚胶 荤侩扁埃捞 %d老 巢疽嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_PREMIUM_USER] = "蜡丰 荤侩磊啊 酒凑聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EXPIRE_PREMIUM_SERVICE_TODAY] = "橇府固决 辑厚胶绰 坷疵鳖瘤 涝聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_EXPIRE_PREMIUM_SERVICE_MESSAGE_1] = "橇府固决 辑厚胶 扁埃捞 场唱扁 傈俊 楷加搬力甫 且 版快 促掸 付老府瘤客";
-	(*g_pGameStringTable)[STRING_MESSAGE_EXPIRE_PREMIUM_SERVICE_MESSAGE_2] = "酒捞袍 汗鼻殿 促剧茄 驱琶阑 罐栏角 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_EXPIRE_PREMIUM_SERVICE_MESSAGE_3] = "磊技茄 郴侩篮 促农俊掸 权其捞瘤(www.darkeden.com)俊辑 犬牢窍角 荐 乐嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_LEVEL_WAR_ZONE_NAME] = "漠府绊 %d摸";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_1] = "葛电 瓷仿摹 + 2";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_2] = "眉仿(HP) + 20";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_3] = "单固瘤 + 3";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_4] = "瘤侥 + 7, 刮酶己 + 7";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_5] = "眉仿(HP) + 50";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_6] = "青款 + 7";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_7] = "付过 傍拜 单固瘤 + 10";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_8] = "瘤侥 + 7, 塞 + 7";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_9] = "眉仿(HP) 软荐 + 15";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_10] = "拱府 傍拜 单固瘤 + 10";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_11] = "葛电 历亲仿 + 7";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_12] = "矫具 + 5, 葛电 瓷仿摹 + 4";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_JOIN_LEVEL_WAR] = "傈里俊 曼啊钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLICK_TO_WARP_REGEN_TOWER] = "努腐窍矫搁 秦寸 府哩 粮 鸥况肺 捞悼钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_HAS_OUSTERS] = "酒快胶磐令啊 啊瘤绊 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_OUSTERS] = "酒快胶磐令狼 荐龋己窜俊 乐嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MAILBOX] = "祈瘤窃(Mail Box)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_MAILBOX] = "祈瘤窃阑 摧嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MAILBOX_TAB_MAIL] = "祈瘤甫 犬牢钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MAILBOX_TAB_HELP] = "档框富阑 犬牢钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MAILBOX_TAB_MEMO] = "酒流 瘤盔登瘤 臼嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_SUCCESS_CHANGED_BAT_COLOR] = "冠零祸捞 函版登菌嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEVEL_WAR] = "饭骇 傈里";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_FAMILY_DAYS] = "菩剐府 辑厚胶 荤侩扁埃捞 %d老 巢疽嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EXPIRE_FAMILY_TODAY] = "菩剐府 辑厚胶绰 坷疵鳖瘤 涝聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOO_FAR] = "歹 啊鳖捞 啊寂具 钦聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_DESC_DURABILITY] = "巢篮 冈捞剧 : ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_ATTR] = "加己 : ";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_PET_INFO_WINDOW] = "局肯悼拱 沥焊芒阑 壕聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_ENCHANT_FAIL] = "牢镁飘啊 角菩窍看嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_DESC_DURABILITY_2] = "巢篮 冈捞剧";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_RESSURECT] = "局肯悼拱阑 何劝 矫虐矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_PET_INFO] = "局肯悼拱 沥焊芒阑 摧嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_ENCHANT_PET] = "2瞒 瓷仿阑 何咯且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_ENCHANT_PET] = "酒流篮 2瞒 瓷仿阑 何咯且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_NEW_PET_LEVEL_1] = "%s狼 饭骇捞 %d啊 登菌嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NEW_PET_LEVEL_2] = "%s狼 饭骇捞 %d捞 登菌嚼聪促.";
-	
-	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_NAME_LUCK_3] = "钒虐";
-	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_NAME_LUCK_4] = "固聪柯";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_NAME_ATTR_3] = "呈飘";
-	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_NAME_ATTR_4] = "农繁摹";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_PET_DIE_WARNING] = "%s狼 冈捞啊 %s 盒樊观俊 巢瘤 臼疽嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PET_REQUEST_REFILL] = "冈捞甫 面傈窍矫扁 官而聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PET_DIE] = "%s捞 荤噶窍看嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PET_SUMMON] = "%s阑 家券窍看嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PET_CAN_GET_ATTR] = "加己阑 何咯窍角 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PET_GAMBLE_OK] = "%s俊霸 2瞒 瓷仿阑 何咯窍继嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PET_GAMBLE_DESC] = "酒捞袍苞 歹阂绢 阁胶磐狼 赣府档 窃膊 风泼且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PET_GAMBLE_DESC_TEEN] = "酒捞袍苞 歹阂绢 家匡 胶沛档 窃膊 风泼且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PET_CAN_GET_OPTION] = "%s俊霸 可记阑 何咯窍角 荐 乐嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EXP_DESCRIPTION_NEW] = "巢篮 版氰摹 : %s (%s%%)";
-	(*g_pGameStringTable)[STRING_MESSAGE_PET_GAMBLE_FAIL] = "2瞒 瓷仿 何咯啊 角菩窍看嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_ENAME_LUCK_3] = "Lucky";
-	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_ENAME_LUCK_4] = "Minion";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_ENAME_ATTR_3] = "Nut";
-	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_ENAME_ATTR_4] = "Crunch";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_PET_REVIVAL] = "何劝矫懦 荐 乐嚼聪促.";	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_PET_REVIVAL]= "磷篮 版快俊父 荤侩且 荐 乐嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_CAN_CUT_HEAD] = "2瞒瓷仿 乐澜";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_CANNOT_CUT_HEAD] = "2瞒瓷仿 绝澜";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REMOVE_PET_OPTION] = "局肯悼拱狼 可记阑 瘤快矫摆嚼聪鳖?";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_EVENT_GIFT_BOX] = "剧率 葛滴 急拱惑磊啊 乐绢具 背券且 荐 乐嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_NETMARBLE_1] = "绵窍钦聪促! 切背肺 啊绰 捞亥飘俊 曼咯且 磊拜阑 掘栏继嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_NETMARBLE_2] = "99俺狼 齿付喉 墨靛绰 览葛鼻涝聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_NETMARBLE_3] = "捞亥飘啊 辆丰瞪 锭鳖瘤 肋 焊包窍绊 拌矫扁 官而聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_NETMARBLE_4] = "父老 墨靛啊 绝阑 版快 捞亥飘俊 曼咯窍角 荐 绝嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_USE_PET_FOOD] = "坷弗率 滚瓢阑 努腐窍矫搁 局肯悼拱俊霸 冈捞甫 临 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DETACH_PET_FOOD] = "坷弗率 滚瓢阑 努腐窍矫搁 酒捞袍阑 盒府窍角 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_PET_FOOD] = "局肯悼拱俊霸 冈捞甫 冈捞矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_DETACH] = "酒捞袍阑 盒府窍妨搁 局肯悼拱阑 家券窍瘤 臼篮 惑怕俊辑父 啊瓷钦聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_0] = "八&档";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_1] = "八";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_2] = "档";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_3] = "醚";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_NULL] = "加速失效";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F1] = "F1";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F2] = "F2";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F3] = "F3";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F4] = "F4";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F5] = "F5";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F6] = "F6";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F7] = "F7";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F8] = "F8";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F9] = "F9";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F10] = "F10";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F11] = "F11";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_F12] = "F12";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_ESC] = "ESC";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_SKILL] = "技能";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_INVENTORY] = "道具";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_GEAR] = "装备";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_CHARINFO] = "人物信息";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_SKILLINFO] = "技能信息";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_MINIMAP] = "小地图";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_PARTY] = "组队";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_MARK] = "标志";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_HELP] = "帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_QUICKITEM_SLOT] = "快捷道具栏";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_EXTEND_CHAT] = "区域聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_CHAR] = "聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_GUILD_CHAT] = "公会聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_ZONE_CHAT] = "区域聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_WHISPER] = "悄悄话";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_SWORD] = "剑(SWORD)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_BLADE] = "刀 (BLADE)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_CROSS] = "十字架 (CROSS)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_MACE] = "权杖(MACE)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_MINE] = "地雷 (MINE)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_BOMB] = "炮弹 (BOMB)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_MINE_MATERIAL] = "地雷原料(MINE MATERIAL)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_BOMB_MATERIAL] = "炮弹原料(BOMB MATERIAL)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_SG] = "弹枪(SG)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_SMG] = "自动步枪(SMG)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_AR] = "小枪(AR)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_CLASS_SR] = "狙击枪(SR)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CLASS] = "系列: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DURABILITY] = "耐久性 : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_SILVERING] = "镀银 : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DAMAGE] = "杀伤力: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CRITICALHIT] = "有效打击: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DEFENSE] = "回避率: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_PROTECTION] = "防御率: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ACCURACY] = "命中率: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_HP] = "生命力 (HP) : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_MP] = "魔法力 (MP) : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_RANGE] = "射程 : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_MAGAZINE_NUM] = "子弹数 : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_POCKET_NUM] = "口袋个数 : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ITEM_NUM] = "道具个数: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LEFT_NUM] = "剩下的使用次数 : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ARRIVAL_LOCATION] = "到达位置 : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_NOT_EXIST] = "没有";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_NUMBER] = "个";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_MAGAZINE_COUNT] = "发";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_TILE_PIECE] = "格";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_PARTY_NAME] = "组队";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_OPTION] = "选项: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_REQUIRE] = "要求条件: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_REQUIRE_STAT] = "%d 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ONLY_MALE] = "男用";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ONLY_FEMALE] = "女用";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ONLY_SLAYER] = "人类专用";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ONLY_VAMPIRE] = "吸血鬼专用";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ALL_STAT_SUM] = "能力值总合 ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LEVEL] = "等级 ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_PRICE] = "价格: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_SILVERING_PRICE] = "镀银价格: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CHARGE_PRICE] = "充电价格: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_REPAIR_PRICE] = "修理价格: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONSUME_HP] = "生命力 (HP)消耗量: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONSUME_MP] = "魔法力 (MP)消耗量: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_LEVEL] = "等级要求: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_EXP] = "经验值: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LIMIT_LEVEL] = "成长限制级别: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CANNOT_LEARN_SKILL] = "尚不能学习.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CAN_LEARN_SKILL] = "可以学习.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MOVE] = "移动";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_MOVE] = "取消移动";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MOVE_F1] = "通往1楼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MOVE_F2] = "通往2楼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MOVE_F3] = "通往3楼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MOVE_F4] = "通往4楼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MOVE_B1] = "通往地下1楼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CLICK_EXCHANGE] = "要交易请按这里";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CANCEL_OK_BUTTON] = "OK被取消";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CANCEL_EXCHANGE] = "交换被取消";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_BRING_MONEY] = "退回交易中的金钱";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_EXCHANGE_MONEY] = "钱交易";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_EXCHANGE_YOUR_MONEY] = "对方要交易的金钱";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LEFT_MONEY_AFTER_EXCHANGE] = "交易后的金额";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_WILL_EXCHANGE_MONEY] = "交易金额";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TRHOW_MONEY_IN_DIALOG] = "请输入要丢弃的金额";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SAVE_MONEY_IN_DIALOG] = "请输入要保管的金额";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BRING_MONEY_IN_DIALOG] = "输入要领取的金额";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TRADE_MONEY_IN_DIALOG] = "输入要交易的金额";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DIVIDE_MONEY_IN_DIALOG] = "请输入要取出的金额";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BUY_ITEM] = "要买这个道具吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BUY_ITEM_NUM] = "想要买几个这个道具?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_BUY_STORAGE] = "想以$%d的价格买保管箱吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_TRADE_OTHER_PLAYER] = "确定要%s和交易吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_WAIT_OTHER_PLAYER] = "正在等待%s的应答。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_CANCEL] = "取消请按取消按纽。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_REQUEST_JOIN] = "%s想要加入您的%s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_INVITE] = "%s把您邀请到了%s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_FIND_RESULT] = "无法找到搜索内容";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENCHANT_CONFIRM] = "想把这个道具祝福吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_ITEM_CLASS_SG] = "                        系列: SG";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_ITEM_CLASS_SMG] = "                        系列: SMG";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_ITEM_CLASS_AR] = "                        系列: AR";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_ITEM_CLASS_SR] = "                        系列: SR";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_DURABILITY] = "                        耐久性: %d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_SILVERING] = "                        镀银: %d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_DAMAGE] = "                        杀伤率: %d~%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_CRITICALHIT] = "                        有效打击 : %d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_DEFENSE] = "                        回避率: %d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_PROTECTION] = "                        防御率: %d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_ACCURACY] = "                        命中率: %d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_HP] = "                        HP : +%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_MP] = "                        MP : +%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_RANGE] = "                        射程 : %d ?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_MAGAZINE_NUM] = "                        子弹数: %d ?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_POCKET_NUM] = "                        口袋数: %d ?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_OPTION] = "                        选项: %s +%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_OPTION_EMPTY] = "                              %s +%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE_EMPTY] = "                        ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE] = "                        要求条件: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE_STR] = "力量 %d 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE_DEX] = "敏捷 %d 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE_INT] = "智力%d以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE_ALL_STAT_SUM] = "能力值总合%d 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_REQUIRE_LEVEL] = "等级%d 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_PRICE] = "                        价格 : %s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FILE_DIALOG_SELECT_PROFILE_PICTURE] = "请选择在个人资料使用的相片。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FILE_DIALOG_SELECT_FILE] = "请选择要传送的文件(选择多个文件按CTRL)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FILE_DIALOG_SELECT_FILE_OK] = "选择相关文件";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FILE_DIALOG_CANCEL] = "取消并关闭窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_BLADE] = "刀";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_SWORD] = "剑";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_ENCHANT] = "祝";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_GUN] = "枪";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_HEAL] = "恢";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SUPPORT_MENU] = "暂时不支持菜单";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_INPUT_ID_OR_PASSWORD] = "没有输入帐号或密码";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_WRONG_SSN] = "删除人物请联系官方客服人员,谢谢!";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INPUT_NAME] = "请输入名字";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_CONNECT_SERVER] = "无法连接服务器.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_CHARACTER] = "请选择角色";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DELETE_CHARACTER] = "角色被删除";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALL_SLOT_EMPTY] = "须作出新角色，并选择所制作的角色";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NO_MORE_CREATE_CHARACTER] = "不能制作更多的角色";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_CREATE_CHARACTER] = "角色生成失败";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NO_INPUT_NEED_INFO] = "必须项没有填完";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALREADY_USE_ID] = "使用中的ID";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_USE_ID] = "可以使用的ID";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RE_INPUT_PASSWORD] = "请重新输入密码";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_TNDEAD] = "丧尸";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_ARKHAN] = "艾克兽";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_ESTROIDER] = "食人兽";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_GOLEMER] = "傀儡";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_DARKSCREAMER] = "黑魔";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_DEADBODY] = "死尸";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_MODERAS] = "莫地兽";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_VANDALIZER] = "破坏者";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_DIRTYSTRIDER] = "肮脏兽";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_HELLWIZARD] = "地狱巫师";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_TNSOUL] = "返魂尸";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_IRONTEETH] = "铁牙";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_REDEYE] = "红眼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_CRIMSONSLAUGTHER] = "电锯狂人";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_HELLGUARDIAN] = "地狱守护者";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_SOLDIER] = "贾廉";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_RIPPER] = "割头者";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_BIGFANG] = "巨型兽";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_LORDCHAOS] = "混乱领主";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_CHAOSGUARDIAN] = "混乱守护者";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_HOBBLE] = "赫博";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_CHAOSNIGHT] = "混乱骑士";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_WIDOWS] = "维多斯";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_KID] = "感染者";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_NAME_SHADOWWING] = "暗影之翼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_VERY_GOOD] = "良好";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_GOOD] = "好";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_NORMAL] = "繁忙";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_BAD] = "非常繁忙";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_VERY_BAD] = "满员";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_DOWN] = "服务器关闭";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_OPEN] = "开";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SERVER_STATUS_CLOSE] = "关";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_TYPE_NORMAL] = "一般道具";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_TYPE_SPECIAL] = "特殊道具";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_TYPE_MISTERIOUS] = "无法得知的道具";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_FIRST] = "第一个保管箱";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_SECOND] = "第二个保管箱";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_THIRD] = "第三个保管箱";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BRING_MONEY_FROM_STORAGE] = "正在找钱";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_DELETE] = "删除";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_CANCEL] = "取消";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_DELETE_CONFIRM] = "确定要删除这个人物吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RE_INPUT_CORRECT_SSN] = "删除人物请联系官方客服人员,谢谢!";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_NAME] = "名字: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_LEVEL] = "等级: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_STR_PURE] = "纯力量: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_DEX_PURE] = "纯敏捷性: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_INT_PURE] = "纯知识: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_SWORD_LEVEL] = "剑领域级别: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_BLADE_LEVEL] = "刀领域级别: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_GUN_LEVEL] = "枪领域级别: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_HEAL_LEVEL] = "恢复领域级别: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_ENCHANT_LEVEL] = "祝福领域级别: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_FAME] = "名声 : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_CREATEMSG1] = "按创建按纽键可以";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_CREATEMSG2] = "建新人物";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_GRADE] = "级别 : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHAR_MANAGER_GRADE_EXP] = "级别经验值: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_ENTER_CHATTING] = "回车模式";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_NORMAL_CHATTING] = "一般模式";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_3D_ACCEL] = "使用3D加速器";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_ALPHA_HPBAR] = "透明的HP(MP)栏";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_SHED_BLOOD] = "(HP30%以下时)流血";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_HIDE_SOFT] = "轻微自动隐藏窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_GAME_BRIGHT] = "游戏亮度";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_CHATTING_TALK] = "用对话框查看聊天内容";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_PUT_FPS] = "显示FPS";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_WINDOW_ALPHA] = "半透明显示窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_DENSITY_ALPHA] = "半透明程度";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_SOUND_VOLUME] = "音量大小";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_MUSIC_VOLUME] = "背景音乐音量";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_SHOW_BASIC_HELP] = "查看初学者帮助文档";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_NO_LISTEN_BAD_TALK] = "不接收不文明语言";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_LOAD_ALL_IMAGE] = "换地图时召唤来怪物形象";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_CHATTING_COLOR_WHITE] = "使用白色察看所有聊天内容";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_RUN_TEEN_VERSION] = "用儿童版本察看";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_OPEN_WINDOW_WHEN_WHISPER] = "收到悄悄话自动弹出聊天窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_ACCEL_NAME] = "name";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_ACCEL_KEY] = "key";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_MSG1] = "请输入要使用的快捷键";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_MENU_MSG2] = "取消请按ESC";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_NOT_SEND_MY_INFO] = "不要公开个人角色资料";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_PIVATE] = "下士";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_SERENT] = "中士";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_FEACEL] = "上士";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_LITENA] = "少尉";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_KAINEL] = "中尉";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_GENEAL] = "上尉";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_FORE_GENEAL] = "少校";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_MAJORIS_GENEAL] = "中校";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_CLOEL_GENEAL] = "上校";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_MARSHAL ] = "将军";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_RITTER] = "二等男爵";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_REICHSRITTER] = "二等男爵";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_BARONET] = "一等男爵";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_PREYHER] = "三等子爵";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_GRAF] = "二等子爵";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_MARKGRAF] = "一等子爵";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_PFALZGRAF] = "三等伯爵";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_FURST] = "二等伯爵";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_HERZOG] = "一等伯爵";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_LANDESHER] = "长老";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLIENT_VERSION] = "版本";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NETMARBLE_CLIENT_VERSION] = "Netmarble version";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_STR_PURE] = "纯力量: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_DEX_PURE] = "纯敏捷性: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_INT_PURE] = "纯技能  : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_STR_CUR] = "现力量: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_DEX_CUR] = "现敏捷性: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_INT_CUR] = "现技能  : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_FAME] = "名声";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_TEAM_NAME] = "队名 : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_CLAN_NAME] = "公会名 : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIP_CHANGE_PICTURE_CLICK_HERE] = "换照片";
+	(*g_pGameStringTable)[STRING_MESSAGE_UP_TO_GRADE] = "升级了.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_NAME] = "阶级名称 : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_LEVEL] = "阶级等级: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_BLADE2] = "刀";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_SWORD2] = "剑";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_ENCHANT2] = "祝福";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_GUN2] = "枪";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_HEAL2] = "治疗";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CLASS2] = "系列";
+	(*g_pGameStringTable)[STRING_MESSAGE_ITEM_TO_ITEM_FAIL_NO_PREMIUM_SLAYER] = "要么是收费者，要么公会（guild）内不能使用";
+	(*g_pGameStringTable)[STRING_MESSAGE_ITEM_TO_ITEM_FAIL_NO_PREMIUM_VAMPIRE] = "要么是收费者，要么村庄内不能使用";
+	(*g_pGameStringTable)[STRING_MESSAGE_DISMISS_AFTER_SECOND] = "%d秒后会被赶出去";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MODIFY_INFO] = "变更介绍词";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_START_TRACE] = "开始追踪";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_TRACE] = "取消追踪";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TRACE] = "%s追踪人物";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_TRACE] = "%s 追踪人物失败";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_DO_NOT_WAR_MSG] = "不看有关战争的消息";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_DO_NOT_LAIR_MSG] = "不看有关吸血鬼长老的消息";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_GRADE1_INFO_WINDOW] = "查看阶级技能窗口。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_GRADE2_INFO_WINDOW] = "查看阶级技能窗口。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_CRITICAL_10] = "有效打击攻击力增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_DEFENSE_5] = "增加回避率 (Defense)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_TOHIT_5] = "增加命中率 (To hit)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_HP_10] = "增加生命力 (HP) ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_MP_15] = "增加魔法力 (MP)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_DAMAGE_3] = "增加杀伤率 (Damage) ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_ATTACKSPEED_15] = "增加攻击速度";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_HP_20] = "增加生命力 (HP)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_DEFENSE_10] = "增加回避率 (Defense)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_PROTECTION_10] = "增加防御率 (Protection)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DECREASE_HP_EXHAUSTION_10_PERCENT] = "使用技能时HP消耗减少";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_ENCHANT_DAMAGE_10_PERCENT] = "祝福系魔法杀伤力增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_HEAL_DAMAGE_10_PERCENT] = "治疗系列杀伤力增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_NEAR_ATTACK_DAMAGE_10_PERCENT] = "近身系列杀伤力增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_HP_RESTORE_SPEED_15_PERCENT] = "HP 恢复速度增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_RESISTANCE_ACID_15_PERCENT] = "酸性抵抗力增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_RESISTANCE_BLOODY_15_PERCENT] = "血抵抗力增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_RESISTANCE_CURSE_15_PERCENT] = "诅咒抵抗力增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_RESISTANCE_POISON_15_PERCENT] = "毒性抵抗力增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_DAMAGE_STORM_20_PERCENT] = "范围魔法杀伤力增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_RANGE_STORM_5_BY_5] = "范围魔法攻击范围增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_SUCCESS_RATIO_POISON_10_PERCENT] = "毒性系列成功率增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_SUCCESS_RATIO_ACID_10_PERCENT] = "酸系成功率增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_SUCCESS_RATIO_CURSE_10_PERCENT] = "诅咒系列成功率增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_SUCCESS_RATIO_BLOODY_10_PERCENT] = "血系列成功率增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_SUCCESS_RATIO_INNATE_10_PERCENT] = "默认技能成功率增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_SUCCESS_RATIO_SUMMON_10_PERCENT] = "召唤系列成功率增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DECREASE_MP_EXHAUSTION_10_PERCENT] = "使用技能时MP消耗减少";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_HP_STEAL_2_PERCENT] = "HP 持续 增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_MP_STEAL_2_PERCENT] = "MP 吸收能力增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_LUCKY_2] = "增加幸运 (Lucky) ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_KEEP_TIME_ACID_SWAMP_20_PERCENT] = "酸性沼泽持续时间增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_KEEP_TIME_PARALYZE_20_PERCENT] = "麻痹持续时间增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_KEEP_TIME_DARKNESS_30_PERCENT] = "黑暗之触持续时间增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INCREASE_RANGE_DARKNESS_5_BY_5] = "黑暗之触范围增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_UP_GRADE] = "阶级等级不再增加";
+	(*g_pGameStringTable)[STRING_MESSAGE_SELECT_PC_CANNOT_PLAY] = "您不是收费用户，不能玩游戏";
+	(*g_pGameStringTable)[STRING_MESSAGE_SELECT_PC_NOT_BILLING_CHECK] = "收费程序未经确认，请稍后再试";
+	(*g_pGameStringTable)[STRING_MESSAGE_SELECT_PC_CANNOT_PLAY_BY_ATTR] = "人物能力值的免费服务已经用完，使用收费服务才能连接";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NEVER_CANNOT_LEARN_SKILL] = "目前不能学习的技能.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALREADY_LEARNED_SKILL] = "已经学完的技能 ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_LEARN_SKILL_YET] = "尚不能学习";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_LEARN_SKILL_NOW] = "现在可以学习       ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_GRADE1] = "阶级等级1";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ACCELERATOR_GRADE2] = "阶级等级2";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEARN_GRADE_SKILL_CONFIRM] = "学会此技能后，不能再学该阶级其他的技能，真的要学吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TREE_OK] = "使用圣诞树.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TREE_CANCEL] = "取消使用圣诞树.";
+	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_GIFT_BOX_OK] = "圣诞节快乐!";
+	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_GIFT_BOX_NO_ITEM] = "从朋友那儿收到礼物后，再来吧！";
+	(*g_pGameStringTable)[STRING_MESSAGE_TRADE_GIFT_BOX_ALREADY_TRADE] = "贪得无厌的家伙，还不给我滚开！";
+	(*g_pGameStringTable)[STRING_MESSAGE_XMAS_TREE_CANNOT_USE] = "与周围的其他圣诞树距离太近";
+	(*g_pGameStringTable)[STRING_MESSAGE_XMAS_CARD_CANNOT_USE] = "还有空栏，请完整填写";
+	(*g_pGameStringTable)[STRING_MESSAGE_NOT_USE_SAFETY_POSITION] = "在安全地带内不能使用.";
+	(*g_pGameStringTable)[STRING_MESSAGE_NOT_USE_SAFETY_ZONE] = "村落或在公会内不能使用";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENCHANT_CONFIRM_2] = "如果失败物品将破碎";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DEPOSIT_LIMIT] = "保管箱里的金额不能超出20亿";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_WITHDRAW_LIMIT] = "不能携带20亿以上";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_PREMIUM_HALF_SLAYER] = "在此地区可以半价购买弹药。";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_PREMIUM_HALF_VAMPIRE] = "在此地区可以半价购买血清。";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_PREMIUM_HALF_SLAYER_END] = "可以半价购买弹药的活动已经结束。";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_PREMIUM_HALF_VAMPIRE_END] = "可以半价购买血清的活动已经结束。";
+	(*g_pGameStringTable)[STRING_MESSAGE_REWARD_OK] = "得到了补偿。";
+	(*g_pGameStringTable)[STRING_MESSAGE_REWARD_FAIL] = "无法得到补偿。";
+	(*g_pGameStringTable)[STRING_MESSAGE_NO_EMPTY_SLOT] = "没有空位子。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OPTION_DO_NOT_HOLY_LAND_MSG] = "不观看亚当圣地相关信息";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOLY_LAND_TOTAL_FEE] = "总税钱";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOLY_LAND_CAN_BRING_FEE] = "需要索取的税金";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOLY_LAND_TOTAL_FEE_DESC] = "可以索取的总税金";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOLY_LAND_INPUT_BRING_FEE] = "请输入需要索取的税金";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOLY_LAND_CLICK_INPUT_FEE] = "点击输入需要索取的税金";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOLY_LAND_OK] = "索取输入的税金";
+	(*g_pGameStringTable)[STRING_MESSAGE_NO_TEAM] = "不属于队伍";
+	(*g_pGameStringTable)[STRING_MESSAGE_NO_CLAN] = "不属于公会";
+	(*g_pGameStringTable)[STRING_MESSAGE_NOT_TEAM_MASTER] = "不是公会领袖";
+	(*g_pGameStringTable)[STRING_MESSAGE_NOT_CLAN_MASTER] = "不是公会领袖.";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_HAS_NO_CASTLE] = "公会没有占领的城。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_HAS_NO_CASTLE] = "公会没有占领的城。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TEAM_NOT_YOUR_CASTLE] = "不是公会拥有的城。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLAN_NOT_YOUR_CASTLE] = "不是公会拥有的城。";
+	(*g_pGameStringTable)[STRING_MESSAGE_SUCCESS_BRING_FEE] = "找到了税金。";
+	(*g_pGameStringTable)[STRING_MESSAGE_FAIL_BRING_FEE] = "找税金失败。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BRING_FEE_MSG] = "拥有城的公会领袖可以收取税金。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BRING_FEE_LIMIT] = "索取的税额和携带着的金钱总额不能超过20亿。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RACE_WAR] = "种族间战争";
+	(*g_pGameStringTable)[STRING_MESSAGE_WAR_SCHEDULE_FULL] = "战争时间表已满。";
+	(*g_pGameStringTable)[STRING_MESSAGE_WAR_ALREADY_REGISTERED] = "已申请战争。";
+	(*g_pGameStringTable)[STRING_MESSAGE_WAR_NOT_ENOUGH_MONEY] = "金钱不足。";
+	(*g_pGameStringTable)[STRING_MESSAGE_WAR_REGISTRATION_OK] = "已登录战争时间表。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_MOVE_SAFETY_ZONE_BLOOD_BIBLE] = "携带血经，无法进入自己一方的安全地带。";
+	(*g_pGameStringTable)[STRING_MESSAGE_ALREADY_HAS_CASTLE] = "已拥有城。";
+	(*g_pGameStringTable)[STRING_MESSAGE_WAR_UNAVAILABLE] = "无法申请战争。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_STATUS_TIME_FORMAT] = "%d小时%d分";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_STATUS_LEFT_TIME] = "剩余时间";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_WAR] = "同族间战争";
+	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_ARMEGA] = "使用技术时MP（HP）消耗量减少50%";
+	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_MIHOLE] = "幸运+10";
+	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_KIRO] = "知识+7,敏捷性+7";
+	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_INI] = "物理攻击杀伤率+10";
+	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_GREGORI] = "视野+5，所有能力值+4";
+	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_CONCILIA] = "所有抵抗力+9";
+	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_LEGIOS] = "魔法攻击杀伤力+10";
+	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_HILLEL] = "其他种族语言翻译";
+	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_JAVE] = "赌博价格打折50%";
+	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_NEMA] = "药水价格打折50%";
+	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_AROSA] = "生命力 (HP) +50";
+	(*g_pGameStringTable)[STRING_MESSAGE_BLOOD_BIBLE_BONUS_CHASPA] = "力量+7, 知识+7";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_ARMEGA] = "亚麦加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_MIHOLE] = "米霍尔";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_KIRO] = "基罗";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_INI] = "阿伊尼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_GREGORI] = "格利高里";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_CONCILIA] = "孔切里亚";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_LEGIOS] = "雷吉斯";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_HILLEL] = "希而里";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_JAVE] = "加弗";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_NEMA] = "内玛";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_AROSA] = "阿罗萨";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_CHASPA] = "察斯法";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_ARMEGA_ENG] = "亚麦加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_MIHOLE_ENG] = "米霍尔";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_KIRO_ENG] = "奇洛";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_INI_ENG] = "埃因";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_GREGORI_ENG] = "格利高里";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_CONCILIA_ENG] = "卡斯里亚";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_LEGIOS_ENG] = "雷吉斯";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_HILLEL_ENG] = "希伦";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_JAVE_ENG] = "加弗";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_NEMA_ENG] = "雷玛";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_AROSA_ENG] = "阿罗萨";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_CHASPA_ENG] = "加斯帕";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_DROP] = "落在地上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_HAS_SLAYER] = "被人类拥有";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_HAS_VAMPIRE] = "被吸血鬼拥有";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_NONE] = "无法了解情报";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_SLAYER] = "在人类守护圣坛";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_VAMPIRE] = "在吸血鬼守护圣坛";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_DESC_POSITION] = "位置: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_DESC_STATUS] = "状态: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_DESC_PLAYER] = "消费者: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_ATTACK_GUILD] = "攻击";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_DEFENSE_GUILD] = "防御";
+	(*g_pGameStringTable)[STRING_MESSAGE_RACE_WAR_JOIN_FAILED] = "%s种族战争申请人员已满";
+	(*g_pGameStringTable)[STRING_MESSAGE_RACE_WAR_JOIN_OK] = "已申请参加种族战争。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_DESC_SHRINE_RACE] = "最终拥有: ";
+	(*g_pGameStringTable)[STRING_MESSAGE_SLAYER] = "人类";
+	(*g_pGameStringTable)[STRING_MESSAGE_VAMPIRE] = "吸血鬼";
+	(*g_pGameStringTable)[STRING_MESSAGE_RACE_WAR_GO_FIRST_SERVER] = " 种族战争只有在各世界的第一个服务器上才能申请并参加。";
+	(*g_pGameStringTable)[STRING_MESSAGE_GIVE_EVENT_ITEM_FAIL_NOW] = "现在还不能得到活动道具。";
+	(*g_pGameStringTable)[STRING_MESSAGE_GIVE_EVENT_ITEM_FAIL] = "无法得到活动道具。";
+	(*g_pGameStringTable)[STRING_MESSAGE_GIVE_EVENT_ITEM_OK] = "得到了有关活动的道具。";
+	(*g_pGameStringTable)[STRING_MESSAGE_GIVE_PREMIUM_USER_ONLY] = "只有付费服务用户才能得到。";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_MEET_SUCCESS] = "结婚成功。道具栏中添加了夫妻道具。";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_CANNOT_MEET] = "无法完成结婚。";
+	(*g_pGameStringTable)[STRING_MESSAGE_MEET_WAIT_TIME_EXPIRED] = "由于超时，申请已被取消。";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_APART_SUCCESS] = "已离婚。";
+	(*g_pGameStringTable)[STRING_MESSAGE_NOT_COUPLE] = "现在还不能离婚。";
+	(*g_pGameStringTable)[STRING_MESSAGE_APART_WAIT_TIME_EXPIRED] = "由于超时，申请已被取消。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOPE_COUPLE_MSG] = "结婚需在双方相互达成协议的情况下完成。申请方法是,输入对方的名字后,若恋人在1分钟内到你面前并同意即可完成结婚。请输入恋人的名称.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BREAK_UP_COUPLE_MSG] = "结婚需在双方相互达成协议的情况下完成。申请方法是,输入对方的名字后,若恋人在1分钟内到你面前并同意即可完成结婚。请输入恋人的名称。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPLETE] = "完成";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_PLAYER_NAME] = "对方角色名称";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FORCE_BREAK_UP_COUPLE] = "不经过对方同意而当方分手也是可以的，但是会损失不少自己的性情。现在输入您的爱人的名字即可完成分手。分手的同时两个人爱情的证物--结婚戒指将会消失。请务必注意。请输入对方名字．";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE] = "情侣";
+	(*g_pGameStringTable)[STRING_MESSAGE_MOVE_DELAY_SEC] = "%d秒后移动.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_MOVE_START] = "正在寻找爱人角色.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_CAN_NOT_FIND] = "无法寻找爱人角色.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NOT_EVENT_TERM] = "不是恋人活动时间.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_ALREADY_WAITING] = "正在等待对象.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_LOGOFF] = "对方没有登录.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_DIFFERENT_RACE] = "不是同一个种族.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_SAME_SEX] = "男女之间才能结婚.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NOT_PAY_PLAYER] = "不是付费用户.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_ALREADY_COUPLE] = "已经有配偶了.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_WAS_COUPLE] = "曾经结过婚.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NOT_ENOUGH_GOLD] = "所带金额不足.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NOT_ENOUGH_ATTR] = "能力值不足.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NOT_ENOUGH_LEVEL] = "等级不足.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_INVENTORY_FULL] = "接受恋人戒指所需空间不足.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NO_WAITING] = "没有等待您的伙伴.";
+	(*g_pGameStringTable)[STRING_MESSAGE_COUPLE_NOT_COUPLE] = "你没有结婚";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LOVE_CHAIN] = "可以移动到有恋人的地方的技术.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_WILL_YOU_GO_BILING_PAGE] = "要转到付费页面吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GO_BILING_PAGE] = "转到付费页面.";
+	(*g_pGameStringTable)[STRING_MESSAGE_LOGOUT_BY_PAYTIME] = "付费使用期限已终了.";
+	(*g_pGameStringTable)[STRING_MESSAGE_LOGOUT_BY_FREEPLAY_LEVEL] = "能力值达到了免费服务上限.";
+	(*g_pGameStringTable)[STRING_MESSAGE_LOGOUT_BY_LEVEL] = "等级达到了免费服务上限.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_UP_LEVEL_BY_FAME] = "名望值不足,不能升级.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NEED_FAME] = "需要名望值";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_HAN] = "限制";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_ENG] = "有限的";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DAY] = "%d日";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HOUR] = "%d小时";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MINUTE] = "%d分钟";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SECOND] = "%d秒";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_TIME] = "剩余使用时间:";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EXPIRED_ITEM] = "退出就会消失.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_QUEST_SLAYER] = "此次任务是由E.V.E看到过于迅速增加的吸血鬼数量而直接下达的新指令.事先选择一个数量级的吸血鬼并消灭.一次只能选一种任务来执行,若执行过程中退出,任务会被取消.吸血鬼数量随选择的任务种类而异.执行此任务时E.V.E会提供特别的补偿.请选择想执行的任务. 下次再参加..";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_QUEST_VAMPIRE] = "要接受我交给你的任务吗？哈哈。。虽然这是我的兴趣不过我很憎恨那些不完美的东西。为了我们吸血鬼的纯正和高贵的血统，要整理一些低级的吸血鬼。。哈哈，怎么样？要协助我一起整理吗？任务一次只能选择一个，还有任务途中注销的话人任务会被取消的。怪物数量是按照怪物种类有差别，打猎过来就可以了。怎么样？待遇很丰厚。选择任务吧。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_SELECT_QUEST] = "下次机会再参加吧";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANCEL_LEARN_SKILL] = "下次再学习.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NUMBER_OF_ANIMALS] = "只";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EXPIRED_TIME_MONSTER_KILL_QUEST] = "捕猎怪兽任务时间已终了.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FINISH_MONSTER_KILL_QUEST] = "捕猎怪兽任务目标已完成.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_REQUITAL_FROM_NPC] = "从NPC那里可以得到补偿.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_START_MONSTER_KILL_QUEST] = "怪兽捕猎任务开始.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_ALREADY_START_MONSTER_KILL_QUEST] = "任务已在进行中.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_MONSTER_KILL_QUEST_BY_STATUS] = "能力值不符不能进行任务.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SUCCESS_MONSTER_KILL_QUEST] = "怪兽捕猎任务成功.仓储中已添加任务道具.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_YET_COMPLETE_MONSTER_KILL_QUEST] = "怪兽捕猎任务尚未完成.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_INVENTORY_FULL_MONSTER_KILL_QUEST] = "仓库没有空间.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_IN_QUEST] = "不在任务进行中.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_QUEST_EXPIRED_TIME] = "超过限制时间,任务失败.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TIME_LIMIT] = "限制时间: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_APPLY_QUEST] = "现在还不能申请任务.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPLETE_QUEST] = "任务目标完成";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_TIME_OVER_QUEST] = "超过限制时间";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MEET_NPC] = "与%s见面";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_INVALID_NPC] = "不能从该NPC得到补偿.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_BUG] = "发生错误.请重试.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GATHER_ITEM] = "寻找%s";
+	(*g_pGameStringTable)[STRING_MESSAGE_MONSTER_KILL_QUEST_STRING_SET] = "那么需要抓%s %d只来，只给你%s来完成.";
+	(*g_pGameStringTable)[STRING_MESSAGE_MONSTER_KILL_QUEST_STRING_SET_VAMPIRE] = "那么需要抓%s %d只来，只给你%s来完成.";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANCEL_MONSTER_KILL_QUEST] = "检查装备之后我再回来.";
+	(*g_pGameStringTable)[STRING_MESSAGE_YES_I_SEE] = "是,知道了.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_MONSTER_KILL] = "怪兽捕猎任务";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_MEET_NPC] = "寻找NPC任务";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_GATHER_ITEM] = "搜索道具任务";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_DESCRIPTION_TIME_TOTAL] = "总限制时间: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_DESCRIPTION_TIME_ELAPSE] = "经过时间: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_DESCRIPTION_TIME_REMAIN] = "剩余时间: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_DESCRIPTION_TIME_NO_REMAIN] = "没有";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_QUEST] = "任务失败";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_EVENT_GIFT] = "请在%d阶段特殊奖品中选择一个";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PLEASE_SCRATCH_IMAGE] = "请刮开上面的图.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_WIN_A_PRIZE_SAME_IMAGE] = "若有3个同样的图,您就中奖了.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONGRATULATIONS] = "祝贺你.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_WIN_A_PRIZE] = "您中奖了。";
+	(*g_pGameStringTable)[STRING_MESSAGE_MEET_NPC_SLAYER] = "据报告，见到神秘的居民住在埃斯洛尼亚附近。马上去找目击者并得到尽可能多的情报。";
+	(*g_pGameStringTable)[STRING_MESSAGE_MEET_NPC_VAMPIRE] = "据说有两个见到神秘的居民，正在临宝城附近到处乱窜。马上找到他们得到尽可能多一点的情报。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANCEL_QUEST_VAMPIRE] = "补充魔力后我再回来。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_LOTTERY] = "很遗憾，未能中奖.欢迎下次再来.再次执行任务会有机会得到彩票..";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_WIN_A_PRIZE2] = "您中奖了.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_USER_1] = "先生";
+	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_1] = "您带来的精灵石把卡里萨斯的灵魂从死亡的世界中挽救过来了。";
+	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_2] = "请看。复活的同胞们。。。都得归功于您啊。";
+	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_3] = "第13本血经？呵呵呵呵呵呵呵。。";
+	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_4] = "人类可真是。。。太愚蠢了。";
+	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_5] = "那个东西到你们这些世俗的人们手中，实在是危险";
+	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_6] = "我们一族是为了守护它而苏醒的。";
+	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_7] = "本来到此之后，一直在守着亚当圣地。";
+	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_8] = "您知道的已经太多了。";
+	(*g_pGameStringTable)[STRING_MESSAGE_RIPATY_SCRIPT_9] = "希望你能在永远的黑暗中保持沉默。";
+	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_1] = "您带来的精灵石把卡里萨斯的灵魂从死亡的世界中挽救过来了。";
+	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_2] = "请看。复活的同胞们。。。都得归功于您啊。";
+	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_3] = "第13本血经？呵呵呵呵呵呵呵。。。";
+	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_4] = "就算过了500年，那肮脏的欲望还是没有变。";
+	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_5] = "它到你们这些天天被鲜血淋湿的家伙们的手中，实在是太危险了。";
+	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_6] = "我们一族是为了守护它而苏醒的";
+	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_7] = "本来到此之后，一直在守着亚当圣地。";
+	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_8] = "您知道的已经太多了。";
+	(*g_pGameStringTable)[STRING_MESSAGE_AMATA_SCRIPT_9] = "希望你能在永远的黑暗中保持沉默。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_NAME_FIND_ANCIENT_DOCUMENT] = "寻找古代文献任务";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_NAME_FIND_ANCIENT_MAP] = "寻找古代地图任务";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_NAME_FIND_SOUL_STONE] = "寻找精灵石任务";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_IN_QUEST2] = "目前没有进行中的任务";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TAKE_OUT_OK] = "道具移到道具栏中。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TAKE_OUT_FAIL] = "道具未移到道具栏中。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_TAKE_OUT_ITEM_FROM_SHOP] = "现在找不到购买的道具。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONFIRM_SELECT_ITEM_FROM_SHOP] = "要拿来选择的道具吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_SHOP] = "点击道具名称可以拿来该道具。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLEAR_RANK_BONUS_OK] = "所选的阶级技术已删除";
+	(*g_pGameStringTable)[STRING_MESSAGE_NO_RANK_BONUS] = "没有该资格。";
+	(*g_pGameStringTable)[STRING_MESSAGE_ALREADY_CLEAR_RANK_BONUS] = "曾经删除过所选的阶级技术。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BULLETIN_BOARD_OK] = "使用告示栏。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BULLETIN_BOARD_CANCEL] = "取消使用告示栏。";
+	(*g_pGameStringTable)[STRING_MESSAGE_BULLETIN_BOARD_CANNOT_USE] = "与周围其它的告示栏太近。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_TRANS] = "可转换道具限制的性别。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TRANS_ITEM] = "要转换该道具的限制性别吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RESURRECT_BY_ELIXIR] = "使用炼金卷轴复活";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RESURRECT_BY_SCROLL] = "使用复活卷轴复活";
+	(*g_pGameStringTable)[UI_STRING_CANNOT_USE] = "不能使用.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MIXING_FORGE_OK] = "使用合成纸。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MIXING_FORGE_CANCEL] = "取消使用合成纸。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPLETE_MERGE_ITEM] = "两个道具成功合并。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_MERGE_ITEM] = "合并道具失败。";
+	(*g_pGameStringTable)[STRING_MESSAGE_USE_GUILD_MEMBER_ONLY] = "仅限拥有城的公会使用。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_USE_RIDE_MOTORCYCLE] = "不能骑着魔蝎使用。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_MIXING_SPECIAL_ITEM] = "通用道具或限制道具不能混合。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_MIXING_OPTION_COUNT] = "选项只有一个的道具才能混合。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_MIXING_ITEM_CLASS] = "道具种类不同，无法选择。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_MIXING_ITEM_TYPE] = "道具类别不同，无法选择。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_MIXING_ITEM_OPTION] = "两个道具的选项相同，不能选择。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_WHAT_OPTION_REMOVE] = "要删除哪个选项？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONFIRM_REMOVE_OPTION] = "真的要删除所选的选项吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_REMOVE_OPTION] = "可以删除道具 选项";
+	(*g_pGameStringTable)[UI_STRING_MESSGAE_CANNOT_REMOVE_OPTION] = "不可以删除道具的选项.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_OPTION] = "%s 选项";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUESTION_REMOVE_OPTION] = "要删除吗?";
+	(*g_pGameStringTable)[STRING_MESSAGE_FAILED_REMOVE_OPTION] = "删除选项失败。";
+	(*g_pGameStringTable)[STRING_MESSAGE_SUCCESS_REMOVE_OPTION] = "所选选项已被删除。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_OTHER_TRIBE] = "其他种族专用";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONSUME_EP] = "EP消耗量: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_CIRCLET] = "装备头饰。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_COAT] = "装备衣服。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_WEAPON] = "装备 轮/护腕";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_BOOTS] = "装备靴子。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_ARMSBAND] = "装备臂环。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_RING] = "装备戒指。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_PENDENT] = "装备项链。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_OUSTERS_STONE] = "装备精灵石。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OUSTERS_STONE] = "%s的精灵级别:";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_MALCHUT] = "下级巡守";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_YESOD] = "中级巡守";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_HOD] = "高级巡守";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_NETRETH] = "下级猎人";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_TIPHRETH] = "中级猎人";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_GEBURAH] = "高级猎人";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_CHESED] = "下级护卫";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_BINAH] = "中级护卫";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_CHOKMA] = "高级护卫";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_KEATHER] = "先知";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SKILL_LEVEL] = "技能水平: %d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ELEMENTAL_LEVEL] = "要求选项级别 (%s)(%d)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEARN_SKILL] = "要学此技术吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEARN_SKILL2] = "学会此技能接能决定系列. 下一个技能开始只能学适应次系列的技能.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SKILL_LEVEL_UP] = "要提高此技术的等级吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_SKILL_POINT] = "必要技术分值：%d 点";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_FIRE] = "火";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_WATER] = "水";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_EARTH] = "大地";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_WIND] = "风";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_SUM] = "总合";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EP] = "灵力";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_GUILD_CHATTING] = "不察看公会对话";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_GUILD_CHATTING] = "查看公会对话";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_CHATTING] = "进行公会对话";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WOOD_SKIN] = "增加防御率 (Protection)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WIND_SENSE] = "增加回避率 (Defense) ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_HOMING_EYE] = "增加命中率 (To Hit) ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_LIFE_ENERGY] = "增加生命力 (HP)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SOUL_ENERGY] = "增加灵力 (EP)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_STONE_MAUL] = "战斗技术系列伤害增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SWIFT_ARM] = "增加攻击速度";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_FIRE_ENDOW] = "火系攻击魔法伤害增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WATER_ENDOW] = "水系攻击魔法伤害增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_EARTH_ENDOW] = "土系攻击魔法伤害增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ANTI_ACID_SKIN] = "增加酸 (Acid) 抵抗力";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ANTI_BLOODY_SKIN] = "增加血系魔法(Curse)抵抗力";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ANTI_CURSE_SKIN] = "增加诅咒抵抗力";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ANTI_POISON_SKIN] = "增加毒 (Poison)抵抗力";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ANTI_SILVER_DAMAGE_SKIN] = "银杀伤力减少";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BLESS_OF_NATURE] = "技术使用时EP消耗量减少";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_LIFE_ABSORB] = "HP 持续 增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SOUL_ABSORB] = "EP持续增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_MYSTIC_RULE] = "幸运 (Lucky)增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EP_DESCRIPTION] = "灵力 (EP):%d/%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_BONUS_POINT] = "要分配奖励分值。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD] = "公会(Guild)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_INFO] = "公会情报 (Guild Info)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_MEMBER_LIST] = "公会成员列表 (Guild Member List)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_HELP] = "公会帮助";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_FIRE_DESCRIPTION] = "火 :%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_WATER_DESCRIPTION] = "水 :%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_EARTH_DESCRIPTION] = "土 :%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ELEMENTAL_WIND_DESCRIPTION] = "风 :%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_EP] = "EP : ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PREV_MAP] = "察看以前的地图。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NEXT_MAP] = "察看下一个地图。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_HORN] = "取消大地精灵的角。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_ATTACK_SPEED] = "攻击速度: ";
+	(*g_pGameStringTable)[STRING_STATUS_EP_MAX_1] = "EP最大值达到了 %d。";
+	(*g_pGameStringTable)[STRING_STATUS_EP_MAX_2] = "EP最大值成为了 %d。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_MAGIC_DAMAGE] = "魔法杀伤力:";
+	(*g_pGameStringTable)[STRING_MESSAGE_OPEN_LAIR] = "已开%s.";
+	(*g_pGameStringTable)[STRING_MESSAGE_CLOSED_LAIR] = "已关%s.";
+	(*g_pGameStringTable)[STRING_MESSAGE_LEFT_TIME_LAIR] = "%s的出入时间剩余%d分钟。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CONTRACT_GNOMES_HORN] = "到西奥拉姆那里签协议才能使用。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CONTRACT_GNOMES_HORN_OK] = "签署了使用大地精灵之角的协议。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_DOWN_SKILL] = "无法降低技术等级。";
+	(*g_pGameStringTable)[STRING_MESSAGE_NOT_ENOUGH_MONEY_FOR_DOWN_SKILL] = "所带金额不足无法降低技术等级。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONFIRM_DOWN_SKILL] = "%s技术的技术等级从%d变更为%d。所需费用为$%s。要变更吗？要变更吗? ";
+	(*g_pGameStringTable)[STRING_MESSAGE_SUCCESS_CHANGE] = "变更成功。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_WITHDRAW_POINT] = "回收技术分值: %d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DOWN_SKILL] = "要降低此项技术的等级吗？";
+	(*g_pGameStringTable)[STRING_MESSAGE_NOT_OUSTERS] = "不是魔灵。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TOO_LOW_SKILL_LEVEL] = "技术等级太低。";
+	(*g_pGameStringTable)[STRING_MESSAGE_TOO_HIGH_SKILL_LEVEL] = "技术等级太高。";
+	(*g_pGameStringTable)[STRING_MESSAGE_INVALID_SKILL] = "错误的技术。";
+	(*g_pGameStringTable)[STRING_MESSAGE_NOT_LEARNED_SKILL] = "尚未学到的技术。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONFIRM_UP_TO_LAST_SKILL_LEVEL] = "当技术等级上升到最高值30以后将无法进行回收。要升到30级吗？";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_USE_OUSTERS] = "魔灵不能使用。";
+	(*g_pGameStringTable)[STRING_MESSAGE_MIXING_FORGE_FAILED_SAME_OPTION_GROUP] = "确定要转换性别吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONFIRM_CHANGE_SEX] = "真的要转换性别吗？";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_CHANGE_SEX_BY_WEAR] = "穿这衣服不能转换性别。";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_CHANGE_SEX_BY_COUPLE] = "已婚的人物不能转换性别。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST2_1] = "1. 智慧的审判\n目的: 执行给予的谜语";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST2_2] = "2. 绝地的钥匙\n目的:根据级别搜集制定的矿物（8个）";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST2_3] = "3. 无形的墙\n目的:通过迷魂阵获得物件";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST2_4] = "4. 会说话的洋娃娃\n在指定的区域寻找并合并拼图";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EVENT_QUEST2_5] = "5. 未来之门\n从特定等级的怪物身上找到魔法石并组合编码表";
+	(*g_pGameStringTable)[STRING_MESSAGE_SELECT_MINI_GAME] = "有两种挑战供您选择。请选择一种。";
+	(*g_pGameStringTable)[STRING_MESSAGE_SELECT_ARROW_TILES] = "Arrow Tiles. 战略指针： 跟随箭头指示安全抵达目的地";
+	(*g_pGameStringTable)[STRING_MESSAGE_SELECT_CRAZY_MINE] = "Crazy Mine. 疯狂挖雷：挖地雷的游戏。";
+	(*g_pGameStringTable)[STRING_MESSAGE_GET_RIFINIUM] = "以获得道具。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_STATUS_ARROW_TILES] = "战略指针";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_QUEST_STATUS_CRAZY_MINE] = "疯狂地雷";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SUCCESS_MINIGAME] = "通过了所有的关卡!";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_ALREADY_JOIN] = "让我们看一看好吗？ 这里显示你是%s协会的";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_QUIT_TIMEOUT] = "你刚刚退出以前的协会不久。 再考虑考虑之后作决定吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_CANCEL_TIMEOUT] = "你被取消协会资格不久。 多准备准备之后再来吧。 要注意把握机会。";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_LEVEL] = "你很优秀但缺乏一种领袖气质。 回去多修炼修炼吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_MONEY] = "成立公会需要很多的钱。 你看起来没有多少钱....";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_FAME] = "%s..我还没听说过你的名字。 说明你还是个新手。 去多积累些经验再来吧。";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_NAME] = "公会名称已经被使用，想一个别的名字吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_REGIST_FAIL_DENY] = "交易被拒绝。";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_STARTING_FAIL_ALREADY_JOIN] = "您已经加入了另一个公会。";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_STARTING_FAIL_QUIT_TIMEOUT] = "你刚刚退出以前的协会不久。 再考虑考虑之后作决定吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_STARTING_FAIL_CANCEL_TIMEOUT] = "您刚被公会逐出没多久，还不能加入新的工会。";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_STARTING_FAIL_LEVEL] = "你还有很多不足之处。 回去再修炼一段时间吧";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_STARTING_FAIL_MONEY] = "%s, 登录公会需要更多的钱";
+	(*g_pGameStringTable)[STRING_MESSAGE_GUILD_STARTING_FAIL_FAME] = "%s..我还没听说过你的名字。 说明你还是个新手。 去多积累些经验再来吧。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLICK_TO_SHOW_DETIAL] = "单击时能看到详细的内容";
+	(*g_pGameStringTable)[STRING_MESSAGE_OUSTERS] = "魔灵";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WAR_READY] = "5分钟之后开始夺旗战活动！";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WAR_START] = "夺旗战开始了！";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WAR_FINISH] = "夺旗战结束了！";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WAR_WINNER] = "%s种族获得%d旗帜，取得胜利";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WILL_POUR_ITEM_AFTER_3MIN] = "3分钟后旗杆附近生成物品";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_POURED_ITEM] = "夺旗战奖品生成完毕";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_FLAG_STATUS] = "获得旗帜的数量: %d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MUTE] = "被GM禁言";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_MOVE_SAFETY_ZONE_FLAG] = "带着旗帜不能回到安全地带.";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_DROP_ITEM_BY_FLAG] = "旗杆附近产生的物品无法丢弃";
+	(*g_pGameStringTable)[STRING_MESSAGE_POUR_ITEM_AFTER_SECOND] = "%d秒后，旗杆附近生成物品";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_ACTION_MOTORCYCLE_FLAG] = "旗杆附近不能乘坐和使用魔蝎";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_GUILD_NAME] = "公会名称: %s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_GUILD_INTRODUCTION] = "公会介绍: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_OTHER_INFO_GUILD_NAME] = "公会名称: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_JOIN_ANY_GUILD] = "没有加入公会";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_ETERNITY_FOR_RESURRECT] = "利用转生术技能可以复活";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_RELOAD_BY_VIVID_MAGAZINE] = "学习大容量填装才能使用";
+	(*g_pGameStringTable)[STRING_MESSAGE_RESURRECT_AFTER_SECONDS] = "%d秒后可以复活";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_TRADE_SUMMON_SYLPH] = "乘坐风之精灵的状态下无法交易";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_USE_SUMMON_SYLPH] = "乘坐风之精灵的状态下无法使用";
+	(*g_pGameStringTable)[STRING_MESSAGE_MODIFY_SKILL_LEVEL_1] = "%s技能水平成为 %d";
+	(*g_pGameStringTable)[STRING_MESSAGE_MODIFY_SKILL_LEVEL_2] = "%s技能水平成为 %d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GO_TO_BEGINNER_ZONE] = "可能会移动到新手训练区";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_PREMIUM_DAYS] = "服务费使用时间还剩%d天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_PREMIUM_USER] = "不是付费用户.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EXPIRE_PREMIUM_SERVICE_TODAY] = "服务费使用时间到今天为止.";
+	(*g_pGameStringTable)[STRING_MESSAGE_EXPIRE_PREMIUM_SERVICE_MESSAGE_1] = "本月举办“充就送”活动，月卡40元，送祝福一个，季卡120元";
+	(*g_pGameStringTable)[STRING_MESSAGE_EXPIRE_PREMIUM_SERVICE_MESSAGE_2] = "送祝福一个加极品双倍经验沙漏一组20个";
+	(*g_pGameStringTable)[STRING_MESSAGE_EXPIRE_PREMIUM_SERVICE_MESSAGE_3] = "想知道详细的内容请登录官方网站（www.ttdk2.com）查询。";
+	(*g_pGameStringTable)[STRING_MESSAGE_LEVEL_WAR_ZONE_NAME] = "卡里高%dF";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_1] = "全部能力值+ 2";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_2] = "体力 (HP) + 20";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_3] = "杀伤力 + 3";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_4] = "知识+ 7, 敏捷性+ 7";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_5] = "体力 (HP) + 50";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_6] = "幸运+ 7";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_7] = "魔法攻击杀伤力+ 10";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_8] = "知识 + 7, 力量+ 7";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_9] = "体力 (HP)吸收+ 15";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_10] = "物理攻击杀伤力+ 10";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_11] = "全部抵抗力+ 7";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWEEPER_BONUS_12] = "视野+ 5,全部能力值+ 4";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_JOIN_LEVEL_WAR] = "参加战争。.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLICK_TO_WARP_REGEN_TOWER] = "可以移动到指定场地.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_HAS_OUSTERS] = "在魔灵那里";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BIBLE_STATUS_OUSTERS] = "在魔灵的守护圣坛里，";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MAILBOX] = "信箱(Mail Box)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_MAILBOX] = "关闭信箱.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MAILBOX_TAB_MAIL] = "察看信箱";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MAILBOX_TAB_HELP] = "请确认帮助。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MAILBOX_TAB_MEMO] = "目前还没有支持";
+	(*g_pGameStringTable)[STRING_MESSAGE_SUCCESS_CHANGED_BAT_COLOR] = "蝙蝠的颜色变了";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEVEL_WAR] = "等级战争";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_FAMILY_DAYS] = "公会服务使用时间还剩%d天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EXPIRE_FAMILY_TODAY] = "公会服务到今天为止";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOO_FAR] = "要走的更进一些。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_DESC_DURABILITY] = "剩余的可食用量: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_ATTR] = "属性: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_PET_INFO_WINDOW] = "查看宠物信息窗口.";
+	(*g_pGameStringTable)[STRING_MESSAGE_ENCHANT_FAIL] = "祝福失败.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_DESC_DURABILITY_2] = "剩余的可食用量";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_RESSURECT] = "你想复活宠物吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_PET_INFO] = "关闭宠物信息窗口";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_ENCHANT_PET] = "可以增加2次能力";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_ENCHANT_PET] = "目前还不能赋予2次能力";
+	(*g_pGameStringTable)[STRING_MESSAGE_NEW_PET_LEVEL_1] = "%s的等级变成了 %d";
+	(*g_pGameStringTable)[STRING_MESSAGE_NEW_PET_LEVEL_2] = "%s的等级变成了 %d";
+	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_NAME_LUCK_3] = "幸运";
+	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_NAME_LUCK_4] = "仆人";
+	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_NAME_ATTR_3] = "坚果";
+	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_NAME_ATTR_4] = "喀嚓";
+	(*g_pGameStringTable)[STRING_MESSAGE_PET_DIE_WARNING] = "%s可以使用的数量剩下了 %s";
+	(*g_pGameStringTable)[STRING_MESSAGE_PET_REQUEST_REFILL] = "多补充一些食物。";
+	(*g_pGameStringTable)[STRING_MESSAGE_PET_DIE] = "%s死亡了";
+	(*g_pGameStringTable)[STRING_MESSAGE_PET_SUMMON] = "召唤了%s";
+	(*g_pGameStringTable)[STRING_MESSAGE_PET_CAN_GET_ATTR] = "不能赋予属性";
+	(*g_pGameStringTable)[STRING_MESSAGE_PET_GAMBLE_OK] = "给%s赋予了二次能力";
+	(*g_pGameStringTable)[STRING_MESSAGE_PET_GAMBLE_DESC] = "道具和骷髅一起掉落";
+	(*g_pGameStringTable)[STRING_MESSAGE_PET_GAMBLE_DESC_TEEN] = "道具和灵石一起掉落.";
+	(*g_pGameStringTable)[STRING_MESSAGE_PET_CAN_GET_OPTION] = "可以给%s增加属性";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EXP_DESCRIPTION_NEW] = "经验值:%s(%s%%)";
+	(*g_pGameStringTable)[STRING_MESSAGE_PET_GAMBLE_FAIL] = "增加2次能力失败";
+	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_ENAME_LUCK_3] = "幸运";
+	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_ENAME_LUCK_4] = "奴才";
+	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_ENAME_ATTR_3] = "坚果";
+	(*g_pGameStringTable)[STRING_MESSAGE_OPTION_ENAME_ATTR_4] = "喀嚓";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_PET_REVIVAL] = "可以复活。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_PET_REVIVAL] = "只有死亡状态下可以使用。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_CAN_CUT_HEAD] = "有2次能力。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_CANNOT_CUT_HEAD] = "没有2次能力。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REMOVE_PET_OPTION] = "要删除宠物的属性吗？";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_EVENT_GIFT_BOX] = "双方都要有礼物箱才可以交换。";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_NETMARBLE_1] = "祝贺你可以得到去学校的资格";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_NETMARBLE_2] = "99个在线市场消费卷";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_NETMARBLE_3] = "到活动结束为止，你要好好保管。";
+	(*g_pGameStringTable)[STRING_MESSAGE_EVENT_NETMARBLE_4] = "如果没有卡就无法参加活动。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_USE_PET_FOOD] = "用右边的按键可以给宠物喂食。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DETACH_PET_FOOD] = "用右边的按键可以分离道具。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_PET_FOOD] = "你想给宠物喂食吗？";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_DETACH] = "在不携带宠物的状态下可以分离道具。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_0] = "剑&刀";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_1] = "剑";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_2] = "刀";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_3] = "枪";
 	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_4] = "SMG";
 	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_5] = "AR";
 	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_6] = "SG";
 	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_7] = "SR";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_8] = "绞磊啊&皋捞胶";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_9] = "绞磊啊";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_10] = "皋捞胶";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_11] = "规绢备";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_12] = "秋镐";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_13] = "惑狼";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_14] = "窍狼";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_15] = "规菩";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_16] = "厘癌";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_17] = "骇飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_18] = "脚惯";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_19] = "厩技辑府";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_20] = "格吧捞";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_21] = "迫骂";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_22] = "馆瘤";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_23] = "扁鸥";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_24] = "器记";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_25] = "拱捍&己荐";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_26] = "藕芒";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_27] = "气藕&瘤汾";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_28] = "公傈扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_29] = "扁鸥酒捞袍";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_0] = "苞切栏肺 刘疙秦 夯 轨颇捞绢";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_1] = "苞切利 绊蔓- 软趋冠零绰 沥富肺 荤恩狼 乔甫 弧酒冈阑鳖";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_2] = "风付聪酒客 眉内浇肺官虐酒狼 软趋蓖 傈汲";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_3] = "风付聪酒狼 喉扼靛 抛其胶";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_4] = "高矫内客 酒扼厚酒狼 软趋蓖 傈汲";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_5] = "轨颇捞绢 A to Z";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_6] = "轨颇捞绢鄂";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_7] = "轨颇捞绢狼 瓷仿";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_8] = "轨颇捞绢狼 嚼己";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_9] = "轨颇捞绢狼 距痢苞 硼摹规过";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_10] = "轨颇捞绢狼 开荤";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_11] = "辑牢档客 弃府匙矫酒狼 软趋蓖 傈汲";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_12] = "己版氓俊辑狼 轨颇捞绢";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_13] = "浇扼宏 刮埃脚居 吝 软趋蓖俊 包茄 捞具扁甸";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_14] = "老夯苞 富饭捞馆档狼 软趋蓖 傈汲";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_15] = "仟弗荐堪狼 荤唱捞扼绊 咯败瘤绰 混牢蓖 - 龙 靛 饭";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_16] = "请啊府狼 乔狼 咯归累- 俊福眉海飘 官配府";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_17] = "软趋蓖狼 抗规氓";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_18] = "软趋蓖狼 傈汲";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_19] = "软趋蓖狼 漂隆";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_20] = "软趋冠零客 戳措牢埃";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_TNDEAD] ="TNDEAD";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_ARKHAN] ="ARKHAN";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_ESTROIDER] ="ESTROIDER";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_GOLEMER] =	"GOLEMER";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_DARKSCREAMER] ="DARKSCREAMER";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_DEADBODY] ="DEADBODY";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_MODERAS] =	"MODERAS";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_VANDALIZER] ="VANDALIZER";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_DIRTYSTRIDER] ="DIRTYSTRIDER";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_HELLWIZARD] ="HELLWIZARD";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_TNSOUL] ="TNSOUL";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_IRONTEETH] ="IRONTEETH";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_REDEYE] ="REDEYE";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_CRIMSONSLAUGTHER] ="CRIMSONSLAUGTHER";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_HELLGUARDIAN] ="HELLGUARDIAN";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_SOLDIER] =	"SOLDIER";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_RIPPER] ="RIPPER";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_BIGFANG] =	"BIGFANG";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_LORDCHAOS] ="LORDCHAOS";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_CHAOSGUARDIAN] ="CHAOSGUARDIAN";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_HOBBLE] ="HOBBLE";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_CHAOSNIGHT] ="CHAOSNIGHT";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_WIDOWS] ="WIDOWS";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_KID] ="KID";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_SHADOWWING] ="SHADOWWING";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_BLADE]="档";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_SWORD]="八";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_ENCHANT]="牢忙飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_GUN]	="醚";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_HEAL]="鳃";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_ETC]="扁鸥";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_VAMPIRE]="轨颇捞绢";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_OUSTERS]="酒快胶磐令";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_ETC]="Etc";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_VAMPIRE]="Vampire";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_OUSTERS]="Ousters";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_SOUL_STONE]="家匡 胶沛";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_PET_MUTANT] = "函脚 矫懦 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_PET_MUTANT] = "函脚 矫懦 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_MUTANT] = "脐阑 匡滚赴栏肺 函脚 矫虐矫摆嚼聪鳖?";
-	
-	// 2004, 03, 26 sobeit add start
-	(*g_pGameStringTable)[STRING_ERROR_CANNOT_AUTHORIZE_BILLING] = "呼傅 沥焊甫 茫阑 荐 绝嚼聪促.";
-    (*g_pGameStringTable)[STRING_ERROR_CANNOT_CREATE_PC_BILLING] = "蜡丰 荤侩磊啊 酒聪扼辑 某腐磐甫 给 父奠聪促.";
-	// 2004, 03, 26 sobeit add end
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_PET_DEAD_DAY] = "磷篮瘤 %d老 瘤车嚼聪促.";
-
-	// 2004, 04, 3 sobeit add start
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LUCKY] = "青款 : ";
-	// 2004, 04, 3 sobeit add end
-
-	// 2004, 4, 13 sobeit add start
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_NPC_SLAYER] = "弊风滚";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_NPC_VAMPIRE] = "墨颇萍聪";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_NPC_OUSTERS] = "酒付鸥";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_SLAYER] = "季磐快肺 涅胶飘\\n格利: %d盒悼救\\n{%s} {%d}付府甫 棱酒扼";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_VAMPIRE] = "胶磐瘤 涅胶飘\\n格利: %d盒悼救\\n{%s} {%d}付府甫 棱酒扼";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_OUSTERS] = "侨矫 涅胶飘\\n格利: %d盒悼救\\n{%s} {%d}付府甫 棱酒扼";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_CLEAR] = "俊霸 倒酒啊绞矫坷.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_3RD_ENCHANT_PET] = "3瞒 瓷仿阑 何咯且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_3RD_ENCHANT_PET] = "酒流篮 3瞒 瓷仿阑 何咯且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PET_3RD_GAMBLE_FAIL] = "3瞒 瓷仿 何咯啊 角菩窍看嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_PET_3RD_GAMBLE_OK] = "%s俊霸 3瞒 瓷仿阑 何咯窍继嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_SUMMON_2ND_PET] = "饭骇 40 捞窍绰 2瞒 脐阑 家券且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_SEARCHING_MINE] = "茫酒具且 瘤汾荐 : %d 眉农茄 瘤汾 荐 : %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_MIXING_GRADE_VALUE] = "酒捞袍埃 殿鞭瞒啊 2殿鞭阑 逞栏搁 雇教且 荐 绝嚼聪促.";
-		
-	// 2004, 4, 13 sobeit add end
-	
-	(*g_pGameStringTable)[STRING_MESSAGE_MINIGAME_GAME_OVER] = "game over";
-	(*g_pGameStringTable)[STRING_MESSAGE_MINIGAME_ALL_STAGE_CLEAR] = "All stage clear";
-
-	// 2004, 5, 6, sobeit add start
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_QUEST_OUSTERS] = "夸 辟贰 阁胶磐 荐啊 鞭刘窍绊 乐嚼聪促. 捞 阁胶磐甸肺 牢秦辑 搬拌狼 塞捞 痢痢 距秦瘤绊 乐嚼聪促. 快府 辆练狼 何劝阑 困秦辑扼档 捞 阁胶磐甸阑 贸府窍绊 搬拌甫 瘤难郴具 秦具 钦聪促. 捞 烙公绰 吝档俊 立加阑 辆丰窍霸 登搁 公瓤啊 登聪 林狼秦具 窍哥, 涅胶飘俊 秦寸窍绰 阁胶磐 荐父怒 荤成窍霸 登绊 倒酒 坷脚促搁 力啊 蓖茄 急拱阑 靛府档废 窍摆嚼聪促. 磊, 弊烦 绢恫 涅胶飘甫 急琶 窍角贰夸?";
-	// 2004, 5, 6, sobeit add end
-
-	// 2004, 6, 22 By Csm 
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_8] = "十字架&权杖";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_9] = "十字架";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_10] = "权杖";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_11] = "防御区";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_12] = "头盔";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_13] = "防弹衣";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_14] = "下衣";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_15] = "盾牌";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_16] = "手套";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_17] = "腰带";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_18] = "鞋";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_19] = "首饰";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_20] = "项链";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_21] = "手镯";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_22] = "戒指";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_23] = "其他";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_24] = "药水";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_25] = "药瓶&圣水";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_26] = "子弹";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_27] = "炸弹&地雷";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_28] = "无线电";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_COMPUTER_STRING_29] = "其他物品";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_0] = "经科学证明的吸血鬼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_1] = "科学考察-吸血蝙蝠真的会吸人血吗";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_2] = "罗马尼亚和捷克斯洛伐克的吸血鬼传说";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_3] = "罗马尼亚的blood德贝斯";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_4] = "墨西哥和阿拉伯的吸血鬼传说";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_5] = "吸血鬼A~Z";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_6] = "所谓吸血鬼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_7] = "吸血鬼的能力";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_8] = "吸血鬼的习性";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_9] = "吸血鬼的弱点和消灭方法";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_10] = "吸血鬼的历史";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_11] = "西印度和玻利尼西亚的吸血鬼传说";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_12] = "圣经中的吸血鬼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_13] = "民间信仰中关于吸血鬼的故事";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_14] = "日本和马来半岛的吸血鬼传说";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_15] = "被认为是蓝胡子汉子的杀人魔-吉尔德雷";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_16] = "匈牙利的血的女伯爵-埃切贝特 巴托里";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_17] = "吸血鬼的预防对策";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_18] = "吸血鬼的传说";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_19] = "吸血鬼的特征";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_20] = "吸血蝙蝠和狼人";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_TNDEAD] = "TNDEAD";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_ARKHAN] = "ARKHAN";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_ESTROIDER] = "ESTROIDER";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_GOLEMER] = "GOLEMER";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_DARKSCREAMER] = "DARKSCREAMER";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_DEADBODY] = "DEADBODY";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_MODERAS] = "MODERAS";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_VANDALIZER] = "VANDALIZER";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_DIRTYSTRIDER] = "DIRTYSTRIDER";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_HELLWIZARD] = "HELLWIZARD";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_TNSOUL] = "TNSOUL";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_IRONTEETH] = "IRONTEETH";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_REDEYE] = "REDEYE";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_CRIMSONSLAUGTHER] = "CRIMSONSLAUGTHER";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_HELLGUARDIAN] = "HELLGUARDIAN";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_SOLDIER] = "SOLDIER";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_RIPPER] = "RIPPER";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_BIGFANG] = "BIGFANG";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_LORDCHAOS] = "LORDCHAOS";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_CHAOSGUARDIAN] = "CHAOSGUARDIAN";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_HOBBLE] = "HOBBLE";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_CHAOSNIGHT] = "CHAOSNIGHT";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_WIDOWS] = "WIDOWS";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_KID] = "KID";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MONSTER_ENAME_SHADOWWING] = "SHADOWWING";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_BLADE] = "刀";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_SWORD] = "剑";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_ENCHANT] = "祝福";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_GUN] = "枪";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_HEAL] = "治疗";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_ETC] = "其他";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_VAMPIRE] = "吸血鬼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_HAN_DOMAIN_OUSTERS] = "魔灵族";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_ETC] = "Etc";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_VAMPIRE] = "吸血鬼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENG_DOMAIN_OUSTERS] = "魔灵";
+	(*g_pGameStringTable)[STRING_MESSAGE_SOUL_STONE] = "灵石";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_PET_MUTANT] = "可以变身.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_PET_MUTANT] = "不可以变身";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_MUTANT] = "想把宠物变身为狼狗吗？";
+	(*g_pGameStringTable)[STRING_ERROR_CANNOT_AUTHORIZE_BILLING] = "不能查询收费信息。";
+	(*g_pGameStringTable)[STRING_ERROR_CANNOT_CREATE_PC_BILLING] = "因为您不是付费用户所以不能创建人物。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_PET_DEAD_DAY] = "死了%d天了";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_LUCKY] = "幸运: ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_NPC_SLAYER] = "哥鲁伯";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_NPC_VAMPIRE] = "背卡里萨斯";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_NPC_OUSTERS] = "阿马塔";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_SLAYER] = "坦克任务目的：%d分钟内(%s) (%d)个抓到";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_VAMPIRE] = "恶魔蝙蝠任务/目的：%d分钟内/(%s) (%d)个抓到";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_OUSTERS] = "小精灵任务/目的: %d分钟内/(%s) (%d)个抓到";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_QUEST_CLEAR] = "回去吧。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_3RD_ENCHANT_PET] = "可以得到3次能力";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_3RD_ENCHANT_PET] = "现在不能得到3次能力.";
+	(*g_pGameStringTable)[STRING_MESSAGE_PET_3RD_GAMBLE_FAIL] = "3次能力得到失败";
+	(*g_pGameStringTable)[STRING_MESSAGE_PET_3RD_GAMBLE_OK] = "%s玩家得到3次能力。";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_SUMMON_2ND_PET] = "40级以下不能召唤进化宠物";
+	(*g_pGameStringTable)[STRING_MESSAGE_SEARCHING_MINE] = "要找到的地雷数：%d已经确认的地雷数：%d";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_MIXING_GRADE_VALUE] = "如果物品之间级别超过2级时，物品无法合成。.";
+	(*g_pGameStringTable)[STRING_MESSAGE_MINIGAME_GAME_OVER] = "游戏结束";
+	(*g_pGameStringTable)[STRING_MESSAGE_MINIGAME_ALL_STAGE_CLEAR] = "通关";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_QUEST_OUSTERS] = "最近怪物数目急增.因为这些怪物绝地的力量慢慢微弱起来.为了我们种族的复活我们要除去怪物保护绝地.在中途这个连接错误时任务无效所以要注意,按照任务猎到怪物数目回归时我会给你珍贵的礼品,好，那你要选择什么样的任务呢?";
 	(*g_pGameStringTable)[STRING_ERROR_CHILDGUARD_DENYED] = "User who age under 18 will not able to play after 22.00 O'clock.";
-	// end 
-
-	//2004, 5, 11 sobeit add start - 脐 焊包家
-	(*g_pGameStringTable)[STRING_MESSAGE_KEEP_PETITEM] = "脐阑 焊包 窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[STRING_MESSAGE_GET_KEEP_PETITEM] = "脐阑 茫栏矫摆嚼聪鳖?";
-	//2004, 5, 11 sobeit add end - 脐 焊包家
-
-	//2004, 5, 13 sobeit add start
-	(*g_pGameStringTable)[STRING_MESSAGE_EXIST_ITEM_ALREADY] = "捞固 促弗 酒捞袍捞 乐嚼聪促.";
-	//2004, 5, 13 sobeit add end
-
-	// 2004, 5, 17 sobeit add start
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_GRADE] = "  グケゲコゴサザシジス";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_GRADE_DESC] = "殿鞭 :";
-	// 2004, 5, 17 sobeit add end
-
-	// 2004, 6, 4, sobeit add start - sms 包访
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_SEND_OK] = "皋技瘤甫 己傍利栏肺 焊陈嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_SEND_FAIL] = "皋技瘤甫 焊郴绰单 角菩沁嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_ADD_FAIL] = "府胶飘俊 眠啊窍绰单 角菩沁嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_DELETE_FAIL] = "府胶飘俊辑 昏力窍绰单 角菩沁嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_FAIL_MAX_NUM_EXCEEDED] = "历厘 啊瓷 锅龋啊 檬苞登菌嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_FAIL_INVALID_DATA] = "肋给等 沥焊 涝聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_FAIL_NO_SUCH_EID] = "沥焊甫 茫阑 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_FAIL_NOT_ENOUGH_CHARGE] = "面傈樊捞 葛磊而聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_WINDOW] = "SMS芒(SMS Window)";
-	// 2004, 6, 4, sobeit add end - sms 包访
-	// 2004, 6, 8, sobeit add start - sms 包访
-	(*g_pGameStringTable)[UI_STRING_HELP_SMS_SEND] = "皋技瘤甫 傈价钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_HELP_SMS_VIEW_LIST] = "傈拳 锅龋何甫 壕聪促.";
-	(*g_pGameStringTable)[UI_STRING_HELP_SMS_WINDOW] = "漂荐 巩磊甫 急琶 钦聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_HELP_SMS_ADDSEND] = "急琶茄 锅龋甫 焊郴扁 格废俊 眠啊 钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_HELP_SMS_DELETE] = "急琶茄 锅龋甫 昏力 钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_HELP_SMS_NEW] = "脚痹 锅龋甫 殿废 钦聪促.";
-	// 2004, 6, 8, sobeit add end - sms 包访
-
-	// 2004, 6, 14 sobeit add start use sms item
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_SMSITEM] = "SMS 酒捞袍阑 荤侩窍矫摆嚼聪鳖?";
-	// 2004, 6, 14 sobeit add end
-
-	// 2004, 6, 15 sobeit add start - nameinge window help
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NAMING_WINDOW] = "葱匙烙芒(NickName Window)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_PET_NICKNAME] = "脐狼 葱匙烙阑 函版钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_PLAYER_NICKNAME] = "蜡历 磊蜡 葱匙烙阑 函版钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADD_PLAYER_NICKNAME] = "葱匙烙阑 眠啊 钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_PLAYER_NICKNAME] = "急琶等 葱匙烙栏肺 函版钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NICKNAME_CHANGE_OK] = "葱匙烙捞 函版登菌嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NICKNAME_SELECT_FAIL_FORCED] = "款康磊啊 碍力 瘤沥茄 葱匙烙篮 函版且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_NAMINGITEM] = "匙捞怪 酒捞袍阑 荤侩窍矫摆嚼聪鳖?";
-	// 2004, 6, 15 sobeit add end
- 
-	// 2004, 6, 25 sobeit add start
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_NAMING_SUMMON] = "脐捞 家券吝 老锭父 葱匙烙阑 函版且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_NAMING_WOLVERINE] = "匡滚赴篮 奇 酒捞袍 绝捞 葱匙烙阑 函版且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_SEARCH_ITEM] = "酒捞袍阑 茫阑 荐 绝嚼聪促.";
-	// 2004, 6, 25 sobeit add end
-
-	// 2004, 7,1 sobeit add start
-	(*g_pGameStringTable)[UI_STRING_CORE_ZAP_BLACK] = "拱府 傍拜仿 +%d";
-	(*g_pGameStringTable)[UI_STRING_CORE_ZAP_RED] = "付过 傍拜仿 +%d";
-	(*g_pGameStringTable)[UI_STRING_CORE_ZAP_BLUE] = "拱府 规绢仿 +%d";
-	(*g_pGameStringTable)[UI_STRING_CORE_ZAP_GREEN] = "付过 规绢仿 +%d";
-
-	(*g_pGameStringTable)[UI_STRING_CORE_ZAP_REWARD_ALL_STAT] = "葛电 瓷仿摹 +%d(4Set)";
-	(*g_pGameStringTable)[UI_STRING_CORE_ZAP_REWARD_ALL_REG] = "葛电 历亲仿 +%d(4Set)";
-
-	// 2004, 7,1 sobeit add end
-
-	// 2004, 7,10 sobeit add start
-	(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_NOT] = "荐青阂啊";
-	(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_ACCEPT] = "荐青啊瓷";
-	(*g_pGameStringTable)[UI_STRING_GQUEST_DOING] = "荐青吝";
-	(*g_pGameStringTable)[UI_STRING_GQUEST_SUCCESS] = "己傍";
-	(*g_pGameStringTable)[UI_STRING_GQUEST_COMPLETE] = "肯丰";
-	(*g_pGameStringTable)[UI_STRING_GQUEST_FAIL] = "角菩";
-	(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_REPLAY] = "犁荐青啊";
-	(*g_pGameStringTable)[UI_STRING_GQUEST_MISSION] = "烙公%d:%s";
-
-	(*g_pGameStringTable)[UI_STRING_GQUEST_BUTTON_ACCEPT] = "涅胶飘甫 荐青钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_GQUEST_BUTTON_GIVEUP] = "涅胶飘甫 器扁钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_GQUEST_TAB_PROCESS] = "柳青吝牢 格废阑 壕聪促.";
-	(*g_pGameStringTable)[UI_STRING_GQUEST_TAB_COMPLETE] = "肯丰等 格废阑 壕聪促.";
-	// 2004, 7,10 sobeit add end
-
-	// 2004, 7, 15 sobeit add start
-	(*g_pGameStringTable)[UI_STRING_NOTICE_EVENT_GOLD_MEDALS] = "陛皋崔阑 %d俺 葛疽嚼聪促.";
-	// 2004, 7, 15 sobeit add start
-
-	// 2004, 7, 19 sobeit add start
-	(*g_pGameStringTable)[STRING_ERROR_KEY_EXPIRED] = "牢刘虐 蜡瓤 矫埃捞 瘤车嚼聪促. 促矫 立加 秦林矫绞夸.";
-	(*g_pGameStringTable)[STRING_ERROR_NOT_FOUND_KEY] = "牢刘虐啊 绝芭唱 肋给登菌嚼聪促. 促矫 立加 秦林矫绞夸.";
-	// 2004, 7, 19 sobeit add end
-
-	// 2004, 7, 23 sobeit add start
-	(*g_pGameStringTable)[UI_STRING_GQUEST_UPDATE] = "涅胶飘 沥焊啊 诀单捞飘 登菌嚼聪促.";
-	// 2004, 7, 23 sobeit add start
-
-	// 2004, 8, 5 sobeit add start
-	(*g_pGameStringTable)[UI_STRING_CHANGE_EVENTITEM_PRICE] = "捞亥飘 酒捞袍阑 %d盔俊 颇角 荐 乐嚼聪促.";
-	// 2004, 8, 5 sobeit add start
-	
-	// 2004, 8, 26, sobeit add start
-	(*g_pGameStringTable)[STRING_MESSAGE_TOO_MANY_GUILD_REGISTERED] = "傍己 脚没茄 辨靛啊 呈公 腹酒辑 脚没且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_REINFORCE_DENYED] = "荐厚螟 曼傈 脚没捞 捞固 芭何寸秦辑 犁脚没 且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_ALREADY_REINFORCE_ACCEPTED] = "荐厚螟 曼傈 脚没捞 倾啊等 辨靛啊 捞固 乐绢辑 脚没且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_NO_WAR_REGISTERED] = "傍己 脚没茄 辨靛啊 绝绢辑 荐厚螟 曼傈 脚没阑 且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_ACCEPT] = "荐厚螟 曼傈 脚没阑 荐遏且 荐 绝嚼聪促";
-	(*g_pGameStringTable)[STRING_MESSAGE_ACCEPT_OK] = "曼傈 脚没阑 荐遏窍看嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_DENY] =	"荐厚螟 曼傈 脚没阑 芭何且 荐 绝嚼聪促.";
-    (*g_pGameStringTable)[STRING_MESSAGE_DENY_OK] = "曼傈 脚没阑 芭何窍看嚼聪促.";
-	// 2004, 8, 26, sobeit add end
-
-	(*g_pGameStringTable)[STRING_MESSAGE_SIEGE_POTAL_200] = "飘乏粮栏肺 捞悼";
-	(*g_pGameStringTable)[STRING_MESSAGE_SIEGE_POTAL_201] = "郴己巩 菊栏肺 捞悼";
-	(*g_pGameStringTable)[STRING_MESSAGE_SIEGE_POTAL_202] = "郴己 救栏肺 捞悼";
-	(*g_pGameStringTable)[STRING_MESSAGE_SIEGE_POTAL_203] = "郴己 救栏肺 捞悼";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_LOGIN_ERROR_NONPK] = "某腐磐狼 饭骇捞 臭酒 立加且 荐 绝嚼聪促. 促弗 辑滚甫 捞侩秦 林绞矫夸.";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_1] = "促农俊掸捞 霖厚茄 檬焊磊 捞亥飘! 霸烙俊 劳槛窍瘤 给茄 檬焊蜡历甫 困窍咯 促农俊掸俊辑 炼弊付茄 急拱苞 窃膊 汗鼻阑 靛赋聪促. 捞亥飘甫 肯丰窍绊 掘篮 汗鼻栏肺 促剧窍霸 霖厚等 急拱狼 林牢捞 瞪 荐 乐嚼聪促. 肚茄 促澜 饭骇俊 档崔窍矫搁 焊促 促剧茄 急拱捞 霖厚登绢 乐嚼聪促. 捞亥飘 酒捞袍阑 葛滴 葛酒 绊己瓷狼 酒捞袍阑 蠢哺焊矫扁 官而聪促. 捞亥飘绰 8俺狼 捞亥飘肺 捞风绢廉 乐栏哥 阿 饭骇俊 蝶扼 瘤鞭邓聪促. 涅胶飘 沥焊 芒 窜绵虐绰 Ctrl + Q 涝聪促. 促农俊掸狼 技拌俊辑 榴芭款 矫埃捞 登矫辨 官扼哥 唱父狼 某腐磐档 虐快绊 急拱档 罐阑 荐 乐绰 扁雀甫 初摹瘤 付技夸.";
-	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_2] = "促农俊掸捞 霖厚茄 檬焊磊 捞亥飘! %d 饭骇俊 档崔窍继焙夸. %s 惑磊甫 持绢靛啡嚼聪促. Ctrl + Q 阑 喘矾 犬牢秦 焊技夸. 捞傈俊 荐飞窍脚 惑磊啊 乐促搁 酒捞袍阑 荐飞窍角 荐 乐嚼聪促. 磊 咯矾盒甸膊 靛赴 酒捞袍篮 矫埃力茄捞 吧妨乐绰 酒捞袍涝聪促. 扁粮 馒侩 力茄捞 乐绰 酒捞袍甸 焊促 臭篮 荐霖狼 酒捞袍栏肺结 捞亥飘甫 烹秦 瘤鞭等 捞亥飘 酒捞袍牢 包拌肺 芭贰客 背券捞 阂啊瓷窍翠聪促. 瞒饶 焊促 歹 亮篮 酒捞袍阑 备窍矫搁 NPC甫 烹窍咯 魄概甫 窍角 荐 乐嚼聪促. 酒捞袍 窍窜俊 焊矫搁 菊栏肺 巢酒 乐绰 矫埃捞 钎矫邓聪促. 酒瞒 捞 矫埃篮 咯矾盒甸捞 促农俊掸 岿靛甫 栋唱 拌寂档 角矫埃栏肺 利侩登扁 锭巩俊 捞 矫埃阑 蜡侩窍霸 荤侩窍矫扁 官而聪促. 弊烦 拌加秦辑 榴芭款 矫埃登矫扁 官而聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_3] = "%d 饭骇俊 档崔窍继焙夸. Ctrl + Q 阑 喘矾 犬牢秦 焊技夸. 捞傈俊 荐飞窍脚 惑磊啊 乐促搁 酒捞袍阑 荐飞窍角 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX1] = "弧碍祸";
-	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX2] = "林炔祸";
-	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX3] = "畴尔祸";
-	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX4] = "檬废祸";
-	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX5] = "颇尔祸";
-	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX6] = "巢祸";
-	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX7] = "焊扼祸";
-	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX8] = "八沥祸";
-
-
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_PERCEPTION] = "葛瓷 +2";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_STONE_OF_SAGE] = "瘤侥(INT) +5";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_FOOT_OF_RANGER] = "刮酶己(DEX) +5";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WARRIORS_FIST] = "塞(STR) +5";
-
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ACID_INQUIRY] = "局矫靛(Acid) 历亲 +10%";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BLOODY_INQUIRY] = "喉矾靛(Blood) 历亲 +10%";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_CURSE_INQUIRY] = "目胶(Curse) 历亲+10%";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_POISON_INQUIRY] = "器捞琉(Poison) 历亲 +10%";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_INQUIRY_MASTERY] = "葛电 历亲 +3%";
-
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_POWER_OF_SPIRIT] = "规绢啦(Protection) 5%刘啊";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WIND_OF_SPIRIT] = "雀乔啦(Defense) 5%刘啊";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_PIXIES_EYES] = "疙吝伏(To hit) 5%刘啊";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_GROUND_OF_SPIRIT] = "付过仿(MP) 5%刘啊";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_FIRE_OF_SPIRIT] = "农府萍拿(Critical) 傍拜仿 5%刘啊";
-
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_EVOLUTION_IMMORTAL_HEART] = "积疙仿(HP) 5% 刘啊";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BEHEMOTH_ARMOR_2] = "雀乔啦(Defense) 5%刘啊 ";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_DRAGON_EYE_2] = "疙吝伏(To hit) 5%刘啊";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_EVOLUTION_RELIANCE_BRAIN] = "付过仿(MP) 5%刘啊";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_HEAT_CONTROL] = "农府萍拿(Critical) 傍拜仿 5%刘啊";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ACID_MASTERY] = "惑措规 局矫靛(Acid) 历亲 10% 皑家";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BLOODY_MASTERY] = "惑措规 喉矾靛(Blood) 历亲 10% 皑家";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_CURSE_MASTERY] = "惑措规 目胶(Curse) 历亲 10%皑家";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_POISON_MASTERY] = "惑措规 器捞琉(Poison) 历亲 10%皑家";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SKILL_MASTERY] = "惑措规 葛电 历亲 3% 皑家";
-
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SALAMANDERS_KNOWLEDGE] = "阂拌凯 沥飞 +1";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_UNDINES_KNOWLEDGE] = "拱拌凯 沥飞 +1";
-    (*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_GNOMES_KNOWLEDGE] = "措瘤拌凯 沥飞 +1";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SIEGE_ATTACK] = "(傍拜螟)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SIEGE_DEFENSE] = "(荐厚螟)";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_LOGINED] = "(厚立加吝)";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_LIST_ID] = "酒捞叼(ID)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_LIST_SERVER] = "立加 辑滚(SERVER)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_LIST_GRADE] = "殿鞭(GRADE)";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_COMMAND_WINDOW] = "评 疙飞(Team Command)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_LIST_WINDOW] = "评 格废(Team List)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_WAIT_LIST_WINDOW] = "措扁 评 格废(Wait Team List)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_UNION_WINDOW] = "评 楷钦(Team Union)";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_COMMAND_WINDOW] = "努罚 疙飞(Clan Command)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_LIST_WINDOW] = "努罚 格废(Clan List)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_WAIT_LIST_WINDOW] = "措扁 努罚 格废(Wait Clan List)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_UNION_WINDOW] = "努罚 楷钦(Clan Union)";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_COMMAND_WINDOW] = "辨靛 疙飞(Guild Command)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_LIST_WINDOW] = "辨靛 格废(Guild List)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_WAIT_LIST_WINDOW] = "措扁 辨靛 格废(Wait Guild List)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_UNION_WINDOW] = "辨靛 楷钦(Guild Union)";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_DESC1] = "急琶茄 楷钦辨靛甫 啊涝钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_DESC2] = "急琶茄 楷钦辨靛甫 呕硼钦聪促. ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_DESC3] = "急琶茄 楷钦辨靛甫 眠规钦聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_ALREADY_IN_UNION] = "捞固 辨靛俊 啊涝阑 沁嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_ALREADY_OFFER_SOMETHING] = "捞固 楷钦辨靛俊 脚没登菌嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_TARGET_IS_NOT_MASTER] = "惑措规捞 付胶磐啊 酒凑聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_NOT_IN_UNION] = "楷钦俊 啊涝等 惑怕啊 酒凑聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_MASTER_CANNOT_QUIT] = "楷钦狼 付胶磐 辨靛绰 胶胶肺 呕硼且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_NO_TARGET_UNION] = "秦寸窍绰 楷钦捞 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_NOT_YOUR_UNION] = "秦寸 楷钦 家加捞 酒凑聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_SOURCE_IS_NOT_MASTER] = "脚没茄 荤恩捞 付胶磐啊 酒凑聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_JOIN_ASK] = "茄 楷钦辨靛俊 家加登搁 促弗 楷钦辨靛俊 汗荐 啊涝且 荐 绝嚼聪促.   啊涝窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_MESSAGE_OK] = "己傍利栏肺 贸府登菌嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_MESSAGE_REFUSE] = "惑措规 辨靛付胶磐啊 芭例 窍继嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_MESSAGE_SUCCESS] = "己傍利栏肺 楷钦辨靛啊 芒汲登菌嚼聪促";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_ASK] = "沥富 呕硼 窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_MSG] = "辨靛付胶磐狼 铰牢阑 脚没茄促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_MSG2] = "瘤陛 溜矫 呕硼茄促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_OK] = "呕硼甫 脚没窍矫绊 辨靛付胶磐啊 铰牢且 版快 其澄萍啊 绝嚼聪促. 脚没窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_CANCEL] = "瘤陛 溜矫 呕硼 模没窍矫搁 官肺 呕硼啊 啊瓷窍瘤父 其澄萍啊 乐嚼聪促. 官肺 呕硼窍矫摆嚼聪鳖?";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_DEPORT_ASK] = "沥富肺 眠规阑 锐噶窍绞聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_DEPORT_OK] =  "%S 丛捞 碍力肺 眠规登菌嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_UNION_JOIN_MSG] =  "%s 辨靛啊 楷钦辨靛 啊涝阑 脚没钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_UNION_DEPORT_MSG] =  "%s 辨靛啊 楷钦辨靛 呕硼甫 脚没钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_UNION_PENALTY] =  "楷钦辨靛俊 碍力肺 呕硼茄 扁废捞 乐嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASKING_RECALL] =  "%s 丛阑 龋免窍矫摆嚼聪鳖?";
-	
-	(*g_pGameStringTable)[UI_STRING_LEARN_SKILL_LEVEL] =  "胶懦 硅框 饭骇 : %d 饭骇";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_ACCEPT] =  "楷钦 呕硼甫 荐遏钦聪促";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_DENY] =  "楷钦 呕硼甫 芭例钦聪促.";
-
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUEST_UNION_ERROR_1] =  "辨靛 付胶磐父捞 楷钦脚没阑 且 荐 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUEST_UNION_ERROR_2] =  "捞固 楷钦俊 啊涝登绢 乐嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUEST_UNION_ERROR_3] =  "楷钦狼 付胶磐啊 酒凑聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_UNION_ERROR_NO_SLOT] =  "楷钦狼 后 磊府啊 绝嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_BLOOD_BIBLE] = "乔狼 己辑 隆钎甫 厘馒钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RENT_BLOOD_BIBLE] = "乔狼 己辑 隆钎甫 呼赋聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RENT_BLOOD_BIBLE2] = "%s狼 隆钎甫 呼赋聪促. (%s)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RENT_LATER_BLOOD_BIBLE] = "促澜俊 呼府摆嚼聪促.";
-
+	(*g_pGameStringTable)[STRING_MESSAGE_KEEP_PETITEM] = "要保管宠物吗?";
+	(*g_pGameStringTable)[STRING_MESSAGE_GET_KEEP_PETITEM] = "要查找宠物吗?";
+	(*g_pGameStringTable)[STRING_MESSAGE_EXIST_ITEM_ALREADY] = "已经有了别的道具.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_GRADE ] = "  ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_GRADE_DESC] = "等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_SEND_OK] = "信息已成功发送";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_SEND_FAIL] = "信息发送失败.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_ADD_FAIL] = "列表附加失败.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_DELETE_FAIL] = "列表删除失败.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_FAIL_MAX_NUM_EXCEEDED] = "保管号码超过";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_FAIL_INVALID_DATA] = "错误的情报.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_FAIL_NO_SUCH_EID] = "无法寻找情报.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_FAIL_NOT_ENOUGH_CHARGE] = "充电量不足.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SMS_WINDOW] = "SMS窗口(SMS Window)";
+	(*g_pGameStringTable)[UI_STRING_HELP_SMS_SEND] = "传送信息.";
+	(*g_pGameStringTable)[UI_STRING_HELP_SMS_VIEW_LIST] = "查看电话号码.";
+	(*g_pGameStringTable)[UI_STRING_HELP_SMS_WINDOW] = "选择特殊文字.";
+	(*g_pGameStringTable)[UI_STRING_HELP_SMS_ADDSEND] = "选择的号码传送附加到目录.";
+	(*g_pGameStringTable)[UI_STRING_HELP_SMS_DELETE] = "删除选择的号码.";
+	(*g_pGameStringTable)[UI_STRING_HELP_SMS_NEW] = "登录新增号码.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_SMSITEM] = "想使用SMS道具吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NAMING_WINDOW] = "呢称窗口(NickName Window)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_PET_NICKNAME] = "更改宠物NickName.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_PLAYER_NICKNAME] = "玩家自由更改NickName.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADD_PLAYER_NICKNAME] = "附加NickName.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_PLAYER_NICKNAME] = "更改选择的NickName.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NICKNAME_CHANGE_OK] = "NickName已更改.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NICKNAME_SELECT_FAIL_FORCED] = "运营者不能更改强制指定的NickName.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_NAMINGITEM] = "要使用命名道具吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_NAMING_SUMMON] = "召唤宠物是爱能更改NickName.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_NAMING_WOLVERINE] = "狼狗是没有道具也可以更改NickName.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_SEARCH_ITEM] = "无法找到道具.";
+	(*g_pGameStringTable)[UI_STRING_CORE_ZAP_BLACK] = "物理攻击力 +%d";
+	(*g_pGameStringTable)[UI_STRING_CORE_ZAP_RED] = "魔法攻击力+%d";
+	(*g_pGameStringTable)[UI_STRING_CORE_ZAP_BLUE] = "物理防御力+%d";
+	(*g_pGameStringTable)[UI_STRING_CORE_ZAP_GREEN] = "魔法防御力+%d";
+	(*g_pGameStringTable)[UI_STRING_CORE_ZAP_REWARD_ALL_STAT] = "全部能力值+%d(4Set)";
+	(*g_pGameStringTable)[UI_STRING_CORE_ZAP_REWARD_ALL_REG] = "全部抵抗力+%d(4Set)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_OPTION_EMPTY2] = "        %s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_OPTION2] = "        选择%s";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_NOT] = "不能执行";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_ACCEPT] = "能执行";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_DOING] = "执行中";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_SUCCESS] = "成功";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_COMPLETE] = "完成";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_FAIL] = "失败";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_REPLAY] = "再执行者";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_MISSION] = "任务%d:%s";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_BUTTON_ACCEPT] = "执行任务.";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_BUTTON_GIVEUP] = "抛弃任务.";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_TAB_PROCESS] = "进行中看目录.";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_TAB_COMPLETE] = "查看完成的目录.";
+	(*g_pGameStringTable)[UI_STRING_NOTICE_EVENT_GOLD_MEDALS] = "拿到了%d和金牌.";
+	(*g_pGameStringTable)[STRING_ERROR_KEY_EXPIRED] = "验证密码有效期已过.请再连接.";
+	(*g_pGameStringTable)[STRING_ERROR_NOT_FOUND_KEY] = "验证密码错误或不存在. 请再连接.";
+	(*g_pGameStringTable)[UI_STRING_GQUEST_UPDATE] = "任务情报已更新.";
+	(*g_pGameStringTable)[UI_STRING_CHANGE_EVENTITEM_PRICE] = "活动道具可以在%d卖.";
+	(*g_pGameStringTable)[STRING_MESSAGE_TOO_MANY_GUILD_REGISTERED] = "由于攻城申请的公会太多所以无法再申请.";
+	(*g_pGameStringTable)[STRING_MESSAGE_REINFORCE_DENYED] = "防守参战申请已被拒绝所以不能再申请.";
+	(*g_pGameStringTable)[STRING_MESSAGE_ALREADY_REINFORCE_ACCEPTED] = "防守参战申请已有允许的公会所以不能申请.";
+	(*g_pGameStringTable)[STRING_MESSAGE_NO_WAR_REGISTERED] = "没有攻城申请的公会所以不能申请防守参战.";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_ACCEPT] = "无法允许防守参战申请";
+	(*g_pGameStringTable)[STRING_MESSAGE_ACCEPT_OK] = "允许参战申请.";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_DENY] = "无法拒绝防守参战申请.";
+	(*g_pGameStringTable)[STRING_MESSAGE_DENY_OK] = "拒绝参战申请.";
+	(*g_pGameStringTable)[STRING_MESSAGE_SIEGE_POTAL_200] = "移动";
+	(*g_pGameStringTable)[STRING_MESSAGE_SIEGE_POTAL_201] = "我城门移动";
+	(*g_pGameStringTable)[STRING_MESSAGE_SIEGE_POTAL_202] = "我城内移动";
+	(*g_pGameStringTable)[STRING_MESSAGE_SIEGE_POTAL_203] = "我城内移动";
+	(*g_pGameStringTable)[STRING_MESSAGE_LOGIN_ERROR_NONPK] = "人物级别太高所以不能连接.请使用其他服务器.";
+	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_1] = "我们准备了初步者活动!为了补台了解游戏的玩家我们准备了小小的礼物和彩票.希望完成活动后拿者彩票作多种多样礼物的主人.并且达到下一个级别时能得到更多了礼物.积累活动道具能感受高性能道具. 活动有8个活动来组成分布到各等级.任务情报快捷键是Ctrl + Q.希望玩得开心还拥有属于自己的任务并且不要错过获得礼物的机会哦.";
+	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_2] = "我们准备的初步者活动! 恭喜你达到了%d等级.给了 %s箱子.按 Ctrl + Q 快捷键确定一下吧.以前有领取过的箱子就可以的得到道具. 大家的道具是有时间限制的道具. 比起有基准使用限制的道具相比水准要高一些，因为是活动提供的道具所以不能交易.得到更好的道具可以通过NPC卖. 道具下断表示了剩余的时间. 玩家离开游戏窗口时时间也会消耗所以要注意这一点..";
+	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_3] = "恭喜你到达%d级别. 按Ctrl + Q 确定一下. 以前领取过箱子就可以领取道具.";
+	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX1] = "红色";
+	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX2] = "朱黄色";
+	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX3] = "黄色";
+	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX4] = "绿色";
+	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX5] = "蓝色";
+	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX6] = "蓝色";
+	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX7] = "紫色";
+	(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX8] = "黑色";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_PERCEPTION] = "单色 +2";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_STONE_OF_SAGE] = "知识 (INT) +5";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_FOOT_OF_RANGER] = "敏捷性 (DEX) +5";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WARRIORS_FIST] = "力量 (STR) +5";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ACID_INQUIRY] = "酸(Acid) ?? +10%";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BLOODY_INQUIRY] = "血 (Blood) ?? +10%";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_CURSE_INQUIRY] = "诅咒(Curse) ??+10%";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_POISON_INQUIRY] = "毒(Poison) ?? +10%";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_INQUIRY_MASTERY] = "所有抵抗+3%";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_POWER_OF_SPIRIT] = "防御率(Protection) 5%增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_WIND_OF_SPIRIT] = "回避率 (Defense) 5%增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_PIXIES_EYES] = "命中率 (To hit) 5%增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_GROUND_OF_SPIRIT] = "魔法力 (MP) 5%增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_FIRE_OF_SPIRIT] = "有效(Critical)攻击力5%增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_EVOLUTION_IMMORTAL_HEART] = "生命力 (HP) 5% 增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BEHEMOTH_ARMOR_2] = "回避率 (Defense) 5%增加 ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_DRAGON_EYE_2] = "命中率 (To hit) 5%增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_EVOLUTION_RELIANCE_BRAIN] = "魔法力(MP) 5%增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_HEAT_CONTROL] = "有效(Critical)攻击力5%增加";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_ACID_MASTERY] = "对方酸 (Acid) 抵抗 10% 减少";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_BLOODY_MASTERY] = "对方血 (Blood) 抵抗 10% 减少";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_CURSE_MASTERY] = "对方诅咒(Curse)抵抗10%减少";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_POISON_MASTERY] = "对方毒 (Poison)抵抗10%减少";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SKILL_MASTERY] = "对方全部抵抗3% 减少";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_SALAMANDERS_KNOWLEDGE] = "火系列纯力量+1";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_UNDINES_KNOWLEDGE] = "水系列纯力量+1";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANK_BONUS_GNOMES_KNOWLEDGE] = "大地系列纯力量+1";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SIEGE_ATTACK] = "(攻击方)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SIEGE_DEFENSE] = "(防守方)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_LOGINED] = "(非连接中)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_LIST_ID] = "用户名 (ID)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_LIST_SERVER] = "连接服务 (SERVER)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_LIST_GRADE] = "等级 (GRADE)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_COMMAND_WINDOW] = "队伍命令 (Team Command)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_LIST_WINDOW] = "队伍目录 (Team List)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_WAIT_LIST_WINDOW] = "等待队伍目录 (Wait Team List)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_UNION_WINDOW] = "队伍联合 (Team Union)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_COMMAND_WINDOW] = "公会命令 (Clan Command)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_LIST_WINDOW] = "公会目录 (Clan List)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_WAIT_LIST_WINDOW] = "等待公会目录 (Wait Clan List)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_UNION_WINDOW] = "公会联合 (Clan Union)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_COMMAND_WINDOW] = "公会命令 (Guild Command)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_LIST_WINDOW] = "公会目录 (Guild List)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_WAIT_LIST_WINDOW] = "等待公会目录 (Wait Guild List)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_UNION_WINDOW] = "公会联合 (Guild Union)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_DESC1] = "加入选择的联合公会.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_DESC2] = "退出选择的联合公会. ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_DESC3] = "逐出选择的联合公会.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_ALREADY_IN_UNION] = "已经加入公会.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_ALREADY_OFFER_SOMETHING] = "已经申请联合公会.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_TARGET_IS_NOT_MASTER] = "对象不是领袖.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_NOT_IN_UNION] = "不是加入联合状态.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_MASTER_CANNOT_QUIT] = "联合领袖公会不能私自退出.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_NO_TARGET_UNION] = "没有适当的联合.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_NOT_YOUR_UNION] = "不属于适当联合.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_SOURCE_IS_NOT_MASTER] = "申请人物不是领袖.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_JOIN_ASK] = "加入了一个联合公会不能再加入另一个联合公会. 还要加入吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_MESSAGE_OK] = "已成功处理完.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_MESSAGE_REFUSE] = "对方公会领袖已拒绝.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_MESSAGE_SUCCESS] = "联合公会成功创建";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_ASK] = "真的要退出吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_MSG] = "申请公会领袖的承认.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_MSG2] = "现在马上退出";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_OK] = "申请退出后公会领袖承认时没有惩罚.要申请吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_CANCEL] = "现在马上可以退出不过有惩罚. 要现在退出吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_DEPORT_ASK] = "真的想好要退出吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_DEPORT_OK] = "%S 被强制逐出.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_UNION_JOIN_MSG] = "%s公会申请联合公会加入.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_UNION_DEPORT_MSG] = "%s 公会申请退出联合公会.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_UNION_PENALTY] = "联合公会有强制退出的记录.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASKING_RECALL] = "要呼叫%s 吗?";
+	(*g_pGameStringTable)[UI_STRING_LEARN_SKILL_LEVEL] = "技能学习等级: %d 等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_ACCEPT] = "允许退出联合";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOTAL_GUILD_LEAVE_DENY] = "拒绝退出联合.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUEST_UNION_ERROR_1] = "只有公会领袖才能联合申请.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUEST_UNION_ERROR_2] = "已经加入联合.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUEST_UNION_ERROR_3] = "不是联合领袖.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_UNION_ERROR_NO_SLOT] = "联合没有空位子.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_BLOOD_BIBLE] = "携带血圣书标志.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RENT_BLOOD_BIBLE] = "借血圣书标志.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RENT_BLOOD_BIBLE2] = "借%s的标志. (%s)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RENT_LATER_BLOOD_BIBLE] = "下回借.";
 	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANGER_SAY] = "Ranger/";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MODIFY_TAX_OK] = "技啦捞 己傍利栏肺 函版 登菌嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MODIFY_TAX_FAIL] = "技啦 函版俊 角菩 窍看嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MODIFY_TAX] = "函版且 技啦阑 涝仿钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANGER_SAY2] = "饭牢廉";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MODIFY_TAX_OK] = "税率更改成功.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MODIFY_TAX_FAIL] = "税率更改失败.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_MODIFY_TAX] = "输入更改的税率.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_RANGER_SAY2] = "范围";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REMOVE_CURSE_1] = "?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REMOVE_CURSE_2] = "爱";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REMOVE_CURSE_3] = "爱你";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REMOVE_CURSE_4] = "爱你";
+	(*g_pGameStringTable)[STRING_MESSAGE_RACE_WAR_STARTED_IN_OTHER_SERVER] = "在1号战争开始. 想参加战争可以移动到1号. 在种族间的战争中要确保很多水的圣书.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_APPOINT_SUBMASTER] = "任命为服务器领袖.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_SKILL_DELETE] = "可以技能学习属性点数";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_SKILL_DELETE] = "技能学习属性点数不可以";
+	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_SKILLTREE_DELETE] = "不能属性点数.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOO_MANY_MEMBER] = "人员超过50名不能加入.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONFIRM_DOWN_SKILL2] = "%s 技能的技能学习属性点数.消耗费用是$%s.要更改吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_UNION_CHATTING] = "联合聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_UNION_CHATTING] = "查看联合聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_UNION_CHATTING] = "不查看联合聊天";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_SIEGE_FOR_RESURRECT] = "在我城门前复活.";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_GET_POINT] = "获取博彩点数";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_POINT] = "拥有博彩点数";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_AVAILABLE] = "博彩交换需要点数";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_NUMBER_1] = "获取";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_NUMBER_2] = "号码";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_GET_POINT_HELP] = "获取博彩点数";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_EXCHANGE_HELP] = "用博彩点数交换道具.";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_REQUEST_OK] = "博彩点数交换成功.取得点数: %d ";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_ERROR_NO_MEMBER] = "不是ttdk2会员. 请在www.ttdk2.com确认.";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_ERROR_SERVER_ERROR] = "服务器有异常.请再确认一下之后可以在www.ttdk2.com确认.";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_ERROR_PROCESS_ERROR] = "DB有异常.请再确认之后可以在www.ttdk2.com确认.";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_ERROR_NO_POINT] = "积累的博彩属性点不足。请在www.ttdk2.com确认.";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_ERROR_NO_MATCHING] = "无法找到一致的信息.请在www.ttdk2.com确认.";
+	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_ERROR_CONNECT] = "和服务器连接有异常.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_UTIL] = "功能(Utility)";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSONAL_STORE] = "个人商店";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_POWER_JJANG] = "博彩系统";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELL_MONEY_IN_DIALOG] = "输入道具卖价.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSNALSHOP_MESSAGE] = "输入个人商店广告信息!!";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSNALSHOP_OK] = "开个人商店.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSNALSHOP_CANCEL] = "关闭个人商店.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSNALSHOP_WRITE_MESSAGE] = "制作个人商店广告信息";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_FIND_STORE] = "无法找到适当买卖.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_STORE_CLOSED] = "商店已关闭.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_NOT_FOUND] = "适当道具已经被卖出去或被售货员撤消.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOO_MUCH_MONEY] = "售货员有太多的钱所以不能买.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALREADY_DISPLAYED] = "已经陈列的道具.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSNAL_DEFAULT_MESSGE] = "有多样的商品.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GAMEMONEY_WITH_HANGUL] = "游戏口袋并排显示";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_0] = "转职%d等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_1] = "转职1%d等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_2] = "转职2%d等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_3] = "转职3%d等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_4] = "转职4%d等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_5] = "转职5%d等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_6] = "转职6%d等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_7] = "转职7%d等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_8] = "转职8%d等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_9] = "转职9%d等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_10] = "转职10%d等级";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_PDA] = "通讯器";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_SHOULDER] = "肩甲";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_DERMIS] = "面具";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_PERSONA] = "文信";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_FASCIA] = "腰部装饰";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_MITTEN] = "手套";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHINGHO] = "称号";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWAP_ADVANCEMENT_ITEM] = "确认一下想要交换成升级道具的道具.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWAP_CONFIRM] = "要交换成升级道具吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWAP_ERROR] = "没有升级所以不能道具交换.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWAP_ADVANCEMENT_ITEM_ERROR] = "不能交换成升级道具.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_REQUEST] = "输入要捐的金额. ";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_THANKS] = "捐的金额在温情的关怀下给不幸的邻居使用.感谢你的参与.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_UNITS_SLAYER] = "??";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_UNITS_VAMPIRE] = "银币";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_UNITS_OUSTERS] = "??";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_0] = "转职 %d等级 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_1] = "转职 %d等级 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_2] = "转职 %d等级 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_3] = "转职 %d等级 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_4] = "转职 %d等级 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_5] = "转职 %d等级 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_6] = "转职 %d等级 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_7] = "转职 %d等级 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_8] = "转职 %d等级 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_9] = "转职 %d等级 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_10] = "转职 %d等级 以上";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_BLADE] = "高级刀手";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_SWORD] = "高级剑手";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_SOLDER] = "高级军人";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_HEAL] = "高级医生";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_ENCHANT] = "高级祝福";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_VAMPIRE] = "高级吸血鬼";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_COMBAT] = "高级魔灵战士";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_EARTH] = "高级魔灵土法师";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_FIRE] = "高级魔灵火法师";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_WATER] = "高级魔灵水法师";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_DO_NOT_SHOW_PERSNALSHOP_MSG] = "不查看个人商店的信息";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUEST_GET_EVENT_ITEM] = "用现在的人物想得到Come Back活动道具吗?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_ITEM_RECEIVE_OK] = "拿到了Come Back活动道具.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_ITEM_RECEIVE_ALREADY] = "已经领取Come Back活动道具.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_ITEM_RECEIVE_FAIL] = "失败领取Come Back活动道具.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_ITEM_NOT_EVENT_USER] = "不是Come Back活动的适当玩家.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_ITEM_NOTICE] = "祝贺你! Come back, 2005 活动的礼物.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_OPEN_WEBPAGE] = "不能打开Web页.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_USE_ADVANCEMENTCLASS] = "升级玩家不能使用.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_USE_HIGH_GRADE] = "6级以上的道具不能祝福.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_USE_ADVANCEMENT_ITEM] = "升级专用道具不能祝福.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_USE_OVER_TWO_OPTION] = "选项有2个以上的道具不能祝福.";
+	(*g_pGameStringTable)[STRING_ERROR_IP_DENY] = "您的错误登录次数过多或使用了非法外挂程序,请在10分钟后再登录.";
+	(*g_pGameStringTable)[STRING_STATUS_NOT_FIND_SKILL_CRAD] = "使用该技能需要技能卡!";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_SYSTEM] = "[系统]%s";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY] = "toall/";
+	(*g_pGameStringTable)[UI_STRING_NO_ITEM_MESSAGE] = "没有高级对讲机,请购买后使用!";
 
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REMOVE_CURSE_1] = "⒔";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REMOVE_CURSE_2] = "荤尔";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REMOVE_CURSE_3] = "荤尔秦";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REMOVE_CURSE_4] = "荤尔秦夸";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_RACE_WAR_STARTED_IN_OTHER_SERVER] = "1锅 辑滚俊辑 傈里捞 矫累登菌嚼聪促. 傈里俊 曼咯窍矫妨搁 1锅辑滚肺 捞悼窍矫搁 邓聪促.  辆练埃狼 傈里俊辑 腹篮 荐狼 己辑甫 犬焊秦具钦聪促.";
-
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_APPOINT_SUBMASTER] =  "辑宏 付胶磐肺 烙疙钦聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_SKILL_DELETE] =  "胶懦 硅框 器牢飘 雀荐 啊瓷";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_SKILL_DELETE] =  "胶懦 硅框 器牢飘 雀荐 阂啊瓷";
-
-	(*g_pGameStringTable)[STRING_MESSAGE_CANNOT_SKILLTREE_DELETE] =  "器牢飘甫 雀荐且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOO_MANY_MEMBER] =  "糕滚啊 50疙阑 逞绢 啊涝且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CONFIRM_DOWN_SKILL2] =  "%s 胶懦狼 胶懦 硅框 器牢飘甫 雀荐 钦聪促. 家葛 厚侩篮 $%s涝聪促. 函版窍矫摆嚼聪鳖?";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_UNION_CHATTING] =  "楷钦盲泼 窍扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_UNION_CHATTING] =  "楷钦盲泼 焊扁";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_SHOW_UNION_CHATTING] =  "楷钦盲泼 救焊扁";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_SIEGE_FOR_RESURRECT] = "郴己巩 菊俊辑 何劝钦聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_GET_POINT] = "颇况炉 器牢飘 啊廉坷扁";
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_POINT] = "郴 颇况炉 穿利 器牢飘";
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_AVAILABLE] = "背券 啊瓷茄 器牢飘";
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_NUMBER_1] = "勤靛迄";
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_NUMBER_2] = "锅龋";
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_GET_POINT_HELP] = "颇况炉 器牢飘甫 啊廉可聪促.";
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_EXCHANGE_HELP] = "颇况炉 器牢飘肺 酒捞袍阑 背券钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_REQUEST_OK] = "颇况炉 器牢飘啊 己傍利栏肺 利侩登菌嚼聪促. 傈价等 器牢飘 : %d 痢";
-
-
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_ERROR_NO_MEMBER] = "颇况炉 雀盔捞 酒凑聪促. www.powerzzang.com 俊辑 犬牢窍矫扁 官而聪促.";
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_ERROR_SERVER_ERROR] = "颇况炉 辑滚俊 捞惑捞 乐嚼聪促.促矫 茄锅 矫档秦焊矫绊 救登搁 www.powerzzang.com 俊辑 犬牢窍矫扁 官而聪促.";
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_ERROR_PROCESS_ERROR] = "颇况炉 DB俊 捞惑捞 乐嚼聪促.促矫 茄锅 矫档秦焊矫绊 救登搁 www.powerzzang.com 俊辑 犬牢窍矫扁 官而聪促.";
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_ERROR_NO_POINT] = "穿利等 颇况炉 器牢飘啊 葛磊而聪促. www.powerzzang.com 俊辑 犬牢窍矫扁 官而聪促.";
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_ERROR_NO_MATCHING] = "老摹等 沥焊甫 茫阑 荐 绝嚼聪促. www.powerzzang.com 俊辑 犬牢窍矫扁 官而聪促.";
-	(*g_pGameStringTable)[UI_STRING_POWER_JJANG_ERROR_CONNECT] = "颇况炉 辑滚客 楷搬俊 捞惑捞 乐嚼聪促.";
-
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_UTIL] = "扁瓷(Utility)";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSONAL_STORE] = "俺牢 惑痢";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_POWER_JJANG] = "颇况炉";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SELL_MONEY_IN_DIALOG] = "酒捞袍 迫 啊拜阑 涝仿窍技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSNALSHOP_MESSAGE]  = "俺牢惑痢 堡绊 皋技瘤甫 涝仿窍技夸!!";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSNALSHOP_OK] = "俺牢惑痢阑 坷锹钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSNALSHOP_CANCEL] = "俺牢惑痢阑 摧嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSNALSHOP_WRITE_MESSAGE] = "俺牢惑痢 堡绊皋技瘤 累己";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_FIND_STORE] = "秦寸 魄概磊甫 茫阑 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_STORE_CLOSED] = "惑痢捞 捞固 摧躯嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_NOT_FOUND] = "秦寸 酒捞袍捞 捞固 魄概登菌芭唱 魄概磊俊 狼秦 枚雀登菌嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_TOO_MUCH_MONEY] = "魄概磊啊 呈公 腹篮 捣阑 啊瘤绊 乐绢辑 混 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ALREADY_DISPLAYED] = "捞固 柳凯等 酒捞袍涝聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PERSNAL_DEFAULT_MESSGE] = "促剧茄 惑前捞 乐嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GAMEMONEY_WITH_HANGUL] = "霸烙 赣聪 茄臂 捍青 钎矫";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_0] = "龋风胶 %d殿鞭";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_1] = "技飘 %d殿鞭";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_2] = "付酒飘 %d殿鞭";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_3] = "坷矫府胶 %d殿鞭";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_4] = "配飘 %d殿鞭";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_5] = "穿飘 %d殿鞭";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_6] = "霸宏 %d殿鞭";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_7] = "酱 %d殿鞭";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_8] = "扼 %d殿鞭";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_9] = "橇鸥 %d殿鞭";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_10] = "传 %d殿鞭";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_PDA] = "某傅 府矫滚甫 厘馒钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_SHOULDER] = "捡歹酒赣甫 厘馒钦聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_DERMIS] = "巩脚阑 厘馒钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_PERSONA] = "啊搁阑 厘馒钦聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_FASCIA] = "倾府厘侥阑 厘馒钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_MITTEN] = "厘癌阑 厘馒钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHINGHO] = "莫龋";
-	
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWAP_ADVANCEMENT_ITEM] =	"铰流 酒捞袍栏肺 背券窍角 酒捞袍阑 努腐秦林技夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWAP_CONFIRM] = "铰流 酒捞袍栏肺 背券 窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWAP_ERROR] = "铰流窍瘤 臼酒辑 酒捞袍 背券捞 救邓聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SWAP_ADVANCEMENT_ITEM_ERROR] = "铰流 酒捞袍栏肺 背券且 荐 绝嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_REQUEST] = "扁何 窍角 陛咀阑 涝仿秦 林绞矫夸.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_THANKS] = "扁何秦 林脚 陛咀篮 柯沥狼 颊辨捞 鞘夸茄 阂快茄 捞眶阑 困秦 家吝窍霸 静咯龙 巴涝聪促. 葛陛俊 曼咯秦 林寂辑 皑荤钦聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_UNITS_SLAYER] = "饭捞";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_UNITS_VAMPIRE] = "爸靛";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAMPAIGN_HELP_UNITS_OUSTERS] = "磊靛";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_0] = "龋风胶 %d殿鞭 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_1] = "技飘 %d殿鞭 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_2] = "付酒飘 %d殿鞭 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_3] = "坷矫府胶 %d殿鞭 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_4] = "配飘 %d殿鞭 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_5] = "穿飘 %d殿鞭 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_6] = "霸宏 %d殿鞭 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_7] = "酱 %d殿鞭 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_8] = "扼 %d殿鞭 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_9] = "橇鸥 %d殿鞭 捞惑";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUIRE_ADVANCEMENT_LEVEL_10] = "传 %d殿鞭 捞惑";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_BLADE] = "胶敲府磐";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_SWORD] = "叼奇歹";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_SOLDER] = "庆厚酱磐";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_HEAL] = "橇府胶飘";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_ENCHANT] = "弊罚磐";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_VAMPIRE] = "轨橇畴喉";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_COMBAT] = "捻胶配胶";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_EARTH] = "捞弊聪辑 ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_FIRE] = "酒捻救 ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANCEMENT_JOB_WATER] = "抛扼畴胶 ";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_DO_NOT_SHOW_PERSNALSHOP_MSG] = "俺牢 惑痢 皋技瘤 救 焊扁";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_REQUEST_GET_EVENT_ITEM] = "泅犁 某腐磐肺 哪归 捞亥飘 酒捞袍阑 罐栏矫摆嚼聪鳖?";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_ITEM_RECEIVE_OK] = "哪归 捞亥飘 酒捞袍阑 罐疽嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_ITEM_RECEIVE_ALREADY] = "捞固 哪归 捞亥飘 酒捞袍阑 荐飞窍继嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_ITEM_RECEIVE_FAIL] = "哪归 捞亥飘 酒捞袍 罐扁俊 角菩窍看嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_ITEM_NOT_EVENT_USER] = "哪归 捞亥飘 秦寸 蜡历啊 酒凑聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_ITEM_NOTICE] = "绵窍钦聪促! Come back, 2005 捞亥飘 措惑磊捞绞聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_FAIL_OPEN_WEBPAGE] = "昆 其捞瘤甫 凯 荐 绝嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_USE_ADVANCEMENTCLASS] = "铰流茄 蜡历绰 荤侩且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_USE_HIGH_GRADE] = "6鞭 捞惑 酒捞袍篮 牢忙飘 且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_USE_ADVANCEMENT_ITEM] = "铰流 傈侩 酒捞袍篮 牢忙飘 且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_USE_OVER_TWO_OPTION] = "可记捞 2俺 捞惑牢 酒捞袍篮 牢忙飘 且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WEDDING_CONTRIBUTION_REQUEST] = "绵狼陛 陛咀阑 流立 持绢林技夸.\n(陛咀 10,000 窜困 / 弥家 10,000 ~ 弥措 100,000 ).";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WEDDING_CONTRIBUTION_THANKS] = "皑荤钦聪促. 肋 傈崔秦 靛府摆嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_WEDDING_CONTRIBUTION_FAIL] = "扁何磊 疙窜俊 乐焙夸. 吝汗窍咯 扁何登瘤 臼嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NETMARBLE_AGREEMENT] = "∞  俺牢沥焊 力3磊 力傍俊 包茄 悼狼\n\nCJ牢磐齿(林)篮 捞侩磊狼 俺牢沥焊甫 捞亥飘 硅价 棺 夯牢 犬牢矫, 蜡丰 搬力俊 包茄 犬牢捞 鞘夸且 矫, 雀盔埃 盒里狼 盔父茄 贸府啊 鞘夸且 矫夯 霸烙狼 俺惯荤牢 (林)家橇沛  浚磐抛牢刚飘俊 力傍邓聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_I_AGREE] = "困 郴侩俊 悼狼钦聪促.";	
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_NOT_CONNECT_AGREEMENT] = "函版等 距包俊 悼狼窍瘤 臼疽扁 锭巩俊 立加阑 且 荐 绝嚼聪促.";
-	
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_ADVANCEMENTCLASS] = "铰流窍瘤 臼篮 某腐磐绰 荤侩且 荐 绝嚼聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_NOTADVANCEMENTCLASS] = "99捞窍唱 某腐磐唱 铰流某泛磐绰 荤侩且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ADD_COLOR] = "捞固 利侩等 祸惑 涝聪促. ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_EFFECT_APPLY] = "瓤苞啊 利侩登菌嚼聪促. ";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SCROLL_EFFECT_ITEMDEL] = "器胶 胶农费 瓤苞啊 荤扼柳 饶 捞侩 啊瓷钦聪促. ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_USE_ITEM_DEL] = "茄锅 荤侩窍搁 秦寸 酒捞袍篮 荤扼瘤霸 邓聪促.荤侩窍矫摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOTUSE_ITEM] = "荤侩且 荐 绝绰 辆幅狼 酒捞袍涝聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PORTAL_ITEM_DESC] = "荤侩且 锭 付促 老沥 爸靛啊 家厚邓聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PORTAL_ITEM_NOUSE] = "爸靛啊 何练秦辑 角(Seal)阑 荤侩且 荐 绝嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHARGE_DESC] = "饭骇俊 蝶扼 面傈厚侩捞 促辅聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHARGE_ITEM_NOUSE] = "面傈窍咯 荤侩且 荐 乐嚼聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SUMMER_COMEBACK_LOGIN_AFTER] = "绵窍钦聪促! Summer COME BACK, 2005 捞亥飘 措惑磊捞绞聪促.\n\n捞亥飘扁埃 郴 肺弊牢 矫痢何磐 5老埃 橇府固决 驱琶阑 罐阑 荐 乐翠聪促.\n\n肚茄 捞亥飘 扁充 酒捞袍档 裙垫窍角 荐 乐栏聪 秦寸 辆练狼NPC甫 茫酒啊矫扁 官而聪促.\n\n(窜, 捞亥飘 酒捞袍篮 茄 拌沥寸 茄某腐磐俊 茄秦辑父 罐阑 荐 乐嚼聪促.)\n\n*捞亥飘NPC\n\n浇饭捞绢: 农府胶凭 (己流磊辨靛1摸)\n\n轨颇捞绢: 疥静 (覆焊己郴何)\n\n酒快胶磐令: 龋扼 (酒快胶磐令 付阑郴何)\n\n";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SUMMER_COMEBACK_SETTLEMENT_AFTER] = "搬力啊 己傍利栏肺 捞风绢脸嚼聪促. 捞力 橇府固决 驱琶阑 罐栏矫搁辑 促农俊掸阑 歹宽 犁固乐霸 榴扁角 荐 乐霸 登菌嚼聪促.\n\n捞锅 捞亥飘俊 措茄 焊呈胶 驱琶栏肺 促掸付南俊辑 魄概窍绊 乐绰 凯乏技飘甫 急拱肺 靛府绊 乐嚼聪促.\n\n(窜, 捞亥飘 酒捞袍篮 茄 拌沥寸 茄某腐磐俊 茄秦辑父 罐阑 荐 乐嚼聪促.)\n\n*捞亥飘NPC\n\n浇饭捞绢: 农府胶凭 (己流磊辨靛1摸)\n\n轨颇捞绢: 疥静 (覆焊己郴何)\n\n酒快胶磐令: 龋扼 (酒快胶磐令 付阑郴何)\n\n弊烦 凯乏技飘 酒捞袍阑 涝绊 促农俊掸阑 200% 榴败焊技夸.\n\n";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_SUMMER_COMEBACK_RECOMMENDER] = "绵窍钦聪促. Summer COME BACK, 2005 捞亥飘 措惑磊肺何磐 眠玫 罐栏继嚼聪促.\n\n眠玫牢俊霸绰 家沥狼 急拱捞 林绢瘤聪 捞亥飘 NPC甫 茫酒啊辑 罐栏矫扁 官而聪促.\n\n(窜, 捞亥飘 酒捞袍篮 茄 拌沥寸 茄某腐磐俊 茄秦辑父 罐阑 荐 乐嚼聪促.)\n\n*捞亥飘NPC\n\n浇饭捞绢: 农府胶凭 (己流磊辨靛1摸)\n\n轨颇捞绢: 疥静 (覆焊己郴何)\n\n酒快胶磐令: 龋扼 (酒快胶磐令 付阑郴何)\n\n皑荤钦聪促.";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BURST_ATTACK] = "傍拜屈 气林 %d / %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BURST_DEFENSE] = "规绢屈 气林 %d / %d";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BURST_PARTY] = "颇萍屈 气林 %d / %d";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_PET_ATTRIBUTE_CLEANER_POTION] = "脐 加己阑 檬扁拳 窍摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_PET_ATTRIBUTE_CLEANER_POTION] = "加己阑 檬扁拳 且 荐 绝绰 惑怕涝聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MASK_OF_MONSTER] = "绢恫 阁胶磐肺 函脚且 瘤 葛辅聪促. 函脚矫懦鳖夸?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MAGICAL_PET_CHANGER] = "脐阑 俺樊窍摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ORNAMENTS_ITEM] = "公扁甫 碍拳窍摆嚼聪鳖? ";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_GRADE_SKILL_CLEANER_POTION] = "拌鞭胶懦阑 檬扁拳 窍摆嚼聪鳖?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_ADD_MULTIPACK4X6] = "捞固 2x4 蒲阑 啊瘤绊 乐绰 某腐磐涝聪促.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_MAGICAL_PET_CHANGER_ACTIVE] = "概瘤拿 脐 劝己拳 :";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ITEM_STRENGTHENING] = "捞 酒捞袍阑 碍拳窍摆嚼聪鳖?";
-
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CHILDGUARD_DENYED_NOTUSE] = "捞 霸烙拱篮 18技 捞侩啊 霸烙拱肺 没家斥篮 捞侩且 荐 绝嚼聪促";
-
-	
-
+	//add by viva : friend button description
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND] = "好友系统";
+	//end
+	return;
 }
 
 #endif

@@ -1,5 +1,5 @@
 #include "DirectXlib_Pch.h"
-// #include "Client_PCH.h"
+#include "Client_PCH.h"
 #include <windows.h>
 #include "dxlib\CDirectSound.h"
 #include "CMP3.h"

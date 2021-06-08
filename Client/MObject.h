@@ -21,6 +21,8 @@
 #ifndef	__MOBJECT_H__
 #define	__MOBJECT_H__
 
+class ofstream;
+class ifstream;
 #include "MTypeDef.h"
 
 
@@ -96,8 +98,8 @@ class MObject {
 		//--------------------------------------------------------
 		// file I/O
 		//--------------------------------------------------------
-		virtual void	SaveToFile(ofstream& file);
-		virtual void	LoadFromFile(ifstream& file);
+		virtual void	SaveToFile(class ofstream& file);
+		virtual void	LoadFromFile(class ifstream& file);
 
 	public :
 		//--------------------------------------------------------

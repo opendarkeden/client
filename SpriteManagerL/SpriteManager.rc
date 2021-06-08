@@ -1,0 +1,516 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Korean resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 18, 1\r\n"
+    "#pragma code_page(949)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\SpriteManager.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.kor\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\SpriteManager.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_SPRITEMANAGER_DIALOG DIALOGEX 0, 0, 863, 458
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "SpriteManager"
+FONT 9, "굴림"
+BEGIN
+    PUSHBUTTON      "로드",IDC_BUTTON_LOAD,760,260,40,15
+    COMBOBOX        IDC_COMBO_TYPE,784,28,60,333,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "종류",IDC_STATIC,764,28,15,8
+    COMBOBOX        IDC_COMBO_ACTION,782,48,73,313,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "행동",IDC_STATIC,764,48,15,8
+    COMBOBOX        IDC_COMBO_DIRECTION,784,88,60,273,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "방향",IDC_STATIC,764,88,15,8
+    GROUPBOX        "Object",IDC_STATIC,755,10,100,148
+    GROUPBOX        "",IDC_STATIC,755,275,100,175
+    PUSHBUTTON      "디렉터리",IDC_BUTTON_DIRECTORY,760,205,90,45,
+                    BS_MULTILINE
+    PUSHBUTTON      "세이브",IDC_BUTTON_SAVE,808,259,40,15
+    PUSHBUTTON      "끝내기",IDC_BUTTON_EXIT,760,340,90,15
+    GROUPBOX        "Animation",IDC_STATIC_ANIMATION,281,7,465,410,
+                    WS_TABSTOP
+    PUSHBUTTON      "애니메이션",IDC_BUTTON_PLAY,760,280,90,15
+    CONTROL         "Slider1",IDC_SLIDER_ANIMATION,"msctls_trackbar32",
+                    TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,280,425,465,25
+    COMBOBOX        IDC_COMBO_PART,784,68,60,293,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "파트",IDC_STATIC,764,68,15,8
+    PUSHBUTTON      "BMP화일 찾기",IDC_BUTTON_SEARCH,760,300,90,15
+    CTEXT           "No Data",IDC_STATIC_INFO,760,135,90,12,SS_CENTERIMAGE | 
+                    SS_SUNKEN
+    PUSHBUTTON      "스프라이트 만들기",IDC_BUTTON_MAKE_SPRITE,760,320,90,15
+    PUSHBUTTON      "Undo",IDC_BUTTON_UNDO,780,170,20,15,BS_FLAT
+    PUSHBUTTON      "Redo",IDC_BUTTON_REDO,812,169,20,15,BS_FLAT
+    LISTBOX         IDC_ANIMATION_LIST,7,7,269,413,LBS_NOINTEGRALHEIGHT | 
+                    LBS_WANTKEYBOARDINPUT | LBS_EXTENDEDSEL | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    PUSHBUTTON      "▲",IDC_LISTUP,7,427,14,23
+    PUSHBUTTON      "▼",IDC_LISTDOWN,22,427,14,23
+    PUSHBUTTON      "C",IDC_LISTCOPY,73,427,12,23
+    PUSHBUTTON      "V",IDC_LISTPASTE,86,427,12,23
+    PUSHBUTTON      "D",IDC_LISTDELETE,99,427,12,23
+    PUSHBUTTON      "X",IDC_LISTCUT,60,427,12,23
+    PUSHBUTTON      "A",IDC_LISTADD,47,427,12,23
+END
+
+IDD_DIALOG_ANI DIALOGEX 0, 0, 412, 343
+STYLE DS_MODALFRAME
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 10, "System"
+BEGIN
+    LTEXT           "모자",IDC_STATIC,303,10,17,8
+    COMBOBOX        IDC_COMBO_HAT,355,10,50,205,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "머리",IDC_STATIC,303,25,17,8
+    COMBOBOX        IDC_COMBO_HEAD,355,25,50,190,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "상의",IDC_STATIC,303,40,17,8
+    COMBOBOX        IDC_COMBO_SHIRT,355,40,50,175,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "하의",IDC_STATIC,303,55,17,8
+    COMBOBOX        IDC_COMBO_PANTS,355,55,50,160,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "신발",IDC_STATIC,303,70,17,8,WS_DISABLED
+    COMBOBOX        IDC_COMBO_BOOTS,355,70,50,145,CBS_DROPDOWNLIST | 
+                    WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "왼손장착",IDC_STATIC,303,85,33,8
+    COMBOBOX        IDC_COMBO_LEFT_HAND,355,85,50,130,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "오른손장착",IDC_STATIC,303,100,41,8
+    COMBOBOX        IDC_COMBO_RIGHT_HAND,355,100,50,115,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "외투",IDC_STATIC,303,115,17,8,WS_DISABLED
+    COMBOBOX        IDC_COMBO_CLOAK,355,115,50,100,CBS_DROPDOWNLIST | 
+                    WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "오토바이",IDC_STATIC,303,130,33,8
+    COMBOBOX        IDC_COMBO_MOTOR,355,130,50,85,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Close",IDC_BUTTON_EXIT,305,321,100,15
+    GROUPBOX        "",IDC_RECT,5,0,283,280,NOT WS_VISIBLE
+    PUSHBUTTON      "Stop",IDC_BUTTON_PLAY,32,321,43,15
+    PUSHBUTTON      "<",IDC_BUTTON_PREV,7,321,23,15
+    PUSHBUTTON      ">",IDC_BUTTON_NEXT,77,321,22,15
+    CTEXT           "Static",IDC_STATIC_INFO,102,321,55,15,SS_CENTERIMAGE | 
+                    SS_SUNKEN
+    CONTROL         "2X",IDC_CHECK_RESIZE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,165,315,25,10
+    CONTROL         "Tile",IDC_CHECK_SHOW_TILE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,165,326,35,10
+    COMBOBOX        IDC_COMBO_BG,355,145,50,65,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "FPS",IDC_STATIC,322,200,14,8
+    EDITTEXT        IDC_EDIT_FPS,355,198,50,12,ES_AUTOHSCROLL | ES_NUMBER
+    PUSHBUTTON      "배경",IDC_BUTTON_BG,303,144,35,15
+    LTEXT           "뱀파이어옷",IDC_STATIC,305,160,41,8
+    COMBOBOX        IDC_COMBO_VAMPIRE,355,158,50,50,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "아우스터즈옷",IDC_STATIC,299,173,49,8
+    COMBOBOX        IDC_COMBO_OUSTERS,355,172,50,50,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "아우스터즈무기",IDC_STATIC,291,186,57,8
+    COMBOBOX        IDC_COMBO_OUSTERS_WEAPON,355,185,50,50,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "전직슬레헬멧",IDC_STATIC,293,218,49,8
+    LTEXT           "전직슬레왼손",IDC_STATIC,293,233,49,8
+    LTEXT           "전직슬레오른손",IDC_STATIC,291,246,57,8
+    LTEXT           "전직슬레어깨",IDC_STATIC,293,259,49,8
+    LTEXT           "전직슬레오토",IDC_STATIC,293,274,49,8
+    COMBOBOX        IDC_AC_HELMET,354,217,48,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_AC_LEFTHAND,354,231,48,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_AC_RIGHTHAND,354,244,48,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_AC_SHOULDER,354,258,48,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_AC_MOTOR,355,273,48,30,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,290,213,115,105,
+                    WS_EX_STATICEDGE
+    LTEXT           "전직슬레몸통",IDC_STATIC,292,289,49,8
+    COMBOBOX        IDC_AC_BODY,354,287,48,30,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+END
+
+IDD_DIALOG_MAKE_SPRITE DIALOG DISCARDABLE  0, 0, 204, 146
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "스프라이트 만들기"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,145,15,50,60
+    PUSHBUTTON      "Cancel",IDCANCEL,145,90,50,14
+    CONTROL         "남자 슬레이어",IDC_CHECK_SLAYER_MAN,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,10,60,11
+    CONTROL         "여자 슬레이어",IDC_CHECK_SLAYER_WOMAN,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,24,60,11
+    CONTROL         "남자 뱀파이어",IDC_CHECK_VAMPIRE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,38,60,11
+    CONTROL         "NPC 이름",IDC_CHECK_NPC,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,10,104,45,11
+    EDITTEXT        IDC_EDIT_NPC_NAME,65,104,52,12,ES_AUTOHSCROLL
+    CONTROL         "중급몹 이름",IDC_CHECK_MIDLEVEL_MOB,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,124,55,11
+    EDITTEXT        IDC_EDIT_MIDLEVEL_MOB_NAME,65,124,53,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BUTTON_OPEN_FILE_FOR_NPC,120,104,10,10
+    PUSHBUTTON      "...",IDC_BUTTON_OPEN_FILE_FOR_MID_MOB,120,124,10,10
+    CONTROL         "여자 뱀파이어",IDC_CHECK_VAMPIRE2,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,52,60,11
+    CONTROL         "아우스터즈",IDC_OUSTERS,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,77,11,56,10
+    CONTROL         "전직남슬",IDC_PROMOTION_SLAYER_MAN,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,77,23,48,10
+    CONTROL         "전직여슬",IDC_PROMOTION_SLAYER_WOMAN,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,77,36,48,10
+    CONTROL         "전직남뱀",IDC_PROMOTION_VAMPIRE_MAN,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,77,48,48,10
+    CONTROL         "전직여뱀",IDC_PROMOTION_VAMPIRE_WOMAN,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,77,62,48,10
+    CONTROL         "전직아우",IDC_PROMOTION_OUSTERS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,77,74,48,10
+END
+
+IDD_DIALOG_SEARCH DIALOG DISCARDABLE  0, 0, 187, 45
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "찾기"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,130,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,130,24,50,14
+    CONTROL         "이미지 ",IDC_CHECK_IMAGE,"Button",BS_AUTOCHECKBOX | 
+                    WS_DISABLED | WS_TABSTOP,10,5,55,10
+    CONTROL         "애니메이션",IDC_CHECK_ANI,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,10,25,55,10
+END
+
+IDD_DIALOG_PROGRESS DIALOG DISCARDABLE  0, 0, 274, 80
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "기다려주세요... "
+FONT 10, "System"
+BEGIN
+    CONTROL         "Progress1",IDC_PROGRESS,"msctls_progress32",PBS_SMOOTH | 
+                    WS_BORDER,10,40,255,10
+    CTEXT           "Static",IDC_STATIC_INFO,10,10,255,20,SS_SUNKEN
+    PUSHBUTTON      "취소",IDC_CANCEL,110,55,60,15
+END
+
+IDD_DIALOG_INPUT_COUNT DIALOG DISCARDABLE  0, 0, 187, 45
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "몇번?"
+FONT 10, "System"
+BEGIN
+    EDITTEXT        IDC_EDIT1,50,15,55,15,ES_AUTOHSCROLL
+    LTEXT           "몇번 반복",IDC_STATIC,10,15,35,15
+    DEFPUSHBUTTON   "OK",IDOK,130,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,130,24,50,14
+END
+
+IDD_DIALOG1 DIALOG DISCARDABLE  0, 0, 187, 45
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 10, "System"
+BEGIN
+    EDITTEXT        IDC_EDIT1,18,14,26,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,55,14,29,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,130,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,130,24,50,14
+END
+
+IDD_DIALOG2 DIALOG DISCARDABLE  0, 0, 187, 98
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,130,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,130,24,50,14
+END
+
+IDD_DIALOG_PROGRESS1 DIALOG DISCARDABLE  0, 0, 274, 80
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "기다려주세요... "
+FONT 10, "System"
+BEGIN
+    CONTROL         "Progress1",IDC_PROGRESS,"msctls_progress32",PBS_SMOOTH | 
+                    WS_BORDER,10,40,255,10
+    CTEXT           "Static",IDC_STATIC_INFO,10,10,255,20,SS_SUNKEN
+    PUSHBUTTON      "취소",IDC_CANCEL,110,55,60,15
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041204b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FilaVersion", "1, 0, 0, 1\0"
+            VALUE "FileDescription", "SpriteManager MFC 응용 프로그램\0"
+            VALUE "FileVersion", "\0"
+            VALUE "InternalName", "SpriteManager\0"
+            VALUE "LegalCopyright", "Copyright (C) 2000\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "SpriteManager.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "SpriteManager 응용 프로그램\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x412, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_SPRITEMANAGER_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 856
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 450
+    END
+
+    IDD_DIALOG_ANI, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 405
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 336
+    END
+
+    IDD_DIALOG_MAKE_SPRITE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 197
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 139
+    END
+
+    IDD_DIALOG_SEARCH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 38
+    END
+
+    IDD_DIALOG_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 267
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 73
+    END
+
+    IDD_DIALOG_INPUT_COUNT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 38
+    END
+
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 38
+    END
+
+    IDD_DIALOG2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 91
+    END
+
+    IDD_DIALOG_PROGRESS1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 267
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 73
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU DISCARDABLE 
+BEGIN
+    POPUP "AniMenu"
+    BEGIN
+        MENUITEM "삭제",                        ID_MENU_DELETE_ANI
+        MENUITEM "전부삭제",                    ID_MENU_DELETE_ALL_ANIS
+        MENUITEM "반복 복사...",                ID_REPEAT_COPY
+        MENUITEM SEPARATOR
+        MENUITEM "복사",                        ID_COPY
+        MENUITEM "붙여넣기",                    ID_PASTE
+    END
+    POPUP "ImageMenu"
+    BEGIN
+        MENUITEM "애니로",                      ID_MENU_SEND
+        MENUITEM "모두 애니로",                 ID_MENU_SEND_ALL
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_CURSOR_DRAG         CURSOR  DISCARDABLE     "res\\cursor1.cur"
+IDC_CURSOR_DRAG_ADD     CURSOR  DISCARDABLE     "res\\cursor_d.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP  DISCARDABLE     "bg4.bmp"
+IDB_BITMAP2             BITMAP  DISCARDABLE     "bg2.bmp"
+IDB_BITMAP3             BITMAP  DISCARDABLE     "bg3.bmp"
+IDB_BITMAP4             BITMAP  DISCARDABLE     "bg1.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCELERATOR1 ACCELERATORS DISCARDABLE 
+BEGIN
+    "Y",            ID_REDO,                VIRTKEY, CONTROL, NOINVERT
+    "Z",            ID_UNDO,                VIRTKEY, CONTROL, NOINVERT
+END
+
+#endif    // Korean resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE 18, 1
+#pragma code_page(949)
+#endif //_WIN32
+#include "res\SpriteManager.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.kor\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

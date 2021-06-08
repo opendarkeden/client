@@ -1,0 +1,21 @@
+SCC = This is a Source Code Control file
+
+[Rar.dsp]
+SCC_Aux_Path = "K:\DK2_DESIGEN"
+SCC_Project_Name = "$/DARKEDEN/Client/designed/project/VS_UI", FVMBAAAA
+
+[Rar.dsw]
+SCC_Aux_Path = "K:\DK2_DESIGEN"
+SCC_Project_Name = "$/DARKEDEN/Client/designed/project/VS_UI", FVMBAAAA
+
+[VS_UI.dsp]
+SCC_Aux_Path = "K:\DK2_DESIGEN"
+SCC_Project_Name = "$/", AAAAAAAA
+
+[VS_UI.dsw]
+SCC_Aux_Path = "K:\DK2_DESIGEN"
+SCC_Project_Name = "$/DARKEDEN/Client/designed/project/VS_UI", FVMBAAAA
+
+[lib.dsp]
+SCC_Aux_Path = "K:\DK2_DESIGEN"
+SCC_Project_Name = "$/DARKEDEN/Client/designed/project/VS_UI", FVMBAAAA

@@ -6,7 +6,7 @@
 #include "vs_ui_extradialog.h"
 //#include "VS_UI_DESC.h" // ?? ÀÌ»ף-_-a
 #include "VS_UI_filepath.h"
-
+extern RECT g_GameRect;
 #define dSTRING_LEN 2048 
 
 //////////////////////////////////////////////////////////////////////
@@ -109,8 +109,8 @@ void C_VS_UI_DESC::ShowDesc(int x, int y)
 					RECT rt;
 					rt.left = max(-(m_desc_x+x), rect.x);
 					rt.top = max(-(m_desc_y + blt_y+y), rect.y);
-					rt.right = min(rect.x+rect.w, 800-m_desc_x);
-					rt.bottom = min(rect.y+rect.h, 600-(m_desc_y + blt_y));
+					rt.right = min(rect.x+rect.w, g_GameRect.right-m_desc_x);
+					rt.bottom = min(rect.y+rect.h, g_GameRect.bottom-(m_desc_y + blt_y));
 					
 					if(rt.left < rt.right && rt.top < rt.bottom)
 					{

@@ -6,8 +6,8 @@
 #define __SHOWTIMECHECKER_H__
 
 #include <Windows.h>
-std::ofstream;
-ifstream;
+class ofstream;
+class ifstream;
 
 class ShowTimeChecker {
 	public :
@@ -22,8 +22,8 @@ class ShowTimeChecker {
 		//---------------------------------------------------------------
 		// File I/O
 		//---------------------------------------------------------------
-		void			SaveToFile(std::ofstream& file);
-		void			LoadFromFile(ifstream& file);
+		void			SaveToFile(class ofstream& file);
+		void			LoadFromFile(class ifstream& file);
 
 	public :
 		// 반복적인가?

@@ -67,15 +67,9 @@ bool gbl_swap_advancement_item_running; // 铰流 酒捞袍苞 背券吝
 Race	g_eRaceInterface;
 
 extern int					g_Dimension ;
-
+extern RECT g_GameRect;
 static C_VS_UI_MONEY_DIALOG *	m_pC_dialog_Modify_Tax = NULL;
 static C_VS_UI_MONEY_DIALOG *	m_pC_dialog_Campaign_Help = NULL;
-static C_VS_UI_MONEY_DIALOG *	m_pC_dialog_Wedding_Contribution = NULL;
-static C_VS_UI_SUMMER_COME_BACK *	m_pC_SummerCommback = NULL;
-
-
-
-
 
 void ExecF_Get_Event_Item(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 {
@@ -113,22 +107,6 @@ void ExecF_CampaignHelp(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 	gC_vs_ui.AcquireChatting();
 }
 
-
-void ExecF_WeddingContribution(C_VS_UI_DIALOG * p_this_dialog, id_t id)
-{
-	switch (id)
-	{
-	case DIALOG_EXECID_OK:
-		if(NULL != m_pC_dialog_Wedding_Contribution)
-		{
-			gpC_base->SendMessage(UI_WEDDING_CONTRIBUTION, m_pC_dialog_Wedding_Contribution->GetValue(), m_pC_dialog_Wedding_Contribution->GetTempValue());
-		}
-		break;
-	}
-	gC_vs_ui.AcquireChatting();
-}
-
-
 // by sigi
 void ExecF_ExchangeCancel(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 {
@@ -164,6 +142,103 @@ void ExecF_ExchangeAsk(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 
 	gC_vs_ui.AcquireChatting();
 }
+//---------------------------------------------ask_friend_request-----------------------
+//add by viva : ask_friend_request
+void ExecF_FriendRequestAsk(C_VS_UI_DIALOG * p_this_dialog, id_t id)
+{
+	//C_VS_UI_ASK_DIALOG* pDialog = (C_VS_UI_ASK_DIALOG*)p_this_dialog;
+	switch (id)
+	{
+		case DIALOG_EXECID_OK:
+			//gpC_base->SendMessage( UI_FRIEND_REQUEST_ACCEPT, TRUE, 0, pDialog->GetpTemporayValue());
+			gpC_base->SendMessage( UI_FRIEND_REQUEST_ACCEPT, 0, 0, (void*)p_this_dialog);
+		break;
+
+		case DIALOG_EXECID_CANCEL:
+		case DIALOG_EXECID_EXIT:
+			gpC_base->SendMessage( UI_FRIEND_REQUEST_ACCEPT, 1, 0, (void*)p_this_dialog);
+			break;
+		case DIALOG_EXECID_FRIEND_BLACK:
+			gpC_base->SendMessage( UI_FRIEND_REQUEST_ACCEPT, 2, 0, (void*)p_this_dialog);
+			break;
+	}
+
+	gC_vs_ui.AcquireChatting();
+}
+//-----------------------------------------ask_friend_refuse----------------------------
+//add by viva : ask_friend_refuse
+void ExecF_FriendRefuseAsk(C_VS_UI_DIALOG* p_this_dialog, id_t id)
+{
+	//C_VS_UI_ASK_DIALOG* pDialog = (C_VS_UI_ASK_DIALOG*)p_this_dialog;
+	switch (id)
+	{
+		case DIALOG_EXECID_CANCEL:
+		case DIALOG_EXECID_EXIT:
+			gpC_base->SendMessage( UI_FRIEND_ASK_CLOSE, 0, 0,  (void*)p_this_dialog);
+			break;
+	}
+
+	gC_vs_ui.AcquireChatting();
+}
+//------------------------------------ask_friend_wait-------------------------------------
+//	add by viva
+void ExecF_FriendWaitAsk(C_VS_UI_DIALOG* p_this_dialog, id_t id)
+{
+	switch (id)
+	{
+		case DIALOG_EXECID_CANCEL:
+		case DIALOG_EXECID_EXIT:
+			gpC_base->SendMessage( UI_FRIEND_ASK_CLOSE, 0, 0,  (void*)p_this_dialog);
+			break;
+	}
+
+	gC_vs_ui.AcquireChatting();
+}
+//------------------------------------ask_friend_exsit-------------------------------------
+//  add by viva
+void ExecF_FriendExistAsk(C_VS_UI_DIALOG* p_this_dialog, id_t id)
+{
+	switch (id)
+	{
+		case DIALOG_EXECID_CANCEL:
+		case DIALOG_EXECID_EXIT:
+			gpC_base->SendMessage( UI_FRIEND_ASK_CLOSE, 0, 0,  (void*)p_this_dialog);
+			break;
+	}
+
+	gC_vs_ui.AcquireChatting();
+}
+//------------------------------------ask_friend_black------------------------------------
+void ExecF_FriendBlackAsk(C_VS_UI_DIALOG* p_this_dialog, id_t id)
+{
+	switch (id)
+	{
+		case DIALOG_EXECID_CANCEL:
+		case DIALOG_EXECID_EXIT:
+			gpC_base->SendMessage( UI_FRIEND_ASK_CLOSE, 0, 0,  (void*)p_this_dialog);
+			break;
+	}
+
+	gC_vs_ui.AcquireChatting();
+}
+//-------------------------------------ask_friend_delete-----------------------------------
+void ExecF_FriendDeleteAsk(C_VS_UI_DIALOG* p_this_dialog, id_t id)
+{
+	switch(id)
+	{
+	case DIALOG_EXECID_OK:
+		gpC_base->SendMessage(UI_FRIEND_DELETE_ACCEPT, 0, 0, (void*)p_this_dialog);
+		break;
+	case DIALOG_EXECID_CANCEL:
+	case DIALOG_EXECID_EXIT:
+		gpC_base->SendMessage(UI_FRIEND_ASK_CLOSE, 0, 0, (void*)p_this_dialog);
+		break;
+	}
+
+	gC_vs_ui.AcquireChatting();
+}
+
+
 
 void ExecF_PartyCancel(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 {
@@ -210,26 +285,35 @@ void ExecF_UsePetFood(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 	{
 	case DIALOG_EXECID_OK:
 		{
-			if(((C_VS_UI_ASK_DIALOG*)p_this_dialog)->GetdwTemporayValue())
-			{
-				MSubInventory* pSubInventory = (MSubInventory*)((C_VS_UI_ASK_DIALOG*)p_this_dialog)->GetpTemporayValue();
-				if(NULL != pSubInventory)
+			#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+				if(((C_VS_UI_ASK_DIALOG*)p_this_dialog)->GetdwTemporayValue())
 				{
-					MItem *p_cur_item = pSubInventory->GetItem(((C_VS_UI_ASK_DIALOG*)p_this_dialog)->GetdwTemporayValue());
-					if(NULL != p_cur_item)
+					MSubInventory* pSubInventory = (MSubInventory*)((C_VS_UI_ASK_DIALOG*)p_this_dialog)->GetpTemporayValue();
+					if(NULL != pSubInventory)
 					{
-						gpC_base->SendMessage(UI_ITEM_USE_SUBINVENTORY, p_cur_item->GetID(), pSubInventory->GetID(), (MItem *)p_cur_item);
+						MItem *p_cur_item = pSubInventory->GetItem(((C_VS_UI_ASK_DIALOG*)p_this_dialog)->GetdwTemporayValue());
+						if(NULL != p_cur_item)
+						{
+							gpC_base->SendMessage(UI_ITEM_USE_SUBINVENTORY, p_cur_item->GetID(), pSubInventory->GetID(), (MItem *)p_cur_item);
+						}
 					}
 				}
-			}
-			else
-			{
+				else
+				{
+					MItem *p_cur_item = g_pInventory->GetItem(C_VS_UI_INVENTORY::m_mine_grid_x, C_VS_UI_INVENTORY::m_mine_grid_y);
+					assert(p_cur_item);
+					gpC_base->SendMessage(UI_ITEM_USE, p_cur_item->GetID(), 1, (MItem *)p_cur_item);
+		//			gpC_base->SendMessage(UI_ENCHANT_ACCEPT, C_VS_UI_INVENTORY::m_mine_grid_x, C_VS_UI_INVENTORY::m_mine_grid_y, (void *)p_cur_item);
+				}
+				gbl_use_pet_food_running = false;
+			#else
 				MItem *p_cur_item = g_pInventory->GetItem(C_VS_UI_INVENTORY::m_mine_grid_x, C_VS_UI_INVENTORY::m_mine_grid_y);
 				assert(p_cur_item);
 				gpC_base->SendMessage(UI_ITEM_USE, p_cur_item->GetID(), 1, (MItem *)p_cur_item);
 	//			gpC_base->SendMessage(UI_ENCHANT_ACCEPT, C_VS_UI_INVENTORY::m_mine_grid_x, C_VS_UI_INVENTORY::m_mine_grid_y, (void *)p_cur_item);
-			}
-			gbl_use_pet_food_running = false;
+				gbl_use_pet_food_running = false;
+			#endif
+
 		}
 		break;
 		
@@ -433,7 +517,6 @@ void ExecF_Use_AskItem(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 	case DIALOG_EXECID_OK:
 		{
 			MItem *p_cur_item = g_pInventory->GetItem(C_VS_UI_INVENTORY::m_mine_grid_x, C_VS_UI_INVENTORY::m_mine_grid_y);
-			MItem* pMouseItem = gpC_mouse_pointer->GetPickUpItem();
 			if(p_cur_item)
 			{
 				if(p_cur_item->GetItemClass() == ITEM_CLASS_EVENT_GIFT_BOX &&
@@ -446,34 +529,7 @@ void ExecF_Use_AskItem(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 				{
 					gpC_base->SendMessage(UI_ITEM_USE, p_cur_item->GetID(), 0, (MItem *)p_cur_item);
 				}
-
-				if(p_cur_item->GetItemClass() == ITEM_CLASS_DYE_POTION && p_cur_item->GetItemType() >= 58 && p_cur_item->GetItemType() <= 64)
-				{
-					return ; 
-				}
-
-				if(p_cur_item->GetItemClass() == ITEM_CLASS_EFFECT_ITEM && p_cur_item->GetItemType() >= 7 && p_cur_item->GetItemType() <= 9)
-				{
-					return ; 
-				}
-				if(pMouseItem != NULL)
-				{
-					if(pMouseItem->GetItemClass() == ITEM_CLASS_MIXING_ITEM && pMouseItem->GetItemType() == 25)
-					{
-						gC_vs_ui.RunRemoveOptionFromRareItem( pMouseItem, p_cur_item );
-						return ; 
-					}
-				}
-				//if(pMouseItem->GetItemClass() == ITEM_CLASS_PET_ENCHANT_ITEM && pMouseItem->GetItemType() == 21)
-					
-				//	p_cur_item->GetItemClass() == ITEM_CLASS_PET_ENCHANT_ITEM && p_cur_item->GetItemType() >= 21)
-				//{
-				//	gbl_use_askitem_running = false;
-				//	gC_vs_ui.RunEnchant(1);
-				//	return ; 
-				//}
 				gbl_use_askitem_running = false;
-				
 			}
 		}
 		break;
@@ -487,21 +543,6 @@ void ExecF_Use_AskItem(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 	
 	gC_vs_ui.AcquireChatting();
 }
-
-void ExecF_SummerComeBack(C_VS_UI_DIALOG * p_this_dialog, id_t id)
-{
-	switch (id)
-	{
-	case DIALOG_EXECID_OK:
-		if(NULL != m_pC_SummerCommback)
-		{
-			//gpC_base->SendMessage(Execute_UI_REQUEST_EVENT_ITEM, m_pC_SummerCommback->GetType(), 0);
-		}
-		break;
-	}
-	gC_vs_ui.AcquireChatting();
-}
-
 /*
 // by larosel
 void ExecF_TutorialExitAsk(C_VS_UI_DIALOG * p_this_dialog, id_t id)
@@ -589,8 +630,6 @@ void C_VS_UI_GAME::ChangeToSlayerInterface()
 
 //	gbl_vampire_interface = false;
 	g_eRaceInterface = RACE_SLAYER; // ousters interface 眠啊
-	//g_eRaceInterface = RACE_OUSTERS; // ousters interface 眠啊
-	//g_eRaceInterface = RACE_VAMPIRE; // ousters interface 眠啊
 
 	DeleteNew(m_pC_tribe_interface);
 
@@ -599,10 +638,6 @@ void C_VS_UI_GAME::ChangeToSlayerInterface()
 	gpC_global_resource->LoadAssemble();
 	
 	m_pC_tribe_interface = new C_VS_UI_SLAYER;
-	
-	//m_pC_tribe_interface = new C_VS_UI_OUSTERS;
-	//m_pC_tribe_interface = new C_VS_UI_VAMPIRE;
-
 
 	char sz_filename[512],sz_filename2[512],sz_filename3[512];
 	wsprintf(sz_filename, "UserSet\\%s.set", g_char_slot_ingame.sz_name.c_str());
@@ -718,6 +753,9 @@ void C_VS_UI_GAME::ChangeToVampireInterface()
 //-----------------------------------------------------------------------------
 C_VS_UI_GAME::C_VS_UI_GAME()
 {	
+	//------------------------------------m_pC_friend_wait_dialog---------------------------
+	m_pC_friend_wait_dialog = NULL;//add by viva
+
 	m_pC_regen_tower_minimap = NULL;
 	m_pC_input_name = NULL;
 	m_pC_blood_bible_status = NULL;
@@ -829,9 +867,9 @@ C_VS_UI_GAME::C_VS_UI_GAME()
 	m_pC_dialog_Campaign_Help = NULL;
 	m_pC_Quest_Npc_Dialog = NULL;
 	m_pC_WebBrowser = NULL;
-	m_pC_SubInventory = NULL;
-	m_pC_dialog_Wedding_Contribution = NULL ; 
-	m_pC_SummerCommback = NULL ; 
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		m_pC_SubInventory = NULL;
+	#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -868,12 +906,11 @@ C_VS_UI_GAME::~C_VS_UI_GAME()
 	DeleteNew(m_pC_dialog_Modify_Tax);
 
 	DeleteNew(m_pC_dialog_Campaign_Help);
-	DeleteNew(m_pC_dialog_Wedding_Contribution);
-	
 	DeleteNew(m_pC_Quest_Npc_Dialog);
 	DeleteNew(m_pC_WebBrowser);
-	DeleteNew(m_pC_SubInventory);
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		DeleteNew(m_pC_SubInventory);
+	#endif
 	DeleteNew(m_pC_sms_message);
 	DeleteNew(m_pC_sms_list);
 	DeleteNew(m_pC_sms_record);
@@ -957,8 +994,6 @@ C_VS_UI_GAME::~C_VS_UI_GAME()
 	DeleteNew(m_pC_use_askitem_dialog);
 	DeleteNew(m_pC_get_event_item);
 
-	DeleteNew(m_pC_SummerCommback);
-	
 	gbl_sell_running = false;
 	gbl_buy_running = false;
 	gbl_repair_running = false;
@@ -1366,11 +1401,6 @@ bool	C_VS_UI_GAME::ClosePopupWindow()
 	//
 	bool charinfo_closed = false;
 
-//	if(IsRunningWebBrowser())
-//	{
-//		CloseWebBrowser();
-//		return true;
-//	}
 	if (IsRunningCharInfo() || IsRunningSkillInfo() || IsRunningGrade1Info()  || IsRunningGrade2Info() || IsRunningGrade3Info())
 	{
 		CloseInfo();
@@ -1383,11 +1413,13 @@ bool	C_VS_UI_GAME::ClosePopupWindow()
 		return true;
 	}
 
-	if(IsRunningSubInventory())
-	{
-		CloseSubInventory();
-		return true;
-	}
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		if(IsRunningSubInventory())
+		{
+			CloseSubInventory();
+			return true;
+		}
+	#endif
 
 	if(IsRunningSMSRecord())
 	{
@@ -3484,6 +3516,42 @@ void C_VS_UI_GAME::CloseTeamRegist()
 	assert(m_pC_tribe_interface != NULL);
 	m_pC_tribe_interface->DoCommonActionAfterEventOccured();	
 }
+//-----------------------------------------------------------------------------
+// CloseFriendChattingInfo 
+//
+// add by viva
+//-----------------------------------------------------------------------------
+void C_VS_UI_GAME::CloseFriendChattingInfo(C_VS_UI_FRIEND_CHATTING_INFO* pInfo)
+{
+	if (!pInfo)
+		return;
+
+	DeleteNew(pInfo);
+
+	assert(m_pC_tribe_interface != NULL);
+	m_pC_tribe_interface->DoCommonActionAfterEventOccured();
+
+}
+
+//-----------------------------------------------------------------------------
+// OpenFriendChattingInfo 
+//
+// add by viva
+//-----------------------------------------------------------------------------
+void C_VS_UI_GAME::OpenFriendChattingInfo(C_VS_UI_FRIEND_INFO::FRIEND_LIST* pList)
+{
+	if (!pList)
+		return;
+
+	C_VS_UI_FRIEND_CHATTING_INFO* pInfo = new C_VS_UI_FRIEND_CHATTING_INFO(pList);
+	if(pInfo)
+	{
+		assert(m_pC_tribe_interface != NULL);
+		m_pC_tribe_interface->DoCommonActionBeforeEventOccured();
+	
+		pInfo->Start();
+	}
+}
 
 //-----------------------------------------------------------------------------
 // IsRunningTeamRegist
@@ -3517,6 +3585,83 @@ void C_VS_UI_GAME::RunExchangeAsk(const char* pName)
 
 	m_pC_exchange_ask_dialog->Start();	
 }
+///-----------------------------------------------------------------------------
+////	RunFriendRequestAsk
+//add by viva ask_friend_request
+//
+//-------------------------------------------------------------------------------
+void C_VS_UI_GAME::RunFriendRequestAsk(const char* pName)
+{
+	C_VS_UI_ASK_DIALOG* pDialog = new C_VS_UI_ASK_DIALOG(-1, 50, 2, 0, ExecF_FriendRequestAsk, DIALOG_OK|DIALOG_CANCEL|DIALOG_FRIEND_BLACK, 
+												C_VS_UI_ASK_DIALOG::ASK_FRIEND_REQUEST, 0, (void*)pName);
+	assert(pDialog != NULL);
+	//m_pC_tribe_interface->DoCommonActionBeforeEventOccured();
+	pDialog->Start();
+}
+
+void C_VS_UI_GAME::CloseFriendRequestAsk(C_VS_UI_ASK_DIALOG* pDialog)
+{
+	if(pDialog)
+		DeleteNew(pDialog);
+	//m_pC_tribe_interface->DoCommonActionAfterEventOccured();
+}
+//-------------------------------------------RunFriendRefuseAsk----------------------------------------------
+void C_VS_UI_GAME::RunFriendRefuseAsk(const char* pName)
+{
+	C_VS_UI_ASK_DIALOG* pDialog = new C_VS_UI_ASK_DIALOG(-1, 50, 2, 0, ExecF_FriendRefuseAsk, DIALOG_CANCEL, 
+												C_VS_UI_ASK_DIALOG::ASK_FRIEND_REFUSE, 0, (void*)pName);
+	assert(pDialog != NULL);
+	//m_pC_tribe_interface->DoCommonActionBeforeEventOccured();
+	pDialog->Start();
+}
+//-------------------------------------------RunFriendWaitAsk--------------------------------------------------
+void C_VS_UI_GAME::RunFriendWaitAsk(const char* pName)
+{
+	if(m_pC_friend_wait_dialog == NULL)
+		m_pC_friend_wait_dialog = new C_VS_UI_ASK_DIALOG(-1, 50, 2, 0, ExecF_FriendWaitAsk, DIALOG_CANCEL, 
+												C_VS_UI_ASK_DIALOG::ASK_FRIEND_WAIT, 0, (void*)pName);
+	assert(m_pC_friend_wait_dialog != NULL);
+	//m_pC_tribe_interface->DoCommonActionBeforeEventOccured();
+	m_pC_friend_wait_dialog->Start();
+}
+//------------------------------------------RunFriendOK---------------------------------------------------------
+void C_VS_UI_GAME::RunFriendOK()
+{
+	if(m_pC_friend_wait_dialog)
+		DeleteNew(m_pC_friend_wait_dialog);
+}
+//-----------------------------------------RunFriendExistAsk--------------------------------------------------------
+void C_VS_UI_GAME::RunFriendExistAsk(const char* pName)
+{
+	C_VS_UI_ASK_DIALOG* pDialog = new C_VS_UI_ASK_DIALOG(-1, 50, 2, 0, ExecF_FriendExistAsk, DIALOG_CANCEL, 
+												C_VS_UI_ASK_DIALOG::ASK_FRIEND_EXIST, 0, (void*)pName);
+	assert(pDialog != NULL);
+	//m_pC_tribe_interface->DoCommonActionBeforeEventOccured();
+	pDialog->Start();
+}	
+//-----------------------------------------RunFriendBlackAsk------------------------------------------------
+void C_VS_UI_GAME::RunFriendBlackAsk(const char* pName)
+{
+	C_VS_UI_ASK_DIALOG* pDialog = new C_VS_UI_ASK_DIALOG(-1, 50, 2, 0, ExecF_FriendBlackAsk, DIALOG_CANCEL,
+												C_VS_UI_ASK_DIALOG::ASK_FRIEND_BLACK, 0, (void*)pName);
+	assert(pDialog != NULL);
+	
+	pDialog->Start();
+}
+//----------------------------------------RunFriendDeleteAsk-------------------------------------------------
+void C_VS_UI_GAME::RunFriendDeleteAsk(const char* pName)
+{
+	C_VS_UI_ASK_DIALOG* pDialog = new C_VS_UI_ASK_DIALOG(-1, 50, 2, 0, ExecF_FriendDeleteAsk, DIALOG_OK|DIALOG_CANCEL,
+												C_VS_UI_ASK_DIALOG::ASK_FRIEND_DELETE, 0, (void*)pName);
+	assert(pDialog != NULL);
+
+	pDialog->Start();
+}
+
+
+
+
+
 
 //-----------------------------------------------------------------------------
 // RunExchangeCancel
@@ -3609,7 +3754,7 @@ void	C_VS_UI_GAME::RunTraceWindow()
 		m_pC_trace = new C_VS_UI_TRACE;
 
 		assert(m_pC_trace != NULL);		
-		m_pC_tribe_interface->DoCommonActionBeforeEventOccured();
+		m_pC_tribe_interface->DoCommonActionBeforeEventOccured();		
 		m_pC_trace->Start();
 	}	
 }
@@ -4054,7 +4199,15 @@ void C_VS_UI_GAME::HotKey_PetInfo()
 	if (!m_pC_gamemenu)
 		m_pC_hotkey->HotKey_PetInfo();
 }
+//add by viva
+void C_VS_UI_GAME::HotKey_Friend()
+{
+	assert(m_pC_hotkey);
 
+	//if (!gpC_window_manager->GetShowState(m_pC_gamemenu))
+	if (!m_pC_gamemenu)
+		m_pC_hotkey->HotKey_Party();
+}
 
 void C_VS_UI_GAME::HotKey_Party()
 {
@@ -4074,13 +4227,23 @@ void C_VS_UI_GAME::HotKey_Mark()
 		m_pC_hotkey->HotKey_Mark();
 }
 
-void C_VS_UI_GAME::HotKey_Inventory(bool IsCheckSubInventory)
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+	void C_VS_UI_GAME::HotKey_Inventory(bool IsCheckSubInventory)
+#else
+	void C_VS_UI_GAME::HotKey_Inventory()
+#endif
 {
 	assert(m_pC_hotkey);
 
 	//if (!gpC_window_manager->GetShowState(m_pC_gamemenu))
-	if (!m_pC_gamemenu)
-		m_pC_hotkey->HotKey_Inventory(IsCheckSubInventory);
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		if (!m_pC_gamemenu)
+			m_pC_hotkey->HotKey_Inventory(IsCheckSubInventory);
+	#else
+		if (!m_pC_gamemenu)
+			m_pC_hotkey->HotKey_Inventory();
+	#endif
+
 }
 
 void C_VS_UI_GAME::HotKey_Gear()
@@ -4681,8 +4844,8 @@ void C_VS_UI_GAME::RunEnchant(int value)
 		DeleteNew(m_pC_enchant_dialog);
 	}
 
-	// center 50 , 30 
-	m_pC_enchant_dialog = new C_VS_UI_ASK_DIALOG(-1, 200 , 3, 0, ExecF_Enchant, DIALOG_CANCEL | DIALOG_OK, 
+	// center
+	m_pC_enchant_dialog = new C_VS_UI_ASK_DIALOG(-1, 50, 3, 0, ExecF_Enchant, DIALOG_CANCEL | DIALOG_OK, 
 												C_VS_UI_ASK_DIALOG::ASK_ENCHANT, value);	// by sigi
 
 	assert(m_pC_enchant_dialog != NULL);
@@ -4717,7 +4880,11 @@ void C_VS_UI_GAME::CloseEnchant()
 //
 // 脐 冈捞 冈老贰 窍绊 汞绰吝...
 //-----------------------------------------------------------------------------
-void C_VS_UI_GAME::RunUsePetFood(DWORD UsingObjectID, MItem* SubInventory)
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+	void C_VS_UI_GAME::RunUsePetFood(DWORD UsingObjectID, MItem* SubInventory)
+#else
+	void C_VS_UI_GAME::RunUsePetFood()
+#endif
 {
 	if (m_pC_use_pet_food_dialog != NULL)
 	{
@@ -4725,8 +4892,15 @@ void C_VS_UI_GAME::RunUsePetFood(DWORD UsingObjectID, MItem* SubInventory)
 	}
 	
 	// center
-	m_pC_use_pet_food_dialog = new C_VS_UI_ASK_DIALOG(-1, 50, 5, 1, ExecF_UsePetFood, DIALOG_CANCEL | DIALOG_OK, 
-		C_VS_UI_ASK_DIALOG::ASK_USE_PET_FOOD, UsingObjectID, SubInventory);	// by sigi
+
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
+		m_pC_use_pet_food_dialog = new C_VS_UI_ASK_DIALOG(-1, 50, 5, 1, ExecF_UsePetFood, DIALOG_CANCEL | DIALOG_OK, 
+			C_VS_UI_ASK_DIALOG::ASK_USE_PET_FOOD, UsingObjectID, SubInventory);	// by sigi
+	#else
+		m_pC_use_pet_food_dialog = new C_VS_UI_ASK_DIALOG(-1, 50, 5, 1, ExecF_UsePetFood, DIALOG_CANCEL | DIALOG_OK, 
+			C_VS_UI_ASK_DIALOG::ASK_USE_PET_FOOD, 0);	// by sigi
+	#endif
+
 	
 	assert(m_pC_use_pet_food_dialog != NULL);
 	
@@ -5897,8 +6071,8 @@ C_VS_UI_GAMEMENU::C_VS_UI_GAMEMENU()
 		y4_offset = pSkin->GetPoint(5).y;
 		break;
 	}	
-
-	Set(RESOLUTION_X/2-m_pC_gamemenu_spk->GetWidth()/2, RESOLUTION_Y/2-m_pC_gamemenu_spk->GetHeight()/2, m_pC_gamemenu_spk->GetWidth(), m_pC_gamemenu_spk->GetHeight());
+	
+	Set(g_GameRect.right/2-m_pC_gamemenu_spk->GetWidth()/2, g_GameRect.bottom/2-m_pC_gamemenu_spk->GetHeight()/2, m_pC_gamemenu_spk->GetWidth(), m_pC_gamemenu_spk->GetHeight());
 
 	m_pC_button_group = new ButtonGroup(this);
 
@@ -6329,25 +6503,13 @@ void	C_VS_UI_GAME::CloseNaming()
 }
 
 
-bool	C_VS_UI_GAME::IsRunAskUseItemDialog()
-{
-	if(gbl_use_askitem_running) return	true ; 
-	return false; 
-}
-
-
-void	C_VS_UI_GAME::SetUseAskIitemRunning(bool bRunning)
-{
-	gbl_use_askitem_running = bRunning  ; 
-}
-
 
 //-----------------------------------------------------------------------------
 // RunUseSMSItemDialog
 //
 // sms 酒捞袍阑 荤侩 且贰?? 窍绊 汞绰吝...
 //-----------------------------------------------------------------------------
-void C_VS_UI_GAME::RunAskUseItemDialog(int AskType ,  int value)
+void C_VS_UI_GAME::RunAskUseItemDialog(int AskType)
 {
 	if (m_pC_use_askitem_dialog != NULL)
 	{
@@ -6358,7 +6520,7 @@ void C_VS_UI_GAME::RunAskUseItemDialog(int AskType ,  int value)
 	if(AskType >= C_VS_UI_ASK_DIALOG::MAX_ASK_DIALOG_TYPE)
 		return;
 	m_pC_use_askitem_dialog = new C_VS_UI_ASK_DIALOG(-1, 50, 5, 1, ExecF_Use_AskItem, DIALOG_CANCEL | DIALOG_OK, 
-		(C_VS_UI_ASK_DIALOG::TYPE_ASK_DIALOG)AskType, value ) ; //0);	// by sigi
+		(C_VS_UI_ASK_DIALOG::TYPE_ASK_DIALOG)AskType, 0);	// by sigi
 	
 	assert(m_pC_use_askitem_dialog != NULL);
 	
@@ -6950,8 +7112,6 @@ void	C_VS_UI_GAME::SetQuestNpcDialog(void* pVoid)
 	
 }
 // 2005, 1, 17, sobeit add end - 涅胶飘 包访
-	
-
 // 2005, 1, 24, sobeit add start - 酒捞袍 罐扁 捞亥飘
 void	C_VS_UI_GAME::Run_Confirm_GetItemEvent(int value)
 {
@@ -6972,7 +7132,7 @@ void	C_VS_UI_GAME::Run_Confirm_GetItemEvent(int value)
 // 2005, 1, 24, sobeit add end
 
 // 2005, 2, 1, sobeit add start
-void	C_VS_UI_GAME::RunWebBrowser(HWND hWnd, char* szURL, HINSTANCE hInst) //void* pWebOjbect)
+void	C_VS_UI_GAME::RunWebBrowser(HWND hWnd, char* szURL, void* pWebOjbect)
 {
 	if(IsRunningWebBrowser())
 		CloseWebBrowser();
@@ -6980,7 +7140,7 @@ void	C_VS_UI_GAME::RunWebBrowser(HWND hWnd, char* szURL, HINSTANCE hInst) //void
 	{
 		m_pC_WebBrowser = new C_VS_UI_WEBBROWSER();
 		
-		if(false == m_pC_WebBrowser->Start(hWnd, szURL, hInst)) // pWebOjbect))
+		if(false == m_pC_WebBrowser->Start(hWnd, szURL, pWebOjbect))
 		{
 			gpC_base->SendMessage(UI_MESSAGE_BOX, UI_STRING_MESSAGE_FAIL_OPEN_WEBPAGE, 0, 	NULL);
 			DeleteNew(m_pC_WebBrowser);
@@ -7013,6 +7173,7 @@ bool C_VS_UI_GAME::IsInRectPointWebBrowser(int X, int Y)
 	return m_pC_WebBrowser->IsInRectPoint(X, Y);
 }
 // 2005, 2, 1, sobeit add end
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 
 // 2005, 2, 24, sobeit add start
 void	C_VS_UI_GAME::RunSubInventory(MItem* pItem)
@@ -7056,67 +7217,4 @@ void	C_VS_UI_GAME::CloseSubInventory()
 }
 // 2005, 2, 25, sobeit add end
 
-
-//2005, 4, 21, sjheon add start - 搬去绵狼陛  芒
-void	C_VS_UI_GAME::Run_Wedding_Contribution_Unfortunate_Neighbors(int value)
-{
-	if(m_pC_dialog_Wedding_Contribution)
-		DeleteNew(m_pC_dialog_Wedding_Contribution);
-
-	m_pC_dialog_Wedding_Contribution = new C_VS_UI_MONEY_DIALOG(250, 300, 3, 0, ExecF_WeddingContribution, DIALOG_OK|DIALOG_CANCEL, 6, 
-		C_VS_UI_MONEY_DIALOG::MONEY_WEDDING_CONTRIBUTION);	// by sjheon
-	m_pC_dialog_Wedding_Contribution->Start();
-	m_pC_dialog_Wedding_Contribution->SetTempValue(value);
-
-}
-//2005, 4, 21, sjheon add end - 搬去绵狼陛 芒
-
-
-//2005, 7, 14, sjheon add  - ComboSkill Add
-void	C_VS_UI_GAME::SetComboCnt(int ComboCnt)
-{
-	m_pC_tribe_interface->SetComboCnt(ComboCnt) ; 
-}
-
-//2005, 7, 14, sjheon add  - SelectedComboSkill Add
-
-void	C_VS_UI_GAME::SetSelectedAttackComboSkill(bool	bAttackSkill)
-{
-	m_pC_tribe_interface->SetSelectedAttackComboSkill(bAttackSkill) ;
-}
-
-//2005, 7, 14, sjheon add  - SelectedComboSkill End
-
-
-//2005, 7, 18, sjheon add  - PopupSummerComBack Add
-void	C_VS_UI_GAME::PopupSummerComBack(int value)
-{
-	if(m_pC_SummerCommback)
-		DeleteNew(m_pC_SummerCommback);
-
-	if(value == 0) 
-		m_pC_SummerCommback = new C_VS_UI_SUMMER_COME_BACK(250, 300, 3, 0, ExecF_SummerComeBack, DIALOG_OK , C_VS_UI_SUMMER_COME_BACK::COME_BACK_LOGIN_AFTER) ;
-	else if(value == 1)
-		m_pC_SummerCommback = new C_VS_UI_SUMMER_COME_BACK(250, 300, 3, 0, ExecF_SummerComeBack, DIALOG_OK , C_VS_UI_SUMMER_COME_BACK::COME_BACK_SETTLEMENT_AFTER) ;
-	else if(value == 2)
-		m_pC_SummerCommback = new C_VS_UI_SUMMER_COME_BACK(250, 300, 3, 0, ExecF_SummerComeBack, DIALOG_OK , C_VS_UI_SUMMER_COME_BACK::COME_BACK_RECOMMENDER) ;
-
-	m_pC_SummerCommback->Start();
-}
-//2005, 7, 18, sjheon add  - PopupSummerComBack End
-
-
-void	C_VS_UI_GAME::SetBloodBurstAttackGage()
-{
-	m_pC_tribe_interface->SetBloodBurstAttackGage() ; 
-}
-
-void	C_VS_UI_GAME::SetBloodBurstDefenseGage()
-{
-	m_pC_tribe_interface->SetBloodBurstDefenseGage() ; 
-}
-
-void	C_VS_UI_GAME::SetBloodBurstPartyGage()
-{
-	m_pC_tribe_interface->SetBloodBurstPartyGage() ; 
-}
+#endif

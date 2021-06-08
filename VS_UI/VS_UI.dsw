@@ -1,0 +1,85 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "CppUnitTestApp"=..\Client\CppUnitTestApp\CppUnitTestApp.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    "$/darkeden/Client/代码/VS_UI/CppUnitTestApp", VUTAAAAA
+    ..\client\cppunittestapp
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "CppUnitTestMain"=..\Client\CppUnitTestMain\CppUnitTestMain.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    "$/darkeden/Client/代码/VS_UI/CppUnitTestMain", TVTAAAAA
+    ..\client\cppunittestmain
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "VS_UI"=.\VS_UI.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    "$/darkeden/Client/代码/VS_UI", TUTAAAAA
+    .
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "lib"=.\lib\lib.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    "$/darkeden/Client/代码/VS_UI/lib", KCUAAAAA
+    .\lib
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+    begin source code control
+    "$/darkeden/Client/代码/VS_UI", TUTAAAAA
+    .
+    end source code control
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

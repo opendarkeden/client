@@ -312,7 +312,7 @@ void CVolumeOutMaster::EnableLine( bool bEnable )
 	mmResult = mixerGetLineControls( (HMIXEROBJ)m_dwMixerHandle, &LineControls, MIXER_GETLINECONTROLSF_ALL );
 	if ( mmResult == MMSYSERR_NOERROR )
 	{
-		for (int i = 0; i < nControlCount; i++ )
+		for ( i = 0; i < nControlCount; i++ )
 		{
 			LONG lValue;
 			bool bReadyToSet = false;

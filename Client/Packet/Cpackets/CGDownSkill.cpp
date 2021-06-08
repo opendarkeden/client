@@ -3,8 +3,7 @@
 // Written By  : elca@ewestsoft.com
 // Description : 
 //////////////////////////////////////////////////////////////////////////////
-// #include "Client_PCH.h"
-#include "Types/SystemTypes.h"
+#include "Client_PCH.h"
 #include "CGDownSkill.h"
 
 void CGDownSkill::read (SocketInputStream & iStream) 

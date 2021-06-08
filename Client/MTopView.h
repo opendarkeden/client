@@ -147,10 +147,10 @@ class MTopView : public MRequestMode {
 		//
 		//------------------------------------------------------		
 		void		LoadMinimap(const char* filename);//, MZoneInfo* pZoneInfo=NULL);
-		bool		LoadFromFileTileSPKLargeZone(ifstream & file);	// zone관련 spk load
-		bool		LoadFromFileImageObjectSPKLargeZone(ifstream & file);	// zone관련 spk load
-		bool		LoadFromFileTileSPKSmallZone(ifstream & file);	// zone관련 spk load
-		bool		LoadFromFileImageObjectSPKSmallZone(ifstream & file);	// zone관련 spk load
+		bool		LoadFromFileTileSPKLargeZone(class ifstream & file);	// zone관련 spk load
+		bool		LoadFromFileImageObjectSPKLargeZone(class ifstream & file);	// zone관련 spk load
+		bool		LoadFromFileTileSPKSmallZone(class ifstream & file);	// zone관련 spk load
+		bool		LoadFromFileImageObjectSPKSmallZone(class ifstream & file);	// zone관련 spk load
 		void		LoadFromFileCreatureSPK(int n);			// creature load		
 // 		void		LoadFromFileAddonSPK(int frame, int action);		// addon load		
 //		void		LoadFromFileCreatureActionSPK(int frame, int action);		// addon load		
@@ -450,12 +450,6 @@ class MTopView : public MRequestMode {
 
 		void		DrawGuildMarkInSiegeWar(MCreature* pCreature, int YPos); // 길드마크 큰놈으로 뿌려주자..ㅋ
 
-		//------------------------------------------------------
-		// Combo 스킬 Frame 함수들... by Sjheon  2005.06
-		//------------------------------------------------------
-		int			GetAdvancementComboFrame(MCreature* pCreature , int &Frame , int &action , int &ComboActionCnt, int &MaxFrame) ;
-		//------------------------------------------------------
-
 	protected :		
 		bool				m_bInit;
 
@@ -488,6 +482,11 @@ class MTopView : public MRequestMode {
 		CCreatureFramePack		m_AdvancementVampireManFPK;				// Player addon frames
 		CCreatureFramePack		m_AdvancementVampireWomanFPK;				// Player addon frames
 		CCreatureFramePack		m_AdvancementOustersFPK;			// Ousters frames
+		//add by viva 
+		CCreatureFramePack		m_NewVampireFPK;
+		CCreatureFramePack		m_NewSlayerManFPK;
+		CCreatureFramePack		m_NewSlayerWomanFPK;
+		//end
 
 		CImageFramePack			m_ItemTileFPK;			// Tile에 있는 Item에 대한..
 		CAnimationFramePack		m_ItemDropFPK;			// 바닥으로 떨어지는 Item에 대한..
@@ -509,6 +508,12 @@ class MTopView : public MRequestMode {
 		CCreatureFramePack		m_AdvancementVampireManShadowFPK;			// Player addon frames
 		CCreatureFramePack		m_AdvancementVampireWomanShadowFPK;			// Player addon frames
 		CCreatureFramePack		m_AdvancementOustersShadowFPK;			// Ousters addon frames
+
+		//add by viva
+		CCreatureFramePack		m_NewVampireShadowFPK;
+		CCreatureFramePack		m_NewSlayerManShadowFPK;
+		CCreatureFramePack		m_NewSlayerWomanShadowFPK;
+		//end
 		
 		
 		//------------------------------------------------------
@@ -530,7 +535,13 @@ class MTopView : public MRequestMode {
 		CIndexSpritePack		m_AdvancementSlayerWomanSPK;			// Creature Sprite들
 		CIndexSpritePack		m_AdvancementVampireManSPK;		// Sprite들		
 		CIndexSpritePack		m_AdvancementVampireWomanSPK;		// Sprite들		
-		CIndexSpritePack		m_AdvancementOustersSPK;		// Sprite들		
+		CIndexSpritePack		m_AdvancementOustersSPK;		// Sprite들	
+		
+		//add by viva
+		CIndexSpritePack		m_NewVampireSPK;
+		CIndexSpritePack		m_NewSlayerManSPK;
+		CIndexSpritePack		m_NewSlayerWomanSPK;
+		//end
 		
 		//CSpritePack				m_ItemTileSPK;			// Sprite들		
 		CIndexSpritePack		m_ItemTileISPK;			// Sprite들		
@@ -565,6 +576,11 @@ class MTopView : public MRequestMode {
 		CShadowSpritePack		m_AdvancementVampireManSSPK;
 		CShadowSpritePack		m_AdvancementVampireWomanSSPK;
 		CShadowSpritePack		m_AdvancementOustersSSPK;
+		//add by viva
+		CShadowSpritePack		m_NewVampireSSPK;
+		CShadowSpritePack		m_NewSlayerManSSPK;
+		CShadowSpritePack		m_NewSlayerWomanSSPK;
+		//end
 
 		CShadowSpritePack		m_ImageObjectSSPK;
 //		CShadowSpritePack		m_InteractionObjectSSPK;
@@ -598,14 +614,14 @@ class MTopView : public MRequestMode {
 		//                  Sprite File
 		//
 		//------------------------------------------------------
-//		ifstream			m_TileSPKFile;
-//		ifstream			m_ImageObjectSPKFile;
-//		ifstream			m_EffectAlphaSPKFile;
-//		ifstream			m_EffectScreenSPKFile;
-//		ifstream			m_AddonSPKFile;
-//		ifstream			m_AddonSSPKFile;
-//		ifstream			m_CreatureSPKFile;
-//		ifstream			m_CreatureSSPKFile;
+//		class ifstream			m_TileSPKFile;
+//		class ifstream			m_ImageObjectSPKFile;
+//		class ifstream			m_EffectAlphaSPKFile;
+//		class ifstream			m_EffectScreenSPKFile;
+//		class ifstream			m_AddonSPKFile;
+//		class ifstream			m_AddonSSPKFile;
+//		class ifstream			m_CreatureSPKFile;
+//		class ifstream			m_CreatureSSPKFile;
 
 		//------------------------------------------------------
 		//
@@ -834,18 +850,12 @@ class MTopView : public MRequestMode {
 		void	DrawFastMove(POINT* pPoint, MCreature* pCreature, int action, int direction, int frame );
 		void	DrawInvisible(POINT* pPoint, MCreature* pCreature, int action, int direction, int frame );
 		void	DrawWeaponFadeOut(POINT* pPoint, MCreature* pCreature, int action, int direction, int frame );
-		void	DrawAfterSlayer(POINT* pPoint, MCreature* pCreature, int action, int direction, int frame );
-		void	DrawAfterVampire(POINT* pPoint, MCreature* pCreature, int action, int direction, int frame, int body);
-		void	DrawAfterOusters(POINT* pPoint, MCreature* pCreature, int action, int direction, int frame );
 		
 		void	DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int action, int direction, int frame );
 		void	DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int action, int direction, int frame );
 		void	DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int action, int direction, int frame );
 		void	DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature, int action, int direction, int frame );
-		void	DrawAfterACSlayer(POINT* pPoint, MCreature* pCreature, int action, int direction, int frame );
-		void	DrawAfterACVampire(POINT* pPoint, MCreature* pCreature, int action, int direction, int frame );
-		void	DrawAfterACOusters(POINT* pPoint, MCreature* pCreature, int action, int direction, int frame );
-	
+		
 		// DrawDivineGuidance
 		void	DrawDivineGuidanceSlayerCharacter( POINT *pPoint, MCreature* pCreature, int direction );
 		void	DrawDivineGuidanceVampireCharacter( POINT *pPoint, MCreature* pCreature, int direction, int body );

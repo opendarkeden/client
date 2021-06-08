@@ -28,8 +28,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(ifstream &file);
-	bool SaveToFile(ofstream &file);
+	bool LoadFromFile(class ifstream &file);
+	bool SaveToFile(class ofstream &file);
 	
 	//--------------------------------------------------------
 	// Get Functions

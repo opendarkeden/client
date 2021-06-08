@@ -274,11 +274,9 @@ MItemManager::FindItem( MItemFinder& itemFinder ) const
 
 	return NULL;
 }
-
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 //----------------------------------------------------------------------
-// Find Item 
-//----------------------------------------------------------------------
-// 辑宏 牢亥 鳖瘤 霍霍捞 第柳促..せせ
+// 包中包
 //----------------------------------------------------------------------
 MItem*			
 MItemManager::FindItemAll( MItemFinder& itemFinder, MItem*& pSubInventoryItem) const
@@ -308,6 +306,9 @@ MItemManager::FindItemAll( MItemFinder& itemFinder, MItem*& pSubInventoryItem) c
 	return NULL;
 
 }
+#endif
+
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 增加包中包
 
 
 //----------------------------------------------------------------------
@@ -315,31 +316,33 @@ MItemManager::FindItemAll( MItemFinder& itemFinder, MItem*& pSubInventoryItem) c
 //----------------------------------------------------------------------
 // 辑宏 牢亥 鳖瘤 霍霍捞 第柳促..せせ
 //----------------------------------------------------------------------
-MItem*			
-MItemManager::GetItemToModifyAll( TYPE_OBJECTID id, MItem*& pSubInventoryItem)
-{
-	ITEM_MAP::const_iterator iItem = m_mapItem.begin();
-
-	while (iItem != m_mapItem.end())
+	MItem*			
+	MItemManager::GetItemToModifyAll( TYPE_OBJECTID id, MItem*& pSubInventoryItem)
 	{
-		MItem* pItem = iItem->second;
-		
-		if (pItem != NULL && pItem->GetID() == id)
+		ITEM_MAP::const_iterator iItem = m_mapItem.begin();
+
+		while (iItem != m_mapItem.end())
 		{
-			return pItem;
-		}
-		else if(pItem->GetItemClass() == ITEM_CLASS_SUB_INVENTORY)
-		{
-			MItem* pTempItem = ((MSubInventory*)pItem)->GetItemToModify( id );
-			if(NULL != pTempItem)
+			MItem* pItem = iItem->second;
+			
+			if (pItem != NULL && pItem->GetID() == id)
 			{
-				pSubInventoryItem = pItem;
-				return pTempItem;
+				return pItem;
 			}
+			else if(pItem->GetItemClass() == ITEM_CLASS_SUB_INVENTORY)
+			{
+				MItem* pTempItem = ((MSubInventory*)pItem)->GetItemToModify( id );
+				if(NULL != pTempItem)
+				{
+					pSubInventoryItem = pItem;
+					return pTempItem;
+				}
+			}
+			iItem++;
 		}
-		iItem++;
+
+		return NULL;
+
 	}
 
-	return NULL;
-
-}
+#endif

@@ -1267,7 +1267,7 @@ PacketSize_t PacketFactoryManager::getPacketMaxSize (PacketID_t packetID)
 	// 이런 사용자는 당장 짤라야 한다.
 	if (packetID >= m_Size || m_Factories[packetID] == NULL) {
 		StringStream msg;
-		msg << "invalid packet id(" << packetID << ")";
+		msg << "invalid packet id (" << packetID << ")";
 		throw InvalidProtocolException(msg.toString());
 	}
 
@@ -1292,7 +1292,7 @@ string PacketFactoryManager::getPacketName (PacketID_t packetID)
 	// 이런 사용자는 당장 짤라야 한다.
 	if (packetID >= m_Size || m_Factories[packetID] == NULL) {
 		StringStream msg;
-		msg << "invalid packet id(" << packetID << ")";
+		msg << "invalid packet id = (" << packetID << ")";
 		throw InvalidProtocolException(msg.toString());
 	}
 

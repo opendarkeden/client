@@ -260,7 +260,7 @@ CIndexSprite::SetColorSet()
 // Save IndexTable To File
 //----------------------------------------------------------------------
 BOOL
-CIndexSprite::SaveIndexTableToFile(ofstream& file)
+CIndexSprite::SaveIndexTableToFile(class ofstream& file)
 {
 	int i,j,k;
 
@@ -315,7 +315,7 @@ CIndexSprite::SaveIndexTableToFile(ofstream& file)
 // Load IndexTable From File
 //----------------------------------------------------------------------
 BOOL
-CIndexSprite::LoadIndexTableFromFile(ifstream& file)
+CIndexSprite::LoadIndexTableFromFile(class ifstream& file)
 {
 	int i,j,k;
 
@@ -573,8 +573,7 @@ CIndexSprite::GetColorToGradation(BYTE spriteGradation)
 	// spriteGradation값과 가장 가까운 
 	// GradationValue를 찾아야 한다.
 	//-------------------------------------------------------
-	int g;
-	for (g=0; g<MAX_COLORGRADATION; g++)
+	for (int g=0; g<MAX_COLORGRADATION; g++)
 	{			
 		if (spriteGradation > GradationValue[g])
 		{
@@ -646,7 +645,7 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 	WORD	*pSourceTemp2;
 	pSourceTemp = pSource;
 
-	for (int i=0; i<height; i++)
+	for (register i=0; i<height; i++)
 	{
 		pSourceTemp2 = pSourceTemp;
 
@@ -688,7 +687,7 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 	//--------------------------------------------------
 	// 체크 체크~
 	//--------------------------------------------------
-	for (int i=0; i<height; i++)
+	for (i=0; i<height; i++)
 	{
 		//--------------------------------------------------
 		// 메모리 잡기
@@ -798,7 +797,7 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 	//--------------------------------------------------
 	// ppColor와 ppIndex를 지워준다.
 	//--------------------------------------------------
-	for (int i=0; i<height; i++)
+	for (i=0; i<height; i++)
 	{
 		delete [] ppColor[i];
 		delete [] ppIndex[i];

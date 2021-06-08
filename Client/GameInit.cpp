@@ -153,14 +153,14 @@ extern int  g_nGameVersion;
 void
 StartTitleLoading()
 {
-//	ifstream	titleFile;//(FILE_SSPRITE_IMAGEOBJECT, std::ios::binary);
+//	class ifstream	titleFile;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
 //	if (!FileOpenBinary("data\\ui\\spk\\Title.spk", titleFile))
 //		return;
 //
 //	g_TitleSPK.LoadFromFile(titleFile);
 //	titleFile.close();
 //
-//	ifstream	titleAniFile;//(FILE_SSPRITE_IMAGEOBJECT, std::ios::binary);
+//	class ifstream	titleAniFile;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
 //	if (!FileOpenBinary("data\\ui\\spk\\TitleAni.spk", titleAniFile))
 //		return;
 //
@@ -256,11 +256,11 @@ StartTitleLoading()
 		}
 
 		CFileIndexTable	FIT;
-		ifstream indexFile(g_pFileDef->getProperty("FILE_SPRITEINDEX_UI").c_str(), std::ios::binary);
+		class ifstream indexFile(g_pFileDef->getProperty("FILE_SPRITEINDEX_UI").c_str(), ios::binary);
 		FIT.LoadFromFile( indexFile );
 		indexFile.close();
 
-		ifstream spkFile(g_pFileDef->getProperty("FILE_SPRITE_UI").c_str(), std::ios::binary);
+		class ifstream spkFile(g_pFileDef->getProperty("FILE_SPRITE_UI").c_str(), ios::binary);
 		if(g_MyFull)
 			spkFile.seekg( FIT[5] );
 		else
@@ -463,7 +463,7 @@ PrepareLoadingAddonSPK()
 	//------------------------------------------------------------
 	if (g_AddonSPKNum==0)
 	{
-		ifstream	AddonFileIndex2;//(FILE_ISPRITE_ADDON, std::ios::binary);
+		class ifstream	AddonFileIndex2;//(FILE_ISPRITE_ADDON, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_ISPRITEINDEX_ADDON").c_str(), AddonFileIndex2))
 			return false;
 
@@ -551,7 +551,7 @@ LoadingAddonSPK(bool bLoadingAll)
 		// loading 안 된 부분이 있으면 loading한다.
 		if (!g_AddonSPKLoaded[i])
 		{
-//			ifstream	addonFile;
+//			class ifstream	addonFile;
 //
 //			if (!FileOpenBinary(FILE_ISPRITE_ADDON, addonFile))
 //				return false;	
@@ -806,12 +806,12 @@ InitSurface()
 	CIndexSprite::SetColorSet();
 
 	//#ifdef OUTPUT_DEBUG
-	//	ofstream indexTable(FILE_INDEXTABLE, std::ios::binary);
+	//	class ofstream indexTable(FILE_INDEXTABLE, ios::binary);
 	//	CIndexSprite::SaveIndexTableToFile( indexTable );
 	///	indexTable.close();
 	//#endif
 	
-	//ifstream indexTable2;//(FILE_INFO_USINGCOLORSET, std::ios::binary);
+	//class ifstream indexTable2;//(FILE_INFO_USINGCOLORSET, ios::binary);
 	//if (!FileOpenBinary(FILE_INDEXTABLE, indexTable2))
 	//	return FALSE;
 	//CIndexSprite::LoadIndexTableFromFile( indexTable2 );
@@ -859,7 +859,7 @@ InitSurface()
 	indexSurface1.Unlock();
 	//indexSurface2.Unlock();
 
-	ofstream file("test.ispr", std::ios::binary);
+	class ofstream file("test.ispr", ios::binary);
 	is.SaveToFile( file );
 	file.close();
 
@@ -1585,7 +1585,7 @@ InitGame()
 	//---------------------------------------------------------------------
 	// nick name string table Loading
 	//---------------------------------------------------------------------
-	ifstream gameStringTableTable;//(FILE_INFO_gameStringTable, std::ios::binary);
+	class ifstream gameStringTableTable;//(FILE_INFO_gameStringTable, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_NICKNAME_STRING").c_str(), gameStringTableTable))
 		return FALSE;
 	(*g_pNickNameStringTable).LoadFromFile_NickNameString(gameStringTableTable);
@@ -1596,7 +1596,7 @@ InitGame()
 	//---------------------------------------------------------------------
 	// GameStringTable Loading
 	//---------------------------------------------------------------------
-	ifstream gameStringTableTable2;//(FILE_INFO_gameStringTable, std::ios::binary);
+	class ifstream gameStringTableTable2;//(FILE_INFO_gameStringTable, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_STRING").c_str(), gameStringTableTable2))
 		return FALSE;
 	(*g_pGameStringTable).LoadFromFile(gameStringTableTable2);
@@ -1700,7 +1700,7 @@ InitGame()
 
 		/*
 		#if defined(_DEBUG) && defined(OUTPUT_DEBUG)
-			ifstream guildInfoFile2(FILE_INFO_GUILD_INFO_MAPPER, std::ios::binary | std::ios::in);	
+			class ifstream guildInfoFile2(FILE_INFO_GUILD_INFO_MAPPER, ios::binary | ios::nocreate);	
 
 			if (!guildInfoFile2.is_open())
 			{
@@ -1754,7 +1754,7 @@ InitGame()
 				}
 
 				// g_pGuildInfoMapper 저장
-				ofstream guildInfoFile(FILE_INFO_GUILD_INFO_MAPPER, std::ios::binary);	
+				class ofstream guildInfoFile(FILE_INFO_GUILD_INFO_MAPPER, ios::binary);	
 				g_pGuildInfoMapper->SaveToFile(guildInfoFile);
 				guildInfoFile.close();
 				
@@ -2816,7 +2816,7 @@ InitGameObject()
 	int nStartV = 73*25;
 #ifdef __GAME_CLIENT__
 	int version;
-	ifstream versionFile;//(g_pFileDef->getProperty("FILE_INFO_ACTION").c_str(), std::ios::binary);
+	class ifstream versionFile;//(g_pFileDef->getProperty("FILE_INFO_ACTION").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_VERSION").c_str(), versionFile))
 	{
 		return FALSE;
@@ -2829,7 +2829,7 @@ InitGameObject()
 //	g_pUserInformation->GameVersion = (406+nStartV)/2+88; //version=87891;
 	//g_pUserInformation->GameVersion = 745389;2006-6-20
 	
-	//클라코드
+	//modify by viva for GameVersion
 	g_pUserInformation->GameVersion = 7457757;
 	//end
 

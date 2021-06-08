@@ -12,7 +12,7 @@
 #include "VS_UI.h" // include VS UI master header file.
 
 #include "MGameStringTable.H"
-
+extern RECT g_GameRect;
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -29,7 +29,7 @@ C_VS_UI_ELEVATOR::C_VS_UI_ELEVATOR()
 	int close_button_x = 100, close_button_y = 256;
 	int button_x = 41, button_y = 28, button_y_gap = 56;
 
-	Set(RESOLUTION_X/2-m_image_spk.GetWidth(ELEVATOR)/2, RESOLUTION_Y/2 - m_image_spk.GetHeight(ELEVATOR)/2, m_image_spk.GetWidth(ELEVATOR), m_image_spk.GetHeight(ELEVATOR));
+	Set(g_GameRect.right/2-m_image_spk.GetWidth(ELEVATOR)/2, g_GameRect.bottom/2 - m_image_spk.GetHeight(ELEVATOR)/2, m_image_spk.GetWidth(ELEVATOR), m_image_spk.GetHeight(ELEVATOR));
 
 	// set button
 	m_pC_button_group = new ButtonGroup(this);

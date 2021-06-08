@@ -8,6 +8,9 @@
 #define	__CALPHASPRITE555_H__
 
 #include <Windows.h>
+class ofstream;
+class ifstream;
+
 
 #include "CAlphaSprite.h"
 
@@ -18,8 +21,8 @@ class CAlphaSprite555 : public CAlphaSprite {
 		//---------------------------------------------------------
 		// fstream에서 save/load를 한다.
 		//---------------------------------------------------------
-		bool		SaveToFile(ofstream& file);
-		bool		LoadFromFile(ifstream& file);
+		bool		SaveToFile(class ofstream& file);
+		bool		LoadFromFile(class ifstream& file);
 };
 
 

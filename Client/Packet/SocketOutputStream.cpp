@@ -13,6 +13,7 @@
 #include "SocketOutputStream.h"
 #include "Assert.h"
 #include "Packet.h"
+#include "DebugInfo.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor
@@ -138,6 +139,13 @@ void SocketOutputStream::write ( const Packet * pPacket )
 	// 우선 패킷아이디와 패킷크기를 출력버퍼로 쓴다.
 	PacketID_t packetID = pPacket->getPacketID();
 	write( (char*)&packetID , szPacketID );
+
+//  By tiancaiamao
+//	#ifdef __DEBUG_OUTPUT__
+//		ofstream ofile("lalala.log",ios::app);
+//		ofile << "SocketOutputStream write packet: " << packetID << endl;
+//		ofile.close();
+//	#endif
 	
 	PacketSize_t packetSize = pPacket->getPacketSize();
 	write( (char*)&packetSize , szPacketSize );
@@ -328,6 +336,8 @@ uint SocketOutputStream::length () const
 WORD SocketOutputStream::EncryptData(WORD EncryptKey, char* buf, int len)
 	throw()
 {
+	return EncryptKey;
+
 	for(int i = 0; i<len; i++)
 		*(buf + i) ^= 0xCC;
 

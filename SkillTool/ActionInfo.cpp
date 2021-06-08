@@ -1,0 +1,27 @@
+// ActionInfo.cpp: implementation of the ActionInfo class.
+//
+//////////////////////////////////////////////////////////////////////
+
+#include "stdafx.h"
+#include "SkillTool.h"
+#include "ActionInfo.h"
+
+#ifdef _DEBUG
+#undef THIS_FILE
+static char THIS_FILE[]=__FILE__;
+#define new DEBUG_NEW
+#endif
+
+//////////////////////////////////////////////////////////////////////
+// Construction/Destruction
+//////////////////////////////////////////////////////////////////////
+
+ActionInfo::ActionInfo()
+{
+
+}
+
+ActionInfo::~ActionInfo()
+{
+
+}

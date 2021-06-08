@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------
 
 #include "client_PCH.h"
-#include <fstream>
+#include <fstream.h>
 #include "KeyAccelerator.h"
 #include "CDirectInput.h"
 //----------------------------------------------------------------------
@@ -215,7 +215,7 @@ KeyAccelerator::GetKey(BYTE accel) const
 // Save To File
 //----------------------------------------------------------------------
 void				
-KeyAccelerator::SaveToFile(ofstream& file)
+KeyAccelerator::SaveToFile(class ofstream& file)
 {
 	int num = m_Accelerators.capacity();
 
@@ -236,7 +236,7 @@ KeyAccelerator::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void				
-KeyAccelerator::LoadFromFile(ifstream& file)
+KeyAccelerator::LoadFromFile(class ifstream& file)
 {
 	int num;
 	file.read((char*)&num, 4);

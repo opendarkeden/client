@@ -14,9 +14,6 @@
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
 
-using std::string;
-
-
 // forward declaration
 class Socket;
 class Player;

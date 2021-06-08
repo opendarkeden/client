@@ -2,7 +2,7 @@
 #include "MCrashReportManager.h"
 
 void	
-MCrashReport::LoadFromFile(ifstream &file)
+MCrashReport::LoadFromFile(class ifstream &file)
 {
 	m_ExecutableTime.LoadFromFile(file);
 	file.read((char *)&m_Version, sizeof(WORD));
@@ -13,7 +13,7 @@ MCrashReport::LoadFromFile(ifstream &file)
 }
 
 void	
-MCrashReport::SaveToFile(ofstream &file)
+MCrashReport::SaveToFile(class ofstream &file)
 {
 	m_ExecutableTime.SaveToFile(file);
 	file.write((const char *)&m_Version, sizeof(WORD));

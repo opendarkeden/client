@@ -6,16 +6,23 @@
 
 #ifndef __SYSTEM_TYPES_H__
 #define __SYSTEM_TYPES_H__
-
+//#define __WINDOWS__
+	#pragma warning ( disable : 4786 )
+	#include <Windows.h>
+#if defined(__WINDOWS__)
+	// 4786 - STL의 심볼명의 길이가 255를 넘어갈 때
+	#pragma warning ( disable : 4786 )
+	#include <Windows.h>
+#elif defined(__LINUX__)
+	#include <sys/types.h>
+#endif#endif
+ 
 #include <iostream>
-#include <fstream>
+#include <fstream.h>
 #include <string>
 
 //using namespace std;
-// using std::string;
-
-//#include <Windows.h>
-//#include <wtypes.h>
+using std::string;
 
 //////////////////////////////////////////////////////////////////////////////
 // built-in type redefinition
@@ -25,14 +32,14 @@ typedef unsigned short ushort;
 typedef unsigned int uint;
 typedef unsigned long ulong;
 
-// #if defined(__LINUX__) || defined(__WIN_CONSOLE__)
+#if defined(__LINUX__) || defined(__WIN_CONSOLE__)
 	typedef unsigned char  BYTE;
 	typedef unsigned short WORD;
 	typedef unsigned long DWORD;
 	typedef unsigned long long ulonglong;
-// #else
-// 	typedef unsigned __int64 ulonglong;
-// #endif
+#else
+	typedef unsigned __int64 ulonglong;
+#endif
 
 #if defined(__LINUX__)
 	const char separatorChar = '/';

@@ -166,8 +166,13 @@ MActionResultNodeActionInfo::Execute()
 	case SKILL_SHADOW_DANCING :
 		resultActionInfo = SKILL_SINGLE_BLOW + (*g_pActionInfoTable).GetMinResultActionInfo();
 		break;
-
+	// add by Coffee 2007-4-15
+//	case SKILL_ILLUSION_INVERSION:
+		//resultActionInfo = RESULT_TEMP_SKILL_ILLUSION_INVERSION;
+		//break;
+	// end by Coffee
 	case SKILL_ILLENDUE :
+
 		resultActionInfo = SKILL_LIGHT_BALL + (*g_pActionInfoTable).GetMinResultActionInfo();
 		break;
 
@@ -888,13 +893,13 @@ MActionResultNodeChangeItemOptionInInventory::Execute()
 				bSecondPetEnchant = true;
 			}
 			if(pMouseItem->GetItemClass() == ITEM_CLASS_MIXING_ITEM &&
-				((pMouseItem->GetItemType() >= 9 && pMouseItem->GetItemType() <= 18) || pMouseItem->GetItemType() == 25))
+				pMouseItem->GetItemType() >= 9 && pMouseItem->GetItemType() <= 18)
 			{
 				bRemovePetOption = true;
 			}
 
 			if(pMouseItem->GetItemClass() == ITEM_CLASS_EVENT_STAR &&
-				pMouseItem->GetItemType() == 22) // 옐로우 드롭
+				pMouseItem->GetItemType() == 23) // 옐로우 드롭
 			{
 				bGradePlus = true;
 			}
@@ -926,7 +931,7 @@ MActionResultNodeChangeItemOptionInInventory::Execute()
 			bSucces = true;
 		}
 		else
-		if(bSecondPetEnchant == false && pMouseItem->GetItemType() != 24)
+		if(bSecondPetEnchant == false)
 		{
 			// 펫 1차 인첸트 필살! 속성 붙이기
 			WORD AttrType = HIWORD(m_Type);

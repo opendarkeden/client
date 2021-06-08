@@ -5,7 +5,6 @@
 
 
 #pragma warning(push)
-#pragma warning(disable:4290)
 #pragma warning(disable:4018)
 #pragma warning(disable:4786)
 #include <string>
@@ -15,8 +14,8 @@
 #include <deque>
 #include <bitset>
 #include <algorithm>
-#include <iostream>
-#include <fstream>
+#include <iostream.h>
+#include <fstream.h>
 #include <windows.h>
 #pragma warning(pop)
 

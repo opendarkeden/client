@@ -97,37 +97,18 @@ MCreatureWear::~MCreatureWear()
 void			
 MCreatureWear::ClearAddonInfo(int Addon)
 {
-	if(IsAdvancementClass() && Addon == ADDON_MAX)
-	{
-		ADDON_INFO& addon = m_ShoulderAddon;
+	ADDON_INFO& addon = m_Addon[Addon];
 
-		// 초기화
-		addon.bAddon	= FALSE;			// 착용했나?	
-		addon.FrameID	= FRAMEID_NULL;		// 복장
+	// 초기화
+	addon.bAddon	= FALSE;			// 착용했나?	
+	addon.FrameID	= FRAMEID_NULL;		// 복장
 
-		addon.ItemClass	= ITEM_CLASS_NULL;	// item class
-		addon.ItemType	= ITEMTYPE_NULL;			// item type
-		addon.ColorSet1	= 0;						// colorset1
-		addon.ColorSet2	= 0;						// colorset2
-		addon.bEffectColor = FALSE;					// effect color로 보여지는 부위인가?
-		addon.EffectColorSet	= 0;				// effectcolorset
-
-	}
-	else
-	{
-		ADDON_INFO& addon = m_Addon[Addon];
-
-		// 초기화
-		addon.bAddon	= FALSE;			// 착용했나?	
-		addon.FrameID	= FRAMEID_NULL;		// 복장
-
-		addon.ItemClass	= ITEM_CLASS_NULL;	// item class
-		addon.ItemType	= ITEMTYPE_NULL;			// item type
-		addon.ColorSet1	= 0;						// colorset1
-		addon.ColorSet2	= 0;						// colorset2
-		addon.bEffectColor = FALSE;					// effect color로 보여지는 부위인가?
-		addon.EffectColorSet	= 0;				// effectcolorset
-	}
+	addon.ItemClass	= ITEM_CLASS_NULL;	// item class
+	addon.ItemType	= ITEMTYPE_NULL;			// item type
+	addon.ColorSet1	= 0;						// colorset1
+	addon.ColorSet2	= 0;						// colorset2
+	addon.bEffectColor = FALSE;					// effect color로 보여지는 부위인가?
+	addon.EffectColorSet	= 0;				// effectcolorset
 }
 
 //----------------------------------------------------------------------
@@ -214,52 +195,28 @@ MCreatureWear::SetAddonColorSet2(int Addon, WORD colorSet)
 MItem*
 MCreatureWear::NewItemFromAddonInfo(int Addon)
 {
-	if(IsAdvancementClass() && Addon == ADDON_MAX)
+	if (Addon >= ADDON_MAX)
 	{
-		ADDON_INFO& addon = m_ShoulderAddon;
-
-		//--------------------------------------------------
-		// item을 착용한 경우
-		//--------------------------------------------------
-		if (!addon.bAddon || addon.ItemClass==ITEM_CLASS_NULL)
-		{
-			return NULL;
-		}
-		
-		//--------------------------------------------------
-		// item의 정보를 알기위해서 생성해서 제거한다.
-		//--------------------------------------------------
-		MItem* pItem = MItem::NewItem( addon.ItemClass );
-		pItem->SetItemType( addon.ItemType );
-
-		return pItem;
+		return false;
 	}
-	else
+
+	ADDON_INFO& addon = m_Addon[Addon];
+
+	//--------------------------------------------------
+	// item을 착용한 경우
+	//--------------------------------------------------
+	if (!addon.bAddon || addon.ItemClass==ITEM_CLASS_NULL)
 	{
-		if (Addon >= ADDON_MAX)
-		{
-			return false;
-		}
-
-		ADDON_INFO& addon = m_Addon[Addon];
-
-		//--------------------------------------------------
-		// item을 착용한 경우
-		//--------------------------------------------------
-		if (!addon.bAddon || addon.ItemClass==ITEM_CLASS_NULL)
-		{
-			return NULL;
-		}
-		
-		//--------------------------------------------------
-		// item의 정보를 알기위해서 생성해서 제거한다.
-		//--------------------------------------------------
-		MItem* pItem = MItem::NewItem( addon.ItemClass );
-		pItem->SetItemType( addon.ItemType );
-
-		return pItem;
+		return NULL;
 	}
-	return NULL;
+	
+	//--------------------------------------------------
+	// item의 정보를 알기위해서 생성해서 제거한다.
+	//--------------------------------------------------
+	MItem* pItem = MItem::NewItem( addon.ItemClass );
+	pItem->SetItemType( addon.ItemType );
+
+	return pItem;
 }
 
 //----------------------------------------------------------------------
@@ -272,75 +229,40 @@ MCreatureWear::RemoveAddon(int Addon)
 { 
 	DEBUG_ADD("MCreatureWear::RemoveAddon");
 	
-	// shoulder
-	if(IsAdvancementClass() && Addon == ADDON_MAX)
+	if (Addon >= ADDON_MAX)
 	{
-		ADDON_INFO& addon = m_ShoulderAddon;
-
-		//--------------------------------------------------
-		// 장착한게 있을 경우에만 벗긴다. - -;
-		//--------------------------------------------------
-		if (addon.bAddon)
-		{
-			MItem* pItem = NewItemFromAddonInfo( Addon );
-			
-			if (pItem!=NULL)
-			{
-				//--------------------------------------------------
-				// addon Item을 복장에서 제거한다.
-				//--------------------------------------------------
-				bool bRemove = RemoveAddonItem( pItem );
-
-				delete pItem;
-
-				return bRemove;
-			}
-
-			//--------------------------------------------------
-			// 정보 제거..
-			//--------------------------------------------------
-			ClearAddonInfo( Addon );
-
-			return true;
-		}
+		return false;
 	}
-	else
+
+	ADDON_INFO& addon = m_Addon[Addon];
+
+	//--------------------------------------------------
+	// 장착한게 있을 경우에만 벗긴다. - -;
+	//--------------------------------------------------
+	if (addon.bAddon)
 	{
-
-		if (Addon >= ADDON_MAX)
+		MItem* pItem = NewItemFromAddonInfo( Addon );
+		
+		if (pItem!=NULL)
 		{
-			return false;
+			//--------------------------------------------------
+			// addon Item을 복장에서 제거한다.
+			//--------------------------------------------------
+			bool bRemove = RemoveAddonItem( pItem );
+
+			delete pItem;
+
+			return bRemove;
 		}
 
-		ADDON_INFO& addon = m_Addon[Addon];
-
 		//--------------------------------------------------
-		// 장착한게 있을 경우에만 벗긴다. - -;
+		// 정보 제거..
 		//--------------------------------------------------
-		if (addon.bAddon)
-		{
-			MItem* pItem = NewItemFromAddonInfo( Addon );
-			
-			if (pItem!=NULL)
-			{
-				//--------------------------------------------------
-				// addon Item을 복장에서 제거한다.
-				//--------------------------------------------------
-				bool bRemove = RemoveAddonItem( pItem );
+		ClearAddonInfo( Addon );
 
-				delete pItem;
-
-				return bRemove;
-			}
-
-			//--------------------------------------------------
-			// 정보 제거..
-			//--------------------------------------------------
-			ClearAddonInfo( Addon );
-
-			return true;
-		}
+		return true;
 	}
+
 	return false;
 }
 
@@ -419,31 +341,8 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 			// 복장이 바뀌는 위치가 있는 경우
 			//-------------------------------------------------
 			if (pItem->GetAddonSlot()==ADDON_NULL)
-			{	
-				// 2005, 1, 19, sobeit add start - 슬레이어 숄더 아머 처리
-				if(pItem->GetItemClass() == ITEM_CLASS_SHOULDER_ARMOR)
-				{
-					if (IsMale())
-					{
-						fid = pItem->GetAddonMaleFrameID();
-					}			
-					else //if (pCreature->IsFemale())
-					{
-						fid = pItem->GetAddonFemaleFrameID();			
-					}
-					m_ShoulderAddon.bAddon = TRUE;
-					m_ShoulderAddon.FrameID	= fid;		// 복장
-
-					m_ShoulderAddon.ItemClass	= ITEM_CLASS_SHOULDER_ARMOR;	// item class
-					m_ShoulderAddon.ItemType	= pItem->GetItemType();			// item type
-					m_ShoulderAddon.ColorSet1	= pItem->GetItemOptionColorSet();	// option
-					m_ShoulderAddon.ColorSet2	= pItem->GetItemOptionColorSet();//pItem->GetItemColorSet();			// null
-					m_ShoulderAddon.bEffectColor = FALSE;
-					m_ShoulderAddon.EffectColorSet = 0;
-				}
-				// 2005, 1, 19, sobeit add end
-				else
-					DEBUG_ADD_FORMAT("[Error] Item doesn't have Addon Slot. id=%d, class=%d, type=%d", 
+			{			
+				DEBUG_ADD_FORMAT("[Error] Item doesn't have Addon Slot. id=%d, class=%d, type=%d", 
 														pItem->GetID(), (int)pItem->GetItemClass(), (int)pItem->GetItemType());
 				
 			}
@@ -566,135 +465,111 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 				//-------------------------------------------------					
 				else
 				{	
-					// 2005, 1, 19, sobeit add start - 슬레이어 숄더 아머 처리
-//					if(pItem->GetItemClass() == ITEM_CLASS_SHOULDER_ARMOR)
-//					{
-//						m_ShoulderAddon.bAddon = TRUE;
-//						m_ShoulderAddon.FrameID	= fid;		// 복장
-//
-//						m_ShoulderAddon.ItemClass	= ITEM_CLASS_SHOULDER_ARMOR;	// item class
-//						m_ShoulderAddon.ItemType	= pItem->GetItemType();			// item type
-//						m_ShoulderAddon.ColorSet1	= pItem->GetItemOptionColorSet();	// option
-//						m_ShoulderAddon.ColorSet2	= pItem->GetItemOptionColorSet();//pItem->GetItemColorSet();			// null
-//						m_ShoulderAddon.bEffectColor = FALSE;
-//						m_ShoulderAddon.EffectColorSet = 0;
-//					}
-					// 2005, 1, 19, sobeit add end
-//					else
+					//-------------------------------------------------
+					// 장착한다.
+					//-------------------------------------------------
+					ADDON_INFO& addon = m_Addon[Addon];
+
+					// 초기화
+					addon.bAddon	= TRUE;
+					addon.FrameID	= fid;
+
+					addon.ItemClass	= pItem->GetItemClass();
+					addon.ItemType	= pItem->GetItemType();
+
+					// 뱀파 옷추가
+					if(pItem->GetItemClass() == ITEM_CLASS_VAMPIRE_COAT)
 					{
-						//-------------------------------------------------
-						// 장착한다.
-						//-------------------------------------------------
-						ADDON_INFO& addon = m_Addon[Addon];
+						unsigned short nSpecialActionInfo = GetSpecialActionInfo();
 
-						// 초기화
-						addon.bAddon	= TRUE;
-						addon.FrameID	= fid;
-
-						addon.ItemClass	= pItem->GetItemClass();
-						addon.ItemType	= pItem->GetItemType();
-
-						// 뱀파 옷추가
-						if(pItem->GetItemClass() == ITEM_CLASS_VAMPIRE_COAT)
+						if(m_CreatureType != CREATURETYPE_VAMPIRE_OPERATOR)
 						{
-							unsigned short nSpecialActionInfo = GetSpecialActionInfo();
-
-							if(m_CreatureType != CREATURETYPE_VAMPIRE_OPERATOR)
+							if (m_CreatureType != CREATURETYPE_WOLF && m_CreatureType != CREATURETYPE_BAT )
 							{
-								if (m_CreatureType != CREATURETYPE_WOLF && m_CreatureType != CREATURETYPE_BAT )
-								{
-									if( m_CreatureType == CREATURETYPE_WER_WOLF )
-									{
-										SetCreatureType( CREATURETYPE_WER_WOLF );
-									}								
-									else
-									{
-										if (IsMale())
-										{
-											SetCreatureType(pItem->GetAddonMaleFrameID());
-										}			
-										else //if (pCreature->IsFemale())
-										{
-											SetCreatureType(pItem->GetAddonFemaleFrameID());
-										}
-									}
-								}
-								addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// 피부
-	//							if(pItem->IsUniqueItem())
-	//								m_ColorBody2 = UNIQUE_ITEM_COLOR;
-	//							else
-								m_ColorBody2	= pItem->GetItemOptionColorSet();			// option
 								if( m_CreatureType == CREATURETYPE_WER_WOLF )
-									m_ColorBody1 = m_ColorBody2;
-									
-							}
-							else
-							{
-								m_ColorBody1 = m_ColorBody2 = pItem->GetItemOptionColorSet();
-							}
-
-							SetSpecialActionInfo(nSpecialActionInfo);
-						}
-
-						else 
-						if (Addon==ADDON_COAT || Addon==ADDON_TROUSER)
-						{
-							{
-								// 2005, 2, 18, sobeit modify start - 승직 슬레이어 ADDON_COAT의 ColorSet1은 머리 색깔이다.
-								if(!IsAdvancementClass())
-									addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// 피부
+								{
+									SetCreatureType( CREATURETYPE_WER_WOLF );
+								}								
 								else
 								{
-									ADDON_INFO& HairAddon = m_Addon[ADDON_HAIR];
-									addon.ColorSet1	= HairAddon.ColorSet1;						// colorset1
-								}
-								// 2005, 2, 18, sobeit modify end
-								//						if(pItem->IsUniqueItem())
-								//							addon.ColorSet2	= UNIQUE_ITEM_COLOR;			// option
-								//						else
-								addon.ColorSet2	= pItem->GetItemOptionColorSet();			// option
-								addon.bEffectColor = FALSE;
-								addon.EffectColorSet = 0;
-								
-								// 상의인 경우만 옷이 바뀐다.
-								//if (Addon==ADDON_COAT)
-								{
-									//-------------------------------------------------
-									// Vampire만 적용된다.
-									//-------------------------------------------------
-									if (m_CreatureType==CREATURETYPE_VAMPIRE_OPERATOR)
+									if (IsMale())
 									{
-										//								if(pItem->IsUniqueItem())
-										//									m_ColorBody1 = m_ColorBody2 = UNIQUE_ITEM_COLOR;
-										//								else
-										m_ColorBody1 = m_ColorBody2 = pItem->GetItemOptionColorSet();
-									}
-									else
+										SetCreatureType(pItem->GetAddonMaleFrameID());
+									}			
+									else //if (pCreature->IsFemale())
 									{
-										//								if(pItem->IsUniqueItem())
-										//									m_ColorBody2 = UNIQUE_ITEM_COLOR;
-										//								else
-										m_ColorBody2 = pItem->GetItemOptionColorSet();
+										SetCreatureType(pItem->GetAddonFemaleFrameID());
+										//SetCreatureType(812);
 									}
 								}
 							}
+							addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// 피부
+//							if(pItem->IsUniqueItem())
+//								m_ColorBody2 = UNIQUE_ITEM_COLOR;
+//							else
+							m_ColorBody2	= pItem->GetItemOptionColorSet();			// option
+							if( m_CreatureType == CREATURETYPE_WER_WOLF )
+								m_ColorBody1 = m_ColorBody2;
+								
 						}
 						else
 						{
-	//						if(pItem->IsUniqueItem())
-	//						{
-	//							addon.ColorSet1	= UNIQUE_ITEM_COLOR;	// option
-	//							addon.ColorSet2	= UNIQUE_ITEM_COLOR;//pItem->GetItemColorSet();			// null
-	//						}
-	//						else
-							{
-								addon.ColorSet1	= pItem->GetItemOptionColorSet();	// option
-								addon.ColorSet2	= pItem->GetItemOptionColorSet();//pItem->GetItemColorSet();			// null
-							}
+							m_ColorBody1 = m_ColorBody2 = pItem->GetItemOptionColorSet();
+						}
+
+						SetSpecialActionInfo(nSpecialActionInfo);
+					}
+
+					else 
+					if (Addon==ADDON_COAT || Addon==ADDON_TROUSER)
+					{
+						{
+							addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// 피부
+							//						if(pItem->IsUniqueItem())
+							//							addon.ColorSet2	= UNIQUE_ITEM_COLOR;			// option
+							//						else
+							addon.ColorSet2	= pItem->GetItemOptionColorSet();			// option
 							addon.bEffectColor = FALSE;
 							addon.EffectColorSet = 0;
-						}					
+							
+							// 상의인 경우만 옷이 바뀐다.
+							//if (Addon==ADDON_COAT)
+							{
+								//-------------------------------------------------
+								// Vampire만 적용된다.
+								//-------------------------------------------------
+								if (m_CreatureType==CREATURETYPE_VAMPIRE_OPERATOR)
+								{
+									//								if(pItem->IsUniqueItem())
+									//									m_ColorBody1 = m_ColorBody2 = UNIQUE_ITEM_COLOR;
+									//								else
+									m_ColorBody1 = m_ColorBody2 = pItem->GetItemOptionColorSet();
+								}
+								else
+								{
+									//								if(pItem->IsUniqueItem())
+									//									m_ColorBody2 = UNIQUE_ITEM_COLOR;
+									//								else
+									m_ColorBody2 = pItem->GetItemOptionColorSet();
+								}
+							}
+						}
 					}
+					else
+					{
+//						if(pItem->IsUniqueItem())
+//						{
+//							addon.ColorSet1	= UNIQUE_ITEM_COLOR;	// option
+//							addon.ColorSet2	= UNIQUE_ITEM_COLOR;//pItem->GetItemColorSet();			// null
+//						}
+//						else
+						{
+							addon.ColorSet1	= pItem->GetItemOptionColorSet();	// option
+							addon.ColorSet2	= pItem->GetItemOptionColorSet();//pItem->GetItemColorSet();			// null
+						}
+						addon.bEffectColor = FALSE;
+						addon.EffectColorSet = 0;
+					}					
 				}				
 			}
 		}			
@@ -774,7 +649,7 @@ bool
 MCreatureWear::RemoveAddonItem( MItem* pItem )
 {
 	DEBUG_ADD("MCreatureWear::RemoveAddonItem");
-	
+
 	if (pItem==NULL)
 	{
 		DEBUG_ADD("The Item is NULL");
@@ -820,7 +695,7 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 						}			
 						else //if (pCreature->IsFemale())
 						{
-							SetCreatureType(3);
+							SetCreatureType(3); //by viva
 						}
 					}
 				}
@@ -849,22 +724,7 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 			// 장착 부위의 Addon을 없앤다.
 			//-------------------------------------------------
 			if (add == ADDON_NULL)
-			{
-				// 2005, 1, 19, sobeit add start - 슬레이어 숄더 아머 처리
-				if(pItem->GetItemClass() == ITEM_CLASS_SHOULDER_ARMOR)
-				{
-					m_ShoulderAddon.bAddon = FALSE;
-					m_ShoulderAddon.FrameID	= FRAMEID_NULL;		// 복장
-
-					m_ShoulderAddon.ItemClass	= ITEM_CLASS_NULL;	// item class
-					m_ShoulderAddon.ItemType	= ITEMTYPE_NULL;			// item type
-					m_ShoulderAddon.ColorSet1	= 0;						// colorset1
-					m_ShoulderAddon.ColorSet2	= 0;						// colorset2
-					m_ShoulderAddon.bEffectColor = FALSE;					// effect color로 보여지는 부위인가?
-					m_ShoulderAddon.EffectColorSet	= 0;				// effectcolorset
-				}
-				// 2005, 1, 19, sobeit add end
-				else
+			{				
 				DEBUG_ADD_FORMAT("[Error] Item doesn't have Addon Slot. id=%d, class=%d, type=%d", 
 													pItem->GetID(), (int)pItem->GetItemClass(), (int)pItem->GetItemType());				
 			}
@@ -907,21 +767,12 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 						}
 						else
 						{
-							addon.FrameID	= IsMale()? ADDONID_COAT0_MALE : ADDONID_COAT0_FEMALE;
-
-							// 2005, 2, 18, sobeit modify start - 승직 슬레이어 ADDON_COAT의 ColorSet1은 머리 색깔이다.
-							if(!IsAdvancementClass())
-								addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// 피부
-							else
-							{
-								ADDON_INFO& HairAddon = m_Addon[ADDON_HAIR];
-								addon.ColorSet1	= HairAddon.ColorSet1;						// colorset1
-							}
-							// 2005, 2, 18, sobeit modify end
+							addon.FrameID	= IsMale()? ADDONID_COAT0_MALE : ADDONID_COAT0_FEMALE; 
+							addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// 기본 피부색
 						}
 
 						addon.ItemClass	= ITEM_CLASS_COAT;
-						addon.ItemType	= 0;
+						addon.ItemType	= 0;	//by viva
 						addon.ColorSet2	= defaultCoatColor;
 						addon.bEffectColor = FALSE;
 						addon.EffectColorSet = 0;
@@ -1177,7 +1028,6 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 	m_bEffectStatus[status] = false;
 
 	bool bUseEffectSprite = (*g_pEffectStatusTable)[status].bUseEffectSprite;
-
 	TYPE_EFFECTSPRITETYPE type = (*g_pEffectStatusTable)[status].EffectSpriteType;
 	//------------------------------------------------------------
 	// effectStatus에 따라서.
@@ -1194,7 +1044,7 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 		case EFFECTSTATUS_SUMMON_SYLPH_BLACK :
 		case EFFECTSTATUS_SUMMON_SYLPH:
 			SetMoveDevice(MOVE_DEVICE_WALK);
-			if(IsAdvancementClass())
+			if(IsAdvancementClass() && status==EFFECTSTATUS_SUMMON_SYLPH)
 			{
 				type = EFFECTSPRITETYPE_OUSTERS_FASTMOVE_LOOP;
 				ExecuteActionInfoFromMainNode(SKILL_CLIENT_ADVANCEMENT_SUMMON_SYLPH_END,GetX(), GetY(), 0,GetDirection(),	GetID(),	
@@ -1204,10 +1054,12 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 		case EFFECTSTATUS_BIKE_CRASH:
 			SetMoveDevice(MOVE_DEVICE_WALK);
 			break;
-	
 		//------------------------------------------------------------
 		// 마비 풀릴 때
 		//------------------------------------------------------------
+		// add by Coffee 2007-3-21
+		case EFFECTSTATUS_SATELLITE_BOMB_AIM :
+		// end	
 		case EFFECTSTATUS_GUN_SHOT_GUIDANCE_AIM :
 			if (m_bAlive)
 			{
@@ -1299,19 +1151,6 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 			SetInstallTurretDirect(2);
 			SetDirection( 2 );
 			SetCurrentDirection( 2 );
-			break;
-		case EFFECTSTATUS_GRAND_MASTER_SLAYER:
-		case EFFECTSTATUS_GRAND_MASTER_VAMPIRE:
-		case EFFECTSTATUS_GRAND_MASTER_OUSTERS:
-		case EFFECTSTATUS_GRAND_MASTER_SLAYER_130:
-		case EFFECTSTATUS_GRAND_MASTER_SLAYER_150:
-		case EFFECTSTATUS_GRAND_MASTER_VAMPIRE_130:
-		case EFFECTSTATUS_GRAND_MASTER_VAMPIRE_150:
-		case EFFECTSTATUS_GRAND_MASTER_OUSTERS_130:
-		case EFFECTSTATUS_GRAND_MASTER_OUSTERS_150:
-			{
-				type = GetMasterEffectType(status);
-			}
 			break;
 	}
 

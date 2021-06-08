@@ -310,11 +310,7 @@ enum SOUND_ID
 	SOUND_VAMPIRE_ACID_AT,			// acid touch
 	SOUND_VAMPIRE_MISC_D,			// darkness
 	SOUND_VAMPIRE_POISON_PH,		// poisonous hand
-	//-------------------------------------------------------
-	// 폭주 공격 사운드 
-	//-------------------------------------------------------
-	SOUND_BLOODBURST_ATTACK,
-	//-------------------------------------------------------
+
 	//-------------------------------------------------------
 	// 호블
 	//-------------------------------------------------------
@@ -562,9 +558,6 @@ enum SOUND_ID
 	SOUND_SLAYER_SWORD_THUNDERBOLTA,
 	SOUND_SLAYER_SWORD_THUNDERBOLTB,
 	SOUND_SLAYER_SWORD_WINDDIVIDER,
-	SOUND_SLAYER_BLOODBURST_ATTATCK_MAIL,
-	SOUND_SLAYER_BLOODBURST_ATTATCK_FEMALE,
-	SOUND_SLAYER_BLOODBURST_DEFENSE_MAIL,
 
 	//-------------------------------------------------------
 	// 뱀파이어 기술
@@ -576,10 +569,6 @@ enum SOUND_ID
 	SOUND_VAMPIRE_HALLUCINATION,
 	SOUND_VAMPIRE_SEDUCTION,
 	SOUND_VAMPIRE_SUMMONCASKET,
-	SOUND_VAMPIRE_BLOODBURST_ATTATCK_MAIL,
-	SOUND_VAMPIRE_BLOODBURST_ATTATCK_FEMALE,
-	SOUND_VAMPIRE_BLOODBURST_DEFENSE_MAIL,
-	SOUND_VAMPIRE_BLOODBURST_DEFENSE_FEMALE,
 
 	//-------------------------------------------------------
 	// 크리스마스 이벤트 사운드
@@ -673,8 +662,6 @@ enum SOUND_ID
 	SOUND_OUSTERS_STONE_AUGER,
 	SOUND_OUSTERS_NYMPH_RECOVERY,
 	SOUND_OUSTERS_WATER_BARRIER,
-	SOUND_OUSTERS_BLOODBURST_ATTACK,
-	SOUND_OUSTERS_BLOODBURST_DEFENSE,
 	
 	SOUND_OUSTERS_PUPA,
 	SOUND_OUSTERS_MEI,

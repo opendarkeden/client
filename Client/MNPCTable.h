@@ -27,8 +27,8 @@
 
 #include "CtypeMap.h"
 #include <list>
-std::ofstream;
-ifstream;
+class ofstream;
+class ifstream;
 #include "MString.h"
 
 //----------------------------------------------------------------------
@@ -53,8 +53,8 @@ class NPC_INFO {
 		//-----------------------------------------------------
 		// File I/O
 		//-----------------------------------------------------
-		void		SaveToFile(std::ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(class ofstream& file);
+		void		LoadFromFile(class ifstream& file);
 };
 
 //----------------------------------------------------------------------
@@ -86,8 +86,8 @@ class	SERVERNPC_INFO {
 		//-----------------------------------------------------
 		// File I/O
 		//-----------------------------------------------------
-		void		SaveToFile(std::ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(class ofstream& file);
+		void		LoadFromFile(class ifstream& file);
 };
 
 

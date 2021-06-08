@@ -58,7 +58,10 @@ class MItemManager {
 
 	//protected :
 		MItem*			GetItemToModify(TYPE_OBJECTID id);		
-		MItem*			GetItemToModifyAll(TYPE_OBJECTID id , MItem*& pSubInventoryItem);		
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+		MItem*			GetItemToModifyAll(TYPE_OBJECTID id , MItem*& pSubInventoryItem);
+	#endif
+				
 
 		//------------------------------------------------------
 		// 사용가능한지 체크한다.
@@ -70,7 +73,10 @@ class MItemManager {
 		// 아이템 찾기
 		//------------------------------------------------------
 		MItem*			FindItem( MItemFinder& itemFinder ) const;
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 		MItem*			FindItemAll( MItemFinder& itemFinder, MItem*& pSubInventoryItem) const;
+	#endif
+		
 		
 	protected :
 		ITEM_MAP::const_iterator	m_iterator;

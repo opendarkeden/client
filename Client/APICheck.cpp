@@ -89,8 +89,7 @@ BOOL APICheck::CheckApi()
 	BYTE	bReadCode[37];
 	if (m_hsend!=NULL)	{
 		memcpy(&bReadCode[0],m_hsend,37);
-		int i;
-		for (i=0;i<checklen;i++)
+		for (int i=0;i<checklen;i++)
 		{
 			if (bReadCode[i]!=bCheck[i])
 			{
@@ -99,7 +98,7 @@ BOOL APICheck::CheckApi()
 // 			else
 // 				::ExitProcess(0);
 		}
-		if (i== checklen)
+		if (i==checklen)
 		{
 			MessageBox(0,"","",MB_OK);
 			::ExitProcess(0);

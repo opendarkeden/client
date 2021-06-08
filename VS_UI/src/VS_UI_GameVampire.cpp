@@ -6,6 +6,7 @@
 #include "VS_UI_Mouse_pointer.h"
 #include "VS_UI.h"
 #include "UserInformation.h"
+extern RECT g_GameRect;
 int		C_VS_UI_VAMPIRE_GEAR::m_slot_image[SLOT_SIZE] = {
 	NECKLACE, COAT, BRACELET, BRACELET, RING, RING, RING, RING, EARRING, EARRING, WEAPON, WEAPON, AMULET, AMULET, AMULET, AMULET
 	,-1
@@ -55,7 +56,7 @@ C_VS_UI_VAMPIRE::C_VS_UI_VAMPIRE():C_VS_UI_TRIBE()
 {
 	m_pC_main_spk = new C_SPRITE_PACK(SPK_VAMPIRE_MAIN);
 
-	Set(RESOLUTION_X-m_pC_main_spk->GetWidth()+1, RESOLUTION_Y-m_pC_main_spk->GetHeight()+1, m_pC_main_spk->GetWidth()-1, m_pC_main_spk->GetHeight()-1);
+	Set(g_GameRect.right-m_pC_main_spk->GetWidth()+1, g_GameRect.bottom-m_pC_main_spk->GetHeight()+1, m_pC_main_spk->GetWidth()-1, m_pC_main_spk->GetHeight()-1);
 
 	m_pC_sys_button_spk = new C_SPRITE_PACK(SPK_VAMPIRE_SYS_BUTTON);
 
@@ -83,13 +84,20 @@ C_VS_UI_VAMPIRE::C_VS_UI_VAMPIRE():C_VS_UI_TRIBE()
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*0, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_INVENTORY), m_pC_sys_button_spk->GetHeight(BUTTON_INVENTORY), INVENTORY_ID, this, BUTTON_INVENTORY) );
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*1, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_GEAR), m_pC_sys_button_spk->GetHeight(BUTTON_GEAR), GEAR_ID, this, BUTTON_GEAR) );
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*2, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_INFO), m_pC_sys_button_spk->GetHeight(BUTTON_INFO), INFO_ID, this, BUTTON_INFO) );
+	//add by viva : friend button
+#ifdef __FRIEND_SYSTEM_VIVA__ 
+	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*3, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_FRIEND), m_pC_sys_button_spk->GetHeight(BUTTON_FRIEND), FRIEND_ID, this, BUTTON_FRIEND) );	
+#endif
+	//end
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*0, button_y+button_y_gap, m_pC_sys_button_spk->GetWidth(BUTTON_PARTY), m_pC_sys_button_spk->GetHeight(BUTTON_PARTY), PARTY_ID, this, BUTTON_PARTY) );
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*1, button_y+button_y_gap, m_pC_sys_button_spk->GetWidth(BUTTON_QUEST), m_pC_sys_button_spk->GetHeight(BUTTON_QUEST), QUEST_ID, this, BUTTON_QUEST) );
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*2, button_y+button_y_gap, m_pC_sys_button_spk->GetWidth(BUTTON_MAIL), m_pC_sys_button_spk->GetHeight(BUTTON_MAIL), MAIL_ID, this, BUTTON_MAIL) );
 
 	// sms ¹öÆ° 
-	if(false == g_pUserInformation->IsNetmarble)
-		m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*3, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_SMS), m_pC_sys_button_spk->GetHeight(BUTTON_SMS), SMS_ID, this, BUTTON_SMS) );
+//add by zdj 2005.5.17
+// add by Coffee 2006.11.26
+//	if(false == g_pUserInformation->IsNetmarble)
+		//m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*3, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_SMS), m_pC_sys_button_spk->GetHeight(BUTTON_SMS), SMS_ID, this, BUTTON_SMS) );
 	
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*3, button_y+button_y_gap, m_pC_sys_button_spk->GetWidth(BUTTON_NAMING), m_pC_sys_button_spk->GetHeight(BUTTON_NAMING), NAMING_ID, this, BUTTON_NAMING) );
 
@@ -109,8 +117,13 @@ C_VS_UI_VAMPIRE::C_VS_UI_VAMPIRE():C_VS_UI_TRIBE()
 	m_pC_util_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*0, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_STORE), m_pC_sys_button_spk->GetHeight(BUTTON_STORE), UTIL_STORE_ID, this, BUTTON_STORE) );
 	if(false == g_pUserInformation->IsNetmarble && false == g_pUserInformation->IsTestServer) // º»¼·¸¸
 	{
+//add by zdj 2005.5.16
+// add by Coffee 2006.11.26
+		// edit by Coffee 2006.11.19  ³é½±ÏµÍ³
 		m_pC_util_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*1, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_POWER_JJANG), m_pC_sys_button_spk->GetHeight(BUTTON_POWER_JJANG), UTIL_POWER_JJANG_ID, this, BUTTON_POWER_JJANG) );
+		// End by Coffee 2006.11.19
 	}
+
 	// 2004, 12, 2, sobeit add end
 
 	// help buttons
@@ -206,7 +219,7 @@ void C_VS_UI_VAMPIRE::DrawMinimap()
 
 	if(!m_bl_minimap)
 	{
-		_x = RESOLUTION_X - m_pC_etc_spk->GetWidth(MINIMAP_CASE);
+		_x = g_GameRect.right - m_pC_etc_spk->GetWidth(MINIMAP_CASE);
 		_y = 0;
 
 		m_pC_etc_spk->Blt(_x, _y, MINIMAP_CASE);
@@ -218,7 +231,7 @@ void C_VS_UI_VAMPIRE::DrawMinimap()
 	}
 	else
 	{
-		_x = RESOLUTION_X - m_pC_etc_spk->GetWidth(MINIMAP_CASE_EXTEND);
+		_x = g_GameRect.right - m_pC_etc_spk->GetWidth(MINIMAP_CASE_EXTEND);
 		_y = 0;
 
 		m_pC_etc_spk->Blt(_x, _y, MINIMAP_CASE_EXTEND);
@@ -314,7 +327,7 @@ void C_VS_UI_VAMPIRE::DrawMinimap()
 
 	if(m_bl_minimap)
 	{
-		g_PrintColorStr(RESOLUTION_X - 115 - g_GetStringWidth(m_zone_name.c_str(), gpC_base->m_info_pi.hfont)/2, _y+9, m_zone_name.c_str(), gpC_base->m_info_pi, RGB_WHITE);	
+		g_PrintColorStr(g_GameRect.right - 115 - g_GetStringWidth(m_zone_name.c_str(), gpC_base->m_info_pi.hfont)/2, _y+9, m_zone_name.c_str(), gpC_base->m_info_pi, RGB_WHITE);	
 	}
 
 	wsprintf(sz_temp, "%d", m_map_x);
@@ -510,12 +523,13 @@ void C_VS_UI_VAMPIRE::Start()
 
 	m_pC_skill->Start();
 	m_pC_hpbar->Start();
-	m_pC_BloodBurst->Start();
-	m_pC_Market->Start();
-
 	m_pC_effect_status->Start();
 	m_pC_minimap->Start();
 
+	// add by Coffee 2007-3-6 Ìí¼ÓÊÀ½çµØÍ¼
+//	m_pC_worldmap->Start();
+	// end 
+	
 	WindowEventReceiver(EVENT_WINDOW_MOVE);
 
 
@@ -926,7 +940,18 @@ void C_VS_UI_VAMPIRE::HotKey_F1()
 	const MItem * p_item = g_pInventory->FindItem( ITEM_CLASS_SERUM );
 	if(p_item == NULL)
 		p_item = g_pInventory->FindItem( ITEM_CLASS_EVENT_ETC, 14 ); // ³ë¶õ»çÅÁ - 3Á¾Á· ¸ðµÎ »ç¿ë°¡´É
+	//add by sonic 2006.9.20
+	/******** Ôö¼ÓÖ§³Ö Ó£ÌÒÃÛ¹û ±¡ºÉÃÛ¹û ÀóÖ¦ÃÛ¹û ²Ù×÷********/
+	if(p_item == NULL)
+		p_item = g_pInventory->FindItem( ITEM_CLASS_EVENT_ETC, 15 ); // ³ë¶õ»çÅÁ - 3Á¾Á· ¸ðµÎ »ç¿ë°¡´É
 	
+	if(p_item == NULL)
+		p_item = g_pInventory->FindItem( ITEM_CLASS_EVENT_ETC, 16 ); // ³ë¶õ»çÅÁ - 3Á¾Á· ¸ðµÎ »ç¿ë°¡´É
+	
+	if(p_item == NULL)
+		p_item = g_pInventory->FindItem( ITEM_CLASS_EVENT_ETC, 17 ); // ³ë¶õ»çÅÁ - 3Á¾Á· ¸ðµÎ »ç¿ë°¡´É
+	//end by sonic 2006.9.20
+
 	if (p_item) // ItemÀÌ ÀÖ´Ù.
 	{
 		gpC_base->SendMessage(UI_ITEM_USE,

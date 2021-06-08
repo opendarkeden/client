@@ -92,8 +92,8 @@ class MPortal{
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void		SaveToFile(std::ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(class ofstream& file);
+		void		LoadFromFile(class ifstream& file);
 
 	protected :		
 		

@@ -8,6 +8,9 @@
 #define	__CSPRITE555_H__
 
 #include <Windows.h>
+class ofstream;
+class ifstream;
+
 
 #include "CSprite.h"
 
@@ -17,8 +20,8 @@ class CSprite555 : public CSprite {
 		//---------------------------------------------------------
 		// fstream에서 save/load를 한다.
 		//---------------------------------------------------------
-		bool		SaveToFile(ofstream& file);
-		bool		LoadFromFile(ifstream& file);
+		bool		SaveToFile(class ofstream& file);
+		bool		LoadFromFile(class ifstream& file);
 		//bool		LoadFromFileToBuffer(ifstream& file);
 
 };

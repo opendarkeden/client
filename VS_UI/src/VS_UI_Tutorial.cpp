@@ -12,6 +12,7 @@
 #include "MGameStringTable.H"
 //#define dSTRING_LEN 256 
 #include "SXml.h"
+extern RECT g_GameRect;
 
 //-----------------------------------------------------------------------------
 // C_VS_UI_BOOKCASE::C_VS_UI_BOOKCASE
@@ -29,7 +30,7 @@ C_VS_UI_BOOKCASE::C_VS_UI_BOOKCASE()
 	int w_x, w_y;
 
 	m_pC_bookcase_spk = new C_SPRITE_PACK(SPK_TUTORIAL_BOOKCASE);
-	w_x = RESOLUTION_X/2 - m_pC_bookcase_spk->GetWidth(BOOKCASE_WINDOW)/2;
+	w_x = g_GameRect.right/2 - m_pC_bookcase_spk->GetWidth(BOOKCASE_WINDOW)/2;
 	w_y = 50;
 
 //	std::string path;
@@ -414,7 +415,7 @@ C_VS_UI_BOOK::C_VS_UI_BOOK(const char *szFilename, int row, int col):C_VS_UI_DES
 	fontx = 7;
 
 	m_pC_book_spk = new C_SPRITE_PACK(SPK_TUTORIAL_BOOK);
-	w_x = RESOLUTION_X/2 - m_pC_book_spk->GetWidth(BOOK_WINDOW)/2;
+	w_x = g_GameRect.right/2 - m_pC_book_spk->GetWidth(BOOK_WINDOW)/2;
 	w_y = 30;
 	Set(w_x, w_y, m_pC_book_spk->GetWidth(BOOK_WINDOW), m_pC_book_spk->GetHeight(BOOK_WINDOW));
 
@@ -811,7 +812,7 @@ C_VS_UI_BRIEFING::C_VS_UI_BRIEFING()
 	int w_x, w_y;
 
 	m_pC_screen_spk = new C_SPRITE_PACK(SPK_TUTORIAL_BRIEFING);
-	w_x = RESOLUTION_X/2 - m_pC_screen_spk->GetWidth(SCREEN_WINDOW)/2;
+	w_x = g_GameRect.right/2 - m_pC_screen_spk->GetWidth(SCREEN_WINDOW)/2;
 	w_y = 30;
 
 	int close_button_x = 248, close_button_y = 411;
@@ -1108,7 +1109,7 @@ C_VS_UI_COMPUTER::C_VS_UI_COMPUTER():C_VS_UI_DESC()
 	int w_x, w_y;
 
 	m_pC_monitor_spk = new C_SPRITE_PACK(SPK_TUTORIAL_COMPUTER);
-	w_x = RESOLUTION_X/2 - m_pC_monitor_spk->GetWidth(MONITOR_WINDOW)/2;
+	w_x = g_GameRect.right/2 - m_pC_monitor_spk->GetWidth(MONITOR_WINDOW)/2;
 	w_y = 30;
 
 	int close_button_x = 414, close_button_y = 398;
@@ -1455,7 +1456,7 @@ bool	C_VS_UI_COMPUTER::LoadTree(const char* szFilename)
 
 		CSpritePack *temp;
 		temp = new CSpritePack;
-		ifstream file(spkname.c_str(), std::ios::binary | std::ios::in);
+		ifstream file(spkname.c_str(), ios::binary | ios::nocreate);
 		if (!file)
 			_Error(FILE_OPEN);
 		temp->LoadFromFile( file );
@@ -1796,7 +1797,7 @@ C_VS_UI_TUTORIAL_EXIT::C_VS_UI_TUTORIAL_EXIT()
 
 	m_pC_exit_spk = new C_SPRITE_PACK(SPK_TUTORIAL_EXIT);
 	m_pC_item_spk =  new C_SPRITE_PACK(SPK_ITEM);
-	w_x = RESOLUTION_X/2 - m_pC_exit_spk->GetWidth(EXIT_WINDOW)/2;
+	w_x = g_GameRect.right/2 - m_pC_exit_spk->GetWidth(EXIT_WINDOW)/2;
 	w_y = 100;
 
 	int ok_button_x = 120, ok_button_y = 5;

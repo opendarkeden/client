@@ -176,7 +176,7 @@ ITEMTABLE_INFO::SetValue(int v1, int v2, int v3, int v4, int v5, int v6, int v7)
 // Save
 //----------------------------------------------------------------------
 void			
-ITEMTABLE_INFO::SaveToFile(ofstream& file)
+ITEMTABLE_INFO::SaveToFile(class ofstream& file)
 {
 	// ÀÌ¸§ ÀúÀå
 	EName.SaveToFile( file );
@@ -267,7 +267,7 @@ ITEMTABLE_INFO::SaveToFile(ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-ITEMTABLE_INFO::LoadFromFile(ifstream& file)
+ITEMTABLE_INFO::LoadFromFile(class ifstream& file)
 {
 	EName.LoadFromFile( file );
 	HName.LoadFromFile( file );
@@ -355,7 +355,7 @@ ITEMTABLE_INFO::LoadFromFile(ifstream& file)
 //
 //----------------------------------------------------------------------
 void
-ITEMTYPE_TABLE::LoadFromFile(ifstream& file)
+ITEMTYPE_TABLE::LoadFromFile(class ifstream& file)
 {
 	CTypeTable<ITEMTABLE_INFO>::LoadFromFile(file);
 
@@ -5061,8 +5061,8 @@ InitClass( ITEM_CLASS_COAT,28 );
  m_pTypeInfo[ITEM_CLASS_COAT][25].Elemental = 0;
 
 // add by Coffee NewItem 2007-6-9
- m_pTypeInfo[ITEM_CLASS_COAT][26].HName = "ÊÊÌåÕ½ÒÂ M";
- m_pTypeInfo[ITEM_CLASS_COAT][26].EName = "Muscle Suit M";
+ m_pTypeInfo[ITEM_CLASS_COAT][26].HName = "Muscle Suit W";
+ m_pTypeInfo[ITEM_CLASS_COAT][26].EName = "Muscle Suit W";
  m_pTypeInfo[ITEM_CLASS_COAT][26].Description = "";
  m_pTypeInfo[ITEM_CLASS_COAT][26].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_COAT][26].SetFrameID( 1061, 1095, 0 );
@@ -5091,7 +5091,7 @@ InitClass( ITEM_CLASS_COAT,28 );
  m_pTypeInfo[ITEM_CLASS_COAT][26].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_COAT][26].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_COAT][27].HName = "ÊÊÌåÕ½ÒÂ W";
+ m_pTypeInfo[ITEM_CLASS_COAT][27].HName = "Muscle Suit W";
  m_pTypeInfo[ITEM_CLASS_COAT][27].EName = "Muscle Suit W";
  m_pTypeInfo[ITEM_CLASS_COAT][27].Description = "";
  m_pTypeInfo[ITEM_CLASS_COAT][27].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -5912,7 +5912,7 @@ InitClass( ITEM_CLASS_TROUSER,28 );
  m_pTypeInfo[ITEM_CLASS_TROUSER][25].Elemental = 0;
 
 // add by Coffee NewItem 2007-6-9
- m_pTypeInfo[ITEM_CLASS_TROUSER][26].HName = "¼á¿ÇÕ½¿ã M";
+ m_pTypeInfo[ITEM_CLASS_TROUSER][26].HName = "Shell Guard M";
  m_pTypeInfo[ITEM_CLASS_TROUSER][26].EName = "Shell Guard M";
  m_pTypeInfo[ITEM_CLASS_TROUSER][26].Description = "";
  m_pTypeInfo[ITEM_CLASS_TROUSER][26].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -5942,7 +5942,7 @@ InitClass( ITEM_CLASS_TROUSER,28 );
  m_pTypeInfo[ITEM_CLASS_TROUSER][26].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TROUSER][26].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TROUSER][27].HName = "¼á¿ÇÕ½¿ã W";
+ m_pTypeInfo[ITEM_CLASS_TROUSER][27].HName = "Shell Guard W";
  m_pTypeInfo[ITEM_CLASS_TROUSER][27].EName = "Shell Guard W";
  m_pTypeInfo[ITEM_CLASS_TROUSER][27].Description = "";
  m_pTypeInfo[ITEM_CLASS_TROUSER][27].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -6308,7 +6308,7 @@ InitClass( ITEM_CLASS_SHOES,11 );
  m_pTypeInfo[ITEM_CLASS_SHOES][10].Elemental = 0;
 
 
-InitClass( ITEM_CLASS_SWORD,16 );
+InitClass( ITEM_CLASS_SWORD,15 );
 
  m_pTypeInfo[ITEM_CLASS_SWORD][0].HName = "Çá½£";
  m_pTypeInfo[ITEM_CLASS_SWORD][0].EName = "Light Sword";
@@ -6763,37 +6763,8 @@ InitClass( ITEM_CLASS_SWORD,16 );
  m_pTypeInfo[ITEM_CLASS_SWORD][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SWORD][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SWORD][15].HName = "¿Ö²ÀÖ®ÈÐ";
- m_pTypeInfo[ITEM_CLASS_SWORD][15].EName = "Fear Bringer";
- m_pTypeInfo[ITEM_CLASS_SWORD][15].Description = "";
- m_pTypeInfo[ITEM_CLASS_SWORD][15].SetSoundID( SOUND_ITEM_MOVE_SWORD,SOUND_ITEM_MOVE_SWORD,SOUND_ITEM_MOVE_SWORD,SOUNDID_NULL );
- m_pTypeInfo[ITEM_CLASS_SWORD][15].SetFrameID( 1056, 1090, 0 );
- m_pTypeInfo[ITEM_CLASS_SWORD][15].SetDropFrameID( 1056 );
- m_pTypeInfo[ITEM_CLASS_SWORD][15].SetAddonFrameID( 9,34 );
- m_pTypeInfo[ITEM_CLASS_SWORD][15].SetGrid( 2,3 );
- m_pTypeInfo[ITEM_CLASS_SWORD][15].SetValue( 56000,-1,37,49,-1,-1,6 );
- m_pTypeInfo[ITEM_CLASS_SWORD][15].Weight = 1;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].Price = 5000000;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].SilverMax = 56000;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].UseActionInfo = SKILL_ATTACK_SWORD;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].MaxNumber = 1;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].SetDescriptionFrameID( 0 );
- m_pTypeInfo[ITEM_CLASS_SWORD][15].Race = 1;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].RequireSTR = 0;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].RequireDEX = 0;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].RequireINT = 0;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].RequireSUM = 0;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].RequireLevel = 0;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].RequireAdvancementLevel = 11;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].bMaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].bFemaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].ToHit = -1;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].CriticalHit = 75;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].ItemStyle = 0;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
- m_pTypeInfo[ITEM_CLASS_SWORD][15].Elemental = 0;
 
-InitClass( ITEM_CLASS_BLADE,16 );
+InitClass( ITEM_CLASS_BLADE,15 );
 
  m_pTypeInfo[ITEM_CLASS_BLADE][0].HName = "Íäµ¶";
  m_pTypeInfo[ITEM_CLASS_BLADE][0].EName = "Cutlass";
@@ -7248,37 +7219,8 @@ InitClass( ITEM_CLASS_BLADE,16 );
  m_pTypeInfo[ITEM_CLASS_BLADE][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLADE][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLADE][15].HName = "°»¸ñÂ³Õ½µ¶";
- m_pTypeInfo[ITEM_CLASS_BLADE][15].EName = "Angle Cutter";
- m_pTypeInfo[ITEM_CLASS_BLADE][15].Description = "";
- m_pTypeInfo[ITEM_CLASS_BLADE][15].SetSoundID( SOUND_ITEM_MOVE_SWORD,SOUND_ITEM_MOVE_SWORD,SOUND_ITEM_MOVE_SWORD,SOUNDID_NULL );
- m_pTypeInfo[ITEM_CLASS_BLADE][15].SetFrameID( 1057, 1091, 0 );
- m_pTypeInfo[ITEM_CLASS_BLADE][15].SetDropFrameID( 1057 );
- m_pTypeInfo[ITEM_CLASS_BLADE][15].SetAddonFrameID( 4,29 );
- m_pTypeInfo[ITEM_CLASS_BLADE][15].SetGrid( 2,3 );
- m_pTypeInfo[ITEM_CLASS_BLADE][15].SetValue( 61000,-1,47,62,-1,-1,6 );
- m_pTypeInfo[ITEM_CLASS_BLADE][15].Weight = 1;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].Price = 6000000;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].SilverMax = 61000;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].UseActionInfo = SKILL_ATTACK_BLADE;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].MaxNumber = 1;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].SetDescriptionFrameID( 0 );
- m_pTypeInfo[ITEM_CLASS_BLADE][15].Race = 1;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].RequireSTR = 0;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].RequireDEX = 0;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].RequireINT = 0;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].RequireSUM = 0;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].RequireLevel = 0;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].RequireAdvancementLevel = 11;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].bMaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].bFemaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].ToHit = -1;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].CriticalHit = 75;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].ItemStyle = 0;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
- m_pTypeInfo[ITEM_CLASS_BLADE][15].Elemental = 0;
 
-InitClass( ITEM_CLASS_SHIELD,15 );
+InitClass( ITEM_CLASS_SHIELD,14 );
 
  m_pTypeInfo[ITEM_CLASS_SHIELD][0].HName = "Ô²¶Ü";
  m_pTypeInfo[ITEM_CLASS_SHIELD][0].EName = "Round Shield";
@@ -7703,37 +7645,8 @@ InitClass( ITEM_CLASS_SHIELD,15 );
  m_pTypeInfo[ITEM_CLASS_SHIELD][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SHIELD][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].HName = "ÓÂ¸ÒÕ½¶Ü";
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].EName = "Stout Buckler";
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].Description = "";
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].SetFrameID( 1058, 1092, 0 );
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].SetDropFrameID( 1058 );
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].SetAddonFrameID( 6,31 );
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].SetGrid( 2,3 );
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].SetValue( 20800,20,-1,-1,-1,45,-1 );
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].Weight = 15;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].Price = 5900000;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].SilverMax = -1;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].UseActionInfo = ACTIONINFO_NULL;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].MaxNumber = 1;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].SetDescriptionFrameID( 0 );
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].Race = 1;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].RequireSTR = 0;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].RequireDEX = 0;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].RequireINT = 0;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].RequireSUM = 0;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].RequireLevel = 0;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].RequireAdvancementLevel = 11;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].bMaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].bFemaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].ToHit = -1;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].CriticalHit = 0;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].ItemStyle = 0;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
- m_pTypeInfo[ITEM_CLASS_SHIELD][14].Elemental = 0;
 
-InitClass( ITEM_CLASS_CROSS,14 );
+InitClass( ITEM_CLASS_CROSS,13 );
 
  m_pTypeInfo[ITEM_CLASS_CROSS][0].HName = "ÒøÊ®×Ö¼Ü";
  m_pTypeInfo[ITEM_CLASS_CROSS][0].EName = "Silver Cross";
@@ -8128,35 +8041,6 @@ InitClass( ITEM_CLASS_CROSS,14 );
  m_pTypeInfo[ITEM_CLASS_CROSS][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_CROSS][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_CROSS][13].HName = "Ê¥¿ËÂÞÊ®×Ö¼Ü";
- m_pTypeInfo[ITEM_CLASS_CROSS][13].EName = "Crucis";
- m_pTypeInfo[ITEM_CLASS_CROSS][13].Description = "";
- m_pTypeInfo[ITEM_CLASS_CROSS][13].SetSoundID( SOUND_ITEM_MOVE_SWORD,SOUND_ITEM_MOVE_SWORD,SOUND_ITEM_MOVE_SWORD,SOUNDID_NULL );
- m_pTypeInfo[ITEM_CLASS_CROSS][13].SetFrameID( 1059, 1093, 0 );
- m_pTypeInfo[ITEM_CLASS_CROSS][13].SetDropFrameID( 1059 );
- m_pTypeInfo[ITEM_CLASS_CROSS][13].SetAddonFrameID( 17,42 );
- m_pTypeInfo[ITEM_CLASS_CROSS][13].SetGrid( 2,3 );
- m_pTypeInfo[ITEM_CLASS_CROSS][13].SetValue( 41000,-1,26,41,155,-1,9 );
- m_pTypeInfo[ITEM_CLASS_CROSS][13].Weight = 1;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].Price = 5000000;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].SilverMax = 3300;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].UseActionInfo = SKILL_ATTACK_BLADE;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].MaxNumber = 1;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].SetDescriptionFrameID( 0 );
- m_pTypeInfo[ITEM_CLASS_CROSS][13].Race = 1;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].RequireSTR = 0;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].RequireDEX = 0;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].RequireINT = 0;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].RequireSUM = 0;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].RequireLevel = 0;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].RequireAdvancementLevel = 11;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].bMaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].bFemaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].ToHit = -1;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].CriticalHit = 125;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].ItemStyle = 0;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
- m_pTypeInfo[ITEM_CLASS_CROSS][13].Elemental = 0;
 
 InitClass( ITEM_CLASS_GLOVE,12 );
 
@@ -8524,7 +8408,7 @@ InitClass( ITEM_CLASS_GLOVE,12 );
  m_pTypeInfo[ITEM_CLASS_GLOVE][11].Elemental = 0;
 
 
-InitClass( ITEM_CLASS_HELM,15 );
+InitClass( ITEM_CLASS_HELM,14 );
 
  m_pTypeInfo[ITEM_CLASS_HELM][0].HName = "·À»¤Ã±";
  m_pTypeInfo[ITEM_CLASS_HELM][0].EName = "Hood";
@@ -8947,36 +8831,6 @@ InitClass( ITEM_CLASS_HELM,15 );
  m_pTypeInfo[ITEM_CLASS_HELM][13].ItemStyle = 0;
  m_pTypeInfo[ITEM_CLASS_HELM][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_HELM][13].Elemental = 0;
-
- m_pTypeInfo[ITEM_CLASS_HELM][14].HName = "¶àÔªÕì²ìÍ·";
- m_pTypeInfo[ITEM_CLASS_HELM][14].EName = "Multi Scouter";
- m_pTypeInfo[ITEM_CLASS_HELM][14].Description = "";
- m_pTypeInfo[ITEM_CLASS_HELM][14].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
- m_pTypeInfo[ITEM_CLASS_HELM][14].SetFrameID( 1067, 1101, 0 );
- m_pTypeInfo[ITEM_CLASS_HELM][14].SetDropFrameID( 952 );
- m_pTypeInfo[ITEM_CLASS_HELM][14].SetAddonFrameID( 14,39 );
- m_pTypeInfo[ITEM_CLASS_HELM][14].SetGrid( 2,2 );
- m_pTypeInfo[ITEM_CLASS_HELM][14].SetValue( 15800,29,-1,-1,-1,40,-1 );
- m_pTypeInfo[ITEM_CLASS_HELM][14].Weight = 6;
- m_pTypeInfo[ITEM_CLASS_HELM][14].Price = 5500000;
- m_pTypeInfo[ITEM_CLASS_HELM][14].SilverMax = -1;
- m_pTypeInfo[ITEM_CLASS_HELM][14].UseActionInfo = ACTIONINFO_NULL;
- m_pTypeInfo[ITEM_CLASS_HELM][14].MaxNumber = 1;
- m_pTypeInfo[ITEM_CLASS_HELM][14].SetDescriptionFrameID( 0 );
- m_pTypeInfo[ITEM_CLASS_HELM][14].Race = 1;
- m_pTypeInfo[ITEM_CLASS_HELM][14].RequireSTR = 0;
- m_pTypeInfo[ITEM_CLASS_HELM][14].RequireDEX = 0;
- m_pTypeInfo[ITEM_CLASS_HELM][14].RequireINT = 0;
- m_pTypeInfo[ITEM_CLASS_HELM][14].RequireSUM = 0;
- m_pTypeInfo[ITEM_CLASS_HELM][14].RequireLevel = 0;
- m_pTypeInfo[ITEM_CLASS_HELM][14].RequireAdvancementLevel = 11;
- m_pTypeInfo[ITEM_CLASS_HELM][14].bMaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_HELM][14].bFemaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_HELM][14].ToHit = -1;
- m_pTypeInfo[ITEM_CLASS_HELM][14].CriticalHit = 0;
- m_pTypeInfo[ITEM_CLASS_HELM][14].ItemStyle = 0;
- m_pTypeInfo[ITEM_CLASS_HELM][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
- m_pTypeInfo[ITEM_CLASS_HELM][14].Elemental = 0;
 
 
 InitClass( ITEM_CLASS_SG,14 );
@@ -9831,7 +9685,7 @@ InitClass( ITEM_CLASS_SMG,14 );
  m_pTypeInfo[ITEM_CLASS_SMG][13].Elemental = 0;
 
 
-InitClass( ITEM_CLASS_AR,16 );
+InitClass( ITEM_CLASS_AR,15 );
 
  m_pTypeInfo[ITEM_CLASS_AR][0].HName = "MK-74 ¶éÂä";
  m_pTypeInfo[ITEM_CLASS_AR][0].EName = "MK-74 Vicious";
@@ -10286,38 +10140,8 @@ InitClass( ITEM_CLASS_AR,16 );
  m_pTypeInfo[ITEM_CLASS_AR][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_AR][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_AR][15].HName = "¿¨±´Í»»÷Ç¹";
- m_pTypeInfo[ITEM_CLASS_AR][15].EName = "Cabal";
- m_pTypeInfo[ITEM_CLASS_AR][15].Description = "";
- m_pTypeInfo[ITEM_CLASS_AR][15].SetSoundID( SOUND_ITEM_MOVE_GUN,SOUND_ITEM_MOVE_GUN,SOUND_ITEM_MOVE_GUN,SOUNDID_NULL );
- m_pTypeInfo[ITEM_CLASS_AR][15].SetFrameID( 1055, 1089, 0 );
- m_pTypeInfo[ITEM_CLASS_AR][15].SetDropFrameID( 1055 );
- m_pTypeInfo[ITEM_CLASS_AR][15].SetAddonFrameID( 3,35 );
- m_pTypeInfo[ITEM_CLASS_AR][15].SetGrid( 2,3 );
- m_pTypeInfo[ITEM_CLASS_AR][15].SetValue( 34000,-1,32,38,8,-1,9 );
- m_pTypeInfo[ITEM_CLASS_AR][15].Weight = 1;
- m_pTypeInfo[ITEM_CLASS_AR][15].Price = 6000000;
- m_pTypeInfo[ITEM_CLASS_AR][15].SilverMax = -1;
- m_pTypeInfo[ITEM_CLASS_AR][15].UseActionInfo = SKILL_ATTACK_GUN_SMG;
- m_pTypeInfo[ITEM_CLASS_AR][15].MaxNumber = 1;
- m_pTypeInfo[ITEM_CLASS_AR][15].SetDescriptionFrameID( 0 );
- m_pTypeInfo[ITEM_CLASS_AR][15].Race = 1;
- m_pTypeInfo[ITEM_CLASS_AR][15].RequireSTR = 0;
- m_pTypeInfo[ITEM_CLASS_AR][15].RequireDEX = 0;
- m_pTypeInfo[ITEM_CLASS_AR][15].RequireINT = 0;
- m_pTypeInfo[ITEM_CLASS_AR][15].RequireSUM = 0;
- m_pTypeInfo[ITEM_CLASS_AR][15].RequireLevel = 0;
- m_pTypeInfo[ITEM_CLASS_AR][15].RequireAdvancementLevel = 11;
- m_pTypeInfo[ITEM_CLASS_AR][15].bMaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_AR][15].bFemaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_AR][15].ToHit = 35;
- m_pTypeInfo[ITEM_CLASS_AR][15].CriticalHit = 60;
- m_pTypeInfo[ITEM_CLASS_AR][15].ItemStyle = 0;
- m_pTypeInfo[ITEM_CLASS_AR][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
- m_pTypeInfo[ITEM_CLASS_AR][15].Elemental = 0;
 
-
-InitClass( ITEM_CLASS_SR,16 );
+InitClass( ITEM_CLASS_SR,15 );
 
  m_pTypeInfo[ITEM_CLASS_SR][0].HName = "X-31MÃ×À¼";
  m_pTypeInfo[ITEM_CLASS_SR][0].EName = "X-31M Milano";
@@ -10772,35 +10596,6 @@ InitClass( ITEM_CLASS_SR,16 );
  m_pTypeInfo[ITEM_CLASS_SR][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SR][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SR][15].HName = "·ÅÉä¾Ñ»÷LRS";
- m_pTypeInfo[ITEM_CLASS_SR][15].EName = "Blaser LRS";
- m_pTypeInfo[ITEM_CLASS_SR][15].Description = "";
- m_pTypeInfo[ITEM_CLASS_SR][15].SetSoundID( SOUND_ITEM_MOVE_GUN,SOUND_ITEM_MOVE_GUN,SOUND_ITEM_MOVE_GUN,SOUNDID_NULL );
- m_pTypeInfo[ITEM_CLASS_SR][15].SetFrameID( 1054, 1088, 0 );
- m_pTypeInfo[ITEM_CLASS_SR][15].SetDropFrameID( 1054 );
- m_pTypeInfo[ITEM_CLASS_SR][15].SetAddonFrameID( 8,43 );
- m_pTypeInfo[ITEM_CLASS_SR][15].SetGrid( 2,3 );
- m_pTypeInfo[ITEM_CLASS_SR][15].SetValue( 34000,-1,46,57,9,-1,9 );
- m_pTypeInfo[ITEM_CLASS_SR][15].Weight = 1;
- m_pTypeInfo[ITEM_CLASS_SR][15].Price = 6000000;
- m_pTypeInfo[ITEM_CLASS_SR][15].SilverMax = -1;
- m_pTypeInfo[ITEM_CLASS_SR][15].UseActionInfo = SKILL_ATTACK_GUN_SG;
- m_pTypeInfo[ITEM_CLASS_SR][15].MaxNumber = 1;
- m_pTypeInfo[ITEM_CLASS_SR][15].SetDescriptionFrameID( 0 );
- m_pTypeInfo[ITEM_CLASS_SR][15].Race = 1;
- m_pTypeInfo[ITEM_CLASS_SR][15].RequireSTR = 0;
- m_pTypeInfo[ITEM_CLASS_SR][15].RequireDEX = 0;
- m_pTypeInfo[ITEM_CLASS_SR][15].RequireINT = 0;
- m_pTypeInfo[ITEM_CLASS_SR][15].RequireSUM = 0;
- m_pTypeInfo[ITEM_CLASS_SR][15].RequireLevel = 0;
- m_pTypeInfo[ITEM_CLASS_SR][15].RequireAdvancementLevel = 11;
- m_pTypeInfo[ITEM_CLASS_SR][15].bMaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_SR][15].bFemaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_SR][15].ToHit = 35;
- m_pTypeInfo[ITEM_CLASS_SR][15].CriticalHit = 60;
- m_pTypeInfo[ITEM_CLASS_SR][15].ItemStyle = 0;
- m_pTypeInfo[ITEM_CLASS_SR][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
- m_pTypeInfo[ITEM_CLASS_SR][15].Elemental = 0;
 
 InitClass( ITEM_CLASS_BOMB,5 );
 
@@ -13001,7 +12796,7 @@ InitClass( ITEM_CLASS_VAMPIRE_NECKLACE,14 );
  m_pTypeInfo[ITEM_CLASS_VAMPIRE_NECKLACE][13].Elemental = 0;
 
 
-InitClass( ITEM_CLASS_VAMPIRE_COAT,26 );
+InitClass( ITEM_CLASS_VAMPIRE_COAT,24 );
 
  m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][0].HName = "Åû·ç";
  m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][0].EName = "Swing Coat";
@@ -13730,71 +13525,6 @@ InitClass( ITEM_CLASS_VAMPIRE_COAT,26 );
  m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][23].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][23].Elemental = 0;
  
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].HName = "¸ß¼¶Ö¸»Ó¹Ù·þ";
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].EName = "Advanced Commander Coat M";
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].Description = "";
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].SetSoundID( SOUND_ITEM_MOVE_CLOTH,SOUND_ITEM_MOVE_CLOTH,SOUND_ITEM_MOVE_CLOTH,SOUNDID_NULL );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].SetFrameID( 944, 980, 0 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].SetDropFrameID( 944 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].SetAddonFrameID( 558,559 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].SetGrid( 2,3 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].SetValue( 25000,55,-1,-1,-1,105,-1 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].Weight = 6;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].Price = 5000000;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].SilverMax = -1;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].UseActionInfo = ACTIONINFO_NULL;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].MaxNumber = 1;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].SetDescriptionFrameID( 0 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].Race = 2;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].RequireSTR = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].RequireDEX = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].RequireINT = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].RequireSUM = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].RequireLevel = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].RequireAdvancementLevel = 1;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].bMaleOnly = 1;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].bFemaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].ToHit = -1;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].CriticalHit = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].DefaultOptionList.push_back( 24 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].DefaultOptionList.push_back( 130 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].DefaultOptionList.push_back( 93 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].ItemStyle = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][24].Elemental = 0;
-
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].HName = "¸ß¼¶Ö¸»Ó¹Ù·þ";
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].EName = "Advanced Commander Coat W";
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].Description = "";
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].SetSoundID( SOUND_ITEM_MOVE_CLOTH,SOUND_ITEM_MOVE_CLOTH,SOUND_ITEM_MOVE_CLOTH,SOUNDID_NULL );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].SetFrameID( 944, 980, 0 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].SetDropFrameID( 944 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].SetAddonFrameID( 558,559 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].SetGrid( 2,3 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].SetValue( 25000,55,-1,-1,-1,105,-1 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].Weight = 6;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].Price = 5000000;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].SilverMax = -1;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].UseActionInfo = ACTIONINFO_NULL;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].MaxNumber = 1;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].SetDescriptionFrameID( 0 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].Race = 2;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].RequireSTR = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].RequireDEX = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].RequireINT = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].RequireSUM = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].RequireLevel = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].RequireAdvancementLevel = 1;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].bMaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].bFemaleOnly = 1;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].ToHit = -1;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].CriticalHit = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].DefaultOptionList.push_back( 24 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].DefaultOptionList.push_back( 130 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].DefaultOptionList.push_back( 93 );
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].ItemStyle = 0;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_COAT][25].Elemental = 0;
  // add end by coffee 2007-5-8
 
 InitClass( ITEM_CLASS_SKULL,73 );
@@ -15990,7 +15720,7 @@ InitClass( ITEM_CLASS_SKULL,73 );
  m_pTypeInfo[ITEM_CLASS_SKULL][72].Elemental = 0;
 
 
-InitClass( ITEM_CLASS_MACE,14 );
+InitClass( ITEM_CLASS_MACE,13 );
 
  m_pTypeInfo[ITEM_CLASS_MACE][0].HName = "ÌúÕÈ";
  m_pTypeInfo[ITEM_CLASS_MACE][0].EName = "Iron Mace";
@@ -16385,35 +16115,6 @@ InitClass( ITEM_CLASS_MACE,14 );
  m_pTypeInfo[ITEM_CLASS_MACE][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MACE][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MACE][13].HName = "Ê¥¹³°¢Èü";
- m_pTypeInfo[ITEM_CLASS_MACE][13].EName = "Crook Asser";
- m_pTypeInfo[ITEM_CLASS_MACE][13].Description = "";
- m_pTypeInfo[ITEM_CLASS_MACE][13].SetSoundID( SOUND_ITEM_MOVE_SWORD,SOUND_ITEM_MOVE_SWORD,SOUND_ITEM_MOVE_SWORD,SOUNDID_NULL );
- m_pTypeInfo[ITEM_CLASS_MACE][13].SetFrameID( 1060, 1094, 0 );
- m_pTypeInfo[ITEM_CLASS_MACE][13].SetDropFrameID( 1060 );
- m_pTypeInfo[ITEM_CLASS_MACE][13].SetAddonFrameID( 24,49 );
- m_pTypeInfo[ITEM_CLASS_MACE][13].SetGrid( 2,3 );
- m_pTypeInfo[ITEM_CLASS_MACE][13].SetValue( 41000,-1,26,41,155,-1,9 );
- m_pTypeInfo[ITEM_CLASS_MACE][13].Weight = 1;
- m_pTypeInfo[ITEM_CLASS_MACE][13].Price = 6000000;
- m_pTypeInfo[ITEM_CLASS_MACE][13].SilverMax = 41000;
- m_pTypeInfo[ITEM_CLASS_MACE][13].UseActionInfo = SKILL_ATTACK_BLADE;
- m_pTypeInfo[ITEM_CLASS_MACE][13].MaxNumber = 1;
- m_pTypeInfo[ITEM_CLASS_MACE][13].SetDescriptionFrameID( 0 );
- m_pTypeInfo[ITEM_CLASS_MACE][13].Race = 1;
- m_pTypeInfo[ITEM_CLASS_MACE][13].RequireSTR = 0;
- m_pTypeInfo[ITEM_CLASS_MACE][13].RequireDEX = 0;
- m_pTypeInfo[ITEM_CLASS_MACE][13].RequireINT = 0;
- m_pTypeInfo[ITEM_CLASS_MACE][13].RequireSUM = 0;
- m_pTypeInfo[ITEM_CLASS_MACE][13].RequireLevel = 0;
- m_pTypeInfo[ITEM_CLASS_MACE][13].RequireAdvancementLevel = 11;
- m_pTypeInfo[ITEM_CLASS_MACE][13].bMaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_MACE][13].bFemaleOnly = 0;
- m_pTypeInfo[ITEM_CLASS_MACE][13].ToHit = -1;
- m_pTypeInfo[ITEM_CLASS_MACE][13].CriticalHit = 125;
- m_pTypeInfo[ITEM_CLASS_MACE][13].ItemStyle = 0;
- m_pTypeInfo[ITEM_CLASS_MACE][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
- m_pTypeInfo[ITEM_CLASS_MACE][13].Elemental = 0;
 
 InitClass( ITEM_CLASS_SERUM,7 );
 
@@ -19957,7 +19658,7 @@ InitClass( ITEM_CLASS_VAMPIRE_WEAPON,21 );
  m_pTypeInfo[ITEM_CLASS_VAMPIRE_WEAPON][19].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_VAMPIRE_WEAPON][19].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_VAMPIRE_WEAPON][20].HName = "ÌÞ¹ÇÑª×¦";
+ m_pTypeInfo[ITEM_CLASS_VAMPIRE_WEAPON][20].HName = "Bone Cleave";
  m_pTypeInfo[ITEM_CLASS_VAMPIRE_WEAPON][20].EName = "Bone Cleave";
  m_pTypeInfo[ITEM_CLASS_VAMPIRE_WEAPON][20].Description = "";
  m_pTypeInfo[ITEM_CLASS_VAMPIRE_WEAPON][20].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );

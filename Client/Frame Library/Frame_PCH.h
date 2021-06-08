@@ -14,8 +14,8 @@
 #include <deque>
 #include <bitset>
 #include <algorithm>
-#include <iostream>
-#include <fstream>
+#include <iostream.h>
+#include <fstream.h>
 #include <windows.h>
 #pragma warning(pop)
 
@@ -26,6 +26,3 @@ using std::list;
 using std::deque;
 using std::bitset;
 
-using std::ifstream;
-using std::ofstream;
-using std::endl;

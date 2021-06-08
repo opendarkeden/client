@@ -221,7 +221,7 @@ C_VS_UI_ITEM::C_VS_UI_ITEM()
 #ifndef _LIB
 	
 	// Item option table load.
-	ifstream file("data\\info\\itemoption.inf",std::ios::binary);
+	ifstream file("data\\info\\itemoption.inf",ios::binary);
 	g_pItemOptionTable->LoadFromFile( file );
 	file.close();
 
@@ -232,7 +232,10 @@ C_VS_UI_ITEM::C_VS_UI_ITEM()
 
 //	int n = 0;
 	extern int g_ui_item_max;
+	// edit by Coffee 2007-6-15 13:41  修正UI测试程序读了物品错误
+	//for (i=0; i<MAX_ITEM_CLASS; i++)
 	for (i=0; i<MAX_ITEM_CLASS; i++)
+	// edit end by Coffee 2007-6-15 13:42
 	{
 		srand(GetTickCount());
 
@@ -240,6 +243,7 @@ C_VS_UI_ITEM::C_VS_UI_ITEM()
 		for (int t=0; t<classSize; t++)
 		{
 			MItem * p_item = MItem::NewItem((enum ITEM_CLASS)i);
+			//MItem * p_item = MItem::NewItem((enum ITEM_CLASS)90);
 			p_item->SetItemType( t );	
 			
 			while(1)

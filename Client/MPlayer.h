@@ -432,7 +432,7 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		//----------------------------------------------------------
 		BYTE			GetBasicAttackDistance() const	{ return m_BasicAttackDistance; }
 		void			SetBasicAttackDistance(BYTE bad) { m_BasicAttackDistance = (bad==0)?1:bad; }
-		//TYPE_OBJECTID	GetTraceID() const				{ return m_TraceID; }
+		TYPE_OBJECTID	GetTraceID() const				{ return m_TraceID; }
 		BOOL			IsTraceNULL()	const			{ return m_fTrace==0; }
 		BOOL			IsTraceCreature()	const		{ return (m_fTrace & FLAG_TRACE_CREATURE_BASIC) || (m_fTrace & FLAG_TRACE_CREATURE_SPECIAL); }
 		BOOL			IsTraceSector()	const			{ return (m_fTrace & FLAG_TRACE_SECTOR_BASIC) || (m_fTrace & FLAG_TRACE_SECTOR_SPECIAL); }
@@ -504,10 +504,18 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		// Item Check Buffer
 		//----------------------------------------------------------
 		bool	IsItemCheckBufferNULL()				{ return m_pItemCheckBuffer==NULL; }
+
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 		void	SetItemCheckBuffer(MItem* pItem, enum ITEM_CHECK_BUFFER status, TYPE_OBJECTID SubItem = OBJECTID_NULL);
+	#else
+		void	SetItemCheckBuffer(MItem* pItem, enum ITEM_CHECK_BUFFER status);
+	#endif
+		
 		void	ClearItemCheckBuffer();		// 제거
 		MItem*	GetItemCheckBuffer() const				{ return m_pItemCheckBuffer; }
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 		TYPE_OBJECTID	GetItemIDCheckBufferSubInventory() const	{ return m_dwSubItemIDCheckBuffer; }
+	#endif
 		enum ITEM_CHECK_BUFFER	GetItemCheckBufferStatus() const	{ return m_ItemCheckBufferStatus; }
 
 		// 괜히 만들어본 함수들 - -;
@@ -570,12 +578,6 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 
 		void	SetResurrectZoneID(int ZoneID) { m_ResurrectZoneID = ZoneID; }
 		int		GetResurrectZoneID() { return m_ResurrectZoneID; }
-
-		// 2005.06.30 combo Skill State  My Creature  만 적용  Sjheon
-		void	AddComboEndValue(); 
-		int		GetComboEndValue() { return m_byComboEndValue; }
-
-		// 2005.06.30 combo Skill State  My Creature  만 적용  Sjheon
 
 	protected :				
 		void	ActionMove();			// move
@@ -675,7 +677,10 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 		// Item을 기억하고 있자..
 		ITEM_CHECK_BUFFER			m_ItemCheckBufferStatus;
 		MItem*						m_pItemCheckBuffer;
+
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 		DWORD						m_dwSubItemIDCheckBuffer; // add 2005, 3, 2, sobeit added  - 어떤 subinventory 에서 사용 했는지
+	#endif
 
 		// 기술 사용의 목표 : effect target
 		MEffectTarget*				m_pEffectTarget;
@@ -720,8 +725,6 @@ class MPlayer : public MCreatureWear, public MRequestMode {
 
 		int						m_ResurrectZoneID;
 
-		// 2005.06.30 combo Skill State  My Creature 만 적용 
-		BYTE					m_byComboEndValue ;  // 콤보기술을 사용시 최대 콤보기술값   
 };
 
 

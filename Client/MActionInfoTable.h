@@ -115,6 +115,8 @@
 #include "CTypeTable.h"
 //#include "SkillDef.h"
 #include "MString.h"
+class ofstream;
+class ifstream;
 
 //----------------------------------------------------------------------
 // 기술의 속성에 대한 flag
@@ -271,8 +273,8 @@ class ACTION_INFO_NODE {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(std::ofstream& file);
-		void			LoadFromFile(ifstream& file);
+		void			SaveToFile(class ofstream& file);
+		void			LoadFromFile(class ifstream& file);
 };
 
 
@@ -345,9 +347,7 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		// Sound ID
 		//------------------------------------------------------
 		void	SetSoundID(TYPE_SOUNDID id)			{ m_SoundID = id; }
-		void	SetMaleSoundID(TYPE_SOUNDID id)		{ m_SoundMaleID = id; }
-		void	SetFemaleSoundID(TYPE_SOUNDID id)	{ m_SoundFemaleID = id; }
-		
+
 		//------------------------------------------------------
 		// Main Node
 		//------------------------------------------------------
@@ -359,14 +359,7 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		void		SetAttack()				{ m_bAttack = TRUE; }
 		void		UnSetAttack()			{ m_bAttack = FALSE; }
 		BOOL		IsAttack() const		{ return m_bAttack; }
-		
-		//------------------------------------------------------
-		// Combo attack - 공격 기술인가? Sjheon 2005.06.27
-		//------------------------------------------------------
-		void		SetComboAttackSkill(BOOL bComboAttackSkill)	{ m_bComboAttackSkill = bComboAttackSkill;	} 
-		BOOL		GetComboAttackSkill()	{	return m_bComboAttackSkill ; }
-		void		SetComboActionResultEffect(TYPE_ACTIONINFO  action) ; 
-		TYPE_ACTIONINFO		GetomboActionResultEffect();
+
 		//------------------------------------------------------
 		// get
 		//------------------------------------------------------
@@ -377,9 +370,6 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		WORD		GetDelay() const		{ return m_Delay; }
 		int			GetValue() const		{ return m_Value; }
 		TYPE_SOUNDID	GetSoundID() const		{ return m_SoundID; }
-		TYPE_SOUNDID	GetMaleSoundID() const		{ return m_SoundMaleID; }
-		TYPE_SOUNDID	GetFemaleSoundID() const	{ return m_SoundFemaleID; }	
-
 		BOOL		HasMainNode() const		{ return m_MainNode!=MAIN_NODE_NULL; }
 		int			GetMainNode() const		{ return m_MainNode; }
 		
@@ -525,8 +515,8 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void		SaveToFile(std::ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(class ofstream& file);
+		void		LoadFromFile(class ifstream& file);
 
 		//-------------------------------------------------------
 		// Grade 
@@ -567,8 +557,7 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 
 		bool						m_bUseActionStep;
 		TYPE_ACTIONINFO				m_ActionStep[MAX_ACTION_STEP];			// 액션 스텝
-		TYPE_ACTIONINFO				m_Parent;
-		TYPE_ACTIONINFO				m_ComboActionResultEffect;	// 2005.06.27
+		TYPE_ACTIONINFO				m_Parent;				
 
 		// casting 정보
 		TYPE_ACTIONINFO				m_CastingActionInfo;		// 사용할려는 CastingActionInfo의 ID
@@ -593,17 +582,11 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		WORD						m_Delay;					// 기술 사용 delay시간	
 		int							m_Value;					// 값
 		TYPE_SOUNDID				m_SoundID;					// 기술 사용 시점의 Sound ID
-		
-		TYPE_SOUNDID				m_SoundMaleID;				// 기술 사용 시점의 남자 Sound ID
-		TYPE_SOUNDID				m_SoundFemaleID;			// 기술 사용 시점의 여자 Sound ID
-
-
 		int							m_MainNode;					// 기본이 되는 순간, 반복되는 순간..등
 
 		BOOL						m_bAttack;					// 공격하는 기술(상대에게 피해를 입히는)인가?
 
-		BOOL						m_bComboAttackSkill;		// 공격 콤보스킬 이냐  
-
+		
 		int							m_StartFrame[3];				// Effect가 시작하는 Frame		
 		
 		TYPE_ACTIONRESULTID			m_ActionResultID;			// 기술의 결과 종류
@@ -668,8 +651,8 @@ class MActionInfoTable : public CTypeTable<MActionInfo> {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void		SaveToFile(std::ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(class ofstream& file);
+		void		LoadFromFile(class ifstream& file);
 
 	protected :
 		// ActionInfo / ResultActionInfo / ClientOnlyActionInfo의 경계값

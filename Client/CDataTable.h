@@ -7,8 +7,8 @@
 
 //#include "DebugInfo.h"
 //#define	 new DEBUG_NEW
-ifstream;
-std::ofstream;
+class ifstream;
+class ofstream;
 
 //----------------------------------------------------------------------
 //
@@ -43,8 +43,8 @@ class CDataTable {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(std::ofstream& file);
-		void			LoadFromFile(ifstream& file);
+		void			SaveToFile(class ofstream& file);
+		void			LoadFromFile(class ifstream& file);
 
 	protected :		
 		int			m_Size;					// Type 종류 수
@@ -126,7 +126,7 @@ CDataTable<Type>::Release()
 //----------------------------------------------------------------------
 template <class Type>
 void			
-CDataTable<Type>::SaveToFile(std::ofstream& file)
+CDataTable<Type>::SaveToFile(class ofstream& file)
 {
 	// size 저장
 	file.write((const char*)&m_Size, 4);
@@ -147,7 +147,7 @@ CDataTable<Type>::SaveToFile(std::ofstream& file)
 //----------------------------------------------------------------------
 template <class Type>
 void			
-CDataTable<Type>::LoadFromFile(ifstream& file)
+CDataTable<Type>::LoadFromFile(class ifstream& file)
 {
 	int numSize;
 

@@ -40,7 +40,7 @@ MHelpMessageManager:: ~MHelpMessageManager()
 
 void MHelpMessageManager::LoadFromFile(const char * filename)
 {	
-	ifstream file(filename, std::ios::binary| std::ios::in);
+	ifstream file(filename, ios::binary| ios::nocreate);
 	if(!file)
 	{
 		return;
@@ -55,7 +55,7 @@ void MHelpMessageManager::LoadFromFile(const char * filename)
 
 void MHelpMessageManager::SaveToFile(const char * filename)
 {
-	ofstream file(filename, std::ios::binary);
+	ofstream file(filename, ios::binary);
 	if(file)
 	{
 		SaveToFile(file);
@@ -237,7 +237,7 @@ bool MHelpMessageManager::LoadHelpMessageRpk(const char *helprpkfilename)
 }
 
 
-void MHelpMessageManager::LoadFromFile(ifstream &file)
+void MHelpMessageManager::LoadFromFile(class ifstream &file)
 {
 	MHelpMessage message;
 	MString		 m_sender;
@@ -415,7 +415,7 @@ void MHelpMessageManager::LoadFromFile(ifstream &file)
 	file.close();
 }
 
-void MHelpMessageManager::SaveToFile(ofstream &file)
+void MHelpMessageManager::SaveToFile(class ofstream &file)
 {
 	int i;
 	size_t strlen = 0;

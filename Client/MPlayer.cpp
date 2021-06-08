@@ -82,7 +82,23 @@
 #include "Cpackets\CGPartyPosition.h"
 
 extern void UI_RunPetInfo(struct PETINFO *pPetInfo);
-
+extern bool UpdateSocketOutput();
+//GameNew Mode  add by sonc 2006.9.27
+extern	LONG g_SECTOR_WIDTH;
+extern	LONG g_SECTOR_HEIGHT;
+extern	LONG g_SECTOR_WIDTH_HALF;
+extern	LONG g_SECTOR_HEIGHT_HALF;
+extern	LONG g_SECTOR_SKIP_PLAYER_LEFT;
+extern	LONG g_SECTOR_SKIP_PLAYER_UP;
+extern	LONG g_TILESURFACE_SECTOR_WIDTH;
+extern	LONG g_TILESURFACE_SECTOR_HEIGHT;
+extern	LONG g_TILESURFACE_SECTOR_OUTLINE_RIGHT;
+extern	LONG g_TILESURFACE_SECTOR_OUTLINE_DOWN;
+extern	LONG g_TILESURFACE_WIDTH;
+extern	LONG g_TILESURFACE_HEIGHT;
+extern	LONG g_TILESURFACE_OUTLINE_RIGHT;
+extern	LONG g_TILESURFACE_OUTLINE_DOWN;
+//end 
 //#include "Client.h"
 bool		GetMakeItemFitPosition(MItem* pItem, ITEM_CLASS itemClass, int itemType, POINT& fitPoint);
 
@@ -295,7 +311,7 @@ MPlayer*			g_pPlayer = NULL;
 		if (g_pInventory!=NULL 
 			&& g_pPlayer!=NULL
 			&& !g_pPlayer->IsVampire()
-			&& g_pPlayer->IsItemCheckBufferNULL() 
+			&& g_pPlayer->IsItemCheckBufferNULL()
 			&& !gbl_item_lock)
 		{
 			// Healing
@@ -842,8 +858,9 @@ MPlayer::MPlayer()
 	// 방금 주운 item
 	m_ItemCheckBufferStatus = ITEM_CHECK_BUFFER_NULL;
 	m_pItemCheckBuffer = NULL;
-	m_dwSubItemIDCheckBuffer = OBJECTID_NULL;
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+		m_dwSubItemIDCheckBuffer = OBJECTID_NULL;
+	#endif
 	// 기술 사용의 목표
 	m_pEffectTarget = NULL;
 
@@ -885,8 +902,6 @@ MPlayer::MPlayer()
 	m_bShowAdamCloud = false;
 
 	m_ResurrectZoneID = 0;
-
-	m_byComboEndValue = 1 ; 
 }
 
 MPlayer::~MPlayer()
@@ -1556,9 +1571,9 @@ MPlayer::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		//	y0 = m_DestY - g_pClientConfig->MAX_FINDPATH_HEIGHT,
 		//	y1 = m_DestY + g_pClientConfig->MAX_FINDPATH_HEIGHT+1;
 		int x0 = firstSector.x - 1, 
-			x1 = firstSector.x + SECTOR_WIDTH + 5, 
+			x1 = firstSector.x + g_SECTOR_WIDTH + 5, 
 			y0 = firstSector.y - 1,
-			y1 = firstSector.y + SECTOR_HEIGHT + 5;
+			y1 = firstSector.y + g_SECTOR_HEIGHT + 5;
 
 		if (x0 < 0)						
 			x0 = 0;
@@ -2028,42 +2043,54 @@ MPlayer::SelfSpecialAction()
 							if (!IsWaitVerify()
 								&& IsItemCheckBufferNULL())
 							{									
-								// 2005, 3, 2, sobeit modify start - FindItem() 대신 FindItemAll() 사용
 								// 사용안된(Marked=false) VampirePortalItem을 찾는다.
-								
+
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 								MItem* pSubInventory = NULL;
 								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MVampirePortalItemFinder( false ) , pSubInventory );
+							#else
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MVampirePortalItemFinder( false ) );
+							#endif
+								
+								
 								
 								if (pItem!=NULL && pItem->GetNumber()>0 && pItem->IsAffectStatus())
-								{					
-									DWORD SubInventoryItemID = 0;
+								{	
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+										DWORD SubInventoryItemID = 0;
+									#endif
 									//----------------------------------------------------
 									// Server에 접속한 경우
 									//----------------------------------------------------
-									CGSkillToInventory _CGSkillToInventory;
-									_CGSkillToInventory.setObjectID( pItem->GetID() );
-									_CGSkillToInventory.setX( pItem->GetGridX() );
-									_CGSkillToInventory.setY( pItem->GetGridY() );
-									_CGSkillToInventory.setSkillType( MAGIC_BLOODY_MARK );
-									//_CGSkillToInventory.setCEffectID( 0 );	// -_-;;							
+										CGSkillToInventory _CGSkillToInventory;
+										_CGSkillToInventory.setObjectID( pItem->GetID() );
+										_CGSkillToInventory.setX( pItem->GetGridX() );
+										_CGSkillToInventory.setY( pItem->GetGridY() );
+										_CGSkillToInventory.setSkillType( MAGIC_BLOODY_MARK );
+										//_CGSkillToInventory.setCEffectID( 0 );	// -_-;;							
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+										if(NULL != pSubInventory)
+										{
+											SubInventoryItemID = pSubInventory->GetID();
+										}
+										_CGSkillToInventory.setInventoryItemObjectID( SubInventoryItemID );
+									#endif
+										g_pSocket->sendPacket( &_CGSkillToInventory );
 
-									if(NULL != pSubInventory)
-									{
-										SubInventoryItemID = pSubInventory->GetID();
-									}
-									_CGSkillToInventory.setInventoryItemObjectID( SubInventoryItemID );
+										//----------------------------------------------------
+										// Inventory에서 item을 사용하는 걸 검증받기를 기다린다.
+										//----------------------------------------------------
+										SetWaitVerify( WAIT_VERIFY_SKILL_SUCCESS );
 
-									g_pSocket->sendPacket( &_CGSkillToInventory );
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+										SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY, SubInventoryItemID);
+									#else
+										SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY);
+									#endif
 
-									//----------------------------------------------------
-									// Inventory에서 item을 사용하는 걸 검증받기를 기다린다.
-									//----------------------------------------------------
-									SetWaitVerify( WAIT_VERIFY_SKILL_SUCCESS );
-									SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY, SubInventoryItemID);
 
-									(*g_pSkillInfoTable)[m_nSpecialActionInfo].SetNextAvailableTime();
+										(*g_pSkillInfoTable)[m_nSpecialActionInfo].SetNextAvailableTime();
 								}
-								// 2005, 3, 2, sobeit modify end
 							}
 					}						
 					
@@ -2082,39 +2109,48 @@ MPlayer::SelfSpecialAction()
 							if (!IsWaitVerify()
 								&& IsItemCheckBufferNULL())
 							{		
-								// 2005, 3, 2, sobeit modify start - FindItem() 대신 FindItemAll() 사용
-
 								// 사용된(Marked=true) VampirePortalItem을 찾는다.
-//								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MVampirePortalItemFinder( true ) );
-								
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 								MItem* pSubInventory = NULL;
 								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MVampirePortalItemFinder( true ) , pSubInventory );
+							#else
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MVampirePortalItemFinder( true ) );
+							#endif
+								
 								
 								if (pItem!=NULL && pItem->GetNumber()>0 && pItem->IsAffectStatus())
 								{				
-									DWORD SubInventoryItemID = 0;
-									CGSkillToInventory _CGSkillToInventory;
-									_CGSkillToInventory.setObjectID( pItem->GetID() );
-									_CGSkillToInventory.setX( pItem->GetGridX() );
-									_CGSkillToInventory.setY( pItem->GetGridY() );
-									_CGSkillToInventory.setSkillType( MAGIC_BLOODY_TUNNEL );
-									//_CGSkillToInventory.setCEffectID( 0 );	// -_-;;							
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+										DWORD SubInventoryItemID = 0;
+									#endif
+										CGSkillToInventory _CGSkillToInventory;
+										_CGSkillToInventory.setObjectID( pItem->GetID() );
+										_CGSkillToInventory.setX( pItem->GetGridX() );
+										_CGSkillToInventory.setY( pItem->GetGridY() );
+										_CGSkillToInventory.setSkillType( MAGIC_BLOODY_TUNNEL );
+										//_CGSkillToInventory.setCEffectID( 0 );	// -_-;;							
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+										if(NULL != pSubInventory)
+										{
+											SubInventoryItemID = pSubInventory->GetID();
+										}
+										_CGSkillToInventory.setInventoryItemObjectID( SubInventoryItemID );
+									#endif
+										g_pSocket->sendPacket( &_CGSkillToInventory );
 
-									if(NULL != pSubInventory)
-									{
-										SubInventoryItemID = pSubInventory->GetID();
-									}
-									_CGSkillToInventory.setInventoryItemObjectID( SubInventoryItemID );
+										//----------------------------------------------------
+										// Inventory에서 item을 사용하는 걸 검증받기를 기다린다.
+										//----------------------------------------------------
+										SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
 
-									g_pSocket->sendPacket( &_CGSkillToInventory );
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+										SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY, SubInventoryItemID);
+									#else
+										SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY);
+									#endif
+										
 
-									//----------------------------------------------------
-									// Inventory에서 item을 사용하는 걸 검증받기를 기다린다.
-									//----------------------------------------------------
-									SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
-									SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY, SubInventoryItemID);
-
-									(*g_pSkillInfoTable)[m_nSpecialActionInfo].SetNextAvailableTime();
+										(*g_pSkillInfoTable)[m_nSpecialActionInfo].SetNextAvailableTime();
 
 								}
 							}
@@ -2132,39 +2168,50 @@ MPlayer::SelfSpecialAction()
 							//----------------------------------------------------
 							// 검증 받을게 없는 경우..
 							//----------------------------------------------------
-						
-						
-						// 2005, 3, 2, sobeit modify start - FindItem() 대신 FindItemAll() 사용
-						if (IsWaitVerifyNULL()
-							&& IsItemCheckBufferNULL()
-							&& g_pZone->GetHelicopter( GetID() )==NULL)				
-						{		
-							MItem* pSubInventory = NULL;
-							MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MSlayerPortalItemFinder() , pSubInventory);
-							
-							if (pItem!=NULL && pItem->GetNumber()>0 && pItem->IsAffectStatus())
-							{							
-								DWORD SubInventoryItemID = 0;
-								CGUseItemFromInventory _CGUseItemFromInventory;
-								_CGUseItemFromInventory.setObjectID( pItem->GetID() );
-								_CGUseItemFromInventory.setX( pItem->GetGridX() );
-								_CGUseItemFromInventory.setY( pItem->GetGridY() );
+							if (IsWaitVerifyNULL()
+								&& IsItemCheckBufferNULL()
+								&& g_pZone->GetHelicopter( GetID() )==NULL)				
+							{		
 
-								if(NULL != pSubInventory)
-								{
-									SubInventoryItemID = pSubInventory->GetID();
-								}
-								_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+								MItem* pSubInventory = NULL;
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MSlayerPortalItemFinder() , pSubInventory);
+							#else
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MSlayerPortalItemFinder() );
+							#endif
 								
-								g_pSocket->sendPacket( &_CGUseItemFromInventory );
+								
+								if (pItem!=NULL && pItem->GetNumber()>0 && pItem->IsAffectStatus())
+								{				
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+										DWORD SubInventoryItemID = 0;
+									#endif
+										CGUseItemFromInventory _CGUseItemFromInventory;
+										_CGUseItemFromInventory.setObjectID( pItem->GetID() );
+										_CGUseItemFromInventory.setX( pItem->GetGridX() );
+										_CGUseItemFromInventory.setY( pItem->GetGridY() );
 
-								//----------------------------------------------------
-								// Inventory에서 item을 사용하는 걸 검증받기를 기다린다.
-								//----------------------------------------------------
-								SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY, SubInventoryItemID);
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+										if(NULL != pSubInventory)
+										{
+											SubInventoryItemID = pSubInventory->GetID();
+										}
+										_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
+									#endif
+
+										g_pSocket->sendPacket( &_CGUseItemFromInventory );
+
+										//----------------------------------------------------
+										// Inventory에서 item을 사용하는 걸 검증받기를 기다린다.
+										//----------------------------------------------------
+									#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+										SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY, SubInventoryItemID);
+									#else
+										SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
+									#endif
+										
+								}
 							}
-						}
-						// 2005, 3, 2, sobeit modify end
 					}						
 					
 					return false;
@@ -2437,9 +2484,6 @@ MPlayer::SelfSpecialAction()
 					//					변신용 아이템 - vampire인 경우
 					//
 					//----------------------------------------------------
-					if(IsVampire() && GetAction() ==  ACTION_VAMPIRE_DRAIN) 
-						return false ; 
-
 					if (IsVampire() && g_pZoneTable->Get( m_pZone->GetID() )->CannotUseSpecialItem == false)
 					{
 							//----------------------------------------------------
@@ -2449,7 +2493,10 @@ MPlayer::SelfSpecialAction()
 								&& IsItemCheckBufferNULL())
 							{		
 								MItem* pItem = NULL;
+
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 								MItem* pSubInventory = NULL;
+							#endif
 
 								if (m_nSpecialActionInfo==MAGIC_TRANSFORM_TO_WOLF)
 								{
@@ -2462,24 +2509,32 @@ MPlayer::SelfSpecialAction()
 								}
 								else
 								{
-									// 박쥐 날개 찾기
+								#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 									pItem = g_pInventory->FindItemAll( MItemClassTypeFinder(ITEM_CLASS_VAMPIRE_ETC , 1), pSubInventory );
+								#else
+									pItem = g_pInventory->FindItem(ITEM_CLASS_VAMPIRE_ETC, 1);
+								#endif
+									
 								}
 
 								if (pItem!=NULL)
-								{						
+								{			
+								#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 									DWORD dwSubInventoryID = 0;
+								#endif
 									CGSkillToInventory _CGSkillToInventory;
 									_CGSkillToInventory.setObjectID( pItem->GetID() );
 									_CGSkillToInventory.setX( pItem->GetGridX() );
 									_CGSkillToInventory.setY( pItem->GetGridY() );
 									_CGSkillToInventory.setSkillType( m_nSpecialActionInfo );
+									//_CGSkillToInventory.setCEffectID( 0 );	// -_-;;	
+									
+								#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 									if(NULL != pSubInventory)
 										dwSubInventoryID = pSubInventory->GetID();
 
 									_CGSkillToInventory.setInventoryItemObjectID(dwSubInventoryID);
-
-									//_CGSkillToInventory.setCEffectID( 0 );	// -_-;;							
+								#endif
 
 									g_pSocket->sendPacket( &_CGSkillToInventory );
 
@@ -2491,7 +2546,13 @@ MPlayer::SelfSpecialAction()
 									// Inventory에서 item을 사용하는 걸 검증받기를 기다린다.
 									//----------------------------------------------------
 									SetWaitVerify( MPlayer::WAIT_VERIFY_SKILL_SUCCESS );
+									
+								#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 									SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY , dwSubInventoryID);
+								#else
+									SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_SKILL_TO_INVENTORY );
+								#endif
+									
 
 									(*g_pSkillInfoTable)[m_nSpecialActionInfo].SetNextAvailableTime();
 
@@ -2519,10 +2580,7 @@ MPlayer::SelfSpecialAction()
 					{
 						const MSector& sector = m_pZone->GetSector(m_X, m_Y);
 						
-						// 2005, 2, 5, sobeit modify start - IsWaitVerify 추가 
-						//if (sector.IsBlockGround())
-						if (sector.IsBlockGround() || IsWaitVerify())
-						// 2005, 2, 5, sobeit modify end
+						if (sector.IsBlockGround())
 						{
 							m_fNextTrace = FLAG_TRACE_NULL;
 
@@ -2543,40 +2601,51 @@ MPlayer::SelfSpecialAction()
 						)
 					{
 						//MItem* pItem = g_pInventory->FindItem( ITEM_CLASS_OUSTERS_SUMMON_ITEM );
-						
-						// 2005, 3, 2, sobeit modify start - FindItem() 대신 FindItemAll() 사용
-						//MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MOustersSummonGemItemFinder() );
-						
+
+					#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 						MItem* pSubInventory = NULL;
 						MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MOustersSummonGemItemFinder(), pSubInventory );
+					#else
+						MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MOustersSummonGemItemFinder() );
+					#endif
+						
 						if( pItem != NULL )
 						{
 							if( pItem->IsAffectStatus() && pItem->IsChargeItem() && pItem->GetNumber() > 0 )
 							{
+								
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 								DWORD SubInventoryItemID = 0;
+							#endif
 
 								CGUseItemFromInventory _CGUseItemFromInventory;
 								_CGUseItemFromInventory.setObjectID( pItem->GetID() );
 								_CGUseItemFromInventory.setX( pItem->GetGridX() );
 								_CGUseItemFromInventory.setY( pItem->GetGridY() );
-								
+
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 								if(NULL != pSubInventory)
 								{
 									SubInventoryItemID = pSubInventory->GetID();
 								}
+
 								_CGUseItemFromInventory.setInventoryItemObjectID( SubInventoryItemID );
-								
+							#endif
+
 								g_pSocket->sendPacket( &_CGUseItemFromInventory );
-								
+
+							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 								SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY, SubInventoryItemID);
+							#else
+								SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
+							#endif
+
 								(*g_pSkillInfoTable)[SKILL_SUMMON_SYLPH].SetAvailableTime( 4000 );
 							}
 						} else
 						{
 							
-							
 						}
-						// 2005, 3, 2, sobeit modify end
 					}
 					return false;
 				break;
@@ -2644,6 +2713,27 @@ MPlayer::SelfSpecialAction()
 						return false;
 					}
 					break;
+				// add by Coffee 2007-6-9 藤속賈痰劤세콘膠틔왱뇜
+// 				case SKILL_BLLODY_SCARIFY:
+// 				case SKILL_BLOOD_CURSE:
+// 					if (IsVampire() && !IsWaitVerify() && IsItemCheckBufferNULL())
+// 					{
+// 						MItem* pItem = NULL;
+// 
+// 					}
+// 					return false;
+// 					break;
+// 				case SKILL_SHINE_SWORD:
+// 				case SKILL_BOMB_CRASH_WALK:
+// 				case SKILL_SATELLITE_BOMB:
+// 				case SKILL_ILLUSION_INVERSION:
+// 				case SKILL_HEAVEN_GROUND:
+// 				case SKILL_DUMMY_DRAKE:
+// 				case SKILL_HYDRO_CONVERGENCE:
+// 				case SKILL_SUMMON_CLAY:
+// 				case SKILL_HETER_CHAKRAM:
+// 					break;
+				// end add By Coffee 2007-6-9
 			}			
 
 			if( (*g_pActionInfoTable)[m_nSpecialActionInfo].GetParentActionInfo() != ACTIONINFO_NULL )
@@ -3381,35 +3471,10 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 			DEBUG_ADD_FORMAT("OUSTERS LEVEL : %d %d",originalSkill,(*g_pSkillInfoTable)[originalSkill].GetExpLevel());
 		}
 
-
-		if( grade>0 && (*g_pActionInfoTable)[originalSkill].IsUseActionStep())
+		if( grade>0 && (*g_pActionInfoTable)[originalSkill].IsUseActionStep() )
 			useSkill = (*g_pActionInfoTable)[originalSkill].GetActionStep( grade - 1 );
-		
-		// Sjheon 2005.07.01 Combo 기술 처리 Add
-		/*if((*g_pActionInfoTable)[originalSkill].GetComboAttackSkill())  
-		{
-			m_ComboCnt = GetComboEndValue();
-			//OutputDebugString("TraceCreatureToSpecialAction()\n") ; 
-		}
-		else
-		{
-			//m_ComboCnt = 0 ;
-			if(originalSkill != SKILL_HALO  && originalSkill != SKILL_SHARP_HAIL && originalSkill != SKILL_DRAGON_TORNADO &&
-               originalSkill != SKILL_HIT_CONVERT  && originalSkill != SKILL_SWORD_OF_THOR && originalSkill != SKILL_BLITZ_SLIDING &&
-			   originalSkill != SKILL_MENTAL_SWORD  && originalSkill != SKILL_BLAZE_WALK && originalSkill != SKILL_BLITZ_SLIDING &&
-			   originalSkill != SKILL_SHADOW_DANCING  && originalSkill != SKILL_POWER_OF_LAND && originalSkill != SKILL_TYPHOON
-			)
-				m_ComboCnt = 0 ;
-
-
-			if( grade>0 && (*g_pActionInfoTable)[originalSkill].IsUseActionStep())
-				useSkill = (*g_pActionInfoTable)[originalSkill].GetActionStep( grade - 1 );
-		}*/
-		// Sjheon 2005.07.01 Combo 기술 처리 End
-
-
 		// 2004, 9, 20, sobeit add start
-		if((*g_pActionInfoTable)[useSkill].IsMasterySkillStep()) 
+		if((*g_pActionInfoTable)[useSkill].IsMasterySkillStep())
 		{
 			int TempSkill = (*g_pActionInfoTable)[useSkill].GetActionStep( (*g_pActionInfoTable)[useSkill].GetMasterySkillStep() );
 			if(g_pSkillAvailable->IsEnableSkill( (ACTIONINFO)TempSkill ))
@@ -3418,23 +3483,25 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 		// 2004, 9, 20, sobeit add end
 		if( (*g_pActionInfoTable)[useSkill].GetParentActionInfo() != ACTIONINFO_NULL )
 			originalSkill = (*g_pActionInfoTable)[useSkill].GetParentActionInfo();
-		
+
 		DEBUG_ADD_FORMAT("SKILL : %d %d", originalSkill, useSkill );
+
+		
 		//-------------------------------------------------------
 		// 현재 사용할 수 있는 기술인지 체크..
 		// Passive 스킬이면 사용 못하게..
 		//-------------------------------------------------------
-		if (!g_pSkillAvailable->IsEnableSkill( (ACTIONINFO)originalSkill )
-			|| !(*g_pSkillInfoTable)[originalSkill].IsEnable()
-			|| !(*g_pSkillInfoTable)[originalSkill].IsAvailableTime()
-			|| (*g_pSkillInfoTable)[originalSkill].IsPassive())
-		{
-			m_fNextTrace = FLAG_TRACE_NULL;
+			if (!g_pSkillAvailable->IsEnableSkill( (ACTIONINFO)originalSkill )
+				|| !(*g_pSkillInfoTable)[originalSkill].IsEnable()
+				|| !(*g_pSkillInfoTable)[originalSkill].IsAvailableTime()
+				|| (*g_pSkillInfoTable)[originalSkill].IsPassive())
+			{
+				m_fNextTrace = FLAG_TRACE_NULL;
 
-			UnSetRepeatAction();
+				UnSetRepeatAction();
 
-			return false;
-		}
+				return false;
+			}
 		
 		if (IsStop()) // || m_Action!=ACTION_ATTACK)
 		{
@@ -3583,7 +3650,6 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 					useSkill = pItem->GetUseActionInfo();
 				}
 				break;
-			
 			}
 
 			//-------------------------------------------------------
@@ -3606,6 +3672,7 @@ MPlayer::TraceCreatureToSpecialAction(TYPE_OBJECTID id, bool bForceAttack)
 					}
 				}
 			}
+
 			//-------------------------------------------------------
 			// item을 사용하는 기술이면 item을 체크해야 한다.
 			//-------------------------------------------------------
@@ -3911,7 +3978,7 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 #endif
 		)
 		return false;
-	
+
 	//-----------------------------------------------------
 	// delay가 있으면 안된다.
 	//-----------------------------------------------------
@@ -3988,7 +4055,7 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 		}
 		
 		if( (*g_pActionInfoTable)[useSkill].IsUseActionStep() && grade > 0 )
-			useSkill = (*g_pActionInfoTable)[useSkill].GetActionStep( grade - 1 ); 			
+			useSkill = (*g_pActionInfoTable)[useSkill].GetActionStep( grade - 1 );			
 			
 		// 2004, 9, 20, sobeit add start
 		if((*g_pActionInfoTable)[useSkill].IsMasterySkillStep())
@@ -4081,7 +4148,7 @@ MPlayer::TraceSectorToSpecialAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION 
 					}
 				}
 				
-				else if(pItem != NULL )
+				if(pItem != NULL)
 				{
 					// 성물은 안먹게 하기
 					MCreature* pCreature = ((MCorpse*)pItem)->GetCreature();
@@ -4480,7 +4547,7 @@ MPlayer::TraceItem(TYPE_OBJECTID id)
 		//------------------------------------------------------------
 		// message출력
 		//------------------------------------------------------------
-		DEBUG_ADD_FORMAT("Trace Item: %d", id);				
+		DEBUG_ADD_FORMAT("Trace IteM: %d", id);				
 	}
 	else
 	{
@@ -4961,7 +5028,7 @@ MPlayer::ActionInTraceDistance()
 			//m_ActionCount = m_ActionCountMax;
 			m_MoveCount = m_MoveCountMax;
 
-			BasicActionToCreature();				
+			BasicActionToCreature();			// by viva	
 
 			return true;
 		}
@@ -5713,7 +5780,9 @@ MPlayer::ActionMove()
 				_CGMove.setY( m_Y );
 				_CGMove.setDir( m_Direction );
 				g_pSocket->sendPacket( &_CGMove );
-				
+
+				//yckou
+//				UpdateSocketOutput();
 				// Server로 보낸 방향을 기억해둔다.
 				m_listSendDirection.push_back( m_Direction );
 				m_SendMove++;
@@ -6254,6 +6323,9 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 		else
 			return;
 		break;
+		//by viva
+//	case SKILL_SLAYER_HEAL_SACRED_STAMP:
+//		return;
 	}
 	POINT point;	
 #ifdef __METROTECH_TEST__
@@ -6582,7 +6654,7 @@ MPlayer::ActionToSendPacket()
 		break;
 	case SKILL_SWEEP_VICE_1:
 	case SKILL_SWEEP_VICE_3:
-	case SKILL_SWEEP_VICE_5: 
+	case SKILL_SWEEP_VICE_5:
 //		if(!GetSweepViewValue()) //스윕바이스를 아직 사용중이 아닐때
 //		{
 //			SetSweepViewValue(1);
@@ -6600,7 +6672,7 @@ MPlayer::ActionToSendPacket()
 	case SKILL_PLASMA_ROCKET_LAUNCHER:
 		if(g_pCurrentMagazine != NULL)
 		 {
-			 int MagazineCount = g_pCurrentMagazine->GetNumber(); 
+			 int MagazineCount = g_pCurrentMagazine->GetNumber();
 			 if(MagazineCount>0)
 			 {
 				 g_pCurrentMagazine->SetNumber(MagazineCount-1);
@@ -6610,7 +6682,100 @@ MPlayer::ActionToSendPacket()
 		 }
 		else return;
 		break;
-	
+	// add by Coffee	2007-6-9
+		
+	case SKILL_BLLODY_SCARIFY :
+	case SKILL_BLOOD_CURSE :
+	case SKILL_VAMPIRE_INNATE_DEADLY_CLAW://by viva
+	case SKILL_VAMPIRE_POISON_VOODOO_RING://by viva
+/*		if (IsVampire() && g_pZoneTable->Get( m_pZone->GetID() )->CannotUseSpecialItem == false)
+		{
+			if (!IsWaitVerify()
+				&& IsItemCheckBufferNULL())
+			{
+				MItem* pItem = NULL;
+				pItem = g_pInventory->FindItem(ITEM_CLASS_MOON_CARD, 6);
+				if (pItem!=NULL)
+				{
+					CGUseItemFromInventory _CGUseItemFromInventory;
+					_CGUseItemFromInventory.setObjectID( pItem->GetID() );
+					_CGUseItemFromInventory.setX( pItem->GetGridX() );
+					_CGUseItemFromInventory.setY( pItem->GetGridY() );
+					g_pSocket->sendPacket( &_CGUseItemFromInventory );
+					SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
+				}
+				else
+				{
+					g_pGameMessage->AddFormat("[瓊刻] %s",(*g_pGameStringTable)[STRING_STATUS_NOT_FIND_SKILL_CRAD].GetString());
+					return;
+				}
+			}
+		}else return;
+*/		break;
+	case SKILL_SHINE_SWORD :
+	case SKILL_BOMB_CRASH_WALK :
+	case SKILL_SATELLITE_BOMB :
+	case SKILL_ILLUSION_INVERSION :
+	case SKILL_HEAVEN_GROUND :
+	case SKILL_SLAYER_SWORD_SKY_FIRE://by viva
+	case SKILL_SLAYER_BLADE_CUT_STORM://by viva
+	case SKILL_SLAYER_GUN_BOMB_XRL_MISSILE://by viva
+	case SKILL_SLAYER_HEAL_SACRED_STAMP://by viva
+	case SKILL_SLAYER_ENCHANT_BRAMBLE_HALO://by viva
+
+/*		if (IsSlayer() && g_pZoneTable->Get( m_pZone->GetID() )->CannotUseSpecialItem == false)
+		{
+			if (!IsWaitVerify()
+				&& IsItemCheckBufferNULL())
+			{
+				MItem* pItem = NULL;
+				pItem = g_pInventory->FindItem(ITEM_CLASS_MOON_CARD, 5);
+				if (pItem!=NULL)
+				{
+					CGUseItemFromInventory _CGUseItemFromInventory;
+					_CGUseItemFromInventory.setObjectID( pItem->GetID() );
+					_CGUseItemFromInventory.setX( pItem->GetGridX() );
+					_CGUseItemFromInventory.setY( pItem->GetGridY() );
+					g_pSocket->sendPacket( &_CGUseItemFromInventory );
+					SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
+				}
+				else
+				{
+					g_pGameMessage->AddFormat("[瓊刻] %s",(*g_pGameStringTable)[STRING_STATUS_NOT_FIND_SKILL_CRAD].GetString());
+					return;
+				}
+			}
+		}else return;
+*/		break;
+	case SKILL_DUMMY_DRAKE :
+	case SKILL_HYDRO_CONVERGENCE :
+	case SKILL_SUMMON_CLAY :
+	case SKILL_HETER_CHAKRAM :
+/*		if (IsOusters() && g_pZoneTable->Get( m_pZone->GetID() )->CannotUseSpecialItem == false)
+		{
+			if (!IsWaitVerify()
+				&& IsItemCheckBufferNULL())
+			{
+				MItem* pItem = NULL;
+				pItem = g_pInventory->FindItem(ITEM_CLASS_MOON_CARD, 7);
+				if (pItem!=NULL)
+				{
+					CGUseItemFromInventory _CGUseItemFromInventory;
+					_CGUseItemFromInventory.setObjectID( pItem->GetID() );
+					_CGUseItemFromInventory.setX( pItem->GetGridX() );
+					_CGUseItemFromInventory.setY( pItem->GetGridY() );
+					g_pSocket->sendPacket( &_CGUseItemFromInventory );
+					SetItemCheckBuffer( pItem, MPlayer::ITEM_CHECK_BUFFER_USE_FROM_INVENTORY);
+				}
+				else
+				{
+					g_pGameMessage->AddFormat("[瓊刻] %s",(*g_pGameStringTable)[STRING_STATUS_NOT_FIND_SKILL_CRAD].GetString());
+					return;
+				}
+			}
+		}else return;
+*/		break;
+	// add end by Coffee	
 	}
 
 	/*
@@ -7085,33 +7250,19 @@ MPlayer::ActionToSendPacket()
 						}
 						else
 						{
-							int SkillType = m_nUsedActionInfo; 
+							int SkillType = m_nUsedActionInfo;
 							if( (*g_pActionInfoTable)[SkillType].GetParentActionInfo() != ACTIONINFO_NULL )
 								SkillType = (*g_pActionInfoTable)[SkillType].GetParentActionInfo();
-							// 2005.07.13 Combo Skill Add Sjheon	
-							//if(!(*g_pActionInfoTable)[SkillType].GetComboAttackSkill())  
-							//	m_ComboCnt = 0  ;
-							//else
-							//	m_ComboCnt = GetComboEndValue(); 
-							// 2005.07.13 Combo Skill End Sjheon
-
 
 							if(SkillType == SKILL_TELEPORT || SkillType == SKILL_CHARGING_ATTACK)
 							{
-								g_pPlayer->SetDelay(1000);  
+								g_pPlayer->SetDelay(1000);
 							}
-							
 							CGSkillToObject _CGSkillToObject;
 							_CGSkillToObject.setSkillType( SkillType );
 							_CGSkillToObject.setCEffectID( m_pEffectTarget->GetEffectID() );			
 							_CGSkillToObject.setTargetObjectID( m_TraceID );
-							_CGSkillToObject.setCombo(m_ComboCnt); // 2005.07.13  // 콤보 카운트 	
-							g_pSocket->sendPacket( &_CGSkillToObject );	
-							
-							char cstrOutput[256] ; 
-							wsprintf(cstrOutput , "GCSkillToObjectOK1Handler _Seder() %d\n" ,SkillType  ) ; 
-
-							OutputDebugString(cstrOutput) ; 
+							g_pSocket->sendPacket( &_CGSkillToObject );						
 						}
 
 					#else
@@ -7125,7 +7276,7 @@ MPlayer::ActionToSendPacket()
 								SkillType = (*g_pActionInfoTable)[SkillType].GetParentActionInfo();
 
 							CGSkillToTile _CGSkillToTile;
-							_CGSkillToTile.setSkillType( SkillType ); 
+							_CGSkillToTile.setSkillType( SkillType );
 							_CGSkillToTile.setCEffectID( m_pEffectTarget->GetEffectID() );
 							_CGSkillToTile.setX( m_TraceX );
 							_CGSkillToTile.setY( m_TraceY );
@@ -7407,8 +7558,8 @@ MPlayer::ActionEffect()
 				{
 					// 현재 가고 있는 목표가 있는 경우
 				}
-				else if (abs((int)m_X-m_TraceX) < SECTOR_WIDTH
-						&& abs((int)m_Y-m_TraceY) < SECTOR_HEIGHT)
+				else if (abs((int)m_X-m_TraceX) < g_SECTOR_WIDTH
+						&& abs((int)m_Y-m_TraceY) < g_SECTOR_HEIGHT)
 				{
 					// 추적하는 경우
 					m_DestX = m_TraceX;
@@ -7555,9 +7706,7 @@ MPlayer::ActionEffect()
 			 }
 		}
 		else
-		{	
 			ActionToSendPacket();
-		}
 	}
 
 	//-------------------------------------------------------------
@@ -7710,12 +7859,18 @@ MPlayer::ActionEffect()
 //----------------------------------------------------------------------
 // Set ItemCheckBuffer
 //----------------------------------------------------------------------
-void	
-MPlayer::SetItemCheckBuffer(MItem* pItem, enum ITEM_CHECK_BUFFER status, TYPE_OBJECTID SubItem)
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+void MPlayer::SetItemCheckBuffer(MItem* pItem, enum ITEM_CHECK_BUFFER status, TYPE_OBJECTID SubItem)
+	#else
+void MPlayer::SetItemCheckBuffer(MItem* pItem, enum ITEM_CHECK_BUFFER status)
+	#endif
+
 {
 	m_pItemCheckBuffer = pItem;
 
-	m_dwSubItemIDCheckBuffer = SubItem;
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+		m_dwSubItemIDCheckBuffer = SubItem;
+	#endif
 
 	m_ItemCheckBufferStatus = status;	
 
@@ -7751,9 +7906,9 @@ MPlayer::ClearItemCheckBuffer()
 	DEBUG_ADD("Set Item Check Buffer to NULL");
 	
 	m_pItemCheckBuffer = NULL;
-
-	m_dwSubItemIDCheckBuffer = OBJECTID_NULL;
-
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+		m_dwSubItemIDCheckBuffer = OBJECTID_NULL;
+	#endif
 	m_ItemCheckBufferStatus = ITEM_CHECK_BUFFER_NULL;
 
 	// 2004, 8, 27, sobeit add start - 관소환 상태에서 인벤아이템 사용후 착용아이템 벗었다 입었다 하면 
@@ -8770,12 +8925,10 @@ MPlayer::CheckBufferAction()
 		&& (!IsOusters() || IsOusters() && m_NextAction!=ACTION_OUSTERS_FAST_MOVE_STAND)// && m_fNextTrace==FLAG_TRACE_NULL)
 		&& (!bSlayer || bSlayer && m_NextAction!=ACTION_SLAYER_MOTOR_STAND))// && m_fNextTrace==FLAG_TRACE_NULL)
 	{
-		//SetSpecialActionInfo(SKILL_UNTERFELDWEBEL_FIRE) ; 
-		SetAction( m_NextAction);  
-		
-		
-		//SetAction( ACTION_ADVANCEMENT_SLAYER_COMBO_SWARD_SLOW);	
+		SetAction( m_NextAction );	
+
 		DEBUG_ADD("After CheckBufferAction : true - SetAction");
+		
 		return true;
 	}	
 
@@ -8794,9 +8947,8 @@ MPlayer::UnSetRepeatAction()
 
 	m_bRepeatAction = FALSE; 
 
-	m_RepeatCount = 0; 
-	
-	
+	m_RepeatCount = 0;
+
 	m_nNextUsedActionInfo = ACTIONINFO_NULL;
 
 	BOOL bSlayer = IsSlayer();
@@ -8835,8 +8987,6 @@ MPlayer::UnSetRepeatAction()
 
 		DEBUG_ADD_FORMAT("unsetrepeat: actionCount=%d / %d", m_ActionCount, m_ActionCountMax);		
 	}
-
-
 
 	//m_fNextTrace = FLAG_TRACE_NULL; 
 }
@@ -9026,7 +9176,15 @@ MPlayer::RemoveEffectStatus(EFFECTSTATUS status)
 		SetMoveDevice(MOVE_DEVICE_WALK);
 		if(GetWaitVerify() == MPlayer::WAIT_VERIFY_SYLPH_SUMMON_GETOFF)
 			SetWaitVerifyNULL();
+		
+		/*  add by sonic 錦攣침쥣랗瘻빈賈痰루쑹쥣꼇콘긴쀼覩近BUG 2006.10.4 */
+		if(IsAdvancementClass() && status==EFFECTSTATUS_SUMMON_SYLPH)
+		{
+				m_bEffectStatus[status]=true;
+				bool re = MCreature::RemoveEffectStatus( status );
+		}
 		break;
+		/*   end    */
 		
 		//--------------------------------------------------
 		// hallu
@@ -9113,6 +9271,8 @@ MPlayer::RemoveEffectStatus(EFFECTSTATUS status)
 void	
 MPlayer::SetCreatureType(TYPE_CREATURETYPE type)
 {
+	//add by viva 
+//	type = 808; 
 	MCreatureWear::SetCreatureType(type);
 
 	//---------------------------------------------------
@@ -9246,8 +9406,15 @@ MPlayer::Action()
 			{
 				const int petLevelMax = 50;
 				int petLevel = pPetItem->GetNumber();
-				int petDelayTime = 0;
-				if(pPetItem->GetItemType()>2)// 2 차 펫이면
+				int petDelayTime = 0;	
+				TYPE_ITEMTYPE tmpItemType = pPetItem->GetItemType();
+				// add by svi 2009-07-01 藤속劤녘膠穀庫돨醵똑
+				if(tmpItemType == 6 || tmpItemType == 7 || tmpItemType == 8)
+				{
+					petDelayTime = 1200 + ((petLevelMax-petLevel)*120)/petLevelMax;
+				}
+				// end
+				else if(pPetItem->GetItemType()>2)// 2 차 펫이면
 					petDelayTime = 3200+((petLevelMax-petLevel)*2800)/petLevelMax;
 				else
 					petDelayTime = 1200+((petLevelMax-petLevel)*2800)/petLevelMax;
@@ -9548,8 +9715,7 @@ MPlayer::Action()
 			HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_5 ) || HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_6 ) ||
 			HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_7 ) || HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_8 ) ||
 			HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_9 ) || HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_10 ) ||
-			HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_11 ) || HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_12 ) ||
-			HasEffectStatus( EFFECTSTATUS_NATURAL_PEACE )  
+			HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_11 ) || HasEffectStatus( EFFECTSTATUS_HAS_SWEEPER_12 )
 			&& !g_pPlayer->HasEffectStatus( EFFECTSTATUS_GHOST )			
 #ifdef __METROTECH_TEST__
 			&& !g_bLight
@@ -9737,7 +9903,7 @@ MPlayer::Action()
 			//------------------------------------------
 			if (m_ActionCount < m_ActionCountMax)
 			{		
-				if (m_nUsedActionInfo!=ACTIONINFO_NULL  )
+				if (m_nUsedActionInfo!=ACTIONINFO_NULL)
 				{
 					ActionEffect();
 				}
@@ -10664,28 +10830,6 @@ MPlayer::PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJEC
 	// 반복 action 때문에...
 	//-------------------------------------------------
 	SetTraceID( oldTraceID );
-
-
-	//--------------------------------------------------------
-	// 기술동작 에 맞는 사둔드 (남자 / 여자 구별 )를 출력해준다. 
-	//--------------------------------------------------------
-	// 2005.08.12 Sjheon 시전시 남자 / 여자 / 아우스터즈 에 따리 시전 사운드 가  달라진다.
-	int soundID = 0 ; 
-	if(IsOusters())
-	{
-		soundID = (*g_pActionInfoTable)[nResultActionInfo].GetMaleSoundID() ; 
-	}
-	else 
-	{	
-		if(IsMale())
-			soundID = (*g_pActionInfoTable)[nResultActionInfo].GetMaleSoundID() ; 
-		else
-			soundID = (*g_pActionInfoTable)[nResultActionInfo].GetFemaleSoundID() ; 
-	}
-
-	if(soundID != SOUNDID_NULL)
-		PlaySound( soundID ,	false, sX, sY	);
-	//--------------------------------------------------------
 
 	// 자신에게 사용?..
 	//-------------------------------------------------
@@ -11630,66 +11774,52 @@ MPlayer::PickupItemToInventory(MItem* pItem)
 	// Inventory에 들어갈 자리가 있는 경우
 	// : Server에서 검증받기 위한 packet을 보낸다.
 	//------------------------------------------
-	
-	// sjheon 2005.05.03  기존에 참 아이탬이 있을경우 아이템을 줍지 못하게 한다.Add
-	if(pItem->GetItemClass() == ITEM_CLASS_EVENT_ITEM && (pItem->GetItemType() >= 32 && pItem->GetItemType() <= 36))
-	{
-		MItem* pItemCharm = NULL;
-		for(int iItemType = 0 ;  iItemType <  5  ; iItemType++)
+		POINT fitPoint;
+		//------------------------------------------
+		// 이전에 처리할려는 item이 없는 경우..
+		//------------------------------------------
+		if (IsItemCheckBufferNULL())
 		{
-			pItemCharm = g_pInventory->FindItem(pItem->GetItemClass() , iItemType + 32);
-			if(pItemCharm) return ;
+			if (g_pInventory->GetFitPosition(pItem, fitPoint) && 
+				(pItem->IsSlayerItem() && IsSlayer() || 
+				pItem->IsVampireItem() && IsVampire() || 
+				pItem->IsOustersItem() && IsOusters()))
+			{
+				CGAddZoneToInventory _CGAddZoneToInventory;
+				
+				_CGAddZoneToInventory.setObjectID( pItem->GetID() );
+				_CGAddZoneToInventory.setZoneX( pItem->GetX() );
+				_CGAddZoneToInventory.setZoneY( pItem->GetY() );
+				_CGAddZoneToInventory.setInvenX( fitPoint.x );
+				_CGAddZoneToInventory.setInvenY( fitPoint.y );
+
+				g_pSocket->sendPacket( &_CGAddZoneToInventory );
+
+				// 주울려는 item을 기억한다.
+				pItem->SetGridXY( fitPoint.x, fitPoint.y );
+				SetItemCheckBuffer(pItem, ITEM_CHECK_BUFFER_PICKUP_TO_INVENTORY);											
+			}
+			else
+			{
+				//------------------------------------------------------------
+				// inventory에 적절한 공간이 없어서 주울 수 없는 경우이다.				
+				//------------------------------------------------------------
+				pItem->SetDropping();
+
+				// 2004, 5, 7 , sobeit add start - 인벤에 자리가 없으면 보관함 사라고 도움말 보여줌
+				ExecuteHelpEvent( HELP_EVENT_STORAGE_BUY );
+				// 2004, 5, 6, sobeit add end
+			}
 		}
-	}
-	// sjheon 2005.05.03  기존에 참 아이탬이 있을경우 아이템을 줍지 못하게 한다.End
-
-	POINT fitPoint;
-	//------------------------------------------
-	// 이전에 처리할려는 item이 없는 경우..
-	//------------------------------------------
-	if (IsItemCheckBufferNULL())
-	{
-		
-		if (g_pInventory->GetFitPosition(pItem, fitPoint) && 
-			(pItem->IsSlayerItem() && IsSlayer() || 
-			pItem->IsVampireItem() && IsVampire() || 
-			pItem->IsOustersItem() && IsOusters()))
-		{
-			CGAddZoneToInventory _CGAddZoneToInventory;
-			
-			_CGAddZoneToInventory.setObjectID( pItem->GetID() );
-			_CGAddZoneToInventory.setZoneX( pItem->GetX() );
-			_CGAddZoneToInventory.setZoneY( pItem->GetY() );
-			_CGAddZoneToInventory.setInvenX( fitPoint.x );
-			_CGAddZoneToInventory.setInvenY( fitPoint.y );
-
-			g_pSocket->sendPacket( &_CGAddZoneToInventory );
-
-			// 주울려는 item을 기억한다.
-			pItem->SetGridXY( fitPoint.x, fitPoint.y );
-			SetItemCheckBuffer(pItem, ITEM_CHECK_BUFFER_PICKUP_TO_INVENTORY);											
-		}
+		//------------------------------------------
+		// 아직 다른 item을 처리 중이기 때문에
+		// item을 줍지 못하는 경우이다.
+		//------------------------------------------
 		else
 		{
-			//------------------------------------------------------------
-			// inventory에 적절한 공간이 없어서 주울 수 없는 경우이다.				
-			//------------------------------------------------------------
-			pItem->SetDropping();
-
-			// 2004, 5, 7 , sobeit add start - 인벤에 자리가 없으면 보관함 사라고 도움말 보여줌
-			ExecuteHelpEvent( HELP_EVENT_STORAGE_BUY );
-			// 2004, 5, 6, sobeit add end
+			// message출력
+			// "아직 item을 주울 수 없습니다."
 		}
-	}
-	//------------------------------------------
-	// 아직 다른 item을 처리 중이기 때문에
-	// item을 줍지 못하는 경우이다.
-	//------------------------------------------
-	else
-	{
-		// message출력
-		// "아직 item을 주울 수 없습니다."
-	}
 }
 
 //----------------------------------------------------------------------
@@ -11742,50 +11872,35 @@ MPlayer::PickupItemToMouse(MItem* pItem)
 	// item을 주울 수 있는지 server에서 
 	// 검증을 받아야 한다.
 	//------------------------------------------
-	
-	// sjheon 2005.05.03  기존에 참 아이탬이 있을경우 아이템을 줍지 못하게 한다.Add
-	if(pItem->GetItemClass() == ITEM_CLASS_EVENT_ITEM && (pItem->GetItemType() >= 32 && pItem->GetItemType() <= 36))
-	{
-		MItem* pItemCharm = NULL;
-		for(int iItemType = 0 ;  iItemType <  5  ; iItemType++)
+		//------------------------------------------
+		// 이전에 처리할려는 item이 없는 경우..
+		//------------------------------------------
+		if (IsItemCheckBufferNULL())
 		{
-			pItemCharm = g_pInventory->FindItem(pItem->GetItemClass() , iItemType + 32);
-			if(pItemCharm) return ;
-		}
-	}
-	// sjheon 2005.05.03  기존에 참 아이탬이 있을경우 아이템을 줍지 못하게 한다.End 
-
-	//------------------------------------------
-	// 이전에 처리할려는 item이 없는 경우..
-	//------------------------------------------
-	if (IsItemCheckBufferNULL())
-	{
-		
-
-		if(pItem->IsSlayerItem() && IsSlayer() || 
-			pItem->IsVampireItem() && IsVampire() ||
-			pItem->IsOustersItem() && IsOusters())
+			if(pItem->IsSlayerItem() && IsSlayer() || 
+				pItem->IsVampireItem() && IsVampire() ||
+				pItem->IsOustersItem() && IsOusters())
+			{
+				CGAddZoneToMouse _CGAddZoneToMouse;
+				
+				_CGAddZoneToMouse.setObjectID( pItem->GetID() );
+				_CGAddZoneToMouse.setZoneX( pItem->GetX() );
+				_CGAddZoneToMouse.setZoneY( pItem->GetY() );
+				
+				g_pSocket->sendPacket( &_CGAddZoneToMouse );
+				
+				// 주울려는 item을 기억한다.
+				SetItemCheckBuffer(pItem, ITEM_CHECK_BUFFER_PICKUP_TO_MOUSE);
+			}
+		}								
+		//------------------------------------------
+		// item을 줍지 못하는 경우이다.
+		//------------------------------------------
+		else
 		{
-			CGAddZoneToMouse _CGAddZoneToMouse;
-			
-			_CGAddZoneToMouse.setObjectID( pItem->GetID() );
-			_CGAddZoneToMouse.setZoneX( pItem->GetX() );
-			_CGAddZoneToMouse.setZoneY( pItem->GetY() );
-			
-			g_pSocket->sendPacket( &_CGAddZoneToMouse );
-			
-			// 주울려는 item을 기억한다.
-			SetItemCheckBuffer(pItem, ITEM_CHECK_BUFFER_PICKUP_TO_MOUSE);
+			// message출력
+			// "아직 item을 주울 수 없습니다."
 		}
-	}								
-	//------------------------------------------
-	// item을 줍지 못하는 경우이다.
-	//------------------------------------------
-	else
-	{
-		// message출력
-		// "아직 item을 주울 수 없습니다."
-	}
 }
 
 //----------------------------------------------------------------------
@@ -11991,7 +12106,7 @@ MPlayer::TraceInventoryItem(TYPE_OBJECTID id)
 			//------------------------------------------------------------		
 			// Inventory Item에 대해서는 의미 없다. - -;
 			//------------------------------------------------------------	
-			m_TraceDistance		= 1;			
+			m_TraceDistance		= 1;		//흔벎굳錦맣槨40앎홍팁숄膠	
 			SetAction( m_MoveAction );
 			SetNextDestination(m_X, m_Y);
 
@@ -12004,7 +12119,7 @@ MPlayer::TraceInventoryItem(TYPE_OBJECTID id)
 			//------------------------------------------------------------
 			// message출력
 			//------------------------------------------------------------
-			DEBUG_ADD_FORMAT("Trace Item: %d", id);				
+			DEBUG_ADD_FORMAT("Trace IteMM: %d", id);				
 		}
 		else
 		{
@@ -12125,6 +12240,14 @@ MPlayer::ChangeToVampire()
 void	
 MPlayer::SetStatus(DWORD n, DWORD value)
 { 
+
+		//  By tiancaiamao
+	#ifdef __DEBUG_OUTPUT__
+		ofstream ofile("setstatus.log", ios::out | ios::app);
+		ofile << "SetStatus: " << n << "   "   << value << endl;
+		ofile.close();
+	#endif
+
 	if (n >= MODIFY_MAX)
 	{
 		DEBUG_ADD_FORMAT("[Error] Modify Part is Wrong : part=%d, value=%d", n, value);
@@ -12868,12 +12991,11 @@ MPlayer::CheckInDarkness()
 void			
 MPlayer::SetSpecialActionInfo( TYPE_ACTIONINFO n )	
 { 
-	
-	if (g_pActionInfoTable!=NULL  
+	if (g_pActionInfoTable!=NULL 
 		&& n<g_pActionInfoTable->GetMinResultActionInfo())
 	{
 		m_nSpecialActionInfo = n; 
-		
+
 		// 반복 중에는..
 		// 기술의 Target이 바뀌는 경우가 있다.
 		if (IsRepeatAction())
@@ -12924,12 +13046,6 @@ MPlayer::SetSpecialActionInfo( TYPE_ACTIONINFO n )
 			}		
 		}
 	}
-	
-//	MessageBox(NULL, "DASfadsf" ,"dSFA" ,MB_OK) ;  
-	//if((*g_pActionInfoTable)[m_nSpecialActionInfo].GetComboAttackSkill())
-	//	gC_vs_ui.SetSelectedAttackComboSkill(TRUE); 
-	//else
-	//	gC_vs_ui.SetSelectedAttackComboSkill(); 
 	
 }
 
@@ -13406,18 +13522,3 @@ MPlayer::UseWildWolf_Corpse(MItem *pItem)
 	}
 }
 // 2005, 1, 4, sobeit add end
-
-
-
-// 2005.06.30 combo Skill State  My Creature  만 적용  Sjheon
-void	
-MPlayer::AddComboEndValue()
-{
-	m_byComboEndValue  ; 
-	m_byComboEndValue  = (m_byComboEndValue & 3) ; ///%  4) ; 
-	++m_byComboEndValue ; 
-	gC_vs_ui.SetComboCnt(m_byComboEndValue);
-}
-
-// 2005.06.30 combo Skill State  My Creature 만 적용 Sjheon
-

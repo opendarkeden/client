@@ -70,7 +70,7 @@ ACTION_INFO_NODE::SetChildMode()
 // Save
 //----------------------------------------------------------------------
 void			
-ACTION_INFO_NODE::SaveToFile(ofstream& file)
+ACTION_INFO_NODE::SaveToFile(class ofstream& file)
 {			
 	file.write((const char*)&EffectGeneratorID, SIZE_EFFECTGENERATORID);			
 	file.write((const char*)&EffectSpriteType, SIZE_EFFECTSPRITETYPE);
@@ -87,7 +87,7 @@ ACTION_INFO_NODE::SaveToFile(ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-ACTION_INFO_NODE::LoadFromFile(ifstream& file)
+ACTION_INFO_NODE::LoadFromFile(class ifstream& file)
 {			
 	file.read((char*)&EffectGeneratorID, SIZE_EFFECTGENERATORID);			
 	file.read((char*)&EffectSpriteType, SIZE_EFFECTSPRITETYPE);
@@ -124,8 +124,6 @@ MActionInfo::MActionInfo()
 	m_MainNode = MAIN_NODE_NULL;
 	m_bAttack = TRUE;			// 기본적으로 공격기술로 설정
 
-	m_bComboAttackSkill = FALSE;
-	
 	m_bUseRepeatFrame = false;
 
 	for (int i=0; i<3; i++)
@@ -162,19 +160,15 @@ MActionInfo::MActionInfo()
 	m_bUseGrade = false;
 	m_bUseActionStep = false;
 	
-	for(int i = 0 ; i< MAX_ACTION_STEP ;i ++ )
+	for( i = 0 ; i< MAX_ACTION_STEP ;i ++ )
 	{
 		m_ActionStep[i] = 0;
 	}
-
-	m_ComboActionResultEffect = 0 ; 
 	m_bAttachSelf = false;
 	m_Parent = ACTIONINFO_NULL;
 	
 	m_MasterySkillStep = 0;
 	m_bIgnoreFailDelay = false;
-
-
 }
 
 //----------------------------------------------------------------------
@@ -249,7 +243,7 @@ MActionInfo::SetChildMode()
 // Save
 //----------------------------------------------------------------------
 void			
-MActionInfo::SaveToFile(ofstream& file)
+MActionInfo::SaveToFile(class ofstream& file)
 {
 	// 임시로 계산.. - -;
 	// startframe이 늦은 만큼 delay도 줄어든다
@@ -312,9 +306,6 @@ MActionInfo::SaveToFile(ofstream& file)
 	file.write((const char*)&m_Delay, 2);
 	file.write((const char*)&m_Value, 4);
 	file.write((const char*)&m_SoundID, SIZE_SOUNDID);
-	file.write((const char*)&m_SoundMaleID, SIZE_SOUNDID);
-	file.write((const char*)&m_SoundFemaleID, SIZE_SOUNDID);
-
 	file.write((const char*)&m_MainNode, 4);
 	
 	// 결과 
@@ -327,11 +318,6 @@ MActionInfo::SaveToFile(ofstream& file)
 
 	bool bAttack = (m_bAttack==TRUE);
 	file.write((const char*)&bAttack, 1);
-	
-	bool bComboAttackSkill = (m_bComboAttackSkill==TRUE);
-	file.write((const char*)&bComboAttackSkill, 1);
-
-
 	file.write((const char*)&m_fSelectCreature, 1);	
 
 	char flag = 0;	
@@ -344,14 +330,12 @@ MActionInfo::SaveToFile(ofstream& file)
 	file.write((const char*)&flag, sizeof(char) );
 	if( m_bUseActionStep )
 	{
-		for(int i = 0;i<MAX_ACTION_STEP; i++)
+		for( i = 0;i<MAX_ACTION_STEP; i++)
 		{
 			file.write((const char*)&m_ActionStep[i],sizeof( TYPE_ACTIONINFO ) );
 		}
 	}
-	
-	file.write((const char*)&m_ComboActionResultEffect,sizeof( TYPE_ACTIONINFO ) );
-	
+
 	file.write((const char*)&m_Parent, sizeof(TYPE_ACTIONINFO ) );
 	file.write((const char*)&m_MasterySkillStep, 1 );
 	file.write((const char*)&m_bIgnoreFailDelay, 1 );
@@ -370,7 +354,7 @@ MActionInfo::SaveToFile(ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-MActionInfo::LoadFromFile(ifstream& file)
+MActionInfo::LoadFromFile(class ifstream& file)
 {
 	m_Name.LoadFromFile( file );
 
@@ -413,8 +397,6 @@ MActionInfo::LoadFromFile(ifstream& file)
 	file.read((char*)&m_Delay, 2);
 	file.read((char*)&m_Value, 4);
 	file.read((char*)&m_SoundID, SIZE_SOUNDID);
-	file.read((char*)&m_SoundMaleID, SIZE_SOUNDID);
-	file.read((char*)&m_SoundFemaleID, SIZE_SOUNDID);
 	file.read((char*)&m_MainNode, 4);
 	
 	// 결과 
@@ -427,11 +409,6 @@ MActionInfo::LoadFromFile(ifstream& file)
 	bool bAttack;
 	file.read((char*)&bAttack, 1);
 	m_bAttack = bAttack;
-
-	bool bComboAttackSkill;
-	file.read((char*)&bComboAttackSkill, 1);	 // Sjheon 2005.06.20
-	m_bComboAttackSkill = bComboAttackSkill;	
-
 	file.read((char*)&m_fSelectCreature, 1);
 
 	char flag = 0;
@@ -443,13 +420,11 @@ MActionInfo::LoadFromFile(ifstream& file)
 	
 	if( m_bUseActionStep )
 	{
-		for(int i = 0;i<MAX_ACTION_STEP; i++)
+		for( i = 0;i<MAX_ACTION_STEP; i++)
 		{
 			file.read((char*)&m_ActionStep[i],sizeof( TYPE_ACTIONINFO ) );
 		}
 	}
-	file.read((char*)&m_ComboActionResultEffect,sizeof( TYPE_ACTIONINFO ) );
-	
 	file.read((char*)&m_Parent, sizeof(TYPE_ACTIONINFO ) );
 	file.read((char*)&m_MasterySkillStep, 1 );
 	file.read((char*)&m_bIgnoreFailDelay, 1 );
@@ -472,18 +447,6 @@ void		MActionInfo::SetActionStep(BYTE step,  TYPE_ACTIONINFO action)
 		return;
 
 	m_ActionStep[step] = action;
-}
-
-void	MActionInfo::SetComboActionResultEffect(TYPE_ACTIONINFO  action)
-{
-	if(!GetComboAttackSkill())
-		return ;
-	m_ComboActionResultEffect = action ; 
-}
-
-TYPE_ACTIONINFO	MActionInfo::GetomboActionResultEffect()
-{
-	return	m_ComboActionResultEffect  ; 
 }
 
 TYPE_ACTIONINFO	MActionInfo::GetActionStep(BYTE step)
@@ -543,7 +506,7 @@ MActionInfoTable::SetChildMode()
 // Save To File
 //----------------------------------------------------------------------
 void		
-MActionInfoTable::SaveToFile(ofstream& file)
+MActionInfoTable::SaveToFile(class ofstream& file)
 {
 	file.write((const char*)&m_nMinResultActionInfo, 4);
 	file.write((const char*)&m_nMaxResultActionInfo, 4);
@@ -555,7 +518,7 @@ MActionInfoTable::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-MActionInfoTable::LoadFromFile(ifstream& file)
+MActionInfoTable::LoadFromFile(class ifstream& file)
 {
 	file.read((char*)&m_nMinResultActionInfo, 4);
 	file.read((char*)&m_nMaxResultActionInfo, 4);

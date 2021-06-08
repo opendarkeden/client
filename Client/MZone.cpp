@@ -216,7 +216,7 @@ MZone::MZone(TYPE_SECTORPOSITION width, TYPE_SECTORPOSITION height)
 	UI_PORTAL_FLAG portal;
 	UI_PORTAL_LIST portalList;
 
-	ifstream hornInfoFile(g_pFileDef->getProperty("FILE_INFO_HORN").c_str(), std::ios::binary);
+	ifstream hornInfoFile(g_pFileDef->getProperty("FILE_INFO_HORN").c_str(), ios::binary);
 	hornInfoFile.read((char *)&zoneNum, sizeof(int));
 	for(int zone = 0; zone < zoneNum; zone++)
 	{
@@ -618,7 +618,7 @@ MZone::ReleaseObject()
 // //MZoneSoundTable
 //----------------------------------------------------------------------
 bool		
-MZone::SaveToFileSectorSound(ofstream& file)
+MZone::SaveToFileSectorSound(class ofstream& file)
 {
 	//-----------------------------------------------------------
 	// 크기
@@ -687,7 +687,7 @@ MZone::SaveToFileSectorSound(ofstream& file)
 // //MZoneSoundTable을 Loading한다.
 //----------------------------------------------------------------------
 bool		
-MZone::LoadFromFileSectorSound(ifstream& file)
+MZone::LoadFromFileSectorSound(class ifstream& file)
 {
 	m_bZoneSoundLoaded = false;
 
@@ -902,7 +902,7 @@ MZone::LoadFromFileSectorSound(ifstream& file)
 //   ImageObject수,  ImageObject수 * (ImageObject, ImageObjectSectorInfo)
 //----------------------------------------------------------------------
 bool		
-MZone::LoadFromFile(ifstream& file)
+MZone::LoadFromFile(class ifstream& file)
 {
 	//-------------------------------------------------
 	// Header

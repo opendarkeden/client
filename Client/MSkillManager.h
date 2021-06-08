@@ -55,7 +55,7 @@
 	 g_SkillManager.Init()만 하면 된다.
 
 
-	std::ofstream logFile("log\\sword.txt");
+	class ofstream logFile("log\\sword.txt");
 
 	//---------------------------------------------------------------------
 	//
@@ -121,8 +121,8 @@
 #include "ExpInfo.h"
 #include "RaceType.h"
 
-ifstream;
-std::ofstream;
+class ifstream;
+class ofstream;
 
 
 //----------------------------------------------------------------------
@@ -171,8 +171,7 @@ class SKILLINFO_NODE {
 			m_HName		= hname;
 		}
 
-		void			SetMP(int mp)					{ m_MP = mp; }
-		void			SetMaxMP(int mp)				{ m_MaxMP = mp; }
+		void			SetMP(int mp)				{ m_MP = mp; }
 
 		//------------------------------------------------------
 		// Add NextSkill
@@ -190,10 +189,7 @@ class SKILLINFO_NODE {
 		int					GetY() const				{ return m_Y; }
 		TYPE_SPRITEID		GetSpriteID() const			{ return m_SpriteID; }
 		const SKILLID_LIST& GetNextSkillList() const	{ return m_listNextSkill; }
-		
 		int					GetMP() const				{ return m_MP; }
-		int					GetMaxMP() const			{ return m_MaxMP; }
-
 
 		//------------------------------------------------------
 		// 현재 Player의 skill상태에 대한 정보
@@ -265,13 +261,14 @@ class SKILLINFO_NODE {
 		//------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------
-		void		SaveToFile(std::ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(class ofstream& file);
+		void		LoadFromFile(class ifstream& file);
 
 		//------------------------------------------------------
-		// Load SERVER_SKILLINFO
+		// Load / Save SERVER_SKILLINFO
 		//------------------------------------------------------
-		void		LoadFromFileServerSkillInfo(ifstream& file);
+		void		LoadFromFileServerSkillInfo(class ifstream& file);
+		void        SaveFromFileServerSkillInfo(ofstream& file);
 
 	protected :
 		
@@ -283,9 +280,7 @@ class SKILLINFO_NODE {
 		int				m_X, m_Y;			// 화면에서의 출력 시작 위치
 		TYPE_SPRITEID	m_SpriteID;			// 기술의 Icon Sprite
 
-		int				m_MP;				// MP 최소소비량
-	
-		int				m_MaxMP;			// MP 최대소비량
+		int				m_MP;				// MP 소비량
 
 		SKILLID_LIST	m_listNextSkill;	// 다음에 배울 수 있는 기술들		
 
@@ -533,13 +528,13 @@ class MSkillDomain {
 		//------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------
-		void		SaveToFile(std::ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(class ofstream& file);
+		void		LoadFromFile(class ifstream& file);
 
 		//------------------------------------------------------
 		// Load SERVER_SKILLINFO
 		//------------------------------------------------------
-		void		LoadFromFileServerDomainInfo(ifstream& file);
+		void		LoadFromFileServerDomainInfo(class ifstream& file);
 
 		//------------------------------------------------------
 		// Exp
@@ -606,7 +601,8 @@ class MSkillInfoTable : public CTypeTable<SKILLINFO_NODE> {
 		// 바뀌는 정보만 초기화
 		void			Init();
 
-		void			LoadFromFileServerSkillInfo(ifstream& file);
+		void			LoadFromFileServerSkillInfo(class ifstream& file);
+		void			SaveFromFileServerSkillInfo(class ofstream& file);
 };
 
 extern MSkillInfoTable*		g_pSkillInfoTable;
@@ -629,7 +625,7 @@ class MSkillManager : public CTypeTable<MSkillDomain>
 		//------------------------------------------------------
 		// Load SERVER_SKILLINFO
 		//------------------------------------------------------
-		void		LoadFromFileServerDomainInfo(ifstream& file);
+		void		LoadFromFileServerDomainInfo(class ifstream& file);
 };
 
 //----------------------------------------------------------------------

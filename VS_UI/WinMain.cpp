@@ -3276,7 +3276,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpszArgs, int nWi
 	g_pQuestInfoManager = new MQuestInfoManager;
 	DWORD ver;
 
-	ifstream questinfo("data\\info\\questinfo.inf",ios::binary);
+	class ifstream questinfo("data\\info\\questinfo.inf",ios::binary);
 	questinfo.read((char*)&ver, sizeof( DWORD ) );
 	g_pQuestInfoManager->LoadFromFile( questinfo );
 	questinfo.close();
@@ -3285,7 +3285,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpszArgs, int nWi
 	// nick name string table Loading
 	//---------------------------------------------------------------------
 	g_pNickNameStringTable = new MStringArray;
-	ifstream gameStringTableTable("data\\info\\Nickname.inf", ios::binary);
+	class ifstream gameStringTableTable("data\\info\\Nickname.inf", ios::binary);
 	if(false == (*g_pNickNameStringTable).LoadFromFile_NickNameString(gameStringTableTable))
 		MessageBox(NULL, "File read Error - NickName.inf", "Error", MB_OK|MB_ICONERROR);
 	gameStringTableTable.close();
@@ -3302,7 +3302,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpszArgs, int nWi
 	//------------------------------------------------
 	// Server 정보를 loading한다.
 	//------------------------------------------------
-	ifstream serverSkillInfoFile(FILE_INFO_SKILL_INFO, ios::binary);
+	class ifstream serverSkillInfoFile(FILE_INFO_SKILL_INFO, ios::binary);
 	g_pSkillInfoTable->LoadFromFileServerSkillInfo( serverSkillInfoFile );
 	serverSkillInfoFile.close();
 
@@ -3318,7 +3318,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpszArgs, int nWi
 	//------------------------------------------------
 	// Server 정보를 loading한다.
 	//------------------------------------------------
-	ifstream serverDomainInfoFile(FILE_INFO_SKILL_DOMAIN_EXP, ios::binary);
+	class ifstream serverDomainInfoFile(FILE_INFO_SKILL_DOMAIN_EXP, ios::binary);
 	g_pSkillManager->LoadFromFileServerDomainInfo( serverDomainInfoFile );
 	serverDomainInfoFile.close();
 
@@ -3327,7 +3327,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpszArgs, int nWi
 	// 명성에 의한 레벨 제한 관련 Info 파일을 로드한다.
 	//---------------------------------------------------
 	g_pFameInfoTable = new FameInfoTable;
-	ifstream FameLimit( "Data\\Info\\FameLimit.inf", ios::binary );
+	class ifstream FameLimit( "Data\\Info\\FameLimit.inf", ios::binary );
 	g_pFameInfoTable->LoadFromFile( FameLimit );
 	FameLimit.close();
 	
@@ -3342,16 +3342,16 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpszArgs, int nWi
 	//------------------------------------------------
 	// Load
 	//------------------------------------------------
-	ifstream strExpFile(FILE_INFO_STR_EXP, ios::binary);
-	ifstream dexExpFile(FILE_INFO_DEX_EXP, ios::binary);
-	ifstream intExpFile(FILE_INFO_INT_EXP, ios::binary);
-	ifstream vampireExpFile(FILE_INFO_VAMPIRE_EXP, ios::binary);
-	ifstream oustersExpFile(FILE_INFO_OUSTERS_EXP, ios::binary);
-	ifstream slayerRankExp(FILE_INFO_SLAYER_RANK_EXP, ios::binary);
-	ifstream vampireRankExp(FILE_INFO_VAMPIRE_RANK_EXP, ios::binary);
-	ifstream oustersRankExp(FILE_INFO_OUSTERS_RANK_EXP, ios::binary);
-	ifstream advancementExp(FILE_INFO_ADVANCEMENT_EXP, ios::binary);
-	ifstream petExpInfo("DATA\\INFO\\PETEXP.INF", ios::binary);
+	class ifstream strExpFile(FILE_INFO_STR_EXP, ios::binary);
+	class ifstream dexExpFile(FILE_INFO_DEX_EXP, ios::binary);
+	class ifstream intExpFile(FILE_INFO_INT_EXP, ios::binary);
+	class ifstream vampireExpFile(FILE_INFO_VAMPIRE_EXP, ios::binary);
+	class ifstream oustersExpFile(FILE_INFO_OUSTERS_EXP, ios::binary);
+	class ifstream slayerRankExp(FILE_INFO_SLAYER_RANK_EXP, ios::binary);
+	class ifstream vampireRankExp(FILE_INFO_VAMPIRE_RANK_EXP, ios::binary);
+	class ifstream oustersRankExp(FILE_INFO_OUSTERS_RANK_EXP, ios::binary);
+	class ifstream advancementExp(FILE_INFO_ADVANCEMENT_EXP, ios::binary);
+	class ifstream petExpInfo("DATA\\INFO\\PETEXP.INF", ios::binary);
 
 	g_pExperienceTable->LoadFromFileSTR(strExpFile);
 	g_pExperienceTable->LoadFromFileDEX(dexExpFile);

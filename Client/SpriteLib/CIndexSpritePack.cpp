@@ -22,14 +22,14 @@
 //
 //bool CIndexSpritePack::LoadFromFile(LPCTSTR lpszFilename, bool b565)
 //{
-//	ifstream file(lpszFilename, std::ios::binary);
+//	ifstream file(lpszFilename, ios::binary);
 //	bool re = LoadFromFile(file, b565);
 //	file.close();
 //	
 //	return re;
 //}
 //
-//bool CIndexSpritePack::LoadFromFile(ifstream &file, bool b565)
+//bool CIndexSpritePack::LoadFromFile(class ifstream &file, bool b565)
 //{
 //	Release();
 //	
@@ -55,13 +55,13 @@
 //	//인덱스 파일 로딩
 //	std::string filename = lpszFilename;
 //	filename += 'i';
-//	ifstream indexFile(filename.c_str(), std::ios::binary);
+//	class ifstream indexFile(filename.c_str(), ios::binary);
 //	indexFile.read((char *)&m_Size, 2); 
 //
 //	Init(m_Size, b565);
 //	if(m_file == NULL)
 //	{
-//		m_file = new ifstream;
+//		m_file = new class ifstream;
 //	}
 //
 //	m_file_index = new int[m_Size];
@@ -72,7 +72,7 @@
 //	indexFile.close();
 //	
 //	// file에서 sprite 개수를 읽어온다.	
-//	m_file->open(lpszFilename, std::ios::binary);
+//	m_file->open(lpszFilename, ios::binary);
 //	
 //	m_file->read((char*)&m_Size, 2);
 //	

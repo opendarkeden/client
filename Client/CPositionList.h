@@ -100,14 +100,14 @@ class CPositionList {
 		// Get 
 		//--------------------------------------------------------------
 		int								GetSize() const		{ return m_listPosition.size(); }
-		typename POSITION_LIST::const_iterator	GetIterator() const	{ return m_listPosition.begin(); }
+		POSITION_LIST::const_iterator	GetIterator() const	{ return m_listPosition.begin(); }
 
 
 		//--------------------------------------------------------------
 		// File I/O
 		//--------------------------------------------------------------
-		void		SaveToFile(std::ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(class ofstream& file);
+		void		LoadFromFile(class ifstream& file);
 
 	
 
@@ -250,7 +250,7 @@ CPositionList<Type>::Remove(Type x, Type y)
 //----------------------------------------------------------------------
 template <class Type>
 void		
-CPositionList<Type>::SaveToFile(std::ofstream& file)
+CPositionList<Type>::SaveToFile(class ofstream& file)
 {
 	//----------------------------------------
 	// Size저장
@@ -288,7 +288,7 @@ CPositionList<Type>::SaveToFile(std::ofstream& file)
 //----------------------------------------------------------------------
 template <class Type>
 void		
-CPositionList<Type>::LoadFromFile(ifstream& file)
+CPositionList<Type>::LoadFromFile(class ifstream& file)
 {
 	// 이전에 있던 list를 제거
 	Release();

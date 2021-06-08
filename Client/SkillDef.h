@@ -13,6 +13,11 @@
 #define MAX_VAMPIRE_SKILL_SLOT		20	// Test
 #define MAX_SLAYER_SKILL_SLOT		20
 
+#ifndef __NEW_SKILL__
+	#define __NEW_SKILL__
+	//#undef  __NEW_SKILL__
+#endif
+
 
 //----------------------------------------------------------------------
 // Skill Domain
@@ -560,30 +565,64 @@ enum ACTIONINFO
 	SKILL_TRASLA_ATTACK,                      // 370
     SKILL_PUSCA_ATTACK,                       // 371
 	SKILL_NOD_COPILA_ATTACK,                  // 372
+
     SKILL_NOD_COPILA_ATTACK_2,                    // 373
-    SKILL_UNTERFELDWEBEL_FIRE,                  // 374
-    SKILL_FELDWEBEL_FIRE,                       // 375
-	SKILL_FEEBLE_VIRUS ,						// 376
+#ifdef __NEW_SKILL__
 
-	SKILL_SWORD_COMBO,                          // 377
-    SKILL_BLADE_COMBO,                          // 378
-    SKILL_VAMPIRE_COMBO,                        // 379
-    SKILL_OUSTERS_COMBO,                        // 380
+	// 2007-2-15 Coffee add start
+	//SkillID: 409 EN: Bloody Scarify  
+	SKILL_BLLODY_SCARIFY,		//374  ÑªÖ®ÀÓÓ¡  (ÎüÑª¹íÐÂ¼¼ÄÜ )
+	SKILL_BLOOD_CURSE,		    //375  ÑªÖ®Ô{Öä  
+	//////////////////////////////////////////////////////////////////////////
+	//ÈËÀà¼¼ÄÜ
+	SKILL_SHINE_SWORD,			//376  ÉÁÒ«Ö®½£
+	SKILL_BOMB_CRASH_WALK,		//377  ¾ÞÅÚºäÕ¨
+	SKILL_SATELLITE_BOMB,		//378  ÎÀÐÇºä»÷
+	SKILL_ILLUSION_INVERSION,	//379  ¿Ö²À»Ã¾õ
+	SKILL_HEAVEN_GROUND,		//380  ÌìÉñ½µÁÙ
+		// ¿Ö²À»Ã¾õ·ÖÉíµ¥¸öÏÔÊ¾Ð§¹û
+	TEMP_SKILL_ILLUSION_INVERSION,//381
+	//////////////////////////////////////////////////////////////////////////
+	// Ä§ÁéÐÂ¼¼ÄÜ
+	// 2007-2-15 Coffee add end
+	SKILL_DUMMY_DRAKE,       // 382 µÂÀ×¿Ë¿þÀÜ(»ð)
+	SKILL_HYDRO_CONVERGENCE, // 383 ¸´ºÏË®ÁÆ(Ë®)
+	SKILL_SUMMON_CLAY,		 // 384 Õ³ÍÁÕÙ»½(ÍÁ)
+	SKILL_HETER_CHAKRAM,			 // 385 ÏÄ²¼Àû»ùÒò(Õ½Ê¿)
 
-    SKILL_HOLY_SWORD,                           // 381
-    SKILL_HOLY_BLADE,                           // 382
-    SKILL_BURST_GUN,                            // 383
-    SKILL_HOLY_MACE,                            // 384
-    SKILL_HOLY_CROSS,                           // 385
-    SKILL_DARK_FORCE,                           // 386
-    SKILL_NATURAL_FORCE,                        // 387
-    SKILL_FIRE_FORCE,                           // 388
-    SKILL_WATER_FORCE,                          // 389
-    SKILL_EARTH_FORCE,                          // 390
-    SKILL_LOSE_SIGHT,                           // 391
-    SKILL_WIDE_BLOOD_DRAIN,                     // 392
-    SKILL_NATURAL_PEACE,                        // 393
-    SKILL_PARTY_AURA,                           // 394
+#endif
+	//add by viva 
+	//new Slayer
+	SKILL_SLAYER_SWORD_SKY_FIRE,	//ÌìÀ×»ð»¨
+	SKILL_SLAYER_BLADE_CUT_STORM,	//¾âÈÐ·ç±©
+	SKILL_SLAYER_GUN_BOMB_XRL_MISSILE,	//XRL Õ¨ÁÑµ¼µ¯
+	SKILL_SLAYER_HEAL_SACRED_STAMP,	//ÆðÔ´Ê¥Ó¡
+	SKILL_SLAYER_ENCHANT_BRAMBLE_HALO,	//¾£¼¬¹â»·
+	//New Vampire
+	SKILL_VAMPIRE_INNATE_DEADLY_CLAW,	//ÖÁÉËÁÑ×¦
+	SKILL_VAMPIRE_POISON_VOODOO_RING,	//Î×¶¾Ö®»·
+	//New Ousters
+	SKILL_OUSTERS_COMBAT_PENETRATE_WHEEL,	//¹á´©Ö®ÂÖ
+	SKILL_OUSTERS_FIRE_FIRE_METEOR,	//·Ù»ðÁ÷ÐÇ
+	SKILL_OUSTERS_EARTH_BIG_ROCKFALL,	//¾ÞÊ¯ÔÉÂä
+	SKILL_OUSTERS_WATER_RAPID_FREEZE,	//¼«¶³±ù»·
+	///////////////////
+	SKILL_UNKOWN1,
+	SKILL_UNKOWN2,
+	SKILL_UNKOWN3,
+	SKILL_UNKOWN4,
+	SKILL_UNKOWN5,
+	SKILL_UNKOWN6,
+	SKILL_UNKOWN7,
+	SKILL_UNKOWN8,
+	SKILL_UNKOWN9,
+	SKILL_UNKOWN10,
+	SKILL_UNKOWN11,
+	SKILL_UNKOWN12,
+	MAGIC_VAMPIRE_TRANSFORM_TO_D_BAT, //by viva : 2th new
+	MAGIC_VAMPIRE_TRANSFORM_TO_D_ANGEL, //by viva : 2th new
+//end
+
 
 	//------------------------------------------------------------
 	// ¿©±âºÎÅÍ´Â client Àü¿ë SKILL ID
@@ -639,13 +678,8 @@ enum ACTIONINFO
 	SKILL_BLAZE_WALK_ATTACK,
 	SKILL_MUTE,	
 	SKILL_ATTACK_MELEE_REDIANCE,
-	FAMILY_BONUS,	
+	FAMILY_BONUS,
 
-	//Combo Skill Result
-	SKILL_SWORD_COMBO_EFFECT,
-	SKILL_BLADE_COMBO_EFFECT,
-	SKILL_VAMPIRE_COMBO_EFFECT,
-	SKILL_OUSTERS_COMBO_EFFECT,
 	//------------------------------------------------------------------------------
 	// ½ºÅ³ ´Ü°è¿¡ µû¸¥ ½ºÅ³
 	//------------------------------------------------------------------------------
@@ -687,7 +721,8 @@ enum ACTIONINFO
 	MAGIC_ENCHANT_OPTION_NULL,				// ¿É¼ÇÀÌ ¾ø¾îÁø´Ù
 	MAGIC_ENCHANT_OPTION_PLUS,				// ¿É¼ÇÀÌ ÇÏ³ª ¿Ã¶ó°£´Ù
 	MAGIC_ENCHANT_REMOVE_ITEM,				// ¾ÆÀÌÅÛÀÌ ¾ø¾îÁø´Ù
-
+	MAGIC_UNKOWN1,			//add by viva
+	
 	// HolyLandBonus Skills 2003.2.10
 	SKILL_HOLYLAND_BLOOD_BIBLE_ARMEGA,				// ±â¼ú »ç¿ë½Ã MP(HP)¼Ò¸ð·® 50% °¨¼Ò  
 	SKILL_HOLYLAND_BLOOD_BIBLE_MIHOLE,				// Å¸Á¾Á·ÀÇ ¾ð¾î Åë¿ª  
@@ -727,21 +762,8 @@ enum ACTIONINFO
 	SKILL_CLIENT_DRAGON_EYES,	// µå·¹°ï ¾ÆÀÌÁî
 
 	SKILL_CLIENT_EXP_BONUS_EVENT, // °æÇèÄ¡ º¸³Ê½º
-		
 
-	SKILL_CLIENT_BEHEMOTH_FORCE_SCROLL,         // 465
-    SKILL_CLIENT_SAFE_FORCE_SCROLL,             // 466
-    SKILL_CLIENT_CARNELIAN_FORCE_SCROLL,		// 467	
-
-	SKILL_CLIENT_PARTY_AURA_HP,                 // 468
-    SKILL_CLIENT_PARTY_AURA_DEFENSE,            // 469
-    SKILL_CLIENT_PARTY_AURA_TOHIT,              // 470
-    SKILL_CLIENT_PARTY_AURA_LUCKY,              // 471
-
-	SKILL_CLIENT_PARTY_AURA_DAMAGE,             // 472
-    SKILL_CLIENT_PARTY_AURA_RESIST,             // 473
-	SKILL_CLIENT_MAGICAL_PET_CHANGER,			// 474
-
+	SKILL_ClIENT_UNKOWN1,	//add by viva
 	//-----------------------------------------------------------------
 	// RESULT_ACTIONINFO
 	//-----------------------------------------------------------------		
@@ -1099,7 +1121,8 @@ enum ACTIONINFO
 	RESULT_SKILL_INSTALL_TRAP,							// 269
 	RESULT_SKILL_CREATE_HOLY_POTION,					// 270
 	RESULT_SKILL_MERCY_GROUND,							// 271
-	RESULT_SKILL_HOLY_ARMOR,							// 272
+	//RESULT_SKILL_INSTALL_TRAP,//RESULT_SKILL_HOLY_ARMOR,//by viva //ousters							// 272
+	RESULT_SKILL_HOLY_ARMOR,
 	RESULT_SKILL_TRANSFORM_TO_WERWOLF,					// 273
 	RESULT_SKILL_STONE_SKIN,							// 274
 
@@ -1202,7 +1225,7 @@ enum ACTIONINFO
 
 	RESULT_SKILL_AR_ATTACK,                            // 355  // ¸ó½ºÅÍ¿ë
     RESULT_SKILL_SMG_ATTACK,                           // 356  // ¸ó½ºÅÍ¿ë
-    RESULT_SKILL_GRENADE_ATTACK,                       // 357  // ¸ó½ºÅÍ¿ë
+    RESULT_SKILL_GRENADE_ATTACK, //by viva ousters(problem)(RESULT_SKILL_GUN_SHOT_GUIDANCE)                     // 357  // ¸ó½ºÅÍ¿ë
 
 	RESULT_SKILL_DRAGON_TORNADO,                       // 358
     RESULT_SKILL_BIKE_CRASH,                           // 359
@@ -1222,31 +1245,51 @@ enum ACTIONINFO
     RESULT_SKILL_PUSCA_ATTACK,                       // 371
     RESULT_SKILL_NOD_COPILA_ATTACK,                  // 372
     RESULT_SKILL_NOD_COPILA_ATTACK_2,                    // 373
-    RESULT_SKILL_UNTERFELDWEBEL_FIRE,                  // 374
-    RESULT_SKILL_FELDWEBEL_FIRE,                       // 375
-	RESULT_SKILL_FEEBLE_VIRUS,							//376
+	// 2007-2-15  add by coffee start
+#ifdef __NEW_SKILL__
+	RESULT_SKILL_BLLODY_SCARIFY,					// 374
+	RESULT_SKILL_BLOOD_CURSE,						// 375
+	RESULT_SKILL_SHINE_SWORD,						// 376  ÉÁÒ«Ö®½£
+	RESULT_SKILL_BOMB_CRASH_WALK,					// 377  ¾ÞÅÚºäÕ¨
+	RESULT_SKILL_SATELLITE_BOMB,					// 378  ÎÀÐÇºä»÷
+	RESULT_SKILL_ILLUSION_INVERSION,				// 379  ¿Ö²À»Ã¾õ
+	RESULT_SKILL_HEAVEN_GROUND,						// 380  ÌìÉñ½µÁÙ
+	// ¿Ö²À»Ã¾õ·ÖÉíµ¥¸öÏÔÊ¾Ð§¹û
+	RESULT_TEMP_SKILL_ILLUSION_INVERSION,			// 
+	// Ä§Áé¼¼ÄÜ
+	RESULT_SKILL_DUMMY_DRAKE,        // 382 µÂÀ×¿Ë¿þÀÜ(»ð)
+	RESULT_SKILL_HYDRO_CONVERGENCE,  // 383 ¸´ºÏË®ÁÆ(Ë®)
+	RESULT_SKILL_SUMMON_CLAY,		 // 384 Õ³ÍÁÕÙ»½(ÍÁ)
+	RESULT_SKILL_HETER_CHAKRAM,			 // 385 ÏÄ²¼Àû»ùÒò(Õ½Ê¿)
+#endif
+	// 2007-2-15 add by coffee end
 
-	RESULT_SKILL_SWORD_COMBO,                          // 377
-    RESULT_SKILL_BLADE_COMBO,                          // 378
-    RESULT_SKILL_VAMPIRE_COMBO,                        // 379
-    RESULT_SKILL_OUSTERS_COMBO,                        // 380
-
-    RESULT_SKILL_HOLY_SWORD,                           // 381
-    RESULT_SKILL_HOLY_BLADE,                           // 382
-    RESULT_SKILL_BURST_GUN,                            // 383
-    RESULT_SKILL_HOLY_MACE,                            // 384
-    RESULT_SKILL_HOLY_CROSS,                           // 385
-    RESULT_SKILL_DARK_FORCE,                           // 386
-    RESULT_SKILL_NATURAL_FORCE,                        // 387
-    RESULT_SKILL_FIRE_FORCE,                           // 388
-    RESULT_SKILL_WATER_FORCE,                          // 389
-    RESULT_SKILL_EARTH_FORCE,                          // 390
-    RESULT_SKILL_LOSE_SIGHT,                           // 391
-    RESULT_SKILL_WIDE_BLOOD_DRAIN,                     // 392
-    RESULT_SKILL_NATURAL_PEACE,                        // 393
-    RESULT_SKILL_PARTY_AURA,                           // 394
-
-
+	//add by viva
+	RESULT_SKILL_SLAYER_SWORD_SKY_FIRE,
+	RESULT_SKILL_SLAYER_BLADE_CUT_STORM,
+	RESULT_SKILL_SLAYER_GUN_BOMB_XRL_MISSILE,
+	RESULT_SKILL_SLAYER_HEAL_SACRED_STAMP,
+	RESULT_SKILL_SLAYER_ENCHANT_BRAMBLE_HALO,
+	RESULT_SKILL_VAMPIRE_INNATE_DEADLY_CLAW,
+	RESULT_SKILL_VAMPIRE_POISON_VOODOO_RING,
+	RESULT_SKILL_OUSTERS_COMBAT_PENETRATE_WHEEL,
+	RESULT_SKILL_UNKOWN,
+	RESULT_SKILL_OUSTERS_EARTH_BIG_ROCKFALL,
+	RESULT_SKILL_OUSTERS_WATER_RAPID_FREEZE,
+	RESULT_SKILL_UNKOWN1,
+	RESULT_SKILL_UNKOWN2,
+	RESULT_SKILL_UNKOWN3,
+	RESULT_SKILL_UNKOWN4,
+	RESULT_SKILL_UNKOWN5,
+	RESULT_SKILL_UNKOWN6,
+	RESULT_SKILL_UNKOWN7,
+	RESULT_SKILL_UNKOWN8,
+	RESULT_SKILL_UNKOWN9,
+	RESULT_SKILL_UNKOWN10,
+	RESULT_SKILL_UNKOWN11,
+	RESULT_SKILL_UNKOWN12,
+	RESULT_MAGIC_VAMPIRE_TRANSFORM_TO_D_BAT,	//by viva : 2th new
+	RESULT_MAGIC_VAMPIRE_TRANSFORM_TO_D_ANGEL,	//by viva : 2th new
 	//------------------------------------------------------------------------
 	//------------------------------------------------------------------------
 	//------------------------------------------------------------------------
@@ -1301,12 +1344,8 @@ enum ACTIONINFO
 	RESULT_SKILL_MUTE,
 	RESULT_SKILL_ATTACK_MELEE_REDIANCE,
 	RESULT_FAMILY_BONUS,
+
 	
-	//Combo Skill Result
-	RESULT_SKILL_SWORD_COMBO_EFFECT,
-	RESULT_SKILL_BLADE_COMBO_EFFECT,
-	RESULT_SKILL_VAMPIRE_COMBO_EFFECT,
-	RESULT_SKILL_OUSTERS_COMBO_EFFECT,
 	//-----------------------------------------------------------------------------
 	// ½ºÅ³ ´Ü°è
 	//-----------------------------------------------------------------------------
@@ -1340,11 +1379,6 @@ enum ACTIONINFO
 	RESULT_STEP_SKILL_BEAT_HEAD_3,
 	RESULT_STEP_SKILL_MAGNUM_SPEAR_2,
 	RESULT_STEP_SKILL_MAGNUM_SPEAR_3,
-
-	RESULT_STEP_SKILL_COMBO_ATTACK_1,	// ÄÞº¸±â¼ú 1´Ü°è 
-	RESULT_STEP_SKILL_COMBO_ATTACK_2,	// ÄÞº¸±â¼ú 2´Ü°è
-	RESULT_STEP_SKILL_COMBO_ATTACK_3,	// ÄÞº¸±â¼ú 3´Ü°è
-	RESULT_STEP_SKILL_COMBO_ATTACK_4,	// ÄÞº¸±â¼ú 4´Ü°è
 	//-----------------------------------------------------------------------------
 
 	// client Àü¿ë
@@ -1478,6 +1512,7 @@ enum ACTIONINFO
 
 	SKILL_CLIENT_SUMMON_GROUND_ELEMENTAL,
 	SKILL_CLIENT_FIRE_ELEMENTAL_ATTACK,
+	//SKILL_CLIENT_WATER_ELEMENTAL_ATTACK,//SKILL_CLIENT_WATER_ELEMENTAL_HEAL,//by viva ousters
 	SKILL_CLIENT_WATER_ELEMENTAL_HEAL,
 	
 	SKILL_CLIENT_TANK_SMOKE,
@@ -1629,6 +1664,7 @@ enum ACTIONINFO
 	SKILL_CLIENT_FIERCE_FLAME,
 	SKILL_CLIENT_HARPOON_BOMB,
 	SKILL_CLIENT_BIKE_CRASH,
+	//RESULT_SKILL_INTIMATE_GRAIL,//SKILL_CLIENT_ROTTEN_APPLE,//by viva ousters
 	SKILL_CLIENT_ROTTEN_APPLE,
 	// 2004, 12, 30, sobeit add end
 
@@ -1657,7 +1693,19 @@ enum ACTIONINFO
 	RESULT_TEMP_SKILL_SET_AFIRE, // ÀüÅõ¹ì 140
 	RESULT_TEMP_SKILL_NOOSE_OF_WRAITH, // ¸¶¹ý¹ì 140
 	// 2004, 10, 15, sobeit add end - Å×½ºÆ®¿ë
+// add by Coffee 2007-3-17
+#ifdef __NEW_SKILL__
 
+    RESULT_SKILL_SATELLITE_BOMB_AIM,
+    RESULT_SKILL_SATELLITE_BOMB_POINT,
+	SKILL_CLIENT_DUMMY_DRAKE,
+	SKILL_CLIENT_HYDRO_CONVERGENCE,
+	//SKILL_HETER_CHAKRAM,//SKILL_CLIENT_SKILL_DUMMY_DRAKE,//by viva ousters
+	SKILL_CLIENT_SKILL_DUMMY_DRAKE,
+	SKILL_CLIENT_BLOOD_CURSE, //ÎüÑª¹íÐÂ¼¼ÄÜ(ÑªÖ®×çÖä)
+#endif
+// end
+	SKILL_CLIENT_XRL_ROCKET_LAUNCHER_BLOW,	//add by viva
 	// max
 	MAX_ACTIONINFO
 };
@@ -1665,7 +1713,7 @@ enum ACTIONINFO
 
 // MAX_ACTIONINFO
 #define		MIN_RESULT_ACTIONINFO		RESULT_SKILL_ATTACK_MELEE
-#define		MAX_RESULT_ACTIONINFO		RESULT_SKILL_ATTACK_BLADE
+#define		MAX_RESULT_ACTIONINFO		RESULT_SKILL_ATTACK_BLADE 
 #define		MIN_RESULT_STEP_ACTIONINFO	STEP_SKILL_FLOURISH_2
 
 #endif

@@ -123,20 +123,37 @@ extern BOOL							g_bCButtonDown;
 extern BOOL					g_bUIInput;
 //extern MInput						g_Input;
 //extern BOOL							g_WindowsNT;
-
+extern BOOL			g_MyFull;
+extern RECT			g_GameRect;
 extern int			g_nZoneLarge;
 extern int			g_nZoneSmall;
 extern bool			g_bZonePlayerInLarge;
 //extern HANDLE		g_hFileThread;
 
 extern CMessageArray*	g_pSystemMessage;
+extern CMessageArray*	g_pPlayerMessage;
 extern CMessageArray*	g_pGameMessage;
 extern CMessageArray*	g_pNoticeMessage;
 
 extern MScreenEffectManager*	g_pInventoryEffectManager;
 
-extern bool FileOpenBinary(const char* filename, ifstream& file);
-
+extern bool FileOpenBinary(const char* filename, class ifstream& file);
+//GameNew Mode  add by sonc 2006.9.27
+extern	LONG g_SECTOR_WIDTH;
+extern	LONG g_SECTOR_HEIGHT;
+extern	LONG g_SECTOR_WIDTH_HALF;
+extern	LONG g_SECTOR_HEIGHT_HALF;
+extern	LONG g_SECTOR_SKIP_PLAYER_LEFT;
+extern	LONG g_SECTOR_SKIP_PLAYER_UP;
+extern	LONG g_TILESURFACE_SECTOR_WIDTH;
+extern	LONG g_TILESURFACE_SECTOR_HEIGHT;
+extern	LONG g_TILESURFACE_SECTOR_OUTLINE_RIGHT;
+extern	LONG g_TILESURFACE_SECTOR_OUTLINE_DOWN;
+extern	LONG g_TILESURFACE_WIDTH;
+extern	LONG g_TILESURFACE_HEIGHT;
+extern	LONG g_TILESURFACE_OUTLINE_RIGHT;
+extern	LONG g_TILESURFACE_OUTLINE_DOWN;
+//end 
 //----------------------------------------------------------------------
 // Global
 //----------------------------------------------------------------------
@@ -174,8 +191,8 @@ int g_ShowImageObjectID = 0;
 //----------------------------------------------------------------------
 // «— filter¡¬«•¿« »≠∏È∫Ò¿≤ ∞·¡§..
 //----------------------------------------------------------------------
-float MTopView::s_LightWidth	= (float)CLIPSURFACE_WIDTH / SCREENLIGHT_WIDTH;
-float MTopView::s_LightHeight	= (float)CLIPSURFACE_HEIGHT / SCREENLIGHT_HEIGHT;
+float MTopView::s_LightWidth	= (float)g_GameRect.right / SCREENLIGHT_WIDTH;
+float MTopView::s_LightHeight	= (float)g_GameRect.bottom / SCREENLIGHT_HEIGHT;
 
 //----------------------------------------------------------------------
 //
@@ -1229,7 +1246,7 @@ MTopView::RestoreSurface()
 		// Load  EffectPack
 		//
 		//------------------------------------------------------------
-		ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, std::ios::binary);
+		class ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 		m_EffectAlphaSPK.LoadFromFile(effectFile2);
 		effectFile2.close();	
 
@@ -1321,8 +1338,8 @@ MTopView::InitSurfaces()
 		{
 			DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface vidmem failed");
 			
-			m_pTileSurface->InitOffsurface(TILESURFACE_WIDTH, 
-											TILESURFACE_HEIGHT, 
+			m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH, 
+											g_TILESURFACE_HEIGHT, 
 											DDSCAPS_SYSTEMMEMORY);
 			
 			DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface sysmem OK");			
@@ -1351,8 +1368,8 @@ MTopView::InitSurfaces()
 	//----------------------------------------------------------------
 	else 
 	{
-		m_pTileSurface->InitOffsurface(TILESURFACE_WIDTH, 
-									TILESURFACE_HEIGHT,
+		m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH, 
+									g_TILESURFACE_HEIGHT,
 									DDSCAPS_SYSTEMMEMORY);
 	}
 
@@ -1539,8 +1556,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  ImageObject Shadow SpritePack	
 	//------------------------------------------------------------
-	ofstream	ImageObjectSFile(FILE_SSPRITE_IMAGEOBJECT, std::ios::binary);	
-	ofstream	ImageObjectSIndexFile(FILE_SSPRITEINDEX_IMAGEOBJECT, std::ios::binary);	
+	class ofstream	ImageObjectSFile(FILE_SSPRITE_IMAGEOBJECT, ios::binary);	
+	class ofstream	ImageObjectSIndexFile(FILE_SSPRITEINDEX_IMAGEOBJECT, ios::binary);	
 
 	m_ImageObjectSSPK.SaveToFile(ImageObjectSFile, ImageObjectSIndexFile);
 
@@ -1559,7 +1576,7 @@ MTopView::InitSprites()
 	// 3d∞°º”¿Ã µ«∏È m_pImageObjectShadowManager∏¶ ªÁøÎ«œ∞Ì
 	// æ∆¥œ∏È, m_ImageObjectSSPK∏¶ ªÁøÎ«—¥Ÿ.
 	/*
-	ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, std::ios::binary);
+	class ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITE_IMAGEOBJECT, ImageObjectShadowFile2))
 		return false;
 	m_ImageObjectSSPK.LoadFromFile(ImageObjectShadowFile2);
@@ -1585,7 +1602,7 @@ MTopView::InitSprites()
 //	}
 //	else
 	{
-// 		ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, std::ios::binary);
+// 		class ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
 //		if (!FileOpenBinary(FILE_SSPRITE_IMAGEOBJECT, ImageObjectShadowFile2))
 //			return false;
 		m_ImageObjectSSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SSPRITE_IMAGEOBJECT").c_str());
@@ -1613,7 +1630,7 @@ MTopView::InitSprites()
 	{
 		/*
 		WORD size;
-		ifstream CreaturePackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, std::ios::binary);
+		class ifstream CreaturePackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 		if (!FileOpenBinary(FILE_ISPRITEINDEX_CREATURE, CreaturePackIndexFile))
 			return false;
 		CreaturePackIndexFile.read((char*)&size, 2);	// Sprite¿« ∞≥ºˆ
@@ -1666,8 +1683,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Creature SpritePack	
 	//------------------------------------------------------------
-	ofstream	creatureShadowFile(FILE_SSPRITE_CREATURE, std::ios::binary);	
-	ofstream	creatureShadowIndexFile(FILE_SSPRITEINDEX_CREATURE, std::ios::binary);
+	class ofstream	creatureShadowFile(FILE_SSPRITE_CREATURE, ios::binary);	
+	class ofstream	creatureShadowIndexFile(FILE_SSPRITEINDEX_CREATURE, ios::binary);
 	m_CreatureSSPK.SaveToFile(creatureShadowFile, creatureShadowIndexFile);
 	creatureShadowFile.close();
 	creatureShadowIndexFile.close();
@@ -1679,7 +1696,7 @@ MTopView::InitSprites()
 	// ≥≤
 	/*
 	CSpritePack CreatureShadowSPK;
-	ifstream	CreatureShadowFile2;//(FILE_ISPRITE_ADDON, std::ios::binary);
+	class ifstream	CreatureShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary("Data\\Image\\CreatureShadow.spk", CreatureShadowFile2))
 		return false;
 	CreatureShadowSPK.LoadFromFile(CreatureShadowFile2);
@@ -1695,8 +1712,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// ≥≤ - Save  ShadowSpritePack	
 	//------------------------------------------------------------
-	ofstream	CreatureShadowFile(FILE_SSPRITE_CREATURE, std::ios::binary);	
-	ofstream	CreatureShadowIndexFile(FILE_SSPRITEINDEX_CREATURE, std::ios::binary);	
+	class ofstream	CreatureShadowFile(FILE_SSPRITE_CREATURE, ios::binary);	
+	class ofstream	CreatureShadowIndexFile(FILE_SSPRITEINDEX_CREATURE, ios::binary);	
 
 	m_CreatureSSPK.SaveToFile(CreatureShadowFile, CreatureShadowIndexFile);
 
@@ -1715,7 +1732,7 @@ MTopView::InitSprites()
 	
 	// ¿¸√º ∞≥ºˆ∏∏ ¿‚æ∆µ–¥Ÿ.
 	/*
-	ifstream CreatureShadowPackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, std::ios::binary);
+	class ifstream CreatureShadowPackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITEINDEX_CREATURE, CreatureShadowPackIndexFile))
 		return false;
 	CreatureShadowPackIndexFile.read((char*)&size, 2);	// Sprite¿« ∞≥ºˆ
@@ -1726,7 +1743,7 @@ MTopView::InitSprites()
 	/*
 	// ¿”Ω√∑Œ Load
 	// ¿¸√º loading«ÿµŒ¥¬ ∫Œ∫–
-	ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, std::ios::binary);
+	class ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITE_CREATURE, CreatureShadowFile2))
 		return false;
 	m_CreatureSSPK.LoadFromFile(CreatureShadowFile2);
@@ -1758,14 +1775,14 @@ MTopView::InitSprites()
 //	else
 	{
 		/*
-		ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, std::ios::binary);
+		class ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, ios::binary);
 		if (!FileOpenBinary(FILE_SSPRITE_CREATURE, CreatureShadowFile2))
 			return false;
 		m_CreatureSSPK.LoadFromFile(CreatureShadowFile2);
 		CreatureShadowFile2.close();
 		*/
 		/*
-		ifstream indexFile;//(indexFilename, std::ios::binary);
+		class ifstream indexFile;//(indexFilename, ios::binary);
 		if (!FileOpenBinary(FILE_SSPRITEINDEX_CREATURE, indexFile))
 			return false;
 
@@ -1883,8 +1900,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Clothes SpritePack	
 	//------------------------------------------------------------
-	ofstream	clothesFile("Clothes.spk", std::ios::binary);	
-	ofstream	clothesIndexFile("Clothes.spki", std::ios::binary);	
+	class ofstream	clothesFile("Clothes.spk", ios::binary);	
+	class ofstream	clothesIndexFile("Clothes.spki", ios::binary);	
 
 	ClothesSPK.SaveToFile(clothesFile, clothesIndexFile);
 
@@ -1899,7 +1916,7 @@ MTopView::InitSprites()
 /*	
 	if (m_AddonSPK.GetSize()==0)
 	{
-		ifstream	AddonFile2;//(FILE_ISPRITE_ADDON, std::ios::binary);
+		class ifstream	AddonFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 		if (!FileOpenBinary(FILE_ISPRITE_ADDON, AddonFile2))
 			return false;
 		
@@ -1972,7 +1989,18 @@ MTopView::InitSprites()
 	
 	m_AdvancementVampireWomanSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_ISPRITE_ADVANCEMENT_CLASS_VAMPIRE_WOMAN" ).c_str() );
 	m_AdvancementVampireWomanSSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_SSPRITE_ADVANCEMENT_CLASS_VAMPIRE_WOMAN" ).c_str() );
-																																	
+	
+	//add by viva
+	/////////////////////////////////NewVampireSPK, NewVampireSSPK
+	m_NewVampireSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_NEW_CLASS_VAMPIRE").c_str());
+	m_NewVampireSSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SSPRITE_NEW_CLASS_VAMPIRE").c_str());
+	/////////////////////////////////NewSlayerManSPK, NewSlayerManSSPK
+	m_NewSlayerManSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_SLAYER_MAN").c_str());
+	m_NewSlayerManSSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SSPRITE_SLAYER_MAN").c_str());
+	/////////////////////////////////NewSlayerWomanSPK, NewSlayerWomanSSPK
+	m_NewSlayerWomanSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_SLAYER_WOMAN").c_str());
+	m_NewSlayerWomanSSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SSPRITE_SLAYER_WOMAN").c_str());
+	//end
 /*
 	m_AdvancementSlayerSPK.LoadFromFileRunning( g_pFileDef->getProperty( "FILE_ISPRITE_ADVANCEMENT_CLASS_SLAYER" ).c_str() );
 	
@@ -1986,7 +2014,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	// ≥≤
 	/*
-	ifstream	AddonMaleShadowFile2;//(FILE_ISPRITE_ADDON, std::ios::binary);
+	class ifstream	AddonMaleShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITE_ADDON_MALE, AddonMaleShadowFile2))
 		return false;
 	m_AddonMaleShadowSPK.LoadFromFile(AddonMaleShadowFile2);
@@ -1999,7 +2027,7 @@ MTopView::InitSprites()
 	/*
 	// ≥≤
 	CSpritePack AddonMaleShadowSPK;
-	ifstream	AddonMaleShadowFile2;//(FILE_ISPRITE_ADDON, std::ios::binary);
+	class ifstream	AddonMaleShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary("Data\\Image\\addonMaleShadow.spk", AddonMaleShadowFile2))
 		return false;
 	AddonMaleShadowSPK.LoadFromFile(AddonMaleShadowFile2);
@@ -2015,8 +2043,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// ≥≤ - Save  ShadowSpritePack	
 	//------------------------------------------------------------
-	ofstream	AddonMaleShadowFile(FILE_SSPRITE_ADDON_MALE, std::ios::binary);	
-	ofstream	AddonMaleShadowIndexFile(FILE_SSPRITEINDEX_ADDON_MALE, std::ios::binary);	
+	class ofstream	AddonMaleShadowFile(FILE_SSPRITE_ADDON_MALE, ios::binary);	
+	class ofstream	AddonMaleShadowIndexFile(FILE_SSPRITEINDEX_ADDON_MALE, ios::binary);	
 
 	m_AddonMaleSSPK.SaveToFile(AddonMaleShadowFile, AddonMaleShadowIndexFile);
 
@@ -2029,7 +2057,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	// Male
 	/*
-	ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, std::ios::binary);
+	class ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITE_ADDON, AddonShadowFile2))
 		return false;
 	m_AddonSSPK.LoadFromFile(AddonShadowFile2);
@@ -2065,7 +2093,7 @@ MTopView::InitSprites()
 //	else
 	{
 		/*
-		ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, std::ios::binary);
+		class ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 		if (!FileOpenBinary(FILE_SSPRITE_ADDON, AddonShadowFile2))
 			return false;
 		m_AddonSSPK.LoadFromFile(AddonShadowFile2);
@@ -2114,8 +2142,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  ItemTile SpritePack	
 	//------------------------------------------------------------
-	ofstream	itemTileFile(FILE_SPRITE_ITEMTILE, std::ios::binary);	
-	ofstream	itemTileIndexFile(FILE_SPRITEINDEX_ITEMTILE, std::ios::binary);	
+	class ofstream	itemTileFile(FILE_SPRITE_ITEMTILE, ios::binary);	
+	class ofstream	itemTileIndexFile(FILE_SPRITEINDEX_ITEMTILE, ios::binary);	
 
 	m_ItemTileSPK.SaveToFile(itemTileFile, itemTileIndexFile);
 
@@ -2128,7 +2156,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_ItemTileISPK.GetSize()==0)
 	{
-//		ifstream	itemTileFile2;//(FILE_SPRITE_ITEMTILE, std::ios::binary);
+//		class ifstream	itemTileFile2;//(FILE_SPRITE_ITEMTILE, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_ISPRITE_ITEMTILE").c_str(), itemTileFile2))
 //			return false;
 //		m_ItemTileISPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_ITEMTILE").c_str());
@@ -2149,7 +2177,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_ItemDropISPK.GetSize()==0)
 	{
-//		ifstream	itemDropFile2;//(FILE_SPRITE_itemDrop, std::ios::binary);
+//		class ifstream	itemDropFile2;//(FILE_SPRITE_itemDrop, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_ISPRITE_ITEMDROP").c_str(), itemDropFile2))
 //			return false;
 //		m_ItemDropISPK.LoadFromFileRunning(itemDropFile2);
@@ -2170,7 +2198,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_ItemBrokenSPK.GetSize()==0)
 	{
-//		ifstream	itemBrokenFile2;//(FILE_SPRITE_itemBroken, std::ios::binary);
+//		class ifstream	itemBrokenFile2;//(FILE_SPRITE_itemBroken, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_ITEMBROKEN").c_str(), itemBrokenFile2))
 //			return false;
 //		m_ItemBrokenSPK.LoadFromFileRunning(itemBrokenFile2);
@@ -2221,8 +2249,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Tile SpritePack	
 	//------------------------------------------------------------
-	ofstream	tileFile(FILE_SPRITE_TILE, std::ios::binary);	
-	ofstream	tileIndexFile(FILE_SPRITEINDEX_TILE, std::ios::binary);	
+	class ofstream	tileFile(FILE_SPRITE_TILE, ios::binary);	
+	class ofstream	tileIndexFile(FILE_SPRITEINDEX_TILE, ios::binary);	
 
 	m_TileSPK.SaveToFile(tileFile, tileIndexFile);
 
@@ -2232,7 +2260,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Load  Tile SpritePack	
 	//------------------------------------------------------------	
-	ifstream	tileFile2(FILE_SPRITE_TILE, std::ios::binary);
+	class ifstream	tileFile2(FILE_SPRITE_TILE, ios::binary);
 	m_TileSPK.LoadFromFile(tileFile2);
 	tileFile2.close();
 	*/
@@ -2250,7 +2278,7 @@ MTopView::InitSprites()
 	// TileSPK Index∏¶ Load«—¥Ÿ.
 	CFileIndexTable		TileIndex;
 
-	ifstream TilePackIndexFile(FILE_SPRITEINDEX_TILE, std::ios::binary);
+	class ifstream TilePackIndexFile(FILE_SPRITEINDEX_TILE, ios::binary);
 	TileIndex.LoadFromFile( TilePackIndexFile );
 	TilePackIndexFile.close();	
 
@@ -2270,7 +2298,7 @@ MTopView::InitSprites()
 	///*
 //	if (m_TileSPK.GetSize()==0)
 //	{
-//		ifstream TilePackIndexFile;//(FILE_SPRITEINDEX_TILE, std::ios::binary);
+//		class ifstream TilePackIndexFile;//(FILE_SPRITEINDEX_TILE, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITEINDEX_TILE").c_str(), TilePackIndexFile))
 //			return false;
 //		
@@ -2289,7 +2317,7 @@ MTopView::InitSprites()
 //		}
 //		*/
 //
-//		//m_TileSPKFile.open(FILE_SPRITE_TILE, std::ios::binary);
+//		//m_TileSPKFile.open(FILE_SPRITE_TILE, ios::binary);
 ////		if (!FileOpenBinary(FILE_SPRITE_TILE, m_TileSPKFile))
 ////			return false;
 //	}
@@ -2301,12 +2329,12 @@ MTopView::InitSprites()
 	
 	/* TILE INDEX ∏∏µÈ±‚
 	CSpritePack spk;
-	ifstream TilePackIndexFile(FILE_SPRITE_TILE, std::ios::binary);
+	class ifstream TilePackIndexFile(FILE_SPRITE_TILE, ios::binary);
 	spk.LoadFromFile(TilePackIndexFile);	
 	TilePackIndexFile.close();	
 
-	ofstream TilePackIndexFile2(FILE_SPRITE_TILE, std::ios::binary);
-	ofstream TilePackIndexFile3(FILE_SPRITEINDEX_TILE, std::ios::binary);
+	class ofstream TilePackIndexFile2(FILE_SPRITE_TILE, ios::binary);
+	class ofstream TilePackIndexFile3(FILE_SPRITEINDEX_TILE, ios::binary);
 	spk.SaveToFile(TilePackIndexFile2, TilePackIndexFile3);
 	TilePackIndexFile2.close();
 	TilePackIndexFile3.close();
@@ -2316,7 +2344,7 @@ MTopView::InitSprites()
 
 
 	/*
-	ifstream	TilePackFile(FILE_SPRITE_TILE, std::ios::binary);		
+	class ifstream	TilePackFile(FILE_SPRITE_TILE, ios::binary);		
 	m_TileSPK.LoadFromFilePart(TilePackFile, TileSFPArray);
 	TilePackFile.close();
 	*/
@@ -2332,12 +2360,12 @@ MTopView::InitSprites()
 	// Indexæ¯¥¬ SPKø° Indexª˝º∫«œ±‚
 	/*
 	CSpritePack tempSPK;
-	ifstream	ioFile2(FILE_SPRITE_IMAGEOBJECT, std::ios::binary);
+	class ifstream	ioFile2(FILE_SPRITE_IMAGEOBJECT, ios::binary);
 	tempSPK.LoadFromFile(ioFile2);
 	ioFile2.close();
 
-	ofstream	ioFile(FILE_SPRITE_IMAGEOBJECT, std::ios::binary);	
-	ofstream	ioIndexFile(FILE_SPRITEINDEX_IMAGEOBJECT, std::ios::binary);	
+	class ofstream	ioFile(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
+	class ofstream	ioIndexFile(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);	
 
 	tempSPK.SaveToFile(ioFile, ioIndexFile);
 
@@ -2352,7 +2380,7 @@ MTopView::InitSprites()
 	// ImageObjectSPK Index∏¶ Load«—¥Ÿ.
 	CFileIndexTable		ImageObjectIndex;
 
-	ifstream ImageObjectPackIndexFile(FILE_SPRITEINDEX_IMAGEOBJECT, std::ios::binary);
+	class ifstream ImageObjectPackIndexFile(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);
 	ImageObjectIndex.LoadFromFile( ImageObjectPackIndexFile );
 	ImageObjectPackIndexFile.close();	
 
@@ -2372,7 +2400,7 @@ MTopView::InitSprites()
 	if (m_ImageObjectSPK.GetSize()==0)
 	{
 		
-//		ifstream ImageObjectPackIndexFile;//(FILE_SPRITEINDEX_IMAGEOBJECT, std::ios::binary);
+//		class ifstream ImageObjectPackIndexFile;//(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);
 //		if (!FileOpenBinary(FILE_SPRITEINDEX_IMAGEOBJECT, ImageObjectPackIndexFile))
 //			return false;
 //
@@ -2384,7 +2412,7 @@ MTopView::InitSprites()
 //
 //		m_ImageObjectSPK.Init( m_ImageObjectSPKI.GetSize(), CDirectDraw::Is565() );
 //
-//		m_ImageObjectSPKFile.open(FILE_SPRITE_IMAGEOBJECT, std::ios::binary);
+//		m_ImageObjectSPKFile.open(FILE_SPRITE_IMAGEOBJECT, ios::binary);
 		m_ImageObjectSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SPRITE_IMAGEOBJECT").c_str() );
 		// ƒ¿.. ¿Ã∞≈ ø÷ ¥Ÿ ∑Œµ˘«œ¡ˆ. - -;;
 		// 2001.8.20 ¡÷ºÆ√≥∏Æ
@@ -2416,7 +2444,7 @@ MTopView::InitSprites()
 //	DrawTitleLoading();
 
 	/*
-	ifstream	ImageObjectPackFile(FILE_SPRITE_IMAGEOBJECT, std::ios::binary);		
+	class ifstream	ImageObjectPackFile(FILE_SPRITE_IMAGEOBJECT, ios::binary);		
 	m_ImageObjectSPK.LoadFromFilePart(ImageObjectPackFile, ImageObjectSFPArray);
 	ImageObjectPackFile.close();	
 	*/
@@ -2616,8 +2644,8 @@ MTopView::InitSprites()
 	// Save  EffectSPK
 	//
 	//------------------------------------------------------------
-	ofstream	effectFile(FILE_ASPRITE_ALPHAEFFECT, std::ios::binary);	
-	ofstream	effectIndexFile(FILE_ASPRITEINDEX_ALPHAEFFECT, std::ios::binary);	
+	class ofstream	effectFile(FILE_ASPRITE_ALPHAEFFECT, ios::binary);	
+	class ofstream	effectIndexFile(FILE_ASPRITEINDEX_ALPHAEFFECT, ios::binary);	
 
 	m_EffectAlphaSPK.SaveToFile(effectFile, effectIndexFile);
 
@@ -2633,7 +2661,7 @@ MTopView::InitSprites()
 	// 3d∞°º”¿Ã µ«∏È m_pAlphaEffectTextureManager∏¶ ªÁøÎ«œ∞Ì
 	// æ∆¥œ∏È, m_EffectAlphaSPK∏¶ ªÁøÎ«—¥Ÿ.
 /*
-	ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, std::ios::binary);
+	class ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 	if (!FileOpenBinary(FILE_ASPRITE_ALPHAEFFECT, effectFile2))
 		return false;
 	m_EffectAlphaSPK.LoadFromFile(effectFile2);
@@ -2669,12 +2697,12 @@ MTopView::InitSprites()
 //	}
 //	else
 	{
-		//ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, std::ios::binary);
+		//class ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 		//if (!FileOpenBinary(FILE_ASPRITE_ALPHAEFFECT, effectFile2))
 		//	return false;
 		//m_EffectAlphaSPK.LoadFromFile(effectFile2);
 		//effectFile2.close();	
-//		ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, std::ios::binary);
+//		class ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 //		if (!FileOpenBinary(FILE_ASPRITEINDEX_ALPHAEFFECT, effectFileIndex))
 //			return false;
 //		
@@ -2726,12 +2754,12 @@ MTopView::InitSprites()
 //	}
 //	else
 	{
-		//ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, std::ios::binary);
+		//class ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 		//if (!FileOpenBinary(FILE_ASPRITE_ALPHAEFFECT, effectFile2))
 		//	return false;
 		//m_EffectAlphaSPK.LoadFromFile(effectFile2);
 		//effectFile2.close();	
-//		ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, std::ios::binary);
+//		class ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 //		if (!FileOpenBinary(FILE_SPRITEINDEX_SCREENEFFECT, effectFileIndex))
 //			return false;
 //		
@@ -2772,7 +2800,7 @@ MTopView::InitSprites()
 //	}
 //	else
 	{
-//		ifstream	effectFile2;
+//		class ifstream	effectFile2;
 //		if (!FileOpenBinary(FILE_SSPRITE_SHADOWEFFECT, effectFile2))
 //			return false;
 //		m_EffectShadowSPK.LoadFromFile(effectFile2);
@@ -2783,7 +2811,7 @@ MTopView::InitSprites()
 //	UI_DrawProgress(12);
 //	DrawTitleLoading();
 
-	//ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, std::ios::binary);
+	//class ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 	//m_EffectAlphaSPK.LoadFromFile(effectFile2);
 	//effectFile2.close();	
 	
@@ -2850,8 +2878,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Etc SpritePack	
 	//------------------------------------------------------------
-	ofstream	EtcFile(FILE_SPRITE_ETC, std::ios::binary);	
-	ofstream	EtcIndexFile(FILE_SPRITEINDEX_ETC, std::ios::binary);	
+	class ofstream	EtcFile(FILE_SPRITE_ETC, ios::binary);	
+	class ofstream	EtcIndexFile(FILE_SPRITEINDEX_ETC, ios::binary);	
 
 	m_EtcSPK.SaveToFile(EtcFile, EtcIndexFile);
 
@@ -2864,7 +2892,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	if (m_EtcSPK.GetSize()==0)
 	{
-		ifstream	EtcFile2;//(FILE_SPRITE_ETC, std::ios::binary);
+		class ifstream	EtcFile2;//(FILE_SPRITE_ETC, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_ETC").c_str(), EtcFile2))
 			return false;
 		m_EtcSPK.LoadFromFile(EtcFile2);
@@ -2878,7 +2906,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 //	if (m_InteractionObjectSPK.GetSize()==0)
 //	{
-//		ifstream	ioFile2;//(FILE_SPRITE_ETC, std::ios::binary);
+//		class ifstream	ioFile2;//(FILE_SPRITE_ETC, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_INTERACTIONOBJECT").c_str(), ioFile2))
 //			return false;
 //		m_InteractionObjectSPK.LoadFromFile(ioFile2);
@@ -2888,7 +2916,7 @@ MTopView::InitSprites()
 //	if (m_InteractionObjectSSPK.GetSize()==0)
 //	{
 //		/*
-//		ifstream	ioFile3;//(FILE_SPRITE_ETC, std::ios::binary);
+//		class ifstream	ioFile3;//(FILE_SPRITE_ETC, ios::binary);
 //		if (!FileOpenBinary(FILE_SSPRITE_INTERACTIONOBJECT, ioFile3))
 //			return false;
 //		m_InteractionObjectSSPK.LoadFromFile(ioFile2);
@@ -2933,8 +2961,8 @@ MTopView::InitSprites()
 	// Save  NormalEffect Shadow SpritePack	
 	//------------------------------------------------------------
 	
-	ofstream	NormalEffectFile(FILE_SPRITE_NORMALEFFECT, std::ios::binary);	
-	ofstream	NormalEffectIndexFile(FILE_SPRITEINDEX_NORMALEFFECT, std::ios::binary);	
+	class ofstream	NormalEffectFile(FILE_SPRITE_NORMALEFFECT, ios::binary);	
+	class ofstream	NormalEffectIndexFile(FILE_SPRITEINDEX_NORMALEFFECT, ios::binary);	
 
 	m_EffectNormalSPK.SaveToFile(NormalEffectFile, NormalEffectIndexFile);
 
@@ -2947,7 +2975,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_EffectNormalSPK.GetSize()==0)
 	{
-//		ifstream	NormalEffectFile2;//(FILE_SPRITE_NORMALEFFECT, std::ios::binary);
+//		class ifstream	NormalEffectFile2;//(FILE_SPRITE_NORMALEFFECT, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_NORMALEFFECT").c_str(), NormalEffectFile2))
 //			return false;
 //		m_EffectNormalSPK.LoadFromFile(NormalEffectFile2);
@@ -2968,7 +2996,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_WeatherSPK.GetSize()==0)
 	{
-		ifstream	WeatherFile2;//(FILE_SPRITE_WEATHER, std::ios::binary);
+		class ifstream	WeatherFile2;//(FILE_SPRITE_WEATHER, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_WEATHER").c_str(), WeatherFile2))
 			return false;
 		m_WeatherSPK.LoadFromFile(WeatherFile2);
@@ -3062,7 +3090,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	ofstream	MapTest1("Data\\Image\\map_a.spr", std::ios::binary);		
+	class ofstream	MapTest1("Data\\Image\\map_a.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest1 );
 	MapTest1.close();
 
@@ -3077,7 +3105,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	ofstream	MapTest2("Data\\Image\\map_h.spr", std::ios::binary);		
+	class ofstream	MapTest2("Data\\Image\\map_h.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest2 );
 	MapTest2.close();
 
@@ -3092,7 +3120,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	ofstream	MapTest3("Data\\Image\\map_e.spr", std::ios::binary);		
+	class ofstream	MapTest3("Data\\Image\\map_e.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest3 );
 	MapTest3.close();
 
@@ -3107,7 +3135,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	ofstream	MapTest4("Data\\Image\\map_c.spr", std::ios::binary);		
+	class ofstream	MapTest4("Data\\Image\\map_c.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest4 );
 	MapTest4.close();
 
@@ -3122,7 +3150,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	ofstream	MapTest5("Data\\Image\\map_d.spr", std::ios::binary);		
+	class ofstream	MapTest5("Data\\Image\\map_d.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest5 );
 	MapTest5.close();
 
@@ -3141,7 +3169,7 @@ MTopView::InitSprites()
 	/*
 	if (m_GuildSPK.GetSize()==0)
 	{
-		ifstream	guildFile2;//(FILE_SPRITE_WEATHER, std::ios::binary);
+		class ifstream	guildFile2;//(FILE_SPRITE_WEATHER, ios::binary);
 		if (!FileOpenBinary(FILE_SPRITE_GUILD, guildFile2))
 			return false;
 		m_GuildSPK.LoadFromFile(guildFile2);
@@ -3208,7 +3236,7 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	// Save  Light2D FilterPack
 	//------------------------------------------------------------
-	ofstream	FilterLight2DFile(FILE_FILTER_LIGHT2D, std::ios::binary);		
+	class ofstream	FilterLight2DFile(FILE_FILTER_LIGHT2D, ios::binary);		
 	m_Filter.SaveToFile(FilterLight2DFile);
 	FilterLight2DFile.close();	
 	*/
@@ -3216,7 +3244,7 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	// Load  Light2D FilterPack
 	//------------------------------------------------------------	
-	//ifstream	FilterLight2DFile2(FILE_FILTER_LIGHT2D, std::ios::binary);
+	//class ifstream	FilterLight2DFile2(FILE_FILTER_LIGHT2D, ios::binary);
 	//m_Filter.LoadFromFile(FilterLight2DFile2);
 	//FilterLight2DFile2.close();
 
@@ -3305,7 +3333,7 @@ MTopView::InitFilters()
 		//------------------------------------------------------------	
 		// Save  Light3D FilterPack
 		//------------------------------------------------------------
-		ofstream	LightFilter3DFile(FILE_FILTER_LIGHT3D, std::ios::binary);
+		class ofstream	LightFilter3DFile(FILE_FILTER_LIGHT3D, ios::binary);
 		m_LightFTP.SaveToFile(LightFilter3DFile);
 		LightFilter3DFile.close();	
 
@@ -3314,7 +3342,7 @@ MTopView::InitFilters()
 		//------------------------------------------------------------	
 		// Load  Light3D FilterPack
 		//------------------------------------------------------------	
-		ifstream	LightFilter3DFile2;//(FILE_FILTER_LIGHT3D, std::ios::binary);
+		class ifstream	LightFilter3DFile2;//(FILE_FILTER_LIGHT3D, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_FILTER_LIGHT3D").c_str(), LightFilter3DFile2))
 			return false;
 		m_LightFTP.LoadFromFile(LightFilter3DFile2);
@@ -3388,7 +3416,7 @@ MTopView::InitFilters()
 		//------------------------------------------------------------	
 		// Save  Light2D FilterPack
 		//------------------------------------------------------------
-		ofstream	LightFilter2DFile(FILE_FILTER_LIGHT2D, std::ios::binary);
+		class ofstream	LightFilter2DFile(FILE_FILTER_LIGHT2D, ios::binary);
 		m_LightFTP.SaveToFile(LightFilter2DFile);
 		LightFilter2DFile.close();	
 		*/
@@ -3401,7 +3429,7 @@ MTopView::InitFilters()
 		//------------------------------------------------------------	
 		// Load  Light2D FilterPack
 		//------------------------------------------------------------	
-		ifstream	LightFilter2DFile2;//(FILE_FILTER_LIGHT2D, std::ios::binary);
+		class ifstream	LightFilter2DFile2;//(FILE_FILTER_LIGHT2D, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_FILTER_LIGHT2D").c_str(), LightFilter2DFile2))
 			return false;
 		m_LightFTP.LoadFromFile(LightFilter2DFile2);
@@ -3414,17 +3442,41 @@ MTopView::InitFilters()
 		// LightBuffer¿« «— ¡°¿Ã ¿«πÃ«œ¥¬ »≠∏ÈªÛ¿« pixel∞°∑Œ ±Ê¿Ã
 		//----------------------------------------------------------------
 		// ∞°∑Œ¿« «’ = 100 * 8 = 800
+		BYTE x1,y1=0;
+		if(g_MyFull)
+		{
+			x1=16;
+			y1=16;
+		}
+		else
+		{
+			x1=12;
+			y1=13;
+		}
 		const int pPixelWidth[SCREENLIGHT_WIDTH] = 
 		{
-			12, 13, 12, 13, 12,	13, 12, 13, 
-			12, 13, 12, 13, 12, 13, 12, 13, 
-			12, 13, 12, 13, 12, 13, 12, 13, 
-			12, 13, 12, 13, 12, 13, 12, 13, 
-			12, 13, 12, 13, 12, 13, 12, 13, 
-			12, 13, 12, 13, 12, 13, 12, 13, 
-			12, 13, 12, 13, 12, 13, 12, 13, 
-			12, 13, 12, 13, 12, 13, 12, 13 
+			x1, y1, x1, y1, x1,	y1, x1, y1, 
+			x1, y1, x1, y1, x1, y1, x1, y1, 
+			x1, y1, x1, y1, x1, y1, x1, y1, 
+			x1, y1, x1, y1, x1, y1, x1, y1, 
+			x1, y1, x1, y1, x1, y1, x1, y1, 
+			x1, y1, x1, y1, x1, y1, x1, y1, 
+			x1, y1, x1, y1, x1, y1, x1, y1, 
+			x1, y1, x1, y1, x1, y1, x1, y1 
 		};
+/*
+		const int pPixelWidth[SCREENLIGHT_WIDTH] = 
+		{
+			16, 16, 16, 16, 16,	16, 16, 16, 
+			16, 16, 16, 16, 16, 16, 16, 16, 
+			16, 16, 16, 16, 16, 16, 16, 16, 
+			16, 16, 16, 16, 16, 16, 16, 16, 
+			16, 16, 16, 16, 16, 16, 16, 16, 
+			16, 16, 16, 16, 16, 16, 16, 16, 
+			16, 16, 16, 16, 16, 16, 16, 16, 
+			16, 16, 16, 16, 16, 16, 16, 16 
+		};
+*/
 
 		//----------------------------------------------------------------
 		// LightBuffer¿« «— ¡°¿Ã ¿«πÃ«œ¥¬ »≠∏ÈªÛ¿« pixelºº∑Œ ±Ê¿Ã
@@ -3433,17 +3485,44 @@ MTopView::InitFilters()
 		// total∞™¿Ã CLIPSURFACE_HEIGHTøÕ ∞∞¿∏∏È µ»¥Ÿ.
 		// «ˆ¿Á¥¬ 600.  10*24 + 9*40	
 		//----------------------------------------------------------------
+		if(g_MyFull)
+		{
+			x1=12;
+			y1=12;
+		}
+		else
+		{
+			x1=10;
+			y1=9;
+		}
 		const int pPixelHeight[SCREENLIGHT_HEIGHT] = 
 		{
-			10,9,9,10, 9,9,10,9,
-			10,9,9,10, 9,9,10,9,
-			10,9,9,10, 9,9,10,9,
-			10,9,9,10, 9,9,10,9,
-			10,9,9,10, 9,9,10,9,
-			10,9,9,10, 9,9,10,9,
-			10,9,9,10, 9,9,10,9,
-			10,9,9,10, 9,9,10,9,
+			x1,y1,y1,x1, y1,y1,x1,y1,
+			x1,y1,y1,x1, y1,y1,x1,y1,
+			x1,y1,y1,x1, y1,y1,x1,y1,
+			x1,y1,y1,x1, y1,y1,x1,y1,
+			x1,y1,y1,x1, y1,y1,x1,y1,
+			x1,y1,y1,x1, y1,y1,x1,y1,
+			x1,y1,y1,x1, y1,y1,x1,y1,
+			x1,y1,y1,x1, y1,y1,x1,y1,
 		};
+		/*
+		//–ﬁ∏ƒŒ™768
+		//----------------------------------------------------------------
+		const int pPixelHeight[SCREENLIGHT_HEIGHT] = 
+		{
+			
+			12,12,12,12, 12,12,12,12,
+			12,12,12,12, 12,12,12,12,
+			12,12,12,12, 12,12,12,12,
+			12,12,12,12, 12,12,12,12,
+			12,12,12,12, 12,12,12,12,
+			12,12,12,12, 12,12,12,12,
+			12,12,12,12, 12,12,12,12,
+			12,12,12,12, 12,12,12,12,
+
+		};
+		*/
 
 		for (int i=0; i<SCREENLIGHT_WIDTH; i++)
 		{
@@ -3510,7 +3589,7 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	// Save  Light3D FilterPack
 	//------------------------------------------------------------
-	ofstream	ImageObjectFilterFile(FILE_FILTER_IMAGEOBJECT, std::ios::binary);
+	class ofstream	ImageObjectFilterFile(FILE_FILTER_IMAGEOBJECT, ios::binary);
 	m_ImageObjectFilter.SaveToFile(ImageObjectFilterFile);
 	ImageObjectFilterFile.close();	
 	*/
@@ -3520,7 +3599,7 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	if (m_ImageObjectFilter.IsNotInit())
 	{
-		ifstream	ImageObjectFilterFile2;//(FILE_FILTER_IMAGEOBJECT, std::ios::binary);
+		class ifstream	ImageObjectFilterFile2;//(FILE_FILTER_IMAGEOBJECT, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_FILTER_IMAGEOBJECT").c_str(), ImageObjectFilterFile2))
 			return false;
 		m_ImageObjectFilter.LoadFromFile(ImageObjectFilterFile2);
@@ -3774,8 +3853,8 @@ MTopView::InitCreatureFrames()
 	}
 
 	
-	ofstream packFile(FILE_CFRAME_CREATURE, std::ios::binary);
-	ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, std::ios::binary);
+	class ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
+	class ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
 	m_CreatureFPK.SaveToFile(packFile, indexFile);	
 	packFile.close();
 	indexFile.close();	
@@ -3783,7 +3862,7 @@ MTopView::InitCreatureFrames()
 	
 	///*
 	// Load from File
-	ifstream file;//(FILE_CFRAME_CREATURE, std::ios::binary);
+	class ifstream file;//(FILE_CFRAME_CREATURE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_CREATURE").c_str(), file))
 		return false;
 	m_CreatureFPK.LoadFromFile(file);
@@ -3808,8 +3887,8 @@ MTopView::InitCreatureFrames()
 		}
 	}
 	
-	ofstream packFile(FILE_CFRAME_CREATURE, std::ios::binary);
-	ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, std::ios::binary);
+	class ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
+	class ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
 	m_CreatureFPK.SaveToFile(packFile, indexFile);	
 	packFile.close();
 	indexFile.close();
@@ -3886,8 +3965,8 @@ MTopView::InitCreatureFrames()
 		}
 	}
 
-	ofstream packFile(FILE_CFRAME_CREATURE, std::ios::binary);
-	ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, std::ios::binary);
+	class ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
+	class ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
 	m_CreatureFPK.SaveToFile(packFile, indexFile);	
 	packFile.close();
 	indexFile.close();	
@@ -3898,7 +3977,7 @@ MTopView::InitCreatureFrames()
 	// Creature Shadow FPK - Loading
 	//
 	//------------------------------------------------------------
-	ifstream fileShadow;//(FILE_CFRAME_CREATURE, std::ios::binary);
+	class ifstream fileShadow;//(FILE_CFRAME_CREATURE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_CREATURE_SHADOW").c_str(), fileShadow))
 		return false;
 	m_CreatureShadowFPK.LoadFromFile(fileShadow);
@@ -3962,8 +4041,8 @@ MTopView::InitCreatureFrames()
 		n+=5;
 	}	
 
-	packFile.open(FILE_CFRAME_ADDON, std::ios::binary);
-	indexFile.open(FILE_CFRAMEINDEX_ADDON, std::ios::binary);
+	packFile.open(FILE_CFRAME_ADDON, ios::binary);
+	indexFile.open(FILE_CFRAMEINDEX_ADDON, ios::binary);
 	m_AddonFPK.SaveToFile(packFile, indexFile);	
 	packFile.close();
 	indexFile.close();
@@ -3971,40 +4050,75 @@ MTopView::InitCreatureFrames()
 
 	///*
 	
-	ifstream AdvancementOustersFile;//(FILE_CFRAME_ADDON_MALE, std::ios::binary);
+	class ifstream AdvancementOustersFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_OUSTERS").c_str(), AdvancementOustersFile))
 		return false;
 	m_AdvancementOustersFPK.LoadFromFile(AdvancementOustersFile);
 	AdvancementOustersFile.close();	
 
-	ifstream AdvancementOustersShadowFile;//(FILE_CFRAME_ADDON_MALE, std::ios::binary);
+	class ifstream AdvancementOustersShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_OUSTERS_SHADOW").c_str(), AdvancementOustersFile))
 		return false;
 	m_AdvancementOustersShadowFPK.LoadFromFile(AdvancementOustersFile);
 	AdvancementOustersFile.close();	
 
-	ifstream AdvancementVampireManFile;
+	class ifstream AdvancementVampireManFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_MAN").c_str(), 
 		AdvancementVampireManFile))
 		return false;
 	m_AdvancementVampireManFPK.LoadFromFile( AdvancementVampireManFile );
 	AdvancementVampireManFile.close();
 
-	ifstream AdvancementVampireManShadowFile;
+	//add by viva
+	//--------------------------------vampire.cfpk
+	class ifstream NewVampireFile;
+	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_NEW_CLASS_VAMPIRE").c_str(), NewVampireFile))	return false;
+	m_NewVampireFPK.LoadFromFile( NewVampireFile );
+	NewVampireFile.close();
+	//--------------------------------vampireShdow.cfpk
+	class ifstream NewVampireShadowFile;
+	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_NEW_CLASS_VAMPIRE_SHADOW").c_str(), NewVampireShadowFile))	return false;
+	m_NewVampireShadowFPK.LoadFromFile( NewVampireShadowFile );
+	NewVampireShadowFile.close();
+
+	//--------------------------------SlayerMan.cfpk(AddonMan.cfpk)
+	class ifstream NewSlayerManFile;
+	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_MAN").c_str(), NewSlayerManFile))	return false;
+	m_NewSlayerManFPK.LoadFromFile( NewSlayerManFile );
+	NewSlayerManFile.close();
+	//--------------------------------SlayerManShadow.cfpk(AddonManShadow.cfpk)
+	class ifstream NewSlayerManShadowFile;
+	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_MAN_SHADOW").c_str(), NewSlayerManShadowFile))	return false;
+	m_NewSlayerManShadowFPK.LoadFromFile( NewSlayerManShadowFile );
+	NewSlayerManShadowFile.close();
+
+	//---------------------------------SlayerWoman.cfpk(AddonWoman.cfpk)
+	class ifstream NewSlayerWomanFile;
+	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_WOMAN").c_str(), NewSlayerWomanFile))	return false;
+	m_NewSlayerWomanFPK.LoadFromFile( NewSlayerWomanFile );
+	NewSlayerWomanFile.close();
+	//---------------------------------SlayerWoman.cfpk(AddonManShadow.cfpk)
+	class ifstream NewSlayerWomanShadowFile;
+	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_WOMAN_SHADOW").c_str(), NewSlayerWomanShadowFile))	return false;
+	m_NewSlayerWomanShadowFPK.LoadFromFile( NewSlayerWomanShadowFile );
+	NewSlayerWomanShadowFile.close();
+	////end
+
+	class ifstream AdvancementVampireManShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_MAN_SHADOW").c_str(), 
 		AdvancementVampireManShadowFile))
 		return false;
 	m_AdvancementVampireManShadowFPK.LoadFromFile( AdvancementVampireManShadowFile );
 	AdvancementVampireManShadowFile.close();
 
-	ifstream AdvancementVampireWomanFile;
+	class ifstream AdvancementVampireWomanFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_WOMAN").c_str(), 
 		AdvancementVampireWomanFile))
 		return false;
 	m_AdvancementVampireWomanFPK.LoadFromFile( AdvancementVampireWomanFile );
 	AdvancementVampireWomanFile.close();
 
-	ifstream AdvancementVampireWomanShadowFile;
+	class ifstream AdvancementVampireWomanShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_WOMAN_SHADOW").c_str(), 
 		AdvancementVampireWomanShadowFile))
 		return false;
@@ -4012,14 +4126,14 @@ MTopView::InitCreatureFrames()
 	AdvancementVampireWomanShadowFile.close();
 
 
-	ifstream AdvancementSlayerManFile;
+	class ifstream AdvancementSlayerManFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_MAN").c_str(), 
 		AdvancementSlayerManFile))
 		return false;
 	m_AdvancementSlayerManFPK.LoadFromFile( AdvancementSlayerManFile );
 	AdvancementSlayerManFile.close();
 
-	ifstream AdvancementSlayerManShadowFile;
+	class ifstream AdvancementSlayerManShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_MAN_SHADOW").c_str(), 
 		AdvancementSlayerManShadowFile))
 		return false;
@@ -4027,14 +4141,14 @@ MTopView::InitCreatureFrames()
 	AdvancementSlayerManShadowFile.close();
 
 
-	ifstream AdvancementSlayerWomanFile;
+	class ifstream AdvancementSlayerWomanFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_WOMAN").c_str(), 
 		AdvancementSlayerWomanFile))
 		return false;
 	m_AdvancementSlayerWomanFPK.LoadFromFile( AdvancementSlayerWomanFile );
 	AdvancementSlayerWomanFile.close();
 
-	ifstream AdvancementSlayerWomanShadowFile;
+	class ifstream AdvancementSlayerWomanShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_WOMAN_SHADOW").c_str(), 
 		AdvancementSlayerWomanShadowFile))
 		return false;
@@ -4045,25 +4159,25 @@ MTopView::InitCreatureFrames()
 	//------------------------------------------------
 	// Load from File
 	//------------------------------------------------
-	ifstream AdvancementSlayerFile;//(FILE_CFRAME_ADDON_MALE, std::ios::binary);
+	class ifstream AdvancementSlayerFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER").c_str(), AdvancementSlayerFile))
 		return false;
 	m_AdvancementSlayerFPK.LoadFromFile(AdvancementSlayerFile);
 	AdvancementSlayerFile.close();
 
-	ifstream AdvancementVampireFile;//(FILE_CFRAME_ADDON_MALE, std::ios::binary);
+	class ifstream AdvancementVampireFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE").c_str(), AdvancementVampireFile))
 		return false;
 	m_AdvancementVampireFPK.LoadFromFile(AdvancementVampireFile);
 	AdvancementVampireFile.close();
 	
-	ifstream AdvancementSlayerShadowFile;//(FILE_CFRAME_ADDON_MALE, std::ios::binary);
+	class ifstream AdvancementSlayerShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_SHADOW").c_str(), AdvancementSlayerFile))
 		return false;
 	m_AdvancementSlayerShadowFPK.LoadFromFile(AdvancementSlayerFile);
 	AdvancementSlayerFile.close();
 
-	ifstream AdvancementVampireShadowFile;//(FILE_CFRAME_ADDON_MALE, std::ios::binary);
+	class ifstream AdvancementVampireShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_SHADOW").c_str(), AdvancementVampireFile))
 		return false;
 	m_AdvancementVampireShadowFPK.LoadFromFile(AdvancementVampireFile);
@@ -4073,12 +4187,12 @@ MTopView::InitCreatureFrames()
 	//------------------------------------------------
 	// Load from File
 	//------------------------------------------------
-	ifstream AddonFile2;//(FILE_CFRAME_ADDON_MALE, std::ios::binary);
+	class ifstream AddonFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADDON").c_str(), AddonFile2))
 		return false;
 	m_AddonFPK.LoadFromFile(AddonFile2);
 	AddonFile2.close();
-	ifstream OustersFile2;//(FILE_CFRAME_ADDON_MALE, std::ios::binary);
+	class ifstream OustersFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_OUSTERS").c_str(), OustersFile2))
 		return false;
 	m_OustersFPK.LoadFromFile(OustersFile2);
@@ -4088,13 +4202,13 @@ MTopView::InitCreatureFrames()
 	//------------------------------------------------
 	// ±◊∏≤¿⁄ - Load from File
 	//------------------------------------------------
-	ifstream AddonShadowFile2;//(FILE_CFRAME_ADDON_MALE, std::ios::binary);
+	class ifstream AddonShadowFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADDON_SHADOW").c_str(), AddonShadowFile2))
 		return false;
 	m_AddonShadowFPK.LoadFromFile(AddonShadowFile2);
 	AddonShadowFile2.close();
 	
-	ifstream OustersShadowFile2;//(FILE_CFRAME_ADDON_MALE, std::ios::binary);
+	class ifstream OustersShadowFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_OUSTERS_SHADOW").c_str(), OustersShadowFile2))
 		return false;
 	m_OustersShadowFPK.LoadFromFile(OustersShadowFile2);
@@ -4326,14 +4440,14 @@ MTopView::InitCreatureFrames()
 		}
 	}
 
-	ofstream packFileMale(FILE_CFRAME_ADDON_MALE, std::ios::binary);
-	ofstream indexFileMale(FILE_CFRAMEINDEX_ADDON_MALE, std::ios::binary);
+	class ofstream packFileMale(FILE_CFRAME_ADDON_MALE, ios::binary);
+	class ofstream indexFileMale(FILE_CFRAMEINDEX_ADDON_MALE, ios::binary);
 	m_AddonMaleFPK.SaveToFile(packFileMale, indexFileMale);	
 	packFileMale.close();
 	indexFileMale.close();
 
-	ofstream packFileFemale(FILE_CFRAME_ADDON_FEMALE, std::ios::binary);
-	ofstream indexFileFemale(FILE_CFRAMEINDEX_ADDON_FEMALE, std::ios::binary);
+	class ofstream packFileFemale(FILE_CFRAME_ADDON_FEMALE, ios::binary);
+	class ofstream indexFileFemale(FILE_CFRAMEINDEX_ADDON_FEMALE, ios::binary);
 	m_AddonFemaleFPK.SaveToFile(packFileFemale, indexFileFemale);	
 	packFileFemale.close();
 	indexFileFemale.close();
@@ -4386,8 +4500,8 @@ MTopView::InitImageFrames()
 	for (int i=0; i<28; i++)
 		m_ItemTileFPK[i].Set(i, 10, 10);
 
-	ofstream packFile(FILE_IFRAME_ITEMTILE, std::ios::binary);
-	ofstream indexFile(FILE_IFRAMEINDEX_ITEMTILE, std::ios::binary);
+	class ofstream packFile(FILE_IFRAME_ITEMTILE, ios::binary);
+	class ofstream indexFile(FILE_IFRAMEINDEX_ITEMTILE, ios::binary);
 
 	m_ItemTileFPK.SaveToFile(packFile, indexFile);
 
@@ -4397,7 +4511,7 @@ MTopView::InitImageFrames()
 
 	///*
 	// Load from File
-	ifstream file2;//(FILE_IFRAME_ITEMTILE, std::ios::binary);
+	class ifstream file2;//(FILE_IFRAME_ITEMTILE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_IFRAME_ITEMTILE").c_str(), file2))
 		return false;
 	m_ItemTileFPK.LoadFromFile(file2);
@@ -4431,13 +4545,13 @@ MTopView::InitAnimationFrames()
 	//
 	//------------------------------------------------------------
 	
-	ifstream file2;//(FILE_AFRAME_ANIMATIONOBJECT, std::ios::binary);
+	class ifstream file2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ANIMATIONOBJECT").c_str(), file2))
 		return false;
 	m_ImageObjectFPK.LoadFromFile(file2);
 	file2.close();
 
-	ifstream file3;//(FILE_AFRAME_ANIMATIONOBJECT, std::ios::binary);
+	class ifstream file3;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ANIMATIONOBJECT_SHADOW").c_str(), file3))
 		return false;
 	m_ImageObjectShadowFPK.LoadFromFile(file3);
@@ -4462,8 +4576,8 @@ MTopView::InitAnimationFrames()
 //	m_InteractionObjectFPK[0][9].Set(0, 0, -48);
 //	
 //
-//	ofstream iopackFile(g_pFileDef->getProperty("FILE_AFRAME_INTERACTIONOBJECT").c_str(), std::ios::binary);
-//	ofstream ioindexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_INTERACTIONOBJECT").c_str(), std::ios::binary);
+//	class ofstream iopackFile(g_pFileDef->getProperty("FILE_AFRAME_INTERACTIONOBJECT").c_str(), ios::binary);
+//	class ofstream ioindexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_INTERACTIONOBJECT").c_str(), ios::binary);
 //	m_InteractionObjectFPK.SaveToFile(iopackFile, ioindexFile);
 //	iopackFile.close();
 //	ioindexFile.close();	
@@ -4471,7 +4585,7 @@ MTopView::InitAnimationFrames()
 
 	///*
 	// Load from File
-//	ifstream iofile2;//(FILE_AFRAME_ANIMATIONOBJECT, std::ios::binary);
+//	class ifstream iofile2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 //	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_INTERACTIONOBJECT").c_str(), iofile2))
 //		return false;
 //	m_InteractionObjectFPK.LoadFromFile(iofile2);
@@ -4483,7 +4597,7 @@ MTopView::InitAnimationFrames()
 	// Item Drop
 	//
 	//------------------------------------------------------------	
-	ifstream itemdropfile2;//(FILE_AFRAME_ANIMATIONOBJECT, std::ios::binary);
+	class ifstream itemdropfile2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ITEMDROP").c_str(), itemdropfile2))
 		return false;
 	m_ItemDropFPK.LoadFromFile(itemdropfile2);
@@ -4499,8 +4613,8 @@ MTopView::InitAnimationFrames()
 //		}
 //
 //	}
-//	ofstream itemdropfile3(g_pFileDef->getProperty("FILE_AFRAME_ITEMDROP").c_str(), std::ios::binary);
-//	ofstream itemdropfile4(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMDROP").c_str(), std::ios::binary);
+//	class ofstream itemdropfile3(g_pFileDef->getProperty("FILE_AFRAME_ITEMDROP").c_str(), ios::binary);
+//	class ofstream itemdropfile4(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMDROP").c_str(), ios::binary);
 //	m_ItemDropFPK.SaveToFile(itemdropfile3, itemdropfile4);
 //	itemdropfile4.close();
 //	itemdropfile3.close();
@@ -4528,8 +4642,8 @@ MTopView::InitAnimationFrames()
 			int sid = spriteID+nFrame[f];
 
 			// ¡ﬂΩ…ø° ø¿µµ∑œ ¡¬«• ∫∏¡§..
-			int cx = TILE_X_HALF - (m_ItemDropSPK[sid].GetWidth()>>1);
-			int cy = TILE_Y_HALF - (m_ItemDropSPK[sid].GetHeight()>>1);
+			int cx = g_TILE_X_HALF - (m_ItemDropSPK[sid].GetWidth()>>1);
+			int cy = g_TILE_Y_HALF - (m_ItemDropSPK[sid].GetHeight()>>1);
 
 			m_ItemDropFPK[i][f].Set( sid, cx, cy );
 		}
@@ -4540,8 +4654,8 @@ MTopView::InitAnimationFrames()
 	//------------------------------------------------------------	
 	// ¿˙¿Â
 	//------------------------------------------------------------	
-	ofstream packFile(FILE_AFRAME_ITEMDROP, std::ios::binary);
-	ofstream indexFile(FILE_AFRAMEINDEX_ITEMDROP, std::ios::binary);
+	class ofstream packFile(FILE_AFRAME_ITEMDROP, ios::binary);
+	class ofstream indexFile(FILE_AFRAMEINDEX_ITEMDROP, ios::binary);
 	m_ItemDropFPK.SaveToFile(packFile, indexFile);
 	packFile.close();
 	indexFile.close();
@@ -4907,8 +5021,8 @@ MTopView::InitAnimationFrames()
 		m_ItemBrokenFPK[4][j].Set(Ousters[j][0], Ousters[j%(maxOustersItemBroken/3)][1]-30, Ousters[j%(maxOustersItemBroken/3)][2]-10);
 	}
 	
-	ofstream packFile(g_pFileDef->getProperty("FILE_AFRAME_ITEMBROKEN").c_str(), std::ios::binary);
-	ofstream indexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMBROKEN").c_str(), std::ios::binary);
+	class ofstream packFile(g_pFileDef->getProperty("FILE_AFRAME_ITEMBROKEN").c_str(), ios::binary);
+	class ofstream indexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMBROKEN").c_str(), ios::binary);
 
 	m_ItemBrokenFPK.SaveToFile(packFile, indexFile);
 
@@ -4919,7 +5033,7 @@ MTopView::InitAnimationFrames()
 
 	///*
 	// Load from File
-	ifstream fileItemBroken2;//(FILE_IFRAME_ITEMTILE, std::ios::binary);
+	class ifstream fileItemBroken2;//(FILE_IFRAME_ITEMTILE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ITEMBROKEN").c_str(), fileItemBroken2))
 		return false;
 	m_ItemBrokenFPK.LoadFromFile(fileItemBroken2);
@@ -4967,8 +5081,8 @@ MTopView::InitEffectFrames()
 		}	
 	}
 
-	ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, std::ios::binary);
-	ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, std::ios::binary);
+	class ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	class ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
 	m_EffectNormalFPK.SaveToFile(packNormalFile, indexNormalFile);
 	packNormalFile.close();
 	indexNormalFile.close();
@@ -4993,8 +5107,8 @@ MTopView::InitEffectFrames()
 		m_EffectNormalFPK[0][d][4].Set(0, 0, -48);
 	}
 
-	ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, std::ios::binary);
-	ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, std::ios::binary);
+	class ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	class ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
 	m_EffectNormalFPK.SaveToFile(packNormalFile, indexNormalFile);
 	packNormalFile.close();
 	indexNormalFile.close();
@@ -5007,7 +5121,7 @@ MTopView::InitEffectFrames()
 	//--------------------------------------------------
 	// [ TEST CODE ]
 	/*
-	ifstream fileFA;//(FILE_EFRAME_NORMALEFFECT, std::ios::binary);
+	class ifstream fileFA;//(FILE_EFRAME_NORMALEFFECT, ios::binary);
 	if (!FileOpenBinary("Data\\bomb.frr", fileFA))
 		return false;
 
@@ -5030,8 +5144,8 @@ MTopView::InitEffectFrames()
 		}
 	}
 
-	ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, std::ios::binary);
-	ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, std::ios::binary);
+	class ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	class ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
 	m_EffectNormalFPK.SaveToFile(packNormalFile, indexNormalFile);
 	packNormalFile.close();
 	indexNormalFile.close();
@@ -5039,7 +5153,7 @@ MTopView::InitEffectFrames()
 
 	///*
 	// Load from NormalFile
-	ifstream NormalFile2;//(FILE_EFRAME_NORMALEFFECT, std::ios::binary);
+	class ifstream NormalFile2;//(FILE_EFRAME_NORMALEFFECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_EFRAME_NORMALEFFECT").c_str(), NormalFile2))
 		return false;
 	m_EffectNormalFPK.LoadFromFile(NormalFile2);
@@ -5048,7 +5162,7 @@ MTopView::InitEffectFrames()
 
 	// ºº∫Œ¡§∫∏ √‚∑¬«œ±‚
 	/*
-	ofstream infoFile("Log\\EffectNormal.txt");	
+	class ofstream infoFile("Log\\EffectNormal.txt");	
 
 	for (int type=0; type<m_EffectNormalFPK.GetSize(); type++)
 	{
@@ -5178,8 +5292,8 @@ MTopView::InitEffectFrames()
 		m_EffectAlphaFPK[9][d][9].Set(66, -21, -104, 4);
 	}
 
-	ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, std::ios::binary);
-	ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, std::ios::binary);
+	class ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
+	class ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
 	m_EffectAlphaFPK.SaveToFile(packAlphaFile, indexAlphaFile);
 	packAlphaFile.close();
 	indexAlphaFile.close();
@@ -5187,10 +5301,10 @@ MTopView::InitEffectFrames()
 
 	///*
 	// Load from AlphaFile
-	ifstream AlphaFile2;//(FILE_EFRAME_ALPHAEFFECT, std::ios::binary);
+	class ifstream AlphaFile2;//(FILE_EFRAME_ALPHAEFFECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_EFRAME_ALPHAEFFECT").c_str(), AlphaFile2))
 		return false;
-	//ifstream AlphaFile2("effect.efpk", std::ios::binary);
+	//class ifstream AlphaFile2("effect.efpk", ios::binary);
 	m_EffectAlphaFPK.LoadFromFile(AlphaFile2);
 	AlphaFile2.close();
 	//*/
@@ -5198,7 +5312,7 @@ MTopView::InitEffectFrames()
 	/*
 	// ºº∫Œ ¡§∫∏ √‚∑¬«œ±‚
 	//m_EffectAlphaFPK.InfoToFile("Log\\Effect.txt");
-	ofstream infoFile("Log\\Effect.txt");	
+	class ofstream infoFile("Log\\Effect.txt");	
 
 	for (int type=0; type<m_EffectAlphaFPK.GetSize(); type++)
 	{
@@ -5219,7 +5333,7 @@ MTopView::InitEffectFrames()
 	//---------------------------------------------------------------
 	// ∞¢ effect¿« frameºˆ √‚∑¬«œ±‚
 	//---------------------------------------------------------------
-	ofstream file("log\\EffectList.txt");
+	class ofstream file("log\\EffectList.txt");
 	for (int e=0; e<m_EffectAlphaFPK.GetSize(); e++)
 	{
 		DIRECTION_EFFECTFRAME_ARRAY& DEA = m_EffectAlphaFPK[e];
@@ -5271,8 +5385,8 @@ MTopView::InitEffectFrames()
 		}
 	}
 
-	ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, std::ios::binary);
-	ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, std::ios::binary);
+	class ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
+	class ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
 	m_EffectAlphaFPK.SaveToFile(packAlphaFile, indexAlphaFile);
 	packAlphaFile.close();
 	indexAlphaFile.close();
@@ -5312,8 +5426,8 @@ MTopView::InitEffectFrames()
 		EA = newEA;
 	}
 
-	ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, std::ios::binary);
-	ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, std::ios::binary);
+	class ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
+	class ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
 	m_EffectAlphaFPK.SaveToFile(packAlphaFile, indexAlphaFile);
 	packAlphaFile.close();
 	indexAlphaFile.close();
@@ -5340,8 +5454,8 @@ MTopView::InitEffectFrames()
 //		}
 //		
 //
-//		ofstream packshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAME_SHADOWEFFECT").c_str(), std::ios::binary);
-//		ofstream indexshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAMEINDEX_SHADOWEFFECT").c_str(), std::ios::binary);
+//		class ofstream packshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAME_SHADOWEFFECT").c_str(), ios::binary);
+//		class ofstream indexshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAMEINDEX_SHADOWEFFECT").c_str(), ios::binary);
 //		m_EffectShadowFPK.SaveToFile(packshadowEffectFile, indexshadowEffectFile);
 //		packshadowEffectFile.close();
 //		indexshadowEffectFile.close();
@@ -5349,17 +5463,17 @@ MTopView::InitEffectFrames()
 
 	///*
 	// Load from shadowEffectFile
-	ifstream shadowEffectFile2;
+	class ifstream shadowEffectFile2;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_EFRAME_SHADOWEFFECT").c_str(), shadowEffectFile2))
 		return false;
 	m_EffectShadowFPK.LoadFromFile(shadowEffectFile2);
 	shadowEffectFile2.close();
 
 	// Load from ScreenFile
-	ifstream ScreenFile2;//(FILE_EFRAME_ScreenEFFECT, std::ios::binary);
+	class ifstream ScreenFile2;//(FILE_EFRAME_ScreenEFFECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_EFRAME_SCREENEFFECT").c_str(), ScreenFile2))
 		return false;
-	//ifstream ScreenFile2("effect.efpk", std::ios::binary);
+	//class ifstream ScreenFile2("effect.efpk", ios::binary);
 	m_EffectScreenFPK.LoadFromFile(ScreenFile2);
 	ScreenFile2.close();
 
@@ -5381,7 +5495,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 	//------------------------------------------------------------	
 	// Load  Clothes SpritePack	
 	//------------------------------------------------------------
-	ifstream	MapTest1;
+	class ifstream	MapTest1;
 	if (!FileOpenBinary(filename, MapTest1))
 		return;
 	m_pMinimapSPR->LoadFromFile( MapTest1 );
@@ -5773,14 +5887,14 @@ MTopView::UseHalfFrame(bool bUse)
 	if (bUse)
 	{
 		// ¿ÃπÃ Loadingµ» ∞ÕµÈ ¡¶∞≈		
-		ifstream file(FILE_CFRAME_CREATURE2, std::ios::binary);
+		class ifstream file(FILE_CFRAME_CREATURE2, ios::binary);
 		m_CreatureFPK.LoadFromFile(file);
 		file.close();		
 	}
 	else
 	{
 		// ¿ÃπÃ Loadingµ» ∞ÕµÈ ¡¶∞≈
-		ifstream file(FILE_CFRAME_CREATURE, std::ios::binary);
+		class ifstream file(FILE_CFRAME_CREATURE, ios::binary);
 		m_CreatureFPK.LoadFromFile(file);
 		file.close();
 	}
@@ -5823,8 +5937,8 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 		{
 			
 			// «ˆ¿Á Zoneø°º≠ « ø‰«— SpriteµÈ¿ª Load«œ∏È µ»¥Ÿ.
-//			ifstream	creatureFile;//(FILE_ISPRITE_CREATURE, std::ios::binary);
-//			ifstream	creatureShadowFile;
+//			class ifstream	creatureFile;//(FILE_ISPRITE_CREATURE, ios::binary);
+//			class ifstream	creatureShadowFile;
 //
 //			//------------------------------------------------------------
 //			// sprite load
@@ -5874,7 +5988,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 				CSpriteFilePositionArray SFPA;	
 				SFPA.Init( numID );
 
-				ifstream CreaturePackIndexFile(FILE_ISPRITEINDEX_CREATURE, std::ios::binary);			
+				class ifstream CreaturePackIndexFile(FILE_ISPRITEINDEX_CREATURE, ios::binary);			
 				
 				long fp;
 				for (int i=0; i<numID; i++)
@@ -6507,7 +6621,7 @@ MTopView::LoadFromFileTileAndImageObjectSet(const CSpriteSetManager &TileSSM, co
 	// Tile ¿œ∫Œ Load
 	//
 	//--------------------------------------------------------
-//	ifstream	TileSPKFile;//(FILE_SPRITE_TILE, std::ios::binary);	
+//	class ifstream	TileSPKFile;//(FILE_SPRITE_TILE, ios::binary);	
 //	if (!FileOpenBinary(FILE_SPRITE_TILE, TileSPKFile))
 //		return false;
 //	bool bLoad = m_TileSPK.LoadFromFilePart(TileSPKFile, m_TileSPKI, TileSSM);
@@ -6523,7 +6637,7 @@ MTopView::LoadFromFileTileAndImageObjectSet(const CSpriteSetManager &TileSSM, co
 	// ImageObject ¿œ∫Œ Load
 	//
 	//--------------------------------------------------------
-//	ifstream	ImageObjectSPKFile;//(FILE_SPRITE_IMAGEOBJECT, std::ios::binary);	
+//	class ifstream	ImageObjectSPKFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
 //	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, ImageObjectSPKFile))
 //		return false;
 //	bLoad = m_ImageObjectSPK.LoadFromFilePart(ImageObjectSPKFile, m_ImageObjectSPKI, ImageObjectSSM);
@@ -6539,7 +6653,7 @@ MTopView::LoadFromFileTileAndImageObjectSet(const CSpriteSetManager &TileSSM, co
 // Fileø°º≠ LargeZoneø°º≠∏∏ ªÁøÎ«“ TileSprite¿ª Load«—¥Ÿ.
 //----------------------------------------------------------------------
 bool
-MTopView::LoadFromFileTileSPKLargeZone(ifstream & file)
+MTopView::LoadFromFileTileSPKLargeZone(class ifstream & file)
 {
 	//------------------------------------------------------------
 	// Fileø°º≠ TileSpriteø° ¥Î«— ¡§∫∏∏¶ Load«—¥Ÿ.
@@ -6606,7 +6720,7 @@ MTopView::LoadFromFileTileSPKLargeZone(ifstream & file)
 	//  Load Tile SpriteSet
 	//------------------------------------------------------------
 	/*
-	ifstream	TilePackFile;//(FILE_SPRITE_TILE, std::ios::binary);	
+	class ifstream	TilePackFile;//(FILE_SPRITE_TILE, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_TILE, TilePackFile))
 		return false;
 	
@@ -6646,7 +6760,7 @@ MTopView::LoadFromFileTileSPKLargeZone(ifstream & file)
 // Fileø°º≠ LargeZoneø°º≠∏∏ ªÁøÎ«“ ImageObjectSpriteµÈ¿ª Load«—¥Ÿ.
 //----------------------------------------------------------------------
 bool
-MTopView::LoadFromFileImageObjectSPKLargeZone(ifstream & file)
+MTopView::LoadFromFileImageObjectSPKLargeZone(class ifstream & file)
 {
 	//------------------------------------------------------------
 	// Fileø°º≠ ImageObjectSpriteø° ¥Î«— ¡§∫∏∏¶ Load«—¥Ÿ.
@@ -6717,7 +6831,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(ifstream & file)
 	//  Load ImageObject SpriteSet
 	//------------------------------------------------------------
 	/*
-	ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, std::ios::binary);	
+	class ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, ImageObjectPackFile))
 		return false;
 	
@@ -6757,7 +6871,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(ifstream & file)
 // Fileø°º≠ SmallZoneø°º≠∏∏ ªÁøÎ«“ TileSprite¿ª Load«—¥Ÿ.
 //----------------------------------------------------------------------
 bool
-MTopView::LoadFromFileTileSPKSmallZone(ifstream & file)
+MTopView::LoadFromFileTileSPKSmallZone(class ifstream & file)
 {
 	//------------------------------------------------------------
 	// Fileø°º≠ TileSpriteø° ¥Î«— ¡§∫∏∏¶ Load«—¥Ÿ.
@@ -6819,7 +6933,7 @@ MTopView::LoadFromFileTileSPKSmallZone(ifstream & file)
 	//  Load Tile SpriteSet
 	//------------------------------------------------------------
 	/*
-	ifstream	TilePackFile;//(FILE_SPRITE_TILE, std::ios::binary);	
+	class ifstream	TilePackFile;//(FILE_SPRITE_TILE, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_TILE, TilePackFile))
 		return false;
 
@@ -6859,7 +6973,7 @@ MTopView::LoadFromFileTileSPKSmallZone(ifstream & file)
 // Fileø°º≠ SmallZoneø°º≠∏∏ ªÁøÎ«“ ImageObjectSpriteµÈ¿ª Load«—¥Ÿ.
 //----------------------------------------------------------------------
 bool
-MTopView::LoadFromFileImageObjectSPKSmallZone(ifstream & file)
+MTopView::LoadFromFileImageObjectSPKSmallZone(class ifstream & file)
 {
 	//------------------------------------------------------------
 	// Fileø°º≠ ImageObjectSpriteø° ¥Î«— ¡§∫∏∏¶ Load«—¥Ÿ.
@@ -6911,7 +7025,7 @@ MTopView::LoadFromFileImageObjectSPKSmallZone(ifstream & file)
 	//  Load ImageObject SpriteSet
 	//------------------------------------------------------------
 	/*
-	ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, std::ios::binary);	
+	class ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, ImageObjectPackFile))
 		return false;
 	
@@ -7379,8 +7493,8 @@ MTopView::DrawFade()
 		RECT rect;
 		rect.left =0;
 		rect.top = 0;
-		rect.right = SURFACE_WIDTH;
-		rect.bottom = SURFACE_HEIGHT;	
+		rect.right = g_GameRect.right;
+		rect.bottom = g_GameRect.bottom;	
 
 //		//--------------------------------------------------------
 //		// 3D ∞°º”¿« ∞ÊøÏ
@@ -7637,7 +7751,7 @@ MTopView::GetSelectedObject(int x, int y)
 				//-------------------------------------------------------
 				// portal¿« ¡æ∑˘ø° µ˚∂Û ∞•ºˆ ¿÷¥¬∞˜¿Œ¡ˆ √º≈©
 				//-------------------------------------------------------			
-				switch (portalInfo.Type)
+				switch (portalInfo.Type)				
 				{
 					case MPortal::TYPE_BATTLE_PORTAL :
 					case MPortal::TYPE_NOMAL :
@@ -7759,7 +7873,7 @@ MTopView::GetSelectedObject(int x, int y)
 	// Player Creature's ID
 	TYPE_OBJECTID	pid = g_pPlayer->GetID();
 
-	//ofstream file("log.txt");
+	//class ofstream file("log.txt");
 
 
 	// «ˆ¿Á check«œ¥¬ ¡¬«•
@@ -8703,7 +8817,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	// Player Creature's ID
 	TYPE_OBJECTID	pid = g_pPlayer->GetID();
 
-	//ofstream file("log.txt");
+	//class ofstream file("log.txt");
 
 
 	// «ˆ¿Á check«œ¥¬ ¡¬«•
@@ -9386,10 +9500,16 @@ MTopView::DrawItemNameList()
 		{
 			nameColor = m_ColorNameItem;
 		}
-		else if(pItem->GetItemOptionListCount() > 1)
+		else if(pItem->GetItemOptionListCount() ==2)
 		{
 			nameColor = g_pClientConfig->COLOR_NAME_ITEM_RARE_OPTION;
 		}
+		// add by Sonic 2006.10.28 ‘ˆº”œ‘ æ»˝ Ù–‘◊∞±∏Œ™∫Ï…´
+		else if(pItem->GetItemOptionListCount() > 2)
+		{
+			nameColor = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
+		}
+		// end by Sonic 2006.10.28 ‘ˆº”œ‘ æ»˝ Ù–‘◊∞±∏Œ™∫Ï…´
 		else
 		{
 			nameColor = m_ColorNameItemOption;
@@ -9398,8 +9518,8 @@ MTopView::DrawItemNameList()
 		if (pItemName != NULL)
 		{
 			// »≠∏È æ»ø° ±€¿⁄∞° µÈæÓø¿µµ∑œ..
-			x = CLIPSURFACE_WIDTH - g_GetStringWidth( pItemName, g_ClientPrintInfo[FONTID_ITEM]->hfont );
-			x2 = CLIPSURFACE_WIDTH;
+			x = g_GameRect.right - g_GetStringWidth( pItemName, g_ClientPrintInfo[FONTID_ITEM]->hfont );
+			x2 = g_GameRect.right;
 			
 			y2 = y + g_pClientConfig->FONT_ITEM_HEIGHT;
 
@@ -9992,8 +10112,8 @@ MTopView::AddLightFilter2D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		|| bForceLight) // π´¡∂∞« √‚∑¬«ÿæﬂ«œ¥¬ ∫˚
 	{
 		// tile ¡¬«• ∫∏¡§ 
-		 //x += TILE_X_HALF;
-		 //y += TILE_Y_HALF;
+		 //x += g_TILE_X_HALF;
+		 //y += g_TILE_Y_HALF;
 
 		// Light Filter¿« π¸¿ß∏¶ ≥—¡ˆ æ µµ∑œ «—¥Ÿ.
 		if (range >= m_LightFTP.GetSize())
@@ -10068,8 +10188,8 @@ MTopView::AddLightFilter3D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		|| bForceLight)	// π´¡∂∞« √‚∑¬«ÿæﬂ«œ¥¬ ∫˚
 	{
 		// tile ¡¬«• ∫∏¡§ 
-		//x += TILE_X_HALF;
-		//y += TILE_Y_HALF;
+		//x += g_TILE_X_HALF;
+		//y += g_TILE_Y_HALF;
 
 		// Light Filter¿« π¸¿ß∏¶ ≥—¡ˆ æ µµ∑œ «—¥Ÿ.
 		if (range >= m_LightFTP.GetSize())
@@ -10661,7 +10781,7 @@ MTopView::DrawInformation()
 	//
 	//-----------------------------------------------------------------
 	int strY = 30;
-	int strX = 400;
+	int strX = g_GameRect.right /2;
 
 	// Event String √‚∑¬
 	DrawEventString( strX, strY );
@@ -10680,6 +10800,7 @@ MTopView::DrawInformation()
 			const COLORREF color = RGB(29<<3, 8<<3, 12<<3);	//CDirectDraw::Color(29,8,12);
 
 			pPrintInfo->text_color = 0;
+			
 			g_Print(11, strY+1, (*g_pSystemMessage)[c], pPrintInfo);
 
 			pPrintInfo->text_color = color;
@@ -10689,6 +10810,52 @@ MTopView::DrawInformation()
 		}		
 	}
 	
+	//-----------------------------------------------------------------
+	//
+	// Player Message
+	//
+	//-----------------------------------------------------------------
+	// new version
+
+	int x = 10;//((g_GameRect.right /2) /2) - 50;
+	strY = 40;
+	int iColorType = 0;
+	char* pColorType=NULL;
+	char message[300];
+	for (c=0; c<g_pPlayerMessage->GetSize(); c++)
+	{
+		if ((*g_pPlayerMessage)[c][0] != NULL)
+		{
+			// »°≥ˆ–≈œ¢
+			strcpy(message,(*g_pPlayerMessage)[c]);
+			// »°≥ˆ—’…´¿‡–Õ
+			pColorType = &message[strlen(message)-1];
+			iColorType = atoi(pColorType);
+			pColorType[0]=NULL;
+			COLORREF color = RGB(20<<3,31<<3,12<<3);
+			switch(iColorType)
+			{
+			case 0: // ¬Ã…´
+				color = RGB_GREEN;
+				break;
+			case 1: // ¿∂…´
+				color = RGB(50,50,200);//RGB_BLUE;
+				break;
+			case 2: // ª∆…´
+				color = RGB_YELLOW;
+				break;
+			}
+			
+			pPrintInfo->text_color = 0;
+			g_Print(x+1, strY+1, message, pPrintInfo);
+
+			pPrintInfo->text_color = color;
+			g_Print(x, strY, message, pPrintInfo);
+
+			strY+=20;
+		}		
+	}
+
 	PrintInfo* pNoticeInfo = g_ClientPrintInfo[FONTID_LARGE_CHAT];	
 	
 	
@@ -10722,6 +10889,13 @@ MTopView::DrawInformation()
 		lastNoticeTime = g_CurrentTime;
 	}
 
+	// 7√ ∏∂¥Ÿ «—π¯æø.. scroll
+	static DWORD lastPlayerTimer = g_CurrentTime;
+	if (g_CurrentTime - lastPlayerTimer >= (g_pClientConfig->DELAY_SYSTEMMESSAGE + 10000) )
+	{
+		g_pPlayerMessage->Add("\0");		
+		lastPlayerTimer = g_CurrentTime;
+	}
 	//-----------------------------------------------------------------
 	//
 	// Game Message √‚∑¬
@@ -10732,6 +10906,15 @@ MTopView::DrawInformation()
 	case RACE_SLAYER:
 		strX = 10;
 		strY = 410;
+		if (g_pPlayer->GetBonusPoint()!=0)
+		{
+			// bonus point ø√∏±∑¡∞Ì ¥©∏£¥¬ πˆ∆∞¿Ã ¿÷¥¬ ¿ßƒ°
+			strX = 85;
+		}	
+		if (g_MyFull)
+		{
+			strY = 578;
+		}
 		break;
 
 	case RACE_VAMPIRE:
@@ -10742,6 +10925,10 @@ MTopView::DrawInformation()
 			// bonus point ø√∏±∑¡∞Ì ¥©∏£¥¬ πˆ∆∞¿Ã ¿÷¥¬ ¿ßƒ°
 			strX = 85;
 		}
+		if (g_MyFull)
+		{
+			strY = 608;
+		}	
 		break;
 
 	case RACE_OUSTERS:
@@ -10752,6 +10939,10 @@ MTopView::DrawInformation()
 			// bonus point ø√∏±∑¡∞Ì ¥©∏£¥¬ πˆ∆∞¿Ã ¿÷¥¬ ¿ßƒ°
 			strX = 85;
 		}
+		if (g_MyFull)
+		{
+			strY = 578;
+		}	
 		break;
 	}
 
@@ -11399,7 +11590,7 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	//------------------------------------------------------------
 	int clipRight = m_pSurface->GetClipRight();
 	int clipBottom	= m_pSurface->GetClipBottom();
-	m_pSurface->SetClipRightBottom(CLIPSURFACE_WIDTH, CLIPSURFACE_HEIGHT);		
+	m_pSurface->SetClipRightBottom(g_GameRect.right, g_GameRect.bottom);		
 
 	//------------------------------------------------------------
 	// Tile¿ª √≥¿Ω ±◊∏± ∂ß, ¥Ÿ~ ±◊∏∞¥Ÿ.
@@ -11770,7 +11961,7 @@ MTopView::DrawLightBuffer3D()
 		//------------------------------------------------
 		// Textureº≥¡§«œ∞Ì √‚∑¬
 		//------------------------------------------------
-		RECT rect = { 0, 0, CLIPSURFACE_WIDTH, CLIPSURFACE_HEIGHT };
+		RECT rect = { 0, 0, g_GameRect.right, g_GameRect.bottom };
 			
 		DRAW_TEXTURE_SURFACE( m_pLightBufferTexture, &rect )		
 		else
@@ -11820,8 +12011,9 @@ MTopView::DrawLightBuffer2D()
 				*lpSurfaceTemp7,
 				*lpSurfaceTemp8,
 				*lpSurfaceTemp9,
-				*lpSurfaceTemp10;
-
+				*lpSurfaceTemp10,
+				*lpSurfaceTemp11,
+				*lpSurfaceTemp12;
 		//m_pSurface->Lock();
 		lpSurface = (WORD*)m_pSurface->GetSurfacePointer();
 		pitch = m_pSurface->GetSurfacePitch();		
@@ -11852,9 +12044,20 @@ MTopView::DrawLightBuffer2D()
 					lpSurfaceTemp7 = (WORD*)((BYTE*)lpSurfaceTemp6 + pitch);
 					lpSurfaceTemp8 = (WORD*)((BYTE*)lpSurfaceTemp7 + pitch);
 					lpSurfaceTemp9 = (WORD*)((BYTE*)lpSurfaceTemp8 + pitch);
-
+					// add by sonic 2006.9.29
+					if(g_MyFull)
+					{
+						lpSurfaceTemp10 = (WORD*)((BYTE*)lpSurfaceTemp9 + pitch);
+						lpSurfaceTemp11 = (WORD*)((BYTE*)lpSurfaceTemp10 + pitch);
+						lpSurface = (WORD*)((BYTE*)lpSurfaceTemp11 + pitch);
+					}
+					else
+					{
+						lpSurface = (WORD*)((BYTE*)lpSurfaceTemp9 + pitch);
+					}
+					//end by sonic
 					// ¥Ÿ¿Ω..
-					lpSurface = (WORD*)((BYTE*)lpSurfaceTemp9 + pitch);
+					
 
 					for (int x=0; x<m_LightBufferFilter.GetWidth(); x++)
 					{				
@@ -11873,6 +12076,13 @@ MTopView::DrawLightBuffer2D()
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp7, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp8, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp9, len, light);
+							// add by sonic 2006.9.29
+							if(g_MyFull)
+							{
+								m_pSurface->Gamma4Pixel565(lpSurfaceTemp10, len, light);
+								m_pSurface->Gamma4Pixel565(lpSurfaceTemp11, len, light);
+							}
+							// end by sonic
 						//}
 						
 
@@ -11890,6 +12100,13 @@ MTopView::DrawLightBuffer2D()
 						lpSurfaceTemp7 += len;
 						lpSurfaceTemp8 += len;
 						lpSurfaceTemp9 += len;
+						// add by sonic 2006.9.29
+						if(g_MyFull)
+						{
+							lpSurfaceTemp10 += len;
+							lpSurfaceTemp11 += len;							
+						}
+						// end by sonic
 					}	
 				}
 				//--------------------------------------------
@@ -11907,9 +12124,21 @@ MTopView::DrawLightBuffer2D()
 					lpSurfaceTemp8 = (WORD*)((BYTE*)lpSurfaceTemp7 + pitch);
 					lpSurfaceTemp9 = (WORD*)((BYTE*)lpSurfaceTemp8 + pitch);
 					lpSurfaceTemp10 = (WORD*)((BYTE*)lpSurfaceTemp9 + pitch);
+					// add by sonic 2006.9.29
+					if(g_MyFull)
+					{
+						lpSurfaceTemp11 = (WORD*)((BYTE*)lpSurfaceTemp10 + pitch);
+						lpSurfaceTemp12 = (WORD*)((BYTE*)lpSurfaceTemp11 + pitch);
+						lpSurface = (WORD*)((BYTE*)lpSurfaceTemp12 + pitch);
+					}
+					else
+					{
+						lpSurface = (WORD*)((BYTE*)lpSurfaceTemp10 + pitch);
+					}
+					// end by sonic
 
 					// ¥Ÿ¿Ω..
-					lpSurface = (WORD*)((BYTE*)lpSurfaceTemp10 + pitch);
+					//lpSurface = (WORD*)((BYTE*)lpSurfaceTemp10 + pitch);
 
 					for (int x=0; x<m_LightBufferFilter.GetWidth(); x++)
 					{				
@@ -11929,6 +12158,13 @@ MTopView::DrawLightBuffer2D()
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp8, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp9, len, light);
 							m_pSurface->Gamma4Pixel565(lpSurfaceTemp10, len, light);
+							// add by sonic 2006.9.29
+							if(g_MyFull)
+							{
+								m_pSurface->Gamma4Pixel565(lpSurfaceTemp11, len, light);
+								m_pSurface->Gamma4Pixel565(lpSurfaceTemp12, len, light);
+							}
+							// edn by sonic
 						//}
 						
 
@@ -11947,6 +12183,13 @@ MTopView::DrawLightBuffer2D()
 						lpSurfaceTemp8 += len;
 						lpSurfaceTemp9 += len;
 						lpSurfaceTemp10 += len;
+						// add by sonic 2006.9.29
+						if(g_MyFull)
+						{
+							lpSurfaceTemp11 += len;
+							lpSurfaceTemp12 += len;
+						}
+						// end by sonic
 					}	
 				}
 				
@@ -11979,9 +12222,20 @@ MTopView::DrawLightBuffer2D()
 					lpSurfaceTemp7 = (WORD*)((BYTE*)lpSurfaceTemp6 + pitch);
 					lpSurfaceTemp8 = (WORD*)((BYTE*)lpSurfaceTemp7 + pitch);
 					lpSurfaceTemp9 = (WORD*)((BYTE*)lpSurfaceTemp8 + pitch);
-
+					// add by sonic 2006.9.29
+					if(g_MyFull)
+					{
+						lpSurfaceTemp10 = (WORD*)((BYTE*)lpSurfaceTemp9 + pitch);
+						lpSurfaceTemp11 = (WORD*)((BYTE*)lpSurfaceTemp10 + pitch);
+						lpSurface = (WORD*)((BYTE*)lpSurfaceTemp11 + pitch);
+					}
+					else
+					{
+						lpSurface = (WORD*)((BYTE*)lpSurfaceTemp9 + pitch);
+					}
+					// end by sonic
 					// ¥Ÿ¿Ω..
-					lpSurface = (WORD*)((BYTE*)lpSurfaceTemp9 + pitch);
+					
 
 					for (int x=0; x<m_LightBufferFilter.GetWidth(); x++)
 					{				
@@ -12000,6 +12254,13 @@ MTopView::DrawLightBuffer2D()
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp7, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp8, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp9, len, light);
+							// add by sonic 2006.9.29
+							if(g_MyFull)
+							{
+								m_pSurface->Gamma4Pixel555(lpSurfaceTemp10, len, light);
+								m_pSurface->Gamma4Pixel555(lpSurfaceTemp11, len, light);
+							}
+							// end by sonic
 						//}
 						
 
@@ -12017,6 +12278,13 @@ MTopView::DrawLightBuffer2D()
 						lpSurfaceTemp7 += len;
 						lpSurfaceTemp8 += len;
 						lpSurfaceTemp9 += len;
+						// add by sonic 2006.9.29
+						if(g_MyFull)
+						{
+							lpSurfaceTemp10 += len;
+							lpSurfaceTemp11 += len;
+						}
+						// end by sonic
 					}	
 				}
 				//--------------------------------------------
@@ -12034,9 +12302,19 @@ MTopView::DrawLightBuffer2D()
 					lpSurfaceTemp8 = (WORD*)((BYTE*)lpSurfaceTemp7 + pitch);
 					lpSurfaceTemp9 = (WORD*)((BYTE*)lpSurfaceTemp8 + pitch);
 					lpSurfaceTemp10 = (WORD*)((BYTE*)lpSurfaceTemp9 + pitch);
+						// add by sonic 2006.9.29
+						if(g_MyFull)
+						{
+							lpSurfaceTemp11 = (WORD*)((BYTE*)lpSurfaceTemp10 + pitch);
+							lpSurfaceTemp12 = (WORD*)((BYTE*)lpSurfaceTemp11 + pitch);
+							lpSurface = (WORD*)((BYTE*)lpSurfaceTemp12 + pitch);
+						}else 
+						{
+							// ¥Ÿ¿Ω..
+							lpSurface = (WORD*)((BYTE*)lpSurfaceTemp10 + pitch);
+						}
+						// end by sonic
 
-					// ¥Ÿ¿Ω..
-					lpSurface = (WORD*)((BYTE*)lpSurfaceTemp10 + pitch);
 
 					for (int x=0; x<m_LightBufferFilter.GetWidth(); x++)
 					{				
@@ -12056,6 +12334,13 @@ MTopView::DrawLightBuffer2D()
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp8, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp9, len, light);
 							m_pSurface->Gamma4Pixel555(lpSurfaceTemp10, len, light);
+							// add by sonic 2006.9.29
+							if(g_MyFull)
+							{
+								m_pSurface->Gamma4Pixel555(lpSurfaceTemp11, len, light);
+								m_pSurface->Gamma4Pixel555(lpSurfaceTemp12, len, light);
+							}
+							// end by sonic
 						//}
 						
 
@@ -12074,6 +12359,13 @@ MTopView::DrawLightBuffer2D()
 						lpSurfaceTemp8 += len;
 						lpSurfaceTemp9 += len;
 						lpSurfaceTemp10 += len;
+						// add by sonic 2006.9.29
+						if(g_MyFull)
+						{
+							lpSurfaceTemp11 += len;
+							lpSurfaceTemp12 += len;
+						}
+						// end by sonic
 					}	
 				}
 				
@@ -12101,8 +12393,8 @@ MTopView::DetermineImageObject()
 	// øﬁ¬ ~~~~ ¿ß~ ∫Œ≈Õ √‚∑¬«—¥Ÿ.
 	//---------------------------------------------------------------	
 	POINT	firstSector;
-	firstSector.x = g_pPlayer->GetX() + SECTOR_SKIP_PLAYER_LEFT;
-	firstSector.y = g_pPlayer->GetY() + SECTOR_SKIP_PLAYER_UP;
+	firstSector.x = g_pPlayer->GetX() + g_SECTOR_SKIP_PLAYER_LEFT;
+	firstSector.y = g_pPlayer->GetY() + g_SECTOR_SKIP_PLAYER_UP;
 
 	//---------------------------------------------------------------	
 	// Zone¿« ∞Ê∞Ëø° ∞¨¿ª ∂ß,
@@ -12114,9 +12406,9 @@ MTopView::DetermineImageObject()
 	{	
 		firstSector.x = 0;			
 	}
-	else if (firstSector.x+SECTOR_WIDTH+1 >= m_pZone->GetWidth())
+	else if (firstSector.x+g_SECTOR_WIDTH+1 >= m_pZone->GetWidth())
 	{
-		firstSector.x = m_pZone->GetWidth()-SECTOR_WIDTH-1;
+		firstSector.x = m_pZone->GetWidth()-g_SECTOR_WIDTH-1;
 	}
 
 	//---------------------------------------------------------------	
@@ -12126,9 +12418,9 @@ MTopView::DetermineImageObject()
 	{
 		firstSector.y = 0;
 	}
-	else if (firstSector.y+SECTOR_HEIGHT+1 >= m_pZone->GetHeight())
+	else if (firstSector.y+g_SECTOR_HEIGHT+1 >= m_pZone->GetHeight())
 	{
-		firstSector.y = m_pZone->GetHeight()-SECTOR_HEIGHT-1;	
+		firstSector.y = m_pZone->GetHeight()-g_SECTOR_HEIGHT-1;	
 	}
 
 	//----------------------------------------------------------------------
@@ -12139,8 +12431,8 @@ MTopView::DetermineImageObject()
 	//POINT firstSector = PixelToMap(m_FirstZonePixel.x, m_FirstZonePixel.y);
 	int sX1 = firstSector.x + SECTOR_SKIP_LEFT;
 	int sY1 = firstSector.y + SECTOR_SKIP_UP;
-	int sX2 = firstSector.x + SECTOR_WIDTH+1;
-	int sY2 = firstSector.y + SECTOR_HEIGHT+1;
+	int sX2 = firstSector.x + g_SECTOR_WIDTH+1;
+	int sY2 = firstSector.y + g_SECTOR_HEIGHT+1;
 	
 	//------------------------------------------------------
 	// Zone¿« øµø™¿Ã æ∆¥— ∞ÊøÏø° Skip...
@@ -12266,9 +12558,9 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 	if (newFirstSector.y != m_FirstSector.y)
 	{		
 		int	sX1=newFirstSector.x + SECTOR_SKIP_LEFT, 
-				sX2=newFirstSector.x + SECTOR_WIDTH+1, 
+				sX2=newFirstSector.x + g_SECTOR_WIDTH+1, 
 				sX01=m_FirstSector.x + SECTOR_SKIP_LEFT, 
-				sX02=m_FirstSector.x + SECTOR_WIDTH+1, 
+				sX02=m_FirstSector.x + g_SECTOR_WIDTH+1, 
 				eraseY1, eraseY2,		// ¡ˆøˆæﬂµ… ∞ÕµÈ¿Ã ¿÷¥¬ ¡Ÿ
 				lastY,					// »≠∏È¿« ∏∂¡ˆ∏∑ ¡Ÿ(¡ˆøÏ∏È æ»µ«¥¬ ∞ÕµÈ)
 				newY1, newY2;			// ªı∑Œ ≥™≈∏≥™¥¬ ∞ÕµÈ¿Ã ¿÷¥¬ ¡Ÿ
@@ -12311,11 +12603,11 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			//     «ˆ¿Á »≠∏È¿« ∏∂¡ˆ∏∑ ¡Ÿø°¥¬ æ¯¥¬ ∞ÕµÈ¿∫ ªÁ∂Û¡ˆ¥¬ ∞Õ¿Ã¥Ÿ.
 			
 			// ¥ŸΩ√ ªÏ∏± ∞Õ
-			lastY	= newFirstSector.y + SECTOR_HEIGHT+1;	// «ˆ¿Á »≠∏È¿« ∏∂¡ˆ∏∑ ¡Ÿ
+			lastY	= newFirstSector.y + g_SECTOR_HEIGHT+1;	// «ˆ¿Á »≠∏È¿« ∏∂¡ˆ∏∑ ¡Ÿ
 
 			// ¡ˆøˆæﬂ µ… ∞Õ : lasyY+1 ~ eraseY
 			eraseY1	= lastY+1;							
-			eraseY2	= m_FirstSector.y + SECTOR_HEIGHT+1;	// ¿Ã¿¸ »≠∏È¿« ∏∂¡ˆ∏∑ ¡Ÿ			
+			eraseY2	= m_FirstSector.y + g_SECTOR_HEIGHT+1;	// ¿Ã¿¸ »≠∏È¿« ∏∂¡ˆ∏∑ ¡Ÿ			
 
 			// ªı∑Œ ≥™≈∏≥™¥¬ ∞Õ
 			newY1	= newFirstSector.y + SECTOR_SKIP_UP;
@@ -12367,8 +12659,8 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			eraseY2	= lastY-1;		
 
 			// ªı∑Œ ≥™≈∏≥™¥¬ ∞Õ
-			newY1	= m_FirstSector.y + SECTOR_HEIGHT+1 + 1;
-			newY2	= newFirstSector.y + SECTOR_HEIGHT+1;
+			newY1	= m_FirstSector.y + g_SECTOR_HEIGHT+1 + 1;
+			newY2	= newFirstSector.y + g_SECTOR_HEIGHT+1;
 
 			//------------------------------------------------------
 			// Zone¿« øµø™¿Ã æ∆¥— ∞ÊøÏø° Skip...
@@ -12554,9 +12846,9 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 	if (newFirstSector.x != m_FirstSector.x)
 	{
 		int	sY1=newFirstSector.y + SECTOR_SKIP_UP, 
-				sY2=newFirstSector.y + SECTOR_HEIGHT+1, 
+				sY2=newFirstSector.y + g_SECTOR_HEIGHT+1, 
 				sY01=m_FirstSector.y + SECTOR_SKIP_UP, 
-				sY02=m_FirstSector.y + SECTOR_HEIGHT+1, 
+				sY02=m_FirstSector.y + g_SECTOR_HEIGHT+1, 
 				eraseX1, eraseX2,		// ¡ˆøˆæﬂµ… ∞ÕµÈ¿Ã ¿÷¥¬ ¡Ÿ
 				lastX,					// »≠∏È¿« ∏∂¡ˆ∏∑ ¡Ÿ(¡ˆøÏ∏È æ»µ«¥¬ ∞ÕµÈ)
 				newX1, newX2;			// ªı∑Œ ≥™≈∏≥™¥¬ ∞ÕµÈ¿Ã ¿÷¥¬ ¡Ÿ
@@ -12599,11 +12891,11 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			//     «ˆ¿Á »≠∏È¿« ∏∂¡ˆ∏∑ ¡Ÿø°¥¬ æ¯¥¬ ∞ÕµÈ¿∫ ªÁ∂Û¡ˆ¥¬ ∞Õ¿Ã¥Ÿ.
 			
 			// ¥ŸΩ√ ªÏ∏± ∞Õ
-			lastX	= newFirstSector.x + SECTOR_WIDTH+1;	// «ˆ¿Á »≠∏È¿« ∏∂¡ˆ∏∑ ¡Ÿ
+			lastX	= newFirstSector.x + g_SECTOR_WIDTH+1;	// «ˆ¿Á »≠∏È¿« ∏∂¡ˆ∏∑ ¡Ÿ
 
 			// ¡ˆøˆæﬂ µ… ∞Õ : lasyX+1 ~ eraseX
 			eraseX1	= lastX+1;							
-			eraseX2	= m_FirstSector.x + SECTOR_WIDTH+1;	// ¿Ã¿¸ »≠∏È¿« ∏∂¡ˆ∏∑ ¡Ÿ			
+			eraseX2	= m_FirstSector.x + g_SECTOR_WIDTH+1;	// ¿Ã¿¸ »≠∏È¿« ∏∂¡ˆ∏∑ ¡Ÿ			
 
 			// ªı∑Œ ≥™≈∏≥™¥¬ ∞Õ
 			newX1	= newFirstSector.x + SECTOR_SKIP_LEFT;
@@ -12654,8 +12946,8 @@ MTopView::UpdateImageObject(const POINT &newFirstSector)
 			eraseX2	= lastX-1;		
 
 			// ªı∑Œ ≥™≈∏≥™¥¬ ∞Õ
-			newX1	= m_FirstSector.x + SECTOR_WIDTH+1 + 1;
-			newX2	= newFirstSector.x + SECTOR_WIDTH+1;
+			newX1	= m_FirstSector.x + g_SECTOR_WIDTH+1 + 1;
+			newX2	= newFirstSector.x + g_SECTOR_WIDTH+1;
 
 			//------------------------------------------------------
 			// Zone¿« øµø™¿Ã æ∆¥— ∞ÊøÏø° Skip...
@@ -12917,8 +13209,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	// øﬁ¬ ~~~~ ¿ß~ ∫Œ≈Õ √‚∑¬«—¥Ÿ.
 	//---------------------------------------------------------------	
 	POINT	firstSector;
-	firstSector.x = g_pPlayer->GetX() + SECTOR_SKIP_PLAYER_LEFT;
-	firstSector.y = g_pPlayer->GetY() + SECTOR_SKIP_PLAYER_UP;
+	firstSector.x = g_pPlayer->GetX() + g_SECTOR_SKIP_PLAYER_LEFT;
+	firstSector.y = g_pPlayer->GetY() + g_SECTOR_SKIP_PLAYER_UP;
 
 	//---------------------------------------------------------------	
 	// Zone¿« ∞Ê∞Ëø° ∞¨¿ª ∂ß,
@@ -12944,9 +13236,9 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 		firstSector.x = 0;			
 	}
-	if (firstSector.x+SECTOR_WIDTH+1 >= m_pZone->GetWidth())
+	if (firstSector.x+g_SECTOR_WIDTH+1 >= m_pZone->GetWidth())
 	{
-		if (firstSector.x+SECTOR_WIDTH+1==m_pZone->GetWidth())
+		if (firstSector.x+g_SECTOR_WIDTH+1==m_pZone->GetWidth())
 		{
 			if (g_pPlayer->GetSX() > 0)
 			{
@@ -12960,7 +13252,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			firstPointX = 0;			
 		}
 
-		firstSector.x = m_pZone->GetWidth()-SECTOR_WIDTH-1;
+		firstSector.x = m_pZone->GetWidth()-g_SECTOR_WIDTH-1;
 	}
 
 	//---------------------------------------------------------------	
@@ -12984,9 +13276,9 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 
 		firstSector.y = 0;
 	}
-	else if (firstSector.y+SECTOR_HEIGHT >= m_pZone->GetHeight())
+	else if (firstSector.y+g_SECTOR_HEIGHT >= m_pZone->GetHeight())
 	{
-		if (firstSector.y+SECTOR_HEIGHT == m_pZone->GetHeight())
+		if (firstSector.y+g_SECTOR_HEIGHT == m_pZone->GetHeight())
 		{
 			if (g_pPlayer->GetSY() > 0)
 			{
@@ -13000,7 +13292,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			firstPointY = 0;
 		}
 
-		firstSector.y = m_pZone->GetHeight()-SECTOR_HEIGHT;	
+		firstSector.y = m_pZone->GetHeight()-g_SECTOR_HEIGHT;	
 	}
 
 	//---------------------------------------------------------------
@@ -13047,7 +13339,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	//---------------------------------------------------------------
 	// Player∏¶ ∞°∏Æ¥¬ ImageObjectµÈ¿ª √≥∏Æ«“ Filter¿« √‚∑¬ ¡¬«•
 	//---------------------------------------------------------------
-	m_FilterPosition.x = g_pPlayer->GetPixelX() - m_FirstZonePixel.x - (m_ImageObjectFilter.GetWidth()>>1) + TILE_X_HALF;
+	m_FilterPosition.x = g_pPlayer->GetPixelX() - m_FirstZonePixel.x - (m_ImageObjectFilter.GetWidth()>>1) + g_TILE_X_HALF;
 	m_FilterPosition.y = g_pPlayer->GetPixelY() - m_FirstZonePixel.y - (m_ImageObjectFilter.GetHeight()>>1) 
 						- (g_pPlayer->IsFlyingCreature()? 3:1 )*TILE_Y;
 	//filterPoint.x = 310;	// 410 - 100;
@@ -13082,21 +13374,21 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	// TileSurface¿« Zoneø°º≠¿« øµø™
 	rectTileSurface.left	= m_TileSurfaceFirstZonePixelX;
 	rectTileSurface.top		= m_TileSurfaceFirstZonePixelY;
-	rectTileSurface.right	= m_TileSurfaceFirstZonePixelX + TILESURFACE_WIDTH;
-	rectTileSurface.bottom	= m_TileSurfaceFirstZonePixelY + TILESURFACE_HEIGHT;
+	rectTileSurface.right	= m_TileSurfaceFirstZonePixelX + g_TILESURFACE_WIDTH;
+	rectTileSurface.bottom	= m_TileSurfaceFirstZonePixelY + g_TILESURFACE_HEIGHT;
 
 	// «ˆ¿Á »≠∏È¿« øµø™
 	rectScreen.left		= m_FirstZonePixel.x;
 	rectScreen.top		= m_FirstZonePixel.y;
-	rectScreen.right	= m_FirstZonePixel.x + CLIPSURFACE_WIDTH;
-	rectScreen.bottom	= m_FirstZonePixel.y + CLIPSURFACE_HEIGHT;
+	rectScreen.right	= m_FirstZonePixel.x + g_GameRect.right;
+	rectScreen.bottom	= m_FirstZonePixel.y + g_GameRect.bottom;
 
 	// «ˆ¿Á »≠∏È √‚∑¬ø° ¿ÃøÎ«“ TileSurface¿« øµø™¿ª ¡§«—¥Ÿ.
 	// »≠∏È¿« (0,0)¿Ã µ… TileSurfaceø°º≠¿« √π ¡°
 	rectReuse.left		= rectScreen.left - rectTileSurface.left;
 	rectReuse.top		= rectScreen.top - rectTileSurface.top;
-	rectReuse.right		= rectReuse.left + CLIPSURFACE_WIDTH;
-	rectReuse.bottom	= rectReuse.top + CLIPSURFACE_HEIGHT;
+	rectReuse.right		= rectReuse.left + g_GameRect.right;
+	rectReuse.bottom	= rectReuse.top + g_GameRect.bottom;
 
 	//----------------------------------------------------------------	
 	// rectReuse∏¶ ¡¶ø‹«— ∫Œ∫–¿∫ ∞À¿∫ªˆ¿∏∑Œ ƒ•«ÿ¡‡æﬂ «—¥Ÿ.
@@ -13258,8 +13550,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				point.y = TILESURFACE_OUTLINE_UP;
 				rect.left	= 0;
 				rect.top	= 0;
-				rect.right	= TILESURFACE_OUTLINE_RIGHT;
-				rect.bottom = TILESURFACE_OUTLINE_DOWN;
+				rect.right	= g_TILESURFACE_OUTLINE_RIGHT;
+				rect.bottom = g_TILESURFACE_OUTLINE_DOWN;
 				m_pTileSurface->BltNoColorkey(&point, m_pTileSurface, &rect);
 
 				//--------------------------------------------------
@@ -13278,7 +13570,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sX1[0] = m_TileSurfaceFirstSectorX - TILESURFACE_SECTOR_EDGE;
 				sY1[0] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_EDGE;
 				sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_EDGE;
-				sY2[0] = sY1[0] + TILESURFACE_SECTOR_HEIGHT;
+				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
 					
 				//--------------------------------------------------
 				// √ππ¯¬∞ √‚∑¬ ¡¬«•
@@ -13293,7 +13585,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				//--------------------------------------------------			
 				sX1[1] = m_TileSurfaceFirstSectorX - TILESURFACE_SECTOR_EDGE;
 				sY1[1] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_EDGE;
-				sX2[1] = sX1[1]	+ TILESURFACE_SECTOR_WIDTH;
+				sX2[1] = sX1[1]	+ g_TILESURFACE_SECTOR_WIDTH;
 				sY2[1] = sY1[1] + TILESURFACE_SECTOR_EDGE;
 					
 				//--------------------------------------------------
@@ -13333,8 +13625,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				point.y = 0;
 				rect.left	= 0;
 				rect.top	= TILESURFACE_OUTLINE_UP;
-				rect.right	= TILESURFACE_OUTLINE_RIGHT;
-				rect.bottom = TILESURFACE_HEIGHT;			
+				rect.right	= g_TILESURFACE_OUTLINE_RIGHT;
+				rect.bottom = g_TILESURFACE_HEIGHT;			
 				m_pTileSurface->BltNoColorkey(&point, m_pTileSurface, &rect);
 
 				//--------------------------------------------------
@@ -13353,7 +13645,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sX1[0] = m_TileSurfaceFirstSectorX - TILESURFACE_SECTOR_EDGE;
 				sY1[0] = m_TileSurfaceFirstSectorY + TILESURFACE_SECTOR_EDGE;
 				sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_EDGE;
-				sY2[0] = sY1[0] + TILESURFACE_SECTOR_HEIGHT;
+				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
 					
 				//--------------------------------------------------
 				// √ππ¯¬∞ √‚∑¬ ¡¬«•
@@ -13367,15 +13659,15 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				// √‚∑¬«“ sector (sX1,sY) ~ (sX2, sY2)±Ó¡ˆ √‚∑¬
 				//--------------------------------------------------			
 				sX1[1] = m_TileSurfaceFirstSectorX - TILESURFACE_SECTOR_EDGE;
-				sY1[1] = m_TileSurfaceFirstSectorY + TILESURFACE_SECTOR_HEIGHT;
-				sX2[1] = sX1[1]	+ TILESURFACE_SECTOR_WIDTH;
+				sY1[1] = m_TileSurfaceFirstSectorY + g_TILESURFACE_SECTOR_HEIGHT;
+				sX2[1] = sX1[1]	+ g_TILESURFACE_SECTOR_WIDTH;
 				sY2[1] = sY1[1] + TILESURFACE_SECTOR_EDGE;
 					
 				//--------------------------------------------------
 				// √ππ¯¬∞ √‚∑¬ ¡¬«•
 				//--------------------------------------------------
 				firstTilePoint[1].x = 0;
-				firstTilePoint[1].y = TILESURFACE_OUTLINE_DOWN;
+				firstTilePoint[1].y = g_TILESURFACE_OUTLINE_DOWN;
 
 				//--------------------------------------------------
 				// √‚∑¬ø° ªÁøÎ«“ TileSurface øµø™ ¥ŸΩ√ º≥¡§
@@ -13407,8 +13699,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				point.y = 0;
 				rect.left	= 0;
 				rect.top	= 0;
-				rect.right	= TILESURFACE_OUTLINE_RIGHT;
-				rect.bottom = TILESURFACE_HEIGHT;			
+				rect.right	= g_TILESURFACE_OUTLINE_RIGHT;
+				rect.bottom = g_TILESURFACE_HEIGHT;			
 				m_pTileSurface->BltNoColorkey(&point, m_pTileSurface, &rect);
 
 				//--------------------------------------------------
@@ -13425,7 +13717,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				sX1[0] = m_TileSurfaceFirstSectorX - TILESURFACE_SECTOR_EDGE;
 				sY1[0] = m_TileSurfaceFirstSectorY;
 				sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_EDGE;
-				sY2[0] = sY1[0] + TILESURFACE_SECTOR_HEIGHT;
+				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
 					
 				//--------------------------------------------------
 				// √ππ¯¬∞ √‚∑¬ ¡¬«•
@@ -13465,8 +13757,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				point.y = TILESURFACE_OUTLINE_UP;
 				rect.left	= TILESURFACE_OUTLINE_LEFT;
 				rect.top	= 0;
-				rect.right	= TILESURFACE_WIDTH;
-				rect.bottom = TILESURFACE_OUTLINE_DOWN;
+				rect.right	= g_TILESURFACE_WIDTH;
+				rect.bottom = g_TILESURFACE_OUTLINE_DOWN;
 				m_pTileSurface->BltNoColorkey(&point, m_pTileSurface, &rect);
 
 				//--------------------------------------------------
@@ -13482,15 +13774,15 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				//--------------------------------------------------
 				// √‚∑¬«“ sector (sX1,sY) ~ (sX2, sY2)±Ó¡ˆ √‚∑¬
 				//--------------------------------------------------			
-				sX1[0] = m_TileSurfaceFirstSectorX + TILESURFACE_SECTOR_WIDTH;
+				sX1[0] = m_TileSurfaceFirstSectorX + g_TILESURFACE_SECTOR_WIDTH;
 				sY1[0] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_OUTLINE_UP;
 				sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_EDGE;
-				sY2[0] = sY1[0] + TILESURFACE_SECTOR_HEIGHT;
+				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
 					
 				//--------------------------------------------------
 				// √ππ¯¬∞ √‚∑¬ ¡¬«•
 				//--------------------------------------------------
-				firstTilePoint[0].x = TILESURFACE_OUTLINE_RIGHT;
+				firstTilePoint[0].x = g_TILESURFACE_OUTLINE_RIGHT;
 				firstTilePoint[0].y = 0;
 
 				//--------------------------------------------------
@@ -13500,7 +13792,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				//--------------------------------------------------			
 				sX1[1] = m_TileSurfaceFirstSectorX + TILESURFACE_SECTOR_OUTLINE_LEFT;
 				sY1[1] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_EDGE;
-				sX2[1] = sX1[1]	+ TILESURFACE_SECTOR_WIDTH;
+				sX2[1] = sX1[1]	+ g_TILESURFACE_SECTOR_WIDTH;
 				sY2[1] = sY1[1] + TILESURFACE_SECTOR_EDGE;
 					
 				//--------------------------------------------------
@@ -13539,8 +13831,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				point.y = 0;
 				rect.left	= TILESURFACE_OUTLINE_LEFT;
 				rect.top	= TILESURFACE_OUTLINE_UP;
-				rect.right	= TILESURFACE_WIDTH;
-				rect.bottom = TILESURFACE_HEIGHT;			
+				rect.right	= g_TILESURFACE_WIDTH;
+				rect.bottom = g_TILESURFACE_HEIGHT;			
 				m_pTileSurface->BltNoColorkey(&point, m_pTileSurface, &rect);
 
 				//--------------------------------------------------
@@ -13556,15 +13848,15 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				//--------------------------------------------------
 				// √‚∑¬«“ sector (sX1,sY) ~ (sX2, sY2)±Ó¡ˆ √‚∑¬
 				//--------------------------------------------------			
-				sX1[0] = m_TileSurfaceFirstSectorX + TILESURFACE_SECTOR_WIDTH;
+				sX1[0] = m_TileSurfaceFirstSectorX + g_TILESURFACE_SECTOR_WIDTH;
 				sY1[0] = m_TileSurfaceFirstSectorY + TILESURFACE_SECTOR_OUTLINE_UP;
 				sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_EDGE;
-				sY2[0] = sY1[0] + TILESURFACE_SECTOR_HEIGHT;
+				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
 					
 				//--------------------------------------------------
 				// √ππ¯¬∞ √‚∑¬ ¡¬«•
 				//--------------------------------------------------
-				firstTilePoint[0].x = TILESURFACE_OUTLINE_RIGHT;
+				firstTilePoint[0].x = g_TILESURFACE_OUTLINE_RIGHT;
 				firstTilePoint[0].y = 0;
 
 				//--------------------------------------------------
@@ -13573,15 +13865,15 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				// √‚∑¬«“ sector (sX1,sY) ~ (sX2, sY2)±Ó¡ˆ √‚∑¬
 				//--------------------------------------------------			
 				sX1[1] = m_TileSurfaceFirstSectorX + TILESURFACE_SECTOR_OUTLINE_LEFT;
-				sY1[1] = m_TileSurfaceFirstSectorY + TILESURFACE_SECTOR_HEIGHT;
-				sX2[1] = sX1[1]	+ TILESURFACE_SECTOR_WIDTH;
+				sY1[1] = m_TileSurfaceFirstSectorY + g_TILESURFACE_SECTOR_HEIGHT;
+				sX2[1] = sX1[1]	+ g_TILESURFACE_SECTOR_WIDTH;
 				sY2[1] = sY1[1] + TILESURFACE_SECTOR_EDGE;
 					
 				//--------------------------------------------------
 				// √ππ¯¬∞ √‚∑¬ ¡¬«•
 				//--------------------------------------------------
 				firstTilePoint[1].x = 0;
-				firstTilePoint[1].y = TILESURFACE_OUTLINE_DOWN;
+				firstTilePoint[1].y = g_TILESURFACE_OUTLINE_DOWN;
 
 				//--------------------------------------------------
 				// √‚∑¬ø° ªÁøÎ«“ TileSurface øµø™ ¥ŸΩ√ º≥¡§
@@ -13613,8 +13905,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				point.y = 0;
 				rect.left	= TILESURFACE_OUTLINE_LEFT;
 				rect.top	= 0;
-				rect.right	= TILESURFACE_WIDTH;
-				rect.bottom = TILESURFACE_HEIGHT;			
+				rect.right	= g_TILESURFACE_WIDTH;
+				rect.bottom = g_TILESURFACE_HEIGHT;			
 				m_pTileSurface->BltNoColorkey(&point, m_pTileSurface, &rect);
 
 				//--------------------------------------------------
@@ -13628,15 +13920,15 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				//--------------------------------------------------
 				// √‚∑¬«“ sector (sX1,sY) ~ (sX2, sY2)±Ó¡ˆ √‚∑¬
 				//--------------------------------------------------			
-				sX1[0] = m_TileSurfaceFirstSectorX + TILESURFACE_SECTOR_WIDTH;
+				sX1[0] = m_TileSurfaceFirstSectorX + g_TILESURFACE_SECTOR_WIDTH;
 				sY1[0] = m_TileSurfaceFirstSectorY;
 				sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_EDGE;
-				sY2[0] = sY1[0] + TILESURFACE_SECTOR_HEIGHT;
+				sY2[0] = sY1[0] + g_TILESURFACE_SECTOR_HEIGHT;
 					
 				//--------------------------------------------------
 				// √ππ¯¬∞ √‚∑¬ ¡¬«•
 				//--------------------------------------------------
-				firstTilePoint[0].x = TILESURFACE_OUTLINE_RIGHT;
+				firstTilePoint[0].x = g_TILESURFACE_OUTLINE_RIGHT;
 				firstTilePoint[0].y = 0;
 
 				//--------------------------------------------------
@@ -13666,8 +13958,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			point.y = TILESURFACE_OUTLINE_UP;
 			rect.left	= 0;
 			rect.top	= 0;
-			rect.right	= TILESURFACE_WIDTH;
-			rect.bottom = TILESURFACE_OUTLINE_DOWN;
+			rect.right	= g_TILESURFACE_WIDTH;
+			rect.bottom = g_TILESURFACE_OUTLINE_DOWN;
 			m_pTileSurface->BltNoColorkey(&point, m_pTileSurface, &rect);
 
 			//--------------------------------------------------
@@ -13683,7 +13975,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			//--------------------------------------------------			
 			sX1[0] = m_TileSurfaceFirstSectorX;
 			sY1[0] = m_TileSurfaceFirstSectorY - TILESURFACE_SECTOR_EDGE;
-			sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_WIDTH;
+			sX2[0] = sX1[0]	+ g_TILESURFACE_SECTOR_WIDTH;
 			sY2[0] = sY1[0] + TILESURFACE_SECTOR_EDGE;
 				
 			//--------------------------------------------------
@@ -13718,8 +14010,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			point.y = 0;
 			rect.left	= 0;
 			rect.top	= TILESURFACE_OUTLINE_UP;
-			rect.right	= TILESURFACE_WIDTH;
-			rect.bottom = TILESURFACE_HEIGHT;
+			rect.right	= g_TILESURFACE_WIDTH;
+			rect.bottom = g_TILESURFACE_HEIGHT;
 			m_pTileSurface->BltNoColorkey(&point, m_pTileSurface, &rect);
 
 			//--------------------------------------------------
@@ -13734,15 +14026,15 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			// √‚∑¬«“ sector (sX1,sY) ~ (sX2, sY2)±Ó¡ˆ √‚∑¬
 			//--------------------------------------------------			
 			sX1[0] = m_TileSurfaceFirstSectorX;
-			sY1[0] = m_TileSurfaceFirstSectorY + TILESURFACE_SECTOR_HEIGHT;
-			sX2[0] = sX1[0]	+ TILESURFACE_SECTOR_WIDTH;
+			sY1[0] = m_TileSurfaceFirstSectorY + g_TILESURFACE_SECTOR_HEIGHT;
+			sX2[0] = sX1[0]	+ g_TILESURFACE_SECTOR_WIDTH;
 			sY2[0] = sY1[0] + TILESURFACE_SECTOR_EDGE;
 				
 			//--------------------------------------------------
 			// √ππ¯¬∞ √‚∑¬ ¡¬«•
 			//--------------------------------------------------
 			firstTilePoint[0].x = 0;
-			firstTilePoint[0].y = TILESURFACE_OUTLINE_DOWN;
+			firstTilePoint[0].y = g_TILESURFACE_OUTLINE_DOWN;
 
 			//--------------------------------------------------
 			// √‚∑¬ø° ªÁøÎ«“ TileSurface øµø™ ¥ŸΩ√ º≥¡§
@@ -13780,7 +14072,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				firstTilePoint[n].x += -sX1[n] * TILE_X;
 
 				rect.right = firstTilePoint[n].x;
-				rect.bottom = TILESURFACE_HEIGHT;				 
+				rect.bottom = g_TILESURFACE_HEIGHT;				 
 
 				m_pTileSurface->FillRect(&rect, 0);
 				
@@ -13794,8 +14086,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				// Zoneø‹∞˚ ∫Œ∫–¿∫ ∞À¿∫ªˆ¿∏∑Œ ƒ•«—¥Ÿ.
 				rect.left = firstTilePoint[n].x + (sX2[n]-sX1[n])*TILE_X;
 				rect.top = 0;					
-				rect.right = TILESURFACE_WIDTH;
-				rect.bottom = TILESURFACE_HEIGHT;
+				rect.right = g_TILESURFACE_WIDTH;
+				rect.bottom = g_TILESURFACE_HEIGHT;
 
 				m_pTileSurface->FillRect(&rect, 0);				
 			}
@@ -13821,7 +14113,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				rect.left = firstTilePoint[n].x;
 				rect.top = firstTilePoint[n].y;					
 				rect.right = firstTilePoint[n].x + (sX2[n]-sX1[n])*TILE_X;
-				rect.bottom = TILESURFACE_HEIGHT;
+				rect.bottom = g_TILESURFACE_HEIGHT;
 				m_pTileSurface->FillRect(&rect, 0);
 
 				sY2[n] = m_pZone->GetHeight();//-1;
@@ -14096,14 +14388,14 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 		CDirectDrawSurface *pCloudSurface = g_pEventManager->GetEventBackground(EVENTBACKGROUNDID_CLOUD);
 		if(pCloudSurface != NULL)
 		{
-			int CloudPos = g_CurrentFrame % 800;
+			int CloudPos = g_CurrentFrame % g_GameRect.right;
 			POINT CloudPoint = {0,0};
-			RECT CloudRect = { CloudPos, 0, 799, 599 };
-			if(CloudPos != 799)
+			RECT CloudRect = { CloudPos, 0, g_GameRect.left, g_GameRect.top };
+			if(CloudPos != g_GameRect.left)
 				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSurface, &CloudRect);
 			if(CloudPos != 0)
 			{
-				CloudPoint.x	= 799-CloudPos;
+				CloudPoint.x	= g_GameRect.left-CloudPos;
 				CloudRect.left	=  0;
 				CloudRect.right	=  CloudPos;
 				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSurface, &CloudRect);
@@ -14134,8 +14426,8 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	//------------------------------------------------------
 	sX1 = firstSector.x + SECTOR_SKIP_LEFT;
 	sY1 = firstSector.y + SECTOR_SKIP_UP;
-	sX2 = firstSector.x + SECTOR_WIDTH;
-	sY2 = firstSector.y + SECTOR_HEIGHT;
+	sX2 = firstSector.x + g_SECTOR_WIDTH;
+	sY2 = firstSector.y + g_SECTOR_HEIGHT;
 
 	// √‚∑¬«“ SurfaceªÛ¿« ¿ßƒ°
 	tilePoint.x = firstPointX + TILE_X*SECTOR_SKIP_LEFT;
@@ -14326,9 +14618,9 @@ if (!m_pSurface->Lock()) return;
 		// [ªı±‚º˙3]
 		// »≠∏È ¿¸√º∏¶ æÓµ”∞‘ «•Ω√«—¥Ÿ. Tile∏∏ - -;;
 		rect.left = 0;
-		rect.right = CLIPSURFACE_WIDTH;
+		rect.right = g_GameRect.right;
 		rect.top = 0;
-		rect.bottom = CLIPSURFACE_HEIGHT;
+		rect.bottom = g_GameRect.bottom;
 
 		DrawAlphaBox(&rect, 0, 0, 0, 20);	
 	}
@@ -14378,8 +14670,8 @@ if (!m_pSurface->Lock()) return;
 				// ¡ﬂΩ… ¡¬«• ∫∏¡§
 				CSprite* pSprite = &m_EtcSPK[ frameID[clickFrame] ];
 				
-				selectedPoint.x += TILE_X_HALF - (pSprite->GetWidth()>>1);
-				selectedPoint.y += TILE_Y_HALF - (pSprite->GetHeight()>>1);
+				selectedPoint.x += g_TILE_X_HALF - (pSprite->GetWidth()>>1);
+				selectedPoint.y += g_TILE_Y_HALF - (pSprite->GetHeight()>>1);
 				
 				
 				m_pSurface->BltSprite(&selectedPoint, pSprite);
@@ -15031,8 +15323,8 @@ if (!m_pSurface->Lock()) return;
 							// øÔ∑∑øÔ∑∑~~
 							int size = g_CurrentFrame & 0x00000007;
 
-							int x0 = point.x + TILE_X_HALF;
-							int y0 = point.y + TILE_Y_HALF;
+							int x0 = point.x + g_TILE_X_HALF;
+							int y0 = point.y + g_TILE_Y_HALF;
 							int size4 = size << 4;
 							int size2 = size << 3;
 							RECT rect = 
@@ -15388,8 +15680,8 @@ if (!m_pSurface->Lock()) return;
 								// øÔ∑∑øÔ∑∑~~
 								int size = g_CurrentFrame & 0x00000007;
 
-								int x0 = point.x + TILE_X_HALF;
-								int y0 = point.y + TILE_Y_HALF;
+								int x0 = point.x + g_TILE_X_HALF;
+								int y0 = point.y + g_TILE_Y_HALF;
 								int size4 = size << 4;
 								int size2 = size << 3;
 								RECT rect = 
@@ -15659,8 +15951,8 @@ if (!m_pSurface->Lock()) return;
 			// «ˆ¿Á Player¿« ¡¬«•øÕ ∫Ò±≥«—¥Ÿ.
 			//int gapX = ((g_pPlayer->GetX() - g_pWeather->GetStartX()) * TILE_X + g_pPlayer->GetSX()) % SURFACE_WIDTH;
 			//int gapY = ((g_pPlayer->GetY() - g_pWeather->GetStartY()) * TILE_Y + g_pPlayer->GetSY()) % SURFACE_HEIGHT;
-			int gapX = (m_FirstZonePixel.x - g_pWeather->GetStartX()) % SURFACE_WIDTH;
-			int gapY = (m_FirstZonePixel.y - g_pWeather->GetStartY()) % SURFACE_HEIGHT;
+			int gapX = (m_FirstZonePixel.x - g_pWeather->GetStartX()) % g_GameRect.right;
+			int gapY = (m_FirstZonePixel.y - g_pWeather->GetStartY()) % g_GameRect.bottom;
 
 			for (i=0; i<g_pWeather->GetSize(); i++)
 			{
@@ -15672,11 +15964,11 @@ if (!m_pSurface->Lock()) return;
 					point.x = MapEffect.GetX() - gapX;
 					point.y = MapEffect.GetY() - gapY;
 
-					if (point.x < 0) point.x += SURFACE_WIDTH;
-					else if (point.x > SURFACE_WIDTH) point.x -= SURFACE_WIDTH;
+					if (point.x < 0) point.x += g_GameRect.right;
+					else if (point.x > g_GameRect.right) point.x -= g_GameRect.right;
 
-					if (point.y < 0) point.y += SURFACE_HEIGHT;
-					else if (point.y > SURFACE_HEIGHT) point.y -= SURFACE_HEIGHT;
+					if (point.y < 0) point.y += g_GameRect.bottom;
+					else if (point.y > g_GameRect.bottom) point.y -= g_GameRect.bottom;
 
 					if(g_pWeather->GetWeatherType() == MWeather::WEATHER_SPOT)
 					{
@@ -15723,9 +16015,17 @@ if (!m_pSurface->Lock()) return;
 				//----------------------------------------------------------------
 				// player¿« light ¡¬«• º≥¡§
 				//----------------------------------------------------------------
-				int pX = g_pPlayer->GetPixelX() - m_FirstZonePixel.x + TILE_X_HALF;
+				int pX = g_pPlayer->GetPixelX() - m_FirstZonePixel.x + g_TILE_X_HALF;
 			int pY = g_pPlayer->GetPixelY() - m_FirstZonePixel.y - TILE_Y;
-			
+			char sh[255]={0};
+			// add by Sonic 2006.9.30 –ﬁ’˝»ÀŒÔ ”“∞Ωπµ„
+			if(g_MyFull)
+			{
+				pX-=110;
+				pY-=75;
+			}
+			// End by Sonic 2006.9.30
+			//MessageBox(0,sh,"",MB_OK);
 			//----------------------------------------------------------------
 			// 3D 
 			//----------------------------------------------------------------
@@ -15766,8 +16066,8 @@ if (!m_pSurface->Lock()) return;
 				point.y = 0;
 				rect.left = 0;
 				rect.top = 0;
-				rect.right = SURFACE_WIDTH;
-				rect.bottom = SURFACE_HEIGHT;
+				rect.right = g_GameRect.right;
+				rect.bottom = g_GameRect.bottom;
 				g_pBack->BltNoColorkey( &point, g_pLast, &rect );		
 
 				g_pTopView->DrawLightBuffer3D();
@@ -16141,8 +16441,8 @@ MTopView::DrawTileSurface()
 	// Player∏¶ ¡ﬂΩ…ø° µŒ±‚ ¿ß«— √ππ¯¬∞ Sector¡¬«•∏¶ ±∏«—¥Ÿ.
 	// »≠∏È¿« (0,0)¿Ã ≥™≈∏≥ª¥¬ Zone¿« Pixel¡¬«•
 	//---------------------------------------------------------------
-	m_FirstZonePixel = MapToPixel(g_pPlayer->GetX()+SECTOR_SKIP_PLAYER_LEFT, 
-									g_pPlayer->GetY()+SECTOR_SKIP_PLAYER_UP);
+	m_FirstZonePixel = MapToPixel(g_pPlayer->GetX()+g_SECTOR_SKIP_PLAYER_LEFT, 
+									g_pPlayer->GetY()+g_SECTOR_SKIP_PLAYER_UP);
 	m_FirstZonePixel.x += g_pPlayer->GetSX();
 	m_FirstZonePixel.y += g_pPlayer->GetSY();
 
@@ -16194,9 +16494,9 @@ MTopView::DrawTileSurface()
 	// π´¡∂∞« √÷√  Sector∞° TileSurface¿« (0,0)ø° ø¿µµ∑œ «ÿæﬂ«—¥Ÿ.
 	//----------------------------------------------------------------------
 	int	sX1 = firstSector.x, 
-			sX2 = firstSector.x + TILESURFACE_SECTOR_WIDTH,		// sX1 ~ sX2
+			sX2 = firstSector.x + g_TILESURFACE_SECTOR_WIDTH,		// sX1 ~ sX2
 			sY1 = firstSector.y, 
-			sY2 = firstSector.y + TILESURFACE_SECTOR_HEIGHT;	// sY1 ~ sY2
+			sY2 = firstSector.y + g_TILESURFACE_SECTOR_HEIGHT;	// sY1 ~ sY2
 
 	// √‚∑¬«“ SurfaceªÛ¿« ¿ßƒ°	
 	tilePoint.x = 0;
@@ -16214,7 +16514,7 @@ MTopView::DrawTileSurface()
 		tilePoint.x += -sX1 * TILE_X;
 
 		rect.right = tilePoint.x;
-		rect.bottom = TILESURFACE_HEIGHT;				 
+		rect.bottom = g_TILESURFACE_HEIGHT;				 
 
 		m_pTileSurface->FillRect(&rect, 0);
 		
@@ -16228,8 +16528,8 @@ MTopView::DrawTileSurface()
 		// Zoneø‹∞˚ ∫Œ∫–¿∫ ∞À¿∫ªˆ¿∏∑Œ ƒ•«—¥Ÿ.
 		rect.left = tilePoint.x + (sX2-sX1)*TILE_X;
 		rect.top = 0;					
-		rect.right = TILESURFACE_WIDTH;
-		rect.bottom = TILESURFACE_HEIGHT;
+		rect.right = g_TILESURFACE_WIDTH;
+		rect.bottom = g_TILESURFACE_HEIGHT;
 
 		m_pTileSurface->FillRect(&rect, 0);
 	}
@@ -16255,7 +16555,7 @@ MTopView::DrawTileSurface()
 		rect.left = tilePoint.x;
 		rect.top = tilePoint.y;					
 		rect.right = tilePoint.x + (sX2-sX1)*TILE_X;
-		rect.bottom = TILESURFACE_HEIGHT;
+		rect.bottom = g_TILESURFACE_HEIGHT;
 		m_pTileSurface->FillRect(&rect, 0);
 
 		sY2 = m_pZone->GetHeight();//-1;
@@ -16715,10 +17015,10 @@ int
 
 	int x2 = x + maxWidth;//gC_font.GetStringmaxWidth( str ),
 	
-	if (x2 >= CLIPSURFACE_WIDTH)
+	if (x2 >= g_GameRect.right)
 	{
-		x -= x2-CLIPSURFACE_WIDTH;
-		x2 = CLIPSURFACE_WIDTH;
+		x -= x2-g_GameRect.right;
+		x2 = g_GameRect.right;
 	}
 
 	QWORD timeBase;
@@ -18432,8 +18732,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							//------------------------------------------------
 							// LightFilter∏¶ √ﬂ∞°«—¥Ÿ.
 							//------------------------------------------------
-							AddLightFilter3D( pPoint->x + TILE_X_HALF, 
-								pPoint->y + TILE_Y_HALF, 
+							AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
+								pPoint->y + g_TILE_Y_HALF, 
 								Frame.GetLight(),			// ∫˚¿« π‡±‚
 								false);		// false = screen¡¬«•
 							
@@ -18445,8 +18745,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						{
 //							DRAW_ALPHASPRITEPAL(pPoint, sprite, m_EffectAlphaSPK, m_EffectAlphaPPK[fid])//, m_EffectAlphaSPKI, m_EffectAlphaSPKFile)					
 								
-								AddLightFilter2D( pPoint->x + TILE_X_HALF, 
-								pPoint->y + TILE_Y_HALF, 
+								AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
+								pPoint->y + g_TILE_Y_HALF, 
 								Frame.GetLight(),			// ∫˚¿« π‡±‚
 								false);		// false = screen¡¬«•
 						}
@@ -18507,8 +18807,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 								//------------------------------------------------
 								// LightFilter∏¶ √ﬂ∞°«—¥Ÿ.
 								//------------------------------------------------
-								AddLightFilter3D( pPoint->x + TILE_X_HALF, 
-									pPoint->y + TILE_Y_HALF, 
+								AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
+									pPoint->y + g_TILE_Y_HALF, 
 									Frame.GetLight(),			// ∫˚¿« π‡±‚
 									false);		// false = screen¡¬«•
 								
@@ -18526,8 +18826,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //									m_EffectScreenPPK[fid],
 //									CSpriteSurface::EFFECT_SCREEN)
 									
-									AddLightFilter2D( pPoint->x + TILE_X_HALF, 
-									pPoint->y + TILE_Y_HALF, 
+									AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
+									pPoint->y + g_TILE_Y_HALF, 
 									Frame.GetLight(),			// ∫˚¿« π‡±‚
 									false);		// false = screen¡¬«•
 							}
@@ -18859,35 +19159,6 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 			int frameID = pEffect->GetFrameID();
 			int frame = pEffect->GetFrame();
 
-
-			/////////////////////////////////////////////////////////////////////
-			// 2005. 11. 14. by chyaya
-			// «“∑ÁΩ√≥◊¿Ãº«ø° ∞…∑»¿ª ∞ÊøÏ ƒ≥∏Ø≈Õ Ωƒ∫∞¿ª «“ ºˆ æ¯∞‘ «œ±‚ ¿ß«ÿ 
-			// ∏∂Ω∫≈Õ ¿Ã∆—∆Æ∏¶ ¡¶∞≈«—¥Ÿ
-
-			if( g_pPlayer->GetID() != pCreature->GetID() &&
-				g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION) &&
-				 ( (frameID >= EFFECTSPRITETYPE_GRAND_MASTER_ALPHA_VAMPIRE_100		&&
-				    frameID <= EFFECTSPRITETYPE_GRAND_MASTER_ALPHA_OUSTERS_150_NEW )		||
-				   (frameID >= EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_100_FEAR		&&
-				    frameID <= EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_150_ADVANCE_HOPE )	||
-				   (frameID >= EFFECTSPRITETYPE_MARKET_MASTER_VAMPIRE_100_COLOR5	&&
-				    frameID <= EFFECTSPRITETYPE_MARKET_MASTER_OUSTERS_ADVANCE_COLOR5)		||
-
-					(frameID >= EFFECTSPRITETYPE_ADVANCEMENT_AURA_CRYSTAL_VAMPIRE	&&
-				    frameID <= EFFECTSPRITETYPE_ADVANCEMENT_AURA_CRYSTAL_OUSTER)			||
-					(frameID >= EFFECTSPRITETYPE_ADVANCEMENT_MASTER_VAMPIRE_BACK	&&
-				    frameID <= EFFECTSPRITETYPE_ADVANCEMENT_MASTER_OUSTER)) ) 
-			{
-				iEffect++;
-				continue;
-			}
-
-		
-
-			//
-			/////////////////////////////////////////////////////////////////////
-
 			// 2004, 9, 14, sobeit add start - ¿ŒΩ∫≈Á ≈Õ∑ø¿œ∂ß ¿Ã∆Â∆Æ æ»∫∏ø©¡‹
 			int TempSecreenEffect = GET_EFFECTSPRITETYPE_SCREEN( frameID );
 
@@ -19093,8 +19364,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 										//------------------------------------------------
 										// LightFilter∏¶ √ﬂ∞°«—¥Ÿ.
 										//------------------------------------------------
-										AddLightFilter3D( pPoint->x + TILE_X_HALF, 
-														pPoint->y + TILE_Y_HALF, 
+										AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
+														pPoint->y + g_TILE_Y_HALF, 
 														Frame.GetLight(),			// ∫˚¿« π‡±‚
 														false);		// false = screen¡¬«•
 									
@@ -19111,8 +19382,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 ////															m_EffectAlphaSPKI, 
 ////															m_EffectAlphaSPKFile)
 
-										AddLightFilter2D( pPoint->x + TILE_X_HALF, 
-													pPoint->y + TILE_Y_HALF, 
+										AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
+													pPoint->y + g_TILE_Y_HALF, 
 													Frame.GetLight(),			// ∫˚¿« π‡±‚
 													false);		// false = screen¡¬«•
 									}
@@ -19169,8 +19440,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 								//------------------------------------------------
 								// LightFilter∏¶ √ﬂ∞°«—¥Ÿ.
 								//------------------------------------------------
-								AddLightFilter3D( pPoint->x + TILE_X_HALF, 
-												pPoint->y + TILE_Y_HALF, 
+								AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
+												pPoint->y + g_TILE_Y_HALF, 
 												Frame.GetLight(),			// ∫˚¿« π‡±‚
 												false);		// false = screen¡¬«•
 							
@@ -19187,8 +19458,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //													m_EffectAlphaSPKI, 
 //													m_EffectAlphaSPKFile)
 
-								AddLightFilter2D( pPoint->x + TILE_X_HALF, 
-											pPoint->y + TILE_Y_HALF, 
+								AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
+											pPoint->y + g_TILE_Y_HALF, 
 											Frame.GetLight(),			// ∫˚¿« π‡±‚
 											false);		// false = screen¡¬«•
 							}
@@ -19265,8 +19536,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 										//------------------------------------------------
 										// LightFilter∏¶ √ﬂ∞°«—¥Ÿ.
 										//------------------------------------------------
-										AddLightFilter3D( pPoint->x + TILE_X_HALF, 
-														pPoint->y + TILE_Y_HALF, 
+										AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
+														pPoint->y + g_TILE_Y_HALF, 
 														Frame.GetLight(),			// ∫˚¿« π‡±‚
 														false);		// false = screen¡¬«•
 									
@@ -19283,8 +19554,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 ////															m_EffectAlphaSPKI, 
 ////															m_EffectAlphaSPKFile)
 
-										AddLightFilter2D( pPoint->x + TILE_X_HALF, 
-													pPoint->y + TILE_Y_HALF, 
+										AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
+													pPoint->y + g_TILE_Y_HALF, 
 													Frame.GetLight(),			// ∫˚¿« π‡±‚
 													false);		// false = screen¡¬«•
 									}
@@ -19384,8 +19655,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 								//------------------------------------------------
 								// LightFilter∏¶ √ﬂ∞°«—¥Ÿ.
 								//------------------------------------------------
-								AddLightFilter3D( pPoint->x + TILE_X_HALF, 
-												pPoint->y + TILE_Y_HALF, 
+								AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
+												pPoint->y + g_TILE_Y_HALF, 
 												Frame.GetLight(),			// ∫˚¿« π‡±‚
 												false);		// false = screen¡¬«•
 							
@@ -19403,8 +19674,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //													m_EffectScreenSPKFile,
 													CSpriteSurface::EFFECT_SCREEN)
 
-								AddLightFilter2D( pPoint->x + TILE_X_HALF, 
-											pPoint->y + TILE_Y_HALF, 
+								AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
+											pPoint->y + g_TILE_Y_HALF, 
 											Frame.GetLight(),			// ∫˚¿« π‡±‚
 											false);		// false = screen¡¬«•
 							}
@@ -19482,8 +19753,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 										//------------------------------------------------
 										// LightFilter∏¶ √ﬂ∞°«—¥Ÿ.
 										//------------------------------------------------
-										AddLightFilter3D( pPoint->x + TILE_X_HALF, 
-														pPoint->y + TILE_Y_HALF, 
+										AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
+														pPoint->y + g_TILE_Y_HALF, 
 														Frame.GetLight(),			// ∫˚¿« π‡±‚
 														false);		// false = screen¡¬«•
 									
@@ -19501,8 +19772,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //															m_EffectScreenSPKFile,
 															CSpriteSurface::EFFECT_SCREEN)
 
-										AddLightFilter2D( pPoint->x + TILE_X_HALF, 
-													pPoint->y + TILE_Y_HALF, 
+										AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
+													pPoint->y + g_TILE_Y_HALF, 
 													Frame.GetLight(),			// ∫˚¿« π‡±‚
 													false);		// false = screen¡¬«•
 									}
@@ -20180,8 +20451,8 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 					//------------------------------------------------
 					// LightFilter∏¶ √ﬂ∞°«—¥Ÿ.
 					//------------------------------------------------
-					AddLightFilter3D( pPoint->x + TILE_X_HALF, 
-									pPoint->y + TILE_Y_HALF, 
+					AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
+									pPoint->y + g_TILE_Y_HALF, 
 									Frame.GetLight(),			// ∫˚¿« π‡±‚
 									false);	// false = screen¡¬«•					
 				
@@ -20210,8 +20481,8 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					}
 
 
-					AddLightFilter2D( pPoint->x + TILE_X_HALF, 
-									pPoint->y + TILE_Y_HALF, 
+					AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
+									pPoint->y + g_TILE_Y_HALF, 
 									Frame.GetLight(),			// ∫˚¿« π‡±‚
 									false);		// false = screen¡¬«•
 				}
@@ -20294,8 +20565,8 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 					//------------------------------------------------
 					// LightFilter∏¶ √ﬂ∞°«—¥Ÿ.
 					//------------------------------------------------
-					AddLightFilter3D( pPoint->x + TILE_X_HALF, 
-									pPoint->y + TILE_Y_HALF, 
+					AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
+									pPoint->y + g_TILE_Y_HALF, 
 									Frame.GetLight(),			// ∫˚¿« π‡±‚
 									false);	// false = screen¡¬«•					
 				
@@ -20330,8 +20601,8 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					}
 
 
-					AddLightFilter2D( pPoint->x + TILE_X_HALF, 
-									pPoint->y + TILE_Y_HALF, 
+					AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
+									pPoint->y + g_TILE_Y_HALF, 
 									Frame.GetLight(),			// ∫˚¿« π‡±‚
 									false);		// false = screen¡¬«•
 				}
@@ -20371,8 +20642,8 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 					//------------------------------------------------
 					// LightFilter∏¶ √ﬂ∞°«—¥Ÿ.
 					//------------------------------------------------
-					AddLightFilter3D( pPoint->x + TILE_X_HALF, 
-									pPoint->y + TILE_Y_HALF, 
+					AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
+									pPoint->y + g_TILE_Y_HALF, 
 									Frame.GetLight(),			// ∫˚¿« π‡±‚
 									false);	// false = screen¡¬«•					
 				
@@ -20388,8 +20659,8 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					{
 //						m_pSurface->BltShadowSpriteDarkness(&point, pSprite, 1 );
 //						
-						AddLightFilter2D( pPoint->x + TILE_X_HALF, 
-										pPoint->y + TILE_Y_HALF, 
+						AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
+										pPoint->y + g_TILE_Y_HALF, 
 										Frame.GetLight(),			// ∫˚¿« π‡±‚
 										false);		// false = screen¡¬«•
 //					}
@@ -20466,7 +20737,7 @@ MTopView::DrawCreatureHPModify(POINT *point, MCreature* pCreature)
 			RGB(150, 255, 150);
 		}
 		
-		g_PrintColorStrOut(point->x + TILE_X_HALF - g_GetStringWidth(str, gpC_base->m_chatting_pi.hfont)/2, py, str, gpC_base->m_chatting_pi, color, RGB_BLACK);
+		g_PrintColorStrOut(point->x + g_TILE_X_HALF - g_GetStringWidth(str, gpC_base->m_chatting_pi.hfont)/2, py, str, gpC_base->m_chatting_pi, color, RGB_BLACK);
 
 		py += 15;
 
@@ -21225,10 +21496,6 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 					color = RGB(50,170,230);
 				//	bgColor = CDirectDraw::Color(255,0,0);
 					break;
-				case NicknameInfo::NICK_QUEST_2:
-					color = RGB(0,255,128);
-					bgColor = CDirectDraw::Color(0,128,255);
-					break;
 				default:
 					color = RGB_YELLOW;
 					break;
@@ -21255,12 +21522,6 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 									yPoint-42,
 									rectRight + 20 ,
 									yPoint-23	};
-					
-					if(bType == NicknameInfo::NICK_QUEST_2 || bType == NicknameInfo::NICK_QUEST_2)
-					{
-						rectHP.left  -= 5 ;
-						rectHP.right += 5 ;
-					}
 
 					if (g_pUserOption->DrawTransHPBar)
 					{
@@ -21686,10 +21947,6 @@ MTopView::DrawCreatureMyName()
 					color = RGB(50,170,230);
 				//	bgColor = CDirectDraw::Color(255,0,0);
 					break;
-				case NicknameInfo::NICK_QUEST_2:
-					color = RGB(0,255,128);
-					bgColor = CDirectDraw::Color(0,128,255);
-					break;
 				default:
 					color = RGB_YELLOW;
 					break;
@@ -21711,17 +21968,11 @@ MTopView::DrawCreatureMyName()
 //									yPoint-42,
 //									nameX + namePixel+4,
 //									yPoint-23	};
-					
+
 					RECT rectHP = {	rectLeft -20, 
 									yPoint-42,
 									rectRight + 20 ,
 									yPoint-23	};
-
-					if(bType == NicknameInfo::NICK_QUEST_2 || bType == NicknameInfo::NICK_QUEST_2)
-					{
-						rectHP.left  -= 5 ;
-						rectHP.right += 5 ;
-					}
 
 					if (g_pUserOption->DrawTransHPBar)
 					{
@@ -21799,7 +22050,7 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 		int SpkIndex = AdvancementQuestEndingEvent->parameter4;
 		if(m_AdvacementQuestEnding.GetSize() == 0)
 		{
-			ifstream	FinFile;
+			class ifstream	FinFile;
 			if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_ADVANCEMENT_QUEST").c_str(), FinFile))
 				return false;
 			m_AdvacementQuestEnding.LoadFromFile(FinFile);
@@ -21886,7 +22137,7 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 			{
 				int scroll_progress = -500+(GetTickCount()-AdvancementQuestEndingEvent->eventStartTickCount)/66;
 				
-				const int scroll_x = 800/2-m_AdvacementQuestEnding[0].GetWidth()/2, scroll_y = 50;
+				const int scroll_x = g_GameRect.right/2-m_AdvacementQuestEnding[0].GetWidth()/2, scroll_y = 50;
 				
 				int scroll = ( (scroll_progress < 0)? 0 : scroll_progress );
 				int scroll2 = ( (scroll_progress < 0)? scroll_progress : scroll_progress );
@@ -21900,8 +22151,8 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 				RECT rt;
 				rt.left = max(-x, rect.x);
 				rt.top = max(-y, rect.y);
-				rt.right = min(rect.x+rect.w, 800-x);
-				rt.bottom = min(rect.y+rect.h, 600-y);
+				rt.right = min(rect.x+rect.w, g_GameRect.right-x);
+				rt.bottom = min(rect.y+rect.h, g_GameRect.bottom-y);
 				
 				if(rt.bottom < rt.top)
 				{
@@ -21927,9 +22178,9 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 		
 		RECT	rect;
 		rect.left = 0;
-		rect.right = CLIPSURFACE_WIDTH;
+		rect.right = g_GameRect.right;
 		rect.top = 0;
-		rect.bottom = CLIPSURFACE_HEIGHT;
+		rect.bottom = g_GameRect.bottom;
 		
 		DrawAlphaBox(&rect, fadeColor[0], fadeColor[1], fadeColor[2], min(31, (GetTickCount() - AdvancementQuestEndingEvent->eventStartTickCount) /fadeSpeed)^fadeDirect);	
 
@@ -21962,8 +22213,7 @@ MTopView::ExcuteOustersFinEvent()
 //			AssertEventBackground(event->parameter4);
 			
 			POINT p = { 0, 0 };
-			RECT r = {0, 0, 799, 599 };
-
+			RECT r = {0, 0, g_GameRect.left, g_GameRect.top };
 //			if(!m_pSurface->Lock()) return;
 
 			CDirectDrawSurface *pSurface = g_pEventManager->GetEventBackground((EVENTBACKGROUND_ID)event->parameter4);
@@ -21987,7 +22237,7 @@ MTopView::ExcuteOustersFinEvent()
 
 		if(m_OustersFinSPK.GetSize() == 0)
 		{
-			ifstream	FinFile;
+			class ifstream	FinFile;
 			if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_OUSTERS_FIN").c_str(), FinFile))
 				return bDrawBackGround;
 			m_OustersFinSPK.LoadFromFile(FinFile);
@@ -22348,7 +22598,7 @@ MTopView::ExcuteOustersFinEvent()
 				int scroll_progress = -500+(GetTickCount()-OustersFinEvent->eventStartTickCount)/66;
 				
 				const int spriteID = 0;
-				const int scroll_x = 800/2-m_OustersFinSPK[spriteID].GetWidth()/2, scroll_y = 50;
+				const int scroll_x = g_GameRect.right/2-m_OustersFinSPK[spriteID].GetWidth()/2, scroll_y = 50;
 				
 				int scroll = ( (scroll_progress < 0)? 0 : scroll_progress );
 				int scroll2 = ( (scroll_progress < 0)? scroll_progress : scroll_progress );
@@ -22362,8 +22612,8 @@ MTopView::ExcuteOustersFinEvent()
 				RECT rt;
 				rt.left = max(-x, rect.x);
 				rt.top = max(-y, rect.y);
-				rt.right = min(rect.x+rect.w, 800-x);
-				rt.bottom = min(rect.y+rect.h, 600-y);
+				rt.right = min(rect.x+rect.w, g_GameRect.right-x);
+				rt.bottom = min(rect.y+rect.h, g_GameRect.bottom-y);
 				
 				if(rt.bottom < rt.top)
 				{
@@ -22385,8 +22635,8 @@ MTopView::ExcuteOustersFinEvent()
 				y = scroll_y + max(200, (m_OustersFinSPK[spriteID].GetHeight() - scroll + 50) );
 				rt.left = max(-x, rect2.x);
 				rt.top = max(-y, rect2.y);
-				rt.right = min(rect2.x+rect2.w, 800-x);
-				rt.bottom = min(rect2.y+rect2.h, 600-y);
+				rt.right = min(rect2.x+rect2.w, g_GameRect.right-x);
+				rt.bottom = min(rect2.y+rect2.h, g_GameRect.bottom-y);
 				
 				if(rt.left < rt.right && rt.top < rt.bottom)
 				{
@@ -22408,9 +22658,9 @@ MTopView::ExcuteOustersFinEvent()
 
 		RECT	rect;
 		rect.left = 0;
-		rect.right = CLIPSURFACE_WIDTH;
+		rect.right = g_GameRect.right;
 		rect.top = 0;
-		rect.bottom = CLIPSURFACE_HEIGHT;
+		rect.bottom = g_GameRect.bottom;
 		
 		DrawAlphaBox(&rect, fadeColor[0], fadeColor[1], fadeColor[2], min(31, (GetTickCount() - OustersFinEvent->eventStartTickCount) /fadeSpeed)^fadeDirect);	
 

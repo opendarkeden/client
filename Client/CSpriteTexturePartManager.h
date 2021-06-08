@@ -13,7 +13,7 @@
 #include "CSpriteSurface.h"
 #include <list>
 #include <map>
-//ifstream;
+//class ifstream;
 //class CFileIndexTable;
 #include "CSpritePack.h"
 #include "CSpritePal.h"
@@ -61,7 +61,7 @@ class CSpriteTexturePartManager : public CPartManager<WORD, WORD, CSpriteSurface
 
 	protected :
 //		bool				m_bOpen;		// SPK File을 Open했는가?
-//		ifstream		m_SPKFile;		// SPK File
+//		class ifstream		m_SPKFile;		// SPK File
 //		CFileIndexTable		m_SPKIndex;		// SPK Index 정보
 		CSpritePalPack			m_SPK;			// SPK
 
@@ -117,7 +117,7 @@ class CNormalSpriteTexturePartManager : public CPartManager<WORD, WORD, CSpriteS
 
 	protected :
 //		bool				m_bOpen;		// SPK File을 Open했는가?
-//		ifstream		m_SPKFile;		// SPK File
+//		class ifstream		m_SPKFile;		// SPK File
 //		CFileIndexTable		m_SPKIndex;		// SPK Index 정보
 		CSpritePack			*m_pSPK;			// SPK
 		

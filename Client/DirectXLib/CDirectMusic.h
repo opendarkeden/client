@@ -5,16 +5,14 @@
 #ifndef __CDIRECTMUSIC_H__
 #define __CDIRECTMUSIC_H__
 
-// #include <DMusicI.h>
-// #include <DMusicF.h>
+#include <DMusicI.h>
+#include <DMusicF.h>
 
-//typedef enum DIRECTMUSIC_TYPE	
-//{
-//	DIRECTMUSIC_TYPE_HW,	// hardware midi
-//	DIRECTMUSIC_TYPE_SW		// microsoft software synthesizer
-//};
-
-typedef int DIRECTMUSIC_TYPE;
+typedef enum DIRECTMUSIC_TYPE	
+{
+	DIRECTMUSIC_TYPE_HW,	// hardware midi
+	DIRECTMUSIC_TYPE_SW		// microsoft software synthesizer
+};
 
 class CDirectMusic {
 	public :
@@ -24,7 +22,7 @@ class CDirectMusic {
 		//-----------------------------------------------------------
 		// Init / Release
 		//-----------------------------------------------------------
-		bool		Init(HWND hWnd, DIRECTMUSIC_TYPE type);
+		bool		Init(HWND hWnd, DIRECTMUSIC_TYPE type=DIRECTMUSIC_TYPE_SW);
 		void		Release();
 
 	
@@ -71,7 +69,6 @@ class CDirectMusic {
 
 
 	protected :
-/*
 		IDirectMusic*				m_pDM;
 		IDirectMusicPerformance*	m_pDMPerformance;
 		IDirectMusicPort*			m_pDMPort;
@@ -83,7 +80,7 @@ class CDirectMusic {
 		MUSIC_TIME                  m_mtOffset;
 		REFERENCE_TIME              m_rtStart;
 		REFERENCE_TIME              m_rtOffset;
-*/
+
 		bool						m_bSoftwareSynth;
 
 		bool						m_bInit;	// 초기화 되었는가?

@@ -132,21 +132,29 @@ void ClientPlayer::processCommand ()
 				// 입력스트림에서 패킷헤더크기만큼 읽어본다.
 				// 만약 지정한 크기만큼 스트림에서 읽을 수 없다면,
 				// Insufficient 예외가 발생하고, 루프를 빠져나간다.
-				m_pInputStream->peek( header , szPacketHeader );
+				if (m_pInputStream->peek( header , szPacketHeader ) == false) {
+					break;
+				}
 
 				// 패킷아이디 및 패킷크기를 알아낸다.
 				// 이때 패킷크기는 헤더를 포함한다.
 
 				memcpy( &packetID   , &header[0] , szPacketID ); 	
 				memcpy( &packetSize , &header[szPacketID] , szPacketSize );
-				
+				byte seq = header[szPacketID+szPacketSize];
+
 /*
 #ifdef __DEBUG_OUTPUT__
 				ofstream file("templog.log", ios::out | ios::app);
-				file << "*** RECEIVED PacketID=" << packetID << ", PacketSize=" << packetSize << endl;
+				file << "*** RECEIVED PacketID=" << packetID << ", PacketSize=" << packetSize << ", Seq=" << (int)seq << endl;
+				if (packetID == 0) {
+					file << " StreamLength " << m_pInputStream->length() << endl;
+				}
 				file.close();
 #endif
 */
+
+/*
 #ifdef DEBUG_INFO
 				if(g_bMsgOutPutFlag)
 				{
@@ -171,6 +179,7 @@ void ClientPlayer::processCommand ()
 					file.close();
 				}
 #endif
+*/
 				//#ifdef	__DEBUG_OUTPUT__
 					//	DEBUG_ADD_FORMAT("ID=%d (%s), size=%d", packetID, g_pPacketFactoryManager->getPacketName( packetID ), packetSize);
 				//#else
@@ -179,21 +188,24 @@ void ClientPlayer::processCommand ()
 
 				// 패킷 아이디가 이상하면 프로토콜 에러로 간주한다.
 
-				DEBUG_ADD_FORMAT_ERR("*** RECEIVED PacketID=%d, Size=%d",  (int)packetID, (int)packetSize);
+
 				if ( packetID >= Packet::PACKET_MAX ) 
 				{					
-					DEBUG_ADD_FORMAT_ERR("[PacketError-ClientPlayer::processCommand] exceed MAX=%d. packetID=%d", Packet::PACKET_MAX, packetID);
+					DEBUG_ADD_FORMAT_ERR("[PacketError-ClientPlayer::processCommand] exceed MAX=%d. packetID=%u", Packet::PACKET_MAX, packetID);
 					SendBugReport("Exceed PacketID:%d",packetID);
 					
 					throw InvalidProtocolException("[PacketError-ClientPlayer::processCommand] exceed MAX packetID");
 				}
 
-				
-
+/*
 				#ifdef __DEBUG_OUTPUT__
-					DEBUG_ADD_FORMAT("[RECEIVE] [ID=%d] %s", packetID, g_pPacketFactoryManager->getPacketName(packetID).c_str());
+				if (packetID != 0) {
+					DEBUG_ADD_FORMAT("[RECEIVE] [ID=%u] %s", packetID, g_pPacketFactoryManager->getPacketName(packetID).c_str());
+				} else {
+					DEBUG_ADD_FORMAT("[RECEIVE] wrong packet ID = 0 here?");
+				}
 				#endif
-				
+*/				
 				BOOL bExecute = TRUE;
 
 				try {
@@ -235,10 +247,11 @@ void ClientPlayer::processCommand ()
 							bExecute = TRUE;
 				}
 
+				DEBUG_ADD_FORMAT_ERR("*** RECEIVED Read OK0 PacketID=%u, Size=%d",  packetID, packetSize);
 				// 패킷 크기가 너무 크면 프로토콜 에러로 간주한다.
 				if ( packetSize > g_pPacketFactoryManager->getPacketMaxSize( packetID ) )
 				{
-					DEBUG_ADD_FORMAT_ERR("[PacketError] too large packet SIZE: %d/%d", (int)packetSize, (int)g_pPacketFactoryManager->getPacketMaxSize( packetID ));		
+					DEBUG_ADD_FORMAT_ERR("[PacketError] too large packet SIZE: %d/%d", packetSize, g_pPacketFactoryManager->getPacketMaxSize( packetID ));		
 					SendBugReport("too large PacketSize ID)%d %d/%d", packetID, packetSize, g_pPacketFactoryManager->getPacketMaxSize( packetID ) );
 					throw InvalidProtocolException("too large packet SIZE");
 				}
@@ -262,6 +275,8 @@ void ClientPlayer::processCommand ()
 				// 자동적으로 초기화된다.
 				m_pInputStream->read( pPacket );
 				
+
+
 #ifdef DEBUG_INFO
 #ifdef __DEBUG_OUTPUT__
 				if(g_bMsgOutPutFlag)
@@ -289,7 +304,7 @@ void ClientPlayer::processCommand ()
 					pPacket->execute( this );
 
 					//DEBUG_ADD_FORMAT("[Executed] %s", pPacket->toString().c_str());
-					DEBUG_ADD("[PacketExecute OK]");				
+					DEBUG_ADD("[PacketExecute OK1]");				
 				}
 				
 				

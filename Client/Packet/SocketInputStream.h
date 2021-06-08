@@ -49,7 +49,7 @@ public :
 	SocketInputStream ( Socket * sock , uint BufferSize = DefaultSocketInputBufferSize ) throw ( Error );
 	
 	// destructor
-	virtual ~SocketInputStream ();
+	virtual ~SocketInputStream () throw ( Error );
 
 	
 //////////////////////////////////////////////////
@@ -73,7 +73,7 @@ public :
 	uint read ( ulong  & buf ) throw ( ProtocolException , Error ) { return read( (char*)&buf, szulong  ); }
 
 	// peek data from stream (input buffer)
-	void peek ( char * buf , uint len ) throw ( ProtocolException , Error );
+	bool peek ( char * buf , uint len ) throw ( ProtocolException , Error );
 	
 	// skip data from stream (input buffer)
 	void skip ( uint len ) throw ( ProtocolException , Error );

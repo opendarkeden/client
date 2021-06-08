@@ -20,8 +20,8 @@
 #include "CTypeTable.h"
 #include "DrawTypeDef.h"
 #include "MTypeDef.h"
-ifstream;
-std::ofstream;
+class ifstream;
+class ofstream;
 
 //----------------------------------------------------------------------
 //
@@ -39,8 +39,8 @@ class INTERACTIONOBJECTTABLE_INFO {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(std::ofstream& file);		
-		void			LoadFromFile(ifstream& file);
+		void			SaveToFile(class ofstream& file);		
+		void			LoadFromFile(class ifstream& file);
 		
 };
 

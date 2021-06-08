@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // DebugInfo.cpp
 //-----------------------------------------------------------------------------
-// #include "Client_PCH.h"
+#include "Client_PCH.h"
 #include <New.h>
 #include "DebugInfo.h"
 #include <stdarg.h>
@@ -80,23 +80,23 @@
 	void	DEBUG_ADD_FORMAT(const char* first, ...)
 	{
 		
-//		HWND hWnd = ::FindWindow (g_pszMinTraceClassName, g_pszMinTraceTitle); 
-//		if (hWnd)
-//		{
-//			va_list		vl;
-//			va_start(vl, first);
-//			vsprintf(g_StringBuffer, first, vl);
-//			va_end(vl);
-//			_MinTraceA(g_StringBuffer);
-//		}
-//		if (g_pDebugMessage!=NULL)
-//		{
-//			va_list		vl;
-//			
-//			va_start(vl, first);
-//			g_pDebugMessage->AddFormatVL( first, vl );
-//			va_end(vl);
-//		}
+		HWND hWnd = ::FindWindow (g_pszMinTraceClassName, g_pszMinTraceTitle); 
+		if (hWnd)
+		{
+			va_list		vl;
+			va_start(vl, first);
+			vsprintf(g_StringBuffer, first, vl);
+			va_end(vl);
+			_MinTraceA(g_StringBuffer);
+		}
+		if (g_pDebugMessage!=NULL)
+		{
+			va_list		vl;
+			
+			va_start(vl, first);
+			g_pDebugMessage->AddFormatVL( first, vl );
+			va_end(vl);
+		}
 	}
 
 	void	DEBUG_ADD_FORMAT_ERR(const char* first, ...)

@@ -8,8 +8,8 @@
 #ifndef	__MSHADOWOBJECT_H__
 #define	__MSHADOWOBJECT_H__
 
-std::ofstream;
-ifstream;
+class ofstream;
+class ifstream;
 #include "MTypeDef.h"
 #include "DrawTypeDef.h"
 #include "MImageObject.h"

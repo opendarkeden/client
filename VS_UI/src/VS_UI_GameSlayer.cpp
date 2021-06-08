@@ -15,7 +15,7 @@
 #include "MZoneTable.h"
 #include "SystemAvailabilities.h"
 //#include "ex\DebugInfo.h"
-
+extern RECT g_GameRect;
 #define MP_CASE_X				708
 #define MP_CASE_Y				508
 #define HP_PIE_X				634
@@ -36,68 +36,6 @@
 extern bool gbl_item_lock;
 extern HWND g_hWnd;
 
-//
-// help string
-//
-/*static S_DEFAULT_HELP_STRING	g_help_string[9] = {
-	{"Inventory", "(아이템창)", "TAB"},
-	{"PartyManager", "(파티창)", "Ctrl+P"},
-	{"Character Info", "(캐릭터 정보)", "Ctrl+I"},
-	{"Skill Info", "(기술 정보)", "Ctrl+K"},
-	{"Help", "(도움말)", "Ctrl+H"},
-	{"Gear", "(장착창)", "Ctrl+TAB"},
-	{"Game Menu", "(게임 메뉴)", "ESC"},
-	{"Mini-Map", "(미니맵)", "Ctrl+M"},
-	{"Mark", "(특수문자)", "Ctrl+X"},
-};
-
-static S_DEFAULT_HELP_STRING	g_chat_help_string[5] = {
-	{"Extend Window", "(채팅창 확장)", "Ctrl+E"},
-	{"Chat", "(일반 채팅)", "Ctrl+C"},
-	{"Guild/Party Chat", "(길드/파티 채팅)", "Ctrl+G"},
-	{"Whisper", "(귓속말)", "Ctrl+W"},
-	{"ZoneChat", "(외치기)", "Ctrl+Z"},
-};*/
-
-#ifndef _LIB // test
-/*
-long	C_VS_UI_SLAYER_PDS::m_str = 100;
-long	C_VS_UI_SLAYER_PDS::m_dex = 99;
-long	C_VS_UI_SLAYER_PDS::m_int = 66;
-long	C_VS_UI_SLAYER_PDS::m_hp = 43;
-long	C_VS_UI_SLAYER_PDS::m_mp = 90;
-long	C_VS_UI_SLAYER_PDS::m_th = 232;
-long	C_VS_UI_SLAYER_PDS::m_ac = 554;
-long	C_VS_UI_SLAYER_PDS::m_cc = 14;
-long	C_VS_UI_SLAYER_PDS::m_str_max = 100;
-long	C_VS_UI_SLAYER_PDS::m_dex_max = 100;
-long	C_VS_UI_SLAYER_PDS::m_int_max = 100;
-long	C_VS_UI_SLAYER_PDS::m_hp_max = 100;
-long	C_VS_UI_SLAYER_PDS::m_mp_max = 100;
-long	C_VS_UI_SLAYER_PDS::m_th_max = 1000;
-long	C_VS_UI_SLAYER_PDS::m_ac_max = 1000;
-long	C_VS_UI_SLAYER_PDS::m_cc_max = 1000;*/
-//long	C_VS_UI_SLAYER_PDS::m_pcs_number = 7654321;
-#else
-/*
-long	C_VS_UI_SLAYER_PDS::m_str;	
-long	C_VS_UI_SLAYER_PDS::m_dex;
-long	C_VS_UI_SLAYER_PDS::m_int;
-long	C_VS_UI_SLAYER_PDS::m_hp;
-long	C_VS_UI_SLAYER_PDS::m_mp;
-long	C_VS_UI_SLAYER_PDS::m_th;
-long	C_VS_UI_SLAYER_PDS::m_ac;
-long	C_VS_UI_SLAYER_PDS::m_cc;
-long	C_VS_UI_SLAYER_PDS::m_str_max;
-long	C_VS_UI_SLAYER_PDS::m_dex_max;
-long	C_VS_UI_SLAYER_PDS::m_int_max;
-long	C_VS_UI_SLAYER_PDS::m_hp_max;
-long	C_VS_UI_SLAYER_PDS::m_mp_max;
-long	C_VS_UI_SLAYER_PDS::m_th_max;
-long	C_VS_UI_SLAYER_PDS::m_ac_max;
-long	C_VS_UI_SLAYER_PDS::m_cc_max;*/
-//long	C_VS_UI_SLAYER_PDS::m_pcs_number;
-#endif
 
 int C_VS_UI_SLAYER_GEAR::m_slot_image[SLOT_SIZE] = {
 	HELM, NECKLACE, COAT, SHIELD, SWORD, GLOVE, BELT, TROUSER, BRACELET, BRACELET, RING, RING, RING, RING, SHOES
@@ -107,212 +45,6 @@ int C_VS_UI_SLAYER_GEAR::m_slot_image[SLOT_SIZE] = {
 	,-1,
 	PDA,SHOULDER,BLOODBIBLE,BLOODBIBLE,BLOODBIBLE,BLOODBIBLE,BLOODBIBLE,BLOODBIBLE
 };
-
-
-//int C_VS_UI_ADVANCEMENTSLAYER_GEAR::m_slot_image[SLOT_SIZE] = {
-//	HELM, NECKLACE, COAT, SHIELD, SWORD, GLOVE, BELT, TROUSER, BRACELET, BRACELET, RING, RING, RING, RING, SHOES
-//	,-1
-//	,-1
-//	,-1
-//	,-1
-//	,BLOODBIBLE,BLOODBIBLE,BLOODBIBLE,BLOODBIBLE,BLOODBIBLE,BLOODBIBLE,PDA,SHOULDER
-//};
-
-
-
-
-//----------------------------------------------------------------------------
-// Operations
-//----------------------------------------------------------------------------
-/*
-//-----------------------------------------------------------------------------
-//- C_VS_UI_SLAYER_CHAT by larosel
-//-
-//-----------------------------------------------------------------------------
-C_VS_UI_SLAYER_CHAT::C_VS_UI_SLAYER_CHAT()
-{
-//	g_RegisterWindow(this);
-
-//	AttrPin(true);
-
-	m_chat_spk.Open(SPK_SLAYER_CHAT_BUTTON);
-
-	m_chat = CHAT;
-	m_bl_whisper = false;
-//	Set(20, 577, 560, 597);
-}
-
-//-----------------------------------------------------------------------------
-//- ~C_VS_UI_SLAYER_CHAT by larosel
-//-
-//-----------------------------------------------------------------------------
-C_VS_UI_SLAYER_CHAT::~C_VS_UI_SLAYER_CHAT()
-{
-//	g_UnregisterWindow(this);
-}
-
-//-----------------------------------------------------------------------------
-// WindowEventReceiver by larosel
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_CHAT::WindowEventReceiver(id_t event)
-{
-}
-
-//-----------------------------------------------------------------------------
-// IsPixel by larosel
-//
-// 
-//-----------------------------------------------------------------------------
-bool C_VS_UI_SLAYER_CHAT::IsPixel(int _x, int _y)
-{
-	return IsInRect(_x, _y);
-}
-
-#define HISTORY_LINE 4
-//-----------------------------------------------------------------------------
-// ShowButtonWidget by larosel
-//
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SLAYER_CHAT::ShowButton(C_VS_UI_EVENT_BUTTON * p_button)
-{
-	if((p_button->GetID() == WHISPER && m_bl_whisper) || g_HISTORY_LINE > HISTORY_LINE && p_button->GetID() == EXTEND || p_button->GetID() == m_chat)
-	{
-		m_chat_spk.Blt(p_button->x, p_button->y, p_button->m_image_index +CHAT_BUTTON_COUNT);
-	}
-
-	if (p_button->GetFocusState())
-	{
-		g_descriptor_manager.Set(DID_HELP, p_button->x, p_button->y, (void *)&g_chat_help_string[p_button->GetID()-0x10000], 2);
-
-		if(p_button->GetPressState())
-		{
-			m_chat_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-		}
-	}
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_CHAT::Run by larosel
-//
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_CHAT::Run(id_t id)
-{
-	switch (id)
-	{
-	case EXTEND:
-		gC_vs_ui.HotKey_ExtendChat();
-		break;
-
-	case CHAT:
-		m_chat = CHAT;
-		gC_vs_ui.SetGuildChat(false);
-		break;
-
-	case ZONE:
-		m_chat = ZONE;
-		gC_vs_ui.SetGuildChat(false);
-		if(m_bl_whisper)
-		{
-			m_bl_whisper = false;
-			gC_vs_ui.SetSlayerWhisper(false);
-		}
-		break;
-
-	case GUILD:
-//		m_chat = GUILD;
-//		gC_vs_ui.SetGuildChat(true);
-//		gC_vs_ui.SetSlayerWhisper(false);
-		break;
-
-	case WHISPER:
-		if(m_chat != GUILD)m_chat = CHAT;
-		m_bl_whisper = !m_bl_whisper;
-		gC_vs_ui.SetSlayerWhisper(m_bl_whisper);
-		break;
-	}
-}
-
-
-//-----------------------------------------------------------------------------
-// Start by larosel
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_CHAT::Start()
-{
-//	PI_Processor::Start();
-
-//	gpC_window_manager->AppearWindow(this);
-
-}
-
-//-----------------------------------------------------------------------------
-// Process by larosel
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_CHAT::Process()
-{
-
-}
-
-//-----------------------------------------------------------------------------
-// KeyboardControl by larosel
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_CHAT::KeyboardControl(UINT message, UINT key, long extra)
-{
-
-}
-
-//-----------------------------------------------------------------------------
-// UnacquireMouseFocus by larosel
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_CHAT::UnacquireMouseFocus()
-{
-}
-
-//-----------------------------------------------------------------------------
-// CancelPushState by larosel
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_CHAT::CancelPushState()
-{
-}
-
-//-----------------------------------------------------------------------------
-//- MouseControl by larosel
-//-
-//-----------------------------------------------------------------------------
-bool C_VS_UI_SLAYER_CHAT::MouseControl(UINT message, int _x, int _y)
-{
-//	Window::MouseControl(message, _x, _y);
-
-	switch (message)
-	{
-		case M_MOVING:
-			break;
-
-		case M_LEFTBUTTON_DOWN:
-		case M_LB_DOUBLECLICK:
-			break;
-
-		case M_LEFTBUTTON_UP:
-			break;
-	}
-
-	return true;
-}
-*/
-//----------------------------------------------------------------------------
-// Operations
-//----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // Click
@@ -573,7 +305,7 @@ void C_VS_UI_SLAYER_QUICKITEM::ResetSize()
 
 			m_p_slot_x[SLOT_1] = m_image_spk.GetWidth(STATCH_EDGE)+3;
 		}
-		else if(x+w >= RESOLUTION_X)
+		else if(x+w >= g_GameRect.right)
 		{
 			m_bl_resize = true;
 			m_p_slot_x[SLOT_1] = m_image_spk.GetWidth(START_EDGE_EXTEND)+3;
@@ -594,7 +326,7 @@ void C_VS_UI_SLAYER_QUICKITEM::ResetSize()
 			h -= m_image_spk.GetHeight(START_EDGE+ROTATED_OFFSET) - m_image_spk.GetHeight(STATCH_EDGE+ROTATED_OFFSET);
 			m_p_slot_x[SLOT_1] = m_image_spk.GetWidth(STATCH_EDGE)+3;
 		}
-		else if(y+h >= RESOLUTION_Y)
+		else if(y+h >= g_GameRect.bottom)
 		{
 			m_bl_resize = true;
 			m_p_slot_x[SLOT_1] = m_image_spk.GetWidth(START_EDGE_EXTEND)+3;
@@ -724,7 +456,7 @@ bool C_VS_UI_SLAYER_QUICKITEM::MouseControl(UINT message, int _x, int _y)
 	bool ret = false;
 	if(m_bl_width)
 	{
-		if(x+w >= RESOLUTION_X)
+		if(x+w >= g_GameRect.right)
 			ret = !m_pC_button_group->MouseControl(message, _x, _y);
 		else
 			ret = !m_pC_button_group->MouseControl(message, w-_x, _y);
@@ -861,18 +593,18 @@ bool C_VS_UI_SLAYER_QUICKITEM::MouseControl(UINT message, int _x, int _y)
 				m_bl_resize = false;
 				if(m_bl_width)
 				{
-					if(x+w >= RESOLUTION_X)
+					if(x+w >= g_GameRect.right)
 					{
-						if(x+w == RESOLUTION_X)
+						if(x+w == g_GameRect.right)
 							x += (m_image_spk.GetWidth(START_EDGE) - m_image_spk.GetWidth(STATCH_EDGE));
 						w -= (m_image_spk.GetWidth(START_EDGE) - m_image_spk.GetWidth(STATCH_EDGE));
 					}
 				}
 				else
 				{
-					if(y+h >= RESOLUTION_Y)
+					if(y+h >= g_GameRect.bottom)
 					{
-						if(y+h == RESOLUTION_Y)
+						if(y+h == g_GameRect.bottom)
 							y += (m_image_spk.GetHeight(START_EDGE+ROTATED_OFFSET) - m_image_spk.GetHeight(STATCH_EDGE+ROTATED_OFFSET));
 						h -= (m_image_spk.GetHeight(START_EDGE+ROTATED_OFFSET) - m_image_spk.GetHeight(STATCH_EDGE+ROTATED_OFFSET));
 					}
@@ -958,7 +690,7 @@ void	C_VS_UI_SLAYER_QUICKITEM::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 	// 가로용
 	if(m_bl_width)
 	{
-		if(x+w >= RESOLUTION_X)
+		if(x+w >= g_GameRect.right)
 		{
 			if(p_button->GetID() == ALPHA_ID)
 			{
@@ -1108,7 +840,7 @@ void C_VS_UI_SLAYER_QUICKITEM::Show()
 			}
 			else
 			{
-				if(x+w >= RESOLUTION_X)
+				if(x+w >= g_GameRect.right)
 				{
 					bl_statch = true;
 					if(Moving() && m_bl_resize)	// 먼가 좋은 방법이 있을터인데-_-;; 이런 하드 코딩은 하면 안되는데-_-;;
@@ -1233,8 +965,8 @@ void C_VS_UI_SLAYER_QUICKITEM::Show()
 				// 개수표시 AlphaBox만 찍고, 숫자는 뒤에서 찍는다
 				if(p_item->IsPileItem())
 				{
-					int depth, number;
-					for(depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
+					
+					for(int depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
 					if(depth == 0) depth = 1;
 
 					rect[len].right = temp_x + QUICKSLOT_W+2;
@@ -1312,7 +1044,7 @@ void C_VS_UI_SLAYER_QUICKITEM::Show()
 			}
 			else
 			{
-				if(y+h >= RESOLUTION_Y)
+				if(y+h >= g_GameRect.bottom)
 					m_image_spk.BltLocked(temp_x+1, temp_y, STATCH_EDGE+ROTATED_OFFSET);
 				else
 					m_image_spk.BltLocked(temp_x, temp_y, END_EDGE+ROTATED_OFFSET);
@@ -1326,12 +1058,12 @@ void C_VS_UI_SLAYER_QUICKITEM::Show()
 	{
 		if(m_bl_width)
 		{
-			if(x+w == RESOLUTION_X)
+			if(x+w == g_GameRect.right)
 				x += m_image_spk.GetWidth(START_EDGE) - m_image_spk.GetWidth(STATCH_EDGE);
 		}
 		else 
 		{
-			if(y != 0)//+h == RESOLUTION_Y)
+			if(y != 0)//+h == g_GameRect.bottom)
 				y += m_image_spk.GetWidth(START_EDGE) - m_image_spk.GetWidth(STATCH_EDGE);
 		}
 	}	
@@ -1340,12 +1072,12 @@ void C_VS_UI_SLAYER_QUICKITEM::Show()
 	{
 		if(m_bl_width)
 		{
-			if(x+w == RESOLUTION_X)
+			if(x+w == g_GameRect.right)
 				x -= m_image_spk.GetWidth(START_EDGE) - m_image_spk.GetWidth(STATCH_EDGE);
 		}
 		else 
 		{
-			if(y != 0)//+h == RESOLUTION_Y)
+			if(y != 0)//+h == g_GameRect.bottom)
 				y -= m_image_spk.GetWidth(START_EDGE) - m_image_spk.GetWidth(STATCH_EDGE);
 		}
 	}
@@ -1398,1009 +1130,8 @@ void C_VS_UI_SLAYER_QUICKITEM::Show()
 		COLORREF markColor = RGB(140, 140, 255);
 		g_PrintColorStr(point.x, point.y+18, p_hotkey_mark[m_focus_slot], gpC_base->m_item_desc_pi, markColor);	
 	}
-
-#ifndef _LIB
-	/*
-	//
-	// focus slot rect -- Test
-	//
-	if (gpC_base->m_p_DDSurface_back->Lock())
-	{
-		S_SURFACEINFO	surface_info;
-		SetSurfaceInfo(&surface_info, gpC_base->m_p_DDSurface_back->GetDDSD());
-
-		if (m_focus_slot != NOT_SELECTED)
-		{
-			S_RECT rect;
-			SetRect(rect, m_p_slot_x[m_focus_slot], QUICK_ITEM_Y,
-							  QUICKSLOT_W, QUICKSLOT_H);
-			filledRect(&surface_info, &rect, 0xFF);
-		}
-
-		gpC_base->m_p_DDSurface_back->Unlock();
-	}
-	*/
-#endif
-}
-/*
-//-----------------------------------------------------------------------------
-// Run
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_PDS::Run(id_t id)
-{
-	switch (id)
-	{
-		case PDS_CLOSE_ID:
-			ControlPDS(NO_PDS_MENU);
-			break;
-
-		// pcs
-		case PCS_SEL_ID:
-			break;
-
-		case PCS_MEM_ID:
-			break;
-
-		case PCS_DEL_ID:
-			break;
-
-		case PCS_END_ID:
-			if (m_pcs_state == PCS_CONNECTING || m_pcs_state == PCS_ON_LINE)
-			{
-				AddToPCSHistory("<!> connecting aborted.");
-				m_pcs_state = PCS_OFF_LINE;
-
-				gpC_base->SendMessage(UI_END_PCS);
-			}
-
-			m_lev_pcs_number.EraseAll();
-			break;
-
-		case PCS_SEND_ID:
-			if (m_lev_pcs_number.Size() > 0)
-			{
-				char * p_temp = NULL;
-				g_Convert_DBCS_Ascii2SingleByte(m_lev_pcs_number.GetString(), m_lev_pcs_number.Size(), p_temp);
-
-				// check valid PCS number
-				char error_buf[150];
-				if (m_lev_pcs_number.Size() != PCS_NUMBER_LIMIT)
-				{
-#ifdef _ENG_VERSION
-					sprintf(error_buf, "%s%s%s", "<Error!> \"", p_temp, "\" is a invalid PCS number.");
-					AddToPCSHistory(error_buf);
-#else
-					sprintf(error_buf, "%s%s%s", "<오류!> \"", p_temp, "\"은 잘못된 PCS번호입니다.");
-					AddToPCSHistory(error_buf);
-#endif
-				}
-				else
-				{
-					AddToPCSHistory(p_temp);
-
-					// valid number !
-					AddToPCSHistory("dialing...");
-					AddToPCSHistory("connecting...");
-
-					m_pcs_state = PCS_CONNECTING;
-
-					char * p_temp = NULL;
-					
-					g_Convert_DBCS_Ascii2SingleByte(m_lev_pcs_number.GetString(), m_lev_pcs_number.Size(), p_temp);
-					m_last_dialing_pcs_num = atoi(p_temp);
-					DeleteNewArray(p_temp);
-
-					gpC_base->SendMessage(UI_SEND_PCS_NUMBER, m_last_dialing_pcs_num);
-				}
-
-				DeleteNewArray(p_temp);
-				m_lev_pcs_number.EraseAll();
-			}
-			break;
-
-		case PCS_HISTORY_SCROLLUP_ID:
-			m_pcs_scrollbar.IncreaseAmountToScroll();
-			break;
-
-		case PCS_HISTORY_SCROLLDOWN_ID:
-			m_pcs_scrollbar.DecreaseAmountToScroll();
-			break;
-
-		case PCS_BACKSPACE_ID:
-			KeyboardControl(WM_KEYDOWN, VK_BACK, 0);	
-			break;
-
-		case PCS_0_ID:
-			KeyboardControl(WM_CHAR, '0', 0);			
-			break;
-
-		case PCS_1_ID:
-			KeyboardControl(WM_CHAR, '1', 0);			
-			break;
-
-		case PCS_2_ID:
-			KeyboardControl(WM_CHAR, '2', 0);	
-			break;
-
-		case PCS_3_ID:
-			KeyboardControl(WM_CHAR, '3', 0);	
-			break;
-
-		case PCS_4_ID:
-			KeyboardControl(WM_CHAR, '4', 0);	
-			break;
-
-		case PCS_5_ID:
-			KeyboardControl(WM_CHAR, '5', 0);	
-			break;
-
-		case PCS_6_ID:
-			KeyboardControl(WM_CHAR, '6', 0);	
-			break;
-
-		case PCS_7_ID:
-			KeyboardControl(WM_CHAR, '7', 0);	
-			break;
-
-		case PCS_8_ID:
-			KeyboardControl(WM_CHAR, '8', 0);	
-			break;
-
-		case PCS_9_ID:
-			KeyboardControl(WM_CHAR, '9', 0);	
-			break;
-
-		case PCS_PHONE_1_ID:
-			if (m_pcs_wait_room[0].bl_set == true)
-			{
-				if (m_pcs_wait_room[0].bl_granted == false)
-				{
-					//GrantPCSConnection(0);
-
-					gpC_base->SendMessage(UI_PLEASE_PCS_CONNECT_ME, m_pcs_wait_room[0].pcs_number, 0);
-				}
-				else
-				{
-					gpC_base->SendMessage(UI_CHANGE_PCS_CONNECTED_SLOT, m_pcs_wait_room[0].pcs_number, 0);
-				}
-			}
-			break;
-
-		case PCS_PHONE_2_ID:
-			if (m_pcs_wait_room[1].bl_set == true)
-			{
-				if (m_pcs_wait_room[1].bl_granted == false)
-				{
-					//	GrantPCSConnection(1);
-
-					gpC_base->SendMessage(UI_PLEASE_PCS_CONNECT_ME, m_pcs_wait_room[1].pcs_number, 1);
-				}
-				else
-				{
-					gpC_base->SendMessage(UI_CHANGE_PCS_CONNECTED_SLOT, m_pcs_wait_room[0].pcs_number, 1);
-				}
-			}
-			break;
-
-		case PCS_PHONE_3_ID:
-			if (m_pcs_wait_room[2].bl_set == true)
-			{
-				if (m_pcs_wait_room[2].bl_granted == false)
-				{
-					//GrantPCSConnection(2);
-
-					gpC_base->SendMessage(UI_PLEASE_PCS_CONNECT_ME, m_pcs_wait_room[2].pcs_number, 2);
-				}
-				else
-				{
-					gpC_base->SendMessage(UI_CHANGE_PCS_CONNECTED_SLOT, m_pcs_wait_room[0].pcs_number, 2);
-				}
-			}
-			break;
-
-		case PCS_QUIT_ID:
-			OffLinePCS();
-
-			gpC_base->SendMessage(UI_QUIT_PCS_ONLINE_MODE);
-			break;
-	}
 }
 
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS
-//
-// 
-//-----------------------------------------------------------------------------
-C_VS_UI_SLAYER_PDS::C_VS_UI_SLAYER_PDS()
-{
-	m_pds_button_spk.Open(SPK_PDS_BUTTON);
-	m_pds_pcs_spk.Open(SPK_PDS_PCS);
-	m_pds_sub_spk.Open(SPK_PDS_SUB);
-
-	m_pC_common_button_group = new ButtonGroup(this);
-
-	m_pC_common_button_group->Add(new C_VS_UI_EVENT_BUTTON(510, 564, 47, 25, PDS_CLOSE_ID, this, CLOSE_PUSHED_BUTTON));
-
-	m_pC_pcs_button_group = new ButtonGroup(this);
-
-	m_pC_pcs_button_group2 = new ButtonGroup(this);
-
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(474, 512, 31, 25, PCS_SEL_ID, this, PCS_SEL));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(474, 538, 31, 25, PCS_MEM_ID, this, PCS_MEM));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(474, 564, 31, 25, PCS_DEL_ID, this, PCS_DEL));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(510, 512, 47, 25, PCS_END_ID, this, PCS_END));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(510, 538, 47, 25, PCS_SEND_ID, this, PCS_SEND));
-
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(373, 511, 31, 19, PCS_1_ID, this, PCS_1));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(405, 511, 31, 19, PCS_2_ID, this, PCS_2));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(437, 511, 31, 19, PCS_3_ID, this, PCS_3));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(373, 531, 31, 19, PCS_4_ID, this, PCS_4));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(405, 531, 31, 19, PCS_5_ID, this, PCS_5));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(437, 531, 31, 19, PCS_6_ID, this, PCS_6));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(373, 551, 31, 19, PCS_7_ID, this, PCS_7));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(405, 551, 31, 19, PCS_8_ID, this, PCS_8));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(437, 551, 31, 19, PCS_9_ID, this, PCS_9));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(405, 571, 31, 19, PCS_0_ID, this, PCS_0));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(437, 571, 31, 19, PCS_BACKSPACE_ID, this, PCS_BACKSPACE));
-
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(352, 527, PDS_SCROLLBUTTON_W, PDS_SCROLLBUTTON_H, PCS_HISTORY_SCROLLUP_ID, this, SCROLLUP_PUSHED_BUTTON));
-	m_pC_pcs_button_group->Add(new C_VS_UI_EVENT_BUTTON(352, 587, PDS_SCROLLBUTTON_W, PDS_SCROLLBUTTON_H, PCS_HISTORY_SCROLLDOWN_ID, this, SCROLLDOWN_PUSHED_BUTTON));
-
-	// 2
-	m_pC_pcs_button_group2->Add(new C_VS_UI_EVENT_BUTTON(PCS_ICON_X, PCS_PHNE1_Y, 13, 13, PCS_PHONE_1_ID, this, PCS_PHONE_PUSHED));
-	m_pC_pcs_button_group2->Add(new C_VS_UI_EVENT_BUTTON(PCS_ICON_X, PCS_PHNE2_Y, 13, 13, PCS_PHONE_2_ID, this, PCS_PHONE_PUSHED));
-	m_pC_pcs_button_group2->Add(new C_VS_UI_EVENT_BUTTON(PCS_ICON_X, PCS_PHNE3_Y, 13, 13, PCS_PHONE_3_ID, this, PCS_PHONE_PUSHED));
-	m_pC_pcs_button_group2->Add(new C_VS_UI_EVENT_BUTTON(PCS_ICON_X, PCS_QUIT_Y, 13, 15, PCS_QUIT_ID, this, PCS_QUIT_PUSHED));
-
-	m_pds_menu = NO_PDS_MENU;
-
-	m_pcs_history_input_index = 0;
-	m_pcs_history_start_index = 0;
-	m_pcs_state = PCS_OFF_LINE;
-	m_pcs_who_connection = NOT_SELECTED;
-	m_bl_ring = false;
-
-	int i;
-	for (i=0; i < PCS_HISTORY_SIZE; i++)
-		m_pcs_history_buf[i] = NULL;
-
-	for (i=0; i < PCS_WAIT_ROOM_MAX; i++)
-	{
-		m_pcs_wait_room[i].sz_name = NULL;
-		m_pcs_wait_room[i].pcs_number = 0;
-		m_pcs_wait_room[i].bl_set = false;
-		m_pcs_wait_room[i].bl_granted = false;
-	}
-
-	m_backup_room.sz_name = NULL;
-	m_backup_room.pcs_number = 0;
-	// m_backup_room에서 이 외 다른 것들은 쓰지 않는다.
-
-#ifdef _LIB
-
-//	m_str = 0;
-//	m_dex = 0;
-//	m_int = 0;
-//	m_hp = 0;
-//	m_mp = 0;
-//	m_th = 0;
-//	m_ac = 0;
-//	m_cc = 0;
-//
-//	m_str_max = 0;
-///	m_dex_max = 0;
-//	m_int_max = 0;
-//	m_hp_max = 0;
-//	m_mp_max = 0;
-//	m_th_max = 0;
-//	m_ac_max = 0;
-//	m_cc_max = 0;
-
-	m_pcs_number = 0;
-#endif
-
-	m_lev_pcs_number.SetInputCharCount(PCS_NUMBER_LIMIT);
-	m_lev_pcs_number.SetPosition(PCS_MESSAGE_X, 579);
-	m_lev_pcs_number.SetCursorColor(RGB(128, 128, 128));
-	m_lev_pcs_number.SetPrintInfo(gpC_base->m_chatting_pi);
-
-	m_last_dialing_pcs_num = 0;
-}
-
-//-----------------------------------------------------------------------------
-// ~C_VS_UI_SLAYER_PDS
-//
-// 
-//-----------------------------------------------------------------------------
-C_VS_UI_SLAYER_PDS::~C_VS_UI_SLAYER_PDS()
-{
-	DeleteNew(m_pC_common_button_group);
-	DeleteNew(m_pC_pcs_button_group);
-	DeleteNew(m_pC_pcs_button_group2);
-
-	int i;
-	for (i=0; i < PCS_HISTORY_SIZE; i++)
-		DeleteNewArray(m_pcs_history_buf[i]);
-
-	for (i=0; i < PCS_WAIT_ROOM_MAX; i++)
-		DeleteNewArray(m_pcs_wait_room[i].sz_name);
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::GetCurrentChatting
-//
-// 
-//-----------------------------------------------------------------------------
-const C_VS_UI_CHATTING * C_VS_UI_SLAYER_PDS::GetCurrentChatting() const
-{
-	if (m_pcs_who_connection != NOT_SELECTED)
-		return &m_pcs_chatting[m_pcs_who_connection];
-
-	return NULL;
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::AddChatToPCShistory
-//
-// 
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SLAYER_PDS::AddChatToPCShistory(char * str, int pcs_slot)
-{
-	if (pcs_slot >= 0 && pcs_slot < PCS_WAIT_ROOM_MAX)
-	{
-		m_pcs_chatting[pcs_slot].AddChatToHistory(str, NULL, CLD_NORMAL);
-	}
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::SetSlot
-//
-// slot에 무조건 set한다.
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SLAYER_PDS::SetSlot(char * sz_name, long pcs_number, int slot)
-{
-	if (slot >= 0 && slot < PCS_WAIT_ROOM_MAX)
-	{
-		m_pcs_wait_room[slot].pcs_number = pcs_number;
-
-		DeleteNewArray(m_pcs_wait_room[slot].sz_name);
-		if (sz_name != NULL)
-		{
-			m_pcs_wait_room[slot].sz_name = new char[strlen(sz_name)+1];
-			strcpy(m_pcs_wait_room[slot].sz_name, sz_name);
-		}
-	}
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::AcquireQuitPCSOnlineModeMessage
-//
-// 
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SLAYER_PDS::AcquireQuitPCSOnlineModeMessage()
-{
-	m_lev_pcs_number.Acquire();
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::ShowConnectorInfo
-//
-// 
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SLAYER_PDS::ShowConnectorInfo(int _x, int _y, S_PCS_WAIT_ROOM &pcs_wait_room)
-{
-	assert(pcs_wait_room.bl_set == true);
-
-	if (gpC_base->m_p_DDSurface_back->Lock())
-	{
-		const _BOX_H = 40;
-		S_SURFACEINFO	surfaceinfo;
-		SetSurfaceInfo(&surfaceinfo, gpC_base->m_p_DDSurface_back->GetDDSD());
-		Rect rect(_x, _y-_BOX_H, 120, _BOX_H);
-
-		FillRect(&surfaceinfo, &rect, WHITE);
-		rectangle(&surfaceinfo, &rect, GREEN);
-
-		gpC_base->m_p_DDSurface_back->Unlock();
-
-		char sz_buf[100];
-		sprintf(sz_buf, "PCS #%d", pcs_wait_room.pcs_number);
-		g_Print(rect.x+2, rect.y+2, sz_buf);
-
-		if (pcs_wait_room.sz_name != NULL)
-		{
-			sprintf(sz_buf, "Name: %s", pcs_wait_room.sz_name);
-			g_Print(rect.x+2, rect.y+2+16, sz_buf);
-		}
-	}
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::ConnectPCS
-//
-// 대기방에 들어간다.
-//
-// empty wait room에 성공적으로 들어가면 room number를 반환하고, 실패하면
-// -1을 반환한다.
-//-----------------------------------------------------------------------------
-int	C_VS_UI_SLAYER_PDS::ConnectPCS(char * sz_name, long pcs_number, int slot)
-{
-	if (slot >= 0 && slot < PCS_WAIT_ROOM_MAX)
-	{
-		if (m_pcs_wait_room[slot].bl_set == false)
-		{
-			// ok, come in
-			m_pcs_wait_room[slot].bl_set = true;
-			m_pcs_wait_room[slot].bl_granted = false;
-			SetSlot(sz_name, pcs_number, slot);
-
-			return slot;
-		}
-	}
-
-	return -1;
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::PushToBackupRoom
-//
-// PCS 상태가 아닌 경우는 곧바로 wait room에 들어갈 수 없다.
-// 일단 여기에 backup해두고 사용자가 PCS로 전환하였을 때 wait room으로 보낸다.
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_PDS::PushToBackupRoom(char * sz_name, long pcs_number, int slot)
-{
-	m_backup_room.pcs_number = pcs_number;
-	DeleteNewArray(m_backup_room.sz_name);
-
-	if (sz_name != NULL)
-	{
-		m_backup_room.sz_name = new char[strlen(sz_name)+1];
-		strcpy(m_backup_room.sz_name, sz_name);
-	}
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::GrantPCSConnection
-//
-// PCS 연결을 승낙한다.
-//
-// - room_n에 사람이 이미 들어와 있어야 한다.
-// - 성공하면 true를 반환한다.
-//-----------------------------------------------------------------------------
-bool	C_VS_UI_SLAYER_PDS::GrantPCSConnection(int room_n)
-{
-	if (room_n >= 0 && room_n < PCS_WAIT_ROOM_MAX)
-	{
-		if (m_pcs_wait_room[room_n].bl_set == true)
-		{
-			// 이미 연결되어있던 slot인가?
-			if (m_pcs_wait_room[room_n].bl_granted == true)
-			{
-			}
-			else
-			{
-				m_pcs_wait_room[room_n].bl_granted = true;
-			}
-
-			m_pcs_who_connection = room_n;
-			
-			m_pcs_chatting[m_pcs_who_connection].Start();
-			m_pcs_chatting[m_pcs_who_connection].SlayerPCSMode(true);
-
-			return true;
-		}
-	}
-
-	return false;
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::DisconnectPCS
-//
-// wait room에서 제거한다.
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SLAYER_PDS::DisconnectPCS(int room_n)
-{
-	assert(room_n >= 0 && room_n < PCS_WAIT_ROOM_MAX);
-
-	if (room_n >= 0 && room_n < PCS_WAIT_ROOM_MAX)
-	{
-		m_pcs_wait_room[room_n].bl_set = false;
-		m_pcs_wait_room[room_n].bl_granted = false;
-		m_pcs_wait_room[room_n].pcs_number = 0;
-		DeleteNewArray(m_pcs_wait_room[room_n].sz_name);
-
-		if (room_n == m_pcs_who_connection)
-			m_pcs_who_connection = NOT_SELECTED;
-	}
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::OnLinePCS
-//
-// PCS가 연결되었다.
-//
-// - 자신이 dialing하여 연결되었을 경우다.
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SLAYER_PDS::OnLinePCS(char * sz_name, long pcs_number)
-{
-	AddToPCSHistory("connected.");
-
-	m_pcs_state = PCS_ON_LINE;
-
-	// 음... 연결되면 당연히 첫번째 사람이지..?
-	int room_n = ConnectPCS(sz_name, pcs_number, 0);
-	if (room_n != -1)
-	{
-		GrantPCSConnection(room_n);
-		m_pcs_who_connection = room_n;
-		m_pcs_chatting[m_pcs_who_connection].Start();
-		m_pcs_chatting[m_pcs_who_connection].SlayerPCSMode(true);
-	}
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::ConnectionFailed
-//
-// 연결실패!
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_PDS::ConnectionFailed()
-{
-	AddToPCSHistory("<!> no response. try again.");
-	m_pcs_state = PCS_OFF_LINE;
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::OffLinePCS
-//
-// PCS 연결이 끊어졌다.
-//
-// - 유저가 정상적으로 PCS 연결을 끊었다.
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SLAYER_PDS::OffLinePCS()
-{
-	AddToPCSHistory("connection terminated.");
-
-	m_pcs_state = PCS_OFF_LINE;
-
-	DisconnectPCS(0);
-	DisconnectPCS(1);
-	DisconnectPCS(2);
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::AddToPCSHistory
-//
-//
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SLAYER_PDS::AddToPCSHistory(char * sz_str)
-{
-	assert(sz_str != NULL);
-
-	if (sz_str == NULL)
-		return;
-
-	DeleteNewArray(m_pcs_history_buf[m_pcs_history_input_index]);
-
-	m_pcs_history_buf[m_pcs_history_input_index] = new char[strlen(sz_str)+1];
-	strcpy(m_pcs_history_buf[m_pcs_history_input_index], sz_str);
-
-	m_pcs_history_input_index++;
-	if (m_pcs_history_input_index == PCS_HISTORY_SIZE)
-		m_pcs_history_input_index = 0;
-
-	m_pcs_scrollbar.SetAmountForScroll(GetPCSHistorySizeForScroll());
-	m_pcs_scrollbar.SetAmountToScroll(0); // 초기상태로.
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::GetPCSHistorySizeForScroll
-//
-// scroll할(현재 보여지지 않는) line 수를 얻는다.
-//-----------------------------------------------------------------------------
-int C_VS_UI_SLAYER_PDS::GetPCSHistorySizeForScroll() const
-{
-	int total = 0;
-
-	for (int i = 0; i < PCS_HISTORY_SIZE; i++)
-	{
-		if (m_pcs_history_buf[i])
-			total++;
-	}
-
-	int size = total - PCS_HISTORY_LINE;
-	if (size < 0)
-		size = 0;
-
-	return size;
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::ControlPDS
-//
-// pds menu를 바꾼다.
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SLAYER_PDS::ControlPDS(PDS_MENU pds_menu) 
-{ 
-	// toggle되도록.
-	if (m_pds_menu == pds_menu)
-		m_pds_menu = NO_PDS_MENU;
-	else
-		m_pds_menu = pds_menu;
-
-	switch (m_pds_menu)
-	{
-		
-//		case GAGE:
-//			gpC_base->SendMessage(UI_PLEASE_SET_SLAYER_VALUE);
-//			break;
-
-		case PCS:
-			m_lev_pcs_number.Acquire();
-			break;
-
-		case NO_PDS_MENU:
-			gpC_base->SendMessage(UI_PDS_CLOSED);
-			break;
-	}
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::CancelPushState
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_PDS::CancelPushState()
-{
-	m_pC_common_button_group->CancelPushState();
-	m_pC_pcs_button_group->CancelPushState();
-	m_pC_pcs_button_group2->CancelPushState();
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::UnacquireMouseFocus
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_PDS::UnacquireMouseFocus()
-{
-	m_pC_common_button_group->UnacquireMouseFocus();
-	m_pC_pcs_button_group->UnacquireMouseFocus();
-	m_pC_pcs_button_group2->UnacquireMouseFocus();
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_SLAYER_PDS::ShowButtonWidget
-//
-// 
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SLAYER_PDS::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
-{
-	if (p_button->GetID() == PDS_CLOSE_ID)
-	{
-		if (p_button->GetFocusState() && p_button->GetPressState())
-			m_pds_sub_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-
-		return;
-	}
-
-	switch (m_pds_menu)
-	{
-		case PCS:
-			if (m_pcs_state == PCS_ON_LINE)
-			{
-				if (p_button->GetID() == PCS_QUIT_ID)
-				{
-					if (p_button->GetFocusState() && p_button->GetPressState())
-						m_pds_pcs_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-				}
-				else
-				{
-					//
-					// mark wait room
-					//
-					// wait room에 있으면 blink하고, granted되었으면 밝게표시한다.
-					//
-					switch (p_button->GetID())
-					{
-						case PCS_PHONE_1_ID:
-							if (m_pcs_wait_room[0].bl_set)
-							{
-								if (m_pcs_wait_room[0].bl_granted)
-								{
-									m_pds_pcs_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-								}
-								else
-								{
-									if (g_blink_value%3 == 0)
-										m_pds_pcs_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-								}
-
-								if (p_button->GetFocusState())
-									ShowConnectorInfo(p_button->x, p_button->y, m_pcs_wait_room[0]);
-							}
-							break;
-
-						case PCS_PHONE_2_ID:
-							if (m_pcs_wait_room[1].bl_set)
-							{
-								if (m_pcs_wait_room[1].bl_granted)
-								{
-									m_pds_pcs_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-								}
-								else
-								{
-									if (g_blink_value%3 == 0)
-										m_pds_pcs_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-								}
-
-
-								if (p_button->GetFocusState())
-									ShowConnectorInfo(p_button->x, p_button->y, m_pcs_wait_room[1]);
-							}
-							break;
-
-						case PCS_PHONE_3_ID:
-							if (m_pcs_wait_room[2].bl_set)
-							{
-								if (m_pcs_wait_room[2].bl_granted)
-								{
-									m_pds_pcs_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-								}
-								else
-								{
-									if (g_blink_value%3 == 0)
-										m_pds_pcs_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-								}
-
-								if (p_button->GetFocusState())
-									ShowConnectorInfo(p_button->x, p_button->y, m_pcs_wait_room[2]);
-							}
-							break;
-					}
-				}
-			}
-			else
-			{
-				switch (p_button->GetID())
-				{
-					case PCS_HISTORY_SCROLLUP_ID:
-					case PCS_HISTORY_SCROLLDOWN_ID:
-						if (p_button->GetFocusState() && p_button->GetPressState())
-							m_pds_sub_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-						break;
-
-					default:
-						if (p_button->GetFocusState() && p_button->GetPressState())
-							m_pds_pcs_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-						break;
-				}
-			}
-			break;
-	}
-}
-
-//-----------------------------------------------------------------------------
-// ShowButton
-//
-// 
-//-----------------------------------------------------------------------------
-void	C_VS_UI_SLAYER_PDS::ShowButton(C_VS_UI_EVENT_BUTTON * p_button)
-{
-	if (p_button->GetID() == m_pds_menu || (p_button->GetFocusState() && p_button->GetPressState()))
-	{
-		m_pds_button_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-	}
-
-	if (p_button->GetID() == PCS)
-		if (m_bl_ring)
-			if (g_blink_value%3 == 0)
-				m_pds_button_spk.Blt(p_button->x, p_button->y, p_button->m_image_index);
-}
-
-//-----------------------------------------------------------------------------
-// KeyboardControl
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_PDS::KeyboardControl(UINT message, UINT key, long extra)
-{
-	switch (m_pds_menu)
-	{
-		case PCS:
-			{
-				if (m_pcs_state == PCS_ON_LINE)
-				{
-					switch (m_pcs_who_connection)
-					{
-						case 0:
-							m_pcs_chatting[0].KeyboardControl(message, key, extra);
-							break;
-
-						case 1:
-							m_pcs_chatting[1].KeyboardControl(message, key, extra);
-							break;
-
-						case 2:
-							m_pcs_chatting[2].KeyboardControl(message, key, extra);
-							break;				
-					}
-				}
-				else
-				{
-					if (m_pcs_state == PCS_OFF_LINE)
-					{
-						// digit, return, backspace only
-
-						if (message == WM_CHAR)
-							if (key >= '0' && key <= '9')
-								gC_ci.IME_MessageProcessor(message, key, extra);
-
-						if (message == WM_KEYDOWN)
-							switch (key)
-							{
-								case VK_RETURN:
-									Run(PCS_SEND_ID);
-
-									// here no 'break'
-								case VK_BACK:
-									gC_ci.IME_MessageProcessor(message, key, extra);
-							}
-					}
-				}
-			}
-			break;
-	}
-}
-
-//-----------------------------------------------------------------------------
-// MouseControl
-//
-// 
-//-----------------------------------------------------------------------------
-bool C_VS_UI_SLAYER_PDS::MouseControl(UINT message, int _x, int _y)
-{
-	if (m_pds_menu == NO_PDS_MENU)
-		return true;
-
-	m_pC_common_button_group->MouseControl(message, _x, _y);
-
-	switch (m_pds_menu)
-	{
-		case PCS:
-			if (m_pcs_state == PCS_ON_LINE)
-			{
-				m_pC_pcs_button_group2->MouseControl(message, _x, _y);
-
-				switch (m_pcs_who_connection)
-				{
-					case 0:
-						m_pcs_chatting[0].MouseControl(message, _x, _y);
-						break;
-
-					case 1:
-						m_pcs_chatting[1].MouseControl(message, _x, _y);
-						break;
-
-					case 2:
-						m_pcs_chatting[2].MouseControl(message, _x, _y);
-						break;
-				}
-			}
-			else
-			{
-				m_pC_pcs_button_group->MouseControl(message, _x, _y);
-
-				switch (message)
-				{
-					case M_WHEEL_UP:
-						Run(PCS_HISTORY_SCROLLUP_ID);
-						break;
-
-					case M_WHEEL_DOWN:
-						Run(PCS_HISTORY_SCROLLDOWN_ID);
-						break;
-				}
-			}
-			break;
-	}
-
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// Show
-//
-// 
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER_PDS::Show()
-{
-	if (m_pds_menu == NO_PDS_MENU)
-		return;
-
-	switch (m_pds_menu)
-	{
-		case PCS:
-			{
-				if (m_pcs_state == PCS_ON_LINE)
-				{
-					m_pds_pcs_spk.Blt(PCS_ICON_X+14, y, PCS_ICON_BOUNDARY);
-					m_pds_pcs_spk.Blt(PCS_ICON_X, PCS_PHNE1_Y, PCS_PHONE);
-					m_pds_pcs_spk.Blt(PCS_ICON_X, PCS_PHNE2_Y, PCS_PHONE);
-					m_pds_pcs_spk.Blt(PCS_ICON_X, PCS_PHNE3_Y, PCS_PHONE);
-					m_pds_pcs_spk.Blt(PCS_ICON_X, PCS_QUIT_Y, PCS_QUIT);
-
-					switch (m_pcs_who_connection)
-					{
-						case 0:
-							m_pds_pcs_spk.Blt(PCS_ICON_X+6, PCS_PHNE1_Y+8, PCS_CONNECTION_MARK);
-							m_pcs_chatting[0].Show();
-							break;
-
-						case 1:
-							m_pds_pcs_spk.Blt(PCS_ICON_X+6, PCS_PHNE2_Y+8, PCS_CONNECTION_MARK);
-							m_pcs_chatting[1].Show();
-							break;
-
-						case 2:
-							m_pds_pcs_spk.Blt(PCS_ICON_X+6, PCS_PHNE3_Y+8, PCS_CONNECTION_MARK);
-							m_pcs_chatting[2].Show();
-							break;
-					}
-
-					m_pC_pcs_button_group2->Show();
-				}
-				else
-				{
-					m_pds_pcs_spk.Blt(x, y, PCS_WINDOW);
-
-					m_pC_pcs_button_group->Show();
-
-					// pcs number
-					char pcs_number_buf[10];
-					sprintf(pcs_number_buf, "%d", m_pcs_number);
-					g_Print(x+17, y, pcs_number_buf, &gpC_base->m_value2_pi);
-
-					if (m_pcs_state == PCS_OFF_LINE)
-						m_lev_pcs_number.Show();
-
-					// history
-					for (int i=0; i < PCS_HISTORY_LINE; i++)
-					{
-						int index = m_pcs_history_input_index-m_pcs_scrollbar.GetAmountToScroll();
-						index -= i+1;
-						if (index < 0)
-							index += PCS_HISTORY_SIZE;
-
-						char * sz_str = m_pcs_history_buf[index];
-						if (sz_str != NULL)
-							g_Print(PCS_MESSAGE_X, PCS_MESSAGE_Y-(PCS_MESSAGE_FONT_GAP*i), sz_str, &gpC_base->m_chatting_pi);
-					}
-				}
-			}
-			break;
-	}
-
-	m_pC_common_button_group->Show();
-
-	
-//#ifndef _LIB
-//	if (gpC_base->m_p_DDSurface_back->Lock())
-//	{
-//		S_SURFACEINFO	surfaceinfo;
-//		SetSurfaceInfo(&surfaceinfo, gpC_base->m_p_DDSurface_back->GetDDSD());
-//
-//		FillRect(&surfaceinfo, this, BLUE);
-//
-//		gpC_base->m_p_DDSurface_back->Unlock();
-//	}
-#endif
-
-	
-}
-*/
 /*-----------------------------------------------------------------------------
 - C_VS_UI_SLAYER_GEAR
 -
@@ -2410,79 +1141,41 @@ C_VS_UI_SLAYER_GEAR::C_VS_UI_SLAYER_GEAR()
 {
 	assert(MSlayerGear::MAX_GEAR_SLAYER == SLOT_SIZE);
 	 
-//	if(g_char_slot_ingame.m_AdvancementLevel == 0 ) // 2차 전직 
-////	if(g_char_slot_ingame.m_AdvancementLevel == 0) // 2차 전직 용 기어 인터페이스 
-//	{
-		m_slot_rect[SN_HELM].Set(80, 15, 60, 60);
-		m_slot_rect[SN_NECKLACE].Set(95, 86,30, 30);
-		m_slot_rect[SN_COAT].Set(80, 120, 60, 90);
-		m_slot_rect[SN_LEFTHAND].Set(145, 120, 60, 90);
-		m_slot_rect[SN_RIGHTHAND].Set(10, 120, 60, 90);
-		m_slot_rect[SN_GLOVE].Set(15, 215, 60, 60);
-		m_slot_rect[SN_BELT].Set(145, 215, 60, 60);
-		m_slot_rect[SN_TROUSER].Set(80, 215, 60, 90);
-		m_slot_rect[SN_LEFTBRACELET].Set(27, 279, 30, 30);
-		m_slot_rect[SN_RIGHTBRACELET].Set(162, 279, 30, 30);
-		m_slot_rect[SN_RIGHTRING1].Set(8, 315, 30, 30);
-		m_slot_rect[SN_RIGHTRING2].Set(43, 315, 30, 30);
-		m_slot_rect[SN_LEFTRING1].Set(144, 315, 30, 30);
-		m_slot_rect[SN_LEFTRING2].Set(179, 315, 30, 30);
-		m_slot_rect[SN_SHOES].Set(80, 307, 60, 60);
-		
-		m_slot_rect[SN_COREZAP1].Set(9, 313, 30, 30);
-		m_slot_rect[SN_COREZAP2].Set(44, 313, 30, 30);
-		m_slot_rect[SN_COREZAP3].Set(142, 313, 30, 30);
-		m_slot_rect[SN_COREZAP4].Set(177, 313, 30, 30);
-		
-		m_slot_rect[SN_PDA].Set(13, 55, 60, 60);
-		m_slot_rect[SN_SHOULDER].Set(140, 60, 60, 60);
 
-		m_slot_rect[SN_BLOODBIBLE1].Set(6, 372, 30, 30);
-		m_slot_rect[SN_BLOODBIBLE2].Set(41, 372, 30, 30);
-		m_slot_rect[SN_BLOODBIBLE3].Set(76, 372, 30, 30);
-		m_slot_rect[SN_BLOODBIBLE4].Set(111, 372, 30, 30);
-		m_slot_rect[SN_BLOODBIBLE5].Set(146, 372, 30, 30);
-		m_slot_rect[SN_BLOODBIBLE6].Set(181, 372, 30, 30);
-		
-
-		m_slot_size = SLOT_SIZE;
-
-//	}
-//	else
-//	{
-//		m_slot_rect[SN_HELM].Set(80, 15, 60, 60);
-//		m_slot_rect[SN_NECKLACE].Set(145, 45, 30, 30);
-//		m_slot_rect[SN_COAT].Set(80, 79, 60, 90);
-//		m_slot_rect[SN_LEFTHAND].Set(145, 79, 60, 90);
-//		m_slot_rect[SN_RIGHTHAND].Set(15, 79, 60, 90);
-//		m_slot_rect[SN_GLOVE].Set(15, 173, 60, 60);
-//		m_slot_rect[SN_BELT].Set(145, 173, 60, 60);
-//		m_slot_rect[SN_TROUSER].Set(80, 173, 60, 90);
-//		m_slot_rect[SN_LEFTBRACELET].Set(27, 239, 30, 30);
-//		m_slot_rect[SN_RIGHTBRACELET].Set(162, 239, 30, 30);
-//		m_slot_rect[SN_RIGHTRING1].Set(8, 275, 30, 30);
-//		m_slot_rect[SN_RIGHTRING2].Set(43, 275, 30, 30);
-//		m_slot_rect[SN_LEFTRING1].Set(144, 275, 30, 30);
-//		m_slot_rect[SN_LEFTRING2].Set(179, 275, 30, 30);
-//		m_slot_rect[SN_SHOES].Set(80, 267, 60, 60);
-//		
-//		m_slot_rect[SN_COREZAP1].Set(8, 274, 30, 30);
-//		m_slot_rect[SN_COREZAP2].Set(43, 274, 30, 30);
-//		m_slot_rect[SN_COREZAP3].Set(144, 274, 30, 30);
-//		m_slot_rect[SN_COREZAP4].Set(179, 274, 30, 30);
-//		
-//		m_slot_rect[SN_PDA].Set(13, 55, 60, 60);
-//		m_slot_rect[SN_SHOULDER].Set(140, 60, 60, 60);
-//
-//		m_slot_rect[SN_BLOODBIBLE1].Set(6, 332, 30, 30);
-//		m_slot_rect[SN_BLOODBIBLE2].Set(41, 332, 30, 30);
-//		m_slot_rect[SN_BLOODBIBLE3].Set(76, 332, 30, 30);
-//		m_slot_rect[SN_BLOODBIBLE4].Set(111, 332, 30, 30);
-//		m_slot_rect[SN_BLOODBIBLE5].Set(146, 332, 30, 30);
-//		m_slot_rect[SN_BLOODBIBLE6].Set(181, 332, 30, 30);
-//		m_slot_size = SLOT_SIZE;
-//
-//	}
+	m_slot_rect[SN_HELM].Set(80, 15, 60, 60);
+	m_slot_rect[SN_NECKLACE].Set(95, 86,30, 30);
+	m_slot_rect[SN_COAT].Set(80, 120, 60, 90);
+	m_slot_rect[SN_LEFTHAND].Set(145, 120, 60, 90);
+	m_slot_rect[SN_RIGHTHAND].Set(10, 120, 60, 90);
+	m_slot_rect[SN_GLOVE].Set(15, 215, 60, 60);
+	m_slot_rect[SN_BELT].Set(145, 215, 60, 60);
+	m_slot_rect[SN_TROUSER].Set(80, 215, 60, 90);
+	m_slot_rect[SN_LEFTBRACELET].Set(27, 279, 30, 30);
+	m_slot_rect[SN_RIGHTBRACELET].Set(162, 279, 30, 30);
+	m_slot_rect[SN_RIGHTRING1].Set(8, 315, 30, 30);
+	m_slot_rect[SN_RIGHTRING2].Set(43, 315, 30, 30);
+	m_slot_rect[SN_LEFTRING1].Set(144, 315, 30, 30);
+	m_slot_rect[SN_LEFTRING2].Set(179, 315, 30, 30);
+	m_slot_rect[SN_SHOES].Set(80, 307, 60, 60);
+	
+	m_slot_rect[SN_COREZAP1].Set(9, 313, 30, 30);
+	m_slot_rect[SN_COREZAP2].Set(44, 313, 30, 30);
+	m_slot_rect[SN_COREZAP3].Set(142, 313, 30, 30);
+	m_slot_rect[SN_COREZAP4].Set(177, 313, 30, 30);
+	
+	m_slot_rect[SN_PDA].Set(13, 55, 60, 60);
+	m_slot_rect[SN_SHOULDER].Set(140, 60, 60, 60);
+	
+	m_slot_rect[SN_BLOODBIBLE1].Set(6, 372, 30, 30);
+	m_slot_rect[SN_BLOODBIBLE2].Set(41, 372, 30, 30);
+	m_slot_rect[SN_BLOODBIBLE3].Set(76, 372, 30, 30);
+	m_slot_rect[SN_BLOODBIBLE4].Set(111, 372, 30, 30);
+	m_slot_rect[SN_BLOODBIBLE5].Set(146, 372, 30, 30);
+	m_slot_rect[SN_BLOODBIBLE6].Set(181, 372, 30, 30);
+	
+	
+	m_slot_size = SLOT_SIZE;
+	
 	m_p_slot_rect = m_slot_rect;
 	m_p_slot_image = m_slot_image;
 
@@ -2495,148 +1188,7 @@ C_VS_UI_SLAYER_GEAR::C_VS_UI_SLAYER_GEAR()
 C_VS_UI_SLAYER_GEAR::~C_VS_UI_SLAYER_GEAR()
 {
 }
-/*-----------------------------------------------------------------------------
-- C_VS_UI_SLAYER_GEAR
--
------------------------------------------------------------------------------*/
-//C_VS_UI_ADVANCEMENTSLAYER_GEAR::C_VS_UI_ADVANCEMENTSLAYER_GEAR()
-//{
-//	assert(MSlayerGear::MAX_GEAR_SLAYER == SLOT_SIZE);
-//
-//	m_slot_rect[SN_HELM].Set(80, 15, 60, 60);
-//	m_slot_rect[SN_NECKLACE].Set(145, 45, 30, 30);
-//	m_slot_rect[SN_COAT].Set(80, 79, 60, 90);
-//	m_slot_rect[SN_LEFTHAND].Set(145, 79, 60, 90);
-//	m_slot_rect[SN_RIGHTHAND].Set(15, 79, 60, 90);
-//	m_slot_rect[SN_GLOVE].Set(15, 173, 60, 60);
-//	m_slot_rect[SN_BELT].Set(145, 173, 60, 60);
-//	m_slot_rect[SN_TROUSER].Set(80, 173, 60, 90);
-//	m_slot_rect[SN_LEFTBRACELET].Set(27, 239, 30, 30);
-//	m_slot_rect[SN_RIGHTBRACELET].Set(162, 239, 30, 30);
-//	m_slot_rect[SN_RIGHTRING1].Set(8, 275, 30, 30);
-//	m_slot_rect[SN_RIGHTRING2].Set(43, 275, 30, 30);
-//	m_slot_rect[SN_LEFTRING1].Set(144, 275, 30, 30);
-//	m_slot_rect[SN_LEFTRING2].Set(179, 275, 30, 30);
-//	m_slot_rect[SN_SHOES].Set(80, 267, 60, 60);
-//
-//	m_slot_rect[SN_COREZAP1].Set(8, 274, 30, 30);
-//	m_slot_rect[SN_COREZAP2].Set(43, 274, 30, 30);
-//	m_slot_rect[SN_COREZAP3].Set(144, 274, 30, 30);
-//	m_slot_rect[SN_COREZAP4].Set(179, 274, 30, 30);
-//
-//	m_slot_rect[SN_BLOODBIBLE1].Set(6, 332, 30, 30);
-//	m_slot_rect[SN_BLOODBIBLE2].Set(41, 332, 30, 30);
-//	m_slot_rect[SN_BLOODBIBLE3].Set(76, 332, 30, 30);
-//	m_slot_rect[SN_BLOODBIBLE4].Set(111, 332, 30, 30);
-//	m_slot_rect[SN_BLOODBIBLE5].Set(146, 332, 30, 30);
-//	m_slot_rect[SN_BLOODBIBLE6].Set(181, 332, 30, 30);
-//	m_slot_rect[SN_PDA].Set(146, 332, 30, 30);
-//	m_slot_rect[SN_SHOULDER].Set(181, 332, 30, 30);
-//
-//	m_slot_size = SLOT_SIZE;
-//	m_p_slot_rect = m_slot_rect;
-//	m_p_slot_image = m_slot_image;
-//
-//}
 
-/*-----------------------------------------------------------------------------
-- ~C_VS_UI_SLAYER_GEAR
--
------------------------------------------------------------------------------*/
-//C_VS_UI_ADVANCEMENTSLAYER_GEAR::~C_VS_UI_ADVANCEMENTSLAYER_GEAR()
-//{
-//}
-
-/*
-//-----------------------------------------------------------------------------
-// SetZone
-//
-// ZoneID를 받아서 미니맵을 불러온다 & 존이름 세팅
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER::SetZone(int zone_id)
-{
-	const int id_size = 39;
-	int id[id_size] = {11, 12, 13, 14, 21, 22, 23 ,24, 31, 32, 33, 34, 1001, 1002, 1003, 1004, 1005, 1006, 2000, 2001, 2002, 2003, 2004, 2010, 2011, 2012, 2013, 2014, 2020, 2021, 2022, 2023, 2024, 2101, 2102, 2103, 2104, 2105, 2106};
-	char map_name[id_size][20] =
-	{
-		// 필드
-		"에슬라니아 NE", "에슬라니아 NW", "에슬라니아 SE", "에슬라니아 SW",
-		"림보성 NE", "림보성 NW", "림보성 SE", "림보성 SW",
-		"드로베타 NE", "드로베타 NW", "드로베타 SE", "드로베타 SW",
-
-		// 던젼 & 마을
-		"지하 수련장", "에슬라니아 던전", "뱀파이어 마을", "림보성 던전", "이벤트 OX", "이벤트 경기장",
-
-		// 건물
-		"군인 길드 B1", "군인 길드 1F", "군인 길드 2F", "군인 길드 3F", "군인 길드 옥상",
-		"성직자 길드 B1", "성직자 길드 1F", "성직자 길드 2F", "성직자 길드 3F", "성직자 길드 옥상",
-		"무사 길드 B1", "무사 길드 1F", "무사 길드 2F", "무사 길드 3F", "무사 길드 옥상",
-
-		// 튜토리얼
-		"복도", "브리핑룸", "컴퓨터실", "무기점", "도서관", "헬기장",
-	};
-
-	int spk_id[id_size] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-							12, 13, 14, 13, 15, 27, 
-							26, 16, 17, 18, 24,
-							26, 28, 29, 30, 24,
-							26, 31, 32, 33, 24,
-							19, 20, 21, 22, 23, 25};
-
-	for(int i = 0; i < id_size; i++)
-		if(zone_id == id[i])break;
-
-	if(i == id_size)return;
-	m_zone_name = map_name[i];
-
-	CSpritePack		m_minimap_spk;
-	
-	ifstream	file(SPK_MINIMAP, ios::binary|ios::nocreate);
-	if (!file)
-		_Error(FILE_OPEN);
-	m_minimap_spk.LoadFromFile(file);
-	file.close();
-
-	POINT point = {0, 0};
-	m_minimap_surface.FillSurface(0x0000);
-	m_minimap_surface.SetTransparency( 0xffff );
-
-	m_minimap_surface.Lock();
-	m_minimap_surface.BltSprite(&point, &m_minimap_spk[spk_id[i]]);
-	m_minimap_surface.Unlock();
-
-	m_minimap_spk.Release();
-}
-
-//-----------------------------------------------------------------------------
-// SetSafetyZone
-//
-// 안전지대 설정
-//-----------------------------------------------------------------------------
-void C_VS_UI_SLAYER::SetSafetyZone(RECT rect)
-{
-	m_minimap_surface.Lock();
-	WORD *mem = (WORD *)m_minimap_surface.GetSurfacePointer();
-	int pitch = m_minimap_surface.GetSurfacePitch();
-
-	int map_w = 200, map_h = 100;
-	if(m_map_w != m_map_h)
-	{
-		if(m_map_w > m_map_h)map_h = map_h * m_map_h / m_map_w;
-		if(m_map_h > m_map_w)map_w = map_w * m_map_w / m_map_h;
-	}
-	
-	for(int y = rect.top*map_h/m_map_h + (100 - map_h)/2; y <= rect.bottom*map_h/m_map_h + (100 - map_h)/2; y++)
-	{
-		for(int x = rect.left*map_w/m_map_w + (200 - map_w)/2; x <= rect.right*map_w/m_map_w + (200 - map_w)/2; x++)
-		{
-			mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_G_Bitmask();
-		}
-	}
-
-	m_minimap_surface.Unlock();
-}
-*/
 
 /*-----------------------------------------------------------------------------
 - KeyboardControl
@@ -2662,12 +1214,12 @@ C_VS_UI_SLAYER::C_VS_UI_SLAYER():C_VS_UI_TRIBE()
 
 	m_pC_main_spk = new C_SPRITE_PACK(SPK_SLAYER_MAIN);
 
-	Set(RESOLUTION_X-m_pC_main_spk->GetWidth()+1, RESOLUTION_Y-m_pC_main_spk->GetHeight()+1, m_pC_main_spk->GetWidth()-1, m_pC_main_spk->GetHeight()-1);
+	Set(g_GameRect.right-m_pC_main_spk->GetWidth()+1, g_GameRect.bottom-m_pC_main_spk->GetHeight()+1, m_pC_main_spk->GetWidth()-1, m_pC_main_spk->GetHeight()-1);
 
 	m_pC_sys_button_spk = new C_SPRITE_PACK(SPK_SLAYER_SYS_BUTTON);
 
 	// common buttons
-	int tab_x = 18, tab_y = 49;
+	int tab_x = 18, tab_y = 49-4;  //modify by viva : menu button point
 	m_pC_common_button_group->Add( new C_VS_UI_EVENT_BUTTON(tab_x, tab_y, m_pC_sys_button_spk->GetWidth(TAB_MENU), m_pC_sys_button_spk->GetHeight(TAB_MENU), TAB_MENU_ID, this, TAB_MENU) );
 	tab_x += m_pC_sys_button_spk->GetWidth(TAB_MENU);
 	m_pC_common_button_group->Add( new C_VS_UI_EVENT_BUTTON(tab_x, tab_y, m_pC_sys_button_spk->GetWidth(TAB_EXP), m_pC_sys_button_spk->GetHeight(TAB_EXP), TAB_EXP_ID, this, TAB_EXP) );
@@ -2685,21 +1237,28 @@ C_VS_UI_SLAYER::C_VS_UI_SLAYER():C_VS_UI_TRIBE()
 	int system_x = w-m_pC_main_spk->GetWidth(BUTTON_SYSTEM)-5, system_y = h-m_pC_main_spk->GetHeight(BUTTON_SYSTEM);
 	m_pC_common_button_group->Add( new C_VS_UI_EVENT_BUTTON(system_x, system_y, m_pC_main_spk->GetWidth(BUTTON_SYSTEM), m_pC_main_spk->GetHeight(BUTTON_SYSTEM), SYSTEM_ID, this, BUTTON_SYSTEM) );
 	m_pC_common_button_group->Add( new C_VS_UI_EVENT_BUTTON(24, system_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), PUSHPIN_ID, this,C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN ) );
-
-	const int button_x = 25, button_y = 72, button_x_gap = 37, button_y_gap = 37;
+	//modify by viva : buttons under the menu
+	const int button_x = 25, button_y = 72-4, button_x_gap = 37, button_y_gap = 37;
 	
 	// menu buttons
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*0, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_INVENTORY), m_pC_sys_button_spk->GetHeight(BUTTON_INVENTORY), INVENTORY_ID, this, BUTTON_INVENTORY) );
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*1, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_GEAR), m_pC_sys_button_spk->GetHeight(BUTTON_GEAR), GEAR_ID, this, BUTTON_GEAR) );
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*2, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_INFO), m_pC_sys_button_spk->GetHeight(BUTTON_INFO), INFO_ID, this, BUTTON_INFO) );
+	//add by viva : friend button
+#ifdef __FRIEND_SYSTEM_VIVA__
+	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*3, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_FRIEND), m_pC_sys_button_spk->GetHeight(BUTTON_FRIEND), FRIEND_ID, this, BUTTON_FRIEND) );
+#endif
+	//end
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*0, button_y+button_y_gap, m_pC_sys_button_spk->GetWidth(BUTTON_PARTY), m_pC_sys_button_spk->GetHeight(BUTTON_PARTY), PARTY_ID, this, BUTTON_PARTY) );
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*1, button_y+button_y_gap, m_pC_sys_button_spk->GetWidth(BUTTON_QUEST), m_pC_sys_button_spk->GetHeight(BUTTON_QUEST), QUEST_ID, this, BUTTON_QUEST) );
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*2, button_y+button_y_gap, m_pC_sys_button_spk->GetWidth(BUTTON_MAIL), m_pC_sys_button_spk->GetHeight(BUTTON_MAIL), MAIL_ID, this, BUTTON_MAIL) );
 //	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*1, button_y+button_y_gap, m_pC_sys_button_spk->GetWidth(BUTTON_QUEST), m_pC_sys_button_spk->GetHeight(BUTTON_QUEST), QUEST_ID, this, BUTTON_QUEST) );
 
 	// sms 버튼 
-	if(false == g_pUserInformation->IsNetmarble)
-		m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*3, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_SMS), m_pC_sys_button_spk->GetHeight(BUTTON_SMS), SMS_ID, this, BUTTON_SMS) );
+//	if(false == g_pUserInformation->IsNetmarble)
+//add by zdj 2005.5.17
+	// add by Coffee 2006.11.26
+		//m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*3, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_SMS), m_pC_sys_button_spk->GetHeight(BUTTON_SMS), SMS_ID, this, BUTTON_SMS) );
 
 	m_pC_menu_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*3, button_y+button_y_gap, m_pC_sys_button_spk->GetWidth(BUTTON_NAMING), m_pC_sys_button_spk->GetHeight(BUTTON_NAMING), NAMING_ID, this, BUTTON_NAMING) );
 
@@ -2719,6 +1278,8 @@ C_VS_UI_SLAYER::C_VS_UI_SLAYER():C_VS_UI_TRIBE()
 	m_pC_util_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*0, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_STORE), m_pC_sys_button_spk->GetHeight(BUTTON_STORE), UTIL_STORE_ID, this, BUTTON_STORE) );
 	if(false == g_pUserInformation->IsNetmarble && false == g_pUserInformation->IsTestServer) // 본섭만
 	{
+//add by zdj 2005.5.16
+// add by Coffee 2006.11.26
 		m_pC_util_button_group->Add( new C_VS_UI_EVENT_BUTTON(button_x+button_x_gap*1, button_y, m_pC_sys_button_spk->GetWidth(BUTTON_POWER_JJANG), m_pC_sys_button_spk->GetHeight(BUTTON_POWER_JJANG), UTIL_POWER_JJANG_ID, this, BUTTON_POWER_JJANG) );
 	}
 	// 2004, 12, 2, sobeit add end
@@ -3035,7 +1596,7 @@ void C_VS_UI_SLAYER::Show()
 		sz_temp[strlen(sz_temp)-3] = '\0';
 		hour = atoi(sz_temp);
 		
-		const int icon_x = 88, icon_y = 29;
+		const int icon_x = 88, icon_y = 29-2;	//modify by viva : icon_y
 		if(hour >= 8 && hour < 16)	// 낮이다
 			m_pC_main_spk->BltLocked(x+icon_x, y+icon_y, ICON_SUN);
 		else if(hour >= 20 || hour < 4)	// 밤이다
@@ -3081,8 +1642,8 @@ void C_VS_UI_SLAYER::Show()
 			
 		case TAB_EXP_ID:
 			// EXP 는 버튼이 없다
-			{
-				const int bar_x = 98, bar_y = 74, str_x = 27, num_x = 76, bar_gap = 12;
+			{//modify by viva : bar_y
+				const int bar_x = 98, bar_y = 74-3, str_x = 27, num_x = 76, bar_gap = 12;
 				char sz_temp[10];
 				
 				int domain[3];
@@ -3153,7 +1714,7 @@ void C_VS_UI_SLAYER::Show()
 						m_pC_main_spk->BltLockedClip(x+bar_x+3, y+bar_y+bar_gap*2+3, rect, EXP_BAR);
 					}
 					
-					for(int i = 0; i < 3; i++)
+					for(i = 0; i < 3; i++)
 					{
 						const int domain_level = (*g_pSkillManager)[domain[i]].GetDomainLevel();
 						const int exp_remain = (*g_pSkillManager)[domain[i]].GetDomainExpRemain();
@@ -3181,7 +1742,7 @@ void C_VS_UI_SLAYER::Show()
 				wsprintf(sz_temp, "%d", g_char_slot_ingame.INT_CUR);
 				g_PrintColorStrShadow(x+num_x, y+bar_y+bar_gap*2, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE, RGB_BLACK);
 				
-				for(int i = 0; i < 3; i++)
+				for(i = 0; i < 3; i++)
 				{
 					g_PrintColorStrShadow(x+str_x, y+bar_y+bar_gap*(3+i), domain_string[domain[i]-SKILLDOMAIN_BLADE], gpC_base->m_chatting_pi, RGB_WHITE, RGB_BLACK);
 					const int domain_level = (*g_pSkillManager)[domain[i]].GetDomainLevel();
@@ -3227,8 +1788,8 @@ void C_VS_UI_SLAYER::Show()
 	}
 	m_pC_common_button_group->ShowDescription();
 	
-	g_PrintColorStr(x +128 - g_GetStringWidth(m_date.c_str(), gpC_base->m_chatting_pi.hfont)/2, y+10, m_date.c_str() ,gpC_base->m_chatting_pi, RGB_WHITE);	
-	g_PrintColorStr(x + 6+128 - g_GetStringWidth(m_time.c_str(), gpC_base->m_chatting_pi.hfont)/2, y+31, m_time.c_str(), gpC_base->m_chatting_pi, RGB_WHITE);	
+	g_PrintColorStr(x-5 +128 - g_GetStringWidth(m_date.c_str(), gpC_base->m_chatting_pi.hfont)/2, y+10+3, m_date.c_str() ,gpC_base->m_chatting_pi, RGB_WHITE);	
+	g_PrintColorStr(x-5 + 6+128 - g_GetStringWidth(m_time.c_str(), gpC_base->m_chatting_pi.hfont)/2, y+31-3, m_time.c_str(), gpC_base->m_chatting_pi, RGB_WHITE);	
 	g_FL2_ReleaseDC();
 
 	m_pC_skill->Show2();
@@ -3248,10 +1809,12 @@ void C_VS_UI_SLAYER::Start()
 	m_pC_quickitem->Start();	
 	m_pC_skill->Start(); 
 	m_pC_hpbar->Start();
-	m_pC_BloodBurst->Start();
-	m_pC_Market->Start();
 	m_pC_effect_status->Start();
 	m_pC_minimap->Start();
+
+	// add by Coffee 2007-3-6 警속各썹뒈暠
+//	m_pC_worldmap->Start();
+	// end 
 
 	WindowEventReceiver(EVENT_WINDOW_MOVE);
 
@@ -3276,7 +1839,7 @@ C_VS_UI_SLAYER_PORTAL::C_VS_UI_SLAYER_PORTAL()
 	m_etc_spk.Open(SPK_SLAYER_PORTAL_ETC);
 	m_map_spk.Open(SPK_SLAYER_PORTAL_MAP);
 
-	Set(RESOLUTION_X/2-m_map_spk.GetWidth(0)/2, RESOLUTION_Y/2 - m_map_spk.GetHeight(0)/2, m_map_spk.GetWidth(0), m_map_spk.GetHeight(0));
+	Set(g_GameRect.right/2-m_map_spk.GetWidth(0)/2, g_GameRect.bottom/2 - m_map_spk.GetHeight(0)/2, m_map_spk.GetWidth(0), m_map_spk.GetHeight(0));
 
 	m_left_x = -12, m_left_y = 0;
 	m_right_x = 313, m_right_y = m_left_y;

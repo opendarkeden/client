@@ -115,9 +115,9 @@ CSpriteSet::LoadFromFile(ifstream& indexFile, ifstream& packFile)
 	// Index(File Position)를 이용해서 SpritePack에서
 	// 특정 Sprite들을 Load한다.
 	//------------------------------------------------------
-	for (int i=0; i<count; i++)
+	for (i=0; i<count; i++)
 	{
-		packFile.seekg(pIndex[i], std::ios::beg);
+		packFile.seekg(pIndex[i], ios::beg);
 		m_pSprites[i].LoadFromFile( packFile );
 	}
 

@@ -17,6 +17,7 @@
 #include "Assert.h"
 #include "Packet.h"
 #include "MinTr.h"
+#include <cstdio>
 
 #if __LINUX__
 	#include <sys/ioctl.h>
@@ -31,6 +32,7 @@ DWORD	g_dwReceiveSize=0;
 
 #endif
 
+extern uint receiveWithDebug (Socket *pSock, void * buf , uint len);
 
 //////////////////////////////////////////////////////////////////////
 // constructor
@@ -124,19 +126,27 @@ uint SocketInputStream::read ( char * buf , uint len )
 	}
 
 	m_Head = ( m_Head + len ) % m_BufferLen;
+
+	#ifdef __DEBUG_OUTPUT__
+		if (len > 0) {
+			FILE* fp = fopen("read.log", "a");
+			for (int i=0; i< len ; i++) {
+				fprintf(fp, " %02x", (unsigned char)buf[i]);
+			}
+			fclose(fp);
+		}
+	#endif
 	
 	return len;
 		
 	__END_CATCH
 }
 
-
 //////////////////////////////////////////////////////////////////////
 // read data from input buffer
 //////////////////////////////////////////////////////////////////////
 uint SocketInputStream::read ( std::string & str , uint len ) 
-	throw ( ProtocolException , Error )
-{
+throw ( ProtocolException , Error ) {
 	__BEGIN_TRY
 		
 	if ( len == 0 )
@@ -182,6 +192,17 @@ uint SocketInputStream::read ( std::string & str , uint len )
 	
 	m_Head = ( m_Head + len ) % m_BufferLen;
 
+	#ifdef __DEBUG_OUTPUT__
+		if (len > 0) {
+			FILE* fp = fopen("read.log", "a");
+			const char *buf = str.c_str();
+			for (int i=0; i< len ; i++) {
+				fprintf(fp, " %02x", (unsigned char)buf[i]);
+			}
+			fclose(fp);
+		}
+	#endif
+
 	return len;
 		
 	__END_CATCH
@@ -207,6 +228,16 @@ void SocketInputStream::read ( Packet * pPacket )
 	// 파싱이 불가능하게 된다. 따라서, 패킷 클래스를 디자인할 때
 	// 주의해야 한다.
 	pPacket->read( *this );
+
+	//  By tiancaiamao
+/*
+	#ifdef __DEBUG_OUTPUT__
+	ofstream ofile("lalala.log", ios::out | ios::app);
+		ofile << "SocketInputStream read packet: ";
+		ofile << pPacket->toString().c_str() << endl;
+		ofile.close();
+	#endif
+*/
 	
 	__END_CATCH
 }
@@ -215,10 +246,9 @@ void SocketInputStream::read ( Packet * pPacket )
 //////////////////////////////////////////////////////////////////////
 // peek data from buffer
 //////////////////////////////////////////////////////////////////////
-void SocketInputStream::peek ( char * buf , uint len ) 
-	throw ( ProtocolException , Error )
+bool SocketInputStream::peek ( char * buf , uint len )
 {
-	__BEGIN_TRY
+//	__BEGIN_TRY
 			
 	Assert( buf != NULL );	
 
@@ -226,8 +256,10 @@ void SocketInputStream::peek ( char * buf , uint len )
 		throw InvalidProtocolException("len==0");
 	
 	// 요청한 크기보다 버퍼의 데이타가 적은 경우, 예외를 던진다.
-	if ( len > length() )
-		throw InsufficientDataException( len - length() );
+	if ( len > length() ) {
+		// throw InsufficientDataException( len - length() );
+		return false;
+	}
 
 	// buf 에 복사는 하되, m_Head 는 변화시키지 않는다.
 	if ( m_Head < m_Tail ) {	// normal order
@@ -256,8 +288,23 @@ void SocketInputStream::peek ( char * buf , uint len )
 			memcpy( &buf[rightLen] , &m_Buffer[0]      , len - rightLen );
 		}
 	}
-		
-	__END_CATCH
+
+/*
+#ifdef __DEBUG_OUTPUT__
+	if (len == szPacketHeader) {
+				FILE* fp = fopen("peek.log", "a");
+				fprintf(fp, "(pos=%d) ", m_Head);
+				for (int i=0; i<len; i++) {
+					fprintf(fp, " %02x", (unsigned char)(buf[i]));
+				}
+				fprintf(fp, "\r\n");
+				fclose(fp);
+	}
+#endif
+*/
+	
+	return true;
+//	__END_CATCH
 }
 
 	
@@ -280,7 +327,21 @@ void SocketInputStream::skip ( uint len )
 		throw InsufficientDataException( len - length() );
 	
 	// m_Head 를 증가시킨다.
+
+	uint pos = m_Head;
 	m_Head = ( m_Head + len ) % m_BufferLen;
+
+	#ifdef __DEBUG_OUTPUT__
+		if (len > 0) {
+			FILE* fp = fopen("read.log", "a");
+			fprintf(fp, "\r\n pos (%d) ", pos);
+			for (uint i=0; i< len; i++) {
+				pos = (pos + i) % m_BufferLen;
+				fprintf(fp, " %02x", (unsigned char)(m_Buffer[pos]));
+			}
+			fclose(fp);
+		}
+	#endif
 
 	__END_CATCH
 }
@@ -313,8 +374,7 @@ void SocketInputStream::skip ( uint len )
 // 즉 내 맘대로야~~~ 이히히히히히~
 //
 //////////////////////////////////////////////////////////////////////
-uint SocketInputStream::fill () 
-	throw ( IOException , Error )
+uint SocketInputStream::fill ()
 {
 	__BEGIN_TRY
 		
@@ -355,8 +415,10 @@ uint SocketInputStream::fill ()
 			// 해서 0 일 경우 m_Tail 을 위해서 버퍼의 맨 마지막 칸을 비워둬야 하겠다. ^^
 
 			nFree = m_BufferLen - m_Tail - 1;
-			nReceived = m_pSocket->receive( &m_Buffer[m_Tail] , nFree );
+			nReceived = receiveWithDebug(m_pSocket, &m_Buffer[m_Tail] , nFree );
 
+			// by tiancaiamao
+			if (nReceived==0) return 0;
 			//add by viva
 			if(nReceived>0)
 				m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
@@ -378,7 +440,7 @@ uint SocketInputStream::fill ()
 				if ( available > 0 ) {
 					resize( available + 1 );
 					// resize 되면, 내부의 데이타가 정렬되므로 m_Tail 부터 쓰면 된다.
-					nReceived = m_pSocket->receive( &m_Buffer[m_Tail] , available );
+					nReceived = receiveWithDebug(m_pSocket, &m_Buffer[m_Tail] , available );
 					
 					//add by viva
 					if(nReceived>0)
@@ -402,7 +464,10 @@ uint SocketInputStream::fill ()
 
 			// 이 경우, m_Tail 이 버퍼의 앞쪽으로 넘어가도 무방하다.
 			nFree = m_BufferLen - m_Tail;
-			nReceived = m_pSocket->receive( &m_Buffer[m_Tail] , nFree );
+			nReceived = receiveWithDebug(m_pSocket, &m_Buffer[m_Tail] , nFree );
+
+			// by tiancaiamao Nonblock exception
+			if (nReceived==0) return 0;
 			//add by viva
 			if(nReceived>0)
 				m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
@@ -422,14 +487,14 @@ uint SocketInputStream::fill ()
 				// 단 이때에도 m_Head == m_Tail 이면 empty 가 되므로,
 				// -1 줄이도록 한다.
 				nFree = m_Head - 1;
-				nReceived = m_pSocket->receive( &m_Buffer[0] , nFree );
+				nReceived = receiveWithDebug(m_pSocket, &m_Buffer[0] , nFree );
 				//add by viva
 				if(nReceived>0)
 					m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
 				//end
 				m_Tail += nReceived;
 				nFilled += nReceived;
-			
+				
 				if ( nReceived == nFree ) {	// buffer is full
 
 					// 버퍼가 가득 찬 상태일 경우, 소켓의 receive 버퍼에 데이타가 더 
@@ -438,7 +503,10 @@ uint SocketInputStream::fill ()
 					if ( available > 0 ) {
 						resize( available + 1 );
 						// resize 되면, 내부의 데이타가 정렬되므로 m_Tail 부터 쓰면 된다.
-						nReceived = m_pSocket->receive( &m_Buffer[m_Tail] , available );
+						nReceived = receiveWithDebug(m_pSocket, &m_Buffer[m_Tail] , available );
+
+						// by tiancaiamao
+						if (nReceived==0) return 0;
 						//add by viva
 						if(nReceived>0)
 							m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
@@ -462,7 +530,9 @@ uint SocketInputStream::fill ()
         //
 		
 		nFree = m_Head - m_Tail - 1;
-		nReceived = m_pSocket->receive( &m_Buffer[m_Tail] , nFree );
+		nReceived = receiveWithDebug(m_pSocket, &m_Buffer[m_Tail] , nFree );
+		// by tiancaiamao
+		if(nReceived==0) return 0;
 		//add by viva
 		if(nReceived>0)
 			m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
@@ -481,7 +551,8 @@ uint SocketInputStream::fill ()
 			if ( available > 0 ) {
 				resize( available + 1 );
 				// resize 되면, 내부의 데이타가 정렬되므로 m_Tail 부터 쓰면 된다.
-				nReceived = m_pSocket->receive( &m_Buffer[m_Tail] , available );
+				nReceived = receiveWithDebug(m_pSocket, &m_Buffer[m_Tail] , available );
+				if(nReceived==0) return 0;
 				//add by viva
 				if(nReceived>0)
 					m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
@@ -627,8 +698,8 @@ void SocketInputStream::resize ( int size )
 	m_Tail = len;	// m_Tail 은 들어있는 데이타의 길이와 같다.
 
 	#ifdef __DEBUG_OUTPUT__
-		ofstream ofile("buffer_resized.log",std::ios::app);
-		ofile << "SocketInputStream resized " << size << " bytes!" << std::endl;
+		ofstream ofile("buffer_resized.log",ios::app);
+		ofile << "SocketInputStream resized " << size << " bytes!" << endl;
 		ofile.close();
 	#endif
 
@@ -691,12 +762,14 @@ std::string SocketInputStream::toString () const
 WORD SocketInputStream::EncryptData(WORD EncryptKey, char* buf, int len)
 	throw()
 {
+	return EncryptKey;
+
 	for(int i = 0; i<len; i++)
 		*(buf + i) ^= 0xCC;
 	
 	if(m_HashTable == NULL) return EncryptKey;
 
-	for(int i = 0; i<len; i++)
+	for(i = 0; i<len; i++)
 	{
 		*(buf + i) ^= m_HashTable[EncryptKey];
 		if(++EncryptKey == 512)	EncryptKey = 0;
@@ -704,3 +777,19 @@ WORD SocketInputStream::EncryptData(WORD EncryptKey, char* buf, int len)
 	return EncryptKey;
 }
 //end
+
+// add by tiancaiamao
+uint receiveWithDebug (Socket *pSock, void * buf , uint len) {
+	uint ret = pSock->receive(buf,len); 
+	#ifdef __DEBUG_OUTPUT__
+		if (ret > 0) {
+			FILE* fp = fopen("fill.log", "a");
+			for (int i=0; i<ret; i++) {
+				fprintf(fp, " %02x", (unsigned char)(((char*)buf)[i]));
+			}
+			fprintf(fp, "\r\n");
+			fclose(fp);
+		}
+	#endif
+	return ret;
+}

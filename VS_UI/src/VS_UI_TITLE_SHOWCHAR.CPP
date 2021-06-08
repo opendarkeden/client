@@ -197,6 +197,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterOusters( int _x, int _y, S_SLOT* p_slot, int
 
 void	C_VS_UI_NEWCHAR::_ShowCharacterSlayer( int _x, int _y, S_SLOT* p_slot, int index, int enable, int dark )
 {
+	try{
 	const int DARK_BIT = 1;
 	POINT point;
 
@@ -358,6 +359,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterSlayer( int _x, int _y, S_SLOT* p_slot, int 
 			else
 				gpC_base->m_p_DDSurface_back->BltIndexSprite(&point, &m_slayer_ispk[sprite_id]);
 	}
+	}catch(...){}
 }
 			
 
@@ -422,11 +424,9 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACOusters( int _x, int _y, S_SLOT* p_slot, i
 		else
 		{
 			bool bFirstAction = index < m_AdvancementOustersCfpk[coat][ACTION_ADVANCEMENT_OUSTERS_SKILL_FAST-ADVANCEMENT_ACTION_START][2].GetSize();
-			//int i =  ACTION_ADVANCEMENT_OUSTERS_COMBO_FAST-ADVANCEMENT_ACTION_START  ; 
-			//bool bFirstAction = index < m_AdvancementOustersCfpk[coat][ACTION_ADVANCEMENT_OUSTERS_COMBO_FAST-ADVANCEMENT_ACTION_START][2].GetSize();     
 
 			if( bFirstAction )
-				action = ACTION_ADVANCEMENT_OUSTERS_SKILL_FAST ; //ACTION_ADVANCEMENT_OUSTERS_COMBO_FAST ; //ACTION_ADVANCEMENT_OUSTERS_SKILL_FAST ;
+				action = ACTION_ADVANCEMENT_OUSTERS_SKILL_FAST;
 			else
 				action = ACTION_ADVANCEMENT_OUSTERS_CHAKRAM_MOVE;
 		}
@@ -555,10 +555,8 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACVampire( int _x, int _y, S_SLOT* p_slot, i
 		{
 			bool bFirstAction = index < (*pCFPK)[coat][ACTION_ADVANCEMENT_SKILL_FAST-ADVANCEMENT_ACTION_START][2].GetSize();
 
-			//bool bFirstAction = index < (*pCFPK)[coat][ACTION_ADVANCEMENT_COMBO_FAST-ADVANCEMENT_ACTION_START][2].GetSize();
-
 			if( bFirstAction )
-				action = ACTION_ADVANCEMENT_SKILL_FAST ; //ACTION_ADVANCEMENT_COMBO_FAST ; //ACTION_ADVANCEMENT_SKILL_FAST ; 
+				action = ACTION_ADVANCEMENT_SKILL_FAST;
 			else
 				action = ACTION_ADVANCEMENT_MOVE;
 		}
@@ -717,6 +715,10 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACSlayer( int _x, int _y, S_SLOT* p_slot, in
 			clothes = AC_SHOULDER;
 			break;
 		}
+		try{
+		//by viva
+		if(clothes>slayerFPK.GetSize()-1) continue;
+		if(action>slayerFPK[clothes].GetSize()-1) continue;
 
 		index %= slayerFPK[ clothes ][ action ][ 2 ].GetSize();
 
@@ -728,5 +730,6 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACSlayer( int _x, int _y, S_SLOT* p_slot, in
 			gpC_base->m_p_DDSurface_back->BltIndexSpriteDarkness( &point, &addonISPK[ sprite_id ], DARK_BIT );
 		else
 			gpC_base->m_p_DDSurface_back->BltIndexSprite( &point, &addonISPK[ sprite_id ] );
+		}catch(...){}//by viva
 	}
 }

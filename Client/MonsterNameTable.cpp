@@ -26,7 +26,7 @@ MonsterNameTable::~MonsterNameTable()
 // Load From File
 //----------------------------------------------------------------------
 void
-MonsterNameTable::LoadFromFile(ifstream& file)
+MonsterNameTable::LoadFromFile(class ifstream& file)
 {
 	m_FirstNames.LoadFromFile( file );
 	m_MiddleNames.LoadFromFile( file );

@@ -69,8 +69,8 @@ class ZONETABLE_INFO {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(std::ofstream& file);		
-		void			LoadFromFile(ifstream& file);		
+		void			SaveToFile(class ofstream& file);		
+		void			LoadFromFile(class ifstream& file);		
 };
 
 //----------------------------------------------------------------------
@@ -102,8 +102,8 @@ class CZoneTable {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void				SaveToFile(std::ofstream& file);
-		void				LoadFromFile(ifstream& file);
+		void				SaveToFile(class ofstream& file);
+		void				LoadFromFile(class ifstream& file);
 	
 	protected :
 		ZONEINFO_MAP		m_mapZoneInfo;		// zone¡§∫∏ map

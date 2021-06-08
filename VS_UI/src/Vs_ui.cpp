@@ -132,14 +132,23 @@ void C_VS_UI::HotKey_Mark()
 //	if (m_pC_game)
 //		m_pC_game->HotKey_WindowToggle();
 //}
-
-void C_VS_UI::HotKey_Inventory(bool IsCheckSubInventory)	
-{
-	if (m_pC_game)
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+	void C_VS_UI::HotKey_Inventory(bool IsCheckSubInventory)	
 	{
-		m_pC_game->HotKey_Inventory(IsCheckSubInventory);
+		if (m_pC_game)
+		{
+			m_pC_game->HotKey_Inventory(IsCheckSubInventory);
+		}
 	}
-}
+#else
+	void C_VS_UI::HotKey_Inventory()	
+	{
+		if (m_pC_game)
+		{
+			m_pC_game->HotKey_Inventory();
+		}
+	}
+#endif
 
 void C_VS_UI::HotKey_Gear()		
 {
@@ -151,6 +160,13 @@ void C_VS_UI::HotKey_QuickItemSlot()
 {
 	if (m_pC_game)
 		m_pC_game->HotKey_QuickItemSlot();
+}
+
+//add by viva
+void C_VS_UI::HotKey_Friend()
+{
+	if (m_pC_game)
+		m_pC_game->HotKey_Party();
 }
 
 void C_VS_UI::HotKey_Party()
@@ -679,13 +695,17 @@ bool C_VS_UI::MouseControl(UINT message, int x, int y)
 	{
 		g_descriptor_manager.Unset();
 	}
-#ifdef _LIB
-	if(m_pC_game != NULL && m_pC_game->IsRunningWebBrowser())
-	{
-		if(m_pC_game->IsInRectPointWebBrowser(x, y))
+
+
+	#ifdef _LIB
+		if(m_pC_game != NULL && m_pC_game->IsRunningWebBrowser())
+		{
+			if(m_pC_game->IsInRectPointWebBrowser(x, y))
 			return false;
-	}
-#endif
+		}
+	#endif
+
+
 
 	bool ret = gpC_window_manager->MouseControl(message, x, y);
 	if(m_pC_game != NULL)m_pC_game->MouseControlExtra(message, x, y);
@@ -1684,8 +1704,8 @@ extern EventButton *g_EventButton;
 	//파티원 표시 화살표
 #define TILE_X 48
 #define TILE_Y 24
-#define WIDTH 799
-#define HEIGHT 497
+#define WIDTH 1023
+#define HEIGHT 665
 #define CENTER_X 399
 #define CENTER_Y 249
 	if(!IsRunningProgress() && g_pParty != NULL && g_pParty->GetSize() > 0)
@@ -3026,7 +3046,24 @@ void C_VS_UI::CloseTeamRegist()
 	if (m_pC_game)
 		m_pC_game->CloseTeamRegist();
 }
-
+//-----------------------------------------------------------------------------
+//add by viva
+//CloseFriendChattinginfo
+//-----------------------------------------------------------------------------
+void C_VS_UI::CloseFriendChattingInfo(C_VS_UI_FRIEND_CHATTING_INFO* pInfo)
+{
+	if(m_pC_game)
+		m_pC_game->CloseFriendChattingInfo(pInfo);
+}
+//-----------------------------------------------------------------------------
+//add by viva
+//OpenFriendChattingInfo
+//-----------------------------------------------------------------------------
+void C_VS_UI::OpenFriendChattingInfo(C_VS_UI_FRIEND_INFO::FRIEND_LIST* pList)
+{
+	if(m_pC_game)
+		m_pC_game->OpenFriendChattingInfo(pList);
+}
 //-----------------------------------------------------------------------------
 // C_VS_UI::IsRunningTeamRegist
 //
@@ -3355,6 +3392,89 @@ void C_VS_UI::RunExchangeAsk(const char* pName)
 	if (m_pC_game)
 		m_pC_game->RunExchangeAsk(pName);
 }
+//------------------------------------------------------------------------------
+//	RunFriendRequestAsk
+//
+//	add by viva
+//------------------------------------------------------------------------------
+void C_VS_UI::RunFriendRequestAsk(const char* pName)
+{
+	if(m_pC_game)
+		m_pC_game->RunFriendRequestAsk(pName);
+}
+//-----------------------------------------------------------------------------
+//	RunFriendRefuseAsk
+//
+//	add by viva
+//-----------------------------------------------------------------------------
+void C_VS_UI::RunFriendRefuseAsk(const char* pName)
+{
+	if(m_pC_game)
+		m_pC_game->RunFriendRefuseAsk(pName);
+}
+//------------------------------------------------------------------------------
+//	RunFriendWaitAsk
+//
+//	add by viva
+//------------------------------------------------------------------------------
+void C_VS_UI::RunFriendWaitAsk(const char* pName)
+{
+	if(m_pC_game)
+		m_pC_game->RunFriendWaitAsk(pName);
+}
+//-----------------------------------------------------------------------------
+//	RunFriendOK
+//
+//	add by viva
+//----------------------------------------------------------------------------
+void C_VS_UI::RunFriendOK()
+{
+	if(m_pC_game)
+		m_pC_game->RunFriendOK();
+}
+//-----------------------------------------------------------------------------
+//	SendAddFriend
+//
+//	add by viva
+//-----------------------------------------------------------------------------
+//void C_VS_UI::SendAddFriend()
+//{
+//	if(m_pC_game)
+//		m_pC_game->SendAddFriend();
+//}
+//-----------------------------------------------------------------------------
+//	RunFriendExistAsk
+//
+//	add by viva
+//----------------------------------------------------------------------------
+void C_VS_UI::RunFriendExistAsk(const char* pName)
+{
+	if(m_pC_game)
+		m_pC_game->RunFriendExistAsk(pName);
+}
+//-----------------------------------------------------------------------------
+//	RunFriendBlackAsk
+//
+//	add by viva
+//-----------------------------------------------------------------------------
+void C_VS_UI::RunFriendBlackAsk(const char* pName)
+{
+	if(m_pC_game)
+		m_pC_game->RunFriendBlackAsk(pName);
+}
+//------------------------------------------------------------------------------
+//	RunFriendDeleteAsk
+//
+//	add by viva
+//------------------------------------------------------------------------------
+void C_VS_UI::RunFriendDeleteAsk(const char* pName)
+{
+	if(m_pC_game)
+		m_pC_game->RunFriendDeleteAsk(pName);
+}
+
+
+
 
 //-----------------------------------------------------------------------------
 // RunExchange
@@ -3567,7 +3687,7 @@ void VS_UI_DialogRun(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 
 }
 #endif
-
+class C_VS_UI_FRIEND_INFO;
 //-----------------------------------------------------------------------------
 // Init
 //
@@ -3778,11 +3898,24 @@ void C_VS_UI::ClosePartyAsk()
 //
 // 파티에참가할래?하고 묻는다.
 //-----------------------------------------------------------------------------
-void C_VS_UI::RunUsePetFood(DWORD UsingObjectID, MItem* SubInventory)
-{
-	if (m_pC_game)
-		m_pC_game->RunUsePetFood(UsingObjectID, SubInventory);
-}
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
+
+	void C_VS_UI::RunUsePetFood(DWORD UsingObjectID, MItem* SubInventory)
+	{
+		if (m_pC_game)
+			m_pC_game->RunUsePetFood(UsingObjectID, SubInventory);
+	}
+
+#else
+
+	void C_VS_UI::RunUsePetFood()
+	{
+		if (m_pC_game)
+			m_pC_game->RunUsePetFood();
+	}
+
+#endif
+
 
 //-----------------------------------------------------------------------------
 // CloseUsePetFood
@@ -4972,25 +5105,10 @@ void	C_VS_UI::CloseNaming()
 		m_pC_game->CloseNaming();
 }
 
-bool	C_VS_UI::IsRunAskUseItemDialog()
+void C_VS_UI::RunAskUseItemDialog(int AskType)
 {
 	if (m_pC_game)
-		return	m_pC_game->IsRunAskUseItemDialog();
-	return false;
-}
-
-void	C_VS_UI::SetUseAskIitemRunning(bool bRunning)
-{
-	if (m_pC_game)
-		m_pC_game->SetUseAskIitemRunning(bRunning);
-}
-
-
-
-void C_VS_UI::RunAskUseItemDialog(int AskType ,  int value)
-{
-	if (m_pC_game)
-		m_pC_game->RunAskUseItemDialog(AskType , value);
+		m_pC_game->RunAskUseItemDialog(AskType);
 }
 void C_VS_UI::CloseAskUseItemDialog()
 {
@@ -5377,7 +5495,7 @@ void	C_VS_UI::SetQuestNpcDialog(void* pVoid)
 		m_pC_game->SetQuestNpcDialog(pVoid);
 }
 // 2005, 1, 17, sobeit add end - 퀘스트 관련
-
+	
 // 2005, 1, 24, sobeit add start - 아이템 받기 이벤트
 void	C_VS_UI::Run_Confirm_GetItemEvent(int value)
 {
@@ -5390,10 +5508,10 @@ void	C_VS_UI::Run_Confirm_GetItemEvent(int value)
 	
 	// 2005, 2, 1, sobeit add start
 
-void	C_VS_UI::RunWebBrowser(HWND hWnd, char* szURL, HINSTANCE hInst) //void* pWebOjbect)
+void	C_VS_UI::RunWebBrowser(HWND hWnd, char* szURL, void* pWebOjbect)
 {
 	if (m_pC_game)
-		m_pC_game->RunWebBrowser(hWnd, szURL, hInst) ; //pWebOjbect);
+		m_pC_game->RunWebBrowser(hWnd, szURL, pWebOjbect);
 }
 bool	C_VS_UI::IsRunningWebBrowser()
 {
@@ -5420,101 +5538,41 @@ bool C_VS_UI::IsInRectPointWebBrowser(int X, int Y)
 	return false;
 }
 // 2005, 2, 1, sobeit add end
-
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 // 2005, 2, 24, sobeit add start
-void	C_VS_UI::RunSubInventory(MItem* pItem)
-{
-	if (m_pC_game)
-		m_pC_game->RunSubInventory(pItem);
-}
-bool	C_VS_UI::IsRunningSubInventory()
-{
-	if (m_pC_game)
-		return m_pC_game->IsRunningSubInventory();
-	return false;
-}
-MItem*	C_VS_UI::GetSubInventoryItem()
-{
-	if (m_pC_game)
-		return m_pC_game->GetSubInventoryItem();
-	return NULL;
-}
-bool	C_VS_UI::ReplaceSubInventoryItem(MItem* pItem, BYTE x, BYTE y, MItem*& pOldItem)
-{
-	if (m_pC_game)
-		return m_pC_game->ReplaceSubInventoryItem(pItem, x, y, pOldItem);
-	return false;
-}
-bool	C_VS_UI::AddItemToSubInventory(MItem* pItem, int X, int Y)
-{
-	if (m_pC_game)
-		return m_pC_game->AddItemToSubInventory(pItem, X, Y);
-	return false;
-}
-void	C_VS_UI::CloseSubInventory()
-{
-	if (m_pC_game)
-		m_pC_game->CloseSubInventory();
-}
-// 2005, 2, 25, sobeit add end
-
-// 2005, 4, 21, sjheon add start - 결혼축의금  창
-void	C_VS_UI::Run_Wedding_Contribution_Unfortunate_Neighbors(int value)
-{
-	if (m_pC_game)
-		m_pC_game->Run_Wedding_Contribution_Unfortunate_Neighbors(value);
-}
-//2005, 4, 21, sjheon add end - 결혼축의금 창
-
-void	C_VS_UI::PopupNetmarbleAgreementMessage()
-{
-	if( m_pC_title )
-		m_pC_title->PopupNetmarbleAgreementMessage();
-}
-
-
-//2005, 7, 14, sjheon add  - ComboSkill Add
-void	C_VS_UI::SetComboCnt(int ComboCnt)
-{
-	if (m_pC_game)
-		m_pC_game->SetComboCnt(ComboCnt);
-}
-//2005, 7, 14, sjheon add  - ComboSkill End
-
-//2005, 7, 14, sjheon add  - SelectComboSkill  Add
-void	C_VS_UI::SetSelectedAttackComboSkill(bool	bAttackSkill)
-{
-	if (m_pC_game)
-		m_pC_game->SetSelectedAttackComboSkill(bAttackSkill);
-}
-//2005, 7, 14, sjheon add  - SelectComboSkill  End
-
-
-//2005, 7, 18, sjheon add  - PopupSummerComBack Add
-void	C_VS_UI::PopupSummerComBack(int value)
-{
-	if(value < 0 || value > 2) return ; 
-	if (m_pC_game)
-		m_pC_game->PopupSummerComBack(value);
-}
-//2005, 7, 18, sjheon add  - PopupSummerComBack End
-
-
-
-void	C_VS_UI::SetBloodBurstAttackGage()
-{
-	if (m_pC_game)
-		m_pC_game->SetBloodBurstAttackGage();
-}
-
-void	C_VS_UI::SetBloodBurstDefenseGage()
-{
-	if (m_pC_game)
-		m_pC_game->SetBloodBurstDefenseGage();
-}
-
-void	C_VS_UI::SetBloodBurstPartyGage()
-{
-	if (m_pC_game)
-		m_pC_game->SetBloodBurstPartyGage();
-}
+	void	C_VS_UI::RunSubInventory(MItem* pItem)
+	{
+		if (m_pC_game)
+			m_pC_game->RunSubInventory(pItem);
+	}
+	bool	C_VS_UI::IsRunningSubInventory()
+	{
+		if (m_pC_game)
+			return m_pC_game->IsRunningSubInventory();
+		return false;
+	}
+	MItem*	C_VS_UI::GetSubInventoryItem()
+	{
+		if (m_pC_game)
+			return m_pC_game->GetSubInventoryItem();
+		return NULL;
+	}
+	bool	C_VS_UI::ReplaceSubInventoryItem(MItem* pItem, BYTE x, BYTE y, MItem*& pOldItem)
+	{
+		if (m_pC_game)
+			return m_pC_game->ReplaceSubInventoryItem(pItem, x, y, pOldItem);
+		return false;
+	}
+	bool	C_VS_UI::AddItemToSubInventory(MItem* pItem, int X, int Y)
+	{
+		if (m_pC_game)
+			return m_pC_game->AddItemToSubInventory(pItem, X, Y);
+		return false;
+	}
+	void	C_VS_UI::CloseSubInventory()
+	{
+		if (m_pC_game)
+			m_pC_game->CloseSubInventory();
+	}
+	// 2005, 2, 25, sobeit add end
+#endif

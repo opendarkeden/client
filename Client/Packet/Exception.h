@@ -10,12 +10,12 @@
 #define __EXCEPTION_H__
 
 // include files
-#include "Types/SystemTypes.h"
+#include "Types.h"
 #include "StringStream.h"
 
-// #ifdef __WINDOWS__
-// #pragma warning ( disable : 4786 )
-// #endif
+#if __WINDOWS__
+#pragma warning ( disable : 4786 )
+#endif
 
 #include <list>
 
@@ -46,9 +46,11 @@ public :
 	virtual std::string getName () const throw () { return "Throwable"; }
 
 	// add function name to throwable object's function stack
-	void addStack ( const std::string & stackname ) throw ()
+	void addStack ( const std::string & file, const int line ) throw ()
 	{
-		m_Stacks.push_front(stackname);
+		StringStream s;
+		s << file << ":" << line;
+		m_Stacks.push_front( s.toString());
 	}
 
 	// return debug std::string - throwable object's function stack trace
@@ -113,7 +115,8 @@ private :
 	#define __BEGIN_TRY \
 				try {
 	#define __END_CATCH \
-				} catch ( Throwable &  ) { \
+				} catch ( Throwable & t ) { \
+					t.addStack(__FILE__, __LINE__); \
 					throw; \
 				}
 #endif
@@ -653,7 +656,7 @@ public :
 		//
 		// Portal Exception
 		//
-		// PC °¡ Æ÷Å»À» ¹â¾ÒÀ»¶§...?
+		// PC °¡ Æ÷Å»À» ¹â¾ÒÀ»¶§...Ä
 
 		//
 		//////////////////////////////////////////////////////////////////////

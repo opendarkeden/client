@@ -12,7 +12,7 @@
 #define STATCH_VALUE 10
 #define HIDE_GAP	4
 #define HIDE_SPEED	10
-
+extern RECT g_GameRect;
 
 //----------------------------------------------------------------------------
 // Globals
@@ -195,9 +195,9 @@ void Window::ProcessHide(int gap, bool alpha_window)
 				x = 0;
 				bl_move = true;
 		}
-		else if(x+w > RESOLUTION_X)
+		else if(x+w > g_GameRect.right)
 		{
-				x = RESOLUTION_X-w;
+				x = g_GameRect.right-w;
 				bl_move = true;
 		}
 		if(y < 0)
@@ -205,9 +205,9 @@ void Window::ProcessHide(int gap, bool alpha_window)
 				y = 0;
 				bl_move = true;
 		}
-		else if(y+h > RESOLUTION_Y)
+		else if(y+h > g_GameRect.bottom)
 		{
-				y = RESOLUTION_Y-h;
+				y = g_GameRect.bottom-h;
 				bl_move = true;
 		}
 		
@@ -226,12 +226,12 @@ void Window::ProcessHide(int gap, bool alpha_window)
 				x = 0;
 			bl_move = true;
 		}
-		else if(x+w > RESOLUTION_X)
+		else if(x+w > g_GameRect.right)
 		{
 			if(g_pUserOption->AutoHideSmoothScroll)
-				x = max(RESOLUTION_X-w, x-HIDE_SPEED);
+				x = max(g_GameRect.right-w, x-HIDE_SPEED);
 			else
-				x = RESOLUTION_X-w;
+				x = g_GameRect.right-w;
 			bl_move = true;
 		}
 		if(y < 0)
@@ -242,12 +242,12 @@ void Window::ProcessHide(int gap, bool alpha_window)
 				y = 0;
 			bl_move = true;
 		}
-		else if(y+h > RESOLUTION_Y)
+		else if(y+h > g_GameRect.bottom)
 		{
 			if(g_pUserOption->AutoHideSmoothScroll)
-				y = max(RESOLUTION_Y-h, y-HIDE_SPEED);
+				y = max(g_GameRect.bottom-h, y-HIDE_SPEED);
 			else
-				y = RESOLUTION_Y-h;
+				y = g_GameRect.bottom-h;
 			bl_move = true;
 		}
 	}
@@ -255,9 +255,9 @@ void Window::ProcessHide(int gap, bool alpha_window)
 	// 아니면 닫히든가-_-;
 	{
 		if(!(GetAttributes()->autohide == ATTRIBUTES_HIDE_HEIGHT
-			&& (y <= 0 && y+h > gap || y+h >= RESOLUTION_Y && y < RESOLUTION_Y-gap))
-			&& (x <= 0 && x+w > gap || x+w >= RESOLUTION_X && x < RESOLUTION_X-gap)
-			&& y+h != gap && y != RESOLUTION_Y-gap)
+			&& (y <= 0 && y+h > gap || y+h >= g_GameRect.bottom && y < g_GameRect.bottom-gap))
+			&& (x <= 0 && x+w > gap || x+w >= g_GameRect.right && x < g_GameRect.right-gap)
+			&& y+h != gap && y != g_GameRect.bottom-gap)
 		{
 			if(x <= 0 && x+w > gap)
 			{
@@ -266,15 +266,15 @@ void Window::ProcessHide(int gap, bool alpha_window)
 				else
 					x = -(w-gap);
 			}
-			else if(x+w >= RESOLUTION_X && x < RESOLUTION_X-gap)
+			else if(x+w >= g_GameRect.right && x < g_GameRect.right-gap)
 			{
 				if(g_pUserOption->AutoHideSmoothScroll)
-					x = min(RESOLUTION_X-gap, x+HIDE_SPEED);
+					x = min(g_GameRect.right-gap, x+HIDE_SPEED);
 				else
-					x = RESOLUTION_X-gap;
+					x = g_GameRect.right-gap;
 			}
 			else if(x+w < gap) x = gap-w;
-			else if(x > RESOLUTION_X-gap)x = RESOLUTION_X-gap;
+			else if(x > g_GameRect.right-gap)x = g_GameRect.right-gap;
 			// 열린다
 			if(y < 0)
 			{
@@ -283,17 +283,17 @@ void Window::ProcessHide(int gap, bool alpha_window)
 				else
 					y = 0;
 			}
-			else if(y+h > RESOLUTION_Y)
+			else if(y+h > g_GameRect.bottom)
 			{
 				if(g_pUserOption->AutoHideSmoothScroll)
-					y = max(RESOLUTION_Y-h, y-HIDE_SPEED);
+					y = max(g_GameRect.bottom-h, y-HIDE_SPEED);
 				else
-					y = RESOLUTION_Y-h;
+					y = g_GameRect.bottom-h;
 			}
 
 			bl_move = true;
 		}
-		else if(x+w != gap && x != RESOLUTION_X-gap)
+		else if(x+w != gap && x != g_GameRect.right-gap)
 		{
 			if(y <= 0 && y+h > gap)
 			{
@@ -302,15 +302,15 @@ void Window::ProcessHide(int gap, bool alpha_window)
 				else
 					y = -(h-gap);
 			}
-			else if(y+h >= RESOLUTION_Y && y < RESOLUTION_Y-gap)
+			else if(y+h >= g_GameRect.bottom && y < g_GameRect.bottom-gap)
 			{
 				if(g_pUserOption->AutoHideSmoothScroll)
-					y = min(RESOLUTION_Y-gap, y+HIDE_SPEED);
+					y = min(g_GameRect.bottom-gap, y+HIDE_SPEED);
 				else
-					y = RESOLUTION_Y-gap;
+					y = g_GameRect.bottom-gap;
 			}
 			else if(y+h < gap) y = gap-h;
-			else if(y > RESOLUTION_Y-gap)y = RESOLUTION_Y-gap;
+			else if(y > g_GameRect.bottom-gap)y = g_GameRect.bottom-gap;
 			// 열린다
 			if(x < 0)
 			{
@@ -319,12 +319,12 @@ void Window::ProcessHide(int gap, bool alpha_window)
 				else
 					x = 0;
 			}
-			else if(x+w > RESOLUTION_X)
+			else if(x+w > g_GameRect.right)
 			{
 				if(g_pUserOption->AutoHideSmoothScroll)
-					x = max(RESOLUTION_X-w, x-HIDE_SPEED);
+					x = max(g_GameRect.right-w, x-HIDE_SPEED);
 				else
-					x = RESOLUTION_X-w;
+					x = g_GameRect.right-w;
 			}
 			bl_move = true;
 		}
@@ -452,18 +452,18 @@ bool Window::Move(int new_ox, int new_oy)
 			{
 				x = 0;
 			}
-			else if(x+w > RESOLUTION_X-STATCH_VALUE && x+w < RESOLUTION_X+STATCH_VALUE)
+			else if(x+w > g_GameRect.right-STATCH_VALUE && x+w < g_GameRect.right+STATCH_VALUE)
 			{
-				x = RESOLUTION_X-w;
+				x = g_GameRect.right-w;
 			}
 			
 			if(y < STATCH_VALUE && y > -STATCH_VALUE)
 			{
 				y = 0;
 			}
-			else if(y+h > RESOLUTION_Y-STATCH_VALUE && y+h < RESOLUTION_Y+STATCH_VALUE)
+			else if(y+h > g_GameRect.bottom-STATCH_VALUE && y+h < g_GameRect.bottom+STATCH_VALUE)
 			{
-				y = RESOLUTION_Y-h;
+				y = g_GameRect.bottom-h;
 			}
 		}
 //		x += new_ox - m_origin.x;

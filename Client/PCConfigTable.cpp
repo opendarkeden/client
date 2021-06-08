@@ -58,7 +58,7 @@ PlayerConfig::SetLastSlot(int slot)
 // Save To File
 //----------------------------------------------------------------------
 void		
-PlayerConfig::SaveToFile(ofstream& file)
+PlayerConfig::SaveToFile(class ofstream& file)
 {
 	// save할때마다 RecentCount를 1씩 증가시킨다.
 	// SetLastSlot(접속할때)을 하지 않고.. save만 하게 되면
@@ -73,7 +73,7 @@ PlayerConfig::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-PlayerConfig::LoadFromFile(ifstream& file)
+PlayerConfig::LoadFromFile(class ifstream& file)
 {
 	file.read((char*)&m_LastSlot, 1);
 	file.read((char*)&m_RecentCount, 4);
@@ -172,7 +172,7 @@ PlayerConfigTable::GetPlayerConfig(const char* pPlayerID) const
 // Save To File
 //----------------------------------------------------------------------
 void		
-PlayerConfigTable::SaveToFile(ofstream& file)
+PlayerConfigTable::SaveToFile(class ofstream& file)
 {
 	int num = size();
 
@@ -277,7 +277,7 @@ PlayerConfigTable::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-PlayerConfigTable::LoadFromFile(ifstream& file)
+PlayerConfigTable::LoadFromFile(class ifstream& file)
 {
 	Release();
 
@@ -394,7 +394,7 @@ WorldPlayerConfigTable::GetPlayerConfigTable(int worldID) const
 void		
 WorldPlayerConfigTable::SaveToFile(const char* pFilename)
 {
-	ofstream file(pFilename, std::ios::binary | ios::trunc);
+	class ofstream file(pFilename, ios::binary | ios::trunc);
 
 	if (file.is_open())
 	{
@@ -445,7 +445,7 @@ WorldPlayerConfigTable::LoadFromFile(const char* pFilename)
 		return;
 	}
 
-	ifstream file(pFilename, std::ios::binary | std::ios::in);
+	class ifstream file(pFilename, ios::binary | ios::nocreate);
 
 	if (file.is_open())
 	{

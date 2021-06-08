@@ -40,8 +40,10 @@
 #include "MHelpDef.h"
 #include "VS_UI_ExtraDialog.h"
 #include "DebugInfo.h"
-#include "MItemFinder.h"
 
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+	#include "MItemFinder.h"
+#endif
 
 #define WHISPER_MAX 10	// by larosel
 
@@ -64,16 +66,20 @@ extern MStorage*				g_pStorageTemp;
 
 extern BOOL g_bActiveGame;
 extern DWORD g_CurrentFrame;
+extern BOOL g_MyFull;
 CSpritePack	C_VS_UI_SKILL::m_C_spk; // Skill icon Sprite list
 CSpritePack	C_VS_UI_SKILL::m_C_spk_mini; // Skill icon Sprite list
-CSpritePack	C_VS_UI_SKILL::m_C_spk_comboCnt;
+
+//add by viva
+C_VS_UI_FRIEND_INFO* gpC_vs_ui_friend_info = NULL;
+
 
 int C_VS_UI_INFO::m_selected_grade_skill = -1;
 int C_VS_UI_INFO::m_selected_skill_domain = -1;
 int C_VS_UI_INFO::m_ousters_Magic = -1;
 
 extern int		g_LeftPremiumDays;
-
+extern RECT g_GameRect;
 //C_SPRITE_PACK	* C_VS_UI_INFO::m_pC_info_spk=NULL;
 
 
@@ -113,8 +119,8 @@ static C_VS_UI_DIALOG * gpC_dialog_ReLearnOusterSkill = NULL;
 
 //const int PCS_CHAT_LINE_START_X =	40;
 //const int CHAT_LINE_START_X =			20;
-//const int CHAT_LINE_START_Y =			RESOLUTION_Y-20;
-//const int CHAT_HISTORY_START_Y =		RESOLUTION_Y-40;
+//const int CHAT_LINE_START_Y =			g_GameRect.bottom-20;
+//const int CHAT_HISTORY_START_Y =		g_GameRect.bottom-40;
 
 static char g_szBugReportBuffer[256];
 
@@ -716,6 +722,7 @@ void g_StartSilveringFinishDialog(int _x, int _y)
 //
 // 
 //-----------------------------------------------------------------------------
+//C_VS_UI_FRIEND_INFO* This_FRIEND_INFO = NULL;
 C_VS_UI_TRIBE::C_VS_UI_TRIBE()
 {
 	g_RegisterWindow(this);
@@ -727,13 +734,20 @@ C_VS_UI_TRIBE::C_VS_UI_TRIBE()
 	m_pC_quest_status = new C_VS_UI_QUEST_STATUS;
 	
 	m_pC_hpbar = new C_VS_UI_HPBAR;
-	m_pC_BloodBurst = new C_VS_UI_BLOOD_BURST; 
-
-	m_pC_Market =  new  C_VS_UI_MARKET_ACCOUNT ; 
-
-
 	m_pC_effect_status = new C_VS_UI_EFFECT_STATUS;
 	m_pC_minimap = new C_VS_UI_MINIMAP;
+
+	//add by viva : friend system
+	m_pC_friend = new C_VS_UI_FRIEND_INFO;
+	//SetThis(m_pC_friend);
+	//This_FRIEND_INFO = m_pC_friend;
+	gpC_vs_ui_friend_info = m_pC_friend;
+	//C_VS_UI_FRIEND_INFO::This_FRIEND_INFO = m_pC_friend;
+	//end
+
+	//  add by Coffee Ìí¼ÓÊÀ½çµØÍ¼
+//	m_pC_worldmap = new C_VS_UI_WORLDMAP;
+	//  end 
 	m_pC_chatting = NULL;
 	m_pC_skill = new C_VS_UI_SKILL;
 	m_pC_common_button_group = new ButtonGroup(this);
@@ -768,15 +782,19 @@ C_VS_UI_TRIBE::~C_VS_UI_TRIBE()
 	g_UnregisterWindow(this);
 
 	DeleteNew(m_pC_hpbar);
-	DeleteNew(m_pC_BloodBurst);
-	DeleteNew(m_pC_Market);
-	
 	DeleteNew(m_pC_quest_status);	
 	DeleteNew(m_pC_effect_status);
 	DeleteNew(m_pC_minimap);
+	// add by Coffee 2007-3-6 Ìí¼ÓÊÀ½çµØÍ¼
+//	DeleteNew(m_pC_worldmap);
+	// end 
 	DeleteNew(m_pC_inventory);
 	DeleteNew(m_pC_skill);
 	
+	//add by viva
+	DeleteNew(m_pC_friend);
+	//end
+
 	DeleteNew(m_pC_main_spk);
 	DeleteNew(m_pC_sys_button_spk);
 	
@@ -826,11 +844,11 @@ void	C_VS_UI_TRIBE::WindowEventReceiver(id_t event)
 {
 	switch (event)
 	{
-	case EVENT_WINDOW_MOVE:
+	case EVENT_WINDOW_MOVE://modify by viva : skill button point
 		switch(g_eRaceInterface)
 		{
 		case RACE_SLAYER:
-			m_pC_skill->SetStartPoint(x+36, y+3);
+			m_pC_skill->SetStartPoint(x+36+4, y+3+1);
 			break;
 
 		case RACE_VAMPIRE:
@@ -838,7 +856,7 @@ void	C_VS_UI_TRIBE::WindowEventReceiver(id_t event)
 			break;
 
 		case RACE_OUSTERS:
-			m_pC_skill->SetStartPoint(x+53, y+19);
+			m_pC_skill->SetStartPoint(x+53-11, y+19-12);
 			break;
 		}		
 		EMPTY_MOVE;
@@ -915,7 +933,9 @@ void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_WAR_HELP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_SKILL_HELP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_HELP].GetString(),
-			
+		//add by viva : friend button description
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND].GetString(),
+		//end
 		// MAX+
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_OFF].GetString(),
 	};
@@ -960,7 +980,9 @@ void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_WAR_HELP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MAGIC_HELP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLAN_HELP].GetString(),
-			
+		//add by viva : friend button description
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND].GetString(),
+		//end
 		// MAX+
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_OFF].GetString(),
 	};
@@ -1005,7 +1027,9 @@ void	C_VS_UI_TRIBE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_WAR_HELP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_MAGIC_HELP].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_GUILD_HELP].GetString(),
-		
+		//add by viva : friend button description
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND].GetString(),
+		//end
 		// MAX+
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_OFF].GetString(),
 	};
@@ -1136,6 +1160,10 @@ void	C_VS_UI_TRIBE::Run(id_t id)
 		// MENU TAB
 	case INVENTORY_ID:
 		HotKey_Inventory();
+		break;
+
+	case FRIEND_ID:
+		HotKey_Friend();
 		break;
 		
 	case GEAR_ID:
@@ -1523,7 +1551,18 @@ bool C_VS_UI_TRIBE::GetInventoryOpenState() const
 	
 	return false;
 }
+//-----------------------------------------------------------------------------
+//C_VS_UI_TRIBE::GetFriendOpenState
+//
+//add by viva
+//-----------------------------------------------------------------------------
+bool C_VS_UI_TRIBE::GetFriendOpenState() const
+{
+	if(m_pC_friend != NULL)
+		return m_pC_friend->Running();
 
+	return false;
+}
 //-----------------------------------------------------------------------------
 // C_VS_UI_TRIBE::GetGearOpenState
 //
@@ -1533,53 +1572,78 @@ bool C_VS_UI_TRIBE::GetGearOpenState() const
 {
 	return GetGearWindow()->Running();
 }
-
+//-----------------------------------------------------------------------------
+//C_VS_UI_TRIBE::HotKey_Friend()
+//
+//add by viva
+//-----------------------------------------------------------------------------
+void C_VS_UI_TRIBE::HotKey_Friend()
+{
+	if (gpC_base == NULL || gpC_base->EventOccured() == true)
+		return;
+	if (!GetFriendOpenState())
+			OpenFriend();
+		else
+			CloseFriend();
+}
 //-----------------------------------------------------------------------------
 // C_VS_UI_TRIBE::HotKey_Inventory
 //
 // 
 //-----------------------------------------------------------------------------
-void C_VS_UI_TRIBE::HotKey_Inventory(bool IsCheckSubInventory)
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+	void C_VS_UI_TRIBE::HotKey_Inventory(bool IsCheckSubInventory)
+#else
+	void C_VS_UI_TRIBE::HotKey_Inventory()
+#endif
+
 {
 	if (gpC_base == NULL || gpC_base->EventOccured() == true)
 		return;
-	
-	if (!GetInventoryOpenState())
-		OpenInventory();
-	else
-	{
-		// 2005, 3, 7, sobeit modify start - ¼­ºêÀÎº¥ Ã³¸® 
-		//CloseInventory();
-		if(!IsCheckSubInventory)
-			CloseInventory();
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+		if (!GetInventoryOpenState())
+			OpenInventory();
 		else
 		{
-			// ¼­ºê ÀÎº¥ÀÌ ¿­·ÈÀ¸¸é µÑ´Ù ´Ý´Â´Ù.
-			if(gC_vs_ui.IsRunningSubInventory())
-			{
-				gC_vs_ui.CloseSubInventory();
+			// 2005, 3, 7, sobeit modify start - ¼­ºêÀÎº¥ Ã³¸® 
+			//CloseInventory();
+			if(!IsCheckSubInventory)
 				CloseInventory();
-			}
 			else
 			{
-				bool IsSubWindowOpen = false;
-				// ¼­ºê ÀÎº¥ÀÌ ÀÖÀ¸¸é ¼­ºê ÀÎº¥À» ¿¬´Ù.
-				if(NULL != g_pInventory)
+				// ¼­ºê ÀÎº¥ÀÌ ¿­·ÈÀ¸¸é µÑ´Ù ´Ý´Â´Ù.
+				if(gC_vs_ui.IsRunningSubInventory())
 				{
-					MItem* pSubInventory = ((MItemManager*)g_pInventory)->FindItem( MItemClassFinder(ITEM_CLASS_SUB_INVENTORY) );
-					if( NULL != pSubInventory )
-					{
-						gpC_base->SendMessage(UI_ITEM_USE, pSubInventory->GetID(), 0, (MItem *)pSubInventory);
-						IsSubWindowOpen = true;
-					}
-				}
-				// ¼­ºê ÀÎº¥ÀÌ ¾øÀ¸¸é °Á ÀÎº¥À» ´Ý´Â´Ù.
-				if(!IsSubWindowOpen)
+					gC_vs_ui.CloseSubInventory();
 					CloseInventory();
+				}
+				else
+				{
+					bool IsSubWindowOpen = false;
+					// ¼­ºê ÀÎº¥ÀÌ ÀÖÀ¸¸é ¼­ºê ÀÎº¥À» ¿¬´Ù.
+					if(NULL != g_pInventory)
+					{
+						MItem* pSubInventory = ((MItemManager*)g_pInventory)->FindItem( MItemClassFinder(ITEM_CLASS_SUB_INVENTORY) );
+						if( NULL != pSubInventory )
+						{
+							gpC_base->SendMessage(UI_ITEM_USE, pSubInventory->GetID(), 0, (MItem *)pSubInventory);
+							IsSubWindowOpen = true;
+						}
+					}
+					// ¼­ºê ÀÎº¥ÀÌ ¾øÀ¸¸é °Á ÀÎº¥À» ´Ý´Â´Ù.
+					if(!IsSubWindowOpen)
+						CloseInventory();
+				}
 			}
+			// 2005, 3, 7, sobeit modify end - ¼­ºêÀÎº¥ Ã³¸® 
 		}
-		// 2005, 3, 7, sobeit modify end - ¼­ºêÀÎº¥ Ã³¸® 
-	}
+	#else
+		if (!GetInventoryOpenState())
+			OpenInventory();
+		else
+			CloseInventory();
+	#endif
+
 
 	switch(g_eRaceInterface)
 	{
@@ -2063,33 +2127,38 @@ void C_VS_UI_TRIBE::HotKey_SummonPet()
 {	
 	if(	gbl_item_lock || gbl_gear_lock )
 		return;
-	
-	MItem* pSubInventory = NULL;
-	MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MItemClassFinder(ITEM_CLASS_PET_ITEM) , pSubInventory);
-	
-	if (pItem!=NULL && pItem->IsAffectStatus())
-	{
-		if(NULL != pSubInventory)
+
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+		MItem* pSubInventory = NULL;
+		MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MItemClassFinder(ITEM_CLASS_PET_ITEM) , pSubInventory);
+		
+		if (pItem!=NULL && pItem->IsAffectStatus())
 		{
-			gpC_base->SendMessage(UI_ITEM_USE_SUBINVENTORY, pItem->GetID(), pSubInventory->GetID(), (MItem *)pItem);
+			if(NULL != pSubInventory)
+			{
+				gpC_base->SendMessage(UI_ITEM_USE_SUBINVENTORY, pItem->GetID(), pSubInventory->GetID(), (MItem *)pItem);
+			}
+			else
+				gpC_base->SendMessage(UI_ITEM_USE, pItem->GetID(), 0, (MItem *)pItem);
 		}
-		else
-			gpC_base->SendMessage(UI_ITEM_USE, pItem->GetID(), 0, (MItem *)pItem);
-	}
-//	for(int i = 0; i< 10; i++)
-//	for(int j = 0; j < 6; j++)
-//	{
-//		const MItem * p_item = g_pInventory->GetItem(i, j);
-//
-//		if (p_item) // ItemÀÌ ÀÖ´Ù.
-//		{
-//			if(p_item->GetItemClass() == ITEM_CLASS_PET_ITEM)
-//			{
-//				gpC_base->SendMessage(UI_ITEM_USE, p_item->GetID(), 0, (MItem *)p_item);
-//				return;
-//			}
-//		}
-//	}
+	#else
+		for(int i = 0; i< 10; i++)
+		for(int j = 0; j < 6; j++)
+		{
+			const MItem * p_item = g_pInventory->GetItem(i, j);
+
+			if (p_item) // ItemÀÌ ÀÖ´Ù.
+			{
+				if(p_item->GetItemClass() == ITEM_CLASS_PET_ITEM)
+				{
+					gpC_base->SendMessage(UI_ITEM_USE, p_item->GetID(), 0, (MItem *)p_item);
+					return;
+				}
+			}
+		}
+	#endif
+
+
 }
 void	C_VS_UI_TRIBE::DoCommonActionBeforeEventOccured()
 {
@@ -2127,11 +2196,6 @@ bool C_VS_UI_TRIBE::Timer()
 	}
 	
 	return false;
-}
-
-int qsort_SortExp1(const void *arg1,const void *arg2)
-{
-	return ((*g_pSkillManager)[*(int*)arg1].GetDomainLevel() < (*g_pSkillManager)[*(int*)arg2].GetDomainLevel());
 }
 
 bool C_VS_UI_TRIBE::MouseControl(UINT message, int _x, int _y)
@@ -2195,16 +2259,6 @@ bool C_VS_UI_TRIBE::MouseControl(UINT message, int _x, int _y)
 
 							DomainLevelMax = max(DomainLevelMax, (*g_pSkillManager)[d].GetDomainLevel() ) ;
 						}
-					}
-					if((*g_pSkillManager)[domain[0]].GetDomainLevel() == 0 &&
-						(*g_pSkillManager)[domain[1]].GetDomainLevel() == 0 &&
-						(*g_pSkillManager)[domain[2]].GetDomainLevel() == 0)
-					{
-						int domain2[5] = { SKILLDOMAIN_BLADE, SKILLDOMAIN_SWORD, SKILLDOMAIN_GUN, SKILLDOMAIN_HEAL, SKILLDOMAIN_ENCHANT };
-						
-						qsort((void*)domain2,5,sizeof(int),qsort_SortExp1);
-						
-						memcpy(domain,domain2,sizeof(int) * 3);
 					}
 				}
 				
@@ -2685,8 +2739,8 @@ bool C_VS_UI_GEAR::MouseControl(UINT message, int _x, int _y)
 		NULL,
 		NULL,
 		NULL,
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_DERMIS].GetString(), 
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_PERSONA].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_DERMIS].GetString(), 
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_BLOOD_BIBLE].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_BLOOD_BIBLE].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_EQUIP_BLOOD_BIBLE].GetString(),
@@ -4312,133 +4366,7 @@ void C_VS_UI_CHATTING::SetWhisperID(char *id)
 		ChangeWhisperFocus();
 	}
 }
-/*-----------------------------------------------------------------------------
-- MouseControl Extra - by sigi
-- Slayer/Vampire main interface Mouse input.
 
-  UI±¸Á¶»ó.. ¿µ¿ª ¹ÛÀÇ mouseÀÔ·ÂÀÌ ¾î·Á¿ö¼­..
------------------------------------------------------------------------------*/
-/*
-bool C_VS_UI_CHATTING::MouseControlExtra(UINT message, int x, int y)
-{
-//------------------------------------------------------------
-// Ã¤ÆÃÃ¢¿¡¼­ ÀÌ¸§ ¼±ÅÃÇÏ±â - by sigi
-//------------------------------------------------------------
-RECT rect;
-if(!m_bl_spreadID)
-{
-if (g_HISTORY_LINE > HISTORY_LINE)
-{
-int pixelY = (g_HISTORY_LINE - HISTORY_LINE) * FONT_GAP;
-
-  rect.left = 18;
-  rect.top = 506 - pixelY;
-  rect.right = 560;
-  rect.bottom = 574;
-		}
-		else
-		{
-		rect.left = 18;
-		rect.top = 506;
-		rect.right = 560;
-		rect.bottom = 574;
-		}
-		
-		  //------------------------------------------------------------
-		  // ÀÏ´Ü, ÀüÃ¼ ¿µ¿ª¿¡ Æ÷ÇÔµÇ´ÂÁö º»´Ù.
-		  //------------------------------------------------------------
-		  if (x > rect.left && x < rect.right
-		  && y > rect.top && y < rect.bottom)
-		  {
-		  switch (message)
-		  {	
-		  case M_LEFTBUTTON_DOWN:
-		  case M_RIGHTBUTTON_DOWN:
-		  case M_LB_DOUBLECLICK:	
-		  {
-		  if (x > rect.left && x < rect.left + 120)
-		  {
-		  //------------------------------------------------------------
-		  // Ã¤ÆÃÃ¢¿¡¼­ ÀÌ¸§ ¼±ÅÃÇÏ±â - by sigi
-		  //------------------------------------------------------------				
-		  // FONT_GAPÀ¸·Î ¸î¹øÂ° ÁÙÀÎÁö ÆÇ´ÜÇÑ´Ù.
-		  int yLine = -((y - (CHAT_HISTORY_START_Y+FONT_GAP)) / FONT_GAP);				
-		  
-			//	by larosel
-			C_VS_UI_CHAT_LINE * p_line;	
-			if(m_bl_guild)p_line = m_pC_history_guild_list.GetLine(yLine + m_chat_scrollbar.GetAmountToScroll());
-			else p_line = m_pC_history_list.GetLine(yLine + m_chat_scrollbar.GetAmountToScroll());
-			
-			  if (p_line!=NULL)
-			  {
-			  const char* pID = p_line->GetIdString();
-			  
-				if (pID!=NULL)
-				{
-				//							gpC_base->SendMessage(UI_CHAT_SELECT_NAME, message, 0, (void*)pID);												
-				AddWhisperID(pID);	// by larosel
-				}
-				}
-				}
-				}
-				break;
-				
-				  case M_WHEEL_UP:
-				  Scroll(UP);
-				  break;
-				  
-					case M_WHEEL_DOWN:
-					Scroll(DOWN);
-					break;
-					
-					  }
-					  
-						return true;
-						}
-						}
-						else
-						{
-						SetRect(&rect, CHAT_LINE_START_X, CHAT_LINE_START_Y - GetWhisperSize()*FONT_GAP -3, CHAT_LINE_START_X+70, CHAT_LINE_START_Y -3);
-						
-						  if (x > rect.left && x < rect.right
-						  && y > rect.top && y < rect.bottom)
-						  {
-						  switch (message)
-						  {	
-						  case M_LEFTBUTTON_DOWN:
-						  case M_RIGHTBUTTON_DOWN:
-						  case M_LB_DOUBLECLICK:	
-						  {
-						  //------------------------------------------------------------
-						  // ½ºÇÁ·¹µåµÈ ¾ÆÀÌµð Ã¢¿¡¼­ ¾ÆÀÌµð ¼±ÅÃÇÏ±â by larosel
-						  //------------------------------------------------------------				
-						  // FONT_GAPÀ¸·Î ¸î¹øÂ° ÁÙÀÎÁö ÆÇ´ÜÇÑ´Ù.
-						  int yLine = (y - rect.top)/FONT_GAP;
-						  if(!GetWhisperFocus())
-						  {
-						  m_sz_whisper_backup = GetWhisperID(yLine);
-						  }
-						  else
-						  {
-						  m_lev_chatting.EraseAll();
-						  m_lev_chatting.AddString(GetWhisperID(yLine).c_str());
-						  ChangeWhisperFocus();
-						  }
-						  
-							m_bl_spreadID = false;
-							
-							  }
-							  break;
-							  }
-							  
-								return true;
-								}
-								
-								  }
-								  
-									return false;
-									}
-*/
 
 /*-----------------------------------------------------------------------------
 - KeyboardControl
@@ -4456,7 +4384,7 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 	}
 	
 	// Hiding Áß¿¡´Â Å°º¸µå ÀÔ·Â ¾È¹ÞÀ½
-	if((x < 0 || x+w > RESOLUTION_X || y < 0 || y+h > RESOLUTION_Y) && g_pUserOption->UseEnterChat)
+	if((x < 0 || x+w > g_GameRect.right || y < 0 || y+h > g_GameRect.bottom) && g_pUserOption->UseEnterChat)
 		return;
 	
 	// ½ºÅ©·ÑÁß¿¡ ¿£ÅÍ¸¦ ¾È¹Þ´Â°Ç ¿Ö³Ä-¤µ- ÀÔ·ÂµÇ¸é ½ºÅ©·Ñ µ¹¸®±¸ ÀÔ·ÂÇØ¾ßÁö-_-;
@@ -4515,7 +4443,7 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 				
 				char * sz_chat_str = NULL;
 				g_Convert_DBCS_Ascii2SingleByte(m_lev_chatting.GetString(), m_lev_chatting.Size(), sz_chat_str);
-				
+
 				// Å¸ÀÌÇÎ Çß´ø ¹®Àå ±â¾ïÇÏ±â
 				if(m_history.size() == m_history_line)
 				{
@@ -4534,10 +4462,10 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 				else
 				{
 					PAPERING_HISTORY temp_history = m_history[m_history_line];
-					
 					if(temp_history.m_timer.size() == 5)
 					{
-						if(strstr(sz_chat_str, "*command") == NULL && temp_history.m_timer[0] + 20000 > GetTickCount() /*&& sz_chat_str[0] != '*'*/ && strstr(g_char_slot_ingame.sz_name.c_str(), (*g_pGameStringTable)[UI_STRING_MESSAGE_MASTER_NAME].GetString()) == NULL)
+						if(strstr(sz_chat_str, "*command") == NULL && temp_history.m_timer[0] + 20000 > GetTickCount() /*&& sz_chat_str[0] != '*'*/ && strstr(g_char_slot_ingame.sz_name.c_str(), (*g_pGameStringTable)[UI_STRING_MESSAGE_MASTER_NAME].GetString()) == NULL
+							&& strncmp(sz_chat_str, (*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetString(),(*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetLength()) != NULL)
 						{
 							Timer(true);
 							m_timer = TIMER_PAPERING;
@@ -4549,6 +4477,8 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 							temp_history.m_timer.erase(&temp_history.m_timer[0]);
 						}
 					}
+
+
 					
 					m_history.erase(&m_history[m_history_line]);
 					temp_history.m_string = sz_chat_str;
@@ -4556,7 +4486,11 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 					m_history.push_back(temp_history);
 					m_history_line = m_history.size();
 				}
-				
+				// Ôö¼Ó¶ÔÊ¹ÓÃ¸ß¼¶¶Ô½²»úÎïÆ·ÎÞÊ±¼äÏÞÖÆÖ§³Ö
+// 				if(0 == strncmp(sz_chat_str, (*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetString(),(*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetLength()))
+// 				{
+// 					temp_history.m_timer.erase(&temp_history.m_timer[0]);
+// 				}
 				// °É·ÁÀÖ´Â ½ºÅ³Áß¿¡ ¹ÂÆ® ½ºÅ³ÀÌ ÀÖÀ¸¸é ¸»ÇÒ ¼ö ¾ø´Ù
 				bool bFoundMute = false;
 				S_SLOT::UI_EFFECTSTATUS_TYPE::iterator itr = g_char_slot_ingame.STATUS.begin();
@@ -4575,7 +4509,8 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 
 				// 2ÃÊµ¿¾È 5¹®Àå ¸»ÇÏ¸é ¸·±â
 
-				if(strstr(sz_chat_str, "*command") == NULL && m_dw_rep_tickcount.size()==5 && m_dw_rep_tickcount[0] + 2000 > GetTickCount() && strstr(g_char_slot_ingame.sz_name.c_str(), (*g_pGameStringTable)[UI_STRING_MESSAGE_MASTER_NAME].GetString()) == NULL)
+				if(strstr(sz_chat_str, "*command") == NULL && m_dw_rep_tickcount.size()==5 && m_dw_rep_tickcount[0] + 2000 > GetTickCount() && strstr(g_char_slot_ingame.sz_name.c_str(), (*g_pGameStringTable)[UI_STRING_MESSAGE_MASTER_NAME].GetString()) == NULL
+					&& strncmp(sz_chat_str, (*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetString(),(*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetLength()) != NULL)
 				{
 					Timer(true);
 					m_timer = TIMER_REP;
@@ -5012,7 +4947,7 @@ void C_VS_UI_CHATTING::Show()
 				line--;
 				continue;
 			}
-			int vx = CHAT_LINE_START_X;
+			int vx = CHAT_LINE_START_X + 22;  //modify by viva : hostory_line
 			
 			int bl_backup = 0;
 			if (p_line->GetMsgString())
@@ -5098,8 +5033,8 @@ void C_VS_UI_CHATTING::Show()
 							tabvalue=CLD_MASTER;
 						else
 							tabvalue=p_line->GetCondition();
-						
-						vx = g_PrintColorStr(CHAT_LINE_START_X, CHAT_HISTORY_START_Y-(FONT_GAP*line), p_line->GetIdString(), gpC_base->m_user_id_pi, m_color_tab[tabvalue]);
+						//modify by viva : +22 hostory_line
+						vx = g_PrintColorStr(CHAT_LINE_START_X + 22, CHAT_HISTORY_START_Y-(FONT_GAP*line), p_line->GetIdString(), gpC_base->m_user_id_pi, m_color_tab[tabvalue]);
 						vx = g_PrintColorStr(vx, CHAT_HISTORY_START_Y-(FONT_GAP*line), g_sz_chat_id_divisor[p_line->GetCondition()], gpC_base->m_chatting_pi, m_color_tab[tabvalue]);
 						vx += _ID_GAP;
 					}
@@ -5167,7 +5102,7 @@ void C_VS_UI_CHATTING::Show()
 				SetTextColor(hdc, m_color_tab[CLD_NORMAL]);
 				SetBkColor(hdc, gpC_base->m_chatting_pi.back_color);
 				
-				TextOut(hdc, CHAT_LINE_START_X +115, CHAT_LINE_START_Y, m_sz_whisper_backup.c_str(), min(len, len2));
+				TextOut(hdc, CHAT_LINE_START_X +105, CHAT_LINE_START_Y, m_sz_whisper_backup.c_str(), min(len, len2));
 				
 				gpC_fl2_surface->ReleaseDC(hdc);
 				
@@ -5184,28 +5119,7 @@ void C_VS_UI_CHATTING::Show()
 	
 	//*
 #ifndef _LIB
-	//	if (gpC_base->m_p_DDSurface_back->Lock())
-	//	{
-	//		S_SURFACEINFO	surfaceinfo;
-	//		SetSurfaceInfo(&surfaceinfo, gpC_base->m_p_DDSurface_back->GetDDSD());
-	
-	//		Rect rect;
-	
-	//rect.Set(CHAT_LINE_START_X, CHAT_LINE_START_Y, 100, 15);
-	//rectangle(&surfaceinfo, &rect, WHITE);
-	
-	// -- TEST
-	// show scroll button rect.
-	//
-	//rectangle(&surfaceinfo, SCROLL_UP_X, SCROLL_UP_Y, SCROLL_UP_X+SCROLL_W-1, SCROLL_UP_Y+SCROLL_H-1, 0xFFFF);
-	//rectangle(&surfaceinfo, SCROLL_DOWN_X, SCROLL_DOWN_Y, SCROLL_DOWN_X+SCROLL_W-1, SCROLL_DOWN_Y+SCROLL_H-1, 0xFFFF);
-	
-	//rectangle(&surfaceinfo, SCROLLTAG_X, SCROLLTAG_Y, SCROLLTAG_X+SCROLLTAG_W-1, SCROLLTAG_Y+SCROLLTAG_H-1, 0xFFFF);
-	
-	//rectangle(&surfaceinfo, SCROLLTRACK_X, SCROLLTRACK_Y, SCROLLTRACK_X+SCROLLTRACK_W-1, SCROLLTRACK_Y+SCROLLTRACK_H-1, 0xFFFF);
-	
-	//		gpC_base->m_p_DDSurface_back->Unlock();
-	//	}
+
 	extern bool gbl_info_show;
 	
 	if(gbl_info_show)
@@ -5901,7 +5815,7 @@ void C_VS_UI_CHATTING::WindowEventReceiver(id_t event)
 			case RESIZE_TOP:
 				y = max(0, y);
 				h += m_backup_window_point.y-y;
-				h = max(h_max, min(h, RESOLUTION_Y));
+				h = max(h_max, min(h, g_GameRect.bottom));
 				if(h != old_h)
 					m_backup_window_point.y += old_h-h;
 				y = m_backup_window_point.y;
@@ -5912,7 +5826,7 @@ void C_VS_UI_CHATTING::WindowEventReceiver(id_t event)
 				h += y - m_backup_window_point.y;
 				x = m_backup_window_point.x;
 				y = m_backup_window_point.y;
-				h = max(h_max, min(h, RESOLUTION_Y));
+				h = max(h_max, min(h, g_GameRect.bottom));
 				if(old_h != h)
 					SetOrigin(gpC_mouse_pointer->GetX()-x, gpC_mouse_pointer->GetY()-y);
 				break;
@@ -5920,7 +5834,7 @@ void C_VS_UI_CHATTING::WindowEventReceiver(id_t event)
 			case RESIZE_LEFT:
 				x = max(0, x);
 				w += m_backup_window_point.x - x;
-				w = max(w_max, min(w, RESOLUTION_X));
+				w = max(w_max, min(w, g_GameRect.right));
 				if(w != old_w)
 					m_backup_window_point.x += old_w-w;
 				y = m_backup_window_point.y;
@@ -5931,7 +5845,7 @@ void C_VS_UI_CHATTING::WindowEventReceiver(id_t event)
 				w += x - m_backup_window_point.x;
 				x = m_backup_window_point.x;
 				y = m_backup_window_point.y;
-				w = max(w_max, min(w, RESOLUTION_X));
+				w = max(w_max, min(w, g_GameRect.right));
 				if(old_w != w)
 					SetOrigin(gpC_mouse_pointer->GetX()-x, gpC_mouse_pointer->GetY()-y);
 				break;
@@ -5940,11 +5854,11 @@ void C_VS_UI_CHATTING::WindowEventReceiver(id_t event)
 				x = max(0, x);
 				y = max(0, y);
 				h += m_backup_window_point.y - y;
-				h = max(h_max, min(h, RESOLUTION_Y));
+				h = max(h_max, min(h, g_GameRect.bottom));
 				if(h != old_h)
 					m_backup_window_point.y += old_h-h;
 				w += m_backup_window_point.x - x;
-				w = max(w_max, min(w, RESOLUTION_X));
+				w = max(w_max, min(w, g_GameRect.right));
 				if(w != old_w)
 					m_backup_window_point.x += old_w-w;
 				y = m_backup_window_point.y;
@@ -5954,12 +5868,12 @@ void C_VS_UI_CHATTING::WindowEventReceiver(id_t event)
 			case RESIZE_RIGHTTOP:
 				w += x - m_backup_window_point.x;
 				x = m_backup_window_point.x;
-				w = max(w_max, min(w, RESOLUTION_X));
+				w = max(w_max, min(w, g_GameRect.right));
 				if(old_w != w)
 					SetOrigin(gpC_mouse_pointer->GetX()-x, gpC_mouse_pointer->GetY()-y);
 				y = max(0, y);
 				h += m_backup_window_point.y - y;
-				h = max(h_max, min(h, RESOLUTION_Y));
+				h = max(h_max, min(h, g_GameRect.bottom));
 				if(h != old_h)
 					m_backup_window_point.y += old_h-h;
 				y = m_backup_window_point.y;
@@ -5968,12 +5882,12 @@ void C_VS_UI_CHATTING::WindowEventReceiver(id_t event)
 			case RESIZE_LEFTBOTTOM:
 				h += y - m_backup_window_point.y;
 				y = m_backup_window_point.y;
-				h = max(h_max, min(h, RESOLUTION_Y));
+				h = max(h_max, min(h, g_GameRect.bottom));
 				if(old_h != h)
 					SetOrigin(gpC_mouse_pointer->GetX()-x, gpC_mouse_pointer->GetY()-y);
 				x = max(0, x);
 				w += m_backup_window_point.x - x;
-				w = max(w_max, min(w, RESOLUTION_X));
+				w = max(w_max, min(w, g_GameRect.right));
 				if(w != old_w)
 					m_backup_window_point.x += old_w-w;
 				x = m_backup_window_point.x;
@@ -5983,11 +5897,11 @@ void C_VS_UI_CHATTING::WindowEventReceiver(id_t event)
 				y = max(0, y);
 				x = max(0, x);
 				w += m_backup_window_point.x - x;
-				w = max(w_max, min(w, RESOLUTION_X));
+				w = max(w_max, min(w, g_GameRect.right));
 				if(w != old_w)
 					m_backup_window_point.x += old_w-w;
 				h += m_backup_window_point.y - y;
-				h = max(h_max, min(h, RESOLUTION_Y));
+				h = max(h_max, min(h, g_GameRect.bottom));
 				if(h != old_h)
 					m_backup_window_point.y += old_h-h;
 				y = m_backup_window_point.y;
@@ -5995,9 +5909,10 @@ void C_VS_UI_CHATTING::WindowEventReceiver(id_t event)
 				break;
 			}
 		}
-		CHAT_LINE_START_X = x+40;
+		
+		CHAT_LINE_START_X = x+40+8;//modify by viva : chat_line + 8
 		CHAT_LINE_START_Y = y+h-FONT_GAP-3;
-		CHAT_WINDOW_WIDTH = w-70;
+		CHAT_WINDOW_WIDTH = w-70-30;//modify by viva : hostory_width - 30
 		CHAT_INPUT_WIDTH = w-110;
 		CHAT_HISTORY_START_Y = y+h-FONT_GAP-4-20;
 
@@ -6287,40 +6202,43 @@ C_VS_UI_CHATTING::C_VS_UI_CHATTING()
 		pushpin_button_offset_x = 24; pushpin_button_offset_y = 6;
 		break;
 	}	
-	
-	m_pC_input_right_button_group->Add(new C_VS_UI_EVENT_BUTTON(alpha_button_offset_x, alpha_button_offset_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA), ALPHA_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA));
-	m_pC_input_right_button_group->Add(new C_VS_UI_EVENT_BUTTON(pushpin_button_offset_x, pushpin_button_offset_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), PUSHPIN_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN));
+	//modify by viva :2 button
+	m_pC_input_right_button_group->Add(new C_VS_UI_EVENT_BUTTON(alpha_button_offset_x-3, alpha_button_offset_y-2, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA), ALPHA_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA));
+	m_pC_input_right_button_group->Add(new C_VS_UI_EVENT_BUTTON(pushpin_button_offset_x-3, pushpin_button_offset_y-2, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), PUSHPIN_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN));
 	
 	// chat buttons
+	//modify by viva :  + 1 on per lines
 	int chat_button_offset_x = 7, chat_button_offset_y = 30, chat_button_gap = 12;
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(chat_button_offset_x, chat_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_UNION), m_pC_chatting_spk->GetHeight(BUTTON_UNION), CHAT_UNION_ID, this, BUTTON_UNION));
-	chat_button_offset_y += chat_button_gap;
+	chat_button_offset_y += chat_button_gap + 1;
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(chat_button_offset_x, chat_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_GUILD), m_pC_chatting_spk->GetHeight(BUTTON_GUILD), CHAT_GUILD_ID, this, BUTTON_GUILD));
-	chat_button_offset_y += chat_button_gap;
+	chat_button_offset_y += chat_button_gap + 1;
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(chat_button_offset_x, chat_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_PARTY), m_pC_chatting_spk->GetHeight(BUTTON_PARTY), CHAT_PARTY_ID, this, BUTTON_PARTY));
-	chat_button_offset_y += chat_button_gap;
+	chat_button_offset_y += chat_button_gap + 1;
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(chat_button_offset_x, chat_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_WHISPER), m_pC_chatting_spk->GetHeight(BUTTON_WHISPER), CHAT_WHISPER_ID, this, BUTTON_WHISPER));
-	chat_button_offset_y += chat_button_gap;
+	chat_button_offset_y += chat_button_gap + 1;
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(chat_button_offset_x, chat_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_ZONE), m_pC_chatting_spk->GetHeight(BUTTON_ZONE), CHAT_ZONE_ID, this, BUTTON_ZONE));
-	chat_button_offset_y += chat_button_gap;
+	chat_button_offset_y += chat_button_gap + 1;
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(chat_button_offset_x, chat_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_NORMAL), m_pC_chatting_spk->GetHeight(BUTTON_NORMAL), CHAT_NORMAL_ID, this, BUTTON_NORMAL));
 	
 	// filter buttons
-	chat_button_offset_x += 13; chat_button_offset_y = 31;
+	//modify by viva : filter buttons + 38 and + 1 on per lines
+	chat_button_offset_x += 38; chat_button_offset_y = 31;
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(chat_button_offset_x, chat_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_FILTER), m_pC_chatting_spk->GetHeight(BUTTON_FILTER), FILTER_UNION_ID, this, BUTTON_FILTER));
-	chat_button_offset_y += chat_button_gap;
+	chat_button_offset_y += chat_button_gap + 1;
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(chat_button_offset_x, chat_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_FILTER), m_pC_chatting_spk->GetHeight(BUTTON_FILTER), FILTER_GUILD_ID, this, BUTTON_FILTER));
-	chat_button_offset_y += chat_button_gap;
+	chat_button_offset_y += chat_button_gap + 1;
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(chat_button_offset_x, chat_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_FILTER), m_pC_chatting_spk->GetHeight(BUTTON_FILTER), FILTER_PARTY_ID, this, BUTTON_FILTER));
-	chat_button_offset_y += chat_button_gap;
+	chat_button_offset_y += chat_button_gap + 1;
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(chat_button_offset_x, chat_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_FILTER), m_pC_chatting_spk->GetHeight(BUTTON_FILTER), FILTER_WHISPER_ID, this, BUTTON_FILTER));
-	chat_button_offset_y += chat_button_gap;
+	chat_button_offset_y += chat_button_gap + 1;
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(chat_button_offset_x, chat_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_FILTER), m_pC_chatting_spk->GetHeight(BUTTON_FILTER), FILTER_ZONE_ID, this, BUTTON_FILTER));
-	chat_button_offset_y += chat_button_gap;
+	chat_button_offset_y += chat_button_gap + 1;
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(chat_button_offset_x, chat_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_FILTER), m_pC_chatting_spk->GetHeight(BUTTON_FILTER), FILTER_NORMAL_ID, this, BUTTON_FILTER));
 	
 	// input buttons
-	int input_button_offset_x = 4, input_button_offset_y = 7, input_button_gap = 15;
+	//modify  : 3 button
+	int input_button_offset_x = 5, input_button_offset_y = 4, input_button_gap = 15;
 	m_pC_input_button_group->Add(new C_VS_UI_EVENT_BUTTON(input_button_offset_x, input_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_MARK), m_pC_chatting_spk->GetHeight(BUTTON_MARK), MARK_ID, this, BUTTON_MARK));
 	input_button_offset_x += input_button_gap;
 	m_pC_input_button_group->Add(new C_VS_UI_EVENT_BUTTON(input_button_offset_x, input_button_offset_y, m_pC_chatting_spk->GetWidth(BUTTON_COLOR), m_pC_chatting_spk->GetHeight(BUTTON_COLOR), COLOR_ID, this, BUTTON_COLOR));
@@ -6337,7 +6255,7 @@ C_VS_UI_CHATTING::C_VS_UI_CHATTING()
 	//m_lev_chatting.SetInputCharCount(CHAT_INPUT_LIMIT);
 	m_lev_chatting.SetPrintInfo(gpC_base->m_chatting_pi);
 	m_lev_chatting.SetCursorColor(RGB_WHITE);//RGB(128, 128, 128));
-	m_lev_chatting.SetAbsWidth(563);
+	m_lev_chatting.SetAbsWidth(100);
 	m_lev_chatting.SetByteLimit(100);
 	
 	if(g_pUserOption->ChatWhite)
@@ -6468,9 +6386,14 @@ void	C_VS_UI_CHATTING::TribeChanged()
 	switch(g_eRaceInterface)
 	{
 	case RACE_SLAYER:
-		m_pC_chatting_spk = new C_SPRITE_PACK(SPK_CHATTING_SLAYER);
-		Set(0, RESOLUTION_Y - 119, 623, 119);
-		m_backup_rect.Set(0, RESOLUTION_Y - 119-100, 623, 119+100);				
+		// add by sonic 2006.9.26
+		if (g_MyFull)
+			m_pC_chatting_spk = new C_SPRITE_PACK(SPK_CHATTING_SLAYER_1024);
+		else
+			m_pC_chatting_spk = new C_SPRITE_PACK(SPK_CHATTING_SLAYER);
+		// End by Snic
+		Set(0, g_GameRect.bottom - 119, 623, 119);
+		m_backup_rect.Set(0, g_GameRect.bottom - 119-100, 623, 119+100);				
 		gpC_base->m_user_id_pi.text_color = SLAYER_FONT_COLOR;
 		gpC_base->m_chatting_pi.text_color = SLAYER_FONT_COLOR;
 		m_color_tab[CLD_NORMAL] = SLAYER_FONT_COLOR;
@@ -6489,9 +6412,14 @@ void	C_VS_UI_CHATTING::TribeChanged()
 		break;
 
 	case RACE_VAMPIRE:
-		m_pC_chatting_spk = new C_SPRITE_PACK(SPK_CHATTING_VAMPIRE);
-		Set(0, RESOLUTION_Y - 125, 624, 125);
-		m_backup_rect.Set(0, RESOLUTION_Y - 125-100, 624, 125+100);
+		// add by Sonic 2006.9.26
+		if(g_MyFull)
+			m_pC_chatting_spk = new C_SPRITE_PACK(SPK_CHATTING_VAMPIRE_1024);
+		else
+			m_pC_chatting_spk = new C_SPRITE_PACK(SPK_CHATTING_VAMPIRE);
+		//End
+		Set(0, g_GameRect.bottom - 125, 624, 125);
+		m_backup_rect.Set(0, g_GameRect.bottom - 125-100, 624, 125+100);
 		gpC_base->m_user_id_pi.text_color = VAMPIRE_FONT_COLOR;
 		gpC_base->m_chatting_pi.text_color = VAMPIRE_FONT_COLOR;
 		m_color_tab[CLD_NORMAL] = VAMPIRE_FONT_COLOR;
@@ -6510,9 +6438,12 @@ void	C_VS_UI_CHATTING::TribeChanged()
 		break;
 		
 	case RACE_OUSTERS:
-		m_pC_chatting_spk = new C_SPRITE_PACK(SPK_CHATTING_OUSTERS);
-		Set(0, RESOLUTION_Y - 125, 624, 125);
-		m_backup_rect.Set(0, RESOLUTION_Y - 125-100, 624, 125+100);
+		if (g_MyFull)
+			m_pC_chatting_spk = new C_SPRITE_PACK(SPK_CHATTING_OUSTERS_1024);
+		else
+			m_pC_chatting_spk = new C_SPRITE_PACK(SPK_CHATTING_OUSTERS);
+		Set(0, g_GameRect.bottom - 125, 624, 125);
+		m_backup_rect.Set(0, g_GameRect.bottom - 125-100, 624, 125+100);
 		gpC_base->m_user_id_pi.text_color = VAMPIRE_FONT_COLOR;
 		gpC_base->m_chatting_pi.text_color = VAMPIRE_FONT_COLOR;
 		m_color_tab[CLD_NORMAL] = VAMPIRE_FONT_COLOR;
@@ -6682,7 +6613,7 @@ void C_VS_UI_CHATTING::ChangeWhisperFocus()
 	else
 	{
 		//		if(m_sz_whisper_backup == "")m_sz_whisper_backup = GetWhisperID();
-		m_lev_chatting.SetPosition(CHAT_LINE_START_X +115, CHAT_LINE_START_Y);
+		m_lev_chatting.SetPosition(CHAT_LINE_START_X +105, CHAT_LINE_START_Y);  //modify by viva : whisper mode
 		m_lev_chatting.SetByteLimit(100);
 		m_lev_chatting.HomeCursor();
 		m_lev_chatting.EndCursor();
@@ -6797,7 +6728,7 @@ DWORD	C_VS_UI_INVENTORY::m_dw_millisec;
 //-----------------------------------------------------------------------------
 // C_VS_UI_INVENTORY::C_VS_UI_INVENTORY
 //
-// 
+// Ref by viva for friend system
 //-----------------------------------------------------------------------------
 C_VS_UI_INVENTORY::C_VS_UI_INVENTORY()
 {
@@ -6933,23 +6864,12 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 
 	if(gC_vs_ui.IsRunningStorage() && g_pStorage)
 	{
-		// ¼­ºê ÀÎº¥Åä¸® ¾ÆÀÌÅÛ¾È¿¡ ¾ÆÀÌÅÛÀÌ ÀÖÀ¸¸é º¸°üÇÔ¿¡ ³ÖÀ» ¼ö ¾ø´Ù.  GetEnchantLevel : ¾È¿¡ µé¾î ÀÖ´Â ¾ÆÀÌÅÛ °¹¼ö.
-		if(p_item->GetItemClass() == ITEM_CLASS_SUB_INVENTORY && p_item->GetEnchantLevel()>0) 
-		{
-			gpC_base->SendMessage(UI_MESSAGE_BOX, 
-					STRING_MESSAGE_CANNOT_STORAGE, 
-					0, 
-					NULL);
-			return ;
-		}
 		int current_storage = g_pStorage->GetCurrent();
 		const int storage_size = g_pStorage->GetSize();
 		const int storage_max = STORAGE_SLOT;
 		
 		int i, j;
 		
-		if(current_storage >= storage_size)
-			current_storage = 0;
 		for(j = 0; j < storage_size; j++)
 		{
 			//	g_pStorage->SetCurrent(j);
@@ -7260,6 +7180,7 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 			return;
 		}
 	}
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
 	// sub inventory ·Î ÀÌµ¿ 
 	else if( //p_item->GetItemClass() != ITEM_CLASS_PET_ITEM && // ¿ä°Ç ´ã¿¡ »èÁ¦
 		!gC_vs_ui.IsRunningExchange() &&
@@ -7333,8 +7254,7 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 			
 		}
 	}
-	
-	
+	#endif
 }
 //-----------------------------------------------------------------------------
 // C_VS_UI_INVENTORY::WindowEventReceiver
@@ -7354,7 +7274,7 @@ void C_VS_UI_INVENTORY::WindowEventReceiver(id_t event)
 //-----------------------------------------------------------------------------
 // C_VS_UI_INVENTORY::Start
 //
-// 
+//
 //-----------------------------------------------------------------------------
 void C_VS_UI_INVENTORY::Start(bool bl_set_load)
 {
@@ -7391,39 +7311,6 @@ void C_VS_UI_INVENTORY::Start(bool bl_set_load)
 	ResetRect();
 	m_focus_grid_x = NOT_SELECTED;
 	m_focus_grid_y = NOT_SELECTED;
-
-	
-//	if(g_pStorage2 != NULL)
-//	{
-//		g_pStorage2->SetCurrent(0);
-//		g_pInventory->SetBegin();
-//		while (g_pInventory->IsNotEnd())
-//		{
-//			MItem * p_item = g_pInventory->Get();
-//			MItem * p_newitem = g_pInventory->Get();
-//			assert(p_item);
-//			if(p_item)
-//			{
-//				for(int i = 0; i < 20 ; i++)
-//				{
-//					const MItem *persnal_item = g_pStorage2->GetItem(i);
-//					if(persnal_item != NULL)
-//					{
-//						if(persnal_item->GetID() == p_item->GetID())
-//						{
-//							if(persnal_item->GetNumber() == p_item->GetNumber())
-//							{
-//								p_newitem->SetPersnal(true);
-//								g_pInventory->ReplaceItem(p_newitem,p_item->GetGridX(),p_item->GetGridY(),p_item);
-//							}
-//						}
-//					}
-//				}
-//			}
-//
-//			g_pInventory->Next();
-//		}
-//	}
 }
 
 void	C_VS_UI_INVENTORY::SetDebugStart()
@@ -8280,7 +8167,7 @@ void C_VS_UI_INVENTORY::Show()
 		assert(p_item);
 		
 		
-		if(p_item->IsPileItem() || (p_item->IsChargeItem() && p_item->GetItemClass() != ITEM_CLASS_VAMPIRE_PORTAL_ITEM))
+		if(p_item->IsPileItem() || p_item->IsChargeItem())
 		{
 			RECT rt;
 			
@@ -8317,11 +8204,8 @@ void C_VS_UI_INVENTORY::Show()
 	for(int i = 0; i < len; i++)
 	{
 		
-		
-	
 		wsprintf(sz_temp, "%d", num[i]);
 		g_PrintColorStr(rect[i].left, rect[i].top, sz_temp, gpC_base->m_item_desc_pi, markColor);	
-		
 		
 	}
 	WriteLogLine(__LINE__);
@@ -8531,8 +8415,8 @@ bool C_VS_UI_INVENTORY::MouseControl(UINT message, int _x, int _y)
 				return false;
 
 			// by csm °³ÀÎ»óÁ¡¿¡ ÀÖ´Â ¹°°ÇÀ» ÁýÀ» ¼ö ¾ø´Ù. 
-//			g_pInventory->SetBegin();
-//			while (g_pInventory->IsNotEnd())
+			g_pInventory->SetBegin();
+			while (g_pInventory->IsNotEnd())
 			{
 				MItem * p_item = g_pInventory->GetItem(m_focus_grid_x, m_focus_grid_y);
 				if(p_item)
@@ -8544,7 +8428,7 @@ bool C_VS_UI_INVENTORY::MouseControl(UINT message, int _x, int _y)
 					}
 					
 				}
-//				g_pInventory->Next();
+				g_pInventory->Next();
 			}
 
 
@@ -8603,11 +8487,8 @@ bool C_VS_UI_INVENTORY::MouseControl(UINT message, int _x, int _y)
 				MItem * p_item = g_pInventory->GetItem(m_focus_grid_x, m_focus_grid_y);
 				if (p_item != NULL)
 				{
-					if( (p_item->GetItemClass() == ITEM_CLASS_EVENT_STAR &&	!g_pSystemAvailableManager->IsAvailableEnchantSystem())
-						|| (p_item->GetItemClass() == ITEM_CLASS_SLAYER_PORTAL_ITEM)
-						// sjheon 2005.05.02 º½³ªµéÀÌ ¾ÆÀÌÅÛÀº °³ÀÎ»óÁ¡ , ÀÌ¿ëÀ» ÇÒ¼ö ¾ø´Ù. Add
-						|| ( p_item->GetItemClass() == ITEM_CLASS_EVENT_ITEM && (p_item->GetItemType() >= 32 && p_item->GetItemType() <= 36)))		// Ç³¼± ¸Ó¸®¶ì 
-						// sjheon 2005.05.02 º½³ªµéÀÌ ¾ÆÀÌÅÛÀº °³ÀÎ»óÁ¡ , ÀÌ¿ëÀ» ÇÒ¼ö ¾ø´Ù. end 
+					if( p_item->GetItemClass() == ITEM_CLASS_EVENT_STAR &&
+						!g_pSystemAvailableManager->IsAvailableEnchantSystem() )
 						break;
 					
 					m_pC_dialog_drop_money = new C_VS_UI_MONEY_DIALOG(x+m_money_button_offset_x, y+m_money_button_offset_y+gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_MONEY), 2, 0, 
@@ -8621,6 +8502,7 @@ bool C_VS_UI_INVENTORY::MouseControl(UINT message, int _x, int _y)
 		}
 		else
 		{
+			
 			if (gbl_sell_running == true)
 			{
 				int mx=x,my=y;
@@ -8668,27 +8550,6 @@ void C_VS_UI_INVENTORY::ResetRect()
 	m_grid_rect.Set(m_grid_start_offset_x, 
 								m_grid_start_offset_y, 
 								GRID_UNIT_PIXEL_X*GRID_X, GRID_UNIT_PIXEL_Y*GRID_Y);
-	
-								/*	m_money_button_rect.Set(x+m_money_button_offset_x, y+m_money_button_offset_y,
-								m_pC_etc_button_spk->GetWidth(MONEY_BUTTON_PUSHED),
-								m_pC_etc_button_spk->GetHeight(MONEY_BUTTON_PUSHED));
-								
-								  m_desc_button_rect.Set(x+m_desc_button_offset_x, y+m_desc_button_offset_y,
-								  m_pC_etc_button_spk->GetWidth(DESC_BUTTON_PUSHED),
-								  m_pC_etc_button_spk->GetHeight(DESC_BUTTON_PUSHED));
-								  
-									m_bike_button_rect.Set(x+m_bike_button_offset_x, y+m_bike_button_offset_y,
-									m_pC_etc_button_spk->GetWidth(BIKE_BUTTON_PUSHED),
-									m_pC_etc_button_spk->GetHeight(BIKE_BUTTON_PUSHED));
-									
-									  m_close_button_rect.Set(x+m_close_button_offset_x, y+m_close_button_offset_y,
-									  gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE),
-									  gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE));
-									  
-										m_help_button_rect.Set(x+m_help_button_offset_x, y+m_help_button_offset_y,
-										gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_HELP),
-										gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_HELP));
-	*/
 }
 
 //-----------------------------------------------------------------------------
@@ -8721,11 +8582,17 @@ void C_VS_UI_INVENTORY::Use()
 				{
 					TYPE_ITEMTYPE itemType = pPetInfo->ITEM_TYPE;
 					TYPE_ITEMTYPE foodType = p_item->GetItemType();
-
+					// add by svi 2009-6-3
+					if( ( foodType >=0 && foodType <= 5 && (itemType == 1 || itemType == 2 || itemType ==6 || itemType ==7 || itemType ==8) ) ||
+						(foodType >= 6 && foodType <= 9 && itemType == 3) ||
+						(foodType >= 10 && foodType <= 13 && itemType == 4)||
+						(foodType >= 14 && foodType <= 17 && itemType == 5))
+					/*
 					if( ( foodType >=0 && foodType <= 5 && (itemType == 1 || itemType == 2) ) ||
 						(foodType >= 6 && foodType <= 9 && itemType == 3) ||
 						(foodType >= 10 && foodType <= 13 && itemType == 4)||
 						(foodType >= 14 && foodType <= 17 && itemType == 5))
+						*/
 					{
 						gC_vs_ui.RunUsePetFood();
 					}
@@ -8792,7 +8659,7 @@ void C_VS_UI_INVENTORY::Use()
 				)
 			{
 							
-				gpC_base->SendMessage(UI_ITEM_USE, p_item->GetID(), 0, (MItem *)p_item); 
+				gpC_base->SendMessage(UI_ITEM_USE, p_item->GetID(), 0, (MItem *)p_item);
 			}
 		}
 	}
@@ -8946,65 +8813,12 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 
 			if(pMouseItem->GetItemType() == 20 && p_cur_item->GetItemType() == 1)// 20Àº µ¹¿¬º¯ÀÌ ¾ÆÀÌÅÛ
 				bCanUpgrade = 4;
-			
-
-			if(pMouseItem->GetItemType() == 21 && p_cur_item->GetItemType() != 2 && pMouseItem->GetNumber() > 1) 
-			{
-				gpC_base->SendMessage(UI_ITEM_DROP_TO_INVENTORY, 
-					m_focus_grid_x, m_focus_grid_y,
-					(void *)pMouseItem);
-				return false; 
-			}
-
-			if(pMouseItem->GetItemType() == 21 && p_cur_item->GetItemType() == 2)
-			{
-				C_VS_UI_POPUP_MESSAGE::PopupWindowStyle style;
-				style.Style = C_VS_UI_POPUP_MESSAGE::STYLE_OK_BUTTON ; 
-				style.WindowX = 500;
-				style.WindowY = 200;
-				style.Type = C_VS_UI_POPUP_MESSAGE::POPUP_NORMAL;
-				style.str = (*g_pGameStringTable)[UI_STRING_MESSAGE_NOTUSE_ITEM].GetString();
-				gC_vs_ui.RunPopupMessage( style );
-				return false ; 
-			}	
-			
-			if(pMouseItem->GetItemType() == 21 && pMouseItem->GetNumber() < 10 ) 
-			{
-				bCanUpgrade = 5;
-			}
-			
-			if(pMouseItem->GetItemType() == 22 && pMouseItem->GetNumber() < 10) // && p_cur_item->GetSilver() > 0) 
-			{
-				if(p_cur_item->GetSilver() > 0)
-					bCanUpgrade = 6;
-				else if(p_cur_item->GetSilver() == 0)
-				{
-					C_VS_UI_POPUP_MESSAGE::PopupWindowStyle style;
-					style.Style = C_VS_UI_POPUP_MESSAGE::STYLE_OK_BUTTON ; 
-					style.WindowX = 400;
-					style.WindowY = 200;
-					style.Type = C_VS_UI_POPUP_MESSAGE::POPUP_NORMAL;
-					style.str = (*g_pGameStringTable)[UI_STRING_MESSAGE_NOT_PET_ATTRIBUTE_CLEANER_POTION].GetString();
-					gC_vs_ui.RunPopupMessage( style );
-					return false ; 
-				}
-			}
-
-			if(pMouseItem->GetItemType() == 23   && pMouseItem->GetNumber() < 10) 
-			{
-				bCanUpgrade = 7 ;
-			}
-			
-			if(pMouseItem->GetItemType() == 24  && pMouseItem->GetNumber() < 10) 
-			{
-				bCanUpgrade = 8 ;
-			}
 
 			if(bCanUpgrade != 0)
 			{
 				m_mine_grid_x = m_focus_grid_x;
 				m_mine_grid_y = m_focus_grid_y;
-				
+
 				gC_vs_ui.RunEnchant(bCanUpgrade);
 			}
 
@@ -9021,10 +8835,8 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 			)//p_cur_item->GetItemOptionListCount() <= 1)		// ·¹¾î ¾ÆÀÌÅÛÀÏ°æ¿ì
 		{	
 
-			//p_item->IsUniqueItem()
-
 			bool bCanUpgrade = false;
-			bool ResultNoFail = false;
+			
 			// ¼ÛÆíÀÏ¶§
 			if(pMouseItem->GetItemType() == 16)
 			{
@@ -9040,72 +8852,49 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 				else
 					bCanUpgrade = false;
 			} else
-			// 2005, 2, 21, sobeit add start 
-			if(pMouseItem->GetItemType() == 22)			// ¿»·Î¿ì µå·Ó // ±Þ¼ö¸¦ ¿Ã¸°´Ù.
+			// add by svi 2009-07-01   ÈÃ»ÆÉ«Ë®µÎ¿ÉÒÔÉý¼¶1ÊôÐÔºÍ2ÊôÐÔ×°±¸
+			if(pMouseItem->GetItemType() == 22)			// »ÆÉ«Ë®µÎ
 			{
-				if(p_cur_item->GetGrade() > 0 &&  p_cur_item->GetGrade() <= 5) // 1±Þ ~ 5±Þ ±îÁö¸¸ »ç¿ë °¡´É
-				{
-					if(p_cur_item->GetItemClass() == ITEM_CLASS_CORE_ZAP)
-					{
-						gpC_base->SendMessage(UI_MESSAGE_BOX, 
-						STRING_MESSAGE_ITEM_TO_ITEM_IMPOSIBLE, 
-						0, 
-						NULL);
-					}
-					// ¿É¼ÇÀÌ 2°³ ÀÌ»óÀÌ¸é ½ÇÆÐ
-					else if(p_cur_item->GetItemOptionListCount()>1)
-					{
-						gpC_base->SendMessage(UI_MESSAGE_BOX, 
-						UI_STRING_MESSAGE_CANNOT_USE_OVER_TWO_OPTION, 
-						0, 
-						NULL);
-					}// ½ÂÁ÷ ¾ÆÀÌÅÛÀº »ç¿ë ºÒ°¡
-					else if( (*g_pItemTable)[p_cur_item->GetItemClass()][p_cur_item->GetItemType()].GetRequireAdvancementLevel() > 0 )
-					{
-						gpC_base->SendMessage(UI_MESSAGE_BOX, 
-						UI_STRING_MESSAGE_CANNOT_USE_ADVANCEMENT_ITEM, 
-						0, 
-						NULL);
-					}
-					else
-					{
-						bCanUpgrade = true;
-						ResultNoFail = true;
-					}
-				}
-				else
-					gpC_base->SendMessage(UI_MESSAGE_BOX, 
-						UI_STRING_MESSAGE_CANNOT_USE_HIGH_GRADE, 
-						0, 
-						NULL);
-			} 
-			else if(pMouseItem->GetItemType() == 23)
-			{
-				bCanUpgrade = true;
-			}
-			else if(pMouseItem->GetItemType() == 24)
-			{
-				bCanUpgrade = true;
-			}
-			else if(pMouseItem->GetItemType() == 25)
-			{
-				bCanUpgrade = true;
-			}
-			else if((pMouseItem->GetItemType() >= 26) && (pMouseItem->GetItemType() <= 31))
-			{
-				if(!p_cur_item->GetItemOptionListCount())
+				if(p_cur_item->GetItemOptionListCount() == 1 || p_cur_item->GetItemOptionListCount() == 2)
 					bCanUpgrade = true;
-			}
+				else
+					bCanUpgrade = false;
+			} else
+			// add by svi 2009-07-15 ÊôÐÔÏû³ý±¦Ê¯
+			if(pMouseItem->GetItemType() == 24 )			// ÔÂ¹âÊ¯
+			{
+				if(p_cur_item->GetItemOptionListCount() >= 1 && p_cur_item->GetItemOptionListCount() <= 3)
+					bCanUpgrade = true;
+				else
+					bCanUpgrade = false;
+			}else
+			if(pMouseItem->GetItemType() == 25 )			// ×ÏÑ»Ê¯
+			{
+				if(p_cur_item->GetItemOptionListCount() == 2 || p_cur_item->GetItemOptionListCount() == 3)
+					bCanUpgrade = true;
+				else
+					bCanUpgrade = false;
+			}else
+			if(pMouseItem->GetItemType() == 26 )			// ÁâÐ¿Ê¯
+			{
+				if(p_cur_item->GetItemOptionListCount() == 3)
+					bCanUpgrade = true;
+				else
+					bCanUpgrade = false;
+			}else
+			// end
 
-			else
-			// 2005, 2, 21, sobeit add end
+			if( pMouseItem->GetItemType() == 23) // Ô¶¹ÅË®µÎ
+			{
+				// modified by svi 2009-06-25 :  "> 0" -> ">= 0"  
+				if(p_cur_item->GetGrade() >= 0 &&  p_cur_item->GetGrade() <= 10)
+					bCanUpgrade = true;
+			}else 
+			// end
 			if(pMouseItem->GetItemType() > 7 && pMouseItem->GetItemType() != 15)
 			{
 				if(p_cur_item->GetItemOptionListCount() == 0)
-				{
 					bCanUpgrade = true;
-					ResultNoFail = true;
-				}
 			}
 			else	// ¼ÛÆíÀÌ ¾Æ´Ñ ÀÏ¹Ý º°ÀÏ¶§
 			{
@@ -9130,24 +8919,14 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 				// gpC_base->SendMessage(UI_ITEM_TO_ITEM, m_focus_grid_x, m_focus_grid_y, (void *)p_cur_item);
 				if( pMouseItem->GetItemType() == 16 )
 					gC_vs_ui.RunTransItem();
-				else if( pMouseItem->GetItemType() >= 23  && pMouseItem->GetItemType() <= 25) 
-						gC_vs_ui.RunEnchant(7);
-
-				else if( pMouseItem->GetItemType() >= 26  && pMouseItem->GetItemType() <= 31) 
-						gC_vs_ui.RunEnchant(9);
 				else
-				{
-					if(!ResultNoFail)
-						gC_vs_ui.RunEnchant(0);
-					else
-						gC_vs_ui.RunEnchant(1);
-				}
+					gC_vs_ui.RunEnchant(0);
 			}
 		}
 		else
 		if(pMouseItem->GetItemClass() == ITEM_CLASS_MIXING_ITEM &&
-			(pMouseItem->GetItemType() >= 9 && pMouseItem->GetItemType() <= 18 || pMouseItem->GetItemType() >= 22 && pMouseItem->GetItemType() <= 25)
-			&&pMouseItem->GetNumber() == 1 &&
+			pMouseItem->GetItemType() >= 9 && pMouseItem->GetItemType() <= 17 &&
+			pMouseItem->GetNumber() == 1 &&
 			p_cur_item != NULL)
 		{
 			if( p_cur_item->GetItemClass() == pMouseItem->GetItemClass() &&
@@ -9299,11 +9078,10 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 				else
 				{
 					//#endif
-					
-					// ¼­ºê ÀÎº¥ÀÌ ¿­·ÈÀ»¶§ ÀÎº¥Åä¸® ¾ÆÀÌÅÛÀ» °Çµå¸®¸é ¼­ºê ÀÎº¥ÀÌ ´ÝÈ÷°Ô..
+				#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
 					if(gC_vs_ui.IsRunningSubInventory() && p_item->GetItemClass() == ITEM_CLASS_SUB_INVENTORY )
 						gpC_base->SendMessage(UI_CLOSE_INVENTORY_SUB);
-
+				#endif
 					g_pInventory->RemoveItem(m_focus_grid_x, m_focus_grid_y);
 					
 #ifdef _LIB
@@ -9384,7 +9162,7 @@ C_VS_UI_SKILL::C_VS_UI_SKILL()
 		m_etc_spk.Open(SPK_SLAYER_SKILL_ETC);
 		m_skill_guard_x = 42;
 		m_skill_guard_y = 42;
-		m_skill_start_x = RESOLUTION_X-m_skill_guard_x-10;
+		m_skill_start_x = g_GameRect.right-m_skill_guard_x-10;
 		m_skill_start_y = 455+14;
 		m_skill_guard_extra_offset = 3;
 		m_extra_icon_offset_x = 1;
@@ -9397,7 +9175,7 @@ C_VS_UI_SKILL::C_VS_UI_SKILL()
 		m_etc_spk.Open(SPK_VAMPIRE_SKILL_ETC);
 		m_skill_guard_x = 42;
 		m_skill_guard_y = 42;
-		m_skill_start_x = RESOLUTION_X-m_skill_guard_x-10;
+		m_skill_start_x = g_GameRect.right-m_skill_guard_x-10;
 		m_skill_start_y = 455+14;
 		m_skill_guard_extra_offset = 3;
 		m_extra_icon_offset_x = 1;
@@ -9410,7 +9188,7 @@ C_VS_UI_SKILL::C_VS_UI_SKILL()
 		m_etc_spk.Open(SPK_OUSTERS_SKILL_ETC);
 		m_skill_guard_x = 42;
 		m_skill_guard_y = 42;
-		m_skill_start_x = RESOLUTION_X-m_skill_guard_x-10;
+		m_skill_start_x = g_GameRect.right-m_skill_guard_x-10;
 		m_skill_start_y = 455+14;
 		m_skill_guard_extra_offset = 3;
 		m_extra_icon_offset_x = 1;
@@ -9434,7 +9212,6 @@ C_VS_UI_SKILL::C_VS_UI_SKILL()
 //			_Error(FILE_OPEN);
 //		
 		m_C_spk_mini.LoadFromFileRunning(SPK_SKILL_MINI);
-		m_C_spk_comboCnt.LoadFromFileRunning(SPK_COMBO_CNT);
 // 		file2.close();
 	}
 	
@@ -9457,8 +9234,6 @@ C_VS_UI_SKILL::C_VS_UI_SKILL()
 	// TIMER
 	m_dw_prev_tickcount = GetTickCount();
 	m_dw_millisec = 2000;
-	m_comboCnt = 1 ; 
-	m_selected_comboAttackskill = 0 ; 
 	
 	
 #ifndef _LIB
@@ -9502,7 +9277,6 @@ C_VS_UI_SKILL::~C_VS_UI_SKILL()
 	gpC_vs_ui_window_manager->SetHotKey((int **)m_skill_hotkey_buf);
 	m_C_spk.Release();
 	m_C_spk_mini.Release();
-	m_C_spk_comboCnt.Release();
 	
 	g_UnregisterWindow(this);
 }
@@ -10185,8 +9959,7 @@ void C_VS_UI_SKILL::Show2()
 					gpC_base->m_p_DDSurface_back->BltSpriteColor(&point, p_sprite, rgb_RED);
 				else
 				{
-					gpC_base->m_p_DDSurface_back->BltSprite(&point, p_sprite); 
-					
+					gpC_base->m_p_DDSurface_back->BltSprite(&point, p_sprite);
 					int percent = max(0,min(100,GetDelay(m_selected_skillid) ) );
 					if(percent)
 					{
@@ -10211,17 +9984,6 @@ void C_VS_UI_SKILL::Show2()
 					}
 				}
 				
-				if(m_selected_comboAttackskill)
-				{	
-					POINT	  point_num;
-					CSprite * p_Combosprite;
-					p_Combosprite = &m_C_spk_comboCnt[m_comboCnt -1 ];
-					point_num.x = p_sprite->GetWidth() - p_Combosprite->GetWidth() ; 
-					point_num.y = point.y ; 
-					point_num.x += point.x ; 
-						 					
-					gpC_base->m_p_DDSurface_back->BltSprite(&point_num, p_Combosprite); 
-				}
 				gpC_base->m_p_DDSurface_back->Unlock();
 			}
 		}
@@ -10622,16 +10384,6 @@ void	C_VS_UI_SKILL::ResetHotkey()
 			}			
 		}
 	}
-}
-
-void	C_VS_UI_SKILL::SetComboCnt(int ComboCnt)
-{
-	m_comboCnt =  ComboCnt  ; 
-}
-
-void	C_VS_UI_SKILL::SetSelectedAttackComboSkill(bool	bAttackSkill)
-{
-	m_selected_comboAttackskill = bAttackSkill ; 
 }
 
 //-----------------------------------------------------------------------------
@@ -11234,7 +10986,7 @@ C_VS_UI_PARTY_MANAGER::C_VS_UI_PARTY_MANAGER()
 	m_p_face_spk = NULL;
 	m_p_large_face_spk = NULL;
 	
-	Set(RESOLUTION_X-m_p_image_spk->GetWidth(PARTY_WINDOW), 130, m_p_image_spk->GetWidth(PARTY_WINDOW), m_p_image_spk->GetHeight(PARTY_WINDOW));
+	Set(g_GameRect.right-m_p_image_spk->GetWidth(PARTY_WINDOW), 130, m_p_image_spk->GetWidth(PARTY_WINDOW), m_p_image_spk->GetHeight(PARTY_WINDOW));
 	
 	m_pC_bottom_button_group->Add(new C_VS_UI_EVENT_BUTTON(deny_button_x, button_y, m_p_image_spk->GetWidth(DENY_BUTTON), m_p_image_spk->GetHeight(DENY_BUTTON), DENY_ID, this, DENY_BUTTON));
 	m_pC_bottom_button_group->Add(new C_VS_UI_EVENT_BUTTON(help_button_x, button_y, m_p_image_spk->GetWidth(HELP_BUTTON), m_p_image_spk->GetHeight(HELP_BUTTON), HELP_ID, this, HELP_BUTTON));
@@ -12181,7 +11933,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 		m_rt_tab.w = gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::TAB_CHAR);
 		m_rt_tab.h = gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::TAB_CHAR);
 		SetRect(&m_rcSkillDesciption, 35, 127+4, 289, 279+4);
-		Set(RESOLUTION_X/2 - 321/2, RESOLUTION_Y/2 - 330/2, 321, 330);
+		Set(g_GameRect.right/2 - 321/2, g_GameRect.bottom/2 - 330/2, 321, 330);
 		break;
 
 	case RACE_VAMPIRE:
@@ -12192,7 +11944,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 		m_rt_tab.w = gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::TAB_CHAR);
 		m_rt_tab.h = gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::TAB_CHAR);
 		SetRect(&m_rcSkillDesciption, 43, 82+4, 297, 234+4);
-		Set(RESOLUTION_X/2 - 336/2, RESOLUTION_Y/2 - 335/2, 336, 335);
+		Set(g_GameRect.right/2 - 336/2, g_GameRect.bottom/2 - 335/2, 336, 335);
 		break;
 
 	case RACE_OUSTERS:
@@ -12203,7 +11955,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 		m_rt_tab.w = gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::TAB_CHAR);
 		m_rt_tab.h = gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::TAB_CHAR);
 		SetRect(&m_rcSkillDesciption, 26, 74, 263, 206+4);
-		Set(RESOLUTION_X/2 - 336/2, RESOLUTION_Y/2 - 335/2, 336, 335);
+		Set(g_GameRect.right/2 - 336/2, g_GameRect.bottom/2 - 335/2, 336, 335);
 		break;
 	}	
 	
@@ -17178,84 +16930,78 @@ void	C_VS_UI_INFO::_Show1()
 
 const char * C_VS_UI_INFO::GetChinhoLevel(int level)
 {
- 
-	int LevelGrade = (level-1)/10;
-	int LevelUnits = (level-1)%10;
+	const static char* chingho_name[11] = 
+	{
+			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_0].GetString(), 
+			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_1].GetString(), 
+			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_2].GetString(),
+			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_3].GetString(), 
+			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_4].GetString(),  
+			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_5].GetString(),  
+			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_6].GetString(),  
+			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_7].GetString(),  
+			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_8].GetString(),  
+			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_9].GetString(),  
+			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_10].GetString(), 
+	};
+	
+	int cur_ching_num = 0;
+	int last_num = 0;
 
-	static char sz_buf [32];
-	sprintf(sz_buf, (*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_0+LevelGrade].GetString(), LevelUnits+1);
+	if(level >= 1 && level <11)
+		cur_ching_num = 0;
+	else if(level >= 11 && level <21)
+		cur_ching_num = 1;
+	else if(level >= 21 && level <31)
+		cur_ching_num = 2;
+	else if(level >= 31 && level <41)
+		cur_ching_num = 3;
+	else if(level >= 41 && level <51)
+		cur_ching_num = 4;
+	else if(level >= 51 && level <61)
+		cur_ching_num = 5;
+	else if(level >= 61 && level <71)
+		cur_ching_num = 6;
+	else if(level >= 71 && level <81)
+		cur_ching_num = 7;
+	else if(level >= 81 && level <91)
+		cur_ching_num = 8;
+	else if(level >= 91 && level <101)
+		cur_ching_num = 9;
+	else if(level >= 101 && level <111)
+		cur_ching_num = 10;
 
-	return sz_buf;
-//	const static char* chingho_name[11] = 
-//	{
-//			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_0].GetString(), 
-//			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_1].GetString(), 
-//			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_2].GetString(),
-//			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_3].GetString(), 
-//			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_4].GetString(),  
-//			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_5].GetString(),  
-//			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_6].GetString(),  
-//			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_7].GetString(),  
-//			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_8].GetString(),  
-//			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_9].GetString(),  
-//			(*g_pGameStringTable)[UI_STRING_MESSAGE_ADVANTE_10].GetString(), 
-//	};
-//	
-//	int cur_ching_num = 0;
-//	int last_num = 0;
-//
-//	if(level >= 1 && level <11)
+
+//	if(level >= 151 && level <161)
 //		cur_ching_num = 0;
-//	else if(level >= 11 && level <21)
+//	else if(level >= 161 && level <171)
 //		cur_ching_num = 1;
-//	else if(level >= 21 && level <31)
+//	else if(level >= 171 && level <181)
 //		cur_ching_num = 2;
-//	else if(level >= 31 && level <41)
+//	else if(level >= 181 && level <191)
 //		cur_ching_num = 3;
-//	else if(level >= 41 && level <51)
+//	else if(level >= 191 && level <201)
 //		cur_ching_num = 4;
-//	else if(level >= 51 && level <61)
+//	else if(level >= 201 && level <211)
 //		cur_ching_num = 5;
-//	else if(level >= 61 && level <71)
+//	else if(level >= 211 && level <221)
 //		cur_ching_num = 6;
-//	else if(level >= 71 && level <81)
+//	else if(level >= 221 && level <231)
 //		cur_ching_num = 7;
-//	else if(level >= 81 && level <91)
+//	else if(level >= 231 && level <241)
 //		cur_ching_num = 8;
-//	else if(level >= 91 && level <101)
+//	else if(level >= 241 && level <251)
 //		cur_ching_num = 9;
-//	else if(level >= 101 && level <111)
+//	else if(level >= 251 && level <261)
 //		cur_ching_num = 10;
-//
-//
-////	if(level >= 151 && level <161)
-////		cur_ching_num = 0;
-////	else if(level >= 161 && level <171)
-////		cur_ching_num = 1;
-////	else if(level >= 171 && level <181)
-////		cur_ching_num = 2;
-////	else if(level >= 181 && level <191)
-////		cur_ching_num = 3;
-////	else if(level >= 191 && level <201)
-////		cur_ching_num = 4;
-////	else if(level >= 201 && level <211)
-////		cur_ching_num = 5;
-////	else if(level >= 211 && level <221)
-////		cur_ching_num = 6;
-////	else if(level >= 221 && level <231)
-////		cur_ching_num = 7;
-////	else if(level >= 231 && level <241)
-////		cur_ching_num = 8;
-////	else if(level >= 241 && level <251)
-////		cur_ching_num = 9;
-////	else if(level >= 251 && level <261)
-////		cur_ching_num = 10;
-//
-//	last_num = level%10;
-//	static char strtemp[256];
-//	memset(strtemp,0,256);
-//	wsprintf(strtemp, chingho_name[cur_ching_num],  last_num);
-//	return strtemp;
+
+	last_num = level%10;
+	static char strtemp[256];
+	memset(strtemp,0,256);
+	// edit by Coffee 2007-5-20 ÐÞÕý×ªÖ°ÒµÏÔÊ¾ÎÊÌâ
+	//wsprintf(strtemp, chingho_name[cur_ching_num],  last_num);
+	wsprintf(strtemp, chingho_name[0],  level);
+	return strtemp;
 }
 
 //-------------------------------------------------------------------------------
@@ -17651,29 +17397,6 @@ void	C_VS_UI_INFO::_Show2()
 			wsprintf(sz_temp,(*g_pGameStringTable)[UI_STRING_MESSAGE_ATTACK_SPEED].GetString(), weapon_speed_string[g_char_slot_ingame.WS], g_char_slot_ingame.WeaponSpeed);
 			g_PrintColorStr(px, py, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
 			py += 16;
-			
-			/*if(g_char_slot_ingame.MagicRemainSec > 0)
-			{	
-
-				DWORD IRange =  (GetTickCount() - g_char_slot_ingame.MagicRemainTick) / 1000 ; 
-				DWORD TimeLimit = g_char_slot_ingame.MagicRemainSec -  IRange ;
-
-				int days = TimeLimit / 60 / 60 / 24;
-				int hours = (TimeLimit / 60 / 60) % 24;
-				int minutes = (TimeLimit / 60 ) % 60;
-
-
-				wsprintf(sz_temp,(*g_pGameStringTable)[UI_STRING_MESSAGE_MAGICAL_PET_CHANGER_ACTIVE].GetString());
-				g_PrintColorStr(px, py, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
-				py += 16;
-				
-				wsprintf(sz_temp,"%dÀÏ %d½Ã°£ %dºÐ" , days , hours , minutes);
-				g_PrintColorStr(px, py, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
-				py += 16;
-			}*/
-					
-
-
 
 	//		wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_RESISTANCE_ACID].GetString(), weapon_speed_string[g_char_slot_ingame.WS], g_char_slot_ingame.WeaponSpeed);
 	//		g_PrintColorStr(px, py, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
@@ -18046,26 +17769,6 @@ void	C_VS_UI_INFO::_Show2()
 			wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_ATTACK_SPEED].GetString(), weapon_speed_string[g_char_slot_ingame.WS], g_char_slot_ingame.WeaponSpeed);
 			g_PrintColorStr(px, py, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
 			py += 16;
-
-			/*if(g_char_slot_ingame.MagicRemainSec > 0)
-			{
-				
-				DWORD IRange =  (GetTickCount() - g_char_slot_ingame.MagicRemainTick) / 1000 ; 
-				DWORD TimeLimit = g_char_slot_ingame.MagicRemainSec -  IRange ;
-
-				int days = TimeLimit / 60 / 60 / 24;
-				int hours = (TimeLimit / 60 / 60) % 24;
-				int minutes = (TimeLimit / 60 ) % 60;
-
-
-				wsprintf(sz_temp,(*g_pGameStringTable)[UI_STRING_MESSAGE_MAGICAL_PET_CHANGER_ACTIVE].GetString());
-				g_PrintColorStr(px, py, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
-				py += 16;
-				
-				wsprintf(sz_temp,"%dÀÏ %d½Ã°£ %dºÐ" , days , hours , minutes);
-				g_PrintColorStr(px, py, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
-				py += 16;
-			}*/
 
 	//		wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_RESISTANCE_ACID].GetString(), weapon_speed_string[g_char_slot_ingame.WS], g_char_slot_ingame.WeaponSpeed);
 	//		g_PrintColorStr(px, py, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
@@ -18490,26 +18193,6 @@ void	C_VS_UI_INFO::_Show2()
 			g_PrintColorStr(vx, py, sz_temp, gpC_base->m_chatting_pi, g_ELEMENTAL_COLOR[ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH]);
 			py += 16;
 			
-
-			/*if(g_char_slot_ingame.MagicRemainSec > 0)
-			{
-
-				DWORD IRange =  (GetTickCount() - g_char_slot_ingame.MagicRemainTick) / 1000 ; 
-				DWORD TimeLimit = g_char_slot_ingame.MagicRemainSec -  IRange ;
-
-				int days = TimeLimit / 60 / 60 / 24;
-				int hours = (TimeLimit / 60 / 60) % 24;
-				int minutes = (TimeLimit / 60 ) % 60;
-
-
-				wsprintf(sz_temp,(*g_pGameStringTable)[UI_STRING_MESSAGE_MAGICAL_PET_CHANGER_ACTIVE].GetString());
-				g_PrintColorStr(px, py, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
-				py += 16;
-				
-				wsprintf(sz_temp,"%dÀÏ %d½Ã°£ %dºÐ" , days , hours , minutes);
-				g_PrintColorStr(px, py, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
-				py += 16;
-			}*/
 			
 			if(/*g_eRaceInterface != RACE_SLAYER &&*/ g_char_slot_ingame.bonus_point > 0)
 				m_pC_char_button_group->ShowDescription();
@@ -19082,7 +18765,10 @@ void	C_VS_UI_INFO::_Show5()
 				if((*g_pSkillManager)[m_skill_domain].IsExistSkillStep(step))
 				{
 					MSkillDomain::SKILL_STEP_LIST list = *((*g_pSkillManager)[m_skill_domain].GetSkillStepList(step));
-					MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin();//+max(0,m_pC_skill_scroll_bar->GetScrollPos());
+					//edit by coffee 2007-2-25
+					//MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin();//+max(0,m_pC_skill_scroll_bar->GetScrollPos());
+					MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin() + max(0,m_pC_grade3_scroll_bar->GetScrollPos());
+					// edit by coffee 2007-2-25 end
 					
 					int aa = list.size();
 					const int level_plus = 127;
@@ -19276,7 +18962,10 @@ void	C_VS_UI_INFO::_Show5()
 				if((*g_pSkillManager)[m_skill_domain].IsExistSkillStep(step))
 				{
 					MSkillDomain::SKILL_STEP_LIST list = *((*g_pSkillManager)[m_skill_domain].GetSkillStepList(step));
-					MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin();//+max(0,m_pC_skill_scroll_bar->GetScrollPos());
+					//edit by coffee 2007-2-25
+					//MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin();//+max(0,m_pC_skill_scroll_bar->GetScrollPos());
+					MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin() + max(0,m_pC_grade3_scroll_bar->GetScrollPos());
+					// edit by coffee 2007-2-25 end
 					
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
@@ -19378,8 +19067,10 @@ void	C_VS_UI_INFO::_Show5()
 				if((*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].IsExistSkillStep(step))
 				{
 					MSkillDomain::SKILL_STEP_LIST list = *((*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].GetSkillStepList(step));
-					MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin();//+max(0,m_pC_skill_scroll_bar->GetScrollPos());
-					
+					//edit by coffee 2007-2-25
+					//MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin();//+max(0,m_pC_skill_scroll_bar->GetScrollPos());
+					MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin() + max(0,m_pC_grade3_scroll_bar->GetScrollPos());
+					// edit by coffee 2007-2-25 end
 					int aa = list.size();
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
@@ -19567,7 +19258,10 @@ void	C_VS_UI_INFO::_Show5()
 				if((*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].IsExistSkillStep(step))
 				{
 					MSkillDomain::SKILL_STEP_LIST list = *((*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].GetSkillStepList(step));
-					MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin();//+max(0,m_pC_skill_scroll_bar->GetScrollPos());
+					// eidt by coffee 2007-2-25 start  ÐÞÕýÏÔÊ¾¼¼ÄÜÎ»ÖÃ
+					//MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin();//+max(0,m_pC_skill_scroll_bar->GetScrollPos());
+					MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin() + max(0,m_pC_grade3_scroll_bar->GetScrollPos());
+					// end
 					
 					int aa = list.size();
 					const int level_plus = 127;
@@ -19680,6 +19374,7 @@ void	C_VS_UI_INFO::_Show5()
 						m_ousters_Magic = i;	
 						m_pC_grade3_scroll_bar->SetScrollPos(0); 
 						break;
+						
 					}
 				}
 			}
@@ -20175,7 +19870,10 @@ void	C_VS_UI_INFO::_Show5()
 				if((*g_pSkillManager)[SKILLDOMAIN_OUSTERS].IsExistSkillStep(step))
 				{
 					MSkillDomain::SKILL_STEP_LIST list = *((*g_pSkillManager)[SKILLDOMAIN_OUSTERS].GetSkillStepList(step));
-					MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin();//+max(0,m_pC_skill_scroll_bar->GetScrollPos());
+					//edit by coffee 2007-2-25
+					//MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin();//+max(0,m_pC_skill_scroll_bar->GetScrollPos());
+					MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin() + max(0,m_pC_grade3_scroll_bar->GetScrollPos());
+					// edit by coffee 2007-2-25 end
 					
 					if(m_advance_skill_count>2)
 						ss = list.begin()+max(0,m_pC_grade3_scroll_bar->GetScrollPos());
@@ -20544,7 +20242,6 @@ void C_VS_UI_INFO::Process()
 			gC_vs_ui.FinishLevelUp();
 	}*/
 }
-
 
 
 //-----------------------------------------------------------------------------
@@ -21152,8 +20849,8 @@ void C_VS_UI_HPBAR::Show()
 					
 					int hpbar_x = 19, hpbar_y = 3, mpbar_x = 19, mpbar_y = 16;
 					if(!m_small_mode)
-					{
-						hpbar_x = 28; hpbar_y = 4; mpbar_x = 28; mpbar_y = 22;
+					{//modify by viva : hpbar, mpbar point
+						hpbar_x = 28+7; hpbar_y = 4; mpbar_x = 28+7; mpbar_y = 22;
 					}
 					
 					
@@ -21330,8 +21027,8 @@ void C_VS_UI_HPBAR::Show()
 					//hpbar
 					int hpbar_x = 8, hpbar_y = 3, mpbar_x = 8, mpbar_y = 15, expbar_x = 8, expbar_y = 22;
 					if(!m_small_mode)
-					{
-						hpbar_x = 9; hpbar_y = 4; mpbar_x = 9; mpbar_y = 22; expbar_x = 9; expbar_y = 32;
+					{//modify by viva : hpbar,mpbar,expbar point
+						hpbar_x = 9+6; hpbar_y = 4+7; mpbar_x = 9+6; mpbar_y = 22+7; expbar_x = 9+6; expbar_y = 32+7;
 					}
 
 					Rect rect;
@@ -21542,737 +21239,6 @@ void C_VS_UI_HPBAR::Process()
 		else
 			m_pC_height_button_group->Process();
 	}
-}
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_BLOOD_BURST
-//
-//-----------------------------------------------------------------------------
-C_VS_UI_BLOOD_BURST::C_VS_UI_BLOOD_BURST()
-{
-	m_pC_BloodBurst_spk = NULL;
-	
-	AttrTopmost(false);
-	AttrPin(true);
-
-	g_RegisterWindow(this);
-	
-	m_width_mode = true ; 
-	m_bGageAttackFull = false;
-	m_bGageDefenseFull = false;
-	m_bGagePartyFull = false;
-
-	m_iAttackGage	=	0	;
-	m_iDefenseGage	=	0	;
-	m_iPartyGage	=	0	;
-
-
-	m_dw_prev_Attacktickcount	=	0	;
-	m_dw_prev_Defensetickcount	=	0	;
-	m_dw_prev_Partyickcount		=	0	;
-
-	m_bAttackTimerCheck		=	false;
-	m_bDefenseTimerCheck	=	false;
-	m_bPartyTimerCheck		=	false;
-	
-	m_fAttackGageStartPosition = 0.0f ; 
-	m_fDefenseGageStartPosition = 0.0f ; 
-	m_fPartyGageStartPosition = 0.0f ; 
-
-
-	int iTypeYValue[3] = { 40 , 38 , 45 } ; 
-
-	switch(g_eRaceInterface)
-	{
-	case RACE_SLAYER:
-		m_pC_BloodBurst_spk = new C_SPRITE_PACK(SPK_BLOOD_BRUST_SLAYER);
-		break;
-
-	case RACE_VAMPIRE:
-		m_pC_BloodBurst_spk = new C_SPRITE_PACK(SPK_BLOOD_BRUST_VAMPIRE);
-		break;
-
-	case RACE_OUSTERS:
-		m_pC_BloodBurst_spk = new C_SPRITE_PACK(SPK_BLOOD_BRUST_OUSTERS);
-		break;	
-	}
-	
-	//Set(0, iTypeYValue[g_eRaceInterface], m_pC_BloodBurst_spk->GetWidth(), m_pC_BloodBurst_spk->GetHeight() + m_pC_BloodBurst_spk->GetHeight(2));
-
-	//Set(0, iTypeYValue[g_eRaceInterface], m_pC_BloodBurst_spk->GetWidth(1) + m_pC_BloodBurst_spk->GetWidth(3), m_pC_BloodBurst_spk->GetHeight(1));
-	Set(0, iTypeYValue[g_eRaceInterface], m_pC_BloodBurst_spk->GetWidth(), m_pC_BloodBurst_spk->GetHeight() + m_pC_BloodBurst_spk->GetHeight(PARTY_MAIN_WIDTH));
-	
-	//Set(0, iTypeYValue[g_eRaceInterface], m_pC_BloodBurst_spk->GetWidth(), m_pC_BloodBurst_spk->GetHeight());
-
-	m_pC_width_button_group  = new ButtonGroup(this);
-	m_pC_height_button_group = new ButtonGroup(this);
-
-	switch(g_eRaceInterface)
-	{
-	case RACE_SLAYER:
-		m_pC_width_button_group->Add(new C_VS_UI_EVENT_BUTTON(175, 12 , m_pC_BloodBurst_spk->GetWidth(CHANGE_BUTTON_WIDTH), m_pC_BloodBurst_spk->GetHeight(CHANGE_BUTTON_WIDTH), BLOODBURST_CHANGE_ID, this, CHANGE_BUTTON_WIDTH));
-		m_pC_width_button_group->Add(new C_VS_UI_EVENT_BUTTON(8, 2 , m_pC_BloodBurst_spk->GetWidth(ATTACK_BUTTON_WIDTH), m_pC_BloodBurst_spk->GetHeight(ATTACK_BUTTON_WIDTH), ATTACK_ID, this, ATTACK_BUTTON_WIDTH));
-		m_pC_width_button_group->Add(new C_VS_UI_EVENT_BUTTON(8, 16, m_pC_BloodBurst_spk->GetWidth(DEFENSE_BUTTON_WIDTH), m_pC_BloodBurst_spk->GetHeight(DEFENSE_BUTTON_WIDTH), DEFENSE_ID, this, DEFENSE_BUTTON_WIDTH));
-		m_pC_width_button_group->Add(new C_VS_UI_EVENT_BUTTON(8, 30,m_pC_BloodBurst_spk->GetWidth(PARTY_BUTTON_WIDTH), m_pC_BloodBurst_spk->GetHeight(PARTY_BUTTON_WIDTH), PARTY_ID, this, PARTY_BUTTON_WIDTH));
-		
-		m_pC_height_button_group->Add(new C_VS_UI_EVENT_BUTTON(25, 175 , m_pC_BloodBurst_spk->GetWidth(CHANGE_BUTTON_HEIGHT), m_pC_BloodBurst_spk->GetHeight(CHANGE_BUTTON_HEIGHT), BLOODBURST_CHANGE_ID, this, CHANGE_BUTTON_HEIGHT));
-		m_pC_height_button_group->Add(new C_VS_UI_EVENT_BUTTON(16, 8 , m_pC_BloodBurst_spk->GetWidth(ATTACK_BUTTON_HEIGHT), m_pC_BloodBurst_spk->GetHeight(ATTACK_BUTTON_HEIGHT), ATTACK_ID, this, ATTACK_BUTTON_HEIGHT));
-		m_pC_height_button_group->Add(new C_VS_UI_EVENT_BUTTON(30, 8 , m_pC_BloodBurst_spk->GetWidth(DEFENSE_BUTTON_HEIGHT), m_pC_BloodBurst_spk->GetHeight(DEFENSE_BUTTON_HEIGHT), DEFENSE_ID, this, DEFENSE_BUTTON_HEIGHT));
-		m_pC_height_button_group->Add(new C_VS_UI_EVENT_BUTTON(1, 8 , m_pC_BloodBurst_spk->GetWidth(PARTY_BUTTON_HEIGHT), m_pC_BloodBurst_spk->GetHeight(PARTY_BUTTON_HEIGHT), PARTY_ID, this, PARTY_BUTTON_HEIGHT));
-
-
-		break;
-
-	case RACE_VAMPIRE:
-		m_pC_width_button_group->Add(new C_VS_UI_EVENT_BUTTON(191, 18 , m_pC_BloodBurst_spk->GetWidth(CHANGE_BUTTON_WIDTH), m_pC_BloodBurst_spk->GetHeight(CHANGE_BUTTON_WIDTH), BLOODBURST_CHANGE_ID, this, CHANGE_BUTTON_WIDTH));
-
-		m_pC_width_button_group->Add(new C_VS_UI_EVENT_BUTTON(16, 9 , m_pC_BloodBurst_spk->GetWidth(ATTACK_BUTTON_WIDTH), m_pC_BloodBurst_spk->GetHeight(ATTACK_BUTTON_WIDTH), ATTACK_ID, this, ATTACK_BUTTON_WIDTH));
-		m_pC_width_button_group->Add(new C_VS_UI_EVENT_BUTTON(16, 23 , m_pC_BloodBurst_spk->GetWidth(DEFENSE_BUTTON_WIDTH), m_pC_BloodBurst_spk->GetHeight(DEFENSE_BUTTON_WIDTH), DEFENSE_ID, this, DEFENSE_BUTTON_WIDTH));
-		m_pC_width_button_group->Add(new C_VS_UI_EVENT_BUTTON(16, 37 , m_pC_BloodBurst_spk->GetWidth(PARTY_BUTTON_WIDTH), m_pC_BloodBurst_spk->GetHeight(PARTY_BUTTON_WIDTH), PARTY_ID, this, PARTY_BUTTON_WIDTH));
-		
-		m_pC_height_button_group->Add(new C_VS_UI_EVENT_BUTTON(25, 192 , m_pC_BloodBurst_spk->GetWidth(CHANGE_BUTTON_HEIGHT), m_pC_BloodBurst_spk->GetHeight(CHANGE_BUTTON_HEIGHT), BLOODBURST_CHANGE_ID, this, CHANGE_BUTTON_HEIGHT));
-		m_pC_height_button_group->Add(new C_VS_UI_EVENT_BUTTON(16, 15 , m_pC_BloodBurst_spk->GetWidth(ATTACK_BUTTON_HEIGHT), m_pC_BloodBurst_spk->GetHeight(ATTACK_BUTTON_HEIGHT), ATTACK_ID, this, ATTACK_BUTTON_HEIGHT));
-		m_pC_height_button_group->Add(new C_VS_UI_EVENT_BUTTON(30, 15 , m_pC_BloodBurst_spk->GetWidth(DEFENSE_BUTTON_HEIGHT), m_pC_BloodBurst_spk->GetHeight(DEFENSE_BUTTON_HEIGHT), DEFENSE_ID, this, DEFENSE_BUTTON_HEIGHT));
-		m_pC_height_button_group->Add(new C_VS_UI_EVENT_BUTTON(1, 15 , m_pC_BloodBurst_spk->GetWidth(PARTY_BUTTON_HEIGHT), m_pC_BloodBurst_spk->GetHeight(PARTY_BUTTON_HEIGHT), PARTY_ID, this, PARTY_BUTTON_HEIGHT));
-
-		break;
-
-	case RACE_OUSTERS:
-
-		m_pC_width_button_group->Add(new C_VS_UI_EVENT_BUTTON(195, 21 , m_pC_BloodBurst_spk->GetWidth(CHANGE_BUTTON_WIDTH), m_pC_BloodBurst_spk->GetHeight(CHANGE_BUTTON_WIDTH), BLOODBURST_CHANGE_ID, this, CHANGE_BUTTON_WIDTH));
-
-		m_pC_width_button_group->Add(new C_VS_UI_EVENT_BUTTON(18, 12 , m_pC_BloodBurst_spk->GetWidth(ATTACK_BUTTON_WIDTH), m_pC_BloodBurst_spk->GetHeight(ATTACK_BUTTON_WIDTH), ATTACK_ID, this, ATTACK_BUTTON_WIDTH));
-		m_pC_width_button_group->Add(new C_VS_UI_EVENT_BUTTON(18, 26 , m_pC_BloodBurst_spk->GetWidth(DEFENSE_BUTTON_WIDTH), m_pC_BloodBurst_spk->GetHeight(DEFENSE_BUTTON_WIDTH), DEFENSE_ID, this, DEFENSE_BUTTON_WIDTH));
-		m_pC_width_button_group->Add(new C_VS_UI_EVENT_BUTTON(18, 40 , m_pC_BloodBurst_spk->GetWidth(PARTY_BUTTON_WIDTH), m_pC_BloodBurst_spk->GetHeight(PARTY_BUTTON_WIDTH), PARTY_ID, this, PARTY_BUTTON_WIDTH));
-
-	
-		m_pC_height_button_group->Add(new C_VS_UI_EVENT_BUTTON(26, 196 , m_pC_BloodBurst_spk->GetWidth(CHANGE_BUTTON_HEIGHT), m_pC_BloodBurst_spk->GetHeight(CHANGE_BUTTON_HEIGHT), BLOODBURST_CHANGE_ID, this, CHANGE_BUTTON_HEIGHT));
-
-		m_pC_height_button_group->Add(new C_VS_UI_EVENT_BUTTON(16, 18 , m_pC_BloodBurst_spk->GetWidth(ATTACK_BUTTON_HEIGHT), m_pC_BloodBurst_spk->GetHeight(ATTACK_BUTTON_HEIGHT), ATTACK_ID, this, ATTACK_BUTTON_HEIGHT));
-		m_pC_height_button_group->Add(new C_VS_UI_EVENT_BUTTON(30, 18 , m_pC_BloodBurst_spk->GetWidth(DEFENSE_BUTTON_HEIGHT), m_pC_BloodBurst_spk->GetHeight(DEFENSE_BUTTON_HEIGHT), DEFENSE_ID, this, DEFENSE_BUTTON_HEIGHT));
-		m_pC_height_button_group->Add(new C_VS_UI_EVENT_BUTTON(1, 18 , m_pC_BloodBurst_spk->GetWidth(PARTY_BUTTON_HEIGHT), m_pC_BloodBurst_spk->GetHeight(PARTY_BUTTON_HEIGHT), PARTY_ID, this, PARTY_BUTTON_HEIGHT));
-		break;	
-	}
-
-	//SetGage()	;
-}
-
-C_VS_UI_BLOOD_BURST::~C_VS_UI_BLOOD_BURST()
-{
-	g_UnregisterWindow(this);
-	DeleteNew(m_pC_width_button_group);
-	DeleteNew(m_pC_height_button_group);
-}
-
-void	C_VS_UI_BLOOD_BURST::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
-{
-	
-	if(p_button->m_image_index == CHANGE_BUTTON_WIDTH || p_button->m_image_index == CHANGE_BUTTON_HEIGHT)
-	{
-		if(p_button->GetFocusState())
-		{
-			if(p_button->GetPressState())
-				m_pC_BloodBurst_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index+1);
-			else
-				m_pC_BloodBurst_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index+2);
-		}
-		else
-		{
-			if(p_button->GetPressState())
-				m_pC_BloodBurst_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index + 1);
-			else
-				m_pC_BloodBurst_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index);
-		}
-	}
-	else if( ((p_button->m_image_index == ATTACK_BUTTON_WIDTH  || p_button->m_image_index == ATTACK_BUTTON_HEIGHT)  && !m_bGageAttackFull)  ||
-			 ((p_button->m_image_index == DEFENSE_BUTTON_WIDTH || p_button->m_image_index == DEFENSE_BUTTON_HEIGHT) && !m_bGageDefenseFull) ||
-			 (((p_button->m_image_index == PARTY_BUTTON_WIDTH   || p_button->m_image_index == PARTY_BUTTON_HEIGHT)   && !m_bGagePartyFull)) && (g_pParty->GetSize() > 0))
-	{
-		m_pC_BloodBurst_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index);
-	}
-	else if( ((p_button->m_image_index == ATTACK_BUTTON_WIDTH  || p_button->m_image_index == ATTACK_BUTTON_HEIGHT)  && m_bGageAttackFull)  ||
-			 ((p_button->m_image_index == DEFENSE_BUTTON_WIDTH || p_button->m_image_index == DEFENSE_BUTTON_HEIGHT) && m_bGageDefenseFull) ||
-			 (((p_button->m_image_index == PARTY_BUTTON_WIDTH   || p_button->m_image_index == PARTY_BUTTON_HEIGHT)   && m_bGagePartyFull)) && (g_pParty->GetSize() > 0)) 	
-	{
-		DWORD	dwTimeRange		= 300 ; 
-		DWORD	dwCurrentTick	= GetTickCount(); 
-		static  int	iButton =  1 ; 
-		if((m_dw_prev_Attacktickcount  + dwTimeRange)  <= dwCurrentTick)
-		{
-			m_dw_prev_Attacktickcount = dwCurrentTick ;  
-			if(iButton) iButton = 0 ; 
-			else iButton =  1 ; 
-		}
-
-		if(p_button->GetFocusState())
-		{
-			if(p_button->GetPressState())
-				m_pC_BloodBurst_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index+1);
-			else
-				m_pC_BloodBurst_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index+2);
-		}
-		else
-		{
-		
-			m_pC_BloodBurst_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index + iButton);
-		}	
-		
-	}
-}
-
-void	C_VS_UI_BLOOD_BURST::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
-{
-}
-
-void	C_VS_UI_BLOOD_BURST::WindowEventReceiver(id_t event)
-{
-}
-
-bool	C_VS_UI_BLOOD_BURST::IsPixel(int _x, int _y)
-{
-	if(Moving()) return true;
-	return IsInRect(_x, _y);
-}
-
-
-void	C_VS_UI_BLOOD_BURST::Run(id_t id)
-{
-	switch (id)
-	{
-	case BLOODBURST_CHANGE_ID:
-		m_width_mode = !m_width_mode;
-		w^=h; h^=w; w^=h; //swap
-		x -= w-h;
-		EMPTY_MOVE;
-		break;
-	
-	case ATTACK_ID:
-		 if(m_bGageAttackFull)	
-			 gpC_base->SendMessage(UI_BLOOD_BURST ,  ATTACK_ID) ;
-		 break ;
-	
-	case DEFENSE_ID:
-		 if(m_bGageDefenseFull)	
-			 gpC_base->SendMessage(UI_BLOOD_BURST ,  DEFENSE_ID) ;
-		 break ;
-
-	case PARTY_ID:
-		 if(m_bGagePartyFull)	
-			 gpC_base->SendMessage(UI_BLOOD_BURST ,  PARTY_ID) ;
-		 break ;		
-	}
-}
-
-bool	C_VS_UI_BLOOD_BURST::MouseControl(UINT message, int _x, int _y)
-{
-	Window::MouseControl(message, _x, _y);
-	_x-=x; _y-=y;
-	bool re;
-	
-	if(m_width_mode)
-		re = m_pC_width_button_group->MouseControl(message, _x, _y);
-	else
-		re = m_pC_height_button_group->MouseControl(message, _x, _y);
-
-	switch(message)
-	{
-	case M_MOVING:
-		break;
-		
-	case M_LEFTBUTTON_DOWN:
-	case M_LB_DOUBLECLICK:
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
-		{
-			MoveReady();
-			SetOrigin(_x, _y);
-			break;
-		}
-		break;
-		
-	}
-	return true  ; 
-
-}
-
-void	C_VS_UI_BLOOD_BURST::KeyboardControl(UINT message, UINT key, long extra)
-{
-	if (message == WM_KEYDOWN && key == VK_ESCAPE)
-	{
-		//		Run(CLOSE);
-	}
-}
-
-void	C_VS_UI_BLOOD_BURST::SetGage()
-{
-	SetAttackGage() ; 
-	SetDefenseGage();
-	SetPartyGage()  ;
-	int iTypeYValue[3] = { 40 , 38 , 45 } ;
-	//if(g_pParty->GetSize() > 0)
-	//{
-		//Set(0, iTypeYValue[g_eRaceInterface], m_pC_BloodBurst_spk->GetWidth(), m_pC_BloodBurst_spk->GetHeight() + m_pC_BloodBurst_spk->GetHeight(PARTY_MAIN_WIDTH));
-	//}
-	//else
-	//{
-		//Set(0, iTypeYValue[g_eRaceInterface], m_pC_BloodBurst_spk->GetWidth(), m_pC_BloodBurst_spk->GetHeight());
-	//}
-}
-
-void	C_VS_UI_BLOOD_BURST::SetAttackGage()
-{	
-	m_bGageAttackFull		=	false;
-	m_iAttackGage = g_char_slot_ingame.AttackBloodBurstPoint ; 
-	if(m_iAttackGage >= ATTACK_MAX_POINT)	m_iAttackGage = ATTACK_MAX_POINT ;
-	m_fAttackGageStartPosition = (float)m_iAttackGage / (float)ATTACK_MAX_POINT ; 
-}
-
-void	C_VS_UI_BLOOD_BURST::SetDefenseGage()
-{
-	m_bGageDefenseFull = false ; 
-	m_iDefenseGage = g_char_slot_ingame.DefenseBloodBurstPoint ; 
-
-	if(m_iDefenseGage >= DEFENSE_MAX_POINT)	m_iDefenseGage = DEFENSE_MAX_POINT ; 
-	m_fDefenseGageStartPosition = (float)m_iDefenseGage / (float)DEFENSE_MAX_POINT ; 
-}
-void	C_VS_UI_BLOOD_BURST::SetPartyGage()
-{
-	m_bGagePartyFull = false ; 
-	int iTypeYValue[3] = { 40 , 38 , 45 } ;
-	m_iPartyGage = g_char_slot_ingame.PartyBloodBurstPoint ; 
-	if(m_iPartyGage >= PARTY_MAX_POINT)	m_iPartyGage = PARTY_MAX_POINT ; 
-	m_fPartyGageStartPosition = (float)m_iPartyGage / (float)PARTY_MAX_POINT ; 
-	if(g_pParty->GetSize() > 0)
-	{
-		Set(0, iTypeYValue[g_eRaceInterface], m_pC_BloodBurst_spk->GetWidth(), m_pC_BloodBurst_spk->GetHeight() + m_pC_BloodBurst_spk->GetHeight(PARTY_MAIN_WIDTH));
-	}
-	else
-	{
-		Set(0, iTypeYValue[g_eRaceInterface], m_pC_BloodBurst_spk->GetWidth(), m_pC_BloodBurst_spk->GetHeight());
-	}
-}
-
-
-void	C_VS_UI_BLOOD_BURST::Show()
-{
-	Rect RectAttack ;
-	Rect RectDefense ;
-	Rect RectParty ;
-
-	if(gpC_base->m_p_DDSurface_back->Lock())
-	{
-		if(m_width_mode)
-		{
-			int iWidthXRange[3][2] = { 25 ,  0 ,  34 ,  4  , 37 , 3 } ; 
-			int iWidthYRange[3][4] = { 4 , 18 , 29 , 32 ,  11 , 25 , 36  , 39 , 14 , 28 , 39  , 42 } ; 
-			// ¹ÙÅÁÀÌ¹ÌÁö ±×¸®±â 
-			m_pC_BloodBurst_spk->BltLocked(x, y, MAIN_WIDTH);
-			if(g_pParty->GetSize() > 0)
-				m_pC_BloodBurst_spk->BltLocked(x + iWidthXRange[g_eRaceInterface][1], y + iWidthYRange[g_eRaceInterface][2], PARTY_MAIN_WIDTH);
-			
-			m_pC_BloodBurst_spk->BltLocked(x + iWidthXRange[g_eRaceInterface][0], y+iWidthYRange[g_eRaceInterface][0] , MAIN_GAGE_BASE_ATTACK_WIDTH);
-			m_pC_BloodBurst_spk->BltLocked(x + iWidthXRange[g_eRaceInterface][0], y+iWidthYRange[g_eRaceInterface][1] , MAIN_GAGE_BASE_DEFENSE_WIDTH);
-			// °ÔÀÌÁö ±×¸®±â 
-			
-			Rect rect ; 
-			//=======================================================================================================================================================
-			// °ø°Ý °ÔÀÌÁö °è»ê 
-			//=======================================================================================================================================================
-			//Rect rect;
-			int iMaxGage  =  m_pC_BloodBurst_spk->GetWidth(ATTACK_GAGE_WIDTH);
-			int	iCurrentGage = (1.0 - m_fAttackGageStartPosition) * iMaxGage ; 
-			 
-			int	iAttackRange = 0 ,  iDefenseRange = 0 , iPartyRange = 0 ; 			
-			if(!m_bGageAttackFull && m_fAttackGageStartPosition == 1.0f)
-			{
-				m_bGageAttackFull = !m_bGageAttackFull ; 
-			}
-			else if(m_bGageAttackFull && m_fAttackGageStartPosition == 1.0f)
-			{
-				iAttackRange = 6; 		
-			}
-			rect.Set(iCurrentGage, 0 ,  m_pC_BloodBurst_spk->GetWidth(ATTACK_GAGE_WIDTH) , m_pC_BloodBurst_spk->GetHeight(ATTACK_GAGE_WIDTH) ) ; 
-			m_pC_BloodBurst_spk->BltLockedClip(x + iWidthXRange[g_eRaceInterface][0], y+iWidthYRange[g_eRaceInterface][0] , rect, ATTACK_GAGE_WIDTH + iAttackRange);
-
-			RectAttack.Set(x + iWidthXRange[g_eRaceInterface][0], y+iWidthYRange[g_eRaceInterface][0] , 
-						   m_pC_BloodBurst_spk->GetWidth(ATTACK_GAGE_WIDTH) , 
-						   m_pC_BloodBurst_spk->GetHeight(ATTACK_GAGE_WIDTH)) ; 	
-			//=======================================================================================================================================================
-			
-			//=======================================================================================================================================================
-			// ¹æ¾î °ÔÀÌÁö °è»ê 
-			//=======================================================================================================================================================
-			iMaxGage  =  m_pC_BloodBurst_spk->GetWidth(DEFENSE_GAGE_WIDTH);
-			iCurrentGage = (1.0 - m_fDefenseGageStartPosition) * iMaxGage ; 
-			 
-					
-			if(!m_bGageDefenseFull && m_fDefenseGageStartPosition == 1.0f)
-			{
-				m_bGageDefenseFull = !m_bGageDefenseFull ; 
-			}
-			else if(m_bGageDefenseFull && m_fDefenseGageStartPosition == 1.0f)
-			{
-				iDefenseRange = 6; 		
-			}
-
-			rect.Set(iCurrentGage, 0 ,  m_pC_BloodBurst_spk->GetWidth(DEFENSE_GAGE_WIDTH) , m_pC_BloodBurst_spk->GetHeight(DEFENSE_GAGE_WIDTH) ) ; 
-			m_pC_BloodBurst_spk->BltLockedClip(x + iWidthXRange[g_eRaceInterface][0], y+iWidthYRange[g_eRaceInterface][1] , rect, DEFENSE_GAGE_WIDTH+ iDefenseRange);
-
-			RectDefense.Set(x + iWidthXRange[g_eRaceInterface][0], y+iWidthYRange[g_eRaceInterface][1] , 
-						   m_pC_BloodBurst_spk->GetWidth(DEFENSE_GAGE_WIDTH) , 
-						   m_pC_BloodBurst_spk->GetHeight(DEFENSE_GAGE_WIDTH)) ; 	
-			//=======================================================================================================================================================
-			
-			if(g_pParty->GetSize() > 0)
-			{
-				//=======================================================================================================================================================
-				// ÆÄÆ¼ °ÔÀÌÁö °è»ê 
-				//=======================================================================================================================================================
-				iMaxGage  =  m_pC_BloodBurst_spk->GetWidth(PARTY_GAGE_WIDTH);
-				iCurrentGage = (1.0 - m_fPartyGageStartPosition) * iMaxGage ; 
-				 
-						
-				if(!m_bGagePartyFull && m_fPartyGageStartPosition == 1.0f)
-				{
-					m_bGagePartyFull = !m_bGagePartyFull ; 
-				}
-				else if(m_bGagePartyFull && m_fPartyGageStartPosition == 1.0f)
-				{
-					iPartyRange = 6; 		
-				}
-				rect.Set(iCurrentGage,0  ,  m_pC_BloodBurst_spk->GetWidth(PARTY_GAGE_WIDTH) , m_pC_BloodBurst_spk->GetHeight(PARTY_GAGE_WIDTH) ) ; 
-				m_pC_BloodBurst_spk->BltLockedClip(x + iWidthXRange[g_eRaceInterface][0], y+iWidthYRange[g_eRaceInterface][3] , rect, PARTY_GAGE_WIDTH + iPartyRange);
-				RectParty.Set(x + iWidthXRange[g_eRaceInterface][0], y+iWidthYRange[g_eRaceInterface][3] , 
-							   m_pC_BloodBurst_spk->GetWidth(PARTY_GAGE_WIDTH) , 
-							   m_pC_BloodBurst_spk->GetHeight(PARTY_GAGE_WIDTH)) ; 	
-				
-				//=======================================================================================================================================================
-			}
-		}
-		else
-		{
-			int iHeightXRange[3][4] = { 14 ,  18 ,  32 , 3 ,   7 ,  18  , 32 , 3 ,   4  , 18 , 32 , 3} ; 
-			
-			int iHeightYRange[3][2] = { 25 , 0 , 34 , 4 , 37 , 3 } ; 
-			
-			// ¹ÙÅÁÀÌ¹ÌÁö ±×¸®±â 
-			m_pC_BloodBurst_spk->BltLocked(x +  iHeightXRange[g_eRaceInterface][0] , y ,  MAIN_HEIGHT);
-			if(g_pParty->GetSize() > 0)
-				m_pC_BloodBurst_spk->BltLocked(x , y + iHeightYRange[g_eRaceInterface][1], PARTY_MAIN_HEIGHT);
-
-			m_pC_BloodBurst_spk->BltLocked(x +  iHeightXRange[g_eRaceInterface][1], y+iHeightYRange[g_eRaceInterface][0] , MAIN_GAGE_BASE_ATTACK_HEIGHT);
-			m_pC_BloodBurst_spk->BltLocked(x +  iHeightXRange[g_eRaceInterface][2], y+iHeightYRange[g_eRaceInterface][0] , MAIN_GAGE_BASE_DEFENSE_HEIGHT);
-			// °ÔÀÌÁö ±×¸®±â 
-			Rect rect ; 
-			//=======================================================================================================================================================
-			// °ø°Ý °ÔÀÌÁö °è»ê 
-			//=======================================================================================================================================================
-			int iMaxGage  =  m_pC_BloodBurst_spk->GetHeight(ATTACK_GAGE_HEIGHT);
-			int	iCurrentGage = (1.0 - m_fAttackGageStartPosition) * iMaxGage ; 
-			 
-			int	iAttackRange = 0 ,  iDefenseRange = 0 , iPartyRange = 0 ; 			
-			if(!m_bGageAttackFull && m_fAttackGageStartPosition == 1.0f)
-			{
-				m_bGageAttackFull = !m_bGageAttackFull ; 
-			}
-			else if(m_bGageAttackFull && m_fAttackGageStartPosition == 1.0f)
-			{
-				iAttackRange = 6; 		
-			}
-			rect.Set(0, iCurrentGage ,  m_pC_BloodBurst_spk->GetWidth(ATTACK_GAGE_HEIGHT) , m_pC_BloodBurst_spk->GetHeight(ATTACK_GAGE_HEIGHT) - iCurrentGage ) ; 
-			m_pC_BloodBurst_spk->BltLockedClip(x + iHeightXRange[g_eRaceInterface][1], y+iHeightYRange[g_eRaceInterface][0] , rect, ATTACK_GAGE_HEIGHT + iAttackRange);
-			RectAttack.Set(x + iHeightXRange[g_eRaceInterface][1], y+iHeightYRange[g_eRaceInterface][0] , 
-						   m_pC_BloodBurst_spk->GetWidth(ATTACK_GAGE_HEIGHT) , 
-						   m_pC_BloodBurst_spk->GetHeight(ATTACK_GAGE_HEIGHT)) ; 	
-			//=======================================================================================================================================================
-			
-			//=======================================================================================================================================================
-			// ¹æ¾î °ÔÀÌÁö °è»ê 
-			//=======================================================================================================================================================
-			iMaxGage  =  m_pC_BloodBurst_spk->GetHeight(DEFENSE_GAGE_HEIGHT);
-			iCurrentGage = (1.0 - m_fDefenseGageStartPosition) * iMaxGage ; 
-			 
-					
-			if(!m_bGageDefenseFull && m_fDefenseGageStartPosition == 1.0f)
-			{
-				m_bGageDefenseFull = !m_bGageDefenseFull ; 
-			}
-			else if(m_bGageDefenseFull && m_fDefenseGageStartPosition == 1.0f)
-			{
-				iDefenseRange = 6; 		
-			}
-
-			rect.Set(0, iCurrentGage ,  m_pC_BloodBurst_spk->GetWidth(DEFENSE_GAGE_HEIGHT) , m_pC_BloodBurst_spk->GetHeight(DEFENSE_GAGE_HEIGHT) - iCurrentGage ) ; 
-			m_pC_BloodBurst_spk->BltLockedClip(x + iHeightXRange[g_eRaceInterface][2], y+iHeightYRange[g_eRaceInterface][0] , rect, DEFENSE_GAGE_HEIGHT+ iDefenseRange);
-
-			RectDefense.Set(x + iHeightXRange[g_eRaceInterface][2], y+iHeightYRange[g_eRaceInterface][0] , 
-						   m_pC_BloodBurst_spk->GetWidth(DEFENSE_GAGE_HEIGHT) , 
-						   m_pC_BloodBurst_spk->GetHeight(DEFENSE_GAGE_HEIGHT)) ; 	
-			//=======================================================================================================================================================
-			
-			if(g_pParty->GetSize() > 0)
-			{	
-				//=======================================================================================================================================================
-				// ÆÄÆ¼ °ÔÀÌÁö °è»ê 
-				//=======================================================================================================================================================
-				iMaxGage  =  m_pC_BloodBurst_spk->GetHeight(PARTY_GAGE_HEIGHT);
-				iCurrentGage = (1.0 - m_fPartyGageStartPosition) * iMaxGage ; 
-				 
-						
-				if(!m_bGagePartyFull && m_fPartyGageStartPosition == 1.0f)
-				{
-					m_bGagePartyFull = !m_bGagePartyFull ; 
-				}
-				else if(m_bGagePartyFull && m_fPartyGageStartPosition == 1.0f)
-				{
-					iPartyRange = 6; 		
-				}
-				rect.Set(0, iCurrentGage ,  m_pC_BloodBurst_spk->GetWidth(PARTY_GAGE_HEIGHT) , m_pC_BloodBurst_spk->GetHeight(PARTY_GAGE_HEIGHT) - iCurrentGage ) ; 
-				m_pC_BloodBurst_spk->BltLockedClip(x + iHeightXRange[g_eRaceInterface][3] , y+iHeightYRange[g_eRaceInterface][0] , rect, PARTY_GAGE_HEIGHT + iPartyRange);
-				
-				RectParty.Set(x + iHeightXRange[g_eRaceInterface][3] , y+iHeightYRange[g_eRaceInterface][0] , 
-							   m_pC_BloodBurst_spk->GetWidth(PARTY_GAGE_HEIGHT) , 
-							   m_pC_BloodBurst_spk->GetHeight(PARTY_GAGE_HEIGHT)) ; 
-				//=======================================================================================================================================================
-			}
-		}
-	}
-	
-
-	if(m_width_mode)
-	{
-		m_pC_width_button_group->Show()  ; 
-	}
-	else
-	{
-		m_pC_height_button_group->Show()  ; 
-	}
-	gpC_base->m_p_DDSurface_back->Unlock();
-
-	
-	int print_x = gpC_mouse_pointer->GetPointerX();
-	int print_y = gpC_mouse_pointer->GetPointerY();
-	int color = 0;
-	
-	static std::string bloodburst_string[1];
-	const static char *help_string[1] =  {NULL} ;
-
-	if(RectAttack.IsInRect(gpC_mouse_pointer->GetPointerX() , gpC_mouse_pointer->GetPointerY())) // && m_iAttackGage)
-	{
-		char temp_string[512];
-		wsprintf(temp_string, (*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BURST_ATTACK].GetString(), m_iAttackGage , ATTACK_MAX_POINT);
-		bloodburst_string[0]=temp_string;
-					
-		help_string[0] = bloodburst_string[0].c_str();
-		g_descriptor_manager.Set(DID_HELP, print_x+30, print_y, (void *)help_string, 0, color);
-
-	}
-	else if(RectDefense.IsInRect(gpC_mouse_pointer->GetPointerX() , gpC_mouse_pointer->GetPointerY())) //  && m_iDefenseGage)
-	{
-		char temp_string[512];
-		wsprintf(temp_string, (*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BURST_DEFENSE].GetString(), m_iDefenseGage , DEFENSE_MAX_POINT);
-		bloodburst_string[0]=temp_string;
-					
-		help_string[0] = bloodburst_string[0].c_str();
-		g_descriptor_manager.Set(DID_HELP, print_x+30, print_y, (void *)help_string, 0, color);
-	}
-	else if(RectParty.IsInRect(gpC_mouse_pointer->GetPointerX() , gpC_mouse_pointer->GetPointerY()))// && m_iPartyGage )
-	{
-		char temp_string[512];
-		wsprintf(temp_string, (*g_pGameStringTable)[UI_STRING_MESSAGE_BLOOD_BURST_PARTY].GetString(), m_iPartyGage , PARTY_MAX_POINT);
-		bloodburst_string[0]=temp_string;
-					
-		help_string[0] = bloodburst_string[0].c_str();
-		g_descriptor_manager.Set(DID_HELP, print_x+30, print_y, (void *)help_string, 0, color);
-	}
-}
-
-void	C_VS_UI_BLOOD_BURST::Process()
-{
-	ProcessHide();
-	
-	if(m_width_mode)
-		m_pC_width_button_group->Process();
-	else
-		m_pC_height_button_group->Process();
-
-}
-void	C_VS_UI_BLOOD_BURST::Start()
-{
-	PI_Processor::Start();
-	m_pC_width_button_group->Init();
-	m_pC_height_button_group->Init();
-	gpC_window_manager->AppearWindow(this);
-}
-
-void	C_VS_UI_BLOOD_BURST::Finish()
-{
-	PI_Processor::Finish();
-
-	gpC_window_manager->DisappearWindow(this);
-}
-
-
-
-//-----------------------------------------------------------------------------
-// C_VS_UI_BLOOD_BURST
-//
-//-----------------------------------------------------------------------------
-C_VS_UI_MARKET_ACCOUNT::C_VS_UI_MARKET_ACCOUNT()
-{
-	m_pC_Market_spk = NULL;
-	m_pC_Market_button_group= NULL;
-	
-	
-
-	switch(g_eRaceInterface)
-	{
-	case RACE_SLAYER:
-		m_pC_Market_spk = new C_SPRITE_PACK(SPK_MARKET_SLAYER);
-		break;
-
-	case RACE_VAMPIRE:
-		m_pC_Market_spk = new C_SPRITE_PACK(SPK_MARKET_VAMPIRE);
-		break;
-
-	case RACE_OUSTERS:
-		m_pC_Market_spk = new C_SPRITE_PACK(SPK_MARKET_OUSTERS);
-		break;	
-	}
-
-	int iTypeYValue[3] = { 416 , 412  , 412 } ;
-	
-	int iTypeXValue[3] = { 0 ,  21  ,  42 } ;
-
-
-	Set(740 , iTypeYValue[g_eRaceInterface] , 62 , m_pC_Market_spk->GetHeight())   ; 
-	
-	g_RegisterWindow(this);
-	
-	AttrPin(true);
-
-
-	m_pC_Market_button_group  = new ButtonGroup(this);
-
-	m_pC_Market_button_group->Add(new C_VS_UI_EVENT_BUTTON(iTypeXValue[0] , 0 , m_pC_Market_spk->GetWidth(), m_pC_Market_spk->GetHeight(), MARKETM_ID, this, MARKETM_BUTTON));
-	m_pC_Market_button_group->Add(new C_VS_UI_EVENT_BUTTON(iTypeXValue[1] , 0 , m_pC_Market_spk->GetWidth(), m_pC_Market_spk->GetHeight(), MARKETB_ID, this, MARKETB_BUTTON));
-	m_pC_Market_button_group->Add(new C_VS_UI_EVENT_BUTTON(iTypeXValue[2] , 0 , m_pC_Market_spk->GetWidth(), m_pC_Market_spk->GetHeight(), MARKETH_ID, this, MARKETH_BUTTON));
-}
-
-
-C_VS_UI_MARKET_ACCOUNT::~C_VS_UI_MARKET_ACCOUNT()
-{
-	g_UnregisterWindow(this);
-	DeleteNew(m_pC_Market_button_group);
-	
-}
-
-void	C_VS_UI_MARKET_ACCOUNT::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
-{
-
-		if(p_button->GetFocusState())
-		{
-			if(p_button->GetPressState())
-				m_pC_Market_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index+1);
-			else
-				m_pC_Market_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index+2);
-		}
-		else
-		{
-			if(p_button->GetPressState())
-				m_pC_Market_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index + 1);
-			else
-				m_pC_Market_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index);
-		}
-	//m_pC_Market_spk->BltLocked(x + p_button->x, y + p_button->y, p_button->m_image_index+1);
-
-
-}
-
-void	C_VS_UI_MARKET_ACCOUNT::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
-{
-}
-
-void	C_VS_UI_MARKET_ACCOUNT::WindowEventReceiver(id_t event)
-{
-}
-
-bool	C_VS_UI_MARKET_ACCOUNT::IsPixel(int _x, int _y)
-{
-	return IsInRect(_x, _y);
-}
-
-void	C_VS_UI_MARKET_ACCOUNT::Run(id_t id)
-{
-		switch (id)
-	{
-	
-	case MARKETM_ID:	// °áÁ¦ À¥ ÆäÀÌÁö ±¸µ¿ 
-		 gpC_base->SendMessage(UI_MARKET_ACCOUNT ,  MARKETM_ID , 0) ;
-		  break ;
-	
-	case MARKETB_ID:
-		gpC_base->SendMessage(UI_MARKET_ACCOUNT ,  MARKETB_ID , 0) ;	
-		 //if(gC_vs_ui.IsRunningItemListWindow())
-		//	gC_vs_ui.CloseItemListWindow();
-		// else
-		//	gC_vs_ui.RunItemListWindow(); 
-		 
-		 //gpC_base->SendMessage(UI_MARKET_ACCOUNT ,  MARKETB_ID) ;
-		 break ;
-
-	case MARKETH_ID:
-		 gpC_base->SendMessage(UI_MARKET_ACCOUNT ,  MARKETH_ID, 0) ;
-		 break ;		
-	}
-}
-
-bool	C_VS_UI_MARKET_ACCOUNT::MouseControl(UINT message, int _x, int _y)
-{
-	Window::MouseControl(message, _x, _y);
-	_x -= x; _y -= y;
-
-	m_pC_Market_button_group->MouseControl(message, _x, _y);
-	return true;
-}
-
-void	C_VS_UI_MARKET_ACCOUNT::KeyboardControl(UINT message, UINT key, long extra)
-{
-	if (message == WM_KEYDOWN && key == VK_ESCAPE)
-	{
-		//		Run(CLOSE);
-	}
-}
-
-void	C_VS_UI_MARKET_ACCOUNT::Show()
-{
-	if(gpC_base->m_p_DDSurface_back->Lock())
-	{
-		//gpC_global_resource->DrawDialogLocked(x, y, w, h);
-		m_pC_Market_button_group->Show()  ; 
-	}
-	gpC_base->m_p_DDSurface_back->Unlock();
-
-
-}
-
-void	C_VS_UI_MARKET_ACCOUNT::Process()
-{
-	ProcessHide();
-	m_pC_Market_button_group->Process();
-}
-
-void	C_VS_UI_MARKET_ACCOUNT::Start()
-{
-	PI_Processor::Start();
-	m_pC_Market_button_group->Init();
-	gpC_window_manager->AppearWindow(this);
-}
-
-void	C_VS_UI_MARKET_ACCOUNT::Finish()
-{
-	PI_Processor::Finish();
-
-	gpC_window_manager->DisappearWindow(this);
 }
 
 //-----------------------------------------------------------------------------
@@ -22860,12 +21826,7 @@ void C_VS_UI_EFFECT_STATUS::Show()
 
 					DWORD delayFrame = (g_char_slot_ingame.STATUS[i+m_scroll].delayFrame-CurrentFrame);
 					if(CurrentFrame > g_char_slot_ingame.STATUS[i+m_scroll].delayFrame)
-						delayFrame = 0;	
-					
-					if(skill_id == SKILL_CLIENT_MAGICAL_PET_CHANGER && delayFrame == 0 )
-					{
-						gpC_base->SendMessage(UI_CLIENT_REMOVE_EFFECT_STATUS , skill_id ) ;
-					}
+						delayFrame = 0;			
 						
 					if(C_VS_UI_SKILL::m_C_spk_mini.GetSize() > sprite_id )
 					{
@@ -23316,18 +22277,24 @@ C_VS_UI_MINIMAP::C_VS_UI_MINIMAP()
 	switch( g_eRaceInterface )
 	{
 	case RACE_SLAYER:
+		m_map_start_point.x = 4;//add by viva : map_start_x
+		m_map_start_point.y = 29;
 		m_pC_minimap_spk = new C_SPRITE_PACK(SPK_MINIMAP_SLAYER);
 		break;
 
 	case RACE_VAMPIRE:
+		m_map_start_point.x = 4;//add by viva : map_start_x
+		m_map_start_point.y = 29;
 		m_pC_minimap_spk = new C_SPRITE_PACK(SPK_MINIMAP_VAMPIRE);
 		break;
 
 	case RACE_OUSTERS:
+		m_map_start_point.x = 4+7; //add by viva : map_start_x
+		m_map_start_point.y = 29+2;
 		m_pC_minimap_spk = new C_SPRITE_PACK(SPK_MINIMAP_OUSTERS);
 	}
 
-	Set(RESOLUTION_X-m_pC_minimap_spk->GetWidth(MINIMAP_MAIN)-m_pC_minimap_spk->GetWidth(MINIMAP_RIGHT), 0, m_pC_minimap_spk->GetWidth(MINIMAP_MAIN)+m_pC_minimap_spk->GetWidth(MINIMAP_RIGHT), m_pC_minimap_spk->GetHeight(MINIMAP_MAIN));
+	Set(g_GameRect.right-m_pC_minimap_spk->GetWidth(MINIMAP_MAIN)-m_pC_minimap_spk->GetWidth(MINIMAP_RIGHT), 0, m_pC_minimap_spk->GetWidth(MINIMAP_MAIN)+m_pC_minimap_spk->GetWidth(MINIMAP_RIGHT), m_pC_minimap_spk->GetHeight(MINIMAP_MAIN));
 	
 	//skillinfo ¹öÆ°
 	m_pC_button_group = new ButtonGroup(this);
@@ -23343,8 +22310,8 @@ C_VS_UI_MINIMAP::C_VS_UI_MINIMAP()
 	m_zone_id = -1;
 	m_map_x = 0; m_map_y = 0;
 	m_map_w = 0; m_map_h = 0;
-	m_map_start_point.x = 4;
-	m_map_start_point.y = 29;
+	//m_map_start_point.x = 4;   //modify by viva : notice,,the code on above
+	//m_map_start_point.y = 29;
 	m_bl_refresh = false;
 	
 	// TIMER
@@ -23458,11 +22425,11 @@ void C_VS_UI_MINIMAP::WindowEventReceiver(id_t event)
 	{
 	case EVENT_WINDOW_MOVE: 
 		{
-			if(x+w/2 < RESOLUTION_X/2)
+			if(x+w/2 < g_GameRect.right/2)
 				m_board_x = w-4;
 			else
 				m_board_x = -m_pC_minimap_spk->GetWidth(MINIMAP_BOARD)+4;
-			if(y+h/2 < RESOLUTION_Y/2)
+			if(y+h/2 < g_GameRect.bottom/2)
 				m_board_y = 0;
 			else
 				m_board_y = h - m_pC_minimap_spk->GetHeight(MINIMAP_BOARD);
@@ -23797,7 +22764,7 @@ void C_VS_UI_MINIMAP::Show()
 		}
 		
 		// hidingÁß¿¡´Â ±âÅ¸µîµî »ý·«
-		//		if(GetAttributes()->autohide && x < 0 || x+w > RESOLUTION_X || y < 0 || y+h > RESOLUTION_Y)
+		//		if(GetAttributes()->autohide && x < 0 || x+w > g_GameRect.right || y < 0 || y+h > g_GameRect.bottom)
 		//		{
 		//			gpC_base->m_p_DDSurface_back->Unlock();
 		//			return;
@@ -23842,7 +22809,7 @@ void C_VS_UI_MINIMAP::Show()
 			_x = x+m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
 			_y = y+m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
 			
-			if(_x > 1 && _x < RESOLUTION_X-2 && _y > 2 && _y < RESOLUTION_Y-1)
+			if(_x > 1 && _x < g_GameRect.right-2 && _y > 2 && _y < g_GameRect.bottom-1)
 			{
 				mem[(_y)*pitch_div_2 + _x] = _color;
 				mem[(_y-1)*pitch_div_2 + _x-1] = _color2;
@@ -23876,7 +22843,7 @@ void C_VS_UI_MINIMAP::Show()
 			_x = x+m_map_start_point.x + (m_Block[i].x)*map_w/m_map_w;
 			_y = y+m_map_start_point.y + (m_Block[i].y)*map_h/m_map_h;
 			
-			if(_x > 0 && _x < RESOLUTION_X-1 && _y > 1 && _y < RESOLUTION_Y)
+			if(_x > 0 && _x < g_GameRect.right-1 && _y > 1 && _y < g_GameRect.bottom)
 			{
 				mem[(_y)*pitch_div_2 + _x] = _color;
 			}
@@ -23907,7 +22874,7 @@ void C_VS_UI_MINIMAP::Show()
 			}
 			else
 			{
-				if(_x > 1 && _x < RESOLUTION_X-2 && _y > 3 && _y < RESOLUTION_Y-1)
+				if(_x > 1 && _x < g_GameRect.right-2 && _y > 3 && _y < g_GameRect.bottom-1)
 				{
 					mem[(_y)*pitch_div_2 + _x] = _color;
 					mem[(_y-1)*pitch_div_2 + _x] = _color;
@@ -23940,7 +22907,7 @@ void C_VS_UI_MINIMAP::Show()
 			_x = x+m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
 			_y = y+m_map_start_point.y + m_shrine[i].y*map_h/m_map_h;
 			
-			if(_x > 1 && _x < RESOLUTION_X-2 && _y > 2 && _y < RESOLUTION_Y-3)
+			if(_x > 1 && _x < g_GameRect.right-2 && _y > 2 && _y < g_GameRect.bottom-3)
 			{
 				mem[(_y)*pitch_div_2 + _x-1] = _color;
 				mem[(_y)*pitch_div_2 + _x+1] = _color;
@@ -23982,7 +22949,7 @@ void C_VS_UI_MINIMAP::Show()
 		_x = x+m_map_start_point.x + g_pParty->GetMemberInfo(i)->zoneX*map_w/m_map_w;
 		_y = y+m_map_start_point.y + g_pParty->GetMemberInfo(i)->zoneY*map_h/m_map_h;
 		
-		  if(_x > 0 && _x < RESOLUTION_X-1 && _y > 0 && _y < RESOLUTION_Y-1)
+		  if(_x > 0 && _x < g_GameRect.right-1 && _y > 0 && _y < g_GameRect.bottom-1)
 		  {
 		  mem[(_y)*pitch_div_2 + _x] = _color;
 		  mem[(_y-1)*pitch_div_2 + _x-1] = _color;
@@ -24011,7 +22978,7 @@ void C_VS_UI_MINIMAP::Show()
 			  _x = x+m_map_start_point.x + m_map_x*map_w/m_map_w;
 			  _y = y+m_map_start_point.y + m_map_y*map_h/m_map_h;
 			  
-				if(_x > 0 && _x < RESOLUTION_X-1 && _y > 0 && _y < RESOLUTION_Y-1)
+				if(_x > 0 && _x < g_GameRect.right-1 && _y > 0 && _y < g_GameRect.bottom-1)
 				{
 				mem[(_y)*pitch_div_2 + _x] = 0xffff;
 				mem[(_y+1)*pitch_div_2 + _x+1] = 0xffff;
@@ -24040,7 +23007,7 @@ void C_VS_UI_MINIMAP::Show()
 			{
 				_x = x+m_map_start_point.x + g_pParty->GetMemberInfo(i)->zoneX*map_w/m_map_w;
 				_y = y+m_map_start_point.y + g_pParty->GetMemberInfo(i)->zoneY*map_h/m_map_h;
-				if(_x > 0 && _x < RESOLUTION_X-1 && _y > 0 && _y < RESOLUTION_Y-1)
+				if(_x > 0 && _x < g_GameRect.right-1 && _y > 0 && _y < g_GameRect.bottom-1)
 					m_pC_minimap_spk->BltLocked(_x-m_pC_minimap_spk->GetWidth(MINIMAP_ICON_PARTY)/2, _y-m_pC_minimap_spk->GetHeight(MINIMAP_ICON_PARTY)/2, MINIMAP_ICON_PARTY);
 			}
 		}
@@ -24051,7 +23018,7 @@ void C_VS_UI_MINIMAP::Show()
 			_x = x+m_map_start_point.x + m_map_x*map_w/m_map_w;
 			_y = y+m_map_start_point.y + m_map_y*map_h/m_map_h;
 			
-			if(_x > 0 && _x < RESOLUTION_X-1 && _y > 0 && _y < RESOLUTION_Y-1)
+			if(_x > 0 && _x < g_GameRect.right-1 && _y > 0 && _y < g_GameRect.bottom-1)
 				m_pC_minimap_spk->BltLocked(_x-m_pC_minimap_spk->GetWidth(MINIMAP_ICON_SELF)/2, _y-m_pC_minimap_spk->GetHeight(MINIMAP_ICON_SELF)/2, MINIMAP_ICON_SELF);
 		}
 		
@@ -24120,7 +23087,7 @@ void C_VS_UI_MINIMAP::Process()
 	{
 		AttrAlpha(false);
 	}
-	if(x <= 0 || x+w >= RESOLUTION_X)
+	if(x <= 0 || x+w >= g_GameRect.right)
 		ProcessHide(-4, bl_alpha);
 	else
 		ProcessHide(0, bl_alpha);
@@ -24147,7 +23114,7 @@ void C_VS_UI_MINIMAP::SetZone(int zone_id)
 	//	33, 34,					//Æ©Åä¸®¾ó
 	//	-1, -1, -1};//Å¬¶óÀÌ¾ðÆ®¿ë
 	
-	//	bool bl_statch = (x+w >= RESOLUTION_X-1);
+	//	bool bl_statch = (x+w >= g_GameRect.right-1);
 	//	int statch_w = w;
 	
 	m_zone_id = zone_id;
@@ -24185,12 +23152,12 @@ void C_VS_UI_MINIMAP::SetZone(int zone_id)
 		m_p_minimap_surface->Unlock();
 		
 		int map_minus_w = 200-m_surface_w;
-		if(x+w == RESOLUTION_X)
+		if(x+w == g_GameRect.right)
 			x -= m_pC_minimap_spk->GetWidth(MINIMAP_MAIN)+m_pC_minimap_spk->GetWidth(MINIMAP_RIGHT)-map_minus_w-w;
 		w = m_pC_minimap_spk->GetWidth(MINIMAP_MAIN)+m_pC_minimap_spk->GetWidth(MINIMAP_RIGHT)-map_minus_w;
 		
 		int map_minus_h = 100-m_surface_h;
-		if(x+h == RESOLUTION_Y)
+		if(x+h == g_GameRect.bottom)
 			y -= m_pC_minimap_spk->GetHeight(MINIMAP_MAIN)-map_minus_h-h;
 		h = m_pC_minimap_spk->GetHeight(MINIMAP_MAIN)-map_minus_h;
 	}
@@ -24663,7 +23630,7 @@ C_VS_UI_TEAM_LIST::C_VS_UI_TEAM_LIST(bool ready, bool IsUnion)
 		break;
 	}	
 	
-	Set(RESOLUTION_X/2-m_guild_spk.GetWidth(0)/2, RESOLUTION_Y/2 - m_guild_spk.GetHeight(0)/2, m_guild_spk.GetWidth(0), m_guild_spk.GetHeight(0));
+	Set(g_GameRect.right/2-m_guild_spk.GetWidth(0)/2, g_GameRect.bottom/2 - m_guild_spk.GetHeight(0)/2, m_guild_spk.GetWidth(0), m_guild_spk.GetHeight(0));
 	
 	
 	// set button
@@ -24846,7 +23813,7 @@ void	C_VS_UI_TEAM_LIST::Finish()
 //-----------------------------------------------------------------------------
 // C_VS_UI_TEAM_LIST::Show 
 //
-//
+// look by viva : friend show
 //-----------------------------------------------------------------------------
 void C_VS_UI_TEAM_LIST::Show()
 {
@@ -25042,6 +24009,7 @@ void C_VS_UI_TEAM_LIST::Show()
 	m_pC_button_group->ShowDescription();
 	
 	SHOW_WINDOW_ATTR;
+
 }
 
 //-----------------------------------------------------------------------------
@@ -25278,11 +24246,11 @@ bool	C_VS_UI_TEAM_LIST::MouseControl(UINT message, int _x, int _y)
 						gpC_base->SendMessage(UI_SELECT_REGIST_TEAM_LIST, m_v_regist_team_search_list[m_iFocus + m_scroll].guild_id, 0, (void *)m_v_regist_team_search_list[m_iFocus + m_scroll].TEAM_NAME.c_str());
 				}
 				else
-				if(m_v_regist_team_list.size())
-				{
-					if(m_v_regist_team_list.size() > m_iFocus + m_scroll)
-						gpC_base->SendMessage(UI_SELECT_REGIST_TEAM_LIST, m_v_regist_team_list[m_iFocus + m_scroll].guild_id, 0, (void *)m_v_regist_team_list[m_iFocus + m_scroll].TEAM_NAME.c_str());
-				}
+					if(m_v_regist_team_list.size())
+					{
+						if(m_v_regist_team_list.size() > m_iFocus + m_scroll)
+							gpC_base->SendMessage(UI_SELECT_REGIST_TEAM_LIST, m_v_regist_team_list[m_iFocus + m_scroll].guild_id, 0, (void *)m_v_regist_team_list[m_iFocus + m_scroll].TEAM_NAME.c_str());
+					}
 			}
 		}
 		break;
@@ -26199,39 +25167,6 @@ void	C_VS_UI_TEAM_LIST::Run(id_t id)
 		}
 		break;
 		
-		//	case INDEX_EXPIREDATE_ID:
-		//		m_scroll = 0;
-		//		if(m_bl_ready)
-		//		{
-		//			if(m_v_ready_team_search_list.empty())
-		//			{
-		//				if(m_last_sort_type == INDEX_EXPIREDATE_ID)
-		//				{
-		//					std::sort(m_v_ready_team_list.begin(), m_v_ready_team_list.end(), CReadyTeamExpireLess());
-		//					m_last_sort_type = 0;
-		//				}
-		//				else
-		//				{
-		//					std::sort(m_v_ready_team_list.begin(), m_v_ready_team_list.end(), CReadyTeamExpireGreater());
-		//					m_last_sort_type = INDEX_EXPIREDATE_ID;
-		//				}
-		//			}
-		//			else
-		//			{
-		//				if(m_last_sort_type == INDEX_EXPIREDATE_ID)
-		//				{
-		//					std::sort(m_v_ready_team_search_list.begin(), m_v_ready_team_search_list.end(), CReadyTeamExpireLess());
-		//					m_last_sort_type = 0;
-		//				}
-		//				else
-		//				{
-		//					std::sort(m_v_ready_team_search_list.begin(), m_v_ready_team_search_list.end(), CReadyTeamExpireGreater());
-		//					m_last_sort_type = INDEX_EXPIREDATE_ID;
-		//				}
-		//			}
-		//		}
-		//		break;
-		
 	case INDEX_MEMBERS_ID:
 		m_scroll = 0;
 		if(m_bl_ready)
@@ -26443,6 +25378,998 @@ void	C_VS_UI_TEAM_LIST::AddRegistTeamList(const C_VS_UI_TEAM_LIST::REGIST_TEAM_L
 	m_v_regist_team_list.push_back(team_info);
 }
 
+
+
+
+
+
+///----------------------------------------------------------------------------
+//add by viva : Friend System ,C_VS_UI_FRIEDN
+C_VS_UI_FRIEND_INFO::C_VS_UI_FRIEND_INFO()
+{
+	g_RegisterWindow(this);
+	
+//	AttrTopmost(true);
+//	AttrKeyboardControl(true);
+	AttrPin(true);	
+	
+	Rect &rect = gpC_vs_ui_window_manager->GetRect(C_VS_UI_WINDOW_MANAGER::FRIEND_WINDOW);
+	if(rect.w != -1)
+	{
+		x = rect.x;
+		y = rect.y;
+	}
+
+
+	switch(g_eRaceInterface)
+	{
+	case RACE_SLAYER:
+		m_friend_spk.Open(SPK_SLAYER_FRIEND);
+
+		scroll_up_x = 90;	scroll_up_y = 34 + m_friend_spk.GetHeight(BLACK_BUTTON);
+		scroll_down_x = 90, scroll_down_y = 169;
+		kind_x = 6;	kind_y = 33;
+		black_x = 7 + m_friend_spk.GetWidth(KIND_BUTTON);	black_y = 33;
+		break;
+
+	case RACE_VAMPIRE:
+		m_friend_spk.Open(SPK_VAMPIRE_FRIEND);
+
+		scroll_up_x = 90;	scroll_up_y = 29 + m_friend_spk.GetHeight(BLACK_BUTTON);
+		scroll_down_x = 90, scroll_down_y = 169-5;
+		kind_x = 6;	kind_y = 28;
+		black_x = 7 + m_friend_spk.GetWidth(KIND_BUTTON);	black_y = 28;
+		break;
+
+	case RACE_OUSTERS:
+		m_friend_spk.Open(SPK_OUSTERS_FRIEND);
+
+		scroll_up_x = 88;	scroll_up_y = 10;
+		scroll_down_x = 88, scroll_down_y = 167;
+		kind_x = 9;	kind_y = 33;
+		black_x = 10 + m_friend_spk.GetWidth(KIND_BUTTON);	black_y = 33;
+		break;
+	}
+	//int window_w = 220;
+	//int window_h = 280;
+	Set(g_GameRect.right/2-m_friend_spk.GetWidth(0)/2, g_GameRect.bottom/2 - m_friend_spk.GetHeight(0)/2, m_friend_spk.GetWidth(0), m_friend_spk.GetHeight(0));
+	//Set(g_GameRect.right/2-window_w/2, g_GameRect.bottom/2 - window_h/2, window_w, window_h);
+	m_pC_button_group = new ButtonGroup(this);
+	//kind, black button
+	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(kind_x, kind_y, m_friend_spk.GetWidth(KIND_BUTTON), m_friend_spk.GetHeight(KIND_BUTTON), KIND_ID, this, KIND_BUTTON));
+	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(black_x, black_y, m_friend_spk.GetWidth(BLACK_BUTTON), m_friend_spk.GetHeight(BLACK_BUTTON), BLACK_ID, this, BLACK_BUTTON));
+	//scroll up, down button
+	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(scroll_up_x, scroll_up_y, m_friend_spk.GetWidth(SCROLL_UP_BUTTON), m_friend_spk.GetHeight(SCROLL_UP_BUTTON), SCROLL_UP_ID, this, SCROLL_UP_BUTTON));
+	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(scroll_down_x, scroll_down_y, m_friend_spk.GetWidth(SCROLL_DOWN_BUTTON), m_friend_spk.GetHeight(SCROLL_DOWN_BUTTON), SCROLL_DOWN_ID, this, SCROLL_DOWN_BUTTON));
+	//add, find, setup button
+//	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(7, 167, m_friend_spk.GetWidth(FIND_BUTTON), m_friend_spk.GetHeight(FIND_BUTTON), FIND_ID, this, FIND_BUTTON));
+//	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(36, 167, m_friend_spk.GetWidth(ADD_BUTTON), m_friend_spk.GetHeight(ADD_BUTTON), ADD_ID, this, ADD_BUTTON));
+//	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(70, 169, m_friend_spk.GetWidth(SETUP_BUTTON), m_friend_spk.GetHeight(SETUP_BUTTON), SETUP_ID, this, SETUP_BUTTON));
+	
+	//scroll tag
+	m_tag_y = 88 + m_friend_spk.GetHeight(SCROLL_UP_BUTTON);
+	m_bl_scrolling = false;
+
+	m_scroll = 0;
+	m_iFocus = -1;
+	m_ButtonID_Down = KIND_ID;
+//	m_v_pFriendList = &m_v_pKindList;
+////	this->Start();
+
+	//FRIEND_LIST* pList = new FRIEND_LIST;
+	//pList->Name = "test111";
+	//m_v_pFriendList.push_back(pList);
+
+	//for(int i = 0;i<10;i++)
+	//{
+	//	char name[] = "test";
+	//	name[3] += i;
+	//	AddChattingMessageToHistory(pList,name,"123123123");
+	//}
+
+}
+
+C_VS_UI_FRIEND_INFO::~C_VS_UI_FRIEND_INFO()
+{
+	gpC_vs_ui_window_manager->SetRect(C_VS_UI_WINDOW_MANAGER::FRIEND_WINDOW, Rect(x, y, w, h));
+	g_UnregisterWindow(this);
+}
+void	C_VS_UI_FRIEND_INFO::Start(bool bl_set_load)
+{
+	m_bl_set_load = bl_set_load;
+
+	PI_Processor::Start();
+	m_pC_button_group->Init();
+	AttrPin(true);
+
+	gpC_window_manager->AppearWindow(this);
+}
+//look by viva : friend show
+void	C_VS_UI_FRIEND_INFO::Show()
+{
+	const barHeight = scroll_down_y - (scroll_up_y+m_friend_spk.GetHeight(SCROLL_UP_BUTTON)) - m_friend_spk.GetHeight(SCROLL_TAG);
+
+	if(m_ButtonID_Down == KIND_ID)
+	{
+		if(m_v_pFriendList.size()>8 && m_bl_scrolling)
+			m_scroll = (m_tag_y-(scroll_up_y+m_friend_spk.GetHeight(SCROLL_UP_BUTTON)))*(m_v_pFriendList.size()-8)/barHeight;
+
+		if(!m_bl_scrolling && m_v_pFriendList.size()>8)
+			m_tag_y = m_scroll*barHeight/(m_v_pFriendList.size()-8)+(scroll_up_y+m_friend_spk.GetHeight(SCROLL_UP_BUTTON));
+	}
+	if(m_ButtonID_Down == BLACK_ID)
+	{
+		if(m_v_pBlackList.size()>8 && m_bl_scrolling)
+			m_scroll = (m_tag_y-(scroll_up_y+m_friend_spk.GetHeight(SCROLL_UP_BUTTON)))*(m_v_pBlackList.size()-8)/barHeight;
+
+		if(!m_bl_scrolling && m_v_pBlackList.size()>8)
+			m_tag_y = m_scroll*barHeight/(m_v_pBlackList.size()-8)+(scroll_up_y+m_friend_spk.GetHeight(SCROLL_UP_BUTTON));
+	}
+/////////////////////////////////////////////
+	if(gpC_base->m_p_DDSurface_back->Lock())
+	{
+		m_friend_spk.BltLocked(x, y, FRIEDN_WINDOW);
+//		m_friend_spk.BltLocked(x+scroll_up_x+1, y+scroll_up_y, SCROLL_BAR);
+
+		if(m_iFocus != -1)
+			m_friend_spk.BltLocked(x+kind_x+1, y+54+16*m_iFocus, BAR_HILIGHTED);
+		m_pC_button_group->Show();
+
+		if(m_ButtonID_Down == KIND_ID)
+			if(m_v_pFriendList.size()>8)
+				m_friend_spk.BltLocked(x+scroll_up_x, y+m_tag_y, SCROLL_TAG);
+		if(m_ButtonID_Down == BLACK_ID)
+			if(m_v_pBlackList.size()>8)
+				m_friend_spk.BltLocked(x+scroll_up_x, y+m_tag_y, SCROLL_TAG);
+
+		gpC_base->m_p_DDSurface_back->Unlock();
+	}
+	g_PrintColorStr(x+15, y+13, g_char_slot_ingame.sz_name.c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
+/////////////////////////////////////////////
+
+	if(m_ButtonID_Down == KIND_ID)
+	{
+		for(int i=0; i<8; i++)
+		{
+			if(i+m_scroll<m_v_pFriendList.size())
+			{
+				FRIEND_LIST* pList = m_v_pFriendList[i+m_scroll];
+				g_FL2_GetDC();
+				//g_PrintColorStr(x+10,y+54+i*16,pList->Name.c_str(),gpC_base->m_chatting_pi, RGB_WHITE);
+				if(pList->blIsOnline == 0)
+					g_PrintColorStr(x+10,y+54+i*16,pList->Name.c_str(),gpC_base->m_chatting_pi, RGB_DARKGRAY);
+				if(pList->blIsOnline == 1)	
+					g_PrintColorStr(x+10,y+54+i*16,pList->Name.c_str(),gpC_base->m_chatting_pi, RGB_RED);
+				if(pList->blIsShow == 1)
+					g_PrintColorStrShadow(x+10,y+54+i*16,pList->Name.c_str(),gpC_base->m_chatting_pi, RGB_WHITE, RGB_RED);
+
+				g_FL2_ReleaseDC();
+			}
+		}
+	}
+	if(m_ButtonID_Down == BLACK_ID)
+	{
+		for(int i=0; i<8; i++)
+		{
+			if(i+m_scroll<m_v_pBlackList.size())
+			{
+				FRIEND_LIST* pList = m_v_pBlackList[i+m_scroll];
+				g_FL2_GetDC();
+				if(pList->blIsOnline == 0)
+					g_PrintColorStr(x+10,y+54+i*16,pList->Name.c_str(),gpC_base->m_chatting_pi, RGB_DARKGRAY);
+				if(pList->blIsOnline == 1)	
+					g_PrintColorStr(x+10,y+54+i*16,pList->Name.c_str(),gpC_base->m_chatting_pi, RGB_RED);
+				if(pList->blIsShow == 1)
+					g_PrintColorStrShadow(x+10,y+54+i*16,pList->Name.c_str(),gpC_base->m_chatting_pi, RGB_WHITE, RGB_RED);
+
+				g_FL2_ReleaseDC();
+			}
+		}
+	}
+//////////////////////////////////////////////
+
+////////////////////////////////////////////////
+	m_pC_button_group->ShowDescription();
+}
+bool	C_VS_UI_FRIEND_INFO::IsPixel(int _x, int _y)
+{
+	return IsInRect(_x, _y);
+}
+void	C_VS_UI_FRIEND_INFO::Process()
+{
+	m_pC_button_group->Process();
+}
+void	C_VS_UI_FRIEND_INFO::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
+{
+	assert(p_button);	
+	switch(p_button->GetID())
+	{
+	case KIND_ID:
+		{
+			if(m_ButtonID_Down == KIND_ID)
+				m_friend_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index+2);
+			else
+				m_friend_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index);
+			break;
+		}
+	case BLACK_ID:
+		{
+			if(m_ButtonID_Down == BLACK_ID)
+				m_friend_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index+2);
+			else
+				m_friend_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index);
+			break;
+		}
+	case SETUP_ID:
+		if(p_button->GetFocusState())
+		{
+			if(p_button->GetPressState())
+				m_friend_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index+2);
+			else
+				m_friend_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index+1);
+		}
+		else	
+			m_friend_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index);
+		break;
+	case SCROLL_UP_ID:
+	case SCROLL_DOWN_ID:
+	case ADD_ID:
+	case FIND_ID:
+		if(p_button->GetFocusState() && p_button->GetPressState())
+			m_friend_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index+1);
+		else
+			m_friend_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index);
+		break;
+	}
+}
+void	C_VS_UI_FRIEND_INFO::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
+{
+	const static char*	m_help_string[EXEC_MAX] = {
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_LIST].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_BLACKLIST].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_TAG].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_UP].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_DOWN].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_FIND].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_ADD].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_FRIEND_SETUP].GetString(),
+
+	};
+	
+	//if (!m_bl_scrolling)
+	if(p_button->GetID()!=SCROLL_BAR_ID && p_button->GetID()!=SCROLL_UP_ID && p_button->GetID()!=SCROLL_DOWN_ID)
+		g_descriptor_manager.Set(DID_INFO, x+p_button->x, y+p_button->y, (void *)m_help_string[p_button->GetID()],0,0);
+}
+bool	C_VS_UI_FRIEND_INFO::MouseControl(UINT message, int _x, int _y)
+{
+	Window::MouseControl(message, _x, _y);
+
+	_x-=x; _y-=y;
+	bool re = m_pC_button_group->MouseControl(message, _x, _y);
+	switch(message)
+	{
+	case M_MOVING:
+		if(_x>10 && _x<88 && _y>54 && _y<(54+16*8))
+			m_iFocus = (_y-54)/16;
+		else
+			m_iFocus = -1;
+		if(m_ButtonID_Down == KIND_ID)
+			if(m_iFocus+1>m_v_pFriendList.size())
+				m_iFocus = -1;
+		if(m_ButtonID_Down == BLACK_ID)
+			if(m_iFocus+1>m_v_pBlackList.size())
+				m_iFocus = -1;
+
+		if(m_bl_scrolling)
+		{
+			m_tag_y = _y - m_tag_diff_y;
+			if(m_tag_y<(scroll_up_y+m_friend_spk.GetHeight(SCROLL_UP_BUTTON)))
+				m_tag_y = scroll_up_y+m_friend_spk.GetHeight(SCROLL_UP_BUTTON);
+			if((m_tag_y+m_friend_spk.GetHeight(SCROLL_TAG))>scroll_down_y)
+				m_tag_y = scroll_down_y-m_friend_spk.GetHeight(SCROLL_TAG);
+		}
+		break;
+	case M_LEFTBUTTON_DOWN:
+	case M_LB_DOUBLECLICK:
+		{
+			if(re && NULL == m_pC_button_group->IsInRect(_x, _y) && !(_x>10 && _x<88 && _y>54 && _y<(54+16*8)) && !(_x>88 && _x<(88+m_friend_spk.GetWidth(SCROLL_TAG)) && _y>(10+m_friend_spk.GetHeight(SCROLL_UP_BUTTON)) && _y<167))
+			{
+				MoveReady();
+				SetOrigin(_x, _y);
+			}
+			if(_x>10 && _x<88 && _y>54 && _y<(54+16*8))
+			{
+				if(m_iFocus >=0 && m_iFocus+m_scroll<m_v_pFriendList.size())
+				{
+					if(m_ButtonID_Down == KIND_ID)
+						gpC_base->SendMessage(UI_OPEN_FRIEND_CHATTING_INFO, 0, 0, m_v_pFriendList[m_iFocus+m_scroll]);
+				}
+			}
+			if(_x>88 && _x<(88+m_friend_spk.GetWidth(SCROLL_TAG)) && _y>m_tag_y && _y<(m_tag_y+m_friend_spk.GetHeight(SCROLL_TAG)))
+			{
+				m_bl_scrolling = true;
+				m_tag_diff_y = _y - m_tag_y;
+			}
+			break;
+		}
+	case M_RIGHTBUTTON_DOWN:
+//	case M_RB_DOUBLECLICK:
+		{
+			if(_x>10 && _x<88 && _y>54 && _y<(54+16*8))
+			{
+				if(m_ButtonID_Down == KIND_ID)
+				{
+					if(m_iFocus >=0 && m_iFocus+m_scroll<m_v_pFriendList.size())
+						gpC_base->SendMessage(UI_FRIEND_DELETE_ASK, 0, 0, m_v_pFriendList[m_iFocus+m_scroll]);
+				}
+				else if(m_ButtonID_Down == BLACK_ID)
+				{
+					if(m_iFocus >=0 && m_iFocus+m_scroll<m_v_pBlackList.size())
+						gpC_base->SendMessage(UI_FRIEND_DELETE_ASK, 0, 0, m_v_pBlackList[m_iFocus+m_scroll]);
+				}
+			}
+			break;
+		}
+	case M_LEFTBUTTON_UP:
+		m_bl_scrolling = false;
+			break;
+
+	case M_WHEEL_UP:
+		Run(SCROLL_UP_ID);
+		break;
+		
+	case M_WHEEL_DOWN:
+		Run(SCROLL_DOWN_ID);
+		break;
+	}	
+	g_descriptor_manager.Unset();
+	return true;
+}
+/*
+void C_VS_UI_FRIEND_INFO::WindowEventReceiver(id_t event)
+{
+	switch (event)
+	{
+	case EVENT_WINDOW_MOVE:
+		ResetRect();
+		break;
+	}
+}
+*/
+void C_VS_UI_FRIEND_INFO::ResetRect()
+{
+//	m_grid_rect.Set(m_grid_start_offset_x, 
+//								m_grid_start_offset_y, 
+//								GRID_UNIT_PIXEL_X*GRID_X, GRID_UNIT_PIXEL_Y*GRID_Y);
+}
+
+void C_VS_UI_FRIEND_INFO::Finish()
+{
+	PI_Processor::Finish();
+	
+	gpC_window_manager->DisappearWindow(this);
+}
+void	C_VS_UI_FRIEND_INFO::Run(id_t id)
+{
+	switch (id)
+	{
+//	case X_ID:
+//	case CLOSE_ID:
+//		gpC_base->SendMessage(UI_CLOSE_TEAM_LIST);
+//		break;
+		
+	case SCROLL_UP_ID:
+		{
+			if(m_scroll > 0)
+				m_scroll--;
+			break;
+		}
+		
+	case SCROLL_DOWN_ID:
+		{
+			if(m_ButtonID_Down == KIND_ID)
+			{
+				if(m_v_pFriendList.size())
+				{
+					if(m_scroll+8 < m_v_pFriendList.size())
+						m_scroll++;
+				}
+				else
+					if(m_scroll+8 < m_v_pFriendList.size())
+						m_scroll++;
+			}
+			else
+			{
+				if(m_v_pBlackList.size())
+				{
+					if(m_scroll+8 < m_v_pBlackList.size())
+						m_scroll++;
+				}
+				else
+					if(m_scroll+8 < m_v_pBlackList.size())
+						m_scroll++;
+			}
+			break;
+		}
+	case KIND_ID:
+		{
+			m_ButtonID_Down = KIND_ID;
+			m_scroll = 0;
+			break;
+		}
+	case BLACK_ID:
+		{
+			m_ButtonID_Down = BLACK_ID;
+			m_scroll = 0;
+			break;
+		}
+	}
+}
+void C_VS_UI_FRIEND_INFO::UpdateFriendList(FRIEND_LIST& List)
+{
+
+
+}
+
+
+static void GetStrLine(std::vector<std::string>& v_strlist, const char* str, int strLen, bool IsBlank)
+{
+	if(strLen<=0)
+		return;
+	char* strtemp = new char[strlen(str)+1];
+	strcpy(strtemp, str);
+	int len = strlen(str);
+	if(IsBlank)
+		while(g_GetStringWidth(strtemp, gpC_base->m_user_id_pi.hfont) > 360-65)
+			strtemp[--len] = '\0';
+	else
+		while(g_GetStringWidth(strtemp, gpC_base->m_user_id_pi.hfont) > 340-65)
+			strtemp[--len] = '\0';
+	std::string strpush = std::string(strtemp);
+	v_strlist.push_back(strpush);
+	GetStrLine(v_strlist, str+len, strLen-len, false);
+	delete strtemp;
+}
+
+void C_VS_UI_FRIEND_INFO::AddChattingMessageToHistory(FRIEND_LIST* pList, string Name, string strMessage)
+{
+	if(pList)
+	{
+		char strtime[64];
+		SYSTEMTIME st;
+		GetLocalTime(&st);
+		//sprintf(strtime, "%4d/%2d/%2d %2d:%2d:%2d", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond );
+		sprintf(strtime, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond );
+
+		std::string str = pList->Name + " " + string(strtime) + ":" + strMessage;
+		char* str2 = (char*)str.c_str();
+		std::vector<std::string> v_strlist;
+		GetStrLine(v_strlist, str2, strlen(str2), true);
+		for(int j=0; j<v_strlist.size(); j++)
+		{
+			HISTORY_LIST* pHistory = new HISTORY_LIST;
+			pHistory->strLine = v_strlist[j];
+			if(j == 0)
+				pHistory->IsBlank = 1;
+			else
+				pHistory->IsBlank = 0;
+			pList->m_v_pHistory_List.push_back(pHistory);
+		}
+	}
+}
+
+void* C_VS_UI_FRIEND_INFO::GetFriendList(const string Name)
+{
+	FRIEND_LIST* pList = NULL;
+	for(int i=0; i<m_v_pFriendList.size(); i++)
+	{
+		if(m_v_pFriendList[i]->Name == Name)
+			pList = m_v_pFriendList[i];
+	}
+	return (void*)pList;
+}
+
+void* C_VS_UI_FRIEND_INFO::GetBlackList(const string Name)
+{
+	FRIEND_LIST* pList = NULL;
+	for(int i = 0; i<m_v_pBlackList.size(); i++)
+	{
+		if(m_v_pBlackList[i]->Name == Name)
+			pList = m_v_pBlackList[i];
+	}
+	return (void*)pList;
+}
+//void C_VS_UI_FRIEND_INFO::GetStrLine(std::vector<std::string>& v_strlist, char* str, int strLen, bool IsBlank)
+//{
+//
+//}
+//add by viva
+class CFriendListIsOnLine
+{
+public:
+	bool operator()(const C_VS_UI_FRIEND_INFO::FRIEND_LIST* p, const C_VS_UI_FRIEND_INFO::FRIEND_LIST* q) const
+	{
+		if(p->blIsOnline>q->blIsOnline)
+			return true;
+		else
+			return false;
+	}
+};
+class CFriendListIsShow
+{
+public:
+	bool operator()(const C_VS_UI_FRIEND_INFO::FRIEND_LIST* p, const C_VS_UI_FRIEND_INFO::FRIEND_LIST* q) const
+	{
+		if(p->blIsShow>q->blIsShow)
+			return true;
+		else
+			return false;
+	}
+};
+//end
+
+void C_VS_UI_FRIEND_INFO::SortOrder()
+{
+	std::sort(m_v_pFriendList.begin(), m_v_pFriendList.end(), CFriendListIsOnLine());
+	std::sort(m_v_pFriendList.begin(), m_v_pFriendList.end(), CFriendListIsShow());
+	std::sort(m_v_pBlackList.begin(), m_v_pBlackList.end(), CFriendListIsOnLine());
+}
+
+
+
+
+
+
+
+///---------------------------------------------------------------------------
+/// class C_VS_UI_FRIEND_CHATTING_INFO
+///
+/// add by viva
+/// friend show
+///---------------------------------------------------------------------------
+
+C_VS_UI_FRIEND_CHATTING_INFO::C_VS_UI_FRIEND_CHATTING_INFO(C_VS_UI_FRIEND_INFO::FRIEND_LIST* pFriend_List)
+{
+	m_pList = pFriend_List;
+	m_bl_scrolling = false;
+	g_RegisterWindow(this);
+	
+	AttrTopmost(true);
+	AttrKeyboardControl(true);
+
+	switch(g_eRaceInterface)
+	{
+	case RACE_SLAYER:
+		m_chatting_spk.Open(SPK_SLAYER_FRIEND);
+
+		//scroll_up_x = 380-58-32; scroll_up_y = 46; scroll_down_x = 380-58-32; scroll_down_y = 118+40;
+		//history_x = 30; history_y = 42;
+		//lev_send_width = 450-85;
+		//close_x = 306; close_y = 2;
+		scroll_up_x = 380-58-32+20; scroll_up_y = 46; scroll_down_x = 380-58-32+20; scroll_down_y = 118+40;
+		history_x = 30; history_y = 45;
+		lev_send_width = 450-85;
+		close_x = 306+20; close_y = 3;
+		break;
+
+	case RACE_VAMPIRE:
+		m_chatting_spk.Open(SPK_VAMPIRE_FRIEND);
+
+		scroll_up_x = 380-58-32+20; scroll_up_y = 46+20; scroll_down_x = 380-58-32+20; scroll_down_y = 118+40+20;
+		history_x = 30; history_y = 45+20;
+		lev_send_width = 450-85;
+		close_x = 306+10; close_y = 18;
+		break;
+
+	case RACE_OUSTERS:
+		m_chatting_spk.Open(SPK_OUSTERS_FRIEND);
+
+		scroll_up_x = 380-58; scroll_up_y = 39; scroll_down_x = 380-58; scroll_down_y = 118+40;
+		history_x = 40; history_y = 42;
+		lev_send_width = 450-72;
+		close_x = 340; close_y = 15;
+
+		break;
+	}
+
+	Set(g_GameRect.right/2-m_chatting_spk.GetWidth(CHATTING_WINDOW)/2, g_GameRect.bottom/2 - m_chatting_spk.GetHeight(CHATTING_WINDOW)/2, m_chatting_spk.GetWidth(CHATTING_WINDOW), m_chatting_spk.GetHeight(CHATTING_WINDOW));
+
+	m_pC_button_group = new ButtonGroup(this);
+	//send, black button
+//	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(150, 210, m_chatting_spk.GetWidth(BLACK_BUTTON), m_chatting_spk.GetHeight(BLACK_BUTTON), BLACK_ID, this, BLACK_BUTTON));
+//	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(300, 210, m_chatting_spk.GetWidth(SEND_BUTTON), m_chatting_spk.GetHeight(SEND_BUTTON), SEND_ID, this, SEND_BUTTON));
+	//x button
+//	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(380, 210, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_X), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_X), CLOSE_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_X));
+	//scroll up,down button
+	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(scroll_up_x, scroll_up_y, m_chatting_spk.GetWidth(SCROLL_UP_BUTTON), m_chatting_spk.GetHeight(SCROLL_UP_BUTTON), SCROLL_UP_ID, this, SCROLL_UP_BUTTON));
+	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(scroll_down_x, scroll_down_y, m_chatting_spk.GetWidth(SCROLL_DOWN_BUTTON), m_chatting_spk.GetHeight(SCROLL_DOWN_BUTTON), SCROLL_DOWN_ID, this, SCROLL_DOWN_BUTTON));
+
+	//m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(250, 20, 
+	//	gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::BUTTON_CLOSE), 
+	//	gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::BUTTON_CLOSE), 
+	//	CLOSE_ID, this, C_GLOBAL_RESOURCE::BUTTON_CLOSE));
+	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_x, close_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_X), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_X), CLOSE_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_X));
+	//scroll tag
+	m_tag_y = 39 + m_chatting_spk.GetHeight(SCROLL_UP_BUTTON);
+	m_bl_scrolling = false;
+	m_scroll = 0;
+
+
+	m_lev_send.SetAbsWidth(lev_send_width);
+	m_lev_send.SetEditorMode(14, 2);
+	m_lev_send.SetByteLimit(512);
+//	m_lev_send.SetInputStringColor(RGB_BLACK);
+	m_lev_send.SetCursorColor(RGB_WHITE);
+	m_lev_send.SetPrintInfo(gpC_base->m_chatting_pi);
+	Attach(&m_lev_send);
+
+	//for(int i = 0; i<m_pList->m_v_pChatting_info.size(); i++)
+	//{
+	//	C_VS_UI_FRIEND_INFO::FRIEND_CHATTING_INFO* pChatting = m_pList->m_v_pChatting_info[i];
+	//	std::string str = m_pList->Name + " " + pChatting->Date + " : " + pChatting->Content;
+	//	char* str2 = (char*)str.c_str();
+	//	std::vector<std::string> v_strlist;
+	//	GetStrLine(v_strlist, str2, strlen(str2), true);
+	//	for(int j=0; j<v_strlist.size(); j++)
+	//	{
+	//		HISTORY_LIST* pHistory = new HISTORY_LIST;
+	//		pHistory->strLine = v_strlist[j];
+	//		if(j == 0)
+	//			pHistory->IsBlank = 1;
+	//		else
+	//			pHistory->IsBlank = 0;
+	//		m_v_pHistory_List.push_back(pHistory);
+	//	}
+	//}
+	//for(int i = 0; i<10; i++)
+	//{
+	//	char message[] = "123123123dakjfskdjfalskjdfklajsdlfkjaskldjfaklsjdfklajsdlfalkjsdfa;lskdfjka;";
+	//	message[strlen(message)-1] += i;
+	//	AddLocalMessageToHistory(message);
+	//}
+	//AddLocalMessageToHistory(""
+
+	
+}
+bool	C_VS_UI_FRIEND_CHATTING_INFO::MouseControl(UINT message, int _x, int _y)
+{
+	if(!m_lev_send.IsAcquire())
+		m_lev_send.Acquire();
+	Window::MouseControl(message, _x, _y);
+
+	_x-=x; _y-=y;
+	bool re = m_pC_button_group->MouseControl(message, _x, _y);
+	switch(message)
+	{
+	case M_MOVING:
+		if(m_bl_scrolling)
+		{
+			
+			m_tag_y = _y - m_tag_diff_y;
+			if(m_tag_y<(scroll_up_y+m_chatting_spk.GetHeight(SCROLL_UP_BUTTON)))
+				m_tag_y = scroll_up_y+m_chatting_spk.GetHeight(SCROLL_UP_BUTTON);
+			if((m_tag_y+m_chatting_spk.GetHeight(SCROLL_TAG))>scroll_down_y)
+				m_tag_y = scroll_down_y-m_chatting_spk.GetHeight(SCROLL_TAG);
+		}
+		break;
+	case M_LEFTBUTTON_DOWN:
+	case M_LB_DOUBLECLICK:
+		{
+			if(re && NULL == m_pC_button_group->IsInRect(_x, _y) && !(_x>30 && _x<(scroll_up_x+m_chatting_spk.GetWidth(SCROLL_TAG)) && _y>39 && _y<195+25))
+			{
+				MoveReady();
+				SetOrigin(_x, _y);
+			}
+			if(_x>scroll_up_x && _x<(scroll_up_x+m_chatting_spk.GetWidth(SCROLL_TAG)) && _y>m_tag_y && _y<(m_tag_y+m_chatting_spk.GetHeight(SCROLL_TAG)))
+			{
+				m_bl_scrolling = true;
+				m_tag_diff_y = _y - m_tag_y;
+			}
+			break;
+		}
+	case M_LEFTBUTTON_UP:
+		m_bl_scrolling = false;
+		break;
+
+	case M_WHEEL_UP:
+		Run(SCROLL_UP_ID);
+		break;
+		
+	case M_WHEEL_DOWN:
+		Run(SCROLL_DOWN_ID);
+		break;
+	}	
+	g_descriptor_manager.Unset();
+	return true;
+
+}
+void C_VS_UI_FRIEND_CHATTING_INFO::Show()
+{
+
+	if(gpC_base->m_p_DDSurface_back->Lock())
+	{
+		m_chatting_spk.BltLocked(x, y, CHATTING_WINDOW);
+		m_chatting_spk.BltLocked(x+scroll_up_x, y+scroll_up_y, SCROLL_BAR);
+		if(m_pList->m_v_pHistory_List.size()>10)
+			m_chatting_spk.BltLocked(x+scroll_up_x, y+m_tag_y, SCROLL_TAG);
+
+		m_pC_button_group->Show();
+
+		gpC_base->m_p_DDSurface_back->Unlock();
+	}
+	if(g_eRaceInterface == RACE_VAMPIRE)
+		m_lev_send.SetPosition(x+history_x, y+145+40+25);
+	else
+		m_lev_send.SetPosition(x+history_x, y+145+40);
+	m_lev_send.Show();
+
+	std::string str = "Óë " + m_pList->Name + " ÁÄÌìÖÐ";
+	g_FL2_GetDC();
+	if(g_eRaceInterface == RACE_VAMPIRE)
+		g_PrintColorStr(x+80+50,y+10+20, str.c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
+	else
+		g_PrintColorStr(x+80,y+10, str.c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
+//	for(int i = 0, k = 0; i<m_pList->m_v_pChatting_info.size(); i++)
+//	{
+//		C_VS_UI_FRIEND_INFO::FRIEND_CHATTING_INFO* pChatting = m_pList->m_v_pChatting_info[i];
+//		std::string str = m_pList->Name + " " + pChatting->Date + " : " + pChatting->Content;
+//		char* str2 = (char*)str.c_str();
+//		std::vector<std::string> v_strlist;
+//		GetStrLine(v_strlist, str2, strlen(str2), true);
+//		for(int j=0; j<v_strlist.size(); j++, k++)
+//		{
+////				HISTORY_LIST* pHistory = new HISTORY_LIST;
+////			pHistory->strLine = v_strlist[j];
+//			if(j == 0)
+//				//pHistory->IsBlank = 1;
+//				g_PrintColorStr(x+40,y+42+k*15, v_strlist[j].c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
+//			else
+//				//pHistory->IsBlank = 0;
+//				g_PrintColorStr(x+60,y+42+k*15, v_strlist[j].c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
+//	//		m_v_pHistory_List.push_back(pHistory);
+//		}
+//	}
+	const barHeight = scroll_down_y - (scroll_up_y+m_chatting_spk.GetHeight(SCROLL_UP_BUTTON)) - m_chatting_spk.GetHeight(SCROLL_TAG);
+	if(m_pList->blIsShow == 1)
+	{
+		while(m_scroll+9 < m_pList->m_v_pHistory_List.size())
+			m_scroll++;
+		m_pList->blIsShow = 0;
+	}
+	else if(m_pList->m_v_pHistory_List.size()>9 && m_bl_scrolling)
+		m_scroll = (m_tag_y-(scroll_up_y+m_chatting_spk.GetHeight(SCROLL_UP_BUTTON)))*(m_pList->m_v_pHistory_List.size()-9)/barHeight;
+
+	if(!m_bl_scrolling && m_pList->m_v_pHistory_List.size()>9)
+		m_tag_y = m_scroll*barHeight/(m_pList->m_v_pHistory_List.size()-9)+(scroll_up_y+m_chatting_spk.GetHeight(SCROLL_UP_BUTTON));
+	////////////////////////////////////////
+	for(int i=0; i<9; i++)
+	{
+		if(i+m_scroll<m_pList->m_v_pHistory_List.size())
+		{
+			C_VS_UI_FRIEND_INFO::HISTORY_LIST* pList = m_pList->m_v_pHistory_List[i+m_scroll];
+			if(pList->IsBlank)
+				g_PrintColorStr(x+history_x,y+history_y+i*15, pList->strLine.c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
+			else
+				g_PrintColorStr(x+history_x+20,y+history_y+i*15, pList->strLine.c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
+		}
+	}
+
+
+	g_FL2_ReleaseDC();
+	m_pC_button_group->ShowDescription();
+}
+
+
+C_VS_UI_FRIEND_CHATTING_INFO::~C_VS_UI_FRIEND_CHATTING_INFO()
+{
+	g_UnregisterWindow(this);
+	
+//	m_lev_send.Unacquire();
+//	DeleteNew( m_pList );
+//	for(int i = 0; i<m_v_pHistory_List.size(); i++)
+//	{
+//		HISTORY_LIST* pList = m_v_pHistory_List[i];
+//		delete pList;
+//	}
+
+	gC_vs_ui.AcquireChatting();
+	
+	DeleteNew( m_pC_button_group );
+}
+
+void	C_VS_UI_FRIEND_CHATTING_INFO::UnacquireMouseFocus()
+{
+	m_pC_button_group->UnacquireMouseFocus();
+}
+
+void C_VS_UI_FRIEND_CHATTING_INFO::Start()
+{
+	PI_Processor::Start();
+	m_pC_button_group->Init();
+	AttrTopmost(true);
+//	AttrPin(true);
+	//AttrKeyboardControl(true);
+	gpC_window_manager->AppearWindow(this);
+}
+
+bool	C_VS_UI_FRIEND_CHATTING_INFO::IsPixel(int _x, int _y)
+{
+	return IsInRect(_x, _y);
+}
+void	C_VS_UI_FRIEND_CHATTING_INFO::Process()
+{
+	m_pC_button_group->Process();
+}
+void	C_VS_UI_FRIEND_CHATTING_INFO::Run(id_t id)
+{
+	switch (id)
+	{
+	case CLOSE_ID:
+		gpC_base->SendMessage(UI_CLOSE_FRIEND_CHATTING_INFO, 0, 0, this);
+		break;
+	case SCROLL_UP_ID:
+	if(m_scroll > 0)
+		m_scroll--;
+	break;
+		
+	case SCROLL_DOWN_ID:
+		if(m_pList->m_v_pHistory_List.size())
+		{
+			if(m_scroll+9 < m_pList->m_v_pHistory_List.size())
+				m_scroll++;
+		}
+		else
+			if(m_scroll+9 < m_pList->m_v_pHistory_List.size())
+				m_scroll++;
+		break;
+	case SEND_ID:
+		{
+			char* sz_send = NULL;
+			g_Convert_DBCS_Ascii2SingleByte(m_lev_send.GetString(), m_lev_send.Size(), sz_send);
+			if(sz_send == NULL)
+				break;
+			if(strlen(sz_send)<=0 || strlen(sz_send)>512)
+				break;
+			if(strcmp(sz_send, "\n") == 0)
+			{
+				m_lev_send.EraseAll();
+				break;
+			}
+			FRIEND_SEND_MESSAGE* pMessage = new FRIEND_SEND_MESSAGE;
+			pMessage->Name = m_pList->Name;
+			pMessage->Message = string(sz_send);
+			gpC_base->SendMessage(UI_FRIEND_CHATTING_SEND_MESSAGE, 0, 0, pMessage);
+			AddLocalMessageToHistory(string(sz_send));
+			m_lev_send.EraseAll();
+			break;
+		}
+//	case BLACK_ID:
+//		{
+			
+//			gpC_base->SendMessage(UI_FRIEND_CHATTING_UPDATE, 0, 0, NULL);
+//			break;
+//		}
+	}
+}
+
+//#include "MPlayer.h"
+//extern MPlayer*	g_pPlayer;
+void C_VS_UI_FRIEND_CHATTING_INFO::AddLocalMessageToHistory(string strMessage)
+{
+	if(m_pList)
+	{
+		char strtime[64];
+		SYSTEMTIME st;
+		GetLocalTime(&st);
+		//sprintf(strtime, "%4d/%2d/%2d %2d:%2d:%2d", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond );
+		sprintf(strtime, "%02d:%02d:%02d", st.wHour, st.wMinute, st.wSecond );
+
+		//std::string str = string(g_pPlayer->GetName()) + " " + string(strtime) + " : " + strMessage;
+		std::string str = g_char_slot_ingame.sz_name + " " + string(strtime) + ":" + strMessage;
+		char* str2 = (char*)str.c_str();
+		std::vector<std::string> v_strlist;
+		GetStrLine(v_strlist, str2, strlen(str2), true);
+		for(int j=0; j<v_strlist.size(); j++)
+		{
+			C_VS_UI_FRIEND_INFO::HISTORY_LIST* pHistory = new C_VS_UI_FRIEND_INFO::HISTORY_LIST;
+			pHistory->strLine = v_strlist[j];
+			if(j == 0)
+				pHistory->IsBlank = 1;
+			else
+				pHistory->IsBlank = 0;
+			m_pList->m_v_pHistory_List.push_back(pHistory);
+		}
+		while(m_scroll+9 < m_pList->m_v_pHistory_List.size())
+			m_scroll++;
+	}
+
+}
+
+void C_VS_UI_FRIEND_CHATTING_INFO::Finish()
+{
+
+}
+
+void	C_VS_UI_FRIEND_CHATTING_INFO::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
+{
+
+}
+void	C_VS_UI_FRIEND_CHATTING_INFO::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
+{
+	assert(p_button);	
+	switch(p_button->GetID())
+	{
+	case CLOSE_ID:
+		if(p_button->GetFocusState())
+		{
+			if(p_button->GetPressState())
+				gpC_global_resource->m_pC_assemble_box_button_spk->BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index+2);
+			else
+				gpC_global_resource->m_pC_assemble_box_button_spk->BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index+1);
+		}
+		else	
+			gpC_global_resource->m_pC_assemble_box_button_spk->BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index);
+		break;
+	case SEND_ID:
+	case BLACK_ID:
+		if(p_button->GetFocusState())
+		{
+			if(p_button->GetPressState())
+				m_chatting_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index+2);
+			else
+				m_chatting_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index+1);
+		}
+		else	
+			m_chatting_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index);
+		break;
+	case SCROLL_UP_ID:
+	case SCROLL_DOWN_ID:
+//	case ADD_ID:
+//	case FIND_ID:
+		if(p_button->GetFocusState() && p_button->GetPressState())
+			m_chatting_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index+1);
+		else
+			m_chatting_spk.BltLocked(p_button->x+x, p_button->y+y, p_button->m_image_index);
+		break;
+	}
+}
+
+void	C_VS_UI_FRIEND_CHATTING_INFO::KeyboardControl(UINT message, UINT key, long extra)
+{
+	
+	Window::KeyboardControl(message, key, extra);
+	
+	if (message == WM_KEYDOWN)
+	{
+		switch (key)
+		{
+		case VK_RETURN:
+			Run(SEND_ID);
+			break;
+			
+		case VK_ESCAPE: 
+			gpC_base->SendMessage(UI_CLOSE_FRIEND_CHATTING_INFO, 0, 0, this);
+			break;
+//		case VK_RETURN:
+//			if(!m_lev_send.IsAcquire())
+//					m_lev_send.Acquire();
+
+			break;
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
 ///----------------------------------------------------------------------------
 C_VS_UI_TEAM_INFO::C_VS_UI_TEAM_INFO(bool ready, void *info, bool IsUnion)
 {
@@ -26470,7 +26397,7 @@ C_VS_UI_TEAM_INFO::C_VS_UI_TEAM_INFO(bool ready, void *info, bool IsUnion)
 		break;
 	}
 	
-	Set(RESOLUTION_X/2-m_guild_spk.GetWidth(INFO_WINDOW)/2, RESOLUTION_Y/2 - m_guild_spk.GetHeight(INFO_WINDOW)/2, m_guild_spk.GetWidth(INFO_WINDOW), m_guild_spk.GetHeight(INFO_WINDOW));
+	Set(g_GameRect.right/2-m_guild_spk.GetWidth(INFO_WINDOW)/2, g_GameRect.bottom/2 - m_guild_spk.GetHeight(INFO_WINDOW)/2, m_guild_spk.GetWidth(INFO_WINDOW), m_guild_spk.GetHeight(INFO_WINDOW));
 	
 	
 	// set button
@@ -26653,7 +26580,7 @@ void	C_VS_UI_TEAM_INFO::Finish()
 //-----------------------------------------------------------------------------
 // C_VS_UI_TEAM_INFO::Show
 //
-//
+//	
 //-----------------------------------------------------------------------------
 void C_VS_UI_TEAM_INFO::Show()
 {
@@ -26680,22 +26607,6 @@ void C_VS_UI_TEAM_INFO::Show()
 	
 	if(m_bl_ready)
 	{	
-		//		if(m_scroll < 3)
-		//		{
-		//			wsprintf(sz_string, "Registered : %s", m_ready_info.REGISTERD_DATE.c_str());
-		//			g_PrintColorStr(print_x, py, sz_string, gpC_base->m_chatting_pi, RGB_BLACK);
-		//			gpC_base->m_p_DDSurface_back->HLine(print_x, py+line_gap, w - (print_x - x) -30, 0);
-		//			py += print_gap;
-		//		}
-		
-		//		if(m_scroll < 3)
-		//		{
-		//			wsprintf(sz_string, "Expired : %s", m_ready_info.EXPIRE_DATE.c_str());
-		//			g_PrintColorStr(print_x, py, sz_string, gpC_base->m_chatting_pi, RGB_BLACK);
-		//			gpC_base->m_p_DDSurface_back->HLine(print_x, py+line_gap, w - (print_x - x) -30, 0);
-		//			py += print_gap;
-		//		}
-		
 		if(m_scroll < 1)
 		{
 			wsprintf(sz_string, (*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_NAME].GetString(), m_ready_info.TEAM_NAME.c_str());
@@ -26815,12 +26726,6 @@ void C_VS_UI_TEAM_INFO::Show()
 			gpC_base->m_p_DDSurface_back->HLine(print_x, py+line_gap, w - (print_x - x) -30, 0);
 			py += print_gap;
 		}
-		
-		// ´ë±âÆÀÀº ±æµå¸¶Å© ¾ÈÂïÀ½
-		//		RECT rect={guild_point.x,guild_point.y,guild_point.x+40,guild_point.y+40};
-		//		SetRect(&rect, guild_point.x-2,guild_point.y-2,guild_point.x+42,guild_point.y+42);
-		//		DrawAlphaBox(&rect, 255, 255, 255, 15);
-		//		gpC_global_resource->DrawOutBox(rect.left,rect.top,rect.right-rect.left,rect.bottom-rect.top);
 	}
 	else	// regist team
 	{				
@@ -26840,27 +26745,6 @@ void C_VS_UI_TEAM_INFO::Show()
 			py += print_gap;
 		}
 		
-		/*		if(m_scroll < 3)
-		{
-		wsprintf(sz_string, "Registered : %s", m_regist_info.REGISTERED_DATE.c_str());
-		g_PrintColorStr(print_x, py, sz_string, gpC_base->m_chatting_pi, RGB_BLACK);
-		gpC_base->m_p_DDSurface_back->HLine(print_x, py+line_gap, w - (print_x - x) -30, 0);
-		py += print_gap;
-		}
-		*/		
-		//		if(m_scroll < 3)
-		//		{
-		//			// ¼ýÀÚ»çÀÌ¿¡ ,³Ö±â
-		//			wsprintf(sz_string, "%d", m_regist_info.REG_FEE);
-		//			std::string sstr = sz_string;
-		//			for(int i = 3; i <= 13; i += 4)
-		//				if(sstr.size() > i)sstr.insert(sstr.size()-i, ",");
-		//				
-		//			wsprintf(sz_string, "Reg. Fee : $%s", sstr.c_str());
-		//			g_PrintColorStr(print_x, py, sz_string, gpC_base->m_chatting_pi, RGB_BLACK);
-		//			gpC_base->m_p_DDSurface_back->HLine(print_x, py+line_gap, w - (print_x - x) -30, 0);
-		//			py += print_gap;
-		//		}
 		if(m_scroll < 3)
 		{
 			wsprintf(sz_string, "%s%d",(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_MEMBERS].GetString(), m_regist_info.MEMBERS);
@@ -26888,40 +26772,6 @@ void C_VS_UI_TEAM_INFO::Show()
 			
 		const int char_width = g_GetStringWidth("a", gpC_base->m_chatting_pi.hfont);
 
-		/*char *sz_intro;		
-		g_Convert_DBCS_Ascii2SingleByte(m_lev_intro.GetString(), m_lev_intro.Size(), sz_intro);
-		m_regist_info.INTRODUCTION = sz_intro;
-		DeleteNew(sz_intro);
-		while(m_regist_info.INTRODUCTION.size()>next && py < y+h-print_gap*2)
-		{
-			strcpy(sz_string, m_regist_info.INTRODUCTION.c_str()+next);
-			
-			char *sz_string2 = sz_string;
-			
-			while(*sz_string2 == ' ')		// ¾ÕÀÇ °ø¹éÁ¦°Å
-			{
-				sz_string2++;
-				next++;
-			}
-			
-			int cut_pos = (x+w-30 -vx)/char_width;
-			if(!g_PossibleStringCut(sz_string2, cut_pos))
-				cut_pos--;			
-			sz_string2[cut_pos] = NULL;
-			
-			char *return_char = NULL;
-			if((return_char = strchr(sz_string2, '\n')) != NULL)	// return Ã³¸®
-			{
-				cut_pos = return_char - sz_string2+1;
-				sz_string2[cut_pos-1] = NULL;
-			}
-			
-			g_PrintColorStr(vx, py, sz_string2, gpC_base->m_chatting_pi, RGB_BLACK);
-			next += cut_pos;
-			vx = print_x;
-			gpC_base->m_p_DDSurface_back->HLine(print_x, py+line_gap, w - (print_x - x) -30, 0);
-			py += print_gap;
-		}*/
 		m_lev_intro.SetPosition(x+30, y+60+20*(5-m_scroll));
 		m_lev_intro.SetEditorMode(20,8+m_scroll);
 		m_lev_intro.Show();
@@ -26954,7 +26804,6 @@ void C_VS_UI_TEAM_INFO::Show()
 		{
 			RECT rect;
 			SetRect(&rect, guild_point.x-2,guild_point.y-2,guild_point.x+42,guild_point.y+42);
-			//			DrawAlphaBox(&rect, 0, 0, 0, 20);
 			gpC_global_resource->DrawOutBox(rect.left,rect.top,rect.right-rect.left,rect.bottom-rect.top);
 			gpC_base->m_p_DDSurface_back->BltSprite(&guild_point, p_guild_mark);
 		}
@@ -27294,7 +27143,7 @@ C_VS_UI_TEAM_MEMBER_INFO::C_VS_UI_TEAM_MEMBER_INFO(MEMBER_INFO *info)
 		break;
 	}
 	
-	Set(RESOLUTION_X/2-m_guild_member_spk.GetWidth(INFO_WINDOW)/2, RESOLUTION_Y/2 - m_guild_member_spk.GetHeight(INFO_WINDOW)/2, m_guild_member_spk.GetWidth(INFO_WINDOW), m_guild_member_spk.GetHeight(INFO_WINDOW));
+	Set(g_GameRect.right/2-m_guild_member_spk.GetWidth(INFO_WINDOW)/2, g_GameRect.bottom/2 - m_guild_member_spk.GetHeight(INFO_WINDOW)/2, m_guild_member_spk.GetWidth(INFO_WINDOW), m_guild_member_spk.GetHeight(INFO_WINDOW));
 	
 	
 	// set button
@@ -27791,7 +27640,7 @@ void	C_VS_UI_TEAM_MEMBER_INFO::Run(id_t id)
 //----------------------------------------------------------------------------
 // C_VS_UI_TEAM_REGIST::C_VS_UI_TEAM_REGIST
 //
-//
+//add by viva : friend show
 //----------------------------------------------------------------------------
 C_VS_UI_TEAM_REGIST::C_VS_UI_TEAM_REGIST(bool member, int reg_fee, int rank, char *date, char *team_name, int guild_id)
 {
@@ -27845,7 +27694,7 @@ C_VS_UI_TEAM_REGIST::C_VS_UI_TEAM_REGIST(bool member, int reg_fee, int rank, cha
 	
 	if(m_bl_member)
 	{
-		Set(RESOLUTION_X/2-m_guild_spk.GetWidth(INFO_WINDOW)/2, RESOLUTION_Y/2 - m_guild_spk.GetHeight(INFO_WINDOW)/2, m_guild_spk.GetWidth(INFO_WINDOW), m_guild_spk.GetHeight(INFO_WINDOW));
+		Set(g_GameRect.right/2-m_guild_spk.GetWidth(INFO_WINDOW)/2, g_GameRect.bottom/2 - m_guild_spk.GetHeight(INFO_WINDOW)/2, m_guild_spk.GetWidth(INFO_WINDOW), m_guild_spk.GetHeight(INFO_WINDOW));
 		m_print_x = x+30;
 		m_print_y = y+60;
 		m_print_gap = 20;
@@ -27858,7 +27707,7 @@ C_VS_UI_TEAM_REGIST::C_VS_UI_TEAM_REGIST(bool member, int reg_fee, int rank, cha
 	}
 	else
 	{
-		Set(RESOLUTION_X/2-m_guild_spk.GetWidth()/2, RESOLUTION_Y/2 - m_guild_spk.GetHeight()/2, m_guild_spk.GetWidth(), m_guild_spk.GetHeight());
+		Set(g_GameRect.right/2-m_guild_spk.GetWidth()/2, g_GameRect.bottom/2 - m_guild_spk.GetHeight()/2, m_guild_spk.GetWidth(), m_guild_spk.GetHeight());
 		m_print_x = x+30+m_vampire_point.x;
 		m_print_y = y+90+m_vampire_point.y;
 		m_print_gap = 20;
@@ -28461,17 +28310,17 @@ C_VS_UI_OTHER_INFO::C_VS_UI_OTHER_INFO()
 	{
 	case RACE_SLAYER:
 		m_petButtonSpk.Open(SPK_PET_BUTTON_SLAYER);
-		Set(RESOLUTION_X/2 - 210/2, RESOLUTION_Y/2 - 255/2, 210, 255);
+		Set(g_GameRect.right/2 - 210/2, g_GameRect.bottom/2 - 255/2, 210, 255);
 		break;
 		
 	case RACE_VAMPIRE:
 		m_petButtonSpk.Open(SPK_PET_BUTTON_VAMPIRE);
-		Set(RESOLUTION_X/2 - 210/2, RESOLUTION_Y/2 - 242/2, 210, 242);
+		Set(g_GameRect.right/2 - 210/2, g_GameRect.bottom/2 - 242/2, 210, 242);
 		break;
 		
 	case RACE_OUSTERS:
 		m_petButtonSpk.Open(SPK_PET_BUTTON_OUSTERS);
-		Set(RESOLUTION_X/2 - 210/2, RESOLUTION_Y/2 - 242/2, 210, 242);
+		Set(g_GameRect.right/2 - 210/2, g_GameRect.bottom/2 - 242/2, 210, 242);
 		break;
 	}
 	//m_pC_info_spk=C_VS_UI_INFO::m_pC_info_spk;
@@ -30065,7 +29914,7 @@ C_VS_UI_TRACE::C_VS_UI_TRACE()
 	m_pC_trace_spk = NULL;
 	m_pC_trace_spk = new C_SPRITE_PACK(SPK_SOUL_CHAIN);
 	
-	Set(RESOLUTION_X/2 - 210/2, RESOLUTION_Y/2 - 242/2, m_pC_trace_spk->GetWidth(MAIN_WINDOW), m_pC_trace_spk->GetHeight(MAIN_WINDOW));
+	Set(g_GameRect.right/2 - 210/2, g_GameRect.bottom/2 - 242/2, m_pC_trace_spk->GetWidth(MAIN_WINDOW), m_pC_trace_spk->GetHeight(MAIN_WINDOW));
 	
 	g_RegisterWindow(this);
 
@@ -30088,7 +29937,6 @@ C_VS_UI_TRACE::C_VS_UI_TRACE()
 	m_lev_name.SetAbsWidth(90);
 	m_lev_name.SetInputStringColor(RGB_WHITE);
 	m_lev_name.SetCursorColor(RGB_WHITE);
-
 	Attach(&m_lev_name);
 }
 
@@ -30428,7 +30276,7 @@ C_VS_UI_XMAS_CARD::C_VS_UI_XMAS_CARD(const MItem *pItem)
 	m_pC_card_spk = NULL;
 	m_pC_card_spk = new C_SPRITE_PACK(SPK_XMAS_CARD);
 	
-	Set(RESOLUTION_X/2 - m_pC_card_spk->GetWidth(MAIN_WINDOW)/2, RESOLUTION_Y/2 - m_pC_card_spk->GetHeight(MAIN_WINDOW)/2, m_pC_card_spk->GetWidth(MAIN_WINDOW), m_pC_card_spk->GetHeight(MAIN_WINDOW));
+	Set(g_GameRect.right/2 - m_pC_card_spk->GetWidth(MAIN_WINDOW)/2, g_GameRect.bottom/2 - m_pC_card_spk->GetHeight(MAIN_WINDOW)/2, m_pC_card_spk->GetWidth(MAIN_WINDOW), m_pC_card_spk->GetHeight(MAIN_WINDOW));
 	
 	g_RegisterWindow(this);
 
@@ -30585,7 +30433,7 @@ void	C_VS_UI_XMAS_CARD::Run(id_t id)
 
 				DeleteNew(psz_to);
 				DeleteNew(psz_msg);
-				DeleteNew(psz_from);
+//				DeleteNew(psz_from);
 			}
 			else
 			{
@@ -30863,7 +30711,7 @@ C_VS_UI_BRING_FEE::C_VS_UI_BRING_FEE(UINT totalfee, UINT bringfee)
 	SetBringFee(bringfee);
 	
 	
-	Set(RESOLUTION_X/2 - 340/2, RESOLUTION_Y/2 - 200/2, 340, 200);
+	Set(g_GameRect.right/2 - 340/2, g_GameRect.bottom/2 - 200/2, 340, 200);
 
 	int ok_x = 160,ok_y = h-44;
 	int cancel_x=236,cancel_y=h-44;
@@ -31152,7 +31000,7 @@ C_VS_UI_WAR_LIST::C_VS_UI_WAR_LIST()
 		break;		
 	}	
 	
-	Set(RESOLUTION_X/2-m_guild_spk.GetWidth(0)/2, RESOLUTION_Y/2 - m_guild_spk.GetHeight(0)/2, m_guild_spk.GetWidth(0), m_guild_spk.GetHeight(0));
+	Set(g_GameRect.right/2-m_guild_spk.GetWidth(0)/2, g_GameRect.bottom/2 - m_guild_spk.GetHeight(0)/2, m_guild_spk.GetWidth(0), m_guild_spk.GetHeight(0));
 	
 	m_vampire_point.x= 0;
 	m_vampire_point.y= 0;
@@ -31653,7 +31501,7 @@ C_VS_UI_BLOOD_BIBLE_STATUS::C_VS_UI_BLOOD_BIBLE_STATUS()
 	int window_w = 100;
 	int window_h = 290;
 
-	Set(RESOLUTION_X/2-window_w/2, RESOLUTION_Y/2 - window_h/2, window_w, window_h);
+	Set(g_GameRect.right/2-window_w/2, g_GameRect.bottom/2 - window_h/2, window_w, window_h);
 	
 	//close¹öÆ° ÁÂÇ¥ ¼¼ÆÃ
 	int close_x = w-24, close_y = h-19;
@@ -32154,7 +32002,7 @@ void	C_VS_UI_BLOOD_BIBLE_STATUS::UnSetBloodBible(int blood_bible_id)
 C_VS_UI_INPUT_NAME::C_VS_UI_INPUT_NAME(INPUT_NAME_MODE_LIST mode)
 {	
 	m_Mode = mode;
-	Set(RESOLUTION_X/2 - 340/2, RESOLUTION_Y/2 - 267/2, 340, 267);
+	Set(g_GameRect.right/2 - 340/2, g_GameRect.bottom/2 - 267/2, 340, 267);
 
 	int ok_x = 160,ok_y = h-44;
 	int cancel_x=236,cancel_y=h-44;
@@ -32585,7 +32433,7 @@ C_VS_UI_POPUP_MESSAGE::C_VS_UI_POPUP_MESSAGE(const char *str, POPUP_TYPE type)
 //		break;
 	}	
 	
-	Set(RESOLUTION_X/2 - window_x/2, RESOLUTION_Y/2 - window_y/2, window_x, window_y);
+	Set(g_GameRect.right/2 - window_x/2, g_GameRect.bottom/2 - window_y/2, window_x, window_y);
 
 	int ok_x = w-180,ok_y = h-44;
 	int cancel_x=w-100,cancel_y=h-44;
@@ -32620,7 +32468,7 @@ C_VS_UI_POPUP_MESSAGE::C_VS_UI_POPUP_MESSAGE(PopupWindowStyle &style)
 	AttrTopmost(true);
 //	CRarFile				PackFile;
 	
-	Set(RESOLUTION_X/2 - style.WindowX/2, RESOLUTION_Y/2 - style.WindowY/2, style.WindowX, style.WindowY);
+	Set(g_GameRect.right/2 - style.WindowX/2, g_GameRect.bottom/2 - style.WindowY/2, style.WindowX, style.WindowY);
 
 	int button_x = w-100, button_y = h-44;
 
@@ -32929,7 +32777,7 @@ C_VS_UI_QUEST_STATUS::C_VS_UI_QUEST_STATUS()
 	int window_w = 170;
 	int window_h = 170;
 	
-	Set(RESOLUTION_X/2-window_w/2, RESOLUTION_Y/2 - window_h/2, window_w, window_h);
+	Set(g_GameRect.right/2-window_w/2, g_GameRect.bottom/2 - window_h/2, window_w, window_h);
 
 	AttrAlpha(gpC_vs_ui_window_manager->IsAlpha(C_VS_UI_WINDOW_MANAGER::QUEST_STATUS_WINDOW));
 	AttrAutoHide(gpC_vs_ui_window_manager->GetAutoHide(C_VS_UI_WINDOW_MANAGER::QUEST_STATUS_WINDOW));
@@ -34153,7 +34001,7 @@ C_VS_UI_LOTTERY_CARD::C_VS_UI_LOTTERY_CARD( int step)
 	int window_w = m_pC_lottery_spk->GetWidth(BACK);
 	int window_h = 98+19*m_GiftList.size()+27;
 	
-	Set(RESOLUTION_X/2-window_w/2, RESOLUTION_Y/2 - window_h/2, window_w, window_h);
+	Set(g_GameRect.right/2-window_w/2, g_GameRect.bottom/2 - window_h/2, window_w, window_h);
 	
 	//°øÅë¹öÆ°
 	m_pC_button_group = new ButtonGroup(this);
@@ -34808,4 +34656,1158 @@ void C_VS_UI_QUEST_STATUS::IncreaseQuestPoint()
 }
 
 
+//////////////////////////////////////////////////////////////////////////
+// ÊÀ½çµØÖ· Ìí¼Ó Coffee 2007-3-6
+//////////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+// C_VS_UI_WORLDMAP
+//
+//-----------------------------------------------------------------------------
+C_VS_UI_WORLDMAP::C_VS_UI_WORLDMAP()
+{
+	m_pC_minimap_spk = NULL;
+	
+	AttrTopmost(false);
+	AttrPin(true);
+	
+	g_RegisterWindow(this);
+	
+	switch( g_eRaceInterface )
+	{
+	case RACE_SLAYER:
+		m_pC_minimap_spk = new C_SPRITE_PACK(SPK_MINIMAP_SLAYER);
+		break;
+
+	case RACE_VAMPIRE:
+		m_pC_minimap_spk = new C_SPRITE_PACK(_ROOT"spk\\WorldMap.spk");
+		break;
+
+	case RACE_OUSTERS:
+		m_pC_minimap_spk = new C_SPRITE_PACK(SPK_MINIMAP_OUSTERS);
+	}
+
+	Set(g_GameRect.right-m_pC_minimap_spk->GetWidth(MINIMAP_MAIN), 0, m_pC_minimap_spk->GetWidth(MINIMAP_MAIN), m_pC_minimap_spk->GetHeight(MINIMAP_MAIN));
+	
+	//skillinfo ¹öÆ°
+	m_pC_button_group = new ButtonGroup(this);
+	
+	int alpha_button_offset_x, alpha_button_offset_y;
+	int pushpin_button_offset_x, pushpin_button_offset_y;
+	alpha_button_offset_x = 7; alpha_button_offset_y = 36;
+	pushpin_button_offset_x = 23; pushpin_button_offset_y = 36;
+	//m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(alpha_button_offset_x, alpha_button_offset_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA), ALPHA_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA));
+	//m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(pushpin_button_offset_x, pushpin_button_offset_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), PUSHPIN_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN));
+	
+	
+	m_zone_id = -1;
+	m_map_x = 0; m_map_y = 0;
+	m_map_w = 0; m_map_h = 0;
+	m_map_start_point.x = 4;
+	m_map_start_point.y = 29;
+	m_bl_refresh = false;
+	
+	// TIMER
+	m_dw_minimap_prev_tickcount = GetTickCount();
+	m_dw_minimap_millisec = 100;
+	
+	m_p_minimap_surface = new CSpriteSurface;
+	
+	m_p_minimap_surface->InitOffsurface(m_pC_minimap_spk->GetWidth(MINIMAP_MAIN), m_pC_minimap_spk->GetHeight(MINIMAP_MAIN), DDSCAPS_SYSTEMMEMORY);
+	m_p_minimap_surface->SetTransparency(0xffff);
+	
+	m_surface_w = m_pC_minimap_spk->GetWidth(MINIMAP_MAIN);
+	m_surface_w = m_pC_minimap_spk->GetHeight(MINIMAP_MAIN);
+	m_Block.clear();
+	m_Flag.clear();
+	
+#ifndef _LIB
+	m_map_w = 256;
+	m_map_h = 256;
+	SetZone(11);
+	RECT rect = {110,110,140,150};
+	SetSafetyZone(rect, true);
+	SetRect(&rect, 10, 10, 30, 30);
+	SetPortal(rect, 1001);
+	MINIMAP_NPC npc;//{20, 50, 157};
+	npc.x=20;
+	npc.y=50;
+	npc.id=157;
+	npc.name = "sonee";
+	SetNPC(npc);
+#endif
+	
+}
+
+//-----------------------------------------------------------------------------
+// ~C_VS_UI_WORLDMAP
+//
+// 
+//-----------------------------------------------------------------------------
+C_VS_UI_WORLDMAP::~C_VS_UI_WORLDMAP()
+{
+	gpC_vs_ui_window_manager->SetAlpha(C_VS_UI_WINDOW_MANAGER::MINIMAP, GetAttributes()->alpha);
+	gpC_vs_ui_window_manager->SetAutoHide(C_VS_UI_WINDOW_MANAGER::MINIMAP, GetAttributes()->autohide);
+	gpC_vs_ui_window_manager->SetRect(C_VS_UI_WINDOW_MANAGER::MINIMAP, Rect(x, y, w, h));
+	
+	g_UnregisterWindow(this);
+	
+	if(m_p_minimap_surface != NULL)
+	{
+		DeleteNew(m_p_minimap_surface);
+		m_p_minimap_surface = NULL;
+	}
+	DeleteNew(m_pC_minimap_spk);
+	DeleteNew(m_pC_button_group);
+}
+
+//-----------------------------------------------------------------------------
+// C_VS_UI_WORLDMAP::ShowButtonWidget
+//
+// 
+//-----------------------------------------------------------------------------
+void	C_VS_UI_WORLDMAP::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
+{
+	const static char* m_minimap_button_string[4] = 
+	{
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ALPHA_WINDOW].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_ON].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_NO_ALPHA_WINDOW].GetString(),
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_OFF].GetString(),
+	};
+	
+	if(GetAttributes()->alpha && p_button->GetID() == ALPHA_ID)
+		g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)m_minimap_button_string[2],0,0);
+	if(GetAttributes()->autohide && p_button->GetID() == PUSHPIN_ID)
+		g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)m_minimap_button_string[3],0,0);
+	else
+		g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)m_minimap_button_string[p_button->GetID()],0,0);
+}
+
+//-----------------------------------------------------------------------------
+// C_VS_UI_WORLDMAP::ShowButtonWidget
+//
+// 
+//-----------------------------------------------------------------------------
+void	C_VS_UI_WORLDMAP::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
+{	
+	if(p_button->GetID() == ALPHA_ID)
+	{
+		if(GetAttributes()->alpha)
+			gpC_global_resource->m_pC_assemble_box_button_spk->BltLocked(p_button->x+x+m_board_x, p_button->y+y+m_board_y, C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA);
+		else
+			gpC_global_resource->m_pC_assemble_box_button_spk->BltLocked(p_button->x+x+m_board_x, p_button->y+y+m_board_y, C_GLOBAL_RESOURCE::AB_BUTTON_ALPHA_PUSHED);
+	}
+	else if(p_button->GetID() == PUSHPIN_ID)
+	{
+		if(GetAttributes()->autohide)
+			gpC_global_resource->m_pC_assemble_box_button_spk->BltLocked(p_button->x+x+m_board_x, p_button->y+y+m_board_y, C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN);
+		else
+			gpC_global_resource->m_pC_assemble_box_button_spk->BltLocked(p_button->x+x+m_board_x, p_button->y+y+m_board_y, C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN_PUSHED);
+	}
+}
+
+//-----------------------------------------------------------------------------
+// WindowEventReceiver
+//
+// 
+//-----------------------------------------------------------------------------
+void C_VS_UI_WORLDMAP::WindowEventReceiver(id_t event)
+{
+	switch(event)
+	{
+	case EVENT_WINDOW_MOVE: 
+		{
+			if(x+w/2 < g_GameRect.right/2)
+				m_board_x = w-4;
+			else
+				m_board_x = -m_pC_minimap_spk->GetWidth(MINIMAP_BOARD)+4;
+			if(y+h/2 < g_GameRect.bottom/2)
+				m_board_y = 0;
+			else
+				m_board_y = h - m_pC_minimap_spk->GetHeight(MINIMAP_BOARD);
+		}
+		break;
+	}
+}
+
+//-----------------------------------------------------------------------------
+// IsPixel
+//
+// 
+//-----------------------------------------------------------------------------
+bool C_VS_UI_WORLDMAP::IsPixel(int _x, int _y)
+{
+	if(Moving()) return true;
+	if(GetAttributes()->alpha &&
+		_x >= x+m_map_start_point.x && _x <= x+m_map_start_point.x+m_surface_w &&
+		_y >= y+m_map_start_point.y && _y <= y+m_map_start_point.y+m_surface_h)
+	{
+		return false;
+	}
+	
+	
+	bool re = IsInRect(_x, _y);
+	if(re == false)
+	{
+		re = m_pC_minimap_spk->IsPixel(_x-x-m_board_x, _y-y-m_board_y, MINIMAP_BOARD);
+	}
+	return re;
+}
+
+//-----------------------------------------------------------------------------
+// Run
+//
+// 
+//-----------------------------------------------------------------------------
+void C_VS_UI_WORLDMAP::Run(id_t id)
+{
+	switch (id)
+	{
+		//	case CHANGE_ID:
+		//		m_width_mode = !m_width_mode;
+		//		w^=h; h^=w; w^=h; //swap
+		//		x -= w-h;
+		//		EMPTY_MOVE;
+		//		break;
+	case ALPHA_ID:
+		AttrAlpha(!GetAttributes()->alpha);
+		EMPTY_MOVE;
+		break;
+		
+	case PUSHPIN_ID:
+		if(GetAttributes()->autohide)
+			AttrAutoHide(ATTRIBUTES_HIDE_NOT);
+		else
+			AttrAutoHide(ATTRIBUTES_HIDE_WIDTH);
+		EMPTY_MOVE;
+		break;
+		
+	}
+}
+
+//-----------------------------------------------------------------------------
+// MouseControl
+//
+// 
+//-----------------------------------------------------------------------------
+bool C_VS_UI_WORLDMAP::MouseControl(UINT message, int _x, int _y)
+{
+	Window::MouseControl(message, _x, _y);
+	_x-=x; _y-=y;
+	
+	bool re;
+	re = m_pC_button_group->MouseControl(message, _x-m_board_x, _y-m_board_y);
+	
+	switch(message)
+	{
+	case M_MOVING:
+		break;
+		
+	case M_LEFTBUTTON_DOWN:
+	case M_LB_DOUBLECLICK:
+		// ¹ÝÅõ¸í »óÅÂ¿¡¼­ ¸Ê Å¬¸¯ÇÏ¸é ÀÌµ¿µÇ°Ô
+		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		{
+			MoveReady();
+			SetOrigin(_x, _y);
+			break;
+		}
+		break;
+		
+	}
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// MouseControlExtra
+//
+// 
+//-----------------------------------------------------------------------------
+void C_VS_UI_WORLDMAP::MouseControlExtra(UINT message, int _x, int _y)
+{
+	_x-=x; _y-=y;
+	
+	switch(message)
+	{
+	case M_MOVING:
+		// ¹Ì´Ï¸Ê À§¿¡ ¸¶¿ì½º°¡ ÀÖ´Ù.
+		{
+			int map_w = m_surface_w, map_h = m_surface_h;
+			//			if(m_map_w != m_map_h)
+			//			{
+			//				if(m_map_w > m_map_h)map_h = map_h * m_map_h / m_map_w;
+			//				if(m_map_h > m_map_w)map_w = map_w * m_map_w / m_map_h;
+			//			}
+			
+			for(int i = 0; i < m_portal.size(); i++)
+			{
+				int x = m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
+				int y = m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
+				if(_x > x-5 && _x < x+5 && _y > y-5 && _y < y+5)
+				{
+					if(m_portal_zone_id[i] != 1500)
+						g_descriptor_manager.Set(DID_INFO, gpC_mouse_pointer->GetPointerX(), gpC_mouse_pointer->GetPointerY(), g_pZoneTable->Get(m_portal_zone_id[i])->Name.GetString());
+					else
+					{
+						char* TempStr;
+						switch(i)
+						{
+						case 0:
+							TempStr = (*g_pGameStringTable)[STRING_MESSAGE_SIEGE_POTAL_201].GetString();
+							break;
+						case 1:
+							TempStr = (*g_pGameStringTable)[STRING_MESSAGE_SIEGE_POTAL_200].GetString();
+							break;
+						case 2:
+							TempStr = (*g_pGameStringTable)[STRING_MESSAGE_SIEGE_POTAL_202].GetString();
+							break;
+						case 3:
+							TempStr = (*g_pGameStringTable)[STRING_MESSAGE_SIEGE_POTAL_203].GetString();
+							break;
+						}
+						g_descriptor_manager.Set(DID_INFO, gpC_mouse_pointer->GetPointerX(), gpC_mouse_pointer->GetPointerY(), TempStr);
+					}
+					break;
+				}
+			}
+			
+			for(i = 0; i < m_npc.size(); i++)
+			{
+				int x = m_map_start_point.x + m_npc[i].x*map_w/m_map_w;
+				int y = m_map_start_point.y + m_npc[i].y*map_h/m_map_h;
+				
+				if(_x > x-5 && _x < x+5 && _y > y-5 && _y < y+5)
+				{
+			//		static char npc_name[50];
+			//		if((*g_pCreatureTable)[m_npc[i].id].Name.GetString())
+			//			strcpy(npc_name, (*g_pCreatureTable)[m_npc[i].id].Name.GetString());
+			//		else strcpy(npc_name, "");
+					
+					static S_DEFAULT_HELP_STRING npc_string;
+			//		npc_string.sz_main_str = npc_name;
+					if(m_npc[i].name.GetLength() >= 1)
+						npc_string.sz_main_str = m_npc[i].name.GetString();
+					else
+						npc_string.sz_main_str = NULL;
+					
+					//					static char npc_description[50];
+					NPC_INFO *npc_info = g_pNPCTable->GetData(m_npc[i].id);
+					if(npc_info)
+						npc_string.sz_sub_str = npc_info->Description;
+					else
+						npc_string.sz_sub_str = NULL;
+					
+					g_descriptor_manager.Set(DID_HELP, gpC_mouse_pointer->GetPointerX(), gpC_mouse_pointer->GetPointerY(), (void *)&npc_string);
+					break;
+				}
+			}
+			
+			for(i = 0; i < m_shrine.size(); i++)
+			{
+				int x = m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
+				int y = m_map_start_point.y + m_shrine[i].y*map_h/m_map_h;
+				
+				if(_x > x-5 && _x < x+5 && _y > y-5 && _y < y+5)
+				{
+					g_descriptor_manager.Set(DID_INFO, gpC_mouse_pointer->GetPointerX(), gpC_mouse_pointer->GetPointerY(), m_shrine[i].name.GetString());
+					break;
+				}
+			}
+
+			for(i = 0; i < g_pParty->GetSize(); i++)
+			{
+				PARTY_INFO *info = g_pParty->GetMemberInfo(i);
+				if(info != NULL && info->zoneID == GetZoneID())
+				{
+					int x = m_map_start_point.x + info->zoneX*map_w/m_map_w;
+					int y = m_map_start_point.y + info->zoneY*map_h/m_map_h;
+					
+					if(_x > x-5 && _x < x+5 && _y > y-5 && _y < y+5)
+					{
+						static char party_name[20];
+						static char party_desc[50];
+						if(info->Name.GetString())
+							strcpy(party_name, info->Name.GetString());
+						else strcpy(party_name, "");
+						
+						static S_DEFAULT_HELP_STRING party_string;
+						party_string.sz_main_str = party_name;
+						
+						wsprintf(party_desc, "(%d,%d)", info->zoneX, info->zoneY);
+						party_string.sz_sub_str = party_desc;
+						
+						g_descriptor_manager.Set(DID_HELP, gpC_mouse_pointer->GetPointerX(), gpC_mouse_pointer->GetPointerY(), (void *)&party_string);
+						break;
+					}
+				}
+			}
+			
+			for(i = 0; i < m_Flag.size(); i++)
+			{
+				int x = m_map_start_point.x + m_Flag[i].x*map_w/m_map_w;
+				int y = m_map_start_point.y + m_Flag[i].y*map_h/m_map_h;
+				
+				if(_x > x-5 && _x < x+5 && _y > y-5 && _y < y+5)
+				{
+					g_descriptor_manager.Set(DID_INFO, gpC_mouse_pointer->GetPointerX(), gpC_mouse_pointer->GetPointerY(), m_Flag[i].name.GetString());
+					break;
+				}
+			}
+		}
+		break;
+	}
+}
+
+//-----------------------------------------------------------------------------
+// C_VS_UI_WORLDMAP
+//
+// 
+//-----------------------------------------------------------------------------
+void C_VS_UI_WORLDMAP::KeyboardControl(UINT message, UINT key, long extra)
+{
+	if (message == WM_KEYDOWN && key == VK_ESCAPE)
+	{
+		//		Run(CLOSE);
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Show
+//
+// 
+//-----------------------------------------------------------------------------
+void C_VS_UI_WORLDMAP::Show()
+{
+	// ¸ÊÀÌ ¹Ù²î¾úÀ¸¸é ÅØ½ºÃÄ ¼¼ÆÃÀ» ´Ù½Ã ÇØÁà¾ß ÇÑ´Ù.
+//	if(m_bl_refresh == true)
+//	{
+//		InitMinimap(m_p_minimap_surface);
+//		m_bl_refresh = false;
+//	}
+	
+	// ¸ÊÃâ·Â
+	if(GetAttributes()->alpha)
+	{
+		RECT rt = {0,0,m_p_minimap_surface->GetWidth(),m_p_minimap_surface->GetHeight()};
+		POINT map_point = {x+m_map_start_point.x, y+m_map_start_point.y};
+
+//		if(gpC_base->m_p_DDSurface_back->Lock())
+		{
+//			WORD * p_dest = (WORD *)m_p_minimap_surface->GetSurfacePointer();
+//			p_dest = p_dest+(y+m_map_start_point.y)*m_p_minimap_surface->GetSurfacePitch()/2+x+m_map_start_point.x;
+			gpC_base->m_p_DDSurface_back->BltHalf(&map_point, m_p_minimap_surface, &rt);
+//			gpC_base->m_p_DDSurface_back->Unlock();
+		}
+//		DrawMinimapAlpha(x+m_map_start_point.x, y+m_map_start_point.y, m_p_minimap_surface);
+	}
+	else
+	{
+		RECT rt = {0, 0, m_surface_w, m_surface_h};
+		POINT map_point = m_map_start_point;
+		map_point.x+=x;
+		map_point.y+=y;
+		
+//		if(gpC_base->m_p_DDSurface_back->Lock())
+		{
+			gpC_base->m_p_DDSurface_back->Blt(&map_point, m_p_minimap_surface, &rt);
+//			gpC_base->m_p_DDSurface_back->Lock();
+		}
+	}
+	
+	// ¹Ì´Ï¸ÊÀ§¿¡ ±âÅ¸µîµî Ãâ·Â
+	if(gpC_base->m_p_DDSurface_back->Lock())
+	{
+		//m_pC_minimap_spk->BltLocked(x+m_board_x, y+m_board_y, MINIMAP_BOARD);
+		
+		// ¸ÊÅ×µÎ¸®
+		Rect rect(0, 0, w-0, h);
+		if(GetAttributes()->alpha)
+		{
+			RECT alpha_rect = {x+4, y+4, x+w-4, y+25};
+			switch(g_eRaceInterface)
+			{
+			case RACE_SLAYER:
+				DrawAlphaBox(&alpha_rect, 0, 2, 2, g_pUserOption->ALPHA_DEPTH);
+				break;
+
+			case RACE_VAMPIRE:
+				DrawAlphaBox(&alpha_rect, 2, 0, 0, g_pUserOption->ALPHA_DEPTH);
+				break;
+
+			case RACE_OUSTERS:
+				DrawAlphaBox(&alpha_rect, 0, 4, 0, g_pUserOption->ALPHA_DEPTH);
+				break;
+			}
+			//m_pC_minimap_spk->BltLockedClip(x, y, rect, MINIMAP_MAIN_ALPHA);
+		}
+		else
+			m_pC_minimap_spk->BltLockedClip(x, y, rect, MINIMAP_MAIN);
+		
+		rect.Set(0, 0, m_pC_minimap_spk->GetWidth(0), h);
+		m_pC_minimap_spk->BltLockedClip(x+w-m_pC_minimap_spk->GetWidth(0), y, rect, 0);
+		
+		// use only peiac
+		if(m_surface_h != 100)
+		{
+			rect.Set(0, m_pC_minimap_spk->GetHeight(MINIMAP_MAIN)-4, w-m_pC_minimap_spk->GetWidth(0), 4);
+			m_pC_minimap_spk->BltLockedClip(x, y-(100-m_surface_h), rect, MINIMAP_MAIN);
+			rect.Set(0, m_pC_minimap_spk->GetHeight(MINIMAP_MAIN)-4, m_pC_minimap_spk->GetWidth(0), 4);
+			m_pC_minimap_spk->BltLockedClip(x+w-m_pC_minimap_spk->GetWidth(0), y-(100-m_surface_h), rect, 0);
+		}
+		
+		// hidingÁß¿¡´Â ±âÅ¸µîµî »ý·«
+		//		if(GetAttributes()->autohide && x < 0 || x+w > g_GameRect.right || y < 0 || y+h > g_GameRect.bottom)
+		//		{
+		//			gpC_base->m_p_DDSurface_back->Unlock();
+		//			return;
+		//		}
+		
+		int map_w = m_surface_w, map_h = m_surface_h;
+		//		if(m_map_w != m_map_h)
+		//		{
+		//			if(m_map_w > m_map_h)map_h = map_h * m_map_h / m_map_w;
+		//			if(m_map_h > m_map_w)map_w = map_w * m_map_w / m_map_h;
+		//		}
+		
+		
+		
+		WORD *mem = (WORD *)gpC_base->m_p_DDSurface_back->GetSurfacePointer();
+		long pitch = gpC_base->m_p_DDSurface_back->GetSurfacePitch();
+		long pitch_div_2 = pitch>>1;	// by sigi
+		
+		//		RECT rect = {m_map_start_point.x, m_map_start_point.y, m_map_start_point.x+m_surface_w, m_map_start_point.y+m_surface_h};
+		
+		static int color=21;
+		static int color_direct = 1;
+		if(TimerMinimap())
+		{
+			color += color_direct;
+			if(color > 30 || color < 21)color_direct *= -1;
+		}
+		
+		BYTE r = 31, g = 63, b = 31;
+		WORD portal_color = CDirectDraw::Color(r, g, b);
+		
+		int i, _x, _y;
+		WORD _color, _color2;
+		
+		// Æ÷Å» À§Ä¡ Ç¥½Ã ¡ä
+		r = color, g = color-10, b = color;
+		_color = CDirectDraw::Color(r, g, b);
+		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
+		_color2 = CDirectDraw::Color(r, g, b);
+		for(i = 0; i < m_portal.size(); i++)
+		{
+			_x = x+m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
+			_y = y+m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
+			
+			if(_x > 1 && _x < g_GameRect.right-2 && _y > 2 && _y < g_GameRect.bottom-1)
+			{
+				mem[(_y)*pitch_div_2 + _x] = _color;
+				mem[(_y-1)*pitch_div_2 + _x-1] = _color2;
+				mem[(_y-1)*pitch_div_2 + _x] = _color;
+				mem[(_y-1)*pitch_div_2 + _x+1] = _color2;
+				mem[(_y-2)*pitch_div_2 + _x-1] = _color;
+				mem[(_y-2)*pitch_div_2 + _x] = _color;
+				mem[(_y-2)*pitch_div_2 + _x+1] = _color;
+				
+				mem[(_y-3)*pitch_div_2 + _x-1] = 0;
+				mem[(_y-3)*pitch_div_2 + _x] = 0;
+				mem[(_y-3)*pitch_div_2 + _x+1] = 0;
+				mem[(_y-2)*pitch_div_2 + _x-2] = 0;
+				mem[(_y-2)*pitch_div_2 + _x+2] = 0;
+				mem[(_y-1)*pitch_div_2 + _x-2] = 0;
+				mem[(_y-1)*pitch_div_2 + _x+2] = 0;
+				mem[(_y)*pitch_div_2 + _x-1] = 0;
+				mem[(_y)*pitch_div_2 + _x+1] = 0;
+				mem[(_y+1)*pitch_div_2 + _x] = 0;
+			}
+			
+		}
+
+				// Æ÷Å» À§Ä¡ Ç¥½Ã ¡ä
+		r = color, g = color-10, b = color;
+		_color = CDirectDraw::Color(r, g, b);
+		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
+		_color2 = CDirectDraw::Color(r, g, b);
+		for(i = 0; i < m_Block.size(); i++)
+		{
+			_x = x+m_map_start_point.x + (m_Block[i].x)*map_w/m_map_w;
+			_y = y+m_map_start_point.y + (m_Block[i].y)*map_h/m_map_h;
+			
+			if(_x > 0 && _x < g_GameRect.right-1 && _y > 1 && _y < g_GameRect.bottom)
+			{
+				mem[(_y)*pitch_div_2 + _x] = _color;
+			}
+			
+		}
+		
+//		const int flagsize = 9;		
+//		for( i = 0; i < m_Flag.size(); i++)
+//		{
+//			_x = x+m_map_start_point.x + (m_Flag[i].x)*map_w/m_map_w;
+//			_y = y+m_map_start_point.y + (m_Flag[i].y)*map_h/m_map_h;
+//
+//			for(int j=_y;j< y+m_map_start_point.y + (m_Flag[i].y+flagsize)*map_h/m_map_h;j++)
+//				wmemset(&mem[(j)*pitch_div_2 + _x], _color, flagsize*map_w/m_map_w);
+//		}
+		
+		// npcÀ§Ä¡ Ç¥½Ã ¢Ó
+		r = color-10, g = color, b = color-10;
+		_color = CDirectDraw::Color(r, g, b);
+		for(i = 0; i < m_npc.size(); i++)
+		{
+			_x = x+m_map_start_point.x + m_npc[i].x*map_w/m_map_w;
+			_y = y+m_map_start_point.y + m_npc[i].y*map_h/m_map_h;
+
+			if(m_npc[i].id == 659)	// µÅÁöÁ¤·É
+			{
+				gpC_global_resource->m_pC_info_spk->BltLocked(_x-gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::OUSTERS_HORN)/2, _y-gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::OUSTERS_HORN)+5, C_GLOBAL_RESOURCE::OUSTERS_HORN);
+			}
+			else
+			{
+				if(_x > 1 && _x < g_GameRect.right-2 && _y > 3 && _y < g_GameRect.bottom-1)
+				{
+					mem[(_y)*pitch_div_2 + _x] = _color;
+					mem[(_y-1)*pitch_div_2 + _x] = _color;
+					mem[(_y-2)*pitch_div_2 + _x-1] = _color;
+					mem[(_y-2)*pitch_div_2 + _x] = _color;
+					mem[(_y-2)*pitch_div_2 + _x+1] = _color;
+					mem[(_y-3)*pitch_div_2 + _x] = _color;
+					
+					mem[(_y-4)*pitch_div_2 + _x] = 0;
+					mem[(_y-3)*pitch_div_2 + _x-1] = 0;
+					mem[(_y-3)*pitch_div_2 + _x+1] = 0;
+					mem[(_y-2)*pitch_div_2 + _x-2] = 0;
+					mem[(_y-2)*pitch_div_2 + _x+2] = 0;
+					mem[(_y-1)*pitch_div_2 + _x-1] = 0;
+					mem[(_y-1)*pitch_div_2 + _x+1] = 0;
+					mem[(_y)*pitch_div_2 + _x-1] = 0;
+					mem[(_y)*pitch_div_2 + _x+1] = 0;
+					mem[(_y+1)*pitch_div_2 + _x] = 0;
+				}
+			}
+		}
+
+		// shrineÀ§Ä¡ Ç¥½Ã ¢Ó
+		r = color-10, g = color-10, b = color;
+		_color = CDirectDraw::Color(r, g, b);
+		r = (color-10)*2/3, g = (color-10)*2/3, b = color*2/3;
+		_color2 = CDirectDraw::Color(r, g, b);
+		for(i = 0; i < m_shrine.size(); i++)
+		{
+			_x = x+m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
+			_y = y+m_map_start_point.y + m_shrine[i].y*map_h/m_map_h;
+			
+			if(_x > 1 && _x < g_GameRect.right-2 && _y > 2 && _y < g_GameRect.bottom-3)
+			{
+				mem[(_y)*pitch_div_2 + _x-1] = _color;
+				mem[(_y)*pitch_div_2 + _x+1] = _color;
+				mem[(_y-1)*pitch_div_2 + _x] = _color;
+				mem[(_y-1)*pitch_div_2 + _x-1] = _color2;
+				mem[(_y-1)*pitch_div_2 + _x+1] = _color2;
+				mem[(_y-2)*pitch_div_2 + _x] = _color;
+				mem[(_y+1)*pitch_div_2 + _x] = _color;
+				mem[(_y+1)*pitch_div_2 + _x-1] = _color2;
+				mem[(_y+1)*pitch_div_2 + _x+1] = _color2;
+				mem[(_y+2)*pitch_div_2 + _x] = _color;
+				
+				mem[(_y)*pitch_div_2 + _x] = 0;
+				mem[(_y)*pitch_div_2 + _x-2] = 0;
+				mem[(_y)*pitch_div_2 + _x+2] = 0;
+				mem[(_y-1)*pitch_div_2 + _x-2] = 0;
+				mem[(_y-1)*pitch_div_2 + _x+2] = 0;
+				mem[(_y-2)*pitch_div_2 + _x-1] = 0;
+				mem[(_y-2)*pitch_div_2 + _x+1] = 0;
+				mem[(_y-3)*pitch_div_2 + _x] = 0;
+				mem[(_y+1)*pitch_div_2 + _x-2] = 0;
+				mem[(_y+1)*pitch_div_2 + _x+2] = 0;
+				mem[(_y+2)*pitch_div_2 + _x-1] = 0;
+				mem[(_y+2)*pitch_div_2 + _x+1] = 0;
+				mem[(_y+3)*pitch_div_2 + _x] = 0;
+			}
+		}
+
+		/*		
+		// ÆÄÆ¼¿øÀ§Ä¡ Ç¥½Ã x
+		if(g_pParty->GetSize())
+		{
+		r = color, g = color-5, b = color-5;
+		_color = CDirectDraw::Color(r, g, b);
+		for(i = 0; i < g_pParty->GetSize(); i++)
+		{
+		if(g_pParty->GetMemberInfo(i) != NULL && g_pParty->GetMemberInfo(i)->zoneID == m_zone_id)
+		{
+		_x = x+m_map_start_point.x + g_pParty->GetMemberInfo(i)->zoneX*map_w/m_map_w;
+		_y = y+m_map_start_point.y + g_pParty->GetMemberInfo(i)->zoneY*map_h/m_map_h;
+		
+		  if(_x > 0 && _x < g_GameRect.right-1 && _y > 0 && _y < g_GameRect.bottom-1)
+		  {
+		  mem[(_y)*pitch_div_2 + _x] = _color;
+		  mem[(_y-1)*pitch_div_2 + _x-1] = _color;
+		  mem[(_y-1)*pitch_div_2 + _x+1] = _color;
+		  mem[(_y+1)*pitch_div_2 + _x-1] = _color;
+		  mem[(_y+1)*pitch_div_2 + _x+1] = _color;
+		  
+			mem[(_y-2)*pitch_div_2 + _x-1] = 0;
+			mem[(_y-2)*pitch_div_2 + _x+1] = 0;
+			mem[(_y-1)*pitch_div_2 + _x-2] = 0;
+			mem[(_y-1)*pitch_div_2 + _x] = 0;
+			mem[(_y-1)*pitch_div_2 + _x+2] = 0;
+			mem[(_y)*pitch_div_2 + _x-1] = 0;
+			mem[(_y)*pitch_div_2 + _x+1] = 0;
+			mem[(_y+1)*pitch_div_2 + _x-2] = 0;
+			mem[(_y+1)*pitch_div_2 + _x] = 0;
+			mem[(_y+1)*pitch_div_2 + _x+2] = 0;
+			mem[(_y+2)*pitch_div_2 + _x-1] = 0;
+			mem[(_y+2)*pitch_div_2 + _x+1] = 0;
+			}
+			}
+			}
+			}
+			
+			  //ÀÚ±â À§Ä¡ Ç¥½Ã x
+			  _x = x+m_map_start_point.x + m_map_x*map_w/m_map_w;
+			  _y = y+m_map_start_point.y + m_map_y*map_h/m_map_h;
+			  
+				if(_x > 0 && _x < g_GameRect.right-1 && _y > 0 && _y < g_GameRect.bottom-1)
+				{
+				mem[(_y)*pitch_div_2 + _x] = 0xffff;
+				mem[(_y+1)*pitch_div_2 + _x+1] = 0xffff;
+				mem[(_y-1)*pitch_div_2 + _x-1] = 0xffff;
+				mem[(_y+1)*pitch_div_2 + _x-1] = 0xffff;
+				mem[(_y-1)*pitch_div_2 + _x+1] = 0xffff;
+				
+				  mem[(_y-2)*pitch_div_2 + _x-1] = 0;
+				  mem[(_y-2)*pitch_div_2 + _x+1] = 0;
+				  mem[(_y-1)*pitch_div_2 + _x-2] = 0;
+				  mem[(_y-1)*pitch_div_2 + _x] = 0;
+				  mem[(_y-1)*pitch_div_2 + _x+2] = 0;
+				  mem[(_y)*pitch_div_2 + _x-1] = 0;
+				  mem[(_y)*pitch_div_2 + _x+1] = 0;
+				  mem[(_y+1)*pitch_div_2 + _x-2] = 0;
+				  mem[(_y+1)*pitch_div_2 + _x] = 0;
+				  mem[(_y+1)*pitch_div_2 + _x+2] = 0;
+				  mem[(_y+2)*pitch_div_2 + _x-1] = 0;
+				  mem[(_y+2)*pitch_div_2 + _x+1] = 0;
+				  }
+		*/
+		// ÆÄÆ¼ À§Ä¡ Ç¥½Ã
+		for(i = 0; i < g_pParty->GetSize(); i++)
+		{
+			if(g_pParty->GetMemberInfo(i) != NULL && g_pParty->GetMemberInfo(i)->zoneID == m_zone_id)
+			{
+				_x = x+m_map_start_point.x + g_pParty->GetMemberInfo(i)->zoneX*map_w/m_map_w;
+				_y = y+m_map_start_point.y + g_pParty->GetMemberInfo(i)->zoneY*map_h/m_map_h;
+				if(_x > 0 && _x < g_GameRect.right-1 && _y > 0 && _y < g_GameRect.bottom-1)
+					m_pC_minimap_spk->BltLocked(_x-m_pC_minimap_spk->GetWidth(0)/2, _y-m_pC_minimap_spk->GetHeight(0)/2, 0);
+			}
+		}
+		
+		// ÀÚ±â À§Ä¡ Ç¥½Ã
+		if(m_map_w != 0 && m_map_h != 0)
+		{
+			_x = x+m_map_start_point.x + m_map_x*map_w/m_map_w;
+			_y = y+m_map_start_point.y + m_map_y*map_h/m_map_h;
+			
+			if(_x > 0 && _x < g_GameRect.right-1 && _y > 0 && _y < g_GameRect.bottom-1)
+				m_pC_minimap_spk->BltLocked(_x-m_pC_minimap_spk->GetWidth(0)/2, _y-m_pC_minimap_spk->GetHeight(0)/2, 0);
+		}
+		
+		m_pC_button_group->Show();
+		gpC_base->m_p_DDSurface_back->Unlock();
+	}
+	
+	g_FL2_GetDC();
+	g_PrintColorStr(x+w/2-g_GetStringWidth(m_zone_name.c_str(), gpC_base->m_info_pi.hfont)/2, y+8, m_zone_name.c_str(), gpC_base->m_info_pi, RGB_WHITE);
+	char sz_temp[5];
+	wsprintf(sz_temp, "%d", m_map_x);
+	g_PrintColorStr(x+m_board_x+19, y+m_board_y+6, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
+	wsprintf(sz_temp, "%d", m_map_y);
+	g_PrintColorStr(x+m_board_x+19, y+m_board_y+21, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE);
+	m_pC_button_group->ShowDescription();
+	g_FL2_ReleaseDC();	
+}
+
+//-----------------------------------------------------------------------------
+// Start
+//
+// 
+//-----------------------------------------------------------------------------
+void C_VS_UI_WORLDMAP::Start()
+{
+	AttrAlpha(gpC_vs_ui_window_manager->IsAlpha(C_VS_UI_WINDOW_MANAGER::MINIMAP));
+	AttrAutoHide(gpC_vs_ui_window_manager->GetAutoHide(C_VS_UI_WINDOW_MANAGER::MINIMAP));
+	Rect &rect = gpC_vs_ui_window_manager->GetRect(C_VS_UI_WINDOW_MANAGER::MINIMAP);
+	if(rect.w != -1)
+	{
+		x = rect.x;
+		y = rect.y;
+	}
+	
+	PI_Processor::Start();
+	
+	m_pC_button_group->Init();
+	
+	WindowEventReceiver(EVENT_WINDOW_MOVE);
+	
+	gpC_window_manager->AppearWindow(this);
+}
+
+void C_VS_UI_WORLDMAP::Finish()
+{
+	gpC_vs_ui_window_manager->SetAlpha(C_VS_UI_WINDOW_MANAGER::MINIMAP, GetAttributes()->alpha);
+	gpC_vs_ui_window_manager->SetAutoHide(C_VS_UI_WINDOW_MANAGER::MINIMAP, GetAttributes()->autohide);
+	gpC_vs_ui_window_manager->SetRect(C_VS_UI_WINDOW_MANAGER::MINIMAP, Rect(x, y, w, h));
+	
+	PI_Processor::Finish();
+	
+	gpC_window_manager->DisappearWindow(this);	
+}
+
+//-----------------------------------------------------------------------------
+// Process
+//
+// 
+//-----------------------------------------------------------------------------
+void C_VS_UI_WORLDMAP::Process()
+{
+	m_pC_button_group->Process();
+	
+	bool bl_alpha = GetAttributes()->alpha;
+	if(bl_alpha)
+	{
+		AttrAlpha(false);
+	}
+	if(x <= 0 || x+w >= g_GameRect.right)
+		ProcessHide(-4, bl_alpha);
+	else
+		ProcessHide(0, bl_alpha);
+	if(bl_alpha)
+	{
+		AttrAlpha(true);
+	}
+	
+}
+
+void C_VS_UI_WORLDMAP::SetZone(int zone_id)
+{
+	m_bl_refresh = true;
+	
+	//	int spk_id[zone_id_size] = 
+	//	{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,//ÇÊµå
+	//	12, 13, 14, 13, 15, 21, 40, 45, //´øÁ¯&¸¶À»
+	//	39, 28, 29, 30, 31, 32,//¹ÙÅä¸®´øÁ¯
+	//	41, 42, 43, 44, //¶ó¼¾¼º
+	//	20, 16, 17, 18, 19,//±ºÀÎ±æµå
+	//	20, 22, 23, 24, 19,//¼ºÁ÷ÀÚ±æµå
+	//	20, 25, 26, 27, 19,//¹«»ç±æµå
+	//	19, 20, 21, 22, 23, 25,//Æ©Åä¸®¾ó
+	//	33, 34,					//Æ©Åä¸®¾ó
+	//	-1, -1, -1};//Å¬¶óÀÌ¾ðÆ®¿ë
+	
+	//	bool bl_statch = (x+w >= g_GameRect.right-1);
+	//	int statch_w = w;
+	
+	m_zone_id = zone_id;
+	m_zone_name = g_pZoneTable->Get(zone_id)->Name.GetString();
+	
+	//-------------------------------------------------------------------
+	//
+	// ÇÊ¿äÇÑ minimap sprite¸¦ ÇÏ³ª ÀÐ¾î¿À±â À§ÇØ¼­.
+	//
+	//-------------------------------------------------------------------
+	// by sigi 2001.9.5
+	CSpritePack	minimapSPK;
+	minimapSPK.Init( 1 );		// ÀÓ½Ã·Î 1°³¸¸ loading.. - -;;
+	
+	bool re = minimapSPK.LoadFromFileData( 0, g_pZoneTable->Get(zone_id)->MinimapSpriteID, SPK_MINIMAP, SPKI_MINIMAP );
+	assert(re && "Minimap Not Load");
+	
+	//-------------------------------------------------------------------
+	// È­¸é¿¡ Ãâ·Â
+	//-------------------------------------------------------------------
+	if(re)
+	{
+		m_surface_w = minimapSPK[0].GetWidth();
+		m_surface_h = minimapSPK[0].GetHeight();
+		
+		POINT point = {0, 0};
+		DeleteNew(m_p_minimap_surface);
+		m_p_minimap_surface = new CSpriteSurface;
+		m_p_minimap_surface->InitOffsurface(m_surface_w, m_surface_h, DDSCAPS_SYSTEMMEMORY);
+		m_p_minimap_surface->SetTransparency( 0xffff );
+		m_p_minimap_surface->FillSurface(0x0000);
+		
+		m_p_minimap_surface->Lock();
+		m_p_minimap_surface->BltSprite(&point, &minimapSPK[0]);
+		m_p_minimap_surface->Unlock();
+		
+		int map_minus_w = 200-m_surface_w;
+		if(x+w == g_GameRect.right)
+			x -= m_pC_minimap_spk->GetWidth(MINIMAP_MAIN)+m_pC_minimap_spk->GetWidth(MINIMAP_RIGHT)-map_minus_w-w;
+		w = m_pC_minimap_spk->GetWidth(MINIMAP_MAIN)+m_pC_minimap_spk->GetWidth(MINIMAP_RIGHT)-map_minus_w;
+		
+		int map_minus_h = 100-m_surface_h;
+		if(x+h == g_GameRect.bottom)
+			y -= m_pC_minimap_spk->GetHeight(MINIMAP_MAIN)-map_minus_h-h;
+		h = m_pC_minimap_spk->GetHeight(MINIMAP_MAIN)-map_minus_h;
+	}
+	
+	m_portal.clear();
+	m_portal_zone_id.clear();
+	m_npc.clear();
+	m_shrine.clear();
+	m_Block.clear();
+	m_Flag.clear();
+}
+
+
+void C_VS_UI_WORLDMAP::SetBlock(int x, int y)
+{
+	POINT pt;
+
+	pt.x = x;
+	pt.y = y;
+
+	m_Block.push_back(pt);
+}
+
+
+void	C_VS_UI_WORLDMAP::SetFlagArea(POINT pt)
+{
+	m_p_minimap_surface->Lock();
+	WORD *mem = (WORD *)m_p_minimap_surface->GetSurfacePointer();
+	int pitch = m_p_minimap_surface->GetSurfacePitch();
+		
+	int remainy = (pt.y+9) % m_map_h;
+	int remainx = (pt.x+9) % m_map_w;
+
+	if(remainy)
+		remainy = 1;
+	else remainy = 0;
+
+	if(remainx)
+		remainx = 1;
+	else remainx = 0;
+
+	if(m_map_w && m_map_h)
+	{
+		for(int y = pt.y*m_surface_h/m_map_h ; 
+		y <= (pt.y+9)*m_surface_h/m_map_h; y++)
+		{
+			for(int x = pt.x*m_surface_w/m_map_w; 
+			x <= (pt.x+9)*m_surface_w/m_map_w; x++)
+			{
+				mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_R_Bitmask();
+			}
+		}
+	}
+		
+	m_p_minimap_surface->Unlock();
+}
+//-----------------------------------------------------------------------------
+// SetSafetyZone
+//
+// ¾ÈÀüÁö´ë ¼³Á¤
+//-----------------------------------------------------------------------------
+void C_VS_UI_WORLDMAP::SetSafetyZone(RECT rect, bool my_zone)
+{
+	m_bl_refresh = true;
+	
+	m_p_minimap_surface->Lock();
+	WORD *mem = (WORD *)m_p_minimap_surface->GetSurfacePointer();
+	int pitch = m_p_minimap_surface->GetSurfacePitch();
+	
+	//int map_w = m_surface_w, map_h = m_surface_h;
+	//	if(m_map_w != m_map_h)
+	//	{
+	//		if(m_map_w > m_map_h)map_h = map_h * m_map_h / m_map_w;
+	//		if(m_map_h > m_map_w)map_w = map_w * m_map_w / m_map_h;
+	//	}
+	
+	int remainy = rect.bottom % m_map_h;
+	int remainx = rect.right % m_map_w;
+
+	if(remainy)
+		remainy = 1;
+	else remainy = 0;
+
+	if(remainx)
+		remainx = 1;
+	else remainx = 0;
+
+	if(m_map_w && m_map_h)
+	{
+		for(int y = rect.top*m_surface_h/m_map_h ; 
+		y <= min((remainy+rect.bottom)*m_surface_h/m_map_h ,m_surface_h-1); y++)
+		{
+			for(int x = rect.left*m_surface_w/m_map_w; 
+			x <= min((remainx+rect.right)*m_surface_w/m_map_w ,m_surface_w-1); x++)
+			{
+				if(my_zone)
+					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_G_Bitmask();
+				else
+					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_R_Bitmask();
+			}
+		}
+	}
+	
+	/*if(m_map_w && m_map_h)
+	{
+		for(int y = rect.top*map_h/m_map_h + (m_surface_h - map_h)/2; 
+		y <= min(remainy+rect.bottom*map_h/m_map_h + (m_surface_h - map_h)/2,m_surface_h-1); y++)
+		{
+			for(int x = rect.left*map_w/m_map_w + (m_surface_w - map_w)/2; 
+			x <= min(remainx+rect.right*map_w/m_map_w + (m_surface_w - map_w)/2,m_surface_w-1); x++)
+			{
+				if(my_zone)
+					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_G_Bitmask();
+				else
+					mem[y*pitch/2+x] = mem[y*pitch/2+x] & CDirectDraw::Get_R_Bitmask();
+			}
+		}
+	}*/
+	
+	m_p_minimap_surface->Unlock();
+}
+
+//-----------------------------------------------------------------------------
+// SetNPC
+//
+// NPC ¼³Á¤
+//-----------------------------------------------------------------------------
+void C_VS_UI_WORLDMAP::SetNPC(MINIMAP_NPC npc)
+{
+	if(npc.id >= 560 && npc.id <= 563)	// ¼º »óÂ¡¹° ¹ÞÄ§´ë
+	{
+		for(int i = 0; i < m_shrine.size(); i++)
+		{
+			if(npc.id == m_shrine[i].id)break;
+		}
+		
+		if(i == m_shrine.size())
+		{
+			MINIMAP_SHRINE shrine;
+			shrine.x = npc.x;
+			shrine.y = npc.y;
+			shrine.id = npc.id;
+			shrine.name = npc.name;
+			shrine.type = 0;
+			m_shrine.push_back(shrine);
+		}
+	}
+	else if(npc.id >= 526 && npc.id <= 537)	// ¼öÈ£¼º´Ü
+	{
+		for(int i = 0; i < m_shrine.size(); i++)
+		{
+			if(npc.id == m_shrine[i].id)break;
+		}
+		
+		if(i == m_shrine.size())
+		{
+			MINIMAP_SHRINE shrine;
+			shrine.x = npc.x;
+			shrine.y = npc.y;
+			shrine.id = npc.id;
+			shrine.name = npc.name;
+			shrine.type = 1;
+			m_shrine.push_back(shrine);
+		}
+	}
+	else if(npc.id >= 538 && npc.id <= 549)	// ¼ºÁö ¼º´Ü
+	{
+		for(int i = 0; i < m_shrine.size(); i++)
+		{
+			if(npc.id == m_shrine[i].id)break;
+		}
+		
+		if(i == m_shrine.size())
+		{
+			MINIMAP_SHRINE shrine;
+			shrine.x = npc.x;
+			shrine.y = npc.y;
+			shrine.id = npc.id;
+			shrine.name = npc.name;
+			shrine.type = 2;
+			m_shrine.push_back(shrine);
+		}
+	}
+	else if(npc.id == 670)
+	{
+		m_Flag.push_back(npc);
+
+		POINT pt={npc.x,npc.y};
+
+		SetFlagArea( pt );
+	}
+	else
+	{
+		for(int i = 0; i < m_npc.size(); i++)
+		{
+			if(npc.id == m_npc[i].id && npc.id != 659 && npc.id != 672 && npc.id != 673 )break; // µÅÁö Á¤·ÉÀº »ý±îÀð
+		}
+		
+		if(i == m_npc.size())
+		{
+			m_npc.push_back(npc);
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// SetPortal
+//
+// Æ÷Å» ¼³Á¤
+//-----------------------------------------------------------------------------
+void C_VS_UI_WORLDMAP::SetPortal(RECT rect, int id)
+{
+//	extern std::map<int, bool> g_mapPremiumZone;
+	if(//g_pUserInformation->IsNetmarble && g_mapPremiumZone.find(id) != g_mapPremiumZone.end()
+		/*|| */!g_pSystemAvailableManager->ZoneFiltering( id ) )
+		return;
+	
+	for(int i = 0; i < m_portal.size(); i++)
+	{
+		if(m_portal_zone_id[i] == id &&
+			m_portal[i].top <= rect.bottom +5 &&
+			m_portal[i].bottom +5>= rect.top &&
+			m_portal[i].left <= rect.right +5 &&
+			m_portal[i].right +5 >= rect.left
+			)
+		{
+			m_portal[i].left = min(m_portal[i].left, rect.left);
+			m_portal[i].right = max(m_portal[i].right, rect.right);
+			m_portal[i].top = min(m_portal[i].top, rect.top);
+			m_portal[i].bottom = max(m_portal[i].bottom, rect.bottom);
+			break;
+		}
+	}
+	
+	if(i == m_portal.size())
+	{
+		//		if(rect.top > 4 && rect.bottom < m_map_h -1 && rect.left > 0 && rect.right < m_map_w)
+		{
+			m_portal.push_back(rect);
+			m_portal_zone_id.push_back(id);
+		}
+		
+	}
+}
+
+
+//-----------------------------------------------------------------------------
+// Timer
+//
+//-----------------------------------------------------------------------------
+bool C_VS_UI_WORLDMAP::TimerMinimap()
+{
+	if(m_dw_minimap_prev_tickcount+m_dw_minimap_millisec <= GetTickCount())
+	{
+		m_dw_minimap_prev_tickcount = GetTickCount();
+		return true;
+	}
+	
+	return false;
+}
 

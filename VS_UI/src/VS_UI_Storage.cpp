@@ -63,7 +63,7 @@ C_VS_UI_STORAGE::C_VS_UI_STORAGE()
 
 	m_pC_dialog_withdraw_money = NULL;	// by sigi
 
-	int normal_tab_x_offset, special_tab_x_offset, mysterious_tab_x_offset  , myStorgae_tab_x_offset_four , myStorgae_tab_x_offset_five  ; //  , mysterious_tab_x_offset1, mysterious_tab_x_offset2;
+	int normal_tab_x_offset, special_tab_x_offset, mysterious_tab_x_offset;
 	int close_button_x, close_button_y;
 	int help_button_x, help_button_y;
 	int tab_y_offset;
@@ -88,16 +88,14 @@ C_VS_UI_STORAGE::C_VS_UI_STORAGE()
 	m_shelf_start_y_offset[1] = 125;
 	m_shelf_start_y_offset[2] = 227;
 	m_shelf_start_y_offset[3] = 329;
-	normal_tab_x_offset = 13;
-	special_tab_x_offset = 74;
-	mysterious_tab_x_offset = 135;
-	myStorgae_tab_x_offset_four = 196 ;
-	myStorgae_tab_x_offset_five = 257 ;
+	normal_tab_x_offset = 15;
+	special_tab_x_offset = 119;
+	mysterious_tab_x_offset = 224;
 	tab_y_offset = 422;
-	close_button_x = 294;
-	close_button_y = 455;
-	help_button_x = 270;
-	help_button_y = 455;
+	close_button_x = 258;
+	close_button_y = 452;
+	help_button_x = 193;
+	help_button_y = 452;
 	m_money_button_offset_x = 15;
 	m_money_button_offset_y = 457;
 
@@ -114,8 +112,6 @@ C_VS_UI_STORAGE::C_VS_UI_STORAGE()
 		normal_tab_x_offset += 10;
 		special_tab_x_offset += 10;
 		mysterious_tab_x_offset += 10;
-		myStorgae_tab_x_offset_four	+= 10;
-		myStorgae_tab_x_offset_five += 10;
 		tab_y_offset += 10;
 		close_button_x += 10;
 		close_button_y += 10;
@@ -128,35 +124,22 @@ C_VS_UI_STORAGE::C_VS_UI_STORAGE()
 	// set button
 	m_pC_button_group = new ButtonGroup(this);
 
-	// 보관함 1
-	C_VS_UI_EVENT_BUTTON * p_tab = new C_VS_UI_EVENT_BUTTON(normal_tab_x_offset, tab_y_offset, TAB_WIDTH, TAB_HEIGHT, STORAGE_TAB1_ID, this, STORAGE_NEWTAB1);
+	C_VS_UI_EVENT_BUTTON * p_tab = new C_VS_UI_EVENT_BUTTON(normal_tab_x_offset, tab_y_offset, TAB_WIDTH, TAB_HEIGHT, STORAGE_TAB1_ID, this, STORAGE_TAB1);
 	p_tab->SetClickOption(Button::RUN_WHEN_PUSH);
 	m_pC_button_group->Add(p_tab);
 
-	// 보관함 2
-	p_tab = new C_VS_UI_EVENT_BUTTON(special_tab_x_offset, tab_y_offset, TAB_WIDTH, TAB_HEIGHT, STORAGE_TAB2_ID, this, STORAGE_NEWTAB2);
-	p_tab->SetClickOption(Button::RUN_WHEN_PUSH);
-	m_pC_button_group->Add(p_tab);
-	
-	// 보관함 3
-	p_tab = new C_VS_UI_EVENT_BUTTON(mysterious_tab_x_offset, tab_y_offset, TAB_WIDTH, TAB_HEIGHT, STORAGE_TAB3_ID, this, STORAGE_NEWTAB3);
+	p_tab = new C_VS_UI_EVENT_BUTTON(special_tab_x_offset, tab_y_offset, TAB_WIDTH, TAB_HEIGHT, STORAGE_TAB2_ID, this, STORAGE_TAB2);
 	p_tab->SetClickOption(Button::RUN_WHEN_PUSH);
 	m_pC_button_group->Add(p_tab);
 
-	// 보관함 4
-	p_tab = new C_VS_UI_EVENT_BUTTON(myStorgae_tab_x_offset_four, tab_y_offset, TAB_WIDTH, TAB_HEIGHT, STORAGE_TAB4_ID, this, STORAGE_NEWTAB4);
-	p_tab->SetClickOption(Button::RUN_WHEN_PUSH);
-	m_pC_button_group->Add(p_tab);
-
-	// 보관함 5
-	p_tab = new C_VS_UI_EVENT_BUTTON(myStorgae_tab_x_offset_five, tab_y_offset, TAB_WIDTH, TAB_HEIGHT, STORAGE_TAB5_ID, this, STORAGE_NEWTAB5);
+	p_tab = new C_VS_UI_EVENT_BUTTON(mysterious_tab_x_offset, tab_y_offset, TAB_WIDTH, TAB_HEIGHT, STORAGE_TAB3_ID, this, STORAGE_TAB3);
 	p_tab->SetClickOption(Button::RUN_WHEN_PUSH);
 	m_pC_button_group->Add(p_tab);
 
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(m_money_button_offset_x, m_money_button_offset_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_MONEY), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_MONEY), STORAGE_MONEY_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_MONEY));
 
-	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_button_x, close_button_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_X), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_X), STORAGE_CLOSE_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_X)) ; // C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE));
-	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(help_button_x, help_button_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_QUESTION), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_QUESTION), STORAGE_HELP_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_QUESTION)) ; //  C_GLOBAL_RESOURCE::AB_BUTTON_HELP));
+	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_button_x, close_button_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE), SHOP_CLOSE_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE));
+	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(help_button_x, help_button_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_HELP), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_HELP), SHOP_HELP_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_HELP));
 	
 
 #ifndef _LIB
@@ -477,20 +460,10 @@ void C_VS_UI_STORAGE::Show()
 	if (gpC_base->m_p_DDSurface_back->Lock())
 	{
 		gpC_global_resource->DrawDialogLocked(x, y, w, h);
-		if(m_pStorage!=NULL && m_pStorage->GetCurrent() < 3)
-		{
-			m_image_spk.BltLocked(x+GetSlotX(0), y+GetSlotY(0), MAIN_WINDOW);
-			m_image_spk.BltLocked(x+GetSlotX(SLOT_X_COUNT), y+GetSlotY(SLOT_X_COUNT), MAIN_WINDOW);
-			m_image_spk.BltLocked(x+GetSlotX(SLOT_X_COUNT*2), y+GetSlotY(SLOT_X_COUNT*2), MAIN_WINDOW);
-			m_image_spk.BltLocked(x+GetSlotX(SLOT_X_COUNT*3), y+GetSlotY(SLOT_X_COUNT*3), MAIN_WINDOW);
-		}
-		else
-		{
-			m_image_spk.BltLocked(x+GetSlotX(0) - 5 , y+GetSlotY(0) -7, MAIN_WINDOW_TAB4_5);
-			m_image_spk.BltLocked(x+GetSlotX(SLOT_X_COUNT) -5, y+GetSlotY(SLOT_X_COUNT)-7, MAIN_WINDOW_TAB4_5);
-			m_image_spk.BltLocked(x+GetSlotX(SLOT_X_COUNT*2) -5, y+GetSlotY(SLOT_X_COUNT*2)-7, MAIN_WINDOW_TAB4_5);
-			m_image_spk.BltLocked(x+GetSlotX(SLOT_X_COUNT*3) -5, y+GetSlotY(SLOT_X_COUNT*3)-7, MAIN_WINDOW_TAB4_5);
-		}
+		m_image_spk.BltLocked(x+GetSlotX(0), y+GetSlotY(0), MAIN_WINDOW);
+		m_image_spk.BltLocked(x+GetSlotX(SLOT_X_COUNT), y+GetSlotY(SLOT_X_COUNT), MAIN_WINDOW);
+		m_image_spk.BltLocked(x+GetSlotX(SLOT_X_COUNT*2), y+GetSlotY(SLOT_X_COUNT*2), MAIN_WINDOW);
+		m_image_spk.BltLocked(x+GetSlotX(SLOT_X_COUNT*3), y+GetSlotY(SLOT_X_COUNT*3), MAIN_WINDOW);
 		
 		gpC_global_resource->m_pC_assemble_box_button_spk->BltLocked(x+m_money_button_offset_x+25, y+m_money_button_offset_y, C_GLOBAL_RESOURCE::AB_MONEY_BAR);
 
@@ -584,8 +557,7 @@ void C_VS_UI_STORAGE::Show()
 				{
 					RECT rt;
 					rt.right = x+GetSlotX(i)+SLOT_WIDTH;
-					int depth, number;
-					for(depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
+					for(int depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
 					if(depth == 0) depth = 1;
 					rt.left = rt.right - 7*depth;
 					rt.bottom = y+GetSlotY(i)+SLOT_HEIGHT;
@@ -653,7 +625,7 @@ void C_VS_UI_STORAGE::Show()
 			char money_buf[512];
 			wsprintf(money_buf, "%d", m_pStorage->GetMoneyManager()->GetMoney());
 			std::string sstr = money_buf;
-			for(int i = 3; i <= 13; i += 4)
+			for(i = 3; i <= 13; i += 4)
 				if(sstr.size() > i)sstr.insert(sstr.size()-i, ",");
 			sprintf(money_buf, "%s", sstr.c_str());
 			g_Print(x+m_money_button_offset_x+147, y+m_money_button_offset_y+4, money_buf, &gpC_base->m_money2_pi);
@@ -751,21 +723,6 @@ void C_VS_UI_STORAGE::Run(id_t id)
 				m_pStorage->SetCurrent(2);
 			}
 			break;
-		
-		case STORAGE_TAB4_ID:
-			if (m_pStorage!=NULL && m_pStorage->GetSize()>=4)	// 확인용 Sjheon
-			{
-				m_pStorage->SetCurrent(3);
-			}
-			break;
-
-		case STORAGE_TAB5_ID:
-			if (m_pStorage!=NULL && m_pStorage->GetSize()>=5)	// 확인용 Sjheon
-			{
-				m_pStorage->SetCurrent(4);
-			}
-			break;
-
 
 		case STORAGE_CLOSE_ID:
 			gpC_base->SendMessage(UI_CLOSE_STORAGE);
@@ -796,12 +753,10 @@ void C_VS_UI_STORAGE::Run(id_t id)
 //-----------------------------------------------------------------------------
 void C_VS_UI_STORAGE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 {
-	static char*	m_help_string[8] = {
+	static char*	m_help_string[6] = {
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_FIRST].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_SECOND].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_THIRD].GetString(),
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_FOURTH].GetString(),
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_STORAGE_FIVE].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_STORAGE_WINDOW].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP_STORAGE_WINDOW].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_BRING_MONEY_FROM_STORAGE].GetString(),
@@ -835,9 +790,9 @@ void C_VS_UI_STORAGE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 		if(p_button->GetFocusState() || m_pStorage != NULL && m_pStorage->GetCurrent() == p_button->GetID())
 		{
 			if(p_button->GetPressState())
-				m_image_spk.BltLocked(x+p_button->x, y+p_button->y, p_button->m_image_index+10);
+				m_image_spk.BltLocked(x+p_button->x, y+p_button->y, p_button->m_image_index+6);
 			else
-				m_image_spk.BltLocked(x+p_button->x, y+p_button->y, p_button->m_image_index+5);
+				m_image_spk.BltLocked(x+p_button->x, y+p_button->y, p_button->m_image_index+3);
 		}
 		else
 			m_image_spk.BltLocked(x+p_button->x, y+p_button->y, p_button->m_image_index);

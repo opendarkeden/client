@@ -89,7 +89,7 @@ ITEMOPTION_INFO::~ITEMOPTION_INFO()
 // Save To File
 //--------------------------------------------------------------------------
 //void			
-//ITEMOPTION_INFO::SaveToFile(ofstream& file)
+//ITEMOPTION_INFO::SaveToFile(class ofstream& file)
 //{
 //	//char str[80];
 //	//sprintf(str, "E-%s", Name.GetString());
@@ -118,7 +118,7 @@ ITEMOPTION_INFO::~ITEMOPTION_INFO()
 // Load From File
 //--------------------------------------------------------------------------
 void			
-ITEMOPTION_INFO::LoadFromFile(ifstream& file)
+ITEMOPTION_INFO::LoadFromFile(class ifstream& file)
 {
 	EName.LoadFromFile(file);							// ItemOption 이름	
 	Name.LoadFromFile(file);							// ItemOption 이름
@@ -143,7 +143,7 @@ ITEMOPTION_INFO::LoadFromFile(ifstream& file)
 // Load From File
 //--------------------------------------------------------------------------
 void			
-ITEMOPTION_INFO::SaveToFile(ofstream& file)
+ITEMOPTION_INFO::SaveToFile(class ofstream& file)
 {
 }
 
@@ -151,7 +151,7 @@ ITEMOPTION_INFO::SaveToFile(ofstream& file)
 // Load From File
 //--------------------------------------------------------------------------
 void
-ITEMOPTION_TABLE::LoadFromFile(ifstream& file)
+ITEMOPTION_TABLE::LoadFromFile(class ifstream& file)
 {
 	int size;
 

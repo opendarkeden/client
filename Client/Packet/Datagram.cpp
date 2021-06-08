@@ -14,9 +14,6 @@
 #include "DatagramPacket.h"
 #include "Packet.h"
 
-using std::endl;
-using std::cout;
-
 void	SendBugReport(const char *bug, ...);
 
 //////////////////////////////////////////////////////////////////////

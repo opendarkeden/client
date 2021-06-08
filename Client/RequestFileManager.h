@@ -40,7 +40,7 @@
 #include <string>
 #include <list>
 #include <map>
-#include <fstream>
+#include <fstream.h>
 #include "types\RequestTypes.h"
 class RequestClientPlayer;
 class RequestServerPlayer;
