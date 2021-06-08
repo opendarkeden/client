@@ -1,9 +1,0 @@
-SCC = This is a Source Code Control file
-
-[lib.dsw]
-SCC_Aux_Path = "K:\DK2_DESIGEN"
-SCC_Project_Name = "$/DARKEDEN/Client/designed/project/VS_UI/lib", OVMBAAAA
-
-[lib.dsp]
-SCC_Aux_Path = "K:\DK2_DESIGEN"
-SCC_Project_Name = "$/DARKEDEN/Client/designed/project/VS_UI/lib", OVMBAAAA

@@ -4371,11 +4371,6 @@ SOURCE=.\Packet\Cpackets\CGConnectSetKeyHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\VS_UI\lib\Client_PCH.cpp
-# ADD CPP /Yc"Client_PCH.h"
-# End Source File
-# Begin Source File
-
 SOURCE=.\ClientConfig.cpp
 # End Source File
 # Begin Source File
@@ -7516,10 +7511,6 @@ SOURCE=.\AddonDef.h
 # Begin Source File
 
 SOURCE=.\Packet\Cpackets\CGConnectSetKey.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\VS_UI\lib\Client_PCH.h
 # End Source File
 # Begin Source File
 

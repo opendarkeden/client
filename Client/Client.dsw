@@ -38,9 +38,6 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name DEUtil
     End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name lib
-    End Project Dependency
 }}}
 
 ###############################################################################
@@ -117,18 +114,6 @@ Package=<4>
 
 ###############################################################################
 
-Project: "VS_UI"=..\VS_UI\VS_UI.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
 Project: "VolumeLib"=.\VolumeLib\VolumeLib.dsp - Package Owner=<4>
 
 Package=<5>
@@ -141,7 +126,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "lib"=..\VS_UI\lib\lib.dsp - Package Owner=<4>
+Project: "lib"=..\VS_UI\lib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

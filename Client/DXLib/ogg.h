@@ -21,7 +21,7 @@
 extern "C" {
 #endif
 
-#include "directxlib/os_types.h"
+#include "DXLib/os_types.h"
 
 typedef struct {
   long endbyte;

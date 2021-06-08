@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /Zi /O1 /I "\Game(800)\designed\project\client" /I "\Game(800)\designed\project\client\dxlib" /I "\Game(800)\designed\project\client\spriteLib" /I "\Game(800)\designed\project\client\frameLib" /I "..\src\widget" /I "..\src\hangul" /I "..\src\header" /I "..\src\imm" /I "\Game(800)\designed\project\basic" /I "..\..\lib" /I "..\..\basic" /I "\Game(800)\designed\project\client\sxml" /I "\Game(800)\designed\project\VS_UI" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /Zi /O1 /I "..\client" /I "..\client\dxlib" /I "..\client\spriteLib" /I "..\client\frameLib" /I "src\widget" /I "src\hangul" /I "src\header" /I "src\imm" /I "\designed\basic" /I "basic" /I "lib\ui" /I "..\client\sxml" /I "..\basic" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
 # SUBTRACT CPP /Fr
 # ADD BASE RSC /l 0x412 /d "NDEBUG"
 # ADD RSC /l 0x412 /d "NDEBUG"
@@ -50,7 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"\Game(800)\designed\project\lib\ui\VS_UI_release.lib"
+# ADD LIB32 /nologo /out:"..\lib\ui\VS_UI_release.lib"
 
 !ELSEIF  "$(CFG)" == "lib - Win32 Debug"
 
@@ -65,7 +65,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "\game(800)\designed\project\client" /I "\game(800)\designed\project\client\dxlib" /I "\game(800)\designed\project\client\spriteLib" /I "\game(800)\designed\project\client\frameLib" /I "..\src\widget" /I "..\src\hangul" /I "..\src\header" /I "..\src\imm" /I "\designed\basic" /I "..\..\basic" /I "..\..\lib\ui" /I "\game(800)\designed\project\client\sxml" /I "\game(800)\designed\project\VS_UI" /I "\game(800)\designed\project\basic" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fr /Yu"client_PCH.h" /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\client" /I "..\client\dxlib" /I "..\client\spriteLib" /I "..\client\frameLib" /I "src\widget" /I "src\hangul" /I "src\header" /I "src\imm" /I "\designed\basic" /I "basic" /I "lib\ui" /I "..\client\sxml" /I "..\basic" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fr /Yu"client_PCH.h" /FD /GZ /c
 # ADD BASE RSC /l 0x412 /d "_DEBUG"
 # ADD RSC /l 0x412 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -86,200 +86,195 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\src\AcceleratorDef.cpp
+SOURCE=src\AcceleratorDef.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\AcceleratorManager.cpp
+SOURCE=src\AcceleratorManager.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\hangul\Ci.cpp
+SOURCE=src\hangul\Ci.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Imm\CImm.cpp
+SOURCE=src\Imm\CImm.cpp
 # End Source File
 # Begin Source File
 
-SOURCE="K:\game(800)\designed\project\VS_UI\lib\Client_PCH.cpp"
-# ADD CPP /Yc"client_PCH.h"
+SOURCE=src\hangul\FL2.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\hangul\FL2.cpp
+SOURCE=src\KeyAccelerator.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\KeyAccelerator.cpp
+SOURCE=src\widget\mother.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\mother.cpp
+SOURCE=src\widget\pi_core.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\pi_core.cpp
+SOURCE=src\SkinManager.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SkinManager.cpp
+SOURCE=SXml.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\SXml.cpp
+SOURCE=src\widget\u_button.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\u_button.cpp
+SOURCE=src\widget\U_edit.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\U_edit.cpp
+SOURCE=src\widget\u_scrollbar.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\u_scrollbar.cpp
+SOURCE=src\widget\u_window.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\u_window.cpp
+SOURCE=src\Vs_ui.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Vs_ui.cpp
+SOURCE=src\VS_UI_Base.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Base.cpp
+SOURCE=src\VS_UI_BBS.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_BBS.cpp
+SOURCE=src\VS_UI_DESC.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_DESC.cpp
+SOURCE=src\VS_UI_Description.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Description.cpp
+SOURCE=src\VS_UI_Descriptor.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Descriptor.cpp
+SOURCE=src\VS_UI_Dialog.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Dialog.cpp
+SOURCE=src\VS_UI_ELEVATOR.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_ELEVATOR.cpp
+SOURCE=src\VS_UI_Exception.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Exception.cpp
+SOURCE=src\VS_UI_Exchange.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Exchange.cpp
+SOURCE=src\VS_UI_ExtraDialog.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_ExtraDialog.cpp
+SOURCE=src\VS_UI_Game.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Game.cpp
+SOURCE=src\VS_UI_GameCommon.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_GameCommon.cpp
+SOURCE=src\vs_ui_gamecommon2.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\vs_ui_gamecommon2.cpp
+SOURCE=src\VS_UI_GameOusters.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_GameOusters.cpp
+SOURCE=src\VS_UI_GameSlayer.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_GameSlayer.cpp
+SOURCE=src\VS_UI_GameVampire.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_GameVampire.cpp
+SOURCE=src\VS_UI_GlobalResource.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_GlobalResource.cpp
+SOURCE=src\VS_UI_Helper.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Helper.cpp
+SOURCE=src\VS_UI_Item.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Item.cpp
+SOURCE=src\VS_UI_Message.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Message.cpp
+SOURCE=src\VS_UI_mouse_pointer.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_mouse_pointer.cpp
+SOURCE=src\VS_UI_PetStorage.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_PetStorage.cpp
+SOURCE=src\VS_UI_progress.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_progress.cpp
+SOURCE=src\VS_UI_Shop.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Shop.cpp
+SOURCE=src\VS_UI_skill_tree.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_skill_tree.cpp
+SOURCE=src\VS_UI_Storage.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Storage.cpp
+SOURCE=src\VS_UI_Title.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Title.cpp
+SOURCE=src\VS_UI_TITLE_SHOWCHAR.CPP
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_TITLE_SHOWCHAR.CPP
+SOURCE=src\VS_UI_Tutorial.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_Tutorial.cpp
+SOURCE=src\VS_UI_ui_result_receiver.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_ui_result_receiver.cpp
+SOURCE=src\VS_UI_util.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_util.cpp
+SOURCE=src\VS_UI_WebBrowser.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\VS_UI_WebBrowser.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\VS_UI_widget.cpp
+SOURCE=src\VS_UI_widget.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -287,203 +282,199 @@ SOURCE=..\src\VS_UI_widget.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\src\header\AcceleratorDef.h
+SOURCE=src\header\AcceleratorDef.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\AcceleratorManager.h
+SOURCE=src\header\AcceleratorManager.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\hangul\Ci.h
+SOURCE=src\hangul\Ci.h
 # End Source File
 # Begin Source File
 
-SOURCE="K:\game(800)\designed\project\VS_UI\lib\Client_PCH.h"
+SOURCE=src\hangul\Fl2.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\hangul\Fl2.h
+SOURCE=src\header\KeyAccelerator.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\KeyAccelerator.h
+SOURCE=src\widget\mother.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\mother.h
+SOURCE=src\widget\PI.H
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\PI.H
+SOURCE=src\widget\pi_core.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\pi_core.h
+SOURCE=src\widget\SimpleDataList.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\SimpleDataList.h
+SOURCE=src\header\SkinManager.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\SkinManager.h
+SOURCE=src\widget\u_button.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\u_button.h
+SOURCE=src\widget\U_edit.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\U_edit.h
+SOURCE=src\widget\u_scrollbar.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\u_scrollbar.h
+SOURCE=src\widget\u_window.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\u_window.h
+SOURCE=src\widget\unicorn.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\widget\unicorn.h
+SOURCE=src\header\VS_UI.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI.h
+SOURCE=src\header\VS_UI_Base.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_Base.h
+SOURCE=src\header\VS_UI_bbs.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_bbs.h
+SOURCE=src\header\VS_UI_DESC.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_DESC.h
+SOURCE=src\header\VS_UI_Description.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_Description.h
+SOURCE=src\header\VS_UI_descriptor.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_descriptor.h
+SOURCE=src\header\VS_UI_Dialog.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_Dialog.h
+SOURCE=src\header\VS_UI_ELEVATOR.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_ELEVATOR.h
+SOURCE=src\header\VS_UI_Exchange.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_Exchange.h
+SOURCE=src\header\VS_UI_ExtraDialog.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_ExtraDialog.h
+SOURCE=src\header\VS_UI_filepath.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_filepath.h
+SOURCE=src\header\VS_UI_Game.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_Game.h
+SOURCE=src\header\VS_UI_GameCommon.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_GameCommon.h
+SOURCE=src\header\VS_UI_GameCommon2.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_GameCommon2.h
+SOURCE=src\header\VS_UI_GameOusters.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_GameOusters.h
+SOURCE=src\header\VS_UI_GameSlayer.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_GameSlayer.h
+SOURCE=src\header\VS_UI_GameVampire.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_GameVampire.h
+SOURCE=src\header\VS_UI_GlobalResource.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_GlobalResource.h
+SOURCE=src\header\VS_UI_Helper.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_Helper.h
+SOURCE=src\header\VS_UI_item.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_item.h
+SOURCE=src\header\VS_UI_Message.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_Message.h
+SOURCE=src\header\VS_UI_mouse_pointer.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_mouse_pointer.h
+SOURCE=src\header\VS_UI_PetStorage.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_PetStorage.h
+SOURCE=src\header\VS_UI_progress.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_progress.h
+SOURCE=src\header\VS_UI_Shop.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_Shop.h
+SOURCE=src\header\VS_UI_skill_tree.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_skill_tree.h
+SOURCE=src\header\VS_UI_Storage.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_Storage.h
+SOURCE=src\header\VS_UI_title.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_title.h
+SOURCE=src\header\VS_UI_Tutorial.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_Tutorial.h
+SOURCE=src\header\VS_UI_ui_result_receiver.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_ui_result_receiver.h
+SOURCE=src\header\VS_UI_UIMessage.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_UIMessage.h
+SOURCE=src\header\VS_UI_util.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_util.h
+SOURCE=src\header\VS_UI_WebBrowser.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\header\VS_UI_WebBrowser.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\header\VS_UI_widget.h
+SOURCE=src\header\VS_UI_widget.h
 # End Source File
 # End Group
 # End Target
