@@ -3,82 +3,98 @@
 <pre>
 <h1>Build Log</h1>
 <h3>
---------------------Configuration: Sprite Library - Win32 Debug--------------------
+--------------------Configuration: SpriteLib - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPFB.tmp" with contents
+Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSP6952.tmp" with contents
 [
 /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\dxlib" /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "__TEST_SUB_INVENTORY__" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\Game(800)\designed\project\Client\SpriteLib\CAlphaSprite.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CAlphaSprite555.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CAlphaSpritePal.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CFilter.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CIndexSprite.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CIndexSprite555.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CIndexSprite565.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CShadowSprite.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CSprite.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CSprite555.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CSprite565.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CSpriteOutlineManager.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CSpritePackList.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CSpritePal.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CSpritePalBase.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CSpriteSet.cpp"
-"D:\Game(800)\designed\project\Client\SpriteLib\CSpriteSurface.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CAlphaSprite.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CAlphaSprite555.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CAlphaSprite565.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CAlphaSpritePal.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CFilter.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CIndexSprite.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CIndexSprite555.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CIndexSprite565.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CIndexSpritePack.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CShadowSprite.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSprite.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSprite555.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSprite565.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpriteDef.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpriteOutlineManager.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpritePack.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpritePackList.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpritePal.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpritePalBase.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpriteSet.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpriteSetManager.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CSpriteSurface.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\CStorageSurface.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\MPalette.cpp"
+"C:\project\opendarkeden\client\Client\SpriteLib\MPalettePack.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPFB.tmp" 
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPFC.tmp" with contents
+Creating command line "cl.exe @C:\Users\genius\AppData\Local\Temp\RSP6952.tmp" 
+Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSP6953.tmp" with contents
 [
 /nologo /out:"Debug\SP.lib" 
-".\Debug\CAlphaSprite.obj"
-".\Debug\CAlphaSprite555.obj"
-".\Debug\CAlphaSprite565.obj"
-".\Debug\CAlphaSpritePal.obj"
-".\Debug\CFilter.obj"
-".\Debug\CIndexSprite.obj"
-".\Debug\CIndexSprite555.obj"
-".\Debug\CIndexSprite565.obj"
-".\Debug\CIndexSpritePack.obj"
-".\Debug\CShadowSprite.obj"
-".\Debug\CSprite.obj"
-".\Debug\CSprite555.obj"
-".\Debug\CSprite565.obj"
-".\Debug\CSpriteDef.obj"
-".\Debug\CSpriteOutlineManager.obj"
-".\Debug\CSpritePack.obj"
-".\Debug\CSpritePackList.obj"
-".\Debug\CSpritePal.obj"
-".\Debug\CSpritePalBase.obj"
-".\Debug\CSpriteSet.obj"
-".\Debug\CSpriteSetManager.obj"
-".\Debug\CSpriteSurface.obj"
-".\Debug\CStorageSurface.obj"
-".\Debug\MPalette.obj"
-".\Debug\MPalettePack.obj"
+.\Debug\CAlphaSprite.obj
+.\Debug\CAlphaSprite555.obj
+.\Debug\CAlphaSprite565.obj
+.\Debug\CAlphaSpritePal.obj
+.\Debug\CFilter.obj
+.\Debug\CIndexSprite.obj
+.\Debug\CIndexSprite555.obj
+.\Debug\CIndexSprite565.obj
+.\Debug\CIndexSpritePack.obj
+.\Debug\CShadowSprite.obj
+.\Debug\CSprite.obj
+.\Debug\CSprite555.obj
+.\Debug\CSprite565.obj
+.\Debug\CSpriteDef.obj
+.\Debug\CSpriteOutlineManager.obj
+.\Debug\CSpritePack.obj
+.\Debug\CSpritePackList.obj
+.\Debug\CSpritePal.obj
+.\Debug\CSpritePalBase.obj
+.\Debug\CSpriteSet.obj
+.\Debug\CSpriteSetManager.obj
+.\Debug\CSpriteSurface.obj
+.\Debug\CStorageSurface.obj
+.\Debug\MPalette.obj
+.\Debug\MPalettePack.obj
 ]
-Creating command line "link.exe -lib @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPFC.tmp"
+Creating command line "link.exe -lib @C:\Users\genius\AppData\Local\Temp\RSP6953.tmp"
 <h3>Output Window</h3>
 Compiling...
 CAlphaSprite.cpp
-Generating Code...
-Compiling...
 CAlphaSprite555.cpp
+CAlphaSprite565.cpp
 CAlphaSpritePal.cpp
 CFilter.cpp
 CIndexSprite.cpp
 CIndexSprite555.cpp
 CIndexSprite565.cpp
+CIndexSpritePack.cpp
 CShadowSprite.cpp
 CSprite.cpp
 CSprite555.cpp
 CSprite565.cpp
+CSpriteDef.cpp
 CSpriteOutlineManager.cpp
+CSpritePack.cpp
 CSpritePackList.cpp
 CSpritePal.cpp
 CSpritePalBase.cpp
 CSpriteSet.cpp
+Generating Code...
+Compiling...
+CSpriteSetManager.cpp
 CSpriteSurface.cpp
+CStorageSurface.cpp
+MPalette.cpp
+MPalettePack.cpp
 Generating Code...
 Creating library...
 

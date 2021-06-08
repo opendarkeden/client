@@ -3,14 +3,10 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "CWinMain Library"=".\CWinMain Library\CWinMain Library.dsp" - Package Owner=<4>
+Project: "CWinMain Library"=".\cwinmain library\CWinMain Library.dsp" - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/DARKEDEN/Client/designed/project/Client/CWinMain Library", JEBBAAAA
-    .\cwinmain library
-    end source code control
 }}}
 
 Package=<4>
@@ -19,24 +15,14 @@ Package=<4>
 
 ###############################################################################
 
-Project: "Client"=".\Client.dsp" - Package Owner=<4>
+Project: "Client"=.\Client.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/DARKEDEN/Client/designed/project/Client", KWABAAAA
-    .
-    end source code control
 }}}
 
 Package=<4>
 {{{
-    Begin Project Dependency
-    Project_Dep_Name Frame Library
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name Sprite Library
-    End Project Dependency
     Begin Project Dependency
     Project_Dep_Name DirectXLib
     End Project Dependency
@@ -45,9 +31,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name VolumeLib
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name CWinMain Library
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name MZLib
@@ -62,14 +45,10 @@ Package=<4>
 
 ###############################################################################
 
-Project: "ClientInfo"="..\ClientInfo\ClientInfo.dsp" - Package Owner=<4>
+Project: "D3DLib"=.\D3DLib\D3DLib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/DARKEDEN/Client/designed/project", USABAAAA
-    ..\clientinfo
-    end source code control
 }}}
 
 Package=<4>
@@ -78,14 +57,10 @@ Package=<4>
 
 ###############################################################################
 
-Project: "D3DLib"=".\D3DLib\D3DLib.dsp" - Package Owner=<4>
+Project: "DEUtil"=.\DEUtil\DEUtil.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/DARKEDEN/Client/designed/project/Client/D3DLib", ZEBBAAAA
-    .\d3dlib
-    end source code control
 }}}
 
 Package=<4>
@@ -94,14 +69,10 @@ Package=<4>
 
 ###############################################################################
 
-Project: "DEUtil"=".\DEUtil\DEUtil.dsp" - Package Owner=<4>
+Project: "DirectXLib"=.\DXLib\DXLib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/DARKEDEN/Client/designed/project/Client/DEUtil", NHBBAAAA
-    .\deutil
-    end source code control
 }}}
 
 Package=<4>
@@ -110,14 +81,10 @@ Package=<4>
 
 ###############################################################################
 
-Project: "DirectXLib"=".\DirectXLib\DirectXLib.dsp" - Package Owner=<4>
+Project: "FrameLib"=.\FrameLib\FrameLib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/DARKEDEN/Client/designed/project/Client/DirectXLib", FIBBAAAA
-    .\directxlib
-    end source code control
 }}}
 
 Package=<4>
@@ -126,14 +93,10 @@ Package=<4>
 
 ###############################################################################
 
-Project: "Frame Library"=".\Frame Library\Frame Library.dsp" - Package Owner=<4>
+Project: "MZLib"=.\MZLib\MZLib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/DARKEDEN/Client/designed/project/Client/Frame Library", CNBBAAAA
-    .\frame library
-    end source code control
 }}}
 
 Package=<4>
@@ -142,14 +105,10 @@ Package=<4>
 
 ###############################################################################
 
-Project: "MZLib"=".\MZLib\MZLib.dsp" - Package Owner=<4>
+Project: "SpriteLib"=.\SpriteLib\SpriteLib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/DARKEDEN/Client/designed/project/Client/MZLib", DECBAAAA
-    .\mzlib
-    end source code control
 }}}
 
 Package=<4>
@@ -158,14 +117,10 @@ Package=<4>
 
 ###############################################################################
 
-Project: "Sprite Library"=".\SpriteLib\SpriteLib.dsp" - Package Owner=<4>
+Project: "VS_UI"=..\VS_UI\VS_UI.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/DARKEDEN/Client/designed/project/Client/SpriteLib", XQEBAAAA
-    .\spritelib
-    end source code control
 }}}
 
 Package=<4>
@@ -174,14 +129,10 @@ Package=<4>
 
 ###############################################################################
 
-Project: "VS_UI"="..\VS_UI\VS_UI.dsp" - Package Owner=<4>
+Project: "VolumeLib"=.\VolumeLib\VolumeLib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/", aaaaaaaa
-    ..\vs_ui
-    end source code control
 }}}
 
 Package=<4>
@@ -190,30 +141,10 @@ Package=<4>
 
 ###############################################################################
 
-Project: "VolumeLib"=".\VolumeLib\VolumeLib.dsp" - Package Owner=<4>
+Project: "lib"=..\VS_UI\lib\lib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    "$/DARKEDEN/Client/designed/project/Client/VolumeLib", GWEBAAAA
-    .\volumelib
-    end source code control
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "lib"="..\VS_UI\lib\lib.dsp" - Package Owner=<4>
-
-Package=<5>
-{{{
-    begin source code control
-    "$/DARKEDEN/Client/designed/project/VS_UI/lib", OVMBAAAA
-    ..\vs_ui\lib
-    end source code control
 }}}
 
 Package=<4>
@@ -226,10 +157,6 @@ Global:
 
 Package=<5>
 {{{
-    begin source code control
-    "$/DARKEDEN/Client/designed/project/Client", KWABAAAA
-    .
-    end source code control
 }}}
 
 Package=<3>
