@@ -6,6 +6,64 @@
 --------------------Configuration: MZLib - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSP5B2A.tmp" with contents
+[
+/nologo /MT /W3 /GX /O1 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "__TEST_SUB_INVENTORY__" /Fp"Release/MZLib.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\project\opendarkeden\client\Client\MZLib\adler32.c"
+"C:\project\opendarkeden\client\Client\MZLib\compress.c"
+"C:\project\opendarkeden\client\Client\MZLib\crc32.c"
+"C:\project\opendarkeden\client\Client\MZLib\deflate.c"
+"C:\project\opendarkeden\client\Client\MZLib\gzio.c"
+"C:\project\opendarkeden\client\Client\MZLib\infblock.c"
+"C:\project\opendarkeden\client\Client\MZLib\infcodes.c"
+"C:\project\opendarkeden\client\Client\MZLib\inffast.c"
+"C:\project\opendarkeden\client\Client\MZLib\inflate.c"
+"C:\project\opendarkeden\client\Client\MZLib\inftrees.c"
+"C:\project\opendarkeden\client\Client\MZLib\infutil.c"
+"C:\project\opendarkeden\client\Client\MZLib\minigzip.c"
+"C:\project\opendarkeden\client\Client\MZLib\trees.c"
+"C:\project\opendarkeden\client\Client\MZLib\uncompr.c"
+"C:\project\opendarkeden\client\Client\MZLib\zutil.c"
+]
+Creating command line "cl.exe @C:\Users\genius\AppData\Local\Temp\RSP5B2A.tmp" 
+Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSP5B2B.tmp" with contents
+[
+/nologo /out:"Release\ZLib.lib" 
+.\Release\adler32.obj
+.\Release\compress.obj
+.\Release\crc32.obj
+.\Release\deflate.obj
+.\Release\gzio.obj
+.\Release\infblock.obj
+.\Release\infcodes.obj
+.\Release\inffast.obj
+.\Release\inflate.obj
+.\Release\inftrees.obj
+.\Release\infutil.obj
+.\Release\minigzip.obj
+.\Release\trees.obj
+.\Release\uncompr.obj
+.\Release\zutil.obj
+]
+Creating command line "link.exe -lib @C:\Users\genius\AppData\Local\Temp\RSP5B2B.tmp"
+<h3>Output Window</h3>
+Compiling...
+adler32.c
+compress.c
+crc32.c
+deflate.c
+gzio.c
+infblock.c
+infcodes.c
+inffast.c
+inflate.c
+inftrees.c
+infutil.c
+minigzip.c
+trees.c
+uncompr.c
+zutil.c
+Creating library...
 
 
 

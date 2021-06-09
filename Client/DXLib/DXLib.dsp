@@ -205,7 +205,7 @@ SOURCE=..\CMP3.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\DirectXLib\codec.h
+SOURCE=.\codec.h
 # End Source File
 # Begin Source File
 
@@ -217,7 +217,7 @@ SOURCE=.\common.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\DirectXLib\config_types.h
+SOURCE=.\config_types.h
 # End Source File
 # Begin Source File
 
@@ -241,11 +241,11 @@ SOURCE=.\mp3.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\DirectXLib\ogg.h
+SOURCE=.\ogg.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\DirectXLib\os_types.h
+SOURCE=.\os_types.h
 # End Source File
 # Begin Source File
 
@@ -257,11 +257,11 @@ SOURCE=.\soundbuf.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\DirectXLib\vorbisenc.h
+SOURCE=.\vorbisenc.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\DirectXLib\vorbisfile.h
+SOURCE=.\vorbisfile.h
 # End Source File
 # End Group
 # End Target

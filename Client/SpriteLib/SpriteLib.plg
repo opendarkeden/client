@@ -3,12 +3,12 @@
 <pre>
 <h1>Build Log</h1>
 <h3>
---------------------Configuration: SpriteLib - Win32 Debug--------------------
+--------------------Configuration: SpriteLib - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSP6952.tmp" with contents
+Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSP8BA2.tmp" with contents
 [
-/nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\dxlib" /I ".." /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "__TEST_SUB_INVENTORY__" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+/nologo /MT /W3 /GX /Zi /O1 /Ob2 /I "..\dxlib" /I ".." /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "__TEST_SUB_INVENTORY__" /Fo"Release/" /Fd"Release/" /FD /c 
 "C:\project\opendarkeden\client\Client\SpriteLib\CAlphaSprite.cpp"
 "C:\project\opendarkeden\client\Client\SpriteLib\CAlphaSprite555.cpp"
 "C:\project\opendarkeden\client\Client\SpriteLib\CAlphaSprite565.cpp"
@@ -35,37 +35,37 @@ Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSP6952.tmp" with co
 "C:\project\opendarkeden\client\Client\SpriteLib\MPalette.cpp"
 "C:\project\opendarkeden\client\Client\SpriteLib\MPalettePack.cpp"
 ]
-Creating command line "cl.exe @C:\Users\genius\AppData\Local\Temp\RSP6952.tmp" 
-Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSP6953.tmp" with contents
+Creating command line "cl.exe @C:\Users\genius\AppData\Local\Temp\RSP8BA2.tmp" 
+Creating temporary file "C:\Users\genius\AppData\Local\Temp\RSP8BA3.tmp" with contents
 [
-/nologo /out:"Debug\SP.lib" 
-.\Debug\CAlphaSprite.obj
-.\Debug\CAlphaSprite555.obj
-.\Debug\CAlphaSprite565.obj
-.\Debug\CAlphaSpritePal.obj
-.\Debug\CFilter.obj
-.\Debug\CIndexSprite.obj
-.\Debug\CIndexSprite555.obj
-.\Debug\CIndexSprite565.obj
-.\Debug\CIndexSpritePack.obj
-.\Debug\CShadowSprite.obj
-.\Debug\CSprite.obj
-.\Debug\CSprite555.obj
-.\Debug\CSprite565.obj
-.\Debug\CSpriteDef.obj
-.\Debug\CSpriteOutlineManager.obj
-.\Debug\CSpritePack.obj
-.\Debug\CSpritePackList.obj
-.\Debug\CSpritePal.obj
-.\Debug\CSpritePalBase.obj
-.\Debug\CSpriteSet.obj
-.\Debug\CSpriteSetManager.obj
-.\Debug\CSpriteSurface.obj
-.\Debug\CStorageSurface.obj
-.\Debug\MPalette.obj
-.\Debug\MPalettePack.obj
+/nologo /out:"Release\SP.lib" 
+.\Release\CAlphaSprite.obj
+.\Release\CAlphaSprite555.obj
+.\Release\CAlphaSprite565.obj
+.\Release\CAlphaSpritePal.obj
+.\Release\CFilter.obj
+.\Release\CIndexSprite.obj
+.\Release\CIndexSprite555.obj
+.\Release\CIndexSprite565.obj
+.\Release\CIndexSpritePack.obj
+.\Release\CShadowSprite.obj
+.\Release\CSprite.obj
+.\Release\CSprite555.obj
+.\Release\CSprite565.obj
+.\Release\CSpriteDef.obj
+.\Release\CSpriteOutlineManager.obj
+.\Release\CSpritePack.obj
+.\Release\CSpritePackList.obj
+.\Release\CSpritePal.obj
+.\Release\CSpritePalBase.obj
+.\Release\CSpriteSet.obj
+.\Release\CSpriteSetManager.obj
+.\Release\CSpriteSurface.obj
+.\Release\CStorageSurface.obj
+.\Release\MPalette.obj
+.\Release\MPalettePack.obj
 ]
-Creating command line "link.exe -lib @C:\Users\genius\AppData\Local\Temp\RSP6953.tmp"
+Creating command line "link.exe -lib @C:\Users\genius\AppData\Local\Temp\RSP8BA3.tmp"
 <h3>Output Window</h3>
 Compiling...
 CAlphaSprite.cpp

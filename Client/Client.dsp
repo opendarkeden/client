@@ -44,7 +44,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GR /GX /Zi /O1 /Ob2 /I "..\client" /I "DXLib" /I "SpriteLib" /I "FrameLib" /I "D3DLib" /I "VolumeLib" /I "Packet" /I "CWinMain Library" /I "lib" /I "Updater" /I "MZLib" /I "sxml" /I "..\vs_ui\src\hangul" /I "..\vs_ui\src\header" /I "..\vs_ui\src\Imm" /I "..\vs_ui\src\widget" /I "..\xerces\include" /I "..\VS_UI" /I "..\basic" /D "OUTPUT_DEBUG" /D "__DEBUG_OUTPUT__" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS__" /D "__GAME_CLIENT__" /D "__WIN32__" /D "__NEW_SKILL__" /D "__TEST_SUB_INVENTORY__" /D "__FRIEND_SYSTEM_VIVA__" /FAcs /Fr /Yu"Client_PCH.h" /FD /c
+# ADD CPP /nologo /MT /W3 /GR /GX /Zi /O1 /Ob2 /I "..\client" /I "DXLib" /I "SpriteLib" /I "FrameLib" /I "D3DLib" /I "VolumeLib" /I "Packet" /I "CWinMain Library" /I "lib" /I "Updater" /I "MZLib" /I "sxml" /I "..\vs_ui\src\hangul" /I "..\vs_ui\src\header" /I "..\vs_ui\src\Imm" /I "..\vs_ui\src\widget" /I "..\xerces\include" /I "..\VS_UI" /I "..\basic" /D "OUTPUT_DEBUG" /D "__DEBUG_OUTPUT__" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS__" /D "__GAME_CLIENT__" /D "__WIN32__" /D "__NEW_SKILL__" /D "__TEST_SUB_INVENTORY__" /D "__FRIEND_SYSTEM_VIVA__" /FAcs /Fr /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x412 /d "NDEBUG"
@@ -54,7 +54,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
-# ADD LINK32 oleaut32.lib jpegLib\jpeg.lib Rar_release.lib DEUtil\release\DEUtil.lib WinLib\Release\WinLib.lib VolumeLib\Release\Volume.lib D3DLib\Release\DX3D.lib VS_UI_Release.lib DirectXLib\Release\DX.lib SpriteLib\Release\SP.lib framelib\Release\FR.lib IFC22.lib MZLib\Release\ZLib.lib imm32.lib GL.lib Timer.lib PS.lib BasicS.lib rbt.lib Libcmt.lib Libcimt.lib Libcpmt.lib Oldnames.lib DSetup.lib DDraw.lib DInput.lib DSound.lib DXGUID.lib WinMM.lib WSock32.lib user32.lib gdi32.lib advapi32.lib uuid.lib shell32.lib kernel32.lib Comctl32.lib ole32.lib netapi32.lib /nologo /subsystem:windows /map /machine:I386 /nodefaultlib /out:"\ttdk2\fengshen.exe" /libpath:"\Game(800)\designed\project\lib\ui" /libpath:"\Game(800)\designed\project\lib" /libpath:"..\xerces\lib"
+# ADD LINK32 oleaut32.lib jpegLib\jpeg.lib Rar_release.lib DEUtil\release\DEUtil.lib WinLib\Release\WinLib.lib VolumeLib\Release\Volume.lib D3DLib\Release\DX3D.lib ..\VS_UI\Release\VS_UI.lib DXLib\Release\DX.lib SpriteLib\Release\SP.lib framelib\Release\FR.lib IFC22.lib MZLib\Release\ZLib.lib imm32.lib GL.lib Timer.lib PS.lib BasicS.lib rbt.lib Libcmt.lib Libcimt.lib Libcpmt.lib Oldnames.lib DSetup.lib DDraw.lib DInput.lib DSound.lib DXGUID.lib WinMM.lib WSock32.lib user32.lib gdi32.lib advapi32.lib uuid.lib shell32.lib kernel32.lib Comctl32.lib ole32.lib netapi32.lib /nologo /subsystem:windows /map /machine:I386 /nodefaultlib /out:"\ttdk2\fengshen.exe" /libpath:"\Game(800)\designed\project\lib\ui" /libpath:"\Game(800)\designed\project\lib" /libpath:"..\xerces\lib"
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "Client - Win32 Debug"
