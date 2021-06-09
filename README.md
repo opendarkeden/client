@@ -33,6 +33,22 @@ Open workspace client/Client/Client.dsw in VC6, everything should work.
 
 ## run
 
-Download the Data files (TODO: the files are too large, I should upload it to someplace ...)
+Download the [Data files](https://pan.baidu.com/s/1-DufSEmnydMbOtTwOo_h8A) 6bcl (TODO: put it somewhere else?), extract it to `client/DARKEDEN`, run "window.bat"
+
+Modify the IP/Port in `DARKEDEN/Data/GameClientInfo.inf` to your own login server IP/Port.
+
+You can see "window.bat" is a simple script that run "fengshen.exe" with a argument:
+
+```
+fengshen.exe 0000000001 
+```
+
+The meaning of the argument:
+
+- 0000000001 windowmode
+- 0000000002 fullscreen
+- 0000000003 windowmode 1024
+- 0000000004 fullscreen 1024
 
 
+You need the [server](https://github.com/opendarkeden/server) to get it run. (TODO: pack the server in docker so run the standalone on Win10 become easy)

@@ -102,6 +102,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "Rar"=..\VS_UI\Rar.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "SpriteLib"=.\SpriteLib\SpriteLib.dsp - Package Owner=<4>
 
 Package=<5>

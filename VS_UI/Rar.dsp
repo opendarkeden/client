@@ -49,7 +49,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"\Game(800)\designed\project\lib\ui\Rar_release.lib"
+# ADD LIB32 /nologo
 
 !ELSEIF  "$(CFG)" == "Rar - Win32 Debug"
 
