@@ -33,7 +33,7 @@ Open workspace client/Client/Client.dsw in VC6, everything should work.
 
 ## run
 
-Download the [Data files](https://pan.baidu.com/s/1-DufSEmnydMbOtTwOo_h8A) 6bcl (TODO: put it somewhere else?), extract it to `client/DARKEDEN`, run "window.bat"
+Download the Data files from [Mediafire](https://www.mediafire.com/file/017bif66kyieviw/DARKEDEN.zip/file) or [Baidu Netdisk](https://pan.baidu.com/s/1-DufSEmnydMbOtTwOo_h8A) (extract code 6bcl), extract it to `client/DARKEDEN`, run "window.bat"
 
 Modify the IP/Port in `DARKEDEN/Data/GameClientInfo.inf` to your own login server IP/Port.
 
