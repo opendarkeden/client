@@ -7705,5 +7705,13 @@ SOURCE=.\SoundNode.h
 
 SOURCE=.\SystemAvailabilities.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\NPGameLib.lib
+# End Source File
+# Begin Source File
+
+SOURCE=.\NMCrypt.lib
+# End Source File
 # End Target
 # End Project
