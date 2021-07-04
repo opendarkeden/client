@@ -33,13 +33,12 @@ const uint szPacketSize   = sizeof(PacketSize_t);
 //----------------------------------------------------------------------
 // Packet Sequence Type
 //----------------------------------------------------------------------
-typedef byte   SequenceSize_t;
+typedef BYTE   SequenceSize_t;
 const uint szSequenceSize   = sizeof(SequenceSize_t);
 
 //----------------------------------------------------------------------
 // Packet Header Size
 //----------------------------------------------------------------------
-
 const uint szPacketHeader = szPacketID + szPacketSize + szSequenceSize;
 
 
@@ -63,29 +62,22 @@ public :
 	//
 	// Packet ID
 	//
-	// prefix의 우선순위는 G > L > C 이다. (GL/LG, GC/CG, LC/CL)
-	// 어떤 모듈에서 어떤 것들을 포함해야 하는지 주의깊게 설정해야 한다.
-	// 가령 LC는 로그인서버와 클라이언트 모두 포함해야 하는 모듈이다.
-	//
+	// The priority of prefix is G > L > C. (GL/LG, GC/CG, LC/CL)
+	// Carefully configure which modules to include which ones.
+	// For example, LC is a module that must include both the login server and the client. 
 	//----------------------------------------------------------------------
-	enum 
+	enum
 	{
 			PACKET_CG_ADD_SMS_ADDRESS=0,  		//   0
-			PACKET_SG_ADD_GUILD_MEMBER_OK,		//   469
-			PACKET_SG_ADD_GUILD_OK,		//   470
-			PACKET_SG_DELETE_GUILD_OK,		//   471
-			PACKET_SG_EXPEL_GUILD_MEMBER_OK,		//   472
-			PACKET_SG_GUILD_INFO,		//   473
-			PACKET_SG_GUILD_RESPONSE,   		//   474
-			PACKET_SG_GUILDMEMBER_LOGON_OK,		//   475
-			PACKET_SG_MODIFY_GUILD_INTRO_OK,		//   476
-			PACKET_SG_MODIFY_GUILD_MEMBER_OK,		//   477
-			PACKET_SG_MODIFY_GUILD_OK,		//   478
-			PACKET_SG_QUIT_GUILD_OK,		//   479
-			PACKET_UC_REQUEST_LOGIN_MODE,		//   480
-			PACKET_UC_UPDATE,		//   481
-			PACKET_UC_UPDATE_LIST,		//   482
-			PACKET_CG_ENCODE_KEY,		//  483					//add by viva Socket Encode
+			PACKET_CG_ABSORB_SOUL,		//   1
+			PACKET_CG_ACCEPT_UNION,     		//   2
+			PACKET_CG_ADD_GEAR_TO_MOUSE,		//   3
+			PACKET_CG_ADD_INVENTORY_TO_MOUSE,		//   4
+			PACKET_CG_ADD_ITEM_TO_CODE_SHEET,		//   5
+			PACKET_CG_ADD_ITEM_TO_ITEM,		//   6
+			PACKET_CG_ADD_MOUSE_TO_GEAR,		//   7
+			PACKET_CG_ADD_MOUSE_TO_INVENTORY,		//   8
+			PACKET_CG_ADD_MOUSE_TO_QUICKSLOT,		//   9
 			PACKET_CG_ADD_MOUSE_TO_ZONE,		//   10
 			PACKET_CG_ADD_QUICKSLOT_TO_MOUSE,		//   11
 			PACKET_CG_ADD_ZONE_TO_INVENTORY,		//   12
@@ -93,6 +85,20 @@ public :
 			PACKET_CG_APPOINT_SUBMASTER,		//   14
 			PACKET_CG_ATTACK,		//   15
 			PACKET_CG_AUTH_KEY, 		//   16
+			PACKET_CG_BLOOD_DRAIN,		//   17
+			PACKET_CG_BUY_STORE_ITEM,   		//   18
+			PACKET_CG_CASTING_SKILL,		//   19
+			PACKET_CG_COMMAND_MONSTER,		//   20
+			PACKET_CG_CONNECT,		//   21
+			PACKET_CG_CRASH_REPORT,		//   22
+			PACKET_CG_DELETE_SMS_ADDRESS,       		//   23
+			PACKET_CG_DENY_UNION,       		//   24
+			PACKET_CG_DEPOSIT_PET,		//   25
+			PACKET_CG_DIAL_UP,		//   26
+			PACKET_CG_DISPLAY_ITEM,     		//   27
+			PACKET_CG_DISSECTION_CORPSE,		//   28
+			PACKET_CG_DONATION_MONEY, 		//   29
+			PACKET_CG_DOWN_SKILL,		//   30
 			PACKET_CG_DROP_MONEY,		//   31
 			PACKET_CG_EXPEL_GUILD,      		//   32
 			PACKET_CG_EXPEL_GUILD_MEMBER,		//   33
@@ -476,7 +482,6 @@ public :
 			PACKET_GC_USE_BONUS_POINT_FAIL,		//   411
 			PACKET_GC_USE_BONUS_POINT_OK,		//   412
 			PACKET_GC_USE_OK,		//   413
-			PACKET_GC_USE_SKILLCARD_OK,		//by viva
 			PACKET_GC_USE_POWER_POINT_RESULT,   		//   414
 			PACKET_GC_VISIBLE_FAIL,		//   415
 			PACKET_GC_VISIBLE_OK,		//   416
@@ -532,73 +537,72 @@ public :
 			PACKET_RC_REQUESTED_FILE,		//   466
 			PACKET_RC_SAY,		//   467
 			PACKET_RC_STATUS_HP,		//   468
-			PACKET_CG_ABSORB_SOUL,		//   1
-			PACKET_CG_ACCEPT_UNION,     		//   2
-			PACKET_CG_ADD_GEAR_TO_MOUSE,		//   3
-			PACKET_CG_ADD_INVENTORY_TO_MOUSE,		//   4
-			PACKET_CG_ADD_ITEM_TO_CODE_SHEET,		//   5
-			PACKET_CG_ADD_ITEM_TO_ITEM,		//   6
-			PACKET_CG_ADD_MOUSE_TO_GEAR,		//   7
-			PACKET_CG_ADD_MOUSE_TO_INVENTORY,		//   8
-			PACKET_CG_ADD_MOUSE_TO_QUICKSLOT,		//   9
-			PACKET_CG_BLOOD_DRAIN,		//   17
-			PACKET_CG_BUY_STORE_ITEM,   		//   18
-			PACKET_CG_CASTING_SKILL,		//   19
-			PACKET_CG_COMMAND_MONSTER,		//   20
-			PACKET_CG_CONNECT,		//   21
-			PACKET_CG_CRASH_REPORT,		//   22
-			PACKET_CG_DELETE_SMS_ADDRESS,       		//   23
-			PACKET_CG_DENY_UNION,       		//   24
-			PACKET_CG_DEPOSIT_PET,		//   25
-			PACKET_CG_DIAL_UP,		//   26
-			PACKET_CG_DISPLAY_ITEM,     		//   27
-			PACKET_CG_DISSECTION_CORPSE,		//   28
-			PACKET_CG_DONATION_MONEY, 		//   29
-			PACKET_CG_DOWN_SKILL,		//   30
+			PACKET_SG_ADD_GUILD_MEMBER_OK,		//   469
+			PACKET_SG_ADD_GUILD_OK,		//   470
+			PACKET_SG_DELETE_GUILD_OK,		//   471
+			PACKET_SG_EXPEL_GUILD_MEMBER_OK,		//   472
+			PACKET_SG_GUILD_INFO,		//   473
+			PACKET_SG_GUILD_RESPONSE,   		//   474
+			PACKET_SG_GUILDMEMBER_LOGON_OK,		//   475
+			PACKET_SG_MODIFY_GUILD_INTRO_OK,		//   476
+			PACKET_SG_MODIFY_GUILD_MEMBER_OK,		//   477
+			PACKET_SG_MODIFY_GUILD_OK,		//   478
+			PACKET_SG_QUIT_GUILD_OK,		//   479
+			PACKET_UC_REQUEST_LOGIN_MODE,		//   480
+			PACKET_UC_UPDATE,		//   481
+			PACKET_UC_UPDATE_LIST,		//   482
+			PACKET_CG_ENCODE_KEY,		//   483 add by viva 2008-12-27 : Packet Encode Key
 			PACKET_GC_FRIEND_CHATTING,	//add by viva 
-        			PACKET_MAX
+			PACKET_GC_USE_SKILLCARD_OK, // by viva
+        		PACKET_MAX
 	};
+
 public :
 	
 	// destructor
-	virtual ~Packet () throw () {}
+	virtual ~Packet ()  {}
 
 	// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-	virtual void read (SocketInputStream & iStream) throw (ProtocolException, Error) = 0;
+	virtual void read (SocketInputStream & iStream)  = 0;
 
 	// 소켓으로부터 직접 데이터를 읽어서 패킷을 초기화한다.
-	virtual void read (Socket* pSocket) throw (ProtocolException, Error) { throw UnsupportedError(); }	
+	virtual void read (Socket* pSocket)  { throw UnsupportedError(); }	
 
 	// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-	virtual void write (SocketOutputStream & oStream) const throw (ProtocolException, Error) = 0;
+	virtual void write (SocketOutputStream & oStream) const  = 0;
 
 	// 소켓으로 직접 패킷의 바이너리 이미지를 보낸다.
-	virtual void write (Socket* pSocket) const throw (ProtocolException, Error) { throw UnsupportedError(); }	
+	virtual void write (Socket* pSocket) const  { throw UnsupportedError(); }	
 
 	// 출력 스트림에 패킷의 헤더와 바디를 모두 쓴다.
 	void writeHeaderNBody (SocketOutputStream& oStream ) const
 	{
 		oStream.write( getPacketID() );
 		oStream.write( getPacketSize() );
-		if ( getPacketSize() != 0 )
+		oStream.write( "0",1 );
+		if ( getPacketSize() != 0 ) {
 			write( oStream );
+			if (oStream.length() != getPacketSize() + szPacketID + szPacketSize + 1) {
+			  cout << "writeHeaderNBody: " << getPacketID() << " size:" << getPacketSize() << endl;
+			}
+		}
 	}
 	
 	// execute packet's handler
-	virtual void execute (Player* pPlayer) throw (ProtocolException, Error) = 0;
+	virtual void execute (Player* pPlayer)  = 0;
 	
 	// get packet's PacketID	
-	virtual PacketID_t getPacketID () const throw () = 0;
+	virtual PacketID_t getPacketID () const  = 0;
 
 	// get packet's size
-	virtual PacketSize_t getPacketSize () const throw () = 0;
+	virtual PacketSize_t getPacketSize () const  = 0;
 
 	#if !defined(__GAME_CLIENT__) || defined(__DEBUG_OUTPUT__)
 		// get packet's name
-		virtual string getPacketName () const throw () = 0;
+		virtual string getPacketName () const  = 0;
 		
 		// get packet's debug string
-		virtual string toString () const throw () = 0;
+		virtual string toString () const  = 0;
 	#endif
 	
 };
