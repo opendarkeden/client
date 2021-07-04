@@ -1,7 +1,7 @@
 #ifndef __nProtect_HEADER__
 #define __nProtect_HEADER__
 
-#include "\game(800)\designed\project\Client\NPGameLib.h"
+#include "NPGameLib.h"
 #include <map>
 #include <string>
 
