@@ -1,34 +1,34 @@
-# Microsoft Developer Studio Project File - Name="CWinMain Library" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="WinLib" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Static Library" 0x0104
 
-CFG=CWinMain Library - Win32 Debug
+CFG=WinLib - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
-!MESSAGE NMAKE /f "CWinMain Library.mak".
+!MESSAGE NMAKE /f "WinLib.mak".
 !MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "CWinMain Library.mak" CFG="CWinMain Library - Win32 Debug"
+!MESSAGE NMAKE /f "WinLib.mak" CFG="WinLib - Win32 Debug"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "CWinMain Library - Win32 Release" (based on "Win32 (x86) Static Library")
-!MESSAGE "CWinMain Library - Win32 Debug" (based on "Win32 (x86) Static Library")
+!MESSAGE "WinLib - Win32 Release" (based on "Win32 (x86) Static Library")
+!MESSAGE "WinLib - Win32 Debug" (based on "Win32 (x86) Static Library")
 !MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
-# PROP Scc_ProjName ""$/Client/CWinMain Library", NWFAAAAA"
+# PROP Scc_ProjName ""$/Client/WinLib", NWFAAAAA"
 # PROP Scc_LocalPath "."
 CPP=cl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "CWinMain Library - Win32 Release"
+!IF  "$(CFG)" == "WinLib - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -49,9 +49,9 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"..\Winlib\Release\WinLib.lib"
+# ADD LIB32 /nologo
 
-!ELSEIF  "$(CFG)" == "CWinMain Library - Win32 Debug"
+!ELSEIF  "$(CFG)" == "WinLib - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
@@ -72,14 +72,14 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"..\winlib\Debug\WinLib.lib"
+# ADD LIB32 /nologo
 
 !ENDIF 
 
 # Begin Target
 
-# Name "CWinMain Library - Win32 Release"
-# Name "CWinMain Library - Win32 Debug"
+# Name "WinLib - Win32 Release"
+# Name "WinLib - Win32 Debug"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"

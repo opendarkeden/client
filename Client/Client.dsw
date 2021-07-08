@@ -3,18 +3,6 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "CWinMain Library"=".\cwinmain library\CWinMain Library.dsp" - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
 Project: "Client"=.\Client.dsp - Package Owner=<4>
 
 Package=<5>
@@ -127,6 +115,18 @@ Package=<4>
 ###############################################################################
 
 Project: "VolumeLib"=.\VolumeLib\VolumeLib.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "WinLib"=.\WinLib\WinLib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
