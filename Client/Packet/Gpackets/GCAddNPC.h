@@ -151,7 +151,7 @@ public :
 	PacketSize_t getPacketMaxSize () const throw () 
 	{
 		return szObjectID 
-			+ szBYTE + 20 + szNPCID
+			+ szBYTE + 40 + szNPCID
 			+ szSpriteType 
 			+ szColor + szColor
 			+ szCoord + szCoord + szDir;
