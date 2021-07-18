@@ -8,6 +8,7 @@
 #ifdef __GAME_CLIENT__
 	#include "MPlayer.h"
 #endif
+#include "DebugInfo.h"
 
 //----------------------------------------------------------------------
 // Static member
@@ -59,6 +60,8 @@ MShopShelf::~MShopShelf()
 MShopShelf*		
 MShopShelf::NewShelf(MShopShelf::SHELF_TYPE ShelfClass)
 {
+	DEBUG_ADD_FORMAT("MShopShelf::NewShelf %d", ShelfClass);
+
 	return (MShopShelf*)(*s_NewShelfClassTable[ShelfClass])();
 };
 

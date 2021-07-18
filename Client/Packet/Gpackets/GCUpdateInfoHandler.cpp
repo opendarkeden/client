@@ -938,7 +938,8 @@ void GCUpdateInfoHandler::execute ( GCUpdateInfo * pPacket , Player * pPlayer )
 //		}
 //		fclose(fp);
 //	}
-	
+
+/*
 	FILE *fp=fopen("fs.his","rt");
 	if( fp == NULL )
 	{
@@ -948,7 +949,7 @@ void GCUpdateInfoHandler::execute ( GCUpdateInfo * pPacket , Player * pPlayer )
 		SendBugReport("SystemInfo : %d %d CPU : %dMhz",g_bEnable3DHAL, g_dwVideoMemory,SystemInfo.GetCpuClock());
 	}
 	fclose(fp);
-
+*/
 //	ExecuteHelpEvent( HELP_EVENT_INTERFACE );
 
 #endif

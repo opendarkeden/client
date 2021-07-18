@@ -19,7 +19,9 @@ void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
 	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
-	
+
+	DEBUG_ADD("[GCShopListHandler::execute] run in execute function OK [0].");	
+		
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------
@@ -42,29 +44,49 @@ void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
 		//------------------------------------------------------
 		if (pCreature==NULL)
 		{
-			DEBUG_ADD_FORMAT("[Error] There is no such Creature id=%d", pPacket->getObjectID());
+			DEBUG_ADD("[Error] OK 111");
 		}
 		//------------------------------------------------------
 		// NPC인 경우
 		//------------------------------------------------------
 		else if (pCreature->GetClassType()==MCreature::CLASS_NPC)
 		{
+
+			DEBUG_ADD("[GCShopListHandler::execute] OK [1]\n");
+
+
 			MNPC* pNPC = (MNPC*)pCreature;
 
 			//------------------------------------------------------
 			// 새로운 Shelf를 생성한다.
-			//------------------------------------------------------
-			MShopShelf* pShelf = MShopShelf::NewShelf( (MShopShelf::SHELF_TYPE)pPacket->getShopType() );
-			
+			//------------------------------------------------------\
+
+			ShopRackType_t shopType = pPacket->getShopType();
+			DEBUG_ADD_FORMAT("[GCShopListHandler::execute] OK [1.0]  %d\n", shopType);
+			if (shopType >= MShopShelf::MAX_SHELF) {
+				DEBUG_ADD("[GCShopListHandler::execute] SHELF_TYPE Wrong!");
+			}
+
+			MShopShelf* pShelf = MShopShelf::NewShelf( (MShopShelf::SHELF_TYPE) shopType);
+
+
+			DEBUG_ADD("[GCShopListHandler::execute] OK [1.1]\n");
+
 			pShelf->SetVersion( pPacket->getShopVersion() );
 			pShelf->SetEnable();
 
+			DEBUG_ADD("[GCShopListHandler::execute] OK [2]\n");
 			//------------------------------------------------------
 			// 아이템들 추가
 			//------------------------------------------------------
 			for (int i=0; i<SHOP_RACK_INDEX_MAX; i++)
 			{
+
+				DEBUG_ADD_FORMAT("[GCShopListHandler::execute] shop item %d befre", i);
+
 				const SHOPLISTITEM& item = pPacket->getShopItem( i );
+
+				DEBUG_ADD_FORMAT("[GCShopListHandler::execute] shop item %d after", i);
 
 				if (item.bExist)
 				{
@@ -83,6 +105,8 @@ void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
 					pShelf->SetItem( i, pItem );
 				}
 			}
+
+			DEBUG_ADD("[GCShopListHandler::execute] OK [3]");
 
 			//------------------------------------------------------
 			//

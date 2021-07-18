@@ -189,7 +189,13 @@ void Player::processCommand ()
 			// 패킷하위클래스에 정의된 read()가 virtual 메커니즘에 의해서 호출되어
 			// 자동적으로 초기화된다.
 			m_pInputStream->read( pPacket );
-			
+/*
+	#ifdef __DEBUG_OUTPUT__
+			FILE* fp = fopen("packet.log", "a");
+			fprintf (fp, "Read: %s\n", pPacket->toString());
+			fclose(fp);
+	#endif
+*/		
 			// 이제 이 패킷스트럭처를 가지고 패킷핸들러를 수행하면 된다.
 			// 패킷아이디가 잘못될 경우는 패킷핸들러매니저에서 처리한다.
 			pPacket->execute( this );

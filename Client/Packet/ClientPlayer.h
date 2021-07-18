@@ -70,7 +70,7 @@ public :
 	PlayerStatus getPlayerStatus () const throw () { return m_PlayerStatus; }
 
 	// set player's status
-	void setPlayerStatus ( PlayerStatus playerStatus ) throw () { m_PlayerStatus = playerStatus; }
+	void setPlayerStatus ( PlayerStatus playerStatus ) throw ();
 
 	// get/set PC Type
 	PCType getPCType () const throw () { return m_PCType; }
