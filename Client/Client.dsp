@@ -44,11 +44,11 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GR /GX /Zi /O1 /Ob2 /I "..\client" /I "DXLib" /I "SpriteLib" /I "FrameLib" /I "D3DLib" /I "VolumeLib" /I "Packet" /I "WinLib" /I "lib" /I "Updater" /I "MZLib" /I "sxml" /I "..\vs_ui\src\hangul" /I "..\vs_ui\src\header" /I "..\vs_ui\src\Imm" /I "..\vs_ui\src\widget" /I "..\xerces\include" /I "..\VS_UI" /I "..\basic" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS__" /D "__GAME_CLIENT__" /D "__WIN32__" /D "__NEW_SKILL__" /D "__TEST_SUB_INVENTORY__" /D "__FRIEND_SYSTEM_VIVA__" /FAcs /Fr /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GR /GX /Zi /O1 /Ob2 /I "..\client" /I "DXLib" /I "SpriteLib" /I "FrameLib" /I "D3DLib" /I "VolumeLib" /I "Packet" /I "WinLib" /I "Updater" /I "MZLib" /I "sxml" /I "..\vs_ui\src\hangul" /I "..\vs_ui\src\header" /I "..\vs_ui\src\Imm" /I "..\vs_ui\src\widget" /I "..\xerces\include" /I "..\VS_UI" /I "..\basic" /D "__DEBUG_OUTPUT__" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS__" /D "__GAME_CLIENT__" /D "__WIN32__" /D "__NEW_SKILL__" /D "__TEST_SUB_INVENTORY__" /D "__FRIEND_SYSTEM_VIVA__" /FAcs /Fr /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x412 /d "NDEBUG"
-# ADD RSC /l 0x412 /d "NDEBUG"
+# ADD RSC /l 0x804 /d "NDEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
@@ -71,17 +71,17 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GR /GX /ZI /Od /I "\Game(800)\designed\project\client" /I "DXLib" /I "SpriteLib" /I "FrameLib" /I "D3DLib" /I "VolumeLib" /I "Packet" /I "CWinMain Library" /I "lib" /I "Updater" /I "MZLib" /I "sxml" /I "\Game(800)\designed\project\vs_ui\src\hangul" /I "\Game(800)\designed\project\vs_ui\src\header" /I "\Game(800)\designed\project\vs_ui\src\Imm" /I "\Game(800)\designed\project\vs_ui\src\widget" /I "..\xerces\include" /I "\Game(800)\designed\project\VS_UI" /I "\Game(800)\designed\project\basic" /D "__DEBUG_OUTPUT__" /D "OUTPUT_DEBUG" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS__" /D "__GAME_CLIENT__" /D "__WIN32__" /D "__TEST_SUB_INVENTORY__" /Fr /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GR /GX /ZI /Od /I "..\client" /I "DXLib" /I "SpriteLib" /I "FrameLib" /I "D3DLib" /I "VolumeLib" /I "Packet" /I "WinLib" /I "Updater" /I "MZLib" /I "sxml" /I "..\vs_ui\src\hangul" /I "..\vs_ui\src\header" /I "..\vs_ui\src\Imm" /I "..\vs_ui\src\widget" /I "..\xerces\include" /I "..\VS_UI" /I "..\basic" /D "__DEBUG_OUTPUT__" /D "OUTPUT_DEBUG" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS__" /D "__GAME_CLIENT__" /D "__WIN32__" /D "__TEST_SUB_INVENTORY__" /Fr /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x412 /d "_DEBUG"
-# ADD RSC /l 0x412 /d "_DEBUG"
+# ADD RSC /l 0x804 /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 npgamelib.lib oleaut32.lib jpegLib\jpeg.lib IFC22.lib Rar_Debug.lib DEUtil\debug\DEUtil.lib Winlib\Debug\WinLib.lib VolumeLib\Debug\Volume.lib D3DLib\Debug\DX3D.lib VS_UI_Debug.lib DirectXLib\Debug\DX.lib SpriteLib\Debug\SP.lib framelib\Debug\FR.lib MZLib\Debug\ZLib.lib Comctl32.lib Timer.lib imm32.lib WSock32.lib GL.lib PS.lib BasicS.lib rbt.lib Libcmtd.lib LibCimtd.lib Libcpmtd.lib Oldnames.lib DSetup.lib DDraw.lib DInput.lib DSound.lib DXGUID.lib WinMM.lib WSock32.lib kernel32.lib user32.lib gdi32.lib advapi32.lib ole32.lib uuid.lib shell32.lib netapi32.lib /nologo /subsystem:windows /incremental:no /debug /machine:I386 /nodefaultlib /out:"\ttdk2\fs_Debug.exe" /pdbtype:sept /libpath:"\Game(800)\designed\project\lib\ui" /libpath:"\Game(800)\designed\project\lib" /libpath:"..\xerces\lib"
+# ADD LINK32 npgamelib.lib oleaut32.lib jpegLib\jpeg.lib IFC22.lib ..\VS_UI\Debug\Rar.lib ..\VS_UI\Debug\VS_UI.lib DEUtil\Debug\DEUtil.lib Winlib\Debug\WinLib.lib VolumeLib\Debug\Volume.lib D3DLib\Debug\DX3D.lib DXLib\Debug\DX.lib SpriteLib\Debug\SP.lib framelib\Debug\FR.lib MZLib\Debug\ZLib.lib Comctl32.lib Timer.lib imm32.lib WSock32.lib GL.lib PS.lib BasicS.lib rbt.lib Libcmtd.lib LibCimtd.lib Libcpmtd.lib Oldnames.lib DSetup.lib DDraw.lib DInput.lib DSound.lib DXGUID.lib WinMM.lib WSock32.lib kernel32.lib user32.lib gdi32.lib advapi32.lib ole32.lib uuid.lib shell32.lib netapi32.lib /nologo /subsystem:windows /incremental:no /debug /machine:I386 /nodefaultlib /out:"..\DARKEDEN\fs_Debug.exe" /pdbtype:sept /libpath:"..\lib" /libpath:"..\xerces\lib"
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "Client - Win32 ReleaseLog"
@@ -100,7 +100,7 @@ LINK32=link.exe
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GR /GX /O1 /Ob2 /I "\designed\project\client" /I "DXLib" /I "SpriteLib" /I "FrameLib" /I "D3DLib" /I "VolumeLib" /I "Packet" /I "WinLib" /I "lib" /I "Updater" /I "MZLib" /I "\designed\project\NEW - vs_ui\src\hangul" /I "\designed\project\NEW - vs_ui\src\header" /I "\designed\project\NEW - vs_ui\src\Imm" /I "\designed\project\NEW - vs_ui\src\widget" /I "\designed\lib\ui" /D "__DEBUG_OUTPUT__" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS__" /D "__GAME_CLIENT__" /D "__WIN32__" /YX /FD /c
 # SUBTRACT BASE CPP /Fr
-# ADD CPP /nologo /MT /W3 /GR /GX /ZI /I "\designed\project\client" /I "DXLib" /I "SpriteLib" /I "FrameLib" /I "D3DLib" /I "VolumeLib" /I "Packet" /I "WinLib" /I "lib" /I "Updater" /I "MZLib" /I "sxml" /I "\designed\project\NEW - vs_ui\src\hangul" /I "\designed\project\NEW - vs_ui\src\header" /I "\designed\project\NEW - vs_ui\src\Imm" /I "\designed\project\NEW - vs_ui\src\widget" /I "\designed\lib\ui" /I "..\xerces\include" /D "__DEBUG_OUTPUT__" /D "OUTPUT_DEBUG" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS__" /D "__GAME_CLIENT__" /D "__WIN32__" /Yu"Client_PCH.h" /FD /c
+# ADD CPP /nologo /MT /W3 /GR /GX /ZI /I "\designed\project\client" /I "DXLib" /I "SpriteLib" /I "FrameLib" /I "D3DLib" /I "VolumeLib" /I "Packet" /I "WinLib" /I "lib" /I "Updater" /I "MZLib" /I "sxml" /I "\designed\project\NEW - vs_ui\src\hangul" /I "\designed\project\NEW - vs_ui\src\header" /I "\designed\project\NEW - vs_ui\src\Imm" /I "\designed\project\NEW - vs_ui\src\widget" /I "\designed\lib\ui" /I "..\xerces\include" /D "__DEBUG_OUTPUT__" /D "OUTPUT_DEBUG" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS__" /D "__GAME_CLIENT__" /D "__WIN32__" /YX /FD /c
 # SUBTRACT CPP /WX /Fr
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32

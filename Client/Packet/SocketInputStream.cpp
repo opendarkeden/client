@@ -126,7 +126,7 @@ uint SocketInputStream::read ( char * buf , uint len )
 	}
 
 	m_Head = ( m_Head + len ) % m_BufferLen;
-
+/*
 	#ifdef __DEBUG_OUTPUT__
 		if (len > 0) {
 			FILE* fp = fopen("read.log", "a");
@@ -136,7 +136,7 @@ uint SocketInputStream::read ( char * buf , uint len )
 			fclose(fp);
 		}
 	#endif
-	
+*/ 	
 	return len;
 		
 	__END_CATCH
@@ -192,6 +192,7 @@ throw ( ProtocolException , Error ) {
 	
 	m_Head = ( m_Head + len ) % m_BufferLen;
 
+	/*
 	#ifdef __DEBUG_OUTPUT__
 		if (len > 0) {
 			FILE* fp = fopen("read.log", "a");
@@ -202,6 +203,7 @@ throw ( ProtocolException , Error ) {
 			fclose(fp);
 		}
 	#endif
+		*/
 
 	return len;
 		
@@ -230,14 +232,13 @@ void SocketInputStream::read ( Packet * pPacket )
 	pPacket->read( *this );
 
 	//  By tiancaiamao
-/*
 	#ifdef __DEBUG_OUTPUT__
 	ofstream ofile("lalala.log", ios::out | ios::app);
 		ofile << "SocketInputStream read packet: ";
 		ofile << pPacket->toString().c_str() << endl;
 		ofile.close();
 	#endif
-*/
+
 	
 	__END_CATCH
 }
@@ -331,6 +332,7 @@ void SocketInputStream::skip ( uint len )
 	uint pos = m_Head;
 	m_Head = ( m_Head + len ) % m_BufferLen;
 
+/*
 	#ifdef __DEBUG_OUTPUT__
 		if (len > 0) {
 			FILE* fp = fopen("read.log", "a");
@@ -342,6 +344,7 @@ void SocketInputStream::skip ( uint len )
 			fclose(fp);
 		}
 	#endif
+*/
 
 	__END_CATCH
 }
@@ -781,6 +784,7 @@ WORD SocketInputStream::EncryptData(WORD EncryptKey, char* buf, int len)
 // add by tiancaiamao
 uint receiveWithDebug (Socket *pSock, void * buf , uint len) {
 	uint ret = pSock->receive(buf,len); 
+
 	#ifdef __DEBUG_OUTPUT__
 		if (ret > 0) {
 			FILE* fp = fopen("fill.log", "a");
@@ -791,5 +795,6 @@ uint receiveWithDebug (Socket *pSock, void * buf , uint len) {
 			fclose(fp);
 		}
 	#endif
+
 	return ret;
 }

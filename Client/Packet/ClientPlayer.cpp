@@ -94,6 +94,11 @@ ClientPlayer::~ClientPlayer ()
 	__END_CATCH
 }
 
+void ClientPlayer::setPlayerStatus ( PlayerStatus playerStatus ) throw () { 
+	m_PlayerStatus = playerStatus; 
+	DEBUG_ADD_FORMAT_ERR("[ClientPlayer::setPlayerStatus] %d", playerStatus);
+}
+
 
 //--------------------------------------------------------------------------------
 //
@@ -143,16 +148,14 @@ void ClientPlayer::processCommand ()
 				memcpy( &packetSize , &header[szPacketID] , szPacketSize );
 				byte seq = header[szPacketID+szPacketSize];
 
-/*
 #ifdef __DEBUG_OUTPUT__
-				ofstream file("templog.log", ios::out | ios::app);
+				ofstream file("packetID.log", ios::out | ios::app);
 				file << "*** RECEIVED PacketID=" << packetID << ", PacketSize=" << packetSize << ", Seq=" << (int)seq << endl;
 				if (packetID == 0) {
 					file << " StreamLength " << m_pInputStream->length() << endl;
 				}
 				file.close();
 #endif
-*/
 
 /*
 #ifdef DEBUG_INFO
@@ -229,6 +232,7 @@ void ClientPlayer::processCommand ()
 						//---------------------------------------------------------------
 						else
 						{
+							DEBUG_ADD_FORMAT("[PacketError] invalid packet ORDER %d", getPlayerStatus());
 							throw InvalidProtocolException("invalid packet ORDER");
 						}				
 					}
@@ -247,7 +251,7 @@ void ClientPlayer::processCommand ()
 							bExecute = TRUE;
 				}
 
-				DEBUG_ADD_FORMAT_ERR("*** RECEIVED Read OK0 PacketID=%u, Size=%d",  packetID, packetSize);
+//				DEBUG_ADD_FORMAT_ERR("*** RECEIVED Read OK0 PacketID=%u, Size=%d",  packetID, packetSize);
 				// 패킷 크기가 너무 크면 프로토콜 에러로 간주한다.
 				if ( packetSize > g_pPacketFactoryManager->getPacketMaxSize( packetID ) )
 				{
@@ -274,22 +278,7 @@ void ClientPlayer::processCommand ()
 				// 패킷하위클래스에 정의된 read()가 virtual 메커니즘에 의해서 호출되어
 				// 자동적으로 초기화된다.
 				m_pInputStream->read( pPacket );
-				
 
-
-#ifdef DEBUG_INFO
-#ifdef __DEBUG_OUTPUT__
-				if(g_bMsgOutPutFlag)
-				{
-					ofstream file1("MessageLog.log", ios::out | ios::app);
-					if(g_bMsgDetailFlag)
-					{
-						file1 << (pPacket->toString()).c_str() << endl;
-					}
-					file1.close();
-				}
-#endif
-#endif
 				// 이제 이 패킷스트럭처를 가지고 패킷핸들러를 수행하면 된다.
 				// 패킷아이디가 잘못될 경우는 패킷핸들러매니저에서 처리한다.			
 

@@ -12240,14 +12240,6 @@ MPlayer::ChangeToVampire()
 void	
 MPlayer::SetStatus(DWORD n, DWORD value)
 { 
-
-		//  By tiancaiamao
-	#ifdef __DEBUG_OUTPUT__
-		ofstream ofile("setstatus.log", ios::out | ios::app);
-		ofile << "SetStatus: " << n << "   "   << value << endl;
-		ofile.close();
-	#endif
-
 	if (n >= MODIFY_MAX)
 	{
 		DEBUG_ADD_FORMAT("[Error] Modify Part is Wrong : part=%d, value=%d", n, value);

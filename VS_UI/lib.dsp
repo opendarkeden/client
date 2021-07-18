@@ -65,7 +65,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\client" /I "..\client\dxlib" /I "..\client\spriteLib" /I "..\client\frameLib" /I "src\widget" /I "src\hangul" /I "src\header" /I "src\imm" /I "\designed\basic" /I "basic" /I "lib\ui" /I "..\client\sxml" /I "..\basic" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fr /Yu"client_PCH.h" /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "." /I "..\client" /I "..\client\dxlib" /I "..\client\spriteLib" /I "..\client\frameLib" /I "src\widget" /I "src\hangul" /I "src\header" /I "src\imm" /I "lib\ui" /I "..\client\sxml" /I "..\basic" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "__TEST_SUB_INVENTORY__" /Fr /YX /FD /GZ /c
 # ADD BASE RSC /l 0x412 /d "_DEBUG"
 # ADD RSC /l 0x412 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -73,7 +73,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"\Game(800)\designed\project\lib\ui\VS_UI_debug.lib"
+# ADD LIB32 /nologo /out:"Debug\VS_UI.lib"
 
 !ENDIF 
 
