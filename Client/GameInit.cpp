@@ -2016,11 +2016,9 @@ InitSocket()
 					ServerAddress = pIP;
 				}
 				
-				DEBUG_ADD_FORMAT("Conneting( %s : %d )", ServerAddress.c_str() , port);
-
 				//yckou: prohibit user connecting to local machine
 				//--------------------------------------------------------------------
-				struct hostent * phost;
+/*				struct hostent * phost;
 				char szhostname[128];
 				struct in_addr MyInAddr;
 				gethostname(szhostname, 128); 
@@ -2062,10 +2060,11 @@ InitSocket()
 							g_ModeNext = MODE_QUIT;
 							return FALSE;
 						}	
-					}
+//					}
 				}
+*/
 				//--------------------------------------------------------------------
-				
+				DEBUG_ADD_FORMAT("Conneting( %s : %d )", ServerAddress.c_str() , port);				
 
 				pSocket = new Socket( ServerAddress , port );
 
@@ -2073,13 +2072,13 @@ InitSocket()
 
 				// try to connect to server
 				pSocket->connect();
-				if ( ServerAddress[0] == 0x31 
+/*				if ( ServerAddress[0] == 0x31 
 					&& ServerAddress[1] == 0x32
 					&& ServerAddress[2] == 0x37)
 				{
 					return FALSE;
 				}
-
+*/
 //				SOCKADDR_IN sa;
 //				int lenSA = sizeof(sa);
 //				getsockname( pSocket->getSOCKET(), (sockaddr*)&sa, &lenSA );
