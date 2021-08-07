@@ -37,39 +37,41 @@ void LCReconnect::read ( SocketInputStream & iStream )
 	
 	//yckou: prohibit user connecting to local machine
 	//--------------------------------------------------------------------
+/*
 	struct hostent * phost;
 	char szhostname[128];
 	struct in_addr MyInAddr;
 	gethostname(szhostname, 128); 
 	phost = gethostbyname(szhostname);
+*/
 				
-	hostent& he = *phost;
+//	hostent& he = *phost;
 	//in_addr* addr = (in_addr*) *(phost->h_addr_list)
-	if(m_GameServerIP == "127.0.0.1")
-	{
+//	if(m_GameServerIP == "127.0.0.1")
+//	{
 //		abort();
-		g_bNeedUpdate = TRUE;
-		SetMode(MODE_QUIT);
-		g_ModeNext = MODE_QUIT;
-		return;
+//		g_bNeedUpdate = TRUE;
+//		SetMode(MODE_QUIT);
+//		g_ModeNext = MODE_QUIT;
+//		return;
 		//ServerAddress = "211.155.231.173";
-	}
-	else
-	{
-		for(int nAdapter=0; he.h_addr_list[nAdapter]; nAdapter++)
-		{
+//	}
+//	else
+//	{
+//		for(int nAdapter=0; he.h_addr_list[nAdapter]; nAdapter++)
+//		{
 			//MyInAddr.s_addr=*((unsigned long *)phost->h_addr_list[nAdapter]);
-			memcpy ( &MyInAddr.s_addr, he.h_addr_list[nAdapter],he.h_length);
-			if(m_GameServerIP == inet_ntoa(MyInAddr))
-			{
+//			memcpy ( &MyInAddr.s_addr, he.h_addr_list[nAdapter],he.h_length);
+//			if(m_GameServerIP == inet_ntoa(MyInAddr))
+//			{
 //				abort();
-				g_bNeedUpdate = TRUE;
-				SetMode(MODE_QUIT);
-				g_ModeNext = MODE_QUIT;
-				return;
-			}	
-		}
-	}
+//				g_bNeedUpdate = TRUE;
+//				SetMode(MODE_QUIT);
+//				g_ModeNext = MODE_QUIT;
+//				return;
+//			}	
+//		}
+//	}
 	//--------------------------------------------------------------------
 				
 	//--------------------------------------------------
