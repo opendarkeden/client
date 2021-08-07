@@ -51,4 +51,4 @@ The meaning of the argument:
 - 0000000004 fullscreen 1024
 
 
-You need the [server](https://github.com/opendarkeden/server) to get it run. (TODO: pack the server in docker so run the standalone on Win10 become easy)
+You need the [server](https://github.com/opendarkeden/server) to get it run. Follow the [docker install guide](https://github.com/opendarkeden/server/blob/master/docker_install.md) to get it run on Windows.
