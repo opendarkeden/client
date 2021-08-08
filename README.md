@@ -36,6 +36,7 @@ Open workspace client/Client/Client.dsw in VC6, everything should work.
 Download the Data files from [Mediafire](https://www.mediafire.com/file/017bif66kyieviw/DARKEDEN.zip/file) or [Baidu Netdisk](https://pan.baidu.com/s/1-DufSEmnydMbOtTwOo_h8A) (extract code 6bcl), extract it to `client/DARKEDEN`, run "window.bat"
 
 Modify the IP/Port in `DARKEDEN/Data/GameClientInfo.inf` to your own login server IP/Port.
+If you are using docker on the local Windows system, the IP should be `127.0.0.1`.
 
 You can see "window.bat" is a simple script that run "fengshen.exe" with a argument:
 
@@ -51,4 +52,4 @@ The meaning of the argument:
 - 0000000004 fullscreen 1024
 
 
-You need the [server](https://github.com/opendarkeden/server) to get it run. Follow the [docker install guide](https://github.com/opendarkeden/server/blob/master/docker_install.md) to get it run on Windows.
+You need a [server](https://github.com/opendarkeden/server) to run the game. Follow the [docker install guide](https://github.com/opendarkeden/server/blob/master/docker_install.md) to install a standalone server on Windows.
