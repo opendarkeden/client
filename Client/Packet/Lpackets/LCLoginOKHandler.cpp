@@ -123,8 +123,9 @@ void LCLoginOKHandler::execute ( LCLoginOK * pPacket , Player * pPlayer )
 //		if(g_pUserInformation->IsNetmarble)
 //			bGoreLevel = g_pUserInformation->bNetmarbleGoreLevel && !g_pUserOption->UseTeenVersion;
 //		else
-		bGoreLevel = pPacket->isAdult() && !g_pUserOption->UseTeenVersion;
-
+//		By tiancaiamao:
+//		bGoreLevel = pPacket->isAdult() && !g_pUserOption->UseTeenVersion;
+		bGoreLevel = !g_pUserOption->UseTeenVersion;
 
 		g_pUserInformation->GoreLevel = bGoreLevel;
 
