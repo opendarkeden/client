@@ -784,7 +784,7 @@ WORD SocketInputStream::EncryptData(WORD EncryptKey, char* buf, int len)
 // add by tiancaiamao
 uint receiveWithDebug (Socket *pSock, void * buf , uint len) {
 	uint ret = pSock->receive(buf,len); 
-
+/*
 	#ifdef __DEBUG_OUTPUT__
 		if (ret > 0) {
 			FILE* fp = fopen("fill.log", "a");
@@ -795,6 +795,6 @@ uint receiveWithDebug (Socket *pSock, void * buf , uint len) {
 			fclose(fp);
 		}
 	#endif
-
+*/
 	return ret;
 }
