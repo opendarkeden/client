@@ -1177,7 +1177,14 @@ InitDraw()
 		}
 		else
 		{
-			CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+			if(g_MyFull)
+			{
+				CDirectDraw::Init(g_hWnd, 1024, 768, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+			}
+			else
+			{
+				CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+			}
 		}	
 		
 		//--------------------------------------------------------
@@ -1296,7 +1303,14 @@ InitDraw()
 			}
 			else
 			{
-				CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, false, g_bUseIMEWindow);
+				if(g_MyFull)
+				{
+					CDirectDraw::Init(g_hWnd, 1024, 768, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+				}
+				else
+				{
+					CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+				}
 			}
 
 			g_bEnable3DHAL = FALSE;
@@ -1324,7 +1338,14 @@ InitDraw()
 		}
 		else
 		{
-			CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, false, g_bUseIMEWindow);
+			if(g_MyFull)
+			{
+				CDirectDraw::Init(g_hWnd, 1024, 768, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+			}
+			else
+			{
+				CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
+			}
 		}		
 	}
 

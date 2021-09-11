@@ -3039,18 +3039,46 @@ WinMain(HINSTANCE hInstance,
 	//end
 	//add by zdj
 	bool cmpFullScreen;
-	if (lpCmdLine[strlen(lpCmdLine)-1] >= '1')
+	if (lpCmdLine[strlen(lpCmdLine)-1] == '1')
 	{
 		g_MyFull=false;
 		cmpFullScreen = false;
 	}
-	else
+	else if (lpCmdLine[strlen(lpCmdLine)-1] == '2')
 	{
 		g_MyFull=false;
-		cmpFullScreen = true;
+		cmpFullScreen=true;
 	}
 	// add by Sonic 2006.9.26
-	if (lpCmdLine[strlen(lpCmdLine)-1] >= '2')
+	else if (lpCmdLine[strlen(lpCmdLine)-1] == '3')
+	{
+		g_MyFull=true;
+		cmpFullScreen=false;
+		g_GameRect.left=1023;
+		g_GameRect.top=767;
+		g_GameRect.right=1024;
+		g_GameRect.bottom=768;
+		g_x=512;
+		g_y=384;
+		g_SECTOR_WIDTH           = 21;
+		g_SECTOR_HEIGHT          = 32;
+		g_SECTOR_WIDTH_HALF      = 11;
+		g_SECTOR_HEIGHT_HALF     = 17;
+		g_SECTOR_SKIP_PLAYER_LEFT= -10;
+		g_SECTOR_SKIP_PLAYER_UP  = -16;
+
+		g_TILESURFACE_SECTOR_WIDTH         =27;
+		g_TILESURFACE_SECTOR_HEIGHT        =37;
+		g_TILESURFACE_SECTOR_OUTLINE_RIGHT =24;
+		g_TILESURFACE_SECTOR_OUTLINE_DOWN  =34;
+		g_TILESURFACE_WIDTH                =1296;
+		g_TILESURFACE_HEIGHT               =888;
+		g_TILESURFACE_OUTLINE_RIGHT        =1152;
+		g_TILESURFACE_OUTLINE_DOWN         =816;
+		g_TILE_X_HALF=24;
+		g_TILE_Y_HALF=12;
+	}
+	else if (lpCmdLine[strlen(lpCmdLine)-1] == '4')
 	{
 		g_MyFull=true;
 		cmpFullScreen=true;
@@ -3077,7 +3105,7 @@ WinMain(HINSTANCE hInstance,
 		g_TILESURFACE_OUTLINE_DOWN         =816;
 		g_TILE_X_HALF=24;
 		g_TILE_Y_HALF=12;
-	}	
+	}
 	lpCmdLine[strlen(lpCmdLine)-1]=0x0;
 
 	//std::string tttt = "NEWSTART0";
