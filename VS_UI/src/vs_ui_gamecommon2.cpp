@@ -10284,7 +10284,7 @@ C_VS_UI_HELPDESC::C_VS_UI_HELPDESC(const char *detail,const char *title,DWORD id
 	int window_w = 500, window_h = 450;
 	Set(g_GameRect.right/2-window_w/2, g_GameRect.bottom/2-window_h/2, window_w, window_h);
 	int close_x = w-95, close_y = h-50;
-	m_SPK.Open(HELP_MESSAGE_DESC); // 실제 헬프 메세지 이미지가 들어가야한다.
+//	m_SPK.Open(HELP_MESSAGE_DESC); // 실제 헬프 메세지 이미지가 들어가야한다.
 //	m_SPK.Open(SPK_BULLETIN_BOARD);// 임시용 이미지 
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_x, close_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE), CLOSE_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE));

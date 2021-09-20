@@ -392,7 +392,7 @@
 // RegenTower 2003.10.14 by sonee
 
 #define RPK_HOLYLAND_MINIMAP			_ROOT"spk\\HolylandMinimap.spk"
-#define HELP_MESSAGE_DESC				_ROOT"spk\\HelpMessage.spk"
+// #define HELP_MESSAGE_DESC				_ROOT"spk\\HelpMessage.spk"
 
 //2004, 5, 31 sobeit add start - sms message
 #define SPK_SLAYER_SMS_MESSAGE			_ROOT"spk\\sms_slayer_main.spk"
