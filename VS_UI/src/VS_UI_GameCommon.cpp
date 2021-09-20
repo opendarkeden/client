@@ -8852,8 +8852,8 @@ bool C_VS_UI_INVENTORY::Click(int grid_start_x, int grid_start_y)
 				else
 					bCanUpgrade = false;
 			} else
-			// add by svi 2009-07-01   ÈÃ»ÆÉ«Ë®µÎ¿ÉÒÔÉý¼¶1ÊôÐÔºÍ2ÊôÐÔ×°±¸
-			if(pMouseItem->GetItemType() == 22)			// »ÆÉ«Ë®µÎ
+			// add by svi 2009-07-01   ÈÃ»Æ «Ë®µÎ¿ÉÒÔ ý¼?ÊôÐÔºÍ2ÊôÐÔ×°±¸
+			if(pMouseItem->GetItemType() == 22)			// »Æ «Ë®µÎ
 			{
 				if(p_cur_item->GetItemOptionListCount() == 1 || p_cur_item->GetItemOptionListCount() == 2)
 					bCanUpgrade = true;
@@ -20850,7 +20850,7 @@ void C_VS_UI_HPBAR::Show()
 					int hpbar_x = 19, hpbar_y = 3, mpbar_x = 19, mpbar_y = 16;
 					if(!m_small_mode)
 					{//modify by viva : hpbar, mpbar point
-						hpbar_x = 28+7; hpbar_y = 4; mpbar_x = 28+7; mpbar_y = 22;
+						hpbar_x = 28; hpbar_y = 4; mpbar_x = 28; mpbar_y = 22;
 					}
 					
 					
@@ -21028,7 +21028,7 @@ void C_VS_UI_HPBAR::Show()
 					int hpbar_x = 8, hpbar_y = 3, mpbar_x = 8, mpbar_y = 15, expbar_x = 8, expbar_y = 22;
 					if(!m_small_mode)
 					{//modify by viva : hpbar,mpbar,expbar point
-						hpbar_x = 9+6; hpbar_y = 4+7; mpbar_x = 9+6; mpbar_y = 22+7; expbar_x = 9+6; expbar_y = 32+7;
+						hpbar_x = 9; hpbar_y = 4; mpbar_x = 9; mpbar_y = 22; expbar_x = 9; expbar_y = 32;
 					}
 
 					Rect rect;
