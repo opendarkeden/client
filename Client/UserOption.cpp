@@ -15,23 +15,6 @@
 UserOption*		g_pUserOption = NULL;
 
 //----------------------------------------------------------------------
-// define functions
-//----------------------------------------------------------------------
-#define READ_CHECK_EOF( value, temp, bytes )		\
-		{											\
-			file.read((char*)&temp, bytes);			\
-			if (!file.eof())						\
-			{										\
-				value = temp;						\
-			}										\
-			else									\
-			{										\
-				file.close();						\
-				return true;						\
-			}										\
-		}
-
-//----------------------------------------------------------------------
 // 
 // constructor
 //
@@ -141,30 +124,6 @@ UserOption::SaveToFile(const char* filename)
 	fprintf(file, "%d	GammaValue\n", GammaValue);
 	fprintf(file, "%d	DrawChatBoxOutline\n", DrawChatBoxOutline);
 
-	// file.write((const char*)&UseSmoothCursor, 4);
-	// file.write((const char*)&DrawMinimap, 4);
-	// file.write((const char*)&DrawZoneName, 4);
-	// file.write((const char*)&DrawGameTime, 4);
-	// file.write((const char*)&DrawInterface, 4);
-	// file.write((const char*)&DrawFPS, 4);
-	// file.write((const char*)&BlendingShadow, 4);
-	// file.write((const char*)&FilteringCurse, 4);
-	// file.write((const char*)&PlayMusic, 4);
-	// file.write((const char*)&PlaySound, 4);
-	// file.write((const char*)&VolumeMusic, 4);
-	// file.write((const char*)&VolumeSound, 4);
-	// file.write((const char*)&UseHelpEvent, 4);
-	// file.write((const char*)&PlayWaveMusic, 4);
-	// file.write((const char*)&BloodDrop, 4);
-	// file.write((const char*)&OpenQuickSlot, 4);	
-	// file.write((const char*)&UseHalfFrame, 4);	
-	// file.write((const char*)&Use3DHAL, 4);
-	// file.write((const char*)&DrawTransHPBar, 4);	
-	// file.write((const char*)&UseForceFeel, 4);
-	// file.write((const char*)&UseGammaControl, 4);	
-	// file.write((const char*)&GammaValue, 4);	
-	// file.write((const char*)&DrawChatBoxOutline, 4);
-	
 	// new interface
 	fwrite((const void*)BackupID, 15, 1, file);
 	fprintf(file, "%d	UseEnterChat\n", UseEnterChat);
@@ -212,7 +171,6 @@ UserOption::LoadFromFile(const char* filename)
 //		g_pKeyAccelerator->SetAcceleratorKey(ACCEL_GRADE1INFO, DIK_R);
 //		file.seekg(-2, ios::cur);
 //	}
-
 
 	char ignore[256];
 	fscanf(file, "\n%s\n", ignore); // ignore =======

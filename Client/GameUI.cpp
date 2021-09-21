@@ -2927,7 +2927,6 @@ UI_SetHP(int current, int max)
 		}
 		lastPercent = percent;
 
-		DEBUG_ADD_FORMAT("[UI] USE POTION Set HP  (%d / %d)", current, max);
 	__END_HELP_EVENT
 
 	DEBUG_ADD_FORMAT("[UI] Set HP  (%d / %d)", current, max);
