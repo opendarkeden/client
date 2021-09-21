@@ -7,10 +7,9 @@
 
 #include "DebugInfo.h"
 
-	// 사내 테스트 버전 만들때..
-	#ifdef OUTPUT_DEBUG
-		#define __METROTECH_TEST__
-	#endif
+	// #ifdef OUTPUT_DEBUG
+	//	#define __METROTECH_TEST__
+	// #endif
 
 	#ifdef __METROTECH_TEST__
 

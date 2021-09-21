@@ -2915,7 +2915,7 @@ UI_SetHP(int current, int max)
 	//---------------------------------------------------------------
 	// HP 낮은 경우 체크
 	//---------------------------------------------------------------
-//	__BEGIN_HELP_EVENT
+	__BEGIN_HELP_EVENT
 		static int lastPercent = 100;
 		int percent = ((max==0)?0 : current*100 / max);
 
@@ -2926,7 +2926,9 @@ UI_SetHP(int current, int max)
 			ExecuteHelpEvent( HELP_EVENT_USE_POTION );
 		}
 		lastPercent = percent;
-//	__END_HELP_EVENT
+
+		DEBUG_ADD_FORMAT("[UI] USE POTION Set HP  (%d / %d)", current, max);
+	__END_HELP_EVENT
 
 	DEBUG_ADD_FORMAT("[UI] Set HP  (%d / %d)", current, max);
 	
@@ -3001,7 +3003,7 @@ UI_SetMP(int current, int max)
 	//---------------------------------------------------------------
 	// MP 낮은 경우 체크
 	//---------------------------------------------------------------
-//	__BEGIN_HELP_EVENT
+	__BEGIN_HELP_EVENT
 		static int lastPercent = 100;
 		int percent = ((max==0)?0 : current*100 / max);
 
@@ -3014,8 +3016,7 @@ UI_SetMP(int current, int max)
 
 			lastPercent = percent;
 		}
-		
-//	__END_HELP_EVENT
+	__END_HELP_EVENT
 
 	DEBUG_ADD_FORMAT("[UI] Set MP  (%d / %d)", current, max);
 	
