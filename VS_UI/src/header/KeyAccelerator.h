@@ -95,8 +95,8 @@ class KeyAccelerator {
 		//------------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------------
-		void				SaveToFile(class ofstream& file);
-		void				LoadFromFile(class ifstream& file);
+		void				SaveToFile(FILE* file);
+		void				LoadFromFile(FILE* file);
 
 
 	protected :

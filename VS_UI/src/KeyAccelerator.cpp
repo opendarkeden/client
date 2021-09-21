@@ -6,6 +6,7 @@
 #include <fstream.h>
 #include "KeyAccelerator.h"
 #include "CDirectInput.h"
+#include <cstdio>
 //----------------------------------------------------------------------
 // define functions
 //----------------------------------------------------------------------
@@ -215,20 +216,19 @@ KeyAccelerator::GetKey(BYTE accel) const
 // Save To File
 //----------------------------------------------------------------------
 void				
-KeyAccelerator::SaveToFile(class ofstream& file)
+KeyAccelerator::SaveToFile(FILE *file)
 {
 	int num = m_Accelerators.capacity();
 
-	file.write((const char*)&num, 4);
+	fwrite((const void*)&num, 1, 4, file);
 
-	// key-accelerator의 관계만 저장하면 된다.
-	// 근데 accel은 순서대로이기 때메.. 저장할 필요없다.
-	// 그래서 key만 저장하면 된다.
+	// Only the key-accelerator relationship needs to be saved.
+	// Because accel is in order, so there is no need to save.
+	// So we only need to store the key.
 	for (int accel=1; accel<num; accel++)
 	{
 		WORD key = m_Accelerators[accel];
-
-		file.write((const char*)&key, 2);
+		fwrite((const void*)&key, 1, 2, file);
 	}
 }
 
@@ -236,10 +236,10 @@ KeyAccelerator::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void				
-KeyAccelerator::LoadFromFile(class ifstream& file)
+KeyAccelerator::LoadFromFile(FILE *file)
 {
 	int num;
-	file.read((char*)&num, 4);
+	fread((void*)&num, 1, 4, file);
 
 	Init( num );
 
@@ -247,9 +247,10 @@ KeyAccelerator::LoadFromFile(class ifstream& file)
 
 	for (int accel=1; accel<num; accel++)
 	{
-		file.read((char*)&key, 2);
-
-		if(!file.eof())
-			SetAcceleratorKey( accel , key );
+		int sz;
+		sz = fread((void*)&key, 1, 2, file);
+		if (sz == 2) {
+			SetAcceleratorKey(accel, key);
+		}
 	}
 }

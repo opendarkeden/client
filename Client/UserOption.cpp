@@ -6,29 +6,13 @@
 #include "UserOption.h"
 #include "KeyAccelerator.h"
 #include <DInput.h>
+#include <cstdio>
 
 
 //----------------------------------------------------------------------
 // Global
 //----------------------------------------------------------------------
 UserOption*		g_pUserOption = NULL;
-
-//----------------------------------------------------------------------
-// define functions
-//----------------------------------------------------------------------
-#define READ_CHECK_EOF( value, temp, bytes )		\
-		{											\
-			file.read((char*)&temp, bytes);			\
-			if (!file.eof())						\
-			{										\
-				value = temp;						\
-			}										\
-			else									\
-			{										\
-				file.close();						\
-				return true;						\
-			}										\
-		}
 
 //----------------------------------------------------------------------
 // 
@@ -109,64 +93,62 @@ UserOption::~UserOption()
 void	
 UserOption::SaveToFile(const char* filename)
 {
-	class ofstream file(filename, ios::binary);	
+	// class ofstream file(filename, ios::binary);	
+	FILE* file = fopen(filename, "w");
 
 	DWORD flag = 0;
-	file.write((const char*)&flag, 4);
+	fwrite((void*)&flag, 1, 4, file);
 	g_pKeyAccelerator->SaveToFile(file);
 
-	file.write((const char*)&UseSmoothCursor, 4);
-	file.write((const char*)&DrawMinimap, 4);
-	file.write((const char*)&DrawZoneName, 4);
-	file.write((const char*)&DrawGameTime, 4);
-	file.write((const char*)&DrawInterface, 4);
-	file.write((const char*)&DrawFPS, 4);
-	file.write((const char*)&BlendingShadow, 4);
-	file.write((const char*)&FilteringCurse, 4);
-	file.write((const char*)&PlayMusic, 4);
-	file.write((const char*)&PlaySound, 4);
-	file.write((const char*)&VolumeMusic, 4);
-	file.write((const char*)&VolumeSound, 4);
-	file.write((const char*)&UseHelpEvent, 4);
-	file.write((const char*)&PlayWaveMusic, 4);
-	file.write((const char*)&BloodDrop, 4);
-	file.write((const char*)&OpenQuickSlot, 4);	
-	file.write((const char*)&UseHalfFrame, 4);	
-	file.write((const char*)&Use3DHAL, 4);
-	file.write((const char*)&DrawTransHPBar, 4);	
-	file.write((const char*)&UseForceFeel, 4);
-	file.write((const char*)&UseGammaControl, 4);	
-	file.write((const char*)&GammaValue, 4);	
-	file.write((const char*)&DrawChatBoxOutline, 4);
-	
+	fprintf(file, "\n========\n");
+
+	fprintf(file, "%d	UseSmoothCursor\n", UseSmoothCursor);
+	fprintf(file, "%d	DrawMinimap\n", DrawMinimap);
+	fprintf(file, "%d	DrawGameTime\n", DrawGameTime);
+	fprintf(file, "%d	DrawInterface\n", DrawInterface);
+	fprintf(file, "%d	DrawFPS\n", DrawFPS);
+	fprintf(file, "%d	BlendingShadow\n", BlendingShadow);
+	fprintf(file, "%d	FilteringCurse\n", FilteringCurse);
+	fprintf(file, "%d	PlayMusic\n", PlayMusic);
+	fprintf(file, "%d	PlaySound\n", PlaySound);
+	fprintf(file, "%d	VolumeMusic\n", VolumeMusic);
+	fprintf(file, "%d	VolumeSound\n", VolumeSound);
+	fprintf(file, "%d	UseHelpEvent\n", UseHelpEvent);
+	fprintf(file, "%d	PlayWaveMusic\n", PlayWaveMusic);
+	fprintf(file, "%d	BloodDrop\n", BloodDrop);
+	fprintf(file, "%d	OpenQuickSlot\n", OpenQuickSlot);
+	fprintf(file, "%d	UseHalfFrame\n", UseHalfFrame);
+	fprintf(file, "%d	Use3DHAL\n", Use3DHAL);
+	fprintf(file, "%d	DrawTransHPBar\n", DrawTransHPBar);
+	fprintf(file, "%d	UseForceFeel\n", UseForceFeel);
+	fprintf(file, "%d	GammaValue\n", GammaValue);
+	fprintf(file, "%d	DrawChatBoxOutline\n", DrawChatBoxOutline);
+
 	// new interface
-	file.write((const char*)BackupID, 15);
-	file.write((const char*)&UseEnterChat, 4);
-	file.write((const char*)&UseMouseSpeed, 4);
-	file.write((const char*)&MouseSpeedValue, 4);
-	file.write((const char*)&PlayYellSound, 4);
-	file.write((const char*)&ShowChoboHelp, 4);
-	file.write((const char*)&TribeChange, 4);
-	file.write((const char*)&DenyPartyInvite, 4);
-	file.write((const char*)&DenyPartyRequest, 4);
-	file.write((const char*)&AutoHideSmoothScroll, 4);
-	file.write((const char*)&ChattingColor, 4);
-	file.write((const char*)&ALPHA_DEPTH, 1);
-	file.write((const char*)&DefaultAlpha, 4);
-	file.write((const char*)&IsPreLoadMonster, 4);
-	file.write((const char*)&ChatWhite, 4);
-	file.write((const char*)&UseTeenVersion, 4);
-	file.write((const char*)&PopupChatByWhisper, 4);
-	file.write((const char*)&NotSendMyInfo,4);
-	file.write((const char*)&DoNotShowWarMsg,4);
-	file.write((const char*)&DoNotShowLairMsg,4);
-	file.write((const char*)&DoNotShowHolyLandMsg,4);
-	file.write((const char*)&ShowGameMoneyWithHANGUL,4);
-	file.write((const char*)&DoNotShowPersnalShopMsg,4);
+	fwrite((const void*)BackupID, 15, 1, file);
+	fprintf(file, "%d	UseEnterChat\n", UseEnterChat);
+	fprintf(file, "%d	MouseSpeedValue\n", MouseSpeedValue);
+	fprintf(file, "%d	PlayYellSound\n", PlayYellSound);
+	fprintf(file, "%d	ShowChoboHelp\n", ShowChoboHelp);
+	fprintf(file, "%d	TribeChange\n", TribeChange);
+	fprintf(file, "%d	DenyPartyInvite\n", DenyPartyInvite);
+	fprintf(file, "%d	DenyPartyRequest\n", DenyPartyRequest);
+	fprintf(file, "%d	AutoHideSmoothScroll\n", AutoHideSmoothScroll);
+	fprintf(file, "%d	ChattingColor\n", ChattingColor);
+	fprintf(file, "%d	ALPHA_DEPTH\n", ALPHA_DEPTH);
+	fprintf(file, "%d	DefaultAlpha\n", DefaultAlpha);
+	fprintf(file, "%d	IsPreLoadMonster\n", IsPreLoadMonster);
+	fprintf(file, "%d	ChatWhite\n", ChatWhite);
+	fprintf(file, "%d	UseTeenVersion\n", UseTeenVersion);
+	fprintf(file, "%d	PopupChatByWhisper\n", PopupChatByWhisper);
+	fprintf(file, "%d	NotSendMyInfo\n", NotSendMyInfo);
+	fprintf(file, "%d	DoNotShowWarMsg\n", DoNotShowWarMsg);
+	fprintf(file, "%d	DoNotShowLairMsg\n", DoNotShowLairMsg);
+	fprintf(file, "%d	DoNotShowHolyLandMsg\n", DoNotShowHolyLandMsg);
+	fprintf(file, "%d	ShowGameMoneyWithHANGUL\n", ShowGameMoneyWithHANGUL);
+	fprintf(file, "%d	DoNotShowPersnalShopMsg\n", DoNotShowPersnalShopMsg);
 
-	
-
-	file.close();
+	fclose(file);
 }
 
 //----------------------------------------------------------------------
@@ -175,15 +157,13 @@ UserOption::SaveToFile(const char* filename)
 bool	
 UserOption::LoadFromFile(const char* filename)
 {
-	class ifstream file(filename, ios::binary | ios::nocreate);	
-
-	if (!file || !file.is_open())
-	{
+	FILE *file = fopen(filename, "r");
+	if (file == NULL) {
 		return false;
 	}
 	
 	DWORD flag = 0;
-	file.read((char*)&flag, 4);
+	fread((void*)&flag, 1, 4, file);
 	g_pKeyAccelerator->LoadFromFile(file);
 	
 //	if(flag == 0)
@@ -192,60 +172,55 @@ UserOption::LoadFromFile(const char* filename)
 //		file.seekg(-2, ios::cur);
 //	}
 
-	DWORD temp;
-	
-	READ_CHECK_EOF( UseSmoothCursor, temp, 4 );
-	READ_CHECK_EOF( DrawMinimap, temp, 4 );
-	READ_CHECK_EOF( DrawZoneName, temp, 4 );
-	READ_CHECK_EOF( DrawGameTime, temp, 4 );
-	READ_CHECK_EOF( DrawInterface, temp, 4 );
-	READ_CHECK_EOF( DrawFPS, temp, 4 );
-	READ_CHECK_EOF( BlendingShadow, temp, 4 );
-	READ_CHECK_EOF( FilteringCurse, temp, 4 );
-	READ_CHECK_EOF( PlayMusic, temp, 4 );
-	READ_CHECK_EOF( PlaySound, temp, 4 );
-	READ_CHECK_EOF( VolumeMusic, temp, 4 );
-	READ_CHECK_EOF( VolumeSound, temp, 4 );	
-	READ_CHECK_EOF( UseHelpEvent, temp, 4 );
-	READ_CHECK_EOF( PlayWaveMusic, temp, 4 );
-	READ_CHECK_EOF( BloodDrop, temp, 4 );	
-	READ_CHECK_EOF( OpenQuickSlot, temp, 4 );		
-	READ_CHECK_EOF( UseHalfFrame, temp, 4 );	
-	READ_CHECK_EOF( Use3DHAL, temp, 4);
-	READ_CHECK_EOF( DrawTransHPBar, temp, 4);	
-	READ_CHECK_EOF( UseForceFeel, temp, 4);	
-	READ_CHECK_EOF( UseGammaControl, temp, 4);		
-	READ_CHECK_EOF( GammaValue, temp, 4);	
-	READ_CHECK_EOF( DrawChatBoxOutline, temp, 4);
-	
+	char ignore[256];
+	fscanf(file, "\n%s\n", ignore); // ignore =======
+
+	fscanf(file, "%d	%s\n", &UseSmoothCursor, ignore);
+	fscanf(file, "%d	%s\n", &DrawMinimap, ignore);
+	fscanf(file, "%d	%s\n", &DrawGameTime, ignore);
+	fscanf(file, "%d	%s\n", &DrawInterface, ignore);
+	fscanf(file, "%d	%s\n", &DrawFPS, ignore);
+	fscanf(file, "%d	%s\n", &BlendingShadow, ignore);
+	fscanf(file, "%d	%s\n", &FilteringCurse, ignore);
+	fscanf(file, "%d	%s\n", &PlayMusic, ignore);
+	fscanf(file, "%d	%s\n", &PlaySound, ignore);
+	fscanf(file, "%d	%s\n", &VolumeMusic, ignore);
+	fscanf(file, "%d	%s\n", &VolumeSound, ignore);
+	fscanf(file, "%d	%s\n", &UseHelpEvent, ignore);
+	fscanf(file, "%d	%s\n", &PlayWaveMusic, ignore);
+	fscanf(file, "%d	%s\n", &BloodDrop, ignore);
+	fscanf(file, "%d	%s\n", &OpenQuickSlot, ignore);
+	fscanf(file, "%d	%s\n", &UseHalfFrame, ignore);
+	fscanf(file, "%d	%s\n", &Use3DHAL, ignore);
+	fscanf(file, "%d	%s\n", &DrawTransHPBar, ignore);
+	fscanf(file, "%d	%s\n", &UseForceFeel, ignore);
+	fscanf(file, "%d	%s\n", &GammaValue, ignore);
+	fscanf(file, "%d	%s\n", &DrawChatBoxOutline, ignore);
+
 	// new interface
-//	READ_CHECK_EOF( *BackupID, temp, 11);
-	file.read((char *)BackupID, 15);
-	READ_CHECK_EOF( UseEnterChat, temp, 4);
-	READ_CHECK_EOF( UseMouseSpeed, temp, 4);
-	READ_CHECK_EOF( MouseSpeedValue, temp, 4);
-	READ_CHECK_EOF( PlayYellSound, temp, 4);
-	READ_CHECK_EOF( ShowChoboHelp, temp, 4);
-	READ_CHECK_EOF( TribeChange, temp, 4);
-	READ_CHECK_EOF( DenyPartyInvite, temp, 4);
-	READ_CHECK_EOF( DenyPartyRequest, temp, 4);
-	READ_CHECK_EOF( AutoHideSmoothScroll, temp, 4);
-	READ_CHECK_EOF( ChattingColor, temp, 4);
-	READ_CHECK_EOF( ALPHA_DEPTH, temp, 1);
-	READ_CHECK_EOF( DefaultAlpha, temp, 4);
-	READ_CHECK_EOF( IsPreLoadMonster, temp, 4);
-	READ_CHECK_EOF( ChatWhite, temp, 4);
-	READ_CHECK_EOF( UseTeenVersion, temp, 4);
-	READ_CHECK_EOF( PopupChatByWhisper, temp, 4);
-	READ_CHECK_EOF( NotSendMyInfo, temp, 4);
-	READ_CHECK_EOF( DoNotShowWarMsg, temp, 4);
-	READ_CHECK_EOF( DoNotShowLairMsg, temp, 4);
-	READ_CHECK_EOF( DoNotShowHolyLandMsg, temp, 4);
-	READ_CHECK_EOF( ShowGameMoneyWithHANGUL, temp, 4);
-	READ_CHECK_EOF( DoNotShowPersnalShopMsg, temp, 4);
+	fread((void*)BackupID, 15, 1, file);
+	fscanf(file, "%d %s\n", &UseEnterChat, ignore);
+	fscanf(file, "%d %s\n", &MouseSpeedValue, ignore);
+	fscanf(file, "%d %s\n", &PlayYellSound, ignore);
+	fscanf(file, "%d %s\n", &ShowChoboHelp, ignore);
+	fscanf(file, "%d %s\n", &TribeChange, ignore);
+	fscanf(file, "%d %s\n", &DenyPartyInvite, ignore);
+	fscanf(file, "%d %s\n", &DenyPartyRequest, ignore);
+	fscanf(file, "%d %s\n", &AutoHideSmoothScroll, ignore);
+	fscanf(file, "%d %s\n", &ChattingColor, ignore);
+	fscanf(file, "%d %s\n", &ALPHA_DEPTH, ignore);
+	fscanf(file, "%d %s\n", &DefaultAlpha, ignore);
+	fscanf(file, "%d %s\n", &IsPreLoadMonster, ignore);
+	fscanf(file, "%d %s\n", &ChatWhite, ignore);
+	fscanf(file, "%d %s\n", &UseTeenVersion, ignore);
+	fscanf(file, "%d %s\n", &PopupChatByWhisper, ignore);
+	fscanf(file, "%d %s\n", &NotSendMyInfo, ignore);
+	fscanf(file, "%d %s\n", &DoNotShowWarMsg, ignore);
+	fscanf(file, "%d %s\n", &DoNotShowLairMsg, ignore);
+	fscanf(file, "%d %s\n", &DoNotShowHolyLandMsg, ignore);
+	fscanf(file, "%d %s\n", &ShowGameMoneyWithHANGUL, ignore);
+	fscanf(file, "%d %s\n", &DoNotShowPersnalShopMsg, ignore);
 
-	
-	file.close();
-
+	fclose(file);
 	return true;
 }
