@@ -233,9 +233,9 @@ CMessageArray::AddFormatVL(const char* format, va_list& vl)
 //	va_list		vl;
 	static char Buffer[4096];
 
-    va_start(vl, format);
+//    va_start(vl, format);
 	vsprintf(Buffer, format, vl);    
-    va_end(vl);
+ //   va_end(vl);
 
 	int len = strlen(Buffer);
  
