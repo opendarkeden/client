@@ -1,5 +1,9 @@
 # client
 
+If you're a player, rather than a developer, just follow the [单机版教程](./standalone_version.md)
+
+TL;DR
+
 ## compile
 
 The code compiles on Win10, VC6 is used.
@@ -52,4 +56,6 @@ The meaning of the argument:
 - 0000000004 fullscreen 1024
 
 
-You need a [server](https://github.com/opendarkeden/server) to run the game. Follow the [docker install guide](https://github.com/opendarkeden/server/blob/master/docker_install.md) to install a standalone server on Windows.
+You need a [server](https://github.com/opendarkeden/server) to play the game.
+You may follow the [docker install guide](https://github.com/opendarkeden/server/blob/master/docker_install.md) to deploy server.
+
