@@ -19,6 +19,7 @@ CVS/
 *.opt
 Debug/*
 Release/*
+ReleaseLog/*
 *.pdb
 *.sym
 *.gch
