@@ -75,29 +75,19 @@ networks:
 
 
 ```
-docker-compose up -d
+docker-compose -f docker-compose.yml up -d
 ```
 
-登陆到容器
-
+启动服务器
 
 ```
-docker exec -it docker_odk-server_1  /bin/bash
+docker exec -it docker_odk-server_1  ./start.sh
 ```
-
-(或者直接从 Docker Desktop 里面点 cli)
-
-启动服务
-
-```sh
-./start.sh
-```
-
 
 如何关闭
 
 
 ```sh
-./stop.sh
+docker exec -it docker_odk-server_1  ./stop.sh
 docker-compose down
 ```
