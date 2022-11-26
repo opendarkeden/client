@@ -406,23 +406,17 @@ RemoveProgressBar()
 
 DARKEDEN_LANGUAGE CheckDarkEdenLanguage()
 {
-	// Language 정보는 DATA\INFO\Infodata.rpk 에 들어있다.
-
-	CRarFile rarfile;
-	
 	if( g_pFileDef == NULL )
 		return DARKEDEN_KOREAN;
 
-	rarfile.SetRAR(g_pFileDef->getProperty("FILE_INFO_DATA").c_str(),"darkeden");
-	rarfile.Open(g_pFileDef->getProperty("FILE_LANGUAGE_INFO").c_str() );
-
-	if( !rarfile.IsSet() )
-		return DARKEDEN_KOREAN;
+	int num = 0;
+	const char* fileName = g_pFileDef->getProperty("FILE_LANGUAGE_INFO").c_str();
+	FILE *f = fopen(fileName, "r");
+	if (f == NULL) goto exit;
 
 	char szLine[512];
-	int num = 0;
 
-	while( rarfile.GetString( szLine, 512 ) )
+	while( fgets( szLine, 512, f) != NULL)
 	{
 		if( szLine[0] == ';' || strlen( szLine ) <= 0 )
 			continue;
@@ -434,8 +428,9 @@ DARKEDEN_LANGUAGE CheckDarkEdenLanguage()
 		}
 	}
 
-	rarfile.Release();
+	fclose(f);
 
+exit:
 	return (DARKEDEN_LANGUAGE)(DARKEDEN_KOREAN + num );
 }
 
