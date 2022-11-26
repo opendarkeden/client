@@ -2311,53 +2311,12 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 	{
 		if (g_pParty!=NULL )
 		{
-			if(g_pUserInformation->bKorean == true && g_pClientCommunicationManager!=NULL)
-			{
-				RCSay _RCSay;
-				_RCSay.setName( g_pUserInformation->CharacterID.GetString() );
-				_RCSay.setMessage( chatString );
-				_RCSay.setColor( right );
 
-				if (g_pParty->GetSize()==0)
-				{
-					DEBUG_ADD("PartySize==0");
-				}
-			
-				for (int i=0; i<g_pParty->GetSize(); i++)
-				{
-					PARTY_INFO* pInfo = g_pParty->GetMemberInfo( i );
-					
-					if (pInfo!=NULL)										
-					{
-						int port = g_pClientConfig->CLIENT_COMMUNICATION_UDP_PORT;
-
-						RequestUserInfo* pUserInfo = g_pRequestUserManager->GetUserInfo( pInfo->Name.GetString() );
-
-						if (pUserInfo!=NULL)
-						{
-							if (pUserInfo->UDPPort!=0)
-								port = pUserInfo->UDPPort;
-						}
-						
-						g_pClientCommunicationManager->sendPacket( 
-								pInfo->IP, 
-								port,
-								&_RCSay );
-					}
-					else
-					{
-						DEBUG_ADD_FORMAT("pInfo[%d]==NULL", i);
-					}
-				}			
-				UI_AddChatToHistory( chatString, g_pUserInformation->CharacterID.GetString(), CLD_PARTY, right );
-			}
-			else	// 한국어가 아닐때
-			{
 				CGPartySay _CGPartySay;
 				_CGPartySay.setColor(right);
 				_CGPartySay.setMessage(chatString);
 				g_pSocket->sendPacket( &_CGPartySay );
-			}
+
 		}
 	}
 	// 길드 채팅
