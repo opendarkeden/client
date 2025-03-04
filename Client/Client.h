@@ -27,7 +27,7 @@
 #include "SP.h"
 #include "FR.h"
 #include "VolumeLib.h"
-#include "WinLib.h"
+// #include "WinLib.h"
 
 
 #include "MZone.h"
@@ -212,7 +212,7 @@ extern int				g_MaxNPC;
 extern bool				g_bHAL;
 extern bool				g_bMusicSW;
 
-extern CWinUpdate*				g_pUpdate;
+// extern CWinUpdate*				g_pUpdate;
 
 
 
