@@ -4256,18 +4256,18 @@ _APICheck.init();
 					{
 						// CDirectDraw가 작동중이지 않을 경우에는 return
 						//if (g_bActiveApp)// && CDirectDraw::IsActive())
-						// if (g_pUpdate!=NULL)
-						// {
-						// 	// 노파심.. 으흠.. --;;
-						// 	CWinUpdate*	pCurrentUpdate = g_pUpdate;
+						if (g_pUpdate!=NULL)
+						{
+							// 노파심.. 으흠.. --;;
+							CWinUpdate*	pCurrentUpdate = g_pUpdate;
 
-						// 	pCurrentUpdate->Update();
+							pCurrentUpdate->Update();
 
-						// 	#ifdef __METROTECH_TEST__
-						// 		CheckFlushLogFile();
-						// 	#endif
+							#ifdef __METROTECH_TEST__
+								CheckFlushLogFile();
+							#endif
 
-						// }
+						}
 
 						//lastTime = g_CurrentTime;
 					}
