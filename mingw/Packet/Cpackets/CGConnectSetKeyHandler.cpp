@@ -1,0 +1,25 @@
+//////////////////////////////////////////////////////////////////////////////
+// Filename    : CLLogoutHandler.cpp
+// Written By  : Reiot
+// Description :
+//////////////////////////////////////////////////////////////////////////////
+
+// include files
+#include "Client_PCH.h"
+#include "CGConnectSetKey.h"
+#include "Assert.h"
+#include "Player.h"
+#ifdef __LOGIN_SERVER__
+#endif
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+void CGConnectSetKeyHandler::execute (CGConnectSetKey* pPacket , Player* pPlayer)
+	 throw (ProtocolException , Error)
+{
+	__BEGIN_TRY
+
+	pPlayer->setKey(pPacket->getEncryptKey(), pPacket->getHashKey());
+	//pPlayer->setKey(0 , 0);
+	__END_CATCH
+}

@@ -1,0 +1,637 @@
+//----------------------------------------------------------------------
+// 
+// Filename    : Packet.h 
+// Written By  : Reiot
+// Description : 
+// 
+//----------------------------------------------------------------------
+
+#ifndef __PACKET_H__
+#define __PACKET_H__
+
+// include files
+#include "Types.h"
+#include "Exception.h"
+#include "SocketInputStream.h"
+#include "SocketOutputStream.h"
+
+// forward declaration
+class Socket;
+class Player;
+
+//----------------------------------------------------------------------
+// Packet ID Type
+//----------------------------------------------------------------------
+typedef ushort PacketID_t;
+const uint szPacketID = sizeof(PacketID_t);
+
+//----------------------------------------------------------------------
+// Packet Size Type
+//----------------------------------------------------------------------
+typedef uint   PacketSize_t;
+const uint szPacketSize   = sizeof(PacketSize_t);
+
+//----------------------------------------------------------------------
+// Packet Header Size
+//----------------------------------------------------------------------
+const uint szPacketHeader = szPacketID + szPacketSize;
+
+
+//----------------------------------------------------------------------
+//
+// class Packet;
+//
+// 패킷 데이타를 나타내는 인터페이스 클래스이다.
+//
+// read()와 write()를 주의깊게 살펴보라. 소켓입력스트림과 소켓출력스트림은
+// 모든 패킷을 어떻게 읽고 쓸 것인지를 알 수 없다. 따라서, 패킷 자신이 각
+// 스트림에 어떻게 읽고 쓸 것인지를 알고 있어야 한다.
+//
+//----------------------------------------------------------------------
+
+class Packet {
+
+public :
+
+	//----------------------------------------------------------------------
+	//
+	// Packet ID
+	//
+	// prefix의 우선순위는 G > L > C 이다. (GL/LG, GC/CG, LC/CL)
+	// 어떤 모듈에서 어떤 것들을 포함해야 하는지 주의깊게 설정해야 한다.
+	// 가령 LC는 로그인서버와 클라이언트 모두 포함해야 하는 모듈이다.
+	//
+	//----------------------------------------------------------------------
+	enum 
+	{
+		PACKET_CG_ATTACK = 0,						//   0
+		PACKET_CG_ADD_GEAR_TO_MOUSE,				//   1
+		PACKET_CG_ADD_INVENTORY_TO_MOUSE,			//   2
+		PACKET_CG_ADD_MOUSE_TO_GEAR,				//   3
+		PACKET_CG_ADD_MOUSE_TO_INVENTORY,			//   4
+		PACKET_CG_ADD_MOUSE_TO_QUICKSLOT,			//   5
+		PACKET_CG_ADD_MOUSE_TO_ZONE,				//   6
+		PACKET_CG_ADD_QUICKSLOT_TO_MOUSE,			//   7
+		PACKET_CG_ADD_ZONE_TO_MOUSE,				//   8
+		PACKET_CG_ADD_ZONE_TO_INVENTORY,			//   9
+		PACKET_CG_CONNECT,							//  10
+		PACKET_CG_GET_OFF_MOTORCYCLE,				//  11
+		PACKET_CG_LEARN_SKILL,						//  12
+		PACKET_CG_LOGOUT,							//  13
+		PACKET_CG_MOVE,								//  14
+		PACKET_CG_READY,							//  15
+		PACKET_CG_RELOAD_FROM_INVENTORY,			//  16
+		PACKET_CG_RELOAD_FROM_QUICKSLOT,			//  17
+		PACKET_CG_RIDE_MOTORCYCLE,					//  18
+		PACKET_CG_SAY,								//  19
+		PACKET_CG_SKILL_TO_INVENTORY,				//  20
+		PACKET_CG_THROW_ITEM,						//  21
+		PACKET_CG_USE_POTION_FROM_INVENTORY,		//  22
+		PACKET_CG_USE_POTION_FROM_QUICKSLOT,		//  23
+		PACKET_CL_CREATE_PC,						//  24
+		PACKET_CL_DELETE_PC,						//  25
+		PACKET_CL_GET_PC_LIST,						//  26
+		PACKET_CL_LOGIN,							//  27
+		PACKET_CL_LOGOUT,							//  28
+		PACKET_CL_QUERY_PLAYER_ID,					//  29
+		PACKET_CL_REGISTER_PLAYER,					//  30
+		PACKET_CL_SELECT_PC,						//  31
+		PACKET_CG_GLOBAL_CHAT,						//  32
+		PACKET_GC_GLOBAL_CHAT,						//  33
+		PACKET_GC_SYSTEM_MESSAGE,					//  34
+		PACKET_GC_USE_OK,							//  35
+		PACKET_GC_TAKE_OFF,							//  36
+		PACKET_CG_CASTING_SKILL,					//  37
+		PACKET_GC_CASTING_SKILL,					//  38
+		PACKET_GC_RELOAD_OK,						//  39
+		PACKET_CG_NPC_TALK,							//  40
+		PACKET_GC_NPC_ASK,							//  41
+		PACKET_GC_NPC_SAY,							//  42
+		PACKET_CG_DISSECTION_CORPSE,				//  43
+		PACKET_CU_BEGIN_UPDATE,						//  44
+		PACKET_CU_END_UPDATE,						//  45
+		PACKET_CU_REQUEST,							//  46
+		PACKET_GC_ADD_MONSTER,						//  47
+		PACKET_GC_ADD_MONSTER_CORPSE,				//  48
+		PACKET_GC_ADD_NEW_ITEM_TO_ZONE,				//  49
+		PACKET_GC_ADD_NPC,							//  50
+		PACKET_GC_ADD_SLAYER,						//  51
+		PACKET_GC_ADD_SLAYER_CORPSE,				//  52
+		PACKET_GC_ADD_VAMPIRE,						//  53
+		PACKET_GC_ADD_VAMPIRE_CORPSE,				//  54
+		PACKET_GC_ATTACK_ARMS_OK_1,					//  55
+		PACKET_GC_ATTACK_ARMS_OK_2,					//  56
+		PACKET_GC_ATTACK_ARMS_OK_3,					//  57
+		PACKET_GC_ATTACK_ARMS_OK_4,					//  58
+		PACKET_GC_ATTACK_ARMS_OK_5,					//  59
+		PACKET_GC_ATTACK_MELEE_OK_1,				//  60
+		PACKET_GC_ATTACK_MELEE_OK_2,				//  61
+		PACKET_GC_ATTACK_MELEE_OK_3,				//  62
+		PACKET_GC_ATTACK,							//  63
+		PACKET_GC_CANNOT_ADD,						//  64
+		PACKET_GC_CANNOT_USE,						//  65
+		PACKET_GC_CHANGE_SHAPE,						//  66
+		PACKET_GC_CHANGE_DARK_LIGHT,				//  67
+		PACKET_GC_CHANGE_WEATHER,					//  68
+		PACKET_GC_CREATURE_DIED,					//  69
+		PACKET_GC_DELETE_OBJECT,					//  70
+		PACKET_GC_DELETE_AND_PICKUP_OK,				//  71
+		PACKET_GC_DISCONNECT,						//  72
+		PACKET_GC_GET_DAMAGE,						//  73
+		PACKET_GC_GET_OFF_MOTORCYCLE,				//  74
+		PACKET_GC_GET_OFF_MOTORCYCLE_FAILED,		//  75
+		PACKET_GC_GET_OFF_MOTORCYCLE_OK,			//  76
+		PACKET_GC_LEARN_SKILL_FAILED,				//  77
+		PACKET_GC_LEARN_SKILL_OK,					//  78
+		PACKET_GC_LEARN_SKILL_READY,				//  79
+		PACKET_GC_LIGHTNING,						//  80
+		PACKET_GC_MODIFY_INFORMATION,				//  81
+		PACKET_GC_MOVE,								//  82
+		PACKET_GC_MOVE_ERROR,						//  83
+		PACKET_GC_MOVE_OK,							//  84
+		PACKET_GC_RECONNECT,						//  85
+		PACKET_GC_RIDE_MOTORCYCLE,					//  86
+		PACKET_GC_RIDE_MOTORCYCLE_FAILED,			//  87
+		PACKET_GC_RIDE_MOTORCYCLE_OK,				//  88
+		PACKET_GC_SAY,								//  89
+		PACKET_GC_SET_POSITION,						//  90
+		PACKET_GC_SKILL_FAILED_1,					//  91
+		PACKET_GC_SKILL_FAILED_2,					//  92
+		PACKET_GC_SKILL_TO_INVENTORY_OK_1,			//  93
+		PACKET_GC_SKILL_TO_INVENTORY_OK_2,			//  94
+		PACKET_GC_SKILL_TO_OBJECT_OK_1,				//  95
+		PACKET_GC_SKILL_TO_OBJECT_OK_2,				//  96
+		PACKET_GC_SKILL_TO_OBJECT_OK_3,				//  97
+		PACKET_GC_SKILL_TO_OBJECT_OK_4,				//  98
+		PACKET_GC_SKILL_TO_OBJECT_OK_5,				//  99
+		PACKET_GC_SKILL_TO_SELF_OK_1,				// 100
+		PACKET_GC_SKILL_TO_SELF_OK_2,				// 101
+		PACKET_GC_SKILL_TO_TILE_OK_1,				// 102
+		PACKET_GC_SKILL_TO_TILE_OK_2,				// 103
+		PACKET_GC_SKILL_TO_TILE_OK_3,				// 104
+		PACKET_GC_SKILL_TO_TILE_OK_4,				// 105
+		PACKET_GC_SKILL_TO_TILE_OK_5,				// 106
+		PACKET_GC_THROW_ITEM_OK_1,					// 107
+		PACKET_GC_THROW_ITEM_OK_2,					// 108
+		PACKET_GC_UPDATE_INFO,						// 109
+		PACKET_GL_INCOMING_CONNECTION_ERROR,		// 110
+		PACKET_GL_INCOMING_CONNECTION_OK,			// 111
+		PACKET_LC_CREATE_PC_ERROR,					// 112
+		PACKET_LC_CREATE_PC_OK,						// 113
+		PACKET_LC_DELETE_PC_ERROR,					// 114
+		PACKET_LC_DELETE_PC_OK,						// 115
+		PACKET_LC_LOGIN_ERROR,						// 116
+		PACKET_LC_LOGIN_OK,							// 117
+		PACKET_LC_PC_LIST,							// 118
+		PACKET_LC_QUERY_RESULT_PLAYER_ID,			// 119
+		PACKET_LC_RECONNECT,						// 120
+		PACKET_LC_REGISTER_PLAYER_ERROR,			// 121
+		PACKET_LC_REGISTER_PLAYER_OK,				// 122
+		PACKET_LC_SELECT_PC_ERROR,					// 123
+		PACKET_LG_INCOMING_CONNECTION,				// 124
+		PACKET_CG_BLOOD_DRAIN,						// 125
+		PACKET_GC_BLOOD_DRAIN_OK_1,					// 126
+		PACKET_GC_BLOOD_DRAIN_OK_2,					// 127
+		PACKET_GC_BLOOD_DRAIN_OK_3,					// 128
+		PACKET_GC_ADD_GEAR_TO_INVENTORY,			// 129
+		PACKET_GC_ADD_GEAR_TO_ZONE,					// 130
+		PACKET_UC_UPDATE_LIST,						// 131
+		PACKET_UC_UPDATE,							// 132
+		PACKET_GC_DROP_ITEM_TO_ZONE,				// 133 // 2000-10-4 added
+		PACKET_GC_MORPH_1,							// 134 // 2000-10-25 abcd
+		PACKET_GC_MORPH_SLAYER_2,					// 135
+		PACKET_GC_MORPH_VAMPIRE_2,					// 136
+		PACKET_GC_CREATE_ITEM,						// 137 // 2000-10-13 elca
+		PACKET_CG_NPC_ASK_ANSWER,					// 138 // 2000-10-13 excel96
+		PACKET_CG_SHOP_REQUEST_LIST,				// 139 // 2000-10-24 excel96
+		PACKET_CG_SHOP_REQUEST_BUY,					// 140 // 2000-10-28 excel96
+		PACKET_GC_SHOP_VERSION,						// 141
+		PACKET_GC_SHOP_LIST,						// 142
+		PACKET_GC_SHOP_BUY_OK,						// 143
+		PACKET_GC_SHOP_BUY_FAIL,					// 144
+		PACKET_GC_SHOP_SOLD,						// 145
+		PACKET_GC_KNOCKS_TARGET_BACK_OK_1,			// 146 // 2000-10-31 ABCD
+		PACKET_GC_KNOCKS_TARGET_BACK_OK_2,			// 147
+		PACKET_GC_KNOCKS_TARGET_BACK_OK_4,			// 148
+		PACKET_GC_KNOCKS_TARGET_BACK_OK_5,			// 149
+		PACKET_CG_SHOP_REQUEST_SELL,				// 150 // 2000-11-06 excel96
+		PACKET_GC_SHOP_SELL_FAIL,					// 151
+		PACKET_GC_SHOP_SELL_OK,						// 152
+		PACKET_GC_SHOP_BOUGHT,						// 153
+		PACKET_GC_REMOVE_EFFECT,					// 154 // 2000-11-07 ABCD
+		PACKET_GC_ADD_VAMPIRE_FROM_BURROWING,		// 155 // 2000-11-09 ABCd
+		PACKET_GC_ADD_MONSTER_FROM_BURROWING,		// 156
+		PACKET_GC_ADD_BURROWING_CREATURE,			// 157
+		PACKET_CG_UNBURROW,							// 158 // 2000-11-10 ABCD
+		PACKET_GC_UNBURROW_OK,						// 159
+		PACKET_GC_UNBURROW_FAIL,					// 160
+		PACKET_GC_ADD_EFFECT,						// 161 // 2000-11-14 ABCD
+		PACKET_CG_USE_BONUS_POINT,					// 162 // 2000-11-21 ABCD
+		PACKET_GC_USE_BONUS_POINT_FAIL,				// 163
+		PACKET_GC_USE_BONUS_POINT_OK,				// 164
+		PACKET_GC_SHOP_LIST_MYSTERIOUS,				// 165 // 2000-11-10 excel96
+		PACKET_GC_SHOP_MARKET_CONDITION,			// 166
+		PACKET_GC_TEACH_SKILL_INFO,					// 167 // 2000-11-14 excel96
+		PACKET_CG_DIAL_UP,							// 168 // 2000-11-21 Elca
+		PACKET_CG_PHONE_DISCONNECT,					// 169
+		PACKET_CG_PHONE_SAY,						// 170
+		PACKET_CG_WHISPER,							// 171
+		PACKET_GC_PHONE_CONNECTED,					// 172
+		PACKET_GC_RING,								// 173
+		PACKET_GC_PHONE_DISCONNECTED,				// 174
+		PACKET_GC_PHONE_CONNECTION_FAILED,			// 175
+		PACKET_GC_PHONE_SAY,						// 176
+		PACKET_GC_WHISPER,							// 177
+		PACKET_GC_WHISPER_FAILED,					// 178
+		PACKET_CG_PICKUP_MONEY,						// 179 // 2000-12-01 excel96
+		PACKET_CG_DROP_MONEY,						// 180
+		PACKET_GC_SKILL_INFO,						// 181 // 2000-12-02 elca
+		PACKET_GC_ADD_EFFECT_TO_TILE,				// 182 // 2000-12-05 ABCD
+		PACKET_GC_SEARCH_MOTORCYCLE_OK,				// 183 // 2000-12-08 excel96
+		PACKET_GC_SEARCH_MOTORCYCLE_FAIL,			// 184
+		PACKET_GC_STATUS_CURRENT_HP,				// 185 // 2000-12-09 elca
+		PACKET_CL_VERSION_CHECK,					// 186 // 2000-12-10 elca
+		PACKET_LC_VERSION_CHECK_OK,					// 187
+		PACKET_LC_VERSION_CHECK_ERROR,				// 188
+		PACKET_GC_REAL_WEARING_INFO,				// 189 // 2000-12-11 excel96
+		PACKET_GC_REMOVE_FROM_GEAR,					// 190 // 2000-12-11 ABCD
+		PACKET_CG_REQUEST_REPAIR,					// 191 // 2000-12-13 excel96
+		PACKET_GC_THROW_ITEM_OK_3,					// 192 // 2000-12-14 elca
+		PACKET_CG_SET_SLAYER_HOT_KEY,				// 193 // 2000-12-14 elca
+		PACKET_GC_SKILL_TO_SELF_OK_3,				// 194 // 2000-12-16 ABCd
+		PACKET_GC_SKILL_TO_TILE_OK_6,				// 195
+		PACKET_GC_SKILL_TO_OBJECT_OK_6,				// 196
+		PACKET_GC_DELETE_EFFECT_FROM_TILE,			// 197 // 2000-12-17 ABCD
+		PACKET_CG_MOUSE_TO_STASH,					// 198 // 2001-01-08 excel96
+		PACKET_CG_STASH_TO_MOUSE,					// 199
+		PACKET_CG_STASH_LIST,						// 200
+		PACKET_GC_STASH_LIST,						// 201
+		PACKET_CG_STASH_DEPOSIT,					// 202
+		PACKET_CG_STASH_WITHDRAW,					// 203
+		PACKET_CG_STASH_REQUEST_BUY,				// 204 // 2001-01-17 excel96
+		PACKET_GC_STASH_SELL,						// 205
+		PACKET_GC_KNOCK_BACK,						// 206 // 2001-01-31 ABCD
+		PACKET_CG_TRADE_PREPARE,					// 207 // 2001-02-16 excel96
+		PACKET_CG_TRADE_ADD_ITEM,					// 208
+		PACKET_CG_TRADE_REMOVE_ITEM,				// 209
+		PACKET_CG_TRADE_MONEY,						// 210
+		PACKET_CG_TRADE_FINISH,						// 211
+		PACKET_GC_TRADE_PREPARE,					// 212
+		PACKET_GC_TRADE_ADD_ITEM,					// 213
+		PACKET_GC_TRADE_REMOVE_ITEM,				// 214
+		PACKET_GC_TRADE_MONEY,						// 215
+		PACKET_GC_TRADE_FINISH,						// 216
+		PACKET_GC_TRADE_ERROR,						// 217
+		PACKET_GC_TRADE_VERIFY,						// 218
+		PACKET_CG_SKILL_TO_OBJECT,					// 219 // 2001-03-14 excel96 (실수로 지운 파일 복구)
+		PACKET_CG_SKILL_TO_SELF,					// 220
+		PACKET_CG_SKILL_TO_TILE,					// 221
+		PACKET_GC_ADD_WOLF,							// 222 // ABCD 2001-04-04
+		PACKET_GC_ADD_BAT,							// 223
+		PACKET_GC_ADD_MONSTER_FROM_TRANSFORMATION,	// 224
+		PACKET_GC_ADD_VAMPIRE_FROM_TRANSFORMATION,	// 225
+		PACKET_GC_CROSS_COUNTER_OK_1,				// 226
+		PACKET_GC_CROSS_COUNTER_OK_2,				// 227
+		PACKET_GC_CROSS_COUNTER_OK_3,				// 228
+		PACKET_GC_FAST_MOVE,						// 229
+		PACKET_CG_UNTRANSFORM,						// 230
+		PACKET_GC_UNTRANSFORM_OK,					// 231
+		PACKET_GC_UNTRANSFORM_FAIL,					// 232
+		PACKET_CG_VISIBLE,							// 233
+		PACKET_GC_VISIBLE_OK,						// 234
+		PACKET_GC_VISIBLE_FAIL,						// 235
+		PACKET_GC_MAKE_ITEM_OK,						// 236
+		PACKET_GC_MAKE_ITEM_FAIL,					// 237
+		PACKET_GC_DELETE_INVENTORY_ITEM,			// 238
+		PACKET_GC_ADD_INSTALLED_MINE_TO_ZONE,		// 239
+		PACKET_CG_THROW_BOMB,						// 240
+		PACKET_GC_THROW_BOMB_OK_1,					// 241
+		PACKET_GC_THROW_BOMB_OK_2,					// 242
+		PACKET_GC_THROW_BOMB_OK_3,					// 243
+		PACKET_GC_MINE_EXPLOSION_OK_1,				// 244
+		PACKET_GC_MINE_EXPLOSION_OK_2,				// 245
+		PACKET_CG_MAKE_ITEM,						// 246
+		PACKET_CL_GET_SERVER_LIST,					// 247
+		PACKET_LC_SERVER_LIST,						// 248
+		PACKET_CL_CHANGE_SERVER,					// 249
+		PACKET_CL_RECONNECT_LOGIN,					// 250
+		PACKET_GC_RECONNECT_LOGIN,					// 251
+		PACKET_GL_INCOMING_CONNECTION,				// 252
+		PACKET_LG_INCOMING_CONNECTION_OK,			// 253
+		PACKET_LG_INCOMING_CONNECTION_ERROR,		// 254
+		PACKET_GC_HP_RECOVERY_START_TO_SELF,		// 255
+		PACKET_GC_HP_RECOVERY_START_TO_OTHERS,		// 256
+		PACKET_GC_HP_RECOVERY_END_TO_SELF,			// 257
+		PACKET_GC_HP_RECOVERY_END_TO_OTHERS,		// 258
+		PACKET_GC_MP_RECOVERY_START,				// 259
+		PACKET_GC_MP_RECOVERY_END,					// 260
+		PACKET_CG_SILVER_COATING,					// 261
+		PACKET_GC_NPC_RESPONSE,						// 262
+		PACKET_CG_SELECT_PORTAL,					// 263
+		PACKET_CG_REQUEST_NEWBIE_ITEM,				// 264
+		PACKET_GC_REMOVE_CORPSE_HEAD,				// 265
+		PACKET_GC_NPC_ASK_DYNAMIC,					// 266
+		PACKET_GC_NPC_SAY_DYNAMIC,					// 267
+		PACKET_CG_SET_VAMPIRE_HOT_KEY,				// 268 // 2000-12-14 elca
+		PACKET_CG_USE_ITEM_FROM_INVENTORY,			// 269 
+		PACKET_CG_SELECT_WAYPOINT,					// 270
+		PACKET_GC_ADD_HELICOPTER,					// 271
+		PACKET_GC_ADD_VAMPIRE_PORTAL,				// 272
+		PACKET_CG_VERIFY_TIME,						// 273
+		PACKET_GC_ENTER_VAMPIRE_PORTAL,				// 274
+		PACKET_CG_SELECT_TILE_EFFECT,				// 275
+		PACKET_CG_PARTY_INVITE,						// 276
+		PACKET_CG_PARTY_LEAVE,						// 277
+		PACKET_GC_PARTY_INVITE,						// 278
+		PACKET_GC_PARTY_LEAVE,						// 279
+		PACKET_GC_PARTY_JOINED,						// 280
+		PACKET_GC_PARTY_ERROR,						// 281
+		PACKET_CG_RESURRECT,						// 282
+		PACKET_CG_REQUEST_IP,						// 283
+		PACKET_GC_REQUESTED_IP,						// 284
+		PACKET_CR_CONNECT,							// 285
+		PACKET_RC_CONNECT_VERIFY,					// 286
+		PACKET_CR_REQUEST,							// 287
+		PACKET_RC_POSITION_INFO,					// 288
+		PACKET_CR_DISCONNECT,						// 289
+		PACKET_RC_SAY,								// 290
+		PACKET_RC_STATUS_HP,						// 291
+		PACKET_CR_WHISPER,							// 292
+		PACKET_RC_REQUEST_VERIFY,					// 293
+		PACKET_GC_REQUEST_FAILED,					// 294
+		PACKET_RC_REQUESTED_FILE,					// 295
+		PACKET_GC_ADD_INJURIOUS_CREATURE,			// 296
+		PACKET_GC_REMOVE_INJURIOUS_CREATURE,		// 297
+		PACKET_GC_OTHER_MODIFY_INFO,				// 298
+		PACKET_GM_SERVER_INFO,						// 299
+		PACKET_CL_GET_WORLD_LIST,					// 300
+		PACKET_LC_WORLD_LIST,						// 301
+		PACKET_CL_SELECT_WORLD,						// 302
+		PACKET_CL_SELECT_SERVER,					// 303
+		PACKET_CL_QUERY_CHARACTER_NAME,				// 304
+		PACKET_LC_QUERY_RESULT_CHARACTER_NAME,		// 305
+		PACKET_RC_CHARACTER_INFO,					// 306
+		PACKET_LG_KICK_CHARACTER,					// 307
+		PACKET_GL_KICK_VERIFY,						// 308
+		PACKET_GS_ADD_GUILD,						// 309
+		PACKET_SG_ADD_GUILD_OK,						// 310
+		PACKET_GC_SHOW_GUILD_REGIST,				// 311
+		PACKET_CG_REGIST_GUILD,						// 312
+		PACKET_GC_WAIT_GUILD_LIST,					// 313
+		PACKET_GC_SHOW_GUILD_INFO,					// 314
+		PACKET_CG_SELECT_GUILD,						// 315
+		PACKET_CG_TRY_JOIN_GUILD,					// 316
+		PACKET_GC_SHOW_GUILD_JOIN,					// 317
+		PACKET_CG_JOIN_GUILD,						// 318
+		PACKET_GS_ADD_GUILD_MEMBER,					// 319
+		PACKET_SG_ADD_GUILD_MEMBER_OK,				// 320
+		PACKET_GC_SHOW_MESSAGE_BOX,					// 321
+		PACKET_GC_MODIFY_MONEY,						// 322
+		PACKET_GC_SHOW_WAIT_GUILD_INFO,				// 323
+		PACKET_GC_ACTIVE_GUILD_LIST,				// 324
+		PACKET_CG_QUIT_GUILD,						// 325
+		PACKET_GS_QUIT_GUILD,						// 326
+		PACKET_SG_QUIT_GUILD_OK,					// 327
+		PACKET_CG_REQUEST_GUILD_MEMBER_LIST,		// 328
+		PACKET_GC_GUILD_MEMBER_LIST,				// 329
+		PACKET_CG_SELECT_GUILD_MEMBER,				// 330
+		PACKET_GC_SHOW_GUILD_MEMBER_INFO,			// 331
+		PACKET_CG_EXPEL_GUILD_MEMBER,				// 332
+		PACKET_GS_EXPEL_GUILD_MEMBER,				// 333
+		PACKET_SG_EXPEL_GUILD_MEMBER_OK,			// 334
+		PACKET_CG_MODIFY_GUILD_MEMBER,				// 335
+		PACKET_GS_MODIFY_GUILD_MEMBER,				// 336
+		PACKET_SG_MODIFY_GUILD_MEMBER_OK,			// 337
+		PACKET_SG_DELETE_GUILD_OK,					// 338
+		PACKET_SG_MODIFY_GUILD_OK,					// 339
+		PACKET_GC_MODIFY_GUILD_MEMBER_INFO,			// 340
+		PACKET_GG_COMMAND,							// 341
+		PACKET_CG_RELIC_TO_OBJECT,					// 342
+		PACKET_LC_PORT_CHECK,						// 343
+		PACKET_CG_PORT_CHECK,						// 344
+		PACKET_CG_GUILD_CHAT,						// 345
+		PACKET_GC_GUILD_CHAT,						// 346
+		PACKET_GG_GUILD_CHAT,						// 347
+		PACKET_CG_COMMAND_MONSTER,					// 348
+		PACKET_CG_ADD_ITEM_TO_ITEM,					// 349
+		PACKET_GC_ADD_ITEM_TO_ITEM_VERIFY,			// 350
+		PACKET_GS_REQUEST_GUILD_INFO,				// 351
+		PACKET_SG_GUILD_INFO,						// 352
+		PACKET_CG_REQUEST_INFO,						// 353
+		PACKET_GC_NOTICE_EVENT,						// 354
+		PACKET_GC_FAKE_MOVE,						// 355
+		PACKET_CG_MODIFY_GUILD_INTRO,				// 356
+		PACKET_GS_MODIFY_GUILD_INTRO,				// 357
+		PACKET_SG_MODIFY_GUILD_INTRO_OK,			// 358
+		PACKET_CG_MODIFY_GUILDMEMBER_INTRO,			// 359
+		PACKET_CG_SKILL_TO_NAMED,					// 360
+		PACKET_GS_GUILDMEMBER_LOGON,				// 361
+		PACKET_SG_GUILDMEMBER_LOGON_OK,				// 362
+		PACKET_CG_SELECT_RANK_BONUS,				// 363
+		PACKET_GC_SELECT_RANK_BONUS_OK,				// 364
+		PACKET_GC_SELECT_RANK_BONUS_FAILED,			// 365
+		PACKET_GC_RANK_BONUS_INFO,					// 366
+		PACKET_COMMON_BILLING,						// 367
+		PACKET_CG_USE_MESSAGE_ITEM_FROM_INVENTORY,	// 368
+		PACKET_CG_WITHDRAW_TAX,						// 369
+		PACKET_GC_NPC_INFO,							// 370
+		PACKET_GC_NPC_ASK_VARIABLE,					// 371
+		PACKET_GC_WAR_SCHEDULE_LIST,				// 372
+		PACKET_GC_WAR_LIST,							// 373
+		PACKET_GC_HOLY_LAND_BONUS_INFO,				// 374
+		PACKET_GC_BLOOD_BIBLE_STATUS,				// 375
+		PACKET_CG_TYPE_STRING_LIST,					// 376
+		PACKET_CG_USE_ITEM_FROM_GEAR,				// 377
+		PACKET_GC_KICK_MESSAGE,						// 378
+		PACKET_GC_TIME_LIMIT_ITEM_INFO,				// 379
+		PACKET_GC_SELECT_QUEST_ID,					// 380
+		PACKET_CG_SELECT_QUEST,						// 381
+		PACKET_GC_QUEST_STATUS,		// 382
+		PACKET_GC_MONSTER_KILL_QUEST_INFO,			// 383
+		PACKET_CG_LOTTERY_SELECT,					// 384
+		PACKET_GC_NOTIFY_WIN,						// 385
+		PACKET_GC_GOODS_LIST,						// 386
+		PACKET_CG_TAKE_OUT_GOOD,					// 387
+		PACKET_GC_TAKE_OUT_OK,						// 388
+		PACKET_GC_TAKE_OUT_FAIL,					// 389
+		PACKET_GC_ADD_OUSTERS,						// 390
+
+		PACKET_CG_MIX_ITEM,							// 391
+		PACKET_GC_ADD_OUSTERS_CORPSE,				// 392
+		PACKET_CG_ABSORB_SOUL,						// 393
+
+		PACKET_CG_DOWN_SKILL,						// 394
+		PACKET_GC_DOWN_SKILL_OK,					// 395
+		PACKET_GC_DOWN_SKILL_FAILED,				// 396
+
+		PACKET_GC_MINI_GAME_SCORES,					// 397
+		PACKET_CG_SUBMIT_SCORE,						// 398
+
+		PACKET_CG_FAIL_QUEST,						// 399
+		PACKET_CG_ADD_ITEM_TO_CODE_SHEET,			// 400
+
+		PACKET_GC_FLAG_WAR_STATUS,					// 401
+		PACKET_GC_OTHER_GUILD_NAME,					// 402
+
+        PACKET_GC_SYSTEM_AVAILABILITIES,            // 403
+		PACKET_GTO_ACKNOWLEDGEMENT,                 // 404
+
+		PACKET_GC_SWEEPER_BONUS_INFO,				// 405
+		PACKET_CG_SELECT_REGEN_ZONE,				// 406
+
+		PACKET_GC_REGEN_ZONE_STATUS,				// 407
+		PACKET_GC_PET_INFO,							// 408
+
+		PACKET_CG_TAME_MONSTER,						// 409
+		PACKET_CG_PET_GAMBLE,						// 410
+
+		PACKET_CG_CRASH_REPORT,						// 411
+		PACKET_GC_PET_USE_SKILL,					// 412
+
+		PACKET_CG_PARTY_POSITION,					// 413
+		PACKET_GC_PARTY_POSITION,					// 414
+
+		PACKET_CG_PARTY_SAY,						// 415
+		PACKET_GC_PARTY_SAY,						// 416
+
+		PACKET_GG_SERVER_CHAT,						// 417
+
+		PACKET_GC_PET_STASH_LIST,					// 418	// 펫 보관함에 들어있는 list
+		PACKET_CG_WITHDRAW_PET,						// 419	// 클라이언트가 pet을 찾고자 하는 메세지 (찾을때 보관료를 낸다)
+		PACKET_CG_DEPOSIT_PET,						// 420	// 클라이언트가 pet을 맡기고자 하는 메세지 
+
+		PACKET_GC_PET_STASH_VERIFY,					// 421	// 펫 보관함 관련 인증 패킷
+
+		PACKET_CG_SMS_ADDRESS_LIST,                 // 422  // Player가 GameSvr에 리스트를 요청
+        PACKET_GC_SMS_ADDRESS_LIST,                 // 423  // GameSvr가 Player에 리스트를 전달
+
+     	PACKET_CG_ADD_SMS_ADDRESS,                  // 424
+        PACKET_CG_DELETE_SMS_ADDRESS,               // 425
+
+        PACKET_GC_ADDRESS_LIST_VERIFY,              // 426
+
+        PACKET_CG_SMS_SEND,                         // 427  // Player가 GameSvr에 SMS메세시 전송의뢰
+
+		PACKET_GC_NICKNAME_LIST,                    // 428  // 닉네임 목록
+        PACKET_GC_ADD_NICKNAME,                     // 429  // 닉네임이 추가되었음
+
+        PACKET_CG_MODIFY_NICKNAME,                  // 430  // 닉네임 변경
+        PACKET_CG_SELECT_NICKNAME,                  // 431  // 닉네임 선택
+
+        PACKET_GC_NICKNAME_VERIFY,                  // 432  // 닉네임 변경/선택시 검증 패킷
+        PACKET_GC_MODIFY_NICKNAME,                  // 433  // 누군가의 닉네임이 변경되었음
+		
+		PACKET_GC_GQUEST_STATUS_INFO,				// 434	// 현재 관계있는 General Quest목록.
+		PACKET_GC_GQUEST_STATUS_MODIFY,				// 435	// Quest 상태가 바뀌었을때 보내주는 패킷
+
+		PACKET_CG_GQUEST_ACCEPT,					// 436	// 퀘스트 수락 / 재수행
+		PACKET_CG_GQUEST_CANCEL,					// 437	// 퀘스트 포기
+
+		PACKET_GC_EXECUTE_ELEMENT,					// 438	// 스크립트 / 메시지 표시
+		PACKET_GC_GQUEST_INVENTORY,					// 439	// 퀘스트 인벤토리 목록
+	
+		PACKET_CU_REQUEST_LOGIN_MODE,				// 440	// 로긴 모드 요청
+		PACKET_UC_REQUEST_LOGIN_MODE,				// 441	// 퀘스트 인벤토리 목록
+	
+		PACKET_GC_AUTH_KEY,                         // 442  // nprotect CSAuth 키
+        PACKET_CG_AUTH_KEY,                         // 443  // nprotect CSAuth 키
+
+		PACKET_CG_USE_ITEM_FROM_GQUEST_INVENTORY,   // 444  // 퀘스트 인벤토리에서 아이템 사용
+		
+		PACKET_GC_GUILD_RESPONSE,                   // 445
+        PACKET_CG_REQUEST_GUILD_LIST,               // 446  길드 목록 요청 - 대기길드인지 일반길드인지는 파라미터로 구분
+        PACKET_CG_APPOINT_SUBMASTER,                // 447  서브길드마스터 임명
+        PACKET_CG_REQUEST_UNION,                    // 448	길드 연합 신청
+        PACKET_CG_ACCEPT_UNION,                     // 449  길드 연합 신청 수락
+        PACKET_CG_DENY_UNION,                       // 450  길드 연합 신청 거절
+        PACKET_CG_REQUEST_UNION_INFO,               // 451  길드 연합 정보 요청
+        PACKET_CG_EXPEL_GUILD,                      // 452  연합에서 길드 추방
+        PACKET_CG_QUIT_UNION,                       // 453  연합에서 탈퇴
+        PACKET_CG_QUIT_UNION_ACCEPT,                // 454  연합에서 탈퇴 요청 수락
+        PACKET_CG_QUIT_UNION_DENY,                  // 455  연합에서 탈퇴 요청 거부
+        PACKET_GC_SHOW_UNION_INFO,                  // 456  연합 정보 보여주기
+		PACKET_GC_UNION_OFFER_LIST,					// 457	// 연합 가입/탈퇴/도망신청 목록
+		PACKET_GS_GUILD_ACTION,                     // 458
+        PACKET_SG_GUILD_RESPONSE,                   // 459
+
+		PACKET_GC_BLOOD_BIBLE_LIST,					// 460
+		PACKET_CG_SELECT_BLOOD_BIBLE,				// 461
+
+		PACKET_GC_BLOOD_BIBLE_SIGN_INFO,			// 462
+
+		PACKET_CG_RANGER_SAY,						// 463
+		PACKET_CG_MODIFY_TAX_RATIO,					// 464
+
+		PACKET_CG_DISPLAY_ITEM,                     // 465  개인상점에 아이템 진열
+        PACKET_CG_UNDISPLAY_ITEM,                   // 466  진열된 아이템 내리기
+        PACKET_CG_STORE_SIGN,                       // 467  개인상점 간판 문자열
+        PACKET_CG_STORE_OPEN,                       // 468  개인상점 오픈
+        PACKET_CG_STORE_CLOSE,                      // 469  개인상점 닫기
+        PACKET_CG_REQUEST_STORE_INFO,               // 470  현재 상점 정보 요청
+
+        PACKET_GC_MY_STORE_INFO,                    // 471  자기 개인상점 정보 보내주기
+        PACKET_GC_OTHER_STORE_INFO,                 // 472  다른사람 개인상점 정보 보내주기
+
+        PACKET_CG_BUY_STORE_ITEM,                   // 473  다른 사람 상점에서 아이템 구입하기
+        PACKET_GC_REMOVE_STORE_ITEM,                // 474  상점에서 아이템이 제거됨
+        PACKET_GC_ADD_STORE_ITEM,                   // 475  상점에 아이템이 추가됨
+
+        PACKET_CG_REQUEST_POWER_POINT,              // 476  파워포인트 요청
+        PACKET_GC_REQUEST_POWER_POINT_RESULT,       // 477  파워포인트 요청 결과
+        PACKET_CG_USE_POWER_POINT,                  // 478  파워포인트 사용
+        PACKET_GC_USE_POWER_POINT_RESULT,           // 479  파워포인트 사용 결과
+		
+		PACKET_CG_DONATION_MONEY,                 // 480  기부 이벤트용
+		PACKET_CG_GET_EVENT_ITEM,				  // 481  이벤트 아이템 받기 패킷
+		
+		PACKET_GC_SUB_INVENTORY_INFO,				// 482  인벤토리 아이템 내용물 보내기
+		
+        PACKET_MAX
+	};
+
+public :
+	
+	// destructor
+	virtual ~Packet () throw () {}
+
+	// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+	virtual void read (SocketInputStream & iStream) throw (ProtocolException, Error) = 0;
+
+	// 소켓으로부터 직접 데이터를 읽어서 패킷을 초기화한다.
+	virtual void read (Socket* pSocket) throw (ProtocolException, Error) { throw UnsupportedError(); }	
+
+	// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+	virtual void write (SocketOutputStream & oStream) const throw (ProtocolException, Error) = 0;
+
+	// 소켓으로 직접 패킷의 바이너리 이미지를 보낸다.
+	virtual void write (Socket* pSocket) const throw (ProtocolException, Error) { throw UnsupportedError(); }	
+
+	// 출력 스트림에 패킷의 헤더와 바디를 모두 쓴다.
+	void writeHeaderNBody (SocketOutputStream& oStream ) const
+	{
+		oStream.write( getPacketID() );
+		oStream.write( getPacketSize() );
+		if ( getPacketSize() != 0 )
+			write( oStream );
+	}
+	
+	// execute packet's handler
+	virtual void execute (Player* pPlayer) throw (ProtocolException, Error) = 0;
+	
+	// get packet's PacketID	
+	virtual PacketID_t getPacketID () const throw () = 0;
+
+	// get packet's size
+	virtual PacketSize_t getPacketSize () const throw () = 0;
+
+	#if !defined(__GAME_CLIENT__) || defined(__DEBUG_OUTPUT__)
+		// get packet's name
+		virtual string getPacketName () const throw () = 0;
+		
+		// get packet's debug string
+		virtual string toString () const throw () = 0;
+	#endif
+	
+};
+
+#endif
