@@ -8,12 +8,12 @@ CFG=DirectXLib - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
-!MESSAGE NMAKE /f "DirectXLib.mak".
+!MESSAGE NMAKE /f "DXLib.mak".
 !MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "DirectXLib.mak" CFG="DirectXLib - Win32 Debug"
+!MESSAGE NMAKE /f "DXLib.mak" CFG="DirectXLib - Win32 Debug"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
@@ -41,7 +41,8 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O1 /I "..\\" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "__TEST_SUB_INVENTORY__" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O1 /I "..\\" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "__TEST_SUB_INVENTORY__" /FD /c
+# SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x412 /d "NDEBUG"
 # ADD RSC /l 0x412 /d "NDEBUG"
 BSC32=bscmake.exe

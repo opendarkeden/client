@@ -44,7 +44,8 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GR /GX /Zi /O1 /Ob2 /I "..\client" /I "DXLib" /I "SpriteLib" /I "FrameLib" /I "D3DLib" /I "VolumeLib" /I "Packet" /I "WinLib" /I "Updater" /I "MZLib" /I "sxml" /I "..\vs_ui\src\hangul" /I "..\vs_ui\src\header" /I "..\vs_ui\src\Imm" /I "..\vs_ui\src\widget" /I "..\xerces\include" /I "..\VS_UI" /I "..\basic" /D "__DEBUG_OUTPUT__" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS__" /D "__GAME_CLIENT__" /D "__WIN32__" /D "__NEW_SKILL__" /D "__TEST_SUB_INVENTORY__" /FAcs /Fr /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GR /GX /O1 /Ob2 /I "..\client" /I "DXLib" /I "SpriteLib" /I "FrameLib" /I "D3DLib" /I "VolumeLib" /I "Packet" /I "WinLib" /I "Updater" /I "MZLib" /I "sxml" /I "..\vs_ui\src\hangul" /I "..\vs_ui\src\header" /I "..\vs_ui\src\Imm" /I "..\vs_ui\src\widget" /I "..\xerces\include" /I "..\VS_UI" /I "..\basic" /D "__DEBUG_OUTPUT__" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "__WINDOWS__" /D "__GAME_CLIENT__" /D "__WIN32__" /D "__NEW_SKILL__" /D "__TEST_SUB_INVENTORY__" /FAcs /Fr /FD /c
+# SUBTRACT CPP /Z<none> /YX
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x412 /d "NDEBUG"

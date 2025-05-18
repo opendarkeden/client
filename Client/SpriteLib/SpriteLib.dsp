@@ -1,4 +1,4 @@
-# Microsoft Developer Studio Project File - Name="Sprite Library" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="SpriteLib" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
@@ -41,8 +41,8 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /Zi /O1 /Ob2 /I "..\dxlib" /I ".." /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "__TEST_SUB_INVENTORY__" /FD /c
-# SUBTRACT CPP /YX /Yc /Yu
+# ADD CPP /nologo /MT /W3 /GX /O1 /Ob2 /I "..\dxlib" /I ".." /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "__TEST_SUB_INVENTORY__" /FD /c
+# SUBTRACT CPP /Z<none> /YX /Yc /Yu
 # ADD BASE RSC /l 0x412 /d "NDEBUG"
 # ADD RSC /l 0x412 /d "NDEBUG"
 BSC32=bscmake.exe
