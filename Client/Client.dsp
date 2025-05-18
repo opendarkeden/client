@@ -54,7 +54,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
-# ADD LINK32 oleaut32.lib jpegLib\jpeg.lib ..\VS_UI\Release\Rar.lib DEUtil\release\DEUtil.lib WinLib\Release\WinLib.lib VolumeLib\Release\Volume.lib D3DLib\Release\DX3D.lib ..\VS_UI\Release\VS_UI.lib DXLib\Release\DX.lib SpriteLib\Release\SP.lib framelib\Release\FR.lib IFC22.lib MZLib\Release\ZLib.lib imm32.lib GL.lib Timer.lib PS.lib BasicS.lib rbt.lib Libcmt.lib Libcimt.lib Libcpmt.lib Oldnames.lib DSetup.lib DDraw.lib DInput.lib DSound.lib DXGUID.lib WinMM.lib WSock32.lib user32.lib gdi32.lib advapi32.lib uuid.lib shell32.lib kernel32.lib Comctl32.lib ole32.lib netapi32.lib /nologo /subsystem:windows /map /machine:I386 /nodefaultlib /out:"..\DARKEDEN\fengshen.exe" /libpath:"..\lib" /libpath:"..\xerces\lib"
+# ADD LINK32 oleaut32.lib jpegLib\jpeg.lib ..\VS_UI\Release\Rar.lib DEUtil\release\DEUtil.lib WinLib\Release\WinLib.lib VolumeLib\Release\Volume.lib D3DLib\Release\DX3D.lib ..\VS_UI\Release\VS_UI.lib DXLib\Release\DX.lib SpriteLib\Release\SP.lib framelib\Release\FR.lib IFC22.lib MZLib\Release\ZLib.lib imm32.lib GL.lib Timer.lib PS.lib BasicS.lib Libcmt.lib Libcimt.lib Libcpmt.lib Oldnames.lib DSetup.lib DDraw.lib DInput.lib DSound.lib DXGUID.lib WinMM.lib WSock32.lib user32.lib gdi32.lib advapi32.lib uuid.lib shell32.lib kernel32.lib Comctl32.lib ole32.lib netapi32.lib /nologo /subsystem:windows /map /machine:I386 /nodefaultlib /out:"..\DARKEDEN\fengshen.exe" /libpath:"..\lib" /libpath:"..\xerces\lib"
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "Client - Win32 Debug"
