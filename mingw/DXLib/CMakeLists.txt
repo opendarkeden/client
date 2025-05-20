@@ -1,1 +1,0 @@
-add_library(DXLib CDirectDraw.cpp  CDirectDrawSurface.cpp  CDirectInput.cpp  CDirectMusic.cpp  CDirectSetupGetVersion.cpp  CDirectSound.cpp  CDirectSoundStream.cpp  header.cpp  huffman.cpp  mp3.cpp  reader.cpp  soundbuf.cpp  subdecoder.cpp  synfilt.cpp)
