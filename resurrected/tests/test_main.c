@@ -39,6 +39,7 @@ extern void test_color_conversion(void);
 extern void test_sdl_framework(void);
 extern void test_sprite_parsing(void);
 extern void test_spritepack_parsing(void);
+extern void test_animation_frame(void);
 
 int main(void) {
     printf("=== SDL Sprite Viewer Tests ===\n\n");
@@ -54,6 +55,9 @@ int main(void) {
 
     printf("\nSpritePack Parsing Tests:\n");
     test_spritepack_parsing();
+
+    printf("\nAnimation Frame Tests:\n");
+    test_animation_frame();
 
     printf("\n=== Test Summary ===\n");
     printf("Total: %d, Passed: %d, Failed: %d\n", 
