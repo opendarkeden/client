@@ -42,6 +42,13 @@ set(LIB_SOURCES
     lib/sdl_framework.c
     lib/str.c
     lib/animation.c
+    lib/frame.cpp
+    lib/framepack.cpp
+    lib/colorset.c
+    lib/index_sprite.c
+    lib/index_spritepack.c
+    lib/shadow_sprite.c
+    lib/shadow_spritepack.c
 )
 
 set(LIB_HEADERS
@@ -54,6 +61,14 @@ set(LIB_HEADERS
     lib/vector.h
     lib/types.h
     lib/animation.h
+    lib/tarray.h
+    lib/frame.h
+    lib/framepack.h
+    lib/colorset.h
+    lib/index_sprite.h
+    lib/index_spritepack.h
+    lib/shadow_sprite.h
+    lib/shadow_spritepack.h
 )
 
 # Create static library (Requirement 1.3)
@@ -130,6 +145,30 @@ if(WIN32 AND TARGET SDL2::SDL2main)
 endif()
 
 # =============================================================================
+# Tool: Creature Viewer
+# Requirements: 5.1-5.10
+# =============================================================================
+
+set(CREATURE_VIEWER_SOURCES
+    tools/creature_viewer/main.cpp
+)
+
+add_executable(SDLCreatureViewer ${CREATURE_VIEWER_SOURCES})
+
+# Include directories for creature viewer
+target_include_directories(SDLCreatureViewer PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib
+)
+
+# Link against shared library
+target_link_libraries(SDLCreatureViewer PRIVATE darkeden)
+
+# Add SDL2main on Windows
+if(WIN32 AND TARGET SDL2::SDL2main)
+    target_link_libraries(SDLCreatureViewer PRIVATE SDL2::SDL2main)
+endif()
+
+# =============================================================================
 # Testing
 # =============================================================================
 
@@ -143,6 +182,10 @@ set(TEST_SOURCES
     tests/test_sprite.c
     tests/test_spritepack.c
     tests/test_animation.c
+    tests/test_frame.cpp
+    tests/test_framepack.cpp
+    tests/test_index_sprite.c
+    tests/test_shadow_sprite.c
 )
 
 add_executable(test_runner ${TEST_SOURCES})
@@ -161,7 +204,7 @@ add_test(NAME unit_tests COMMAND test_runner)
 # Installation rules
 # =============================================================================
 
-install(TARGETS SDLSpriteViewer SDLAnimationViewer
+install(TARGETS SDLSpriteViewer SDLAnimationViewer SDLCreatureViewer
     RUNTIME DESTINATION bin
 )
 

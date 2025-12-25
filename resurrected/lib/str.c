@@ -4,8 +4,8 @@
 #include <string.h>
 
 struct _strBuf {
-	int cap;
-	int len;
+	unsigned int cap;
+	unsigned int len;
 	char data[];
 };
 
@@ -40,9 +40,9 @@ strLen(str s) {
 int
 strStr(str haystack, str needle) {
 	// TODO: Use Boyer Moore Algorithm maybe?
-	int pos = 0;
+	unsigned int pos = 0;
 	while (pos + needle.len <= haystack.len) {
-		int i;
+		unsigned int i;
 		for (i = 0; i < needle.len; i++) {
 			if (pos + i >= haystack.len) {
 				return -1;
@@ -61,7 +61,7 @@ strStr(str haystack, str needle) {
 
 int
 strChr(str s, char c) {
-	int pos = 0;
+	unsigned int pos = 0;
 	for (int i = pos; i < strLen(s); i++) {
 		if (s.str[i] == c) {
 			return i;
@@ -84,7 +84,7 @@ strRchr(str s, char c) {
 
 int
 strCmp(str s1, str s2) {
-	for (int i = 0; i < s1.len && i < s2.len; i++) {
+	for (unsigned int i = 0; i < s1.len && i < s2.len; i++) {
 		if (s1.str[i] > s2.str[i]) {
 			return 1;
 		}

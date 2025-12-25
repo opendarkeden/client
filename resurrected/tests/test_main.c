@@ -40,6 +40,10 @@ extern void test_sdl_framework(void);
 extern void test_sprite_parsing(void);
 extern void test_spritepack_parsing(void);
 extern void test_animation_frame(void);
+extern void test_frame_and_tarray(void);
+extern void test_framepack(void);
+extern void test_index_sprite(void);
+extern void test_shadow_sprite(void);
 
 int main(void) {
     printf("=== SDL Sprite Viewer Tests ===\n\n");
@@ -58,6 +62,18 @@ int main(void) {
 
     printf("\nAnimation Frame Tests:\n");
     test_animation_frame();
+
+    printf("\nTArray and CFrame Tests:\n");
+    test_frame_and_tarray();
+
+    printf("\nFramePack Tests:\n");
+    test_framepack();
+
+    printf("\nIndexedSprite Tests:\n");
+    test_index_sprite();
+
+    printf("\nShadowSprite Tests:\n");
+    test_shadow_sprite();
 
     printf("\n=== Test Summary ===\n");
     printf("Total: %d, Passed: %d, Failed: %d\n", 
