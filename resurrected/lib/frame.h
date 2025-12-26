@@ -1,12 +1,12 @@
 /**
  * @file frame.h
- * @brief CFrame class compatible with original Dark Eden framelib
+ * @brief Frame structures for animation data (Pure C implementation)
  * 
  * Requirements: 3.4, 3.5
  * 
- * CFrame stores a single animation frame's data:
- * - SpriteID: Index into SpritePack
- * - cX, cY: Coordinate offsets for rendering
+ * Frame stores a single animation frame's data:
+ * - sprite_id: Index into SpritePack
+ * - cx, cy: Coordinate offsets for rendering
  */
 
 #ifndef FRAME_H
@@ -14,14 +14,14 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#include "tarray.h"
+#include "vector.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* ============================================================================
- * Type Definitions - Compatible with original code
+ * Type Definitions
  * ============================================================================ */
 
 /**
@@ -44,104 +44,217 @@ typedef uint16_t TYPE_FRAMEID;
  */
 #define FRAMEID_NULL    0xFFFF
 
-#ifdef __cplusplus
-}
-#endif
-
-#ifdef __cplusplus
-
-/**
- * CFrame class - stores single frame data
- * 
- * Compatible with original Dark Eden CFrame interface.
- * Each frame contains:
- * - m_SpriteID: Index into SpritePack (0-65535)
- * - m_cX, m_cY: Coordinate offsets for rendering position
- */
-class CFrame {
-public:
-    /**
-     * Constructor
-     * @param spriteID Sprite index (default 0)
-     * @param cx X coordinate offset (default 0)
-     * @param cy Y coordinate offset (default 0)
-     */
-    CFrame(TYPE_SPRITEID spriteID = 0, short cx = 0, short cy = 0);
-    
-    /**
-     * Set frame data
-     * @param spriteID Sprite index
-     * @param cx X coordinate offset
-     * @param cy Y coordinate offset
-     */
-    void Set(TYPE_SPRITEID spriteID, short cx, short cy);
-    
-    /**
-     * Get sprite ID
-     * @return Sprite index
-     */
-    TYPE_SPRITEID GetSpriteID() const { return m_SpriteID; }
-    
-    /**
-     * Get X coordinate offset
-     * @return X offset
-     */
-    short GetCX() const { return m_cX; }
-    
-    /**
-     * Get Y coordinate offset
-     * @return Y offset
-     */
-    short GetCY() const { return m_cY; }
-    
-    /**
-     * Assignment operator
-     * @param frame Source frame to copy
-     */
-    void operator=(const CFrame& frame);
-    
-    /**
-     * Save frame to file
-     * @param file FILE pointer to write to
-     * @return true on success, false on failure
-     */
-    bool SaveToFile(FILE* file);
-    
-    /**
-     * Load frame from file
-     * @param file FILE pointer to read from
-     * @return true on success, false on failure
-     */
-    bool LoadFromFile(FILE* file);
-
-protected:
-    TYPE_SPRITEID m_SpriteID;   /**< Sprite index (0-65535) */
-    short m_cX;                  /**< X coordinate offset */
-    short m_cY;                  /**< Y coordinate offset */
-};
-
 /* ============================================================================
- * Frame Array Type Definitions - Compatible with original code
+ * Frame Structure
  * ============================================================================ */
 
 /**
- * FRAME_ARRAY: Array of frames for a single direction
- * TArray<CFrame, WORD> - indexed by frame number
+ * Frame structure - stores single frame data
+ * 
+ * Each frame contains:
+ * - sprite_id: Index into SpritePack (0-65535)
+ * - cx, cy: Coordinate offsets for rendering position
  */
-typedef TArray<CFrame, uint16_t> FRAME_ARRAY;
+typedef struct {
+    TYPE_SPRITEID sprite_id;    /**< Sprite index (0-65535) */
+    int16_t cx;                 /**< X coordinate offset */
+    int16_t cy;                 /**< Y coordinate offset */
+} Frame;
+
+/* ============================================================================
+ * Frame Array Types using vector.h
+ * ============================================================================ */
 
 /**
- * DIRECTION_FRAME_ARRAY: Array of frame arrays for all directions
- * TArray<FRAME_ARRAY, BYTE> - indexed by direction (0-7)
+ * FrameArray: Array of frames for a single direction
+ * Indexed by frame number
  */
-typedef TArray<FRAME_ARRAY, uint8_t> DIRECTION_FRAME_ARRAY;
+typedef vector(Frame) FrameArray;
 
 /**
- * ACTION_FRAME_ARRAY: Array of direction frame arrays for all actions
- * TArray<DIRECTION_FRAME_ARRAY, BYTE> - indexed by action type
+ * DirectionArray: Array of frame arrays for all directions
+ * Indexed by direction (0-7)
  */
-typedef TArray<DIRECTION_FRAME_ARRAY, uint8_t> ACTION_FRAME_ARRAY;
+typedef vector(FrameArray) DirectionArray;
 
-#endif /* __cplusplus */
+/**
+ * ActionArray: Array of direction arrays for all actions
+ * Indexed by action type (STAND, WALK, RUN, etc.)
+ */
+typedef vector(DirectionArray) ActionArray;
+
+/* ============================================================================
+ * Frame Functions
+ * ============================================================================ */
+
+/**
+ * Initialize a frame with values
+ * @param frame Pointer to frame
+ * @param sprite_id Sprite index
+ * @param cx X coordinate offset
+ * @param cy Y coordinate offset
+ */
+void frame_init(Frame* frame, TYPE_SPRITEID sprite_id, int16_t cx, int16_t cy);
+
+/**
+ * Save frame to file
+ * @param frame Pointer to frame
+ * @param file FILE pointer to write to
+ * @return 1 on success, 0 on failure
+ */
+int frame_save(const Frame* frame, FILE* file);
+
+/**
+ * Load frame from file
+ * @param frame Pointer to frame
+ * @param file FILE pointer to read from
+ * @return 1 on success, 0 on failure
+ */
+int frame_load(Frame* frame, FILE* file);
+
+/* ============================================================================
+ * FrameArray Functions
+ * ============================================================================ */
+
+/**
+ * Initialize a FrameArray
+ * @param arr Pointer to FrameArray
+ */
+void frame_array_init(FrameArray* arr);
+
+/**
+ * Release a FrameArray
+ * @param arr Pointer to FrameArray
+ */
+void frame_array_free(FrameArray* arr);
+
+/**
+ * Get size of FrameArray
+ * @param arr Pointer to FrameArray
+ * @return Number of frames
+ */
+int frame_array_size(const FrameArray* arr);
+
+/**
+ * Get frame at index
+ * @param arr Pointer to FrameArray
+ * @param index Frame index
+ * @return Pointer to frame, or NULL if invalid index
+ */
+Frame* frame_array_get(FrameArray* arr, int index);
+
+/**
+ * Save FrameArray to file
+ * @param arr Pointer to FrameArray
+ * @param file FILE pointer
+ * @return 1 on success, 0 on failure
+ */
+int frame_array_save(const FrameArray* arr, FILE* file);
+
+/**
+ * Load FrameArray from file
+ * @param arr Pointer to FrameArray
+ * @param file FILE pointer
+ * @return 1 on success, 0 on failure
+ */
+int frame_array_load(FrameArray* arr, FILE* file);
+
+/* ============================================================================
+ * DirectionArray Functions
+ * ============================================================================ */
+
+/**
+ * Initialize a DirectionArray
+ * @param arr Pointer to DirectionArray
+ */
+void direction_array_init(DirectionArray* arr);
+
+/**
+ * Release a DirectionArray (and all nested FrameArrays)
+ * @param arr Pointer to DirectionArray
+ */
+void direction_array_free(DirectionArray* arr);
+
+/**
+ * Get size of DirectionArray
+ * @param arr Pointer to DirectionArray
+ * @return Number of directions
+ */
+int direction_array_size(const DirectionArray* arr);
+
+/**
+ * Get FrameArray at direction index
+ * @param arr Pointer to DirectionArray
+ * @param index Direction index (0-7)
+ * @return Pointer to FrameArray, or NULL if invalid index
+ */
+FrameArray* direction_array_get(DirectionArray* arr, int index);
+
+/**
+ * Save DirectionArray to file
+ * @param arr Pointer to DirectionArray
+ * @param file FILE pointer
+ * @return 1 on success, 0 on failure
+ */
+int direction_array_save(const DirectionArray* arr, FILE* file);
+
+/**
+ * Load DirectionArray from file
+ * @param arr Pointer to DirectionArray
+ * @param file FILE pointer
+ * @return 1 on success, 0 on failure
+ */
+int direction_array_load(DirectionArray* arr, FILE* file);
+
+/* ============================================================================
+ * ActionArray Functions
+ * ============================================================================ */
+
+/**
+ * Initialize an ActionArray
+ * @param arr Pointer to ActionArray
+ */
+void action_array_init(ActionArray* arr);
+
+/**
+ * Release an ActionArray (and all nested arrays)
+ * @param arr Pointer to ActionArray
+ */
+void action_array_free(ActionArray* arr);
+
+/**
+ * Get size of ActionArray
+ * @param arr Pointer to ActionArray
+ * @return Number of actions
+ */
+int action_array_size(const ActionArray* arr);
+
+/**
+ * Get DirectionArray at action index
+ * @param arr Pointer to ActionArray
+ * @param index Action index
+ * @return Pointer to DirectionArray, or NULL if invalid index
+ */
+DirectionArray* action_array_get(ActionArray* arr, int index);
+
+/**
+ * Save ActionArray to file
+ * @param arr Pointer to ActionArray
+ * @param file FILE pointer
+ * @return 1 on success, 0 on failure
+ */
+int action_array_save(const ActionArray* arr, FILE* file);
+
+/**
+ * Load ActionArray from file
+ * @param arr Pointer to ActionArray
+ * @param file FILE pointer
+ * @return 1 on success, 0 on failure
+ */
+int action_array_load(ActionArray* arr, FILE* file);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* FRAME_H */

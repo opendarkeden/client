@@ -1,7 +1,7 @@
 /**
  * @file sdl_framework.c
  * @brief SDL2 game framework implementation
- * 
+ *
  * Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6
  */
 
@@ -105,7 +105,7 @@ void sdl_framework_cleanup(SDLFramework* fw) {
  * Process pending SDL events
  * Req 2.2: Process all pending SDL events
  * Req 2.3: Set flag to exit on quit event
- * 
+ *
  * @return 1 if there's an event to process, 0 if no more events
  */
 int sdl_framework_poll_events(SDLFramework* fw, SDL_Event* event) {
@@ -135,8 +135,8 @@ void sdl_framework_begin_frame(SDLFramework* fw) {
     }
 
     /* Set clear color to black */
-    SDL_SetRenderDrawColor(fw->renderer, 0, 0, 0, 255);
-    
+    SDL_SetRenderDrawColor(fw->renderer, 255, 255, 255, 255);
+
     /* Req 2.4: Clear the render target */
     SDL_RenderClear(fw->renderer);
 }
@@ -164,7 +164,7 @@ void sdl_framework_delay(SDLFramework* fw, uint32_t frame_start) {
     }
 
     uint32_t frame_time = SDL_GetTicks() - frame_start;
-    
+
     if (frame_time < fw->frame_delay) {
         SDL_Delay(fw->frame_delay - frame_time);
     }

@@ -1,5 +1,5 @@
 /**
- * @file main.cpp
+ * @file main.c
  * @brief Creature Animation Viewer - Tool for viewing creature animations
  * 
  * Requirements: 5.1-5.10
@@ -64,7 +64,7 @@ typedef struct {
     
     /* Resource packs */
     IndexSpritePack ispk;
-    CCreatureFramePack* cfpk;
+    CreatureFramePack cfpk;
     ShadowSpritePack sspk;
     
     /* State */
@@ -117,7 +117,7 @@ static void print_usage(const char* program) {
  * Update frame data for current creature/action/direction
  */
 static void viewer_update_frame_info(CreatureViewer* viewer) {
-    if (!viewer || !viewer->cfpk) {
+    if (viewer == NULL) {
         return;
     }
     
@@ -128,8 +128,14 @@ static void viewer_update_frame_info(CreatureViewer* viewer) {
         return;
     }
     
-    ACTION_FRAME_ARRAY& actions = (*viewer->cfpk)[viewer->creature_type];
-    viewer->max_actions = actions.GetSize();
+    ActionArray* actions = creature_framepack_get(&viewer->cfpk, viewer->creature_type);
+    if (actions == NULL) {
+        viewer->max_actions = 0;
+        viewer->max_frames = 0;
+        return;
+    }
+    
+    viewer->max_actions = action_array_size(actions);
     
     if (viewer->max_actions == 0) {
         viewer->max_frames = 0;
@@ -141,8 +147,13 @@ static void viewer_update_frame_info(CreatureViewer* viewer) {
         viewer->current_action = 0;
     }
     
-    DIRECTION_FRAME_ARRAY& directions = actions[viewer->current_action];
-    int num_directions = directions.GetSize();
+    DirectionArray* directions = action_array_get(actions, viewer->current_action);
+    if (directions == NULL) {
+        viewer->max_frames = 0;
+        return;
+    }
+    
+    int num_directions = direction_array_size(directions);
     
     if (num_directions == 0) {
         viewer->max_frames = 0;
@@ -154,8 +165,13 @@ static void viewer_update_frame_info(CreatureViewer* viewer) {
         viewer->current_direction = 0;
     }
     
-    FRAME_ARRAY& frames = directions[viewer->current_direction];
-    viewer->max_frames = frames.GetSize();
+    FrameArray* frames = direction_array_get(directions, viewer->current_direction);
+    if (frames == NULL) {
+        viewer->max_frames = 0;
+        return;
+    }
+    
+    viewer->max_frames = frame_array_size(frames);
     
     /* Clamp frame */
     if (viewer->current_frame >= viewer->max_frames) {
@@ -167,65 +183,44 @@ static void viewer_update_frame_info(CreatureViewer* viewer) {
  * Get current frame's sprite ID
  */
 static TYPE_SPRITEID viewer_get_current_sprite_id(CreatureViewer* viewer) {
-    if (!viewer || !viewer->cfpk) {
+    if (viewer == NULL) {
         return SPRITEID_NULL;
     }
     
-    if (viewer->creature_type < 0 || viewer->creature_type >= viewer->max_creature_types) {
+    Frame* frame = creature_framepack_get_frame(&viewer->cfpk,
+                                                viewer->creature_type,
+                                                viewer->current_action,
+                                                viewer->current_direction,
+                                                viewer->current_frame);
+    if (frame == NULL) {
         return SPRITEID_NULL;
     }
     
-    ACTION_FRAME_ARRAY& actions = (*viewer->cfpk)[viewer->creature_type];
-    if (viewer->current_action >= (int)actions.GetSize()) {
-        return SPRITEID_NULL;
-    }
-    
-    DIRECTION_FRAME_ARRAY& directions = actions[viewer->current_action];
-    if (viewer->current_direction >= (int)directions.GetSize()) {
-        return SPRITEID_NULL;
-    }
-    
-    FRAME_ARRAY& frames = directions[viewer->current_direction];
-    if (viewer->current_frame >= (int)frames.GetSize()) {
-        return SPRITEID_NULL;
-    }
-    
-    return frames[viewer->current_frame].GetSpriteID();
+    return frame->sprite_id;
 }
 
 /**
  * Get current frame's offset
  */
-static void viewer_get_current_offset(CreatureViewer* viewer, short* cx, short* cy) {
+static void viewer_get_current_offset(CreatureViewer* viewer, int16_t* cx, int16_t* cy) {
     *cx = 0;
     *cy = 0;
     
-    if (!viewer || !viewer->cfpk) {
+    if (viewer == NULL) {
         return;
     }
     
-    if (viewer->creature_type < 0 || viewer->creature_type >= viewer->max_creature_types) {
+    Frame* frame = creature_framepack_get_frame(&viewer->cfpk,
+                                                viewer->creature_type,
+                                                viewer->current_action,
+                                                viewer->current_direction,
+                                                viewer->current_frame);
+    if (frame == NULL) {
         return;
     }
     
-    ACTION_FRAME_ARRAY& actions = (*viewer->cfpk)[viewer->creature_type];
-    if (viewer->current_action >= (int)actions.GetSize()) {
-        return;
-    }
-    
-    DIRECTION_FRAME_ARRAY& directions = actions[viewer->current_action];
-    if (viewer->current_direction >= (int)directions.GetSize()) {
-        return;
-    }
-    
-    FRAME_ARRAY& frames = directions[viewer->current_direction];
-    if (viewer->current_frame >= (int)frames.GetSize()) {
-        return;
-    }
-    
-    CFrame& frame = frames[viewer->current_frame];
-    *cx = frame.GetCX();
-    *cy = frame.GetCY();
+    *cx = frame->cx;
+    *cy = frame->cy;
 }
 
 /**
@@ -236,7 +231,7 @@ static void viewer_get_current_offset(CreatureViewer* viewer, short* cx, short* 
 static int viewer_init(CreatureViewer* viewer, const char* ispk_file, 
                        const char* cfpk_file, const char* sspk_file,
                        int width, int height) {
-    if (!viewer || !ispk_file || !cfpk_file) {
+    if (viewer == NULL || ispk_file == NULL || cfpk_file == NULL) {
         return -1;
     }
     
@@ -253,7 +248,6 @@ static int viewer_init(CreatureViewer* viewer, const char* ispk_file,
     viewer->last_frame_time = 0;
     viewer->frame_interval = 1000 / DEFAULT_FRAME_RATE;
     viewer->has_shadow = 0;
-    viewer->cfpk = NULL;
     
     /* Initialize ColorSet system */
     colorset_init();
@@ -274,6 +268,7 @@ static int viewer_init(CreatureViewer* viewer, const char* ispk_file,
     
     /* Initialize packs */
     index_spritepack_init(&viewer->ispk);
+    creature_framepack_init(&viewer->cfpk);
     shadow_spritepack_init(&viewer->sspk);
     
     /* Load IndexedSpritePack - Requirement 5.1 */
@@ -287,20 +282,17 @@ static int viewer_init(CreatureViewer* viewer, const char* ispk_file,
     
     /* Load CreatureFramePack - Requirement 5.1 */
     printf("Loading CreatureFramePack: %s\n", cfpk_file);
-    viewer->cfpk = new CCreatureFramePack();
-    if (!viewer->cfpk->LoadFromFile(cfpk_file)) {
+    if (!creature_framepack_load(&viewer->cfpk, cfpk_file)) {
         fprintf(stderr, "Error: Failed to load CreatureFramePack: %s\n", cfpk_file);
         index_spritepack_release(&viewer->ispk);
-        delete viewer->cfpk;
-        viewer->cfpk = NULL;
         sdl_framework_cleanup(&viewer->framework);
         return -3;
     }
-    viewer->max_creature_types = viewer->cfpk->GetSize();
+    viewer->max_creature_types = creature_framepack_size(&viewer->cfpk);
     printf("Loaded %d creature types from CFPK\n", viewer->max_creature_types);
     
     /* Load ShadowSpritePack (optional) - Requirement 5.1 */
-    if (sspk_file) {
+    if (sspk_file != NULL) {
         printf("Loading ShadowSpritePack: %s\n", sspk_file);
         if (shadow_spritepack_load_lazy(&viewer->sspk, sspk_file)) {
             viewer->has_shadow = 1;
@@ -327,7 +319,7 @@ static int viewer_init(CreatureViewer* viewer, const char* ispk_file,
  * Requirement 5.10: ESC exits
  */
 static void viewer_handle_input(CreatureViewer* viewer, SDL_Event* event) {
-    if (!viewer || !event) {
+    if (viewer == NULL || event == NULL) {
         return;
     }
     
@@ -454,7 +446,7 @@ static void viewer_handle_input(CreatureViewer* viewer, SDL_Event* event) {
  * Update animation state
  */
 static void viewer_update(CreatureViewer* viewer) {
-    if (!viewer || !viewer->playing) {
+    if (viewer == NULL || !viewer->playing) {
         return;
     }
     
@@ -476,7 +468,7 @@ static void viewer_update(CreatureViewer* viewer) {
  * Requirement 5.9: Show CreatureType, Action, Direction, Frame, ColorSet info
  */
 static void viewer_render(CreatureViewer* viewer) {
-    if (!viewer) {
+    if (viewer == NULL) {
         return;
     }
     
@@ -491,14 +483,14 @@ static void viewer_render(CreatureViewer* viewer) {
     
     /* Get current sprite ID and offset */
     TYPE_SPRITEID sprite_id = viewer_get_current_sprite_id(viewer);
-    short cx, cy;
+    int16_t cx, cy;
     viewer_get_current_offset(viewer, &cx, &cy);
     
     if (sprite_id != SPRITEID_NULL && sprite_id < index_spritepack_get_size(&viewer->ispk)) {
         /* Render shadow first (if enabled and available) */
         if (viewer->show_shadow && viewer->has_shadow) {
             ShadowSprite* shadow = shadow_spritepack_get(&viewer->sspk, sprite_id);
-            if (shadow && shadow_sprite_is_init(shadow)) {
+            if (shadow != NULL && shadow_sprite_is_init(shadow)) {
                 int shadow_x = center_x - cx;
                 int shadow_y = center_y - cy;
                 shadow_sprite_render_alpha(shadow, viewer->framework.renderer, 
@@ -508,7 +500,7 @@ static void viewer_render(CreatureViewer* viewer) {
         
         /* Render creature sprite */
         IndexSprite* sprite = index_spritepack_get(&viewer->ispk, sprite_id);
-        if (sprite && index_sprite_is_init(sprite)) {
+        if (sprite != NULL && index_sprite_is_init(sprite)) {
             int sprite_x = center_x - cx;
             int sprite_y = center_y - cy;
             index_sprite_render_colorset(sprite, viewer->framework.renderer,
@@ -548,7 +540,7 @@ static void viewer_render(CreatureViewer* viewer) {
  * Run main loop
  */
 static void viewer_run(CreatureViewer* viewer) {
-    if (!viewer) {
+    if (viewer == NULL) {
         return;
     }
     
@@ -582,18 +574,14 @@ static void viewer_run(CreatureViewer* viewer) {
  * Requirement 5.10: Exit cleanly
  */
 static void viewer_cleanup(CreatureViewer* viewer) {
-    if (!viewer) {
+    if (viewer == NULL) {
         return;
     }
     
     /* Release packs */
     index_spritepack_release(&viewer->ispk);
+    creature_framepack_free(&viewer->cfpk);
     shadow_spritepack_release(&viewer->sspk);
-    
-    if (viewer->cfpk) {
-        delete viewer->cfpk;
-        viewer->cfpk = NULL;
-    }
     
     /* Cleanup SDL framework */
     sdl_framework_cleanup(&viewer->framework);
@@ -621,7 +609,7 @@ int main(int argc, char* argv[]) {
     printf("=========================\n");
     printf("ISPK: %s\n", ispk_file);
     printf("CFPK: %s\n", cfpk_file);
-    if (sspk_file) {
+    if (sspk_file != NULL) {
         printf("SSPK: %s\n", sspk_file);
     }
     printf("\n");

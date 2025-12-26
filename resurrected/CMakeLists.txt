@@ -42,8 +42,8 @@ set(LIB_SOURCES
     lib/sdl_framework.c
     lib/str.c
     lib/animation.c
-    lib/frame.cpp
-    lib/framepack.cpp
+    lib/frame.c
+    lib/framepack.c
     lib/colorset.c
     lib/index_sprite.c
     lib/index_spritepack.c
@@ -61,7 +61,6 @@ set(LIB_HEADERS
     lib/vector.h
     lib/types.h
     lib/animation.h
-    lib/tarray.h
     lib/frame.h
     lib/framepack.h
     lib/colorset.h
@@ -150,7 +149,7 @@ endif()
 # =============================================================================
 
 set(CREATURE_VIEWER_SOURCES
-    tools/creature_viewer/main.cpp
+    tools/creature_viewer/main.c
 )
 
 add_executable(SDLCreatureViewer ${CREATURE_VIEWER_SOURCES})
@@ -182,8 +181,8 @@ set(TEST_SOURCES
     tests/test_sprite.c
     tests/test_spritepack.c
     tests/test_animation.c
-    tests/test_frame.cpp
-    tests/test_framepack.cpp
+    tests/test_frame.c
+    tests/test_framepack.c
     tests/test_index_sprite.c
     tests/test_shadow_sprite.c
 )
