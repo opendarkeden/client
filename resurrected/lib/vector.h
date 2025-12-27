@@ -76,4 +76,42 @@ _vector_free(Vector *v) {
 #define vecFree(ptr) \
 	_vector_free(&(ptr)->v)
 
+/*
+ * Clang 会对 GNU 扩展关键字（如 typeof）给出 -Wlanguage-extension-token 警告。
+ * 这些宏为了保持简洁的调用方式使用了 typeof。为避免污染全局编译设置，
+ * 在本头文件内局部关闭该警告，仅包裹宏定义区域。
+ */
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wlanguage-extension-token"
+#endif
+
+#undef vecAppend
+#define vecAppend(ptr, value)\
+	do {\
+		typeof((ptr)->type) tmp = (value);\
+		_vector_append(&(ptr)->v, &tmp, sizeof((ptr)->type));\
+	} while (0)
+
+#undef vecRef
+#define vecRef(ptr, idx) \
+	(((typeof((ptr)->type) *)((ptr)->v.data))+(idx))
+
+#undef vecGet
+#define vecGet(ptr, idx) \
+	(((typeof((ptr)->type) *)((ptr)->v.data))[idx])
+
+#undef vecPop
+#define vecPop(ptr) (((typeof((ptr)->type) *)((ptr)->v.data))[--(ptr)->v.len])
+
+#undef vecSet
+#define vecSet(ptr, idx, value) \
+	do {\
+		(((typeof((ptr)->type) *)((ptr)->v.data))[idx] = value); \
+	} while (0)
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
+
 #endif // C_VECTOR_H

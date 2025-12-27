@@ -27,7 +27,7 @@ endif()
 if(MSVC)
     add_compile_options(/W4)
 else()
-    add_compile_options(-Wall -Wextra -Wpedantic)
+    add_compile_options(-Wall -Wextra -Wpedantic -Wno-language-extension-token)
 endif()
 
 # =============================================================================
@@ -97,20 +97,20 @@ endif()
 # Dump/inspect .map zone files (header/sectors/objects)
 # =============================================================================
 
-set(ZONE_VIEWER_SOURCES
-    tools/zone_viewer/main.c
+set(ZONE_PARSER_SOURCES
+    tools/zone_parser/main.c
 )
 
-add_executable(ZoneViewer ${ZONE_VIEWER_SOURCES})
+add_executable(ZoneParser ${ZONE_PARSER_SOURCES})
 
 # Include directories for zone viewer
-target_include_directories(ZoneViewer PRIVATE
+target_include_directories(ZoneParser PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/lib
-    ${CMAKE_CURRENT_SOURCE_DIR}/tools/zone_viewer
+    ${CMAKE_CURRENT_SOURCE_DIR}/tools/zone_parser
 )
 
 # Link against shared library (reuse zone parsing in lib)
-target_link_libraries(ZoneViewer PRIVATE darkeden)
+target_link_libraries(ZoneParser PRIVATE darkeden)
 
 # =============================================================================
 # Tool: Sprite Viewer
@@ -126,44 +126,20 @@ set(SPRITE_VIEWER_HEADERS
     tools/sprite_viewer/viewer.h
 )
 
-add_executable(SDLSpriteViewer ${SPRITE_VIEWER_SOURCES} ${SPRITE_VIEWER_HEADERS})
+add_executable(SpriteViewer ${SPRITE_VIEWER_SOURCES} ${SPRITE_VIEWER_HEADERS})
 
 # Include directories for sprite viewer
-target_include_directories(SDLSpriteViewer PRIVATE
+target_include_directories(SpriteViewer PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/lib
     ${CMAKE_CURRENT_SOURCE_DIR}/tools/sprite_viewer
 )
 
 # Link against shared library (Requirement 1.4)
-target_link_libraries(SDLSpriteViewer PRIVATE darkeden)
+target_link_libraries(SpriteViewer PRIVATE darkeden)
 
 # Add SDL2main on Windows
 if(WIN32 AND TARGET SDL2::SDL2main)
-    target_link_libraries(SDLSpriteViewer PRIVATE SDL2::SDL2main)
-endif()
-
-# =============================================================================
-# Tool: Animation Viewer
-# Requirements: 1.4, 1.5, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 6.3, 6.4
-# =============================================================================
-
-set(ANIMATION_VIEWER_SOURCES
-    tools/animation_viewer/main.c
-)
-
-add_executable(SDLAnimationViewer ${ANIMATION_VIEWER_SOURCES})
-
-# Include directories for animation viewer
-target_include_directories(SDLAnimationViewer PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib
-)
-
-# Link against shared library (Requirement 1.4)
-target_link_libraries(SDLAnimationViewer PRIVATE darkeden)
-
-# Add SDL2main on Windows
-if(WIN32 AND TARGET SDL2::SDL2main)
-    target_link_libraries(SDLAnimationViewer PRIVATE SDL2::SDL2main)
+    target_link_libraries(SpriteViewer PRIVATE SDL2::SDL2main)
 endif()
 
 # =============================================================================
@@ -175,19 +151,19 @@ set(CREATURE_VIEWER_SOURCES
     tools/creature_viewer/main.c
 )
 
-add_executable(SDLCreatureViewer ${CREATURE_VIEWER_SOURCES})
+add_executable(CreatureViewer ${CREATURE_VIEWER_SOURCES})
 
 # Include directories for creature viewer
-target_include_directories(SDLCreatureViewer PRIVATE
+target_include_directories(CreatureViewer PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/lib
 )
 
 # Link against shared library
-target_link_libraries(SDLCreatureViewer PRIVATE darkeden)
+target_link_libraries(CreatureViewer PRIVATE darkeden)
 
 # Add SDL2main on Windows
 if(WIN32 AND TARGET SDL2::SDL2main)
-    target_link_libraries(SDLCreatureViewer PRIVATE SDL2::SDL2main)
+    target_link_libraries(CreatureViewer PRIVATE SDL2::SDL2main)
 endif()
 
 # =============================================================================
@@ -252,7 +228,7 @@ add_test(NAME unit_tests COMMAND test_runner)
 # Installation rules
 # =============================================================================
 
-install(TARGETS SDLSpriteViewer SDLAnimationViewer SDLCreatureViewer ZoneViewer
+install(TARGETS SpriteViewer CreatureViewer ZoneParser
     RUNTIME DESTINATION bin
 )
 

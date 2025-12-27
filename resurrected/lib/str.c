@@ -188,7 +188,7 @@ strCpy(strBuf to, str from) {
 }
 
 strBuf
-strBufReserve(strBuf s, int cap) {
+strBufReserve(strBuf s, unsigned int cap) {
 	if (s->cap >= cap) {
 		return s;
 	}
@@ -219,7 +219,7 @@ strAppend(strBuf to, char c) {
 }
 
 strBuf
-strShrink(strBuf to, int n) {
+strShrink(strBuf to, unsigned int n) {
 	if (n >= to->len) {
 		to->len = 0;
 		to->data[0] = '\0';

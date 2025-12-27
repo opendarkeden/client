@@ -29,6 +29,6 @@ strBuf strDup(str s);
 strBuf strCpy(strBuf to, str from);
 strBuf strCat(strBuf to, str from);
 strBuf strAppend(strBuf to, char c);
-strBuf strShrink(strBuf to, int n);
+strBuf strShrink(strBuf to, unsigned int n);
 
 #endif
