@@ -6,6 +6,24 @@
  * 
  * This tool loads Creature.ispk, Creature.cfpk, and optionally Creature.sspk
  * to display and navigate creature animations with ColorSet support.
+ * 
+ * Shadow Coordinate Alignment:
+ * The original game uses SEPARATE frame packs for creature and shadow:
+ * - Creature.cfpk: Contains sprite_id and cx/cy for creature sprites
+ * - CreatureShadow.cfpk: Contains sprite_id and cx/cy for shadow sprites
+ * 
+ * Shadow sprites have their own offsets that differ from creature offsets,
+ * which is why we need to load both frame packs for proper alignment.
+ * 
+ * File Naming Convention:
+ * The game uses a consistent naming pattern for resource files:
+ * - {BaseName}.ispk      - Indexed sprite pack (creature images)
+ * - {BaseName}.cfpk      - Creature frame pack (animation frames)
+ * - {BaseName}Shadow.sspk - Shadow sprite pack (shadow images)
+ * - {BaseName}Shadow.cfpk - Shadow frame pack (shadow offsets)
+ * 
+ * Example: For "Creature", the files are:
+ * - Creature.ispk, Creature.cfpk, CreatureShadow.sspk, CreatureShadow.cfpk
  */
 
 #include "sdl_framework.h"
@@ -16,6 +34,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <libgen.h>  /* For basename/dirname */
 
 /* Window defaults */
 #define DEFAULT_WIDTH  800
@@ -24,6 +43,7 @@
 /* Animation defaults */
 #define DEFAULT_FRAME_RATE 10  /* Frames per second for animation playback */
 #define MAX_DIRECTIONS 8
+#define MAX_PATH_LEN 512
 
 /* Action names for display */
 static const char* ACTION_NAMES[] = {
@@ -65,6 +85,7 @@ typedef struct {
     /* Resource packs */
     IndexSpritePack ispk;
     CreatureFramePack cfpk;
+    CreatureFramePack shadow_cfpk;  /* Separate frame pack for shadow offsets */
     ShadowSpritePack sspk;
     
     /* State */
@@ -88,6 +109,7 @@ typedef struct {
     
     /* Flags */
     int has_shadow;         /* Whether shadow pack was loaded */
+    int has_shadow_cfpk;    /* Whether shadow frame pack was loaded */
 } CreatureViewer;
 
 /**
@@ -97,11 +119,15 @@ typedef struct {
 static void print_usage(const char* program) {
     printf("Creature Animation Viewer\n");
     printf("=========================\n\n");
-    printf("Usage: %s <ispk_file> <cfpk_file> [sspk_file]\n", program);
+    printf("Usage: %s <base_path>\n", program);
     printf("\nArguments:\n");
-    printf("  ispk_file   Path to Creature.ispk (IndexedSpritePack)\n");
-    printf("  cfpk_file   Path to Creature.cfpk (CreatureFramePack)\n");
-    printf("  sspk_file   Path to Creature.sspk (ShadowSpritePack, optional)\n");
+    printf("  base_path   Base path for resource files (without extension)\n");
+    printf("              Example: DarkEden/Data/Image/Creature\n");
+    printf("\nThe viewer will automatically load:\n");
+    printf("  {base_path}.ispk         - Indexed sprite pack\n");
+    printf("  {base_path}.cfpk         - Creature frame pack\n");
+    printf("  {base_path}Shadow.sspk   - Shadow sprite pack (optional)\n");
+    printf("  {base_path}Shadow.cfpk   - Shadow frame pack (optional)\n");
     printf("\nControls:\n");
     printf("  LEFT/RIGHT  - Navigate to previous/next Creature type\n");
     printf("  UP/DOWN     - Change Action (STAND, WALK, ATTACK, etc.)\n");
@@ -111,6 +137,38 @@ static void print_usage(const char* program) {
     printf("  C           - Cycle through ColorSets\n");
     printf("  I           - Toggle info display\n");
     printf("  ESC         - Exit\n");
+}
+
+/**
+ * Check if a file exists
+ */
+static int file_exists(const char* path) {
+    FILE* f = fopen(path, "rb");
+    if (f != NULL) {
+        fclose(f);
+        return 1;
+    }
+    return 0;
+}
+
+/**
+ * Build derived file paths from base path
+ * Returns 0 on success, -1 on error
+ */
+static int build_resource_paths(const char* base_path,
+                                char* ispk_path, char* cfpk_path,
+                                char* sspk_path, char* shadow_cfpk_path) {
+    if (base_path == NULL) {
+        return -1;
+    }
+    
+    /* Build paths using naming convention */
+    snprintf(ispk_path, MAX_PATH_LEN, "%s.ispk", base_path);
+    snprintf(cfpk_path, MAX_PATH_LEN, "%s.cfpk", base_path);
+    snprintf(sspk_path, MAX_PATH_LEN, "%sShadow.sspk", base_path);
+    snprintf(shadow_cfpk_path, MAX_PATH_LEN, "%sShadow.cfpk", base_path);
+    
+    return 0;
 }
 
 /**
@@ -224,12 +282,42 @@ static void viewer_get_current_offset(CreatureViewer* viewer, int16_t* cx, int16
 }
 
 /**
+ * Get current shadow frame's sprite ID and offset
+ * Shadow uses a SEPARATE frame pack with its own cx/cy offsets
+ */
+static TYPE_SPRITEID viewer_get_shadow_frame(CreatureViewer* viewer, int16_t* cx, int16_t* cy) {
+    *cx = 0;
+    *cy = 0;
+    
+    if (viewer == NULL) {
+        return SPRITEID_NULL;
+    }
+    
+    /* Use shadow frame pack if available, otherwise fall back to creature frame pack */
+    CreatureFramePack* fpk = viewer->has_shadow_cfpk ? &viewer->shadow_cfpk : &viewer->cfpk;
+    
+    Frame* frame = creature_framepack_get_frame(fpk,
+                                                viewer->creature_type,
+                                                viewer->current_action,
+                                                viewer->current_direction,
+                                                viewer->current_frame);
+    if (frame == NULL) {
+        return SPRITEID_NULL;
+    }
+    
+    *cx = frame->cx;
+    *cy = frame->cy;
+    return frame->sprite_id;
+}
+
+/**
  * Initialize creature viewer
  * Requirement 5.1: Load Creature.ispk, Creature.cfpk, and optionally Creature.sspk
  * Requirement 5.2: Display the first Creature type centered on screen
  */
 static int viewer_init(CreatureViewer* viewer, const char* ispk_file, 
                        const char* cfpk_file, const char* sspk_file,
+                       const char* shadow_cfpk_file,
                        int width, int height) {
     if (viewer == NULL || ispk_file == NULL || cfpk_file == NULL) {
         return -1;
@@ -248,6 +336,7 @@ static int viewer_init(CreatureViewer* viewer, const char* ispk_file,
     viewer->last_frame_time = 0;
     viewer->frame_interval = 1000 / DEFAULT_FRAME_RATE;
     viewer->has_shadow = 0;
+    viewer->has_shadow_cfpk = 0;
     
     /* Initialize ColorSet system */
     colorset_init();
@@ -269,6 +358,7 @@ static int viewer_init(CreatureViewer* viewer, const char* ispk_file,
     /* Initialize packs */
     index_spritepack_init(&viewer->ispk);
     creature_framepack_init(&viewer->cfpk);
+    creature_framepack_init(&viewer->shadow_cfpk);
     shadow_spritepack_init(&viewer->sspk);
     
     /* Load IndexedSpritePack - Requirement 5.1 */
@@ -300,6 +390,22 @@ static int viewer_init(CreatureViewer* viewer, const char* ispk_file,
         } else {
             fprintf(stderr, "Warning: Failed to load ShadowSpritePack: %s\n", sspk_file);
         }
+    }
+    
+    /* Load Shadow FramePack (optional) - for proper shadow coordinate alignment */
+    if (shadow_cfpk_file != NULL) {
+        printf("Loading Shadow FramePack: %s\n", shadow_cfpk_file);
+        if (creature_framepack_load(&viewer->shadow_cfpk, shadow_cfpk_file)) {
+            viewer->has_shadow_cfpk = 1;
+            printf("Loaded shadow frame pack with %d creature types\n", 
+                   creature_framepack_size(&viewer->shadow_cfpk));
+        } else {
+            fprintf(stderr, "Warning: Failed to load Shadow FramePack: %s\n", shadow_cfpk_file);
+            fprintf(stderr, "         Shadow will use creature frame offsets (may be misaligned)\n");
+        }
+    } else if (viewer->has_shadow) {
+        printf("Note: No shadow frame pack provided. Shadow will use creature frame offsets.\n");
+        printf("      For proper alignment, provide CreatureShadow.cfpk as 4th argument.\n");
     }
     
     /* Initialize frame info - Requirement 5.2 */
@@ -481,28 +587,37 @@ static void viewer_render(CreatureViewer* viewer) {
     int center_x = win_w / 2;
     int center_y = win_h / 2;
     
-    /* Get current sprite ID and offset */
+    /* Get current sprite ID and offset for creature */
     TYPE_SPRITEID sprite_id = viewer_get_current_sprite_id(viewer);
     int16_t cx, cy;
     viewer_get_current_offset(viewer, &cx, &cy);
     
     if (sprite_id != SPRITEID_NULL && sprite_id < index_spritepack_get_size(&viewer->ispk)) {
-        /* Render shadow first (if enabled and available) */
+        /* Render shadow first (if enabled and available)
+         * IMPORTANT: Shadow uses its OWN frame pack with separate cx/cy offsets!
+         * This is how the original game handles shadow alignment.
+         */
         if (viewer->show_shadow && viewer->has_shadow) {
-            ShadowSprite* shadow = shadow_spritepack_get(&viewer->sspk, sprite_id);
-            if (shadow != NULL && shadow_sprite_is_init(shadow)) {
-                int shadow_x = center_x - cx;
-                int shadow_y = center_y - cy;
-                shadow_sprite_render_alpha(shadow, viewer->framework.renderer, 
-                                          shadow_x, shadow_y, 128);
+            int16_t shadow_cx, shadow_cy;
+            TYPE_SPRITEID shadow_sprite_id = viewer_get_shadow_frame(viewer, &shadow_cx, &shadow_cy);
+            
+            if (shadow_sprite_id != SPRITEID_NULL) {
+                ShadowSprite* shadow = shadow_spritepack_get(&viewer->sspk, shadow_sprite_id);
+                if (shadow != NULL && shadow_sprite_is_init(shadow)) {
+                    /* Use shadow frame pack's cx/cy for positioning */
+                    int shadow_x = center_x + shadow_cx;
+                    int shadow_y = center_y + shadow_cy;
+                    shadow_sprite_render_alpha(shadow, viewer->framework.renderer, 
+                                              shadow_x, shadow_y, 128);
+                }
             }
         }
         
         /* Render creature sprite */
         IndexSprite* sprite = index_spritepack_get(&viewer->ispk, sprite_id);
         if (sprite != NULL && index_sprite_is_init(sprite)) {
-            int sprite_x = center_x - cx;
-            int sprite_y = center_y - cy;
+            int sprite_x = center_x + cx;
+            int sprite_y = center_y + cy;
             index_sprite_render_colorset(sprite, viewer->framework.renderer,
                                         sprite_x, sprite_y, 
                                         (uint16_t)viewer->current_colorset);
@@ -581,6 +696,7 @@ static void viewer_cleanup(CreatureViewer* viewer) {
     /* Release packs */
     index_spritepack_release(&viewer->ispk);
     creature_framepack_free(&viewer->cfpk);
+    creature_framepack_free(&viewer->shadow_cfpk);
     shadow_spritepack_release(&viewer->sspk);
     
     /* Cleanup SDL framework */
@@ -594,28 +710,60 @@ static void viewer_cleanup(CreatureViewer* viewer) {
  */
 int main(int argc, char* argv[]) {
     /* Requirement 5.1: Accept file paths as command line arguments */
-    if (argc < 3) {
+    if (argc < 2) {
         print_usage(argv[0]);
         return 1;
     }
     
-    const char* ispk_file = argv[1];
-    const char* cfpk_file = argv[2];
-    const char* sspk_file = (argc >= 4) ? argv[3] : NULL;
+    const char* base_path = argv[1];
+    
+    /* Build resource paths from base path */
+    char ispk_file[MAX_PATH_LEN];
+    char cfpk_file[MAX_PATH_LEN];
+    char sspk_file[MAX_PATH_LEN];
+    char shadow_cfpk_file[MAX_PATH_LEN];
+    
+    if (build_resource_paths(base_path, ispk_file, cfpk_file, 
+                             sspk_file, shadow_cfpk_file) != 0) {
+        fprintf(stderr, "Error: Failed to build resource paths\n");
+        return 1;
+    }
+    
+    /* Check required files exist */
+    if (!file_exists(ispk_file)) {
+        fprintf(stderr, "Error: Required file not found: %s\n", ispk_file);
+        return 1;
+    }
+    if (!file_exists(cfpk_file)) {
+        fprintf(stderr, "Error: Required file not found: %s\n", cfpk_file);
+        return 1;
+    }
+    
+    /* Check optional shadow files */
+    const char* sspk_ptr = file_exists(sspk_file) ? sspk_file : NULL;
+    const char* shadow_cfpk_ptr = file_exists(shadow_cfpk_file) ? shadow_cfpk_file : NULL;
     
     CreatureViewer viewer;
     
     printf("Creature Animation Viewer\n");
     printf("=========================\n");
+    printf("Base path: %s\n", base_path);
     printf("ISPK: %s\n", ispk_file);
     printf("CFPK: %s\n", cfpk_file);
-    if (sspk_file != NULL) {
+    if (sspk_ptr != NULL) {
         printf("SSPK: %s\n", sspk_file);
+    } else {
+        printf("SSPK: (not found)\n");
+    }
+    if (shadow_cfpk_ptr != NULL) {
+        printf("Shadow CFPK: %s\n", shadow_cfpk_file);
+    } else {
+        printf("Shadow CFPK: (not found)\n");
     }
     printf("\n");
     
     /* Initialize viewer */
-    int result = viewer_init(&viewer, ispk_file, cfpk_file, sspk_file,
+    int result = viewer_init(&viewer, ispk_file, cfpk_file, sspk_ptr, shadow_cfpk_ptr,
                             DEFAULT_WIDTH, DEFAULT_HEIGHT);
     if (result != 0) {
         fprintf(stderr, "Failed to initialize viewer (error: %d)\n", result);

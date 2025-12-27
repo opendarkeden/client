@@ -49,6 +49,7 @@ set(LIB_SOURCES
     lib/index_spritepack.c
     lib/shadow_sprite.c
     lib/shadow_spritepack.c
+    lib/zone.c
 )
 
 set(LIB_HEADERS
@@ -68,6 +69,8 @@ set(LIB_HEADERS
     lib/index_spritepack.h
     lib/shadow_sprite.h
     lib/shadow_spritepack.h
+    lib/zone.h
+    lib/error.h
 )
 
 # Create static library (Requirement 1.3)
@@ -88,6 +91,26 @@ if(TARGET SDL2::SDL2)
 elseif(TARGET SDL2::SDL2-static)
     target_link_libraries(darkeden PUBLIC SDL2::SDL2-static)
 endif()
+
+# =============================================================================
+# Tool: Zone Viewer
+# Dump/inspect .map zone files (header/sectors/objects)
+# =============================================================================
+
+set(ZONE_VIEWER_SOURCES
+    tools/zone_viewer/main.c
+)
+
+add_executable(ZoneViewer ${ZONE_VIEWER_SOURCES})
+
+# Include directories for zone viewer
+target_include_directories(ZoneViewer PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/tools/zone_viewer
+)
+
+# Link against shared library (reuse zone parsing in lib)
+target_link_libraries(ZoneViewer PRIVATE darkeden)
 
 # =============================================================================
 # Tool: Sprite Viewer
@@ -168,6 +191,33 @@ if(WIN32 AND TARGET SDL2::SDL2main)
 endif()
 
 # =============================================================================
+# Tool: Map Viewer
+# Minimal MVP to visualize a rectangular area of a .map using existing
+# resurrected spritepack/sprite decode and SDL framework.
+# =============================================================================
+
+set(MAP_VIEWER_SOURCES
+    tools/map_viewer/main.c
+    tools/map_viewer/map_loader.c
+)
+
+add_executable(MapViewer ${MAP_VIEWER_SOURCES})
+
+# Include directories for map viewer
+target_include_directories(MapViewer PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/tools/map_viewer
+)
+
+# Link against shared library (reuse the darkeden static library)
+target_link_libraries(MapViewer PRIVATE darkeden)
+
+# Add SDL2main on Windows
+if(WIN32 AND TARGET SDL2::SDL2main)
+    target_link_libraries(MapViewer PRIVATE SDL2::SDL2main)
+endif()
+
+# =============================================================================
 # Testing
 # =============================================================================
 
@@ -203,7 +253,7 @@ add_test(NAME unit_tests COMMAND test_runner)
 # Installation rules
 # =============================================================================
 
-install(TARGETS SDLSpriteViewer SDLAnimationViewer SDLCreatureViewer
+install(TARGETS SDLSpriteViewer SDLAnimationViewer SDLCreatureViewer ZoneViewer
     RUNTIME DESTINATION bin
 )
 
