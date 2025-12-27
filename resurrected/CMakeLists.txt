@@ -198,7 +198,6 @@ endif()
 
 set(MAP_VIEWER_SOURCES
     tools/map_viewer/main.c
-    tools/map_viewer/map_loader.c
 )
 
 add_executable(MapViewer ${MAP_VIEWER_SOURCES})
