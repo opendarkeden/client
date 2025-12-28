@@ -27,11 +27,12 @@
 
 static void print_usage(const char* prog) {
     printf("MapViewer (Zone + SDL)\n");
-    printf("用途: 以相机浏览整个 zone 地图，并渲染地表 tile。\n");
-    printf("\n用法:\n  %s <zone.map> <tile.spk> [--cell PIXELS]\n", prog);
-    printf("\n示例:\n  %s DarkEden/Data/Map/adam_c.map DarkEden/Data/Image/tile.spk --cell 32\n", prog);
+    printf("用途: 以相机浏览整个 zone 地图，并渲染地表 tile 与静态 ImageObject。\n");
+    printf("\n用法:\n  %s <zone.map> <tile.spk> [imageobject.spk] [--cell PIXELS]\n", prog);
+    printf("\n示例:\n  %s DarkEden/Data/Map/adam_c.map DarkEden/Data/Image/tile.spk DarkEden/Data/Image/ImageObject.spk --cell 32\n", prog);
     printf("\n参数:\n");
-    printf("  --cell N   格子宽度像素，默认 32。格子高度为宽度的一半 (2:1)。\n");
+    printf("  --cell N           格子宽度像素，默认 32。格子高度为宽度的一半 (2:1)。\n");
+    printf("  imageobject.spk    可选：用于静态物件/建筑的 SPK。缺省仅渲染 tile。\n");
     printf("\n默认行为:\n");
     printf("  - 启动即为全图相机模式（无需 --full）。\n");
     printf("  - 网格比例为 2:1：宽=cell，高=cell/2（例如 cell=32 → 32x16）。\n");
@@ -41,6 +42,7 @@ static void print_usage(const char* prog) {
     printf("  - 拖拽平移：右键拖动\n");
     printf("  - 重置视角：1 或 Home\n");
     printf("  - 网格开关：G\n");
+    printf("  - 物件开关：I（只显示 tile / 显示 ImageObject）\n");
 }
 
 /* detect_sector_table_offset no longer used by MapViewer.
@@ -57,20 +59,25 @@ int main(int argc, char** argv) {
 
     const char* map_path = argv[1];
     const char* spk_path = argv[2];
+    const char* obj_spk_path = NULL;
 
     int view_tiles_w = DEFAULT_RECT_W;
     int view_tiles_h = DEFAULT_RECT_H;
     int cell_pixels = DEFAULT_CELL_PIXELS;
 
-    /* parse optional args */
+    /* parse optional args (one optional positional for imageobject spk) */
     for (int i = 3; i < argc; i++) {
+        if (argv[i][0] != '-' && obj_spk_path == NULL) {
+            obj_spk_path = argv[i];
+            continue;
+        }
         if (strcmp(argv[i], "--cell") == 0 && (i + 1) < argc) {
             cell_pixels = atoi(argv[i + 1]);
             if (cell_pixels <= 0) cell_pixels = DEFAULT_CELL_PIXELS;
             i++;
             continue;
         }
-        /* 仅支持 --cell；其余参数忽略 */
+        /* 其它参数忽略 */
     }
 
     if (view_tiles_w <= 0 || view_tiles_h <= 0) {
@@ -116,6 +123,18 @@ int main(int argc, char** argv) {
     }
     printf("Loaded sprite pack (count=%u)\n", (unsigned)pack.count);
 
+    /* optional ImageObject sprite pack */
+    SpritePack obj_pack;
+    int has_obj_pack = 0;
+    if (obj_spk_path) {
+        if (spritepack_load_lazy(&obj_pack, obj_spk_path) != 0) {
+            fprintf(stderr, "Warning: failed to load imageobject pack: %s (skip objects)\n", obj_spk_path);
+        } else {
+            has_obj_pack = 1;
+            printf("Loaded imageobject pack (count=%u)\n", (unsigned)obj_pack.count);
+        }
+    }
+
     /* 全图模式：贴图懒加载，无需预读 sids */
 
     /* prepare decode cache */
@@ -137,12 +156,32 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    DecodedSprite* obj_cache = NULL;
+    uint8_t* obj_have = NULL;
+    if (has_obj_pack) {
+        obj_cache = (DecodedSprite*)calloc((size_t)obj_pack.count, sizeof(DecodedSprite));
+        obj_have = (uint8_t*)calloc((size_t)obj_pack.count, 1);
+        if (!obj_cache || !obj_have) {
+            fprintf(stderr, "Out of memory (object cache)\n");
+            free(obj_cache);
+            free(obj_have);
+            free(have);
+            free(cache);
+            spritepack_free(&obj_pack);
+            spritepack_free(&pack);
+            sdl_framework_cleanup(&fw);
+            zone_free(&zone);
+            return 1;
+        }
+    }
+
     /* 贴图完全懒加载，首次进入视口时解码并创建纹理 */
 
     /* main loop: render grid */
     /* 相机与交互（full 模式）*/
     double zoom = 1.0;
     int show_grid = 1;
+    int show_objects = 1;
     double cam_x = 0.0, cam_y = 0.0; /* 以屏幕像素为单位（缩放后世界像素）*/
     int dragging = 0; int drag_last_x = 0, drag_last_y = 0;
 
@@ -187,6 +226,7 @@ int main(int argc, char** argv) {
                         case SDLK_1: /* 重置 */
                         case SDLK_HOME: zoom = 1.0; cam_x = cam_y = 0.0; break;
                         case SDLK_g: show_grid = !show_grid; break;
+                        case SDLK_i: show_objects = !show_objects; break;
                         default: break;
                     }
                 }
@@ -311,6 +351,91 @@ int main(int argc, char** argv) {
                     }
                 }
             }
+
+            /* 绘制静态 ImageObject（跳过 creature/effect），按 Y 排序 */
+            if (has_obj_pack && show_objects && zone.image_objects && zone.image_object_count > 0) {
+                double scale_x = tile_w_px / (double)DEFAULT_CELL_PIXELS;
+                double scale_y = tile_h_px / (double)(DEFAULT_CELL_PIXELS / 2);
+                if (scale_y <= 0.0) scale_y = 1.0;
+
+                /* 收集可见对象索引 */
+                typedef struct { uint32_t idx; int keyY; int keyX; } VisObj;
+                VisObj* order = (VisObj*)malloc(sizeof(VisObj) * zone.image_object_count);
+                uint32_t vis_n = 0;
+                for (uint32_t oi = 0; oi < zone.image_object_count; ++oi) {
+                    const ImageObject* obj = &zone.image_objects[oi];
+                    if (obj->type == OBJECT_TYPE_CREATURE || obj->type == OBJECT_TYPE_EFFECT) continue;
+                    if (obj->sprite_id == 0xFFFF || obj->sprite_id >= obj_pack.count) continue;
+                    double world_x = obj->pixel_x * scale_x;
+                    double world_y = obj->pixel_y * scale_y;
+                    int sx = (int)(world_x - cam_x);
+                    int sy = (int)(world_y - cam_y);
+                    /* 粗略裁剪：锚点在屏幕内附近 */
+                    const int margin = 256;
+                    if (sx < -margin || sy < -margin || sx > win_w + margin || sy > win_h + margin) continue;
+                    order[vis_n++] = (VisObj){ .idx = oi, .keyY = (int)(obj->pixel_y * scale_y), .keyX = (int)(obj->pixel_x * scale_x) };
+                }
+
+                /* 排序：按像素 Y，然后 X（升序）*/
+                if (vis_n > 1) {
+                    /* 简单插入排序：按 Y 后 X 升序 */
+                    for (uint32_t i = 1; i < vis_n; ++i) {
+                        VisObj key = order[i];
+                        int j = (int)i - 1;
+                        while (j >= 0) {
+                            if (order[j].keyY < key.keyY) break;
+                            if (order[j].keyY == key.keyY && order[j].keyX <= key.keyX) break;
+                            order[j + 1] = order[j];
+                            j--;
+                        }
+                        order[j + 1] = key;
+                    }
+                }
+
+                /* 绘制 */
+                for (uint32_t vi = 0; vi < vis_n; ++vi) {
+                    const ImageObject* obj = &zone.image_objects[order[vi].idx];
+                    /* 确保纹理就绪 */
+                    if (obj_have[obj->sprite_id] != 1 || !obj_cache[obj->sprite_id].texture) {
+                        Sprite* osp = spritepack_get(&obj_pack, obj->sprite_id);
+                        if (osp && osp->is_valid) {
+                            if (sprite_decode(osp, &obj_cache[obj->sprite_id], 0) == 0) {
+                                if (decoded_sprite_create_texture(&obj_cache[obj->sprite_id], fw.renderer) == 0) {
+                                    obj_have[obj->sprite_id] = 1;
+                                } else {
+                                    decoded_sprite_free(&obj_cache[obj->sprite_id]);
+                                    obj_have[obj->sprite_id] = 0xFF;
+                                }
+                            } else {
+                                obj_have[obj->sprite_id] = 0xFF;
+                            }
+                        } else {
+                            obj_have[obj->sprite_id] = 0xFF;
+                        }
+                    }
+                    if (obj_have[obj->sprite_id] != 1 || !obj_cache[obj->sprite_id].texture) continue;
+
+                    int draw_w = (int)(obj_cache[obj->sprite_id].width * scale_x);
+                    int draw_h = (int)(obj_cache[obj->sprite_id].height * scale_y);
+                    if (draw_w <= 0 || draw_h <= 0) continue;
+
+                    int dst_x = (int)(obj->pixel_x * scale_x - cam_x);
+                    int dst_y = (int)(obj->pixel_y * scale_y - cam_y);
+                    SDL_Rect dst = { dst_x, dst_y, draw_w, draw_h };
+                    if (dst.x > win_w || dst.y > win_h || dst.x + dst.w < 0 || dst.y + dst.h < 0) continue;
+
+                    /* HALF 半透明支持 */
+                    if (obj->trans_flags & 2) {
+                        SDL_SetTextureAlphaMod(obj_cache[obj->sprite_id].texture, 128);
+                    } else {
+                        SDL_SetTextureAlphaMod(obj_cache[obj->sprite_id].texture, 255);
+                    }
+
+                    SDL_RenderCopy(fw.renderer, obj_cache[obj->sprite_id].texture, NULL, &dst);
+                }
+
+                free(order);
+            }
         }
 
         sdl_framework_end_frame(&fw);
@@ -323,13 +448,20 @@ int main(int argc, char** argv) {
     free(have);
     free(cache);
 
+    if (has_obj_pack) {
+        for (uint32_t i = 0; i < obj_pack.count; i++) {
+            if (obj_have[i] == 1) decoded_sprite_free(&obj_cache[i]);
+        }
+        free(obj_have);
+        free(obj_cache);
+    }
+
     /* 释放 Zone 资源 */
     zone_free(&zone);
 
     spritepack_free(&pack);
+    if (has_obj_pack) spritepack_free(&obj_pack);
     sdl_framework_cleanup(&fw);
-
-    return 0;
 
     return 0;
 }

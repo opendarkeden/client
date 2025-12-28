@@ -26,13 +26,13 @@ extern "C" {
  * CreatureFramePack - [CreatureType][Action][Direction][Frame]
  * ============================================================================ */
 
+typedef struct CreatureFramePack {
 /**
  * CreatureFramePack structure
  * 
  * Stores animation frame data for all creature types.
  * Structure: [CreatureType][Action][Direction][Frame] -> Frame
  */
-typedef struct {
     vector(ActionArray) creatures;  /**< Array of ActionArrays, one per creature type */
 } CreatureFramePack;
 

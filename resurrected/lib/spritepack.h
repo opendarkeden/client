@@ -16,17 +16,19 @@
 extern "C" {
 #endif
 
+typedef struct SpritePack SpritePack;
+
 /**
  * SpritePack structure
  */
-typedef struct {
+struct SpritePack {
     uint16_t count;          /* Number of sprites in pack */
     Sprite* sprites;         /* Array of sprites */
     uint32_t* file_offsets;  /* File offsets from index file (optional) */
     FILE* pack_file;         /* File handle for lazy loading */
     int lazy_load;           /* Whether lazy loading is enabled */
     char* filename;          /* Pack filename for lazy loading */
-} SpritePack;
+};
 
 /**
  * Load sprite pack (full load)
@@ -51,6 +53,8 @@ int spritepack_load_lazy(SpritePack* pack, const char* filename);
  * @return Pointer to sprite, or NULL if invalid index
  */
 Sprite* spritepack_get(SpritePack* pack, uint16_t index);
+
+uint16_t spritepack_size(SpritePack* pack);
 
 /**
  * Free sprite pack resources

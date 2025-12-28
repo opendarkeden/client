@@ -24,12 +24,13 @@ extern "C" {
  * IndexSpritePack Structure
  * ============================================================================ */
 
+ typedef struct IndexSpritePack IndexSpritePack;
 /**
  * IndexedSpritePack structure
  * 
  * Manages a collection of IndexedSprites with support for lazy loading.
  */
-typedef struct {
+struct IndexSpritePack {
     IndexSprite* sprites;    /**< Array of sprites */
     uint16_t size;           /**< Number of sprites in pack */
     int is_lazy_load;        /**< Whether lazy loading is enabled */
@@ -37,7 +38,7 @@ typedef struct {
     FILE* pack_file;         /**< File handle for lazy loading */
     int32_t* file_index;     /**< File offsets for each sprite */
     char* filename;          /**< Pack filename (for reference) */
-} IndexSpritePack;
+};
 
 /* ============================================================================
  * Functions

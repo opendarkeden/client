@@ -239,3 +239,28 @@ install(TARGETS darkeden
 install(FILES ${LIB_HEADERS}
     DESTINATION include/darkeden
 )
+
+# =============================================================================
+# Executable: TopView (Game MVP)
+# Minimal game-like runner using SDL that renders a zone and a single creature,
+# with camera follow and mouse-controlled movement.
+# =============================================================================
+
+set(TOP_VIEW_SOURCES
+    src/main.c
+    src/top_view.c
+    src/top_view.h
+)
+
+add_executable(TopView ${TOP_VIEW_SOURCES})
+
+target_include_directories(TopView PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+target_link_libraries(TopView PRIVATE darkeden)
+
+if(WIN32 AND TARGET SDL2::SDL2main)
+    target_link_libraries(TopView PRIVATE SDL2::SDL2main)
+endif()

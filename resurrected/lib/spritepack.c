@@ -33,6 +33,11 @@ static void spritepack_init(SpritePack* pack) {
     pack->filename = NULL;
 }
 
+uint16_t spritepack_size(SpritePack* pack) {
+    if (!pack) return 0;
+    return pack->count;
+}
+
 /**
  * Load sprite pack (full load)
  * Requirements: 4.1, 4.2, 4.5

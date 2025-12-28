@@ -28,12 +28,14 @@ typedef struct {
 /**
  * Framework state structure
  */
-typedef struct {
+typedef struct SDLFramework SDLFramework;
+
+struct SDLFramework{
     SDL_Window* window;
     SDL_Renderer* renderer;
     int running;
     uint32_t frame_delay;
-} SDLFramework;
+};
 
 /**
  * Initialize the SDL framework
