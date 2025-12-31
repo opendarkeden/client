@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(DarkEdenSDL VERSION 1.0.0 LANGUAGES C CXX)
 
-# Set C++11 standard (Requirements 8.3)
-set(CMAKE_CXX_STANDARD 11)
+# Set C++17 standard (Requirements 8.3)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -40,7 +40,6 @@ set(LIB_SOURCES
     lib/sprite.c
     lib/spritepack.c
     lib/sdl_framework.c
-    lib/str.c
     lib/animation.c
     lib/frame.c
     lib/framepack.c
@@ -263,4 +262,33 @@ target_link_libraries(TopView PRIVATE darkeden)
 
 if(WIN32 AND TARGET SDL2::SDL2main)
     target_link_libraries(TopView PRIVATE SDL2::SDL2main)
+endif()
+
+# =============================================================================
+# Executable: SDLUIDemo
+# A standalone SDL demo that uses the shimmed sprite surface/pack to render
+# legacy-style UI sprites without DirectX. Compiles only the new SDL path.
+# =============================================================================
+
+set(SDL_UI_SOURCES
+    src/ui/sdl_demo_main.cpp
+    src/sdl_shim/CSpriteSurfaceSDL.cpp
+    src/sdl_shim/SpritePackSDL.cpp
+    src/sdl_shim/UIContextSDL.cpp
+    src/sdl_shim/GlobalResourceSDL.cpp
+    src/sdl_shim/GameOverDialogSDL.cpp
+)
+
+add_executable(SDLUIDemo ${SDL_UI_SOURCES})
+
+target_include_directories(SDLUIDemo PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/sdl_shim
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib
+)
+
+target_link_libraries(SDLUIDemo PRIVATE darkeden)
+
+if(WIN32 AND TARGET SDL2::SDL2main)
+    target_link_libraries(SDLUIDemo PRIVATE SDL2::SDL2main)
 endif()
