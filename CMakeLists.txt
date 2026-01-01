@@ -49,6 +49,15 @@ set(LIB_SOURCES
     lib/shadow_sprite.c
     lib/shadow_spritepack.c
     lib/zone.c
+    # UI System
+    lib/ui_surface.c
+    lib/ui_window.c
+    lib/ui_button.c
+    lib/ui_button_group.c
+    lib/ui_event_router.c
+    lib/ui_window_manager.c
+    lib/ui_global_resource.c
+    lib/ui_dialog.c
 )
 
 set(LIB_HEADERS
@@ -70,6 +79,15 @@ set(LIB_HEADERS
     lib/shadow_spritepack.h
     lib/zone.h
     lib/error.h
+    # UI System
+    lib/ui_surface.h
+    lib/ui_window.h
+    lib/ui_button.h
+    lib/ui_button_group.h
+    lib/ui_event_router.h
+    lib/ui_window_manager.h
+    lib/ui_global_resource.h
+    lib/ui_dialog.h
 )
 
 # Create static library (Requirement 1.3)
@@ -291,4 +309,25 @@ target_link_libraries(SDLUIDemo PRIVATE darkeden)
 
 if(WIN32 AND TARGET SDL2::SDL2main)
     target_link_libraries(SDLUIDemo PRIVATE SDL2::SDL2main)
+endif()
+
+# =============================================================================
+# Executable: UIDemo (Pure C UI System Demo)
+# Demonstrates the pure C UI component system with a simple dialog.
+# =============================================================================
+
+set(UI_DEMO_SOURCES
+    src/ui_demo/main.c
+)
+
+add_executable(UIDemo ${UI_DEMO_SOURCES})
+
+target_include_directories(UIDemo PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib
+)
+
+target_link_libraries(UIDemo PRIVATE darkeden)
+
+if(WIN32 AND TARGET SDL2::SDL2main)
+    target_link_libraries(UIDemo PRIVATE SDL2::SDL2main)
 endif()
