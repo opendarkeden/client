@@ -50,14 +50,14 @@ set(LIB_SOURCES
     lib/shadow_spritepack.c
     lib/zone.c
     # UI System
-    lib/ui_surface.c
-    lib/ui_window.c
-    lib/ui_button.c
-    lib/ui_button_group.c
-    lib/ui_event_router.c
-    lib/ui_window_manager.c
-    lib/ui_global_resource.c
-    lib/ui_dialog.c
+    lib/ui/ui_surface.c
+    lib/ui/ui_window.c
+    lib/ui/ui_button.c
+    lib/ui/ui_button_group.c
+    lib/ui/ui_event_router.c
+    lib/ui/ui_window_manager.c
+    lib/ui/ui_global_resource.c
+    lib/ui/ui_dialog.c
 )
 
 set(LIB_HEADERS
@@ -80,14 +80,14 @@ set(LIB_HEADERS
     lib/zone.h
     lib/error.h
     # UI System
-    lib/ui_surface.h
-    lib/ui_window.h
-    lib/ui_button.h
-    lib/ui_button_group.h
-    lib/ui_event_router.h
-    lib/ui_window_manager.h
-    lib/ui_global_resource.h
-    lib/ui_dialog.h
+    lib/ui/ui_surface.h
+    lib/ui/ui_window.h
+    lib/ui/ui_button.h
+    lib/ui/ui_button_group.h
+    lib/ui/ui_event_router.h
+    lib/ui/ui_window_manager.h
+    lib/ui/ui_global_resource.h
+    lib/ui/ui_dialog.h
 )
 
 # Create static library (Requirement 1.3)
@@ -96,6 +96,7 @@ add_library(darkeden STATIC ${LIB_SOURCES} ${LIB_HEADERS})
 # Include directories for library
 target_include_directories(darkeden PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui
     ${SDL2_INCLUDE_DIRS}
 )
 
@@ -258,57 +259,28 @@ install(FILES ${LIB_HEADERS}
 )
 
 # =============================================================================
-# Executable: TopView (Game MVP)
+# Executable: GameDemo (Game MVP)
 # Minimal game-like runner using SDL that renders a zone and a single creature,
 # with camera follow and mouse-controlled movement.
 # =============================================================================
 
-set(TOP_VIEW_SOURCES
-    src/main.c
-    src/top_view.c
-    src/top_view.h
+set(GameDemo
+    src/game_demo/main.c
+    src/game_demo/top_view.c
+    src/game_demo/top_view.h
 )
 
-add_executable(TopView ${TOP_VIEW_SOURCES})
+add_executable(GameDemo ${GameDemo})
 
-target_include_directories(TopView PRIVATE
+target_include_directories(GameDemo PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/lib
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(TopView PRIVATE darkeden)
+target_link_libraries(GameDemo PRIVATE darkeden)
 
 if(WIN32 AND TARGET SDL2::SDL2main)
-    target_link_libraries(TopView PRIVATE SDL2::SDL2main)
-endif()
-
-# =============================================================================
-# Executable: SDLUIDemo
-# A standalone SDL demo that uses the shimmed sprite surface/pack to render
-# legacy-style UI sprites without DirectX. Compiles only the new SDL path.
-# =============================================================================
-
-set(SDL_UI_SOURCES
-    src/ui/sdl_demo_main.cpp
-    src/sdl_shim/CSpriteSurfaceSDL.cpp
-    src/sdl_shim/SpritePackSDL.cpp
-    src/sdl_shim/UIContextSDL.cpp
-    src/sdl_shim/GlobalResourceSDL.cpp
-    src/sdl_shim/GameOverDialogSDL.cpp
-)
-
-add_executable(SDLUIDemo ${SDL_UI_SOURCES})
-
-target_include_directories(SDLUIDemo PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/sdl_shim
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib
-)
-
-target_link_libraries(SDLUIDemo PRIVATE darkeden)
-
-if(WIN32 AND TARGET SDL2::SDL2main)
-    target_link_libraries(SDLUIDemo PRIVATE SDL2::SDL2main)
+    target_link_libraries(GameDemo PRIVATE SDL2::SDL2main)
 endif()
 
 # =============================================================================
@@ -324,6 +296,7 @@ add_executable(UIDemo ${UI_DEMO_SOURCES})
 
 target_include_directories(UIDemo PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui
 )
 
 target_link_libraries(UIDemo PRIVATE darkeden)
