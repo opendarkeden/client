@@ -18,9 +18,9 @@ extern "C" {
 
 /* Button IDs matching legacy VS_UI_Title.cpp logic */
 #define UI_TITLE_ID_CONNECT 1
-#define UI_TITLE_ID_OPTION  2
-#define UI_TITLE_ID_CREDIT  3
-#define UI_TITLE_ID_EXIT    4
+#define UI_TITLE_ID_OPTION  3
+#define UI_TITLE_ID_CREDIT  5
+#define UI_TITLE_ID_EXIT    7
 
 /* For public access if needed, otherwise keeping it opaque is better */
 struct UI_Title;

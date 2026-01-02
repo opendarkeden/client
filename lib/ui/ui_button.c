@@ -40,6 +40,7 @@ void ui_button_init(UI_Button* button, int x, int y, int w, int h, int id) {
     button->pressed = 0;
     button->sprite_index = 0;
     button->callback = NULL;
+    button->render_callback = NULL;
     button->user_data = NULL;
 }
 
@@ -82,6 +83,12 @@ void ui_button_set_sprite_index(UI_Button* button, int sprite_index) {
 void ui_button_set_user_data(UI_Button* button, void* user_data) {
     if (button) {
         button->user_data = user_data;
+    }
+}
+
+void ui_button_set_render_callback(UI_Button* button, UI_ButtonRenderCallback render_callback) {
+    if (button) {
+        button->render_callback = render_callback;
     }
 }
 
@@ -163,38 +170,38 @@ void ui_button_render(UI_Button* button, UI_Surface* surface, SpritePack* pack, 
 
     /* Fall back to simple rendering if no sprite pack */
     if (!pack) {
-        ui_button_render_fallback(button, surface, parent_x, parent_y);
+        goto fallback;
+    }
+
+    /* Use custom render callback if provided */
+    if (button->render_callback) {
+        button->render_callback(button, surface, pack, parent_x, parent_y);
         return;
     }
 
-    /* Determine sprite offset based on state */
-    int offset = BUTTON_SPRITE_NORMAL;
-    if (button->pressed) {
-        offset = BUTTON_SPRITE_PRESSED;
-    } else if (button->focus) {
-        offset = BUTTON_SPRITE_HOVER;
-    }
-
-    int sprite_idx = button->sprite_index + offset;
+    int sprite_idx = button->sprite_index;
     Sprite* sprite = spritepack_get(pack, (uint16_t)sprite_idx);
-    
     if (!sprite || !sprite->is_valid) {
-        ui_button_render_fallback(button, surface, parent_x, parent_y);
-        return;
+        goto fallback;
     }
 
     /* Decode and render sprite */
     DecodedSprite decoded = {0};
-    if (sprite_decode(sprite, &decoded, 0) == 0) {
-        if (decoded_sprite_create_texture(&decoded, surface->renderer) == 0) {
-            int abs_x = parent_x + button->x;
-            int abs_y = parent_y + button->y;
-            ui_surface_blit_sprite(surface, abs_x, abs_y, &decoded);
-        }
-        decoded_sprite_free(&decoded);
-    } else {
-        ui_button_render_fallback(button, surface, parent_x, parent_y);
+    if (sprite_decode(sprite, &decoded, 0) != 0) {
+         goto fallback;
     }
+
+    if (decoded_sprite_create_texture(&decoded, surface->renderer) == 0) {
+        int abs_x = parent_x + button->x;
+        int abs_y = parent_y + button->y;
+        ui_surface_blit_sprite(surface, abs_x, abs_y, &decoded);
+    }
+    decoded_sprite_free(&decoded);
+    return;
+
+fallback:
+    ui_button_render_fallback(button, surface, parent_x, parent_y);
+    return;
 }
 
 void ui_button_render_fallback(UI_Button* button, UI_Surface* surface, int parent_x, int parent_y) {

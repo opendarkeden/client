@@ -16,6 +16,7 @@
 
 #define UI_CM_ID_CREATE 1
 #define UI_CM_ID_BACK 2
+#define UI_CM_ID_ENTER 3
 
 struct UI_CharManager {
     UI_Window base;
@@ -51,6 +52,7 @@ static void internal_button_callback(UI_Button* button, int id) {
         int event = 0;
         if (id == UI_CM_ID_CREATE) event = UI_CHAR_MANAGER_EVENT_CREATE;
         else if (id == UI_CM_ID_BACK) event = UI_CHAR_MANAGER_EVENT_BACK;
+        else if (id == UI_CM_ID_ENTER) event = UI_CHAR_MANAGER_EVENT_ENTER_GAME;
         
         if (event) {
             cm->callback(&cm->base, event, cm->callback_data);
@@ -102,6 +104,9 @@ UI_Window* ui_char_manager_create(UI_GlobalResource* global_resource, UI_CharMan
     /* "Create New Char" button - random usage position */
     add_button(cm, w/2 - 75, h - 80, 150, 40, UI_CM_ID_CREATE);
     add_button(cm, w - 50, 10, 40, 30, UI_CM_ID_BACK);
+    
+    /* "Start Game" button */
+    add_button(cm, w/2 - 75, h - 130, 150, 40, UI_CM_ID_ENTER);
     
     return &cm->base;
 }

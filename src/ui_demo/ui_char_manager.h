@@ -16,6 +16,7 @@ extern "C" {
 /* Callback events */
 #define UI_CHAR_MANAGER_EVENT_CREATE 1
 #define UI_CHAR_MANAGER_EVENT_BACK 2
+#define UI_CHAR_MANAGER_EVENT_ENTER_GAME 3
 
 typedef void (*UI_CharManagerCallback)(UI_Window* window, int event_type, void* data);
 

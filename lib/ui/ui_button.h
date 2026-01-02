@@ -27,6 +27,17 @@ typedef struct UI_Button UI_Button;
  */
 typedef void (*UI_ButtonCallback)(UI_Button* button, int id);
 
+/**
+ * Button render callback function type
+ * Allows parent to customize button rendering based on state
+ * @param button The button to render
+ * @param surface Target surface
+ * @param pack Sprite pack (may be NULL)
+ * @param parent_x Parent window X position
+ * @param parent_y Parent window Y position
+ */
+typedef void (*UI_ButtonRenderCallback)(UI_Button* button, UI_Surface* surface, SpritePack* pack, int parent_x, int parent_y);
+
 struct UI_Button {
     int x, y;           /* Position relative to parent */
     int w, h;           /* Dimensions */
@@ -35,6 +46,7 @@ struct UI_Button {
     int pressed;        /* Mouse button down (1=pressed, 0=released) */
     int sprite_index;   /* Base sprite index in pack */
     UI_ButtonCallback callback;
+    UI_ButtonRenderCallback render_callback;  /* Custom render function */
     void* user_data;
 };
 
@@ -101,6 +113,14 @@ void ui_button_set_sprite_index(UI_Button* button, int sprite_index);
  * @param user_data User data pointer
  */
 void ui_button_set_user_data(UI_Button* button, void* user_data);
+
+/**
+ * Set custom render callback
+ * If set, this function will be called instead of default rendering
+ * @param button Pointer to button structure
+ * @param render_callback Custom render function (NULL for default)
+ */
+void ui_button_set_render_callback(UI_Button* button, UI_ButtonRenderCallback render_callback);
 
 /* ============================================================================
  * Event handling

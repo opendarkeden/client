@@ -295,6 +295,13 @@ set(UI_DEMO_SOURCES
     src/ui_demo/ui_server_select.c
     src/ui_demo/ui_char_manager.c
     src/ui_demo/ui_newchar.c
+    src/ui_demo/ui_game_main.c
+    src/ui_demo/ui_game_update.c
+    src/ui_demo/ui_game_quickslot.c
+    src/ui_demo/ui_game_gear.c
+    src/ui_demo/ui_game_chat.c
+    src/ui_demo/ui_game_minimap.c
+    src/ui_demo/ui_game_sysmenu.c
 )
 
 add_executable(UIDemo ${UI_DEMO_SOURCES})
