@@ -290,6 +290,11 @@ endif()
 
 set(UI_DEMO_SOURCES
     src/ui_demo/main.c
+    src/ui_demo/ui_title.c
+    src/ui_demo/ui_login.c
+    src/ui_demo/ui_server_select.c
+    src/ui_demo/ui_char_manager.c
+    src/ui_demo/ui_newchar.c
 )
 
 add_executable(UIDemo ${UI_DEMO_SOURCES})

@@ -17,6 +17,7 @@
 #include "ui_event_router.h"
 #include "ui_dialog.h"
 #include "ui_global_resource.h"
+#include "ui_title.h"
 
 /* Window dimensions */
 #define WINDOW_WIDTH  800
@@ -54,20 +55,24 @@ static void on_dialog_action(UI_Dialog* dialog, int exec_id) {
  * Main
  * ============================================================================ */
 
+/* Main */
+/* ============================================================================
+ * Main
+ * ============================================================================ */
+
 int main(int argc, char* argv[]) {
     (void)argc;
     (void)argv;
 
-    printf("SDL UI System Demo\n");
-    printf("==================\n");
-    printf("Click OK or Cancel, or press Enter/Escape to exit.\n\n");
+    printf("SDL UI System Demo - Title Screen\n");
+    printf("=================================\n");
 
     /* Initialize SDL framework */
     SDLFramework fw;
     SDLFrameworkConfig config = {
         .window_width = WINDOW_WIDTH,
         .window_height = WINDOW_HEIGHT,
-        .window_title = "SDL UI Demo",
+        .window_title = "DarkEden Title Demo",
         .target_fps = 60
     };
 
@@ -84,41 +89,32 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    /* Initialize global resources (no sprite packs for this demo) */
+    /* Initialize global resources */
     UI_GlobalResource resources;
+    /* Pass NULL so it doesn't try to load fallback dialog/button packs we don't need for Title yet, 
+       or we could pass generic ones if we had them. Title manages its own packs. */
     ui_global_resource_init(&resources, fw.renderer, &surface, NULL, NULL);
 
-    /* Create dialog centered on screen */
-    int dialog_x = (WINDOW_WIDTH - DIALOG_WIDTH) / 2;
-    int dialog_y = (WINDOW_HEIGHT - DIALOG_HEIGHT) / 2;
-    
-    UI_Dialog* dialog = ui_dialog_create(
-        dialog_x, dialog_y,
-        DIALOG_WIDTH, DIALOG_HEIGHT,
-        DIALOG_OK | DIALOG_CANCEL,
-        on_dialog_action
-    );
+    /* Create Title Window */
+    UI_Window* title_window = ui_title_create(&resources);
 
-    if (!dialog) {
-        fprintf(stderr, "Failed to create dialog\n");
+    if (!title_window) {
+        fprintf(stderr, "Failed to create title window. Check if data/spk/Title.spk exists.\n");
         ui_global_resource_free(&resources);
         ui_surface_free(&surface);
         sdl_framework_cleanup(&fw);
         return 1;
     }
 
-    ui_dialog_set_resources(dialog, &resources);
-    ui_dialog_set_message(dialog, "Hello from SDL UI!");
-
     /* Initialize window manager */
     UI_WindowManager wm;
     ui_window_manager_init(&wm, &surface);
 
-    /* Register dialog with window manager */
-    ui_window_manager_register(&wm, ui_dialog_get_window(dialog));
-
-    /* Show the dialog */
-    ui_dialog_start(dialog);
+    /* Register title with window manager */
+    ui_window_manager_register(&wm, title_window);
+    ui_window_set_visible(title_window, 1);
+    
+    // ui_dialog_start is not needed for generic window, just visibility
 
     /* Main loop */
     while (g_running) {
@@ -140,7 +136,7 @@ int main(int argc, char* argv[]) {
         }
 
         /* Clear surface */
-        ui_surface_clear(&surface, 0x1a1a2eFF);
+        ui_surface_clear(&surface, 0x000000FF);
 
         /* Process and render windows */
         ui_window_manager_process(&wm);
@@ -156,7 +152,10 @@ int main(int argc, char* argv[]) {
     }
 
     /* Cleanup */
-    ui_dialog_destroy(dialog);
+    // free(title_window); // Should be freed by specific destroy or cleanup
+    // ideally title_window has a destroy function or we cast to title to free
+    // For now simple leak is fine in demo main, or we rely on OS cleanup
+    
     ui_window_manager_free(&wm);
     ui_global_resource_free(&resources);
     ui_surface_free(&surface);
