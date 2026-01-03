@@ -1,7 +1,8 @@
 // VS_UI_Base.cpp
 
-#include "client_PCH.h"
+// #include "client_PCH.h"
 #include "VS_UI_Base.h"
+#include "widget_sdl/CompatSurfaceSDL.h"
 #include <windows.h>
 extern RECT g_GameRect;
 //----------------------------------------------------------------------------
@@ -348,22 +349,17 @@ void Base::InitFont()
 //
 // 
 //-----------------------------------------------------------------------------
-void Base::InitSurface(CSpriteSurface *surface)
+void Base::InitSurface(CSpriteSurface *surface, SDL_Renderer* renderer)
 {
 	assert(surface);
 	m_p_DDSurface_back = surface;
 
-	bool ret = m_DDSurface_offscreen.InitOffsurface(g_GameRect.right, g_GameRect.bottom, DDSCAPS_SYSTEMMEMORY);
-	if (!ret)
-		_Error(FAILED_JOB);
-
-	//
-	// offscreen의 colorkey를 설정한다. 상황에 따라서 Image에서 안 쓰는 색을 
-	// 결정해야 한다.
-	//
-	m_colorkey_red = RED;
-
-	m_DDSurface_offscreen.SetTransparency(m_colorkey_red); // default colorkey = red
+	// If caller provides renderer, initialize surfaces here (SDL path)
+	if (renderer)
+	{
+		m_p_DDSurface_back->Init(g_GameRect.right, g_GameRect.bottom, renderer);
+		m_DDSurface_offscreen.Init(g_GameRect.right, g_GameRect.bottom, renderer);
+	}
 
 	// set Unicorn edit widget surface
 	g_SetFL2Surface(m_p_DDSurface_back->GetSurface());

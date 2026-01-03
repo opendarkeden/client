@@ -12,7 +12,7 @@
 #ifndef __VS_UI_DIALOG_H__
 #define __VS_UI_DIALOG_H__
 
-#include "Unicorn.h"
+// #include "Unicorn.h"
 #include "VS_UI_Widget.h"
 #include <vector>
 #include <string>

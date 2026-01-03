@@ -3693,7 +3693,7 @@ class C_VS_UI_FRIEND_INFO;
 //
 // 당연히 가장 먼저 실행하여야 한다.
 //-----------------------------------------------------------------------------
-void C_VS_UI::Init(CSpriteSurface *surface, void (*fp)(DWORD, int, int, void *))
+void C_VS_UI::Init(CSpriteSurface *surface, void (*fp)(DWORD, int, int, void *), SDL_Renderer* renderer)
 {
 	g_SetNewHandler();
 
@@ -3718,7 +3718,7 @@ void C_VS_UI::Init(CSpriteSurface *surface, void (*fp)(DWORD, int, int, void *))
 #endif	
 
 	gpC_base = new Base;
-	gpC_base->Init(surface, fp);
+	\tgpC_base->Init(surface, fp, renderer);
 
 	//-----------------------------------------------
 	// global object allocation

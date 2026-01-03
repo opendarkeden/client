@@ -56,8 +56,8 @@ typedef WORD SPRITE_ID;
 class C_SPRITE_PACK
 {
 private:
-	//CSpritePackList *	m_pC_spk_list; // 565, 555를 결정해야하기 때문에 pointer로.
-	CSpritePack			m_SPK;	// by sigi
+	// SDL-backed sprite pack
+	SpritePack*			m_pack;
 
 public:
 	C_SPRITE_PACK(const char *sz_filename = NULL);
@@ -96,8 +96,8 @@ public:
 
 	bool	IsPixel(int x, int y, SPRITE_ID sprite_id = 0);
 
-	int		GetSize()	{ return m_SPK.GetSize(); }
-	CSprite &GetSprite(SPRITE_ID id) { return m_SPK[id]; }
+	int		GetSize()	{ return m_pack ? spritepack_size(m_pack) : 0; }
+	DecodedSprite* GetSprite(SPRITE_ID id) { return m_pack ? spritepack_get(m_pack, id) : nullptr; }
 };
 
 /*-----------------------------------------------------------------------------

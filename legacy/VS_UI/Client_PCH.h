@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //	created:	2004/12/22
 //	file base:	client_pch.h
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -23,8 +23,8 @@
 #include <deque>
 #include <bitset>
 #include <algorithm>
-#include <iostream.h>
-#include <fstream.h>
+#include <iostream>
+#include <fstream>
 #include <windows.h>
 #include <MMSystem.h>
 #include <Digitalv.h>
@@ -34,7 +34,7 @@
 #include <io.h>
 #include <fcntl.h>
 #include <sys/types.h>
-#include <sys/stat.h> 
+#include <sys/stat.h>
 //#include "GAME1024.h"
 #pragma warning(pop)
 

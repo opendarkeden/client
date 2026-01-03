@@ -12,7 +12,7 @@
 #define __BASICS_H__
 
 #include "Typedef.h"
-#include "I_signal.h"
+#include "i_signal.h"
 #include "BasicException.h"
 #include "BasicMemory.h"
 #include "BasicData.h"

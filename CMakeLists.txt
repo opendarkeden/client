@@ -50,7 +50,7 @@ set(LIB_SOURCES
     lib/shadow_spritepack.c
     lib/zone.c
     # UI System
-    lib/ui/ui_surface.c
+    lib/ui_surface.c
     lib/ui/ui_window.c
     lib/ui/ui_button.c
     lib/ui/ui_button_group.c
@@ -80,7 +80,7 @@ set(LIB_HEADERS
     lib/zone.h
     lib/error.h
     # UI System
-    lib/ui/ui_surface.h
+    lib/ui_surface.h
     lib/ui/ui_window.h
     lib/ui/ui_button.h
     lib/ui/ui_button_group.h
@@ -316,4 +316,30 @@ target_link_libraries(UIDemo PRIVATE darkeden)
 
 if(WIN32 AND TARGET SDL2::SDL2main)
     target_link_libraries(UIDemo PRIVATE SDL2::SDL2main)
+endif()
+
+# =============================================================================
+# Executable: GameMenuSDL_Demo
+# Minimal SDL demo for the SDL-backed GameMenu shim.
+# =============================================================================
+
+set(GAMEMENU_SDL_DEMO_SOURCES
+    src/sdl_game_menu_demo/main.cpp
+    legacy/VS_UI/src/widget_sdl/GameMenuSDL_demo.cpp
+    legacy/VS_UI/src/widget_sdl/CompatSurfaceSDL.cpp
+)
+
+add_executable(GameMenuSDL_Demo ${GAMEMENU_SDL_DEMO_SOURCES})
+
+target_include_directories(GameMenuSDL_Demo PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/ui
+    ${CMAKE_CURRENT_SOURCE_DIR}/legacy/VS_UI/src/widget_sdl
+    ${CMAKE_CURRENT_SOURCE_DIR}/legacy/VS_UI/src/header
+)
+
+target_link_libraries(GameMenuSDL_Demo PRIVATE darkeden)
+
+if(WIN32 AND TARGET SDL2::SDL2main)
+    target_link_libraries(GameMenuSDL_Demo PRIVATE SDL2::SDL2main)
 endif()

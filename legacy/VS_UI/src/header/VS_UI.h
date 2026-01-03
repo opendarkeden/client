@@ -234,7 +234,7 @@ public:
 	int		GetSelectedMainTab()		{ if(m_pC_game) return m_pC_game->GetSelectedMainTab(); return 0;}
 	void	SetSelectMainTab(int tab)	{ if(m_pC_game) m_pC_game->SetMainTab(tab); }
 
-	void	Init(CSpriteSurface *surface, void (*fp)(DWORD, int, int, void *));
+	void	Init(CSpriteSurface *surface, void (*fp)(DWORD, int, int, void *), SDL_Renderer* renderer = nullptr);
 	void	Release();		// by sigi
 	void	Process();
 	void	Show();

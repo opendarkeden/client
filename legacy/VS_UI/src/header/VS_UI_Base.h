@@ -11,17 +11,19 @@
 
 #include "BasicS.h"
 #include "DLL.h"
-#include "GL_import.h"
+// #include "GL_import.h"
 #include "Timer2.h"
-#include "DXLib.h"
-#include "Unicorn.h"
+// #include "DXLib.h"
+// #include "Unicorn.h"
 #include "SP.h"
 //#include "VS_UI_Exception.h"
 #include "VS_UI_ui_result_receiver.h"
 #include "SimpleDataList.h"
 #include "PI.h"
-#include "PS.h"
+// #include "PS.h"
 #include "RaceType.h"
+
+struct SDL_Renderer;
 
 #include <assert.h>
 
@@ -297,7 +299,7 @@ private:
 	C_VS_UI_UI_RESULT_RECEIVER		m_C_ui_result_receiver;
 
 	void	InitFont();
-	void	InitSurface(CSpriteSurface *surface);
+	void	InitSurface(CSpriteSurface *surface, SDL_Renderer* renderer = nullptr);
 	void	SetDefaultLogfont(LOGFONT &lf) const;
 	void	SetFont(PrintInfo &pi, LOGFONT &lf, COLORREF textcolor, COLORREF backcolor=0, int bk_mode=TRANSPARENT, int align=TA_LEFT);
 

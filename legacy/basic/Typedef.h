@@ -35,7 +35,7 @@ typedef unsigned long   DWORD;
 // Purpose:
 //				General use.
 //
-typedef DWORD				id_t;
+// typedef DWORD				id_t;
 
 //
 // Character type definition for DBCS(Double-Byte Character Set).
