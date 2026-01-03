@@ -43,15 +43,15 @@ struct S_BLOOD_BIBLE_DESCRIPTION
 	char *		sz_player;
 };
 
-// ÁÖ¹Î¹øÈ£ÀÚ¸´¼ö(ÇÑ±¹)
+// ì£¼ë¯¼ë²ˆí˜¸ìžë¦¿ìˆ˜(í•œêµ­)
 #define SSN_POS_COUNT					13
 #define SSN_PART1_CHAR_COUNT			6
 #define SSN_PART2_CHAR_COUNT			7
 //#define _SHOW_WINDOW_ATTR
 
 //
-// SHOW_WINDOW_ATTRÀº °¢ Window¿¡ Window»óÅÂ¸¦ Ãâ·ÂÇÏ±â À§ÇÑ °ÍÀÌ´Ù. Window¸¦ µð¹ö±ëÇÏ±â À§ÇØ
-// ¸¸µç °ÍÀÌ´Ù.
+// SHOW_WINDOW_ATTRì€ ê° Windowì— Windowìƒíƒœë¥¼ ì¶œë ¥í•˜ê¸° ìœ„í•œ ê²ƒì´ë‹¤. Windowë¥¼ ë””ë²„ê¹…í•˜ê¸° ìœ„í•´
+// ë§Œë“  ê²ƒì´ë‹¤.
 //
 #if (defined(_SHOW_WINDOW_ATTR) && !defined(_LIB))
 #define SHOW_WINDOW_ATTR { \
@@ -66,8 +66,8 @@ struct S_BLOOD_BIBLE_DESCRIPTION
 //
 // set/unset background mouse focus message
 //
-// client background¿¡ mouse focus¸¦ set/unsetÇÑ´Ù.
-// ÀÌ°ÍÀº mouse pointer°¡ UI Window·Î acquire/unacquire¸¦ client¿¡ ¾Ë¸®´Â °ÍÀÌ´Ù.
+// client backgroundì— mouse focusë¥¼ set/unsetí•œë‹¤.
+// ì´ê²ƒì€ mouse pointerê°€ UI Windowë¡œ acquire/unacquireë¥¼ clientì— ì•Œë¦¬ëŠ” ê²ƒì´ë‹¤.
 //
 #define SET_BACKGROUND_MOUSE_FOCUS	if (gpC_window_manager->GetMouseFocusedWindow() == NULL) \
 													gpC_base->SendMessage(UI_BACKGROUND_MOUSE_FOCUS, gpC_mouse_pointer->GetPointerX(), gpC_mouse_pointer->GetPointerY());
@@ -76,7 +76,7 @@ struct S_BLOOD_BIBLE_DESCRIPTION
 
 #define TEXT_LINE(x)						(x*20) // 20 font height...
 
-// LOWORD, HIWORD·Î °Ë»öÇÑ´Ù.
+// LOWORD, HIWORDë¡œ ê²€ìƒ‰í•œë‹¤.
 #define MAKEDWORD(a, b)					(DWORD)((a << 16)|b)
 
 #define INTERFACE_BLINK_VALUE_MAX	4
@@ -84,14 +84,14 @@ struct S_BLOOD_BIBLE_DESCRIPTION
 extern bool gbl_global_empty_move;
 
 //
-// EMPTY_MOVE´Â °­Á¦·Î ¸¶¿ì½ºÀÔ·ÂÀÇ MOVE¸¦ ÇÑ ¹ø ¹ß»ýÇÑ´Ù.
+// EMPTY_MOVEëŠ” ê°•ì œë¡œ ë§ˆìš°ìŠ¤ìž…ë ¥ì˜ MOVEë¥¼ í•œ ë²ˆ ë°œìƒí•œë‹¤.
 //
 #define EMPTY_MOVE						gbl_global_empty_move = true;
 
 //-----------------------------------------------------------------------------
 // Global definition.
 //-----------------------------------------------------------------------------
-#define PCS_NUMBER_LIMIT				7 // 7ÀÚ¸®
+#define PCS_NUMBER_LIMIT				7 // 7ìžë¦¬
 
 // rgb
 #define RGB_WHITE							RGB(255, 255, 255)
@@ -151,7 +151,7 @@ enum
 };
 
 // font id
-// ¼±ÅÃÇÒ ¼ö ÀÖ´Â font Á¤ÀÇ.
+// ì„ íƒí•  ìˆ˜ ìžˆëŠ” font ì •ì˜.
 enum font_id_t
 {
 	FONT_SLAYER,
@@ -167,13 +167,13 @@ enum font_id_t
 //---------------------------------------
 struct MOUSEPOINTER_INFO
 {
-	int		x; // screen¿¡¼­ÀÇ (x, y)
+	int		x; // screenì—ì„œì˜ (x, y)
 	int		y;
 	int		width;
 	int		height;
 };
 
-// Client·Î loginÀ» º¸³»±â À§ÇÑ ±¸Á¶Ã¼.
+// Clientë¡œ loginì„ ë³´ë‚´ê¸° ìœ„í•œ êµ¬ì¡°ì²´.
 struct DELETE_CHARACTER
 {
 	char *	sz_part1;
@@ -196,7 +196,7 @@ struct NEW_REGISTRATION
 
 	char *	sz_email;
 	char *	sz_address;
-	char *	sz_ssn_number_part1; // ÁÖ¹Î¹øÈ£
+	char *	sz_ssn_number_part1; // ì£¼ë¯¼ë²ˆí˜¸
 	char *	sz_ssn_number_part2;
 	char *	sz_homepage;
 	char *	sz_woo;
@@ -228,8 +228,8 @@ struct NEW_CHARACTER
 //-----------------------------------------------------------------------------
 // Base
 //
-// ±â¹ÝÀ» Á¤ÀÇÇÏ´Â classÀÌ´Ù.
-// VS_UI System¿¡ Àü¿ªÀûÀ¸·Î ¿µÇâÀ» ÀÔÈ÷´Â °ÍµéÀº ¸ðµÎ ¿©±â¿¡ Á¤ÀÇµÈ´Ù.
+// ê¸°ë°˜ì„ ì •ì˜í•˜ëŠ” classì´ë‹¤.
+// VS_UI Systemì— ì „ì—­ì ìœ¼ë¡œ ì˜í–¥ì„ ìž…ížˆëŠ” ê²ƒë“¤ì€ ëª¨ë‘ ì—¬ê¸°ì— ì •ì˜ëœë‹¤.
 //-----------------------------------------------------------------------------
 class Base
 {
@@ -240,9 +240,9 @@ private:
 	//
 	// m_event_occured
 	//
-	// C_VS_UI_TRIBE class ÂüÁ¶.
+	// C_VS_UI_TRIBE class ì°¸ì¡°.
 	//
-	// event°¡ ¹ß»ýÇÏ¸é setµÈ´Ù.
+	// eventê°€ ë°œìƒí•˜ë©´ setëœë‹¤.
 	//
 	bool						m_event_occured;
 
@@ -255,8 +255,8 @@ public:
 	// Video/Font defition.
 	//
 public:
-	CSpriteSurface *		m_p_DDSurface_back; // UI¸¦ Ãâ·ÂÇÒ surface
-	CSpriteSurface			m_DDSurface_offscreen; // effect¸¦ À§ÇÑ offscreen
+	CSpriteSurface *		m_p_DDSurface_back; // UIë¥¼ ì¶œë ¥í•  surface
+	CSpriteSurface			m_DDSurface_offscreen; // effectë¥¼ ìœ„í•œ offscreen
 
 private:
 	int						m_colorkey_red; // offscreen colorkey
@@ -265,9 +265,9 @@ public:
 	PrintInfo				m_small_pi;
 	PrintInfo				m_chatting_pi;
 	PrintInfo				m_user_id_pi;
-	PrintInfo				m_value_pi; // ¿ìÃøÁ¤·ÄµÈ ¸ÚÁø ¼ýÀÚ..
-	PrintInfo				m_value2_pi; // ÁÂÃøÁ¤·ÄµÈ ¸ÚÁø ¼ýÀÚ..
-	PrintInfo				m_item_name_pi; // !item descriptionÀÌ Ãâ·ÂµÈ ÈÄ »öÀÌ º¯°æµÉ ¼ö ÀÖ´Ù.
+	PrintInfo				m_value_pi; // ìš°ì¸¡ì •ë ¬ëœ ë©‹ì§„ ìˆ«ìž..
+	PrintInfo				m_value2_pi; // ì¢Œì¸¡ì •ë ¬ëœ ë©‹ì§„ ìˆ«ìž..
+	PrintInfo				m_item_name_pi; // !item descriptionì´ ì¶œë ¥ëœ í›„ ìƒ‰ì´ ë³€ê²½ë  ìˆ˜ ìžˆë‹¤.
 	PrintInfo				m_item_desc_pi;
 	PrintInfo				m_dialog_menu_pi;
 	PrintInfo				m_dialog_msg_pi;
@@ -291,7 +291,7 @@ public:
 	// xmas
 	PrintInfo				m_xmas_pi;
 	
-	PrintInfo				m_money2_pi; // ¿ìÃø Á¤·Ä µ·
+	PrintInfo				m_money2_pi; // ìš°ì¸¡ ì •ë ¬ ëˆ
 
 private:
 	C_VS_UI_UI_RESULT_RECEIVER		m_C_ui_result_receiver;
@@ -320,14 +320,14 @@ extern Base * gpC_base;
 extern UINT	g_blink_value;
 extern int ga_item_blink_color_table[];
 
-extern bool gbl_sell_running; // »ç´Â Áß..
-extern bool gbl_buy_running; // ÆÄ´Â Áß..
-extern bool gbl_repair_running; // °íÄ¡´Â Áß...
-extern bool gbl_silvering_running; // °íÄ¡´Â Áß...
+extern bool gbl_sell_running; // ì‚¬ëŠ” ì¤‘..
+extern bool gbl_buy_running; // íŒŒëŠ” ì¤‘..
+extern bool gbl_repair_running; // ê³ ì¹˜ëŠ” ì¤‘...
+extern bool gbl_silvering_running; // ê³ ì¹˜ëŠ” ì¤‘...
 extern bool gbl_item_lock;
 extern bool gbl_gear_lock;
 extern bool gbl_item_trade_lock;
 //extern bool gbl_vampire_interface;
 extern Race g_eRaceInterface;
-extern bool gbl_swap_advancement_item_running; // »ç´Â Áß..
+extern bool gbl_swap_advancement_item_running; // ì‚¬ëŠ” ì¤‘..
 #endif

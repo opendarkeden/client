@@ -22,7 +22,7 @@ CTexturePack::CTexturePack()
 
 CTexturePack::~CTexturePack()
 {
-	// array¸¦ ¸Þ¸ð¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
+	// arrayë¥¼ ë©”ëª¨ë¦¬ì—ì„œ ì œê±°í•œë‹¤.
 	Release();
 }
 
@@ -38,14 +38,14 @@ CTexturePack::~CTexturePack()
 void
 CTexturePack::Init(int count)
 {
-	// °³¼ö°¡ ¾øÀ» °æ¿ì 
+	// ê°œìˆ˜ê°€ ì—†ì„ ê²½ìš° 
 	if (count==0) 
 		return;
 
-	// ÀÏ´Ü ÇØÁ¦
+	// ì¼ë‹¨ í•´ì œ
 	Release();
 
-	// ¸Þ¸ð¸® Àâ±â
+	// ë©”ëª¨ë¦¬ ìž¡ê¸°
 	m_nTextures = count;
 	m_pTextures = new CSpriteSurface [m_nTextures];
 }
@@ -59,7 +59,7 @@ CTexturePack::Release()
 {
 	if (m_pTextures != NULL)
 	{
-		// ¸ðµç CTexture¸¦ Áö¿î´Ù.
+		// ëª¨ë“  CTextureë¥¼ ì§€ìš´ë‹¤.
 		delete [] m_pTextures;
 
 		m_pTextures = NULL;		
@@ -70,16 +70,16 @@ CTexturePack::Release()
 //----------------------------------------------------------------------
 // Init
 //----------------------------------------------------------------------
-// AlphaSpritePackÀÇ Á¤º¸·Î TexturePackÀ» »ý¼ºÇÑ´Ù.
+// AlphaSpritePackì˜ ì •ë³´ë¡œ TexturePackì„ ìƒì„±í•œë‹¤.
 //
-// PixelFormatÀº 4:4:4:4¸¸.. ÀÏ´Ü Áö¿øÇÏ±â·Î ÇÑ´Ù.
-// AlphaSpritePackÀÚÃ¼°¡ Alpha°ªÀÌ ÀÖÀ¸¹Ç·Î... Àû´ç~ÇÏ´Ù°í »ý°¢ÇÔ.
+// PixelFormatì€ 4:4:4:4ë§Œ.. ì¼ë‹¨ ì§€ì›í•˜ê¸°ë¡œ í•œë‹¤.
+// AlphaSpritePackìžì²´ê°€ Alphaê°’ì´ ìžˆìœ¼ë¯€ë¡œ... ì ë‹¹~í•˜ë‹¤ê³  ìƒê°í•¨.
 //----------------------------------------------------------------------
 bool
 CTexturePack::Init( CAlphaSpritePack& ASPK )
 {
 	//--------------------------------------------
-	// 4:4:4:4¿¡ ¸Â´Â PixelFormatÃ£±â
+	// 4:4:4:4ì— ë§žëŠ” PixelFormatì°¾ê¸°
 	//--------------------------------------------
 	/*
 	DDPIXELFORMAT	PixelFormat4444;
@@ -90,7 +90,7 @@ CTexturePack::Init( CAlphaSpritePack& ASPK )
 	}
 	*/
 
-	// »ý¼ºÇÒ TextureSurfaceÀÇ Å©±â
+	// ìƒì„±í•  TextureSurfaceì˜ í¬ê¸°
 	int width, height;
 
 
@@ -101,17 +101,17 @@ CTexturePack::Init( CAlphaSpritePack& ASPK )
 	*/
 
 	//---------------------------------------------
-	// memoryÀâ±â
+	// memoryìž¡ê¸°
 	//---------------------------------------------
 	Init( ASPK.GetSize() );
 	
 	//---------------------------------------------
-	// ASPK ---> TextureSurface ·Î º¯È¯
+	// ASPK ---> TextureSurface ë¡œ ë³€í™˜
 	//---------------------------------------------
 	for (int sur=0; sur<m_nTextures; sur++)
 	{		
 		//---------------------------------------------------
-		// Video Memory ³²Àº°Å º¸±â
+		// Video Memory ë‚¨ì€ê±° ë³´ê¸°
 		//---------------------------------------------------
 		/*
 		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2)); 
@@ -131,7 +131,7 @@ CTexturePack::Init( CAlphaSpritePack& ASPK )
 		height = ASPK[sur].GetHeight();
 		CDirect3D::GetTextureSize(width, height);
 
-		// Å©±â º¸±â
+		// í¬ê¸° ë³´ê¸°
 		/*
 		char str[80];
 		sprintf(str, "[%d/%d] mem=%d/%d", sur+1, m_nTextures, width, height);
@@ -140,7 +140,7 @@ CTexturePack::Init( CAlphaSpritePack& ASPK )
 	
 
 		//---------------------------------------------------
-		// TextureSurface »ý¼º
+		// TextureSurface ìƒì„±
 		//---------------------------------------------------		
 		m_pTextures[sur].InitTextureSurface(width, height, 0, CDirect3D::GetPixelFormat4444());
 		POINT point;
@@ -151,7 +151,7 @@ CTexturePack::Init( CAlphaSpritePack& ASPK )
 		int i;
 
 		//---------------------------------------------------
-		// Texture Surface ÃÊ±âÈ­
+		// Texture Surface ì´ˆê¸°í™”
 		//---------------------------------------------------
 		WORD *pSurface = (WORD*)m_pTextures[sur].GetSurfacePointer();
 				//,	*pSurfaceTemp;
@@ -172,12 +172,12 @@ CTexturePack::Init( CAlphaSpritePack& ASPK )
 			pSurface = (WORD*)((BYTE*)pSurface + pitch);
 		}
 
-		// AlphaSpriteÃâ·Â
+		// AlphaSpriteì¶œë ¥
 		m_pTextures[sur].BltAlphaSprite4444(&point, &ASPK[ sur ]);
 		
 		m_pTextures[sur].Unlock();
 
-		// PixelFormat¿¡ µû¶ó Colorkey°¡ ¹Ù²ð ¼ö ÀÖ´Ù. T_T;;
+		// PixelFormatì— ë”°ë¼ Colorkeyê°€ ë°”ë€” ìˆ˜ ìžˆë‹¤. T_T;;
 		//m_pTextures[sur].SetTransparency( 0x0000 );
 	}
 
@@ -187,13 +187,13 @@ CTexturePack::Init( CAlphaSpritePack& ASPK )
 //----------------------------------------------------------------------
 // InitPart
 //----------------------------------------------------------------------
-// Shadow SpritePackÀÇ ÀÏºÎ¸¦... Texture·Î »ý¼º
+// Shadow SpritePackì˜ ì¼ë¶€ë¥¼... Textureë¡œ ìƒì„±
 //----------------------------------------------------------------------
 bool			
 CTexturePack::InitPart( CShadowSpritePack& SSPK, TYPE_SPRITEID firstShadowSpriteID, TYPE_SPRITEID lastShadowSpriteID )
 {
 	//--------------------------------------------
-	// TextureSurfaceÀÇ MaxÅ©±â¿¡ ´ëÇÑ Á¤º¸
+	// TextureSurfaceì˜ Maxí¬ê¸°ì— ëŒ€í•œ ì •ë³´
 	//--------------------------------------------
 	// Get the device caps
     D3DDEVICEDESC7 ddDesc;
@@ -204,7 +204,7 @@ CTexturePack::InitPart( CShadowSpritePack& SSPK, TYPE_SPRITEID firstShadowSprite
     int maxWidth  = (ddDesc.dwMaxTextureWidth)? ddDesc.dwMaxTextureWidth : 256;
     int maxHeight = (ddDesc.dwMaxTextureHeight)? ddDesc.dwMaxTextureHeight : 256;  
 
-	// »ý¼ºÇÒ TextureSurfaceÀÇ Å©±â
+	// ìƒì„±í•  TextureSurfaceì˜ í¬ê¸°
 	int width, height;
 
 
@@ -215,12 +215,12 @@ CTexturePack::InitPart( CShadowSpritePack& SSPK, TYPE_SPRITEID firstShadowSprite
 	*/
 	
 	//---------------------------------------------
-	// SSPK ---> TextureSurface ·Î º¯È¯
+	// SSPK ---> TextureSurface ë¡œ ë³€í™˜
 	//---------------------------------------------
 	for (int sur=firstShadowSpriteID; sur<lastShadowSpriteID; sur++)
 	{		
 		//---------------------------------------------------
-		// Video Memory ³²Àº°Å º¸±â
+		// Video Memory ë‚¨ì€ê±° ë³´ê¸°
 		//---------------------------------------------------
 		/*
 		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2)); 
@@ -237,7 +237,7 @@ CTexturePack::InitPart( CShadowSpritePack& SSPK, TYPE_SPRITEID firstShadowSprite
 		*/
 
 		//---------------------------------------------------------------
-		// ÇÏµå¿þ¾î°¡ Áö¿øÇÏ´Â TextureSurfaceÀÇ Å©±â¸¦ °áÁ¤ÇÑ´Ù.
+		// í•˜ë“œì›¨ì–´ê°€ ì§€ì›í•˜ëŠ” TextureSurfaceì˜ í¬ê¸°ë¥¼ ê²°ì •í•œë‹¤.
 		//---------------------------------------------------------------
 		// Adjust width and height to be powers of 2, if the device requires it
 		width	= SSPK[sur].GetWidth();
@@ -260,7 +260,7 @@ CTexturePack::InitPart( CShadowSpritePack& SSPK, TYPE_SPRITEID firstShadowSprite
 				width  = height;
 		}
 
-		// Å©±â º¸±â
+		// í¬ê¸° ë³´ê¸°
 		/*
 		char str[80];
 		sprintf(str, "[%d/%d] mem=%d/%d", sur+1, m_nTextures, width, height);
@@ -269,7 +269,7 @@ CTexturePack::InitPart( CShadowSpritePack& SSPK, TYPE_SPRITEID firstShadowSprite
 	
 
 		//---------------------------------------------------
-		// TextureSurface »ý¼º
+		// TextureSurface ìƒì„±
 		//---------------------------------------------------		
 		m_pTextures[sur].InitTextureSurface(width, height, 0, CDirect3D::GetPixelFormat4444());
 		POINT point;
@@ -280,7 +280,7 @@ CTexturePack::InitPart( CShadowSpritePack& SSPK, TYPE_SPRITEID firstShadowSprite
 		int i;
 
 		//---------------------------------------------------
-		// Texture Surface ÃÊ±âÈ­
+		// Texture Surface ì´ˆê¸°í™”
 		//---------------------------------------------------
 		WORD *pSurface = (WORD*)m_pTextures[sur].GetSurfacePointer();
 				//,	*pSurfaceTemp;
@@ -301,12 +301,12 @@ CTexturePack::InitPart( CShadowSpritePack& SSPK, TYPE_SPRITEID firstShadowSprite
 			pSurface = (WORD*)((BYTE*)pSurface + pitch);
 		}
 
-		// ShadowSpriteÃâ·Â
+		// ShadowSpriteì¶œë ¥
 		m_pTextures[sur].BltShadowSprite4444(&point, &SSPK[ sur ], 0x8000);
 		
 		m_pTextures[sur].Unlock();
 
-		// PixelFormat¿¡ µû¶ó Colorkey°¡ ¹Ù²ð ¼ö ÀÖ´Ù. T_T;;
+		// PixelFormatì— ë”°ë¼ Colorkeyê°€ ë°”ë€” ìˆ˜ ìžˆë‹¤. T_T;;
 		//m_pTextures[sur].SetTransparency( 0x0000 );
 	}
 

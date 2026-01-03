@@ -61,7 +61,7 @@
         RANK_BONUS_SOUL_ABSORB,
         RANK_BONUS_MYSTIC_RULE,
 
-		// 2Â÷ Ãß°¡
+		// 2ì°¨ ì¶”ê°€
 		RANK_BONUS_PERCEPTION,          // 55
         RANK_BONUS_STONE_OF_SAGE,           // 56
         RANK_BONUS_FOOT_OF_RANGER,          // 57

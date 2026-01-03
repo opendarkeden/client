@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MAttackCreatureHomingEffectGenerator.h
 //----------------------------------------------------------------------
-// ∞Óº±¿Øµµ∑Œ Creature √ﬂ¿˚
+// Í≥°ÏÑ†Ïú†ÎèÑÎ°ú Creature Ï∂îÏ†Å
 //----------------------------------------------------------------------
 
 #ifndef	__MATTACKCREATUREHOMINGEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MAttackCreatureHomingEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_ATTACK_CREATURE_HOMING; }
 
-		// Effectª˝º∫
+		// EffectÏÉùÏÑ±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

@@ -28,7 +28,7 @@ void GCDeleteObjectHandler::execute ( GCDeleteObject * pPacket , Player * pPlaye
 	//cout << "Object[" << pPacket->getObjectID() << "] deleted from zone." << endl;
 
 	//------------------------------------------------------
-	// Zone¿Ã æ∆¡˜ ª˝º∫µ«¡ˆ æ ¿∫ ∞ÊøÏ
+	// ZoneÏù¥ ÏïÑÏßÅ ÏÉùÏÑ±ÎêòÏßÄ ÏïäÏùÄ Í≤ΩÏö∞
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -37,9 +37,9 @@ void GCDeleteObjectHandler::execute ( GCDeleteObject * pPacket , Player * pPlaye
 		
 	}	
 	//------------------------------------------------------
-	// ¡§ªÛ.. 
-	// æÓ∂≤ Object∏¶ ¡¶∞≈«œ¥¬µ•..
-	// --> ¡¶∞≈«ÿ∫∏∞Ì »Æ¿Œ«ÿæﬂ «—¥Ÿ.
+	// Ï†ïÏÉÅ.. 
+	// Ïñ¥Îñ§ ObjectÎ•º Ï†úÍ±∞ÌïòÎäîÎç∞..
+	// --> Ï†úÍ±∞Ìï¥Î≥¥Í≥† ÌôïÏù∏Ìï¥Ïïº ÌïúÎã§.
 	//------------------------------------------------------
 	else
 	{	
@@ -48,7 +48,7 @@ void GCDeleteObjectHandler::execute ( GCDeleteObject * pPacket , Player * pPlaye
 		if (g_pPlayer->IsItemCheckBufferDropToRelicTable())
 		{
 			//---------------------------------------------
-			// ∂≥æÓ∂ﬂ∏±∑¡¥¬ item
+			// Îñ®Ïñ¥Îú®Î¶¥Î†§Îäî item
 			//---------------------------------------------
 			MItem* pItem = g_pPlayer->GetItemCheckBuffer();
 
@@ -57,21 +57,21 @@ void GCDeleteObjectHandler::execute ( GCDeleteObject * pPacket , Player * pPlaye
 		}
 
 		//------------------------------------------------------
-		// Creature¿Œ ∞ÊøÏ??
+		// CreatureÏù∏ Í≤ΩÏö∞??
 		//------------------------------------------------------
 		if ( g_pZone->RemoveCreature( objectID ) )
 		{
 			DEBUG_ADD_FORMAT("Remove Creature OK. ID=%d", objectID);
 		}
 		//------------------------------------------------------
-		// Item¿Œ ∞ÊøÏ??
+		// ItemÏù∏ Í≤ΩÏö∞??
 		//------------------------------------------------------
 		else if ( g_pZone->RemoveItem( objectID ) )
 		{			
 			DEBUG_ADD_FORMAT("Remove Item OK. ID=%d", objectID);
 		}
 		//------------------------------------------------------
-		// ππ¡ˆ???
+		// Î≠êÏßÄ???
 		//------------------------------------------------------
 		else
 		{

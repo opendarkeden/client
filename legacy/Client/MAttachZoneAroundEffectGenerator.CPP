@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MAttachZoneEffectGenerator.cpp
 //----------------------------------------------------------------------
-// Tile°ú ¸ÂºÙÀº EffectµéÀ» »ý¼ºÇÑ´Ù.
+// Tileê³¼ ë§žë¶™ì€ Effectë“¤ì„ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "MAttachZoneAroundEffectGenerator.h"
@@ -37,7 +37,7 @@ MAttachZoneAroundEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			MEffect*		pEffect;
 			pEffect = new MEffect(bltType);
 			pEffect->SetFrameID( frameID, maxFrame );
-			pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
+			pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
 			if(i>0)
 				pEffect->SetPosition( tX + TempX[egInfo.direction][i-1], tY + TempY[egInfo.direction][i-1]);
 			else
@@ -92,7 +92,7 @@ MAttachZoneAroundEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 			pEffect = new MEffect(bltType);
 			pEffect->SetFrameID( frameID, maxFrame );
-			pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
+			pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
 			pEffect->SetPosition( tX + x, tY + y );
 //			pEffect->SetPixelPosition( egInfo.x0 + x * 24 , egInfo.y0 + y * 12 , egInfo.z0);
 			pEffect->SetCount( egInfo.count, egInfo.linkCount );

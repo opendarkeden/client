@@ -18,7 +18,7 @@
 //
 // class RequestServerPlayer
 //
-// ´Ù¸¥ Å¬¶óÀÌ¾ğÆ®ÀÇ ¿äÃ»À» Ã³¸®ÇÏ´Â ÇÃ·¹ÀÌ¾î Å¬·¡½º
+// ë‹¤ë¥¸ í´ë¼ì´ì–¸íŠ¸ì˜ ìš”ì²­ì„ ì²˜ë¦¬í•˜ëŠ” í”Œë ˆì´ì–´ í´ë˜ìŠ¤
 //
 //--------------------------------------------------------------------------------
 
@@ -51,7 +51,7 @@ public :
 	
 
 	// disconnect
-	// Á¤½Ä ·Î±×¾Æ¿ôÀÇ °æ¿ì disconnect(UNDISCONNECTED)
+	// ì •ì‹ ë¡œê·¸ì•„ì›ƒì˜ ê²½ìš° disconnect(UNDISCONNECTED)
 	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( Error );
 	
 	void				setName(const char* pName)	{ m_Name = pName; }
@@ -76,7 +76,7 @@ private :
 	DWORD		m_ExpireTime;
 	std::string		m_Name;
 
-	// RequestÇÏ°í ÀÖ´Â °Í
+	// Requestí•˜ê³  ìˆëŠ” ê²ƒ
 	REQUEST_CLIENT_MODE			m_RequestMode;
 
 	// player status

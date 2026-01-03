@@ -2,9 +2,9 @@
 // CFilter.h
 //----------------------------------------------------------------------
 //
-// Sprite¸¦ Ãâ·ÂÇÒ¶§ È¿°ú¸¦ ÁÖ±âÀ§ÇØ »ç¿ëÇÏ´Â Filter class
+// Spriteë¥¼ ì¶œë ¥í• ë•Œ íš¨ê³¼ë¥¼ ì£¼ê¸°ìœ„í•´ ì‚¬ìš©í•˜ëŠ” Filter class
 //
-// ÇÑ pixel¿¡ ´ëÇÑ ¾î¶°ÇÑ º¯È­¸¦ ³ªÅ¸³»´Â °ªµéÀÇ 2D array
+// í•œ pixelì— ëŒ€í•œ ì–´ë– í•œ ë³€í™”ë¥¼ ë‚˜íƒ€ë‚´ëŠ” ê°’ë“¤ì˜ 2D array
 //
 //----------------------------------------------------------------------
 
@@ -33,16 +33,16 @@ class CFilter {
 		//---------------------------------------------------------
 		// Set Filter Value
 		//---------------------------------------------------------
-		// CDirectDrawSurface¿¡¼­ °ªÀ» ÀĞ¾î¿Â´Ù.
+		// CDirectDrawSurfaceì—ì„œ ê°’ì„ ì½ì–´ì˜¨ë‹¤.
 		void		SetFilter(WORD* pSurface, WORD pitch, WORD width, WORD height);
 		
-		// ´Ù¸¥ Filter¸¦ ´ëÀÔÇÑ´Ù.
+		// ë‹¤ë¥¸ Filterë¥¼ ëŒ€ì…í•œë‹¤.
 		void		SetFilter(const CFilter& filter);
 
-		// ´Ù¸¥ Filter¸¦ ¾îµÓ°Ô ÇØ¼­.. ´ëÀÔÇÑ´Ù.
+		// ë‹¤ë¥¸ Filterë¥¼ ì–´ë‘¡ê²Œ í•´ì„œ.. ëŒ€ì…í•œë‹¤.
 		void		SetFilterDarkness(const CFilter& filter, BYTE DarkBits);
 
-		// Á÷Á¢ FilterÀÇ (x,y)ÁÂÇ¥¿¡ °ªÀ» ´ëÀÔÇÑ´Ù.
+		// ì§ì ‘ Filterì˜ (x,y)ì¢Œí‘œì— ê°’ì„ ëŒ€ì…í•œë‹¤.
 		void		SetFilter(WORD x, WORD y, BYTE value)	{ m_ppFilter[y][x]=value; }
 
 		//---------------------------------------------------------

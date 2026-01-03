@@ -19,7 +19,7 @@ void GCPhoneConnectionFailedHandler::execute ( GCPhoneConnectionFailed * pPacket
 	__BEGIN_TRY
 
 
-	// disconnect Ãâ·Â?
+	// disconnect ì¶œë ¥?
 //	UI_PCSConnectionFailed();
 
 	__END_CATCH

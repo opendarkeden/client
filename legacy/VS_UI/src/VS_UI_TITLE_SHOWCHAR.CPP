@@ -8,7 +8,7 @@
 #include "UserOption.h"
 #include "ClientConfig.h"
 
-//#include "ExperienceTable.h"	//char_infoÁö¿ï¶§ Áö¿ï°Í
+//#include "ExperienceTable.h"	//char_infoì§€ìš¸ë•Œ ì§€ìš¸ê²ƒ
 #include "MGuildMarkManager.h"
 #include "KeyAccelerator.h"
 #include "UserInformation.h"
@@ -105,16 +105,16 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterOusters( int _x, int _y, S_SLOT* p_slot, int
 	int weapon = p_slot->man_info.right;
 	
 	int action = 0;
-	if(enable)	// °È±â
+	if(enable)	// ê±·ê¸°
 	{
-		if(weapon == 0)	// ¹«±â ¾ø´Ù
+		if(weapon == 0)	// ë¬´ê¸° ì—†ë‹¤
 			action = ACTION_OUSTERS_MOVE;
 		else
 			action = ACTION_MOVE;
 	}
 	else
 	{
-		if(weapon == 0)	// ¹«±â ¾ø´Ù
+		if(weapon == 0)	// ë¬´ê¸° ì—†ë‹¤
 			action = ACTION_OUSTERS_STAND;
 		else
 			action = ACTION_STAND;
@@ -161,7 +161,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterOusters( int _x, int _y, S_SLOT* p_slot, int
 	
 	
 	
-	CIndexSprite::SetUsingColorSet(hair_color, coat_color); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+	CIndexSprite::SetUsingColorSet(hair_color, coat_color); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 	if(weapon)
 		CIndexSprite::SetUsingColorSetOnly(2, 377);
 	else
@@ -178,7 +178,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterOusters( int _x, int _y, S_SLOT* p_slot, int
 	else
 		gpC_base->m_p_DDSurface_back->BltIndexSprite(&point, &m_ousters_ispk[sprite_id]);
 	
-	if(weapon)	// Ã­Å©¶÷ Âï±â
+	if(weapon)	// ì± í¬ëŒ ì°ê¸°
 	{
 		index %= m_ousters_cfpk[0][action][2].GetSize();
 		
@@ -187,7 +187,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterOusters( int _x, int _y, S_SLOT* p_slot, int
 		
 		const int sprite_id = m_ousters_cfpk[0][action][2][index].GetSpriteID();
 		
-		CIndexSprite::SetUsingColorSet(weapon_color, weapon_color); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+		CIndexSprite::SetUsingColorSet(weapon_color, weapon_color); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 		if(dark)
 			gpC_base->m_p_DDSurface_back->BltIndexSpriteDarkness(&point, &m_ousters_ispk[sprite_id], DARK_BIT);
 		else
@@ -207,7 +207,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterSlayer( int _x, int _y, S_SLOT* p_slot, int 
 	else
 		info = &p_slot->man_info;
 	
-	// ±×³É ÆíÇÏ°Ô µÑ´Ù ¹ÙÁö»öÀ¸·Î ¼³Á¤.. - -; by sigi
+	// ê·¸ëƒ¥ í¸í•˜ê²Œ ë‘˜ë‹¤ ë°”ì§€ìƒ‰ìœ¼ë¡œ ì„¤ì •.. - -; by sigi
 	int item_color = p_slot->trouser_color;
 	if(item_color == QUEST_ITEM_COLOR )
 		item_color = MItem::GetQuestItemColorset();
@@ -217,7 +217,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterSlayer( int _x, int _y, S_SLOT* p_slot, int 
 			item_color = MItem::GetUniqueItemColorset();
 	}
 	
-	CIndexSprite::SetUsingColorSet(p_slot->skin_color, item_color); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.		
+	CIndexSprite::SetUsingColorSet(p_slot->skin_color, item_color); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.		
 	
 	const int female_plus = p_slot->bl_female*m_slayer_cfpk.GetSize()/2;
 	
@@ -250,7 +250,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterSlayer( int _x, int _y, S_SLOT* p_slot, int 
 		if(item_color == UNIQUE_ITEM_COLOR)
 			item_color = MItem::GetUniqueItemColorset();
 	}
-	CIndexSprite::SetUsingColorSet(p_slot->skin_color, item_color); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+	CIndexSprite::SetUsingColorSet(p_slot->skin_color, item_color); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 	
 	part_id = info->coat +female_plus;
 	sprite_id = m_slayer_cfpk[part_id][enable][2][index].GetSpriteID();
@@ -265,11 +265,11 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterSlayer( int _x, int _y, S_SLOT* p_slot, int 
 	else
 		gpC_base->m_p_DDSurface_back->BltIndexSprite(&point, &m_slayer_ispk[sprite_id]);
 	
-	CIndexSprite::SetUsingColorSet(p_slot->skin_color, 0); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+	CIndexSprite::SetUsingColorSet(p_slot->skin_color, 0); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 	
-	CIndexSprite::SetUsingColorSet(p_slot->hair_color, 0); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+	CIndexSprite::SetUsingColorSet(p_slot->hair_color, 0); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 	
-	// Åõ±¸°¡ ÀÖÀ» ¶§´Â ¸Ó¸®Ä«¶ôÀº ÂïÁö¾Ê´Â´Ù.
+	// íˆ¬êµ¬ê°€ ìˆì„ ë•ŒëŠ” ë¨¸ë¦¬ì¹´ë½ì€ ì°ì§€ì•ŠëŠ”ë‹¤.
 	if (info->helmet == M_NO_WEAR )//|| info->helmet == M_HELMET1)
 	{
 		part_id = info->face +female_plus;
@@ -293,7 +293,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterSlayer( int _x, int _y, S_SLOT* p_slot, int 
 		else
 			if(item_color == UNIQUE_ITEM_COLOR)
 				item_color = MItem::GetUniqueItemColorset();
-			CIndexSprite::SetUsingColorSet(item_color, 0); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+			CIndexSprite::SetUsingColorSet(item_color, 0); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 			
 			part_id = info->helmet +female_plus;
 			sprite_id = m_slayer_cfpk[part_id][enable][2][index].GetSpriteID();
@@ -309,7 +309,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterSlayer( int _x, int _y, S_SLOT* p_slot, int 
 				gpC_base->m_p_DDSurface_back->BltIndexSprite(&point, &m_slayer_ispk[sprite_id]);
 	}
 	
-	// ¹«±â & ¹æ¾î±¸
+	// ë¬´ê¸° & ë°©ì–´êµ¬
 	if (info->right != M_NO_WEAR)//p_slot->bl_female && p_slot->woman_info.right != M_NO_WEAR || !p_slot->bl_female && p_slot->man_info.right != M_NO_WEAR)
 	{
 		item_color=p_slot->right_color;
@@ -319,7 +319,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterSlayer( int _x, int _y, S_SLOT* p_slot, int 
 			if(item_color == UNIQUE_ITEM_COLOR)
 				item_color = MItem::GetUniqueItemColorset();
 			
-			CIndexSprite::SetUsingColorSet(item_color, 0); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+			CIndexSprite::SetUsingColorSet(item_color, 0); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 			
 			part_id = info->right +female_plus;
 			sprite_id = m_slayer_cfpk[part_id][enable][2][index].GetSpriteID();
@@ -344,7 +344,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterSlayer( int _x, int _y, S_SLOT* p_slot, int 
 			if(item_color == UNIQUE_ITEM_COLOR)
 				item_color = MItem::GetUniqueItemColorset();
 			
-			CIndexSprite::SetUsingColorSet(item_color, 0); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+			CIndexSprite::SetUsingColorSet(item_color, 0); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 			
 			part_id = info->left +female_plus;
 			sprite_id = m_slayer_cfpk[part_id][enable][2][index].GetSpriteID();
@@ -386,7 +386,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterVampire( int _x, int _y, S_SLOT* p_slot, int
 	}
 	
 	
-	CIndexSprite::SetUsingColorSet(p_slot->skin_color, coat_color); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+	CIndexSprite::SetUsingColorSet(p_slot->skin_color, coat_color); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 	
 	point.x = _x+m_vampire_cfpk[coat][enable][2][index].GetCX();
 	point.y = _y+m_vampire_cfpk[coat][enable][2][index].GetCY();
@@ -410,9 +410,9 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACOusters( int _x, int _y, S_SLOT* p_slot, i
 	
 	int action = 0;
 
-	if(enable)	// °È±â
+	if(enable)	// ê±·ê¸°
 	{
-		if(weapon == 0)	// ¹«±â ¾ø´Ù
+		if(weapon == 0)	// ë¬´ê¸° ì—†ë‹¤
 		{
 			bool bFirstAction = index < m_AdvancementOustersCfpk[coat][ACTION_ADVANCEMENT_OUSTERS_MAGIC-ADVANCEMENT_ACTION_START][2].GetSize();
 	
@@ -433,7 +433,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACOusters( int _x, int _y, S_SLOT* p_slot, i
 	}
 	else
 	{
-		if(weapon == 0)	// ¹«±â ¾ø´Ù
+		if(weapon == 0)	// ë¬´ê¸° ì—†ë‹¤
 		{
 			action = ACTION_ADVANCEMENT_OUSTERS_WRISTLET_STOP;
 		}
@@ -483,7 +483,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACOusters( int _x, int _y, S_SLOT* p_slot, i
 	}
 	
 	
-	CIndexSprite::SetUsingColorSet(hair_color, coat_color); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+	CIndexSprite::SetUsingColorSet(hair_color, coat_color); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 	if(weapon)
 		CIndexSprite::SetUsingColorSetOnly(2, 377);
 	else
@@ -500,7 +500,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACOusters( int _x, int _y, S_SLOT* p_slot, i
 	else
 		gpC_base->m_p_DDSurface_back->BltIndexSprite(&point, &m_AdvancementOustersIspk[sprite_id]);
 	
-	if(weapon)	// Ã­Å©¶÷ Âï±â
+	if(weapon)	// ì± í¬ëŒ ì°ê¸°
 	{
 		index %= m_AdvancementOustersCfpk[0][action][2].GetSize();
 		
@@ -509,7 +509,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACOusters( int _x, int _y, S_SLOT* p_slot, i
 		
 		const int sprite_id = m_AdvancementOustersCfpk[0][action][2][index].GetSpriteID();
 		
-		CIndexSprite::SetUsingColorSet(weapon_color, weapon_color); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+		CIndexSprite::SetUsingColorSet(weapon_color, weapon_color); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 		if(dark)
 			gpC_base->m_p_DDSurface_back->BltIndexSpriteDarkness(&point, &m_AdvancementOustersIspk[sprite_id], DARK_BIT);
 		else
@@ -540,9 +540,9 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACVampire( int _x, int _y, S_SLOT* p_slot, i
 	
 	int action = 0;
 
-	if(enable)	// °È±â
+	if(enable)	// ê±·ê¸°
 	{
-		if(weapon == 0)	// ¹«±â ¾ø´Ù
+		if(weapon == 0)	// ë¬´ê¸° ì—†ë‹¤
 		{
 			bool bFirstAction = index < (*pCFPK)[coat][ACTION_ADVANCEMENT_SPECIAL-ADVANCEMENT_ACTION_START][2].GetSize();
 	
@@ -563,7 +563,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACVampire( int _x, int _y, S_SLOT* p_slot, i
 	}
 	else
 	{
-		if(weapon == 0)	// ¹«±â ¾ø´Ù
+		if(weapon == 0)	// ë¬´ê¸° ì—†ë‹¤
 		{
 			action = ACTION_ADVANCEMENT_STOP;
 		}
@@ -593,7 +593,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACVampire( int _x, int _y, S_SLOT* p_slot, i
 	else
 		gpC_base->m_p_DDSurface_back->BltIndexSprite(&point, &(*pISPK)[sprite_id]);
 	
-	if(weapon)	// Ã­Å©¶÷ Âï±â
+	if(weapon)	// ì± í¬ëŒ ì°ê¸°
 	{
 		index %= (*pCFPK)[1][action][2].GetSize();
 		
@@ -620,7 +620,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACSlayer( int _x, int _y, S_SLOT* p_slot, in
 	else
 		info = &p_slot->man_info;
 	
-	// ±×³É ÆíÇÏ°Ô µÑ´Ù ¹ÙÁö»öÀ¸·Î ¼³Á¤.. - -; by sigi
+	// ê·¸ëƒ¥ í¸í•˜ê²Œ ë‘˜ë‹¤ ë°”ì§€ìƒ‰ìœ¼ë¡œ ì„¤ì •.. - -; by sigi
 	int item_color = p_slot->trouser_color;
 	if(item_color == QUEST_ITEM_COLOR )
 		item_color = MItem::GetQuestItemColorset();
@@ -629,13 +629,13 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACSlayer( int _x, int _y, S_SLOT* p_slot, in
 		if(item_color == UNIQUE_ITEM_COLOR)
 			item_color = MItem::GetUniqueItemColorset();
 	}	
-	CIndexSprite::SetUsingColorSet(p_slot->skin_color, item_color); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+	CIndexSprite::SetUsingColorSet(p_slot->skin_color, item_color); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 
 	CCreatureFramePack& slayerFPK = !p_slot->bl_female ? m_AdvancementSlayerManCfpk : m_AdvancementSlayerWomanCfpk;
 	CIndexSpritePack& addonISPK = !p_slot->bl_female ? m_AdvancementSlayerManIspk : m_AdvancementSlayerWomanIspk;
 
 	int action = 0;
-	if(enable)	// °È±â
+	if(enable)	// ê±·ê¸°
 	{
 		action = GetAdvancementSlayerMoveActionFromType( info->right );
 	}
@@ -663,7 +663,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACSlayer( int _x, int _y, S_SLOT* p_slot, in
 				if(item_color == UNIQUE_ITEM_COLOR)
 					item_color = MItem::GetUniqueItemColorset();
 			}
-			CIndexSprite::SetUsingColorSet(p_slot->skin_color, item_color); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+			CIndexSprite::SetUsingColorSet(p_slot->skin_color, item_color); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 			clothes = AC_BODY;
 			break;
 
@@ -677,7 +677,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACSlayer( int _x, int _y, S_SLOT* p_slot, in
 			else
 				if(item_color == UNIQUE_ITEM_COLOR)
 					item_color = MItem::GetUniqueItemColorset();
-			CIndexSprite::SetUsingColorSet(item_color, 0); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+			CIndexSprite::SetUsingColorSet(item_color, 0); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 			clothes = AC_HELMET;
 			break;
 
@@ -707,7 +707,7 @@ void	C_VS_UI_NEWCHAR::_ShowCharacterACSlayer( int _x, int _y, S_SLOT* p_slot, in
 				if(item_color == UNIQUE_ITEM_COLOR)
 					item_color = MItem::GetUniqueItemColorset();
 				
-			CIndexSprite::SetUsingColorSet(item_color, 0); // blt¿Í ÇÑ½ÖÀ» ÀÌ·ï¾ß ÇÔ. Ãâ·ÂÁ÷Àü¿¡ ¼³Á¤.
+			CIndexSprite::SetUsingColorSet(item_color, 0); // bltì™€ í•œìŒì„ ì´ë¤„ì•¼ í•¨. ì¶œë ¥ì§ì „ì— ì„¤ì •.
 
 			break;
 

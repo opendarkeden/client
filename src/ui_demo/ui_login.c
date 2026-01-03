@@ -69,7 +69,7 @@ static void on_button_click(UI_Button* button, int button_id) {
 /* We need a way to pass callback up. 
    Simplest way: store UI_Login pointer in button's user_data */
 static void internal_button_callback(UI_Button* button, int id) {
-    struct UI_Login* login = (struct UI_Login*)button->user_data;
+    struct UI_Login* login = (struct UI_Login*)(button->on_press.data);
     if (login && login->callback) {
         /* Map internal ID to public event */
         int event = 0;
@@ -87,8 +87,7 @@ static void add_button(struct UI_Login* login, int x, int y, int w, int h, int i
     UI_Button* btn = (UI_Button*)malloc(sizeof(UI_Button));
     if (!btn) return;
     ui_button_init(btn, x, y, w, h, id);
-    ui_button_set_callback(btn, internal_button_callback);
-    ui_button_set_user_data(btn, login);
+    ui_button_set_on_press(btn, internal_button_callback, login);    
     ui_button_group_add(&login->buttons, btn);
 }
 

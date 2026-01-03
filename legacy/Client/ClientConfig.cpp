@@ -34,80 +34,80 @@ ClientConfig*	g_pClientConfig = NULL;
 ClientConfig::ClientConfig()
 {	
 	//--------------------------------------------------------------
-	// FPS - Àû¿ëÀº ¾ÈµÈ´Ù.
+	// FPS - ì ìš©ì€ ì•ˆëœë‹¤.
 	//--------------------------------------------------------------
 	FPS						= 16;
  
-	// ScreenShotÀÇ °³¼ö
+	// ScreenShotì˜ ê°œìˆ˜
 	MAX_SCREENSHOT			= 100;
 
-	// Á×°í ³ª¼­ ´Ù½Ã »ì¾Æ³ª´Âµ¥±îÁöÀÇ delay½Ã°£ 10ÃÊ
+	// ì£½ê³  ë‚˜ì„œ ë‹¤ì‹œ ì‚´ì•„ë‚˜ëŠ”ë°ê¹Œì§€ì˜ delayì‹œê°„ 10ì´ˆ
 	DELAY_PLAYER_DEAD		= 10 * 1000;	
 
-	DELAY_PLAYER_RESURRECT_TIMEOUT = 60 * 1000;		// 1ºÐ
+	DELAY_PLAYER_RESURRECT_TIMEOUT = 60 * 1000;		// 1ë¶„
 	
-	// client¿¡¼­ ¿òÁ÷ÀÏ ¼ö ÀÖ´Â sector¼ö
+	// clientì—ì„œ ì›€ì§ì¼ ìˆ˜ ìžˆëŠ” sectorìˆ˜
 	MAX_CLIENT_MOVE			= 6;
 
-	// client¿¡¼­ ¿òÁ÷ÀÏ ¼ö ÀÖ´Â sector¼ö
+	// clientì—ì„œ ì›€ì§ì¼ ìˆ˜ ìžˆëŠ” sectorìˆ˜
 	MAX_CREATURE_MOVE_BUFFER	= 2;
 	
-	// È­¸éÀÇ ÃÖ´ë Light°³¼ö
+	// í™”ë©´ì˜ ìµœëŒ€ Lightê°œìˆ˜
 	MAX_LIGHT_DRAW			= 50;
 
-	// LoadÇÏ´Â Sound °³¼ö
+	// Loadí•˜ëŠ” Sound ê°œìˆ˜
 	MAX_SOUNDPART			= 100;
 
 	MAX_REQUEST_SERVICE		= 10;
 
 	//--------------------------------------------------------------
-	// ÇÑ¹ø¿¡ udpateÇÏ´Â ÃÖ´ë È¸¼ö
+	// í•œë²ˆì— udpateí•˜ëŠ” ìµœëŒ€ íšŒìˆ˜
 	//--------------------------------------------------------------
-	// ÇÑ¹ø¿¡ ÃÖ´ë 6 FrameÀÇ ÀÇ¹Ì´Â
-	// 6 Frame¸¶´Ù Àû¾îµµ ÇÑ¹øÀº ±×·ÁÁØ´Ù´Â ÀÇ¹Ì°¡ µÈ´Ù.
+	// í•œë²ˆì— ìµœëŒ€ 6 Frameì˜ ì˜ë¯¸ëŠ”
+	// 6 Frameë§ˆë‹¤ ì ì–´ë„ í•œë²ˆì€ ê·¸ë ¤ì¤€ë‹¤ëŠ” ì˜ë¯¸ê°€ ëœë‹¤.
 	//--------------------------------------------------------------
 	MAX_UPDATE_ONETIME		= 6;
 
 	//--------------------------------------------------------------
-	// 'ÇÑ¹ø¿¡ updateÇÏ´Â ÃÖ´ë È¸¼ö'¸¦ ¼öÇàÇÏ´Â È¸¼ö.. - -;;
+	// 'í•œë²ˆì— updateí•˜ëŠ” ìµœëŒ€ íšŒìˆ˜'ë¥¼ ìˆ˜í–‰í•˜ëŠ” íšŒìˆ˜.. - -;;
 	//--------------------------------------------------------------
-	// ÀÌ·¸°Ô ÇÏ¸é..
-	// ÇÑ¹ø¿¡ ÃÖ´ë 6 Frame¾¿, ÃÖ´ë "10"È¸´Ï±î..
-	// 60 Frameµ¿¾È Ç¥ÇöµÉ °ÍÀÌ.. ¼ø°£Àû~~À¸·Î Ç¥ÇöµÇ°Ô µÈ´Ù.
-	// 10 Frame¸¸ º¸ÀÌ°ÚÂî.. 
+	// ì´ë ‡ê²Œ í•˜ë©´..
+	// í•œë²ˆì— ìµœëŒ€ 6 Frameì”©, ìµœëŒ€ "10"íšŒë‹ˆê¹Œ..
+	// 60 Frameë™ì•ˆ í‘œí˜„ë  ê²ƒì´.. ìˆœê°„ì ~~ìœ¼ë¡œ í‘œí˜„ë˜ê²Œ ëœë‹¤.
+	// 10 Frameë§Œ ë³´ì´ê² ì°Œ.. 
 	//--------------------------------------------------------------
 	MAX_UPDATE_ONETIME_COUNT		= 10;		
 
-	DELAY_GLOBAL_SAY				= 12*1000;	// 12ÃÊ
+	DELAY_GLOBAL_SAY				= 12*1000;	// 12ì´ˆ
 
 	//--------------------------------------------------------------
-	// message scroll delay½Ã°£
+	// message scroll delayì‹œê°„
 	//--------------------------------------------------------------
 	DELAY_SYSTEMMESSAGE		= 5000;
 	DELAY_GAMEMESSAGE		= 5000;
 
 	//--------------------------------------------------------------
-	// È­¸é¿¡ Ãâ·ÂµÇ´Â itemÀÌ¸§ °³¼ö
+	// í™”ë©´ì— ì¶œë ¥ë˜ëŠ” itemì´ë¦„ ê°œìˆ˜
 	//--------------------------------------------------------------
 	MAX_DRAWITEMNAME			= 20;
 
 	//--------------------------------------------------------------
-	// packet±â´Ù¸®´Â ½Ã°£
+	// packetê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„
 	//--------------------------------------------------------------
-	MAX_WAIT_PACKET			= 15000;	// 15ÃÊ
+	MAX_WAIT_PACKET			= 15000;	// 15ì´ˆ
 
 	//--------------------------------------------------------------
-	// ÇÑ loop¿¡ Ã³¸®µÇ´Â packetÀÇ ÃÖ´ë ¼ö
+	// í•œ loopì— ì²˜ë¦¬ë˜ëŠ” packetì˜ ìµœëŒ€ ìˆ˜
 	//--------------------------------------------------------------
-	MAX_PROCESS_PACKET			= 11;		// 15°³ Ã³¸®
+	MAX_PROCESS_PACKET			= 11;		// 15ê°œ ì²˜ë¦¬
 
 	//--------------------------------------------------------------
-	// ÃÊ±âÈ­¸éÀÇ À½¾Ç
+	// ì´ˆê¸°í™”ë©´ì˜ ìŒì•…
 	//--------------------------------------------------------------
 	MUSIC_THEME				= MUSIC_TREASURE;
 
 	//--------------------------------------------------------------
-	// Ã¤ÆÃ String ÁÙ ¼ö
+	// ì±„íŒ… String ì¤„ ìˆ˜
 	//--------------------------------------------------------------
 	MAX_CHATSTRING				= 5;
 	MAX_CHATSTRING_MINUS_1		= 4;
@@ -115,15 +115,15 @@ ClientConfig::ClientConfig()
 	MAX_CHATSTRINGLENGTH_PLUS1	= 21;
 
 	//--------------------------------------------------------------
-	// Ã¤ÆÃ À¯Áö ½Ã°£
+	// ì±„íŒ… ìœ ì§€ ì‹œê°„
 	//--------------------------------------------------------------
-	DELAY_CHATSTRING_KEEP		= 1500;		// Èò»öÀÇ Áö¼Ó ½Ã°£
-	DELAY_CHATSTRING_FADE		= 250;		// ¾îµÎ¿öÁö´Â ´Ü°èÀÇ ½Ã°£
-	VALUE_CHATSTRING_FADE		= 8;		// ¾îµÎ¿öÁö´Â °ª
-	MIN_CHATSTRING_COLOR256		= 96;		// °¡Àå ¾îµÎ¿î Ã¤ÆÃ String»ö
+	DELAY_CHATSTRING_KEEP		= 1500;		// í°ìƒ‰ì˜ ì§€ì† ì‹œê°„
+	DELAY_CHATSTRING_FADE		= 250;		// ì–´ë‘ì›Œì§€ëŠ” ë‹¨ê³„ì˜ ì‹œê°„
+	VALUE_CHATSTRING_FADE		= 8;		// ì–´ë‘ì›Œì§€ëŠ” ê°’
+	MIN_CHATSTRING_COLOR256		= 96;		// ê°€ìž¥ ì–´ë‘ìš´ ì±„íŒ… Stringìƒ‰
 	
 	//--------------------------------------------------------
-	// TexturePart ManagerÀÇ Part °³¼ö
+	// TexturePart Managerì˜ Part ê°œìˆ˜
 	//--------------------------------------------------------
 	MAX_TEXTUREPART_EFFECT				= 25;
 	MAX_TEXTUREPART_CREATURESHADOW		= 100;
@@ -133,7 +133,7 @@ ClientConfig::ClientConfig()
 	MAX_TEXTUREPART_SCREENEFFECT		= 25;
 
 	//--------------------------------------------------------
-	// Font Å©±â
+	// Font í¬ê¸°
 	//--------------------------------------------------------
 	FONT_HEIGHT				= 20;
 	FONT_ITEM_HEIGHT			= 15;
@@ -141,37 +141,37 @@ ClientConfig::ClientConfig()
 	//--------------------------------------------------------
 	// HP Bar
 	//--------------------------------------------------------
-	MAX_HP_BAR_PIXEL			= 120;		// hp barÀÇ Å©±â
-	POSITION_HP_BAR			= -10;		// ÀÌ¸§ÀÇ À§Ä¡(hp bar À§Ä¡)
+	MAX_HP_BAR_PIXEL			= 120;		// hp barì˜ í¬ê¸°
+	POSITION_HP_BAR			= -10;		// ì´ë¦„ì˜ ìœ„ì¹˜(hp bar ìœ„ì¹˜)
 
 	//--------------------------------------------------------
-	// ¾ÆÀÌÅÛ ºÎ¼­Áö´Â°Å¿¡ µû¸¥ »ö±ò Ç¥½Ã
+	// ì•„ì´í…œ ë¶€ì„œì§€ëŠ”ê±°ì— ë”°ë¥¸ ìƒ‰ê¹” í‘œì‹œ
 	//--------------------------------------------------------
-	PERCENTAGE_ITEM_SOMEWHAT_BROKEN	= 25;		// 25%³²¾ÒÀ»¶§ ¿À·»Áö»ö
-	PERCENTAGE_ITEM_ALMOST_BROKEN		= 10;		// 10%³²¾ÒÀ»¶§ »¡°£»ö
+	PERCENTAGE_ITEM_SOMEWHAT_BROKEN	= 25;		// 25%ë‚¨ì•˜ì„ë•Œ ì˜¤ë Œì§€ìƒ‰
+	PERCENTAGE_ITEM_ALMOST_BROKEN		= 10;		// 10%ë‚¨ì•˜ì„ë•Œ ë¹¨ê°„ìƒ‰
 
 	//--------------------------------------------------------------
-	// EffectºÙ¾î¼­ Ä³¸¯ÅÍ »ö±ò ¹Ù²ð¶§ °¡²û¾¿ ¿ø·¡ ¸ð½À º¸¿©ÁÖ´Â frame
+	// Effectë¶™ì–´ì„œ ìºë¦­í„° ìƒ‰ê¹” ë°”ë€”ë•Œ ê°€ë”ì”© ì›ëž˜ ëª¨ìŠµ ë³´ì—¬ì£¼ëŠ” frame
 	//--------------------------------------------------------------
-	FRAME_DRAW_ORIGINAL_SPRITE			= 8;		// 4frame¸¶´Ù ÇÑ¹ø¾¿
+	FRAME_DRAW_ORIGINAL_SPRITE			= 8;		// 4frameë§ˆë‹¤ í•œë²ˆì”©
 
 	//--------------------------------------------------------
-	// »ö±ò - 5:6:5¸¦ ÀúÀåÇØ¾ß ÇÑ´Ù.
+	// ìƒ‰ê¹” - 5:6:5ë¥¼ ì €ìž¥í•´ì•¼ í•œë‹¤.
 	//--------------------------------------------------------
 	COLOR_OUTLINE_INTERACTIONOBJECT	= (0 << 11) | (31 << 6) | 0;	// GREEN
 
 	// item
 	COLOR_NAME_ITEM					= RGB(31<<3, 31<<3, 31<<3);	// WHITE
-	COLOR_NAME_ITEM_OPTION			= RGB(31<<3, 31<<3, 5<<3);	// °ÅÀÇ blue
-	COLOR_NAME_ITEM_RARE_OPTION		= RGB(19<<3, 19<<3, 31<<3);	// °ÅÀÇ blue
+	COLOR_NAME_ITEM_OPTION			= RGB(31<<3, 31<<3, 5<<3);	// ê±°ì˜ blue
+	COLOR_NAME_ITEM_RARE_OPTION		= RGB(19<<3, 19<<3, 31<<3);	// ê±°ì˜ blue
 	COLOR_OUTLINE_ITEM				= (23 << 11) | (23 << 6) | 23;
 
-	// Á¾Á·º°
+	// ì¢…ì¡±ë³„
 	COLOR_NAME_VAMPIRE				= RGB(31<<3, 10<<3, 10<<3);	// RED
 	COLOR_NAME_SLAYER				= RGB(23<<3, 23<<3, 31<<3);	// BLUE
 	COLOR_NAME_NPC					= RGB(5<<3, 27<<3, 5<<3);	// GREEN
 
-	// °ø°Ý °¡´É?
+	// ê³µê²© ê°€ëŠ¥?
 	COLOR_OUTLINE_NPC				= (5 << 11) | (23 << 6) | 5;
 	COLOR_OUTLINE_ATTACK_POSSIBLE	= (23 << 11) | (5 << 6) | 5;
 	COLOR_OUTLINE_ATTACK_IMPOSSIBLE	= (5 << 11) | (5 << 6) | 18;
@@ -182,22 +182,22 @@ ClientConfig::ClientConfig()
 	COLOR_HP_BAR_B					= 15;
 
 	//---------------------------------------------------------------------
-	// »õ »ç¿ëÀÚ µî·Ï ¸ðµå
+	// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ ëª¨ë“œ
 	//---------------------------------------------------------------------
-	//	NUR_CLIENT,				// »õ »ç¿ëÀÚ µî·Ï °¡´É
-	//	NUR_HOMEPAGE,			// È¨ÆäÀÌÁö¸¦ ¶ç¿öÁÖ¸é¼­ µî·Ï
-	//	NUR_MESSAGE_HOMEPAGE,	// È¨ÆäÀÌÁö¿¡¼­ µî·ÏÇÏ¶ó´Â message
-	//	NUR_DENY				// »õ »ç¿ëÀÚ µî·Ï ºÒ°¡			
+	//	NUR_CLIENT,				// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ ê°€ëŠ¥
+	//	NUR_HOMEPAGE,			// í™ˆíŽ˜ì´ì§€ë¥¼ ë„ì›Œì£¼ë©´ì„œ ë“±ë¡
+	//	NUR_MESSAGE_HOMEPAGE,	// í™ˆíŽ˜ì´ì§€ì—ì„œ ë“±ë¡í•˜ë¼ëŠ” message
+	//	NUR_DENY				// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ ë¶ˆê°€			
 	NEW_USER_REGISTERATION_MODE	= ClientConfig::NUR_HOMEPAGE;
-//	URL_HOMEPAGE					= "http://www.t2cn.com";				// È¨ÆäÀÌÁö main
-//	URL_HOMEPAGE_NEW_USER			= "http://member.t2cn.com/reg";		// »õ »ç¿ëÀÚ µî·Ï URL
+//	URL_HOMEPAGE					= "http://www.t2cn.com";				// í™ˆíŽ˜ì´ì§€ main
+//	URL_HOMEPAGE_NEW_USER			= "http://member.t2cn.com/reg";		// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ URL
 //	URL_HOMEPAGE_BILING				= "http://member.t2cn.com/billing";
-	URL_HOMEPAGE					= "http://www.darkeden.com";				// È¨ÆäÀÌÁö main
-	URL_HOMEPAGE_NEW_USER			= "http://www.darkeden.com/pg/new_reg.html";		// »õ »ç¿ëÀÚ µî·Ï URL
+	URL_HOMEPAGE					= "http://www.darkeden.com";				// í™ˆíŽ˜ì´ì§€ main
+	URL_HOMEPAGE_NEW_USER			= "http://www.darkeden.com/pg/new_reg.html";		// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ URL
 	URL_HOMEPAGE_BILING				= "http://www.darkeden.com/pg/buy_index.html";
 
 	//---------------------------------------------------------------------
-	// ¼ºÇâ¿¡ µû¸¥ »ö±ò
+	// ì„±í–¥ì— ë”°ë¥¸ ìƒ‰ê¹”
 	//---------------------------------------------------------------------
 	COLOR_NAME_GOOD_MORE		= RGB(50, 50, 200);	
 	COLOR_NAME_GOOD				= RGB(25, 210, 220);
@@ -206,11 +206,11 @@ ClientConfig::ClientConfig()
 	COLOR_NAME_EVIL_MORE		= RGB(110, 25, 25);
 
 	//--------------------------------------------------------
-	// ÇÇ Èê¸®±â
+	// í”¼ í˜ë¦¬ê¸°
 	//--------------------------------------------------------
-	BLOOD_DROP_HP_PERCENT		= 30;		// ÇÇ Èê¸®±â ½ÃÀÛÇÏ´Â HP %
-	BLOOD_DROP_GAP_TIME			= 3000;		// ´ÙÀ½¿¡ ÇÇ Èê¸®±â ½ÃÀÛÇÏ´Â ½Ã°£ gap
-	BLOOD_DROP_RANDOM_TIME		= 3000;		// ÇÇ Èê¸®´Â ½Ã°£ = GAP + RANDOM
+	BLOOD_DROP_HP_PERCENT		= 30;		// í”¼ í˜ë¦¬ê¸° ì‹œìž‘í•˜ëŠ” HP %
+	BLOOD_DROP_GAP_TIME			= 3000;		// ë‹¤ìŒì— í”¼ í˜ë¦¬ê¸° ì‹œìž‘í•˜ëŠ” ì‹œê°„ gap
+	BLOOD_DROP_RANDOM_TIME		= 3000;		// í”¼ í˜ë¦¬ëŠ” ì‹œê°„ = GAP + RANDOM
 
 	//--------------------------------------------------------
 	//
@@ -218,50 +218,50 @@ ClientConfig::ClientConfig()
 	MAX_TEXTUREPART_EFFECTSHADOW	= 3;
 
 	//--------------------------------------------------------
-	// tradeÈÄ item¶³¾îÁö´Â°Ô °¡´ÉÇØÁö´Â ½Ã°£
+	// tradeí›„ itemë–¨ì–´ì§€ëŠ”ê²Œ ê°€ëŠ¥í•´ì§€ëŠ” ì‹œê°„
 	//--------------------------------------------------------
 	AFTER_TRADE_ITEM_DROP_DELAY = 3000;	
 
 	//--------------------------------------------------------
-	// ÆÄÆ¼ joinÈÄ ´Ù¸¥»ç¶÷ kickÇÒ ¼ö ÀÖ´Â ½Ã°£
+	// íŒŒí‹° joiní›„ ë‹¤ë¥¸ì‚¬ëžŒ kickí•  ìˆ˜ ìžˆëŠ” ì‹œê°„
 	//--------------------------------------------------------
-	AFTER_PARTY_KICK_DELAY	= 60*60*1000;	// 1½Ã°£ = 60ºÐ * 60ÃÊ 
+	AFTER_PARTY_KICK_DELAY	= 60*60*1000;	// 1ì‹œê°„ = 60ë¶„ * 60ì´ˆ 
 
 	//--------------------------------------------------------------
-	// ClientÅë½Å¿¡ »ç¿ëÇÏ´Â UDP Port
+	// Clientí†µì‹ ì— ì‚¬ìš©í•˜ëŠ” UDP Port
 	//--------------------------------------------------------------
 	CLIENT_COMMUNICATION_UDP_PORT	= 9858;
 
 	CLIENT_COMMUNICATION_STATUS_DELAY = 5000;
 
 	//--------------------------------------------------------------
-	// tradeÇÒ ¶§ cancelÈÄ OK¸¦ ´©¸¦ ¶§ delay ½Ã°£
+	// tradeí•  ë•Œ cancelí›„ OKë¥¼ ëˆ„ë¥¼ ë•Œ delay ì‹œê°„
 	//--------------------------------------------------------------
 	TRADE_ACCEPT_DELAY_TIME = 5000;
 
 	//--------------------------------------------------------------
-	// Vampire ¸®Á¨¾ç
+	// Vampire ë¦¬ì  ì–‘
 	//--------------------------------------------------------------
 	REGEN_AMOUNT_BURROW		= 4;
 	REGEN_AMOUNT_CASKET		= 10;
 	REGEN_AMOUNT_VAMPIRE	= 2;
 
 	//--------------------------------------------------------------
-	// ÃÊ´ç wave sound ¼Ò¸® ³»´Â °³¼ö Á¦ÇÑ
+	// ì´ˆë‹¹ wave sound ì†Œë¦¬ ë‚´ëŠ” ê°œìˆ˜ ì œí•œ
 	//--------------------------------------------------------------
 	MAX_SOUND_PER_SECOND	= 6;
 
-	REPEAT_TIME				= 10*60*1000;				// ÀÚµ¿°ø°Ý Á¦ÇÑ½Ã°£ 10ºÐ
-	LOCK_TIME				= 10*60*1000;				// Caps LockÀÚµ¿°ø°Ý Á¦ÇÑ½Ã°£ 10ºÐ
+	REPEAT_TIME				= 10*60*1000;				// ìžë™ê³µê²© ì œí•œì‹œê°„ 10ë¶„
+	LOCK_TIME				= 10*60*1000;				// Caps Lockìžë™ê³µê²© ì œí•œì‹œê°„ 10ë¶„
 	
-	// À¯´ÏÅ© ¾ÆÀÌÅÛ Ä®¶ó¼Â
+	// ìœ ë‹ˆí¬ ì•„ì´í…œ ì¹¼ë¼ì…‹
 	UniqueItemColorSet		= 405;
 	QuestItemColorSet		= 345;
 
-	// HPModifyList °³¼ö Á¦ÇÑ¹× ½Ã°£Á¦ÇÑ(msec)
+	// HPModifyList ê°œìˆ˜ ì œí•œë° ì‹œê°„ì œí•œ(msec)
 	HPModifyListMax			= 10;
 	HPModifyListTime		= 10000;
-	TRACE_CHARACTER_LIMIT_TIME		= 5*60*1000;		// Ä³¸¯ÅÍµû¶ó°¡±â Á¦ÇÑ½Ã°£ 5ºÐ
+	TRACE_CHARACTER_LIMIT_TIME		= 5*60*1000;		// ìºë¦­í„°ë”°ë¼ê°€ê¸° ì œí•œì‹œê°„ 5ë¶„
 }
 
 ClientConfig::~ClientConfig()
@@ -310,7 +310,7 @@ ClientConfig::SaveToFile(const char* filename)
 	file.write((const char*)&MUSIC_THEME, 4);
 	
 	//--------------------------------------------------------------
-	// Ã¤ÆÃ String ÁÙ ¼ö
+	// ì±„íŒ… String ì¤„ ìˆ˜
 	//--------------------------------------------------------------
 	file.write((const char*)&MAX_CHATSTRING, 4);
 	file.write((const char*)&MAX_CHATSTRING_MINUS_1, 4);
@@ -318,15 +318,15 @@ ClientConfig::SaveToFile(const char* filename)
 	file.write((const char*)&MAX_CHATSTRINGLENGTH_PLUS1, 4);
 
 	//--------------------------------------------------------------
-	// Ã¤ÆÃ º¸¿©Áö´Â ½Ã°£..
+	// ì±„íŒ… ë³´ì—¬ì§€ëŠ” ì‹œê°„..
 	//--------------------------------------------------------------
-	file.write((const char*)&DELAY_CHATSTRING_KEEP, 4);		// Èò»öÀ¸·Î Ç¥ÇöÇÏ´Â ½Ã°£
-	file.write((const char*)&DELAY_CHATSTRING_FADE, 4);		// ¾îµÎ¿öÁö´Â ´Ü°èÀÇ ½Ã°£
-	file.write((const char*)&VALUE_CHATSTRING_FADE, 4);		// ¾îµÎ¿öÁö´Â °ª
-	file.write((const char*)&MIN_CHATSTRING_COLOR256, 4);		// °¡Àå ¾îµÎ¿î Ã¤ÆÃ String»ö
+	file.write((const char*)&DELAY_CHATSTRING_KEEP, 4);		// í°ìƒ‰ìœ¼ë¡œ í‘œí˜„í•˜ëŠ” ì‹œê°„
+	file.write((const char*)&DELAY_CHATSTRING_FADE, 4);		// ì–´ë‘ì›Œì§€ëŠ” ë‹¨ê³„ì˜ ì‹œê°„
+	file.write((const char*)&VALUE_CHATSTRING_FADE, 4);		// ì–´ë‘ì›Œì§€ëŠ” ê°’
+	file.write((const char*)&MIN_CHATSTRING_COLOR256, 4);		// ê°€ìž¥ ì–´ë‘ìš´ ì±„íŒ… Stringìƒ‰
 
 	//--------------------------------------------------------
-	// TexturePart ManagerÀÇ Part °³¼ö
+	// TexturePart Managerì˜ Part ê°œìˆ˜
 	//--------------------------------------------------------
 	file.write((const char*)&MAX_TEXTUREPART_EFFECT, 4);
 	file.write((const char*)&MAX_TEXTUREPART_CREATURESHADOW, 4);
@@ -335,7 +335,7 @@ ClientConfig::SaveToFile(const char* filename)
 	file.write((const char*)&MAX_TEXTUREPART_IMAGEOBJECTSPK, 4);
 
 	//--------------------------------------------------------
-	// Font Å©±â
+	// Font í¬ê¸°
 	//--------------------------------------------------------
 	file.write((const char*)&FONT_HEIGHT, 4);
 	file.write((const char*)&FONT_ITEM_HEIGHT, 4);
@@ -343,22 +343,22 @@ ClientConfig::SaveToFile(const char* filename)
 	//--------------------------------------------------------
 	// HP Bar
 	//--------------------------------------------------------
-	file.write((const char*)&MAX_HP_BAR_PIXEL, 4);			// hp barÀÇ Å©±â
-	file.write((const char*)&POSITION_HP_BAR, 4);		// ÀÌ¸§ÀÇ À§Ä¡(hp bar À§Ä¡)
+	file.write((const char*)&MAX_HP_BAR_PIXEL, 4);			// hp barì˜ í¬ê¸°
+	file.write((const char*)&POSITION_HP_BAR, 4);		// ì´ë¦„ì˜ ìœ„ì¹˜(hp bar ìœ„ì¹˜)
 
 	//--------------------------------------------------------
-	// item ºÎ¼­Áø Á¤µµ(%)
+	// item ë¶€ì„œì§„ ì •ë„(%)
 	//--------------------------------------------------------
 	file.write((const char*)&PERCENTAGE_ITEM_SOMEWHAT_BROKEN, 4);
 	file.write((const char*)&PERCENTAGE_ITEM_ALMOST_BROKEN, 4);
 
 	//--------------------------------------------------------------
-	// Ä³¸¯ÅÍ¿¡ ºÙ´Â Effectº¸¿©ÁÙ¶§ °¡²û ¿ø·¡ »ö±ò º¸¿©ÁÖ´Â Frame
+	// ìºë¦­í„°ì— ë¶™ëŠ” Effectë³´ì—¬ì¤„ë•Œ ê°€ë” ì›ëž˜ ìƒ‰ê¹” ë³´ì—¬ì£¼ëŠ” Frame
 	//--------------------------------------------------------------
 	file.write((const char*)&FRAME_DRAW_ORIGINAL_SPRITE, 4);
 		
 	//--------------------------------------------------------
-	// »ö±ò
+	// ìƒ‰ê¹”
 	//--------------------------------------------------------
 	file.write((const char*)&COLOR_OUTLINE_INTERACTIONOBJECT, 2);
 
@@ -368,27 +368,27 @@ ClientConfig::SaveToFile(const char* filename)
 	file.write((const char*)&COLOR_NAME_ITEM_RARE_OPTION, 4);
 	file.write((const char*)&COLOR_OUTLINE_ITEM, 2);
 
-	// Á¾Á·º°
+	// ì¢…ì¡±ë³„
 	file.write((const char*)&COLOR_NAME_VAMPIRE, 4);
 	file.write((const char*)&COLOR_NAME_SLAYER, 4);
 	file.write((const char*)&COLOR_NAME_NPC, 4);
 
-	// °ø°Ý °¡´É?
+	// ê³µê²© ê°€ëŠ¥?
 	file.write((const char*)&COLOR_OUTLINE_NPC, 2);
 	file.write((const char*)&COLOR_OUTLINE_ATTACK_POSSIBLE, 2);
 	file.write((const char*)&COLOR_OUTLINE_ATTACK_IMPOSSIBLE, 2);
 
-	// HP barÀÇ »ö±ò
+	// HP barì˜ ìƒ‰ê¹”
 	file.write((const char*)&COLOR_HP_BAR_R, 1);
 	file.write((const char*)&COLOR_HP_BAR_G, 1);
 	file.write((const char*)&COLOR_HP_BAR_B, 1);
 
 	//--------------------------------------------------------
-	// »õ »ç¿ëÀÚ µî·Ï mode
+	// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ mode
 	//--------------------------------------------------------
 	file.write((const char*)&NEW_USER_REGISTERATION_MODE, sizeof(NUR_MODE));
-	URL_HOMEPAGE.SaveToFile( file );				// È¨ÆäÀÌÁö main
-	URL_HOMEPAGE_NEW_USER.SaveToFile( file );		// »õ »ç¿ëÀÚ µî·Ï URL
+	URL_HOMEPAGE.SaveToFile( file );				// í™ˆíŽ˜ì´ì§€ main
+	URL_HOMEPAGE_NEW_USER.SaveToFile( file );		// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ URL
 	URL_HOMEPAGE_BILING.SaveToFile( file );
 
 	file.write((const char*)&COLOR_NAME_GOOD_MORE, 4);
@@ -412,37 +412,37 @@ ClientConfig::SaveToFile(const char* filename)
 	file.write((const char*)&AFTER_PARTY_KICK_DELAY, 4);
 
 	//--------------------------------------------------------------
-	// ClientÅë½Å¿¡ »ç¿ëÇÏ´Â UDP Port
+	// Clientí†µì‹ ì— ì‚¬ìš©í•˜ëŠ” UDP Port
 	//--------------------------------------------------------------
 	file.write((const char*)&CLIENT_COMMUNICATION_UDP_PORT, 4);
 	file.write((const char*)&CLIENT_COMMUNICATION_STATUS_DELAY, 4);
 
 	//--------------------------------------------------------------
-	// trade ÈÄ accept ´©¸¦ ¼ö ÀÖ´Â delay
+	// trade í›„ accept ëˆ„ë¥¼ ìˆ˜ ìžˆëŠ” delay
 	//--------------------------------------------------------------
 	file.write((const char*)&TRADE_ACCEPT_DELAY_TIME, 4);
 
 	//--------------------------------------------------------------
-	// vampire ¸®Á¨
+	// vampire ë¦¬ì  
 	//--------------------------------------------------------------
 	file.write((const char*)&REGEN_AMOUNT_BURROW, 1);
 	file.write((const char*)&REGEN_AMOUNT_CASKET, 1);
 	file.write((const char*)&REGEN_AMOUNT_VAMPIRE, 1);	
 
 	//--------------------------------------------------------------
-	// ÃÊ´ç wave sound ¼Ò¸® ³»´Â °³¼ö Á¦ÇÑ
+	// ì´ˆë‹¹ wave sound ì†Œë¦¬ ë‚´ëŠ” ê°œìˆ˜ ì œí•œ
 	//--------------------------------------------------------------
 	file.write((const char*)&MAX_SOUND_PER_SECOND, 1);	
 
-	// ¸¶¿ì½º ´­¸² Á¦ÇÑ
+	// ë§ˆìš°ìŠ¤ ëˆŒë¦¼ ì œí•œ
 	file.write((const char*)&REPEAT_TIME, 4);
 	file.write((const char*)&LOCK_TIME, 4);
 
-	// À¯´ÏÅ© ¾ÆÀÌÅÛ Ä®¶ó¼Â
+	// ìœ ë‹ˆí¬ ì•„ì´í…œ ì¹¼ë¼ì…‹
 	file.write((const char*)&UniqueItemColorSet, 4);
 	file.write((const char*)&QuestItemColorSet, 4);
 
-	// HPModifyList °³¼ö Á¦ÇÑ¹× ½Ã°£Á¦ÇÑ(sec)
+	// HPModifyList ê°œìˆ˜ ì œí•œë° ì‹œê°„ì œí•œ(sec)
 	file.write((const char*)&HPModifyListMax, 1);
 	file.write((const char*)&HPModifyListTime, 4);
 	file.write((const char*)&TRACE_CHARACTER_LIMIT_TIME, 4);
@@ -488,7 +488,7 @@ ClientConfig::LoadFromFile(const char* filename)
 	file.read((char*)&MUSIC_THEME, 4);
 
 	//--------------------------------------------------------------
-	// Ã¤ÆÃ String ÁÙ ¼ö
+	// ì±„íŒ… String ì¤„ ìˆ˜
 	//--------------------------------------------------------------
 	file.read((char*)&MAX_CHATSTRING, 4);
 	file.read((char*)&MAX_CHATSTRING_MINUS_1, 4);
@@ -496,15 +496,15 @@ ClientConfig::LoadFromFile(const char* filename)
 	file.read((char*)&MAX_CHATSTRINGLENGTH_PLUS1, 4);
 
 	//--------------------------------------------------------------
-	// Ã¤ÆÃ º¸¿©Áö´Â ½Ã°£..
+	// ì±„íŒ… ë³´ì—¬ì§€ëŠ” ì‹œê°„..
 	//--------------------------------------------------------------
-	file.read((char*)&DELAY_CHATSTRING_KEEP, 4);		// Èò»öÀ¸·Î Ç¥ÇöÇÏ´Â ½Ã°£
-	file.read((char*)&DELAY_CHATSTRING_FADE, 4);		// ¾îµÎ¿öÁö´Â ´Ü°èÀÇ ½Ã°£
-	file.read((char*)&VALUE_CHATSTRING_FADE, 4);		// ¾îµÎ¿öÁö´Â °ª
-	file.read((char*)&MIN_CHATSTRING_COLOR256, 4);		// °¡Àå ¾îµÎ¿î Ã¤ÆÃ String»ö
+	file.read((char*)&DELAY_CHATSTRING_KEEP, 4);		// í°ìƒ‰ìœ¼ë¡œ í‘œí˜„í•˜ëŠ” ì‹œê°„
+	file.read((char*)&DELAY_CHATSTRING_FADE, 4);		// ì–´ë‘ì›Œì§€ëŠ” ë‹¨ê³„ì˜ ì‹œê°„
+	file.read((char*)&VALUE_CHATSTRING_FADE, 4);		// ì–´ë‘ì›Œì§€ëŠ” ê°’
+	file.read((char*)&MIN_CHATSTRING_COLOR256, 4);		// ê°€ìž¥ ì–´ë‘ìš´ ì±„íŒ… Stringìƒ‰
 
 	//--------------------------------------------------------
-	// TexturePart ManagerÀÇ Part °³¼ö
+	// TexturePart Managerì˜ Part ê°œìˆ˜
 	//--------------------------------------------------------
 	file.read((char*)&MAX_TEXTUREPART_EFFECT, 4);
 	file.read((char*)&MAX_TEXTUREPART_CREATURESHADOW, 4);
@@ -513,7 +513,7 @@ ClientConfig::LoadFromFile(const char* filename)
 	file.read((char*)&MAX_TEXTUREPART_IMAGEOBJECTSPK, 4);
 
 	//--------------------------------------------------------
-	// Font Å©±â
+	// Font í¬ê¸°
 	//--------------------------------------------------------
 	file.read((char*)&FONT_HEIGHT, 4);
 	file.read((char*)&FONT_ITEM_HEIGHT, 4);
@@ -521,22 +521,22 @@ ClientConfig::LoadFromFile(const char* filename)
 	//--------------------------------------------------------
 	// HP Bar
 	//--------------------------------------------------------
-	file.read((char*)&MAX_HP_BAR_PIXEL, 4);			// hp barÀÇ Å©±â
-	file.read((char*)&POSITION_HP_BAR, 4);		// ÀÌ¸§ÀÇ À§Ä¡(hp bar À§Ä¡)
+	file.read((char*)&MAX_HP_BAR_PIXEL, 4);			// hp barì˜ í¬ê¸°
+	file.read((char*)&POSITION_HP_BAR, 4);		// ì´ë¦„ì˜ ìœ„ì¹˜(hp bar ìœ„ì¹˜)
 
 	//--------------------------------------------------------
-	// item ºÎ¼­Áø Á¤µµ(%)
+	// item ë¶€ì„œì§„ ì •ë„(%)
 	//--------------------------------------------------------
 	file.read((char*)&PERCENTAGE_ITEM_SOMEWHAT_BROKEN, 4);
 	file.read((char*)&PERCENTAGE_ITEM_ALMOST_BROKEN, 4);
 
 	//--------------------------------------------------------------
-	// Ä³¸¯ÅÍ¿¡ ºÙ´Â Effectº¸¿©ÁÙ¶§ °¡²û ¿ø·¡ »ö±ò º¸¿©ÁÖ´Â Frame
+	// ìºë¦­í„°ì— ë¶™ëŠ” Effectë³´ì—¬ì¤„ë•Œ ê°€ë” ì›ëž˜ ìƒ‰ê¹” ë³´ì—¬ì£¼ëŠ” Frame
 	//--------------------------------------------------------------
 	file.read((char*)&FRAME_DRAW_ORIGINAL_SPRITE, 4);
 
 	//--------------------------------------------------------
-	// »ö±ò
+	// ìƒ‰ê¹”
 	//--------------------------------------------------------
 	file.read((char*)&COLOR_OUTLINE_INTERACTIONOBJECT, 2);
 
@@ -546,35 +546,35 @@ ClientConfig::LoadFromFile(const char* filename)
 	file.read((char*)&COLOR_NAME_ITEM_RARE_OPTION, 4);
 	file.read((char*)&COLOR_OUTLINE_ITEM, 2);
 
-	// Á¾Á·º°
+	// ì¢…ì¡±ë³„
 	file.read((char*)&COLOR_NAME_VAMPIRE, 4);
 	file.read((char*)&COLOR_NAME_SLAYER, 4);
 	file.read((char*)&COLOR_NAME_NPC, 4);
 
-	// °ø°Ý °¡´É?
+	// ê³µê²© ê°€ëŠ¥?
 	file.read((char*)&COLOR_OUTLINE_NPC, 2);
 	file.read((char*)&COLOR_OUTLINE_ATTACK_POSSIBLE, 2);
 	file.read((char*)&COLOR_OUTLINE_ATTACK_IMPOSSIBLE, 2);
 
-	// HP barÀÇ »ö±ò
+	// HP barì˜ ìƒ‰ê¹”
 	file.read((char*)&COLOR_HP_BAR_R, 1);
 	file.read((char*)&COLOR_HP_BAR_G, 1);
 	file.read((char*)&COLOR_HP_BAR_B, 1);
 
 	//--------------------------------------------------------
-	// »õ »ç¿ëÀÚ µî·Ï mode
+	// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ mode
 	//--------------------------------------------------------
 	file.read((char*)&NEW_USER_REGISTERATION_MODE, sizeof(NUR_MODE));
-	URL_HOMEPAGE.LoadFromFile( file );				// È¨ÆäÀÌÁö main
-	URL_HOMEPAGE_NEW_USER.LoadFromFile( file );		// »õ »ç¿ëÀÚ µî·Ï URL
+	URL_HOMEPAGE.LoadFromFile( file );				// í™ˆíŽ˜ì´ì§€ main
+	URL_HOMEPAGE_NEW_USER.LoadFromFile( file );		// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ URL
 	URL_HOMEPAGE_BILING.LoadFromFile( file );
 
-	URL_HOMEPAGE					= "http://bbstest.web11.zcidc.com/bbs/index.asp";				// È¨ÆäÀÌÁö main
-	URL_HOMEPAGE_NEW_USER			= "http://bbstest.web11.zcidc.com/bbs/index.asp";		// »õ »ç¿ëÀÚ µî·Ï URL
+	URL_HOMEPAGE					= "http://bbstest.web11.zcidc.com/bbs/index.asp";				// í™ˆíŽ˜ì´ì§€ main
+	URL_HOMEPAGE_NEW_USER			= "http://bbstest.web11.zcidc.com/bbs/index.asp";		// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ URL
 	URL_HOMEPAGE_BILING				= "http://bbstest.web11.zcidc.com/bbs/index.asp";
 	
 	//--------------------------------------------------------
-	// ¼ºÇâ¿¡ µû¸¥ »ö±ò..
+	// ì„±í–¥ì— ë”°ë¥¸ ìƒ‰ê¹”..
 	//--------------------------------------------------------
 	DWORD temp;
 	READ_CHECK_EOF( COLOR_NAME_GOOD_MORE, temp, 4 )
@@ -598,19 +598,19 @@ ClientConfig::LoadFromFile(const char* filename)
 	READ_CHECK_EOF( AFTER_PARTY_KICK_DELAY, temp, 4 )
 
 	//--------------------------------------------------------------
-	// ClientÅë½Å¿¡ »ç¿ëÇÏ´Â UDP Port
+	// Clientí†µì‹ ì— ì‚¬ìš©í•˜ëŠ” UDP Port
 	//--------------------------------------------------------------
 	READ_CHECK_EOF( CLIENT_COMMUNICATION_UDP_PORT, temp, 4 )
 
 	READ_CHECK_EOF( CLIENT_COMMUNICATION_STATUS_DELAY, temp, 4 )
 	
 	//--------------------------------------------------------------
-	// trade ÈÄ accept ´©¸¦ ¼ö ÀÖ´Â delay
+	// trade í›„ accept ëˆ„ë¥¼ ìˆ˜ ìžˆëŠ” delay
 	//--------------------------------------------------------------
 	READ_CHECK_EOF( TRADE_ACCEPT_DELAY_TIME, temp, 4)
 
 	//--------------------------------------------------------------
-	// vampire ¸®Á¨¾ç
+	// vampire ë¦¬ì  ì–‘
 	//--------------------------------------------------------------
 	BYTE temp1;
 	READ_CHECK_EOF( REGEN_AMOUNT_BURROW, temp1, 1)
@@ -618,20 +618,20 @@ ClientConfig::LoadFromFile(const char* filename)
 	READ_CHECK_EOF( REGEN_AMOUNT_VAMPIRE, temp1, 1)	
 
 	//--------------------------------------------------------------
-	// ÃÊ´ç wave sound ¼Ò¸® ³»´Â °³¼ö Á¦ÇÑ
+	// ì´ˆë‹¹ wave sound ì†Œë¦¬ ë‚´ëŠ” ê°œìˆ˜ ì œí•œ
 	//--------------------------------------------------------------	
 	READ_CHECK_EOF( MAX_SOUND_PER_SECOND, temp1, 1)
 
-	// ¸¶¿ì½º ´­¸² Á¦ÇÑ
+	// ë§ˆìš°ìŠ¤ ëˆŒë¦¼ ì œí•œ
 	READ_CHECK_EOF( REPEAT_TIME, temp, 4)
 	READ_CHECK_EOF( LOCK_TIME, temp, 4)
 
-	// À¯´ÏÅ© ¾ÆÀÌÅÛ Ä®¶ó¼Â
+	// ìœ ë‹ˆí¬ ì•„ì´í…œ ì¹¼ë¼ì…‹
 	READ_CHECK_EOF( UniqueItemColorSet, temp, 4);
 	READ_CHECK_EOF( QuestItemColorSet, temp, 4);
 
 	
-	// HPModifyList °³¼ö Á¦ÇÑ¹× ½Ã°£ Á¦ÇÑ(sec)
+	// HPModifyList ê°œìˆ˜ ì œí•œë° ì‹œê°„ ì œí•œ(sec)
 	READ_CHECK_EOF( HPModifyListMax, temp1, 1);
 	READ_CHECK_EOF( HPModifyListTime, temp, 4);
 	READ_CHECK_EOF( TRACE_CHARACTER_LIMIT_TIME, temp, 4 );

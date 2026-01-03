@@ -31,13 +31,13 @@ class C_VS_UI_SKILL_TREE : public Window, public Exec, public ButtonVisual
 protected:
 	C_SPRITE_PACK				m_skill_tree_back_spk;
 	C_SPRITE_PACK				m_skill_icon_bright_image_spk;
-	C_SPRITE_PACK *			m_p_etc_image_spk; // »ó¼Ó¹Ş´Â °÷¿¡¼­ loadÇÒ °Í.
+	C_SPRITE_PACK *			m_p_etc_image_spk; // ìƒì†ë°›ëŠ” ê³³ì—ì„œ loadí•  ê²ƒ.
 
 	ButtonGroup *				m_pC_button_group;
 
 	SKILLDOMAIN					m_skill_domain;
 
-	int							m_extra_offset_x, m_extra_offset_y; // »ó¼Ó¹Ş´Â °÷¿¡¼­ setÇÒ °Í.
+	int							m_extra_offset_x, m_extra_offset_y; // ìƒì†ë°›ëŠ” ê³³ì—ì„œ setí•  ê²ƒ.
 
 	enum
 	{
@@ -77,7 +77,7 @@ public:
 class C_VS_UI_SKILL_TREE_ENCHANT : public C_VS_UI_SKILL_TREE
 {
 private:
-	enum { ENCHANT_SKILL_COUNT = 13 }; // skill tree »ó¿¡ ÀÖ´Â °ÍÀÇ °³¼ö.
+	enum { ENCHANT_SKILL_COUNT = 13 }; // skill tree ìƒì— ìˆëŠ” ê²ƒì˜ ê°œìˆ˜.
 
 	static SKILLTREE_SKILL	m_skill_icon_tab[ENCHANT_SKILL_COUNT];
 
@@ -94,7 +94,7 @@ public:
 class C_VS_UI_SKILL_TREE_BLADE : public C_VS_UI_SKILL_TREE
 {
 private:
-	enum { BLADE_SKILL_COUNT = 12 }; // skill tree »ó¿¡ ÀÖ´Â °ÍÀÇ °³¼ö.
+	enum { BLADE_SKILL_COUNT = 12 }; // skill tree ìƒì— ìˆëŠ” ê²ƒì˜ ê°œìˆ˜.
 
 	static SKILLTREE_SKILL	m_skill_icon_tab[BLADE_SKILL_COUNT];
 
@@ -111,7 +111,7 @@ public:
 class C_VS_UI_SKILL_TREE_SWORD : public C_VS_UI_SKILL_TREE
 {
 private:
-	enum { SWORD_SKILL_COUNT = 12 }; // skill tree »ó¿¡ ÀÖ´Â °ÍÀÇ °³¼ö.
+	enum { SWORD_SKILL_COUNT = 12 }; // skill tree ìƒì— ìˆëŠ” ê²ƒì˜ ê°œìˆ˜.
 
 	static SKILLTREE_SKILL	m_skill_icon_tab[SWORD_SKILL_COUNT];
 
@@ -128,7 +128,7 @@ public:
 class C_VS_UI_SKILL_TREE_GUN : public C_VS_UI_SKILL_TREE
 {
 private:
-	enum { GUN_SKILL_COUNT = 10 }; // skill tree »ó¿¡ ÀÖ´Â °ÍÀÇ °³¼ö.
+	enum { GUN_SKILL_COUNT = 10 }; // skill tree ìƒì— ìˆëŠ” ê²ƒì˜ ê°œìˆ˜.
 
 	static SKILLTREE_SKILL	m_skill_icon_tab[GUN_SKILL_COUNT];
 
@@ -145,7 +145,7 @@ public:
 class C_VS_UI_SKILL_TREE_HEAL : public C_VS_UI_SKILL_TREE
 {
 private:
-	enum { HEAL_SKILL_COUNT = 13 }; // skill tree »ó¿¡ ÀÖ´Â °ÍÀÇ °³¼ö.
+	enum { HEAL_SKILL_COUNT = 13 }; // skill tree ìƒì— ìˆëŠ” ê²ƒì˜ ê°œìˆ˜.
 
 	static SKILLTREE_SKILL	m_skill_icon_tab[HEAL_SKILL_COUNT];
 
@@ -162,7 +162,7 @@ public:
 class C_VS_UI_SKILL_TREE_VAMPIRE : public C_VS_UI_SKILL_TREE
 {
 private:
-	enum { VAMPIRE_SKILL_COUNT = 22 }; // skill tree »ó¿¡ ÀÖ´Â °ÍÀÇ °³¼ö.
+	enum { VAMPIRE_SKILL_COUNT = 22 }; // skill tree ìƒì— ìˆëŠ” ê²ƒì˜ ê°œìˆ˜.
 
 	static SKILLTREE_SKILL	m_skill_icon_tab[VAMPIRE_SKILL_COUNT];
 

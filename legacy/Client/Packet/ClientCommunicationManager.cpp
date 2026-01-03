@@ -1,7 +1,7 @@
 //--------------------------------------------------------------------------------
 // ClientCommunicationManager.h
 //--------------------------------------------------------------------------------
-// ´Ù¸¥ Å¬¶óÀÌ¾ğÆ®·ÎºÎÅÍÀÇ Á¤º¸¸¦ ¹Ş¾Æµé¾î 
+// ë‹¤ë¥¸ í´ë¼ì´ì–¸íŠ¸ë¡œë¶€í„°ì˜ ì •ë³´ë¥¼ ë°›ì•„ë“¤ì–´ 
 //--------------------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "ClientCommunicationManager.h"
@@ -73,7 +73,7 @@ void ClientCommunicationManager::sendDatagram ( Datagram * pDatagram )
     }
     catch ( ConnectException )
     {
-		throw ConnectException( "ClientCommunicationManager::sendDatagram »óÀ§·Î ´øÁø´Ù");
+		throw ConnectException( "ClientCommunicationManager::sendDatagram ìƒìœ„ë¡œ ë˜ì§„ë‹¤");
     }
 
     __END_CATCH
@@ -97,16 +97,16 @@ void ClientCommunicationManager::sendPacket ( const std::string& host , uint por
 
     try {
 
-        // µ¥ÀÌÅÍ±×·¥ °´Ã¼¸¦ ÇÏ³ª µÎ°í, Àü¼ÛÇÒ peer ÀÇ È£½ºÆ®¿Í Æ÷Æ®¸¦ ÁöÁ¤ÇÑ´Ù.
+        // ë°ì´í„°ê·¸ë¨ ê°ì²´ë¥¼ í•˜ë‚˜ ë‘ê³ , ì „ì†¡í•  peer ì˜ í˜¸ìŠ¤íŠ¸ì™€ í¬íŠ¸ë¥¼ ì§€ì •í•œë‹¤.
         Datagram datagram;
 
 		datagram.setHost(host);
         datagram.setPort(port);
 
-        // µ¥ÀÌÅÍ±×·¥ ÆĞÅ¶À» µ¥ÀÌÅÍ±×·¥¿¡ Áı¾î³Ö´Â´Ù.
+        // ë°ì´í„°ê·¸ë¨ íŒ¨í‚·ì„ ë°ì´í„°ê·¸ë¨ì— ì§‘ì–´ë„£ëŠ”ë‹¤.
         datagram.write(pPacket);
 
-        // µ¥ÀÌÅÍ±×·¥ ¼ÒÄÏÀ» ÅëÇØ¼­ µ¥ÀÌÅÍ±×·¥À» Àü¼ÛÇÑ´Ù.
+        // ë°ì´í„°ê·¸ë¨ ì†Œì¼“ì„ í†µí•´ì„œ ë°ì´í„°ê·¸ë¨ì„ ì „ì†¡í•œë‹¤.
         m_pDatagramSocket->send( &datagram );
 
 		#ifdef __METROTECH_TEST__
@@ -119,7 +119,7 @@ void ClientCommunicationManager::sendPacket ( const std::string& host , uint por
 		#endif
 
     } catch ( Throwable & t ) {
-		// -_- ¾îÂ÷ÇÇ Æ¨±â´Ï±î ½ºÆ®¸µÀ¸·Î
+		// -_- ì–´ì°¨í”¼ íŠ•ê¸°ë‹ˆê¹Œ ìŠ¤íŠ¸ë§ìœ¼ë¡œ
 		if( strstr( t.toString().c_str(), "InvalidProtocolException") != NULL )
 			if( !strstr( t.toString().c_str(), "(datagram)" ) == NULL )
 				SendBugReport( t.toString().c_str() );
@@ -148,7 +148,7 @@ ClientCommunicationManager::Update()
 	
 		try
 		{
-			// µ¥ÀÌÅÍ±×·¥ °´Ã¼¸¦ ²ôÁı¾î³½´Ù.
+			// ë°ì´í„°ê·¸ë¨ ê°ì²´ë¥¼ ë„ì§‘ì–´ë‚¸ë‹¤.
 			pDatagram = m_pDatagramSocket->receive();
 
 			if (pDatagram==NULL)
@@ -156,7 +156,7 @@ ClientCommunicationManager::Update()
 
 			DEBUG_ADD("[CCM-Update] something");
 			
-			// µ¥ÀÌÅÍ±×·¥ ÆĞÅ¶ °´Ã¼¸¦ ²ôÁı¾î³½´Ù.
+			// ë°ì´í„°ê·¸ë¨ íŒ¨í‚· ê°ì²´ë¥¼ ë„ì§‘ì–´ë‚¸ë‹¤.
 			pDatagram->read( pDatagramPacket );
 
 			#ifdef __METROTECH_TEST__
@@ -169,13 +169,13 @@ ClientCommunicationManager::Update()
 					DEBUG_ADD_FORMAT("[RECEIVE] %s", pDatagramPacket->toString().c_str());
 				#endif
 
-				// °Á ÇÑ¹ø Ã¼Å©..
+				// ê± í•œë²ˆ ì²´í¬..
 				if ( !g_pPacketValidator->isValidPacketID( CPS_CLIENT_COMMUNICATION_NORMAL, pDatagramPacket->getPacketID() ))
 				{
 					throw InvalidProtocolException("invalid packet ORDER");
 				}			
 
-				// ²ôÁı¾î³½ µ¥ÀÌÅÍ±×·¥ ÆĞÅ¶ °´Ã¼¸¦ ½ÇÇàÇÑ´Ù.
+				// ë„ì§‘ì–´ë‚¸ ë°ì´í„°ê·¸ë¨ íŒ¨í‚· ê°ì²´ë¥¼ ì‹¤í–‰í•œë‹¤.
 				DEBUG_ADD_FORMAT("[From] %s(%d)", pDatagramPacket->getHost().c_str(),
 													pDatagramPacket->getPort());
 
@@ -185,17 +185,17 @@ ClientCommunicationManager::Update()
 					g_UDPTest.UDPPacketExecute ++;
 				#endif
 
-				// µ¥ÀÌÅÍ±×·¥ ÆĞÅ¶ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+				// ë°ì´í„°ê·¸ë¨ íŒ¨í‚· ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 				delete pDatagramPacket;
 			}
 
-			// µ¥ÀÌÅÍ±×·¥ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+			// ë°ì´í„°ê·¸ë¨ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 			delete pDatagram;
 			
 		}
 		catch ( Throwable & t )
 		{
-			// -_- ¾îÂ÷ÇÇ Æ¨±â´Ï±î ½ºÆ®¸µÀ¸·Î
+			// -_- ì–´ì°¨í”¼ íŠ•ê¸°ë‹ˆê¹Œ ìŠ¤íŠ¸ë§ìœ¼ë¡œ
 			if( strstr( t.toString().c_str(), "InvalidProtocolException") != NULL )
 				if( !strstr( t.toString().c_str(), "(datagram)" ) == NULL )
 					SendBugReport( t.toString().c_str() );

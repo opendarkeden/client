@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // CTypeTable.h
 //----------------------------------------------------------------------
-//ÇàÇà 326220963
+//í–‰í–‰ 326220963
 #ifndef	__CTYPETABLE_H__
 #define	__CTYPETABLE_H__
 
@@ -12,7 +12,7 @@ class ofstream;
 
 //----------------------------------------------------------------------
 //
-// Info¿¡ ´ëÇÑ Á¤º¸ Table
+// Infoì— ëŒ€í•œ ì •ë³´ Table
 //
 //----------------------------------------------------------------------
 template <class Type>
@@ -49,8 +49,8 @@ class CTypeTable {
 		void			LoadFromFile(const char *filename);
 		bool			LoadFromFile_NickNameString(class ifstream& file);
 	protected :		
-		int			m_Size;					// Type Á¾·ù ¼ö
-		Type*		m_pTypeInfo;			// Type Á¤º¸
+		int			m_Size;					// Type ì¢…ë¥˜ ìˆ˜
+		Type*		m_pTypeInfo;			// Type ì •ë³´
 
 };
 
@@ -86,14 +86,14 @@ template <class Type>
 void
 CTypeTable<Type>::Init(int size)
 {
-	// °³¼ö°¡ ¾øÀ» °æ¿ì 
+	// ê°œìˆ˜ê°€ ì—†ì„ ê²½ìš° 
 	if (size==0) 
 		return;
 
-	// ÀÏ´Ü ÇØÁ¦
+	// ì¼ë‹¨ í•´ì œ
 	Release();
 
-	// ¸Ş¸ğ¸® Àâ±â
+	// ë©”ëª¨ë¦¬ ì¡ê¸°
 	m_Size = size;
 	
 	m_pTypeInfo = new Type [m_Size];	
@@ -109,7 +109,7 @@ CTypeTable<Type>::Release()
 {
 	if (m_pTypeInfo != NULL)
 	{
-		// ¸ğµç CSprite¸¦ Áö¿î´Ù.
+		// ëª¨ë“  CSpriteë¥¼ ì§€ìš´ë‹¤.
 		delete [] m_pTypeInfo;
 		m_pTypeInfo = NULL;
 		
@@ -124,17 +124,17 @@ template <class Type>
 void			
 CTypeTable<Type>::SaveToFile(class ofstream& file)
 {
-	// size ÀúÀå
+	// size ì €ì¥
 	file.write((const char*)&m_Size, 4);
 
-	// ¾Æ¹« °Íµµ ¾ø´Â °æ¿ì
+	// ì•„ë¬´ ê²ƒë„ ì—†ëŠ” ê²½ìš°
 	if (m_pTypeInfo==NULL)
 		return;
 
-	// °¢°¢ÀÇ Á¤º¸ ÀúÀå
+	// ê°ê°ì˜ ì •ë³´ ì €ì¥
 	for (int i=0; i<m_Size; i++)
 	{
-		if (i==557)//Ê¯Í··µ»ØĞ§¹û
+		if (i==557)//æŸ¯åº«ëŸ¿ì€¼æ§»ë²
 		{
 			i=i;
 		}
@@ -151,20 +151,20 @@ CTypeTable<Type>::LoadFromFile(class ifstream& file)
 {
 	int numSize=0;
 
-	// size ÀĞ¾î¿À±â
+	// size ì½ì–´ì˜¤ê¸°
 	file.read((char*)&numSize, 4);
 
-	// ÇöÀç ÀâÇôÀÖ´Â ¸Ş¸ğ¸®¿Í ´Ù¸£¸é ´Ù½Ã ¸Ş¸ğ¸®¸¦ Àâ´Â´Ù.
+	// í˜„ì¬ ì¡í˜€ìˆëŠ” ë©”ëª¨ë¦¬ì™€ ë‹¤ë¥´ë©´ ë‹¤ì‹œ ë©”ëª¨ë¦¬ë¥¼ ì¡ëŠ”ë‹¤.
 	if (m_Size != numSize)
 	{
-		// ¸Ş¸ğ¸® ÇØÁ¦
+		// ë©”ëª¨ë¦¬ í•´ì œ
 		Release();
 
-		// ¸Ş¸ğ¸® Àâ±â
+		// ë©”ëª¨ë¦¬ ì¡ê¸°
 		Init( numSize );
 	}
 
-	// file¿¡¼­ °¢°¢ÀÇ Á¤º¸¸¦ ÀĞ¾îµéÀÎ´Ù.
+	// fileì—ì„œ ê°ê°ì˜ ì •ë³´ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
 	for (int i=0; i<m_Size; i++)
 	{
 		if (i==700)
@@ -195,7 +195,7 @@ CTypeTable<Type>::SaveToFile(const char* lpszFilename)
 	SaveToFile(file);
 	file.close();
 }
-// 2004, 6, 18 sobeit add start - nick name - ÆÄÀÏ ±¸Á¶°¡ ÂÀ Æ²·Á¼­ Àü¿ëÀ¸·Î ¸¸µë..^^:
+// 2004, 6, 18 sobeit add start - nick name - íŒŒì¼ êµ¬ì¡°ê°€ ì©œ í‹€ë ¤ì„œ ì „ìš©ìœ¼ë¡œ ë§Œë“¬..^^:
 //----------------------------------------------------------------------
 // Load From File
 //----------------------------------------------------------------------
@@ -205,16 +205,16 @@ CTypeTable<Type>::LoadFromFile_NickNameString(class ifstream& file)
 {
 	int numSize;
 	WORD wIndex;
-	// size ÀĞ¾î¿À±â
+	// size ì½ì–´ì˜¤ê¸°
 	file.read((char*)&numSize, 4);
 
-	// ÇöÀç ÀâÇôÀÖ´Â ¸Ş¸ğ¸®¿Í ´Ù¸£¸é ´Ù½Ã ¸Ş¸ğ¸®¸¦ Àâ´Â´Ù.
+	// í˜„ì¬ ì¡í˜€ìˆëŠ” ë©”ëª¨ë¦¬ì™€ ë‹¤ë¥´ë©´ ë‹¤ì‹œ ë©”ëª¨ë¦¬ë¥¼ ì¡ëŠ”ë‹¤.
 	if (m_Size != numSize)
 	{
-		// ¸Ş¸ğ¸® ÇØÁ¦
+		// ë©”ëª¨ë¦¬ í•´ì œ
 		Release();
 
-		// ¸Ş¸ğ¸® Àâ±â
+		// ë©”ëª¨ë¦¬ ì¡ê¸°
 		Init( numSize );
 	}
 	
@@ -228,5 +228,5 @@ CTypeTable<Type>::LoadFromFile_NickNameString(class ifstream& file)
 	}
 	return true;
 }
-// 2004, 6, 18 sobeit add start - nick name - ÆÄÀÏ ±¸Á¶°¡ ÂÀ Æ²·Á¼­ Àü¿ëÀ¸·Î ¸¸µë..^^:
+// 2004, 6, 18 sobeit add start - nick name - íŒŒì¼ êµ¬ì¡°ê°€ ì©œ í‹€ë ¤ì„œ ì „ìš©ìœ¼ë¡œ ë§Œë“¬..^^:
 #endif

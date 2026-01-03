@@ -1,6 +1,6 @@
 //----------------------------------------------------------------------
 // MFollowPathEffectGenerator.cpp
-// ¹Ì¸® ÁÂÇ¥ ¼¼ÆÃÀ» ÇØ³õÀ¸¸é ±× ÁÂÇ¥·Î µû¶ó°£´Ù.
+// ë¯¸ë¦¬ ì¢Œí‘œ ì„¸íŒ…ì„ í•´ë†“ìœ¼ë©´ ê·¸ ì¢Œí‘œë¡œ ë”°ë¼ê°„ë‹¤.
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "MFollowPathEffectGenerator.h"
@@ -18,7 +18,7 @@ typedef std::vector<POINT> FOLLOW_PATH;
 
 FOLLOW_PATH			FollowPath[8];
 
-// ÇÏµåÄÚµù-_-°¢µµ¿Í È½¼ö·Î ÇÏ¸é.... µıµ¥¼­ ¸¹ÀÌ ¸ø¾µµí..
+// í•˜ë“œì½”ë”©-_-ê°ë„ì™€ íšŸìˆ˜ë¡œ í•˜ë©´.... ë”´ë°ì„œ ë§ì´ ëª»ì“¸ë“¯..
 void	MakePathWildTyphoon()
 {
 	int i;
@@ -27,7 +27,7 @@ void	MakePathWildTyphoon()
 	for(i=0;i<8;i++)
 		FollowPath[i].clear();
 
-	// ¸ÕÀú »óÇÏÁÂ¿ì ¼¼ÆÃ
+	// ë¨¼ì € ìƒí•˜ì¢Œìš° ì„¸íŒ…
 	for(i=0;i<8;i+=2)
 	{
 		if( i == 2 || i == 6 )
@@ -86,7 +86,7 @@ void	MakePathWildTyphoon()
 		FollowPath[i].push_back( pt );
 	}
 	
-	// ´ë°¢¼± ¹æÇâ ¼¼ÆÃ
+	// ëŒ€ê°ì„  ë°©í–¥ ì„¸íŒ…
 	for(i=1;i<8;i+=2)
 	{
 		if( i == 1 || i == 5 ){
@@ -160,7 +160,7 @@ MFollowPathEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	MLinearEffect* pEffect = new MLinearEffect(bltType);
 	
-	// ½ÃÀÛ ÁÂÇ¥
+	// ì‹œì‘ ì¢Œí‘œ
 	TYPE_SECTORPOSITION tX,tY;
 	tX = g_pTopView->PixelToMapX( egInfo.x0 );
 	tY = g_pTopView->PixelToMapY( egInfo.y0 );
@@ -170,24 +170,24 @@ MFollowPathEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	sy = egInfo.y0;
 	sz = egInfo.z0;
 
-	// ¸ñÇ¥ ÁÂÇ¥
+	// ëª©í‘œ ì¢Œí‘œ
 	int tx = g_pTopView->MapToPixelX(tX+FollowPath[Dir][currentPhase-2].x); 
 	int ty = g_pTopView->MapToPixelY(tY+FollowPath[Dir][currentPhase-2].y);
 	int tz = egInfo.z1;
 
-	pEffect->SetFrameID( frameID, maxFrame );		// 0¹ø Effect, Max 3 Frame
-	// ¹ß»ç À§Ä¡ PixelÁÂÇ¥	
+	pEffect->SetFrameID( frameID, maxFrame );		// 0ë²ˆ Effect, Max 3 Frame
+	// ë°œì‚¬ ìœ„ì¹˜ Pixelì¢Œí‘œ	
 	pEffect->SetPixelPosition( sx, sy, sz );	
 
-	// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+	// ëª©í‘œ ìœ„ì¹˜ Pixelì¢Œí‘œ
 	pEffect->SetTarget( tx, ty, tz, egInfo.step );	
-	// ¹æÇâ ¼³Á¤
+	// ë°©í–¥ ì„¤ì •
 	pEffect->SetDirection( Dir );	
-	// Áö¼ÓµÇ´Â Frame (¸ñÇ¥°¡ ÀÖ´Ù¸é º°·Î °ü°è ¾øÀ½ - -;)
+	// ì§€ì†ë˜ëŠ” Frame (ëª©í‘œê°€ ìˆë‹¤ë©´ ë³„ë¡œ ê´€ê³„ ì—†ìŒ - -;)
 	pEffect->SetCount( egInfo.count, egInfo.linkCount );
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 
 	if (g_pZone->AddEffect( pEffect ))

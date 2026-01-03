@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // ServerInformation.h
 //----------------------------------------------------------------------
-// ServerÀÇ Á¤º¸
+// Serverì˜ ì •ë³´
 //----------------------------------------------------------------------
 
 #ifndef	__SERVERINFORMATION_H__
@@ -43,8 +43,8 @@ class SERVER_INFO {
 //----------------------------------------------------------------------
 // ServerGroup
 //----------------------------------------------------------------------
-// ÇÑ ServerGroup¿¡ ´ëÇÑ Á¤º¸´ç.
-// <id, ServerName>ÀÇ map¿¡.. GroupÀÇ ÀÌ¸§..ÀÌ´Ù.
+// í•œ ServerGroupì— ëŒ€í•œ ì •ë³´ë‹¹.
+// <id, ServerName>ì˜ mapì—.. Groupì˜ ì´ë¦„..ì´ë‹¤.
 //----------------------------------------------------------------------
 /*
 	enum ServerStatus 
@@ -69,7 +69,7 @@ class ServerGroup : public CTypeMap2<SERVER_INFO> {
 		const char*	GetGroupName() const			{ return m_GroupName.GetString(); }
 
 		//--------------------------------------------------------------
-		// ¼­¹ö »óÅÂ
+		// ì„œë²„ ìƒíƒœ
 		//--------------------------------------------------------------
 		void		SetGroupStatus(int status)		{ m_GroupStatus = status; }
 		int			GetGroupStatus() const			{ return m_GroupStatus; }
@@ -82,7 +82,7 @@ class ServerGroup : public CTypeMap2<SERVER_INFO> {
 //----------------------------------------------------------------------
 // ServerInformation
 //----------------------------------------------------------------------
-// <ServerGroupID, ServerGroup>ÀÇ map¿¡´Ù°¡.. ¼±ÅÃµÈ server¿¡ ´ëÇÑ Á¤º¸.
+// <ServerGroupID, ServerGroup>ì˜ mapì—ë‹¤ê°€.. ì„ íƒëœ serverì— ëŒ€í•œ ì •ë³´.
 //----------------------------------------------------------------------
 class ServerInformation : public CTypeMap2<ServerGroup> {
 	public :
@@ -95,9 +95,9 @@ class ServerInformation : public CTypeMap2<ServerGroup> {
 		void			Release();
 
 		//-------------------------------------------------------------
-		// ÇöÀçÀÇ server¿¡ ´ëÇÑ Á¤º¸
+		// í˜„ì¬ì˜ serverì— ëŒ€í•œ ì •ë³´
 		//-------------------------------------------------------------
-		// ¹İµå½Ã, GroupÀ» ¸ÕÀú ¼±ÅÃÇØ¾ß ÇÑ´Ù.
+		// ë°˜ë“œì‹œ, Groupì„ ë¨¼ì € ì„ íƒí•´ì•¼ í•œë‹¤.
 		//-------------------------------------------------------------
 		bool			SetServerGroupID(unsigned int id);
 		bool			SetServerID(unsigned int id);
@@ -105,7 +105,7 @@ class ServerInformation : public CTypeMap2<ServerGroup> {
 		unsigned int	GetServerGroupID()		{ return m_ServerGroupID; }
 		unsigned int	GetServerID()			{ return m_ServerID; }
 
-		// ÀÚµ¿À¸·Î ÁöÁ¤µÇ´Âµ¥.. ÀÓ½Ã·Î »ç¿ëÇÏ±â À§ÇØ¼­..
+		// ìë™ìœ¼ë¡œ ì§€ì •ë˜ëŠ”ë°.. ì„ì‹œë¡œ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„œ..
 		void			SetServerGroupName(const char* pName)	{ m_ServerGroupName = pName; }
 		void			SetServerName(const char* pName)		{ m_ServerName = pName; }
 

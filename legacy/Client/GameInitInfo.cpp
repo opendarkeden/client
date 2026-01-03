@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 // GameInitInfo.cpp
 //---------------------------------------------------------------------------
-// Information Tableø° ¥Î«— √ ±‚»≠∏¶ «—¥Ÿ.
+// Information TableÏóê ÎåÄÌïú Ï¥àÍ∏∞ÌôîÎ•º ÌïúÎã§.
 //---------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -62,7 +62,7 @@ InitClientConfig()
 	DEBUG_ADD("[ InitGame ]  ClientConfig");
 	
 	//---------------------------------------------------------------------
-	// ∏ﬁ∏∏Æ ¿‚±‚
+	// Î©îÎ™®Î¶¨ Ïû°Í∏∞
 	//---------------------------------------------------------------------
 	if (g_pClientConfig==NULL)
 	{
@@ -71,7 +71,7 @@ InitClientConfig()
 
 	//---------------------------------------------------------------------
 	//
-	//			Client Config º≥¡§
+	//			Client Config ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	///*
@@ -86,7 +86,7 @@ InitClientConfig()
 		//return FALSE;
 	}
 
-	// ¥ŸΩ√ «— π¯ ¿˙¿Â«ÿµ–¥Ÿ.
+	// Îã§Ïãú Ìïú Î≤à Ï†ÄÏû•Ìï¥ÎëîÎã§.
 	g_pClientConfig->SaveToFile(g_pFileDef->getProperty("FILE_INFO_CLIENTCONFIG").c_str());
 
 	return TRUE;
@@ -102,7 +102,7 @@ InitUserOption()
 	DEBUG_ADD("[ InitGame ]  UserOption");
 	
 	//---------------------------------------------------------------------
-	// ∏ﬁ∏∏Æ ¿‚±‚
+	// Î©îÎ™®Î¶¨ Ïû°Í∏∞
 	//---------------------------------------------------------------------
 	if (g_pUserOption==NULL)
 	{
@@ -111,7 +111,7 @@ InitUserOption()
 
 	//---------------------------------------------------------------------
 	//
-	//			User Option º≥¡§
+	//			User Option ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	///*
@@ -143,7 +143,7 @@ InitInfomation()
 	DEBUG_ADD("[ InitGame ]  Information");
 	
 	//---------------------------------------------------------------------
-	// ∏ﬁ∏∏Æ ¿‚±‚
+	// Î©îÎ™®Î¶¨ Ïû°Í∏∞
 	//---------------------------------------------------------------------
 	SAFE_DELETE( g_pRegenTowerInfoManager );
 	SAFE_DELETE( g_pQuestInfoManager );
@@ -195,8 +195,8 @@ InitInfomation()
 	{
 		g_pKeyAccelerator = new KeyAccelerator;
 		g_pKeyAccelerator->Init( MAX_ACCELERATOR );
-		SetDefaultAccelerator();		// ¿œ¥‹¿∫..
-		//g_pKeyAccelerator->LoadFromFile( ) ¿Ã ≥™¿ª µÌ..
+		SetDefaultAccelerator();		// ÏùºÎã®ÏùÄ..
+		//g_pKeyAccelerator->LoadFromFile( ) Ïù¥ ÎÇòÏùÑ ÎìØ..
 	}
 
 	if (g_pWarManager == NULL)
@@ -238,7 +238,7 @@ InitInfomation()
 	{
 		g_pGuildInfoMapper = new MGuildInfoMapper;
 		
-		// ¿Ã »≠¿œ¿∫ æ¯¿ª ºˆµµ ¿÷¥Ÿ.
+		// Ïù¥ ÌôîÏùºÏùÄ ÏóÜÏùÑ ÏàòÎèÑ ÏûàÎã§.
 		class ifstream guildInfoFile(g_pFileDef->getProperty("FILE_INFO_GUILD_INFO_MAPPER").c_str(), ios::binary | ios::nocreate);
 		
 		if (guildInfoFile.is_open())
@@ -442,7 +442,7 @@ InitInfomation()
 	//int i;
 	//---------------------------------------------------------------------
 	//
-	//			Global ¡§∫∏ º≥¡§
+	//			Global Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - PacketItemTable");
@@ -451,7 +451,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//          classø° ¿÷¥¬ ¡§∫∏ º≥¡§..
+	//          classÏóê ÏûàÎäî Ï†ïÎ≥¥ ÏÑ§Ï†ï..
 	//
 	//---------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - InitMoveTable");
@@ -464,7 +464,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//      EffectGenerator ª˝º∫
+	//      EffectGenerator ÏÉùÏÑ±
 	//
 	//---------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - EffectGenerator");
@@ -483,7 +483,7 @@ InitInfomation()
 	class ifstream chatInfoFile2;//(g_pFileDef->getProperty("FILE_INFO_USINGCOLORSET").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_CHAT").c_str(), chatInfoFile2))
 		return FALSE;
-	chatInfoFile2.close();		// file√º≈©øÎ. - -;
+	chatInfoFile2.close();		// fileÏ≤¥ÌÅ¨Ïö©. - -;
 
 	g_pChatManager->LoadFromFile(g_pFileDef->getProperty("FILE_INFO_CHAT").c_str());
 	
@@ -542,7 +542,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//          UsingColor ¡§∫∏ ª˝º∫
+	//          UsingColor Ï†ïÎ≥¥ ÏÉùÏÑ±
 	//
 	//---------------------------------------------------------------------
 	/*
@@ -638,7 +638,7 @@ InitInfomation()
 	(*g_pItemOptionTable).LoadFromFile( itemOptionTable2 );
 	itemOptionTable2.close();
 
-	// 0¿ª √ﬂ∞°«—¥Ÿ.
+	// 0ÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
 	/*
 	ITEMOPTION_TABLE ItemOptionTable;
 	ItemOptionTable.Init( (*g_pItemOptionTable).GetSize()+1 );
@@ -662,7 +662,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//    InteractionObjectTableø° ¥Î«— ¡§∫∏ º≥¡§
+	//    InteractionObjectTableÏóê ÎåÄÌïú Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	/*
@@ -782,7 +782,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//    NPC Scriptø° ¥Î«— ¡§∫∏ º≥¡§
+	//    NPC ScriptÏóê ÎåÄÌïú Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------	
 
@@ -835,7 +835,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//    SkillInfoTableø° ¥Î«— ¡§∫∏ º≥¡§
+	//    SkillInfoTableÏóê ÎåÄÌïú Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	//------------------------------------------------
@@ -850,7 +850,7 @@ InitInfomation()
 	skillTable2.close();
 
 	//------------------------------------------------
-	// Server ¡§∫∏∏¶ loading«—¥Ÿ.
+	// Server Ï†ïÎ≥¥Î•º loadingÌïúÎã§.
 	//------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - ServerSkillInfo");
 
@@ -863,7 +863,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//    RankBonusTableø° ¥Î«— ¡§∫∏ º≥¡§
+	//    RankBonusTableÏóê ÎåÄÌïú Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Information - rankBonusInfoFile");
@@ -886,7 +886,7 @@ InitInfomation()
 
 	//---------------------------------------------------------------------
 	//
-	//    ExperienceTableø° ¥Î«— ¡§∫∏ º≥¡§
+	//    ExperienceTableÏóê ÎåÄÌïú Ï†ïÎ≥¥ ÏÑ§Ï†ï
 	//
 	//---------------------------------------------------------------------
 	//------------------------------------------------

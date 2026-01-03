@@ -2,10 +2,10 @@
 #define __ITEMCLASSDEF_H__
 
 //------------------------------------------------------
-// Item class ¼³Á¤.
+// Item class ì„¤ì •.
 //------------------------------------------------------
-// (!) ÀÌ°Å ¹Ù²î¸é 
-//     s_NewItemClassTableÀÇ ¼ø¼­µµ ¹Ù²ã¾ß ÇÑ´Ù.!
+// (!) ì´ê±° ë°”ë€Œë©´ 
+//     s_NewItemClassTableì˜ ìˆœì„œë„ ë°”ê¿”ì•¼ í•œë‹¤.!
 //------------------------------------------------------
 enum ITEM_CLASS
 {
@@ -40,7 +40,7 @@ enum ITEM_CLASS
 	ITEM_CLASS_MONEY,				// 28
 	ITEM_CLASS_CORPSE,				// 29
 	
-	// vampire¿ë item
+	// vampireìš© item
 	ITEM_CLASS_VAMPIRE_RING,		// 30
 	ITEM_CLASS_VAMPIRE_BRACELET,	// 31
 	ITEM_CLASS_VAMPIRE_NECKLACE,	// 32
@@ -50,7 +50,7 @@ enum ITEM_CLASS
 	ITEM_CLASS_SERUM,				// 36
 	ITEM_CLASS_VAMPIRE_ETC,			// 37
 
-	// 2001.10.22Ãß°¡
+	// 2001.10.22ì¶”ê°€
 	ITEM_CLASS_SLAYER_PORTAL_ITEM,	// 38
 	ITEM_CLASS_VAMPIRE_PORTAL_ITEM,	// 39
 
@@ -125,7 +125,7 @@ enum ITEM_CLASS
 	ITEM_CLASS_BLOOD_BIBLE_SIGN,    // 82
 
 	ITEM_CLASS_WAR_ITEM,				// 83
-	// by csm 12.27 2Â÷ ÀüÁ÷ ¾ÆÀÌÅÛ 
+	// by csm 12.27 2ì°¨ ì „ì§ ì•„ì´í…œ 
 	ITEM_CLASS_CARRYING_RECEIVER,       // 84
 	ITEM_CLASS_SHOULDER_ARMOR,      // 85
 	ITEM_CLASS_DERMIS,              // 86

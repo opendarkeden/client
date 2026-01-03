@@ -2,9 +2,9 @@
 // Filename    : ModifyInfo.h 
 // Written By  : elca@ewestsoft.com
 // Description :
-// ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ°¡ º¯ÇÒ ¶§, Å¬¶óÀÌ¾ðÆ®¿¡°Ô ³¯¾Æ°¡´Â ÆÐÅ¶ÀÌ´Ù.
-// ÁÖ·Î ÇÃ·¹ÀÌ¾î°¡ ¾²´Â ±â¼ú¿¡ ´ëÇÑ °á°ú ÆÐÅ¶ÀÌ ÀÌ ÆÐÅ¶À» »ó¼Ó¹Þ¾Æ¼­
-// ¾²´Â °æ¿ì°¡ ¸¹´Ù.
+// í”Œë ˆì´ì–´ì˜ ìƒíƒœê°€ ë³€í•  ë•Œ, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë‚ ì•„ê°€ëŠ” íŒ¨í‚·ì´ë‹¤.
+// ì£¼ë¡œ í”Œë ˆì´ì–´ê°€ ì“°ëŠ” ê¸°ìˆ ì— ëŒ€í•œ ê²°ê³¼ íŒ¨í‚·ì´ ì´ íŒ¨í‚·ì„ ìƒì†ë°›ì•„ì„œ
+// ì“°ëŠ” ê²½ìš°ê°€ ë§Žë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __MODIFY_INFO_H__
@@ -16,72 +16,72 @@
 #include <list>
 
 //////////////////////////////////////////////////////////////////////////////
-// »óÅÂ º¯È­ Å¸ÀÔ
+// ìƒíƒœ ë³€í™” íƒ€ìž…
 //////////////////////////////////////////////////////////////////////////////
 /*
 enum ModifyType
 {
-	MODIFY_BASIC_STR = 0,        // ±âº» STRÀ» º¯°æ
-	MODIFY_CURRENT_STR,          // ÇöÀç STRÀ» º¯°æ
-	MODIFY_MAX_STR,              // ¸Æ½º STRÀ» º¯°æ
-	MODIFY_STR_EXP,              // STR °æÇèÄ¡¸¦ º¯°æ
-	MODIFY_BASIC_DEX,            // ±âº» DEX¸¦ º¯°æ
-	MODIFY_CURRENT_DEX,          // ÇöÀç DEX¸¦ º¯°æ
-	MODIFY_MAX_DEX,              // ¸Æ½º DEX¸¦ º¯°æ
-	MODIFY_DEX_EXP,              // DEX °æÇèÄ¡¸¦ º¯°æ
-	MODIFY_BASIC_INT,            // ±âº» INT¸¦ º¯°æ
-	MODIFY_CURRENT_INT,          // ÇöÀç INT¸¦ º¯°æ
-	MODIFY_MAX_INT,              // ¸Æ½º INT¸¦ º¯°æ
-	MODIFY_INT_EXP,              // INT °æÇèÄ¡¸¦ º¯°æ
-	MODIFY_CURRENT_HP,           // ÇöÀç HP¸¦ º¯°æ
-	MODIFY_MAX_HP,               // ¸Æ½º HP¸¦ º¯°æ
-	MODIFY_CURRENT_MP,           // ÇöÀç MP¸¦ º¯°æ
-	MODIFY_MAX_MP,               // ¸Æ½º MP¸¦ º¯°æ
-	MODIFY_MIN_DAMAGE,           // ÃÖ¼Ò µ¥¹ÌÁö¸¦ º¯°æ
-	MODIFY_MAX_DAMAGE,           // ¸Æ½º µ¥¹ÌÁö¸¦ º¯°æ
-	MODIFY_DEFENSE,              // µðÆæ½º¸¦ º¯°æ
-	MODIFY_PROTECTION,           // ÇÁ·ÎÅØ¼ÇÀ» º¯°æ
-	MODIFY_TOHIT,                // ¸íÁß·üÀ» º¯°æ
-	MODIFY_VISION,               // ½Ã¾ß¸¦ º¯°æ
-	MODIFY_FAME,                 // ¸í¼ºÀ» º¯°æ
-	MODIFY_GOLD,                 // ¼ÒÁö±ÝÀ» º¯°æ
-	MODIFY_SWORD_DOMAIN_LEVEL,   // °Ë °è¿­ ·¹º§À» º¯°æ
-	MODIFY_SWORD_DOMAIN_EXP,     // °Ë °è¿­ ·¹º§À» º¯°æ
-	MODIFY_SWORD_DOMAIN_GOAL_EXP,// °Ë °è¿­ ·¹º§À» º¯°æ
-	MODIFY_BLADE_DOMAIN_LEVEL,   // µµ °è¿­ ·¹º§À» º¯°æ
-	MODIFY_BLADE_DOMAIN_EXP,     // µµ °è¿­ ·¹º§À» º¯°æ
-	MODIFY_BLADE_DOMAIN_GOAL_EXP,// µµ °è¿­ ·¹º§À» º¯°æ
-	MODIFY_HEAL_DOMAIN_LEVEL,    // Èú °è¿­ ·¹º§À» º¯°æ
-	MODIFY_HEAL_DOMAIN_EXP,      // Èú °è¿­ ·¹º§À» º¯°æ
-	MODIFY_HEAL_DOMAIN_GOAL_EXP, // Èú °è¿­ ·¹º§À» º¯°æ
-	MODIFY_ENCHANT_DOMAIN_LEVEL, // ÀÎÃ¦Æ® °è¿­ ·¹º§À» º¯°æ
-	MODIFY_ENCHANT_DOMAIN_EXP,   // ÀÎÃ¦Æ® °è¿­ ·¹º§À» º¯°æ
-	MODIFY_ENCHANT_DOMAIN_GOAL_EXP, // ÀÎÃ¦Æ® °è¿­ ·¹º§À» º¯°æ
-	MODIFY_GUN_DOMAIN_LEVEL,     // ÃÑ °è¿­ ·¹º§À» º¯°æ
-	MODIFY_GUN_DOMAIN_EXP,       // ÃÑ °è¿­ ·¹º§À» º¯°æ
-	MODIFY_GUN_DOMAIN_GOAL_EXP,  // ÃÑ °è¿­ ·¹º§À» º¯°æ
-	MODIFY_ETC_DOMAIN_LEVEL,     // ±âÅ¸ °è¿­ ·¹º§À» º¯°æ
-	MODIFY_ETC_DOMAIN_EXP,       // ±âÅ¸ °è¿­ ·¹º§À» º¯°æ
-	MODIFY_ETC_DOMAIN_GOAL_EXP,  // ±âÅ¸ °è¿­ ·¹º§À» º¯°æ
-	MODIFY_SKILL_LEVEL,          // Æ¯Á¤ ½ºÅ³ ·¹º§À» º¯°æ
-	MODIFY_LEVEL,                // ¹ìÆÄÀÌ¾î ·¹º§À» º¯°æ
-	MODIFY_EFFECT_STAT,          // ÀÌÆåÆ® »óÅÂ¸¦ º¯°æ
-	MODIFY_DURATION,             // ÀÌÆåÆ® Áö¼Ó ½Ã°£À» º¯°æ
-	MODIFY_BULLET,               // µé°í ÀÖ´Â ÃÑ¾ËÀÇ ÃÑ¾Ë ¼ö¸¦ º¯°æ
-	MODIFY_BONUS_POINT,          // ¹ìÆÄÀÌ¾îÀÇ º¸³Ê½º Æ÷ÀÎÆ®¸¦ º¯°æ
-	MODIFY_DURABILITY,           // µé°í ÀÖ´Â ¾ÆÀÌÅÛ Áß ÇÏ³ªÀÇ ³»±¸¼ºÀ» º¯°æ
-	MODIFY_NOTORIETY,            // ¾Ç¸íÄ¡¸¦ º¯°æ
-	MODIFY_VAMP_EXP,             // ¹ìÆÄÀÌ¾îÀÇ °æÇèÄ¡¸¦ º¯°æ
-	MODIFY_SILVER_DAMAGE,        // Àº µ¥¹ÌÁö¸¦ º¯°æ
-	MODIFY_ATTACK_SPEED,         // °ø°Ý ¼Óµµ¸¦ º¯°æ
-	MODIFY_ALIGNMENT,			 // ¼ºÇâ
-	MODIFY_SILVER_DURABILITY,    // Àº µµ±Ý¾çÀ» º¯°æ
-	MODIFY_REGEN_RATE,           // ´ÜÀ§ ½Ã°£´ç ¸®Á¨¾çÀ» º¯°æ
-	MODIFY_GUILDID,				 // ±æµå ¾ÆÀÌµð¸¦ º¯°æ
-	MODIFY_RANK,				 // °è±Þ ´Ü°è
-	MODIFY_RANK_EXP,			 // °è±Þ °æÇèÄ¡
-	MODIFY_OUSTERS_EXP,          // ¾Æ¿ì½ºÅÍ½ºÀÇ °æÇèÄ¡¸¦ º¯°æ
-	MODIFY_SKILL_BONUS_POINT,    // ¾Æ¿ì½ºÅÍ½ºÀÇ ½ºÅ³ º¸³Ê½º Æ÷ÀÎÆ®¸¦ º¯°æ
+	MODIFY_BASIC_STR = 0,        // ê¸°ë³¸ STRì„ ë³€ê²½
+	MODIFY_CURRENT_STR,          // í˜„ìž¬ STRì„ ë³€ê²½
+	MODIFY_MAX_STR,              // ë§¥ìŠ¤ STRì„ ë³€ê²½
+	MODIFY_STR_EXP,              // STR ê²½í—˜ì¹˜ë¥¼ ë³€ê²½
+	MODIFY_BASIC_DEX,            // ê¸°ë³¸ DEXë¥¼ ë³€ê²½
+	MODIFY_CURRENT_DEX,          // í˜„ìž¬ DEXë¥¼ ë³€ê²½
+	MODIFY_MAX_DEX,              // ë§¥ìŠ¤ DEXë¥¼ ë³€ê²½
+	MODIFY_DEX_EXP,              // DEX ê²½í—˜ì¹˜ë¥¼ ë³€ê²½
+	MODIFY_BASIC_INT,            // ê¸°ë³¸ INTë¥¼ ë³€ê²½
+	MODIFY_CURRENT_INT,          // í˜„ìž¬ INTë¥¼ ë³€ê²½
+	MODIFY_MAX_INT,              // ë§¥ìŠ¤ INTë¥¼ ë³€ê²½
+	MODIFY_INT_EXP,              // INT ê²½í—˜ì¹˜ë¥¼ ë³€ê²½
+	MODIFY_CURRENT_HP,           // í˜„ìž¬ HPë¥¼ ë³€ê²½
+	MODIFY_MAX_HP,               // ë§¥ìŠ¤ HPë¥¼ ë³€ê²½
+	MODIFY_CURRENT_MP,           // í˜„ìž¬ MPë¥¼ ë³€ê²½
+	MODIFY_MAX_MP,               // ë§¥ìŠ¤ MPë¥¼ ë³€ê²½
+	MODIFY_MIN_DAMAGE,           // ìµœì†Œ ë°ë¯¸ì§€ë¥¼ ë³€ê²½
+	MODIFY_MAX_DAMAGE,           // ë§¥ìŠ¤ ë°ë¯¸ì§€ë¥¼ ë³€ê²½
+	MODIFY_DEFENSE,              // ë””íŽœìŠ¤ë¥¼ ë³€ê²½
+	MODIFY_PROTECTION,           // í”„ë¡œí…ì…˜ì„ ë³€ê²½
+	MODIFY_TOHIT,                // ëª…ì¤‘ë¥ ì„ ë³€ê²½
+	MODIFY_VISION,               // ì‹œì•¼ë¥¼ ë³€ê²½
+	MODIFY_FAME,                 // ëª…ì„±ì„ ë³€ê²½
+	MODIFY_GOLD,                 // ì†Œì§€ê¸ˆì„ ë³€ê²½
+	MODIFY_SWORD_DOMAIN_LEVEL,   // ê²€ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_SWORD_DOMAIN_EXP,     // ê²€ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_SWORD_DOMAIN_GOAL_EXP,// ê²€ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_BLADE_DOMAIN_LEVEL,   // ë„ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_BLADE_DOMAIN_EXP,     // ë„ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_BLADE_DOMAIN_GOAL_EXP,// ë„ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_HEAL_DOMAIN_LEVEL,    // íž ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_HEAL_DOMAIN_EXP,      // íž ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_HEAL_DOMAIN_GOAL_EXP, // íž ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_ENCHANT_DOMAIN_LEVEL, // ì¸ì±ˆíŠ¸ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_ENCHANT_DOMAIN_EXP,   // ì¸ì±ˆíŠ¸ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_ENCHANT_DOMAIN_GOAL_EXP, // ì¸ì±ˆíŠ¸ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_GUN_DOMAIN_LEVEL,     // ì´ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_GUN_DOMAIN_EXP,       // ì´ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_GUN_DOMAIN_GOAL_EXP,  // ì´ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_ETC_DOMAIN_LEVEL,     // ê¸°íƒ€ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_ETC_DOMAIN_EXP,       // ê¸°íƒ€ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_ETC_DOMAIN_GOAL_EXP,  // ê¸°íƒ€ ê³„ì—´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_SKILL_LEVEL,          // íŠ¹ì • ìŠ¤í‚¬ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_LEVEL,                // ë±€íŒŒì´ì–´ ë ˆë²¨ì„ ë³€ê²½
+	MODIFY_EFFECT_STAT,          // ì´íŽ™íŠ¸ ìƒíƒœë¥¼ ë³€ê²½
+	MODIFY_DURATION,             // ì´íŽ™íŠ¸ ì§€ì† ì‹œê°„ì„ ë³€ê²½
+	MODIFY_BULLET,               // ë“¤ê³  ìžˆëŠ” ì´ì•Œì˜ ì´ì•Œ ìˆ˜ë¥¼ ë³€ê²½
+	MODIFY_BONUS_POINT,          // ë±€íŒŒì´ì–´ì˜ ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸ë¥¼ ë³€ê²½
+	MODIFY_DURABILITY,           // ë“¤ê³  ìžˆëŠ” ì•„ì´í…œ ì¤‘ í•˜ë‚˜ì˜ ë‚´êµ¬ì„±ì„ ë³€ê²½
+	MODIFY_NOTORIETY,            // ì•…ëª…ì¹˜ë¥¼ ë³€ê²½
+	MODIFY_VAMP_EXP,             // ë±€íŒŒì´ì–´ì˜ ê²½í—˜ì¹˜ë¥¼ ë³€ê²½
+	MODIFY_SILVER_DAMAGE,        // ì€ ë°ë¯¸ì§€ë¥¼ ë³€ê²½
+	MODIFY_ATTACK_SPEED,         // ê³µê²© ì†ë„ë¥¼ ë³€ê²½
+	MODIFY_ALIGNMENT,			 // ì„±í–¥
+	MODIFY_SILVER_DURABILITY,    // ì€ ë„ê¸ˆì–‘ì„ ë³€ê²½
+	MODIFY_REGEN_RATE,           // ë‹¨ìœ„ ì‹œê°„ë‹¹ ë¦¬ì  ì–‘ì„ ë³€ê²½
+	MODIFY_GUILDID,				 // ê¸¸ë“œ ì•„ì´ë””ë¥¼ ë³€ê²½
+	MODIFY_RANK,				 // ê³„ê¸‰ ë‹¨ê³„
+	MODIFY_RANK_EXP,			 // ê³„ê¸‰ ê²½í—˜ì¹˜
+	MODIFY_OUSTERS_EXP,          // ì•„ìš°ìŠ¤í„°ìŠ¤ì˜ ê²½í—˜ì¹˜ë¥¼ ë³€ê²½
+	MODIFY_SKILL_BONUS_POINT,    // ì•„ìš°ìŠ¤í„°ìŠ¤ì˜ ìŠ¤í‚¬ ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸ë¥¼ ë³€ê²½
 
 	MODIFY_MAX
 };
@@ -149,10 +149,10 @@ const std::string ModifyType2String[] =
 	"RANK_EXP",
 	"MODIFY_OUSTERS_EXP",
 	"MODIFY_SKILL_BONUS_POINT",
-    "MODIFY_SKILL_EXP",            // ½½·¹ÀÌ¾î ½ºÅ³ °æÇèÄ¡ º¯°æ
+    "MODIFY_SKILL_EXP",            // ìŠ¬ë ˆì´ì–´ ìŠ¤í‚¬ ê²½í—˜ì¹˜ ë³€ê²½
 
     "MODIFY_PET_HP",
-    "MODIFY_PET_EXP",               // Æê °ü·Ã
+    "MODIFY_PET_EXP",               // íŽ« ê´€ë ¨
 	
 	"MODIFY_PET_TARGET",
 
@@ -160,7 +160,7 @@ const std::string ModifyType2String[] =
 };
 
 //////////////////////////////////////////////////////////////////////////////
-// 2¹ÙÀÌÆ®·Î ÃæºÐÇÑ µ¥ÀÌÅÍÀÏ °æ¿ì, ÀÌ ±¸Á¶Ã¼¸¦ »ç¿ëÇÑ´Ù.
+// 2ë°”ì´íŠ¸ë¡œ ì¶©ë¶„í•œ ë°ì´í„°ì¼ ê²½ìš°, ì´ êµ¬ì¡°ì²´ë¥¼ ì‚¬ìš©í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 typedef struct _SHORTDATA
 {
@@ -170,7 +170,7 @@ typedef struct _SHORTDATA
 } SHORTDATA;
 
 //////////////////////////////////////////////////////////////////////////////
-// 4¹ÙÀÌÆ®·Î ÃæºÐÇÑ µ¥ÀÌÅÍÀÏ °æ¿ì, ÀÌ ±¸Á¶Ã¼¸¦ »ç¿ëÇÑ´Ù.
+// 4ë°”ì´íŠ¸ë¡œ ì¶©ë¶„í•œ ë°ì´í„°ì¼ ê²½ìš°, ì´ êµ¬ì¡°ì²´ë¥¼ ì‚¬ìš©í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 typedef struct _LONGDATA
 {
@@ -182,8 +182,8 @@ typedef struct _LONGDATA
 
 //////////////////////////////////////////////////////////////////////////////
 // class ModifyInfo;
-// °ÔÀÓ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ðÆ®·Î ÀÚ½ÅÀÇ º¯ÇüµÈ µ¥ÀÌÅÍ¸¦ ¾Ë·ÁÁÖ±â À§ÇÑ °´Ã¤
-// ModifyInformation, SkillToObjectOK µî¿¡ ½Ç·Á¼­ ³¯¾Æ°£´Ù.
+// ê²Œìž„ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ìžì‹ ì˜ ë³€í˜•ëœ ë°ì´í„°ë¥¼ ì•Œë ¤ì£¼ê¸° ìœ„í•œ ê°ì±„
+// ModifyInformation, SkillToObjectOK ë“±ì— ì‹¤ë ¤ì„œ ë‚ ì•„ê°„ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class ModifyInfo : public Packet

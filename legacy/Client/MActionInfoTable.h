@@ -2,103 +2,103 @@
 // MActionInfo.h
 //----------------------------------------------------------------------
 //
-//  = ¿¬°áµÇ´Â Effectµé·Î ÇÏ³ªÀÇ Çö»ó(ÇÊ»ì±â..)À» Ç¥ÇöÇÏ±â À§ÇØ ÇÊ¿äÇÑ Á¤º¸
+//  = ì—°ê²°ë˜ëŠ” Effectë“¤ë¡œ í•˜ë‚˜ì˜ í˜„ìƒ(í•„ì‚´ê¸°..)ì„ í‘œí˜„í•˜ê¸° ìœ„í•´ í•„ìš”í•œ ì •ë³´
 //
 //  = ActionInfoNode
 //    - EffectGeneratorTableID
 //    - BltType
 //    - FrameID
-//    - Áö¼Ó½Ã°£
+//    - ì§€ì†ì‹œê°„
 //
-//  = ActionInfoNodeÀÇ array
+//  = ActionInfoNodeì˜ array
 //
 //----------------------------------------------------------------------
 /*
 
-  [ ³ª(Player)ÀÇ °æ¿ì ]
+  [ ë‚˜(Player)ì˜ ê²½ìš° ]
 
-	ActionÀÌ ½ÇÇàµÇ´Â ½ÃÁ¡¿¡¼­ 
-		Server·Î »ç¿ë ±â¼ú PacketÀ» º¸³»°í
-		g_ActionInfoTableÀ» ÂüÁ¶ÇØ¼­ ±â¼ú »ç¿ë ¶§ÀÇ È¿°ú¸¦ Ç¥ÇöÇØÁØ´Ù.
+	Actionì´ ì‹¤í–‰ë˜ëŠ” ì‹œì ì—ì„œ 
+		Serverë¡œ ì‚¬ìš© ê¸°ìˆ  Packetì„ ë³´ë‚´ê³ 
+		g_ActionInfoTableì„ ì°¸ì¡°í•´ì„œ ê¸°ìˆ  ì‚¬ìš© ë•Œì˜ íš¨ê³¼ë¥¼ í‘œí˜„í•´ì¤€ë‹¤.
 
-	±â¼ú »ç¿ë µµÁß¿¡ Server¿¡¼­ °á°úPacketÀÌ µµÂøÇÏ¸é,
-		(PlayerÀÇ ÁøÇàÁßÀÎ ±â¼úID°¡ °°Àº °æ¿ì)
-		±× °á°úµéÀ» ActionResult·Î ¸¸µé¾î¼­ 
-		Player¿¡ ÀÖ´Â EffectTargetÀÇ ActionResult*¿¡ ¼³Á¤ÇÑ´Ù.
-
-
-	¾Æ´Ñ °æ¿ì, 
-		±× °á°úµéÀ» ActionResult·Î ¸¸µé¾î¼­ ¹Ù·Î °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
-		EffectTargetÀ» ¹Ù·Î »ı¼ºÇÏ°í EffectGenerator¸¦ ÅëÇØ¼­..
-		Effect»ı¼º..... µîµî..
+	ê¸°ìˆ  ì‚¬ìš© ë„ì¤‘ì— Serverì—ì„œ ê²°ê³¼Packetì´ ë„ì°©í•˜ë©´,
+		(Playerì˜ ì§„í–‰ì¤‘ì¸ ê¸°ìˆ IDê°€ ê°™ì€ ê²½ìš°)
+		ê·¸ ê²°ê³¼ë“¤ì„ ActionResultë¡œ ë§Œë“¤ì–´ì„œ 
+		Playerì— ìˆëŠ” EffectTargetì˜ ActionResult*ì— ì„¤ì •í•œë‹¤.
 
 
-  [ ´Ù¸¥ »ç¶÷ÀÇ °æ¿ì ]
-
-	½ÃÀÛAction°ú °á°úAction°ú °á°úµé...ÀÌ ÇÏ³ªÀÇ PacketÀ¸·Î ³Ñ¾î¿Â´Ù.
-	°á°úActionµéÀ» ActionResult·Î ¸¸µé¾î¼­ 
-	½ÃÀÛActionÀ» ½ÇÇàÇÒ¶§, EffectTarget¿¡ ActionResult*¿¡ ¼³Á¤ÇÑ´Ù.
-
-
-  (*) EffectGenerator¿¡¼­ ActionResult°¡ 
+	ì•„ë‹Œ ê²½ìš°, 
+		ê·¸ ê²°ê³¼ë“¤ì„ ActionResultë¡œ ë§Œë“¤ì–´ì„œ ë°”ë¡œ ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
+		EffectTargetì„ ë°”ë¡œ ìƒì„±í•˜ê³  EffectGeneratorë¥¼ í†µí•´ì„œ..
+		Effectìƒì„±..... ë“±ë“±..
 
 
-  [ Âü°í ]
+  [ ë‹¤ë¥¸ ì‚¬ëŒì˜ ê²½ìš° ]
 
-  - ¾î¶² ±â¼úÀ» ¼¼ºÎÀûÀÎ ´Ü°è(ACTION_INFO_NODE)·Î ³ª´²º¸¸é..
-	´ÙÀ½ÀÌ ´ëÇ¥ÀûÀÎ °æ¿ìÀÌ´Ù.
+	ì‹œì‘Actionê³¼ ê²°ê³¼Actionê³¼ ê²°ê³¼ë“¤...ì´ í•˜ë‚˜ì˜ Packetìœ¼ë¡œ ë„˜ì–´ì˜¨ë‹¤.
+	ê²°ê³¼Actionë“¤ì„ ActionResultë¡œ ë§Œë“¤ì–´ì„œ 
+	ì‹œì‘Actionì„ ì‹¤í–‰í• ë•Œ, EffectTargetì— ActionResult*ì— ì„¤ì •í•œë‹¤.
 
-  ==> Ä³½ºÆÃµ¿ÀÛ+Ä³½ºÆÃEffect --> ±â¼ú½ÃÀÛEffect --> ±â¼úÁøÇàEffect --> ±â¼ú³¡Effect
+
+  (*) EffectGeneratorì—ì„œ ActionResultê°€ 
+
+
+  [ ì°¸ê³  ]
+
+  - ì–´ë–¤ ê¸°ìˆ ì„ ì„¸ë¶€ì ì¸ ë‹¨ê³„(ACTION_INFO_NODE)ë¡œ ë‚˜ëˆ ë³´ë©´..
+	ë‹¤ìŒì´ ëŒ€í‘œì ì¸ ê²½ìš°ì´ë‹¤.
+
+  ==> ìºìŠ¤íŒ…ë™ì‘+ìºìŠ¤íŒ…Effect --> ê¸°ìˆ ì‹œì‘Effect --> ê¸°ìˆ ì§„í–‰Effect --> ê¸°ìˆ ëEffect
      
-  ==> [º¯Çü]  Ä³½ºÆÃµ¿ÀÛ --> ±â¼úÁøÇàEffect --> ±â¼úÁøÇàEffect --> .... µîµµ ¹°·Ğ ÀÖ´Ù.
+  ==> [ë³€í˜•]  ìºìŠ¤íŒ…ë™ì‘ --> ê¸°ìˆ ì§„í–‰Effect --> ê¸°ìˆ ì§„í–‰Effect --> .... ë“±ë„ ë¬¼ë¡  ìˆë‹¤.
 
-  - ¿©±â¼­ Ä³½ºÆÃµ¿ÀÛ+Ä³½ºÆÃEffect´Â MActionInfo·Î,
-    ±× µÚÀÇ µ¿ÀÛ´Ü°èµéÀº ÇÏ³ªÀÇ ACTION_INFO_NODEµé·Î ³ªÅ¸³¾ ¼ö ÀÖ´Ù.
+  - ì—¬ê¸°ì„œ ìºìŠ¤íŒ…ë™ì‘+ìºìŠ¤íŒ…EffectëŠ” MActionInfoë¡œ,
+    ê·¸ ë’¤ì˜ ë™ì‘ë‹¨ê³„ë“¤ì€ í•˜ë‚˜ì˜ ACTION_INFO_NODEë“¤ë¡œ ë‚˜íƒ€ë‚¼ ìˆ˜ ìˆë‹¤.
 
-  - casting Effect´Â AttachEffect·Î.. Ä³¸¯ÅÍ¿¡ ºÙ¾î¼­ Ç¥ÇöµÇ´Â °ÍÀÌ´Ù.
-  - Casting ActionInfo´Â ´õ º¹ÀâÇÑ CastingÀ» Ç¥ÇöÇÒ ¼ö ÀÖ´Ù.
+  - casting EffectëŠ” AttachEffectë¡œ.. ìºë¦­í„°ì— ë¶™ì–´ì„œ í‘œí˜„ë˜ëŠ” ê²ƒì´ë‹¤.
+  - Casting ActionInfoëŠ” ë” ë³µì¡í•œ Castingì„ í‘œí˜„í•  ìˆ˜ ìˆë‹¤.
 
-  - ÇÏ³ªÀÇ ±â¼ú(MActionInfo)Àº ±× ±â¼ú °íÀ¯ÀÇ Á¤º¸¿Í
-    ACTION_INFO_NODEÀÇ array·Î¼­ Ç¥ÇöÀÌ µÈ´Ù.
+  - í•˜ë‚˜ì˜ ê¸°ìˆ (MActionInfo)ì€ ê·¸ ê¸°ìˆ  ê³ ìœ ì˜ ì •ë³´ì™€
+    ACTION_INFO_NODEì˜ arrayë¡œì„œ í‘œí˜„ì´ ëœë‹¤.
 
-  - ÇÑ ±â¼ú¿¡ ´ëÇÑ ACTION_INFO_NODE Áß¿¡¼­´Â '±âº» µ¿ÀÛ' È¤Àº 'ÁøÇà µ¿ÀÛ' µîÀÇ 
-    ÀÇ¹Ì·Î ºÒ¸±¸¸ÇÑ µ¿ÀÛÀÌ ÀÖÀ» ¼ö ÀÖ´Ù.
-	(¼ø°£ÀûÀ¸·Î ¹ßµ¿µÇ´Â ±â¼úÀÌ¶ó¸é ¾øÀ» ¼öµµ ÀÖ´Ù.)
-	ÀÌ·± ´Ü°è¸¦ MainNode¶ó ºÎ¸¥´Ù.
+  - í•œ ê¸°ìˆ ì— ëŒ€í•œ ACTION_INFO_NODE ì¤‘ì—ì„œëŠ” 'ê¸°ë³¸ ë™ì‘' í˜¹ì€ 'ì§„í–‰ ë™ì‘' ë“±ì˜ 
+    ì˜ë¯¸ë¡œ ë¶ˆë¦´ë§Œí•œ ë™ì‘ì´ ìˆì„ ìˆ˜ ìˆë‹¤.
+	(ìˆœê°„ì ìœ¼ë¡œ ë°œë™ë˜ëŠ” ê¸°ìˆ ì´ë¼ë©´ ì—†ì„ ìˆ˜ë„ ìˆë‹¤.)
+	ì´ëŸ° ë‹¨ê³„ë¥¼ MainNodeë¼ ë¶€ë¥¸ë‹¤.
 	
-  - MainNode´Â ±â¼úÀÇ º»°İÀûÀÎ(-_-;) ½ÃÀÛÀ» ÀÇ¹ÌÇÑ´Ù.
-    ¿¹¸¦ µé¸é, 'Light±â¼ú'°°Àº °ÍÀÌ ·¹º§¿¡ µû¶ó¼­
-	»ç¿ë ½Ã°£ÀÌ ´Ş¶óÁú ¼ö ÀÖ´Ù.
-	ÀÌ ¶§, »ç¿ë ½Ã°£À» Ç¥ÇöÇÏ´Â ´Ü°è¸¦ MainNode·Î ¼³Á¤ÇÒ ¼ö ÀÖ´Ù.
-	±â¼úÀÌ ¹Ù·Î Àû¿ëµÇ¾î¾ßÇÏ´Â °æ¿ì MainNodeºÎÅÍ ±â¼úÀÌ ½ÃÀÛÇÏ°Ô µÈ´Ù.
+  - MainNodeëŠ” ê¸°ìˆ ì˜ ë³¸ê²©ì ì¸(-_-;) ì‹œì‘ì„ ì˜ë¯¸í•œë‹¤.
+    ì˜ˆë¥¼ ë“¤ë©´, 'Lightê¸°ìˆ 'ê°™ì€ ê²ƒì´ ë ˆë²¨ì— ë”°ë¼ì„œ
+	ì‚¬ìš© ì‹œê°„ì´ ë‹¬ë¼ì§ˆ ìˆ˜ ìˆë‹¤.
+	ì´ ë•Œ, ì‚¬ìš© ì‹œê°„ì„ í‘œí˜„í•˜ëŠ” ë‹¨ê³„ë¥¼ MainNodeë¡œ ì„¤ì •í•  ìˆ˜ ìˆë‹¤.
+	ê¸°ìˆ ì´ ë°”ë¡œ ì ìš©ë˜ì–´ì•¼í•˜ëŠ” ê²½ìš° MainNodeë¶€í„° ê¸°ìˆ ì´ ì‹œì‘í•˜ê²Œ ëœë‹¤.
 
-  - node¿¡¼­ bDelayNode´Â
-    delay¸¦ Àû¿ë¹Ş´Â node¸¦ ÀÇ¹ÌÇÑ´Ù.
-	MainNode¿Í ºñ½ÁÇÏ´Ù°í ÇÒ ¼ö ÀÖÀ¸³ª
-	½ÇÁ¦ÀûÀÎ delay¸¦ Àû¿ë¹Ş´Â nodeÀÌ¹Ç·Î ÀÇ¹Ì°¡ Á» ´Ù¸£´Ù.
-	MainNode´Â ÇÏ³ª¹Û¿¡ ¾øÁö¸¸, bDelayNode´Â ¿©·¯°³°¡ µÉ ¼ö ÀÖ´Ù.
+  - nodeì—ì„œ bDelayNodeëŠ”
+    delayë¥¼ ì ìš©ë°›ëŠ” nodeë¥¼ ì˜ë¯¸í•œë‹¤.
+	MainNodeì™€ ë¹„ìŠ·í•˜ë‹¤ê³  í•  ìˆ˜ ìˆìœ¼ë‚˜
+	ì‹¤ì œì ì¸ delayë¥¼ ì ìš©ë°›ëŠ” nodeì´ë¯€ë¡œ ì˜ë¯¸ê°€ ì¢€ ë‹¤ë¥´ë‹¤.
+	MainNodeëŠ” í•˜ë‚˜ë°–ì— ì—†ì§€ë§Œ, bDelayNodeëŠ” ì—¬ëŸ¬ê°œê°€ ë  ìˆ˜ ìˆë‹¤.
 	
 
-  -	ÀÌ¹Ì MainNode°¡ ÁøÇàÁßÀÎ »óÅÂ¸¦ ¹Ù·Î Ç¥ÇöÇØÁà¾ß ÇÏ´Â °æ¿ìµµ ÀÖ´Ù.
-	(´Ù¸¥ È­¸é¿¡ ÀÖ´Ù°¡ ½Ã¾ß¿¡ º¸ÀÌ´Â °æ¿ì Server¿¡¼­ Á¤º¸¸¦ º¸³»ÁÖ°ÚÁö)
-	ÀÌ·± °æ¿ì.. Ä³½ºÆÃµ¿ÀÛÀÌ³ª ±â¼ú½ÃÀÛEffect¸¦ º¸¿©ÁÖÁö ¾Ê°í ¹Ù·Î 
-	MainNode¸¦ Ç¥ÇöÇØÁà¾ß ÇÑ´Ù.
+  -	ì´ë¯¸ MainNodeê°€ ì§„í–‰ì¤‘ì¸ ìƒíƒœë¥¼ ë°”ë¡œ í‘œí˜„í•´ì¤˜ì•¼ í•˜ëŠ” ê²½ìš°ë„ ìˆë‹¤.
+	(ë‹¤ë¥¸ í™”ë©´ì— ìˆë‹¤ê°€ ì‹œì•¼ì— ë³´ì´ëŠ” ê²½ìš° Serverì—ì„œ ì •ë³´ë¥¼ ë³´ë‚´ì£¼ê² ì§€)
+	ì´ëŸ° ê²½ìš°.. ìºìŠ¤íŒ…ë™ì‘ì´ë‚˜ ê¸°ìˆ ì‹œì‘Effectë¥¼ ë³´ì—¬ì£¼ì§€ ì•Šê³  ë°”ë¡œ 
+	MainNodeë¥¼ í‘œí˜„í•´ì¤˜ì•¼ í•œë‹¤.
 
-  - ResultTimeÀº °á°ú¸¦ Ã³¸®ÇØÁÖ´Â ½ÃÁ¡ÀÌ´Ù.
-    ¿©·¯°¡Áö ACTION_INFO_NODEÁß¿¡¼­ Server¿¡¼­ ¹ŞÀº °á°ú(!)¸¦ 
-	Àû¿ë½ÃÄÑÁÖ´Â ½ÃÁ¡..
-	¼³Á¤ÀÌ ¾ÈµÈ °æ¿ì.. ³¡~~¿¡¼­ Ã³¸®ÇØÁÖ¸é µÇ°ÚÁö..
+  - ResultTimeì€ ê²°ê³¼ë¥¼ ì²˜ë¦¬í•´ì£¼ëŠ” ì‹œì ì´ë‹¤.
+    ì—¬ëŸ¬ê°€ì§€ ACTION_INFO_NODEì¤‘ì—ì„œ Serverì—ì„œ ë°›ì€ ê²°ê³¼(!)ë¥¼ 
+	ì ìš©ì‹œì¼œì£¼ëŠ” ì‹œì ..
+	ì„¤ì •ì´ ì•ˆëœ ê²½ìš°.. ë~~ì—ì„œ ì²˜ë¦¬í•´ì£¼ë©´ ë˜ê² ì§€..
 
   - StartWithCasting?
-    ±â¼úÀÇ ½ÃÀÛÀº 
-	(1)Ä³¸¯ÅÍ°¡ Castingµ¿ÀÛÀ» ½ÃÀÛÇÏ¸é¼­
-	(2)Ä³¸¯ÅÍÀÇ Castingµ¿ÀÛÀÌ ³¡³ª¸é¼­(StartAfterCasting)
-	...ÀÇ µÎ °¡Áö °æ¿ì°¡ ÀÖ´Ù.
+    ê¸°ìˆ ì˜ ì‹œì‘ì€ 
+	(1)ìºë¦­í„°ê°€ Castingë™ì‘ì„ ì‹œì‘í•˜ë©´ì„œ
+	(2)ìºë¦­í„°ì˜ Castingë™ì‘ì´ ëë‚˜ë©´ì„œ(StartAfterCasting)
+	...ì˜ ë‘ ê°€ì§€ ê²½ìš°ê°€ ìˆë‹¤.
 
   - Casting?
-     EffectSpriteTypeID·Î.. AttachEffect ÇÏ³ª¸¸ Ç¥ÇöµÇ´Â °æ¿ì°¡ ´ëºÎºĞÀÌ´Ù.
-	 ÇÏÁö¸¸, CastingActionInfo·Î.. Æ¯Á¤ÇÑ ActionInfo·Î Ç¥ÇöÇØ¾ß µÇ´Â °æ¿ì°¡ ÀÖ´Ù.
-	 bCastingActionInfo°¡ ¼³Á¤µÇ¾î ÀÖ´Ù¸é ResultActionInfo´Â ¾ø´Ù°í °¡Á¤ÇÑ´Ù. 
+     EffectSpriteTypeIDë¡œ.. AttachEffect í•˜ë‚˜ë§Œ í‘œí˜„ë˜ëŠ” ê²½ìš°ê°€ ëŒ€ë¶€ë¶„ì´ë‹¤.
+	 í•˜ì§€ë§Œ, CastingActionInfoë¡œ.. íŠ¹ì •í•œ ActionInfoë¡œ í‘œí˜„í•´ì•¼ ë˜ëŠ” ê²½ìš°ê°€ ìˆë‹¤.
+	 bCastingActionInfoê°€ ì„¤ì •ë˜ì–´ ìˆë‹¤ë©´ ResultActionInfoëŠ” ì—†ë‹¤ê³  ê°€ì •í•œë‹¤. 
 
 */
 //----------------------------------------------------------------------
@@ -119,82 +119,82 @@ class ofstream;
 class ifstream;
 
 //----------------------------------------------------------------------
-// ±â¼úÀÇ ¼Ó¼º¿¡ ´ëÇÑ flag
+// ê¸°ìˆ ì˜ ì†ì„±ì— ëŒ€í•œ flag
 //----------------------------------------------------------------------
-#define	FLAG_ACTIONINFO_TARGET_NONE			0		// »ç¿ëÇÒ ¼ö ¾øÀ½
-#define	FLAG_ACTIONINFO_TARGET_SELF			0x01	// º»ÀÎ¿¡°Ô »ç¿ë
-#define FLAG_ACTIONINFO_TARGET_OTHER		0x02	// Å¸ÀÎ¿¡°Ô »ç¿ë
-#define	FLAG_ACTIONINFO_TARGET_ZONE			0x04	// Zone¿¡ »ç¿ë
-#define	FLAG_ACTIONINFO_TARGET_ITEM			0x08	// Item¿¡ »ç¿ë
+#define	FLAG_ACTIONINFO_TARGET_NONE			0		// ì‚¬ìš©í•  ìˆ˜ ì—†ìŒ
+#define	FLAG_ACTIONINFO_TARGET_SELF			0x01	// ë³¸ì¸ì—ê²Œ ì‚¬ìš©
+#define FLAG_ACTIONINFO_TARGET_OTHER		0x02	// íƒ€ì¸ì—ê²Œ ì‚¬ìš©
+#define	FLAG_ACTIONINFO_TARGET_ZONE			0x04	// Zoneì— ì‚¬ìš©
+#define	FLAG_ACTIONINFO_TARGET_ITEM			0x08	// Itemì— ì‚¬ìš©
 
 //----------------------------------------------------------------------
-// packet Á¾·ù
+// packet ì¢…ë¥˜
 //----------------------------------------------------------------------
 enum ACTIONINFO_PACKET {
 	ACTIONINFO_PACKET_NONE,
-	ACTIONINFO_PACKET_SELF,			// º»ÀÎ¿¡°Ô »ç¿ë
-	ACTIONINFO_PACKET_OTHER,		// Å¸ÀÎ¿¡°Ô »ç¿ë
-	ACTIONINFO_PACKET_ZONE,			// Zone¿¡ »ç¿ë
-	ACTIONINFO_PACKET_ITEM,			// Item¿¡ »ç¿ë
-	ACTIONINFO_PACKET_BLOOD_DRAIN,	// ÈíÇùÀÎ °æ¿ì	
-	ACTIONINFO_PACKET_THROW_BOMB,	// ÆøÅº ´øÁö´Â °æ¿ì
-	ACTIONINFO_PACKET_UNTRANSFORM,	// º¯½Å Ç®±â
-	ACTIONINFO_PACKET_VISIBLE,		// invisible Ç®±â
-	ACTIONINFO_PACKET_ABSORB_SOUL,	// Èí¿µÀÎ °æ¿ì	
+	ACTIONINFO_PACKET_SELF,			// ë³¸ì¸ì—ê²Œ ì‚¬ìš©
+	ACTIONINFO_PACKET_OTHER,		// íƒ€ì¸ì—ê²Œ ì‚¬ìš©
+	ACTIONINFO_PACKET_ZONE,			// Zoneì— ì‚¬ìš©
+	ACTIONINFO_PACKET_ITEM,			// Itemì— ì‚¬ìš©
+	ACTIONINFO_PACKET_BLOOD_DRAIN,	// í¡í˜‘ì¸ ê²½ìš°	
+	ACTIONINFO_PACKET_THROW_BOMB,	// í­íƒ„ ë˜ì§€ëŠ” ê²½ìš°
+	ACTIONINFO_PACKET_UNTRANSFORM,	// ë³€ì‹  í’€ê¸°
+	ACTIONINFO_PACKET_VISIBLE,		// invisible í’€ê¸°
+	ACTIONINFO_PACKET_ABSORB_SOUL,	// í¡ì˜ì¸ ê²½ìš°	
 };
 
 //----------------------------------------------------------------------
-// ±â¼úÀÇ ½ÃÀÛ À§Ä¡¿¡ ´ëÇÑ flag
+// ê¸°ìˆ ì˜ ì‹œì‘ ìœ„ì¹˜ì— ëŒ€í•œ flag
 //----------------------------------------------------------------------
-#define	FLAG_ACTIONINFO_START_USER				0x01	// »ç¿ëÀÚ À§Ä¡¿¡¼­ ½ÃÀÛ
-#define	FLAG_ACTIONINFO_START_TARGET			0x02	// ¸ñÇ¥ À§Ä¡¿¡¼­ ½ÃÀÛ
-#define	FLAG_ACTIONINFO_START_SKY				0x04	// °øÁß¿¡¼­ ½ÃÀÛ
+#define	FLAG_ACTIONINFO_START_USER				0x01	// ì‚¬ìš©ì ìœ„ì¹˜ì—ì„œ ì‹œì‘
+#define	FLAG_ACTIONINFO_START_TARGET			0x02	// ëª©í‘œ ìœ„ì¹˜ì—ì„œ ì‹œì‘
+#define	FLAG_ACTIONINFO_START_SKY				0x04	// ê³µì¤‘ì—ì„œ ì‹œì‘
 
 //----------------------------------------------------------------------
-// ±â¼úÀÇ »ç¿ë ´ë»ó
+// ê¸°ìˆ ì˜ ì‚¬ìš© ëŒ€ìƒ
 //----------------------------------------------------------------------
-#define	FLAG_ACTIONINFO_USER_ALL				0xFF	// ¸ğµç »ç¿ëÀÚ
-#define	FLAG_ACTIONINFO_USER_NONCREATURE		0x01	// creature°¡ ¾Æ´Ñ °ÍÀÌ »ç¿ë
-#define	FLAG_ACTIONINFO_USER_SLAYER				0x02	// slayerÀü¿ë ±â¼ú
-#define	FLAG_ACTIONINFO_USER_VAMPIRE			0x04	// vampireÀü¿ë ±â¼ú
-#define	FLAG_ACTIONINFO_USER_NPC				0x08	// npcÀü¿ë ±â¼ú(-_-;)
-#define	FLAG_ACTIONINFO_USER_MONSTER			0x10	// slayerÀü¿ë ±â¼ú
-#define	FLAG_ACTIONINFO_USER_OUSTERS			0x20	// oustersÀü¿ë ±â¼ú
+#define	FLAG_ACTIONINFO_USER_ALL				0xFF	// ëª¨ë“  ì‚¬ìš©ì
+#define	FLAG_ACTIONINFO_USER_NONCREATURE		0x01	// creatureê°€ ì•„ë‹Œ ê²ƒì´ ì‚¬ìš©
+#define	FLAG_ACTIONINFO_USER_SLAYER				0x02	// slayerì „ìš© ê¸°ìˆ 
+#define	FLAG_ACTIONINFO_USER_VAMPIRE			0x04	// vampireì „ìš© ê¸°ìˆ 
+#define	FLAG_ACTIONINFO_USER_NPC				0x08	// npcì „ìš© ê¸°ìˆ (-_-;)
+#define	FLAG_ACTIONINFO_USER_MONSTER			0x10	// slayerì „ìš© ê¸°ìˆ 
+#define	FLAG_ACTIONINFO_USER_OUSTERS			0x20	// oustersì „ìš© ê¸°ìˆ 
 
 //----------------------------------------------------------------------
-// ±â¼ú »ç¿ë °¡´É ¹«±â
+// ê¸°ìˆ  ì‚¬ìš© ê°€ëŠ¥ ë¬´ê¸°
 //----------------------------------------------------------------------
-// ÃÑÀ» ¼³Á¤ÇØµÎ¸é.. ÃÑ¾ËÀÌ ÀÖ¾î¾ß ³ª°£´Ù.
-#define FLAG_ACTIONINFO_WEAPON_ALL				0x007F	// ¸ğµç ¹«±â
-#define FLAG_ACTIONINFO_WEAPON_HAND				0x0001	// ¸Ç¼Õ
-#define FLAG_ACTIONINFO_WEAPON_SWORD			0x0002	// Ä®
-#define FLAG_ACTIONINFO_WEAPON_BLADE			0x0004	// °Ë
+// ì´ì„ ì„¤ì •í•´ë‘ë©´.. ì´ì•Œì´ ìˆì–´ì•¼ ë‚˜ê°„ë‹¤.
+#define FLAG_ACTIONINFO_WEAPON_ALL				0x007F	// ëª¨ë“  ë¬´ê¸°
+#define FLAG_ACTIONINFO_WEAPON_HAND				0x0001	// ë§¨ì†
+#define FLAG_ACTIONINFO_WEAPON_SWORD			0x0002	// ì¹¼
+#define FLAG_ACTIONINFO_WEAPON_BLADE			0x0004	// ê²€
 #define FLAG_ACTIONINFO_WEAPON_GUN_ALL			0x0078	// TR
 #define FLAG_ACTIONINFO_WEAPON_GUN_SR			0x0008	// TR
 #define FLAG_ACTIONINFO_WEAPON_GUN_SG			0x0010	// SG
 #define FLAG_ACTIONINFO_WEAPON_GUN_AR			0x0020	// AR
 #define FLAG_ACTIONINFO_WEAPON_GUN_SMG			0x0040	// SMG
-#define FLAG_ACTIONINFO_WEAPON_SHIELD			0x0080	// ¹æÆĞ
-#define FLAG_ACTIONINFO_WEAPON_HOLY_WATER		0x0100	// holy water»ç¿ëÇÏ´Â ±â¼ú
-#define FLAG_ACTIONINFO_WEAPON_BOMB				0x0200	// ÆøÅº »ç¿ëÇÏ´Â ±â¼ú
-#define FLAG_ACTIONINFO_WEAPON_CHAKRAM			0x0400	// Ã­Å©¶÷ »ç¿ëÇÏ´Â ±â¼ú
+#define FLAG_ACTIONINFO_WEAPON_SHIELD			0x0080	// ë°©íŒ¨
+#define FLAG_ACTIONINFO_WEAPON_HOLY_WATER		0x0100	// holy waterì‚¬ìš©í•˜ëŠ” ê¸°ìˆ 
+#define FLAG_ACTIONINFO_WEAPON_BOMB				0x0200	// í­íƒ„ ì‚¬ìš©í•˜ëŠ” ê¸°ìˆ 
+#define FLAG_ACTIONINFO_WEAPON_CHAKRAM			0x0400	// ì± í¬ëŒ ì‚¬ìš©í•˜ëŠ” ê¸°ìˆ 
 
 //----------------------------------------------------------------------
-// ÇöÀç µé°í ÀÖ´Â ¹«±âÀÇ Àû¿ëÀ» ¹Ş´Â´Ù.
+// í˜„ì¬ ë“¤ê³  ìˆëŠ” ë¬´ê¸°ì˜ ì ìš©ì„ ë°›ëŠ”ë‹¤.
 //----------------------------------------------------------------------
-#define	FLAG_ACTIONINFO_CURRENT_WEAPON_ACTION					0x01	// basic actionInfoÀÇ actionÀû¿ë
-#define	FLAG_ACTIONINFO_CURRENT_WEAPON_RANGE					0x02	// basic actionInfoÀÇ rangeÀû¿ë
-#define	FLAG_ACTIONINFO_CURRENT_WEAPON_SOUND					0x04	// basic actionInfoÀÇ soundÀû¿ë
-#define	FLAG_ACTIONINFO_CURRENT_WEAPON_CASTING_STARTFRAME		0x08	// basic actionInfoÀÇ GetCastingStartFrame()Àû¿ë
-#define	FLAG_ACTIONINFO_CURRENT_WEAPON_CASTING_FRAMES			0x10	// basic actionInfoÀÇ GetCastingFrames()Àû¿ë
-#define	FLAG_ACTIONINFO_CURRENT_WEAPON_DELAY					0x20	// basic actionInfoÀÇ GetDelay()Àû¿ë
-#define	FLAG_ACTIONINFO_CURRENT_WEAPON_ACTIONEFFECTSPRITETYPE	0x40	// (¿±±âÀûÀ¸·Î ±æ±º - -;)
+#define	FLAG_ACTIONINFO_CURRENT_WEAPON_ACTION					0x01	// basic actionInfoì˜ actionì ìš©
+#define	FLAG_ACTIONINFO_CURRENT_WEAPON_RANGE					0x02	// basic actionInfoì˜ rangeì ìš©
+#define	FLAG_ACTIONINFO_CURRENT_WEAPON_SOUND					0x04	// basic actionInfoì˜ soundì ìš©
+#define	FLAG_ACTIONINFO_CURRENT_WEAPON_CASTING_STARTFRAME		0x08	// basic actionInfoì˜ GetCastingStartFrame()ì ìš©
+#define	FLAG_ACTIONINFO_CURRENT_WEAPON_CASTING_FRAMES			0x10	// basic actionInfoì˜ GetCastingFrames()ì ìš©
+#define	FLAG_ACTIONINFO_CURRENT_WEAPON_DELAY					0x20	// basic actionInfoì˜ GetDelay()ì ìš©
+#define	FLAG_ACTIONINFO_CURRENT_WEAPON_ACTIONEFFECTSPRITETYPE	0x40	// (ì—½ê¸°ì ìœ¼ë¡œ ê¸¸êµ° - -;)
 
 //----------------------------------------------------------------------
 // option flag
 //----------------------------------------------------------------------
-#define	FLAG_ACTIONINFO_OPTION_RANGE_TO_DIRECTION	0x01	// range°ªÀ» directionÀ¸·Î »ç¿ëÇÑ´Ù.
-#define FLAG_ACTIONINFO_OPTION_USE_WITH_BLESS		0x02	// bless°É¸° »óÅÂ¿¡¼­ »ç¿ëÇÒ ¼ö ÀÖ´Ù.
+#define	FLAG_ACTIONINFO_OPTION_RANGE_TO_DIRECTION	0x01	// rangeê°’ì„ directionìœ¼ë¡œ ì‚¬ìš©í•œë‹¤.
+#define FLAG_ACTIONINFO_OPTION_USE_WITH_BLESS		0x02	// blessê±¸ë¦° ìƒíƒœì—ì„œ ì‚¬ìš©í•  ìˆ˜ ìˆë‹¤.
 
 //----------------------------------------------------------------------
 // Select Creature
@@ -235,14 +235,14 @@ class ACTION_INFO_NODE {
 	public :
 		TYPE_EFFECTGENERATORID		EffectGeneratorID;	// EffectGenerator ID		
 		TYPE_EFFECTSPRITETYPE		EffectSpriteType;	// EffectSpriteType
-		WORD						Step;				// ¼Óµµ
-		WORD						Count;				// ÀÌ¹ø nodeÀÇ Áö¼Ó ½Ã°£
-		WORD						LinkCount;			// ÀÌ¹ø node¿¡ ¸Ó¹«¸£´Â ½Ã°£ == ´ÙÀ½ node·Î ³Ñ¾î°¥¶§±îÁöÀÇ ½Ã°£
-		TYPE_SOUNDID				SoundID;			// ±â¼úÀÇ °¢ ´Ü°èÀÇ Sound ID
-		//BYTE						Light;				// ºûÀÇ ¹à±â
-		bool						bDelayNode;			// delay°¡ Àû¿ëµÇ´Â nodeÀÎ°¡?
-		bool						bResultTime;		// °á°ú¸¦ º¸¿©ÁÖ´Â ½ÃÁ¡ÀÌ´Ù.
-		bool						bUseCoord;			// Step À» ÁÂÇ¥·Î »ç¿ëÇÑ´Ù.
+		WORD						Step;				// ì†ë„
+		WORD						Count;				// ì´ë²ˆ nodeì˜ ì§€ì† ì‹œê°„
+		WORD						LinkCount;			// ì´ë²ˆ nodeì— ë¨¸ë¬´ë¥´ëŠ” ì‹œê°„ == ë‹¤ìŒ nodeë¡œ ë„˜ì–´ê°ˆë•Œê¹Œì§€ì˜ ì‹œê°„
+		TYPE_SOUNDID				SoundID;			// ê¸°ìˆ ì˜ ê° ë‹¨ê³„ì˜ Sound ID
+		//BYTE						Light;				// ë¹›ì˜ ë°ê¸°
+		bool						bDelayNode;			// delayê°€ ì ìš©ë˜ëŠ” nodeì¸ê°€?
+		bool						bResultTime;		// ê²°ê³¼ë¥¼ ë³´ì—¬ì£¼ëŠ” ì‹œì ì´ë‹¤.
+		bool						bUseCoord;			// Step ì„ ì¢Œí‘œë¡œ ì‚¬ìš©í•œë‹¤.
 		
 	public :
 		void			SetUseCoord()				{ bUseCoord = true; }		
@@ -266,7 +266,7 @@ class ACTION_INFO_NODE {
 		}
 
 		//-------------------------------------------------------
-		// ¾Öµé ¹öÀü.. -_-;
+		// ì• ë“¤ ë²„ì „.. -_-;
 		//-------------------------------------------------------
 		void			SetChildMode();
 
@@ -279,8 +279,8 @@ class ACTION_INFO_NODE {
 
 
 //----------------------------------------------------------------------
-// ÇÏ³ªÀÇ ±â¼ú¿¡ ´ëÇÑ Á¤º¸
-// ACTION_INFO_NODEÀÇ array 
+// í•˜ë‚˜ì˜ ê¸°ìˆ ì— ëŒ€í•œ ì •ë³´
+// ACTION_INFO_NODEì˜ array 
 //----------------------------------------------------------------------
 class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 	public :
@@ -312,13 +312,13 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		}
 
 		//------------------------------------------------------
-		// Casting °ü·Ã
+		// Casting ê´€ë ¨
 		//------------------------------------------------------
 		bool		IsCastingEffectToSelf() const			{ return m_bCastingEffectToSelf; }
 		void		SetCastingEffectToSelf()				{ m_bCastingEffectToSelf = true; }
 		void		SetCastingEffectToOther()				{ m_bCastingEffectToSelf = false; }
 
-		// speed´Â slow:normal:fast = 0:1:2 ÀÌ´Ù. ±ÍÂ÷³ª¼­.. ¤»¤»
+		// speedëŠ” slow:normal:fast = 0:1:2 ì´ë‹¤. ê·€ì°¨ë‚˜ì„œ.. ã…‹ã…‹
 		void		SetCastingStartFrameAll(int f)			{ m_CastingStartFrame[0] = m_CastingStartFrame[1] = m_CastingStartFrame[2] = f; }
 		void		SetCastingFramesAll(int f)				{ m_CastingFrames[0] = m_CastingFrames[1] = m_CastingFrames[2] = f; }
 
@@ -331,11 +331,11 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		void		SetStartWithCasting()	{ m_StartFrame[0] = m_StartFrame[1] = m_StartFrame[2] = 0; }
 		void		SetStartAfterCasting()	{ m_StartFrame[0] = m_StartFrame[1] = m_StartFrame[2] = 0xFFFF; }
 
-		// »ç¿ëÇÒ·Á´Â CastingActionInfo
+		// ì‚¬ìš©í• ë ¤ëŠ” CastingActionInfo
 		void		SetCastingActionInfo(TYPE_ACTIONINFO ai)	{ m_CastingActionInfo=ai; }		
 		TYPE_ACTIONINFO	GetCastingActionInfo() const		{ return m_CastingActionInfo; }		
 
-		// ÀÌ ±â¼úÀº CastingActionÀÎ°¡?
+		// ì´ ê¸°ìˆ ì€ CastingActionì¸ê°€?
 		bool		IsCastingAction() const					{ return m_bCastingAction; }		
 		void		SetCastingAction()						{ m_bCastingAction=true; }
 		void		UnSetCastingAction()					{ m_bCastingAction=false; }	
@@ -354,7 +354,7 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		void	SetMainNode(int n)					{ m_MainNode=n; }
 
 		//------------------------------------------------------
-		// attack - °ø°İ ±â¼úÀÎ°¡?
+		// attack - ê³µê²© ê¸°ìˆ ì¸ê°€?
 		//------------------------------------------------------
 		void		SetAttack()				{ m_bAttack = TRUE; }
 		void		UnSetAttack()			{ m_bAttack = FALSE; }
@@ -374,7 +374,7 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		int			GetMainNode() const		{ return m_MainNode; }
 		
 		//------------------------------------------------------
-		// ¸ñÇ¥ÀÇ ¼Ó¼º
+		// ëª©í‘œì˜ ì†ì„±
 		//------------------------------------------------------
 		BYTE		GetTarget() const		{ return m_fTarget; }
 		bool		IsTargetNone() const	{ return m_fTarget==0; }
@@ -384,7 +384,7 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		BYTE		IsTargetItem() const	{ return m_fTarget & FLAG_ACTIONINFO_TARGET_ITEM; }
 
 		//------------------------------------------------------
-		// º¸³»´Â packet Á¾·ù
+		// ë³´ë‚´ëŠ” packet ì¢…ë¥˜
 		//------------------------------------------------------
 		void		SetPacketType(ACTIONINFO_PACKET ap)		{ m_PacketType = ap; }
 		ACTIONINFO_PACKET	GetPacketType() const			{ return m_PacketType; }
@@ -399,7 +399,7 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 
 
 		//------------------------------------------------------
-		// ½ÃÀÛ À§Ä¡
+		// ì‹œì‘ ìœ„ì¹˜
 		//------------------------------------------------------
 		BYTE		GetStart() const		{ return m_fStart; }
 		bool		IsStartNone() const		{ return m_fStart==0; }
@@ -412,7 +412,7 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		int			GetStartFrame(int speed) const	{ return m_StartFrame[speed]; }
 
 		//------------------------------------------------------
-		// ±â¼úÀÇ »ç¿ë ´ë»ó
+		// ê¸°ìˆ ì˜ ì‚¬ìš© ëŒ€ìƒ
 		//------------------------------------------------------
 		void	SetUser(BYTE fUser)				{ m_fUserType=fUser; }
 		BYTE	GetUser() const					{ return m_fUserType; }
@@ -430,7 +430,7 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		BYTE	IsUserMonster() const			{ return m_fUserType & FLAG_ACTIONINFO_USER_MONSTER; }
 
 		//------------------------------------------------------
-		// ±â¼ú »ç¿ë °¡´É ¹«±â
+		// ê¸°ìˆ  ì‚¬ìš© ê°€ëŠ¥ ë¬´ê¸°
 		//------------------------------------------------------
 		WORD	IsWeaponTypeAll() const			{ return (m_fWeaponType & FLAG_ACTIONINFO_WEAPON_ALL)==FLAG_ACTIONINFO_WEAPON_ALL; }
 		WORD	IsWeaponTypeGunAll() const		{ return (m_fWeaponType & FLAG_ACTIONINFO_WEAPON_GUN_ALL)==FLAG_ACTIONINFO_WEAPON_GUN_ALL; }
@@ -440,7 +440,7 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		void	AddWeaponType(WORD flag)		{ m_fWeaponType |= flag; }		
 
 		//-------------------------------------------------------
-		// ÇöÀç µé°í ÀÖ´Â ¹«±â
+		// í˜„ì¬ ë“¤ê³  ìˆëŠ” ë¬´ê¸°
 		//-------------------------------------------------------
 		BYTE	IsAffectCurrentWeaponAction() const	{ return m_fCurrentWeapon & FLAG_ACTIONINFO_CURRENT_WEAPON_ACTION; }
 		BYTE	IsAffectCurrentWeaponRange() const	{ return m_fCurrentWeapon & FLAG_ACTIONINFO_CURRENT_WEAPON_RANGE; }
@@ -470,13 +470,13 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		
 
 		//-------------------------------------------------------
-		// ±â¼úÀÇ °á°ú Á¾·ù
+		// ê¸°ìˆ ì˜ ê²°ê³¼ ì¢…ë¥˜
 		//-------------------------------------------------------
-		// ActionResultID¿¡ µû¶ó¼­ ¹İµå½Ã value¸¦ ¼³Á¤ÇØ¾ß ÇÏ´Â °æ¿ì°¡ ÀÖ´Ù.
+		// ActionResultIDì— ë”°ë¼ì„œ ë°˜ë“œì‹œ valueë¥¼ ì„¤ì •í•´ì•¼ í•˜ëŠ” ê²½ìš°ê°€ ìˆë‹¤.
 		//
 		//				id						value
 		//
-		// ACTIONRESULTNODE_ACTIONINFO :	½ÇÇàÇÒ·Á´Â Skill ID
+		// ACTIONRESULTNODE_ACTIONINFO :	ì‹¤í–‰í• ë ¤ëŠ” Skill ID
 		//-------------------------------------------------------
 		void	SetActionResult(TYPE_ACTIONRESULTID id, int value=0)	{ m_ActionResultID = id; m_ActionResultValue = value; }		
 		TYPE_ACTIONRESULTID		GetActionResultID() const				{ return m_ActionResultID; }
@@ -489,7 +489,7 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		EFFECTSTATUS	GetEffectStatus() const							{ return m_EffectStatus; }
 
 		//-------------------------------------------------------
-		// ¹İº¹ action
+		// ë°˜ë³µ action
 		//-------------------------------------------------------
 		int				IsUseRepeatFrame() const							{ return m_bUseRepeatFrame; }
 		void			UseRepeatFrame()									{ m_bUseRepeatFrame = true; }
@@ -501,12 +501,12 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		WORD			GetRepeatLimit() const								{ return m_RepeatLimit; }
 		
 		//-------------------------------------------------------
-		// ÇÇ ¾ø´Â ¸ğµå..
+		// í”¼ ì—†ëŠ” ëª¨ë“œ..
 		//-------------------------------------------------------
 		void			SetChildMode();
 		
 		//-------------------------------------------------------
-		// SelectCreature- ±â¼úÀÇ ¼±ÅÃ ´ë»ó
+		// SelectCreature- ê¸°ìˆ ì˜ ì„ íƒ ëŒ€ìƒ
 		//-------------------------------------------------------
 		void		SetSelectCreatureAll()				{ m_fSelectCreature = FLAG_ACTIONINFO_SELECT_ALL; }
 		void		SetSelectCreature(BYTE fSelect)		{ m_fSelectCreature = fSelect; }
@@ -552,71 +552,71 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		bool		IsIgnoreSkillFailDelay() { return m_bIgnoreFailDelay;}
 		void		SetSkillFailDelay(bool bflag = true) {	m_bIgnoreFailDelay = bflag;}
 	protected :
-		MString						m_Name;						// ±â¼ú ÀÌ¸§		
-		BYTE						m_Action;					// º¸¿©Áö´Â µ¿ÀÛ
+		MString						m_Name;						// ê¸°ìˆ  ì´ë¦„		
+		BYTE						m_Action;					// ë³´ì—¬ì§€ëŠ” ë™ì‘
 
 		bool						m_bUseActionStep;
-		TYPE_ACTIONINFO				m_ActionStep[MAX_ACTION_STEP];			// ¾×¼Ç ½ºÅÜ
+		TYPE_ACTIONINFO				m_ActionStep[MAX_ACTION_STEP];			// ì•¡ì…˜ ìŠ¤í…
 		TYPE_ACTIONINFO				m_Parent;				
 
-		// casting Á¤º¸
-		TYPE_ACTIONINFO				m_CastingActionInfo;		// »ç¿ëÇÒ·Á´Â CastingActionInfoÀÇ ID
-		bool						m_bCastingAction;			// ÀÌ°Å´Â casting actionÀÎ°¡?
+		// casting ì •ë³´
+		TYPE_ACTIONINFO				m_CastingActionInfo;		// ì‚¬ìš©í• ë ¤ëŠ” CastingActionInfoì˜ ID
+		bool						m_bCastingAction;			// ì´ê±°ëŠ” casting actionì¸ê°€?
 		TYPE_EFFECTSPRITETYPE		m_ActionEffectSpriteType;	// Casting EffectSpriteType		
-		TYPE_EFFECTSPRITETYPE		m_ActionEffectSpriteTypeFemale;	// female¿ë effect - -;
-		int							m_CastingStartFrame[3];		// Casting ½ÃÀÛ frame
-		int							m_CastingFrames[3];			// casting Áö¼Ó frame
-		int							m_PlusActionInfo;			// ÀÓ½Ã·Î.. ±×·¯³ª ¿µ¿øÈ÷.. -_-;
-		bool						m_bCastingEffectToSelf;		// ÀÚ±âÇÑÅ× casting effect ºÙÀÎ´Ù.(default) 2001.9.4Ãß°¡
+		TYPE_EFFECTSPRITETYPE		m_ActionEffectSpriteTypeFemale;	// femaleìš© effect - -;
+		int							m_CastingStartFrame[3];		// Casting ì‹œì‘ frame
+		int							m_CastingFrames[3];			// casting ì§€ì† frame
+		int							m_PlusActionInfo;			// ì„ì‹œë¡œ.. ê·¸ëŸ¬ë‚˜ ì˜ì›íˆ.. -_-;
+		bool						m_bCastingEffectToSelf;		// ìê¸°í•œí…Œ casting effect ë¶™ì¸ë‹¤.(default) 2001.9.4ì¶”ê°€
 		
-		//WORD						m_CastingTime;				// Casting Sprite Ç¥Çö ½Ã°£
-		BYTE						m_Range;					// »ç¿ë °¡´É °Å¸®		
-		BYTE						m_fTarget;					// ¸ñÇ¥¿¡ ´ëÇÑ ¼Ó¼º
-		BYTE						m_fStart;					// ½ÃÀÛ À§Ä¡¿¡ ´ëÇÑ ¼Ó¼º
-		BYTE						m_fUserType;				// ½ÃÀÛ À§Ä¡¿¡ ´ëÇÑ ¼Ó¼º
-		WORD						m_fWeaponType;				// ±â¼úÀ» »ç¿ëÇÏ´Âµ¥ ÇÊ¿äÇÑ ¹«±â
-		BYTE						m_fCurrentWeapon;			// ÇöÀç µé°í ÀÖ´Â ¹«±âÀÇ Àû¿ëÀ» ¹Ş´Â´Ù.
+		//WORD						m_CastingTime;				// Casting Sprite í‘œí˜„ ì‹œê°„
+		BYTE						m_Range;					// ì‚¬ìš© ê°€ëŠ¥ ê±°ë¦¬		
+		BYTE						m_fTarget;					// ëª©í‘œì— ëŒ€í•œ ì†ì„±
+		BYTE						m_fStart;					// ì‹œì‘ ìœ„ì¹˜ì— ëŒ€í•œ ì†ì„±
+		BYTE						m_fUserType;				// ì‹œì‘ ìœ„ì¹˜ì— ëŒ€í•œ ì†ì„±
+		WORD						m_fWeaponType;				// ê¸°ìˆ ì„ ì‚¬ìš©í•˜ëŠ”ë° í•„ìš”í•œ ë¬´ê¸°
+		BYTE						m_fCurrentWeapon;			// í˜„ì¬ ë“¤ê³  ìˆëŠ” ë¬´ê¸°ì˜ ì ìš©ì„ ë°›ëŠ”ë‹¤.
 
-		ACTIONINFO_PACKET			m_PacketType;				// º¸³»´Â packetÁ¾·ù
+		ACTIONINFO_PACKET			m_PacketType;				// ë³´ë‚´ëŠ” packetì¢…ë¥˜
 
-		WORD						m_Delay;					// ±â¼ú »ç¿ë delay½Ã°£	
-		int							m_Value;					// °ª
-		TYPE_SOUNDID				m_SoundID;					// ±â¼ú »ç¿ë ½ÃÁ¡ÀÇ Sound ID
-		int							m_MainNode;					// ±âº»ÀÌ µÇ´Â ¼ø°£, ¹İº¹µÇ´Â ¼ø°£..µî
+		WORD						m_Delay;					// ê¸°ìˆ  ì‚¬ìš© delayì‹œê°„	
+		int							m_Value;					// ê°’
+		TYPE_SOUNDID				m_SoundID;					// ê¸°ìˆ  ì‚¬ìš© ì‹œì ì˜ Sound ID
+		int							m_MainNode;					// ê¸°ë³¸ì´ ë˜ëŠ” ìˆœê°„, ë°˜ë³µë˜ëŠ” ìˆœê°„..ë“±
 
-		BOOL						m_bAttack;					// °ø°İÇÏ´Â ±â¼ú(»ó´ë¿¡°Ô ÇÇÇØ¸¦ ÀÔÈ÷´Â)ÀÎ°¡?
+		BOOL						m_bAttack;					// ê³µê²©í•˜ëŠ” ê¸°ìˆ (ìƒëŒ€ì—ê²Œ í”¼í•´ë¥¼ ì…íˆëŠ”)ì¸ê°€?
 
 		
-		int							m_StartFrame[3];				// Effect°¡ ½ÃÀÛÇÏ´Â Frame		
+		int							m_StartFrame[3];				// Effectê°€ ì‹œì‘í•˜ëŠ” Frame		
 		
-		TYPE_ACTIONRESULTID			m_ActionResultID;			// ±â¼úÀÇ °á°ú Á¾·ù
-		int							m_ActionResultValue;		// °á°ú¿¡ °ü·ÃµÈ °ª
+		TYPE_ACTIONRESULTID			m_ActionResultID;			// ê¸°ìˆ ì˜ ê²°ê³¼ ì¢…ë¥˜
+		int							m_ActionResultValue;		// ê²°ê³¼ì— ê´€ë ¨ëœ ê°’
 
 		BYTE						m_fOption;
 
-		EFFECTSTATUS				m_EffectStatus;			// °á°ú EffectStatus
+		EFFECTSTATUS				m_EffectStatus;			// ê²°ê³¼ EffectStatus
 
-		// ¹İº¹ actionÇÒ¶§ (½ÃÀÛ~³¡) frame
+		// ë°˜ë³µ actioní• ë•Œ (ì‹œì‘~ë) frame
 		bool						m_bUseRepeatFrame;
 		int							m_RepeatStartFrame[3];
 		int							m_RepeatEndFrame[3];
-		WORD						m_RepeatLimit;			// ¹İº¹È¸¼ö Á¦ÇÑ
+		WORD						m_RepeatLimit;			// ë°˜ë³µíšŒìˆ˜ ì œí•œ
 
-		// ±â¼úÀÇ ¼±ÅÃ ´ë»ó
+		// ê¸°ìˆ ì˜ ì„ íƒ ëŒ€ìƒ
 		BYTE						m_fSelectCreature;
 		bool						m_bUseGrade;		
 		bool						m_bAttachSelf;
 		
 		BYTE						m_MasterySkillStep;
-		bool						m_bIgnoreFailDelay; //  ½ºÅ³ ½ÇÆĞÇØµµ µô·¹ÀÌ´Â ³²´Â´Ù.
+		bool						m_bIgnoreFailDelay; //  ìŠ¤í‚¬ ì‹¤íŒ¨í•´ë„ ë”œë ˆì´ëŠ” ë‚¨ëŠ”ë‹¤.
 		
-		// ÀüÁ÷ °ü·Ã 
-		bool						m_bAdvancementClassSkill;		// ÀüÁ÷ÇßÀ»¶§¸¸ »ç¿ë°¡´ÉÇÑ ½ºÅ³ÀÎ°¡?
-		bool						m_bNonAdvancementClassSkill;	// ÀüÁ÷ ÇÏÁö ¾Ê¾ÒÀ» ¶§¸¸ »ç¿ë°¡´ÉÇÑ ½ºÅ³ÀÎ°¡?		
+		// ì „ì§ ê´€ë ¨ 
+		bool						m_bAdvancementClassSkill;		// ì „ì§í–ˆì„ë•Œë§Œ ì‚¬ìš©ê°€ëŠ¥í•œ ìŠ¤í‚¬ì¸ê°€?
+		bool						m_bNonAdvancementClassSkill;	// ì „ì§ í•˜ì§€ ì•Šì•˜ì„ ë•Œë§Œ ì‚¬ìš©ê°€ëŠ¥í•œ ìŠ¤í‚¬ì¸ê°€?		
 };
 
 //----------------------------------------------------------------------
-// ACTION_INFOÀÇ array
+// ACTION_INFOì˜ array
 //----------------------------------------------------------------------
 class MActionInfoTable : public CTypeTable<MActionInfo> {
 	public :
@@ -630,7 +630,7 @@ class MActionInfoTable : public CTypeTable<MActionInfo> {
 		DWORD	GetMinResultActionInfo() const				{ return m_nMinResultActionInfo; }
 
 		//---------------------------------------------
-		// Set/Get Max Result ActionInfo (Æ÷ÇÔµÇ´Â °ªÀÌ´Ù)
+		// Set/Get Max Result ActionInfo (í¬í•¨ë˜ëŠ” ê°’ì´ë‹¤)
 		//---------------------------------------------
 		void	SetMaxResultActionInfo(DWORD nActionInfo)	{ m_nMaxResultActionInfo = nActionInfo; }
 		DWORD	GetMaxResultActionInfo() const				{ return m_nMaxResultActionInfo; }
@@ -644,7 +644,7 @@ class MActionInfoTable : public CTypeTable<MActionInfo> {
 		TYPE_ACTIONINFO	GetResultActionInfo(TYPE_ACTIONINFO action);
 
 		//-------------------------------------------------------
-		// ÇÇ ¾ø´Â ¸ğµå..
+		// í”¼ ì—†ëŠ” ëª¨ë“œ..
 		//-------------------------------------------------------
 		void			SetChildMode();
 
@@ -655,9 +655,9 @@ class MActionInfoTable : public CTypeTable<MActionInfo> {
 		void		LoadFromFile(class ifstream& file);
 
 	protected :
-		// ActionInfo / ResultActionInfo / ClientOnlyActionInfoÀÇ °æ°è°ª
+		// ActionInfo / ResultActionInfo / ClientOnlyActionInfoì˜ ê²½ê³„ê°’
 		DWORD			m_nMinResultActionInfo;
-		DWORD			m_nMaxResultActionInfo;		// Æ÷ÇÔ°ª
+		DWORD			m_nMaxResultActionInfo;		// í¬í•¨ê°’
 		DWORD			m_nMinStepActionInfo;
 };
 

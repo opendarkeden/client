@@ -1,23 +1,23 @@
 //----------------------------------------------------------------------
 // CShadowSpritePack.h
 //----------------------------------------------------------------------
-// ¿©·¯°³(¸¹ÀÌ~~)ÀÇ ShadowSprite ImageµéÀ» ÀúÀåÇØµÎ°í ÇÊ¿äÇÑ °ÍÀ»
-// ShadowSpriteID¸¦ ÅëÇØ¼­ ÀĞ¾î¼­ »ç¿ëÇÏ°Ô µÈ´Ù.
-// ³»ºÎÀûÀ¸·Î std::mapÀ» »ç¿ëÇß...À¸³ª
+// ì—¬ëŸ¬ê°œ(ë§ì´~~)ì˜ ShadowSprite Imageë“¤ì„ ì €ì¥í•´ë‘ê³  í•„ìš”í•œ ê²ƒì„
+// ShadowSpriteIDë¥¼ í†µí•´ì„œ ì½ì–´ì„œ ì‚¬ìš©í•˜ê²Œ ëœë‹¤.
+// ë‚´ë¶€ì ìœ¼ë¡œ std::mapì„ ì‚¬ìš©í–ˆ...ìœ¼ë‚˜
 //
 //----------------------------------------------------------------------
-// [ Test°á°ú ]
+// [ Testê²°ê³¼ ]
 //
-// CShadowSpritePack¿¡ 170°³ÀÇ CShadowSprite°¡ ÀÖÀ» ¶§,
+// CShadowSpritePackì— 170ê°œì˜ CShadowSpriteê°€ ìˆì„ ë•Œ,
 //
-// map  »ç¿ë ½Ã  : 43 Frame
-// Array »ç¿ë ½Ã : 49 Frame
+// map  ì‚¬ìš© ì‹œ  : 43 Frame
+// Array ì‚¬ìš© ì‹œ : 49 Frame
 //
-// ±×·¡¼­, mapÀÇ ¼Óµµ ¹®Á¦µµ ÀÎÇØ¼­ array¸¦ »ç¿ëÇÏ±â·Î Çß´Ù. - -;
+// ê·¸ë˜ì„œ, mapì˜ ì†ë„ ë¬¸ì œë„ ì¸í•´ì„œ arrayë¥¼ ì‚¬ìš©í•˜ê¸°ë¡œ í–ˆë‹¤. - -;
 //
 //----------------------------------------------------------------------
 // 
-// [ »ç¿ë¹ı ]
+// [ ì‚¬ìš©ë²• ]
 //
 // CShadowSpritePack sp;
 //
@@ -31,8 +31,8 @@
 //
 //----------------------------------------------------------------------
 //
-// ShadowSpritePackÀÇ ShadowSprite¿¡ ´ëÇÑ File Pointer Index°¡ ÇÊ¿äÇÏ´Ù.
-// ShadowSpriteSet¿¡¼­ ÀĞ±â À§ÇØ¼­.
+// ShadowSpritePackì˜ ShadowSpriteì— ëŒ€í•œ File Pointer Indexê°€ í•„ìš”í•˜ë‹¤.
+// ShadowSpriteSetì—ì„œ ì½ê¸° ìœ„í•´ì„œ.
 //
 //----------------------------------------------------------------------
 
@@ -85,10 +85,10 @@ class CShadowSpritePack {
 		CShadowSprite&		operator [] (TYPE_SPRITEID n) { return m_pSprites[n]; }
 
 	protected :
-		TYPE_SPRITEID		m_nSprites;		// CShadowSpriteÀÇ °³¼ö
-		CShadowSprite*		m_pSprites;		// CShadowSpriteµéÀ» ÀúÀåÇØµĞ´Ù.
+		TYPE_SPRITEID		m_nSprites;		// CShadowSpriteì˜ ê°œìˆ˜
+		CShadowSprite*		m_pSprites;		// CShadowSpriteë“¤ì„ ì €ì¥í•´ë‘”ë‹¤.
 
-		INT_LIST		m_listLoad;		// LoadµÈ ShadowSpriteµé¿¡ ´ëÇÑ ID
+		INT_LIST		m_listLoad;		// Loadëœ ShadowSpriteë“¤ì— ëŒ€í•œ ID
 		
 };
 

@@ -2,21 +2,21 @@
 // CSpriteSetManager.h
 //----------------------------------------------------------------------
 //
-// SpritePack¿¡¼­ Æ¯Á¤ Sprite¸¸ LoadÇÒ ¼ö ÀÖµµ·Ï Á¤º¸¸¦ ¸¸µç´Ù.
+// SpritePackì—ì„œ íŠ¹ì • Spriteë§Œ Loadí•  ìˆ˜ ìˆë„ë¡ ì •ë³´ë¥¼ ë§Œë“ ë‹¤.
 //
-// <SpriteID¸¦ ÀúÀåÇÒ List»ç¿ë>
+// <SpriteIDë¥¼ ì €ì¥í•  Listì‚¬ìš©>
 //
-// SpritePack FileÀÇ ÀÏºÎ Sprite ID¸¦ ÀúÀåÇÑ´Ù. 
+// SpritePack Fileì˜ ì¼ë¶€ Sprite IDë¥¼ ì €ì¥í•œë‹¤. 
 // 
-// SpriteSet¿¡¼­ loadÇÒ¶§ »ç¿ëÇÒ index fileÀ» ¸¸µé¾î¾ß ÇÏ´Âµ¥,
-// ÀúÀåµÈ Sprite ID¿¡ ÇØ´çÇÏ´Â SpriteÀÇ File Position¸¦ 
-// SpritePack IndexFile¿¡¼­ Ã£¾Æ¼­ 
-// SpriteSet index file·Î ÀúÀåÇØ¾ß ÇÑ´Ù.
+// SpriteSetì—ì„œ loadí• ë•Œ ì‚¬ìš©í•  index fileì„ ë§Œë“¤ì–´ì•¼ í•˜ëŠ”ë°,
+// ì €ì¥ëœ Sprite IDì— í•´ë‹¹í•˜ëŠ” Spriteì˜ File Positionë¥¼ 
+// SpritePack IndexFileì—ì„œ ì°¾ì•„ì„œ 
+// SpriteSet index fileë¡œ ì €ì¥í•´ì•¼ í•œë‹¤.
 //
 //----------------------------------------------------------------------
 //
-// Sprite ID¸¦ setÇÏ°í
-// File PositionÀ» ÀúÀåÇØ¾ß ÇÑ´Ù.
+// Sprite IDë¥¼ setí•˜ê³ 
+// File Positionì„ ì €ì¥í•´ì•¼ í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ class CSpriteSetManager : public CSetManager<TYPE_SPRITEID, TYPE_SPRITEID> {
 		~CSpriteSetManager();
 
 		//--------------------------------------------------------
-		// SpritePack IndexFile·ÎºÎÅÍ SpriteSet IndexFileÀ» »ı¼ºÇÑ´Ù.
+		// SpritePack IndexFileë¡œë¶€í„° SpriteSet IndexFileì„ ìƒì„±í•œë‹¤.
 		//--------------------------------------------------------
 		bool		SaveSpriteSetIndex(class ofstream& setIndex, class ifstream& spkIndex);
 		

@@ -14,7 +14,7 @@ void CGGuildChat::read (SocketInputStream & iStream)
 	iStream.read( m_bType );
 	iStream.read( m_Color );
 
-	// ¸Ş¼¼Áö ÀĞ±â
+	// ë©”ì„¸ì§€ ì½ê¸°
 	BYTE szMessage;
 
 	iStream.read(szMessage);
@@ -38,7 +38,7 @@ void CGGuildChat::write (SocketOutputStream & oStream) const
 	oStream.write( m_bType );
 	oStream.write( m_Color );
 
-	// ¸Ş¼¼Áö ¾²±â
+	// ë©”ì„¸ì§€ ì“°ê¸°
 	BYTE szMessage = m_Message.size();
 
 	if (szMessage == 0)

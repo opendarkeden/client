@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------
 // MSpreadOutEffectGenerator.cpp
 //----------------------------------------------------------------------
-// (ÀÏ´ÜÀº) 8¹æÇâÀ¸·Î »¸¾î°¡´Â Effect
+// (ì¼ë‹¨ì€) 8ë°©í–¥ìœ¼ë¡œ ë»—ì–´ê°€ëŠ” Effect
 //
-// step¾¿ count¹ø ¿òÁ÷ÀÎ´Ù.
+// stepì”© countë²ˆ ì›€ì§ì¸ë‹¤.
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "MSpreadOutEffectGenerator.h"
@@ -38,40 +38,40 @@ MSpreadOutEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	MEffectTarget* pTarget = egInfo.pEffectTarget;
 
-	// ½ÃÀÛ ÁÂÇ¥
+	// ì‹œì‘ ì¢Œí‘œ
 	int sx = egInfo.x0;
 	int sy = egInfo.y0;
 	int sz = 0;//egInfo.z0;
 
 	int cx, cy;
-	int tx, ty, tz=sz;	// ¸ñÇ¥ ÁÂÇ¥
+	int tx, ty, tz=sz;	// ëª©í‘œ ì¢Œí‘œ
 	
 
 	MLinearEffect*	pEffect;
 		
 	//------------------------------------------------------------
-	// ¸ñÇ¥±îÁö°¡´Â°Ô ¾Æ´Ï¶ó.. ÀÏÁ¤ÇÑ pixel¼ö ¸¸Å­ °¡¾ßÇÑ´Ù?
+	// ëª©í‘œê¹Œì§€ê°€ëŠ”ê²Œ ì•„ë‹ˆë¼.. ì¼ì •í•œ pixelìˆ˜ ë§Œí¼ ê°€ì•¼í•œë‹¤?
 	//------------------------------------------------------------
-	// ÇÑ ´Ü°è ÀÌµ¿..
+	// í•œ ë‹¨ê³„ ì´ë™..
 	for (int d=0; d<8; d++)
 	{
 		int movePixel = egInfo.step;// * egInfo.count;
 	
 		//---------------------------------------------
-		// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+		// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 		//---------------------------------------------
 		TYPE_SECTORPOSITION	sX, sY;
 		sX = g_pTopView->PixelToMapX( sx );
 		sY = g_pTopView->PixelToMapY( sy );
 
 		//---------------------------------------------
-		// ³ª°¡´Â ¹æÇâÀ¸·Î ´ÙÀ½ ÁÂÇ¥¸¦ Á¤ÇÑ´Ù.	
+		// ë‚˜ê°€ëŠ” ë°©í–¥ìœ¼ë¡œ ë‹¤ìŒ ì¢Œí‘œë¥¼ ì •í•œë‹¤.	
 		//---------------------------------------------
 		TYPE_SECTORPOSITION x=sX, y=sY;
 		MCreature::GetPositionToDirection(x,y, d);
 
 		//---------------------------------------------
-		// (x,y)¸¦ ´Ù½Ã pixelÁÂÇ¥·Î ¹Ù²Û´Ù.
+		// (x,y)ë¥¼ ë‹¤ì‹œ pixelì¢Œí‘œë¡œ ë°”ê¾¼ë‹¤.
 		//---------------------------------------------
 		tx = g_pTopView->MapToPixelX( x );
 		ty = g_pTopView->MapToPixelY( y );
@@ -104,7 +104,7 @@ MSpreadOutEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		}
 
 		//---------------------------------------------
-		// Effect »ı¼º
+		// Effect ìƒì„±
 		//---------------------------------------------
 		pEffect = new MLinearEffect(bltType);
 
@@ -114,19 +114,19 @@ MSpreadOutEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		pEffect->SetPixelPosition( sx, sy, sz );
 		pEffect->SetTarget( tx, ty, tz, egInfo.step );
 
-		pEffect->SetStepPixel( egInfo.step );		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-		pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+		pEffect->SetStepPixel( egInfo.step );		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ì…í•´ì¤€ë‹¤.
+		pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
-		// ¹æÇâ ¼³Á¤
+		// ë°©í–¥ ì„¤ì •
 		pEffect->SetDirection( d );
 
-		// À§·Â
+		// ìœ„ë ¥
 		pEffect->SetPower(egInfo.power);
 
-		// ºûÀÇ ¹à±â
+		// ë¹›ì˜ ë°ê¸°
 		//pEffect->SetLight( light );
 
-		// Zone¿¡ Ãß°¡ÇÑ´Ù.
+		// Zoneì— ì¶”ê°€í•œë‹¤.
 		if (d==0)
 		{
 			bOK = g_pZone->AddEffect( pEffect );
@@ -134,14 +134,14 @@ MSpreadOutEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			
 			if (bOK)
 			{
-				// ´ÙÀ½ Effect »ı¼º Á¤º¸
+				// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 				if (pTarget == NULL)
 				{
 					pEffect->SetLink( egInfo.nActionInfo, NULL );
 				}
 				else
 				{
-					// ´ÙÀ½ Effect »ı¼º Á¤º¸
+					// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 					pEffect->SetLink( egInfo.nActionInfo, pTarget );			
 					pTarget->Set( tx, ty, tz, egInfo.creatureID );
 				}

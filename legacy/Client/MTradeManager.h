@@ -1,19 +1,19 @@
 //-----------------------------------------------------------------------------
 // MTradeManager.h
 //-----------------------------------------------------------------------------
-// ±³È¯ ´ã´ç~
+// êµí™˜ ë‹´ë‹¹~
 //
-// InitÇÏ¸é ÇÑ ½ÖÀÇ (inventory¿Í moneymanager)¸¦ »ı¼ºÇÑ´Ù.
+// Inití•˜ë©´ í•œ ìŒì˜ (inventoryì™€ moneymanager)ë¥¼ ìƒì„±í•œë‹¤.
 // 
-// ÇÏ³ª´Â ³»²¨.. ÇÏ³ª´Â ³²²¨..
+// í•˜ë‚˜ëŠ” ë‚´êº¼.. í•˜ë‚˜ëŠ” ë‚¨êº¼..
 //
-// * Get .... () ÇØ¼­ ¿ÜºÎ¿¡¼­ Ã³¸®ÇÏ°í..
+// * Get .... () í•´ì„œ ì™¸ë¶€ì—ì„œ ì²˜ë¦¬í•˜ê³ ..
 //
-// itemÀÌ add/removeµÇ°Å³ª.. money°¡ ¹Ù²î¸é .. AcceptTrade¸¦ Á¦°ÅÇØ¾ßÇÑ´Ù.
+// itemì´ add/removeë˜ê±°ë‚˜.. moneyê°€ ë°”ë€Œë©´ .. AcceptTradeë¥¼ ì œê±°í•´ì•¼í•œë‹¤.
 //
-// MyAcceptTrade && OtherAcceptTradeÀÎ °æ¿ì¸¸ trade °¡´ÉÇÏ´Ù.
+// MyAcceptTrade && OtherAcceptTradeì¸ ê²½ìš°ë§Œ trade ê°€ëŠ¥í•˜ë‹¤.
 //
-// CanTrade()·Î Ã¼Å©ÇØº¸°í trade°¡´ÉÇÏ¸é Trade()ÇÑ´Ù.
+// CanTrade()ë¡œ ì²´í¬í•´ë³´ê³  tradeê°€ëŠ¥í•˜ë©´ Trade()í•œë‹¤.
 //-----------------------------------------------------------------------------
 
 #ifndef __MTRADEMANAGER_H__
@@ -34,13 +34,13 @@ class MTradeManager {
 		void				Release();
 
 		//-------------------------------------------------------
-		// inventory ¾ò±â
+		// inventory ì–»ê¸°
 		//-------------------------------------------------------
 		MInventory*			GetMyInventory() const			{ return m_pMyInventory; }
 		MInventory*			GetOtherInventory() const		{ return m_pOtherInventory; }
 
 		//-------------------------------------------------------
-		// money manager ¾ò±â
+		// money manager ì–»ê¸°
 		//-------------------------------------------------------
 		MMoneyManager*		GetMyMoneyManager() const		{ return m_pMyMoney; }
 		MMoneyManager*		GetOtherMoneyManager() const	{ return m_pOtherMoney; }
@@ -49,7 +49,7 @@ class MTradeManager {
 		// Trade OK ?
 		//-------------------------------------------------------
 		bool				IsAcceptTime() const;
-		void				SetNextAcceptTime();		// ´ÙÀ½ ±³È¯ °¡´ÉÇÑ ½Ã°£ ¼³Á¤
+		void				SetNextAcceptTime();		// ë‹¤ìŒ êµí™˜ ê°€ëŠ¥í•œ ì‹œê°„ ì„¤ì •
 
 		bool				IsAcceptMyTrade() const				{ return m_bAcceptMyTrade; }
 		bool				IsAcceptOtherTrade() const			{ return m_bAcceptOtherTrade; }
@@ -63,12 +63,12 @@ class MTradeManager {
 		//-------------------------------------------------------
 		// Trade
 		//-------------------------------------------------------
-		bool				CanTrade() const;		// trade °¡´ÉÇÑ°¡?
-		bool				Trade();				// ±³È¯!
-		bool				CancelTrade();			// ±³È¯ °ÅÀı
+		bool				CanTrade() const;		// trade ê°€ëŠ¥í•œê°€?
+		bool				Trade();				// êµí™˜!
+		bool				CancelTrade();			// êµí™˜ ê±°ì ˆ
 
 		//-------------------------------------------------------
-		// ±³È¯ÇÒ·Á´Â »ç¶÷ÀÇ Á¤º¸
+		// êµí™˜í• ë ¤ëŠ” ì‚¬ëŒì˜ ì •ë³´
 		//-------------------------------------------------------
 		void				SetOtherID(TYPE_OBJECTID otherID)	{ m_OtherID = otherID; }
 		TYPE_OBJECTID		GetOtherID() const					{ return m_OtherID; }
@@ -76,19 +76,19 @@ class MTradeManager {
 		const char*			GetOtherName() const				{ return m_OtherName.GetString(); }
 
 	protected :
-		TYPE_OBJECTID		m_OtherID;				// ´Ù¸¥ »ç¶÷ ID
-		MString				m_OtherName;			// ´Ù¸¥ »ç¶÷ ÀÌ¸§
+		TYPE_OBJECTID		m_OtherID;				// ë‹¤ë¥¸ ì‚¬ëŒ ID
+		MString				m_OtherName;			// ë‹¤ë¥¸ ì‚¬ëŒ ì´ë¦„
 
-		MInventory*			m_pMyInventory;			// ³»²¨
-		MInventory*			m_pOtherInventory;		// ³²²¨
+		MInventory*			m_pMyInventory;			// ë‚´êº¼
+		MInventory*			m_pOtherInventory;		// ë‚¨êº¼
 
-		MMoneyManager*		m_pMyMoney;				// ³» µ·
-		MMoneyManager*		m_pOtherMoney;			// ³² µ·
+		MMoneyManager*		m_pMyMoney;				// ë‚´ ëˆ
+		MMoneyManager*		m_pOtherMoney;			// ë‚¨ ëˆ
 
-		bool				m_bAcceptMyTrade;			// ³ªÀÇ ±³È¯È®ÀÎ
-		bool				m_bAcceptOtherTrade;		// ³²ÀÇ ±³ÇÑÈ®ÀÎ
+		bool				m_bAcceptMyTrade;			// ë‚˜ì˜ êµí™˜í™•ì¸
+		bool				m_bAcceptOtherTrade;		// ë‚¨ì˜ êµí•œí™•ì¸
 
-		DWORD				m_NextAcceptTime;		// OK ´©¸¦ ¼ö ÀÖ´Â ½Ã°£
+		DWORD				m_NextAcceptTime;		// OK ëˆ„ë¥¼ ìˆ˜ ìˆëŠ” ì‹œê°„
 };
 
 extern MTradeManager*		g_pTradeManager;

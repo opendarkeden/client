@@ -162,7 +162,7 @@ MGuildInfoMapper::Get(WORD guildID) const
 void			
 MGuildInfoMapper::Set(WORD guildID, GUILD_INFO* pInfo)
 {
-	// ÀÌ¹Ì ÀÖ¾ú´Ù¸é Áö¿î´Ù.
+	// ì´ë¯¸ ìˆì—ˆë‹¤ë©´ ì§€ìš´ë‹¤.
 	GUILD_INFO* pOldInfo = Get(guildID);
 
 	if (pOldInfo!=NULL)
@@ -170,7 +170,7 @@ MGuildInfoMapper::Set(WORD guildID, GUILD_INFO* pInfo)
 		delete pOldInfo;
 	}
 
-	// Àç ¼³Á¤..
+	// ì¬ ì„¤ì •..
 	(*this)[guildID] = pInfo;
 }
 
@@ -226,7 +226,7 @@ MGuildInfoMapper::LoadFromFile(class ifstream& file)
 //----------------------------------------------------------------------
 // Change Value To File
 //----------------------------------------------------------------------
-// È­ÀÏ¿¡¼­ »ç¹Ù»ç¹Ù.. -_-;
+// í™”ì¼ì—ì„œ ì‚¬ë°”ì‚¬ë°”.. -_-;
 //----------------------------------------------------------------------
 /*
 void	
@@ -254,7 +254,7 @@ MGuildInfoMapper::ChangeValueToFile(const char* pFilename, WORD guildID) const
 //	char str[256];
 //	int emptyGuildMarkCount = 0;
 //
-//	file << "|| '''±æµåID''' || '''±æµå ÀÌ¸§''' || '''¸¶½ºÅÍ ÀÌ¸§''' || '''±æµå¸¶Å© SpriteID''' ||" << endl;
+//	file << "|| '''ê¸¸ë“œID''' || '''ê¸¸ë“œ ì´ë¦„''' || '''ë§ˆìŠ¤í„° ì´ë¦„''' || '''ê¸¸ë“œë§ˆí¬ SpriteID''' ||" << endl;
 //
 //	while (iID != end())
 //	{
@@ -264,7 +264,7 @@ MGuildInfoMapper::ChangeValueToFile(const char* pFilename, WORD guildID) const
 //		sprintf(str, "|| %3d || %20s || %20s ||", guildID, pInfo->GetGuildName(), pInfo->GetLeaderName());
 //		if(pInfo->GetSpriteID() == 0xffff)
 //		{
-//			sprintf(str, "%s ±æµå¸¶Å© ¾øÀ½ ||", str);
+//			sprintf(str, "%s ê¸¸ë“œë§ˆí¬ ì—†ìŒ ||", str);
 //			emptyGuildMarkCount++;
 //		}
 //		else
@@ -275,7 +275,7 @@ MGuildInfoMapper::ChangeValueToFile(const char* pFilename, WORD guildID) const
 //		iID ++;
 //	}
 //
-//	sprintf(str, "|| %5d °³ÀÇ ±æµåÁß %5d°³ÀÇ ±æµå ¸¶Å© ¾øÀ½ ||", size(), emptyGuildMarkCount);
+//	sprintf(str, "|| %5d ê°œì˜ ê¸¸ë“œì¤‘ %5dê°œì˜ ê¸¸ë“œ ë§ˆí¬ ì—†ìŒ ||", size(), emptyGuildMarkCount);
 //	file << str << endl;
 //
 //	file.close();

@@ -71,7 +71,7 @@
 #include "packet\CPackets\CGUseItemFromGear.h"
 #include "packet\CPackets\CGLotterySelect.h"
 #include "packet\CPackets\CGTakeOutGood.h"
-#include "packet/CPackets/CGMixItem.h"					// -_- ºñ¢O ¾î½Ã½ºÆ®¿¡¼­ ÀÌ·¸°Ô ÇÏ¸é ³ª¿Â´Ù°íÇÏ±æ·¡
+#include "packet/CPackets/CGMixItem.h"					// -_- ë¹„ì¤  ì–´ì‹œìŠ¤íŠ¸ì—ì„œ ì´ë ‡ê²Œ í•˜ë©´ ë‚˜ì˜¨ë‹¤ê³ í•˜ê¸¸ë˜
 #include "packet/CPackets/CGDownSkill.h"
 #include "packet/GPackets/GCMiniGameScores.h"
 #include "packet/CPackets/CGSubmitScore.h"

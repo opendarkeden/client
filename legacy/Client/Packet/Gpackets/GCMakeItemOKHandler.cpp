@@ -25,7 +25,7 @@ void GCMakeItemOKHandler::execute ( GCMakeItemOK * pPacket , Player * pPlayer )
 
 
 	//------------------------------------------------------------------
-	// Temp Mode Ã¼Å©
+	// Temp Mode ì²´í¬
 	//------------------------------------------------------------------
 	if (g_pTempInformation->GetMode() == TempInformation::MODE_SKILL_MAKE_ITEM)
 	{
@@ -33,14 +33,14 @@ void GCMakeItemOKHandler::execute ( GCMakeItemOK * pPacket , Player * pPlayer )
 		//g_pTempInformation->Value1 = itemClass;
 		//g_pTempInformation->Value2 = itemType;
 
-		// ¸ø ¿òÁ÷ÀÌ°Ô Çß´ø°Å Ç®±â
+		// ëª» ì›€ì§ì´ê²Œ í–ˆë˜ê±° í’€ê¸°
 		UI_UnlockItem();
 	}
 	else
 	{
 		DEBUG_ADD( "[Error] Temp Mode is Not MODE_SKILL_MAKE_ITEM" );
 		
-		// ¾îÂ¶µç... ³¯¾Æ¿Â packetÀº Ã³¸®ÇÏ°Ô ÇÑ´Ù.
+		// ì–´ì¨‹ë“ ... ë‚ ì•„ì˜¨ packetì€ ì²˜ë¦¬í•˜ê²Œ í•œë‹¤.
 	}
 		
 
@@ -91,7 +91,7 @@ void GCMakeItemOKHandler::execute ( GCMakeItemOK * pPacket , Player * pPlayer )
 	// ModifyInfo
 	//
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 

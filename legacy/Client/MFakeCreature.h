@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MFakeCreature.h
 //----------------------------------------------------------------------
-// sector¿¡´Â Á¸ÀçÇÏÁö ¾Ê´Â ¾Ö´ú..
+// sectorì—ëŠ” ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì• ëœ..
 //
 //
 //----------------------------------------------------------------------
@@ -18,7 +18,7 @@
 #define __DNODE_DEFINE__
 //----------------------------------------------------------------------
 //
-// ±æÃ£±â¿¡ ÀÌ¿ëÇÒ Direction Node
+// ê¸¸ì°¾ê¸°ì— ì´ìš©í•  Direction Node
 //
 //----------------------------------------------------------------------
 class DNode {
@@ -46,39 +46,39 @@ class DNode {
 
 //----------------------------------------------------------------------
 //
-// ±æÃ£±âÇÒ ¶§ ´õ ³ªÀº Node¸¦ ¼±ÅÃÇÏ´Â ºñ±³ ¿¬»ê
+// ê¸¸ì°¾ê¸°í•  ë•Œ ë” ë‚˜ì€ Nodeë¥¼ ì„ íƒí•˜ëŠ” ë¹„êµ ì—°ì‚°
 //
 //----------------------------------------------------------------------
-// [1] °Å¸®°¡ °¡±î¿î °Í
-// [2] ¿òÁ÷ÀÎ È¸¼ö°¡ ÀûÀº °Í
-// [3] ÀÌÀü ¹æÇâ°ú °°Àº °Í
+// [1] ê±°ë¦¬ê°€ ê°€ê¹Œìš´ ê²ƒ
+// [2] ì›€ì§ì¸ íšŒìˆ˜ê°€ ì ì€ ê²ƒ
+// [3] ì´ì „ ë°©í–¥ê³¼ ê°™ì€ ê²ƒ
 class Comparison {
 	public :
-		// distance°¡ ÀûÀ» °É ¼±ÅÃÇØ¾ß ÇÑ´Ù.		
-		// true : right¸¦ ¼±ÅÃÇÑ´Ù.
-		// false : left¸¦ ¼±ÅÃÇÑ´Ù.
+		// distanceê°€ ì ì„ ê±¸ ì„ íƒí•´ì•¼ í•œë‹¤.		
+		// true : rightë¥¼ ì„ íƒí•œë‹¤.
+		// false : leftë¥¼ ì„ íƒí•œë‹¤.
 		bool operator () (DNode * left, DNode * right) const
 		{ 
 			int diff = left->distance - right->distance;			
 			int s = left->step - right->step;
 
-			// °Å¸®°¡(diff) °°Àº °æ¿ì..
+			// ê±°ë¦¬ê°€(diff) ê°™ì€ ê²½ìš°..
 			if (diff==0)
 			{			
-				// ¿òÁ÷ÀÎ È¸¼ö°¡ °°Àº °æ¿ì
+				// ì›€ì§ì¸ íšŒìˆ˜ê°€ ê°™ì€ ê²½ìš°
 				if (s==0)
 				{
 					if (left->pParent!=NULL && right->pParent!=NULL)
 					{
 						if (right->pParent->direction == right->direction)
 						{
-							return true;	// right¼±ÅÃ
+							return true;	// rightì„ íƒ
 						}
 						
-						return false;	// left¼±ÅÃ						
+						return false;	// leftì„ íƒ						
 					}
 				}
-				// ¿òÁ÷ÀÎ È¸¼ö°¡ ÀûÀº °Í
+				// ì›€ì§ì¸ íšŒìˆ˜ê°€ ì ì€ ê²ƒ
 				else if (s>0) 
 				{
 					return true;
@@ -86,7 +86,7 @@ class Comparison {
 				
 				return false;				
 			}			
-			// °Å¸®°¡ ÀûÀº °Í
+			// ê±°ë¦¬ê°€ ì ì€ ê²ƒ
 			else if (diff>0) return true; 
 
 			return false;
@@ -101,28 +101,28 @@ class MFakeCreature : public MCreatureWear {
 	public :
 		enum FAKE_CREATURE_TYPE
 		{
-			FAKE_CREATURE_STAND,			// °¡¸¸È÷ ¼­ ÀÖ´Â °Í
-			FAKE_CREATURE_WANDER,			// ¹æÈ²
-			FAKE_CREATURE_FADE_ACTION,		// Èå¸´¸ğ¾çÀÇ ÇÑ°¡Áö µ¿ÀÛ ÈÄ¿¡ »ç¶óÁü.
-			FAKE_CREATURE_TO_PORTAL,		// Æ÷Å»·Î µé¾î°¡´Â Ä³¸¯ÅÍ(¹ìÆÄ)			
-			FAKE_CREATURE_TURNING_MOVE,		// ºù±Ûºù±Û ÀÌµ¿(Å×½ºÆ®)
-			FAKE_CREATURE_FAST_MOVE_ACTION,	// »¡¸® ÀÌµ¿ÇØ¼­ °ø°İÇÔÇÏ±â [»õ±â¼ú]
-			FAKE_CREATURE_BRIGHTNESS,		// ¹à°Ô Âï±â
-			FAKE_CREATURE_TRACE,			// ÃßÀû
-			FAKE_CREATURE_GHOST,			// Áúµå·¹ ·¹¾î À¯·É
-			FAKE_CREATURE_ROCKET,			// ·ÎÄÏ ·±ÃÄ
-			FAKE_CREATURE_WILD_WOLF,		// ¿ÍÀÏµå ¿ïÇÁ °ø°İ
-			FAKE_CREATURE_DRAGON_TORNADO,	// µå·¹°ï Åä³×ÀÌµµ
+			FAKE_CREATURE_STAND,			// ê°€ë§Œíˆ ì„œ ìˆëŠ” ê²ƒ
+			FAKE_CREATURE_WANDER,			// ë°©í™©
+			FAKE_CREATURE_FADE_ACTION,		// íë¦¿ëª¨ì–‘ì˜ í•œê°€ì§€ ë™ì‘ í›„ì— ì‚¬ë¼ì§.
+			FAKE_CREATURE_TO_PORTAL,		// í¬íƒˆë¡œ ë“¤ì–´ê°€ëŠ” ìºë¦­í„°(ë±€íŒŒ)			
+			FAKE_CREATURE_TURNING_MOVE,		// ë¹™ê¸€ë¹™ê¸€ ì´ë™(í…ŒìŠ¤íŠ¸)
+			FAKE_CREATURE_FAST_MOVE_ACTION,	// ë¹¨ë¦¬ ì´ë™í•´ì„œ ê³µê²©í•¨í•˜ê¸° [ìƒˆê¸°ìˆ ]
+			FAKE_CREATURE_BRIGHTNESS,		// ë°ê²Œ ì°ê¸°
+			FAKE_CREATURE_TRACE,			// ì¶”ì 
+			FAKE_CREATURE_GHOST,			// ì§ˆë“œë ˆ ë ˆì–´ ìœ ë ¹
+			FAKE_CREATURE_ROCKET,			// ë¡œì¼“ ëŸ°ì³
+			FAKE_CREATURE_WILD_WOLF,		// ì™€ì¼ë“œ ìš¸í”„ ê³µê²©
+			FAKE_CREATURE_DRAGON_TORNADO,	// ë“œë ˆê³¤ í† ë„¤ì´ë„
 		};
 
-		enum WILD_WOLF_ATTACK_MODE // Â÷·Ê´ë·Î
+		enum WILD_WOLF_ATTACK_MODE // ì°¨ë¡€ëŒ€ë¡œ
 		{
-			 WILD_WOLF_MODE_ATTACK_1st = 0, // Ã¹¹ø¤Š °ø°İ 
-			 WILD_WOLF_MODE_MOVE_1st,		// ÀÌµ¿
-			 WILD_WOLF_MODE_ATTACK_2nd,		// µÎ¹øÂ° °ø°İ
-			 WILD_WOLF_MODE_MOVE_2st,		// ÀÌµ¿
-			 WILD_WOLF_MODE_ATTACK_3rd,		// ¼¼¹øÂ° °ø°İ
-			 WILD_WOLF_MODE_REMOVE,			// Á¦°Å
+			 WILD_WOLF_MODE_ATTACK_1st = 0, // ì²«ë²ˆì¨° ê³µê²© 
+			 WILD_WOLF_MODE_MOVE_1st,		// ì´ë™
+			 WILD_WOLF_MODE_ATTACK_2nd,		// ë‘ë²ˆì§¸ ê³µê²©
+			 WILD_WOLF_MODE_MOVE_2st,		// ì´ë™
+			 WILD_WOLF_MODE_ATTACK_3rd,		// ì„¸ë²ˆì§¸ ê³µê²©
+			 WILD_WOLF_MODE_REMOVE,			// ì œê±°
 		};
 	public :
 		MFakeCreature();
@@ -140,10 +140,10 @@ class MFakeCreature : public MCreatureWear {
 
 		//----------------------------------------------------------
 		//
-		//         ±æÃ£±â
+		//         ê¸¸ì°¾ê¸°
 		//
 		//----------------------------------------------------------
-		// Zone»ó¿¡¼­ÀÇ ¸ñÇ¥À§Ä¡¸¦ ¼³Á¤
+		// Zoneìƒì—ì„œì˜ ëª©í‘œìœ„ì¹˜ë¥¼ ì„¤ì •
 		bool	SetNextDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);
 		bool	SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);		
 		bool	IsNextDirectionNULL()		{ return m_listDirection.empty(); }
@@ -155,10 +155,10 @@ class MFakeCreature : public MCreatureWear {
 		bool	GetNextPosition(POINT &next);
 		BYTE	GetNextDirection()	const			{ return m_listDirection.front(); }
 
-		// list node¸¦ Áö¿î´Ù.
+		// list nodeë¥¼ ì§€ìš´ë‹¤.
 		void	RemoveNodes();
 
-		// ¸ñÇ¥À§Ä¡±îÁöÀÇ °Å¸® °è»ê
+		// ëª©í‘œìœ„ì¹˜ê¹Œì§€ì˜ ê±°ë¦¬ ê³„ì‚°
 		int		CalculateDistance(int x, int y);
 
 		//------------------------------------------------------
@@ -200,10 +200,10 @@ class MFakeCreature : public MCreatureWear {
 		MPetItem*			GetPetItem()					{ return m_pPetItem; }
 		void				SetPetItem(MPetItem* pItem)		{ m_pPetItem = pItem; }
 
-		// [»õ±â¼ú]
+		// [ìƒˆê¸°ìˆ ]
 		//void				SetActionResult(MActionResult* pResult);
 
-		// [»õ±â¼ú]
+		// [ìƒˆê¸°ìˆ ]
 		void				PacketSpecialActionToOther(TYPE_ACTIONINFO nActionInfo, TYPE_OBJECTID id, MActionResult* pActionResult);
 		void				SetFakeCreatureFastMoveAction(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY,
 											 TYPE_ACTIONINFO skillID, 
@@ -239,7 +239,7 @@ class MFakeCreature : public MCreatureWear {
 	protected :
 		FAKE_CREATURE_TYPE		m_FakeCreatureType;
 
-		// ÁÂÇ¥.. ¹º°¡¿¡ »ç¿ëÇÒ - -;
+		// ì¢Œí‘œ.. ë­”ê°€ì— ì‚¬ìš©í•  - -;
 		TYPE_SECTORPOSITION		m_FakeX;
 		TYPE_SECTORPOSITION		m_FakeY;
 		float					m_FakeSX;
@@ -248,7 +248,7 @@ class MFakeCreature : public MCreatureWear {
 		float					m_FakeCY;
 		DWORD					m_Delay;
 		
-		TYPE_OBJECTID			m_OwnerID;		// Pet¿¡ »ç¿ëÇÑ´Ù
+		TYPE_OBJECTID			m_OwnerID;		// Petì— ì‚¬ìš©í•œë‹¤
 		bool					m_bTraceFlag;
 		
 		MPetItem*				m_pPetItem;
@@ -258,31 +258,31 @@ class MFakeCreature : public MCreatureWear {
 		DIRECTION_LIST	m_listDirection;
 
 		TYPE_SECTORPOSITION			m_DestX;
-		TYPE_SECTORPOSITION			m_DestY;					// ¸ñÇ¥À§Ä¡(Sector)
+		TYPE_SECTORPOSITION			m_DestY;					// ëª©í‘œìœ„ì¹˜(Sector)
 
 		TYPE_SECTORPOSITION			m_NextDestX; 
-		TYPE_SECTORPOSITION			m_NextDestY;				// ´ÙÀ½ ¸ñÇ¥À§Ä¡(Sector)
+		TYPE_SECTORPOSITION			m_NextDestY;				// ë‹¤ìŒ ëª©í‘œìœ„ì¹˜(Sector)
 
-		TYPE_SECTORPOSITION			m_BlockDestX;				// ¸ø °¬´ø °÷.. 
+		TYPE_SECTORPOSITION			m_BlockDestX;				// ëª» ê°”ë˜ ê³³.. 
 		TYPE_SECTORPOSITION			m_BlockDestY;				// 
 
-		// ¿òÁ÷ÀÌ´Âµ¥ ÇÊ¿äÇÑ °Íµé..
+		// ì›€ì§ì´ëŠ”ë° í•„ìš”í•œ ê²ƒë“¤..
 		typedef std::priority_queue<DNode*, std::vector<DNode*>, Comparison>	DNODE_PQ;
 		typedef	std::list<DNode*>												DNODE_LIST;
 
 		DNODE_PQ			m_pqDNodes;
 		DNODE_LIST			m_listDNodes;
 
-		// °è»ê Çß´ø °÷ÀÎÁö check
+		// ê³„ì‚° í–ˆë˜ ê³³ì¸ì§€ check
 		DWORD						m_nextMoveTime;
 		int							m_PatrolCount;
 		BYTE						m_TurretDirect;
 		BYTE						m_FinalTurretDirect;
 		BYTE						m_TurretDelay;
 
-		// ¿ÍÀÏµå ¿ïÇÁ
+		// ì™€ì¼ë“œ ìš¸í”„
 		BYTE						m_WildWolf_Mode;
-		bool						m_IsEatCorps; // false : °ø°İ, true : ½ÃÃ¼ ¸Ô±â
+		bool						m_IsEatCorps; // false : ê³µê²©, true : ì‹œì²´ ë¨¹ê¸°
 
 };
 

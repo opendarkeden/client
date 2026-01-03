@@ -42,7 +42,7 @@ CAlphaSprite::~CAlphaSprite()
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// m_PixelsÀÇ memory¸¦ ÇØÁ¦ÇÑ´Ù.
+// m_Pixelsì˜ memoryë¥¼ í•´ì œí•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CAlphaSprite::Release()
@@ -71,99 +71,99 @@ CAlphaSprite::Release()
 void
 CAlphaSprite::operator = (const CAlphaSprite& Sprite)
 {
-		// ¸Ş¸ğ¸® ÇØÁ¦
+		// ë©”ëª¨ë¦¬ í•´ì œ
 	Release();
 
 
-	// NULLÀÌ¸é ÀúÀåÇÏÁö ¾Ê´Â´Ù.
+	// NULLì´ë©´ ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	if (Sprite.m_Pixels==NULL || Sprite.m_Width==0 || Sprite.m_Height==0)
 		return;
 
-	// Å©±â ¼³Á¤
+	// í¬ê¸° ì„¤ì •
 	m_Width = Sprite.m_Width;
 	m_Height = Sprite.m_Height;
 	
-	// ¾ĞÃà µÈ °Í ÀúÀå
+	// ì••ì¶• ëœ ê²ƒ ì €ì¥
 	int index;	
 	register int i;
 	register int j;
 
-	// ¸Ş¸ğ¸® Àâ±â
+	// ë©”ëª¨ë¦¬ ì¡ê¸°
 	m_Pixels = new WORD* [m_Height];
 
 	for (i=0; i<m_Height; i++)
 	{
-		// ¹İº¹ È¸¼öÀÇ 2 byte
+		// ë°˜ë³µ íšŒìˆ˜ì˜ 2 byte
 		int	count = Sprite.m_Pixels[i][0], 
 				colorCount;
 		index	= 1;
 
-		// °¢ line¸¶´Ù byte¼ö¸¦ ¼¼¾î¼­ ÀúÀåÇØ¾ßÇÑ´Ù.
+		// ê° lineë§ˆë‹¤ byteìˆ˜ë¥¼ ì„¸ì–´ì„œ ì €ì¥í•´ì•¼í•œë‹¤.
 		for (j=0; j<count; j++)
 		{
 			//transCount = m_Pixels[i][index];
 			colorCount = Sprite.m_Pixels[i][index+1];
 
-			index+=2;	// µÎ count ¸¸Å­
+			index+=2;	// ë‘ count ë§Œí¼
 
-			index += (colorCount<<1);	// Åõ¸í»ö ¾Æ´Ñ°Í¸¸Å­ +				
+			index += (colorCount<<1);	// íˆ¬ëª…ìƒ‰ ì•„ë‹Œê²ƒë§Œí¼ +				
 		}
 
-		// ¸Ş¸ğ¸® Àâ±â
+		// ë©”ëª¨ë¦¬ ì¡ê¸°
 		m_Pixels[i] = new WORD [index];
 		memcpy(m_Pixels[i], Sprite.m_Pixels[i], index<<1);
 	}
 
-	// º¹»ç ¿Ï·á
+	// ë³µì‚¬ ì™„ë£Œ
 	m_bInit = true;
 }
 
 //----------------------------------------------------------------------
-// CDirectDrawSurfaceÀÇ (x,y)+(width, height)¿µ¿ªÀ» ÀĞ¾î¼­ m_Pixels¿¡ ÀúÀåÇÑ´Ù.
+// CDirectDrawSurfaceì˜ (x,y)+(width, height)ì˜ì—­ì„ ì½ì–´ì„œ m_Pixelsì— ì €ì¥í•œë‹¤.
 //----------------------------------------------------------------------
-// m_Pixels¸¦ 0¹ø ¾ĞÃà FormatÀ¸·Î ¹Ù²Û´Ù.
+// m_Pixelsë¥¼ 0ë²ˆ ì••ì¶• Formatìœ¼ë¡œ ë°”ê¾¼ë‹¤.
 //
-// °¢ line¸¶´Ù ´ÙÀ½°ú °°Àº ±¸Á¶¸¦ °¡Áø´Ù.
+// ê° lineë§ˆë‹¤ ë‹¤ìŒê³¼ ê°™ì€ êµ¬ì¡°ë¥¼ ê°€ì§„ë‹¤.
 //
-// [¹İº¹¼ö] (Åõ¸í¼ö,»ö±ò¼ö,(alpha,»ö±ò)(alpha,»ö±ò)....)(Åõ¸í¼ö,»ö±ò¼ö,(alpha,»ö±ò)(alpha,»ö±ò)....)........
+// [ë°˜ë³µìˆ˜] (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,(alpha,ìƒ‰ê¹”)(alpha,ìƒ‰ê¹”)....)(íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,(alpha,ìƒ‰ê¹”)(alpha,ìƒ‰ê¹”)....)........
 //
-// ¹İº¹¼ö´Â 2 bytesÀÌ°í
-// Åõ¸í¼ö¿Í »ö±ò¼ö´Â °¢°¢ 2 byteÀÌ°í
-// »ö±òµéÀº °¢°¢ 2 bytes¾¿ÀÌ´Ù.
+// ë°˜ë³µìˆ˜ëŠ” 2 bytesì´ê³ 
+// íˆ¬ëª…ìˆ˜ì™€ ìƒ‰ê¹”ìˆ˜ëŠ” ê°ê° 2 byteì´ê³ 
+// ìƒ‰ê¹”ë“¤ì€ ê°ê° 2 bytesì”©ì´ë‹¤.
 //
-// alpha°ªÀº 2byteÀÎµ¥
-// »óÀ§ 1byte´Â ¿ø·¡ alpha°ª
-// ÇÏÀ§ 1byte´Â 32-alpha°ª
-// (ÀÌ·¸°Ô ÇÏ´Â ÀÌÀ¯´Â... 2byte¾¿ ¸ÂÃß´Âµ¥ 1byte°¡ ³²´Ùº¸´Ï.. *_*)
+// alphaê°’ì€ 2byteì¸ë°
+// ìƒìœ„ 1byteëŠ” ì›ë˜ alphaê°’
+// í•˜ìœ„ 1byteëŠ” 32-alphaê°’
+// (ì´ë ‡ê²Œ í•˜ëŠ” ì´ìœ ëŠ”... 2byteì”© ë§ì¶”ëŠ”ë° 1byteê°€ ë‚¨ë‹¤ë³´ë‹ˆ.. *_*)
 //----------------------------------------------------------------------
-// Source¿¡¼­ Åõ¸í»ö ¾ĞÃàÀ» ÇÏ°í
-// Filter¸¦ Alpha°ªÀ¸·Î ÇØ¼­ ÇÔ²² ÀúÀåÇÑ´Ù. 
+// Sourceì—ì„œ íˆ¬ëª…ìƒ‰ ì••ì¶•ì„ í•˜ê³ 
+// Filterë¥¼ Alphaê°’ìœ¼ë¡œ í•´ì„œ í•¨ê»˜ ì €ì¥í•œë‹¤. 
 //----------------------------------------------------------------------
 void
 CAlphaSprite::SetPixel(WORD *pSource, WORD sourcePitch, 
 						WORD *pFilter, WORD filterPitch, 
 						WORD width, WORD height)
 {
-	// memoryÇØÁ¦
+	// memoryí•´ì œ
 	Release();
 
 	m_Width = width;
 	m_Height = height;
 
-	// ÀÏ´Ü memory¸¦ Àû´çÈ÷ Àâ¾ÆµĞ´Ù.	
+	// ì¼ë‹¨ memoryë¥¼ ì ë‹¹íˆ ì¡ì•„ë‘”ë‹¤.	
 	WORD*	data = new WORD[m_Width*4+10];
 
-	int	index,				// dataÀÇ index·Î »ç¿ë
-			lastColorIndex;		// Åõ¸íÀÌ ¾Æ´Ñ»ö °³¼öÀÇ ÃÖ±Ù index
-	int	count;				// ¹İº¹¼ö
-	int	trans,				// Åõ¸í»ö °³¼ö
-			color;				// Åõ¸íÀÌ ¾Æ´Ñ»ö °³¼ö
+	int	index,				// dataì˜ indexë¡œ ì‚¬ìš©
+			lastColorIndex;		// íˆ¬ëª…ì´ ì•„ë‹Œìƒ‰ ê°œìˆ˜ì˜ ìµœê·¼ index
+	int	count;				// ë°˜ë³µìˆ˜
+	int	trans,				// íˆ¬ëª…ìƒ‰ ê°œìˆ˜
+			color;				// íˆ¬ëª…ì´ ì•„ë‹Œìƒ‰ ê°œìˆ˜
 
-	BOOL	bCheckTrans;		// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô Åõ¸í»öÀÎ°¡?
+	BOOL	bCheckTrans;		// ìµœê·¼ì— ê²€ì‚¬í•œê²Œ íˆ¬ëª…ìƒ‰ì¸ê°€?
 
 	WORD	*pSourceTemp, *pFilterTemp;
 
-	// heightÁÙ ¸¸Å­ memoryÀâ±â
+	// heightì¤„ ë§Œí¼ memoryì¡ê¸°
 	m_Pixels = new WORD* [height];
 
 	for (register int i=0; i<height; i++)
@@ -177,22 +177,22 @@ CAlphaSprite::SetPixel(WORD *pSource, WORD sourcePitch,
 		pSourceTemp = pSource;
 		pFilterTemp = pFilter;
 
-		// °¢ line¿¡ ´ëÇØ¼­ ¾ĞÃà~
+		// ê° lineì— ëŒ€í•´ì„œ ì••ì¶•~
 		for (register int j=0; j<width; j++)
 		{
-			// 0¹ø color¿¡ ´ëÇØ¼­ ¾ĞÃà			
+			// 0ë²ˆ colorì— ëŒ€í•´ì„œ ì••ì¶•			
 			if (*pSourceTemp==s_Colorkey)
-				// alpha°ªÀÌ 0ÀÎ °ÍÀº Åõ¸í»öÀ¸·Î ºÁµµ µÉ°Å °°¾Ò´Âµ¥.. ºÒ¾ÈÇØ¼­.. -_-;
-				//|| (*pFilterTemp & 0x001F)==0)	// 2002.3.26 Ãß°¡
+				// alphaê°’ì´ 0ì¸ ê²ƒì€ íˆ¬ëª…ìƒ‰ìœ¼ë¡œ ë´ë„ ë ê±° ê°™ì•˜ëŠ”ë°.. ë¶ˆì•ˆí•´ì„œ.. -_-;
+				//|| (*pFilterTemp & 0x001F)==0)	// 2002.3.26 ì¶”ê°€
 			{
-				// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô Åõ¸í»öÀÌ ¾Æ´Ï¾ú´Ù¸é
+				// ìµœê·¼ì— ê²€ì‚¬í•œê²Œ íˆ¬ëª…ìƒ‰ì´ ì•„ë‹ˆì—ˆë‹¤ë©´
 				if (!bCheckTrans)
 				{
-					// ' (Åõ¸í,»ö±ò¼ö,»ö±òµé) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
-					// »ö±òµéÀº (alpha,»ö±òµé)ÀÇ ÁıÇÕÀ» ÀÇ¹ÌÇÑ´Ù.
+					// ' (íˆ¬ëª…,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤) 'ì˜ í•œ setê°€ ëë‚¬ìŒì„ ì˜ë¯¸í•˜ë¯€ë¡œ
+					// ìƒ‰ê¹”ë“¤ì€ (alpha,ìƒ‰ê¹”ë“¤)ì˜ ì§‘í•©ì„ ì˜ë¯¸í•œë‹¤.
 					count++;
 					
-					// color°³¼ö ÀúÀå
+					// colorê°œìˆ˜ ì €ì¥
 					data[lastColorIndex] = color;
 					color = 0;
 
@@ -203,26 +203,26 @@ CAlphaSprite::SetPixel(WORD *pSource, WORD sourcePitch,
 			}
 			else
 			{
-				// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô Åõ¸í»öÀÌ¾ú´Ù¸é..
+				// ìµœê·¼ì— ê²€ì‚¬í•œê²Œ íˆ¬ëª…ìƒ‰ì´ì—ˆë‹¤ë©´..
 				if (bCheckTrans)
 				{						
-					data[index++] = trans;		// »óÀ§ byte¿¡ Åõ¸í¼ö¸¦ ³Ö´Â´Ù.
+					data[index++] = trans;		// ìƒìœ„ byteì— íˆ¬ëª…ìˆ˜ë¥¼ ë„£ëŠ”ë‹¤.
 					trans = 0;
 
-					lastColorIndex=index++;			// »ö±ò¼ö¸¦ ³ÖÀ» À§Ä¡¸¦ ±â¾ï					
+					lastColorIndex=index++;			// ìƒ‰ê¹”ìˆ˜ë¥¼ ë„£ì„ ìœ„ì¹˜ë¥¼ ê¸°ì–µ					
 
 					bCheckTrans = FALSE;
 				}
 
-				// alpha°ª ¸¸µé±â
+				// alphaê°’ ë§Œë“¤ê¸°
 				BYTE alpha;
 				WORD alpha2;				
-				alpha = (BYTE)(*pFilterTemp & 0x001F);	// Alpha°ª(Blue°ªÀ» ÅÃÇÑ´Ù.)
+				alpha = (BYTE)(*pFilterTemp & 0x001F);	// Alphaê°’(Blueê°’ì„ íƒí•œë‹¤.)
 				alpha2 = (alpha << 8) | (32-alpha);	// (Alpha:32-Alpha)
 
-				// ÀúÀå
-				data[index++] = alpha2;					// Alpha °ªÀ» ÀúÀåÇÑ´Ù.				
-				data[index++] = *pSourceTemp;			// ½ÇÁ¦ »ö±òÀ» ÀúÀåÇÑ´Ù.
+				// ì €ì¥
+				data[index++] = alpha2;					// Alpha ê°’ì„ ì €ì¥í•œë‹¤.				
+				data[index++] = *pSourceTemp;			// ì‹¤ì œ ìƒ‰ê¹”ì„ ì €ì¥í•œë‹¤.
 
 				color++;								
 			}
@@ -231,23 +231,23 @@ CAlphaSprite::SetPixel(WORD *pSource, WORD sourcePitch,
 			pFilterTemp++;
 		}
 		
-		// ÇÑ ÁÙÀÇ ¸¶Áö¸· Á¡ÀÌ Åõ¸í»öÀÎ°¡?
+		// í•œ ì¤„ì˜ ë§ˆì§€ë§‰ ì ì´ íˆ¬ëª…ìƒ‰ì¸ê°€?
 		if (bCheckTrans)
 		{
-			// Åõ¸í»öÀÌ¸é º°´Ù¸¥ Ã³¸®¸¦ ¾ÈÇØÁàµµ µÉ°Å °°´Ù.
+			// íˆ¬ëª…ìƒ‰ì´ë©´ ë³„ë‹¤ë¥¸ ì²˜ë¦¬ë¥¼ ì•ˆí•´ì¤˜ë„ ë ê±° ê°™ë‹¤.
 		}	
-		// Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì, Á¡ÀÇ °³¼ö¸¦ ÀúÀå½ÃÄÑÁà¾ß ÇÑ´Ù.
+		// íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°, ì ì˜ ê°œìˆ˜ë¥¼ ì €ì¥ì‹œì¼œì¤˜ì•¼ í•œë‹¤.
 		else
 		{			
 			count++;
 			data[lastColorIndex] = color;
 		}
 		
-		// memory¸¦ ´Ù½Ã Àâ´Â´Ù.
+		// memoryë¥¼ ë‹¤ì‹œ ì¡ëŠ”ë‹¤.
 		m_Pixels[i] = new WORD [index+1];
 
-		// m_Pixels[i]¸¦ ¾ĞÃàÇßÀ¸¹Ç·Î data·Î ´ëÃ¼ÇÑ´Ù.
-		// m_Pixels[i][0]¿¡´Â count¸¦ ³Ö¾î¾ß ÇÑ´Ù.
+		// m_Pixels[i]ë¥¼ ì••ì¶•í–ˆìœ¼ë¯€ë¡œ dataë¡œ ëŒ€ì²´í•œë‹¤.
+		// m_Pixels[i][0]ì—ëŠ” countë¥¼ ë„£ì–´ì•¼ í•œë‹¤.
 		m_Pixels[i][0] = count;
 		memcpy(m_Pixels[i]+1, data, index<<1);
 
@@ -271,29 +271,29 @@ CAlphaSprite::Uncompress()
 //----------------------------------------------------------------------
 // Is ColorPixel ?
 //----------------------------------------------------------------------
-// Sprite¾È¿¡¼­ (x,y)´Â »ö±òÀÌ ÀÖ´Â°¡?(Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì)
+// Spriteì•ˆì—ì„œ (x,y)ëŠ” ìƒ‰ê¹”ì´ ìˆëŠ”ê°€?(íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°)
 //----------------------------------------------------------------------
 bool		
 CAlphaSprite::IsColorPixel(short x, short y)
 {
-	// ÃÊ±âÈ­ µÈ °æ¿ì
+	// ì´ˆê¸°í™” ëœ ê²½ìš°
 	if (m_bInit)
 	{
-		// SpriteÀÇ ¿µ¿ªÀ» ¹ş¾î³ª¸é false
+		// Spriteì˜ ì˜ì—­ì„ ë²—ì–´ë‚˜ë©´ false
 		if (x<0 || y<0 || x>=m_Width || y>=m_Height)
 			return false;
 
-		// y¹øÂ° ÁÙ
+		// yë²ˆì§¸ ì¤„
 		WORD	*pPixels = m_Pixels[y];
 
-		// y¹øÂ° ÁÙÀÇ ¹İº¹ ¼ö
+		// yë²ˆì§¸ ì¤„ì˜ ë°˜ë³µ ìˆ˜
 		int	count = *pPixels++;
 
 		int	transCount, 
 				colorCount,
 				index = 0;
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			register int i = count;
@@ -304,18 +304,18 @@ CAlphaSprite::IsColorPixel(short x, short y)
 
 				index += transCount;
 
-				// ÀÌ¹ø loop¾È¿¡ Á¸ÀçÇÏ´Â Á¡
+				// ì´ë²ˆ loopì•ˆì— ì¡´ì¬í•˜ëŠ” ì 
 				if (x < index+colorCount)
 				{
-					// Åõ¸í»ö±îÁöº¸´Ù ÀûÀº °æ¿ì
+					// íˆ¬ëª…ìƒ‰ê¹Œì§€ë³´ë‹¤ ì ì€ ê²½ìš°
 					if (x < index)
 					{
 						int n = index - x;
 
-						// [pixel + alpha] * n ¸¸Å­ µÚÀÇ Á¡À» ÀĞ´Â´Ù.
+						// [pixel + alpha] * n ë§Œí¼ ë’¤ì˜ ì ì„ ì½ëŠ”ë‹¤.
 						pPixels += n<<1;
 
-						// alpha°ªÀ» ÀĞ´Â´Ù.
+						// alphaê°’ì„ ì½ëŠ”ë‹¤.
 						if ((*pPixels >> 8)!= 0)
 						{
 							return true;
@@ -324,7 +324,7 @@ CAlphaSprite::IsColorPixel(short x, short y)
 						return false;
 					}
 
-					// »ö±ò¿¡ ¼ÓÇÑ´Ù.
+					// ìƒ‰ê¹”ì— ì†í•œë‹¤.
 					return true;
 				}
 				
@@ -340,29 +340,29 @@ CAlphaSprite::IsColorPixel(short x, short y)
 //----------------------------------------------------------------------
 // Get Pixel ?
 //----------------------------------------------------------------------
-// Sprite¾È¿¡¼­ (x,y)´Â »ö±òÀ» ¾ò´Â´Ù.(Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì)
+// Spriteì•ˆì—ì„œ (x,y)ëŠ” ìƒ‰ê¹”ì„ ì–»ëŠ”ë‹¤.(íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°)
 //----------------------------------------------------------------------
 WORD		
 CAlphaSprite::GetPixel(int x, int y, int bColor) const
 {
-	// ÃÊ±âÈ­ µÈ °æ¿ì
+	// ì´ˆê¸°í™” ëœ ê²½ìš°
 	if (m_bInit)
 	{
-		// SpriteÀÇ ¿µ¿ªÀ» ¹ş¾î³ª¸é false
+		// Spriteì˜ ì˜ì—­ì„ ë²—ì–´ë‚˜ë©´ false
 		if (x<0 || y<0 || x>=m_Width || y>=m_Height)
 			return 0;
 
-		// y¹øÂ° ÁÙ
+		// yë²ˆì§¸ ì¤„
 		WORD	*pPixels = m_Pixels[y];
 
-		// y¹øÂ° ÁÙÀÇ ¹İº¹ ¼ö
+		// yë²ˆì§¸ ì¤„ì˜ ë°˜ë³µ ìˆ˜
 		int	count = *pPixels++;
 
 		int	transCount, 
 				colorCount,
 				index = 0;
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			register int i = count;
@@ -373,17 +373,17 @@ CAlphaSprite::GetPixel(int x, int y, int bColor) const
 
 				index += transCount;
 
-				// ÀÌ¹ø loop¾È¿¡ Á¸ÀçÇÏ´Â Á¡
+				// ì´ë²ˆ loopì•ˆì— ì¡´ì¬í•˜ëŠ” ì 
 				if (x < index+colorCount)
 				{
-					// Åõ¸í»ö±îÁöº¸´Ù ÀûÀº °æ¿ì
+					// íˆ¬ëª…ìƒ‰ê¹Œì§€ë³´ë‹¤ ì ì€ ê²½ìš°
 					if (x < index)
 					{
 						return 0;
 					}
 
-					// »ö±ò¿¡ ¼ÓÇÑ´Ù.
-					// AlphaChannel°ªÀÌ ÀÖ±â ¶§¹®¿¡...
+					// ìƒ‰ê¹”ì— ì†í•œë‹¤.
+					// AlphaChannelê°’ì´ ìˆê¸° ë•Œë¬¸ì—...
 					return pPixels[((x-index)<<1)+bColor];
 				}
 				
@@ -399,10 +399,10 @@ CAlphaSprite::GetPixel(int x, int y, int bColor) const
 //----------------------------------------------------------------------
 // AlphaChannel Copy
 //----------------------------------------------------------------------
-// Alpha°ª : 1~32
+// Alphaê°’ : 1~32
 //----------------------------------------------------------------------
-// pSourceÀÇ °ÍÀ» pDest¿¡ Ãâ·ÂÀ» ÇØ¾ßÇÑ´Ù.
-// pSourceÀÇ ±¸¼ºÀº (alpha,»ö±ò ÇÏ³ª)ÀÇ pixels¸¸Å­ ¹İº¹ÀÌ´Ù.
+// pSourceì˜ ê²ƒì„ pDestì— ì¶œë ¥ì„ í•´ì•¼í•œë‹¤.
+// pSourceì˜ êµ¬ì„±ì€ (alpha,ìƒ‰ê¹” í•˜ë‚˜)ì˜ pixelsë§Œí¼ ë°˜ë³µì´ë‹¤.
 //----------------------------------------------------------------------
 void	
 CAlphaSprite::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
@@ -416,14 +416,14 @@ CAlphaSprite::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 	BYTE alpha;
 
 	// Alpha Channel Blending
-	// ÇÑÁ¡¾¿ Âï±â
+	// í•œì ì”© ì°ê¸°
 	while (i--)
 	{	
-		// Source¿¡´Â Alpha°ªÀÌ Æ÷ÇÔµÇ¾î ÀÖ´Ù.
+		// Sourceì—ëŠ” Alphaê°’ì´ í¬í•¨ë˜ì–´ ìˆë‹¤.
 		alpha = *pSource >> 8;
 		pSource++;
 
-		// ÇÑÁ¡ Âï±â
+		// í•œì  ì°ê¸°
 		sTemp = *pSource;
 		dTemp = *pDest;
 
@@ -440,7 +440,7 @@ CAlphaSprite::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 					(((sr - dr)*alpha >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
 	
 		/*
-		// À×... ÀÌ°Ô ´õ ´À¸®´Ù.. ¿Ö ±×·¸Áö.. - -;;;
+		// ì‰... ì´ê²Œ ë” ëŠë¦¬ë‹¤.. ì™œ ê·¸ë ‡ì§€.. - -;;;
 		temp = sb-db;
 		temp *= alpha;
 		temp >>= 5;
@@ -475,12 +475,12 @@ CAlphaSprite::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // AlphaChannel Copy  4444
 //----------------------------------------------------------------------
-// Alpha°ª : 1~32
+// Alphaê°’ : 1~32
 //----------------------------------------------------------------------
-// pSourceÀÇ °ÍÀ» pDest¿¡ Ãâ·ÂÀ» ÇØ¾ßÇÑ´Ù.
-// pSourceÀÇ ±¸¼ºÀº (alpha,»ö±ò ÇÏ³ª)ÀÇ pixels¸¸Å­ ¹İº¹ÀÌ´Ù.
+// pSourceì˜ ê²ƒì„ pDestì— ì¶œë ¥ì„ í•´ì•¼í•œë‹¤.
+// pSourceì˜ êµ¬ì„±ì€ (alpha,ìƒ‰ê¹” í•˜ë‚˜)ì˜ pixelsë§Œí¼ ë°˜ë³µì´ë‹¤.
 //
-// A:R:G:B = 4:4:4:4 Texture¸¦ À§ÇÑ °ÍÀÌ´Ù.
+// A:R:G:B = 4:4:4:4 Textureë¥¼ ìœ„í•œ ê²ƒì´ë‹¤.
 //----------------------------------------------------------------------
 void	
 CAlphaSprite::memcpyAlpha4444(WORD* pDest, WORD* pSource, WORD pixels)
@@ -494,14 +494,14 @@ CAlphaSprite::memcpyAlpha4444(WORD* pDest, WORD* pSource, WORD pixels)
 	BYTE alpha;
 
 	// Alpha Channel Blending
-	// ÇÑÁ¡¾¿ Âï±â
+	// í•œì ì”© ì°ê¸°
 	while (i--)
 	{	
-		// Source¿¡´Â Alpha°ªÀÌ Æ÷ÇÔµÇ¾î ÀÖ´Ù.
+		// Sourceì—ëŠ” Alphaê°’ì´ í¬í•¨ë˜ì–´ ìˆë‹¤.
 		alpha = *pSource >> 9;	//	alpha = (*pSource >> 8) >> 1;
 		pSource++;
 
-		// ÇÑÁ¡ Âï±â
+		// í•œì  ì°ê¸°
 		sTemp = *pSource;
 	
 		sr = (sTemp >> CDirectDraw::s_bSHIFT4_R);// & 0x0F;
@@ -521,7 +521,7 @@ CAlphaSprite::memcpyAlpha4444(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // BltClip
 //----------------------------------------------------------------------
-// pRectÀÇ ¿µ¿ª¸¸ Ãâ·ÂÇÑ´Ù.
+// pRectì˜ ì˜ì—­ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::BltClip(WORD* pDest, WORD pitch, RECT* pRect)
@@ -530,13 +530,13 @@ CAlphaSprite::BltClip(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------	
-	// Ã¹ Á¡ (x,y)
+	// ì²« ì  (x,y)
 	//--------------------------------------------
 	pDest = (WORD*)((BYTE*)pDest + pitch*pRect->top + pRect->left);
 	//WORD width = ((pRect->right - pRect->left)<<1);
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -555,56 +555,56 @@ CAlphaSprite::BltClip(WORD* pDest, WORD pitch, RECT* pRect)
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		bPut = (pRect->left==0)? TRUE:FALSE;
 		index = 0;
 			
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxxOOOOOOOOOOOOOO ÀÌ°Å³ª  (x:Ãâ·Â¾ÈÇÔ, O:Ãâ·ÂÇÔ)
-		// OOOOOOOOOOOOOOxxxxx ÀÌ°Å.. µÎ °¡Áö °æ¿ì´Ù.			
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxxOOOOOOOOOOOOOO ì´ê±°ë‚˜  (x:ì¶œë ¥ì•ˆí•¨, O:ì¶œë ¥í•¨)
+		// OOOOOOOOOOOOOOxxxxx ì´ê±°.. ë‘ ê°€ì§€ ê²½ìš°ë‹¤.			
 		if (count > 0)
 		{
 			j = count;
 			do 
 			{				
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 				//lpSurfaceTemp += transCount;
 				index += transCount;
 
-				// Ãâ·ÂÇØµµ µÇ´Â °æ¿ì¿¡´Â Ãâ·ÂÇÑ´Ù.
+				// ì¶œë ¥í•´ë„ ë˜ëŠ” ê²½ìš°ì—ëŠ” ì¶œë ¥í•œë‹¤.
 				if (bPut)
 				{
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+					// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 					if (index > pRect->right)
 						break;
 
 					pDestTemp += transCount;
 
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 					if (index+colorCount > pRect->right)
 					{							
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						memcpyAlpha(pDestTemp, pPixels, pRect->right - index);
 						break;
 					}						
 
-					// ¸ğµÎ Ãâ·Â
+					// ëª¨ë‘ ì¶œë ¥
 					memcpyAlpha(pDestTemp, pPixels, colorCount);
 					pDestTemp += colorCount;
 				}				
-				// Ãâ·ÂÇÏ¸é ¾È µÉ °æ¿ì(ÁÙÀÇ ¿ŞÂÊºÎºĞ)¿¡´Â Ãâ·ÂÇØµµ µÇ´ÂÁö È®ÀÎÇØº»´Ù.
+				// ì¶œë ¥í•˜ë©´ ì•ˆ ë  ê²½ìš°(ì¤„ì˜ ì™¼ìª½ë¶€ë¶„)ì—ëŠ” ì¶œë ¥í•´ë„ ë˜ëŠ”ì§€ í™•ì¸í•´ë³¸ë‹¤.
 				else
 				{
-					// Åõ¸í»ö¸¸À¸·Î ¹üÀ§¸¦ ³Ñ¾î°¬À¸¹Ç·Î ¸ğµÎ Ãâ·Â
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë²”ìœ„ë¥¼ ë„˜ì–´ê°”ìœ¼ë¯€ë¡œ ëª¨ë‘ ì¶œë ¥
 					if (index > pRect->left)
 					{	
 						pDestTemp += index - pRect->left;
@@ -617,16 +617,16 @@ CAlphaSprite::BltClip(WORD* pDest, WORD pitch, RECT* pRect)
 					{
 						dist = pRect->left - index;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						memcpyAlpha(pDestTemp, pPixels+dist, colorCount-dist);
 						pDestTemp += colorCount-dist;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						bPut = TRUE;
 					}
 				}				
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				pPixels += (colorCount<<1);		
 
 				index += colorCount;
@@ -640,7 +640,7 @@ CAlphaSprite::BltClip(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt
 //----------------------------------------------------------------------
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::Blt(WORD *pDest, WORD pitch)
@@ -665,24 +665,24 @@ CAlphaSprite::Blt(WORD *pDest, WORD pitch)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+			// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 			count	= *pPixels++;		
 
-			// ÇÑ ÁÙ Ãâ·Â
+			// í•œ ì¤„ ì¶œë ¥
 			if (count > 0)
 			{			
 				j = count;
 				do
 				{
-					pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+					pDestTemp += *pPixels++;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					memcpyAlpha(pDestTemp, pPixels, colorCount);
 					
 					pDestTemp	+= colorCount;
 
-					// ½ÇÁ¦ Á¡ °³¼ö´Â alpha°ª ¶§¹®¿¡ 2¹èÀÌ´Ù.
+					// ì‹¤ì œ ì  ê°œìˆ˜ëŠ” alphaê°’ ë•Œë¬¸ì— 2ë°°ì´ë‹¤.
 					pPixels		+= (colorCount<<1);
 				} while (--j);
 			}
@@ -695,8 +695,8 @@ CAlphaSprite::Blt(WORD *pDest, WORD pitch)
 //----------------------------------------------------------------------
 // Blt ClipLeft
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// rectLeft°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// rectLeftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
@@ -705,7 +705,7 @@ CAlphaSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -720,99 +720,99 @@ CAlphaSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectLeft = pRect->left;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += index - rectLeft;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						memcpyAlpha(pDestTemp, pPixels, colorCount);
 						pDestTemp += colorCount;
 						pPixels += (colorCount<<1);
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = rectLeft - index;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						memcpyAlpha(pDestTemp, pPixels+(dist<<1), colorCount-dist);
 						pDestTemp += colorCount-dist;
 						pPixels += (colorCount<<1);
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				pPixels += (colorCount<<1);
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.		
 			//---------------------------------------------		
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					pDestTemp += transCount;			
 					
-					// Åõ¸í»öÀÌ ¾Æ´Ñ¸¸Å­ Ãâ·ÂÇØÁØ´Ù.
+					// íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œë§Œí¼ ì¶œë ¥í•´ì¤€ë‹¤.
 					memcpyAlpha(pDestTemp, pPixels, colorCount);
 
-					// memory addr Áõ°¡
+					// memory addr ì¦ê°€
 					pDestTemp += colorCount;
 					pPixels += (colorCount<<1);
 				} while (--j);
@@ -827,8 +827,8 @@ CAlphaSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt ClipRight
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ clipping.  
-// rectRight°³ ±îÁöÀÇ Á¡¸¸ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì˜¤ë¥¸ìª½ clipping.  
+// rectRightê°œ ê¹Œì§€ì˜ ì ë§Œ pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
@@ -837,7 +837,7 @@ CAlphaSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -855,60 +855,60 @@ CAlphaSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+		// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 		//---------------------------------------------
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+				// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 				//---------------------------------------------
-				// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+				// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 				//---------------------------------------------			
 				if (index+colorCount > rectRight)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 					if (index > rectRight)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 					else
 					{
 						pDestTemp += transCount;
 					
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						memcpyAlpha(pDestTemp, pPixels, rectRight - index);
 						break;
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 				pDestTemp += transCount;
 
-				// Ãâ·Â
+				// ì¶œë ¥
 				memcpyAlpha(pDestTemp, pPixels, colorCount);
 				pDestTemp += colorCount;
 				pPixels += (colorCount<<1);
@@ -923,9 +923,9 @@ CAlphaSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt ClipWidth
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// rectLeft°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
-// rectRight±îÁö..
+// ì™¼ìª½ clipping.  
+// rectLeftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
+// rectRightê¹Œì§€..
 //----------------------------------------------------------------------
 void
 CAlphaSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
@@ -934,7 +934,7 @@ CAlphaSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -950,56 +950,56 @@ CAlphaSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectRight = pRect->right;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += index - rectLeft;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > rectRight)
 						{							
-							// Åõ¸í»ö¸¸À¸·Î ¿À¸¥ÂÊ ³¡ ³Ñ¾î°¡´Â °æ¿ì
+							// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ì˜¤ë¥¸ìª½ ë ë„˜ì–´ê°€ëŠ” ê²½ìš°
 							if (index > rectRight)
 							{
 							}
@@ -1018,19 +1018,19 @@ CAlphaSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 						pPixels += (colorCount<<1);
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = rectLeft - index;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > rectRight)
 						{
 							memcpyAlpha(pDestTemp, pPixels+(dist<<1), (rectRight - rectLeft));
@@ -1043,62 +1043,62 @@ CAlphaSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 						pPixels += (colorCount<<1);
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				pPixels += (colorCount<<1);
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+			// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+					// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 					//---------------------------------------------
-					// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+					// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 					//---------------------------------------------			
 					if (index+colorCount > rectRight)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 						if (index > rectRight)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 						else
 						{
 							pDestTemp += transCount;
 						
-							// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+							// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 							memcpyAlpha(pDestTemp, pPixels, rectRight - index);
 							break;
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 					pDestTemp += transCount;
 
-					// Ãâ·Â
+					// ì¶œë ¥
 					memcpyAlpha(pDestTemp, pPixels, colorCount);
 					pDestTemp += colorCount;
 					pPixels += (colorCount<<1);
@@ -1114,7 +1114,7 @@ CAlphaSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt Clip Height
 //----------------------------------------------------------------------
-// pRect->top, rectBottom¸¸Å­¸¸ Ãâ·ÂÇÑ´Ù.
+// pRect->top, rectBottomë§Œí¼ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
@@ -1136,20 +1136,20 @@ CAlphaSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+				pDestTemp += *pPixels++;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 				memcpyAlpha(pDestTemp, pPixels, colorCount);
 				
 				pDestTemp	+= colorCount;
@@ -1164,7 +1164,7 @@ CAlphaSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt4444
 //----------------------------------------------------------------------
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::Blt4444(WORD *pDest, WORD pitch)
@@ -1190,25 +1190,25 @@ CAlphaSprite::Blt4444(WORD *pDest, WORD pitch)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+			// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 			count	= *pPixels++;		
 
-			// ÇÑ ÁÙ Ãâ·Â
-			// ÇÑ ÁÙ Ãâ·Â
+			// í•œ ì¤„ ì¶œë ¥
+			// í•œ ì¤„ ì¶œë ¥
 			if (count > 0)
 			{			
 				j = count;
 				do
 				{				
-					pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+					pDestTemp += *pPixels++;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 					
 					pDestTemp	+= colorCount;
 
-					// ½ÇÁ¦ Á¡ °³¼ö´Â alpha°ª ¶§¹®¿¡ 2¹èÀÌ´Ù.
+					// ì‹¤ì œ ì  ê°œìˆ˜ëŠ” alphaê°’ ë•Œë¬¸ì— 2ë°°ì´ë‹¤.
 					pPixels		+= (colorCount<<1);
 				} while (--j);
 			}
@@ -1221,8 +1221,8 @@ CAlphaSprite::Blt4444(WORD *pDest, WORD pitch)
 //----------------------------------------------------------------------
 // Blt4444 ClipLeft
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// rectLeft°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// rectLeftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::Blt4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
@@ -1231,7 +1231,7 @@ CAlphaSprite::Blt4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -1246,99 +1246,99 @@ CAlphaSprite::Blt4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectLeft = pRect->left;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += index - rectLeft;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 						pDestTemp += colorCount;
 						pPixels += (colorCount<<1);
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = rectLeft - index;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						memcpyAlpha4444(pDestTemp, pPixels+(dist<<1), colorCount-dist);
 						pDestTemp += colorCount-dist;
 						pPixels += (colorCount<<1);
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				pPixels += (colorCount<<1);
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.		
 			//---------------------------------------------		
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					pDestTemp += transCount;			
 					
-					// Åõ¸í»öÀÌ ¾Æ´Ñ¸¸Å­ Ãâ·ÂÇØÁØ´Ù.
+					// íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œë§Œí¼ ì¶œë ¥í•´ì¤€ë‹¤.
 					memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 
-					// memory addr Áõ°¡
+					// memory addr ì¦ê°€
 					pDestTemp += colorCount;
 					pPixels += (colorCount<<1);
 				} while (--j);
@@ -1353,8 +1353,8 @@ CAlphaSprite::Blt4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt4444 ClipRight
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ clipping.  
-// rectRight°³ ±îÁöÀÇ Á¡¸¸ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì˜¤ë¥¸ìª½ clipping.  
+// rectRightê°œ ê¹Œì§€ì˜ ì ë§Œ pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::Blt4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect)
@@ -1363,7 +1363,7 @@ CAlphaSprite::Blt4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -1381,60 +1381,60 @@ CAlphaSprite::Blt4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+		// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 		//---------------------------------------------
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+				// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 				//---------------------------------------------
-				// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+				// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 				//---------------------------------------------			
 				if (index+colorCount > rectRight)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 					if (index > rectRight)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 					else
 					{
 						pDestTemp += transCount;
 					
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						memcpyAlpha4444(pDestTemp, pPixels, rectRight - index);
 						break;
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 				pDestTemp += transCount;
 
-				// Ãâ·Â
+				// ì¶œë ¥
 				memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 				pDestTemp += colorCount;
 				pPixels += (colorCount<<1);
@@ -1449,9 +1449,9 @@ CAlphaSprite::Blt4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt4444 ClipWidth
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// rectLeft°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
-// rectRight±îÁö..
+// ì™¼ìª½ clipping.  
+// rectLeftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
+// rectRightê¹Œì§€..
 //----------------------------------------------------------------------
 void
 CAlphaSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
@@ -1460,7 +1460,7 @@ CAlphaSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -1476,130 +1476,130 @@ CAlphaSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectRight = pRect->right;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += index - rectLeft;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 						pDestTemp += colorCount;
 						pPixels += (colorCount<<1);
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = rectLeft - index;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						memcpyAlpha4444(pDestTemp, pPixels+(dist<<1), colorCount-dist);
 						pDestTemp += colorCount-dist;
 						pPixels += (colorCount<<1);
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				pPixels += (colorCount<<1);
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+			// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+					// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 					//---------------------------------------------
-					// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+					// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 					//---------------------------------------------			
 					if (index+colorCount > rectRight)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 						if (index > rectRight)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 						else
 						{
 							pDestTemp += transCount;
 						
-							// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+							// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 							memcpyAlpha4444(pDestTemp, pPixels, rectRight - index);
 							break;
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 					pDestTemp += transCount;
 
-					// Ãâ·Â
+					// ì¶œë ¥
 					memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 					pDestTemp += colorCount;
 					pPixels += (colorCount<<1);
@@ -1615,7 +1615,7 @@ CAlphaSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt4444 Clip Height
 //----------------------------------------------------------------------
-// pRect->top, rectBottom¸¸Å­¸¸ Ãâ·ÂÇÑ´Ù.
+// pRect->top, rectBottomë§Œí¼ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::Blt4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
@@ -1637,20 +1637,20 @@ CAlphaSprite::Blt4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{	
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+				pDestTemp += *pPixels++;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 				memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 				
 				pDestTemp	+= colorCount;
@@ -1666,7 +1666,7 @@ CAlphaSprite::Blt4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt4444NotTrans
 //----------------------------------------------------------------------
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::Blt4444NotTrans(WORD *pDest, WORD pitch)
@@ -1693,28 +1693,28 @@ CAlphaSprite::Blt4444NotTrans(WORD *pDest, WORD pitch)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+			// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 			count	= *pPixels++;		
 
-			// ÇÑ ÁÙ Ãâ·Â
+			// í•œ ì¤„ ì¶œë ¥
 			if (count > 0)
 			{			
 				j = count;
 				do
 				{		
 					transCount = *pPixels++;					
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-					// 0À» Ãâ·ÂÇÑ´Ù.
+					// 0ì„ ì¶œë ¥í•œë‹¤.
 					memset(pDestTemp, 0, transCount<<1);
-					pDestTemp += transCount;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					pDestTemp += transCount;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 					
 					pDestTemp	+= colorCount;
 
-					// ½ÇÁ¦ Á¡ °³¼ö´Â alpha°ª ¶§¹®¿¡ 2¹èÀÌ´Ù.
+					// ì‹¤ì œ ì  ê°œìˆ˜ëŠ” alphaê°’ ë•Œë¬¸ì— 2ë°°ì´ë‹¤.
 					pPixels		+= (colorCount<<1);
 				} while (--j);
 			}
@@ -1727,8 +1727,8 @@ CAlphaSprite::Blt4444NotTrans(WORD *pDest, WORD pitch)
 //----------------------------------------------------------------------
 // Blt4444NotTrans ClipLeft
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// rectLeft°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// rectLeftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::Blt4444NotTransClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
@@ -1737,7 +1737,7 @@ CAlphaSprite::Blt4444NotTransClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -1752,103 +1752,103 @@ CAlphaSprite::Blt4444NotTransClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectLeft = pRect->left;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö							
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜							
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
-						// 0À» Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
+						// 0ì„ ì¶œë ¥í•œë‹¤.
 						transCount = index - rectLeft;
 						memset(pDestTemp, 0, transCount<<1);
-						pDestTemp += transCount;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+						pDestTemp += transCount;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 						
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 						pDestTemp += colorCount;
 						pPixels += (colorCount<<1);
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = rectLeft - index;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						memcpyAlpha4444(pDestTemp, pPixels+(dist<<1), colorCount-dist);
 						pDestTemp += colorCount-dist;
 						pPixels += (colorCount<<1);
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				pPixels += (colorCount<<1);
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.		
 			//---------------------------------------------		
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// 0À» Ãâ·ÂÇÑ´Ù.
+					// 0ì„ ì¶œë ¥í•œë‹¤.
 					memset(pDestTemp, 0, transCount<<1);
-					pDestTemp += transCount;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					pDestTemp += transCount;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					
-					// Åõ¸í»öÀÌ ¾Æ´Ñ¸¸Å­ Ãâ·ÂÇØÁØ´Ù.
+					// íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œë§Œí¼ ì¶œë ¥í•´ì¤€ë‹¤.
 					memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 
-					// memory addr Áõ°¡
+					// memory addr ì¦ê°€
 					pDestTemp += colorCount;
 					pPixels += (colorCount<<1);
 				} while (--j);
@@ -1863,8 +1863,8 @@ CAlphaSprite::Blt4444NotTransClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt4444NotTrans ClipRight
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ clipping.  
-// rectRight°³ ±îÁöÀÇ Á¡¸¸ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì˜¤ë¥¸ìª½ clipping.  
+// rectRightê°œ ê¹Œì§€ì˜ ì ë§Œ pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::Blt4444NotTransClipRight(WORD* pDest, WORD pitch, RECT* pRect)
@@ -1873,7 +1873,7 @@ CAlphaSprite::Blt4444NotTransClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -1891,63 +1891,63 @@ CAlphaSprite::Blt4444NotTransClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+		// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 		//---------------------------------------------
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+				// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 				//---------------------------------------------
-				// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+				// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 				//---------------------------------------------			
 				if (index+colorCount > rectRight)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 					if (index > rectRight)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 					else
 					{
-						// 0À» Ãâ·ÂÇÑ´Ù.
+						// 0ì„ ì¶œë ¥í•œë‹¤.
 						memset(pDestTemp, 0, transCount<<1);
-						pDestTemp += transCount;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+						pDestTemp += transCount;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						memcpyAlpha4444(pDestTemp, pPixels, rectRight - index);
 						break;
 					}
 				}
 
-				// 0À» Ãâ·ÂÇÑ´Ù.
+				// 0ì„ ì¶œë ¥í•œë‹¤.
 				memset(pDestTemp, 0, transCount<<1);
-				pDestTemp += transCount;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+				pDestTemp += transCount;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 
-				// Ãâ·Â
+				// ì¶œë ¥
 				memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 				pDestTemp += colorCount;
 				pPixels += (colorCount<<1);
@@ -1962,9 +1962,9 @@ CAlphaSprite::Blt4444NotTransClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt4444NotTrans ClipWidth
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// rectLeft°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
-// rectRight±îÁö..
+// ì™¼ìª½ clipping.  
+// rectLeftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
+// rectRightê¹Œì§€..
 //----------------------------------------------------------------------
 void
 CAlphaSprite::Blt4444NotTransClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
@@ -1973,7 +1973,7 @@ CAlphaSprite::Blt4444NotTransClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -1989,135 +1989,135 @@ CAlphaSprite::Blt4444NotTransClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectRight = pRect->right;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
 						transCount = index - rectLeft;
-						// 0À» Ãâ·ÂÇÑ´Ù.
+						// 0ì„ ì¶œë ¥í•œë‹¤.
 						memset(pDestTemp, 0, transCount<<1);
-						pDestTemp += transCount;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+						pDestTemp += transCount;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 						pDestTemp += colorCount;
 						pPixels += (colorCount<<1);
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = rectLeft - index;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						memcpyAlpha4444(pDestTemp, pPixels+(dist<<1), colorCount-dist);
 						pDestTemp += colorCount-dist;
 						pPixels += (colorCount<<1);
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				pPixels += (colorCount<<1);
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+			// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+					// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 					//---------------------------------------------
-					// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+					// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 					//---------------------------------------------			
 					if (index+colorCount > rectRight)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 						if (index > rectRight)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 						else
 						{
-							// 0À» Ãâ·ÂÇÑ´Ù.
+							// 0ì„ ì¶œë ¥í•œë‹¤.
 							memset(pDestTemp, 0, transCount<<1);
-							pDestTemp += transCount;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+							pDestTemp += transCount;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 						
-							// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+							// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 							memcpyAlpha4444(pDestTemp, pPixels, rectRight - index);
 							break;
 						}
 					}
 
-					// 0À» Ãâ·ÂÇÑ´Ù.
+					// 0ì„ ì¶œë ¥í•œë‹¤.
 					memset(pDestTemp, 0, transCount<<1);
-					pDestTemp += transCount;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					pDestTemp += transCount;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 
-					// Ãâ·Â
+					// ì¶œë ¥
 					memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 					pDestTemp += colorCount;
 					pPixels += (colorCount<<1);
@@ -2133,7 +2133,7 @@ CAlphaSprite::Blt4444NotTransClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt4444NotTrans Clip Height
 //----------------------------------------------------------------------
-// pRect->top, rectBottom¸¸Å­¸¸ Ãâ·ÂÇÑ´Ù.
+// pRect->top, rectBottomë§Œí¼ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::Blt4444NotTransClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
@@ -2156,24 +2156,24 @@ CAlphaSprite::Blt4444NotTransClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{	
-				transCount = *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-				// 0À» Ãâ·ÂÇÑ´Ù.
+				// 0ì„ ì¶œë ¥í•œë‹¤.
 				memset(pDestTemp, 0, transCount<<1);
-				pDestTemp += transCount;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+				pDestTemp += transCount;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 				memcpyAlpha4444(pDestTemp, pPixels, colorCount);
 				
 				pDestTemp	+= colorCount;
@@ -2189,7 +2189,7 @@ CAlphaSprite::Blt4444NotTransClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // BltAlpha
 //----------------------------------------------------------------------
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::BltAlpha(WORD *pDest, WORD pitch, BYTE alpha)
@@ -2216,24 +2216,24 @@ CAlphaSprite::BltAlpha(WORD *pDest, WORD pitch, BYTE alpha)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+			// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 			count	= *pPixels++;		
 
-			// ÇÑ ÁÙ Ãâ·Â
+			// í•œ ì¤„ ì¶œë ¥
 			if (count > 0)
 			{			
 				j = count;
 				do
 				{
-					pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+					pDestTemp += *pPixels++;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					memcpyAlphaValue(pDestTemp, pPixels, colorCount);
 					
 					pDestTemp	+= colorCount;
 
-					// ½ÇÁ¦ Á¡ °³¼ö´Â alpha°ª ¶§¹®¿¡ 2¹èÀÌ´Ù.
+					// ì‹¤ì œ ì  ê°œìˆ˜ëŠ” alphaê°’ ë•Œë¬¸ì— 2ë°°ì´ë‹¤.
 					pPixels		+= (colorCount<<1);
 				} while (--j);
 			}
@@ -2246,8 +2246,8 @@ CAlphaSprite::BltAlpha(WORD *pDest, WORD pitch, BYTE alpha)
 //----------------------------------------------------------------------
 // BltAlpha ClipLeft
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// rectLeft°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// rectLeftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::BltAlphaClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha)
@@ -2258,7 +2258,7 @@ CAlphaSprite::BltAlphaClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -2273,99 +2273,99 @@ CAlphaSprite::BltAlphaClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha)
 	int rectLeft = pRect->left;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += index - rectLeft;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						memcpyAlphaValue(pDestTemp, pPixels, colorCount);
 						pDestTemp += colorCount;
 						pPixels += (colorCount<<1);
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = rectLeft - index;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						memcpyAlphaValue(pDestTemp, pPixels+(dist<<1), colorCount-dist);
 						pDestTemp += colorCount-dist;
 						pPixels += (colorCount<<1);
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				pPixels += (colorCount<<1);
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.		
 			//---------------------------------------------		
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					pDestTemp += transCount;			
 					
-					// Åõ¸í»öÀÌ ¾Æ´Ñ¸¸Å­ Ãâ·ÂÇØÁØ´Ù.
+					// íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œë§Œí¼ ì¶œë ¥í•´ì¤€ë‹¤.
 					memcpyAlphaValue(pDestTemp, pPixels, colorCount);
 
-					// memory addr Áõ°¡
+					// memory addr ì¦ê°€
 					pDestTemp += colorCount;
 					pPixels += (colorCount<<1);
 				} while (--j);
@@ -2380,8 +2380,8 @@ CAlphaSprite::BltAlphaClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha)
 //----------------------------------------------------------------------
 // BltAlpha ClipRight
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ clipping.  
-// rectRight°³ ±îÁöÀÇ Á¡¸¸ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì˜¤ë¥¸ìª½ clipping.  
+// rectRightê°œ ê¹Œì§€ì˜ ì ë§Œ pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::BltAlphaClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha)
@@ -2392,7 +2392,7 @@ CAlphaSprite::BltAlphaClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -2410,60 +2410,60 @@ CAlphaSprite::BltAlphaClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+		// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 		//---------------------------------------------
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+				// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 				//---------------------------------------------
-				// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+				// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 				//---------------------------------------------			
 				if (index+colorCount > rectRight)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 					if (index > rectRight)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 					else
 					{
 						pDestTemp += transCount;
 					
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						memcpyAlphaValue(pDestTemp, pPixels, rectRight - index);
 						break;
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 				pDestTemp += transCount;
 
-				// Ãâ·Â
+				// ì¶œë ¥
 				memcpyAlphaValue(pDestTemp, pPixels, colorCount);
 				pDestTemp += colorCount;
 				pPixels += (colorCount<<1);
@@ -2478,9 +2478,9 @@ CAlphaSprite::BltAlphaClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha
 //----------------------------------------------------------------------
 // BltAlpha ClipWidth
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// rectLeft°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
-// rectRight±îÁö..
+// ì™¼ìª½ clipping.  
+// rectLeftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
+// rectRightê¹Œì§€..
 //----------------------------------------------------------------------
 void
 CAlphaSprite::BltAlphaClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha)
@@ -2491,7 +2491,7 @@ CAlphaSprite::BltAlphaClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -2507,56 +2507,56 @@ CAlphaSprite::BltAlphaClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha
 	int rectRight = pRect->right;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += index - rectLeft;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > rectRight)
 						{							
-							// Åõ¸í»ö¸¸À¸·Î ¿À¸¥ÂÊ ³¡ ³Ñ¾î°¡´Â °æ¿ì
+							// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ì˜¤ë¥¸ìª½ ë ë„˜ì–´ê°€ëŠ” ê²½ìš°
 							if (index > rectRight)
 							{
 							}
@@ -2576,19 +2576,19 @@ CAlphaSprite::BltAlphaClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha
 						pPixels += (colorCount<<1);
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = rectLeft - index;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > rectRight)
 						{
 							memcpyAlphaValue(pDestTemp, pPixels+(dist<<1), (rectRight - rectLeft));
@@ -2602,62 +2602,62 @@ CAlphaSprite::BltAlphaClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha
 						pPixels += (colorCount<<1);
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				pPixels += (colorCount<<1);
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+			// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+					// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 					//---------------------------------------------
-					// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+					// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 					//---------------------------------------------			
 					if (index+colorCount > rectRight)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 						if (index > rectRight)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 						else
 						{
 							pDestTemp += transCount;
 						
-							// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+							// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 							memcpyAlphaValue(pDestTemp, pPixels, rectRight - index);
 							break;
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 					pDestTemp += transCount;
 
-					// Ãâ·Â
+					// ì¶œë ¥
 					memcpyAlphaValue(pDestTemp, pPixels, colorCount);
 					pDestTemp += colorCount;
 					pPixels += (colorCount<<1);
@@ -2673,7 +2673,7 @@ CAlphaSprite::BltAlphaClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha
 //----------------------------------------------------------------------
 // BltAlpha Clip Height
 //----------------------------------------------------------------------
-// pRect->top, rectBottom¸¸Å­¸¸ Ãâ·ÂÇÑ´Ù.
+// pRect->top, rectBottomë§Œí¼ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CAlphaSprite::BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha)
@@ -2697,20 +2697,20 @@ CAlphaSprite::BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alph
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+				pDestTemp += *pPixels++;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 				memcpyAlphaValue(pDestTemp, pPixels, colorCount);
 				
 				pDestTemp	+= colorCount;
@@ -2726,10 +2726,10 @@ CAlphaSprite::BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alph
 //----------------------------------------------------------------------
 // AlphaChannel Copy
 //----------------------------------------------------------------------
-// Alpha°ª : 1~32
+// Alphaê°’ : 1~32
 //----------------------------------------------------------------------
-// pSourceÀÇ °ÍÀ» pDest¿¡ Ãâ·ÂÀ» ÇØ¾ßÇÑ´Ù.
-// pSourceÀÇ ±¸¼ºÀº (alpha,»ö±ò ÇÏ³ª)ÀÇ pixels¸¸Å­ ¹İº¹ÀÌ´Ù.
+// pSourceì˜ ê²ƒì„ pDestì— ì¶œë ¥ì„ í•´ì•¼í•œë‹¤.
+// pSourceì˜ êµ¬ì„±ì€ (alpha,ìƒ‰ê¹” í•˜ë‚˜)ì˜ pixelsë§Œí¼ ë°˜ë³µì´ë‹¤.
 //----------------------------------------------------------------------
 void	
 CAlphaSprite::memcpyAlphaValue(WORD* pDest, WORD* pSource, WORD pixels)
@@ -2743,14 +2743,14 @@ CAlphaSprite::memcpyAlphaValue(WORD* pDest, WORD* pSource, WORD pixels)
 	//BYTE alpha;
 
 	// Alpha Channel Blending
-	// ÇÑÁ¡¾¿ Âï±â
+	// í•œì ì”© ì°ê¸°
 	while (i--)
 	{	
-		// Source¿¡´Â Alpha°ªÀÌ Æ÷ÇÔµÇ¾î ÀÖ´Ù.
+		// Sourceì—ëŠ” Alphaê°’ì´ í¬í•¨ë˜ì–´ ìˆë‹¤.
 		//alpha = *pSource >> 8;
 		pSource++;
 
-		// ÇÑÁ¡ Âï±â
+		// í•œì  ì°ê¸°
 		sTemp = *pSource;
 		dTemp = *pDest;
 
@@ -2767,7 +2767,7 @@ CAlphaSprite::memcpyAlphaValue(WORD* pDest, WORD* pSource, WORD pixels)
 					((s_Value1 * (sr - dr) >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
 	
 		/*
-		// À×... ÀÌ°Ô ´õ ´À¸®´Ù.. ¿Ö ±×·¸Áö.. - -;;;
+		// ì‰... ì´ê²Œ ë” ëŠë¦¬ë‹¤.. ì™œ ê·¸ë ‡ì§€.. - -;;;
 		temp = sb-db;
 		temp *= alpha;
 		temp >>= 5;
@@ -2801,21 +2801,21 @@ CAlphaSprite::memcpyAlphaValue(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Blt4444SmallNotTrans
 //----------------------------------------------------------------------
-// Ãà¼ÒÇØ¼­ Ãâ·Â.. 
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// ì¶•ì†Œí•´ì„œ ì¶œë ¥.. 
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
-// shift·Î ÀÎÇØ¼­ ºüÁø Á¡µéÀÌ ½×ÀÌ´Ùº¸¸é
-// ±æÀÌ Â÷ÀÌ°¡ ¸¹ÀÌ ³ª°Ô µÇ´Âµ¥,
-// ±×°É º¸Á¤ÇØÁà¾ß ÇÑ´Ù.
-// °è»êÀÌ Á» ¸¹Àºµ¥.. T_T;;
-// ÁÙ¿©Áø ±æÀÌ¸¦ ´Ù½Ã ´Ã¸®¸é(-_-;)
-// ºÎÁ·ÇÑ Á¡ÀÇ °³¼ö¸¦ ¾Ë ¼ö ÀÖ´Ù.					
+// shiftë¡œ ì¸í•´ì„œ ë¹ ì§„ ì ë“¤ì´ ìŒ“ì´ë‹¤ë³´ë©´
+// ê¸¸ì´ ì°¨ì´ê°€ ë§ì´ ë‚˜ê²Œ ë˜ëŠ”ë°,
+// ê·¸ê±¸ ë³´ì •í•´ì¤˜ì•¼ í•œë‹¤.
+// ê³„ì‚°ì´ ì¢€ ë§ì€ë°.. T_T;;
+// ì¤„ì—¬ì§„ ê¸¸ì´ë¥¼ ë‹¤ì‹œ ëŠ˜ë¦¬ë©´(-_-;)
+// ë¶€ì¡±í•œ ì ì˜ ê°œìˆ˜ë¥¼ ì•Œ ìˆ˜ ìˆë‹¤.					
 //----------------------------------------------------------------------
 void
 CAlphaSprite::Blt4444SmallNotTrans(WORD *pDest, WORD pitch, BYTE shift)
 {
 	s_Value1 = shift;
-	// memcpy¿¡¼­ ÇÏ³ªÀÇ alpha°ªÀ» Á¦¿ÜÇÏ°í +ÇÏ´Â °ª
+	// memcpyì—ì„œ í•˜ë‚˜ì˜ alphaê°’ì„ ì œì™¸í•˜ê³  +í•˜ëŠ” ê°’
 	s_Value2 = (2 << shift) - 1; //((1 << s_Value1) << 1) - 1;	
 
 
@@ -2840,7 +2840,7 @@ CAlphaSprite::Blt4444SmallNotTrans(WORD *pDest, WORD pitch, BYTE shift)
 	if (rectBottom > 0)
 	{
 		i = rectBottom-1;
-		int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö
+		int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜
 		pDest = (WORD*)((BYTE*)pDest + (i>>shift)*pitch);
 
 		do
@@ -2848,10 +2848,10 @@ CAlphaSprite::Blt4444SmallNotTrans(WORD *pDest, WORD pitch, BYTE shift)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+			// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 			count	= *pPixels++;		
 
-			// ÇÑ ÁÙ Ãâ·Â
+			// í•œ ì¤„ ì¶œë ¥
 			totalCount = 0;
 			totalShiftCount = 0;
 			if (count > 0)
@@ -2860,62 +2860,62 @@ CAlphaSprite::Blt4444SmallNotTrans(WORD *pDest, WORD pitch, BYTE shift)
 				do
 				{		
 					transCount = *pPixels++;					
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö	
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜	
 					
 					//--------------------------------------------------
-					// shift¸¸Å­ ÁÙ¿©Áø °ªÀ» °è»êÇÑ´Ù.
+					// shiftë§Œí¼ ì¤„ì—¬ì§„ ê°’ì„ ê³„ì‚°í•œë‹¤.
 					//--------------------------------------------------
 					transCountShift = transCount >> shift;
 					colorCountShift = colorCount >> shift;
 
 					//--------------------------------------------------
-					//				Åõ¸í ºÎºĞ ±æÀÌ º¸Á¤
+					//				íˆ¬ëª… ë¶€ë¶„ ê¸¸ì´ ë³´ì •
 					//--------------------------------------------------
-					// ½ÇÁ¦ sizeÀÇ pixel¼ö..
+					// ì‹¤ì œ sizeì˜ pixelìˆ˜..
 					//--------------------------------------------------
 					totalCount += transCount;
 					totalShiftCount += transCountShift;
 
-					// ½ÇÁ¦pixel - shiftÇØ¼­ ´Ã¸° pixel(-_-;)
+					// ì‹¤ì œpixel - shiftí•´ì„œ ëŠ˜ë¦° pixel(-_-;)
 					pixelGap = totalCount - (totalShiftCount << shift);
 
-					// gapÀ» ´Ù½Ã shiftÇØ¼­ ´õÇØÁØ´Ù.
+					// gapì„ ë‹¤ì‹œ shiftí•´ì„œ ë”í•´ì¤€ë‹¤.
 					pixelGapShift = pixelGap >> shift;
 					transCountShift += pixelGapShift;
 					totalShiftCount += pixelGapShift;
 
 					
 					//--------------------------------------------------
-					// 0À» Ãâ·ÂÇÑ´Ù. Åõ¸í»öÀÌ´Ù..
+					// 0ì„ ì¶œë ¥í•œë‹¤. íˆ¬ëª…ìƒ‰ì´ë‹¤..
 					//--------------------------------------------------
 					memset(pDestTemp, 0, transCountShift<<1);
-					pDestTemp += transCountShift;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					pDestTemp += transCountShift;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 
 
 					//--------------------------------------------------
-					//				»ö±ò ºÎºĞ ±æÀÌ º¸Á¤
+					//				ìƒ‰ê¹” ë¶€ë¶„ ê¸¸ì´ ë³´ì •
 					//--------------------------------------------------
-					// (!!!) ±Ùµ¥ ¿©±â¼­ ¹®Á¦°¡ ÀÖ´Ù.
-					// Åõ¸í»öÀÌ¾ß ±×³É Åõ¸í»öÀÎµ¥..
-					// »ö±òÀÌ ÀÖ´Â ºÎºĞ¿¡¼­´Â 
-					// Á¡ ¸î°³¸¦ ´õ Âï¾î¾ßµÉ °æ¿ì..
-					// ¾î¶² Á¡À» Ãâ·ÂÇÒ±î?? Èì..
-					// ÀÌ´ë·Î¶ó¸é.. 
-					// ºÎÁ·ÇÑ »ö±ò¸¸Å­ ±×³É °Ç³Ê¶é »Ó.. Èì..- -;
+					// (!!!) ê·¼ë° ì—¬ê¸°ì„œ ë¬¸ì œê°€ ìˆë‹¤.
+					// íˆ¬ëª…ìƒ‰ì´ì•¼ ê·¸ëƒ¥ íˆ¬ëª…ìƒ‰ì¸ë°..
+					// ìƒ‰ê¹”ì´ ìˆëŠ” ë¶€ë¶„ì—ì„œëŠ” 
+					// ì  ëª‡ê°œë¥¼ ë” ì°ì–´ì•¼ë  ê²½ìš°..
+					// ì–´ë–¤ ì ì„ ì¶œë ¥í• ê¹Œ?? í ..
+					// ì´ëŒ€ë¡œë¼ë©´.. 
+					// ë¶€ì¡±í•œ ìƒ‰ê¹”ë§Œí¼ ê·¸ëƒ¥ ê±´ë„ˆëŒ ë¿.. í ..- -;
 					//
-					// ±×·¡¼­, ÀÏ´Ü Á¦¿Ü.. - -;
+					// ê·¸ë˜ì„œ, ì¼ë‹¨ ì œì™¸.. - -;
 					//--------------------------------------------------
 					totalCount += colorCount;
 					totalShiftCount += colorCountShift;
 
 					//--------------------------------------------------
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					//--------------------------------------------------					
 					memcpyAlpha4444Small(pDestTemp, pPixels, colorCount);
 					
 					pDestTemp	+= colorCountShift;
 
-					// ½ÇÁ¦ Á¡ °³¼ö´Â alpha°ª ¶§¹®¿¡ 2¹èÀÌ´Ù.
+					// ì‹¤ì œ ì  ê°œìˆ˜ëŠ” alphaê°’ ë•Œë¬¸ì— 2ë°°ì´ë‹¤.
 					pPixels		+= (colorCount<<1);
 				} while (--j);
 			}
@@ -2932,12 +2932,12 @@ CAlphaSprite::Blt4444SmallNotTrans(WORD *pDest, WORD pitch, BYTE shift)
 //----------------------------------------------------------------------
 // AlphaChannel Copy  4444 Small
 //----------------------------------------------------------------------
-// Alpha°ª : 1~32
+// Alphaê°’ : 1~32
 //----------------------------------------------------------------------
-// pSourceÀÇ °ÍÀ» pDest¿¡ Ãâ·ÂÀ» ÇØ¾ßÇÑ´Ù.
-// pSourceÀÇ ±¸¼ºÀº (alpha,»ö±ò ÇÏ³ª)ÀÇ pixels¸¸Å­ ¹İº¹ÀÌ´Ù.
+// pSourceì˜ ê²ƒì„ pDestì— ì¶œë ¥ì„ í•´ì•¼í•œë‹¤.
+// pSourceì˜ êµ¬ì„±ì€ (alpha,ìƒ‰ê¹” í•˜ë‚˜)ì˜ pixelsë§Œí¼ ë°˜ë³µì´ë‹¤.
 //
-// A:R:G:B = 4:4:4:4 Texture¸¦ À§ÇÑ °ÍÀÌ´Ù.
+// A:R:G:B = 4:4:4:4 Textureë¥¼ ìœ„í•œ ê²ƒì´ë‹¤.
 //----------------------------------------------------------------------
 void	
 CAlphaSprite::memcpyAlpha4444Small(WORD* pDest, WORD* pSource, WORD pixels)
@@ -2951,14 +2951,14 @@ CAlphaSprite::memcpyAlpha4444Small(WORD* pDest, WORD* pSource, WORD pixels)
 	BYTE alpha;
 	
 	// Alpha Channel Blending
-	// ÇÑÁ¡¾¿ Âï±â
+	// í•œì ì”© ì°ê¸°
 	while (i--)
 	{	
-		// Source¿¡´Â Alpha°ªÀÌ Æ÷ÇÔµÇ¾î ÀÖ´Ù.
-		alpha = *pSource >> 9;	//	alpha = (*pSource >> 8) >> 1;	4 bitÀÌ±â ¶§¹®¿¡..
+		// Sourceì—ëŠ” Alphaê°’ì´ í¬í•¨ë˜ì–´ ìˆë‹¤.
+		alpha = *pSource >> 9;	//	alpha = (*pSource >> 8) >> 1;	4 bitì´ê¸° ë•Œë¬¸ì—..
 		pSource++;
 
-		// ÇÑÁ¡ Âï±â
+		// í•œì  ì°ê¸°
 		sTemp = *pSource;
 	
 		sr = (sTemp >> CDirectDraw::s_bSHIFT4_R);// & 0x0F;

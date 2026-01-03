@@ -2,9 +2,9 @@
 //
 //	created:	2003/11/05   14:23
 //	filename: 	MHelpMessageManager.h
-//	author:		ÃÖ¼®¹Î
+//	author:		ìµœì„ë¯¼
 //	
-//	purpose:	¸ŞÀÏ ½Ã½ºÅÛ¿¡¼­ µµ¿ò¸» ¸Ş¼¼Áö¸¦ »ç¿ëÇÏ±â À§ÇÑ Å¬·¡½º
+//	purpose:	ë©”ì¼ ì‹œìŠ¤í…œì—ì„œ ë„ì›€ë§ ë©”ì„¸ì§€ë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•œ í´ë˜ìŠ¤
 //
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -44,7 +44,7 @@ public:
 	MString	m_strKeyword;
 	MString	m_strEvent;
 	
-	// Á¾Á·º°·Î ³»¿ëÀÌ ´Ù¸¥ º¯¼öµé
+	// ì¢…ì¡±ë³„ë¡œ ë‚´ìš©ì´ ë‹¤ë¥¸ ë³€ìˆ˜ë“¤
 	MString			m_strTitle[RACE_MAX];
 	int				m_iLevelMax[RACE_MAX];
 	int				m_iLevelLow[RACE_MAX];
@@ -89,7 +89,7 @@ public:
 
 	virtual ~MHelpMessageManager();
 
-	// TODO : ÀÌ¹ÌÁö¸¦ ³Ö¾îÁÖ¼¼¿ä
+	// TODO : ì´ë¯¸ì§€ë¥¼ ë„£ì–´ì£¼ì„¸ìš”
 
 	// SENDER
 	const MString&	getSender(int senderIndex) const	{ return m_SenderVector[senderIndex]; }
@@ -104,14 +104,14 @@ public:
 	void				updateMessage(int messageIndex, MHelpMessage& message) { m_MessageVector[messageIndex] = message; }
 	size_t				getMessageSize() const				{ return m_MessageVector.size(); }
 
-	int							m_KeyCnt;; // °¹¼ö
-	int							m_SenderCnt;; // °¹¼ö
-	// ÆÄÀÏ°ü·Ã ÇÔ¼ö
+	int							m_KeyCnt;; // ê°¯ìˆ˜
+	int							m_SenderCnt;; // ê°¯ìˆ˜
+	// íŒŒì¼ê´€ë ¨ í•¨ìˆ˜
 	void SaveToFile(class ofstream &file);
 	void LoadFromFile(class ifstream &file);
 	void SaveToFile(const char * filename);
 	void LoadFromFile(const char * filename);	
-	CRarFile					m_pack_file;  // rpk  ÆÄÀÏ 
+	CRarFile					m_pack_file;  // rpk  íŒŒì¼ 
 	bool LoadHelpMessageRpk(const char *helprpkfilename);
 };
 

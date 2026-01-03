@@ -23,7 +23,7 @@ void GCSkillToInventoryOK2Handler::execute ( GCSkillToInventoryOK2 * pPacket , P
 
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -31,19 +31,19 @@ void GCSkillToInventoryOK2Handler::execute ( GCSkillToInventoryOK2 * pPacket , P
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 			
-		// Creature°¡ castingµ¿ÀÛ ÃëÇÔ..
+		// Creatureê°€ castingë™ìž‘ ì·¨í•¨..
 		if (pCreature != NULL)
 		{
 			int delayFrame = ConvertDurationToFrame( pPacket->getDuration() );
 
 			//------------------------------------------------------------
-			// Delay Frame ¼³Á¤
+			// Delay Frame ì„¤ì •
 			//------------------------------------------------------------
 			pCreature->SetEffectDelayFrame( pPacket->getSkillType(), delayFrame );
 

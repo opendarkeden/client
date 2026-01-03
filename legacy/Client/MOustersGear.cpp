@@ -24,40 +24,40 @@ MOustersGear*		g_pOustersGear = NULL;
 MOustersGear::FUNCTION_GEARSLOT_CHECK
 MOustersGear::s_GearSlotCheckTable[MAX_GEAR_OUSTERS] =
 {
-	IsGearSlotCirclet,			// º≠≈¨∏¥
-	IsGearSlotCoat,				// ø 
-	IsGearSlotLeftHand,			// øﬁº’
-	IsGearSlotRightHand,			// ø¿∏•º’
-	IsGearSlotBoots,				// Ω≈πﬂ
-	IsGearSlotArmsBand,			// æœΩ∫πÍµÂ1
-	IsGearSlotArmsBand,			// æœΩ∫πÍµÂ2
-	IsGearSlotRing,				// ∏µ1
-	IsGearSlotRing,				// ∏µ2
-	IsGearSlotPendent,			// ∏Ò∞…¿Ã1
-	IsGearSlotPendent,			// ∏Ò∞…¿Ã2
-	IsGearSlotPendent,			// ∏Ò∞…¿Ã3
-	IsGearSlotStone,			// ¡§∑…ºÆ1
-	IsGearSlotStone,			// ¡§∑…ºÆ2
-	IsGearSlotStone,			// ¡§∑…ºÆ3
-	IsGearSlotStone,			// ¡§∑…ºÆ4
-	IsGearSlotCoreZap,			// ƒ⁄æÓ¿Ï1
-	IsGearSlotCoreZap,			// ƒ⁄æÓ¿Ï2
-	IsGearSlotCoreZap,			// ƒ⁄æÓ¿Ï3
-	IsGearSlotCoreZap,			// ƒ⁄æÓ¿Ï4
-	IsGearSlotFascia,			// «„∏Æ¿ÂΩƒ
-	IsGearSlotMitten,			// ¿Â∞©
-	IsGearSlotBloodBible,		// ∫Ì∑ØµÂ πŸ¿Ã∫Ì 1
-	IsGearSlotBloodBible,		// ∫Ì∑ØµÂ πŸ¿Ã∫Ì 2
-	IsGearSlotBloodBible,		// ∫Ì∑ØµÂ πŸ¿Ã∫Ì 3
-	IsGearSlotBloodBible,		// ∫Ì∑ØµÂ πŸ¿Ã∫Ì 4
-	IsGearSlotBloodBible,		// ∫Ì∑ØµÂ πŸ¿Ã∫Ì 5
-	IsGearSlotBloodBible,		// ∫Ì∑ØµÂ πŸ¿Ã∫Ì 6
+	IsGearSlotCirclet,			// ÏÑúÌÅ¥Î¶ø
+	IsGearSlotCoat,				// Ïò∑
+	IsGearSlotLeftHand,			// ÏôºÏÜê
+	IsGearSlotRightHand,			// Ïò§Î•∏ÏÜê
+	IsGearSlotBoots,				// Ïã†Î∞ú
+	IsGearSlotArmsBand,			// ÏïîÏä§Î∞¥Îìú1
+	IsGearSlotArmsBand,			// ÏïîÏä§Î∞¥Îìú2
+	IsGearSlotRing,				// ÎßÅ1
+	IsGearSlotRing,				// ÎßÅ2
+	IsGearSlotPendent,			// Î™©Í±∏Ïù¥1
+	IsGearSlotPendent,			// Î™©Í±∏Ïù¥2
+	IsGearSlotPendent,			// Î™©Í±∏Ïù¥3
+	IsGearSlotStone,			// Ï†ïÎ†πÏÑù1
+	IsGearSlotStone,			// Ï†ïÎ†πÏÑù2
+	IsGearSlotStone,			// Ï†ïÎ†πÏÑù3
+	IsGearSlotStone,			// Ï†ïÎ†πÏÑù4
+	IsGearSlotCoreZap,			// ÏΩîÏñ¥ÏûΩ1
+	IsGearSlotCoreZap,			// ÏΩîÏñ¥ÏûΩ2
+	IsGearSlotCoreZap,			// ÏΩîÏñ¥ÏûΩ3
+	IsGearSlotCoreZap,			// ÏΩîÏñ¥ÏûΩ4
+	IsGearSlotFascia,			// ÌóàÎ¶¨Ïû•Ïãù
+	IsGearSlotMitten,			// Ïû•Í∞ë
+	IsGearSlotBloodBible,		// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î 1
+	IsGearSlotBloodBible,		// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î 2
+	IsGearSlotBloodBible,		// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î 3
+	IsGearSlotBloodBible,		// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î 4
+	IsGearSlotBloodBible,		// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î 5
+	IsGearSlotBloodBible,		// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î 6
 
 };
 
 
 //----------------------------------------------------------------------
-// ∆Ø¡§ ∫Œ¿ßø° pItem¿ª ¿Â¬¯«“ ºˆ ¿÷¥¬¡ˆ∏¶ check«—¥Ÿ.
+// ÌäπÏ†ï Î∂ÄÏúÑÏóê pItemÏùÑ Ïû•Ï∞©Ìï† Ïàò ÏûàÎäîÏßÄÎ•º checkÌïúÎã§.
 //----------------------------------------------------------------------
 bool		MOustersGear::IsGearSlotCirclet(MItem* pItem)		{ return pItem->IsGearSlotOustersCirclet(); }
 bool		MOustersGear::IsGearSlotCoat(MItem* pItem)			{ return pItem->IsGearSlotOustersCoat(); }
@@ -68,10 +68,10 @@ bool		MOustersGear::IsGearSlotArmsBand(MItem* pItem)		{ return pItem->IsGearSlot
 bool		MOustersGear::IsGearSlotRing(MItem* pItem)			{ return pItem->IsGearSlotOustersRing(); }
 bool		MOustersGear::IsGearSlotPendent(MItem* pItem)		{ return pItem->IsGearSlotOustersPendent(); }
 bool		MOustersGear::IsGearSlotStone(MItem* pItem)			{ return pItem->IsGearSlotOustersStone(); }
-bool		MOustersGear::IsGearSlotCoreZap(MItem* pItem)		{ return pItem->IsGearSlotOustersCoreZap(); }	// ƒ⁄æÓ¿Ï
-bool		MOustersGear::IsGearSlotFascia(MItem* pItem)		{ return pItem->IsGearSlotOustersFascia(); }	// ƒ⁄æÓ¿Ï
-bool		MOustersGear::IsGearSlotMitten(MItem* pItem)		{ return pItem->IsGearSlotOustersMitten(); }	// ƒ⁄æÓ¿Ï
-bool		MOustersGear::IsGearSlotBloodBible(MItem* pItem)	{ return pItem->IsGearSlotOustersBloodBible(); }	// ∫Ì∑ØµÂ πŸ¿Ã∫Ì
+bool		MOustersGear::IsGearSlotCoreZap(MItem* pItem)		{ return pItem->IsGearSlotOustersCoreZap(); }	// ÏΩîÏñ¥ÏûΩ
+bool		MOustersGear::IsGearSlotFascia(MItem* pItem)		{ return pItem->IsGearSlotOustersFascia(); }	// ÏΩîÏñ¥ÏûΩ
+bool		MOustersGear::IsGearSlotMitten(MItem* pItem)		{ return pItem->IsGearSlotOustersMitten(); }	// ÏΩîÏñ¥ÏûΩ
+bool		MOustersGear::IsGearSlotBloodBible(MItem* pItem)	{ return pItem->IsGearSlotOustersBloodBible(); }	// Î∏îÎü¨Îìú Î∞îÏù¥Î∏î
 
 //----------------------------------------------------------------------
 //
@@ -100,12 +100,12 @@ MOustersGear::~MOustersGear()
 //----------------------------------------------------------------------
 // Init 
 //----------------------------------------------------------------------
-// MAX_GEAR_OUSTERS∏∏≈≠¿« Slot¿ª ª˝º∫«—¥Ÿ.
+// MAX_GEAR_OUSTERSÎßåÌÅºÏùò SlotÏùÑ ÏÉùÏÑ±ÌïúÎã§.
 //----------------------------------------------------------------------
 void
 MOustersGear::Init()
 {
-	// slot ª˝º∫
+	// slot ÏÉùÏÑ±
 	MPlayerGear::Init(MAX_GEAR_OUSTERS);
 	m_Gilles_CoreZap = 4;
 	m_bBloodBibleOpenCount = 0;
@@ -114,7 +114,7 @@ MOustersGear::Init()
 //----------------------------------------------------------------------
 // Check AffectStatus
 //----------------------------------------------------------------------
-// ∆Ø¡§ æ∆¿Ã≈€¿« ¬¯øÎ ∞°¥… ø©∫Œ∏¶ √º≈©«—¥Ÿ.
+// ÌäπÏ†ï ÏïÑÏù¥ÌÖúÏùò Ï∞©Ïö© Í∞ÄÎä• Ïó¨Î∂ÄÎ•º Ï≤¥ÌÅ¨ÌïúÎã§.
 //----------------------------------------------------------------------
 void			
 MOustersGear::CheckAffectStatus(MItem* pItem)
@@ -129,14 +129,14 @@ MOustersGear::CheckAffectStatus(MItem* pItem)
 //----------------------------------------------------------------------
 // Add Item ( pItem )
 //----------------------------------------------------------------------
-// pItem¿ª ¿˚¿˝«—(?) slotø° √ﬂ∞°Ω√≈≤¥Ÿ.
+// pItemÏùÑ Ï†ÅÏ†àÌïú(?) slotÏóê Ï∂îÍ∞ÄÏãúÌÇ®Îã§.
 //----------------------------------------------------------------------
 bool			
 MOustersGear::AddItem(MItem* pItem)
 {
 	for (int i=0; i<MAX_GEAR_OUSTERS; i++)
 	{
-		// √ﬂ∞°«ﬂ¿∏∏È..
+		// Ï∂îÍ∞ÄÌñàÏúºÎ©¥..
 		if (AddItem( pItem, (enum GEAR_OUSTERS)i ))
 		{
 			return true;
@@ -149,28 +149,28 @@ MOustersGear::AddItem(MItem* pItem)
 //----------------------------------------------------------------------
 // Can Replace Item ( pItem, n )
 //----------------------------------------------------------------------
-// slot(n)ø° pItem¿ª √ﬂ∞°«—¥Ÿ.
-// √ﬂ∞°«“ ºˆ ¿÷¥¬ slot¿Œ¡ˆ »Æ¿Œ«ÿæﬂ «—¥Ÿ.
+// slot(n)Ïóê pItemÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
+// Ï∂îÍ∞ÄÌï† Ïàò ÏûàÎäî slotÏù∏ÏßÄ ÌôïÏù∏Ìï¥Ïïº ÌïúÎã§.
 //
-// pOldItemø°¥¬ ±≥√ºµ… ∞Õ¿Ã ¿÷¥¬ ∞ÊøÏø° ±◊∞‘ µÈæÓ∞£¥Ÿ.
+// pOldItemÏóêÎäî ÍµêÏ≤¥Îê† Í≤ÉÏù¥ ÏûàÎäî Í≤ΩÏö∞Ïóê Í∑∏Í≤å Îì§Ïñ¥Í∞ÑÎã§.
 //----------------------------------------------------------------------
 bool			
 MOustersGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 {	
-	// ºˆƒ° ¿˚øÎµ«¡ˆ æ ¥¬ æ∆¿Ã≈€¿∫ ¬¯øÎµ«¡ˆ æ ¥¬¥Ÿ
+	// ÏàòÏπò Ï†ÅÏö©ÎêòÏßÄ ÏïäÎäî ÏïÑÏù¥ÌÖúÏùÄ Ï∞©Ïö©ÎêòÏßÄ ÏïäÎäîÎã§
 	if(pItem->IsAffectStatus() == false&& !pItem->IsQuestItem())
 		return false;
 
 	pOldItem = NULL;
 
 	//---------------------------------------------------------
-	// ItemSlot π¸¿ß∏¶ ≥—æÓ∞°¥¬ ∞ÊøÏ..
+	// ItemSlot Î≤îÏúÑÎ•º ÎÑòÏñ¥Í∞ÄÎäî Í≤ΩÏö∞..
 	//---------------------------------------------------------	
 	if (n>=m_Size || !pItem->IsOustersItem())
 	{
 		return false;
 	}
-	if(n>=GEAR_OUSTERS_BLOOD_BIBLE1 && n<=GEAR_OUSTERS_BLOOD_BIBLE6) // ∫Ì∑ØµÂ πŸ¿Ã∫Ì¿∫ ¡˝¿ªºˆ æ¯¥Ÿ.
+	if(n>=GEAR_OUSTERS_BLOOD_BIBLE1 && n<=GEAR_OUSTERS_BLOOD_BIBLE6) // Î∏îÎü¨Îìú Î∞îÏù¥Î∏îÏùÄ ÏßëÏùÑÏàò ÏóÜÎã§.
 		return false;
 
 	
@@ -212,18 +212,18 @@ MOustersGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 	
 	//-------------------------------------------------
 	//
-	// º’ø° ¿Â¬¯«“∑¡¥¬ ∞ÊøÏ
+	// ÏÜêÏóê Ïû•Ï∞©Ìï†Î†§Îäî Í≤ΩÏö∞
 	//
 	//-------------------------------------------------
 	if (n==GEAR_OUSTERS_LEFTHAND || n==GEAR_OUSTERS_RIGHTHAND)	
 	{
 		//-------------------------------------------------
-		// [ æÁº’ Item ] ¿Œ ∞ÊøÏ
+		// [ ÏñëÏÜê Item ] Ïù∏ Í≤ΩÏö∞
 		//-------------------------------------------------
 		if (pItem->IsGearSlotTwoHand())
 		{			
 			//-------------------------------------------------
-			// æÁº’¿« Slot¿Ã ∏µŒ ∫ÒæÓ¿÷¥¬ ∞ÊøÏ 
+			// ÏñëÏÜêÏùò SlotÏù¥ Î™®Îëê ÎπÑÏñ¥ÏûàÎäî Í≤ΩÏö∞ 
 			//-------------------------------------------------			
 			if (m_ItemSlot[GEAR_OUSTERS_RIGHTHAND]==NULL
 					&& m_ItemSlot[GEAR_OUSTERS_LEFTHAND]==NULL)
@@ -232,13 +232,13 @@ MOustersGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 			
 			//-------------------------------------------------
-			// æÁº’ø° ¥Ÿ π∫∞° ¿÷¥¬ ∞ÊøÏ
+			// ÏñëÏÜêÏóê Îã§ Î≠îÍ∞Ä ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
 			if (m_ItemSlot[GEAR_OUSTERS_RIGHTHAND]!=NULL 
 				&& m_ItemSlot[GEAR_OUSTERS_LEFTHAND]!=NULL)
 			{
 				//-------------------------------------------------
-				// æÁº’ø° ¿÷¥¬∞‘ ∞∞¥Ÿ∏È..
+				// ÏñëÏÜêÏóê ÏûàÎäîÍ≤å Í∞ôÎã§Î©¥..
 				//-------------------------------------------------
 				if (m_ItemSlot[GEAR_OUSTERS_RIGHTHAND]==m_ItemSlot[GEAR_OUSTERS_LEFTHAND])
 				{
@@ -250,7 +250,7 @@ MOustersGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 
 			//-------------------------------------------------
-			// ø¿∏•º’ø°∏∏ π∫∞° ¿÷¥¬ ∞ÊøÏ
+			// Ïò§Î•∏ÏÜêÏóêÎßå Î≠îÍ∞Ä ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
 			else if (m_ItemSlot[GEAR_OUSTERS_RIGHTHAND]!=NULL)
 			{
@@ -259,7 +259,7 @@ MOustersGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 
 			//-------------------------------------------------
-			// øﬁº’ø°∏∏π∫∞° ¿÷¥¬ ∞ÊøÏ
+			// ÏôºÏÜêÏóêÎßåÎ≠îÍ∞Ä ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
 			else if (m_ItemSlot[GEAR_OUSTERS_LEFTHAND]!=NULL)
 			{			
@@ -267,22 +267,22 @@ MOustersGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 				return true;
 			}
 
-			// ¿Ã∑± ∞ÊøÏ∞° ¿÷¿ª ºˆ ¿÷¿ª±Ó? - -;;
+			// Ïù¥Îü∞ Í≤ΩÏö∞Í∞Ä ÏûàÏùÑ Ïàò ÏûàÏùÑÍπå? - -;;
 			return false;
 		}
 
 		//-------------------------------------------------
-		// [ ø¿∏•º’ Item ] ¿Œ ∞ÊøÏ
+		// [ Ïò§Î•∏ÏÜê Item ] Ïù∏ Í≤ΩÏö∞
 		//-------------------------------------------------				
 		else if (pItem->IsGearSlotRightHand())
 		{
-			// NULL¿Ã∞≈≥™ ∏ª∞≈≥™ ±◊≥… ≥÷æÓ¡÷∏È µ»¥Ÿ.
+			// NULLÏù¥Í±∞ÎÇò ÎßêÍ±∞ÎÇò Í∑∏ÎÉ• ÎÑ£Ïñ¥Ï£ºÎ©¥ ÎêúÎã§.
 			pOldItem = m_ItemSlot[GEAR_OUSTERS_RIGHTHAND];
 			return true;
 		}
 		
 		//-------------------------------------------------				
-		// [ øﬁº’ Item ] ¿Œ ∞ÊøÏ
+		// [ ÏôºÏÜê Item ] Ïù∏ Í≤ΩÏö∞
 		//-------------------------------------------------
 		else if (pItem->IsGearSlotLeftHand())
 		{
@@ -290,18 +290,18 @@ MOustersGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			return true;
 		}
 
-		// º’ø° ¿Â¬¯«œ¥¬∞‘ æ∆¥— ∞ÊøÏ
+		// ÏÜêÏóê Ïû•Ï∞©ÌïòÎäîÍ≤å ÏïÑÎãå Í≤ΩÏö∞
 		return false;
 	}
 
 	/***********************************************************	
-				ƒ⁄æÓ¿Ï ∞¸∑√ √≥∏Æ
+				ÏΩîÏñ¥ÏûΩ Í¥ÄÎ†® Ï≤òÎ¶¨
 	***********************************************************/
 	if (n >= GEAR_OUSTERS_STONE1 && n <= GEAR_OUSTERS_STONE4)	
 	{
 		if (pItem->IsGearSlotOustersStone())
 		{			
-			if (m_ItemSlot[n+m_Gilles_CoreZap]==NULL) // ƒ⁄æÓ¿Ï¿Ã æ¯æÓæﬂ ¡§∑…ºÆ¿ª ≥ı¿ª ºˆ ¿÷¿Ω
+			if (m_ItemSlot[n+m_Gilles_CoreZap]==NULL) // ÏΩîÏñ¥ÏûΩÏù¥ ÏóÜÏñ¥Ïïº Ï†ïÎ†πÏÑùÏùÑ ÎÜìÏùÑ Ïàò ÏûàÏùå
 			{
 				pOldItem = m_ItemSlot[n];
 				return true;
@@ -310,9 +310,9 @@ MOustersGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		else
 		if (pItem->IsGearSlotOustersCoreZap())
 		{			
-			if (m_ItemSlot[n]!=NULL) // ƒ⁄æÓ¿Ï¿∫ ∏µ¿Ã ¿÷æÓæﬂ ≥ı¿ª ºˆ ¿÷¥Ÿ. 
+			if (m_ItemSlot[n]!=NULL) // ÏΩîÏñ¥ÏûΩÏùÄ ÎßÅÏù¥ ÏûàÏñ¥Ïïº ÎÜìÏùÑ Ïàò ÏûàÎã§. 
 			{
-				if (m_ItemSlot[n]!=NULL) // ƒ⁄æÓ¿Ï¿∫ ∏µ¿Ã ¿÷æÓæﬂ ≥ı¿ª ºˆ ¿÷¥Ÿ. 
+				if (m_ItemSlot[n]!=NULL) // ÏΩîÏñ¥ÏûΩÏùÄ ÎßÅÏù¥ ÏûàÏñ¥Ïïº ÎÜìÏùÑ Ïàò ÏûàÎã§. 
 				{
 					if(m_ItemSlot[n+m_Gilles_CoreZap]!=NULL)
 						pOldItem = m_ItemSlot[n+m_Gilles_CoreZap];
@@ -324,15 +324,15 @@ MOustersGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		}
 		return false;
 	}
-	else if(n >= GEAR_OUSTERS_ZAP1 && n <= GEAR_OUSTERS_ZAP4) // ƒ⁄æÓ¿Ï ΩΩ∑‘¿∫ ∫∏¿Ã¡ˆ æ ¥¬¥Ÿ. -_-?? 
+	else if(n >= GEAR_OUSTERS_ZAP1 && n <= GEAR_OUSTERS_ZAP4) // ÏΩîÏñ¥ÏûΩ Ïä¨Î°ØÏùÄ Î≥¥Ïù¥ÏßÄ ÏïäÎäîÎã§. -_-?? 
 		return false;
 	//----------------------------------------------------
-	// ¿˚¿˝«— Slot¿Œ¡ˆ »Æ¿Œ«ÿæﬂ «—¥Ÿ.
+	// Ï†ÅÏ†àÌïú SlotÏù∏ÏßÄ ÌôïÏù∏Ìï¥Ïïº ÌïúÎã§.
 	//----------------------------------------------------	
-	if (pItem->IsGearItem()	&&				// pItem¿Ã GearItem¿Œ¡ˆ »Æ¿Œ..
-		(*s_GearSlotCheckTable[n])(pItem))	// ¿˚¿˝«— Slot¿Œ¡ˆ »Æ¿Œ
+	if (pItem->IsGearItem()	&&				// pItemÏù¥ GearItemÏù∏ÏßÄ ÌôïÏù∏..
+		(*s_GearSlotCheckTable[n])(pItem))	// Ï†ÅÏ†àÌïú SlotÏù∏ÏßÄ ÌôïÏù∏
 	{
-		// nπ¯¬∞ slotø° pItem¿ª √ﬂ∞°«—¥Ÿ.
+		// nÎ≤àÏß∏ slotÏóê pItemÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
 		pOldItem = m_ItemSlot[n];
 		return true;
 	}
@@ -343,14 +343,14 @@ MOustersGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 //----------------------------------------------------------------------
 // Add Item ( pItem, n )
 //----------------------------------------------------------------------
-// slot(n)ø° pItem¿ª √ﬂ∞°«—¥Ÿ.
-// √ﬂ∞°«“ ºˆ ¿÷¥¬ slot¿Œ¡ˆ »Æ¿Œ«ÿæﬂ «—¥Ÿ.
+// slot(n)Ïóê pItemÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
+// Ï∂îÍ∞ÄÌï† Ïàò ÏûàÎäî slotÏù∏ÏßÄ ÌôïÏù∏Ìï¥Ïïº ÌïúÎã§.
 //----------------------------------------------------------------------
 bool			
 MOustersGear::AddItem(MItem* pItem, GEAR_OUSTERS n)
 {	
 	//---------------------------------------------------------
-	// ItemSlot π¸¿ß∏¶ ≥—æÓ∞°¥¬ ∞ÊøÏ..
+	// ItemSlot Î≤îÏúÑÎ•º ÎÑòÏñ¥Í∞ÄÎäî Í≤ΩÏö∞..
 	//---------------------------------------------------------	
 	if (n>=m_Size || !pItem->IsOustersItem())
 	{
@@ -358,23 +358,23 @@ MOustersGear::AddItem(MItem* pItem, GEAR_OUSTERS n)
 	}
 
 	//-------------------------------------------------
-	// æÁº’ Item¿Œ ∞ÊøÏ¥¬ µ˚∑Œ √º≈©«ÿ¡ÿ¥Ÿ.
+	// ÏñëÏÜê ItemÏù∏ Í≤ΩÏö∞Îäî Îî∞Î°ú Ï≤¥ÌÅ¨Ìï¥Ï§ÄÎã§.
 	//-------------------------------------------------
 	if ((n==GEAR_OUSTERS_LEFTHAND || n==GEAR_OUSTERS_RIGHTHAND) &&
 		pItem->IsGearSlotTwoHand())
 	{
-		// æÁº’¿« Slot¿Ã ∏µŒ ∫ÒæÓ¿÷¥¬ ªÛ≈¬ø°∏∏ √ﬂ∞° ∞°¥…«œ¥Ÿ.
+		// ÏñëÏÜêÏùò SlotÏù¥ Î™®Îëê ÎπÑÏñ¥ÏûàÎäî ÏÉÅÌÉúÏóêÎßå Ï∂îÍ∞Ä Í∞ÄÎä•ÌïòÎã§.
 		if (m_ItemSlot[GEAR_OUSTERS_RIGHTHAND]==NULL
 				&& m_ItemSlot[GEAR_OUSTERS_LEFTHAND]==NULL)
 		{
-			// ø¿∏•º’ø° √ﬂ∞°«—¥Ÿ.			
+			// Ïò§Î•∏ÏÜêÏóê Ï∂îÍ∞ÄÌïúÎã§.			
 			if (MPlayerGear::AddItem( pItem, GEAR_OUSTERS_RIGHTHAND ))
 			{
-				// øﬁº’ø°µµ √ﬂ∞°«ÿ¡ÿ¥Ÿ.
+				// ÏôºÏÜêÏóêÎèÑ Ï∂îÍ∞ÄÌï¥Ï§ÄÎã§.
 				m_ItemSlot[GEAR_OUSTERS_LEFTHAND] = pItem;
 
 				//-------------------------------------------------
-				// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+				// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 				//-------------------------------------------------
 				#ifdef __GAME_CLIENT__
 					PlaySound( pItem->GetGearSoundID() );
@@ -390,18 +390,18 @@ MOustersGear::AddItem(MItem* pItem, GEAR_OUSTERS n)
 		return false;
 	}
 	/***********************************************************	
-				ƒ⁄æÓ¿Ï ∞¸∑√ √≥∏Æ
+				ÏΩîÏñ¥ÏûΩ Í¥ÄÎ†® Ï≤òÎ¶¨
 	***********************************************************/
 	if (n >= GEAR_OUSTERS_STONE1 && n <= GEAR_OUSTERS_STONE4)	
 	{
 		if (pItem->IsGearSlotOustersStone())
 		{			
-			if (m_ItemSlot[n+m_Gilles_CoreZap]==NULL&&m_ItemSlot[n]==NULL) // ¡§∑…ºÆµµ æ¯∞Ì ƒ⁄æÓ¿Ï¿Ã æ¯æÓæﬂ ∏µ¿ª ≥ı¿ª ºˆ ¿÷¿Ω
+			if (m_ItemSlot[n+m_Gilles_CoreZap]==NULL&&m_ItemSlot[n]==NULL) // Ï†ïÎ†πÏÑùÎèÑ ÏóÜÍ≥† ÏΩîÏñ¥ÏûΩÏù¥ ÏóÜÏñ¥Ïïº ÎßÅÏùÑ ÎÜìÏùÑ Ïàò ÏûàÏùå
 			{
 				if (MPlayerGear::AddItem( pItem, n ))	
 				{
 					//-------------------------------------------------
-					// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+					// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 					//-------------------------------------------------
 					#ifdef __GAME_CLIENT__
 						PlaySound( pItem->GetGearSoundID() );
@@ -415,12 +415,12 @@ MOustersGear::AddItem(MItem* pItem, GEAR_OUSTERS n)
 		else 
 		if (pItem->IsGearSlotOustersCoreZap())
 		{
-			if (m_ItemSlot[n-m_Gilles_CoreZap]!=NULL && m_ItemSlot[n]==NULL) // «ÿ¥Á¿ßƒ°ø° ∏µ¿Ã ¿÷∞Ì ƒ⁄æÓ¿Ï¿Ã æ¯¿ª ∞ÊøÏ∏∏ ƒ⁄æÓ¿Ï √ﬂ∞°
+			if (m_ItemSlot[n-m_Gilles_CoreZap]!=NULL && m_ItemSlot[n]==NULL) // Ìï¥ÎãπÏúÑÏπòÏóê ÎßÅÏù¥ ÏûàÍ≥† ÏΩîÏñ¥ÏûΩÏù¥ ÏóÜÏùÑ Í≤ΩÏö∞Îßå ÏΩîÏñ¥ÏûΩ Ï∂îÍ∞Ä
 			{		
-				if (MPlayerGear::AddItem( pItem, n + m_Gilles_CoreZap ))// ƒ⁄æÓ¿Ï ¿ßƒ°ø° √ﬂ∞°
+				if (MPlayerGear::AddItem( pItem, n + m_Gilles_CoreZap ))// ÏΩîÏñ¥ÏûΩ ÏúÑÏπòÏóê Ï∂îÍ∞Ä
 				{
 					//-------------------------------------------------
-					// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+					// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 					//-------------------------------------------------
 					#ifdef __GAME_CLIENT__
 						PlaySound( pItem->GetGearSoundID() );
@@ -435,20 +435,20 @@ MOustersGear::AddItem(MItem* pItem, GEAR_OUSTERS n)
 
 		return false;
 	}
-//	else if(n >= GEAR_OUSTERS_ZAP1 && n <= GEAR_OUSTERS_ZAP4) // ƒ⁄æÓ¿Ï ΩΩ∑‘¿∫ ∫∏¿Ã¡ˆ æ ¥¬¥Ÿ. -_-?? 
+//	else if(n >= GEAR_OUSTERS_ZAP1 && n <= GEAR_OUSTERS_ZAP4) // ÏΩîÏñ¥ÏûΩ Ïä¨Î°ØÏùÄ Î≥¥Ïù¥ÏßÄ ÏïäÎäîÎã§. -_-?? 
 //		return false;
 	//----------------------------------------------------
-	// ¿˚¿˝«— Slot¿Œ¡ˆ »Æ¿Œ«ÿæﬂ «—¥Ÿ.
+	// Ï†ÅÏ†àÌïú SlotÏù∏ÏßÄ ÌôïÏù∏Ìï¥Ïïº ÌïúÎã§.
 	//----------------------------------------------------	
-	if (m_ItemSlot[n]==NULL &&				// nπ¯¬∞ slot¿Ã ∫ÒæÓ¿÷¥¬¡ˆ »Æ¿Œ
-		pItem->IsGearItem()	&&				// pItem¿Ã GearItem¿Œ¡ˆ »Æ¿Œ..
-		(*s_GearSlotCheckTable[n])(pItem))	// ¿˚¿˝«— Slot¿Œ¡ˆ »Æ¿Œ
+	if (m_ItemSlot[n]==NULL &&				// nÎ≤àÏß∏ slotÏù¥ ÎπÑÏñ¥ÏûàÎäîÏßÄ ÌôïÏù∏
+		pItem->IsGearItem()	&&				// pItemÏù¥ GearItemÏù∏ÏßÄ ÌôïÏù∏..
+		(*s_GearSlotCheckTable[n])(pItem))	// Ï†ÅÏ†àÌïú SlotÏù∏ÏßÄ ÌôïÏù∏
 	{
-		// nπ¯¬∞ slotø° pItem¿ª √ﬂ∞°«—¥Ÿ.
+		// nÎ≤àÏß∏ slotÏóê pItemÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
 		bool bAdd = MPlayerGear::AddItem( pItem, n );
 
 		//-------------------------------------------------
-		// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+		// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 		//-------------------------------------------------
 		if (bAdd)
 		{
@@ -495,7 +495,7 @@ MOustersGear::RemoveItem(GEAR_OUSTERS n)
 	MItem* pItem = m_ItemSlot[n];
 
 	//-----------------------------------------------------
-	// æ¯¥¬ ∞ÊøÏ
+	// ÏóÜÎäî Í≤ΩÏö∞
 	//-----------------------------------------------------
 	if (pItem==NULL)
 	{
@@ -503,27 +503,27 @@ MOustersGear::RemoveItem(GEAR_OUSTERS n)
 	}
 
 	//-----------------------------------------------------
-	// æÁº’ π´±‚¿Ã∏È ø¿∏•º’¿∏∑Œ º≥¡§«—¥Ÿ.
+	// ÏñëÏÜê Î¨¥Í∏∞Ïù¥Î©¥ Ïò§Î•∏ÏÜêÏúºÎ°ú ÏÑ§Ï†ïÌïúÎã§.
 	//-----------------------------------------------------
 	if (pItem->IsGearSlotTwoHand())
 	{
 		n = GEAR_OUSTERS_RIGHTHAND;
 	}
 	/***********************************************************	
-				ƒ⁄æÓ¿Ï ∞¸∑√ √≥∏Æ
+				ÏΩîÏñ¥ÏûΩ Í¥ÄÎ†® Ï≤òÎ¶¨
 	***********************************************************/
 	if(n>=GEAR_OUSTERS_STONE1 && n<= GEAR_OUSTERS_STONE4) 
 	{
-		if(NULL != m_ItemSlot[n+m_Gilles_CoreZap]) // ƒ⁄æÓ¿Ï¿Ã ∫ŸæÓ ¿÷¿∏∏È ƒ⁄æÓ¿Ï¿ª ∂æ¥Ÿ
-			n = (GEAR_OUSTERS)(n + m_Gilles_CoreZap); // ƒ⁄æÓ¿Ï ¿ßƒ°
+		if(NULL != m_ItemSlot[n+m_Gilles_CoreZap]) // ÏΩîÏñ¥ÏûΩÏù¥ Î∂ôÏñ¥ ÏûàÏúºÎ©¥ ÏΩîÏñ¥ÏûΩÏùÑ ÎóÄÎã§
+			n = (GEAR_OUSTERS)(n + m_Gilles_CoreZap); // ÏΩîÏñ¥ÏûΩ ÏúÑÏπò
 	}
-//	else if(n >= GEAR_OUSTERS_ZAP1 && n <= GEAR_OUSTERS_ZAP4) // ƒ⁄æÓ¿Ï ΩΩ∑‘¿∫ ∫∏¿Ã¡ˆ æ ¥¬¥Ÿ. -_-?? 
+//	else if(n >= GEAR_OUSTERS_ZAP1 && n <= GEAR_OUSTERS_ZAP4) // ÏΩîÏñ¥ÏûΩ Ïä¨Î°ØÏùÄ Î≥¥Ïù¥ÏßÄ ÏïäÎäîÎã§. -_-?? 
 //		return false;
 
 	pItem = MPlayerGear::RemoveItem( (BYTE)n );
 
 	//-----------------------------------------------------
-	// æ¯¥¬ ∞ÊøÏ
+	// ÏóÜÎäî Í≤ΩÏö∞
 	//-----------------------------------------------------
 	if (pItem==NULL)
 	{
@@ -540,7 +540,7 @@ MOustersGear::RemoveItem(GEAR_OUSTERS n)
 	}
 
 	//-----------------------------------------------------
-	// æÁº’ Item¿Œ ∞ÊøÏ æÁº’¿« Slot¿ª ∏µŒ ¡¶∞≈«ÿ¡‡æﬂ «—¥Ÿ.
+	// ÏñëÏÜê ItemÏù∏ Í≤ΩÏö∞ ÏñëÏÜêÏùò SlotÏùÑ Î™®Îëê Ï†úÍ±∞Ìï¥Ï§òÏïº ÌïúÎã§.
 	//-----------------------------------------------------
 	if (pItem->IsGearSlotTwoHand())
 	{
@@ -552,12 +552,12 @@ MOustersGear::RemoveItem(GEAR_OUSTERS n)
 		g_pPlayer->CalculateStatus();
 	#endif
 
-	// ¿÷¿∏∏È...
+	// ÏûàÏúºÎ©¥...
 	return pItem;
 }
 
 //----------------------------------------------------------------------
-// RemoveItem : id∞° ∞∞¿∫ item¿ª ¡¶∞≈«—¥Ÿ.
+// RemoveItem : idÍ∞Ä Í∞ôÏùÄ itemÏùÑ Ï†úÍ±∞ÌïúÎã§.
 //----------------------------------------------------------------------
 MItem*			
 MOustersGear::RemoveItem(TYPE_OBJECTID id)
@@ -565,7 +565,7 @@ MOustersGear::RemoveItem(TYPE_OBJECTID id)
 	MItem* pItem = MPlayerGear::RemoveItem( id ); 
 
 	//-----------------------------------------------------
-	// æ¯¥¬ ∞ÊøÏ
+	// ÏóÜÎäî Í≤ΩÏö∞
 	//-----------------------------------------------------
 	if (pItem==NULL)
 	{
@@ -573,7 +573,7 @@ MOustersGear::RemoveItem(TYPE_OBJECTID id)
 	}
 
 	//-----------------------------------------------------
-	// æÁº’ Item¿Œ ∞ÊøÏ æÁº’¿« Slot¿ª ∏µŒ ¡¶∞≈«ÿ¡‡æﬂ «—¥Ÿ.
+	// ÏñëÏÜê ItemÏù∏ Í≤ΩÏö∞ ÏñëÏÜêÏùò SlotÏùÑ Î™®Îëê Ï†úÍ±∞Ìï¥Ï§òÏïº ÌïúÎã§.
 	//-----------------------------------------------------
 	if (pItem->IsGearSlotTwoHand())
 	{
@@ -593,18 +593,18 @@ MOustersGear::RemoveItem(TYPE_OBJECTID id)
 		g_pPlayer->CalculateStatus();
 	#endif
 
-	// ¿÷~¿∏∏È...
+	// Ïûà~ÏúºÎ©¥...
 	return pItem;
 }
 
 //----------------------------------------------------------------------
-// ReplaceItem : pItem¿ª √ﬂ∞°«œ∞Ì µ˝∞‘ ¿÷¥Ÿ∏È Item±≥»Ø
+// ReplaceItem : pItemÏùÑ Ï∂îÍ∞ÄÌïòÍ≥† Îî¥Í≤å ÏûàÎã§Î©¥ ItemÍµêÌôò
 //----------------------------------------------------------------------
 bool			
 MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 {
 	//---------------------------------------------------------
-	// ItemSlot π¸¿ß∏¶ ≥—æÓ∞°¥¬ ∞ÊøÏ..
+	// ItemSlot Î≤îÏúÑÎ•º ÎÑòÏñ¥Í∞ÄÎäî Í≤ΩÏö∞..
 	//---------------------------------------------------------	
 
 	if (n>=m_Size || !pItem->IsOustersItem())
@@ -642,7 +642,7 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 	}
 	//-------------------------------------------------
 	//
-	// º’ø° ¿Â¬¯«“∑¡¥¬ ∞ÊøÏ
+	// ÏÜêÏóê Ïû•Ï∞©Ìï†Î†§Îäî Í≤ΩÏö∞
 	//
 	//-------------------------------------------------
 	if (n==GEAR_OUSTERS_LEFTHAND || n==GEAR_OUSTERS_RIGHTHAND)	
@@ -650,24 +650,24 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		bool bAdd = false;
 			
 		//-------------------------------------------------
-		// [ æÁº’ Item ] ¿Œ ∞ÊøÏ
+		// [ ÏñëÏÜê Item ] Ïù∏ Í≤ΩÏö∞
 		//-------------------------------------------------
 		if (pItem->IsGearSlotTwoHand())
 		{			
 			//-------------------------------------------------
-			// æÁº’¿« Slot¿Ã ∏µŒ ∫ÒæÓ¿÷¥¬ ∞ÊøÏ
+			// ÏñëÏÜêÏùò SlotÏù¥ Î™®Îëê ÎπÑÏñ¥ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
-			// ±◊≥… √ﬂ∞°«—¥Ÿ.
+			// Í∑∏ÎÉ• Ï∂îÍ∞ÄÌïúÎã§.
 			//-------------------------------------------------
 			if (m_ItemSlot[GEAR_OUSTERS_RIGHTHAND]==NULL
 					&& m_ItemSlot[GEAR_OUSTERS_LEFTHAND]==NULL)
 			{
-				// ±◊≥… √ﬂ∞°«—¥Ÿ.
+				// Í∑∏ÎÉ• Ï∂îÍ∞ÄÌïúÎã§.
 				pOldItem = NULL;
 				if (MPlayerGear::AddItem( pItem, GEAR_OUSTERS_RIGHTHAND ))
 				{
 					//-------------------------------------------------
-					// item¿« ≥ª±∏º∫ ªÛ≈¬ º≥¡§
+					// itemÏùò ÎÇ¥Íµ¨ÏÑ± ÏÉÅÌÉú ÏÑ§Ï†ï
 					//-------------------------------------------------
 					CheckItemStatus( pItem, GEAR_OUSTERS_RIGHTHAND );
 
@@ -676,7 +676,7 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 					m_ItemSlot[GEAR_OUSTERS_RIGHTHAND] = pItem;
 
 					//-------------------------------------------------
-					// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+					// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 					//-------------------------------------------------
 					#ifdef __GAME_CLIENT__
 						PlaySound( pItem->GetGearSoundID() );						
@@ -690,23 +690,23 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 			
 			//-------------------------------------------------
-			// æÁº’ø° ¥Ÿ π∫∞° ¿÷¥¬ ∞ÊøÏ
+			// ÏñëÏÜêÏóê Îã§ Î≠îÍ∞Ä ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
 			if (m_ItemSlot[GEAR_OUSTERS_RIGHTHAND]!=NULL 
 				&& m_ItemSlot[GEAR_OUSTERS_LEFTHAND]!=NULL)
 			{
 				//-------------------------------------------------
-				// æÁº’ø° ¿÷¥¬∞‘ ∞∞¥Ÿ∏È..
+				// ÏñëÏÜêÏóê ÏûàÎäîÍ≤å Í∞ôÎã§Î©¥..
 				//-------------------------------------------------
 				if (m_ItemSlot[GEAR_OUSTERS_RIGHTHAND]==m_ItemSlot[GEAR_OUSTERS_LEFTHAND])
 				{
-					// æÁº’ π´±‚øÕ ±≥√º«œ¥¬ ∞ÊøÏ¿Ã¥Ÿ.
+					// ÏñëÏÜê Î¨¥Í∏∞ÏôÄ ÍµêÏ≤¥ÌïòÎäî Í≤ΩÏö∞Ïù¥Îã§.
 					if (MPlayerGear::ReplaceItem( pItem, 
 													GEAR_OUSTERS_RIGHTHAND, 
 													pOldItem ))
 					{
 						//-------------------------------------------------
-						// item¿« ≥ª±∏º∫ ªÛ≈¬ º≥¡§
+						// itemÏùò ÎÇ¥Íµ¨ÏÑ± ÏÉÅÌÉú ÏÑ§Ï†ï
 						//-------------------------------------------------
 						CheckItemStatus( pItem, GEAR_OUSTERS_RIGHTHAND );
 
@@ -715,7 +715,7 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 						//m_ItemSlot[GEAR_OUSTERS_RIGHTHAND] = pItem;
 
 						//-------------------------------------------------
-						// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+						// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 						//-------------------------------------------------
 						#ifdef __GAME_CLIENT__
 							PlaySound( pItem->GetGearSoundID() );
@@ -729,7 +729,7 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 				}
 				
 				//-------------------------------------------------
-				// æÁº’ø° ¿÷¥¬∞‘ ¥Ÿ∏£¥Ÿ∏È..
+				// ÏñëÏÜêÏóê ÏûàÎäîÍ≤å Îã§Î•¥Îã§Î©¥..
 				//-------------------------------------------------
 				pOldItem = NULL;
 				return false;
@@ -737,9 +737,9 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 
 			//-------------------------------------------------
-			// ø¿∏•º’ø° π∫∞° ¿÷¥¬ ∞ÊøÏ
+			// Ïò§Î•∏ÏÜêÏóê Î≠îÍ∞Ä ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
-			// ø¿∏•º’¿« Item∞˙ Replace«—¥Ÿ.
+			// Ïò§Î•∏ÏÜêÏùò ItemÍ≥º ReplaceÌïúÎã§.
 			//-------------------------------------------------
 			else if (m_ItemSlot[GEAR_OUSTERS_RIGHTHAND]!=NULL)
 			{
@@ -749,9 +749,9 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}		
 
 			//-------------------------------------------------
-			// øﬁº’ø° π∫∞° ¿÷¥¬ ∞ÊøÏ
+			// ÏôºÏÜêÏóê Î≠îÍ∞Ä ÏûàÎäî Í≤ΩÏö∞
 			//-------------------------------------------------
-			// øﬁº’¿« Item∞˙ Replace«—¥Ÿ.
+			// ÏôºÏÜêÏùò ItemÍ≥º ReplaceÌïúÎã§.
 			//-------------------------------------------------
 			else if (m_ItemSlot[GEAR_OUSTERS_LEFTHAND]!=NULL)
 			{
@@ -761,12 +761,12 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 
 			//-----------------------------------------------------
-			// æÁº’¿« Slot¿ª ∏µŒ º≥¡§..
+			// ÏñëÏÜêÏùò SlotÏùÑ Î™®Îëê ÏÑ§Ï†ï..
 			//-----------------------------------------------------
 			if (bAdd)
 			{
 				//-------------------------------------------------
-				// item¿« ≥ª±∏º∫ ªÛ≈¬ º≥¡§
+				// itemÏùò ÎÇ¥Íµ¨ÏÑ± ÏÉÅÌÉú ÏÑ§Ï†ï
 				//-------------------------------------------------
 				CheckItemStatus( pItem, GEAR_OUSTERS_RIGHTHAND );
 				
@@ -775,7 +775,7 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 				m_ItemSlot[GEAR_OUSTERS_RIGHTHAND] = pItem;
 		
 				//-------------------------------------------------
-				// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+				// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 				//-------------------------------------------------
 				#ifdef __GAME_CLIENT__
 					PlaySound( pItem->GetGearSoundID() );
@@ -788,7 +788,7 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			return false;
 		}
 		//-------------------------------------------------
-		// [ ø¿∏•º’ Item ] ¿Œ ∞ÊøÏ
+		// [ Ïò§Î•∏ÏÜê Item ] Ïù∏ Í≤ΩÏö∞
 		//-------------------------------------------------		
 		else if (pItem->IsGearSlotRightHand())
 		{
@@ -797,13 +797,13 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 													pOldItem );
 
 			//-------------------------------------------------
-			// ±≥»Øµ«æÓ ≥™ø¬ Item¿Ã æÁº’¿Œ ∞ÊøÏ
+			// ÍµêÌôòÎêòÏñ¥ ÎÇòÏò® ItemÏù¥ ÏñëÏÜêÏù∏ Í≤ΩÏö∞
 			//-------------------------------------------------
 			if (pOldItem!=NULL)
 			{
 				if (pOldItem->IsGearSlotTwoHand())
 				{
-					// øﬁº’¿ª ∫Òøˆµ–¥Ÿ.
+					// ÏôºÏÜêÏùÑ ÎπÑÏõåÎëîÎã§.
 					m_ItemSlot[GEAR_OUSTERS_LEFTHAND] = NULL;
 				}
 
@@ -812,12 +812,12 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			if (bAdd)
 			{
 				//-------------------------------------------------
-				// item¿« ≥ª±∏º∫ ªÛ≈¬ º≥¡§
+				// itemÏùò ÎÇ¥Íµ¨ÏÑ± ÏÉÅÌÉú ÏÑ§Ï†ï
 				//-------------------------------------------------
 				CheckItemStatus( pItem, GEAR_OUSTERS_RIGHTHAND );
 
 				//-------------------------------------------------
-				// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+				// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 				//-------------------------------------------------
 				#ifdef __GAME_CLIENT__
 					PlaySound( pItem->GetGearSoundID() );
@@ -830,7 +830,7 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			return false;
 		}
 		//-------------------------------------------------
-		// [ øﬁº’ Item ] ¿Œ ∞ÊøÏ
+		// [ ÏôºÏÜê Item ] Ïù∏ Í≤ΩÏö∞
 		//-------------------------------------------------
 		else if (pItem->IsGearSlotLeftHand())
 		{
@@ -838,13 +838,13 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 													GEAR_OUSTERS_LEFTHAND, 
 													pOldItem );
 			//-------------------------------------------------
-			// ±≥»Øµ«æÓ ≥™ø¬ Item¿Ã æÁº’¿Œ ∞ÊøÏ
+			// ÍµêÌôòÎêòÏñ¥ ÎÇòÏò® ItemÏù¥ ÏñëÏÜêÏù∏ Í≤ΩÏö∞
 			//-------------------------------------------------
 			if (pOldItem!=NULL)
 			{
 				if (pOldItem->IsGearSlotTwoHand())
 				{
-					// ø¿∏•º’¿ª ∫Òøˆµ–¥Ÿ.
+					// Ïò§Î•∏ÏÜêÏùÑ ÎπÑÏõåÎëîÎã§.
 					m_ItemSlot[GEAR_OUSTERS_RIGHTHAND] = NULL;
 				}
 
@@ -853,12 +853,12 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			if (bAdd)
 			{
 				//-------------------------------------------------
-				// item ªÛ≈¬ º≥¡§
+				// item ÏÉÅÌÉú ÏÑ§Ï†ï
 				//-------------------------------------------------
 				CheckItemStatus( pItem, GEAR_OUSTERS_LEFTHAND );
 				
 				//-------------------------------------------------
-				// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+				// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 				//-------------------------------------------------
 				#ifdef __GAME_CLIENT__
 					PlaySound( pItem->GetGearSoundID() );
@@ -872,35 +872,35 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		}
 		
 		//-------------------------------------------------
-		// º’ø° ¿Â¬¯«“∑¡¥¬µ•
-		// º’ø° ¿Â¬¯«“ ºˆ ¿÷¥¬ Item¿Ã æ∆¥— ∞ÊøÏ
+		// ÏÜêÏóê Ïû•Ï∞©Ìï†Î†§ÎäîÎç∞
+		// ÏÜêÏóê Ïû•Ï∞©Ìï† Ïàò ÏûàÎäî ItemÏù¥ ÏïÑÎãå Í≤ΩÏö∞
 		//-------------------------------------------------
 		pOldItem = NULL;
 		return false;
 		
 	}
 	/***********************************************************	
-				ƒ⁄æÓ¿Ï ∞¸∑√ √≥∏Æ
+				ÏΩîÏñ¥ÏûΩ Í¥ÄÎ†® Ï≤òÎ¶¨
 	***********************************************************/
 	if (n >= GEAR_OUSTERS_STONE1 && n <= GEAR_OUSTERS_STONE4)	
 	{
 		if (pItem->IsGearSlotOustersStone())
 		{			
-			if (m_ItemSlot[n+m_Gilles_CoreZap]!=NULL) // ƒ⁄æÓ¿Ï¿Ã ¿÷¿∏∏È ∏¯ ≥ı¿Ω
+			if (m_ItemSlot[n+m_Gilles_CoreZap]!=NULL) // ÏΩîÏñ¥ÏûΩÏù¥ ÏûàÏúºÎ©¥ Î™ª ÎÜìÏùå
 				return false;
 		}
 		else
 		if (pItem->IsGearSlotOustersCoreZap())
 		{			
-			if (m_ItemSlot[n]!=NULL) // ƒ⁄æÓ¿Ï¿∫ ∏µ¿Ã ¿÷æÓæﬂ ≥ı¿ª ºˆ ¿÷¥Ÿ. 
+			if (m_ItemSlot[n]!=NULL) // ÏΩîÏñ¥ÏûΩÏùÄ ÎßÅÏù¥ ÏûàÏñ¥Ïïº ÎÜìÏùÑ Ïàò ÏûàÎã§. 
 			{
 				bool bAdd = false;
-				if(m_ItemSlot[n+m_Gilles_CoreZap] == NULL)// ±‚¡∏ ƒ⁄æÓ¿Ï¿Ã æ¯¿∏∏È
+				if(m_ItemSlot[n+m_Gilles_CoreZap] == NULL)// Í∏∞Ï°¥ ÏΩîÏñ¥ÏûΩÏù¥ ÏóÜÏúºÎ©¥
 				{
 					pOldItem = NULL;
-					bAdd = MPlayerGear::AddItem( pItem, n+m_Gilles_CoreZap );	// ∞¡ √ﬂ∞°
+					bAdd = MPlayerGear::AddItem( pItem, n+m_Gilles_CoreZap );	// Í±ç Ï∂îÍ∞Ä
 				}
-				else // ±‚¡∏ ƒ⁄æÓ¿Ï¿Ã ¿÷¿∏∏È ±≥»Ø
+				else // Í∏∞Ï°¥ ÏΩîÏñ¥ÏûΩÏù¥ ÏûàÏúºÎ©¥ ÍµêÌôò
 				{
 					bAdd = MPlayerGear::ReplaceItem( pItem, n+m_Gilles_CoreZap, pOldItem );	
 					
@@ -910,7 +910,7 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 					}			
 				}
 
-				if (bAdd) // ¿ﬂ √ﬂ∞° µ∆¿∏∏È 
+				if (bAdd) // Ïûò Ï∂îÍ∞Ä ÎêêÏúºÎ©¥ 
 				{
 					#ifdef __GAME_CLIENT__
 						PlaySound( pItem->GetGearSoundID() );
@@ -925,26 +925,26 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		}
 	//	return false;
 	}
-//	else if(n >= GEAR_OUSTERS_ZAP1 && n <= GEAR_OUSTERS_ZAP4) // ƒ⁄æÓ¿Ï ΩΩ∑‘¿∫ ∫∏¿Ã¡ˆ æ ¥¬¥Ÿ. -_-?? 
+//	else if(n >= GEAR_OUSTERS_ZAP1 && n <= GEAR_OUSTERS_ZAP4) // ÏΩîÏñ¥ÏûΩ Ïä¨Î°ØÏùÄ Î≥¥Ïù¥ÏßÄ ÏïäÎäîÎã§. -_-?? 
 //		return false;
 	
 	//----------------------------------------------------
-	// ¿˚¿˝«— Slot¿Œ¡ˆ »Æ¿Œ«ÿæﬂ «—¥Ÿ.
+	// Ï†ÅÏ†àÌïú SlotÏù∏ÏßÄ ÌôïÏù∏Ìï¥Ïïº ÌïúÎã§.
 	//----------------------------------------------------	
-	if (//m_ItemSlot[n]==NULL &&				// nπ¯¬∞ slot¿Ã ∫ÒæÓ¿÷¥¬¡ˆ »Æ¿Œ
-		pItem->IsGearItem()	&&				// pItem¿Ã GearItem¿Œ¡ˆ »Æ¿Œ..
-		(*s_GearSlotCheckTable[n])(pItem))	// ¿˚¿˝«— Slot¿Œ¡ˆ »Æ¿Œ
+	if (//m_ItemSlot[n]==NULL &&				// nÎ≤àÏß∏ slotÏù¥ ÎπÑÏñ¥ÏûàÎäîÏßÄ ÌôïÏù∏
+		pItem->IsGearItem()	&&				// pItemÏù¥ GearItemÏù∏ÏßÄ ÌôïÏù∏..
+		(*s_GearSlotCheckTable[n])(pItem))	// Ï†ÅÏ†àÌïú SlotÏù∏ÏßÄ ÌôïÏù∏
 	{
-		// nπ¯¬∞ slotø° pItem¿ª √ﬂ∞°«—¥Ÿ.
+		// nÎ≤àÏß∏ slotÏóê pItemÏùÑ Ï∂îÍ∞ÄÌïúÎã§.
 		if (MPlayerGear::ReplaceItem( pItem, n, pOldItem ))
 		{
 			//-------------------------------------------------
-			// item ªÛ≈¬ º≥¡§
+			// item ÏÉÅÌÉú ÏÑ§Ï†ï
 			//-------------------------------------------------
 			CheckItemStatus( pItem, n );			
 
 			//-------------------------------------------------
-			// ¡¶¥Î∑Œ √ﬂ∞°µ» ∞ÊøÏ --> sound√‚∑¬
+			// Ï†úÎåÄÎ°ú Ï∂îÍ∞ÄÎêú Í≤ΩÏö∞ --> soundÏ∂úÎ†•
 			//-------------------------------------------------
 			#ifdef __GAME_CLIENT__
 				PlaySound( pItem->GetGearSoundID() );
@@ -980,7 +980,7 @@ MOustersGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 MItem*	MOustersGear::GetGearItem_PickUp(int &n) const	
 {
 	int Slot = n;
-//	if(Slot>=GEAR_OUSTERS_BLOOD_BIBLE1 && Slot<=GEAR_OUSTERS_BLOOD_BIBLE6) // ∫Ì∑ØµÂ πŸ¿Ã∫Ì¿∫ ¡˝¿ªºˆ æ¯¥Ÿ.
+//	if(Slot>=GEAR_OUSTERS_BLOOD_BIBLE1 && Slot<=GEAR_OUSTERS_BLOOD_BIBLE6) // Î∏îÎü¨Îìú Î∞îÏù¥Î∏îÏùÄ ÏßëÏùÑÏàò ÏóÜÎã§.
 //		return NULL;
 	if(Slot>=GEAR_OUSTERS_STONE1 && Slot<=GEAR_OUSTERS_STONE4)
 	{
@@ -1029,7 +1029,7 @@ MItem*	MOustersGear::GetGearCoreZapedItem(int slot) const
 const bool	MOustersGear::IsHasAllCoreZap(int CoreZapType) const	
 {
 	BYTE bType[4] = {0,};
-	if(CoreZapType == 0) // ¡˙µÂ∑π ƒ⁄æÓ ¿Ï ¿œ ∞ÊøÏ
+	if(CoreZapType == 0) // ÏßàÎìúÎ†à ÏΩîÏñ¥ ÏûΩ Ïùº Í≤ΩÏö∞
 	{
 		MItem* pItem;
 		for(int i = 0; i<4; i++)

@@ -42,7 +42,7 @@ MStopInventoryEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		const MItem* pItem = g_pInventory->GetItem( invenX, invenY );
 
 		//---------------------------------------------------------------
-		// ¾ÆÀÌÅÛÀÌ ÀÖÀ¸¸é Å©±â¿¡ µû¶ó¼­ ÀÌÆåÆ®°¡ ¹Ù²ï´Ù.
+		// ì•„ì´í…œì´ ìžˆìœ¼ë©´ í¬ê¸°ì— ë”°ë¼ì„œ ì´íŽ™íŠ¸ê°€ ë°”ë€ë‹¤.
 		//---------------------------------------------------------------
 		if (pItem!=NULL)
 		{
@@ -68,7 +68,7 @@ MStopInventoryEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 //			int gridX = pItem->GetGridWidth();
 //			int gridY = pItem->GetGridHeight();
 //
-//			// Ä«Ä«...
+//			// ì¹´ì¹´...
 //			int gridValue = (gridX-1)*2 + (gridY==3);
 //
 //			if (gridValue < gridMax)
@@ -94,50 +94,50 @@ MStopInventoryEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	MScreenEffect*	pEffect;
 	//---------------------------------------------
-	// Effect »ý¼º
+	// Effect ìƒì„±
 	//---------------------------------------------
 	pEffect = new MScreenEffect(bltType);
 
 	pEffect->SetFrameID( frameID, maxFrame );	
 
-	// ±âÁØÁ¡ ¼³Á¤..(!!!!!!!!!!)
+	// ê¸°ì¤€ì  ì„¤ì •..(!!!!!!!!!!)
 	//---------------------------------------------
-	// ÇöÀç inventoryÀÇ À§Ä¡...
+	// í˜„ìž¬ inventoryì˜ ìœ„ì¹˜...
 	//---------------------------------------------
 	POINT point;
 	
 	point = UI_GetInventoryPosition();
 	pEffect->SetScreenBasis(point.x, point.y);
 
-	// SetPositionÀ» ¸ÕÀú ÇØÁà¾ß ÇÑ´Ù. ¾È¿¡¼­ MapÁÂÇ¥·Î º¯È¯ÇÏ´Â°Å ¶§¸Å »à»ç¸®³­´Ù.
+	// SetPositionì„ ë¨¼ì € í•´ì¤˜ì•¼ í•œë‹¤. ì•ˆì—ì„œ Mapì¢Œí‘œë¡œ ë³€í™˜í•˜ëŠ”ê±° ë•Œë§¤ ì‚‘ì‚¬ë¦¬ë‚œë‹¤.
 	pEffect->SetPosition( egInfo.x1, egInfo.y1 );
 
 	//---------------------------------------------
-	// È­¸é¿¡¼­ EffectÀÇ À§Ä¡
+	// í™”ë©´ì—ì„œ Effectì˜ ìœ„ì¹˜
 	//---------------------------------------------
 	point = UI_GetInventoryGridPosition(egInfo.x1, egInfo.y1);	
 	pEffect->SetScreenPosition(point.x+grid_plus.x, point.y+grid_plus.y);
 
 
-	pEffect->SetStepPixel(0);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-	pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+	pEffect->SetStepPixel(0);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
+	pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
-	// ¹æÇâ ¼³Á¤
+	// ë°©í–¥ ì„¤ì •
 	pEffect->SetDirection( 0 );
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
 
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 
-	// Inventory¿¡ Ãß°¡ÇÑ´Ù.
+	// Inventoryì— ì¶”ê°€í•œë‹¤.
 	
 	//if (
 	g_pInventoryEffectManager->AddEffect( pEffect );
 	//)
 	{
-		// ´ÙÀ½ Effect »ý¼º Á¤º¸
+		// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 		pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );	
 	}
 

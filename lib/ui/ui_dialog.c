@@ -28,11 +28,11 @@ static void dialog_keyboard_control(UI_Window* window, uint32_t message, uint32_
  * ============================================================================ */
 
 static void dialog_button_callback(UI_Button* button, int id) {
-    if (!button || !button->user_data) {
+    if (!button || !button->on_press.fn) {
         return;
     }
 
-    UI_Dialog* dialog = (UI_Dialog*)button->user_data;
+    UI_Dialog* dialog = (UI_Dialog*)button->on_press.data;
     
     if (dialog->callback) {
         dialog->callback(dialog, id);
@@ -82,9 +82,8 @@ UI_Dialog* ui_dialog_create(int x, int y, int w, int h, int button_flags, UI_Dia
     /* Create OK button */
     if (button_flags & DIALOG_OK) {
         ui_button_init(&dialog->ok_button, current_x, button_y, BUTTON_WIDTH, BUTTON_HEIGHT, DIALOG_EXECID_OK);
-        ui_button_set_callback(&dialog->ok_button, dialog_button_callback);
-        ui_button_set_sprite_index(&dialog->ok_button, AB_BUTTON_OK);
-        ui_button_set_user_data(&dialog->ok_button, dialog);
+  //      ui_button_set_sprite_index(&dialog->ok_button, AB_BUTTON_OK);
+        ui_button_set_on_press(&dialog->ok_button, dialog_button_callback, dialog);
         ui_button_group_add(&dialog->buttons, &dialog->ok_button);
         current_x += BUTTON_WIDTH + BUTTON_MARGIN;
     }
@@ -92,9 +91,8 @@ UI_Dialog* ui_dialog_create(int x, int y, int w, int h, int button_flags, UI_Dia
     /* Create Cancel button */
     if (button_flags & DIALOG_CANCEL) {
         ui_button_init(&dialog->cancel_button, current_x, button_y, BUTTON_WIDTH, BUTTON_HEIGHT, DIALOG_EXECID_CANCEL);
-        ui_button_set_callback(&dialog->cancel_button, dialog_button_callback);
-        ui_button_set_sprite_index(&dialog->cancel_button, AB_BUTTON_CANCEL);
-        ui_button_set_user_data(&dialog->cancel_button, dialog);
+//        ui_button_set_sprite_index(&dialog->cancel_button, AB_BUTTON_CANCEL);
+        ui_button_set_on_press(&dialog->cancel_button, dialog_button_callback, dialog);
         ui_button_group_add(&dialog->buttons, &dialog->cancel_button);
     }
 

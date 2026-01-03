@@ -2,8 +2,8 @@
 // CAlphaSpritePack.h
 //----------------------------------------------------------------------
 //
-// SpritePackÀÇ Sprite¿¡ ´ëÇÑ File Pointer Index°¡ ÇÊ¿äÇÏ´Ù.
-// SpriteSet¿¡¼­ ÀĞ±â À§ÇØ¼­.
+// SpritePackì˜ Spriteì— ëŒ€í•œ File Pointer Indexê°€ í•„ìš”í•˜ë‹¤.
+// SpriteSetì—ì„œ ì½ê¸° ìœ„í•´ì„œ.
 //
 //----------------------------------------------------------------------
 
@@ -50,8 +50,8 @@ class CAlphaSpritePack {
 		CAlphaSprite&	operator [] (TYPE_SPRITEID n) { return m_pSprites[n]; }
 
 	protected :
-		TYPE_SPRITEID	m_nSprites;		// CAlphaSpriteÀÇ °³¼ö
-		CAlphaSprite*	m_pSprites;		// CAlphaSpriteµéÀ» ÀúÀåÇØµĞ´Ù.
+		TYPE_SPRITEID	m_nSprites;		// CAlphaSpriteì˜ ê°œìˆ˜
+		CAlphaSprite*	m_pSprites;		// CAlphaSpriteë“¤ì„ ì €ì¥í•´ë‘”ë‹¤.
 };
 
 #endif

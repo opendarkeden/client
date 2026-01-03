@@ -23,7 +23,7 @@ void LCVersionCheckOKHandler::execute ( LCVersionCheckOK * pPacket , Player * pP
 #ifdef __GAME_CLIENT__
 
 
-	// Á¤»óÀûÀÎ °æ¿ì.. ¾Æ¹«°Íµµ ÇÒ°Ô ¾ø´Ù.
+	// ì •ìƒì ì¸ ê²½ìš°.. ì•„ë¬´ê²ƒë„ í• ê²Œ ì—†ë‹¤.
 
 #endif
 		

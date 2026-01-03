@@ -1,7 +1,7 @@
 #ifndef __VS_UI_FILEPATH_H__
 #define __VS_UI_FILEPATH_H__
 
-// Client°¡ ReleaseµÇ¸é Directory°¡ º¯ÇÒ ÀÏÀÌ ¾ø±â ¶§¹®¿¡ directory service »ç¿ë ¾ÈÇÔ.
+// Clientê°€ Releaseë˜ë©´ Directoryê°€ ë³€í•  ì¼ì´ ì—†ê¸° ë•Œë¬¸ì— directory service ì‚¬ìš© ì•ˆí•¨.
 
 #define _ROOT							"data\\ui\\"
 
@@ -262,7 +262,7 @@
 #define SPK_SKILL_MINI						_ROOT"spk\\SkillMini.spk"
 #define SPKI_SKILL_MINI						_ROOT"spk\\SkillMini.spki"
 
-// Ä³¸¯»ı¼º Sprite
+// ìºë¦­ìƒì„± Sprite
 #define SPK_FACE							_ROOT"spk\\Face.spk"
 #define SPKI_FACE							_ROOT"spk\\Face.spki"
 #define SPK_FACE_MAKE						_ROOT"spk\\FaceMake.spk"
@@ -293,15 +293,15 @@
 #define SPK_VAMPIRE_BUY_DIALOG		_ROOT"spk\\BuyDialogVampire.spk"
 //#define SPK_MONEY_DIALOG		_ROOT"spk\\MoneyDialog.spk"
 
-//½½·¹ÀÌ¾î Æ÷Å»
+//ìŠ¬ë ˆì´ì–´ í¬íƒˆ
 #define SPK_SLAYER_PORTAL_ETC			_ROOT"spk\\PortalEtcSlayer.spk"
 #define SPK_SLAYER_PORTAL_MAP			_ROOT"spk\\PortalMapSlayer.spk"
 
-//ÆÄÆ¼
+//íŒŒí‹°
 #define SPK_SLAYER_PARTY				_ROOT"spk\\PartySlayer.spk"
 #define SPK_VAMPIRE_PARTY				_ROOT"spk\\PartyVampire.spk"
 
-//±æµå
+//ê¸¸ë“œ
 #define SPK_SLAYER_TEAM					_ROOT"spk\\TeamSlayer.spk"
 #define SPK_VAMPIRE_TEAM				_ROOT"spk\\TeamVampire.spk"
 #define SPK_SLAYER_TEAM_MEMBER			_ROOT"spk\\TeamMemberSlayer.spk"
@@ -334,7 +334,7 @@
 // SoulChain
 #define SPK_SOUL_CHAIN					_ROOT"spk\\Trace.spk"
 
-// ÀÌ¿ë µî±Ş 
+// ì´ìš© ë“±ê¸‰ 
 #define SPK_USE_GRADE					_ROOT"spk\\UseGrade.spk"
 
 #define SPK_XMAS_CARD					_ROOT"spk\\XMasCard.spk"
@@ -342,10 +342,10 @@
 #define SPK_LOTTERY_CARD				_ROOT"spk\\LotteryCard.spk"
 #define SPKI_LOTTERY_CARD				_ROOT"spk\\LotteryCard.spki"
 
-// °Ô½ÃÆÇ  2003.5.12 by sonee
+// ê²Œì‹œíŒ  2003.5.12 by sonee
 #define SPK_BULLETIN_BOARD				_ROOT"spk\\BulletinBoard.spk"
 
-// ¾Æ¿ì½ºÅÍÁî ÀÎÅÍÆäÀÌ½º ÆÄÀÏ
+// ì•„ìš°ìŠ¤í„°ì¦ˆ ì¸í„°í˜ì´ìŠ¤ íŒŒì¼
 #define SPK_ASSEMBLE_BOX_OUSTERS		_ROOT"spk\\AssembleMessageBoxOusters.spk"
 #define SPK_ASSEMBLE_BOX_BUTTON_OUSTERS	_ROOT"spk\\AssembleMessageBoxButtonOusters.spk"
 #define SPK_OUSTERS_GAMEMENU			_ROOT"spk\\GameMenuOusters.spk"
@@ -372,7 +372,7 @@
 #define SPK_SLAYER_FRIEND				_ROOT"spk\\SlayerFriend.spk"
 #define SPK_VAMPIRE_FRIEND				_ROOT"spk\\VampireFriend.spk"
 
-// ¹Í½Ì Æ÷Áö 2003.5.20 by gony
+// ë¯¹ì‹± í¬ì§€ 2003.5.20 by gony
 #define SPK_MIXING_FORGE				_ROOT"spk\\MixingForge.spk"
 
 #define SPK_HORN						_ROOT"spk\\PortalEtcOusters.spk"//_ROOT"spk\\Horn.spk"
@@ -410,16 +410,16 @@
 
 //2004, 5, 31 sobeit add end - sms message
 
-// 2004, 6, 21 sobeit add start -  ³×ÀÌ¹Ö ½ºÆ®¸µ ÀÌ¹ÌÁö
+// 2004, 6, 21 sobeit add start -  ë„¤ì´ë° ìŠ¤íŠ¸ë§ ì´ë¯¸ì§€
 #define SPK_SLAYER_NAMING			_ROOT"spk\\NamingSlayer.spk"
 #define SPK_VAMPIRE_NAMING			_ROOT"spk\\NamingVampire.spk"
 #define SPK_OUSTERS_NAMING			_ROOT"spk\\NamingOusters.spk"
-// 2004, 6, 21 sobeit add end -  ³×ÀÌ¹Ö ½ºÆ®¸µ ÀÌ¹ÌÁö
-// 2004, 7, 2 sobeit add start -  Äù½ºÆ® ¸Å´ÏÀú ui
+// 2004, 6, 21 sobeit add end -  ë„¤ì´ë° ìŠ¤íŠ¸ë§ ì´ë¯¸ì§€
+// 2004, 7, 2 sobeit add start -  í€˜ìŠ¤íŠ¸ ë§¤ë‹ˆì € ui
 #define SPK_SLAYER_QUESTMAMAGER			_ROOT"spk\\QuestManager_Slayer.spk"
 #define SPK_VAMPIRE_QUESTMAMAGER		_ROOT"spk\\QuestManager_Vampire.spk"
 #define SPK_OUSTERS_QUESTMAMAGER		_ROOT"spk\\QuestManager_Ousters.spk"
-// 2004, 7, 2 sobeit add end -  Äù½ºÆ® ¸Å´ÏÀú ui
+// 2004, 7, 2 sobeit add end -  í€˜ìŠ¤íŠ¸ ë§¤ë‹ˆì € ui
 
 // 2004, 7, 9 sobeit add start
 #define QUEST_XML_FILE					"SimpleGQuest.xml"
@@ -442,7 +442,7 @@
 #define SPK_PERSNALSHOP_SLAYER						   	_ROOT"spk\\SlayerPersnalShop.spk"
 #define SPK_PERSNALSHOP_VAMPIRE							_ROOT"spk\\VampirePersnalShop.spk"
 #define SPK_PERSNALSHOP_OUSTERS							_ROOT"spk\\OustersPersnalShop.spk"
-// 2004, 12, 1, sobeit add start - Â¯ Æ÷ÀÎÆ®
+// 2004, 12, 1, sobeit add start - ì§± í¬ì¸íŠ¸
 #define SPK_SLAYER_POWERJJANG				_ROOT"spk\\Powerjjang_Slayer.spk"
 #define SPK_VAMPIRE_POWERJJANG				_ROOT"spk\\Powerjjang_Vampire.spk"
 #define SPK_OUSTERS_POWERJJANG				_ROOT"spk\\Powerjjang_Ousters.spk"

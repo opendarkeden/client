@@ -17,15 +17,15 @@ typedef	std::list<LPDIRECTSOUNDBUFFER>	LPDIRECTSOUNDBUFFER_LIST;
 class CDirectSound
 {
 
-	public:		// ÇÔ¼ö
+	public:		// í•¨ìˆ˜
 		CDirectSound();
 		~CDirectSound();
 
 		//---------------------------------------------------------
 		// Init / Release
 		//---------------------------------------------------------
-		bool					Init(HWND);									// ÃÊ±âÈ­ 
-		void					Release();									// Á¦°Å
+		bool					Init(HWND);									// ì´ˆê¸°í™” 
+		void					Release();									// ì œê±°
 		void					ReleaseDuplicateBuffer();
 
 		bool					IsInit() const		{ return m_bInit; }
@@ -33,18 +33,18 @@ class CDirectSound
 		//---------------------------------------------------------
 		// Load / Release / Duplicate
 		//---------------------------------------------------------
-		LPDIRECTSOUNDBUFFER		LoadWav(LPSTR filename);					// È­ÀÏ ·Îµå(*,wav)
+		LPDIRECTSOUNDBUFFER		LoadWav(LPSTR filename);					// í™”ì¼ ë¡œë“œ(*,wav)
 		LPDIRECTSOUNDBUFFER		CreateBuffer(LPVOID sdat, DWORD size, DWORD caps, LPWAVEFORMATEX wfx);
-		void					Release(LPDIRECTSOUNDBUFFER);				// »ç¿îµå ¹öÆÛ Á¦°Å
-		LPDIRECTSOUNDBUFFER		DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER, bool bAutoRelease=true);	// »ç¿îµå ¹öÆÛ º¹»ç	
+		void					Release(LPDIRECTSOUNDBUFFER);				// ì‚¬ìš´ë“œ ë²„í¼ ì œê±°
+		LPDIRECTSOUNDBUFFER		DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER, bool bAutoRelease=true);	// ì‚¬ìš´ë“œ ë²„í¼ ë³µì‚¬	
 
 		//---------------------------------------------------------
 		// Play / Stop
 		//---------------------------------------------------------
-		bool					IsPlay(LPDIRECTSOUNDBUFFER) const;								// ¿¬ÁÖÁßÀÎ°¡?
-		bool					NewPlay(LPDIRECTSOUNDBUFFER, bool bLoop=false);	// »ç¿îµå ÇÃ·¹ÀÌ(Ã³À½ºÎÅÍ ´Ù½Ã ½ÃÀÛ)
-		bool					Play(LPDIRECTSOUNDBUFFER, bool bLoop=false, bool bDuplicate=true);		// »ç¿îµå ÇÃ·¹ÀÌ(³¡³¯¶§±îÁö ±â´Ù¸²)
-		bool					Stop(LPDIRECTSOUNDBUFFER);					// »ç¿îµå ¸ØÃã
+		bool					IsPlay(LPDIRECTSOUNDBUFFER) const;								// ì—°ì£¼ì¤‘ì¸ê°€?
+		bool					NewPlay(LPDIRECTSOUNDBUFFER, bool bLoop=false);	// ì‚¬ìš´ë“œ í”Œë ˆì´(ì²˜ìŒë¶€í„° ë‹¤ì‹œ ì‹œì‘)
+		bool					Play(LPDIRECTSOUNDBUFFER, bool bLoop=false, bool bDuplicate=true);		// ì‚¬ìš´ë“œ í”Œë ˆì´(ëë‚ ë•Œê¹Œì§€ ê¸°ë‹¤ë¦¼)
+		bool					Stop(LPDIRECTSOUNDBUFFER);					// ì‚¬ìš´ë“œ ë©ˆì¶¤
 		void					ReleaseTerminatedDuplicateBuffer();
 
 		//---------------------------------------------------------
@@ -57,27 +57,27 @@ class CDirectSound
 		//---------------------------------------------------------
 		// Frequency
 		//---------------------------------------------------------
-		bool					AddFrequency(LPDIRECTSOUNDBUFFER, int);		// ÁÖÆÄ¼ö ¿Ã¸®±â				
-		bool					SubFrequency(LPDIRECTSOUNDBUFFER, int);		// ÁÖÆÄ¼ö ³»¸®±â				
+		bool					AddFrequency(LPDIRECTSOUNDBUFFER, int);		// ì£¼íŒŒìˆ˜ ì˜¬ë¦¬ê¸°				
+		bool					SubFrequency(LPDIRECTSOUNDBUFFER, int);		// ì£¼íŒŒìˆ˜ ë‚´ë¦¬ê¸°				
 	
 		//---------------------------------------------------------
 		// Volume
 		//---------------------------------------------------------
 		bool					SetMaxVolume(LPDIRECTSOUNDBUFFER buffer);
-		bool					AddVolume(LPDIRECTSOUNDBUFFER, int);		// º¼·ı ³ôÀÓ
-		bool					SubVolume(LPDIRECTSOUNDBUFFER, int);		// º¼·ı ³»¸²				
-		bool					SubVolumeFromMax(LPDIRECTSOUNDBUFFER, int);	// MaxºÎÅÍ º¼·ı ³»¸²				
+		bool					AddVolume(LPDIRECTSOUNDBUFFER, int);		// ë³¼ë¥¨ ë†’ì„
+		bool					SubVolume(LPDIRECTSOUNDBUFFER, int);		// ë³¼ë¥¨ ë‚´ë¦¼				
+		bool					SubVolumeFromMax(LPDIRECTSOUNDBUFFER, int);	// Maxë¶€í„° ë³¼ë¥¨ ë‚´ë¦¼				
 		void					SetVolumeLimit(LONG volume);
 		LONG					GetVolumeLimit() const	{ return m_MaxVolume; }
 
 		//---------------------------------------------------------
 		// Pan
 		//---------------------------------------------------------
-		bool					RightPan(LPDIRECTSOUNDBUFFER, int);			// ¿À¸¥ÂÊ ÆÒ
-		bool					LeftPan(LPDIRECTSOUNDBUFFER, int);			// ¿ŞÂÊ ÆÒ
-		bool					CenterToRightPan(LPDIRECTSOUNDBUFFER, int);			// centerºÎÅÍ ¿À¸¥ÂÊ ÆÒ
-		bool					CenterToLeftPan(LPDIRECTSOUNDBUFFER, int);			// centerºÎÅÍ ¿ŞÂÊ ÆÒ
-		bool					CenterPan(LPDIRECTSOUNDBUFFER);				// °¡¿îµ¥ ÆÒ				
+		bool					RightPan(LPDIRECTSOUNDBUFFER, int);			// ì˜¤ë¥¸ìª½ íŒ¬
+		bool					LeftPan(LPDIRECTSOUNDBUFFER, int);			// ì™¼ìª½ íŒ¬
+		bool					CenterToRightPan(LPDIRECTSOUNDBUFFER, int);			// centerë¶€í„° ì˜¤ë¥¸ìª½ íŒ¬
+		bool					CenterToLeftPan(LPDIRECTSOUNDBUFFER, int);			// centerë¶€í„° ì™¼ìª½ íŒ¬
+		bool					CenterPan(LPDIRECTSOUNDBUFFER);				// ê°€ìš´ë° íŒ¬				
 		bool					ChangePan(LPDIRECTSOUNDBUFFER buffer, int pan);	// -10000 ~ 10000
 
 		LPDIRECTSOUND			GetDS() const		{ return m_pDS;	}
@@ -89,12 +89,12 @@ class CDirectSound
 
 
 	protected :
-		LPDIRECTSOUND			m_pDS;										// ´ÙÀÌ·ºÆ® »ç¿îµå ¿ÀºêÁ§Æ®
+		LPDIRECTSOUND			m_pDS;										// ë‹¤ì´ë ‰íŠ¸ ì‚¬ìš´ë“œ ì˜¤ë¸Œì íŠ¸
 		bool					m_bInit;
 
-		bool					m_bMute;			// ¼Ò¸®¸¦ ³»Áö ¾Ê´Â´Ù.
+		bool					m_bMute;			// ì†Œë¦¬ë¥¼ ë‚´ì§€ ì•ŠëŠ”ë‹¤.
 
-		LONG					m_MaxVolume;		// ÇöÀçÀÇ ÃÖ´ë ¼Ò¸® Å©±â
+		LONG					m_MaxVolume;		// í˜„ì¬ì˜ ìµœëŒ€ ì†Œë¦¬ í¬ê¸°
 
 		LPDIRECTSOUNDBUFFER_LIST	m_listDuplicatedBuffer;
 

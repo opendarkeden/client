@@ -135,7 +135,7 @@ static void draw_sprite(UI_GlobalResource* gr, SpritePack* pack, int index, int 
 }
 
 static void on_title_button_click(UI_Button* button, int button_id) {
-    struct UI_Title* title = (struct UI_Title*)button->user_data;
+    struct UI_Title* title = (struct UI_Title*)button->on_press.data;
     /* This assumes user_data is set to title. We need to ensure that in add_title_button */
 
     switch (button_id) {
@@ -155,9 +155,15 @@ static void on_title_button_click(UI_Button* button, int button_id) {
     }
 }
 
-static void ui_title_button_render_callback(UI_Button* button, UI_Surface* surface, SpritePack* pack, int parent_x, int parent_y) {
+typedef struct {
+    UI_Button base;
+    int16_t sprite_index;
+} UI_TitleButton;
+
+static void ui_title_button_render_callback(void *data, UI_Surface* surface, SpritePack* pack, int parent_x, int parent_y) {
+    UI_TitleButton* button = (UI_TitleButton*)data;
     int sprite_index = button->sprite_index;
-    if (button->focus) {
+    if (button->base.focus) {
         sprite_index -= 1;
     }
 
@@ -166,8 +172,8 @@ static void ui_title_button_render_callback(UI_Button* button, UI_Surface* surfa
         DecodedSprite decoded = {0};
         if (sprite_decode(s, &decoded, 0) == 0) {
             if (decoded_sprite_create_texture(&decoded, surface->renderer) == 0) {
-                int abs_x = parent_x + button->x;
-                int abs_y = parent_y + button->y;
+                int abs_x = parent_x + button->base.x;
+                int abs_y = parent_y + button->base.y;
                 ui_surface_blit_sprite(surface, abs_x, abs_y, &decoded);
             }
             decoded_sprite_free(&decoded);
@@ -176,15 +182,15 @@ static void ui_title_button_render_callback(UI_Button* button, UI_Surface* surfa
 }
 
 
+
 static void add_title_button(struct UI_Title* title, int x, int y, int w, int h, int id) {
-    UI_Button* btn = (UI_Button*)malloc(sizeof(UI_Button));
+    UI_TitleButton* btn = (UI_TitleButton*)malloc(sizeof(UI_TitleButton));
     if (!btn) return;
 
-    ui_button_init(btn, x, y, w, h, id);
-    ui_button_set_callback(btn, on_title_button_click);
-    ui_button_set_sprite_index(btn, id);
-    ui_button_set_render_callback(btn, ui_title_button_render_callback);
-    ui_button_set_user_data(btn, title); /* Important for callback context */
+    ui_button_init(&btn->base, x, y, w, h, id);
+    ui_button_set_on_press(&btn->base, on_title_button_click, title);
+    btn->sprite_index = id;
+    ui_button_set_show_widget(&btn->base, ui_title_button_render_callback, btn);
     ui_button_group_add(&title->buttons, btn);
 }
 

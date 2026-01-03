@@ -25,7 +25,7 @@ class C_TIMER2
 {
 private:
 	//
-	// Å¸ÀÌ¸Ó °³Ã¼ Á¤º¸ ±¸Á¶Ã¼
+	// íƒ€ì´ë¨¸ ê°œì²´ ì •ë³´ êµ¬ì¡°ì²´
 	//
 	struct S_TIMERUNIT
 	{
@@ -36,7 +36,7 @@ private:
 		//
 		// tid
 		//
-		// uniqueÇÑ id·Î½á ÇÏ³ªÀÇ timer¿Í ´ëÀÀÇÑ´Ù.
+		// uniqueí•œ idë¡œì¨ í•˜ë‚˜ì˜ timerì™€ ëŒ€ì‘í•œë‹¤.
 		//
 		timer_id_t		tid;
 		void				(*fp_proc)(void);	// method to execute
@@ -56,8 +56,8 @@ private:
 	//
 	// m_id_generator
 	//
-	// uniqueÇÑ id¸¦ »ı¼ºÇÑ´Ù.
-	// ÀÌ °ÍÀº °è¼Ó Áõ°¡´Â °ÍÀ¸·Î tid°¡ deleteµÇ¾îµµ º¯ÇÏÁö ¾Ê´Â´Ù.
+	// uniqueí•œ idë¥¼ ìƒì„±í•œë‹¤.
+	// ì´ ê²ƒì€ ê³„ì† ì¦ê°€ëŠ” ê²ƒìœ¼ë¡œ tidê°€ deleteë˜ì–´ë„ ë³€í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	//
 	timer_id_t			m_id_generator;
 

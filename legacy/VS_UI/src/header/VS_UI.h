@@ -26,7 +26,7 @@
 //-----------------------------------------------------------------------------
 // C_VS_UI
 //
-// VS UI ÃÖ»óÀ§ Object. Client Á¢±Ù °¡´ÉÇÏ´Ù.
+// VS UI ìµœìƒìœ„ Object. Client ì ‘ê·¼ ê°€ëŠ¥í•˜ë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI : public HotKey
 {
@@ -53,12 +53,12 @@ private:
 	bool	m_bl_hotkey;
 
 	TYPE_OBJECTID m_otherojectid;
-	//Logitech iFeel Mouse Áö¿ø ÄÚµå
+	//Logitech iFeel Mouse ì§€ì› ì½”ë“œ
 
 public:
 	C_VS_UI();
 	~C_VS_UI();
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void	RunUsePetFood(DWORD UsingObjectID = 0, MItem* SubInventory = NULL);
 	#else
 		void	RunUsePetFood();
@@ -66,7 +66,7 @@ public:
 	
 	void	CloseUsePetFood();
 
-	// 2004, 5, 11 sobeit add start - Æê º¸°ü¼Ò
+	// 2004, 5, 11 sobeit add start - í« ë³´ê´€ì†Œ
 	void	RunKeepPetItemDialog();
 	void	CloseKeepPetItemDialog();
 	void	RunGetKeepPetItemDialog();
@@ -80,7 +80,7 @@ public:
 	void	CloseOtherInfo();
 	void	SetBloodBibleStatusTimer(DWORD sec)	{ if(m_pC_game != NULL)m_pC_game->SetBloodBibleStatusTimer(sec); }
 
-	// ³İ¸¶ºí¿ë
+	// ë„·ë§ˆë¸”ìš©
 	void	RunConnect()				{ if(m_pC_title != NULL) m_pC_title->RunConnect(); }
 
 	bool	IsRunningTitle()			{ if(m_pC_title != NULL)return true; return false; }
@@ -92,17 +92,17 @@ public:
 	void	CloseAllDialog();
 	bool	IsInputMode()	{ if(m_pC_game == NULL)return false; return m_pC_game->IsInputMode(); }
 
-	//Áö·Ú¼³Ä¡
+	//ì§€ë¢°ì„¤ì¹˜
 	void	StartInstallMineProgress(int focus_grid_x, int focus_grid_y)
 	{ if(m_pC_game)m_pC_game->StartInstallMineProgress(focus_grid_x, focus_grid_y); }
 	bool	IsInstallMineProgress()		{ return gbl_mine_progress; }
 	void	EndInstallMineProgress()	{ gbl_mine_progress = false; }
-	//Áö·Ú¸¸µé±â
+	//ì§€ë¢°ë§Œë“¤ê¸°
 	void	StartCreateMineProgress(int focus_grid_x, int focus_grid_y)
 	{ if(m_pC_game)m_pC_game->StartCreateMineProgress(focus_grid_x, focus_grid_y); }
 	bool	IsCreateMineProgress()		{ return gbl_mine_progress; }
 	void	EndCreateMineProgress()	{ gbl_mine_progress = false; }
-	//ÆøÅº¸¸µé±â
+	//í­íƒ„ë§Œë“¤ê¸°
 	void	StartCreateBombProgress(int focus_grid_x, int focus_grid_y)
 	{ if(m_pC_game)m_pC_game->StartCreateBombProgress(focus_grid_x, focus_grid_y); }
 	bool	IsCreateBombProgress()		{ return gbl_mine_progress; }
@@ -113,7 +113,7 @@ public:
 	void	CloseOption();
 	bool	IsRunningOption(){ return (m_pC_option != NULL); }	// by larosel
 
-	void	SelectCharacter(int n)	{ if(m_pC_title)m_pC_title->SelectCharacter(n); }	// Ä³¸¯ÅÍ¼±ÅÃ¿¡¼­ ÀÓÀÇ¼±ÅÃ
+	void	SelectCharacter(int n)	{ if(m_pC_title)m_pC_title->SelectCharacter(n); }	// ìºë¦­í„°ì„ íƒì—ì„œ ì„ì˜ì„ íƒ
 //	void	UsedID(bool used)	{ if(m_pC_title)m_pC_title->UsedID(used); }
 
 	const char *GetFileName()	{ if(m_pC_game)return m_pC_game->GetFileName(); return NULL; }
@@ -154,7 +154,7 @@ public:
 
 //server name by larosel
 	void	SetServerList(LPSTR *name, int *id, int *status, int size, int default_id)	{ if(m_pC_title)m_pC_title->SetServerList(name, id, status, size, default_id); }
-	void	SetCurrentServerName(const char *world_name, const char *server_name, int status) { if(m_pC_progress)m_pC_progress->SetServerName(world_name, server_name, status); } // StartProgress ÈÄ¿¡ ÇØÁØ´Ù.
+	void	SetCurrentServerName(const char *world_name, const char *server_name, int status) { if(m_pC_progress)m_pC_progress->SetServerName(world_name, server_name, status); } // StartProgress í›„ì— í•´ì¤€ë‹¤.
 
 	bool	IsGameMode()const		{ if(m_pC_game)return true; return false; }
 	bool	IsRunningStorage() const;
@@ -212,9 +212,9 @@ public:
 	bool	CanReplaceItemInGear(MItem* pItem, int slot, MItem*& pOldItem);
 	const MItem * GetGearItem(int slot) const;
 	const MItem * GetGearItem_PickUp(int &slot) const;
-	const MItem * GetGearCoreZapItem(int slot) const; // Æ¯Á¤ ½½·Ô¿¡ ºÙ¾î ÀÖ´Â ÄÚ¾îÀìÀ» ¸®ÅÏ, slot : ÄÚ¾îÀì ¹ØÀÇ ½½·Ô
-	const MItem * GetGearCoreZapedItem(int slot) const ;// ÄÚ¾îÀì ¹Ø¿¡ ±ò¸° ¾ÆÀÌÅÛÀ» ¸®ÅÏ, slot : ÄÚ¾îÀì ½½·Ô
-	const bool IsHasAllCoreZap(int CoreZapType = 0) const; // ¸ğµç Á¾·ùÀÇ ÄÚ¾îÀìÀÌ Âø¿ë µÆ´ÂÁö..°Ë»ç
+	const MItem * GetGearCoreZapItem(int slot) const; // íŠ¹ì • ìŠ¬ë¡¯ì— ë¶™ì–´ ìˆëŠ” ì½”ì–´ì½ì„ ë¦¬í„´, slot : ì½”ì–´ì½ ë°‘ì˜ ìŠ¬ë¡¯
+	const MItem * GetGearCoreZapedItem(int slot) const ;// ì½”ì–´ì½ ë°‘ì— ê¹”ë¦° ì•„ì´í…œì„ ë¦¬í„´, slot : ì½”ì–´ì½ ìŠ¬ë¡¯
+	const bool IsHasAllCoreZap(int CoreZapType = 0) const; // ëª¨ë“  ì¢…ë¥˜ì˜ ì½”ì–´ì½ì´ ì°©ìš© ëëŠ”ì§€..ê²€ì‚¬
 	const bool IsCloseBloodBibleSlot(int slot) const;
 	const int GetGearSize() const;
 
@@ -598,7 +598,7 @@ public:
 	void	CloseRequestShrineMinimap();
 	bool	IsRunningRequestShrineMinimap();
 	
-		// ÇïÇÁ ¸Ş¼¼Áö desc // 
+		// í—¬í”„ ë©”ì„¸ì§€ desc // 
 	void	RunHelpDesc(const char *detail,const char *title,DWORD id);
 	void	CloseHelpDesc();
 	bool	IsRunningHelpDesc();
@@ -686,7 +686,7 @@ public:
 	void	RunNextGQuestExcuteElement();
 	// 2004, 7, 5 sobeit add end
 	
-	// 2004, 10, 25, sobeit add start - ¼¼À² º¯°æ
+	// 2004, 10, 25, sobeit add start - ì„¸ìœ¨ ë³€ê²½
 	void	RunModifyTax();
 	void	RunRangerChat();
 	bool	IsRunngingRangerChat();
@@ -707,15 +707,15 @@ public:
 	bool	IsRunningSwapAdvancementItem();
 	// 2005, 1, 3, sobeit add end
 
-	// 2005, 1, 11, sobeit add start - ºÒ¿ìÀÌ¿ôµ½±â Ã¢
+	// 2005, 1, 11, sobeit add start - ë¶ˆìš°ì´ì›ƒë•ê¸° ì°½
 	void	Run_Campaign_Help_Unfortunate_Neighbors(int value = 0);
 	// 2005, 1, 11, sobeit add end
 	
-	// 2005, 1, 17, sobeit add start - Äù½ºÆ® °ü·Ã
+	// 2005, 1, 17, sobeit add start - í€˜ìŠ¤íŠ¸ ê´€ë ¨
 	void	SetQuestNpcDialog(void* pVoid);
-	// 2005, 1, 17, sobeit add end - Äù½ºÆ® °ü·Ã
+	// 2005, 1, 17, sobeit add end - í€˜ìŠ¤íŠ¸ ê´€ë ¨
 
-	// 2005, 1, 24, sobeit add start - ¾ÆÀÌÅÛ ¹Ş±â ÀÌº¥Æ®
+	// 2005, 1, 24, sobeit add start - ì•„ì´í…œ ë°›ê¸° ì´ë²¤íŠ¸
 	void	Run_Confirm_GetItemEvent(int value);
 	// 2005, 1, 24, sobeit add end
 
@@ -746,7 +746,7 @@ public:
 	void HotKey_PartyChat();	// ctrl + a
 	void HotKey_Quest();		// ctrl + q
 	void HotKey_Party();		// ctrl + p
-	void HotKey_Mark();			// 'ÇÑÀÚ'Å°
+	void HotKey_Mark();			// 'í•œì'í‚¤
 	void HotKey_Help();			// ctrl + i
 	void HotKey_SkillInfo();	// ctrl + k
 	void HotKey_Minimap();		// ctrl + m
@@ -756,7 +756,7 @@ public:
 	void HotKey_Grade2Info();	// ctrl + i
 
 //	void HotKey_WindowToggle();
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void HotKey_Inventory(bool IsCheckSubInventory = false);
 	#else
 		void HotKey_Inventory();

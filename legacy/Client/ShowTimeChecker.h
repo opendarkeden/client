@@ -14,8 +14,8 @@ class ShowTimeChecker {
 		ShowTimeChecker();
 		~ShowTimeChecker();
 
-		bool			IsShowTime() const;		// ´Ù °í·ÁÇÑ »óÈ²¿¡¼­.. ShowTimeÀÎ°¡?
-		bool			IsShowHour() const;		// startHour~EndHour¿Í °ü·Ã..
+		bool			IsShowTime() const;		// ë‹¤ ê³ ë ¤í•œ ìƒí™©ì—ì„œ.. ShowTimeì¸ê°€?
+		bool			IsShowHour() const;		// startHour~EndHourì™€ ê´€ë ¨..
 
 		void			SetNextShowTime();
 
@@ -26,18 +26,18 @@ class ShowTimeChecker {
 		void			LoadFromFile(class ifstream& file);
 
 	public :
-		// ¹İº¹ÀûÀÎ°¡?
+		// ë°˜ë³µì ì¸ê°€?
 		bool			Loop;
 
-		// MinDelay ~ MaxDelay »çÀÌ¿¡´Â ²À ÇÑ ¹ø
+		// MinDelay ~ MaxDelay ì‚¬ì´ì—ëŠ” ê¼­ í•œ ë²ˆ
 		DWORD			MinDelay;
 		DWORD			MaxDelay;
 		
-		// StartHourºÎÅÍ EndHour »çÀÌ¿¡¸¸ (0~24½Ã¸é Á¾ÀÏ?)
+		// StartHourë¶€í„° EndHour ì‚¬ì´ì—ë§Œ (0~24ì‹œë©´ ì¢…ì¼?)
 		BYTE			StartHour;
 		BYTE			EndHour;
 
-		DWORD			NextPlayTime;		// ´ÙÀ½¿¡ showÇÒ ½Ã°£
+		DWORD			NextPlayTime;		// ë‹¤ìŒì— showí•  ì‹œê°„
 };
 
 #endif

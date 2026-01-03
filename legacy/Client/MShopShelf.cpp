@@ -14,7 +14,7 @@
 // Static member
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-// ItemClass¿¡ ¸Â°Ô ¸Ş¸ğ¸®¸¦ Àâ¾ÆÁÖ´Â class tableÀ» ¼³Á¤..
+// ItemClassì— ë§ê²Œ ë©”ëª¨ë¦¬ë¥¼ ì¡ì•„ì£¼ëŠ” class tableì„ ì„¤ì •..
 //----------------------------------------------------------------------
 MShopShelf::FUNCTION_NEWSHELFCLASS
 MShopShelf::s_NewShelfClassTable[MAX_SHELF] =
@@ -35,7 +35,7 @@ MShopShelf::MShopShelf()
 
 	m_Version = 0;
 
-	// ¸ğµÎ NULL·Î ÃÊ±âÈ­
+	// ëª¨ë‘ NULLë¡œ ì´ˆê¸°í™”
 	for (int i=0; i<SHOP_SHELF_SLOT; i++)
 	{
 		m_pItems[i] = NULL;
@@ -55,7 +55,7 @@ MShopShelf::~MShopShelf()
 //----------------------------------------------------------------------
 // New Shelf
 //----------------------------------------------------------------------
-// ShelfClass¿¡ ¸Â´Â classÀÇ °´Ã¼¸¦ »ı¼ºÇØ¼­(new) ³Ñ°ÜÁØ´Ù.
+// ShelfClassì— ë§ëŠ” classì˜ ê°ì²´ë¥¼ ìƒì„±í•´ì„œ(new) ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 MShopShelf*		
 MShopShelf::NewShelf(MShopShelf::SHELF_TYPE ShelfClass)
@@ -77,7 +77,7 @@ MShopShelf::Release()
 
 	for (int i=0; i<SHOP_SHELF_SLOT; i++)
 	{
-		// ¹º°¡ ÀÖÀ¸¸é Áö¿ì°í.. NULL·Î..
+		// ë­”ê°€ ìˆìœ¼ë©´ ì§€ìš°ê³ .. NULLë¡œ..
 		if (m_pItems[i]!=NULL)
 		{
 			delete m_pItems[i];
@@ -117,14 +117,14 @@ MShopShelf::GetItem(unsigned int slot) const
 //----------------------------------------------------------------------
 // Add Item
 //----------------------------------------------------------------------
-// ¾Õ¿¡¼­ºÎÅÍ °Ë»öÇØ¼­ ºó °÷¿¡ Ãß°¡ÇÑ´Ù.
+// ì•ì—ì„œë¶€í„° ê²€ìƒ‰í•´ì„œ ë¹ˆ ê³³ì— ì¶”ê°€í•œë‹¤.
 //----------------------------------------------------------------------
 bool		
 MShopShelf::AddItem(MItem* pItem)
 {
 	for (int i=0; i<SHOP_SHELF_SLOT; i++)
 	{
-		// ºó °÷¿¡ Ãß°¡ÇÑ´Ù.
+		// ë¹ˆ ê³³ì— ì¶”ê°€í•œë‹¤.
 		if (m_pItems[i]==NULL)
 		{
 			if (SetItem( i, pItem ))
@@ -150,7 +150,7 @@ MShopShelf::SetItem(unsigned int  slot, MItem* pItem)
 		return false;
 	}
 
-	// ÀÌÀü¿¡ ¹º°¡ ÀÖ¾úÀ¸¸é..
+	// ì´ì „ì— ë­”ê°€ ìˆì—ˆìœ¼ë©´..
 	if (m_pItems[slot]!=NULL)
 	{
 		delete m_pItems[slot];
@@ -159,7 +159,7 @@ MShopShelf::SetItem(unsigned int  slot, MItem* pItem)
 	m_pItems[slot] = pItem;
 
 	//------------------------------------------------------
-	// »ç¿ë °¡´É ¿©ºÎ Ã¼Å©
+	// ì‚¬ìš© ê°€ëŠ¥ ì—¬ë¶€ ì²´í¬
 	//------------------------------------------------------
 	#ifdef __GAME_CLIENT__
 		g_pPlayer->CheckAffectStatus( pItem );
@@ -169,7 +169,7 @@ MShopShelf::SetItem(unsigned int  slot, MItem* pItem)
 }
 
 //----------------------------------------------------------------------
-// Remove - Shelf¿¡¼­ Á¦°ÅÇØ¼­ returnÇØÁØ´Ù.(¿ÜºÎ¿¡¼­ deleteÇØ¾ßÇÑ´Ù.)
+// Remove - Shelfì—ì„œ ì œê±°í•´ì„œ returní•´ì¤€ë‹¤.(ì™¸ë¶€ì—ì„œ deleteí•´ì•¼í•œë‹¤.)
 //----------------------------------------------------------------------
 MItem*		
 MShopShelf::RemoveItem(unsigned int slot)
@@ -179,17 +179,17 @@ MShopShelf::RemoveItem(unsigned int slot)
 		return NULL;
 	}
 
-	// ÀÓ½Ã·Î ÀúÀåÇÏ°í 
+	// ì„ì‹œë¡œ ì €ì¥í•˜ê³  
 	MItem* pRemoveItem = m_pItems[slot];
 
-	// ³»ºÎ¿¡ ÀÖ´Â °É Áö¿öÁØ´Ù.
+	// ë‚´ë¶€ì— ìˆëŠ” ê±¸ ì§€ì›Œì¤€ë‹¤.
 	m_pItems[slot] = NULL;
 
 	return pRemoveItem;
 }
 
 //----------------------------------------------------------------------
-// Delete - Shelf ³»ºÎ¿¡ ÀÖ´Â°É Áö¿öÁØ´Ù.
+// Delete - Shelf ë‚´ë¶€ì— ìˆëŠ”ê±¸ ì§€ì›Œì¤€ë‹¤.
 //----------------------------------------------------------------------
 void		
 MShopShelf::DeleteItem(unsigned int slot)
@@ -199,13 +199,13 @@ MShopShelf::DeleteItem(unsigned int slot)
 		return;
 	}
 
-	// ÀÌÀü¿¡ ¹º°¡ ÀÖ¾úÀ¸¸é..
+	// ì´ì „ì— ë­”ê°€ ìˆì—ˆìœ¼ë©´..
 	if (m_pItems[slot]!=NULL)
 	{
 		delete m_pItems[slot];
 	}
 
-	// ¾ø¾ÖÁØ´Ù.
+	// ì—†ì• ì¤€ë‹¤.
 	m_pItems[slot] = NULL;
 }
 
@@ -224,7 +224,7 @@ MShopFixedShelf::InitFromFixedItemTable(unsigned int tableID)
 {
 	FIXED_ITEM_INFO* pInfo = g_ShopFixedItemTable.GetItemInfo( tableID );
 
-	// ±×·± idÀÇ Á¤º¸´Â ¾øµû~
+	// ê·¸ëŸ° idì˜ ì •ë³´ëŠ” ì—†ë”°~
 	if (pInfo==NULL)
 	{
 		return false;
@@ -232,7 +232,7 @@ MShopFixedShelf::InitFromFixedItemTable(unsigned int tableID)
 
 
 	//---------------------------------------------------------
-	// ±× tableID¿¡ ¼ÓÇÑ ¸ğµç itemµéÀ» °Ë»ö..
+	// ê·¸ tableIDì— ì†í•œ ëª¨ë“  itemë“¤ì„ ê²€ìƒ‰..
 	//---------------------------------------------------------
 	FIXED_ITEM_INFO::iterator iInfo = pInfo->begin();
 
@@ -242,7 +242,7 @@ MShopFixedShelf::InitFromFixedItemTable(unsigned int tableID)
 		ITEM_INFO*		pItemInfo	= (*iInfo).second;
 
 		//---------------------------------------------------------
-		// ItemÀ» »ı¼ºÇÏ°í Á¤º¸¸¦ ¼³Á¤ÇÑ´Ù.
+		// Itemì„ ìƒì„±í•˜ê³  ì •ë³´ë¥¼ ì„¤ì •í•œë‹¤.
 		//---------------------------------------------------------
 		MItem* pItem = MItem::NewItem( pItemInfo->Class );
 		
@@ -255,16 +255,16 @@ MShopFixedShelf::InitFromFixedItemTable(unsigned int tableID)
 		pItem->SetNumber( pItemInfo->Number );
 
 		//---------------------------------------------------------
-		// »ı¼ºµÈ itemÀ» shelf¿¡ Ãß°¡ÇÑ´Ù.
+		// ìƒì„±ëœ itemì„ shelfì— ì¶”ê°€í•œë‹¤.
 		//---------------------------------------------------------
 		if (!SetItem( slotID, pItem ))
 		{
-			// itemÀÌ shelf¿¡ Ãß°¡µÇÁö ¸øÇÑ °æ¿ì.. -_-;;
+			// itemì´ shelfì— ì¶”ê°€ë˜ì§€ ëª»í•œ ê²½ìš°.. -_-;;
 			delete pItem;
 		}
 	
 		//---------------------------------------------------------
-		// ´ÙÀ½
+		// ë‹¤ìŒ
 		//---------------------------------------------------------
 		iInfo++;
 	}

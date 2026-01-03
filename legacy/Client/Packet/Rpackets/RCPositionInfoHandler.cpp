@@ -34,15 +34,15 @@ void RCPositionInfoHandler::execute ( RCPositionInfo * pPacket )
 
 	//g_pClientCommunicationManager->sendPacket( pPacket->getHost() , pPacket->getPort() , &glIncomingConnectionOK );
 	if ((g_Mode==MODE_GAME
-			|| g_Mode==MODE_WAIT_UPDATEINFO			// ·Îµù ÁßÀÌ ¾Æ´Ï°Å³ª..
-			|| g_Mode==MODE_WAIT_SETPOSITION		// ÁÂÇ¥ ±â´Ù¸®´Â °æ¿ì
+			|| g_Mode==MODE_WAIT_UPDATEINFO			// ë¡œë”© ì¤‘ì´ ì•„ë‹ˆê±°ë‚˜..
+			|| g_Mode==MODE_WAIT_SETPOSITION		// ì¢Œí‘œ ê¸°ë‹¤ë¦¬ëŠ” ê²½ìš°
 			)
 		&& g_pPlayer!=NULL
 		&& g_pParty!=NULL
 		&& g_pGameMessage!=NULL
 		&& g_pRequestUserManager!=NULL)
 	{
-		// Á¤º¸ ´Ù½Ã ¼³Á¤
+		// ì •ë³´ ë‹¤ì‹œ ì„¤ì •
 		RequestUserInfo* pUserInfo = g_pRequestUserManager->GetUserInfo( pPacket->getName().c_str() );
 
 		if (pUserInfo!=NULL)
@@ -53,7 +53,7 @@ void RCPositionInfoHandler::execute ( RCPositionInfo * pPacket )
 
 		PARTY_INFO*	pInfo = NULL;
 
-		// ÀÌ¸§ÀÌ ¾ø´Â °æ¿ì¿£ IP·Î Ã£¾Æº»´Ù.
+		// ì´ë¦„ì´ ì—†ëŠ” ê²½ìš°ì—” IPë¡œ ì°¾ì•„ë³¸ë‹¤.
 		if (pPacket->getName().size()==0)
 		{
 			pInfo = g_pParty->GetMemberInfoByIP( pPacket->getHost().c_str() );
@@ -63,7 +63,7 @@ void RCPositionInfoHandler::execute ( RCPositionInfo * pPacket )
 			pInfo = g_pParty->GetMemberInfo( pPacket->getName().c_str() );
 		}
 			
-		// ÁÂÇ¥¸¦ ¼öÁ¤ÇØÁØ´Ù.
+		// ì¢Œí‘œë¥¼ ìˆ˜ì •í•´ì¤€ë‹¤.
 		if (pInfo!=NULL)
 		{
 			pInfo->zoneID = pPacket->getZoneID();

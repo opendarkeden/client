@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MStopZoneMultipleEffectGenerator.cpp
 //----------------------------------------------------------------------
-// 4°³ÀÇ Effect°¡ °øÁß¿¡¼­ ¶³¾îÁø´Ù.
+// 4ê°œì˜ Effectê°€ ê³µì¤‘ì—ì„œ ë–¨ì–´ì§„ë‹¤.
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "MStopZoneMultipleEffectGenerator.h"
@@ -39,7 +39,7 @@ MStopZoneMultipleEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	MEffectTarget*	pEffectTarget2;
 	
 	//---------------------------------------------
-	// Effect »ı¼º
+	// Effect ìƒì„±
 	//---------------------------------------------
 	int numEffectPhase = 4;
 
@@ -65,11 +65,11 @@ MStopZoneMultipleEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	int ex[numEffect];
 	int ey[numEffect];
 
-	const int phaseUpper = 150;	// ÇÑ ´Ü°è¿¡¼­ À§·Î ´õ ¿Ã¶ó°¡´Â ÁÂÇ¥ º¸Á¤
+	const int phaseUpper = 150;	// í•œ ë‹¨ê³„ì—ì„œ ìœ„ë¡œ ë” ì˜¬ë¼ê°€ëŠ” ì¢Œí‘œ ë³´ì •
 
 	int effectCount = 0;
 
-	// numEffectPhase * numEffect °³ÀÇ effect¸¦ »ı¼ºÇÑ´Ù.
+	// numEffectPhase * numEffect ê°œì˜ effectë¥¼ ìƒì„±í•œë‹¤.
 	for (int i=0; i<numEffectPhase; i++)
 	{
 		int n = 0;
@@ -99,25 +99,25 @@ MStopZoneMultipleEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			
 			pEffect->SetFrameID( frameID, maxFrame );	
 
-			// ¹ß»ç À§Ä¡ PixelÁÂÇ¥	
+			// ë°œì‚¬ ìœ„ì¹˜ Pixelì¢Œí‘œ	
 			pEffect->SetPixelPosition( x, y, egInfo.z0 );	
 
-			// ¹æÇâ ¼³Á¤
+			// ë°©í–¥ ì„¤ì •
 			pEffect->SetDirection( egInfo.direction );
 							
-//			// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+//			// ëª©í‘œ ìœ„ì¹˜ Pixelì¢Œí‘œ
 //			pEffect->SetTarget( x, y, zt, egInfo.step );
 
-			// Áö¼ÓµÇ´Â Frame (¸ñÇ¥°¡ ÀÖ´Ù¸é º°·Î °ü°è ¾øÀ½ - -;)
+			// ì§€ì†ë˜ëŠ” Frame (ëª©í‘œê°€ ìˆë‹¤ë©´ ë³„ë¡œ ê´€ê³„ ì—†ìŒ - -;)
 			pEffect->SetCount( egInfo.count+effectCount, egInfo.linkCount );
 			pEffect->SetMulti( true );
 			
 			effectCount += 2;
 
-			// À§·Â
+			// ìœ„ë ¥
 			pEffect->SetPower(egInfo.power);
 
-			// Zone¿¡ Ãß°¡ÇÑ´Ù.
+			// Zoneì— ì¶”ê°€í•œë‹¤.
 			if (g_pZone->AddEffect( pEffect ))
 			{
 				if (!bOK)
@@ -127,7 +127,7 @@ MStopZoneMultipleEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 				}
 				else
 				{
-					// ´ÙÀ½ Effect »ı¼º Á¤º¸
+					// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 					if (egInfo.pEffectTarget == NULL)
 					{
 						pEffect->SetLink( egInfo.nActionInfo, NULL );

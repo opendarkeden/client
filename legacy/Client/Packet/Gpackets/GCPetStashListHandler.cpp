@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : GCPetStashListHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -22,7 +22,7 @@ void GCPetStashListHandler::execute ( GCPetStashList * pPacket , Player * pPlaye
 	
 #ifdef __GAME_CLIENT__
 		//------------------------------------------------------------
-		// ±âÁ¸¿¡°É Áö¿ì°í ´Ù½Ã »ı¼ºÇÑ´Ù.
+		// ê¸°ì¡´ì—ê±¸ ì§€ìš°ê³  ë‹¤ì‹œ ìƒì„±í•œë‹¤.
 		//------------------------------------------------------------
 		if (g_pStorage!=NULL) 
 		{
@@ -32,10 +32,10 @@ void GCPetStashListHandler::execute ( GCPetStashList * pPacket , Player * pPlaye
 		g_pStorage = new MStorage;
 
 		
-		g_pStorage->Init( 1 ); //STASH_RACK_MAX );	// ÂÁ.. 3°³ÀÏ±î??
+		g_pStorage->Init( 1 ); //STASH_RACK_MAX );	// ì©.. 3ê°œì¼ê¹Œ??
 
 		//------------------------------------------------------------
-		// Á¢±ÙÇÏ´Â Storage¸¦ ÁöÁ¤ÇÑ´Ù.
+		// ì ‘ê·¼í•˜ëŠ” Storageë¥¼ ì§€ì •í•œë‹¤.
 		//------------------------------------------------------------
 		g_pStorage->SetCurrent( 0 );
 
@@ -89,11 +89,11 @@ void GCPetStashListHandler::execute ( GCPetStashList * pPacket , Player * pPlaye
 			
 			pItem->SetPetKeepedDay(petStashItemInfo->KeepDays);
 			//------------------------------------------------------------
-			// Storage¿¡ item ¼³Á¤
+			// Storageì— item ì„¤ì •
 			//------------------------------------------------------------
 			if (!g_pStorage->SetItem( index, pItem ))
 			{
-				// ¹¹Áö..
+				// ë­ì§€..
 				delete pItem;
 
 				DEBUG_ADD_FORMAT("[Error] Can't Add Item to Storage. slot=%d", index);
@@ -104,7 +104,7 @@ void GCPetStashListHandler::execute ( GCPetStashList * pPacket , Player * pPlaye
 		}
 
 		//------------------------------------------------------------
-		// º¸°üÇÔÀ» ¶ç¿î´Ù.
+		// ë³´ê´€í•¨ì„ ë„ìš´ë‹¤.
 		//------------------------------------------------------------
 		UI_RunPetStorage();
 		UI_SetPetStorage(g_pStorage);

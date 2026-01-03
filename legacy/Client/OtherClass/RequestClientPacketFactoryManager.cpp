@@ -279,7 +279,7 @@
 // added by elca 2001-06-26
 #include "Cpackets/CGSelectPortal.h"
 
-// 2001-01-08 ±è¼º¹Î
+// 2001-01-08 ê¹€ì„±ë¯¼
 #include "Cpackets/CGMouseToStash.h"
 #include "Cpackets/CGStashToMouse.h"
 #include "Cpackets/CGStashList.h"
@@ -343,10 +343,10 @@ RequestClientPacketFactoryManager::RequestClientPacketFactoryManager ()
 
 	Assert(m_Size > 0);
 	
-	// ÆĞÅ¶ÆÑÅä¸®¹è¿­À» »ı¼ºÇÑ´Ù.
+	// íŒ¨í‚·íŒ©í† ë¦¬ë°°ì—´ì„ ìƒì„±í•œë‹¤.
 	m_Factories = new PacketFactory*[ m_Size ];
 	
-	// ÆÑÅä¸®¿¡ ´ëÇÑ Æ÷ÀÎÅÍµéÀ» NULL ·Î ÃÊ±âÈ­ÇÑ´Ù.
+	// íŒ©í† ë¦¬ì— ëŒ€í•œ í¬ì¸í„°ë“¤ì„ NULL ë¡œ ì´ˆê¸°í™”í•œë‹¤.
 	for (int i = 0 ; i < m_Size ; i ++) 
 		m_Factories[i] = NULL;
 			
@@ -366,7 +366,7 @@ RequestClientPacketFactoryManager::~RequestClientPacketFactoryManager ()
 		
 	Assert(m_Factories != NULL);
 
-	// °¢°¢ÀÇ ÆĞÅ¶ÆÑÅä¸®µéÀ» »èÁ¦ÇÑ´Ù.
+	// ê°ê°ì˜ íŒ¨í‚·íŒ©í† ë¦¬ë“¤ì„ ì‚­ì œí•œë‹¤.
 	for (int i = 0 ; i < m_Size ; i ++) 
 	{
 #ifdef __GAME_CLIENT__
@@ -380,7 +380,7 @@ RequestClientPacketFactoryManager::~RequestClientPacketFactoryManager ()
 #endif
 	}
 	
-	// ÆĞÅ¶ÆÑÅä¸®¹è¿­À» »èÁ¦ÇÑ´Ù.
+	// íŒ¨í‚·íŒ©í† ë¦¬ë°°ì—´ì„ ì‚­ì œí•œë‹¤.
 #ifdef __GAME_CLIENT__
 	if (m_Factories != NULL)
 	{
@@ -397,7 +397,7 @@ RequestClientPacketFactoryManager::~RequestClientPacketFactoryManager ()
 
 //////////////////////////////////////////////////////////////////////
 //
-// Á¤ÀÇµÈ ¸ğµç ÆĞÅ¶ÆÑÅä¸®µéÀ» ¿©±â¿¡ Ãß°¡ÇÑ´Ù.
+// ì •ì˜ëœ ëª¨ë“  íŒ¨í‚·íŒ©í† ë¦¬ë“¤ì„ ì—¬ê¸°ì— ì¶”ê°€í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void RequestClientPacketFactoryManager::init ()
@@ -731,7 +731,7 @@ void RequestClientPacketFactoryManager::init ()
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÆÑÅä¸® °´Ã¼¸¦ Æ¯Á¤ ÀÎµ¦½º¿¡ Ãß°¡ÇÑ´Ù.
+// íŒ©í† ë¦¬ ê°ì²´ë¥¼ íŠ¹ì • ì¸ë±ìŠ¤ì— ì¶”ê°€í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void RequestClientPacketFactoryManager::addFactory (PacketFactory * pFactory) 
@@ -753,7 +753,7 @@ void RequestClientPacketFactoryManager::addFactory (PacketFactory * pFactory)
 		throw Error(msg.toString());
 	}
 	
-	// ÆĞÅ¶ÆÑÅä¸®¸¦ µî·ÏÇÑ´Ù.
+	// íŒ¨í‚·íŒ©í† ë¦¬ë¥¼ ë“±ë¡í•œë‹¤.
 	m_Factories[ pFactory->getPacketID() ] = pFactory;
 			
 	__END_CATCH
@@ -762,7 +762,7 @@ void RequestClientPacketFactoryManager::addFactory (PacketFactory * pFactory)
 	
 //////////////////////////////////////////////////////////////////////
 //
-// ÆĞÅ¶¾ÆÀÌµğ·Î ÆĞÅ¶°´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+// íŒ¨í‚·ì•„ì´ë””ë¡œ íŒ¨í‚·ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 Packet * RequestClientPacketFactoryManager::createPacket (PacketID_t packetID) 
@@ -770,8 +770,8 @@ Packet * RequestClientPacketFactoryManager::createPacket (PacketID_t packetID)
 {
 	__BEGIN_TRY
 
-	// ÆĞÅ¶ ¾ÆÀÌµğ°¡ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ıÇÏÁö ¾Êµµ·Ï.
-	// ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+	// íŒ¨í‚· ì•„ì´ë””ê°€ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬ìœ¼ë¡œ ì¸í•´ì„œ Seg.Fault ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡.
+	// ì´ëŸ° ì‚¬ìš©ìëŠ” ë‹¹ì¥ ì§¤ë¼ì•¼ í•œë‹¤.
 	if (packetID >= m_Size || m_Factories[packetID] == NULL) {
 		StringStream msg;
 		msg << "packet factory [" << packetID << "] not exist.";
@@ -786,7 +786,7 @@ Packet * RequestClientPacketFactoryManager::createPacket (PacketID_t packetID)
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÆĞÅ¶¾ÆÀÌµğ·Î Æ¯Á¤ ÆĞÅ¶ÀÇ ÃÖ´ë Å©±â¸¦ ¸®ÅÏÇÑ´Ù.
+// íŒ¨í‚·ì•„ì´ë””ë¡œ íŠ¹ì • íŒ¨í‚·ì˜ ìµœëŒ€ í¬ê¸°ë¥¼ ë¦¬í„´í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 PacketSize_t RequestClientPacketFactoryManager::getPacketMaxSize (PacketID_t packetID) 
@@ -794,8 +794,8 @@ PacketSize_t RequestClientPacketFactoryManager::getPacketMaxSize (PacketID_t pac
 {
 	__BEGIN_TRY
 
-	// ÆĞÅ¶ ¾ÆÀÌµğ°¡ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ıÇÏÁö ¾Êµµ·Ï.
-	// ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+	// íŒ¨í‚· ì•„ì´ë””ê°€ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬ìœ¼ë¡œ ì¸í•´ì„œ Seg.Fault ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡.
+	// ì´ëŸ° ì‚¬ìš©ìëŠ” ë‹¹ì¥ ì§¤ë¼ì•¼ í•œë‹¤.
 	if (packetID >= m_Size || m_Factories[packetID] == NULL) {
 		StringStream msg;
 		msg << "invalid packet id(" << (int)packetID << ")";
@@ -810,7 +810,7 @@ PacketSize_t RequestClientPacketFactoryManager::getPacketMaxSize (PacketID_t pac
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÆĞÅ¶¾ÆÀÌµğ·Î Æ¯Á¤ ÆĞÅ¶ÀÇ ÀÌ¸§À» ¸®ÅÏÇÑ´Ù.
+// íŒ¨í‚·ì•„ì´ë””ë¡œ íŠ¹ì • íŒ¨í‚·ì˜ ì´ë¦„ì„ ë¦¬í„´í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 #if !defined(__GAME_CLIENT__) || defined(__GAME_CLIENT__) && defined(__DEBUG_OUTPUT__)
@@ -819,8 +819,8 @@ std::string RequestClientPacketFactoryManager::getPacketName (PacketID_t packetI
 {
 	__BEGIN_TRY
 
-	// ÆĞÅ¶ ¾ÆÀÌµğ°¡ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ıÇÏÁö ¾Êµµ·Ï.
-	// ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+	// íŒ¨í‚· ì•„ì´ë””ê°€ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬ìœ¼ë¡œ ì¸í•´ì„œ Seg.Fault ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡.
+	// ì´ëŸ° ì‚¬ìš©ìëŠ” ë‹¹ì¥ ì§¤ë¼ì•¼ í•œë‹¤.
 	if (packetID >= m_Size || m_Factories[packetID] == NULL) {
 		StringStream msg;
 		msg << "invalid packet id(" << (int)packetID << ")";

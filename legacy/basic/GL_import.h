@@ -40,7 +40,7 @@ DllImport void	TransparentBlt16(S_SURFACEINFO *dest_surface_info,
 								S_SURFACEINFO *src_surface_info, 
 								S_RECT *dest_rect,
 								S_RECT *src_rect);
-DllImport int	getPixel16(S_SURFACEINFO *info, int x, int y); // utilityø°º≠ ªÁøÎ!
+DllImport int	getPixel16(S_SURFACEINFO *info, int x, int y); // utilityÏóêÏÑú ÏÇ¨Ïö©!
 
 DllImport bool	TestTga(const char * filename);
 DllImport bool GetTgaPicInfo(const char * sz_filename, S_PICINFO &picinfo);

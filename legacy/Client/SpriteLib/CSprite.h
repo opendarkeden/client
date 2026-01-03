@@ -14,30 +14,30 @@ class ifstream;
 
 
 //----------------------------------------------------------------------
-// width * height¸¸Å­ÀÇ pixelÀ» ÀúÀåÇØµÐ´Ù.
+// width * heightë§Œí¼ì˜ pixelì„ ì €ìž¥í•´ë‘”ë‹¤.
 //----------------------------------------------------------------------
-// ÇÑ pixelÀ» ÀúÀåÇÏ´Â ¹æ¹ýÀº ´ÙÀ½°ú °°´Ù.
+// í•œ pixelì„ ì €ìž¥í•˜ëŠ” ë°©ë²•ì€ ë‹¤ìŒê³¼ ê°™ë‹¤.
 //
 //    [1] 5:5:5 --> 2 bytes
 //    [2] 5:6:5 --> 2 bytes
 //    [3] R,G,B --> 3 bytes
 //
-// [3]Àº ¿ë·®ÀÌ Ä¿¼­ ¾ÈÁÁÀ¸¹Ç·Î [2]¹ø ¹æ¹ýÀ» »ç¿ëÇØ¼­
-// 5:5:5·Î °°Àº ¹æ½ÄÀ¸·Î ÀúÀåµÇµµ·Ï ÇÑ´Ù.
+// [3]ì€ ìš©ëŸ‰ì´ ì»¤ì„œ ì•ˆì¢‹ìœ¼ë¯€ë¡œ [2]ë²ˆ ë°©ë²•ì„ ì‚¬ìš©í•´ì„œ
+// 5:5:5ë¡œ ê°™ì€ ë°©ì‹ìœ¼ë¡œ ì €ìž¥ë˜ë„ë¡ í•œë‹¤.
 //
-// Memory´Â 5:5:5³ª 5:6:5·Î »ç¿ëÇÏÁö¸¸
-// disk¿¡´Â 5:6:5·Î ÀúÀåµÈ´Ù.
+// MemoryëŠ” 5:5:5ë‚˜ 5:6:5ë¡œ ì‚¬ìš©í•˜ì§€ë§Œ
+// diskì—ëŠ” 5:6:5ë¡œ ì €ìž¥ëœë‹¤.
 //
-// Áï, 5:5:5¸¦ »ç¿ëÇÏ´Â system¿¡¼­´Â 
-//    File(5:6:5) ---(5:5:5·Î º¯È¯)--> Memory(5:5:5)
-//    File(5:6:5) <--(5:6:5·Î º¯È¯)--- Memory(5:5:5)  ÀÌ·¸°Ô ÇØ¾ßµÈ´Ù.
+// ì¦‰, 5:5:5ë¥¼ ì‚¬ìš©í•˜ëŠ” systemì—ì„œëŠ” 
+//    File(5:6:5) ---(5:5:5ë¡œ ë³€í™˜)--> Memory(5:5:5)
+//    File(5:6:5) <--(5:6:5ë¡œ ë³€í™˜)--- Memory(5:5:5)  ì´ë ‡ê²Œ í•´ì•¼ëœë‹¤.
 //
 //----------------------------------------------------------------------
-// ³»ºÎÀûÀ¸·Î 0¹ø ¾ÐÃàÀ» »ç¿ëÇÑ´Ù.
+// ë‚´ë¶€ì ìœ¼ë¡œ 0ë²ˆ ì••ì¶•ì„ ì‚¬ìš©í•œë‹¤.
 //
-// = ÇÑ ÁÙÀÇ Á¤º¸
+// = í•œ ì¤„ì˜ ì •ë³´
 //
-// (¹Ýº¹È¸¼ö) (Åõ¸í¼ö, »ö±ò¼ö, »ö±òµé...) (Åõ¸í¼ö, »ö±ò¼ö, »ö±òµé...) ..
+// (ë°˜ë³µíšŒìˆ˜) (íˆ¬ëª…ìˆ˜, ìƒ‰ê¹”ìˆ˜, ìƒ‰ê¹”ë“¤...) (íˆ¬ëª…ìˆ˜, ìƒ‰ê¹”ìˆ˜, ìƒ‰ê¹”ë“¤...) ..
 //
 //----------------------------------------------------------------------
 
@@ -54,24 +54,24 @@ class CSprite
 		void		operator = (const CSprite& Sprite);
 
 		//---------------------------------------------------------
-		// s_PixelsÀÇ memory¸¦ Init/ReleaseÇÑ´Ù.		
+		// s_Pixelsì˜ memoryë¥¼ Init/Releaseí•œë‹¤.		
 		//---------------------------------------------------------
 		//static void	InitBuffer(WORD width, WORD height);
 		//static void ReleaseBuffer();
 
 		//---------------------------------------------------------
-		// m_PixelsÀÇ memory¸¦ ReleaseÇÑ´Ù.		
+		// m_Pixelsì˜ memoryë¥¼ Releaseí•œë‹¤.		
 		//---------------------------------------------------------
 		void		Release();
 
 		//---------------------------------------------------------
-		// Åõ¸í Color 
+		// íˆ¬ëª… Color 
 		//---------------------------------------------------------
 		static void	SetColorkey(WORD color)			{ s_Colorkey = color; }
 		static WORD	GetColorkey() 					{ return s_Colorkey; }
 
 		//---------------------------------------------------------
-		// fstream¿¡¼­ save/load¸¦ ÇÑ´Ù.
+		// fstreamì—ì„œ save/loadë¥¼ í•œë‹¤.
 		//---------------------------------------------------------
 		virtual bool		SaveToFile(class ofstream& file) = 0;
 		virtual bool		LoadFromFile(class ifstream& file) = 0;		
@@ -81,7 +81,7 @@ class CSprite
 		DWORD		GetFileSize();
 		
 		//---------------------------------------------------------
-		// CDirectDrawSurfaceÀÇ ¿µ¿ªÀ» ÀÐ¾î¼­ m_Pixels¿¡ ÀúÀåÇÑ´Ù.
+		// CDirectDrawSurfaceì˜ ì˜ì—­ì„ ì½ì–´ì„œ m_Pixelsì— ì €ìž¥í•œë‹¤.
 		//---------------------------------------------------------
 		static void	GetTightColorRect(WORD *pSource, WORD pitch, WORD width, WORD height, WORD colorkey, RECT& rect);
 		void		SetPixel(WORD* pSource, WORD pitch, WORD width, WORD height);
@@ -96,7 +96,7 @@ class CSprite
 		WORD*		GetPixelLine(WORD y)	const	{ return m_Pixels[y]; }	
 
 		//---------------------------------------------------------
-		// Sprite¾È¿¡¼­ (x,y)ÁÂÇ¥´Â »ö±òÀÌ ÀÖ´Â°¡?
+		// Spriteì•ˆì—ì„œ (x,y)ì¢Œí‘œëŠ” ìƒ‰ê¹”ì´ ìžˆëŠ”ê°€?
 		//---------------------------------------------------------
 		bool		IsColorPixel(short x, short y);		
 	
@@ -107,7 +107,7 @@ class CSprite
 		//---------------------------------------------------------
 
 		//---------------------------------------------------------
-		// Á¤»óÀûÀÎ Blt
+		// ì •ìƒì ì¸ Blt
 		//---------------------------------------------------------
 		void		Blt(WORD *pDest, WORD pitch);		
 		void		BltClip(WORD *pDest, WORD pitch, RECT* pRect);
@@ -117,12 +117,12 @@ class CSprite
 		void		BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect);
 
 		//---------------------------------------------------------
-		// ÁÂ¿ì ¹Ù²ñ
+		// ì¢Œìš° ë°”ë€œ
 		//---------------------------------------------------------
 	
 
 		//---------------------------------------------------------
-		// ¹ÝÅõ¸í
+		// ë°˜íˆ¬ëª…
 		//---------------------------------------------------------
 		void		BltHalf(WORD *pDest, WORD pitch);		
 		void		BltHalfClipLeft(WORD *pDest, WORD pitch, RECT* pRect);
@@ -140,7 +140,7 @@ class CSprite
 		void		BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha);
 
 		//---------------------------------------------------------
-		// RGB°ª ¹Ù²ñ
+		// RGBê°’ ë°”ë€œ
 		//---------------------------------------------------------
 		void		BltColor(WORD *pDest, WORD pitch, BYTE rgb);		
 		void		BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb);
@@ -149,7 +149,7 @@ class CSprite
 		void		BltColorClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb);
 
 		//---------------------------------------------------------
-		// Scale¹Ù²Ù±â
+		// Scaleë°”ê¾¸ê¸°
 		//---------------------------------------------------------
 		void		BltScale(WORD *pDest, WORD pitch, BYTE scale);		
 		void		BltScaleClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE scale);
@@ -159,7 +159,7 @@ class CSprite
 
 
 		//---------------------------------------------------------
-		// ¾îµÓ°Ô ÇÏ±â
+		// ì–´ë‘¡ê²Œ í•˜ê¸°
 		//---------------------------------------------------------
 		void		BltDarkness(WORD *pDest, WORD pitch, BYTE DarkBits);		
 		void		BltDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE DarkBits);
@@ -178,7 +178,7 @@ class CSprite
 		void		BltEffectClipHeight(WORD *pDest, WORD pitch, RECT* pRect);
 
 		//---------------------------------------------------------
-		// Æ¯Á¤ColorSetÀ¸·Î Âï±â
+		// íŠ¹ì •ColorSetìœ¼ë¡œ ì°ê¸°
 		//---------------------------------------------------------
 		void		BltColorSet(WORD *pDest, WORD pitch, WORD colorSet);		
 		void		BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD colorSet);
@@ -188,7 +188,7 @@ class CSprite
 
 
 		//---------------------------------------------------------
-		// Filter¸¦ »ç¿ëÇØ¼­ ¾îµÓ°Ô ÇÏ±â
+		// Filterë¥¼ ì‚¬ìš©í•´ì„œ ì–´ë‘¡ê²Œ í•˜ê¸°
 		//---------------------------------------------------------
 		//void		BltDarknessFilter(WORD *pDest, WORD pitch, BYTE DarkBits, char cx, char cy, CSprite* pFilter);		
 		//void		BltDarknessFilterClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE DarkBits, char cx, char cy, CSprite* pFilter);
@@ -198,7 +198,7 @@ class CSprite
 
 		//---------------------------------------------------------		
 		//
-		// Filter °ü·Ã ÇÔ¼ö
+		// Filter ê´€ë ¨ í•¨ìˆ˜
 		//
 		//---------------------------------------------------------		
 		bool		IsIntersectFilter();
@@ -220,7 +220,7 @@ class CSprite
 		}
 
 		//---------------------------------------------------------
-		// AlphaChannel Filter¸¦ ÀÌ¿ëÇÑ Ãâ·Â
+		// AlphaChannel Filterë¥¼ ì´ìš©í•œ ì¶œë ¥
 		//---------------------------------------------------------		
 		void		BltAlphaFilter(WORD *pDest, WORD pitch);
 		void		BltAlphaFilterClipLeft(WORD *pDest, WORD pitch, RECT* pRect);
@@ -229,7 +229,7 @@ class CSprite
 		void		BltAlphaFilterClipHeight(WORD *pDest, WORD pitch, RECT* pRect);
 
 		//---------------------------------------------------------
-		// AlphaChannel Filter¸¦ ÀÌ¿ëÇÑ Ãâ·Â
+		// AlphaChannel Filterë¥¼ ì´ìš©í•œ ì¶œë ¥
 		//---------------------------------------------------------		
 		void		BltAlphaFilterDarkness(WORD *pDest, WORD pitch, BYTE DarkBits);
 		void		BltAlphaFilterDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE DarkBits);
@@ -238,7 +238,7 @@ class CSprite
 		void		BltAlphaFilterDarknessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE DarkBits);
 
 		//---------------------------------------------------------
-		// DarkerChannel Filter¸¦ ÀÌ¿ëÇÑ Ãâ·Â
+		// DarkerChannel Filterë¥¼ ì´ìš©í•œ ì¶œë ¥
 		//---------------------------------------------------------		
 		void		BltDarkerFilter(WORD *pDest, WORD pitch);
 		void		BltDarkerFilterClipLeft(WORD *pDest, WORD pitch, RECT* pRect);
@@ -278,11 +278,11 @@ class CSprite
 
 
 	protected :				
-		WORD			m_Width;		// °¡·Î pixel¼ö
-		WORD			m_Height;		// ¼¼·Î pixel¼ö		
+		WORD			m_Width;		// ê°€ë¡œ pixelìˆ˜
+		WORD			m_Height;		// ì„¸ë¡œ pixelìˆ˜		
 		WORD**			m_Pixels;		// pixels
-		bool			m_bInit;		// data°¡ ÀÖ´Â°¡?
-		bool			m_bLoading;		// LoadingÁßÀÎ°¡?
+		bool			m_bInit;		// dataê°€ ìžˆëŠ”ê°€?
+		bool			m_bLoading;		// Loadingì¤‘ì¸ê°€?
 
 	public :
 		static WORD		s_Colorkey;
@@ -292,7 +292,7 @@ class CSprite
 		static DWORD	s_Value2;
 		static DWORD	s_Value3;
 	
-		// Filter °ü·Ã
+		// Filter ê´€ë ¨
 		static short	s_X;
 		static short	s_Y;
 		static CFilter*	s_pFilter;

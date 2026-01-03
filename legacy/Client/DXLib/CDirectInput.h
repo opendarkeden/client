@@ -8,7 +8,7 @@
 
 -----------------------------------------------------------------------------
 
- [ DirectInput¿¡ Á¤ÀÇµÈ Keyboard °ª ]
+ [ DirectInputì— ì •ì˜ëœ Keyboard ê°’ ]
 
 #define DIK_ESCAPE          0x01
 #define DIK_1               0x02
@@ -152,9 +152,9 @@ private:
 	IDirectInputDevice *    m_pMouse;
 	IDirectInputDevice *		m_pKeyboard;
 	BOOL                    m_bSwapMouseButtons;
-	int							m_mouse_info[3]; // Mouse Á¤º¸¸¦ ¾ò±â À§ÇÑ integer array.
+	int							m_mouse_info[3]; // Mouse ì •ë³´ë¥¼ ì–»ê¸° ìœ„í•œ integer array.
 
-	BOOL					m_key[256];				// Å°°¡ ´­·ÁÀÖ´Â°¡?
+	BOOL					m_key[256];				// í‚¤ê°€ ëˆŒë ¤ìˆëŠ”ê°€?
 	static const char*		s_KeyName[256];
 
 public:
@@ -168,13 +168,13 @@ public:
 	BOOL						m_rb_up;	// right button - up
 	BOOL						m_cb_up;	// center button - up
 
-	enum E_EXCLUSIVE // debugging ÇÒ ¶§¸¦ À§ÇØ¼­...
+	enum E_EXCLUSIVE // debugging í•  ë•Œë¥¼ ìœ„í•´ì„œ...
 	{
 		EXCLUSIVE,
 		NONEXCLUSIVE,
 	};
 
-	enum E_MOUSE_EVENT // MOUSE_EVENT´Â wincon.h¿¡ Á¤ÀÇ µÇ¾î ÀÖÀ½! ~.~
+	enum E_MOUSE_EVENT // MOUSE_EVENTëŠ” wincon.hì— ì •ì˜ ë˜ì–´ ìˆìŒ! ~.~
 	{
 		MOVE = 0,
 		LEFTDOWN,
@@ -201,8 +201,8 @@ private:
 		ACCEL_LEVEL,
 	};
 
-	int							m_limit_x; // mouse ÀÌµ¿ Á¦ÇÑ
-	int							m_limit_y; // mouse ÀÌµ¿ Á¦ÇÑ
+	int							m_limit_x; // mouse ì´ë™ ì œí•œ
+	int							m_limit_y; // mouse ì´ë™ ì œí•œ
 
 	HRESULT	InitDI(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex);
 	void		FreeDirectInput();
@@ -227,7 +227,7 @@ public:
 	void		SetMousePosition(int x, int y);
 	void		UpdateInput();
 
-	// dik key°¡ ´­·ÁÁ³´Â°¡?
+	// dik keyê°€ ëˆŒë ¤ì¡ŒëŠ”ê°€?
 	BOOL		KeyDown(DWORD dik)		{ return m_key[dik]; }
 
 	//int 		GetMouseInfo1() const { return m_mouse_info[0]; }

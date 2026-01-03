@@ -18,7 +18,7 @@
 //
 // class GuildInfo;
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡ ±æµå ¸®½ºÆ®¸¦ º¸³½´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì— ê¸¸ë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë³´ë‚¸ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -35,14 +35,14 @@ public :
 public :
 	
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read (SocketInputStream & iStream) throw (ProtocolException, Error);
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
 	// get packet's body size
-	// ÃÖÀûÈ­½Ã, ¹Ì¸® °è»êµÈ Á¤¼ö¸¦ »ç¿ëÇÑ´Ù.
+	// ìµœì í™”ì‹œ, ë¯¸ë¦¬ ê³„ì‚°ëœ ì •ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤.
 	PacketSize_t getSize () throw ();
 
 	static uint getMaxSize() throw() {
@@ -76,19 +76,19 @@ public :
 
 private :
 
-	// ±æµå ¾ÆÀÌµğ
+	// ê¸¸ë“œ ì•„ì´ë””
 	GuildID_t m_GuildID;
 
-	// ±æµå ÀÌ¸§
+	// ê¸¸ë“œ ì´ë¦„
 	std::string m_GuildName;
 
-	// ±æµå ¸¶½ºÅÍ
+	// ê¸¸ë“œ ë§ˆìŠ¤í„°
 	std::string m_GuildMaster;
 
-	// ±æµå ¸â¹ö Ä«¿îÆ®
+	// ê¸¸ë“œ ë©¤ë²„ ì¹´ìš´íŠ¸
 	BYTE m_GuildMemberCount;
 
-	// ±æµå Expire Date
+	// ê¸¸ë“œ Expire Date
 	std::string m_GuildExpireDate;
 
 };

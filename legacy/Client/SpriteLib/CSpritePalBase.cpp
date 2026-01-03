@@ -7,15 +7,15 @@ BYTE CSpritePalBase::s_Colorkey = 0xFF;
 
 CSpritePalBase::CSpritePalBase()
 {
-	m_Width = 0;		// °¡·Î pixel¼ö
-	m_Height = 0;		// ¼¼·Î pixel¼ö		
-	m_Size = 0;			// ½ºÇÁ¶óÀÌÆ®ÀÇ size
+	m_Width = 0;		// ê°€ë¡œ pixelìˆ˜
+	m_Height = 0;		// ì„¸ë¡œ pixelìˆ˜		
+	m_Size = 0;			// ìŠ¤í”„ë¼ì´íŠ¸ì˜ size
 	
 	m_pPixels = NULL;		// pixels point array
 	m_pData = NULL;			// data
 	
-	m_bInit = false;		// data°¡ ÀÖ´Â°¡?
-	m_bLoading = false;		// LoadingÁßÀÎ°¡?
+	m_bInit = false;		// dataê°€ ìˆëŠ”ê°€?
+	m_bLoading = false;		// Loadingì¤‘ì¸ê°€?
 }
 
 CSpritePalBase::~CSpritePalBase()
@@ -25,9 +25,9 @@ CSpritePalBase::~CSpritePalBase()
 
 void CSpritePalBase::Release()
 {
-	m_Width = 0;		// °¡·Î pixel¼ö
-	m_Height = 0;		// ¼¼·Î pixel¼ö		
-	m_Size = 0;			// ½ºÇÁ¶óÀÌÆ®ÀÇ size
+	m_Width = 0;		// ê°€ë¡œ pixelìˆ˜
+	m_Height = 0;		// ì„¸ë¡œ pixelìˆ˜		
+	m_Size = 0;			// ìŠ¤í”„ë¼ì´íŠ¸ì˜ size
 
 	if(m_pData != NULL)
 	{
@@ -36,8 +36,8 @@ void CSpritePalBase::Release()
 		m_pPixels = NULL;
 	}
 	
-	m_bInit = false;		// data°¡ ÀÖ´Â°¡?
-	m_bLoading = false;		// LoadingÁßÀÎ°¡?
+	m_bInit = false;		// dataê°€ ìˆëŠ”ê°€?
+	m_bLoading = false;		// Loadingì¤‘ì¸ê°€?
 }
 
 void CSpritePalBase::SetEmptySprite()
@@ -52,7 +52,7 @@ bool CSpritePalBase::LoadFromFile(class ifstream &file)
 	
 	file.read((char *)&m_Size, 4);
 
-//	// size °¡ ¾øÀ¸¸é ¸®ÅÏÇÏÀğ
+//	// size ê°€ ì—†ìœ¼ë©´ ë¦¬í„´í•˜ìŸˆ
 //	if(m_Size == 0)
 //		return true;
 
@@ -89,7 +89,7 @@ bool CSpritePalBase::SaveToFile(class ofstream &file)
 {
 	if(IsNotInit())
 	{
-		MessageBox(NULL, "¾Æ¹«°Íµµ ¾ø´Âµ¥ ¸Ö ÀúÀåÇØ-_-", "CSpritePalBase", MB_OK);
+		MessageBox(NULL, "ì•„ë¬´ê²ƒë„ ì—†ëŠ”ë° ë©€ ì €ì¥í•´-_-", "CSpritePalBase", MB_OK);
 		return false;
 	}
 
@@ -100,7 +100,7 @@ bool CSpritePalBase::SaveToFile(class ofstream &file)
 
 	file.write((const char *)&m_Size, 4);
 
-//	// size°¡ 0ÀÌ¸é ¸®ÅÏÇÏÀğ
+//	// sizeê°€ 0ì´ë©´ ë¦¬í„´í•˜ìŸˆ
 //	if(m_Size == 0)
 //		return true;
 
@@ -120,7 +120,7 @@ bool CSpritePalBase::SaveToFile(class ofstream &file)
 		}
 		else
 			index = m_pPixels[i+1] - m_pPixels[i];
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ ÀúÀåÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ ì €ì¥í•œë‹¤.
 		file.write((const char*)&index, 2);
 	}
 
@@ -129,7 +129,7 @@ bool CSpritePalBase::SaveToFile(class ofstream &file)
 
 void CSpritePalBase::operator = (const CSpritePalBase& sprite)
 {
-	// ¸Ş¸ğ¸® ÇØÁ¦
+	// ë©”ëª¨ë¦¬ í•´ì œ
 	Release();
 
 	m_Size = sprite.m_Size;

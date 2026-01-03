@@ -34,7 +34,7 @@ public:
 	void setSkillType(SkillType_t SkillType) throw() { m_SkillType = SkillType; }
 
 private:
-	SkillType_t       m_SkillType;  // ±â¼úÀÇ Á¾·ù
+	SkillType_t       m_SkillType;  // ê¸°ìˆ ì˜ ì¢…ë¥˜
 };
 
 //////////////////////////////////////////////////////////////////////

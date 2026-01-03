@@ -10,7 +10,7 @@
 	#pragma warning ( disable : 4786 )
 	#include <Windows.h>
 #if defined(__WINDOWS__)
-	// 4786 - STLÀÇ ½Éº¼¸íÀÇ ±æÀÌ°¡ 255¸¦ ³Ñ¾î°¥ ¶§
+	// 4786 - STLì˜ ì‹¬ë³¼ëª…ì˜ ê¸¸ì´ê°€ 255ë¥¼ ë„˜ì–´ê°ˆ ë•Œ
 	#pragma warning ( disable : 4786 )
 	#include <Windows.h>
 #elif defined(__LINUX__)

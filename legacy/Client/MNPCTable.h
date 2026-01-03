@@ -9,14 +9,14 @@
 		int numberOfShopTemplate
 		{
 			int eachShopTemplateID
-		} // ¹İº¹
+		} // ë°˜ë³µ
 		
-		int DescriptionLength; // ¼³¸íÀÇ ±æÀÌ
-		string Description; // ¼³¸í ³»¿ë
+		int DescriptionLength; // ì„¤ëª…ì˜ ê¸¸ì´
+		string Description; // ì„¤ëª… ë‚´ìš©
 		
-	} // ¹İº¹
+	} // ë°˜ë³µ
 
-	Âü°í·Î »óÁ¡ÀÌ ¾ø´Â ³ğµéÀº numberOfShopTemplate°¡ 0ÀÌ´Ù.
+	ì°¸ê³ ë¡œ ìƒì ì´ ì—†ëŠ” ë†ˆë“¤ì€ numberOfShopTemplateê°€ 0ì´ë‹¤.
 */
 //----------------------------------------------------------------------
 
@@ -58,7 +58,7 @@ class NPC_INFO {
 };
 
 //----------------------------------------------------------------------
-// MNPCTable (NPCID, NPC_INFO*)ÀÇ map
+// MNPCTable (NPCID, NPC_INFO*)ì˜ map
 //----------------------------------------------------------------------
 class MNPCTable : public CTypeMap<NPC_INFO> {
 	public :

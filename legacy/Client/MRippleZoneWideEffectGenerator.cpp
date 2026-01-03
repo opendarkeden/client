@@ -29,7 +29,7 @@ MRippleZoneWideEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	TYPE_FRAMEID	frameID	= (*g_pEffectSpriteTypeTable)[egInfo.effectSpriteType].FrameID;
 
 	//---------------------------------------------
-	// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+	// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 	//---------------------------------------------
 	TYPE_SECTORPOSITION	sX, sY;
 	sX = g_pTopView->PixelToMapX(egInfo.x0);
@@ -39,17 +39,17 @@ MRippleZoneWideEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	MEffect*	pEffect;
 	//---------------------------------------------
-	// Effect »ı¼º
+	// Effect ìƒì„±
 	//---------------------------------------------
 	int i;
 	int n=(egInfo.power<<1) - 1;
 
-	// ÀÏ´Ü ÇÑ Ä­ ¿òÁ÷ÀÎ´Ù.
+	// ì¼ë‹¨ í•œ ì¹¸ ì›€ì§ì¸ë‹¤.
 	TYPE_SECTORPOSITION x=sX, y=sY;
 	int cX, cY;
 	MCreature::GetPositionToDirection(x,y, egInfo.direction);
 	
-	// ¹æÇâ¿¡ µû¶ó¼­ È®ÀåµÉ ÁÂÇ¥¸¦ ´Ş¸®ÇÑ´Ù.
+	// ë°©í–¥ì— ë”°ë¼ì„œ í™•ì¥ë  ì¢Œí‘œë¥¼ ë‹¬ë¦¬í•œë‹¤.
 	switch (egInfo.direction)
 	{
 		case DIRECTION_LEFT : case DIRECTION_RIGHT :			
@@ -79,10 +79,10 @@ MRippleZoneWideEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		break;
 	}
 
-	// Effec»ı¼º
+	// Effecìƒì„±
 	for (i=0; i<n; i++)
 	{
-		// ZoneÀÇ ¿µ¿ªÀ» ¹ş¾î³ª´Â °æ¿ì..
+		// Zoneì˜ ì˜ì—­ì„ ë²—ì–´ë‚˜ëŠ” ê²½ìš°..
 		if (x<0 || y<0 || x>=g_pZone->GetWidth() || y>=g_pZone->GetHeight())
 			continue;
 
@@ -90,23 +90,23 @@ MRippleZoneWideEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 		pEffect->SetFrameID( frameID, maxFrame );	
 
-		// ´ÙÀ½ ÁÂÇ¥¸¦ Á¤ÇÑ´Ù.			
-		pEffect->SetPosition(x, y);		// Sector ÁÂÇ¥		
+		// ë‹¤ìŒ ì¢Œí‘œë¥¼ ì •í•œë‹¤.			
+		pEffect->SetPosition(x, y);		// Sector ì¢Œí‘œ		
 		
-		// ¹æÇâ ¼³Á¤
+		// ë°©í–¥ ì„¤ì •
 		pEffect->SetDirection( egInfo.direction );
 
 		pEffect->SetZ(egInfo.z0);			
-		pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-		pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+		pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ì…í•´ì¤€ë‹¤.
+		pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
-		// À§·Â
+		// ìœ„ë ¥
 		pEffect->SetPower(egInfo.power+1);
 
-		// ºûÀÇ ¹à±â
+		// ë¹›ì˜ ë°ê¸°
 		//pEffect->SetLight( light );
 
-		// Zone¿¡ Ãß°¡ÇÑ´Ù.
+		// Zoneì— ì¶”ê°€í•œë‹¤.
 		bool bAdd = g_pZone->AddEffect( pEffect );
 
 		if (bAdd)
@@ -124,7 +124,7 @@ MRippleZoneWideEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		}
 
 
-		// ´ÙÀ½ ÁÂÇ¥
+		// ë‹¤ìŒ ì¢Œí‘œ
 		x += cX;
 		y += cY;
 	}

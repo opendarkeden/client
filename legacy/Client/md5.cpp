@@ -21,12 +21,12 @@ const ULONG CMd5::Context[4]=  {0X01234567,
 								};*/
 const LPSTR CMd5::ErrInfo[5][2]={
 								{"",""},
-								{"The Memory is not enough !","ÄÚ´æ·ÖÅäÊ§°Ü!"},
-								{"Have not assign a file !","Î´Ö¸¶¨ÎÄ¼ş!"},
-								{"Have not assign the text !","Î´Ö¸¶¨ÎÄ±¾!"},
-								{"Have something wrong with MD5!","ÓĞ´íÎó·¢Éú!"},
+								{"The Memory is not enough !","å†…å­˜åˆ†é…å¤±è´¥!"},
+								{"Have not assign a file !","æœªæŒ‡å®šæ–‡ä»¶!"},
+								{"Have not assign the text !","æœªæŒ‡å®šæ–‡æœ¬!"},
+								{"Have something wrong with MD5!","æœ‰é”™è¯¯å‘ç”Ÿ!"},
 								};
-//==========================<ÄÚÁªº¯ÊıÊµÏÖ>=========================================
+//==========================<å†…è”å‡½æ•°å®ç°>=========================================
 
 ULONG CMd5::LRotate(ULONG Sdata,int nBit)
 {
@@ -72,7 +72,7 @@ void CMd5::II(ULONG &a,ULONG b,ULONG c,ULONG d,ULONG Msg,int nBit,ULONG Cnt)
 	a=LRotate(a,nBit);
 	a+=b;
 }
-//==========================<³ÉÔ±º¯ÊıÊµÏÖ>======================================
+//==========================<æˆå‘˜å‡½æ•°å®ç°>======================================
 
 CMd5::CMd5()
 {
@@ -175,7 +175,7 @@ while(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
 	  DispatchMessage(&msg);
   }
   ULONG a=T[0],b=T[1],c=T[2],d=T[3];
- //µÚÒ»ÂÖ-------------------------------->
+ //ç¬¬ä¸€è½®-------------------------------->
   FF (a, b, c, d, pM[ 0], S11, 0xd76aa478); //- 1 -
   FF (d, a, b, c, pM[ 1], S12, 0xe8c7b756); //- 2 -
   FF (c, d, a, b, pM[ 2], S13, 0x242070db); //- 3 -
@@ -193,7 +193,7 @@ while(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
   FF (c, d, a, b, pM[14], S13, 0xa679438e); //- 15 -
   FF (b, c, d, a, pM[15], S14, 0x49b40821); //- 16 -
 
- //µÚ¶şÂÖ--------------------------------->
+ //ç¬¬äºŒè½®--------------------------------->
   GG (a, b, c, d, pM[ 1], S21, 0xf61e2562); //- 17 -
   GG (d, a, b, c, pM[ 6], S22, 0xc040b340); //- 18 -
   GG (c, d, a, b, pM[11], S23, 0x265e5a51); //- 19 -
@@ -211,7 +211,7 @@ while(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
   GG (c, d, a, b, pM[ 7], S23, 0x676f02d9); //- 31 -
   GG (b, c, d, a, pM[12], S24, 0x8d2a4c8a); //- 32 -
 
- //µÚÈıÂÖ--------------------------------->
+ //ç¬¬ä¸‰è½®--------------------------------->
   HH (a, b, c, d, pM[ 5], S31, 0xfffa3942); //- 33 -
   HH (d, a, b, c, pM[ 8], S32, 0x8771f681); //- 34 -
   HH (c, d, a, b, pM[11], S33, 0x6d9d6122); //- 35 -
@@ -229,7 +229,7 @@ while(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
   HH (c, d, a, b, pM[15], S33, 0x1fa27cf8); //- 47 -
   HH (b, c, d, a, pM[ 2], S34, 0xc4ac5665); //- 48 -
 
-  //µÚËÄÂÖ-------------------------------->
+  //ç¬¬å››è½®-------------------------------->
   II (a, b, c, d, pM[ 0], S41, 0xf4292244); //- 49 -
   II (d, a, b, c, pM[ 7], S42, 0x432aff97); //- 50 -
   II (c, d, a, b, pM[14], S43, 0xab9423a7); //- 51 -
@@ -302,7 +302,7 @@ IsSuc=false;
 if(nErr==0)
 {
 #ifndef ENGLISH
-	sprintf(strErr,"´ò²»¿ªÎÄ¼ş [ %s ] !\nÇëÈ·ÈÏÎÄ¼şÊÇ·ñ´æÔÚ !",fname);
+	sprintf(strErr,"æ‰“ä¸å¼€æ–‡ä»¶ [ %s ] !\nè¯·ç¡®è®¤æ–‡ä»¶æ˜¯å¦å­˜åœ¨ !",fname);
 #else
 	sprintf(strErr,"Can not open the file [ %s ] !",fname);
 #endif
@@ -321,7 +321,7 @@ LPCSTR CMd5::GetErr()
 	if(!*strErr)
 	{
 #ifndef ENGLISH
-		return "Î´·¢Éú´íÎó !";
+		return "æœªå‘ç”Ÿé”™è¯¯ !";
 #else 
 		return "No error !";
 #endif

@@ -19,7 +19,7 @@
 
 typedef WORD SPRITE_ID;
 
-// sprite id°¡ ¾Æ´Ï´Ù.
+// sprite idê°€ ì•„ë‹ˆë‹¤.
 #define NO_SPRITE_ID						ULONG_MAX
 
 // data id <-> spk index
@@ -45,10 +45,10 @@ typedef WORD SPRITE_ID;
 
 /*-----------------------------------------------------------------------------
   Class Sprite Pack
-  `DX°¡ ÃÊ±âÈ­µÇ¾î¼­ 555, 565 ¿©ºÎ¸¦ ÆÇº°ÇÏ¹Ç·Î ¹Ùµå½Ã DX¸¦ ÃÊ±âÈ­½ÃÅ² ÈÄ¿¡ 
-   »ı¼º(Á¤ÀÇ)ÇØ¾ß ÇÑ´Ù.
+  `DXê°€ ì´ˆê¸°í™”ë˜ì–´ì„œ 555, 565 ì—¬ë¶€ë¥¼ íŒë³„í•˜ë¯€ë¡œ ë°”ë“œì‹œ DXë¥¼ ì´ˆê¸°í™”ì‹œí‚¨ í›„ì— 
+   ìƒì„±(ì •ì˜)í•´ì•¼ í•œë‹¤.
 -----------------------------------------------------------------------------*/
-// RGB Áß ¾î´À ÇÏ³ª.
+// RGB ì¤‘ ì–´ëŠ í•˜ë‚˜.
 #define rgb_RED							0
 #define rgb_GREEN							1
 #define rgb_BLUE							2
@@ -56,7 +56,7 @@ typedef WORD SPRITE_ID;
 class C_SPRITE_PACK
 {
 private:
-	//CSpritePackList *	m_pC_spk_list; // 565, 555¸¦ °áÁ¤ÇØ¾ßÇÏ±â ¶§¹®¿¡ pointer·Î.
+	//CSpritePackList *	m_pC_spk_list; // 565, 555ë¥¼ ê²°ì •í•´ì•¼í•˜ê¸° ë•Œë¬¸ì— pointerë¡œ.
 	CSpritePack			m_SPK;	// by sigi
 
 public:
@@ -80,7 +80,7 @@ public:
 	void	BltOffscreen(POINT &point, SPRITE_ID sprite_id = 0);
 	void	BltOffscreen(int x=0, int y=0, SPRITE_ID sprite_id = 0);
 
-	// ÀÌ¹Ì Surface°¡ LockµÈ »óÅÂ¿¡¼­ ºÎ¸£´Â ÇÔ¼ö..
+	// ì´ë¯¸ Surfaceê°€ Lockëœ ìƒíƒœì—ì„œ ë¶€ë¥´ëŠ” í•¨ìˆ˜..
 	void	BltLockedClip(int x, int y, Rect &rect, SPRITE_ID sprite_id=0);
 	void	BltLockedOutline(int x, int y, int color, SPRITE_ID sprite_id = 0);
 	void	BltLocked(POINT &point, SPRITE_ID sprite_id=0);
@@ -102,7 +102,7 @@ public:
 
 /*-----------------------------------------------------------------------------
   Class FRR
-  `°´Ã¼¸¦ Animation½ÃÄÑÁÖ±â À§ÇÑ Frame array object.
+  `ê°ì²´ë¥¼ Animationì‹œì¼œì£¼ê¸° ìœ„í•œ Frame array object.
 -----------------------------------------------------------------------------*/
 class C_FRR
 {
@@ -121,9 +121,9 @@ public:
 
 /*-----------------------------------------------------------------------------
   Class animation object
-  `animationÇÒ object. ÀÌ°ÍÀº ÇÑ ½ÖÀÇ SPK, FRR ÀÌ´Ù. ±ùÀº SPK, FRRÀ» Ãâ·ÂÀ§Ä¡¸¸
-   ´Ù¸£°Ô ÇÒ °æ¿ì, ±×¸®°í µ¶¸³µÈ Timer¸¦ »ç¿ëÇÒ °æ¿ì°¡ ÀÖ±â ¶§¹®¿¡ ¸¸µé¾ú´Ù. 
-	ÀÌ°ÍÀ» C_ANIMATION¿¡ ³ÖÀ¸¸é animationµÈ´Ù.
+  `animationí•  object. ì´ê²ƒì€ í•œ ìŒì˜ SPK, FRR ì´ë‹¤. ê¹¥ì€ SPK, FRRì„ ì¶œë ¥ìœ„ì¹˜ë§Œ
+   ë‹¤ë¥´ê²Œ í•  ê²½ìš°, ê·¸ë¦¬ê³  ë…ë¦½ëœ Timerë¥¼ ì‚¬ìš©í•  ê²½ìš°ê°€ ìˆê¸° ë•Œë¬¸ì— ë§Œë“¤ì—ˆë‹¤. 
+	ì´ê²ƒì„ C_ANIMATIONì— ë„£ìœ¼ë©´ animationëœë‹¤.
 -----------------------------------------------------------------------------*/
 class C_ANI_OBJECT
 {
@@ -131,11 +131,11 @@ private:
 	//
 	// m_pC_spk
 	//
-	// m_pC_frr°ú ´ëÀÀÇÏ´Â SPKÀÌ´Ù. ÇÏ³ªÀÇ Animation object´Â ÇÏ³ª¾¿ÀÇ SPK, FRRÀ»
-	// °®´Â´Ù. ÇÏ³ªÀÇ SPK¿¡ ´Ù¼öÀÇ FRRÀÌ ´ëÀÀÇÒ ¼ö ¾ø´Ù. ÀÌ·¸°Ô ÇÏ´Â ÀÌÀ¯´Â, ±×·¯ÇÑ
-	// ¾²ÀÓ»õ´Â Animation objectÀÇ ÀÏ °æ¿ì µå¹É°Å³ª ¾ø°í, ¶ÇÇÑ È¥¶õ(?)À» ¹æÁöÇÏ¸ç,
-	// ´Ü¼øÇÑ Interface¸¦ Á¦°øÇÏ±â À§ÇÔÀÌ´Ù. ¹°·Ğ ±×·² ÇÊ¿ä°¡ ÃßÈÄ¿¡ »ı±ä´Ù¸é,
-	// ¶Ç´Ù¸¥ Class¸¦ ¸¸µé¸é ±×¸¸ÀÌ´Ù.
+	// m_pC_frrê³¼ ëŒ€ì‘í•˜ëŠ” SPKì´ë‹¤. í•˜ë‚˜ì˜ Animation objectëŠ” í•˜ë‚˜ì”©ì˜ SPK, FRRì„
+	// ê°–ëŠ”ë‹¤. í•˜ë‚˜ì˜ SPKì— ë‹¤ìˆ˜ì˜ FRRì´ ëŒ€ì‘í•  ìˆ˜ ì—†ë‹¤. ì´ë ‡ê²Œ í•˜ëŠ” ì´ìœ ëŠ”, ê·¸ëŸ¬í•œ
+	// ì“°ì„ìƒˆëŠ” Animation objectì˜ ì¼ ê²½ìš° ë“œë¯ˆê±°ë‚˜ ì—†ê³ , ë˜í•œ í˜¼ë€(?)ì„ ë°©ì§€í•˜ë©°,
+	// ë‹¨ìˆœí•œ Interfaceë¥¼ ì œê³µí•˜ê¸° ìœ„í•¨ì´ë‹¤. ë¬¼ë¡  ê·¸ëŸ´ í•„ìš”ê°€ ì¶”í›„ì— ìƒê¸´ë‹¤ë©´,
+	// ë˜ë‹¤ë¥¸ Classë¥¼ ë§Œë“¤ë©´ ê·¸ë§Œì´ë‹¤.
 	//
 	C_SPRITE_PACK *		m_pC_spk;
 	C_FRR *					m_pC_frr;
@@ -156,11 +156,11 @@ public:
 
 /*-----------------------------------------------------------------------------
   Class animation object
-  `Object¸¦ Animation½ÃÅ°´Â object.
+  `Objectë¥¼ Animationì‹œí‚¤ëŠ” object.
 
-  `SPK file°ú Frr fileÀº animationÀ» ÇÏ±â À§ÇÑ ÇÊ¿äÁ¶°ÇÀÌ´Ù. Animation Object´Â
-   ÀÌ µÎ°³ÀÇ Á¤º¸¸¦ ÂüÁ¶ÇÏ¿©, ÀÓÀÇ À§Ä¡¿¡ play, °ğ animation½ÃÄÑÁØ´Ù. ¹°·Ğ
-	Timer¸¦ ³»ÀåÇÏ°í Timer¸¦ ¼³Á¤ÇÒ ¼ö ÀÖ´Ù. ¶ÇÇÑ ¿ªÀ¸·Î animationÇÒ ¼öµµ ÀÖ´Ù.
+  `SPK fileê³¼ Frr fileì€ animationì„ í•˜ê¸° ìœ„í•œ í•„ìš”ì¡°ê±´ì´ë‹¤. Animation ObjectëŠ”
+   ì´ ë‘ê°œì˜ ì •ë³´ë¥¼ ì°¸ì¡°í•˜ì—¬, ì„ì˜ ìœ„ì¹˜ì— play, ê³§ animationì‹œì¼œì¤€ë‹¤. ë¬¼ë¡ 
+	Timerë¥¼ ë‚´ì¥í•˜ê³  Timerë¥¼ ì„¤ì •í•  ìˆ˜ ìˆë‹¤. ë˜í•œ ì—­ìœ¼ë¡œ animationí•  ìˆ˜ë„ ìˆë‹¤.
 -----------------------------------------------------------------------------*/
 class C_ANIMATION
 {
@@ -168,19 +168,19 @@ private:
 	//
 	// m_pC_ani_object
 	//
-	// 1. AnimationÇÒ object pointerÀÌ´Ù. ÀÌ object´Â ´Ù¸¥ Animation object¿¡¼­µµ
-	//    »ç¿ëÇÒ ¼ö ÀÖ±â ¶§¹®¿¡ pointer·Î ÇØ¾ß È¿À²ÀûÀÌ´Ù.
+	// 1. Animationí•  object pointerì´ë‹¤. ì´ objectëŠ” ë‹¤ë¥¸ Animation objectì—ì„œë„
+	//    ì‚¬ìš©í•  ìˆ˜ ìˆê¸° ë•Œë¬¸ì— pointerë¡œ í•´ì•¼ íš¨ìœ¨ì ì´ë‹¤.
 	//
-	// 2. ÇÏ³ªÀÇ Animation object¿¡¼­´Â ÇÏ³ªÀÇ ani object¸¦ °®´Â´Ù. ±×·¯³ª ±× ¿ªÀº
-	//    ¹İµå½Ã ±×·¯ÇÏÁö ¾Ê¾Æµµ µÈ´Ù.
+	// 2. í•˜ë‚˜ì˜ Animation objectì—ì„œëŠ” í•˜ë‚˜ì˜ ani objectë¥¼ ê°–ëŠ”ë‹¤. ê·¸ëŸ¬ë‚˜ ê·¸ ì—­ì€
+	//    ë°˜ë“œì‹œ ê·¸ëŸ¬í•˜ì§€ ì•Šì•„ë„ ëœë‹¤.
 	//
 	C_ANI_OBJECT *			m_pC_ani_object;
 
 	//
 	// Timer
 	// 
-	// ÇÏ³ªÀÇ Animation object´Â playµÇ±â À§ÇØ ÇÏ³ªÀÇ timer¸¦ °®´Â´Ù. ³»ºÎ¿¡ timer°¡
-	// ±¸ÇöµÈ´Ù. Timer library´Â Àü¿ª ÇÔ¼ö¸¦ ¼³Á¤ÇØÁà¾ßÇÏ±â ¶§¹®¿¡ »ç¿ëÇÒ ¼ö ¾ø´Ù.
+	// í•˜ë‚˜ì˜ Animation objectëŠ” playë˜ê¸° ìœ„í•´ í•˜ë‚˜ì˜ timerë¥¼ ê°–ëŠ”ë‹¤. ë‚´ë¶€ì— timerê°€
+	// êµ¬í˜„ëœë‹¤. Timer libraryëŠ” ì „ì—­ í•¨ìˆ˜ë¥¼ ì„¤ì •í•´ì¤˜ì•¼í•˜ê¸° ë•Œë¬¸ì— ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
 	//
 	DWORD						m_dw_prev_tickcount;
 	DWORD						m_dw_millisec;
@@ -194,16 +194,16 @@ public:
 	enum PLAY_ORDER
 	{
 		STOP,					// stop
-		PLAY,					// 0¹ø frameºÎÅÍ ³¡±îÁö ÇÑ ¹ø¸¸.
-		PLAY_LOOP,			// play¸¦ °è¼Ó ¹İº¹.
-		PLAY_BACK,			// ³¡ frameºÎÅÍ 0¹ø±îÁö ÇÑ ¹ø¸¸.
-		PLAY_BACKLOOP,		// play back °è¼Ó ¹İº¹.
-		PLAY_LOOPBACK,		// play -> back -> play (¹İº¹)
+		PLAY,					// 0ë²ˆ frameë¶€í„° ëê¹Œì§€ í•œ ë²ˆë§Œ.
+		PLAY_LOOP,			// playë¥¼ ê³„ì† ë°˜ë³µ.
+		PLAY_BACK,			// ë frameë¶€í„° 0ë²ˆê¹Œì§€ í•œ ë²ˆë§Œ.
+		PLAY_BACKLOOP,		// play back ê³„ì† ë°˜ë³µ.
+		PLAY_LOOPBACK,		// play -> back -> play (ë°˜ë³µ)
 	};
 
 private:
 	PLAY_ORDER				m_play_order;
-	PLAY_ORDER				m_play_order_next; // play order°¡ ³¡³ª°í ÇØÁÖ´Â °Í.
+	PLAY_ORDER				m_play_order_next; // play orderê°€ ëë‚˜ê³  í•´ì£¼ëŠ” ê²ƒ.
 
 public:
 	C_ANIMATION(C_ANI_OBJECT *p_object);

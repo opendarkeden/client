@@ -13,7 +13,7 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Ş½ÃÁö¸¦ ¹Ş¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Ş½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GCCreatureDiedHandler::execute ( GCCreatureDied * pPacket , Player * pPlayer )
@@ -26,7 +26,7 @@ void GCCreatureDiedHandler::execute ( GCCreatureDied * pPacket , Player * pPlaye
 	// message
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -34,7 +34,7 @@ void GCCreatureDiedHandler::execute ( GCCreatureDied * pPacket , Player * pPlaye
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -43,7 +43,7 @@ void GCCreatureDiedHandler::execute ( GCCreatureDied * pPacket , Player * pPlaye
 		MCreature* pCreature = g_pZone->GetCreature(creatureID);
 
 		//--------------------------------------------------
-		// »õ·Î¿î CreatureÀÌ¸é Ãß°¡
+		// ìƒˆë¡œìš´ Creatureì´ë©´ ì¶”ê°€
 		//--------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -53,7 +53,7 @@ void GCCreatureDiedHandler::execute ( GCCreatureDied * pPacket , Player * pPlaye
 		else
 		{
 			//---------------------------------------------------------
-			// Creature¸¦ Á×¿©¾ß ÇÑ´Ù.
+			// Creatureë¥¼ ì£½ì—¬ì•¼ í•œë‹¤.
 			//---------------------------------------------------------
 			//pCreature->SetDead();
 

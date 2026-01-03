@@ -30,14 +30,14 @@ void GCQuestStatusHandler::execute ( GCQuestStatus * pGCMonsterKillQuestStatus ,
 
 //	MEvent event;
 //
-//	// ÇöÀç ¸ó½ºÅÍ Á¤º¸¸¦ ´ã°íÀÖ´Â ¸Å´ÏÀú¸¦ ¸¸µé¸é ÀÌ·² ÇÊ¿ä´Â ¾øÁö¸¸...-_-; °¡Áö°í ÀÖ¾îºÁ¾ß 
-//	// Àá±ñ Ç¥½ÃÇØÁÖ´Â°Ô ´ÙÀÌ¹Ç·Î, ±×³É ÀÌ·¸°Ô ¾²ÀÚ.
+//	// í˜„ìž¬ ëª¬ìŠ¤í„° ì •ë³´ë¥¼ ë‹´ê³ ìžˆëŠ” ë§¤ë‹ˆì €ë¥¼ ë§Œë“¤ë©´ ì´ëŸ´ í•„ìš”ëŠ” ì—†ì§€ë§Œ...-_-; ê°€ì§€ê³  ìžˆì–´ë´ì•¼ 
+//	// ìž ê¹ í‘œì‹œí•´ì£¼ëŠ”ê²Œ ë‹¤ì´ë¯€ë¡œ, ê·¸ëƒ¥ ì´ë ‡ê²Œ ì“°ìž.
 //
 //	const MEvent *pEvent = g_pEventManager->GetEvent( EVENTID_MONSTER_KILL_QUEST );
 //
 //	if( pEvent != NULL)
 //	{
-//		// ±âÁ¸²¨°¡ ÀÖÀ¸¸é		
+//		// ê¸°ì¡´êº¼ê°€ ìžˆìœ¼ë©´		
 //		
 //		event.eventID = EVENTID_MONSTER_KILL_QUEST;
 //		event.eventDelay = pEvent->eventDelay; //pGCMonsterKillQuestStatus->getRemainTime() * 1000 + 3000;
@@ -54,7 +54,7 @@ void GCQuestStatusHandler::execute ( GCQuestStatus * pGCMonsterKillQuestStatus ,
 //		g_pEventManager->AddEvent( event );
 //	} else
 //	{
-//		// ±âÁ¸¿¡ ÀÌº¥Æ®°¡ ¾øÀ¸¸é 
+//		// ê¸°ì¡´ì— ì´ë²¤íŠ¸ê°€ ì—†ìœ¼ë©´ 
 //		event.eventID = EVENTID_MONSTER_KILL_QUEST;
 //		event.eventDelay = pGCMonsterKillQuestStatus->getRemainTime() * 1000 + 3000;
 //		event.eventFlag = EVENTFLAG_QUEST_INFO;

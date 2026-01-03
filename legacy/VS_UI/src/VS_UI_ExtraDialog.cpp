@@ -23,30 +23,30 @@ extern RECT g_GameRect;
 Window* g_desc_dialog_window_id = NULL;
 /*
 
-char * C_VS_UI_EDIT_DIALOG::m_sz_question_msg[1] = {"ÀÌ ¾ÆÀÌÅÛ            °³¸¦ »ç½Ã°Ú½À´Ï±î?"};
+char * C_VS_UI_EDIT_DIALOG::m_sz_question_msg[1] = {"æ é…’æè¢            ä¿ºç”« è¤çŸ«æ‘†åš¼èªé³–?"};
 
-// ÁÖ¼®Ã³¸® by sigi
-//char * C_VS_UI_MONEY_DIALOG::m_sz_question_msg[1] = {"¹ö¸± ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä."};
-//char * C_VS_UI_MONEY_DIALOG::m_sz_question_msg_for_storage[1] = {"º¸°üÇÒ ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä."};
+// æ—ç±è´¸åºœ by sigi
+//char * C_VS_UI_MONEY_DIALOG::m_sz_question_msg[1] = {"æ»šå‰¯ é™›å’€é˜‘ æ¶ä»¿çªæŠ€å¤¸."};
+//char * C_VS_UI_MONEY_DIALOG::m_sz_question_msg_for_storage[1] = {"ç„ŠåŒ…ä¸” é™›å’€é˜‘ æ¶ä»¿çªæŠ€å¤¸."};
 
 char * C_VS_UI_MONEY_DIALOG::m_sz_question_msg[MAX_MONEY_DIALOG_TYPE][1] = {	// by sigi
-	{  "¹ö¸± ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä." } ,
-	{  "º¸°üÇÒ ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä." } ,
-	{  "Ã£À» ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä." } ,
-	{  "°Å·¡ÇÒ ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä." } ,
-	{  "»©³¾ ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä." } ,
+	{  "æ»šå‰¯ é™›å’€é˜‘ æ¶ä»¿çªæŠ€å¤¸." } ,
+	{  "ç„ŠåŒ…ä¸” é™›å’€é˜‘ æ¶ä»¿çªæŠ€å¤¸." } ,
+	{  "èŒ«é˜‘ é™›å’€é˜‘ æ¶ä»¿çªæŠ€å¤¸." } ,
+	{  "èŠ­è´°ä¸” é™›å’€é˜‘ æ¶ä»¿çªæŠ€å¤¸." } ,
+	{  "å“—å°˜ é™›å’€é˜‘ æ¶ä»¿çªæŠ€å¤¸." } ,
 };
 
 char * C_VS_UI_ASK_DIALOG::m_sz_question_msg[MAX_ASK_DIALOG_TYPE][2] = {	// by sigi
-	{  "º¸°üÇÔÀ» $%d¿¡ »ç½Ã°Ú½À´Ï±î?"  },	
-	{  "%s ´Ô°ú °Å·¡ÇÏ°Ú½À´Ï±î?"  },
-	{  "%s ´ÔÀÇ ÀÀ´äÀ» ±â´Ù¸³´Ï´Ù." ,  "Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä."   },
-//	{  "¼±ÅÃÇÏ½Å ¹«±â´Â %sÀÔ´Ï´Ù.", "°áÁ¤ÇÏ½Ã°Ú½À´Ï±î?" },					// by larosel
-	{  "%s ´ÔÀÌ ´ç½ÅÀÇ %s¿¡ °¡ÀÔÀ» ¿äÃ»ÇÏ°í ÀÖ½À´Ï´Ù."  },
-	{  "%s ´ÔÀÌ ´ç½ÅÀ» %s¿¡ ÃÊÃ»ÇÏ¼Ì½À´Ï´Ù."  },
-	{  "%s ´ÔÀÇ ÀÀ´äÀ» ±â´Ù¸³´Ï´Ù.",   "Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä."  },
-	{  "°Ë»ö °á°ú¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù."  },
-	{  "ÀÌ ¾ÆÀÌÅÛÀ» EnchantÇÏ½Ã°Ú½À´Ï±î?",   "Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä."  },
+	{  "ç„ŠåŒ…çªƒé˜‘ $%dä¿Š è¤çŸ«æ‘†åš¼èªé³–?"  },	
+	{  "%s ä¸›è‹ èŠ­è´°çªæ‘†åš¼èªé³–?"  },
+	{  "%s ä¸›ç‹¼ è§ˆç¿ é˜‘ æ‰ä¿ƒèµ‹èªä¿ƒ." ,  "ç§’å®¶çªçŸ«å¦¨æ Cancelé˜‘ ç©¿ç¦æŠ€å¤¸."   },
+//	{  "æ€¥ç¶çªè„š å…¬æ‰ç»° %sæ¶èªä¿ƒ.", "æ¬æ²¥çªçŸ«æ‘†åš¼èªé³–?" },					// by larosel
+	{  "%s ä¸›æ å¯¸è„šç‹¼ %sä¿Š å•Šæ¶é˜‘ å¤¸æ²¡çªç»Š ä¹åš¼èªä¿ƒ."  },
+	{  "%s ä¸›æ å¯¸è„šé˜‘ %sä¿Š æª¬æ²¡çªç»§åš¼èªä¿ƒ."  },
+	{  "%s ä¸›ç‹¼ è§ˆç¿ é˜‘ æ‰ä¿ƒèµ‹èªä¿ƒ.",   "ç§’å®¶çªçŸ«å¦¨æ Cancelé˜‘ ç©¿ç¦æŠ€å¤¸."  },
+	{  "å…«ç¥¸ æ¬è‹ç”« èŒ«é˜‘ è ç»åš¼èªä¿ƒ."  },
+	{  "æ é…’æè¢é˜‘ EnchantçªçŸ«æ‘†åš¼èªé³–?",   "ç§’å®¶çªçŸ«å¦¨æ Cancelé˜‘ ç©¿ç¦æŠ€å¤¸."  },
 };
 */
 //-----------------------------------------------------------------------------
@@ -108,7 +108,7 @@ int	C_VS_UI_EDIT_DIALOG::GetValue() const
 	g_Convert_DBCS_Ascii2SingleByte(m_lev_value.GetString(), m_lev_value.Size(), p_temp);
 	if (p_temp == NULL)
 	{
-		// stringÀÌ ¾ø´Ù.
+		// stringæ ç»ä¿ƒ.
 		cur_val = m_default_val;
 	}
 	else
@@ -138,7 +138,7 @@ void C_VS_UI_EDIT_DIALOG::Start()
 	m_bl_up_focused = false;
 	m_bl_down_focused = false;
 
-	char sz_temp[10];	// by sigi (¿ø·¡´Â 2¿´´ç - -;)
+	char sz_temp[10];	// by sigi (ç›”è´°ç»° 2çœ‹å¯¸ - -;)
 	wsprintf(sz_temp, "%d", m_default_val);
 	m_lev_value.AddString(sz_temp);
 
@@ -264,7 +264,7 @@ void	C_VS_UI_EDIT_DIALOG::ScrollButton(bool up)
 	g_Convert_DBCS_Ascii2SingleByte(m_lev_value.GetString(), m_lev_value.Size(), p_temp);
 	if (p_temp == NULL)
 	{
-		// stringÀÌ ¾ø´Ù. backspaceÇÏ°í ÇßÀ» ¶§.
+		// stringæ ç»ä¿ƒ. backspaceçªç»Š æ²é˜‘ é”­.
 		cur_val = m_default_val;
 	}
 	else
@@ -294,7 +294,7 @@ void	C_VS_UI_EDIT_DIALOG::ScrollButton(bool up)
 //-----------------------------------------------------------------------------
 // C_VS_UI_EDIT_DIALOG::KeyboardControl
 //
-// ¹Ù·Î ¼ıÀÚ ÀÔ·ÂÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// å®˜è‚º ç®­ç£Š æ¶ä»¿ä¸” è ä¹éœ¸ èŒ„ä¿ƒ.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_EDIT_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 {
@@ -371,9 +371,9 @@ void	C_VS_UI_MONEY_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 	// by sigi
 	switch (m_type)
 	{
-		// º¸°üÇÔ¿¡ ³Ö±â
+		// ç„ŠåŒ…çªƒä¿Š æŒæ‰
 		case MONEY_DEPOSIT :
-			// ÇöÀç °¡Áö°í ÀÖ´Â ¸¸Å­¸¸ ³ÖÀ» ¼ö ÀÖ°í º¸°üÇÔ¿¡ µ·ÀÇ limitÀÌ»óÀº ³ÖÀ»¼ö ¾ø´Ù.
+			// æ³…çŠ å•Šç˜¤ç»Š ä¹ç»° çˆ¶æ€’çˆ¶ æŒé˜‘ è ä¹ç»Š ç„ŠåŒ…çªƒä¿Š æ£ç‹¼ limitææƒ‘ç¯® æŒé˜‘è ç»ä¿ƒ.
 			_MAX_MONEY =  min(g_pMoneyManager->GetMoney(), g_pStorage->GetMoneyManager()->GetMaxAddMoney());
 			break;
 
@@ -381,25 +381,25 @@ void	C_VS_UI_MONEY_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 			_MAX_MONEY = min(g_pMoneyManager->GetMoney(), g_pTradeManager->GetOtherMoneyManager()->GetMaxAddMoney());
 			break;
 
-		// ¹ö¸®±â
+		// æ»šåºœæ‰
 		case MONEY_DROP : 
 				_MAX_MONEY = g_pMoneyManager->GetMoney();	
 			break;
 		
-		// º¸°üÇÔ¿¡¼­ ²¨³»±â
+		// ç„ŠåŒ…çªƒä¿Šè¾‘ æ³¢éƒ´æ‰
 		case MONEY_WITHDRAW : 
-			// º¸°üÇÔ¿¡ ÀÖ´Â ¸¸Å­¸¸ Ã£À» ¼ö ÀÖ°í ÀÎº¥Åä¸®¿¡ µ·ÀÇ limitÀÌ»óÀº ³ÖÀ»¼ö ¾ø´Ù.
+			// ç„ŠåŒ…çªƒä¿Š ä¹ç»° çˆ¶æ€’çˆ¶ èŒ«é˜‘ è ä¹ç»Š ç‰¢äº¥é…åºœä¿Š æ£ç‹¼ limitææƒ‘ç¯® æŒé˜‘è ç»ä¿ƒ.
 			_MAX_MONEY = min(g_pStorage->GetMoneyManager()->GetMoney(), g_pMoneyManager->GetMaxAddMoney());
 			break;
 
 		case MONEY_WITHDRAW_FROM_EXCHANGE:
 			_MAX_MONEY = g_pTradeManager->GetMyMoneyManager()->GetMoney();
 			break;
-		case MONEY_BRING_FEE :			// ÃÑ ¼¼±İ¿¡¼­ °¡Áö°í ÀÖ´Â µ·À» »©¾ß 20¾ï ¾È³Ñ´Â´Ù...
+		case MONEY_BRING_FEE :			// é†š æŠ€é™›ä¿Šè¾‘ å•Šç˜¤ç»Š ä¹ç»° æ£é˜‘ å“—å…· 20æ’… æ•‘é€ç»°ä¿ƒ...
 			_MAX_MONEY = min(gC_vs_ui.GetTotalFee(),g_pMoneyManager->GetMaxAddMoney());
 			break;
 		case MODIFY_TAX:
-			_MAX_MONEY = 10; // ¼¼À²Àº 10 ±îÁö¸¸
+			_MAX_MONEY = 10; // æŠ€å•¦ç¯® 10 é³–ç˜¤çˆ¶
 			break;
 		case MONEY_SELL_ITEM:
 			_MAX_MONEY = 2000000000;
@@ -508,7 +508,7 @@ int	C_VS_UI_MONEY_DIALOG::GetValue() const
 	g_Convert_DBCS_Ascii2SingleByte(m_lev_value.GetString(), m_lev_value.Size(), p_temp);
 	if (p_temp == NULL)
 	{
-		// stringÀÌ ¾ø´Ù.
+		// stringæ ç»ä¿ƒ.
 		cur_val = 0;
 	}
 	else
@@ -531,10 +531,10 @@ int	C_VS_UI_MONEY_DIALOG::GetValue() const
 //
 // 
 //-----------------------------------------------------------------------------
-C_VS_UI_MONEY_DIALOG::C_VS_UI_MONEY_DIALOG(int _x, int _y, int center_x, int center_y, void (*exec_fp)(C_VS_UI_DIALOG *, id_t), WORD dd_button, int digit_count, TYPE_MONEY_DIALOG type) :	// type Ãß°¡ by sigi
+C_VS_UI_MONEY_DIALOG::C_VS_UI_MONEY_DIALOG(int _x, int _y, int center_x, int center_y, void (*exec_fp)(C_VS_UI_DIALOG *, id_t), WORD dd_button, int digit_count, TYPE_MONEY_DIALOG type) :	// type çœ å•Š by sigi
 							C_VS_UI_DIALOG(_x, _y, center_x, center_y, exec_fp, dd_button)
 {
-	/*	// ÁÖ¼®Ã³¸® by sigi
+	/*	// æ—ç±è´¸åºœ by sigi
 	if (!gC_vs_ui.IsRunningStorage())
 		SetMessage(m_sz_question_msg, 1);//, SMO_NOFIT);
 	else
@@ -583,23 +583,23 @@ C_VS_UI_MONEY_DIALOG::~C_VS_UI_MONEY_DIALOG()
 
 void	C_VS_UI_ASK_DIALOG::InitString()
 {
-	/*	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_BUY_STORAGE] = "º¸°üÇÔÀ» $%d¿¡ »ç½Ã°Ú½À´Ï±î?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_TRADE_OTHER_PLAYER]= "%s ´Ô°ú °Å·¡ÇÏ°Ú½À´Ï±î?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_WAIT_OTHER_PLAYER]= "%s ´ÔÀÇ ÀÀ´äÀ» ±â´Ù¸³´Ï´Ù.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_CANCEL]	="Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_REQUEST_JOIN]= "%s ´ÔÀÌ ´ç½ÅÀÇ %s¿¡ °¡ÀÔÀ» ¿äÃ»ÇÏ°í ÀÖ½À´Ï´Ù.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_INVITE]= "%s ´ÔÀÌ ´ç½ÅÀ» %s¿¡ ÃÊÃ»ÇÏ¼Ì½À´Ï´Ù.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_FIND_RESULT]= "°Ë»ö °á°ú¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù." ;
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENCHANT_CONFIRM]= "ÀÌ ¾ÆÀÌÅÛÀ» EnchantÇÏ½Ã°Ú½À´Ï±î?";
+	/*	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_BUY_STORAGE] = "ç„ŠåŒ…çªƒé˜‘ $%dä¿Š è¤çŸ«æ‘†åš¼èªé³–?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_TRADE_OTHER_PLAYER]= "%s ä¸›è‹ èŠ­è´°çªæ‘†åš¼èªé³–?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_WAIT_OTHER_PLAYER]= "%s ä¸›ç‹¼ è§ˆç¿ é˜‘ æ‰ä¿ƒèµ‹èªä¿ƒ.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_CANCEL]	="ç§’å®¶çªçŸ«å¦¨æ Cancelé˜‘ ç©¿ç¦æŠ€å¤¸.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_REQUEST_JOIN]= "%s ä¸›æ å¯¸è„šç‹¼ %sä¿Š å•Šæ¶é˜‘ å¤¸æ²¡çªç»Š ä¹åš¼èªä¿ƒ.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_INVITE]= "%s ä¸›æ å¯¸è„šé˜‘ %sä¿Š æª¬æ²¡çªç»§åš¼èªä¿ƒ.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_FIND_RESULT]= "å…«ç¥¸ æ¬è‹ç”« èŒ«é˜‘ è ç»åš¼èªä¿ƒ." ;
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENCHANT_CONFIRM]= "æ é…’æè¢é˜‘ EnchantçªçŸ«æ‘†åš¼èªé³–?";
 
-  {  "º¸°üÇÔÀ» $%d¿¡ »ç½Ã°Ú½À´Ï±î?"  },	
-	{  "%s ´Ô°ú °Å·¡ÇÏ°Ú½À´Ï±î?"  },
-	{  "%s ´ÔÀÇ ÀÀ´äÀ» ±â´Ù¸³´Ï´Ù." ,  "Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä."   },
-	{  "%s ´ÔÀÌ ´ç½ÅÀÇ %s¿¡ °¡ÀÔÀ» ¿äÃ»ÇÏ°í ÀÖ½À´Ï´Ù."  },
-	{  "%s ´ÔÀÌ ´ç½ÅÀ» %s¿¡ ÃÊÃ»ÇÏ¼Ì½À´Ï´Ù."  },
-	{  "%s ´ÔÀÇ ÀÀ´äÀ» ±â´Ù¸³´Ï´Ù.",   "Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä."  },
-	{  "°Ë»ö °á°ú¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù."  },
-	{  "ÀÌ ¾ÆÀÌÅÛÀ» EnchantÇÏ½Ã°Ú½À´Ï±î?",   "Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä."  },
+  {  "ç„ŠåŒ…çªƒé˜‘ $%dä¿Š è¤çŸ«æ‘†åš¼èªé³–?"  },	
+	{  "%s ä¸›è‹ èŠ­è´°çªæ‘†åš¼èªé³–?"  },
+	{  "%s ä¸›ç‹¼ è§ˆç¿ é˜‘ æ‰ä¿ƒèµ‹èªä¿ƒ." ,  "ç§’å®¶çªçŸ«å¦¨æ Cancelé˜‘ ç©¿ç¦æŠ€å¤¸."   },
+	{  "%s ä¸›æ å¯¸è„šç‹¼ %sä¿Š å•Šæ¶é˜‘ å¤¸æ²¡çªç»Š ä¹åš¼èªä¿ƒ."  },
+	{  "%s ä¸›æ å¯¸è„šé˜‘ %sä¿Š æª¬æ²¡çªç»§åš¼èªä¿ƒ."  },
+	{  "%s ä¸›ç‹¼ è§ˆç¿ é˜‘ æ‰ä¿ƒèµ‹èªä¿ƒ.",   "ç§’å®¶çªçŸ«å¦¨æ Cancelé˜‘ ç©¿ç¦æŠ€å¤¸."  },
+	{  "å…«ç¥¸ æ¬è‹ç”« èŒ«é˜‘ è ç»åš¼èªä¿ƒ."  },
+	{  "æ é…’æè¢é˜‘ EnchantçªçŸ«æ‘†åš¼èªé³–?",   "ç§’å®¶çªçŸ«å¦¨æ Cancelé˜‘ ç©¿ç¦æŠ€å¤¸."  },
 */
 	//m_sz_question_msg
 	m_sz_question_msg[0][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_BUY_STORAGE].GetString();
@@ -700,7 +700,7 @@ C_VS_UI_ASK_DIALOG::C_VS_UI_ASK_DIALOG(int _x, int _y, int center_x, int center_
 
 	switch (type)
 	{	
-		// ¼ıÀÚ°¡ ÇÏ³ª µé¾î°¡´Â °æ¿ì.. - -;
+		// ç®­ç£Šå•Š çªå”± ç”¸ç»¢å•Šç»° ç‰ˆå¿«.. - -;
 		case ASK_STORAGE_BUY :
 		{
 			m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+20];
@@ -778,7 +778,7 @@ C_VS_UI_ASK_DIALOG::C_VS_UI_ASK_DIALOG(int _x, int _y, int center_x, int center_
 		{
 			switch(value)
 			{
-			case 0:		// ÀÏ¹İ ¾ÆÀÌÅÛ ÀÎÃ¾Æ®
+			case 0:		// è€é¦† é…’æè¢ ç‰¢é•é£˜
 				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+1];
 				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
 				m_sz_question_msg_temp[1] = new char [strlen(m_sz_question_msg[type][1])+1];
@@ -787,26 +787,26 @@ C_VS_UI_ASK_DIALOG::C_VS_UI_ASK_DIALOG(int _x, int _y, int center_x, int center_
 				SetMessage(m_sz_question_msg_temp, 2, SMO_NOFIT);	
 				break;
 				
-			case 1:		// Æê ÀÎÃ¾Æ®
+			case 1:		// è„ ç‰¢é•é£˜
 				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+1];
 				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
 				
 				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
 				break;
 				
-			case 2:		// Æê ºÎÈ°
+			case 2:		// è„ ä½•åŠ
 				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][2])+1];
 				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][2]);
 				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
 				break;
 
-			case 3:		// Æê Ç»¸®Å¸½º
+			case 3:		// è„ è…”åºœé¸¥èƒ¶
 				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][3])+1];
 				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][3]);
 				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
 				break;
 
-			case 4:		// Æê º¯½Å
+			case 4:		// è„ å‡½è„š
 				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][4])+1];
 				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][4]);
 				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
@@ -949,7 +949,7 @@ bool C_VS_UI_ASK_DIALOG::MouseControl(UINT message, int _x, int _y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_ASK_DIALOG::KeyboardControl
 //
-// ¹Ù·Î ¼ıÀÚ ÀÔ·ÂÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// å®˜è‚º ç®­ç£Š æ¶ä»¿ä¸” è ä¹éœ¸ èŒ„ä¿ƒ.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_ASK_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 {
@@ -1012,16 +1012,16 @@ void C_VS_UI_NPC_DIALOG::InitNpcDlg(int sprite_num, const char* pname , bool IsS
 			12, 13, 22, 159, 160,
 			161, 19,
 			93, 92, 94, 219, 220,
-			253, 254, 255,//°ñ·¹¸Ó*2, ·¹º£Ä«
-			217,//¹ÙÅä¸®
-			250,251,252,//Çï±âÁ¶Á¾»ç
-			296, //¾ß¸¶¸ğÅä
-			297, //µ¥´Ï½º
-			362, 363, 364, 365, 366, //¶ó¼¾¼º 4¸í+ºí¶óµåÅ×ÆäÁî
-			302, 303, 311,//Æ©Åä¸®¾ó Ãß°¡
-			368, //¸®½ºÅä¾î NPC ºê¸®Äİ¶óÄ«½º Å¬·Ğ
-			370, //µå·Îº£Å¸ ¿ÊÆÊ ·¹ÀÌºì
-			427, 428, 429, 430,	// À¯·áÈ­ Á¸ ±×¸®ÇÇ½º, ·Îºóº¤½ºÅÍ, ¸ÓÇÇ, Ä«¸£¸à¹ö¸¸
+			253, 254, 255,//æ¦œé¥­èµ£*2, é¥­æµ·å¢¨
+			217,//å®˜é…åºœ
+			250,251,252,//ç§‹æ‰ç‚¼è¾†è¤
+			296, //å…·ä»˜è‘›é…
+			297, //å•èªèƒ¶
+			362, 363, 364, 365, 366, //æ‰¼å­£å·± 4ç–™+å–‰æ‰¼é›æŠ›å…¶ä»¤
+			302, 303, 311,//è­¬é…åºœå€” çœ å•Š
+			368, //åºœèƒ¶é…ç»¢ NPC å®åºœå¦®æ‰¼å¢¨èƒ¶ åŠªæ²¸
+			370, //é›è‚ºæµ·é¸¥ æ¸´å‰– é¥­æçº¢
+			427, 428, 429, 430,	// èœ¡ä¸°æ‹³ ç²® å¼Šåºœä¹”èƒ¶, è‚ºåæ°¦èƒ¶ç£, èµ£ä¹”, å¢¨ç¦è†æ»šçˆ¶
 		};
 
 		const int g_npc_num[g_npc_size] = 
@@ -1035,16 +1035,16 @@ void C_VS_UI_NPC_DIALOG::InitNpcDlg(int sprite_num, const char* pname , bool IsS
 			31, 32, 33, 34, 35,
 			36, 37,
 			38, 39, 40, 41, 42,
-			48, 47, 49, //°ñ·¹¸Ó*2, ·¹º£Ä«
-			43,//¹ÙÅä¸®
-			44, 44, 44,//Çï±âÁ¶Á¾»ç
-			45, //¾ß¸¶¸ğÅä
-			46, //µ¥´Ï½º
-			50, 51, 52, 53, 54,//¶ó¼¾¼º 4¸í+ºí¶óµåÅ×ÆäÁî
+			48, 47, 49, //æ¦œé¥­èµ£*2, é¥­æµ·å¢¨
+			43,//å®˜é…åºœ
+			44, 44, 44,//ç§‹æ‰ç‚¼è¾†è¤
+			45, //å…·ä»˜è‘›é…
+			46, //å•èªèƒ¶
+			50, 51, 52, 53, 54,//æ‰¼å­£å·± 4ç–™+å–‰æ‰¼é›æŠ›å…¶ä»¤
 			45, 46, 45,
-			39, //¸®½ºÅä¾î NPC ºê¸®Äİ¶óÄ«½º Å¬·Ğ
-			35, //µå·Îº£Å¸ ¿ÊÆÊ ·¹ÀÌºì
-			55, 56, 57, 58,	// À¯·áÈ­ Á¸ ±×¸®ÇÇ½º, ·Îºóº¤½ºÅÍ, ¸ÓÇÇ, Ä«¸£¸à¹ö¸¸
+			39, //åºœèƒ¶é…ç»¢ NPC å®åºœå¦®æ‰¼å¢¨èƒ¶ åŠªæ²¸
+			35, //é›è‚ºæµ·é¸¥ æ¸´å‰– é¥­æçº¢
+			55, 56, 57, 58,	// èœ¡ä¸°æ‹³ ç²® å¼Šåºœä¹”èƒ¶, è‚ºåæ°¦èƒ¶ç£, èµ£ä¹”, å¢¨ç¦è†æ»šçˆ¶
 		};
 
 		m_id = sprite_num;
@@ -1065,7 +1065,7 @@ void C_VS_UI_NPC_DIALOG::InitNpcDlg(int sprite_num, const char* pname , bool IsS
 
 		if(m_iSprite != -1)
 		{
-			m_p_NPCFace.Init( 2 );		// ÀÓ½Ã·Î 1°³¸¸ loading.. - -;;
+			m_p_NPCFace.Init( 2 );		// çƒ™çŸ«è‚º 1ä¿ºçˆ¶ loading.. - -;;
 
 			bool re;
 			re = m_p_NPCFace.LoadFromFileData( 0, 0, SPK_NPCFACE, SPKI_NPCFACE );
@@ -1077,7 +1077,7 @@ void C_VS_UI_NPC_DIALOG::InitNpcDlg(int sprite_num, const char* pname , bool IsS
 			m_client_rect.w -= m_p_NPCFace[0].GetWidth();
 		}
 	}
-	// 2005, 1, 14, sobeit add start - npc ¾ó±¼ ´ë½Å ItemDescription ÀÌ¹ÌÁö¸¦º¸¿©ÁØ´Ù. - Äù½ºÆ® ¶«½Ã...
+	// 2005, 1, 14, sobeit add start - npc å€”å¥” æªè„š ItemDescription æå›ºç˜¤ç”«ç„Šå’¯éœ–ä¿ƒ. - æ¶…èƒ¶é£˜ ä¸œçŸ«...
 	else
 	{
 		if(sprite_num == 0)
@@ -1088,7 +1088,7 @@ void C_VS_UI_NPC_DIALOG::InitNpcDlg(int sprite_num, const char* pname , bool IsS
 		{
 			m_iSprite = sprite_num;
 
-			m_p_NPCFace.Init( 1 );		// ÀÓ½Ã·Î 1°³¸¸ loading.. - -;;
+			m_p_NPCFace.Init( 1 );		// çƒ™çŸ«è‚º 1ä¿ºçˆ¶ loading.. - -;;
 
 			bool re;
 			re = m_p_NPCFace.LoadFromFileData( 0, m_iSprite, SPK_ITEM, SPKI_ITEM );
@@ -1130,7 +1130,7 @@ bool C_VS_UI_NPC_DIALOG::MouseControl(UINT message, int _x, int _y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_NPC_DIALOG::KeyboardControl
 //
-// ¹Ù·Î ¼ıÀÚ ÀÔ·ÂÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// å®˜è‚º ç®­ç£Š æ¶ä»¿ä¸” è ä¹éœ¸ èŒ„ä¿ƒ.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_NPC_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 {
@@ -1445,12 +1445,12 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			{
 				title_color = g_pClientConfig->COLOR_NAME_ITEM_RARE_OPTION;
 			} 
-			// add by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈıÊôĞÔ×°±¸ÎªºìÉ«
+			// add by Sonic 2006.10.28 å¢åŠ æ˜¾ç¤ºä¸‰å±æ€§è£…å¤‡ä¸ºçº¢è‰²
 			else if(p_item->GetItemOptionListCount() > 2)
 			{
 				title_color = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
 			}
-			// end by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈıÊôĞÔ×°±¸ÎªºìÉ«
+			// end by Sonic 2006.10.28 å¢åŠ æ˜¾ç¤ºä¸‰å±æ€§è£…å¤‡ä¸ºçº¢è‰²
 			else
 				title_color = RGB_YELLOW;						// Normal Item
 			pi = gpC_base->m_desc_msg_pi;
@@ -1487,12 +1487,12 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			e_name+=" )";
 
 			wsprintf(sz_temp, "%s %s",h_name.c_str(),e_name.c_str());			
-			// ÀÌ¸§ÀÌ ³Ê¹« ±æ¸é ÁÙ¿©ÁÖÀÚ.	ReduceString2 ´Â µÚÂÊ¿¡ "..." Âï¾îÁÖ±â~ 	by sonee
+			// ææŠšæ å‘ˆå…¬ è¾¨æ ä¸´å’¯æ—ç£Š.	ReduceString2 ç»° ç¬¬ç‡ä¿Š "..." å˜›ç»¢æ—æ‰~ 	by sonee
 			ReduceString2(sz_temp,55);			
 			SetDescTitle(sz_temp);
 
 			// weight
-//			wsprintf(sz_temp, "\t¹«°Ô : %d", p_item->GetWeight());
+//			wsprintf(sz_temp, "\tå…¬éœ¸ : %d", p_item->GetWeight());
 //			temp_string = sz_temp;
 //			m_rep_string.push_back(temp_string);
 			
@@ -1539,7 +1539,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			}
 			
 			// Damage
-			if (p_item->GetMaxDamage() != -1) // damage°¡ ÀÖ´Â°¡?
+			if (p_item->GetMaxDamage() != -1) // damageå•Š ä¹ç»°å•Š?
 			{
 				wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_DAMAGE].GetString(), p_item->GetMinDamage(), p_item->GetMaxDamage());
 				temp_string = sz_temp;
@@ -1547,7 +1547,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			}
 			
 			// critical hit
-			if (p_item->GetCriticalHit() != -1) // Å©¸®Æ¼ÄÃÈ÷Æ®°¡ ÀÖ´Â°¡?
+			if (p_item->GetCriticalHit() != -1) // å†œåºœèæ‹¿æ´’é£˜å•Š ä¹ç»°å•Š?
 			{
 				wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_CRITICALHIT].GetString(), p_item->GetCriticalHit());
 				temp_string = sz_temp;
@@ -1621,7 +1621,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			// Pile size
 //			if (p_item->IsPileItem() == true)
 //			{
-//				wsprintf(sz_temp, "\t¾ÆÀÌÅÛ °³¼ö : %d°³", p_item->GetNumber());
+//				wsprintf(sz_temp, "\té…’æè¢ ä¿ºè : %dä¿º", p_item->GetNumber());
 //				temp_string = sz_temp;
 //				m_rep_string.push_back(temp_string);
 //			}
@@ -1633,21 +1633,21 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 				ITEMOPTION_INFO& optionInfo = (*g_pItemOptionTable)[option];
 				
 				char pPartName[20];
-				strcpy(pPartName, ITEMOPTION_INFO::ITEMOPTION_PARTNAME[optionInfo.Part]); // OptionÀÌ Àû¿ëµÇ´Â ¼öÄ¡ÀÇ ÀÌ¸§
+				strcpy(pPartName, ITEMOPTION_INFO::ITEMOPTION_PARTNAME[optionInfo.Part]); // Optionæ åˆ©ä¾©ç™»ç»° èæ‘¹ç‹¼ ææŠš
 				if(p_item->IsVampireItem() && strstr(pPartName,"MP") != NULL)
 					*strstr(pPartName,"MP") = 'H';
 
-				BYTE PlusPoint	= optionInfo.PlusPoint; // Àû¿ëµÇ´Â ¼öÄ¡
+				BYTE PlusPoint	= optionInfo.PlusPoint; // åˆ©ä¾©ç™»ç»° èæ‘¹
 				
 				if (pPartName)
 				{
 					if(!strcmp(pPartName, "Durability"))
 					{
-						sprintf(sz_temp, "\t¿É¼Ç : %s +%d", pPartName, PlusPoint-100);
+						sprintf(sz_temp, "\tå¯è®° : %s +%d", pPartName, PlusPoint-100);
 						strcat(sz_temp, "%");
 					}
 					else
-						sprintf(sz_temp, "\t¿É¼Ç : %s +%d", pPartName, PlusPoint);
+						sprintf(sz_temp, "\tå¯è®° : %s +%d", pPartName, PlusPoint);
 					
 					temp_string = sz_temp;
 					m_rep_string.push_back(temp_string);
@@ -1669,7 +1669,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 					if(p_item->IsVampireItem() && strstr(pPartName,"MP") != NULL)
 						*strstr(pPartName,"MP") = 'H';
 					
-					BYTE PlusPoint	= optionInfo.PlusPoint; // Àû¿ëµÇ´Â ¼öÄ¡
+					BYTE PlusPoint	= optionInfo.PlusPoint; // åˆ©ä¾©ç™»ç»° èæ‘¹
 					
 					if (pPartName)
 					{
@@ -1727,7 +1727,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 					if(p_item->IsVampireItem() && strstr(pPartName,"MP") != NULL)
 						*strstr(pPartName,"MP") = 'H';
 					
-					BYTE PlusPoint	= optionInfo.PlusPoint; // Àû¿ëµÇ´Â ¼öÄ¡
+					BYTE PlusPoint	= optionInfo.PlusPoint; // åˆ©ä¾©ç™»ç»° èæ‘¹
 					
 					if (pPartName)
 					{
@@ -1778,7 +1778,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 				char sz_buf1 [50];
 				MItem* p_AddItem = (MItem*)void_ptr2;
 			
-				// ÄÚ¾îÀìÀÇ ItemDescription.spk ¿¡¼­ÀÇ ÀÎµ¦½º¸¦ ¾ò¾î¿ÀÀÚ
+				// å†…ç»¢æ¼“ç‹¼ ItemDescription.spk ä¿Šè¾‘ç‹¼ ç‰¢éƒ¸èƒ¶ç”« æ˜ç»¢å·ç£Š
 				std::string AddedFileName;
 				std::string temp_string;
 				AddedFileName += p_AddItem->GetEName();
@@ -1789,7 +1789,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 				temp_string = sz_buf1;
 
 				corezapID = atoi(temp_string.c_str()+1);
-				// ÄÚ¾îÀìÀÇ ItemDescription.spk ¿¡¼­ÀÇ ÀÎµ¦½º¸¦ ¾ò¾î¿ÀÀÚ
+				// å†…ç»¢æ¼“ç‹¼ ItemDescription.spk ä¿Šè¾‘ç‹¼ ç‰¢éƒ¸èƒ¶ç”« æ˜ç»¢å·ç£Š
 		
 				//corezapID = 
 				if(p_AddItem->GetItemClass() == ITEM_CLASS_CORE_ZAP && p_AddItem->GetItemType()>=0 && p_AddItem->GetItemType()<=3)
@@ -1993,7 +1993,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			
 			CSpritePack *temp;
 			temp = new CSpritePack;
-			temp->Init( 1 );		// ÀÓ½Ã·Î 1°³¸¸ loading.. - -;;
+			temp->Init( 1 );		// çƒ™çŸ«è‚º 1ä¿ºçˆ¶ loading.. - -;;
 
 			int id = (int)void_ptr;
 			int sprID = (*g_pSkillInfoTable)[id].GetSpriteID();
@@ -2104,7 +2104,7 @@ void C_VS_UI_DESC_DIALOG::Start()
 bool C_VS_UI_DESC_DIALOG::MouseControl(UINT message, int _x, int _y)
 {
 	Window::MouseControl(message, _x, _y);
-	_x-=x;_y-=y;//À©µµ¿ì ÀÌµ¿À» À§ÇÑ
+	_x-=x;_y-=y;//æ‰©æ¡£å¿« ææ‚¼é˜‘ å›°èŒ„
 	bool re = m_pC_scroll_bar->MouseControl(message, _x, _y);
 	re &= m_pC_button_group->MouseControl(message, _x, _y);
 
@@ -2153,15 +2153,15 @@ bool C_VS_UI_DESC_DIALOG::MouseControl(UINT message, int _x, int _y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_DESC_DIALOG::KeyboardControl
 //
-// ¹Ù·Î ¼ıÀÚ ÀÔ·ÂÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// å®˜è‚º ç®­ç£Š æ¶ä»¿ä¸” è ä¹éœ¸ èŒ„ä¿ƒ.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_DESC_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 {
 	if (message == WM_KEYDOWN)
 		switch (key)
 		{
-			case VK_RETURN: // ok·Î °£ÁÖ. !cancelÀº ¹İµå½Ã ok¿Í ÇÔ²² ÀÖ´Ù.
-			case VK_ESCAPE: // ¾Æ¹«°Íµµ ¾ÈÇÔ.
+			case VK_RETURN: // okè‚º åŸƒæ—. !cancelç¯® é¦†é›çŸ« okå®¢ çªƒè†Š ä¹ä¿ƒ.
+			case VK_ESCAPE: // é…’å…¬å·´æ¡£ æ•‘çªƒ.
 				Run(CLOSE_ID);
 				break;
 		}
@@ -2395,7 +2395,7 @@ C_VS_UI_FILE_DIALOG::~C_VS_UI_FILE_DIALOG()
 //-----------------------------------------------------------------------------
 // C_VS_UI_FILE_DIALOG::Start
 //
-// ¿©·¯°³ÀÇ ÆÄÀÏ °Ë»ö °¡´É.	; ·Î ±¸ºĞ
+// å’¯çŸ¾ä¿ºç‹¼ é¢‡è€ å…«ç¥¸ å•Šç“·.	; è‚º å¤‡ç›’
 // ex> C_VS_UI_FILE_DIALOG::Start(".bmp;.jpg;.pcx;.tga;.gif"); by sonee
 //-----------------------------------------------------------------------------
 void C_VS_UI_FILE_DIALOG::Start(char *type)
@@ -2403,7 +2403,7 @@ void C_VS_UI_FILE_DIALOG::Start(char *type)
 	PI_Processor::Start();
 	m_pC_button_group->Init();
 
-	// type ¿¡ ¸î°¡ÁöÀÇ ÆÄÀÏ Á¾·ù°¡ ÀÖ´ÂÁö °Ë»öÇÑ´Ù.
+	// type ä¿Š å‰²å•Šç˜¤ç‹¼ é¢‡è€ è¾†å¹…å•Š ä¹ç»°ç˜¤ å…«ç¥¸èŒ„ä¿ƒ.
 	int nType,i;
 
 	for(i=0,nType=1;i<strlen(type);i++)
@@ -2441,7 +2441,7 @@ void C_VS_UI_FILE_DIALOG::Start(char *type)
 	m_select_file_num.clear();
 
 
-	// ÆÄÀÏ ´ÙÀÌ¾Ë·Î±×¿¡ µé¾î°¡´Â ¾ÆÀÌÄÜ
+	// é¢‡è€ ä¿ƒæèˆ…è‚ºå¼Šä¿Š ç”¸ç»¢å•Šç»° é…’æèƒ½
 	m_p_icon_spk=new C_SPRITE_PACK(SPK_FILE_DIALOG);
 
 
@@ -2450,12 +2450,12 @@ void C_VS_UI_FILE_DIALOG::Start(char *type)
 
 	if(mp_open_current_directory == NULL)
 	{
-		// System¿¡ ºÎÂøµÈ ¸ğµç drive¸¦ ÀĞ´Â´Ù.
+		// Systemä¿Š ä½•é¦’ç­‰ è‘›ç”µ driveç”« ä½¬ç»°ä¿ƒ.
 		DWORD drives = GetLogicalDrives();
 		
-		// °¢ bit¸¦ °Ë»çÇÏ¿© Á¸ÀçÇÏ´Â drive buffer¸¦ ¸¸µç´Ù.
+		// é˜¿ bitç”« å…«è¤çªå’¯ ç²®çŠçªç»° drive bufferç”« çˆ¶ç”µä¿ƒ.
 		DWORD index = 1;
-		char	find_drive_name = 'a'; // a, b, c, d ... ¼Ò¹®ÀÚ·Î...
+		char	find_drive_name = 'a'; // a, b, c, d ... å®¶å·©ç£Šè‚º...
 		char	find_drive_name_buf[sizeof(DWORD)*8];
 		memset(find_drive_name_buf, 0, sizeof(DWORD)*8);
 		
@@ -2495,7 +2495,7 @@ void C_VS_UI_FILE_DIALOG::Start(char *type)
 			mp_open_current_directory[i] = buf;
 		}
 		
-		// Window°¡ ¸¸µé¾îÁö¸é¼­ directory¸¦ ÃÊ±âÈ­ ½ÃÅ²´Ù.
+		// Windowå•Š çˆ¶ç”¸ç»¢ç˜¤æè¾‘ directoryç”« æª¬æ‰æ‹³ çŸ«æŒªä¿ƒ.
 		char temp[MAX_PATH];
 		DWORD char_count = GetCurrentDirectory(MAX_PATH, temp);
 		assert(char_count > 0);
@@ -2527,7 +2527,7 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 	
 	Window::MouseControl(message, _x, _y);
 	_x-=x;
-	_y-=y;//À©µµ¿ì ÀÌµ¿À» À§ÇÑ
+	_y-=y;//æ‰©æ¡£å¿« ææ‚¼é˜‘ å›°èŒ„
 	bool re = m_pC_button_group->MouseControl(message, _x, _y);
 	g_descriptor_manager.Unset();
 	re&=m_pC_scroll_bar->MouseControl(message, _x, _y);	
@@ -2590,7 +2590,7 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 				//if(message == M_LB_DOUBLECLICK && m_select != -1)
 				if( m_select == m_old_select && m_select != -1)			// Double Click Check
 				{
-					if(m_vs_file_list_attr[m_select] & FILE_ATTRIBUTE_DIRECTORY) // µğ·ºÅä¸®ÀÏ °æ¿ì ÇØ´çµğ·ºÅä¸®·Î ¿Å±è
+					if(m_vs_file_list_attr[m_select] & FILE_ATTRIBUTE_DIRECTORY) // å¼æ³›é…åºœè€ ç‰ˆå¿« ç§¦å¯¸å¼æ³›é…åºœè‚º é¢—è¾«
 					{
 						char name[200];
 						strcpy(name, mp_open_current_directory[mi_open_drive_index]);					
@@ -2605,14 +2605,14 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 						m_select = -1;
 						m_tempselect = -1;
 					}
-					else if(m_mode==MODE_PROFILE_SELECT)				// MODE_PROFILE_SELECT ´Â ÆÄÀÏ´õºíÅ¬¸¯À» Áö¿øÇÑ´Ù. 
+					else if(m_mode==MODE_PROFILE_SELECT)				// MODE_PROFILE_SELECT ç»° é¢‡è€æ­¹å–‰åŠªè…é˜‘ ç˜¤ç›”èŒ„ä¿ƒ. 
 					{
 						Run(OK_ID);
 					}
 					
 					m_pC_scroll_bar->SetPosMax(m_vs_file_list.size()-12);				
 				}
-				if(m_select!=-1&&m_mode!=MODE_PROFILE_SELECT)	// ÇÁ·ÎÇÊ ¸ğµå°¡ ¾Æ´Ï¸é
+				if(m_select!=-1&&m_mode!=MODE_PROFILE_SELECT)	// æ©‡è‚ºé˜ è‘›é›å•Š é…’èªæ
 				{
 					if(!(m_vs_file_list_attr[m_select] & FILE_ATTRIBUTE_DIRECTORY))	
 					{
@@ -2631,13 +2631,13 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 						}						
 						m_select_file_num.insert(&m_select_file_num[m_select_file_num.size()], m_select);
 					} 
-					else		// ±×³É Å¬¸¯ÇßÀ»°æ¿ì
+					else		// å¼Šæˆ åŠªè…æ²é˜‘ç‰ˆå¿«
 					{
 						if(!g_GetCtrlPushState())	
 							m_select_file_num.clear();
 					}
 				}
-				//m_stay_openfolder=GetTickCount();			// ±äÀÌ¸§µîÀ» Ç¥½ÃÇØÁÙ¶§ ¾²´Â Å¸ÀÌ¸Ó
+				//m_stay_openfolder=GetTickCount();			// å˜ææŠšæ®¿é˜‘ é’çŸ«ç§¦ä¸´é”­ é™ç»° é¸¥æèµ£
 				Timer(true);
 				STAY_FOLDER=0xfffffffe;
 			}
@@ -2657,8 +2657,8 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 		break;
 
 	case M_MOVING:		
-		// µå¶óÀÌºê ¹Ú½º°¡ ¿­·ÈÀ» °æ¿ì ¸¶¿ì½º¸¦ °®´Ù ³õ¾ÒÀ»¶§ 1ÃÊÀÌ»ó ÇØ´ç µå¶óÀÌºê¿¡ À§Ä¡ÇØÀÖÀ¸¸é
-		// ÀÌ¸§ÀÌ ¾ĞÃàµÈ °æ¿ì Ç® ³×ÀÓÀ» Ãâ·ÂÇÏ¿© ÁØ´Ù.	
+		// é›æ‰¼æå® å† èƒ¶å•Š å‡¯å•¡é˜‘ ç‰ˆå¿« ä»˜å¿«èƒ¶ç”« çˆ±ä¿ƒ åˆç–½é˜‘é”­ 1æª¬ææƒ‘ ç§¦å¯¸ é›æ‰¼æå®ä¿Š å›°æ‘¹ç§¦ä¹æ æ
+		// ææŠšæ æ‹˜ç»µç­‰ ç‰ˆå¿« é’± åŒ™çƒ™é˜‘ å…ä»¿çªå’¯ éœ–ä¿ƒ.	
 		m_flag_preview_image=true;
 		if( _y > 35 && _x > 30 && _y < 49 && _x < 340 )
 			STAY_FOLDER=0;
@@ -2740,7 +2740,7 @@ bool	C_VS_UI_FILE_DIALOG::Timer(bool reset)
 //-----------------------------------------------------------------------------
 // C_VS_UI_FILE_DIALOG::KeyboardControl
 //
-// ¹Ù·Î ¼ıÀÚ ÀÔ·ÂÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// å®˜è‚º ç®­ç£Š æ¶ä»¿ä¸” è ä¹éœ¸ èŒ„ä¿ƒ.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_FILE_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 {	
@@ -2748,11 +2748,11 @@ void	C_VS_UI_FILE_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 	{
 		switch (key)
 		{		
-		case VK_RETURN: // ok·Î °£ÁÖ. !cancelÀº ¹İµå½Ã ok¿Í ÇÔ²² ÀÖ´Ù.
+		case VK_RETURN: // okè‚º åŸƒæ—. !cancelç¯® é¦†é›çŸ« okå®¢ çªƒè†Š ä¹ä¿ƒ.
 			Run(OK_ID);
 			break;
 
-		case VK_ESCAPE: // ¾Æ¹«°Íµµ ¾ÈÇÔ.
+		case VK_ESCAPE: // é…’å…¬å·´æ¡£ æ•‘çªƒ.
 			Run(CANCEL_ID);
 			break;		
 		}
@@ -2762,8 +2762,8 @@ void	C_VS_UI_FILE_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 //-----------------------------------------------------------------------------
 // C_VS_UI_FILE_DIALOG::Show
 //
-// ¹®ÀÚ¿­ Ã³¸®ÇÔ¼ö¶û ÇÔ¼ö¸íµéÀÌ Á» ±æ¾î¼­ ¼Ò½º³»¿ë¿ª½Ã Á» ±é´Ï´Ù.
-// ¼Óµµ¿¡´Â º°´Ù¸¥ ÁöÀåÀ» ÁÖÁö ¾Ê½À´Ï´Ù. 
+// å·©ç£Šå‡¯ è´¸åºœçªƒèå°” çªƒèç–™ç”¸æ ç²± è¾¨ç»¢è¾‘ å®¶èƒ¶éƒ´ä¾©å¼€çŸ« ç²± éèªä¿ƒ.
+// åŠ æ¡£ä¿Šç»° å–Šä¿ƒå¼— ç˜¤å˜é˜‘ æ—ç˜¤ è‡¼åš¼èªä¿ƒ. 
 //-----------------------------------------------------------------------------
 void	C_VS_UI_FILE_DIALOG::Show()
 {
@@ -2774,7 +2774,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	int i,j;
 	// 600,133
 
-	// ¹Ì¸®º¸±â
+	// å›ºåºœç„Šæ‰
 	//SetRect(&rect, x+w,y,x+w+55,y+77);
 	//DrawAlphaBox(&rect, 255, 255, 255, 20);
 	
@@ -2782,7 +2782,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	gpC_global_resource->DrawDialog2(Rect(x, y, w, h), GetAttributes()->alpha);
 	
 	//----------------------------------------------------------------------------------------
-	// ¼±ÅÃ¿µ¿ª Ç¥½Ã
+	// æ€¥ç¶åº·å¼€ é’çŸ«
 	switch(m_mode)
 	{
 	case MODE_PROFILE_SELECT :
@@ -2811,7 +2811,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 		break;
 	}
 	//----------------------------------------------------------------------------------------
-	// ¾ÆÀÌÄÜ ºÎºĞ Ãâ·Â		
+	// é…’æèƒ½ ä½•ç›’ å…ä»¿		
 	if(gpC_base->m_p_DDSurface_back->Lock())
 	{
 		for(i = 0; i < m_scroll_max && i+m_pC_scroll_bar->GetScrollPos() < m_vs_file_list.size(); i++){
@@ -2821,14 +2821,14 @@ void	C_VS_UI_FILE_DIALOG::Show()
 		}
 		m_pC_button_group->Show();
 		//----------------------------------------------------------------------------------------
-		// ÇöÀç ¿ÀÇÂµÈ Æú´õ¸í Ãâ·Â
+		// æ³…çŠ å·é”¹ç­‰ å¼ƒæ­¹ç–™ å…ä»¿
 		m_p_icon_spk->BltLocked(x+m_string_x-19, y+37,OPENFOLDER_ID);
 		gpC_base->m_p_DDSurface_back->Unlock();
 	}
 
 	g_FL2_GetDC();	
-	// ¿­¸° Æú´õ¸íÀÇ ±æÀÌ°¡ ±æ°æ¿ì Àß¶óÁØ´Ù 
-	// 38ÀÚ ÀÌ»ó µÇÁö ¾Êµµ·Ï ÇÑ´Ù. 
+	// å‡¯èµ´ å¼ƒæ­¹ç–™ç‹¼ è¾¨æå•Š è¾¨ç‰ˆå¿« è‚‹æ‰¼éœ–ä¿ƒ 
+	// 38ç£Š ææƒ‘ ç™»ç˜¤ è‡¼æ¡£åºŸ èŒ„ä¿ƒ. 
 	title+= mp_open_current_directory[mi_open_drive_index];
 	title.erase(strlen(mp_open_current_directory[mi_open_drive_index])-2,2);
 	for(i=0;i<m_filter.size();i++){title+=m_filter[i].c_str();title+=";";}
@@ -2839,7 +2839,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	g_PrintColorStr(x+m_string_x, y+37, name, gpC_base->m_desc_menu_pi, RGB_WHITE);
 
 	//----------------------------------------------------------------------------------------
-	// Å¸ÀÌÆ² Ãâ·Â
+	// é¸¥ææ’‡ å…ä»¿
 	if(m_mode==MODE_PROFILE_SELECT)	
 		strcpy(name,(*g_pGameStringTable)[UI_STRING_MESSAGE_FILE_DIALOG_SELECT_PROFILE_PICTURE].GetString());
 	else strcpy(name,(*g_pGameStringTable)[UI_STRING_MESSAGE_FILE_DIALOG_SELECT_FILE].GetString());
@@ -2853,8 +2853,8 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	g_PrintColorStr(titleX, titleY, name,gpC_base->m_desc_menu_pi, RGB_WHITE);
 
 	for(i = 0; i < m_scroll_max && i+m_pC_scroll_bar->GetScrollPos() < m_vs_file_list.size(); i++) {		
-		// ÀÌ¸§µé Ãâ·Â
-		// ÆÄÀÏÀÌ¸§ÀÌ ³Ê¹« ±æ¸é Àû´çÈ÷ ÀÚ¸¥´Ù. 
+		// ææŠšç”¸ å…ä»¿
+		// é¢‡è€ææŠšæ å‘ˆå…¬ è¾¨æ åˆ©å¯¸æ´’ ç£Šå¼—ä¿ƒ. 
 		strcpy(name, m_vs_file_list[i+m_pC_scroll_bar->GetScrollPos()].c_str());
 		ReduceString(name,38);
 		if(name[0]=='\\')	p_name=&name[1];		else			p_name=&name[0];
@@ -2866,8 +2866,8 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	m_pC_scroll_bar->Show(x, y);
 	
 	//----------------------------------------------------------------------------------------
-	// Drive List Ãâ·Â
-	//drive ¼±ÅÃ open µÇ¾îÀÖÀ¸¸é
+	// Drive List å…ä»¿
+	//drive æ€¥ç¶ open ç™»ç»¢ä¹æ æ
 	if(m_bl_open_drive) {
 		SetRect(&rect, x+m_string_x-5,y+37+m_string_gap-3, x+m_string_x-5 + 350, y+37+m_string_gap-3+m_string_gap*mi_open_drive_count);
 		
@@ -2897,14 +2897,14 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	}
 	
 	//----------------------------------------------------------------------------------------
-	// ±äÀÌ¸§ Àû¾îÁÖ±â
+	// å˜ææŠš åˆ©ç»¢æ—æ‰
 	dwNow=GetTickCount();
-	//if((dwNow-m_stay_openfolder)>=1000)			// 1ÃÊ ÀÌ»ó ÁöÃ¼½Ã
+	//if((dwNow-m_stay_openfolder)>=1000)			// 1æª¬ ææƒ‘ ç˜¤çœ‰çŸ«
 	if(Timer(false))
 	{
 		std::string title;
 		if(STAY_FOLDER==0)
-		{				// ÇöÀç ¿­¸° Æú´õ
+		{				// æ³…çŠ å‡¯èµ´ å¼ƒæ­¹
 			title+=mp_open_current_directory[mi_open_drive_index];
 			title.erase(title.size()-2,2);
 			for(i=0;i<m_filter.size();i++) {title+=m_filter[i].c_str();	title+=';';}
@@ -2918,7 +2918,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 			}
 		}
 		else if(STAY_FOLDER!=-1&&m_bl_open_drive&&STAY_FOLDER!=0xfffffffe)	
-		{		// µå¶óÀÌºê ¸®½ºÆ® Áß 			
+		{		// é›æ‰¼æå® åºœèƒ¶é£˜ å 			
 			title+=mp_open_current_directory[STAY_FOLDER-1];
 			title.erase(title.size()-2,2);
 			for(i=0;i<m_filter.size();i++){title+=m_filter[i].c_str();	title+=';';}
@@ -2932,7 +2932,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 			}			
 		} 
 		else
-		{				// ÆÄÀÏ¿¡¼­ °¡¸¸È÷ ÀÖÀ»°æ¿ì
+		{				// é¢‡è€ä¿Šè¾‘ å•Šçˆ¶æ´’ ä¹é˜‘ç‰ˆå¿«
 			if(m_tempselect != -1 && m_tempselect >= m_pC_scroll_bar->GetScrollPos() && m_tempselect < m_pC_scroll_bar->GetScrollPos()+m_scroll_max)
 			if(m_vs_file_list[m_tempselect].size()>38)	
 			{
@@ -2947,7 +2947,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 		}
 	}
 	//---------------------------------------------------------------------------------------------------
-	// ¹Ì¸®º¸±â
+	// å›ºåºœç„Šæ‰
 	// 
 	if(m_tempselect != -1 && m_tempselect >= m_pC_scroll_bar->GetScrollPos() && m_tempselect < m_pC_scroll_bar->GetScrollPos()+m_scroll_max && m_flag_preview_image)	
 	{
@@ -3010,14 +3010,14 @@ bool	C_VS_UI_FILE_DIALOG::IsPixel(int _x, int _y)
 }
 
 //---------------------------------------------------------------------------
-// ¼¼¹ÌÄİ·ĞÀ¸·Î ±¸ºĞµÈ ¹®ÀÚ »Ì¾Æ³»±â
-// GetFileNameInString ÇÔ¼ö¸¦ »ç¿ëÇÏ°í ³ª¼­ ¹İÈ¯µÈ °ªÀº ¹İµå½Ã delete ÇØÁÖ¼¼¿ä.
+// æŠ€å›ºå¦®æ²¸æ è‚º å¤‡ç›’ç­‰ å·©ç£Š æƒ¶é…’éƒ´æ‰
+// GetFileNameInString çªƒèç”« è¤ä¾©çªç»Š å”±è¾‘ é¦†åˆ¸ç­‰ è”¼ç¯® é¦†é›çŸ« delete ç§¦æ—æŠ€å¤¸.
 // usage>
 // char *name=GetFileNameInString(str,2);
 // MessageBox(NULL,name,name,MB_OK);
 // delete name;
 
-// ÆÄÀÏÀÌ¸§¿¡¼­ ÆÄÀÏÀÇ ÃÑ °¹¼ö
+// é¢‡è€ææŠšä¿Šè¾‘ é¢‡è€ç‹¼ é†š è‚®è
 static int GetSizeFileInString(char *str)
 {
 	if(str==NULL||strlen(str)<=1)
@@ -3033,7 +3033,7 @@ static int GetSizeFileInString(char *str)
 	return nFile;
 }
 
-// ÇØ´ç ¹øÈ£¿¡ ´ëÇÑ ÆÄÀÏ ÃßÃâ
+// ç§¦å¯¸ é”…é¾‹ä¿Š æªèŒ„ é¢‡è€ çœ å…
 static const std::string GetFileNameInString(char *str,int n)
 {
 	if(str==NULL||strlen(str)<=1) return NULL;
@@ -3092,7 +3092,7 @@ void	C_VS_UI_FILE_DIALOG::Run(id_t id)
 	//	m_bl_open_drive = !m_bl_open_drive;
 	//	break;
 	case OK_ID :
-		// SendMessage ·Î ÆÄÀÏÀÌ¸§À» º¸³»µµ·Ï ÇÑ´Ù.
+		// SendMessage è‚º é¢‡è€ææŠšé˜‘ ç„Šéƒ´æ¡£åºŸ èŒ„ä¿ƒ.
 		//
 		if( m_mode == MODE_PROFILE_SELECT )
 		{
@@ -3109,7 +3109,7 @@ void	C_VS_UI_FILE_DIALOG::Run(id_t id)
 		{
 			if( m_select_file_num.size() > 0 )
 			{
-				// ÆÄÀÏÀÌ ¿©·¯°³ ¼±ÅÃµÈ °æ¿ì¿¡´Â ¼¼¹ÌÄİ·ĞÀ¸·Î ÆÄÀÏÀ» ±¸ºĞÇÑ´Ù.
+				// é¢‡è€æ å’¯çŸ¾ä¿º æ€¥ç¶ç­‰ ç‰ˆå¿«ä¿Šç»° æŠ€å›ºå¦®æ²¸æ è‚º é¢‡è€é˜‘ å¤‡ç›’èŒ„ä¿ƒ.
 				std::string multiple_filename;
 				
 				for( i = 0; i < m_select_file_num.size(); i++ )
@@ -3120,7 +3120,7 @@ void	C_VS_UI_FILE_DIALOG::Run(id_t id)
 				multiple_filename.erase(multiple_filename.end()-1, multiple_filename.end());	
 				gpC_base->SendMessage(UI_CLOSE_FILE_DIALOG, m_mode, 0, (void *) multiple_filename.c_str());
 				
-				// µğ¹ö±ëÇÏ·Á°í ³ÖÀº ÄÚµåÀÔ´Ï´Ù.
+				// å¼æ»šå½ªçªå¦¨ç»Š æŒç¯® å†…é›æ¶èªä¿ƒ.
 				//for(i=0;i<IsNumFileInString((char*)multiple_filename.c_str());i++)
 				//{
 				//	char *name=GetFileNameInString((char*)multiple_filename.c_str(),i);
@@ -3176,16 +3176,16 @@ void	C_VS_UI_FILE_DIALOG::Finish()
 - RefreshFileList
 -
 
-  `file ÀÌ ±²ÀåÈ÷ ¸¹À» °æ¿ì °è¼Ó ÀÌ Method¸¦ ½ÇÇàÇÏ¸é ¾öÃ»³­ ¼ÓµµÀúÇÏ°¡ ÀÏ¾î³­´Ù.
-   µû¶ó¼­ °»½ÅÀÌ ÇÊ¿äÇÒ °æ¿ì¿¡¸¸ ÀÌ Method¸¦ ½ÇÇàÇÑ´Ù.
+  `file æ è¾ˆå˜æ´’ è…¹é˜‘ ç‰ˆå¿« æ‹ŒåŠ  æ Methodç”« è§’é’çªæ å†³æ²¡æŠ„ åŠ æ¡£å†çªå•Š è€ç»¢æŠ„ä¿ƒ.
+   è¶æ‰¼è¾‘ ç›è„šæ é˜å¤¸ä¸” ç‰ˆå¿«ä¿Šçˆ¶ æ Methodç”« è§’é’èŒ„ä¿ƒ.
 
-  `GetCurrentDirectory()·Î ¾òÀº dirÀ» refreshÇÑ´Ù.
+  `GetCurrentDirectory()è‚º æ˜ç¯® diré˜‘ refreshèŒ„ä¿ƒ.
 -----------------------------------------------------------------------------*/
 void C_VS_UI_FILE_DIALOG::RefreshFileList(char *sz_dirname)
 {
 	HANDLE				hFind;
 	WIN32_FIND_DATA	fd;
-	BOOL					next_ok = true; // FindNextFile(hFind, &fd)ÀÌ BOOLÀ» ¹İÈ¯ÇÏ¹Ç·Î...
+	BOOL					next_ok = true; // FindNextFile(hFind, &fd)æ BOOLé˜‘ é¦†åˆ¸çªéª¨è‚º...
 	std::string			sz_filename;
 	int					n;
 
@@ -3203,7 +3203,7 @@ void C_VS_UI_FILE_DIALOG::RefreshFileList(char *sz_dirname)
 	hFind = FindFirstFile(sz_dirname, &fd);
 	while (hFind != INVALID_HANDLE_VALUE && next_ok)
 	{
-		// '\.'Àº »ı·«ÇÑ´Ù.
+		// '\.'ç¯® ç§¯å¸†èŒ„ä¿ƒ.
 		//if ((fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) && fd.cFileName == ".")
 		if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 			if (fd.cFileName[0] == '.' && 
@@ -3314,7 +3314,7 @@ void C_VS_UI_FILE_DIALOG::ChangeDir(char *sz_cur_dirname, char *sz_pathname)
 	{
 		//
 		// add dir name
-		// `directory nameÀÇ Ãß°¡°¡ °¡´ÉÇÑ°¡? ±×·¸Áö ¾Ê´Ù¸é ¾Æ¹«ÀÏµµ ÇÏÁö ¾Ê´Â´Ù.
+		// `directory nameç‹¼ çœ å•Šå•Š å•Šç“·èŒ„å•Š? å¼ŠçŠ¯ç˜¤ è‡¼ä¿ƒæ é…’å…¬è€æ¡£ çªç˜¤ è‡¼ç»°ä¿ƒ.
 		//
 		if ((strlen(sz_pathname) + strlen(sz_cur_dirname) + 1 <= MAX_PATH) &&
 			 sz_cur_dirname[1] != '.') // '.' = current dir -.-
@@ -3341,7 +3341,7 @@ void C_VS_UI_FILE_DIALOG::ChangeDir(char *sz_cur_dirname, char *sz_pathname)
 
 /*-----------------------------------------------------------------------------
 - 
-- \.. ¸¦ °Ë»öÇÑ´Ù.
+- \.. ç”« å…«ç¥¸èŒ„ä¿ƒ.
 -----------------------------------------------------------------------------*/
 bool C_VS_UI_FILE_DIALOG::GetParentDir(char *sz_name)
 {

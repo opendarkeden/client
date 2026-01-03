@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MRisingEffectGenerator.h
 //----------------------------------------------------------------------
-// °øÁßÀ¸·Î ¼Ú¾Æ¿À¸£´Â Effect
+// ê³µì¤‘ìœ¼ë¡œ ì†Ÿì•„ì˜¤ë¥´ëŠ” Effect
 //----------------------------------------------------------------------
 
 #ifndef	__MRISINGEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MRisingEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_RISING; }
 
-		// Effect»ı¼º
+		// Effectìƒì„±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

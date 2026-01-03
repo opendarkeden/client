@@ -128,7 +128,7 @@ CREATURETABLE_INFO::CREATURETABLE_INFO()
 	bHeadCut = false;
 	HPBarWidth = 120;
 	
-	ChangeColorSet = 0xFFFF;	// default´Â »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+	ChangeColorSet = 0xFFFF;	// defaultëŠ” ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
 
 	pItemWearInfo = NULL;
 
@@ -176,7 +176,7 @@ CREATURETABLE_INFO::SetCreatureTribe(enum CREATURETRIBE ct, int nMaxAction)
 //----------------------------------------------------------------------
 // Init ActionSound Type ( m_CreatureTribe )
 //----------------------------------------------------------------------
-// m_CreatureType¿¡ ¸Â°Ô SoundIDÀÇ °³¼ö¸¦ ÀûÀıÈ÷ ¼³Á¤ÇÑ´Ù.
+// m_CreatureTypeì— ë§ê²Œ SoundIDì˜ ê°œìˆ˜ë¥¼ ì ì ˆíˆ ì„¤ì •í•œë‹¤.
 //----------------------------------------------------------------------
 void			
 CREATURETABLE_INFO::InitActionType(int nMaxAction)
@@ -218,18 +218,18 @@ CREATURETABLE_INFO::GetActionMax() const
 
 	switch (m_CreatureTribe)
 	{
-		case CREATURETRIBE_SLAYER :			// ½½·¹ÀÌ¾î
-		case CREATURETRIBE_SLAYER_NPC :		// ½½·¹ÀÌ¾î NPC
+		case CREATURETRIBE_SLAYER :			// ìŠ¬ë ˆì´ì–´
+		case CREATURETRIBE_SLAYER_NPC :		// ìŠ¬ë ˆì´ì–´ NPC
 			return ACTION_MAX_SLAYER;
 		break;
 
-		case CREATURETRIBE_VAMPIRE :			// ¹ìÆÄÀÌ¾î
-			if(204 == SpriteTypes[0]) // Áúµå·¹
+		case CREATURETRIBE_VAMPIRE :			// ë±€íŒŒì´ì–´
+			if(204 == SpriteTypes[0]) // ì§ˆë“œë ˆ
 				return ACTION_MAX_OUSTERS;
 			return ACTION_MAX_VAMPIRE;
 		break;
 
-		case CREATURETRIBE_OUSTERS :			// ¾Æ¿ì½ºÅÍÁî
+		case CREATURETRIBE_OUSTERS :			// ì•„ìš°ìŠ¤í„°ì¦ˆ
 		case CREATURETRIBE_OUSTERS_NPC:
 			return ACTION_MAX_OUSTERS;
 			break;
@@ -277,21 +277,21 @@ CREATURETABLE_INFO::SaveToFile(class ofstream& file)
 	file.write((const char*)&ShadowCount, 2);
 	
 	
-	// °¢°¢ÀÇ soundID¸¦ ÀúÀåÇÑ´Ù.
+	// ê°ê°ì˜ soundIDë¥¼ ì €ì¥í•œë‹¤.
 	int max = GetActionMax();
 	for (int i=0; i<max; i++)
 	{
 		file.write((const char*)&m_pActionSound[i], SIZE_SOUNDID);
 	}
 
-	// °¢°¢ÀÇ CountID¸¦ ÀúÀåÇÑ´Ù.
+	// ê°ê°ì˜ CountIDë¥¼ ì €ì¥í•œë‹¤.
 	for (i=0; i<max; i++)
 	{
 		file.write((const char*)&m_pActionCount[i], 4);
 	}
 
 	//---------------------------------------------------------------
-	// ½½·¹ÀÌ¾î NPC º¹Àå Á¤º¸
+	// ìŠ¬ë ˆì´ì–´ NPC ë³µì¥ ì •ë³´
 	//---------------------------------------------------------------
 	bool bExistItemWearInfo = (pItemWearInfo!=NULL);
 	
@@ -339,13 +339,13 @@ CREATURETABLE_INFO::LoadFromFile(class ifstream& file)
 
 	BYTE ct;	
 	file.read((char*)&ct, 1);
-	SetCreatureTribe((enum CREATURETRIBE)ct);		// soundID arrayÃÊ±âÈ­
+	SetCreatureTribe((enum CREATURETRIBE)ct);		// soundID arrayì´ˆê¸°í™”
 
 	file.read((char*)&MoveTimes, 1);
 	file.read((char*)&MoveRatio, 1);
 	file.read((char*)&MoveTimesMotor, 1);
 	file.read((char*)&Height, 4);
-	// add by Coffee 2006.11.3  ĞÂ°æ±¾Î´ÖªÊı¾İ
+	// add by Coffee 2006.11.3  åŠ¤ê²½êµ¶çŒåˆ—é‘’ì•´
 	//DWORD dwLaJi=0;
 	//file.read((char*)&dwLaJi,4);
 	// end 
@@ -359,14 +359,14 @@ CREATURETABLE_INFO::LoadFromFile(class ifstream& file)
 	file.read((char*)&ChangeColorSet, 2);
 	file.read((char*)&ShadowCount, 2);
 
-	// °¢°¢ÀÇ SoundID¸¦ loadÇÑ´Ù.
+	// ê°ê°ì˜ SoundIDë¥¼ loadí•œë‹¤.
 	int max = GetActionMax();
 	for (int i=0; i<max; i++)
 	{
 		file.read((char*)&m_pActionSound[i], SIZE_SOUNDID);
 	}
 
-	// °¢°¢ÀÇ SoundID¸¦ loadÇÑ´Ù.
+	// ê°ê°ì˜ SoundIDë¥¼ loadí•œë‹¤.
 	for (i=0; i<max; i++)
 	{
 		file.read((char*)&m_pActionCount[i], 4);
@@ -380,7 +380,7 @@ CREATURETABLE_INFO::LoadFromFile(class ifstream& file)
 		isread = false;
 	}
 	//---------------------------------------------------------------
-	// ½½·¹ÀÌ¾î NPC º¹Àå Á¤º¸
+	// ìŠ¬ë ˆì´ì–´ NPC ë³µì¥ ì •ë³´
 	//---------------------------------------------------------------
 	if (pItemWearInfo!=NULL)
 	{
@@ -428,14 +428,14 @@ CREATURETABLE_INFO::operator = (const CREATURETABLE_INFO& creatureInfo)
 	ChangeColorSet = creatureInfo.ChangeColorSet;
 	ShadowCount		= creatureInfo.ShadowCount;
 
-	// °¢°¢ÀÇ SoundID¸¦ loadÇÑ´Ù.
+	// ê°ê°ì˜ SoundIDë¥¼ loadí•œë‹¤.
 	int max = GetActionMax();
 	for (int i=0; i<max; i++)
 	{
 		m_pActionSound[i] = creatureInfo.m_pActionSound[i];
 	}
 
-	// °¢°¢ÀÇ SoundID¸¦ loadÇÑ´Ù.
+	// ê°ê°ì˜ SoundIDë¥¼ loadí•œë‹¤.
 	for (i=0; i<max; i++)
 	{
 		m_pActionCount[i] = creatureInfo.m_pActionCount[i];
@@ -533,7 +533,7 @@ CreatureSpriteTypeMapper::GetRandomCreatureType(TYPE_SPRITEID spriteID) const
 
 	if (spriteID > m_CreatureSpriteTypes.capacity())
 	{
-		// ºí·¯µå ¿ö·Ï default - -;
+		// ë¸”ëŸ¬ë“œ ì›Œë¡ default - -;
 		return defaultCreatureType;
 	}
 

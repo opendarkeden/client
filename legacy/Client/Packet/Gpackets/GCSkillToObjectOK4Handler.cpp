@@ -23,7 +23,7 @@ void GCSkillToObjectOK4Handler::execute ( GCSkillToObjectOK4 * pPacket , Player 
 
 
 	//------------------------------------------------------
-	// Zone¿Ã æ∆¡˜ ª˝º∫µ«¡ˆ æ ¿∫ ∞ÊøÏ
+	// ZoneÏù¥ ÏïÑÏßÅ ÏÉùÏÑ±ÎêòÏßÄ ÏïäÏùÄ Í≤ΩÏö∞
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -31,7 +31,7 @@ void GCSkillToObjectOK4Handler::execute ( GCSkillToObjectOK4 * pPacket , Player 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// ¡§ªÛ.. 
+	// Ï†ïÏÉÅ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -49,16 +49,16 @@ void GCSkillToObjectOK4Handler::execute ( GCSkillToObjectOK4 * pPacket , Player 
 		
 			MCreature* pTargetCreature = g_pZone->GetCreature( pPacket->getTargetObjectID() );		
 
-		// TargetCreatureø°∞‘ ∞·∞˙ «•«ˆ
+		// TargetCreatureÏóêÍ≤å Í≤∞Í≥º ÌëúÌòÑ
 		if (pTargetCreature != NULL)
 		{
-			// delay frameºˆ ∞ËªÍ
+			// delay frameÏàò Í≥ÑÏÇ∞
 			DWORD delayFrame = ConvertDurationToFrame( pPacket->getDuration() );
 
-			// effect delayº≥¡§
+			// effect delayÏÑ§Ï†ï
 			pTargetCreature->SetEffectDelayFrame( pPacket->getSkillType(), delayFrame );
 
-			// πŸ∑Œ ∞·∞˙ «•«ˆ
+			// Î∞îÎ°ú Í≤∞Í≥º ÌëúÌòÑ
 			pTargetCreature->PacketSpecialActionResult( 
 										skillID + (*g_pActionInfoTable).GetMinResultActionInfo(), 
 										pTargetCreature->GetID(),
@@ -67,7 +67,7 @@ void GCSkillToObjectOK4Handler::execute ( GCSkillToObjectOK4 * pPacket , Player 
 			);
 
 			//------------------------------------------------------
-			// EffectStatus∞° ¿÷¥Ÿ∏È ∫Ÿ¿Œ¥Ÿ.
+			// EffectStatusÍ∞Ä ÏûàÎã§Î©¥ Î∂ôÏù∏Îã§.
 			//------------------------------------------------------
 			EFFECTSTATUS es = (*g_pActionInfoTable)[skillID].GetEffectStatus();
 			

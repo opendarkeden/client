@@ -26,12 +26,12 @@ CFrameSetManager::~CFrameSetManager()
 //----------------------------------------------------------------------
 // Save FrameSet Index
 //----------------------------------------------------------------------
-// FramePack IndexFile·ÎºÎÅÍ FrameSet IndexFileÀ» »ı¼ºÇÑ´Ù.
+// FramePack IndexFileë¡œë¶€í„° FrameSet IndexFileì„ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 bool		
 CFrameSetManager::SaveFrameSetIndex(ofstream& setIndex, ifstream& packIndex)
 {
-	// m_List¿¡ ¾Æ¹«°Íµµ ¾øÀ¸¸é..
+	// m_Listì— ì•„ë¬´ê²ƒë„ ì—†ìœ¼ë©´..
 	if (m_List.size() == 0)
 		return false;
 
@@ -39,15 +39,15 @@ CFrameSetManager::SaveFrameSetIndex(ofstream& setIndex, ifstream& packIndex)
 	TYPE_FRAMEID	count;
 
 	//---------------------------------------------------------------
-	// FramePack IndexFileÀÇ Frame°³¼ö¸¦ ÀĞ´Â´Ù.
+	// FramePack IndexFileì˜ Frameê°œìˆ˜ë¥¼ ì½ëŠ”ë‹¤.
 	//---------------------------------------------------------------
 	packIndex.read((char*)&count, SIZE_FRAMEID);
 
-	// FramePack Index¸¦ ÀúÀåÇØµÑ memoryÀâ±â
+	// FramePack Indexë¥¼ ì €ì¥í•´ë‘˜ memoryì¡ê¸°
 	long* pIndex = new long [count];
 
 	//---------------------------------------------------------------
-	// ¸ğµç FramePack IndexFileÀ» LoadÇÑ´Ù.
+	// ëª¨ë“  FramePack IndexFileì„ Loadí•œë‹¤.
 	//---------------------------------------------------------------
 	for (TYPE_FRAMEID i=0; i<count; i++)
 	{
@@ -55,19 +55,19 @@ CFrameSetManager::SaveFrameSetIndex(ofstream& setIndex, ifstream& packIndex)
 	}
 
 	//---------------------------------------------------------------
-	// m_ListÀÇ ¼ø¼­´ë·Î FramePack Index¿¡¼­ 
-	// ÇØ´çÇÏ´Â FrameIDÀÇ File PositionÀ» ÀĞ¾î¼­ ÀúÀåÇÑ´Ù.
+	// m_Listì˜ ìˆœì„œëŒ€ë¡œ FramePack Indexì—ì„œ 
+	// í•´ë‹¹í•˜ëŠ” FrameIDì˜ File Positionì„ ì½ì–´ì„œ ì €ì¥í•œë‹¤.
 	//---------------------------------------------------------------
 	DATA_LIST::iterator iData = m_List.begin();
 
-	// FrameSetÀÇ Frame°³¼ö ÀúÀå
+	// FrameSetì˜ Frameê°œìˆ˜ ì €ì¥
 	count = m_List.size();
 	setIndex.write((const char*)&count, SIZE_FRAMEID);
 
-	// ListÀÇ ¸ğµç node¿¡ ´ëÇØ¼­..
+	// Listì˜ ëª¨ë“  nodeì— ëŒ€í•´ì„œ..
 	while (iData != m_List.end())
 	{
-		// Frame ID¿¡ ´ëÇÑ FramePack File¿¡¼­ÀÇ File Position
+		// Frame IDì— ëŒ€í•œ FramePack Fileì—ì„œì˜ File Position
 		setIndex.write((const char*)&pIndex[(*iData)], 4);
 
 		iData ++;

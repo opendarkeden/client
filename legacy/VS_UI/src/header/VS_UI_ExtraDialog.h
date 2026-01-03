@@ -18,7 +18,7 @@
 //-----------------------------------------------------------------------------
 // class C_VS_UI_DESC_DIALOG
 //
-// Item ¶Ç´Â Skill¼³¸í
+// Item ë˜ëŠ” Skillì„¤ëª…
 //
 //-----------------------------------------------------------------------------
 class C_VS_UI_DESC_DIALOG : public Window, public C_VS_UI_DESC, public Exec, public ButtonVisual
@@ -83,7 +83,7 @@ public:
 //-----------------------------------------------------------------------------
 // class C_VS_UI_FILE_DIALOG
 //
-// file ¼±ÅÃ
+// file ì„ íƒ
 //
 //-----------------------------------------------------------------------------
 class C_VS_UI_FILE_DIALOG : public Window, public Exec, public ButtonVisual
@@ -146,9 +146,9 @@ public:
 		MODE_SENDFILE_SELECT,
 	};
 
-	// ÇØ´ç ¹øÈ£¿¡ ´ëÇÑ ÆÄÀÏ ÃßÃâ
+	// í•´ë‹¹ ë²ˆí˜¸ì— ëŒ€í•œ íŒŒì¼ ì¶”ì¶œ
 	static const std::string GetFileNameInString(char *str,int n);
-	// ÆÄÀÏÀÌ¸§¿¡¼­ ÆÄÀÏÀÇ ÃÑ °¹¼ö
+	// íŒŒì¼ì´ë¦„ì—ì„œ íŒŒì¼ì˜ ì´ ê°¯ìˆ˜
 	static int GetSizeFileInString(char *str);
 
 	C_VS_UI_FILE_DIALOG(MODE Mode = MODE_PROFILE_SELECT);
@@ -182,9 +182,9 @@ public:
 //-----------------------------------------------------------------------------
 // class C_VS_UI_EDIT_DIALOG
 //
-// Dialog box¿¡¼­ °ª(digit only)À» ÀÔ·ÂÇÒ ¼ö ÀÖ´Â dialog boxÀÌ´Ù.
+// Dialog boxì—ì„œ ê°’(digit only)ì„ ì…ë ¥í•  ìˆ˜ ìˆëŠ” dialog boxì´ë‹¤.
 //
-// ! »óÁ¡¿¡¼­ º¹¼ö°³ ¹°°Ç»ç±â Àü¿ëÀ¸·Î ¾´´Ù.
+// ! ìƒì ì—ì„œ ë³µìˆ˜ê°œ ë¬¼ê±´ì‚¬ê¸° ì „ìš©ìœ¼ë¡œ ì“´ë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_EDIT_DIALOG : public C_VS_UI_DIALOG
 {
@@ -251,7 +251,7 @@ public:
 //-----------------------------------------------------------------------------
 // class C_VS_UI_MONEY_DIALOG
 //
-// µ·À» ¹ö¸®´Â dialog boxÀÌ´Ù.
+// ëˆì„ ë²„ë¦¬ëŠ” dialog boxì´ë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_MONEY_DIALOG : public C_VS_UI_DIALOG
 {
@@ -283,8 +283,8 @@ private:
 
 	Point							m_money_dialog_pt;
 
-	//static char *				m_sz_question_msg[1];	// ÁÖ¼®Ã³¸® by sigi
-	//static char *				m_sz_question_msg_for_storage[1];	// ÁÖ¼®Ã³¸® by sigi
+	//static char *				m_sz_question_msg[1];	// ì£¼ì„ì²˜ë¦¬ by sigi
+	//static char *				m_sz_question_msg_for_storage[1];	// ì£¼ì„ì²˜ë¦¬ by sigi
 	char *					m_sz_question_msg[MAX_MONEY_DIALOG_TYPE][1];		// by sigi
 
 	TYPE_MONEY_DIALOG		m_type;	// dialog type	 by sigi
@@ -292,7 +292,7 @@ private:
 	void	ScrollButton(bool up);
 
 public:
-	C_VS_UI_MONEY_DIALOG(int _x, int _y, int center_x, int center_y, void (*exec_fp)(C_VS_UI_DIALOG *, id_t), WORD dd_button, int digit_count, TYPE_MONEY_DIALOG type); // type Ãß°¡  by sigi
+	C_VS_UI_MONEY_DIALOG(int _x, int _y, int center_x, int center_y, void (*exec_fp)(C_VS_UI_DIALOG *, id_t), WORD dd_button, int digit_count, TYPE_MONEY_DIALOG type); // type ì¶”ê°€  by sigi
 	~C_VS_UI_MONEY_DIALOG();
 
 	void	Start();
@@ -306,7 +306,7 @@ public:
 //-----------------------------------------------------------------------------
 // class C_VS_UI_ASK_DIALOG
 //
-// message³ª¿À°í OK/NO¸¦ ¼±ÅÃÇÏ´Â dialog
+// messageë‚˜ì˜¤ê³  OK/NOë¥¼ ì„ íƒí•˜ëŠ” dialog
 //
 //-----------------------------------------------------------------------------
 class C_VS_UI_ASK_DIALOG : public C_VS_UI_DIALOG
@@ -327,11 +327,11 @@ public :
 		ASK_BRINGFEE_LIMIT,
 		ASK_TRANS_ITEM,
 		ASK_USE_PET_FOOD,
-		ASK_KEEP_PETITEM,		// ÆêÀ» º¸°ü ÇÏ½Ã°Ú½À´Ï±î?
-		ASK_GET_KEEP_PETITEM,	// "%s ÆêÀ» Ã£À¸½Ã°Ú½À´Ï±î?";
-		ASK_USE_SMSITEM,		// sms item À» »ç¿ëÇÏ½Ã°Ú½À´Ï±î?
-		ASK_USE_NAMINGITEM,		// ³×ÀÌ¹Ö ¾ÆÀÌÅÛÀ» »ç¿ë ÇÏ°Ú½À´Ï±î?
-		ASK_GET_EVENT_ITEM,		// ÀÌº¥Æ® ¾ÆÀÌÅÛÀ» ¹ŞÀ¸½Ã°Ú½À´Ï±î?
+		ASK_KEEP_PETITEM,		// í«ì„ ë³´ê´€ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?
+		ASK_GET_KEEP_PETITEM,	// "%s í«ì„ ì°¾ìœ¼ì‹œê² ìŠµë‹ˆê¹Œ?";
+		ASK_USE_SMSITEM,		// sms item ì„ ì‚¬ìš©í•˜ì‹œê² ìŠµë‹ˆê¹Œ?
+		ASK_USE_NAMINGITEM,		// ë„¤ì´ë° ì•„ì´í…œì„ ì‚¬ìš© í•˜ê² ìŠµë‹ˆê¹Œ?
+		ASK_GET_EVENT_ITEM,		// ì´ë²¤íŠ¸ ì•„ì´í…œì„ ë°›ìœ¼ì‹œê² ìŠµë‹ˆê¹Œ?
 		//add by viva : ask_friend_request
 		ASK_FRIEND_REQUEST,
 		ASK_FRIEND_REFUSE,
@@ -370,7 +370,7 @@ public:
 //-----------------------------------------------------------------------------
 // class C_VS_UI_NPC_DIALOG
 //
-// DIALOG¿Í °°À¸³ª NPCÀÇ »çÁøÀ» ³ÖÀ»¼ö ÀÖ´Ù.
+// DIALOGì™€ ê°™ìœ¼ë‚˜ NPCì˜ ì‚¬ì§„ì„ ë„£ì„ìˆ˜ ìˆë‹¤.
 //
 //-----------------------------------------------------------------------------
 class C_VS_UI_NPC_DIALOG : public C_VS_UI_DIALOG

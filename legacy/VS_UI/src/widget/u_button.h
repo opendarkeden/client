@@ -18,19 +18,19 @@
 // Widget Button
 //
 // Design:
-//				ButtonÀº »óÅÂ¸¦ °®´Â rectÀÌ´Ù.
+//				Buttonì€ ìƒíƒœë¥¼ ê°–ëŠ” rectì´ë‹¤.
 //
-//				ButtonÀº ´ÙÀ½°ú °°Àº event¸¦ ¹ß»ıÇÑ´Ù.
+//				Buttonì€ ë‹¤ìŒê³¼ ê°™ì€ eventë¥¼ ë°œìƒí•œë‹¤.
 //
-//				(1) button¿µ¿ª¿¡ mouse move°¡ µé¾î¿Ã ¶§/³ª°¥ ¶§.
-//				(2) button¿µ¿ªÀ» ´©·ê ¶§/¶¿ ¶§.
+//				(1) buttonì˜ì—­ì— mouse moveê°€ ë“¤ì–´ì˜¬ ë•Œ/ë‚˜ê°ˆ ë•Œ.
+//				(2) buttonì˜ì—­ì„ ëˆ„ë£° ë•Œ/ë—„ ë•Œ.
 //
 //----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------
 // Class ButtonBase
 //
-// ¹öÆ° ±× ÀÚÃ¼ °ğ Single Button Object.
+// ë²„íŠ¼ ê·¸ ìì²´ ê³§ Single Button Object.
 //----------------------------------------------------------------------------
 class ButtonBase : public Rect
 {
@@ -66,8 +66,8 @@ public:
 //
 // Button execution interface.
 //
-// ButtonÀ» »ç¿ëÇÏ´Â class´Â ÀÌ°ÍÀ» »ó¼Ó¹Ş¾Æ¾ß ÇÑ´Ù. ±×·¯¸é ButtonÀ» Á¤ÀÇÇÏ¸é¼­
-// this Æ÷ÀÎÅÍ¸¦ ÁÖ¾î Button¿¡¼­µµ °°Àº interface¸¦ ÅëÇØ exec¸¦ ÇÒ ¼ö ÀÖ´Ù.
+// Buttonì„ ì‚¬ìš©í•˜ëŠ” classëŠ” ì´ê²ƒì„ ìƒì†ë°›ì•„ì•¼ í•œë‹¤. ê·¸ëŸ¬ë©´ Buttonì„ ì •ì˜í•˜ë©´ì„œ
+// this í¬ì¸í„°ë¥¼ ì£¼ì–´ Buttonì—ì„œë„ ê°™ì€ interfaceë¥¼ í†µí•´ execë¥¼ í•  ìˆ˜ ìˆë‹¤.
 //----------------------------------------------------------------------------
 class Exec
 {
@@ -80,22 +80,22 @@ public:
 //
 // Button condition change & execution.
 //
-// ½ÇÁ¦ÀûÀÎ Button Widget.
-// ÀÌ°ÍÀº ÀÏ¹İÀûÀÎ ButtonÀÇ ³»¿ëÀ» Á¤ÀÇÇÑ´Ù. ÀÌ°ÍÀº Ãâ·Â¿¡ ´ëÇØ¼­´Â Á¤ÀÇÇÏÁö
-// ¾ÊÁö¸¸, ¼ø¼ö°¡»óÀ¸·Î½á Show()¸¦ °®´Â´Ù.
+// ì‹¤ì œì ì¸ Button Widget.
+// ì´ê²ƒì€ ì¼ë°˜ì ì¸ Buttonì˜ ë‚´ìš©ì„ ì •ì˜í•œë‹¤. ì´ê²ƒì€ ì¶œë ¥ì— ëŒ€í•´ì„œëŠ” ì •ì˜í•˜ì§€
+// ì•Šì§€ë§Œ, ìˆœìˆ˜ê°€ìƒìœ¼ë¡œì¨ Show()ë¥¼ ê°–ëŠ”ë‹¤.
 //
 // [2000.9.25.]
 //
-// VS UI Project¿¡¼­ ButtonÀ» Button groupÀ¸·Î ³Ö¾î ÇÑ¹ø¿¡ Ã³¸®ÇÒ ¼ö ÀÖµµ·Ï ÇÏ°í
-// ¶ÇÇÑ Ãâ·Âµµ ¸¶Âù°¡Áö·Î ¾î´À¶§³ª ±× ÀÚ½ÅÀÇ Ãâ·ÂºÎºĞÀ» °®À» ¼ö ÀÖµµ·Ï ÇÏ±â À§ÇØ¼­
-// pure virtual Show°¡ ºÒÇÊ¿äÇÏ¿´´Ù. ±×·¡¼­ ±×°ÍÀÌ ²À ÇÊ¿äÇÏ¸é Ãâ·Â¸Ş¼Òµå¸¦
-// º°µµ·Î Ãß°¡ÇÏ´Â ¹æ½ÄÀ¸·Î »ç¿ëÇÏ±â·Î ÇÏ°í, ButtonÀÌ instanceÈ­ µÉ ¼ö ÀÖµµ·Ï ÇÏ±â 
-// À§ÇØ¼­ pure virtualÀº ³ÖÁö ¾Ê´Â´Ù.
+// VS UI Projectì—ì„œ Buttonì„ Button groupìœ¼ë¡œ ë„£ì–´ í•œë²ˆì— ì²˜ë¦¬í•  ìˆ˜ ìˆë„ë¡ í•˜ê³ 
+// ë˜í•œ ì¶œë ¥ë„ ë§ˆì°¬ê°€ì§€ë¡œ ì–´ëŠë•Œë‚˜ ê·¸ ìì‹ ì˜ ì¶œë ¥ë¶€ë¶„ì„ ê°–ì„ ìˆ˜ ìˆë„ë¡ í•˜ê¸° ìœ„í•´ì„œ
+// pure virtual Showê°€ ë¶ˆí•„ìš”í•˜ì˜€ë‹¤. ê·¸ë˜ì„œ ê·¸ê²ƒì´ ê¼­ í•„ìš”í•˜ë©´ ì¶œë ¥ë©”ì†Œë“œë¥¼
+// ë³„ë„ë¡œ ì¶”ê°€í•˜ëŠ” ë°©ì‹ìœ¼ë¡œ ì‚¬ìš©í•˜ê¸°ë¡œ í•˜ê³ , Buttonì´ instanceí™” ë  ìˆ˜ ìˆë„ë¡ í•˜ê¸° 
+// ìœ„í•´ì„œ pure virtualì€ ë„£ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------------
 class Button : public ButtonBase
 {
 public:
-	enum ClickOption // Run()À» ¾ğÁ¦ ½ÇÇàÇÏ´Â°¡?
+	enum ClickOption // Run()ì„ ì–¸ì œ ì‹¤í–‰í•˜ëŠ”ê°€?
 	{
 		RUN_WHEN_PUSHUP,
 		RUN_WHEN_PUSH,
@@ -110,7 +110,7 @@ private:
 
 public:
 	//
-	// µÎ °¡Áö ¹æ¹ıÀ¸·Î ÃÊ±âÈ­ÇÒ ¼ö ÀÖ´Ù.
+	// ë‘ ê°€ì§€ ë°©ë²•ìœ¼ë¡œ ì´ˆê¸°í™”í•  ìˆ˜ ìˆë‹¤.
 	//
 	// (1) Button * p = new Button(x, y, w, h, id, this);
 	// (2) Button p;
@@ -123,16 +123,16 @@ public:
 	Button();
 	virtual ~Button();
 
-	// rect¿¡ XY(), Set()ÀÌ ÀÖ´Ù.
-	// ¶ÇÇÑ ButtonBaseÀÇ InitState()´Â »óÅÂ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+	// rectì— XY(), Set()ì´ ìˆë‹¤.
+	// ë˜í•œ ButtonBaseì˜ InitState()ëŠ” ìƒíƒœë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 
 	void	SetID(id_t id);
 	void	SetExecHandler(Exec * pC_exec_handler);
 	void	SetClickOption(ClickOption co) { m_click_option = co; }
 
 	//
-	// ButtonÀ» »ó¼ÓÇÒ °æ¿ì¿¡ ÇöÀçÀÇ MouseControl()¿¡ Event call ¼Ó¼º°ú °°Àº
-	// »õ·Î¿î ±â´ÉÀ» Á¤ÀÇÇÒ ¼ö ÀÖ´Ù. µû¶ó¼­ virtual·Î ÇÑ´Ù.
+	// Buttonì„ ìƒì†í•  ê²½ìš°ì— í˜„ì¬ì˜ MouseControl()ì— Event call ì†ì„±ê³¼ ê°™ì€
+	// ìƒˆë¡œìš´ ê¸°ëŠ¥ì„ ì •ì˜í•  ìˆ˜ ìˆë‹¤. ë”°ë¼ì„œ virtualë¡œ í•œë‹¤.
 	//
 	virtual bool	MouseControl(UINT message, int _x, int _y);
 	//virtual void	Show() = 0;
@@ -143,14 +143,14 @@ public:
 //-----------------------------------------------------------------------------
 // EventButton (abstract class)
 //
-// NormalButton°ú ±âº»Àº °°Áö¸¸, MouseÀÔ·Â¸¶´Ù ¸í½ÃÀûÀÎ event¸¦ ¹ß»ı½ÃÄÑ ½±°Ô
-// ±×°ÍÀ» ¾Ë ¼ö ÀÖµµ·Ï ÇÑ´Ù. ÀÌ°ÍÀÇ ÁøÁ¤ÇÑ ¸ñÀûÀº mouse pointer¸¦ °®´Ù´ë¸é
-// animationµÇ´Â animation buttonÀ» À§ÇÑ °ÍÀÌ´Ù.
+// NormalButtonê³¼ ê¸°ë³¸ì€ ê°™ì§€ë§Œ, Mouseì…ë ¥ë§ˆë‹¤ ëª…ì‹œì ì¸ eventë¥¼ ë°œìƒì‹œì¼œ ì‰½ê²Œ
+// ê·¸ê²ƒì„ ì•Œ ìˆ˜ ìˆë„ë¡ í•œë‹¤. ì´ê²ƒì˜ ì§„ì •í•œ ëª©ì ì€ mouse pointerë¥¼ ê°–ë‹¤ëŒ€ë©´
+// animationë˜ëŠ” animation buttonì„ ìœ„í•œ ê²ƒì´ë‹¤.
 //-----------------------------------------------------------------------------
 class EventButton : public Button
 {
 protected:
-	bool			m_bl_prev_focus; // staticÀ¸·Î ÇÏÁö ¾Ê´Â´Ù.
+	bool			m_bl_prev_focus; // staticìœ¼ë¡œ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 
 public:
 	EventButton(int _x, int _y, int _w, int _h, id_t id, Exec * pC_exec_handler, Button::ClickOption co=Button::RUN_WHEN_PUSHUP);

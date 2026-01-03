@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCShopSellFailHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -22,13 +22,13 @@ void GCShopSellFailHandler::execute ( GCShopSellFail * pPacket , Player * pPlaye
 	
 #ifdef __GAME_CLIENT__
 
-	// mode¸¦ ¾ø¾Ø´Ù.
+	// modeë¥¼ ì—†ì•¤ë‹¤.
 	g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 
-	// °Å·¡¸¦ ´Ù½Ã È°¼ºÈ­ÇÑ´Ù.
+	// ê±°ëž˜ë¥¼ ë‹¤ì‹œ í™œì„±í™”í•œë‹¤.
 	UI_UnlockItemTrade();
 
-	// 2005, 1, 3, sobeit add start - ÀÌ±Ã ´ëÃæ. TempInformation¿¡ ¸ðµå Ãß°¡ ÇØ¾ß ÇÏÁö¸¸.. 
+	// 2005, 1, 3, sobeit add start - ì´ê¶ ëŒ€ì¶©. TempInformationì— ëª¨ë“œ ì¶”ê°€ í•´ì•¼ í•˜ì§€ë§Œ.. 
 	if(UI_IsRunningSwapAdvancementItem())
 		g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[UI_STRING_MESSAGE_SWAP_ADVANCEMENT_ITEM_ERROR].GetString() );
 	else

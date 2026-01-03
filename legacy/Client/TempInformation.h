@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // TempInformation.h
 //----------------------------------------------------------------------
-// ClientÀÇ Á¤º¸ Áß¿¡¼­ º¯ÇÒ ¼ö ÀÖ´Â °Í
+// Clientì˜ ì •ë³´ ì¤‘ì—ì„œ ë³€í•  ìˆ˜ ìžˆëŠ” ê²ƒ
 //----------------------------------------------------------------------
 
 #ifndef	__TEMPINFORMATION_H__
@@ -17,7 +17,7 @@ class TempInformation {
 			MODE_SKILL_LEARN,		// (domainType, maxLevel, skillType)
 			MODE_SHOP_BUY,			// (shelfType, index, x, y, MShop*)
 			MODE_SHOP_SELL,			// (MItem*)
-			MODE_SHOP_SELL_ALL_SKULL,		// nothing.. (ÇØ°ñ ´Ù ÆÈ±â)
+			MODE_SHOP_SELL_ALL_SKULL,		// nothing.. (í•´ê³¨ ë‹¤ íŒ”ê¸°)
 			MODE_SHOP_REPAIR,		// (MItem*)
 			MODE_SHOP_SILVERING,	// (MItem*)
 			MODE_STORAGE_BUY,		// (price)
@@ -29,8 +29,8 @@ class TempInformation {
 			MODE_TRADE_VERIFY_PICKUP_FROM_INVENTORY,	// (ID, x, y, MItem*)
 			MODE_TRADE_VERIFY_PICKUP_TO_QUICKSLOT,		// (slot,     MItem*)
 
-			MODE_TRADE_VERIFY_CANCEL,					// OKÇÑ°Å Ãë¼Ò
-			MODE_TRADE_VERIFY_CLOSE,					// ¿ÏÀü ´ÝÀ» ¶§
+			MODE_TRADE_VERIFY_CANCEL,					// OKí•œê±° ì·¨ì†Œ
+			MODE_TRADE_VERIFY_CLOSE,					// ì™„ì „ ë‹«ì„ ë•Œ
 			MODE_TRADE_VERIFY_ADD_MONEY,				// (money)
 			MODE_TRADE_VERIFY_REMOVE_MONEY,				// (money)
 			MODE_TRADE_VERIFY_ADD_ITEM,					// (ID, x, y, MItem*)
@@ -42,23 +42,23 @@ class TempInformation {
 
 			MODE_BONUSPOINT_USE,	// (part(0,1,2=str,dex,int))
 	
-			MODE_WAIT_RESURRECT,	// UI¸¦ ±â´Ù¸®´Â °æ¿ì
+			MODE_WAIT_RESURRECT,	// UIë¥¼ ê¸°ë‹¤ë¦¬ëŠ” ê²½ìš°
 
-			MODE_ITEM_TO_ITEM,		// ¾î¶² ¾ÆÀÌÅÛ¿¡ º°À» ¾µ·Á°í Çß´Â°¡?
-			MODE_WAIT_BRING_FEE,	// ¼¼±Ý °¡Á®¿Â°Å °ËÁõ ÆÐÅ¶ÀÌ ¿Ã¶§±îÁö..
-			MODE_INPUT_NAME,		// ÀÌ¸§ ÀÔ·ÂÁßÀÌ¸é ÆÄ¶ó¹ÌÅÍ¿¡ ÇØ´ç NPC ID ¸¦.
-			MODE_SELECT_QUEST,		// ½ºÅ³ ¼±ÅÃ
-			MODE_ITEM_MIXING,		// ¾ÆÀÌÅÛ ¹Í½Ì
-			MODE_ITEM_CODE_SHEET,	// ÄÚµå ½ÃÆ®¿¡ ³ÖÀ»¶§ ¾ÆÀÌÅÛ Å¸ÀÔ
+			MODE_ITEM_TO_ITEM,		// ì–´ë–¤ ì•„ì´í…œì— ë³„ì„ ì“¸ë ¤ê³  í–ˆëŠ”ê°€?
+			MODE_WAIT_BRING_FEE,	// ì„¸ê¸ˆ ê°€ì ¸ì˜¨ê±° ê²€ì¦ íŒ¨í‚·ì´ ì˜¬ë•Œê¹Œì§€..
+			MODE_INPUT_NAME,		// ì´ë¦„ ìž…ë ¥ì¤‘ì´ë©´ íŒŒë¼ë¯¸í„°ì— í•´ë‹¹ NPC ID ë¥¼.
+			MODE_SELECT_QUEST,		// ìŠ¤í‚¬ ì„ íƒ
+			MODE_ITEM_MIXING,		// ì•„ì´í…œ ë¯¹ì‹±
+			MODE_ITEM_CODE_SHEET,	// ì½”ë“œ ì‹œíŠ¸ì— ë„£ì„ë•Œ ì•„ì´í…œ íƒ€ìž…
 
-			MODE_PETITEM_MOVETO_INVENTORY, // Æê º¸°üÇÔ -> ÀÎº¥
-			MODE_PETITEM_MOVETO_PETSTORAGE, //  ÀÎº¥ -> Æê ¾ÆÀÌÅÛ
+			MODE_PETITEM_MOVETO_INVENTORY, // íŽ« ë³´ê´€í•¨ -> ì¸ë²¤
+			MODE_PETITEM_MOVETO_PETSTORAGE, //  ì¸ë²¤ -> íŽ« ì•„ì´í…œ
 
-			MODE_SMS_ADD_ADDRESS,	// sms ÁÖ¼Ò Ãß°¡
-			MODE_SMS_DELETE_ADDRESS,// sms ÁÖ¼Ò »èÁ¦
+			MODE_SMS_ADD_ADDRESS,	// sms ì£¼ì†Œ ì¶”ê°€
+			MODE_SMS_DELETE_ADDRESS,// sms ì£¼ì†Œ ì‚­ì œ
 			
-			MODE_NICKNAME_CHANGE_CUSTOM, // Ä¿½ºÅÒ ´Ð³×ÀÓ º¯°æ
-			MODE_NICKNAME_SELECT_NICK, // ´Ð³×ÀÓ ¼±ÅÃ º¯°æ
+			MODE_NICKNAME_CHANGE_CUSTOM, // ì»¤ìŠ¤í…€ ë‹‰ë„¤ìž„ ë³€ê²½
+			MODE_NICKNAME_SELECT_NICK, // ë‹‰ë„¤ìž„ ì„ íƒ ë³€ê²½
 
 			MAX_MODE
 		};
@@ -83,7 +83,7 @@ class TempInformation {
 		int				Value3;
 		int				Value4;
 
-		int				PartyInviter;	// °ËÁõ ¾øÀÌ Ã³¸®µÇ´Â°Å¶ó¼­¸®.. - -;
+		int				PartyInviter;	// ê²€ì¦ ì—†ì´ ì²˜ë¦¬ë˜ëŠ”ê±°ë¼ì„œë¦¬.. - -;
 
 		void*			pValue;
 };

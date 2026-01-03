@@ -43,7 +43,7 @@ CDirectSound::~CDirectSound()
 bool
 CDirectSound::Init(HWND hwnd)
 {
-	// ÀÌ¹Ì ÃÊ±âÈ­µÇ¾îÀÖÀ» °æ¿ì...
+	// æå›º æª¬æ‰æ‹³ç™»ç»¢ä¹é˜‘ ç‰ˆå¿«...
 	if (m_bInit)
 		return false;
 
@@ -89,21 +89,21 @@ CDirectSound::Release()
 	if(m_bInit && m_pDS)
 	{		
 		///*
-		// 2001.8.20 ÁÖ¼®Ã³¸®
+		// 2001.8.20 æ—ç±è´¸åºœ
 		LPDIRECTSOUNDBUFFER_LIST::iterator iBuffer = m_listDuplicatedBuffer.begin();
 
-		// °¢°¢ÀÇ Duplicated Buffer¸¦ Áö¿î´Ù.
+		// é˜¿é˜¿ç‹¼ Duplicated Bufferç”« ç˜¤æ¬¾ä¿ƒ.
 		while (iBuffer != m_listDuplicatedBuffer.end())
 		{
 			(*iBuffer)->Release();
 
-			// ´ÙÀ½ °Í
+			// ä¿ƒæ¾œ å·´
 			iBuffer++;			
 		}
 		m_listDuplicatedBuffer.clear();
 		//*/
 
-		// DirectSound¸¦ release
+		// DirectSoundç”« release
 		m_pDS->Release(); 
 		m_pDS	= NULL;
 
@@ -130,7 +130,7 @@ CDirectSound::ReleaseDuplicateBuffer()
 			Release( pBuffer );
 		}
 		
-		// ´ÙÀ½ °Í
+		// ä¿ƒæ¾œ å·´
 		iBuffer++;		
 	}
 
@@ -144,7 +144,7 @@ void
 CDirectSound::ReleaseTerminatedDuplicateBuffer()
 {
 	///*
-	// 2001.8.20 ÁÖ¼®Ã³¸®
+	// 2001.8.20 æ—ç±è´¸åºœ
 	LPDIRECTSOUNDBUFFER_LIST::iterator iBuffer = m_listDuplicatedBuffer.begin();
 
 	DWORD	status;
@@ -153,11 +153,11 @@ CDirectSound::ReleaseTerminatedDuplicateBuffer()
 	{
 		LPDIRECTSOUNDBUFFER	pBuffer = *iBuffer;
 
-		// bufferÀÇ »óÅÂ¸¦ ÀĞ¾î¿Â´Ù.
+		// bufferç‹¼ æƒ‘æ€•ç”« ä½¬ç»¢æŸ¯ä¿ƒ.
 		pBuffer->GetStatus(&status);
 
-		// Á¾·á µÇ¾úÀ¸¸é..
-		// Buffer¸¦ ReleaseÇÑ´Ù.
+		// è¾†ä¸° ç™»èŒæ æ..
+		// Bufferç”« ReleaseèŒ„ä¿ƒ.
 		if (status == DSBSTATUS_TERMINATED
 			|| status != DSBSTATUS_PLAYING
 				&& status != DSBSTATUS_LOOPING)
@@ -165,7 +165,7 @@ CDirectSound::ReleaseTerminatedDuplicateBuffer()
 		{			
 			pBuffer->Release();
 
-			// node»èÁ¦
+			// nodeæ˜åŠ›
 			LPDIRECTSOUNDBUFFER_LIST::iterator iBufferTemp = iBuffer;
 
 			iBuffer++;
@@ -174,7 +174,7 @@ CDirectSound::ReleaseTerminatedDuplicateBuffer()
 		}
 		else
 		{
-			// ´ÙÀ½ °Í
+			// ä¿ƒæ¾œ å·´
 			iBuffer++;
 		}
 	}
@@ -198,7 +198,7 @@ CDirectSound::DirectSoundFailed(const char *str)
 
 
 //----------------------------------------------------------------------
-// È­ÀÏ ·Îµå(*.wav)
+// æ‹³è€ è‚ºé›(*.wav)
 //----------------------------------------------------------------------
 LPDIRECTSOUNDBUFFER 
 CDirectSound::LoadWav(LPSTR filename)
@@ -252,7 +252,7 @@ CDirectSound::LoadWav(LPSTR filename)
 		bufdesc.dwSize			= sizeof(DSBUFFERDESC);
 		bufdesc.dwFlags			= DSBCAPS_CTRLPAN 
 								| DSBCAPS_CTRLVOLUME ;
-								//| DSBCAPS_LOCDEFER;	// ÀÌ°Ç ¿Ö ³Ö¾îµĞ°Å¿´À»±î. - -;
+								//| DSBCAPS_LOCDEFER;	// ææ‰’ æ æŒç»¢æ•ŒèŠ­çœ‹é˜‘é³–. - -;
 		bufdesc.dwBufferBytes	= child.cksize;
 		bufdesc.lpwfxFormat		= &wavefmt;
 		if( FAILED(m_pDS->CreateSoundBuffer(&bufdesc, &buffer, NULL)) )
@@ -295,7 +295,7 @@ CDirectSound::LoadWav(LPSTR filename)
 }
 
 //----------------------------------------------------------------------
-// »ç¿îµå ¹öÆÛ Á¦°Å
+// è¤æ¬¾é› æ»šæ¬º åŠ›èŠ­
 //----------------------------------------------------------------------
 void 
 CDirectSound::Release(LPDIRECTSOUNDBUFFER buffer)
@@ -308,7 +308,7 @@ CDirectSound::Release(LPDIRECTSOUNDBUFFER buffer)
 }
 
 //----------------------------------------------------------------------
-// »ç¿îµå ¹öÆÛ Create
+// è¤æ¬¾é› æ»šæ¬º Create
 //----------------------------------------------------------------------
 LPDIRECTSOUNDBUFFER
 CDirectSound::CreateBuffer(LPVOID sdat, DWORD size, DWORD caps, LPWAVEFORMATEX wfx)
@@ -321,7 +321,7 @@ CDirectSound::CreateBuffer(LPVOID sdat, DWORD size, DWORD caps, LPWAVEFORMATEX w
 	if (m_pDS == NULL)
 		return NULL;
 
-	// Sound Bufferì¬
+	// Sound Bufferå¶Œæƒ‰
 	ZeroMemory(&dsbd, sizeof(dsbd));
 	dsbd.dwSize = sizeof(dsbd);
 	dsbd.dwFlags = caps;
@@ -330,7 +330,7 @@ CDirectSound::CreateBuffer(LPVOID sdat, DWORD size, DWORD caps, LPWAVEFORMATEX w
 	if ((rsl = m_pDS->CreateSoundBuffer(&dsbd, &dsb, NULL)) != DS_OK)					goto Exit;
 	if (sdat == NULL) return dsb;
 
-	// Soundƒf[ƒ^“]‘—
+	// Soundåƒ¨ä¹•åƒæ®æ†²
 	if ((rsl = dsb->Lock(0, size, &ptr1, &size1, &ptr2, &size2, 0)) != DS_OK)			goto Exit;
 	CopyMemory(ptr1, sdat, size1);
 	if (size2 > 0)
@@ -344,7 +344,7 @@ Exit:
 }
 
 //----------------------------------------------------------------------
-// »ç¿îµå ¹öÆÛ º¹»ç
+// è¤æ¬¾é› æ»šæ¬º æ±—è¤
 //----------------------------------------------------------------------
 LPDIRECTSOUNDBUFFER	
 CDirectSound::DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER srcbuffer, bool bAutoRelease)
@@ -371,10 +371,10 @@ CDirectSound::DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER srcbuffer, bool bAutoRele
 			return NULL;
 		}
 
-		// Á¤»óÀûÀ¸·Î DuplicateµÈ °æ¿ì..
-		// DuplicateµÈ buffer¸¦ ±â¾ïÇØµĞ´Ù. --> ³ªÁß¿¡ releaseÇÏ±â À§ÇØ¼­...
+		// æ²¥æƒ‘åˆ©æ è‚º Duplicateç­‰ ç‰ˆå¿«..
+		// Duplicateç­‰ bufferç”« æ‰æ’…ç§¦æ•Œä¿ƒ. --> å”±åä¿Š releaseçªæ‰ å›°ç§¦è¾‘...
 		
-		// 2001.8.20 ÁÖ¼®Ã³¸®
+		// 2001.8.20 æ—ç±è´¸åºœ
 		if (bAutoRelease)
 		{
 			m_listDuplicatedBuffer.push_back( buffer );
@@ -391,7 +391,7 @@ CDirectSound::DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER srcbuffer, bool bAutoRele
 
 
 //----------------------------------------------------------------------
-// »ç¿îµå ÇÃ·¹ÀÌ(Ã³À½ºÎÅÍ Ç×»ó ´Ù½Ã ÇÃ·¹ÀÌ)
+// è¤æ¬¾é› æ•²é¥­æ(è´¸æ¾œä½•ç£ äº²æƒ‘ ä¿ƒçŸ« æ•²é¥­æ)
 //----------------------------------------------------------------------
 bool 
 CDirectSound::NewPlay(LPDIRECTSOUNDBUFFER buffer, bool loop)
@@ -431,7 +431,7 @@ CDirectSound::NewPlay(LPDIRECTSOUNDBUFFER buffer, bool loop)
 //----------------------------------------------------------------------
 // Is Play
 //----------------------------------------------------------------------
-// ¿¬ÁÖ ÁßÀÎ°¡?
+// æ¥·æ— åç‰¢å•Š?
 //----------------------------------------------------------------------
 bool 
 CDirectSound::IsPlay(LPDIRECTSOUNDBUFFER buffer) const
@@ -460,7 +460,7 @@ CDirectSound::IsPlay(LPDIRECTSOUNDBUFFER buffer) const
 }
 
 //----------------------------------------------------------------------
-// »ç¿îµå ÇÃ·¹ÀÌ(³¡±îÁö ¸ğµÎ ÇÃ·¹ÀÌµÉ¶§±îÁö ±â´Ù¸²)
+// è¤æ¬¾é› æ•²é¥­æ(åœºé³–ç˜¤ è‘›æ»´ æ•²é¥­æçªé”­é³–ç˜¤ æ‰ä¿ƒè¦†)
 //----------------------------------------------------------------------
 bool 
 CDirectSound::Play(LPDIRECTSOUNDBUFFER buffer, bool loop, bool bDuplicate)
@@ -492,9 +492,9 @@ CDirectSound::Play(LPDIRECTSOUNDBUFFER buffer, bool loop, bool bDuplicate)
 				buffer->Restore();
 			}
 
-			// ÀÌ¹Ì ¿¬ÁÖÁßÀÌ¸é.. »õ·Î¿î Buffer¸¦ ¸¸µé¾î¼­ play
-			// 2001.8.20 - ±×³É ´Ù½Ã play
-			// ´Ù½ÃÇÑ¹ø µµÀü.. - -; 2001.8.28
+			// æå›º æ¥·æ—åææ.. è´§è‚ºæ¬¾ Bufferç”« çˆ¶ç”¸ç»¢è¾‘ play
+			// 2001.8.20 - å¼Šæˆ ä¿ƒçŸ« play
+			// ä¿ƒçŸ«èŒ„é”… æ¡£å‚ˆ.. - -; 2001.8.28
 			///*
 			if( bDuplicate && 
 				(status & DSBSTATUS_PLAYING))
@@ -536,7 +536,7 @@ CDirectSound::Play(LPDIRECTSOUNDBUFFER buffer, bool loop, bool bDuplicate)
 
 
 //----------------------------------------------------------------------
-// »ç¿îµå ¸ØÃã
+// è¤æ¬¾é› è‚›å‹‰
 //----------------------------------------------------------------------
 bool 
 CDirectSound::Stop(LPDIRECTSOUNDBUFFER buffer)
@@ -561,7 +561,7 @@ CDirectSound::Stop(LPDIRECTSOUNDBUFFER buffer)
 
 
 //----------------------------------------------------------------------
-// ÁÖÆÄ¼ö ¿Ã¸®±â
+// æ—é¢‡è æ£µåºœæ‰
 //----------------------------------------------------------------------
 bool 
 CDirectSound::AddFrequency(LPDIRECTSOUNDBUFFER buffer, int step)
@@ -590,7 +590,7 @@ CDirectSound::AddFrequency(LPDIRECTSOUNDBUFFER buffer, int step)
 
 
 //----------------------------------------------------------------------
-// ÁÖÆÄ¼ö ³»¸®±â
+// æ—é¢‡è éƒ´åºœæ‰
 //----------------------------------------------------------------------
 bool 
 CDirectSound::SubFrequency(LPDIRECTSOUNDBUFFER buffer, int step)
@@ -644,7 +644,7 @@ CDirectSound::SetMaxVolume(LPDIRECTSOUNDBUFFER buffer)
 }
 
 //----------------------------------------------------------------------
-// º¼·ı ³ôÀÓ
+// æ­ä¿˜ è‡­çƒ™
 //----------------------------------------------------------------------
 bool 
 CDirectSound::AddVolume(LPDIRECTSOUNDBUFFER buffer, int step)
@@ -674,7 +674,7 @@ CDirectSound::AddVolume(LPDIRECTSOUNDBUFFER buffer, int step)
 
 
 //----------------------------------------------------------------------
-// º¼·ı ³»¸²				
+// æ­ä¿˜ éƒ´è¦†				
 //----------------------------------------------------------------------
 bool 
 CDirectSound::SubVolume(LPDIRECTSOUNDBUFFER buffer, int step)
@@ -724,7 +724,7 @@ CDirectSound::SubVolume(LPDIRECTSOUNDBUFFER buffer, int step)
 }
 
 //----------------------------------------------------------------------
-// º¼·ı ³»¸²				
+// æ­ä¿˜ éƒ´è¦†				
 //----------------------------------------------------------------------
 bool 
 CDirectSound::SubVolumeFromMax(LPDIRECTSOUNDBUFFER buffer, int step)
@@ -771,7 +771,7 @@ CDirectSound::SetVolumeLimit(LONG volume)
 }
 
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ ÆÒ
+// å·å¼—ç‡ åŸ”
 //----------------------------------------------------------------------
 bool 
 CDirectSound::RightPan(LPDIRECTSOUNDBUFFER buffer, int step)
@@ -800,7 +800,7 @@ CDirectSound::RightPan(LPDIRECTSOUNDBUFFER buffer, int step)
 }
 
 //----------------------------------------------------------------------
-// ¿ŞÂÊ ÆÒ
+// å“­ç‡ åŸ”
 //----------------------------------------------------------------------
 bool 
 CDirectSound::LeftPan(LPDIRECTSOUNDBUFFER buffer, int step)
@@ -829,7 +829,7 @@ CDirectSound::LeftPan(LPDIRECTSOUNDBUFFER buffer, int step)
 }
 
 //----------------------------------------------------------------------
-// °¡¿îµ¥ ÆÒ
+// å•Šæ¬¾å• åŸ”
 //----------------------------------------------------------------------
 bool 
 CDirectSound::CenterPan(LPDIRECTSOUNDBUFFER buffer)
@@ -853,7 +853,7 @@ CDirectSound::CenterPan(LPDIRECTSOUNDBUFFER buffer)
 }		
 
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ ÆÒ
+// å·å¼—ç‡ åŸ”
 //----------------------------------------------------------------------
 bool 
 CDirectSound::CenterToRightPan(LPDIRECTSOUNDBUFFER buffer, int step)
@@ -882,7 +882,7 @@ CDirectSound::CenterToRightPan(LPDIRECTSOUNDBUFFER buffer, int step)
 }
 
 //----------------------------------------------------------------------
-// ¿ŞÂÊ ÆÒ
+// å“­ç‡ åŸ”
 //----------------------------------------------------------------------
 bool 
 CDirectSound::CenterToLeftPan(LPDIRECTSOUNDBUFFER buffer, int step)
@@ -911,7 +911,7 @@ CDirectSound::CenterToLeftPan(LPDIRECTSOUNDBUFFER buffer, int step)
 }	
 
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ ÆÒ
+// å·å¼—ç‡ åŸ”
 //----------------------------------------------------------------------
 bool 
 CDirectSound::ChangePan(LPDIRECTSOUNDBUFFER buffer, int pan)

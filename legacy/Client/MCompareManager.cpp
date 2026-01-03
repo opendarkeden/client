@@ -124,7 +124,7 @@ MCompareManager::Execute_HC_PLAYER_IN_TRADE()
 BOOL	
 MCompareManager::Execute_HC_PLAYER_IN_NORMAL_GAME_MODE()
 {	
-	// -_-; º° ÀÇ¹Ì ¾ø³ª.. À¸Èì..
+	// -_-; ë³„ ì˜ë¯¸ ì—†ë‚˜.. ìœ¼í ..
 	return g_pPlayer!=NULL && g_pPlayer->IsWaitVerifyNULL() && g_pPlayer->IsItemCheckBufferNULL();
 }
 
@@ -195,7 +195,7 @@ MCompareManager::Execute_HC_HAS_HEAL_POTION_IN_BELT()
 	{
 		MItem* pItem = g_pQuickSlot->Get();
 
-		// HealÆ÷¼ÇÀÎ °æ¿ì..
+		// Healí¬ì…˜ì¸ ê²½ìš°..
 		if (pItem!=NULL 
 			&& pItem->GetItemClass()==ITEM_CLASS_POTION
 			&& pItem->GetItemType() < 5)
@@ -226,7 +226,7 @@ MCompareManager::Execute_HC_HAS_HEAL_POTION_IN_INVENTORY()
 	{
 		MItem* pItem = g_pInventory->Get();
 
-		// HealÆ÷¼ÇÀÎ °æ¿ì..
+		// Healí¬ì…˜ì¸ ê²½ìš°..
 		if (pItem!=NULL 
 			&& pItem->GetItemClass()==ITEM_CLASS_POTION
 			&& pItem->GetItemType() < 5)
@@ -257,7 +257,7 @@ MCompareManager::Execute_HC_HAS_MANA_POTION_IN_BELT()
 	{
 		MItem* pItem = g_pQuickSlot->Get();
 
-		// ManaÆ÷¼ÇÀÎ °æ¿ì..
+		// Manaí¬ì…˜ì¸ ê²½ìš°..
 		if (pItem!=NULL 
 			&& pItem->GetItemClass()==ITEM_CLASS_POTION
 			&& pItem->GetItemType() >= 5)
@@ -288,7 +288,7 @@ MCompareManager::Execute_HC_HAS_MANA_POTION_IN_INVENTORY()
 	{
 		MItem* pItem = g_pInventory->Get();
 
-		// HealÆ÷¼ÇÀÎ °æ¿ì..
+		// Healí¬ì…˜ì¸ ê²½ìš°..
 		if (pItem!=NULL 
 			&& pItem->GetItemClass()==ITEM_CLASS_POTION
 			&& pItem->GetItemType() >= 5)
@@ -308,7 +308,7 @@ MCompareManager::Execute_HC_HAS_MANA_POTION_IN_INVENTORY()
 BOOL	
 MCompareManager::Execute_HC_RECEIVE_FIRST_BONUS_POINT()
 {	
-	// 2 LevelÀÌ°í Bonus Point°¡ ÀÖÀ¸¸é Ã³À½ ¹ŞÀº°Å´Ù.
+	// 2 Levelì´ê³  Bonus Pointê°€ ìˆìœ¼ë©´ ì²˜ìŒ ë°›ì€ê±°ë‹¤.
 	return g_pPlayer!=NULL 
 			&& g_pPlayer->IsVampire()
 			&& g_pPlayer->GetLEVEL()==2
@@ -321,7 +321,7 @@ MCompareManager::Execute_HC_RECEIVE_FIRST_BONUS_POINT()
 BOOL	
 MCompareManager::Execute_HC_DIDNOT_WHISPER_YET()
 {	
-	// ±Ó¼Ó¸» ÇØº»ÀûÀÌ ÀÖ´Ù¸é..
+	// ê·“ì†ë§ í•´ë³¸ì ì´ ìˆë‹¤ë©´..
 	return false;
 	//return !g_pHelpManager->IsEventOccured( HE_CHAT_WHISPER );
 }
@@ -332,7 +332,7 @@ MCompareManager::Execute_HC_DIDNOT_WHISPER_YET()
 BOOL	
 MCompareManager::Execute_HC_ITEM_PICKED_UP()
 {		
-	// itemÁÖ¿îÀûÀÌ ÀÖ´Ù¸é..
+	// itemì£¼ìš´ì ì´ ìˆë‹¤ë©´..
 	return false;
 	//return g_pHelpManager->IsEventOccured( HE_ITEM_PICKUP );
 }
@@ -343,7 +343,7 @@ MCompareManager::Execute_HC_ITEM_PICKED_UP()
 BOOL	
 MCompareManager::Execute_HC_USED_ALT_FOR_ITEM()
 {	
-	// alt ´©¸¥ÀûÀÌ ÀÖ´Ù¸é..
+	// alt ëˆ„ë¥¸ì ì´ ìˆë‹¤ë©´..
 	return false;
 //	return g_pHelpManager->IsEventOccured( HE_PRESSED_ALT );
 }
@@ -354,7 +354,7 @@ MCompareManager::Execute_HC_USED_ALT_FOR_ITEM()
 BOOL	
 MCompareManager::Execute_HC_USED_FUNCTION_KEY_FOR_QUICKITEM()
 {	
-	// ´ÜÃàÅ°·Î quickitem¾´ÀûÀÌ ÀÕ´Ù¸é..
+	// ë‹¨ì¶•í‚¤ë¡œ quickitemì“´ì ì´ ì‡ë‹¤ë©´..
 	return false;
 	//return g_pHelpManager->IsEventOccured( HE_PRESSED_FUNCTION_KEY_FOR_QUICKITEM );
 }
@@ -371,7 +371,7 @@ MCompareManager::Execute_HC_EMPTY_BULLET()
 //-----------------------------------------------------------------------------
 // Compare
 //-----------------------------------------------------------------------------
-// message¿Í ¿¬°áµÇ¾î ÀÖ´Â ÀûÀıÇÑ Ã³¸® ÇÔ¼ö¸¦ È£ÃâÇÑ´Ù.
+// messageì™€ ì—°ê²°ë˜ì–´ ìˆëŠ” ì ì ˆí•œ ì²˜ë¦¬ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•œë‹¤.
 //-----------------------------------------------------------------------------
 BOOL
 MCompareManager::Compare(HELP_COMPARE message)

@@ -16,10 +16,10 @@ CWaitPacketUpdate*		g_pCWaitPacketUpdate = NULL;
 void
 CWaitPacketUpdate::Init()
 {
-	// mouse event Ã³¸®
+	// mouse event ì²˜ë¦¬
 	g_pDXInput->SetMouseEventReceiver( NULL );
 
-	// keyboard event Ã³¸®
+	// keyboard event ì²˜ë¦¬
 	g_pDXInput->SetKeyboardEventReceiver( NULL );
 }
 
@@ -27,7 +27,7 @@ CWaitPacketUpdate::Init()
 //-----------------------------------------------------------------------------
 // Update WaitPosition
 //-----------------------------------------------------------------------------
-// °ÔÀÓ ½ÃÀÛ Àü¿¡.. PlayerÀÇ ÁÂÇ¥¸¦ ¹Ş±â À§ÇØ¼­ ±â´Ù¸°´Ù.
+// ê²Œì„ ì‹œì‘ ì „ì—.. Playerì˜ ì¢Œí‘œë¥¼ ë°›ê¸° ìœ„í•´ì„œ ê¸°ë‹¤ë¦°ë‹¤.
 //-----------------------------------------------------------------------------
 void 
 CWaitPacketUpdate::Update()
@@ -35,11 +35,11 @@ CWaitPacketUpdate::Update()
 	//DEBUG_ADD("[WaitPacketUpdate] Begin");
 
 	//------------------------------------------	
-	// ÇÑ°è ½Ã°£À» ³Ñ¾î°¬À¸¸é..
+	// í•œê³„ ì‹œê°„ì„ ë„˜ì–´ê°”ìœ¼ë©´..
 	//------------------------------------------
 	if ((DWORD)g_CurrentTime > m_DelayLimit)
 	{
-		DEBUG_ADD_FORMAT("[WaitPacket] ½Ã°£ ÃÊ°ú : Current=%d, Limit=%d", g_CurrentTime, m_DelayLimit);			
+		DEBUG_ADD_FORMAT("[WaitPacket] ì‹œê°„ ì´ˆê³¼ : Current=%d, Limit=%d", g_CurrentTime, m_DelayLimit);			
 
 		SetMode( MODE_MAINMENU );
 		UpdateDisconnected();
@@ -57,7 +57,7 @@ CWaitPacketUpdate::Update()
 //	}
 
 	//------------------------------------------
-	// SocketºÎºĞ Ã³¸®
+	// Socketë¶€ë¶„ ì²˜ë¦¬
 	//------------------------------------------	
 	if (!UpdateSocketInput())
 	{
@@ -67,7 +67,7 @@ CWaitPacketUpdate::Update()
 	}
 
 	//------------------------------------------	
-	// Mode°¡ ¹Ù²ï °æ¿ì
+	// Modeê°€ ë°”ë€ ê²½ìš°
 	//------------------------------------------	
 	if (g_ModeNext!=MODE_NULL)
 	{
@@ -89,8 +89,8 @@ CWaitPacketUpdate::Update()
 //-----------------------------------------------------------------------------
 // Set Delay
 //-----------------------------------------------------------------------------
-// ÇöÀç ½Ã°£(g_CurrentTime)ºÎÅÍ delay¸¸Å­ ´õ Update¸¦ ÇÏ´Ù°¡
-// ServerºÎÅÍ ¸Ş¼¼Áö°¡ ¿ÀÁö ¾ÊÀ¸¸é .... ÇÁ·Î±×·¥ Á¾·á~
+// í˜„ì¬ ì‹œê°„(g_CurrentTime)ë¶€í„° delayë§Œí¼ ë” Updateë¥¼ í•˜ë‹¤ê°€
+// Serverë¶€í„° ë©”ì„¸ì§€ê°€ ì˜¤ì§€ ì•Šìœ¼ë©´ .... í”„ë¡œê·¸ë¨ ì¢…ë£Œ~
 //-----------------------------------------------------------------------------
 void		
 CWaitPacketUpdate::SetDelay(DWORD delay)

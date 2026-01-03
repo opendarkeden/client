@@ -48,13 +48,13 @@ protected:
 
 	std::string						m_desc_title;
 
-	// descriptionÀ» Ãâ·ÂÇÑ´Ù
+	// descriptionì„ ì¶œë ¥í•œë‹¤
 	void	ShowDesc(int x = 0, int y = 0);
 
-	// descriptionÀ» ºÒ·¯¿Â´Ù
+	// descriptionì„ ë¶ˆëŸ¬ì˜¨ë‹¤
 	bool	LoadDesc(const char *szFilename, int row, int col, bool bl_title = false, int CoreZapID = -1);
 	bool	LoadDescFromString(const char *szString, int row, int col, bool bl_title = false, int CoreZapID = -1);
-	// descriptionÀÇ Ãâ·ÂÁÂÇ¥¸¦ Á¤ÇÑ´Ù. 
+	// descriptionì˜ ì¶œë ¥ì¢Œí‘œë¥¼ ì •í•œë‹¤. 
 	void	SetDesc(int dx, int dy, COLORREF color = BLACK, PrintInfo &pi = gpC_base->m_desc_msg_pi)
 	{
 		m_desc_x = dx;

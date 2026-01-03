@@ -13,8 +13,8 @@
 void PCVampireInfo::setShapeInfo(DWORD flag, Color_t color[VAMPIRE_COLOR_MAX]) 
 	throw()
 {
-	// ÇöÀç´Â vampire coat¸¸ ¸ð¾çÀÌ ¹Ù²î¹Ç·Î..
-	// ³ªÁß¿¡ ´Ù¸¥ ºÎÀ§µµ ¹Ù²ï´Ù¸é PCSlayerInfo¸¦ ÂüÁ¶ÇØ¼­ ¹Ù²ã¾ßµÉ °ÍÀÌ´Ù
+	// í˜„ìž¬ëŠ” vampire coatë§Œ ëª¨ì–‘ì´ ë°”ë€Œë¯€ë¡œ..
+	// ë‚˜ì¤‘ì— ë‹¤ë¥¸ ë¶€ìœ„ë„ ë°”ë€ë‹¤ë©´ PCSlayerInfoë¥¼ ì°¸ì¡°í•´ì„œ ë°”ê¿”ì•¼ë  ê²ƒì´ë‹¤
 	m_CoatType = flag;//(flag & 7);
 	m_CoatColor = color[0];
 }

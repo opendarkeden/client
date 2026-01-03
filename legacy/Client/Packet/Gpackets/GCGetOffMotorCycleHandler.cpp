@@ -23,7 +23,7 @@ void GCGetOffMotorCycleHandler::execute ( GCGetOffMotorCycle * pPacket , Player 
 
 	
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -31,9 +31,9 @@ void GCGetOffMotorCycleHandler::execute ( GCGetOffMotorCycle * pPacket , Player 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//
-	// Creature°¡ ¿ÀÅä¹ÙÀÌ¸¦ ÀåÂøÇØÁ¦ ÇÑ´Ù.
+	// Creatureê°€ ì˜¤í† ë°”ì´ë¥¼ ìž¥ì°©í•´ì œ í•œë‹¤.
 	//------------------------------------------------------
 	else
 	{
@@ -41,23 +41,23 @@ void GCGetOffMotorCycleHandler::execute ( GCGetOffMotorCycle * pPacket , Player 
 
 		if (pCreature!=NULL)
 		{
-			// ÀåÂø°¡´ÉÇÑ creatureÀÎ °æ¿ì
+			// ìž¥ì°©ê°€ëŠ¥í•œ creatureì¸ ê²½ìš°
 			if (pCreature->IsWear())
 			{
 				MCreatureWear* pCreatureWear = (MCreatureWear*)pCreature;
 			
 				//------------------------------------------
-				// ¿ÀÅä¹ÙÀÌ ±×¸²À» ¾ø¾ÖÁØ´Ù.
+				// ì˜¤í† ë°”ì´ ê·¸ë¦¼ì„ ì—†ì• ì¤€ë‹¤.
 				//------------------------------------------
 				pCreatureWear->RemoveAddon( ADDON_MOTOR );
 
 				//------------------------------------------
-				// ¿òÁ÷ÀÌ´Â ¹æ¹ý ¹Ù²Þ
+				// ì›€ì§ì´ëŠ” ë°©ë²• ë°”ê¿ˆ
 				//------------------------------------------
 				pCreatureWear->SetMoveDevice( MCreature::MOVE_DEVICE_WALK );
 
 				//------------------------------------------
-				// ³»¸®´Â ¼Ò¸® Ãâ·Â
+				// ë‚´ë¦¬ëŠ” ì†Œë¦¬ ì¶œë ¥
 				//------------------------------------------
 				PlaySound( SOUND_WORLD_BIKE_STOP,
 							false,

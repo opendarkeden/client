@@ -3,7 +3,7 @@
 	Typedef.h
 
 	General type definition.
-	`BOOL, TRUE, FALSE »ç¿ë¾ÈÇÔ. C++ bool, true, false »ç¿ë.
+	`BOOL, TRUE, FALSE ì‚¬ìš©ì•ˆí•¨. C++ bool, true, false ì‚¬ìš©.
 
 	19971226. KJTINC
 	19991106.
@@ -41,9 +41,9 @@ typedef DWORD				id_t;
 // Character type definition for DBCS(Double-Byte Character Set).
 //
 // (2000.10.4)
-// Wide Chacter¿ë wchar_t´Â ¾ÆÁ÷ »ç¿ëÇÏÁö ¾Ê´Â´Ù. ¶ÇÇÑ header Ãæµ¹À» ÇÇÇÏ±â À§ÇØ¼­ ´Ù¸¥ ÀÌ¸§À»
-// »ç¿ëÇÑ´Ù. ÀÌ°ÍÀº Unicode°¡ Á¤ÂøµÇ¸é ¿ÏÀüÈ÷ wchar_t·Î ´ëÃ¼µÇ´ø°¡ typedef wchar_t char_t·Î
-// ¹Ù²ğ °ÍÀÌ´Ù.
+// Wide Chacterìš© wchar_tëŠ” ì•„ì§ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤. ë˜í•œ header ì¶©ëŒì„ í”¼í•˜ê¸° ìœ„í•´ì„œ ë‹¤ë¥¸ ì´ë¦„ì„
+// ì‚¬ìš©í•œë‹¤. ì´ê²ƒì€ Unicodeê°€ ì •ì°©ë˜ë©´ ì™„ì „íˆ wchar_të¡œ ëŒ€ì²´ë˜ë˜ê°€ typedef wchar_t char_të¡œ
+// ë°”ë€” ê²ƒì´ë‹¤.
 //
 typedef WORD char_t;
 

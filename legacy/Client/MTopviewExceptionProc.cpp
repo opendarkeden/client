@@ -4,8 +4,8 @@
 // MTopViewDraw.cpp
 //----------------------------------------------------------------------
 //
-// º¹ÀâÇÑ Draw ÇÔ¼ö ºÎºĞ¸¸ µû·Î »©³õ´Â´Ù.
-// ÀÛ¾÷ÇÏ±â°¡ ¿µ ºÒÆíÇØ¼­ 
+// ë³µì¡í•œ Draw í•¨ìˆ˜ ë¶€ë¶„ë§Œ ë”°ë¡œ ë¹¼ë†“ëŠ”ë‹¤.
+// ì‘ì—…í•˜ê¸°ê°€ ì˜ ë¶ˆí¸í•´ì„œ 
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #pragma warning(disable:4786)
@@ -41,7 +41,7 @@ void GildreProc( MCreature* pCreature, int& action, int& frame, int& direction )
 	if( pCreature->HasEffectStatus( EFFECTSTATUS_GDR_FLOATING )/* && action == ACTION_MOVE */)
 	{
 		action = ACTION_VAMPIRE_DRAIN;
-		frame = 6 + (frame & 0x07);		// ÈíÇ÷ µ¿ÀÛ¿¡¼­ ¹İº¹ frameÀÇ ½ÃÀÛÀÌ 6ÀÌ´Ù.		
+		frame = 6 + (frame & 0x07);		// í¡í˜ˆ ë™ì‘ì—ì„œ ë°˜ë³µ frameì˜ ì‹œì‘ì´ 6ì´ë‹¤.		
 		
 		//			m_MoveAction = ACTION_DRAINED;
 		//SetAction(ACTION_DRAINED);
@@ -51,7 +51,7 @@ void GildreProc( MCreature* pCreature, int& action, int& frame, int& direction )
 		if(pCreature->GetActionCount()>=pCreature->GetActionCountMax())
 		{
 			if(pCreature->GetCreatureType()  == 723)
-				frame = 46; // ¹«¸­²İÀº »óÅÂ·Î..³ªµĞ´ç..			
+				frame = 46; // ë¬´ë¦ê¿‡ì€ ìƒíƒœë¡œ..ë‚˜ë‘”ë‹¹..			
 		}
 	}
 }
@@ -67,7 +67,7 @@ void FrozenGildreProc( MCreature* pCreature, int& action, int& frame, int& direc
 
 void FishShopLandLord( MCreature* pCreature, int& action, int& frame, int& direction )
 {
-	// »ı¼±°¡°Ô ÁÖÀÎ - Äù½ºÆ®¿ë, ÀÏ´Ü ´©¿öÀÖ°Ô..³ªÁß¿¡ ºĞ¼®Á¡ ÇÏ°í ¼öÁ¤ÇÏÀÚ..
+	// ìƒì„ ê°€ê²Œ ì£¼ì¸ - í€˜ìŠ¤íŠ¸ìš©, ì¼ë‹¨ ëˆ„ì›Œìˆê²Œ..ë‚˜ì¤‘ì— ë¶„ì„ì  í•˜ê³  ìˆ˜ì •í•˜ì..
 	action = 6;
 	frame = 14;
 }
@@ -127,7 +127,7 @@ void ObstacleProc( MCreature* pCreature, int& action, int& frame, int& direction
 
 void MakeStandAndSouthDirectionProc( MCreature* pCreature, int& action, int& frame, int& direction )
 {
-	// ¾Æ·¡ ¹æÇâ¿¡ stand ¾×¼Ç, ÇÁ·¹ÀÓÀ» 0À¸·Î ¸¸µç´Ù.
+	// ì•„ë˜ ë°©í–¥ì— stand ì•¡ì…˜, í”„ë ˆì„ì„ 0ìœ¼ë¡œ ë§Œë“ ë‹¤.
 	action = ACTION_STAND;
 	frame = 0;
 	direction = 2;
@@ -168,7 +168,7 @@ void Ctype_764_765_Proc( MCreature* pCreature, int& action, int& frame, int& dir
 		pCreature->SetShadowCount(0);
 	if(action == ACTION_MOVE)
 	{
-		if(frame == 1 || frame == 8) // ½ÇÁ¦·Î´Â 3,10ÇÁ·¹ÀÓÀÌ ¹ß µó´Â ÇÁ·¹ÀÓÀÎµ¥..µÎÇÁ·¹ÀÓÁ¤µµ ¾Õ¼­¸é ½ÌÅ©°¡ ´ëÃæ ¸ÂÁö ¾ÊÀ»±î...¤¾¤¾
+		if(frame == 1 || frame == 8) // ì‹¤ì œë¡œëŠ” 3,10í”„ë ˆì„ì´ ë°œ ë”›ëŠ” í”„ë ˆì„ì¸ë°..ë‘í”„ë ˆì„ì •ë„ ì•ì„œë©´ ì‹±í¬ê°€ ëŒ€ì¶© ë§ì§€ ì•Šì„ê¹Œ...ã…ã…
 		{
 			MEvent event;
 			event.eventID = EVENTID_METEOR_SHAKE;
@@ -209,7 +209,7 @@ void GuildWarGateProc( MCreature* pCreature, int& action, int& frame, int& direc
 		frame = 4;
 }
 // 2004, 12, 11, sobeit add end
-// 2005, 1, 17, sobeit add start - ÀÌ¼ºÀÇ ºÀÀÎ
+// 2005, 1, 17, sobeit add start - ì´ì„±ì˜ ë´‰ì¸
 void Ctype_792( MCreature* pCreature, int& action, int& frame, int& direction )
 {
 	if(action != ACTION_DIE)
@@ -273,7 +273,7 @@ void	MTopView::InitMapingExceptionProc()
 	RegistExceptionProcFunction( 729 , GuildWarGateProc );
 	// 2004, 12, 11, sobeit add end
 	
-	// 2005, 1, 17, sobeit add start - ÀÌ¼ºÀÇ ºÀÀÎ
+	// 2005, 1, 17, sobeit add start - ì´ì„±ì˜ ë´‰ì¸
 	RegistExceptionProcFunction( 792 , Ctype_792 );
 	// 2005, 1, 17, sobeit add end
 

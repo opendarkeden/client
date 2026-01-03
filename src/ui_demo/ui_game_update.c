@@ -6,6 +6,7 @@
 #include "ui_game_update.h"
 #include "ui_game_main.h"
 #include "ui_game_sysmenu.h"
+#include "ui_other_info.h"
 #include <SDL2/SDL.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -87,6 +88,11 @@ void ui_game_update_render(UI_GameUpdate* update) {
     UI_Window* sysmenu = ui_game_main_get_sysmenu(update->hud_window);
     if (sysmenu && ui_game_sysmenu_is_visible(sysmenu) && sysmenu->show) {
         sysmenu->show(sysmenu);
+    }
+
+    UI_Window* otherinfo = ui_game_main_get_other_info(update->hud_window);
+    if (otherinfo && ui_other_info_is_visible(otherinfo) && otherinfo->show) {
+        otherinfo->show(otherinfo);
     }
 }
 

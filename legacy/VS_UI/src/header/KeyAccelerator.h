@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------
 // Set Default
 //----------------------------------------------------------------------
-// default fileÀ» »ý¼ºÇØµÎ°í loadÇÏ´Â °Íµµ ±¦ÂúÀ»°Å °°´Ù.
+// default fileì„ ìƒì„±í•´ë‘ê³  loadí•˜ëŠ” ê²ƒë„ ê´œì°®ì„ê±° ê°™ë‹¤.
 //----------------------------------------------------------------------
 /*
 void				
@@ -58,7 +58,7 @@ SetDefault()
 //----------------------------------------------------------------------
 // KeyAccelerator
 //----------------------------------------------------------------------
-// key´Â WORD, accelÀº BYTE.. ÄÉÄÉ.. 
+// keyëŠ” WORD, accelì€ BYTE.. ì¼€ì¼€.. 
 //----------------------------------------------------------------------
 class KeyAccelerator {
 	public :
@@ -82,9 +82,9 @@ class KeyAccelerator {
 		//------------------------------------------------------------
 		// Get Accelerator / Key
 		//------------------------------------------------------------
-		BYTE				GetAccelerator(WORD key) const;			// key¿Í ¿¬°áµÈ accelerator¸¦ Ã£´Â´Ù.
-		BYTE				GetAcceleratorSimilar(WORD key) const;	// key¿Í ¿¬°áµÈ accelerator¸¦ Ã£´Â´Ù. keyÁ¶ÇÕÀ» Á¦°ÅÇÑ °æ¿ìµµ Ã¼Å©ÇÑ´Ù.
-		WORD				GetKey(BYTE accel) const;				// accelerator¿Í ¿¬°áµÈ key¸¦ Ã£´Â´Ù.
+		BYTE				GetAccelerator(WORD key) const;			// keyì™€ ì—°ê²°ëœ acceleratorë¥¼ ì°¾ëŠ”ë‹¤.
+		BYTE				GetAcceleratorSimilar(WORD key) const;	// keyì™€ ì—°ê²°ëœ acceleratorë¥¼ ì°¾ëŠ”ë‹¤. keyì¡°í•©ì„ ì œê±°í•œ ê²½ìš°ë„ ì²´í¬í•œë‹¤.
+		WORD				GetKey(BYTE accel) const;				// acceleratorì™€ ì—°ê²°ëœ keyë¥¼ ì°¾ëŠ”ë‹¤.
 		const char *		GetName(BYTE accel) const
 		{
 			if(accel >= MAX_ACCELERATOR)
@@ -100,8 +100,8 @@ class KeyAccelerator {
 
 
 	protected :
-		KEY_MAP				m_Keys;					// key¸¦ accelerator¿Í ¿¬°á
-		ACCELERATOR_VECTOR	m_Accelerators;			// accelerator¸¦ key¿Í ¿¬°á			
+		KEY_MAP				m_Keys;					// keyë¥¼ acceleratorì™€ ì—°ê²°
+		ACCELERATOR_VECTOR	m_Accelerators;			// acceleratorë¥¼ keyì™€ ì—°ê²°			
 };
 
 extern KeyAccelerator*	g_pKeyAccelerator;

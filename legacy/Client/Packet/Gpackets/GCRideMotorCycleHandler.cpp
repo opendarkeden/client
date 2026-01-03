@@ -25,7 +25,7 @@ void GCRideMotorCycleHandler::execute ( GCRideMotorCycle * pPacket , Player * pP
 	
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -33,20 +33,20 @@ void GCRideMotorCycleHandler::execute ( GCRideMotorCycle * pPacket , Player * pP
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//
-	// Creature°¡ pItem(¿ÀÅä¹ÙÀÌ)À» ÀåÂøÇÑ´Ù.
+	// Creatureê°€ pItem(ì˜¤í† ë°”ì´)ì„ ìž¥ì°©í•œë‹¤.
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
 		//-------------------------------------------------------------
-		// Ä³¸¯ÅÍ°¡ ÀÖ´Â °æ¿ì
+		// ìºë¦­í„°ê°€ ìžˆëŠ” ê²½ìš°
 		//-------------------------------------------------------------
 		if (pCreature!=NULL)
 		{
-			// ÀåÂø°¡´ÉÇÑ creatureÀÎ °æ¿ì
+			// ìž¥ì°©ê°€ëŠ¥í•œ creatureì¸ ê²½ìš°
 			if (pCreature->IsWear())
 			{
 				MCreatureWear* pCreatureWear = (MCreatureWear*)pCreature;
@@ -54,27 +54,27 @@ void GCRideMotorCycleHandler::execute ( GCRideMotorCycle * pPacket , Player * pP
 				MItem* pItem = g_pZone->GetItem( pPacket->getTargetObjectID() );
 
 				//------------------------------------------					
-				// pItemÀº ¿ÀÅä¹ÙÀÌ¿©¾ß ÇÑ´Ù.
-				// creature¿¡ Àåºñ ½ÃÅ²´Ù.
+				// pItemì€ ì˜¤í† ë°”ì´ì—¬ì•¼ í•œë‹¤.
+				// creatureì— ìž¥ë¹„ ì‹œí‚¨ë‹¤.
 				//------------------------------------------					
 				if (pItem != NULL)
 				{
 					if (pItem->GetItemClass()==ITEM_CLASS_MOTORCYCLE)
 					{
 						//------------------------------------------					
-						// ³²ÀÚ / ¿©ÀÚ¿¡ µû¶ó¼­..
-						// ¿ÀÅä¹ÙÀÌ addon ºÙÀÓ.
+						// ë‚¨ìž / ì—¬ìžì— ë”°ë¼ì„œ..
+						// ì˜¤í† ë°”ì´ addon ë¶™ìž„.
 						//------------------------------------------
 						pCreatureWear->SetAddonItem( pItem );						
 						
 						//------------------------------------------
-						// ¿òÁ÷ÀÌ´Â ¹æ¹ý ¹Ù²Þ
+						// ì›€ì§ì´ëŠ” ë°©ë²• ë°”ê¿ˆ
 						//------------------------------------------					
 						//pCreatureWear->SetMoveDevice( MCreature::MOVE_DEVICE_RIDE );
 
 						//------------------------------------------
-						// Server¿¡ Á¢¼ÓµÈ °æ¿ì°¡ ¾Æ´Ï¸é..
-						// ¹Ù·Î mouse¿¡ itemÀÌ ºÙ´Â´Ù.
+						// Serverì— ì ‘ì†ëœ ê²½ìš°ê°€ ì•„ë‹ˆë©´..
+						// ë°”ë¡œ mouseì— itemì´ ë¶™ëŠ”ë‹¤.
 						//------------------------------------------
 						//PlaySound( pItem->GetTileSoundID(),
 						//			false,
@@ -83,7 +83,7 @@ void GCRideMotorCycleHandler::execute ( GCRideMotorCycle * pPacket , Player * pP
 						//gC_vs_ui.PickUpItem(pItem);
 						g_pZone->RemoveItem( pItem->GetID() );
 
-						// ¿ÀÅä¹ÙÀÌ Å¸´Â ¼Ò¸® Ãâ·Â
+						// ì˜¤í† ë°”ì´ íƒ€ëŠ” ì†Œë¦¬ ì¶œë ¥
 						PlaySound( SOUND_WORLD_BIKE_GO,
 									false,
 									g_pPlayer->GetX(),
@@ -97,15 +97,15 @@ void GCRideMotorCycleHandler::execute ( GCRideMotorCycle * pPacket , Player * pP
 			}
 		}
 		//-------------------------------------------------------------
-		// Ä³¸¯ÅÍ°¡ ¾ø´Â °æ¿ì
+		// ìºë¦­í„°ê°€ ì—†ëŠ” ê²½ìš°
 		//-------------------------------------------------------------
 		else
 		{
 			MItem* pItem = g_pZone->GetItem( pPacket->getTargetObjectID() );
 
 			//------------------------------------------					
-			// pItemÀº ¿ÀÅä¹ÙÀÌ¿©¾ß ÇÑ´Ù.
-			// °Á ¾ø¾Ø´Ù.
+			// pItemì€ ì˜¤í† ë°”ì´ì—¬ì•¼ í•œë‹¤.
+			// ê± ì—†ì•¤ë‹¤.
 			//------------------------------------------					
 			if (pItem != NULL)
 			{

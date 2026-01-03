@@ -45,7 +45,7 @@ extern bool gbl_mine_progress;
 //-----------------------------------------------------------------------------
 // class C_VS_UI_LEVELUP
 //
-// vampire/slayer level up½Ã ³ªÅ¸³ª´Â button.
+// vampire/slayer level upì‹œ ë‚˜íƒ€ë‚˜ëŠ” button.
 //-----------------------------------------------------------------------------
 class C_VS_UI_LEVELUP : public Window
 {
@@ -296,10 +296,10 @@ public:
 	virtual void HotKey_PetInfo() = 0;		// ctrl+CapsLock
 	virtual void HotKey_MailBox() = 0;		// ctrl+b
 	virtual void HotKey_Party() = 0;		// ctrl+p
-	virtual void HotKey_Mark() = 0;			// 'ÇÑÀÚ'Å°
+	virtual void HotKey_Mark() = 0;			// 'í•œì'í‚¤
 //	virtual void HotKey_WindowToggle()=0;	// ctrl + space
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		virtual void HotKey_Inventory(bool IsCheckSubInventory = false)=0;		// tab
 	#else
 		virtual void HotKey_Inventory()=0;		// tab
@@ -352,8 +352,8 @@ enum CHAT_LINE_CONDITION
 	CLD_PARTY,
 	CLD_GUILD,
 	CLD_UNION,
-	CLD_INFO, // Á¤º¸ ¸Ş½ÃÁö.
-	CLD_MASTER,	// ¿î¿µÀÚ ¸Ş½ÃÁö
+	CLD_INFO, // ì •ë³´ ë©”ì‹œì§€.
+	CLD_MASTER,	// ìš´ì˜ì ë©”ì‹œì§€
 
 	CLD_TOTAL = CLD_MASTER,
 };
@@ -467,7 +467,7 @@ public:
 
 	C_VS_UI_CHAT_LINE *	PopBack()
 	{
-		// !data¸¦ deleteÇÏÁö´Â ¾Ê´Â´Ù.
+		// !dataë¥¼ deleteí•˜ì§€ëŠ” ì•ŠëŠ”ë‹¤.
 
 		C_VS_UI_CHAT_LINE * data;
 
@@ -482,7 +482,7 @@ public:
 
 	C_VS_UI_CHAT_LINE *	GetLine(int n) const
 	{
-		// nÀÌ 0¿¡ °¡±î¿ï¼ö·Ï ÃÖ±Ù¿¡ ÀÔ·ÂµÈ lineÀÌ´Ù.
+		// nì´ 0ì— ê°€ê¹Œìš¸ìˆ˜ë¡ ìµœê·¼ì— ì…ë ¥ëœ lineì´ë‹¤.
 
 		if (n < 0)
 			return NULL;
@@ -508,7 +508,7 @@ class PAPERING_HISTORY
 //-----------------------------------------------------------------------------
 // C_VS_UI_CHATTING
 //
-// ÀÏ¹İÀûÀÎ chatting°ú ±Ó¼Ó¸»(slayer = PCS)À» ¼öÇàÇÑ´Ù.
+// ì¼ë°˜ì ì¸ chattingê³¼ ê·“ì†ë§(slayer = PCS)ì„ ìˆ˜í–‰í•œë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_CHATTING : public Window, public Exec, public ButtonVisual
 {
@@ -662,7 +662,7 @@ private:
 	int							m_history_line;
 	std::vector<PAPERING_HISTORY>	m_history;
 
-//	int							m_string_output_x; // ÁÖ¼®Ã³¸® by larosel
+//	int							m_string_output_x; // ì£¼ì„ì²˜ë¦¬ by larosel
 
 	void	ScrollHistory();
 
@@ -692,12 +692,12 @@ private:
 	int								m_whisper_index;	// by larosel
 
 	//
-	// Vampire/Slayer µÑ ´Ù ³ªÅ¸³¯ ¼ö ÀÖ´Â WindowÀÇ ¼ö´Â 2°³(Inventory, Gear)ÀÌ´Ù.
-	// È­¸é ÀÌ µÑÀÌ ³ªÅ¸³µÀ» °æ¿ì click focus°¡ ÀÖ±â ¶§¹®¿¡ ±×°ÍÀ» ±¸º°ÇØÁà¾ß ÇÑ´Ù.
+	// Vampire/Slayer ë‘˜ ë‹¤ ë‚˜íƒ€ë‚  ìˆ˜ ìˆëŠ” Windowì˜ ìˆ˜ëŠ” 2ê°œ(Inventory, Gear)ì´ë‹¤.
+	// í™”ë©´ ì´ ë‘˜ì´ ë‚˜íƒ€ë‚¬ì„ ê²½ìš° click focusê°€ ìˆê¸° ë•Œë¬¸ì— ê·¸ê²ƒì„ êµ¬ë³„í•´ì¤˜ì•¼ í•œë‹¤.
 	//
 
-//	int								m_slayer_chat_mode;	// ÁÖ¼®Ã³¸® by larosel
-//	void	AddChatToHistoryTemp(char * str, char * sz_id, CHAT_LINE_CONDITION condition);	// ÁÖ¼®Ã³¸® by laorsel
+//	int								m_slayer_chat_mode;	// ì£¼ì„ì²˜ë¦¬ by larosel
+//	void	AddChatToHistoryTemp(char * str, char * sz_id, CHAT_LINE_CONDITION condition);	// ì£¼ì„ì²˜ë¦¬ by laorsel
 
 	enum
 	{
@@ -989,10 +989,10 @@ public:
 //
 // slayer/vampire inventory base class.
 //
-// - slayer/vampire inventory °øÅëÀÇ interface¸¦ Á¤ÀÇÇÑ´Ù. 
-// - slayer¿¡¼­ vampire·Î ¹Ù²î°Å³ª ¶Ç´Â ±× ¹İ´ëÀÏ ¶§, °´Ã¼¸¦ Àç»ı¼ºÇÏ¿©
-//   inventory´Â ÃÊ±âÈ­µÇÁö¸¸, inventoryÀÇ itemÀº ±×´ë·Î À¯ÁöµÈ´Ù. interface»ó¿¡¼­ÀÇ
-//   inventory´Â itemÀ» ÀúÀåÇÏ°í ÀÖÁö ¾Ê´Ù. ±×·¡¼­ ÀÌ class¸¦ base·Î ÇÏ´Â °ÍÀÌ´Ù.
+// - slayer/vampire inventory ê³µí†µì˜ interfaceë¥¼ ì •ì˜í•œë‹¤. 
+// - slayerì—ì„œ vampireë¡œ ë°”ë€Œê±°ë‚˜ ë˜ëŠ” ê·¸ ë°˜ëŒ€ì¼ ë•Œ, ê°ì²´ë¥¼ ì¬ìƒì„±í•˜ì—¬
+//   inventoryëŠ” ì´ˆê¸°í™”ë˜ì§€ë§Œ, inventoryì˜ itemì€ ê·¸ëŒ€ë¡œ ìœ ì§€ëœë‹¤. interfaceìƒì—ì„œì˜
+//   inventoryëŠ” itemì„ ì €ì¥í•˜ê³  ìˆì§€ ì•Šë‹¤. ê·¸ë˜ì„œ ì´ classë¥¼ baseë¡œ í•˜ëŠ” ê²ƒì´ë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_INVENTORY : public Window, public Exec, public ButtonVisual
 {
@@ -1037,11 +1037,11 @@ protected:
 	bool						m_bl_shift, m_bl_set_load;;
 
 	C_SPRITE_PACK *			m_pC_inventory_spk;
-	Rect							m_grid_rect; // ÀüÃ¼ Grid rect.
+	Rect							m_grid_rect; // ì „ì²´ Grid rect.
 
 	int							m_focus_grid_x, m_focus_grid_y;
 
-	// »ó¼Ó¹Ş´Â class¿¡¼­ ¹İµå½Ã setÇØÁà¾ß ÇÑ´Ù.
+	// ìƒì†ë°›ëŠ” classì—ì„œ ë°˜ë“œì‹œ setí•´ì¤˜ì•¼ í•œë‹¤.
 	int							m_grid_start_offset_x, m_grid_start_offset_y;
 	int							m_money_button_offset_x, m_money_button_offset_y;
 
@@ -1085,15 +1085,15 @@ public:
 	C_VS_UI_INVENTORY();
 	virtual ~C_VS_UI_INVENTORY();
 
-	//Áö·Ú¼³Ä¡
+	//ì§€ë¢°ì„¤ì¹˜
 	bool	StartInstallMineProgress(int focus_grid_x, int focus_grid_y);
 	bool	IsInstallMineProgress()		{ return gbl_mine_progress; }
 	void	EndInstallMineProgress()	{ gbl_mine_progress = false; }
-	//Áö·Ú¸¸µé±â
+	//ì§€ë¢°ë§Œë“¤ê¸°
 	bool	StartCreateMineProgress(int focus_grid_x, int focus_grid_y);
 	bool	IsCreateMineProgress()		{ return gbl_mine_progress; }
 	void	EndCreateMineProgress()	{ gbl_mine_progress = false; }
-	//ÆøÅº ¸¸µé±â
+	//í­íƒ„ ë§Œë“¤ê¸°
 	bool	StartCreateBombProgress(int focus_grid_x, int focus_grid_y);
 	bool	IsCreateBombProgress()		{ return gbl_mine_progress; }
 	void	EndCreateBombProgress()	{ gbl_mine_progress = false; }
@@ -1139,7 +1139,7 @@ protected:
 		GEAR_WINDOW,
 		GEAR_WINDOW_ALPHA,
 		GEAR_BLOOD_BIBLE_BLOCK,
-		// ¿©±â¼­ºÎÅÏ ½½·¹ÀÌ¾î Àü¿ë
+		// ì—¬ê¸°ì„œë¶€í„´ ìŠ¬ë ˆì´ì–´ ì „ìš©
 		BUTTON_FIRST,
 		BUTTON_FIRST_HILIGHTED,
 		BUTTON_FIRST_HILIGHTED_PUSHED,
@@ -1153,7 +1153,7 @@ protected:
 		HELP_ID,
 		CLOSE_ID,
 
-		// ¿©±â¼­ºÎÅÏ ½½·¹ÀÌ¾î Àü¿ë
+		// ì—¬ê¸°ì„œë¶€í„´ ìŠ¬ë ˆì´ì–´ ì „ìš©
 		FIRST_ID,
 		SECOND_ID,
 
@@ -1171,7 +1171,7 @@ protected:
 	int							m_focus_slot;
 	bool						m_bl_set_load;
 
-	// »ó¼Ó¹Ş´Â class¿¡¼­ ¹İµå½Ã setÇØÁà¾ß ÇÑ´Ù.
+	// ìƒì†ë°›ëŠ” classì—ì„œ ë°˜ë“œì‹œ setí•´ì¤˜ì•¼ í•œë‹¤.
 	int								m_slot_size;
 	Rect *							m_p_slot_rect;
 	int *							m_p_slot_image;
@@ -1234,7 +1234,7 @@ public:
 		HOTKEY3,
 		HOTKEY4,
 
-		//¹ìÆÄ¿ë ÇÖÅ°
+		//ë±€íŒŒìš© í•«í‚¤
 		HOTKEY5,
 		HOTKEY6,
 		HOTKEY7,
@@ -1258,14 +1258,14 @@ protected:
 	int							m_current_skill_set, m_current_skill_grade;
 	enum 
 	{ 
-		// ÇÑ Ä³¸¯ÅÍ°¡ ¹è¿ï ¼ö ÀÖ´Â skill ¼ö´Â 100°³ ÀÌÇÏ¶ó°í...
-		SPREAD_X_MAX = 10, // ÆîÃÄÁ³À» ¶§ÀÇ °¡·ÎÀÇ ÃÖ´ë °³¼ö(Ã¹ lineÀº Spread buttonÀ» Æ÷ÇÔÇÑ´Ù).
+		// í•œ ìºë¦­í„°ê°€ ë°°ìš¸ ìˆ˜ ìˆëŠ” skill ìˆ˜ëŠ” 100ê°œ ì´í•˜ë¼ê³ ...
+		SPREAD_X_MAX = 10, // í¼ì³ì¡Œì„ ë•Œì˜ ê°€ë¡œì˜ ìµœëŒ€ ê°œìˆ˜(ì²« lineì€ Spread buttonì„ í¬í•¨í•œë‹¤).
 		SPREAD_Y_MAX = 10,
 	};
 
 	C_SPRITE_PACK				m_etc_spk;
 
-	// »ó¼Ó¹Ş´Â °´Ã¼¿¡¼­ setÇØÁÙ °Í.
+	// ìƒì†ë°›ëŠ” ê°ì²´ì—ì„œ setí•´ì¤„ ê²ƒ.
 	int							m_skill_guard_x, m_skill_guard_y;
 	int							m_skill_start_x, m_skill_start_y;
 	int							m_skill_guard_extra_offset;
@@ -1273,13 +1273,13 @@ protected:
 
 	enum ETC_SPK_INDEX
 	{
-		SKILL_GUARD, // skill icon Å×µÎ¸®
+		SKILL_GUARD, // skill icon í…Œë‘ë¦¬
 		SKILL_EMPTY_BUTTON,
 		SKILL_PUSHED_BUTTON,
 	};
 
-	int							m_selected_skillid; // NOT_SELECTEDÀÌ¸é ¼±ÅÃµÇÁö ¾ÊÀº °ÍÀÌ´Ù. ACTIONINFOÁß ÇÏ³ªÀÌ´Ù.
-	int							m_focused_slot; // Spread buttonÀ» 0À¸·Î ÇÏ°í ÁÂ¿¡¼­ ¿ì·Î Áõ°¡ÇÑ´Ù.
+	int							m_selected_skillid; // NOT_SELECTEDì´ë©´ ì„ íƒë˜ì§€ ì•Šì€ ê²ƒì´ë‹¤. ACTIONINFOì¤‘ í•˜ë‚˜ì´ë‹¤.
+	int							m_focused_slot; // Spread buttonì„ 0ìœ¼ë¡œ í•˜ê³  ì¢Œì—ì„œ ìš°ë¡œ ì¦ê°€í•œë‹¤.
 	bool							m_bl_pushed;
 	bool							m_bl_open;
 
@@ -1647,7 +1647,7 @@ public:
 };
 
 //////////////////////////////////////////////////////////////////////////
-// ÊÀ½çµØÍ¼
+// å„ì¹ë’ˆæš 
 //////////////////////////////////////////////////////////////////////////
 class C_VS_UI_WORLDMAP : public Window, public Exec, public ButtonVisual
 {
@@ -1759,7 +1759,7 @@ public :
 		DWORD			quest_time;
 	};
 	
-	QUEST_STATUS		m_quest_status;					// ÇöÀç ÁøÇàÁßÀÎ Äù½ºÆ® Á¤º¸
+	QUEST_STATUS		m_quest_status;					// í˜„ì¬ ì§„í–‰ì¤‘ì¸ í€˜ìŠ¤íŠ¸ ì •ë³´
 	bool				m_bl_active;
 	bool				m_bl_timeover;
 	bool				m_bl_focus;
@@ -1767,7 +1767,7 @@ public :
 	DWORD				m_timer;
 	DWORD				m_timer2;
 	CSpriteSurface *	m_p_back_surface;
-	std::vector<std::string>					m_hard_cording;		// ³¯ ¸·¾ÆÁà!!!
+	std::vector<std::string>					m_hard_cording;		// ë‚  ë§‰ì•„ì¤˜!!!
 
 
 private :
@@ -1846,7 +1846,7 @@ protected:
 	C_VS_UI_HPBAR *				m_pC_hpbar;
 	C_VS_UI_EFFECT_STATUS *		m_pC_effect_status;
 	C_VS_UI_MINIMAP *			m_pC_minimap;
-	// add by Coffee Ìí¼ÓÊÀ½çµØÍ¼
+	// add by Coffee è­¦ì†å„ì¹ë’ˆæš 
 	C_VS_UI_WORLDMAP *          m_pC_worldmap;
 	// end 
 	C_VS_UI_CHATTING *			m_pC_chatting;
@@ -1938,8 +1938,8 @@ protected:
 		BUTTON_TEAM_MEMBER_LIST_HILIGHTED,
 		BUTTON_TEAM_MEMBER_LIST_HILIGHTED_PUSHED,
 
-		// etc-_- È÷½Â¹Ì¿ö by ¾¦°«
-		BUTTON_MAIL,					// ¸Ş´ºÅÇ¿¡ ³ÖÀğ
+		// etc-_- íˆìŠ¹ë¯¸ì›Œ by ì‘¥ê°“
+		BUTTON_MAIL,					// ë©”ë‰´íƒ­ì— ë„£ìŸˆ
 		BUTTON_MAIL_HILIGHTED,
 		BUTTON_MAIL_HILIGHTED_PUSHED,
 
@@ -2023,10 +2023,10 @@ protected:
 		// TEAM TAB
 		TEAM_INFO_ID,
 		TEAM_MEMBER_LIST_ID,
-//		TEAM_COMMAND_ID, // ±æµå ¸í·É
-		TEAM_LIST_ID, // ±æµå ¸®½ºÆ®
-		TEAM_WAIT_LIST_ID, // ´ë±â ±æµå ¸®½ºÆ®
-		TEAM_UNION_ID,		// ¿¬ÇÕ ¸í·É
+//		TEAM_COMMAND_ID, // ê¸¸ë“œ ëª…ë ¹
+		TEAM_LIST_ID, // ê¸¸ë“œ ë¦¬ìŠ¤íŠ¸
+		TEAM_WAIT_LIST_ID, // ëŒ€ê¸° ê¸¸ë“œ ë¦¬ìŠ¤íŠ¸
+		TEAM_UNION_ID,		// ì—°í•© ëª…ë ¹
 
 		// UTIL TAB
 		UTIL_STORE_ID,
@@ -2070,17 +2070,17 @@ public:
 		}
 	}
 
-	//Áö·Ú¼³Ä¡
+	//ì§€ë¢°ì„¤ì¹˜
 	void	StartInstallMineProgress(int focus_grid_x, int focus_grid_y)
 	{ if(m_pC_inventory)m_pC_inventory->StartInstallMineProgress(focus_grid_x, focus_grid_y); }
 	bool	IsInstallMineProgress()		{ return gbl_mine_progress; }
 	void	EndInstallMineProgress()	{ gbl_mine_progress = false; }
-	//Áö·Ú¸¸µé±â
+	//ì§€ë¢°ë§Œë“¤ê¸°
 	void	StartCreateMineProgress(int focus_grid_x, int focus_grid_y)
 	{ if(m_pC_inventory)m_pC_inventory->StartCreateMineProgress(focus_grid_x, focus_grid_y); }
 	bool	IsCreateMineProgress()		{ return gbl_mine_progress; }
 	void	EndCreateMineProgress()	{ gbl_mine_progress = false; }
-	//ÆøÅº ¸¸µé±â
+	//í­íƒ„ ë§Œë“¤ê¸°
 	void	StartCreateBombProgress(int focus_grid_x, int focus_grid_y)
 	{ if(m_pC_inventory)m_pC_inventory->StartCreateBombProgress(focus_grid_x, focus_grid_y); }
 	bool	IsCreateBombProgress()		{ return gbl_mine_progress; }
@@ -2131,8 +2131,8 @@ public:
 
 	void	LevelUp()
 	{
-		// ÀÌ¹Ì ¶° ÀÖÀ¸¸é ¾Æ¹«°Íµµ ¾ÈÇÑ´Ù.
-		// ´İ´Â °ÍÀº closing interface·Î...
+		// ì´ë¯¸ ë–  ìˆìœ¼ë©´ ì•„ë¬´ê²ƒë„ ì•ˆí•œë‹¤.
+		// ë‹«ëŠ” ê²ƒì€ closing interfaceë¡œ...
 
 		if (!m_pC_level_up)
 		{
@@ -2161,8 +2161,8 @@ public:
 		return m_pC_chatting->IsEmpty();
 	}
 
-	virtual void	DoCommonActionBeforeEventOccured(); // ¹ß»ıÇÏ±â Àü
-	virtual void	DoCommonActionAfterEventOccured()  // ¹ß»ıÇÑ ÈÄ
+	virtual void	DoCommonActionBeforeEventOccured(); // ë°œìƒí•˜ê¸° ì „
+	virtual void	DoCommonActionAfterEventOccured()  // ë°œìƒí•œ í›„
 	{
 		CloseInventory();
 		CloseGear();
@@ -2198,7 +2198,7 @@ public:
 		GetGearWindow()->XY(_x, _y);
 	}
 
-	void	ShopRunningAnnounced(); // ShopÀ» À§ÇÑ ÇÊ¿äÇÑ Window¸¦ ¶ç¿î´Ù.
+	void	ShopRunningAnnounced(); // Shopì„ ìœ„í•œ í•„ìš”í•œ Windowë¥¼ ë„ìš´ë‹¤.
 	
 	void	StorageRunningAnnounced();
 	
@@ -2318,7 +2318,7 @@ public:
 	void	HotKey_Minimap();
 	void	HotKey_CharInfo();
 //	void	HotKey_WindowToggle();
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		void	HotKey_Inventory(bool IsCheckSubInventory = false);
 	#else
 		void	HotKey_Inventory();	
@@ -2465,11 +2465,11 @@ private:
 		HERZOG_ID,
 		LANDESHER_ID,
 
-		MALCHUT_ID,					// ¸¶¸£ÄíÆ®
-		YESOD_ID,						// ¿¹¼Òµå
-		HOD_ID,						// È£µå
-		NETRETH_ID,					// ³×Â÷Å©
-		TIPHRETH_ID,					// Æ¼ÆÄ·¹Æ®
+		MALCHUT_ID,					// ë§ˆë¥´ì¿ íŠ¸
+		YESOD_ID,						// ì˜ˆì†Œë“œ
+		HOD_ID,						// í˜¸ë“œ
+		NETRETH_ID,					// ë„¤ì°¨í¬
+		TIPHRETH_ID,					// í‹°íŒŒë ˆíŠ¸
 		GEBURAH_ID,
 		CHESED_ID,
 		BINSH_ID,								
@@ -2509,7 +2509,7 @@ private:
 //		GRADE3_BUTTON_TAB_ID8,
 //		GRADE3_BUTTON_TAB_ID9,
 //		GRADE3_BUTTON_TAB_ID10,
-		CHANGE_IMAGE_ID,		// ÀÌ¹ÌÁö º¯°æ ¹öÆ°
+		CHANGE_IMAGE_ID,		// ì´ë¯¸ì§€ ë³€ê²½ ë²„íŠ¼
 		PET_INFO_ID,
 		
 		// grade 2
@@ -2576,7 +2576,7 @@ public:
 	void	_Show2();	// Character Info
 	void	_Show3();	// Grade1
 	void	_Show4();	// Grade2
-	//by csm 2004.12.30 ÀüÁ÷ °ü·Ã ÀÎÅÍÆäÀÌ½º Ãß°¡ 
+	//by csm 2004.12.30 ì „ì§ ê´€ë ¨ ì¸í„°í˜ì´ìŠ¤ ì¶”ê°€ 
 	void	_Show5();	// Grade2
 	void	Process();
 //	void	Start(bool skill_mode);
@@ -2620,10 +2620,10 @@ public:
 
 		NAMING_WINDOW,
 
-		QUEST_MANAGER_LIST, // ¸ŞÀÎ Ã¢
-		QUEST_MANAGER_DETAIL, // ¼¼ºÎ»çÇ×
-		QUEST_MANAGER_MISSION, // ÀÓ¹«
-		QUEST_MANAGER_ITEM, // ÀÎº¥Åä¸®
+		QUEST_MANAGER_LIST, // ë©”ì¸ ì°½
+		QUEST_MANAGER_DETAIL, // ì„¸ë¶€ì‚¬í•­
+		QUEST_MANAGER_MISSION, // ì„ë¬´
+		QUEST_MANAGER_ITEM, // ì¸ë²¤í† ë¦¬
 		INVENTORY_SUB,
 		FRIEND_WINDOW,//add by viva
 		WINDOW_TOTAL,
@@ -2760,13 +2760,13 @@ private:
 		INDEX_WAR_DATE,
 		INDEX_WAR_DATE_HILIGHTED,
 
-		INDEX_UNITED_JOIN,				// ¿¬ÇÕ°¡ÀÔ
+		INDEX_UNITED_JOIN,				// ì—°í•©ê°€ì…
 		INDEX_UNITED_JOIN_HILIGHTED,	
-		INDEX_UNITED_WITHDRAWAL,		// ¿¬ÇÕÅ»Åğ
+		INDEX_UNITED_WITHDRAWAL,		// ì—°í•©íƒˆí‡´
 		INDEX_UNITED_WITHDRAWAL_HILIGHTED,
-		INDEX_UNITED_EXPEL,				// ¿¬ÇÕÃß¹æ
+		INDEX_UNITED_EXPEL,				// ì—°í•©ì¶”ë°©
 		INDEX_UNITED_EXPEL_HILIGHTED,
-		INDEX_GUILD_APPOINT,			// ÀÓ¸í
+		INDEX_GUILD_APPOINT,			// ì„ëª…
 		INDEX_GUILD_APPOINT_HILIGHTED,
 
 
@@ -2903,7 +2903,7 @@ private:
 	int		m_print_x[2], m_print_y, m_print_gap;
 	int		m_focus;
 	std::vector<TEAM_MEMBER_LIST>	m_v_member_list;
-	BYTE	m_bAvailableRecall; // Å¸ÀÔ¿¡ µû¶ó ±æ¿ø È£ÃâÇÏ±â 
+	BYTE	m_bAvailableRecall; // íƒ€ì…ì— ë”°ë¼ ê¸¸ì› í˜¸ì¶œí•˜ê¸° 
 	char	m_SelectedID[16];
 	char	m_AskingMessage[128];
 public:
@@ -3006,13 +3006,13 @@ private:
 		INDEX_WAR_DATE,
 		INDEX_WAR_DATE_HILIGHTED,
 
-		INDEX_UNITED_JOIN,				// ¿¬ÇÕ°¡ÀÔ
+		INDEX_UNITED_JOIN,				// ì—°í•©ê°€ì…
 		INDEX_UNITED_JOIN_HILIGHTED,	
-		INDEX_UNITED_WITHDRAWAL,		// ¿¬ÇÕÅ»Åğ
+		INDEX_UNITED_WITHDRAWAL,		// ì—°í•©íƒˆí‡´
 		INDEX_UNITED_WITHDRAWAL_HILIGHTED,
-		INDEX_UNITED_EXPEL,				// ¿¬ÇÕÃß¹æ
+		INDEX_UNITED_EXPEL,				// ì—°í•©ì¶”ë°©
 		INDEX_UNITED_EXPEL_HILIGHTED,
-		INDEX_GUILD_APPOINT,			// ÀÓ¸í
+		INDEX_GUILD_APPOINT,			// ì„ëª…
 		INDEX_GUILD_APPOINT_HILIGHTED,
 
 
@@ -3164,13 +3164,13 @@ private:
 		INDEX_WAR_DATE,
 		INDEX_WAR_DATE_HILIGHTED,
 
-		INDEX_UNITED_JOIN,				// ¿¬ÇÕ°¡ÀÔ
+		INDEX_UNITED_JOIN,				// ì—°í•©ê°€ì…
 		INDEX_UNITED_JOIN_HILIGHTED,	
-		INDEX_UNITED_WITHDRAWAL,		// ¿¬ÇÕÅ»Åğ
+		INDEX_UNITED_WITHDRAWAL,		// ì—°í•©íƒˆí‡´
 		INDEX_UNITED_WITHDRAWAL_HILIGHTED,
-		INDEX_UNITED_EXPEL,				// ¿¬ÇÕÃß¹æ
+		INDEX_UNITED_EXPEL,				// ì—°í•©ì¶”ë°©
 		INDEX_UNITED_EXPEL_HILIGHTED,
-		INDEX_GUILD_APPOINT,			// ÀÓ¸í
+		INDEX_GUILD_APPOINT,			// ì„ëª…
 		INDEX_GUILD_APPOINT_HILIGHTED,
 
 	};
@@ -3307,13 +3307,13 @@ private:
 		INDEX_WAR_DATE,
 		INDEX_WAR_DATE_HILIGHTED,
 
-		INDEX_UNITED_JOIN,				// ¿¬ÇÕ°¡ÀÔ
+		INDEX_UNITED_JOIN,				// ì—°í•©ê°€ì…
 		INDEX_UNITED_JOIN_HILIGHTED,	
-		INDEX_UNITED_WITHDRAWAL,		// ¿¬ÇÕÅ»Åğ
+		INDEX_UNITED_WITHDRAWAL,		// ì—°í•©íƒˆí‡´
 		INDEX_UNITED_WITHDRAWAL_HILIGHTED,
-		INDEX_UNITED_EXPEL,				// ¿¬ÇÕÃß¹æ
+		INDEX_UNITED_EXPEL,				// ì—°í•©ì¶”ë°©
 		INDEX_UNITED_EXPEL_HILIGHTED,
-		INDEX_GUILD_APPOINT,			// ÀÓ¸í
+		INDEX_GUILD_APPOINT,			// ì„ëª…
 		INDEX_GUILD_APPOINT_HILIGHTED,
 
 
@@ -3345,7 +3345,7 @@ private:
 	CDirectDrawSurface				*m_guild_mark;
 
 public:
-	C_VS_UI_TEAM_REGIST(bool member, int reg_fee, int rank, char *team_name = NULL, char *date = NULL, int guild_id = -1); // team_nameÀº memberÀÎ °æ¿ì¿¡¸¸
+	C_VS_UI_TEAM_REGIST(bool member, int reg_fee, int rank, char *team_name = NULL, char *date = NULL, int guild_id = -1); // team_nameì€ memberì¸ ê²½ìš°ì—ë§Œ
 	~C_VS_UI_TEAM_REGIST();
 
 	void	Process();
@@ -3578,7 +3578,7 @@ public :
 //-----------------------------------------------------------------------------
 // class C_VS_UI_BRING_FEE
 //
-// ¼¼±İ °¡Á®¿À±â
+// ì„¸ê¸ˆ ê°€ì ¸ì˜¤ê¸°
 //
 //-----------------------------------------------------------------------------
 class C_VS_UI_BRING_FEE : public Window, public Exec, public ButtonVisual
@@ -3706,13 +3706,13 @@ class C_VS_UI_WAR_LIST : public Window, public Exec, public ButtonVisual
 		INDEX_WAR_DATE,
 		INDEX_WAR_DATE_HILIGHTED,
 
-		INDEX_UNITED_JOIN,				// ¿¬ÇÕ°¡ÀÔ
+		INDEX_UNITED_JOIN,				// ì—°í•©ê°€ì…
 		INDEX_UNITED_JOIN_HILIGHTED,	
-		INDEX_UNITED_WITHDRAWAL,		// ¿¬ÇÕÅ»Åğ
+		INDEX_UNITED_WITHDRAWAL,		// ì—°í•©íƒˆí‡´
 		INDEX_UNITED_WITHDRAWAL_HILIGHTED,
-		INDEX_UNITED_EXPEL,				// ¿¬ÇÕÃß¹æ
+		INDEX_UNITED_EXPEL,				// ì—°í•©ì¶”ë°©
 		INDEX_UNITED_EXPEL_HILIGHTED,
-		INDEX_GUILD_APPOINT,			// ÀÓ¸í
+		INDEX_GUILD_APPOINT,			// ì„ëª…
 		INDEX_GUILD_APPOINT_HILIGHTED,
 
 
@@ -3743,7 +3743,7 @@ public:
 			reinforceGuildID = 0;
 		};
 	
-		BYTE warType;		// 0 : µ¿Á·°£ 1 : Á¾Á·°£
+		BYTE warType;		// 0 : ë™ì¡±ê°„ 1 : ì¢…ì¡±ê°„
 		WORD year;
 		BYTE month;
 		BYTE day;
@@ -3756,7 +3756,7 @@ public:
 	
 	struct _WarList
 	{
-		BYTE warType;		// 0 : µ¿Á·°£ 1 : Á¾Á·°£
+		BYTE warType;		// 0 : ë™ì¡±ê°„ 1 : ì¢…ì¡±ê°„
 		WORD year;
 		BYTE month;
 		BYTE day;
@@ -3833,7 +3833,7 @@ public :
 		int y;
 		BYTE shrine_race;
 		BLOOD_BIBLE_STATUS_INFO status;
-		//BYTE bonus;										-_- ¾È¾´´Ù. 
+		//BYTE bonus;										-_- ì•ˆì“´ë‹¤. 
 		std::string name;
 	};
 
@@ -3879,16 +3879,16 @@ public :
 //-----------------------------------------------------------------------------
 // class C_VS_UI_BRING_FEE
 //
-// ÀÌ¸§ ÀÔ·ÂÇÏ±â
-// -_- ´Ù¿ëµµ·Î ¾¹½Ã´Ù.
+// ì´ë¦„ ì…ë ¥í•˜ê¸°
+// -_- ë‹¤ìš©ë„ë¡œ ì”ì‹œë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_INPUT_NAME : public Window, public Exec, public ButtonVisual
 {
 public :
 	enum INPUT_NAME_MODE_LIST
 	{
-		INPUT_NAME_HOPE_COUPLE = 0,					// Ä¿ÇÃ Èñ¸Á½Ã
-		INPUT_NAME_BREAK_UP,					// Ä¿ÇÃ °áº°½Ã		
+		INPUT_NAME_HOPE_COUPLE = 0,					// ì»¤í”Œ í¬ë§ì‹œ
+		INPUT_NAME_BREAK_UP,					// ì»¤í”Œ ê²°ë³„ì‹œ		
 		INPUT_NAME_FORCE_BREAK_UP,
 
 		INPUT_NAME_MAX,
@@ -3957,8 +3957,8 @@ public :
 //-----------------------------------------------------------------------------
 // class C_VS_UI_BRING_FEE
 //
-// ÀÌ¸§ ÀÔ·ÂÇÏ±â
-// -_- ´Ù¿ëµµ·Î ¾¹½Ã´Ù.
+// ì´ë¦„ ì…ë ¥í•˜ê¸°
+// -_- ë‹¤ìš©ë„ë¡œ ì”ì‹œë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_POPUP_MESSAGE : public Window, public Exec, public ButtonVisual
 {
@@ -3970,7 +3970,7 @@ public :
 		POPUP_WELCOME,
 		POPUP_EVENT_QUEST,
 		POPUP_MINI_WINDOW,
-		POPUP_ASK_BEGINNER_ZONE,			// ÃÊº¸ÀÚ Á¸À¸·Î °¥·¡?
+		POPUP_ASK_BEGINNER_ZONE,			// ì´ˆë³´ì ì¡´ìœ¼ë¡œ ê°ˆë˜?
 		
 		POPUP_MAX,
 		POPUP_NULL,
@@ -4184,8 +4184,8 @@ public :
 //-----------------------------------------------------------------------------
 // class C_VS_UI_ITEM_LIST
 //
-// ÀÌ¸§ ÀÔ·ÂÇÏ±â
-// -_- ´Ù¿ëµµ·Î ¾¹½Ã´Ù.
+// ì´ë¦„ ì…ë ¥í•˜ê¸°
+// -_- ë‹¤ìš©ë„ë¡œ ì”ì‹œë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_ITEM_LIST : public Window, public Exec, public ButtonVisual
 {
@@ -4255,8 +4255,8 @@ public :
 //-----------------------------------------------------------------------------
 // class C_VS_UI_IMAGE_NOTICE
 //
-// ÀÌ¸§ ÀÔ·ÂÇÏ±â
-// -_- ´Ù¿ëµµ·Î ¾¹½Ã´Ù.
+// ì´ë¦„ ì…ë ¥í•˜ê¸°
+// -_- ë‹¤ìš©ë„ë¡œ ì”ì‹œë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_IMAGE_NOTICE : public Window, public Exec, public ButtonVisual
 {
@@ -4763,10 +4763,10 @@ private:
 
 	enum GAME_STATUS
 	{
-		GAMESTATUS_GAME,	// °ÔÀÓÁß
-		GAMESTATUS_DIE,		// °ÔÀÓ ³¡³² ÅÍÁ®¼­-¤µ-
-		GAMESTATUS_CLEAR,	// °ÔÀÓ ³¡³² ´Ù Ã£¾Æ¼­
-		GAMESTATUS_READY,	// »õ °ÔÀÓ
+		GAMESTATUS_GAME,	// ê²Œì„ì¤‘
+		GAMESTATUS_DIE,		// ê²Œì„ ëë‚¨ í„°ì ¸ì„œ-ã……-
+		GAMESTATUS_CLEAR,	// ê²Œì„ ëë‚¨ ë‹¤ ì°¾ì•„ì„œ
+		GAMESTATUS_READY,	// ìƒˆ ê²Œì„
 	};
 
 	enum LEFTMINE
@@ -4853,7 +4853,7 @@ extern C_VS_UI_WINDOW_MANAGER* gpC_vs_ui_window_manager;
 extern S_SLOT	g_char_slot_ingame;
 extern Point g_item_ref_point[];
 
-extern int g_HISTORY_LINE;	// Ã¤ÆÃÃ¢ ±æÀÌ
+extern int g_HISTORY_LINE;	// ì±„íŒ…ì°½ ê¸¸ì´
 
 void g_SetItemRefPoint(int item_rect_w, int item_rect_h);
 

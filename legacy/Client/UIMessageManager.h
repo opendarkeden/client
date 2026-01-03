@@ -17,18 +17,18 @@ class UIMessageManager {
 		~UIMessageManager();
 
 		//-----------------------------------------------------------
-		// √ ±‚»≠ - « ºˆ~~
+		// Ï¥àÍ∏∞Ìôî - ÌïÑÏàò~~
 		//-----------------------------------------------------------
 		void			Init();
 
 		//-----------------------------------------------------------
-		// UI Message √≥∏Æ
+		// UI Message Ï≤òÎ¶¨
 		//-----------------------------------------------------------
 		void			Execute(DWORD message, int left, int right, void* void_ptr);
 
 	protected :
 		//-----------------------------------------------------------
-		// Ω«¡¶∑Œ message√≥∏Æ«œ¥¬ «‘ºˆµÈ
+		// Ïã§Ï†úÎ°ú messageÏ≤òÎ¶¨ÌïòÎäî Ìï®ÏàòÎì§
 		//-----------------------------------------------------------
 		static void	Execute_UI_NEW_CHARACTER(int left, int right, void* void_ptr);
 		static void	Execute_UI_RUN_NEWUSER_REGISTRATION(int left, int right, void* void_ptr);
@@ -169,8 +169,8 @@ class UIMessageManager {
 		static void Execute_UI_JOIN_READY_TEAM(int left, int right, void *void_ptr);				// void_ptr = TEAM_NAME
 		static void Execute_UI_JOIN_REGIST_TEAM(int left, int right, void *void_ptr);			// void_ptr = TEAM_NAME
 
-		static void Execute_UI_REGIST_GUILD_MEMBER(int left, int right, void *void_ptr);			// void_ptr = introduction max:150byte √¢ ¥›æ∆¡Ÿ∞Õ!
-		static void Execute_UI_REGIST_GUILD_TEAM(int left, int right, void *void_ptr);			// left = TEAM_NAME, void_ptr = introduction max:150byte √¢ ¥›æ∆¡Ÿ∞Õ!
+		static void Execute_UI_REGIST_GUILD_MEMBER(int left, int right, void *void_ptr);			// void_ptr = introduction max:150byte Ï∞Ω Îã´ÏïÑÏ§ÑÍ≤É!
+		static void Execute_UI_REGIST_GUILD_TEAM(int left, int right, void *void_ptr);			// left = TEAM_NAME, void_ptr = introduction max:150byte Ï∞Ω Îã´ÏïÑÏ§ÑÍ≤É!
 
 		static void Execute_UI_CLOSE_FILE_DIALOG(int left, int right, void *void_ptr);
 
@@ -186,7 +186,7 @@ class UIMessageManager {
 		static void Execute_UI_SEND_NAME_FOR_SOUL_CHAIN(int left, int right, void* void_ptr);
 		static void Execute_UI_CLOSE_TRACE_WINDOW(int left, int right, void* void_ptr);
 
-	// ≥›∏∂∫ÌøÎ ºˆ¡§
+	// ÎÑ∑ÎßàÎ∏îÏö© ÏàòÏ†ï
 		static void Execute_UI_RUN_CONNECT(int left, int right, void* void_ptr);
 		static void Excute_UI_SELECT_GRADE_SKILL(int left, int right, void* void_ptr);
 
@@ -332,7 +332,7 @@ class UIMessageManager {
 
 		static void	Execute_UI_REQUEST_EVENT_ITEM(int left, int right, void* void_ptr);
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ‘ˆº”∞¸÷–∞¸
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ëó§ÏÜçÍ¥ÄÊ´ìÍ¥Ä
 
 		static void	Execute_UI_CLOSE_INVENTORY_SUB(int left, int right, void* void_ptr);
 		static void	Execute_UI_ITEM_DROP_TO_INVENTORY_SUB(int left, int right, void* void_ptr);

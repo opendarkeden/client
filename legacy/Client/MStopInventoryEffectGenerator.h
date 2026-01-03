@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MStopInventoryEffectGenerator.h
 //----------------------------------------------------------------------
-// InventoryÀÇ ÇÑ ÁöÁ¡¿¡¼­  »ı¼º
+// Inventoryì˜ í•œ ì§€ì ì—ì„œ  ìƒì„±
 //----------------------------------------------------------------------
 
 #ifndef	__MSTOPINVENTORYEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MStopInventoryEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_STOP_INVENTORY; }
 
-		// Effect»ı¼º
+		// Effectìƒì„±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

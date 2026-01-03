@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // CIndexSprite555.h
 //----------------------------------------------------------------------
-// 5:5:5 video card¿¡ ´ëÇÑ sprite class
+// 5:5:5 video cardì— ëŒ€í•œ sprite class
 //----------------------------------------------------------------------
 
 #ifndef	__CINDEXSPRITE555_H__
@@ -18,7 +18,7 @@ class ifstream;
 class CIndexSprite555 : public CIndexSprite {
 	public :
 		//---------------------------------------------------------
-		// fstream¿¡¼­ save/load¸¦ ÇÑ´Ù.
+		// fstreamì—ì„œ save/loadë¥¼ í•œë‹¤.
 		//---------------------------------------------------------
 		bool		SaveToFile(class ofstream& file);
 		bool		LoadFromFile(class ifstream& file);		

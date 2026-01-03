@@ -148,17 +148,17 @@ RequestClientPlayerManager::RemoveTerminatedThread()
 //----------------------------------------------------------------------
 // Connect
 //----------------------------------------------------------------------
-// IPÀÇ ÄÄÇ»ÅÍ¿¡ NameÀÌ¶õ Ä³¸¯ÅÍ¿¡°Ô Á¢¼ÓÇÑ´Ù.
+// IPì˜ ì»´í“¨í„°ì— Nameì´ë€ ìºë¦­í„°ì—ê²Œ ì ‘ì†í•œë‹¤.
 //
-// °ÔÀÓ µ¹¾Æ°¡´Âµ¥ ÁöÀåÀ» ÁÖÁö ¾Ê±â À§ÇØ¼­
-// thread¸¦ ÇÏ³ª »ı¼ºÇØ¼­ Á¢¼ÓÀ» ½ÃµµÇÑ´Ù.
+// ê²Œì„ ëŒì•„ê°€ëŠ”ë° ì§€ì¥ì„ ì£¼ì§€ ì•Šê¸° ìœ„í•´ì„œ
+// threadë¥¼ í•˜ë‚˜ ìƒì„±í•´ì„œ ì ‘ì†ì„ ì‹œë„í•œë‹¤.
 // 
-// Á¢¼ÓÀÌ ½ÇÆĞÇÏ¸é? ¾î¶»ÇÏ¸é µÉ±î.. - -;;
+// ì ‘ì†ì´ ì‹¤íŒ¨í•˜ë©´? ì–´ë–»í•˜ë©´ ë ê¹Œ.. - -;;
 //----------------------------------------------------------------------
 void		
 RequestClientPlayerManager::Connect(const char* pIP, const char* pRequestName, REQUEST_CLIENT_MODE requestMode)
 {
-	// ³Ñ ¸¹À» °æ¿ì´Â ´õ ÀÌ»ó Á¢¼ÓÀ» ¾ÈÇÏµµ·Ï ÇØ¾ßÇÑ´Ù.
+	// ë„˜ ë§ì„ ê²½ìš°ëŠ” ë” ì´ìƒ ì ‘ì†ì„ ì•ˆí•˜ë„ë¡ í•´ì•¼í•œë‹¤.
 	if (m_mapRequestClientPlayer.size() >= g_pClientConfig->MAX_REQUEST_SERVICE)
 	{
 		return;
@@ -179,20 +179,20 @@ RequestClientPlayerManager::Connect(const char* pIP, const char* pRequestName, R
 	//	port = pUserInfo->TCPPort;
 	}
 
-	// ÀÏ´Ü ÇÏ³ª »ı¼ºÇØ¼­ thread·Î ³Ñ°ÜÁØ´Ù.
+	// ì¼ë‹¨ í•˜ë‚˜ ìƒì„±í•´ì„œ threadë¡œ ë„˜ê²¨ì¤€ë‹¤.
 	CONNECTION_INFO* pInfo = new CONNECTION_INFO;
 	pInfo->name			= pRequestName;
 	pInfo->ip			= pIP;
 	pInfo->port			= port;
 	pInfo->requestMode	= requestMode;
 
-	DWORD dwChildThreadID;	// ÀÇ¹Ì ¾ø´ç -- ;
+	DWORD dwChildThreadID;	// ì˜ë¯¸ ì—†ë‹¹ -- ;
 
 
 	//------------------------------------------------------------
-	// Á¢¼Ó ½Ãµµ
+	// ì ‘ì† ì‹œë„
 	//------------------------------------------------------------
-	Lock();		// °°ÀÌ lock¾´´Ù. - -;
+	Lock();		// ê°™ì´ lockì“´ë‹¤. - -;
 
 	m_mapConnectionInfo[pInfo->name] = pInfo;
 	
@@ -203,10 +203,10 @@ RequestClientPlayerManager::Connect(const char* pIP, const char* pRequestName, R
 									NULL,
 									&dwChildThreadID);
 
-	// priority´Â ³·°Ô
+	// priorityëŠ” ë‚®ê²Œ
 	SetThreadPriority(hConnectionThread, THREAD_PRIORITY_LOWEST);	
 
-	// ³ªÁß¿¡ Áö¿ï ¼ö ÀÖ°Ô Ãß°¡ÇØµĞ´Ù.
+	// ë‚˜ì¤‘ì— ì§€ìš¸ ìˆ˜ ìˆê²Œ ì¶”ê°€í•´ë‘”ë‹¤.
 	m_listConnectionThread.push_back( hConnectionThread );
 
 	Unlock();
@@ -247,7 +247,7 @@ RequestClientPlayerManager::HasConnection(const char* pRequestName)
 
 	std::string name = pRequestName;
 
-	// ¿¬°áµÈ °æ¿ì
+	// ì—°ê²°ëœ ê²½ìš°
 	REQUESTCLIENTPLAYER_MAP::const_iterator iPlayer = m_mapRequestClientPlayer.find( name );
 		
 	if (iPlayer != m_mapRequestClientPlayer.end())
@@ -270,7 +270,7 @@ RequestClientPlayerManager::HasTryingConnection(const char* pRequestName)
 
 	std::string name = pRequestName;
 
-	// Á¢¼Ó ½Ãµµ ÁßÀÎ °æ¿ì
+	// ì ‘ì† ì‹œë„ ì¤‘ì¸ ê²½ìš°
 	CONNECTION_INFO_MAP::const_iterator iInfo = m_mapConnectionInfo.find( name );
 		
 	if (iInfo != m_mapConnectionInfo.end())
@@ -319,7 +319,7 @@ RequestClientPlayerManager::Disconnect(const char* pRequestName)
 bool
 RequestClientPlayerManager::AddRequestClientPlayer(RequestClientPlayer* pRequestClientPlayer)
 {
-	Lock();	// ±¸Â÷³ª¼­ °°Àº ¶ôÀ».. - -;
+	Lock();	// êµ¬ì°¨ë‚˜ì„œ ê°™ì€ ë½ì„.. - -;
 
 	bool bAdd = false;
 
@@ -327,11 +327,11 @@ RequestClientPlayerManager::AddRequestClientPlayer(RequestClientPlayer* pRequest
 
 	if (g_Mode==MODE_GAME)
 	{		
-		// ³Ñ ¸¹À» °æ¿ì´Â ´õ ÀÌ»ó Á¢¼ÓÀ» ¾ÈÇÏµµ·Ï ÇØ¾ßÇÑ´Ù.
+		// ë„˜ ë§ì„ ê²½ìš°ëŠ” ë” ì´ìƒ ì ‘ì†ì„ ì•ˆí•˜ë„ë¡ í•´ì•¼í•œë‹¤.
 		//if (m_mapRequestClientPlayer.size() < g_pClientConfig->MAX_REQUEST_SERVICE)
 		{
 			//------------------------------------------------------------
-			// ÀÏ´Ü list¿¡ ³Ö¾îµĞ´Ù.
+			// ì¼ë‹¨ listì— ë„£ì–´ë‘”ë‹¤.
 			//------------------------------------------------------------
 			m_mapRequestClientPlayer[pRequestClientPlayer->getRequestServerName()] = pRequestClientPlayer;
 
@@ -424,18 +424,18 @@ RequestClientPlayerManager::RemoveConnectionInfo(const char* pName)
 //--------------------------------------------------------------------------------
 // Process Mode
 //--------------------------------------------------------------------------------
-// RequestMode¿¡ µû¸¥ Æ¯º°ÇÑ Ã³¸®
+// RequestModeì— ë”°ë¥¸ íŠ¹ë³„í•œ ì²˜ë¦¬
 //--------------------------------------------------------------------------------
 void
 RequestClientPlayerManager::ProcessMode(RequestClientPlayer* pRequestClientPlayer)
 {
 	//------------------------------------------------------------
-	// ÃÖÃÊÀÇ Á¢¼Ó¿ä±¸ ÆĞÅ¶
+	// ìµœì´ˆì˜ ì ‘ì†ìš”êµ¬ íŒ¨í‚·
 	//------------------------------------------------------------
 	switch (pRequestClientPlayer->getRequestMode())
 	{
 		//------------------------------------------------------------
-		// °è¼Ó Á¢¼ÓÀ¯Áö ½ÃÄÑ¼­ ¹º°¡ ÇÒ‹š..
+		// ê³„ì† ì ‘ì†ìœ ì§€ ì‹œì¼œì„œ ë­”ê°€ í• ë–„..
 		//------------------------------------------------------------
 		case REQUEST_CLIENT_MODE_NULL :
 		{
@@ -445,7 +445,7 @@ RequestClientPlayerManager::ProcessMode(RequestClientPlayer* pRequestClientPlaye
 				_CRConnect.setRequestServerName( pRequestClientPlayer->getRequestServerName().c_str() );
 				_CRConnect.setRequestClientName( g_pUserInformation->CharacterID.GetString() );
 
-				// Á¢¼Ó Ã¼Å© ¼³Á¤
+				// ì ‘ì† ì²´í¬ ì„¤ì •
 				pRequestClientPlayer->setPlayerStatus( CPS_REQUEST_CLIENT_AFTER_SENDING_CONNECT );			
 
 				pRequestClientPlayer->sendPacket( &_CRConnect );
@@ -454,7 +454,7 @@ RequestClientPlayerManager::ProcessMode(RequestClientPlayer* pRequestClientPlaye
 		break;
 
 		//------------------------------------------------------------
-		// ±Ó¼Ó¸» º¸³¾ ¶§..
+		// ê·“ì†ë§ ë³´ë‚¼ ë•Œ..
 		//------------------------------------------------------------
 		case REQUEST_CLIENT_MODE_WHISPER :
 		{
@@ -462,14 +462,14 @@ RequestClientPlayerManager::ProcessMode(RequestClientPlayer* pRequestClientPlaye
 			{
 				const char* pRequestServerName = pRequestClientPlayer->getRequestServerName().c_str();
 
-				// ±Ó¼Ó¸» Ã¼Å©.. 
+				// ê·“ì†ë§ ì²´í¬.. 
 				if (g_pWhisperManager->HasWhisperMessage( pRequestServerName ))
 				{
 					const std::list<WHISPER_MESSAGE>* pMessageList = g_pWhisperManager->GetWhisperMessages( pRequestServerName );
 
 					if (pMessageList)
 					{
-						// CRWhisper¸¸µé¾î¼­ packetº¸³»±â
+						// CRWhisperë§Œë“¤ì–´ì„œ packetë³´ë‚´ê¸°
 						CRWhisper _CRWhisper;
 
 						_CRWhisper.setName( g_pUserInformation->CharacterID.GetString() );
@@ -489,7 +489,7 @@ RequestClientPlayerManager::ProcessMode(RequestClientPlayer* pRequestClientPlaye
 
 						std::list<WHISPER_MESSAGE>::const_iterator iMessage = pMessageList->begin();
 
-						// ¸ğµç message Ãß°¡
+						// ëª¨ë“  message ì¶”ê°€
 						while (iMessage != pMessageList->end())
 						{
 							_CRWhisper.addMessage ( *iMessage );
@@ -509,7 +509,7 @@ RequestClientPlayerManager::ProcessMode(RequestClientPlayer* pRequestClientPlaye
 		break;
 
 		//------------------------------------------------------------
-		// ProfileÀ» ¿äÃ»ÇÒ ¶§..
+		// Profileì„ ìš”ì²­í•  ë•Œ..
 		//------------------------------------------------------------
 		case REQUEST_CLIENT_MODE_PROFILE :
 		{
@@ -572,13 +572,13 @@ RequestClientPlayerManager::Update()
 					
 					DEBUG_ADD_ERR( t.toString().c_str() );
 
-					// ³ªÇÑÅ×¼­µµ Â¥¸¥´Ù.
+					// ë‚˜í•œí…Œì„œë„ ì§œë¥¸ë‹¤.
 					//if (g_pRequestServerPlayerManager!=NULL)
 					{
 					//	g_pRequestServerPlayerManager->Disconnect( pPlayer->getRequestServerName().c_str() );
 					}
 
-					// exceptionÀÌ ³ª¸é ¹«Á¶°Ç Àß¶ó¹ö¸°´Ù. --;
+					// exceptionì´ ë‚˜ë©´ ë¬´ì¡°ê±´ ì˜ë¼ë²„ë¦°ë‹¤. --;
 					pPlayer->disconnect(UNDISCONNECTED);
 					delete pPlayer;
 
@@ -658,19 +658,19 @@ RequestConnectionThreadProc(LPVOID lpParameter)
 			}
 
 			//------------------------------------------------------
-			// request mode¿¡ µû¶ó¼­ Á¢¼ÓÀÌ ¾ÈµÈ °æ¿ì¿¡ Ã³¸®..
+			// request modeì— ë”°ë¼ì„œ ì ‘ì†ì´ ì•ˆëœ ê²½ìš°ì— ì²˜ë¦¬..
 			//------------------------------------------------------
 			switch (pInfo->requestMode)
 			{
 				//------------------------------------------------------
-				// ±Ó¼Ó¸» º¸³¾·Á°í Çß´Âµ¥ Á¢¼ÓÀÌ ¾È µÈ °æ¿ì
+				// ê·“ì†ë§ ë³´ë‚¼ë ¤ê³  í–ˆëŠ”ë° ì ‘ì†ì´ ì•ˆ ëœ ê²½ìš°
 				//------------------------------------------------------
 				case REQUEST_CLIENT_MODE_WHISPER :
 
 					SetThreadPriority(hConnectionThread, THREAD_PRIORITY_NORMAL);
 
-					// ÀÌ·¸°Ô ÇÏ¸é..
-					// ¼­¹ö¿¡ ´Ù½Ã ÇÑ¹ø IP¸¦ ¿äÃ»ÇØ¼­ ±Ó¼Ó¸»À» º¸³»µçÁö ¸»µçÁö.. ±×ÄÉ µÈ´Ù.
+					// ì´ë ‡ê²Œ í•˜ë©´..
+					// ì„œë²„ì— ë‹¤ì‹œ í•œë²ˆ IPë¥¼ ìš”ì²­í•´ì„œ ê·“ì†ë§ì„ ë³´ë‚´ë“ ì§€ ë§ë“ ì§€.. ê·¸ì¼€ ëœë‹¤.
 //					UI_AddChatToHistory( (*g_pGameStringTable)[STRING_MESSAGE_WHISPER_FAILED].GetString(), NULL, 5 );
 					g_pRequestUserManager->RemoveRequestUserLater( pInfo->name.c_str() );
 //					g_pWhisperManager->RemoveWhisperMessage( pInfo->name.c_str() );
@@ -680,14 +680,14 @@ RequestConnectionThreadProc(LPVOID lpParameter)
 				break;
 
 				//------------------------------------------------------
-				// profileÀ» ¿äÃ»ÇÒ·Á°í Çß´Âµ¥ Á¢¼ÓÀÌ ¾È µÈ °æ¿ì
+				// profileì„ ìš”ì²­í• ë ¤ê³  í–ˆëŠ”ë° ì ‘ì†ì´ ì•ˆ ëœ ê²½ìš°
 				//------------------------------------------------------
 				case REQUEST_CLIENT_MODE_PROFILE :
 					g_pProfileManager->RemoveRequire(pInfo->name.c_str());
 				break;
 			}
 
-			// CONNECTION_INFO Á¦°Å
+			// CONNECTION_INFO ì œê±°
 			g_pRequestClientPlayerManager->RemoveConnectionInfo(pInfo->name.c_str());
 		}
 	}

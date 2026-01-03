@@ -6,11 +6,11 @@
 //
 //----------------------------------------------------------------------
 //
-// Data Type°ú  Size TypeÀÌ TemplateÀÌ´Ù.
+// Data Typeê³¼  Size Typeì´ Templateì´ë‹¤.
 //
-// File I/O¸¦ ÇÏ·Á¸é  Data°¡ µÇ´Â class¿¡ 
+// File I/Oë¥¼ í•˜ë ¤ë©´  Dataê°€ ë˜ëŠ” classì— 
 //      bool		SaveToFile(ofstream& file);
-//		bool		LoadFromFile(ifstream& file);  ÀÌ ±¸ÇöµÇ¾î¾ß ÇÑ´Ù.
+//		bool		LoadFromFile(ifstream& file);  ì´ êµ¬í˜„ë˜ì–´ì•¼ í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -54,7 +54,7 @@ class TArray {
 		const DataType&	operator [] (SizeType n) const	{ return m_pData[n]; }
 		void		operator = (const TArray<DataType, SizeType>& array);
 		
-		// ÇöÀç Array¿¡ ´Ù¸¥ array¸¦ ´õÇÑ´Ù.
+		// í˜„ì¬ Arrayì— ë‹¤ë¥¸ arrayë¥¼ ë”í•œë‹¤.
 		void		operator += (const TArray<DataType, SizeType>& array);
 
 
@@ -62,7 +62,7 @@ class TArray {
 		SizeType		m_Size;
 		DataType*		m_pData;
 
-		// sizeof(SizeType) ÀÇ °ª
+		// sizeof(SizeType) ì˜ ê°’
 		static BYTE		s_SIZEOF_SizeType;
 };
 
@@ -111,7 +111,7 @@ template <class DataType, class SizeType>
 void	
 TArray<DataType, SizeType>::Init(SizeType size)
 {
-	// ÀÏ´Ü ÇØÁ¦
+	// ì¼ë‹¨ í•´ì œ
 	Release();
 
 	if (size==0) return;
@@ -139,8 +139,8 @@ TArray<DataType, SizeType>::Release()
 //----------------------------------------------------------------------
 // Add Array to *this
 //----------------------------------------------------------------------
-// µÎ Array¿¡ Á¸ÀçÇÏ´Â dataÀÇ °³¼ö¸¦ ´õÇÑ¸¸Å­ÀÇ 
-// memory¸¦ *this¿¡ ´Ù½Ã Àâ°í copy~~
+// ë‘ Arrayì— ì¡´ì¬í•˜ëŠ” dataì˜ ê°œìˆ˜ë¥¼ ë”í•œë§Œí¼ì˜ 
+// memoryë¥¼ *thisì— ë‹¤ì‹œ ì¡ê³  copy~~
 //----------------------------------------------------------------------
 template <class DataType, class SizeType>
 void
@@ -149,12 +149,12 @@ TArray<DataType, SizeType>::operator += (const TArray<DataType, SizeType>& array
 	SizeType newSize = m_Size + array.m_Size;
 
 	//------------------------------------------------
-	// µÎ Array¸¦ ´õÇÑ °³¼ö¸¸Å­ÀÇ memory¸¦ Àâ´Â´Ù.
+	// ë‘ Arrayë¥¼ ë”í•œ ê°œìˆ˜ë§Œí¼ì˜ memoryë¥¼ ì¡ëŠ”ë‹¤.
 	//------------------------------------------------
 	DataType*	pTempData = new DataType [newSize];
 	
 	//------------------------------------------------
-	// temp¿¡ *this¸¦ copy
+	// tempì— *thisë¥¼ copy
 	//------------------------------------------------
 	SizeType k=0;
 	for (SizeType i=0; i<m_Size; i++)
@@ -165,7 +165,7 @@ TArray<DataType, SizeType>::operator += (const TArray<DataType, SizeType>& array
 	}
 
 	//------------------------------------------------
-	// temp¿¡ FramePackÀ» copy
+	// tempì— FramePackì„ copy
 	//------------------------------------------------
 	for (i=0; i<array.m_Size; i++)
 	{
@@ -175,12 +175,12 @@ TArray<DataType, SizeType>::operator += (const TArray<DataType, SizeType>& array
 	}
 
 	//------------------------------------------------
-	// memoryÇØÁ¦ÇÑ´Ù.
+	// memoryí•´ì œí•œë‹¤.
 	//------------------------------------------------
 	Release();
 
 	//------------------------------------------------
-	// *this°¡ temp¸¦ °¡¸®Å°µµ·Ï ÇÑ´Ù.
+	// *thisê°€ tempë¥¼ ê°€ë¦¬í‚¤ë„ë¡ í•œë‹¤.
 	//------------------------------------------------
 	m_Size		= newSize;
 	m_pData		= pTempData;	
@@ -194,10 +194,10 @@ template <class DataType, class SizeType>
 bool
 TArray<DataType, SizeType>::SaveToFile(class ofstream& file)
 {
-	// 0ÀÌ¶óµµ °³¼ö´Â ÀúÀåÇÑ´Ù.
+	// 0ì´ë¼ë„ ê°œìˆ˜ëŠ” ì €ì¥í•œë‹¤.
 	file.write((const char*)&m_Size, s_SIZEOF_SizeType);
 
-	// ¾Æ¹«°Íµµ ¾øÀ¸¸é..
+	// ì•„ë¬´ê²ƒë„ ì—†ìœ¼ë©´..
 	if (m_pData==NULL || m_Size==0) 
 		return false;
 
@@ -214,12 +214,12 @@ template <class DataType, class SizeType>
 bool
 TArray<DataType, SizeType>::LoadFromFile(class ifstream& file)
 {
-	// frame °³¼ö
+	// frame ê°œìˆ˜
 	file.read((char*)&m_Size, s_SIZEOF_SizeType);
 
 	if (m_Size==0) return false;
 	
-	// memoryÀâ±â
+	// memoryì¡ê¸°
 	Init(m_Size);
 
 	for (SizeType i=0; i<m_Size; i++)
@@ -235,10 +235,10 @@ template <class DataType, class SizeType>
 void	
 TArray<DataType, SizeType>::operator = (const TArray<DataType, SizeType>& array)
 {
-	// frameArray¿Í ¶È°°ÀÌ ÇØ¾ß ÇÑ´Ù.
+	// frameArrayì™€ ë˜‘ê°™ì´ í•´ì•¼ í•œë‹¤.
 	Init( array.m_Size );
 
-	// ¸ğµç element¸¦ copyÇØ¾ß ÇÑ´Ù.
+	// ëª¨ë“  elementë¥¼ copyí•´ì•¼ í•œë‹¤.
 	for (SizeType i=0; i<m_Size; i++)
 	{
 		m_pData[i] = array.m_pData[i];

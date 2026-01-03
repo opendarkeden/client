@@ -28,8 +28,8 @@ private:
 	struct S_IMGHEAD
 	{
 		WORD		bpp;
-		WORD		width;	// image ³ĞÀÌ
-		WORD		height;	// image ³ôÀÌ
+		WORD		width;	// image ë„“ì´
+		WORD		height;	// image ë†’ì´
 
 	} m_head;
 

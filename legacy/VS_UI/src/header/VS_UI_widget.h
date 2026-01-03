@@ -2,7 +2,7 @@
 
 	VS_UI_widget.h
 
-	VS UI Àü¿ë Widget.
+	VS UI ì „ìš© Widget.
 
 	2000.6.7. KJTINC
 
@@ -93,8 +93,8 @@ public:
 					m_alpha--;
 				}
 
-				// !m_alpha = 0ÀÎ »óÅÂ¿¡¼­ ¶Ç m_alpha--°¡ µÉ ¼ö ÀÖ´Ù. ÀÌ°ÍÀº ½Ã°£Â÷¿¡ ÀÇÇØ¼­
-				// EventFocuxX°¡ µÎ¹øÀÌ»ó ½ÇÇàµÇ±â ¶§¹®ÀÌ´Ù.
+				// !m_alpha = 0ì¸ ìƒíƒœì—ì„œ ë˜ m_alpha--ê°€ ë  ìˆ˜ ìžˆë‹¤. ì´ê²ƒì€ ì‹œê°„ì°¨ì— ì˜í•´ì„œ
+				// EventFocuxXê°€ ë‘ë²ˆì´ìƒ ì‹¤í–‰ë˜ê¸° ë•Œë¬¸ì´ë‹¤.
 				if (m_alpha <= 0)
 				{
 					m_alpha = 0;
@@ -132,12 +132,12 @@ class ButtonVisual
 {
 public:
 	//
-	// ÇÏ³ªÀÇ buttonÀ» ±¸º°ÇÏ±â À§ÇÑ id¿Í buttonÀÇ »óÅÂ flag¸¦ ÀÎÀÚ·Î ÇÑ´Ù.
+	// í•˜ë‚˜ì˜ buttonì„ êµ¬ë³„í•˜ê¸° ìœ„í•œ idì™€ buttonì˜ ìƒíƒœ flagë¥¼ ì¸ìžë¡œ í•œë‹¤.
 	//
 	virtual void	ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button) = 0;
 
-	// Desciption ÀÌ ÀÖ´ÂºÎºÐ¿¡¸¸ È£ÃâµÈ´Ù.
-	// ButtonGroup::ShowDescription(); À¸·Î È£ÃâÀÌ µÇ¸ç, ÇÊ¿äÇÏÁö ¾ÊÀ»°æ¿ì »ç¿ëÇÏÁö ¾Ê¾Æµµ »ó
+	// Desciption ì´ ìžˆëŠ”ë¶€ë¶„ì—ë§Œ í˜¸ì¶œëœë‹¤.
+	// ButtonGroup::ShowDescription(); ìœ¼ë¡œ í˜¸ì¶œì´ ë˜ë©°, í•„ìš”í•˜ì§€ ì•Šì„ê²½ìš° ì‚¬ìš©í•˜ì§€ ì•Šì•„ë„ ìƒ
 	virtual void	ShowButtonDescription(C_VS_UI_EVENT_BUTTON *p_button){}
 
 };
@@ -149,7 +149,7 @@ extern Button *	gpC_press_button;
 //-----------------------------------------------------------------------------
 // ButtonGroup
 //
-// C_VS_UI_BUTTON2 object¸¦ °ü¸®ÇÑ´Ù.
+// C_VS_UI_BUTTON2 objectë¥¼ ê´€ë¦¬í•œë‹¤.
 //-----------------------------------------------------------------------------
 class ButtonGroup : public SimpleDataList<C_VS_UI_EVENT_BUTTON *>
 {
@@ -310,9 +310,9 @@ public:
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-// ½ºÅ©·Ñ¹Ù Å¬·¡½ºÀÌ´Ù
-// ³»ºÎÀûÀ¸·Î Show¸¦ °¡Áö°í ÀÖÀ¸¸ç ±âº» ½ºÅ©·Ñ¹Ù spk¸¦ Ãâ·ÂÇÑ´Ù.
-// ´Ù¸¥ spk¸¦ »ç¿ëÇÏµµ·Ï ¼³Á¤ÇÒ¼ö ÀÖÀ¸³ª, ½ºÇÁ¶óÀÌÆ®ÀÇ ¼ø¼­´Â ±âº» spk¿Í °°¾Æ¾ß ÇÑ´Ù.
+// ìŠ¤í¬ë¡¤ë°” í´ëž˜ìŠ¤ì´ë‹¤
+// ë‚´ë¶€ì ìœ¼ë¡œ Showë¥¼ ê°€ì§€ê³  ìžˆìœ¼ë©° ê¸°ë³¸ ìŠ¤í¬ë¡¤ë°” spkë¥¼ ì¶œë ¥í•œë‹¤.
+// ë‹¤ë¥¸ spkë¥¼ ì‚¬ìš©í•˜ë„ë¡ ì„¤ì •í• ìˆ˜ ìžˆìœ¼ë‚˜, ìŠ¤í”„ë¼ì´íŠ¸ì˜ ìˆœì„œëŠ” ê¸°ë³¸ spkì™€ ê°™ì•„ì•¼ í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 class C_VS_UI_SCROLL_BAR : public Rect
@@ -806,7 +806,7 @@ public:
 		return m_pos;
 	}
 
-	void	SetPosMax(int max)	//pos_max´Â ½ºÅ©·ÑµÉ Ç×¸ñÀÇ °³¼öÀÌ´Ù. ¸¸¾à ÇÑ È­¸é¿¡ 5°³ÀÇ Ç×¸ñÀÌ ³ª¿À°í, ÃÑ 10°³ÀÇ Ç×¸ñÀÌ ÀÖ´Ù¸é ½ºÅ©·Ñ°ªÀº 0~5 ±îÁö °¡Áö¹Ç·Î pos_max == 6 ÀÌ´Ù. 
+	void	SetPosMax(int max)	//pos_maxëŠ” ìŠ¤í¬ë¡¤ë  í•­ëª©ì˜ ê°œìˆ˜ì´ë‹¤. ë§Œì•½ í•œ í™”ë©´ì— 5ê°œì˜ í•­ëª©ì´ ë‚˜ì˜¤ê³ , ì´ 10ê°œì˜ í•­ëª©ì´ ìžˆë‹¤ë©´ ìŠ¤í¬ë¡¤ê°’ì€ 0~5 ê¹Œì§€ ê°€ì§€ë¯€ë¡œ pos_max == 6 ì´ë‹¤. 
 	{
 		m_pos = 0;
 		m_pos_max = max;

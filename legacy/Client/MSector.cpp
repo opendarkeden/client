@@ -25,7 +25,7 @@ MSector::MSector(TYPE_SPRITEID	spriteID)
 
 	m_fProperty		= 0;
 
-	// ÇöÀç Sector¿¡ Á¸ÀçÇÏ´Â ObjectµéÀÇ °³¼ö
+	// í˜„ì¬ Sectorì— ì¡´ì¬í•˜ëŠ” Objectë“¤ì˜ ê°œìˆ˜
 	m_nImageObject	= 0;
 
 	//m_FilterSpriteID = SPRITEID_NULL;
@@ -35,9 +35,9 @@ MSector::MSector(TYPE_SPRITEID	spriteID)
 	m_fProperty2 = 0;
 
 	m_bDarkness = false;
-	m_bSanctuary = false;	// [»õ±â¼ú]
-	m_bGroundElemental = false;	// [»õ±â¼ú]
-	m_bDarknessForbidden = false;	// [»õ±â¼ú]
+	m_bSanctuary = false;	// [ìƒˆê¸°ìˆ ]
+	m_bGroundElemental = false;	// [ìƒˆê¸°ìˆ ]
+	m_bDarknessForbidden = false;	// [ìƒˆê¸°ìˆ ]
 
 	m_nGroundCreature = 0;
 	m_nUndergroundCreature = 0;
@@ -84,38 +84,38 @@ MSector::RemoveAllObject()
 //----------------------------------------------------------------------
 // Save to File
 //----------------------------------------------------------------------
-// SpriteID¿Í BlockFlag, Light¸¸ ÀúÀåÇÑ´Ù.
+// SpriteIDì™€ BlockFlag, Lightë§Œ ì €ì¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 MSector::SaveToFile(ofstream& file)
 {
 	BYTE flag = 0;
 
-	// Underground BLOCK flag°¡ ÀÖÀ» °æ¿ì
+	// Underground BLOCK flagê°€ ìˆì„ ê²½ìš°
 	if (m_fProperty & FLAG_SECTOR_BLOCK_UNDERGROUND)
 	{
-		// BLOCK flag ÇÏ³ª¸¸ ÀúÀåÇÑ´Ù.
+		// BLOCK flag í•˜ë‚˜ë§Œ ì €ì¥í•œë‹¤.
 		flag |= FLAG_SECTOR_BLOCK_UNDERGROUND;
 	}
 
-	// Ground BLOCK flag°¡ ÀÖÀ» °æ¿ì
+	// Ground BLOCK flagê°€ ìˆì„ ê²½ìš°
 	if (m_fProperty & FLAG_SECTOR_BLOCK_GROUND)
 	{
-		// BLOCK flag ÇÏ³ª¸¸ ÀúÀåÇÑ´Ù.
+		// BLOCK flag í•˜ë‚˜ë§Œ ì €ì¥í•œë‹¤.
 		flag |= FLAG_SECTOR_BLOCK_GROUND;
 	}
 
-	// Flying BLOCK flag°¡ ÀÖÀ» °æ¿ì
+	// Flying BLOCK flagê°€ ìˆì„ ê²½ìš°
 	if (m_fProperty & FLAG_SECTOR_BLOCK_FLYING)
 	{
-		// BLOCK flag ÇÏ³ª¸¸ ÀúÀåÇÑ´Ù.
+		// BLOCK flag í•˜ë‚˜ë§Œ ì €ì¥í•œë‹¤.
 		flag |= FLAG_SECTOR_BLOCK_FLYING;
 	}
 
-	// Portal flag°¡ ÀÖÀ» °æ¿ì
+	// Portal flagê°€ ìˆì„ ê²½ìš°
 	if (m_fProperty & FLAG_SECTOR_PORTAL)
 	{
-		// BLOCK flag ÇÏ³ª¸¸ ÀúÀåÇÑ´Ù.
+		// BLOCK flag í•˜ë‚˜ë§Œ ì €ì¥í•œë‹¤.
 		flag |= FLAG_SECTOR_PORTAL;
 	}
 	
@@ -128,16 +128,16 @@ MSector::SaveToFile(ofstream& file)
 //----------------------------------------------------------------------
 // Load From File
 //----------------------------------------------------------------------
-// SpriteID¿Í Block Flag, Light¸¸ LoadµÈ´Ù.
+// SpriteIDì™€ Block Flag, Lightë§Œ Loadëœë‹¤.
 //----------------------------------------------------------------------
 void	
 MSector::LoadFromFile(ifstream& file)
 {
 	//----------------------------------------
-	// Object list¸¦ ÃÊ±âÈ­ÇØ¾ß µÇ´Âµ¥....
-	// LoadÇÏ°í ObjectÃß°¡ÇÏ°í
-	// ´Ù½Ã LoadÇÏ´Â °æ¿ì°¡ ¾ø´Ù°í º¸°í..
-	// ¼Óµµ ¹®Á¦»ó, ÃÊ±âÈ­ÇÏÁö ¾Ê´Â´Ù.
+	// Object listë¥¼ ì´ˆê¸°í™”í•´ì•¼ ë˜ëŠ”ë°....
+	// Loadí•˜ê³  Objectì¶”ê°€í•˜ê³ 
+	// ë‹¤ì‹œ Loadí•˜ëŠ” ê²½ìš°ê°€ ì—†ë‹¤ê³  ë³´ê³ ..
+	// ì†ë„ ë¬¸ì œìƒ, ì´ˆê¸°í™”í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	//----------------------------------------
 	// m_listObject.clear();
 
@@ -150,8 +150,8 @@ MSector::LoadFromFile(ifstream& file)
 //----------------------------------------------------------------------
 // Assign Operator
 //----------------------------------------------------------------------
-// TileÀÇ ¸ğ¾ç°ú
-// Block Flag¸¸ ´ëÀÔµÈ´Ù.
+// Tileì˜ ëª¨ì–‘ê³¼
+// Block Flagë§Œ ëŒ€ì…ëœë‹¤.
 //----------------------------------------------------------------------
 void	
 MSector::operator = (const MSector& sector)
@@ -174,11 +174,11 @@ MSector::operator = (const MSector& sector)
 //----------------------------------------------------------------------
 // Can Stand UndergroundCreature
 //----------------------------------------------------------------------
-// ÀÌ Sector¿¡ UndergroundCreature°¡ µé¾î°¥ ¼ö ÀÖ´ÂÁö¿¡ ´ëÇÑ check
+// ì´ Sectorì— UndergroundCreatureê°€ ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ”ì§€ì— ëŒ€í•œ check
 //----------------------------------------------------------------------
-// BlockÀÌ¸é false
-// UndergroundCreature°¡ ÀÖÀ¸¸é false
-// ¾Æ´Ï¸é true
+// Blockì´ë©´ false
+// UndergroundCreatureê°€ ìˆìœ¼ë©´ false
+// ì•„ë‹ˆë©´ true
 //----------------------------------------------------------------------
 bool
 MSector::CanStandUndergroundCreature() const
@@ -194,11 +194,11 @@ MSector::CanStandUndergroundCreature() const
 //----------------------------------------------------------------------
 // Can Stand Creature
 //----------------------------------------------------------------------
-// ÀÌ Sector¿¡ Creature°¡ µé¾î°¥ ¼ö ÀÖ´ÂÁö¿¡ ´ëÇÑ check
+// ì´ Sectorì— Creatureê°€ ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ”ì§€ì— ëŒ€í•œ check
 //----------------------------------------------------------------------
-// BlockÀÌ¸é false
-// Creature°¡ ÀÖÀ¸¸é false
-// ¾Æ´Ï¸é true
+// Blockì´ë©´ false
+// Creatureê°€ ìˆìœ¼ë©´ false
+// ì•„ë‹ˆë©´ true
 //----------------------------------------------------------------------
 bool
 MSector::CanStandGroundCreature() const
@@ -215,11 +215,11 @@ MSector::CanStandGroundCreature() const
 //----------------------------------------------------------------------
 // Can Stand FlyingCreature
 //----------------------------------------------------------------------
-// ÀÌ Sector¿¡ FlyingCreature°¡ µé¾î°¥ ¼ö ÀÖ´ÂÁö¿¡ ´ëÇÑ check
+// ì´ Sectorì— FlyingCreatureê°€ ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ”ì§€ì— ëŒ€í•œ check
 //----------------------------------------------------------------------
-// BlockÀÌ¸é false
-// FlyingCreature°¡ ÀÖÀ¸¸é false
-// ¾Æ´Ï¸é true
+// Blockì´ë©´ false
+// FlyingCreatureê°€ ìˆìœ¼ë©´ false
+// ì•„ë‹ˆë©´ true
 //----------------------------------------------------------------------
 bool
 MSector::CanStandFlyingCreature() const
@@ -243,21 +243,21 @@ MSector::CanStandFlyingCreature() const
 //----------------------------------------------------------------------
 // Add Item
 //----------------------------------------------------------------------
-// ÀÌ¹Ì ItemÀÌ ÀÖÀ¸¸é Ãß°¡ÇÒ ¼ö ¾ø´Ù.
-// ItemÀ» Ãß°¡ÇÒ ¼ö ÀÖÀ¸¸é pItemÀ» Ãß°¡ÇÏ°í
-// Item Flag¿¡ checkÇØÁØ´Ù.
+// ì´ë¯¸ Itemì´ ìˆìœ¼ë©´ ì¶”ê°€í•  ìˆ˜ ì—†ë‹¤.
+// Itemì„ ì¶”ê°€í•  ìˆ˜ ìˆìœ¼ë©´ pItemì„ ì¶”ê°€í•˜ê³ 
+// Item Flagì— checkí•´ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::AddItem(const MItem* pItem)
 {
-	// ÀÌ¹Ì ItemÀÌ ÀÖÀ¸¸é.. Ãß°¡ ºÒ°¡´É
+	// ì´ë¯¸ Itemì´ ìˆìœ¼ë©´.. ì¶”ê°€ ë¶ˆê°€ëŠ¥
 	if (m_fProperty & FLAG_SECTOR_ITEM)
 		return false;
 
-	// ItemÀÇ À§Ä¡¿¡ ItemÀ» Ãß°¡ÇÑ´Ù.
+	// Itemì˜ ìœ„ì¹˜ì— Itemì„ ì¶”ê°€í•œë‹¤.
 	m_mapObject.insert( OBJECT_MAP::value_type(POSITION_ITEM, (MObject*)pItem) );
 
-	// Item Flag¿¡ checkÇØÁØ´Ù.
+	// Item Flagì— checkí•´ì¤€ë‹¤.
 	m_fProperty |= FLAG_SECTOR_ITEM;
 	if( pItem->GetItemClass() == ITEM_CLASS_CORPSE )
 	{
@@ -277,14 +277,14 @@ MSector::AddItem(const MItem* pItem)
 //----------------------------------------------------------------------
 // Add UndergroundCreature
 //----------------------------------------------------------------------
-// ÀÌ¹Ì UndergroundCreatureÀÌ ÀÖÀ¸¸é Ãß°¡ÇÒ ¼ö ¾ø´Ù.
-// UndergroundCreatureÀ» Ãß°¡ÇÒ ¼ö ÀÖÀ¸¸é pUndergroundCreatureÀ» Ãß°¡ÇÏ°í
-// UndergroundCreature Flag¿¡ checkÇØÁØ´Ù.
+// ì´ë¯¸ UndergroundCreatureì´ ìˆìœ¼ë©´ ì¶”ê°€í•  ìˆ˜ ì—†ë‹¤.
+// UndergroundCreatureì„ ì¶”ê°€í•  ìˆ˜ ìˆìœ¼ë©´ pUndergroundCreatureì„ ì¶”ê°€í•˜ê³ 
+// UndergroundCreature Flagì— checkí•´ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::AddUndergroundCreature(const MCreature* pUndergroundCreature)
 {
-	// ÀÌ¹Ì UndergroundCreatureÀÌ ÀÖÀ¸¸é.. Ãß°¡ ºÒ°¡´É
+	// ì´ë¯¸ UndergroundCreatureì´ ìˆìœ¼ë©´.. ì¶”ê°€ ë¶ˆê°€ëŠ¥
 	//if (m_fProperty & FLAG_SECTOR_UNDERGROUNDCREATURE)
 	//	return false;
 
@@ -296,17 +296,17 @@ MSector::AddUndergroundCreature(const MCreature* pUndergroundCreature)
 
 	int beforeSize = m_mapObject.size();
 
-	// UndergroundCreatureÀÇ À§Ä¡¿¡ UndergroundCreatureÀ» Ãß°¡ÇÑ´Ù.
+	// UndergroundCreatureì˜ ìœ„ì¹˜ì— UndergroundCreatureì„ ì¶”ê°€í•œë‹¤.
 	m_mapObject.insert( OBJECT_MAP::value_type(pos, (MObject*)pUndergroundCreature) );
 
 	int afterSize = m_mapObject.size();
 
-	// Ãß°¡°¡ ¾È µÆ´Ù¸é..
+	// ì¶”ê°€ê°€ ì•ˆ ëë‹¤ë©´..
 	if (afterSize==beforeSize)
 	{
 		BYTE previousPos = POSITION_UNDERGROUNDCREATURE-1;
 
-		// ´Ù~ °Ë»öÇØ¼­ ºó °÷À» Ã£¾Æ¼­ Ãß°¡ÇØ¾ß ÇÑ´Ù. 
+		// ë‹¤~ ê²€ìƒ‰í•´ì„œ ë¹ˆ ê³³ì„ ì°¾ì•„ì„œ ì¶”ê°€í•´ì•¼ í•œë‹¤. 
 		OBJECT_MAP::const_iterator iCreature = GetUndergroundCreatureIterator();
 		BYTE currentPos;
 		
@@ -314,8 +314,8 @@ MSector::AddUndergroundCreature(const MCreature* pUndergroundCreature)
 		{
 			currentPos = iCreature->first;
 
-			// ¿¬¼ÓÀûÀÌÁö ¾ÊÀº ¼ıÀÚÀÌ¸é... ºó °÷ÀÌ ÀÖ´Ù´Â ÀÇ¹ÌÀÌ´Ù.
-			// currentPos-1Àº È®½ÇÈ÷ ºó °÷ÀÌ¶ó°í ÇÒ ¼ö ÀÖ´Ù.
+			// ì—°ì†ì ì´ì§€ ì•Šì€ ìˆ«ìì´ë©´... ë¹ˆ ê³³ì´ ìˆë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
+			// currentPos-1ì€ í™•ì‹¤íˆ ë¹ˆ ê³³ì´ë¼ê³  í•  ìˆ˜ ìˆë‹¤.
 			if (currentPos - previousPos > 1)
 			{
 				pos = currentPos - 1;
@@ -329,7 +329,7 @@ MSector::AddUndergroundCreature(const MCreature* pUndergroundCreature)
 			iCreature ++;
 		}
 
-		// ¸Ç ¸¶Áö¸·²¨ ´ÙÀ½¿¡ ³Ö´Â´Ù.
+		// ë§¨ ë§ˆì§€ë§‰êº¼ ë‹¤ìŒì— ë„£ëŠ”ë‹¤.
 		if (i==beforeSize)
 		{
 			pos = currentPos + 1;
@@ -337,7 +337,7 @@ MSector::AddUndergroundCreature(const MCreature* pUndergroundCreature)
 		}
 	}
 
-	// UndergroundCreature Flag¿¡ checkÇØÁØ´Ù.
+	// UndergroundCreature Flagì— checkí•´ì¤€ë‹¤.
 	m_fProperty |= FLAG_SECTOR_UNDERGROUNDCREATURE;
 
 	m_nUndergroundCreature ++;
@@ -348,19 +348,19 @@ MSector::AddUndergroundCreature(const MCreature* pUndergroundCreature)
 //----------------------------------------------------------------------
 // Add Creature
 //----------------------------------------------------------------------
-// ÀÌ¹Ì CreatureÀÌ ÀÖÀ¸¸é Ãß°¡ÇÒ ¼ö ¾ø´Ù.
-// CreatureÀ» Ãß°¡ÇÒ ¼ö ÀÖÀ¸¸é pCreatureÀ» Ãß°¡ÇÏ°í
-// Creature Flag¿¡ checkÇØÁØ´Ù.
+// ì´ë¯¸ Creatureì´ ìˆìœ¼ë©´ ì¶”ê°€í•  ìˆ˜ ì—†ë‹¤.
+// Creatureì„ ì¶”ê°€í•  ìˆ˜ ìˆìœ¼ë©´ pCreatureì„ ì¶”ê°€í•˜ê³ 
+// Creature Flagì— checkí•´ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::AddGroundCreature(const MCreature* pCreature)
 {
-	// ÀÌ¹Ì CreatureÀÌ ÀÖÀ¸¸é.. Ãß°¡ ºÒ°¡´É
+	// ì´ë¯¸ Creatureì´ ìˆìœ¼ë©´.. ì¶”ê°€ ë¶ˆê°€ëŠ¥
 	//if (m_fProperty & FLAG_SECTOR_GROUNDCREATURE)
 	//	return false;
 
 	//----------------------------------------------------------
-	// °°Àº°Ô ÀÌ¹Ì ÀÖ´ÂÁö Ã¼Å©ÇÏ±â
+	// ê°™ì€ê²Œ ì´ë¯¸ ìˆëŠ”ì§€ ì²´í¬í•˜ê¸°
 	//----------------------------------------------------------
 	/*
 	if (m_nGroundCreature>0)
@@ -370,7 +370,7 @@ MSector::AddGroundCreature(const MCreature* pCreature)
 		while (iObject!=m_mapObject.end() 
 				&& iObject->first <= POSITION_GROUNDCREATURE_MAX)
 		{
-			// ÀÌ¹Ì ÀÖ´Â °æ¿ì.. pointer°ª ºñ±³
+			// ì´ë¯¸ ìˆëŠ” ê²½ìš°.. pointerê°’ ë¹„êµ
 			if (((MCreature*)iObject->second)==pCreature)
 			{
 				return true;
@@ -388,17 +388,17 @@ MSector::AddGroundCreature(const MCreature* pCreature)
 
 	int beforeSize = m_mapObject.size();
 
-	// CreatureÀÇ À§Ä¡¿¡ CreatureÀ» Ãß°¡ÇÑ´Ù.
+	// Creatureì˜ ìœ„ì¹˜ì— Creatureì„ ì¶”ê°€í•œë‹¤.
 	m_mapObject.insert( OBJECT_MAP::value_type(pos, (MObject*)pCreature) );
 
 	int afterSize = m_mapObject.size();
 
-	// Ãß°¡°¡ ¾È µÆ´Ù¸é..
+	// ì¶”ê°€ê°€ ì•ˆ ëë‹¤ë©´..
 	if (afterSize==beforeSize)
 	{
 		BYTE previousPos = POSITION_GROUNDCREATURE-1;
 
-		// ´Ù~ °Ë»öÇØ¼­ ºó °÷À» Ã£¾Æ¼­ Ãß°¡ÇØ¾ß ÇÑ´Ù. 
+		// ë‹¤~ ê²€ìƒ‰í•´ì„œ ë¹ˆ ê³³ì„ ì°¾ì•„ì„œ ì¶”ê°€í•´ì•¼ í•œë‹¤. 
 		OBJECT_MAP::const_iterator iCreature = GetGroundCreatureIterator();
 		BYTE currentPos;
 		
@@ -406,8 +406,8 @@ MSector::AddGroundCreature(const MCreature* pCreature)
 		{
 			currentPos = iCreature->first;
 
-			// ¿¬¼ÓÀûÀÌÁö ¾ÊÀº ¼ıÀÚÀÌ¸é... ºó °÷ÀÌ ÀÖ´Ù´Â ÀÇ¹ÌÀÌ´Ù.
-			// currentPos-1Àº È®½ÇÈ÷ ºó °÷ÀÌ¶ó°í ÇÒ ¼ö ÀÖ´Ù.
+			// ì—°ì†ì ì´ì§€ ì•Šì€ ìˆ«ìì´ë©´... ë¹ˆ ê³³ì´ ìˆë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
+			// currentPos-1ì€ í™•ì‹¤íˆ ë¹ˆ ê³³ì´ë¼ê³  í•  ìˆ˜ ìˆë‹¤.
 			if (currentPos - previousPos > 1)
 			{
 				pos = currentPos - 1;
@@ -421,7 +421,7 @@ MSector::AddGroundCreature(const MCreature* pCreature)
 			iCreature ++;
 		}
 
-		// ¸Ç ¸¶Áö¸·²¨ ´ÙÀ½¿¡ ³Ö´Â´Ù.
+		// ë§¨ ë§ˆì§€ë§‰êº¼ ë‹¤ìŒì— ë„£ëŠ”ë‹¤.
 		if (i==beforeSize)
 		{
 			pos = currentPos + 1;
@@ -430,7 +430,7 @@ MSector::AddGroundCreature(const MCreature* pCreature)
 	}
 
 
-	// Creature Flag¿¡ checkÇØÁØ´Ù.
+	// Creature Flagì— checkí•´ì¤€ë‹¤.
 	m_fProperty |= FLAG_SECTOR_GROUNDCREATURE;
 
 	m_nGroundCreature ++;
@@ -441,14 +441,14 @@ MSector::AddGroundCreature(const MCreature* pCreature)
 //----------------------------------------------------------------------
 // Add FlyingCreature
 //----------------------------------------------------------------------
-// ÀÌ¹Ì FlyingCreatureÀÌ ÀÖÀ¸¸é Ãß°¡ÇÒ ¼ö ¾ø´Ù.
-// FlyingCreatureÀ» Ãß°¡ÇÒ ¼ö ÀÖÀ¸¸é pFlyingCreatureÀ» Ãß°¡ÇÏ°í
-// FlyingCreature Flag¿¡ checkÇØÁØ´Ù.
+// ì´ë¯¸ FlyingCreatureì´ ìˆìœ¼ë©´ ì¶”ê°€í•  ìˆ˜ ì—†ë‹¤.
+// FlyingCreatureì„ ì¶”ê°€í•  ìˆ˜ ìˆìœ¼ë©´ pFlyingCreatureì„ ì¶”ê°€í•˜ê³ 
+// FlyingCreature Flagì— checkí•´ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::AddFlyingCreature(const MCreature* pFlyingCreature)
 {
-	// ÀÌ¹Ì FlyingCreatureÀÌ ÀÖÀ¸¸é.. Ãß°¡ ºÒ°¡´É
+	// ì´ë¯¸ FlyingCreatureì´ ìˆìœ¼ë©´.. ì¶”ê°€ ë¶ˆê°€ëŠ¥
 	//if (m_fProperty & FLAG_SECTOR_FLYINGCREATURE)
 	//	return false;
 
@@ -459,17 +459,17 @@ MSector::AddFlyingCreature(const MCreature* pFlyingCreature)
 
 	int beforeSize = m_mapObject.size();
 
-	// FlyingCreatureÀÇ À§Ä¡¿¡ FlyingCreatureÀ» Ãß°¡ÇÑ´Ù.
+	// FlyingCreatureì˜ ìœ„ì¹˜ì— FlyingCreatureì„ ì¶”ê°€í•œë‹¤.
 	m_mapObject.insert( OBJECT_MAP::value_type(pos, (MObject*)pFlyingCreature) );
 
 	int afterSize = m_mapObject.size();
 
-	// Ãß°¡°¡ ¾È µÆ´Ù¸é..
+	// ì¶”ê°€ê°€ ì•ˆ ëë‹¤ë©´..
 	if (afterSize==beforeSize)
 	{
 		BYTE previousPos = POSITION_FLYINGCREATURE-1;
 
-		// ´Ù~ °Ë»öÇØ¼­ ºó °÷À» Ã£¾Æ¼­ Ãß°¡ÇØ¾ß ÇÑ´Ù. 
+		// ë‹¤~ ê²€ìƒ‰í•´ì„œ ë¹ˆ ê³³ì„ ì°¾ì•„ì„œ ì¶”ê°€í•´ì•¼ í•œë‹¤. 
 		OBJECT_MAP::const_iterator iCreature = GetFlyingCreatureIterator();
 		BYTE currentPos;
 		
@@ -477,8 +477,8 @@ MSector::AddFlyingCreature(const MCreature* pFlyingCreature)
 		{
 			currentPos = iCreature->first;
 
-			// ¿¬¼ÓÀûÀÌÁö ¾ÊÀº ¼ıÀÚÀÌ¸é... ºó °÷ÀÌ ÀÖ´Ù´Â ÀÇ¹ÌÀÌ´Ù.
-			// currentPos-1Àº È®½ÇÈ÷ ºó °÷ÀÌ¶ó°í ÇÒ ¼ö ÀÖ´Ù.
+			// ì—°ì†ì ì´ì§€ ì•Šì€ ìˆ«ìì´ë©´... ë¹ˆ ê³³ì´ ìˆë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
+			// currentPos-1ì€ í™•ì‹¤íˆ ë¹ˆ ê³³ì´ë¼ê³  í•  ìˆ˜ ìˆë‹¤.
 			if (currentPos - previousPos > 1)
 			{
 				pos = currentPos - 1;
@@ -492,7 +492,7 @@ MSector::AddFlyingCreature(const MCreature* pFlyingCreature)
 			iCreature ++;
 		}
 
-		// ¸Ç ¸¶Áö¸·²¨ ´ÙÀ½¿¡ ³Ö´Â´Ù.
+		// ë§¨ ë§ˆì§€ë§‰êº¼ ë‹¤ìŒì— ë„£ëŠ”ë‹¤.
 		if (i==beforeSize)
 		{
 			pos = currentPos + 1;
@@ -500,7 +500,7 @@ MSector::AddFlyingCreature(const MCreature* pFlyingCreature)
 		}
 	}
 
-	// FlyingCreature Flag¿¡ checkÇØÁØ´Ù.
+	// FlyingCreature Flagì— checkí•´ì¤€ë‹¤.
 	m_fProperty |= FLAG_SECTOR_FLYINGCREATURE;
 
 	m_nFlyingCreature ++;
@@ -511,13 +511,13 @@ MSector::AddFlyingCreature(const MCreature* pFlyingCreature)
 //----------------------------------------------------------------------
 // Add ImageObject
 //----------------------------------------------------------------------
-// ÀÌ¹Ì ImageObject°¡ ÀÖ°Å³ª ¾ø°Å³ª ¹«Á¶°Ç Ãß°¡ÇÏ¸é µÈ´Ù.
-// ±×·±µ¥, ÀÌ¹Ì ImageObject°¡ ÀÖÀ» ¼öµµ ÀÖÀ¸¹Ç·Î 
-// ÇöÀç Á¸ÀçÇÏ´Â °³¼ö¸¦ ¾Ë¾Æº¸°í ¸Ç ³¡¿¡~ ³ÖÀ¸¸é µÈ´Ù.
-// Ãß°¡ÇÏ°í m_nImageObject¸¦ 1 Áõ°¡. 
+// ì´ë¯¸ ImageObjectê°€ ìˆê±°ë‚˜ ì—†ê±°ë‚˜ ë¬´ì¡°ê±´ ì¶”ê°€í•˜ë©´ ëœë‹¤.
+// ê·¸ëŸ°ë°, ì´ë¯¸ ImageObjectê°€ ìˆì„ ìˆ˜ë„ ìˆìœ¼ë¯€ë¡œ 
+// í˜„ì¬ ì¡´ì¬í•˜ëŠ” ê°œìˆ˜ë¥¼ ì•Œì•„ë³´ê³  ë§¨ ëì—~ ë„£ìœ¼ë©´ ëœë‹¤.
+// ì¶”ê°€í•˜ê³  m_nImageObjectë¥¼ 1 ì¦ê°€. 
 //
-// (´Ü, ImageObjectÀÇ °³¼öÀÇ ÇÑ°è¸¦ ³Ñ¾î°¥¼öµµ ÀÖÁö¸¸... È®·üÀÌ Èñ¹ÚÇÏ¹Ç·Î
-//  ±×·² °æ¿ì´Â ¾ø´Ù°í º¸°í checkÇÏÁö ¾Ê´Â´Ù..)
+// (ë‹¨, ImageObjectì˜ ê°œìˆ˜ì˜ í•œê³„ë¥¼ ë„˜ì–´ê°ˆìˆ˜ë„ ìˆì§€ë§Œ... í™•ë¥ ì´ í¬ë°•í•˜ë¯€ë¡œ
+//  ê·¸ëŸ´ ê²½ìš°ëŠ” ì—†ë‹¤ê³  ë³´ê³  checkí•˜ì§€ ì•ŠëŠ”ë‹¤..)
 //
 //----------------------------------------------------------------------
 bool	
@@ -528,12 +528,12 @@ MSector::AddImageObject(const MImageObject* pImageObject)
 	if (pos >= POSITION_EFFECT)
 		return false;
 
-	// ImageObjectÀÇ À§Ä¡¿¡ ImageObjectÀ» Ãß°¡ÇÑ´Ù.
+	// ImageObjectì˜ ìœ„ì¹˜ì— ImageObjectì„ ì¶”ê°€í•œë‹¤.
 	m_mapObject.insert( 
 		OBJECT_MAP::value_type(pos, (MObject*)pImageObject) 
 	);
 
-	// °³¼ö¸¦ Áõ°¡½ÃÅ²´Ù.
+	// ê°œìˆ˜ë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
 	m_nImageObject ++;
 
 	return true;
@@ -549,22 +549,22 @@ MSector::AddImageObject(const MImageObject* pImageObject)
 //----------------------------------------------------------------------
 // Get Item
 //----------------------------------------------------------------------
-// Item Flag¸¦ º¸°í ItemÀÌ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// Item Flagë¥¼ ë³´ê³  Itemì´ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 MItem* const			
 MSector::GetItem() const
 {
-	// ItemÀÌ ÀÖ´Ù¸é...
+	// Itemì´ ìˆë‹¤ë©´...
 	if (m_fProperty & FLAG_SECTOR_ITEM)
 	{
-		// ItemÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// Itemì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::const_iterator iObject = m_mapObject.find(POSITION_ITEM);
 
-		// ¾øÀ» °æ¿ì NULLÀ» returnÇÑ´Ù.
+		// ì—†ì„ ê²½ìš° NULLì„ returní•œë‹¤.
 		if (iObject == m_mapObject.end()) 
 			return NULL;
 		
-		// ÀÖÀ¸¸é ±× Object¸¦ returnÇÑ´Ù.
+		// ìˆìœ¼ë©´ ê·¸ Objectë¥¼ returní•œë‹¤.
 		return (MItem* const)((*iObject).second);
 	}
 
@@ -574,15 +574,15 @@ MSector::GetItem() const
 //----------------------------------------------------------------------
 // Get Creature
 //----------------------------------------------------------------------
-// Creature Flag¸¦ º¸°í Creature°¡ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// Creature Flagë¥¼ ë³´ê³  Creatureê°€ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 OBJECT_MAP::const_iterator
 MSector::GetCreatureIterator() const
 {
-	// UndergroundCreatureÀÌ ÀÖ´Ù¸é...
+	// UndergroundCreatureì´ ìˆë‹¤ë©´...
 	if (IsExistAnyCreature())
 	{
-		// UndergroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// UndergroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::const_iterator iObject = m_mapObject.lower_bound(POSITION_UNDERGROUNDCREATURE);
 		
 		if (iObject!=m_mapObject.end() 
@@ -598,18 +598,18 @@ MSector::GetCreatureIterator() const
 //----------------------------------------------------------------------
 // Get UndergroundCreature
 //----------------------------------------------------------------------
-// UndergroundCreature Flag¸¦ º¸°í UndergroundCreatureÀÌ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// UndergroundCreature Flagë¥¼ ë³´ê³  UndergroundCreatureì´ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 OBJECT_MAP::const_iterator
 MSector::GetUndergroundCreatureIterator() const
 {
-	// UndergroundCreatureÀÌ ÀÖ´Ù¸é...
+	// UndergroundCreatureì´ ìˆë‹¤ë©´...
 	if (m_fProperty & FLAG_SECTOR_UNDERGROUNDCREATURE)
 	{
-		// UndergroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// UndergroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::const_iterator iObject = m_mapObject.lower_bound(POSITION_UNDERGROUNDCREATURE);
 		
-		// ÀÖÀ¸¸é UndergroundCreature°¡ ¸ÂÀ»¶§..
+		// ìˆìœ¼ë©´ UndergroundCreatureê°€ ë§ì„ë•Œ..
 		if (iObject!=m_mapObject.end() 
 			&& iObject->first <= POSITION_UNDERGROUNDCREATURE_MAX)
 		{
@@ -623,18 +623,18 @@ MSector::GetUndergroundCreatureIterator() const
 //----------------------------------------------------------------------
 // Get Creature
 //----------------------------------------------------------------------
-// Creature Flag¸¦ º¸°í CreatureÀÌ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// Creature Flagë¥¼ ë³´ê³  Creatureì´ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 OBJECT_MAP::const_iterator
 MSector::GetGroundCreatureIterator() const
 {
-	// CreatureÀÌ ÀÖ´Ù¸é...
+	// Creatureì´ ìˆë‹¤ë©´...
 	if (m_fProperty & FLAG_SECTOR_GROUNDCREATURE)
 	{
-		// CreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// Creatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::const_iterator iObject = m_mapObject.lower_bound(POSITION_GROUNDCREATURE);
 
-		// ÀÖÀ¸¸é GroundCreature°¡ ¸ÂÀ»¶§..
+		// ìˆìœ¼ë©´ GroundCreatureê°€ ë§ì„ë•Œ..
 		if (iObject!=m_mapObject.end() 
 			&& iObject->first <= POSITION_GROUNDCREATURE_MAX)
 		{
@@ -648,15 +648,15 @@ MSector::GetGroundCreatureIterator() const
 //----------------------------------------------------------------------
 // Get FlyingCreature
 //----------------------------------------------------------------------
-// FlyingCreature Flag¸¦ º¸°í FlyingCreatureÀÌ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// FlyingCreature Flagë¥¼ ë³´ê³  FlyingCreatureì´ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 OBJECT_MAP::const_iterator
 MSector::GetFlyingCreatureIterator() const
 {
-	// FlyingCreatureÀÌ ÀÖ´Ù¸é...
+	// FlyingCreatureì´ ìˆë‹¤ë©´...
 	if (m_fProperty & FLAG_SECTOR_FLYINGCREATURE)
 	{
-		// FlyingCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// FlyingCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::const_iterator iObject = m_mapObject.lower_bound(POSITION_FLYINGCREATURE);
 
 		if (iObject!=m_mapObject.end() 
@@ -672,15 +672,15 @@ MSector::GetFlyingCreatureIterator() const
 //----------------------------------------------------------------------
 // Get Creature
 //----------------------------------------------------------------------
-// Creature Flag¸¦ º¸°í Creature°¡ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// Creature Flagë¥¼ ë³´ê³  Creatureê°€ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 OBJECT_MAP::iterator
 MSector::GetCreatureIterator()
 {
-	// UndergroundCreatureÀÌ ÀÖ´Ù¸é...
+	// UndergroundCreatureì´ ìˆë‹¤ë©´...
 	if (IsExistAnyCreature())
 	{
-		// UndergroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// UndergroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.lower_bound(POSITION_UNDERGROUNDCREATURE);
 		
 		if (iObject!=m_mapObject.end() 
@@ -696,18 +696,18 @@ MSector::GetCreatureIterator()
 //----------------------------------------------------------------------
 // Get UndergroundCreature
 //----------------------------------------------------------------------
-// UndergroundCreature Flag¸¦ º¸°í UndergroundCreatureÀÌ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// UndergroundCreature Flagë¥¼ ë³´ê³  UndergroundCreatureì´ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 OBJECT_MAP::iterator
 MSector::GetUndergroundCreatureIterator()
 {
-	// UndergroundCreatureÀÌ ÀÖ´Ù¸é...
+	// UndergroundCreatureì´ ìˆë‹¤ë©´...
 	if (m_fProperty & FLAG_SECTOR_UNDERGROUNDCREATURE)
 	{
-		// UndergroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// UndergroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.lower_bound(POSITION_UNDERGROUNDCREATURE);
 		
-		// ÀÖÀ¸¸é UndergroundCreature°¡ ¸ÂÀ»¶§..
+		// ìˆìœ¼ë©´ UndergroundCreatureê°€ ë§ì„ë•Œ..
 		if (iObject!=m_mapObject.end() 
 			&& iObject->first <= POSITION_UNDERGROUNDCREATURE_MAX)
 		{
@@ -721,18 +721,18 @@ MSector::GetUndergroundCreatureIterator()
 //----------------------------------------------------------------------
 // Get Creature
 //----------------------------------------------------------------------
-// Creature Flag¸¦ º¸°í CreatureÀÌ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// Creature Flagë¥¼ ë³´ê³  Creatureì´ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 OBJECT_MAP::iterator
 MSector::GetGroundCreatureIterator()
 {
-	// CreatureÀÌ ÀÖ´Ù¸é...
+	// Creatureì´ ìˆë‹¤ë©´...
 	if (m_fProperty & FLAG_SECTOR_GROUNDCREATURE)
 	{
-		// CreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// Creatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.lower_bound(POSITION_GROUNDCREATURE);
 
-		// ÀÖÀ¸¸é GroundCreature°¡ ¸ÂÀ»¶§..
+		// ìˆìœ¼ë©´ GroundCreatureê°€ ë§ì„ë•Œ..
 		if (iObject!=m_mapObject.end() 
 			&& iObject->first <= POSITION_GROUNDCREATURE_MAX)
 		{
@@ -746,15 +746,15 @@ MSector::GetGroundCreatureIterator()
 //----------------------------------------------------------------------
 // Get FlyingCreature
 //----------------------------------------------------------------------
-// FlyingCreature Flag¸¦ º¸°í FlyingCreatureÀÌ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// FlyingCreature Flagë¥¼ ë³´ê³  FlyingCreatureì´ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 OBJECT_MAP::iterator
 MSector::GetFlyingCreatureIterator()
 {
-	// FlyingCreatureÀÌ ÀÖ´Ù¸é...
+	// FlyingCreatureì´ ìˆë‹¤ë©´...
 	if (m_fProperty & FLAG_SECTOR_FLYINGCREATURE)
 	{
-		// FlyingCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// FlyingCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.lower_bound(POSITION_FLYINGCREATURE);
 
 		if (iObject!=m_mapObject.end() 
@@ -770,15 +770,15 @@ MSector::GetFlyingCreatureIterator()
 //----------------------------------------------------------------------
 // Get Creature
 //----------------------------------------------------------------------
-// Creature Flag¸¦ º¸°í Creature°¡ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// Creature Flagë¥¼ ë³´ê³  Creatureê°€ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 MCreature * const
 MSector::GetCreature() const
 {
-	// UndergroundCreatureÀÌ ÀÖ´Ù¸é...
+	// UndergroundCreatureì´ ìˆë‹¤ë©´...
 	if (IsExistAnyCreature())
 	{
-		// UndergroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// UndergroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::const_iterator iObject = m_mapObject.lower_bound(POSITION_UNDERGROUNDCREATURE);
 		
 		if (iObject!=m_mapObject.end() 
@@ -794,18 +794,18 @@ MSector::GetCreature() const
 //----------------------------------------------------------------------
 // Get UndergroundCreature
 //----------------------------------------------------------------------
-// UndergroundCreature Flag¸¦ º¸°í UndergroundCreatureÀÌ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// UndergroundCreature Flagë¥¼ ë³´ê³  UndergroundCreatureì´ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 MCreature * const
 MSector::GetUndergroundCreature() const
 {
-	// UndergroundCreatureÀÌ ÀÖ´Ù¸é...
+	// UndergroundCreatureì´ ìˆë‹¤ë©´...
 	if (m_fProperty & FLAG_SECTOR_UNDERGROUNDCREATURE)
 	{
-		// UndergroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// UndergroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::const_iterator iObject = m_mapObject.lower_bound(POSITION_UNDERGROUNDCREATURE);
 		
-		// ÀÖÀ¸¸é UndergroundCreature°¡ ¸ÂÀ»¶§..
+		// ìˆìœ¼ë©´ UndergroundCreatureê°€ ë§ì„ë•Œ..
 		if (iObject!=m_mapObject.end() 
 			&& iObject->first <= POSITION_UNDERGROUNDCREATURE_MAX)
 		{
@@ -819,18 +819,18 @@ MSector::GetUndergroundCreature() const
 //----------------------------------------------------------------------
 // Get Creature
 //----------------------------------------------------------------------
-// Creature Flag¸¦ º¸°í CreatureÀÌ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// Creature Flagë¥¼ ë³´ê³  Creatureì´ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 MCreature * const
 MSector::GetGroundCreature() const
 {
-	// CreatureÀÌ ÀÖ´Ù¸é...
+	// Creatureì´ ìˆë‹¤ë©´...
 	if (m_fProperty & FLAG_SECTOR_GROUNDCREATURE)
 	{
-		// CreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// Creatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::const_iterator iObject = m_mapObject.lower_bound(POSITION_GROUNDCREATURE);
 		
-		// ÀÖÀ¸¸é GroundCreature°¡ ¸ÂÀ»¶§..
+		// ìˆìœ¼ë©´ GroundCreatureê°€ ë§ì„ë•Œ..
 		if (iObject!=m_mapObject.end() 
 			&& iObject->first <= POSITION_GROUNDCREATURE_MAX)
 		{
@@ -844,15 +844,15 @@ MSector::GetGroundCreature() const
 //----------------------------------------------------------------------
 // Get FlyingCreature
 //----------------------------------------------------------------------
-// FlyingCreature Flag¸¦ º¸°í FlyingCreatureÀÌ ÀÖ´Ù¸é returnÇØÁÖ¸é µÈ´Ù.
+// FlyingCreature Flagë¥¼ ë³´ê³  FlyingCreatureì´ ìˆë‹¤ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 MCreature * const
 MSector::GetFlyingCreature() const
 {
-	// FlyingCreatureÀÌ ÀÖ´Ù¸é...
+	// FlyingCreatureì´ ìˆë‹¤ë©´...
 	if (m_fProperty & FLAG_SECTOR_FLYINGCREATURE)
 	{
-		// FlyingCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// FlyingCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::const_iterator iObject = m_mapObject.lower_bound(POSITION_FLYINGCREATURE);
 		
 		if (iObject!=m_mapObject.end() 
@@ -868,31 +868,31 @@ MSector::GetFlyingCreature() const
 //----------------------------------------------------------------------
 // Get ImageObject
 //----------------------------------------------------------------------
-// ImageObject Flag¸¦ º¸°í ImageObject°¡ ÀÖ´Ù¸é 
-// ¿øÇÏ´Â id¸¦ °¡Áö´Â ImageObject°¡ ÀÖÀ¸¸é returnÇØÁÖ¸é µÈ´Ù.
+// ImageObject Flagë¥¼ ë³´ê³  ImageObjectê°€ ìˆë‹¤ë©´ 
+// ì›í•˜ëŠ” idë¥¼ ê°€ì§€ëŠ” ImageObjectê°€ ìˆìœ¼ë©´ returní•´ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 MImageObject* const	
 MSector::GetImageObject(TYPE_OBJECTID id) const
 {
-	// ImageObjectÀÌ ÀÖ´Ù¸é...
+	// ImageObjectì´ ìˆë‹¤ë©´...
 	if (m_nImageObject)
 	{
-		// ImageObjectÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// ImageObjectì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::const_iterator iObject = m_mapObject.find(POSITION_IMAGEOBJECT);
 
-		// ¾øÀ» °æ¿ì NULLÀ» returnÇÑ´Ù.
+		// ì—†ì„ ê²½ìš° NULLì„ returní•œë‹¤.
 		if (iObject == m_mapObject.end()) 
 			return NULL;
 
-		// ÀÖÀ¸¸é ImageObject °³¼ö¸¸Å­ ºñ±³¸¦ ÇÏ°í..		
-		// µµÁß¿¡ ID°¡ idÀÎ ImageObject°¡ ÀÖÀ¸¸é returnÇÑ´Ù.
+		// ìˆìœ¼ë©´ ImageObject ê°œìˆ˜ë§Œí¼ ë¹„êµë¥¼ í•˜ê³ ..		
+		// ë„ì¤‘ì— IDê°€ idì¸ ImageObjectê°€ ìˆìœ¼ë©´ returní•œë‹¤.
 		for (register BYTE i=0; i<m_nImageObject; i++)
 		{
-			// °°Àº IDÀÌ¸é returnÇÑ´Ù.
+			// ê°™ì€ IDì´ë©´ returní•œë‹¤.
 			if ( ((*iObject).second)->GetID() == id )
 				return (MImageObject* const)((*iObject).second);
 
-			// ´ÙÀ½ ImageObject
+			// ë‹¤ìŒ ImageObject
 			iObject++;
 		}
 		
@@ -911,29 +911,29 @@ MSector::GetImageObject(TYPE_OBJECTID id) const
 //----------------------------------------------------------------------
 // Remove Item
 //----------------------------------------------------------------------
-// ItemÀÌ ÀÖÀ¸¸é Á¦°ÅÇÏ°í Flagµµ ¾ø¾Ö°í
-// pItemÀ¸·Î ³Ñ°ÜÁØ´Ù.
+// Itemì´ ìˆìœ¼ë©´ ì œê±°í•˜ê³  Flagë„ ì—†ì• ê³ 
+// pItemìœ¼ë¡œ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveItem(MItem*& pItem)
 {
-	// ItemÀÌ ÀÖÀ¸¸é
+	// Itemì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_ITEM)
 	{
-		// ItemÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// Itemì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.find(POSITION_ITEM);
 
-		// ¾øÀ» °æ¿ì return false
+		// ì—†ì„ ê²½ìš° return false
 		if (iObject == m_mapObject.end()) 
 			return false;
 		
-		// ÀÖÀ¸¸é ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pItem¿¡ ÀúÀåÇÑ´Ù.
+		// ìˆìœ¼ë©´ ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pItemì— ì €ì¥í•œë‹¤.
 		pItem =  (MItem*)((*iObject).second);
 
-		// iObject¸¦ Á¦°ÅÇÑ´Ù.
+		// iObjectë¥¼ ì œê±°í•œë‹¤.
 		m_mapObject.erase( iObject );
 
-		// Item Flag¸¸ Á¦°ÅÇÑ´Ù.
+		// Item Flagë§Œ ì œê±°í•œë‹¤.
 		if( pItem->GetItemClass() == ITEM_CLASS_CORPSE &&
 			((MCorpse*)pItem)->GetCreature() != NULL &&
 			((MCorpse*)pItem)->GetCreature()->GetCreatureType() == 672 )
@@ -944,113 +944,113 @@ MSector::RemoveItem(MItem*& pItem)
 		return true;
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 
 //----------------------------------------------------------------------
 // Remove UndergroundCreature
 //----------------------------------------------------------------------
-// UndergroundCreatureÀÌ ÀÖÀ¸¸é Á¦°ÅÇÏ°í Flagµµ ¾ø¾Ö°í
-// pUndergroundCreatureÀ¸·Î ³Ñ°ÜÁØ´Ù.
+// UndergroundCreatureì´ ìˆìœ¼ë©´ ì œê±°í•˜ê³  Flagë„ ì—†ì• ê³ 
+// pUndergroundCreatureìœ¼ë¡œ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 /*
 bool	
 MSector::RemoveUndergroundCreature(MCreature*& pUndergroundCreature)
 {
-	// UndergroundCreatureÀÌ ÀÖÀ¸¸é
+	// UndergroundCreatureì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_UNDERGROUNDCREATURE)
 	{
-		// UndergroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// UndergroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.find(POSITION_UNDERGROUNDCREATURE);
 
-		// ¾øÀ» °æ¿ì return false
+		// ì—†ì„ ê²½ìš° return false
 		if (iObject == m_mapObject.end()) 
 			return false;
 		
-		// ÀÖÀ¸¸é ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pUndergroundCreature¿¡ ÀúÀåÇÑ´Ù.
+		// ìˆìœ¼ë©´ ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pUndergroundCreatureì— ì €ì¥í•œë‹¤.
 		pUndergroundCreature =  (MCreature*)((*iObject).second);
 
-		// iObject¸¦ Á¦°ÅÇÑ´Ù.
+		// iObjectë¥¼ ì œê±°í•œë‹¤.
 		m_mapObject.erase( iObject );
 
-		// UndergroundCreature Flag¸¸ Á¦°ÅÇÑ´Ù.
+		// UndergroundCreature Flagë§Œ ì œê±°í•œë‹¤.
 		m_fProperty &= ~FLAG_SECTOR_UNDERGROUNDCREATURE;
 
 		return true;
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 
 //----------------------------------------------------------------------
 // Remove Creature
 //----------------------------------------------------------------------
-// CreatureÀÌ ÀÖÀ¸¸é Á¦°ÅÇÏ°í Flagµµ ¾ø¾Ö°í
-// pCreatureÀ¸·Î ³Ñ°ÜÁØ´Ù.
+// Creatureì´ ìˆìœ¼ë©´ ì œê±°í•˜ê³  Flagë„ ì—†ì• ê³ 
+// pCreatureìœ¼ë¡œ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveGroundCreature(MCreature*& pCreature)
 {
-	// CreatureÀÌ ÀÖÀ¸¸é
+	// Creatureì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_GROUNDCREATURE)
 	{
-		// CreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// Creatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.find(POSITION_GROUNDCREATURE);
 
-		// ¾øÀ» °æ¿ì return false
+		// ì—†ì„ ê²½ìš° return false
 		if (iObject == m_mapObject.end()) 
 			return false;
 		
-		// ÀÖÀ¸¸é ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pCreature¿¡ ÀúÀåÇÑ´Ù.
+		// ìˆìœ¼ë©´ ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pCreatureì— ì €ì¥í•œë‹¤.
 		pCreature =  (MCreature*)((*iObject).second);
 
-		// iObject¸¦ Á¦°ÅÇÑ´Ù.
+		// iObjectë¥¼ ì œê±°í•œë‹¤.
 		m_mapObject.erase( iObject );
 
-		// Creature Flag¸¸ Á¦°ÅÇÑ´Ù.
+		// Creature Flagë§Œ ì œê±°í•œë‹¤.
 		m_fProperty &= ~FLAG_SECTOR_GROUNDCREATURE;
 
 		return true;
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 		
 //----------------------------------------------------------------------
 // Remove FlyingCreature
 //----------------------------------------------------------------------
-// FlyingCreatureÀÌ ÀÖÀ¸¸é Á¦°ÅÇÏ°í Flagµµ ¾ø¾Ö°í
-// pFlyingCreatureÀ¸·Î ³Ñ°ÜÁØ´Ù.
+// FlyingCreatureì´ ìˆìœ¼ë©´ ì œê±°í•˜ê³  Flagë„ ì—†ì• ê³ 
+// pFlyingCreatureìœ¼ë¡œ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveFlyingCreature(MCreature*& pFlyingCreature)
 {
-	// FlyingCreatureÀÌ ÀÖÀ¸¸é
+	// FlyingCreatureì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_FLYINGCREATURE)
 	{
-		// FlyingCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// FlyingCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.find(POSITION_FLYINGCREATURE);
 
-		// ¾øÀ» °æ¿ì return false
+		// ì—†ì„ ê²½ìš° return false
 		if (iObject == m_mapObject.end()) 
 			return false;
 		
-		// ÀÖÀ¸¸é ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pFlyingCreature¿¡ ÀúÀåÇÑ´Ù.
+		// ìˆìœ¼ë©´ ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pFlyingCreatureì— ì €ì¥í•œë‹¤.
 		pFlyingCreature =  (MCreature*)((*iObject).second);
 
-		// iObject¸¦ Á¦°ÅÇÑ´Ù.
+		// iObjectë¥¼ ì œê±°í•œë‹¤.
 		m_mapObject.erase( iObject );
 
-		// FlyingCreature Flag¸¸ Á¦°ÅÇÑ´Ù.
+		// FlyingCreature Flagë§Œ ì œê±°í•œë‹¤.
 		m_fProperty &= ~FLAG_SECTOR_FLYINGCREATURE;
 
 		return true;
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 */
@@ -1058,33 +1058,33 @@ MSector::RemoveFlyingCreature(MCreature*& pFlyingCreature)
 //----------------------------------------------------------------------
 // Remove Item(id, &Item)
 //----------------------------------------------------------------------
-// ItemÀÌ ÀÖÀ¸¸é id¸¦ ºñ±³ÇØ¼­ Á¦°ÅÇÏ°í Flagµµ ¾ø¾Ö°í
-// pItemÀ¸·Î ³Ñ°ÜÁØ´Ù.
+// Itemì´ ìˆìœ¼ë©´ idë¥¼ ë¹„êµí•´ì„œ ì œê±°í•˜ê³  Flagë„ ì—†ì• ê³ 
+// pItemìœ¼ë¡œ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveItem(TYPE_OBJECTID id, MItem*& pItem)
 {
-	// ItemÀÌ ÀÖÀ¸¸é
+	// Itemì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_ITEM)
 	{
-		// ItemÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// Itemì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.find(POSITION_ITEM);
 
-		// ¾øÀ» °æ¿ì return false
+		// ì—†ì„ ê²½ìš° return false
 		if (iObject == m_mapObject.end()) 
 			return false;
 		
 		pItem =  (MItem*)((*iObject).second);
 			
-		// ÀÖÀ¸¸é 
-		// ID¸¦ ºñ±³ÇØ¼­ °°Àº °æ¿ì,
-		// ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pItem¿¡ ÀúÀåÇÑ´Ù.
+		// ìˆìœ¼ë©´ 
+		// IDë¥¼ ë¹„êµí•´ì„œ ê°™ì€ ê²½ìš°,
+		// ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pItemì— ì €ì¥í•œë‹¤.
 		if (((*iObject).second)->GetID() == id)
 		{
-			// iObject¸¦ Á¦°ÅÇÑ´Ù.
+			// iObjectë¥¼ ì œê±°í•œë‹¤.
 			m_mapObject.erase( iObject );
 
-			// Item Flag¸¸ Á¦°ÅÇÑ´Ù.
+			// Item Flagë§Œ ì œê±°í•œë‹¤.
 			if( pItem->GetItemClass() == ITEM_CLASS_CORPSE &&
 				((MCorpse*)pItem)->GetCreature() != NULL &&
 				((MCorpse*)pItem)->GetCreature()->GetCreatureType() == 672 )
@@ -1096,22 +1096,22 @@ MSector::RemoveItem(TYPE_OBJECTID id, MItem*& pItem)
 		}		
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 
 //----------------------------------------------------------------------
 // Remove Creature(id, &Creature)
 //----------------------------------------------------------------------
-// Creature°¡ ÀÖÀ¸¸é id¸¦ ºñ±³ÇØ¼­ Á¦°ÅÇÏ°í Flagµµ ¾ø¾Ö°í
-// pCreature ³Ñ°ÜÁØ´Ù.
+// Creatureê°€ ìˆìœ¼ë©´ idë¥¼ ë¹„êµí•´ì„œ ì œê±°í•˜ê³  Flagë„ ì—†ì• ê³ 
+// pCreature ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveCreature(TYPE_OBJECTID id, MCreature*& pCreature)
 {
 	if (IsExistAnyCreature())
 	{
-		// UndergroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// UndergroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = GetCreatureIterator();
 
 		while (iObject!=m_mapObject.end() 
@@ -1119,9 +1119,9 @@ MSector::RemoveCreature(TYPE_OBJECTID id, MCreature*& pCreature)
 		{
 			pCreature =  (MCreature*)iObject->second;
 				
-			// ÀÖÀ¸¸é 
-			// ID¸¦ ºñ±³ÇØ¼­ °°Àº °æ¿ì,
-			// ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pCreature¿¡ ÀúÀåÇÑ´Ù.
+			// ìˆìœ¼ë©´ 
+			// IDë¥¼ ë¹„êµí•´ì„œ ê°™ì€ ê²½ìš°,
+			// ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pCreatureì— ì €ì¥í•œë‹¤.
 			if (pCreature->GetID() == id)
 			{
 				// Underground
@@ -1149,7 +1149,7 @@ MSector::RemoveCreature(TYPE_OBJECTID id, MCreature*& pCreature)
 					}
 				}		
 				
-				// iObject¸¦ Á¦°ÅÇÑ´Ù.
+				// iObjectë¥¼ ì œê±°í•œë‹¤.
 				m_mapObject.erase( iObject );				
 
 				return true;
@@ -1159,7 +1159,7 @@ MSector::RemoveCreature(TYPE_OBJECTID id, MCreature*& pCreature)
 		}		
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	pCreature = NULL;
 
 	return false;
@@ -1168,31 +1168,31 @@ MSector::RemoveCreature(TYPE_OBJECTID id, MCreature*& pCreature)
 //----------------------------------------------------------------------
 // Remove UndergroundCreature(id, &UndergroundCreature)
 //----------------------------------------------------------------------
-// UndergroundCreatureÀÌ ÀÖÀ¸¸é id¸¦ ºñ±³ÇØ¼­ Á¦°ÅÇÏ°í Flagµµ ¾ø¾Ö°í
-// pUndergroundCreatureÀ¸·Î ³Ñ°ÜÁØ´Ù.
+// UndergroundCreatureì´ ìˆìœ¼ë©´ idë¥¼ ë¹„êµí•´ì„œ ì œê±°í•˜ê³  Flagë„ ì—†ì• ê³ 
+// pUndergroundCreatureìœ¼ë¡œ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveUndergroundCreature(TYPE_OBJECTID id, MCreature*& pUndergroundCreature)
 {
-	// UndergroundCreatureÀÌ ÀÖÀ¸¸é
+	// UndergroundCreatureì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_UNDERGROUNDCREATURE)
 	{
-		// UndergroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// UndergroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = GetUndergroundCreatureIterator();
 
 		for (int i=0; iObject!=m_mapObject.end() && i<m_nUndergroundCreature; i++)
 		{
 			pUndergroundCreature =  (MCreature*)iObject->second;
 				
-			// ÀÖÀ¸¸é 
-			// ID¸¦ ºñ±³ÇØ¼­ °°Àº °æ¿ì,
-			// ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pUndergroundCreature¿¡ ÀúÀåÇÑ´Ù.
+			// ìˆìœ¼ë©´ 
+			// IDë¥¼ ë¹„êµí•´ì„œ ê°™ì€ ê²½ìš°,
+			// ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pUndergroundCreatureì— ì €ì¥í•œë‹¤.
 			if (pUndergroundCreature->GetID() == id)
 			{
-				// iObject¸¦ Á¦°ÅÇÑ´Ù.
+				// iObjectë¥¼ ì œê±°í•œë‹¤.
 				m_mapObject.erase( iObject );
 
-				// UndergroundCreature Flag¸¸ Á¦°ÅÇÑ´Ù.
+				// UndergroundCreature Flagë§Œ ì œê±°í•œë‹¤.
 				if (--m_nUndergroundCreature==0)
 				{
 					m_fProperty &= ~FLAG_SECTOR_UNDERGROUNDCREATURE;				
@@ -1205,7 +1205,7 @@ MSector::RemoveUndergroundCreature(TYPE_OBJECTID id, MCreature*& pUndergroundCre
 		}		
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	pUndergroundCreature = NULL;
 
 	return false;
@@ -1214,31 +1214,31 @@ MSector::RemoveUndergroundCreature(TYPE_OBJECTID id, MCreature*& pUndergroundCre
 //----------------------------------------------------------------------
 // Remove Creature(id, &Creature)
 //----------------------------------------------------------------------
-// CreatureÀÌ ÀÖÀ¸¸é id¸¦ ºñ±³ÇØ¼­ Á¦°ÅÇÏ°í Flagµµ ¾ø¾Ö°í
-// pGroundCreatureÀ¸·Î ³Ñ°ÜÁØ´Ù.
+// Creatureì´ ìˆìœ¼ë©´ idë¥¼ ë¹„êµí•´ì„œ ì œê±°í•˜ê³  Flagë„ ì—†ì• ê³ 
+// pGroundCreatureìœ¼ë¡œ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveGroundCreature(TYPE_OBJECTID id, MCreature*& pGroundCreature)
 {
-	// GroundCreatureÀÌ ÀÖÀ¸¸é
+	// GroundCreatureì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_GROUNDCREATURE)
 	{
-		// GroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// GroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = GetGroundCreatureIterator();
 
 		for (int i=0; iObject!=m_mapObject.end() && i<m_nGroundCreature; i++)
 		{
 			pGroundCreature =  (MCreature*)iObject->second;
 				
-			// ÀÖÀ¸¸é 
-			// ID¸¦ ºñ±³ÇØ¼­ °°Àº °æ¿ì,
-			// ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pGroundCreature¿¡ ÀúÀåÇÑ´Ù.
+			// ìˆìœ¼ë©´ 
+			// IDë¥¼ ë¹„êµí•´ì„œ ê°™ì€ ê²½ìš°,
+			// ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pGroundCreatureì— ì €ì¥í•œë‹¤.
 			if (pGroundCreature->GetID() == id)
 			{
-				// iObject¸¦ Á¦°ÅÇÑ´Ù.
+				// iObjectë¥¼ ì œê±°í•œë‹¤.
 				m_mapObject.erase( iObject );
 
-				// GroundCreature Flag¸¸ Á¦°ÅÇÑ´Ù.				
+				// GroundCreature Flagë§Œ ì œê±°í•œë‹¤.				
 				if (--m_nGroundCreature==0)
 				{
 					m_fProperty &= ~FLAG_SECTOR_GROUNDCREATURE;
@@ -1251,41 +1251,41 @@ MSector::RemoveGroundCreature(TYPE_OBJECTID id, MCreature*& pGroundCreature)
 		}		
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	pGroundCreature = NULL;
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 		
 //----------------------------------------------------------------------
 // Remove FlyingCreature(id, &FlyingCreature)
 //----------------------------------------------------------------------
-// FlyingCreatureÀÌ ÀÖÀ¸¸é id¸¦ ºñ±³ÇØ¼­ Á¦°ÅÇÏ°í Flagµµ ¾ø¾Ö°í
-// pFlyingCreatureÀ¸·Î ³Ñ°ÜÁØ´Ù.
+// FlyingCreatureì´ ìˆìœ¼ë©´ idë¥¼ ë¹„êµí•´ì„œ ì œê±°í•˜ê³  Flagë„ ì—†ì• ê³ 
+// pFlyingCreatureìœ¼ë¡œ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveFlyingCreature(TYPE_OBJECTID id, MCreature*& pFlyingCreature)
 {
-	// FlyingCreatureÀÌ ÀÖÀ¸¸é
+	// FlyingCreatureì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_FLYINGCREATURE)
 	{
-		// FlyingCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// FlyingCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = GetFlyingCreatureIterator();
 
 		for (int i=0; iObject!=m_mapObject.end() && i<m_nFlyingCreature; i++)
 		{
 			pFlyingCreature =  (MCreature*)iObject->second;
 				
-			// ÀÖÀ¸¸é 
-			// ID¸¦ ºñ±³ÇØ¼­ °°Àº °æ¿ì,
-			// ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pFlyingCreature¿¡ ÀúÀåÇÑ´Ù.
+			// ìˆìœ¼ë©´ 
+			// IDë¥¼ ë¹„êµí•´ì„œ ê°™ì€ ê²½ìš°,
+			// ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pFlyingCreatureì— ì €ì¥í•œë‹¤.
 			if (pFlyingCreature->GetID() == id)
 			{
-				// iObject¸¦ Á¦°ÅÇÑ´Ù.
+				// iObjectë¥¼ ì œê±°í•œë‹¤.
 				m_mapObject.erase( iObject );
 
-				// FlyingCreature Flag¸¸ Á¦°ÅÇÑ´Ù.				
+				// FlyingCreature Flagë§Œ ì œê±°í•œë‹¤.				
 				if (--m_nFlyingCreature==0)
 				{
 					m_fProperty &= ~FLAG_SECTOR_FLYINGCREATURE;
@@ -1298,57 +1298,57 @@ MSector::RemoveFlyingCreature(TYPE_OBJECTID id, MCreature*& pFlyingCreature)
 		}		
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	pFlyingCreature = NULL;
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 
 //----------------------------------------------------------------------
 // Remove ImageObject(id, &ImageObject)
 //----------------------------------------------------------------------
-// ImageObjectÀÌ ÀÖÀ¸¸é id¸¦ ºñ±³ÇØ¼­ °°Àº °É Á¦°ÅÇÏ°í Flagµµ ¾ø¾Ö°í
-// m_nImageObject¸¦ 1 °¨¼Ò ½ÃÅ°°í 
-// pImageObjectÀ¸·Î ³Ñ°ÜÁØ´Ù.
+// ImageObjectì´ ìˆìœ¼ë©´ idë¥¼ ë¹„êµí•´ì„œ ê°™ì€ ê±¸ ì œê±°í•˜ê³  Flagë„ ì—†ì• ê³ 
+// m_nImageObjectë¥¼ 1 ê°ì†Œ ì‹œí‚¤ê³  
+// pImageObjectìœ¼ë¡œ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveImageObject(TYPE_OBJECTID id, MImageObject*& pImageObject)
 {
-	// ImageObjectÀÌ ÀÖÀ¸¸é
+	// ImageObjectì´ ìˆìœ¼ë©´
 	if (m_nImageObject)
 	{
-		// ImageObjectÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// ImageObjectì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.find(POSITION_IMAGEOBJECT);
 
-		// ¾øÀ» °æ¿ì return false
+		// ì—†ì„ ê²½ìš° return false
 		if (iObject == m_mapObject.end()) 
 			return false;
 		
-		// ÀÖÀ¸¸é ¸ğµç ImageObject¿Í ID¸¦ ºñ±³ÇØ¼­..
-		// °°Àº °æ¿ì, ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pImageObject¿¡ ÀúÀåÇÑ´Ù.
+		// ìˆìœ¼ë©´ ëª¨ë“  ImageObjectì™€ IDë¥¼ ë¹„êµí•´ì„œ..
+		// ê°™ì€ ê²½ìš°, ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pImageObjectì— ì €ì¥í•œë‹¤.
 		for (register BYTE i=0; i<m_nImageObject; i++)
 		{
-			// ID°¡ °°Àº °æ¿ì..
+			// IDê°€ ê°™ì€ ê²½ìš°..
 			if (((*iObject).second)->GetID() == id)
 			{
 				pImageObject =  (MImageObject*)((*iObject).second);
 
-				// iObject¸¦ Á¦°ÅÇÑ´Ù.
+				// iObjectë¥¼ ì œê±°í•œë‹¤.
 				m_mapObject.erase( iObject );
 
-				// m_nImageObject°¡ 0ÀÎ °æ¿ì¸¸ Flag¸¦ Á¦°ÅÇÑ´Ù.
+				// m_nImageObjectê°€ 0ì¸ ê²½ìš°ë§Œ Flagë¥¼ ì œê±°í•œë‹¤.
 				m_nImageObject--;				
 
 				return true;
 			}		
 
-			// ´ÙÀ½ ImageObject
+			// ë‹¤ìŒ ImageObject
 			iObject++;
 		}
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 
@@ -1356,27 +1356,27 @@ MSector::RemoveImageObject(TYPE_OBJECTID id, MImageObject*& pImageObject)
 //----------------------------------------------------------------------
 // Remove Item(id)
 //----------------------------------------------------------------------
-// ItemÀÌ ÀÖÀ¸¸é id¸¦ ºñ±³ÇØ¼­ Á¦°ÅÇÏ°í Flag¸¦ ¾ø¾Ø´Ù.
+// Itemì´ ìˆìœ¼ë©´ idë¥¼ ë¹„êµí•´ì„œ ì œê±°í•˜ê³  Flagë¥¼ ì—†ì•¤ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveItem(TYPE_OBJECTID id)
 {
-	// ItemÀÌ ÀÖÀ¸¸é
+	// Itemì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_ITEM)
 	{
-		// ItemÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// Itemì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.find(POSITION_ITEM);
 
-		// ¾øÀ» °æ¿ì return false
+		// ì—†ì„ ê²½ìš° return false
 		if (iObject == m_mapObject.end()) 
 			return false;
 		
-		// ÀÖÀ¸¸é 
-		// ID¸¦ ºñ±³ÇØ¼­ °°Àº °æ¿ì,
-		// ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pItem¿¡ ÀúÀåÇÑ´Ù.
+		// ìˆìœ¼ë©´ 
+		// IDë¥¼ ë¹„êµí•´ì„œ ê°™ì€ ê²½ìš°,
+		// ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pItemì— ì €ì¥í•œë‹¤.
 		if (((*iObject).second)->GetID() == id)
 		{
-			// iObject¸¦ Á¦°ÅÇÑ´Ù.
+			// iObjectë¥¼ ì œê±°í•œë‹¤.
 			MItem* pItem = dynamic_cast<MItem*>(iObject->second);
 			if( pItem->GetItemClass() == ITEM_CLASS_CORPSE &&
 				((MCorpse*)pItem)->GetCreature() != NULL &&
@@ -1385,14 +1385,14 @@ MSector::RemoveItem(TYPE_OBJECTID id)
 
 			m_mapObject.erase( iObject );
 
-			// Item Flag¸¸ Á¦°ÅÇÑ´Ù.
+			// Item Flagë§Œ ì œê±°í•œë‹¤.
 			m_fProperty &= ~FLAG_SECTOR_ITEM;
 
 			return true;
 		}		
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 
@@ -1400,22 +1400,22 @@ MSector::RemoveItem(TYPE_OBJECTID id)
 //----------------------------------------------------------------------
 // Remove Creature(id)
 //----------------------------------------------------------------------
-// Creature°¡ ÀÖÀ¸¸é id¸¦ ºñ±³ÇØ¼­ Á¦°ÅÇÏ°í Flag¸¦ ¾ø¾Ø´Ù.
+// Creatureê°€ ìˆìœ¼ë©´ idë¥¼ ë¹„êµí•´ì„œ ì œê±°í•˜ê³  Flagë¥¼ ì—†ì•¤ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveCreature(TYPE_OBJECTID id)
 {	
 	if (IsExistAnyCreature())
 	{
-		// UndergroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// UndergroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = GetCreatureIterator();
 
 		while (iObject!=m_mapObject.end() 
 				&& iObject->first <= POSITION_FLYINGCREATURE_MAX)
 		{
-			// ÀÖÀ¸¸é 
-			// ID¸¦ ºñ±³ÇØ¼­ °°Àº °æ¿ì,
-			// ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pCreature¿¡ ÀúÀåÇÑ´Ù.
+			// ìˆìœ¼ë©´ 
+			// IDë¥¼ ë¹„êµí•´ì„œ ê°™ì€ ê²½ìš°,
+			// ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pCreatureì— ì €ì¥í•œë‹¤.
 			if (((MCreature*)iObject->second)->GetID() == id)
 			{
 				// Underground
@@ -1444,7 +1444,7 @@ MSector::RemoveCreature(TYPE_OBJECTID id)
 					}					
 				}	
 				
-				// iObject¸¦ Á¦°ÅÇÑ´Ù.
+				// iObjectë¥¼ ì œê±°í•œë‹¤.
 				m_mapObject.erase( iObject );				
 
 				return true;
@@ -1454,35 +1454,35 @@ MSector::RemoveCreature(TYPE_OBJECTID id)
 		}		
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 		
 //----------------------------------------------------------------------
 // Remove UndergroundCreature(id)
 //----------------------------------------------------------------------
-// UndergroundCreatureÀÌ ÀÖÀ¸¸é id¸¦ ºñ±³ÇØ¼­ Á¦°ÅÇÏ°í Flag¸¦ ¾ø¾Ø´Ù.
+// UndergroundCreatureì´ ìˆìœ¼ë©´ idë¥¼ ë¹„êµí•´ì„œ ì œê±°í•˜ê³  Flagë¥¼ ì—†ì•¤ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveUndergroundCreature(TYPE_OBJECTID id)
 {
-	// UndergroundCreatureÀÌ ÀÖÀ¸¸é
+	// UndergroundCreatureì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_UNDERGROUNDCREATURE)
 	{
-		// UndergroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// UndergroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = GetUndergroundCreatureIterator();
 
 		for (int i=0; iObject!=m_mapObject.end() && i<m_nUndergroundCreature; i++)
 		{
-			// ÀÖÀ¸¸é 
-			// ID¸¦ ºñ±³ÇØ¼­ °°Àº °æ¿ì,
-			// ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pUndergroundCreature¿¡ ÀúÀåÇÑ´Ù.
+			// ìˆìœ¼ë©´ 
+			// IDë¥¼ ë¹„êµí•´ì„œ ê°™ì€ ê²½ìš°,
+			// ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pUndergroundCreatureì— ì €ì¥í•œë‹¤.
 			if (((MCreature*)iObject->second)->GetID() == id)
 			{
-				// iObject¸¦ Á¦°ÅÇÑ´Ù.
+				// iObjectë¥¼ ì œê±°í•œë‹¤.
 				m_mapObject.erase( iObject );
 
-				// UndergroundCreature Flag¸¸ Á¦°ÅÇÑ´Ù.
+				// UndergroundCreature Flagë§Œ ì œê±°í•œë‹¤.
 				if (--m_nUndergroundCreature==0)
 				{
 					m_fProperty &= ~FLAG_SECTOR_UNDERGROUNDCREATURE;
@@ -1495,35 +1495,35 @@ MSector::RemoveUndergroundCreature(TYPE_OBJECTID id)
 		}		
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 		
 //----------------------------------------------------------------------
 // Remove Creature(id)
 //----------------------------------------------------------------------
-// CreatureÀÌ ÀÖÀ¸¸é id¸¦ ºñ±³ÇØ¼­ Á¦°ÅÇÏ°í Flag¸¦ ¾ø¾Ø´Ù.
+// Creatureì´ ìˆìœ¼ë©´ idë¥¼ ë¹„êµí•´ì„œ ì œê±°í•˜ê³  Flagë¥¼ ì—†ì•¤ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveGroundCreature(TYPE_OBJECTID id)
 {
-	// GroundCreatureÀÌ ÀÖÀ¸¸é
+	// GroundCreatureì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_GROUNDCREATURE)
 	{
-		// GroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// GroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = GetGroundCreatureIterator();
 
 		for (int i=0; iObject!=m_mapObject.end() && i<m_nGroundCreature; i++)
 		{
-			// ÀÖÀ¸¸é 
-			// ID¸¦ ºñ±³ÇØ¼­ °°Àº °æ¿ì,
-			// ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pGroundCreature¿¡ ÀúÀåÇÑ´Ù.
+			// ìˆìœ¼ë©´ 
+			// IDë¥¼ ë¹„êµí•´ì„œ ê°™ì€ ê²½ìš°,
+			// ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pGroundCreatureì— ì €ì¥í•œë‹¤.
 			if (((MCreature*)iObject->second)->GetID() == id)
 			{
-				// iObject¸¦ Á¦°ÅÇÑ´Ù.
+				// iObjectë¥¼ ì œê±°í•œë‹¤.
 				m_mapObject.erase( iObject );
 
-				// GroundCreature Flag¸¸ Á¦°ÅÇÑ´Ù.
+				// GroundCreature Flagë§Œ ì œê±°í•œë‹¤.
 				if (--m_nGroundCreature==0)
 				{
 					m_fProperty &= ~FLAG_SECTOR_GROUNDCREATURE;
@@ -1536,35 +1536,35 @@ MSector::RemoveGroundCreature(TYPE_OBJECTID id)
 		}		
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 		
 //----------------------------------------------------------------------
 // Remove FlyingCreature(id)
 //----------------------------------------------------------------------
-// FlyingCreatureÀÌ ÀÖÀ¸¸é id¸¦ ºñ±³ÇØ¼­ Á¦°ÅÇÏ°í Flag¸¦ ¾ø¾Ø´Ù.
+// FlyingCreatureì´ ìˆìœ¼ë©´ idë¥¼ ë¹„êµí•´ì„œ ì œê±°í•˜ê³  Flagë¥¼ ì—†ì•¤ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveFlyingCreature(TYPE_OBJECTID id)
 {
-	// FlyingCreatureÀÌ ÀÖÀ¸¸é
+	// FlyingCreatureì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_FLYINGCREATURE)
 	{
-		// FlyingCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// FlyingCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = GetFlyingCreatureIterator();
 
 		for (int i=0; iObject!=m_mapObject.end() && i<m_nFlyingCreature; i++)
 		{
-			// ÀÖÀ¸¸é 
-			// ID¸¦ ºñ±³ÇØ¼­ °°Àº °æ¿ì,
-			// ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pFlyingCreature¿¡ ÀúÀåÇÑ´Ù.
+			// ìˆìœ¼ë©´ 
+			// IDë¥¼ ë¹„êµí•´ì„œ ê°™ì€ ê²½ìš°,
+			// ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pFlyingCreatureì— ì €ì¥í•œë‹¤.
 			if (((MCreature*)iObject->second)->GetID() == id)
 			{
-				// iObject¸¦ Á¦°ÅÇÑ´Ù.
+				// iObjectë¥¼ ì œê±°í•œë‹¤.
 				m_mapObject.erase( iObject );
 
-				// FlyingCreature Flag¸¸ Á¦°ÅÇÑ´Ù.
+				// FlyingCreature Flagë§Œ ì œê±°í•œë‹¤.
 				if (--m_nFlyingCreature==0)
 				{
 					m_fProperty &= ~FLAG_SECTOR_FLYINGCREATURE;
@@ -1579,37 +1579,37 @@ MSector::RemoveFlyingCreature(TYPE_OBJECTID id)
 	}
 
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 		
 //----------------------------------------------------------------------
 // Remove ImageObject(id)
 //----------------------------------------------------------------------
-// ImageObjectÀÌ ÀÖÀ¸¸é id¸¦ ºñ±³ÇØ¼­ 
-// °°Àº°Ô ÀÖÀ¸¸é Á¦°Å
+// ImageObjectì´ ìˆìœ¼ë©´ idë¥¼ ë¹„êµí•´ì„œ 
+// ê°™ì€ê²Œ ìˆìœ¼ë©´ ì œê±°
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveImageObject(TYPE_OBJECTID id)
 {
-	// ImageObjectÀÌ ÀÖÀ¸¸é
+	// ImageObjectì´ ìˆìœ¼ë©´
 	if (m_nImageObject)
 	{
-		// ImageObjectÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// ImageObjectì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.find(POSITION_IMAGEOBJECT);
 
-		// ¾øÀ» °æ¿ì return false
+		// ì—†ì„ ê²½ìš° return false
 		if (iObject == m_mapObject.end()) 
 			return false;
 		
-		// ÀÖÀ¸¸é 
-		// ID¸¦ ºñ±³ÇØ¼­ °°Àº °æ¿ì,
-		// ±× Object¸¦ ³Ñ°ÜÁÙ ¼ö ÀÖµµ·Ï pImageObject¿¡ ÀúÀåÇÑ´Ù.
+		// ìˆìœ¼ë©´ 
+		// IDë¥¼ ë¹„êµí•´ì„œ ê°™ì€ ê²½ìš°,
+		// ê·¸ Objectë¥¼ ë„˜ê²¨ì¤„ ìˆ˜ ìˆë„ë¡ pImageObjectì— ì €ì¥í•œë‹¤.
 		for (register BYTE i=0; i<m_nImageObject; i++)
 		{
 			if (((*iObject).second)->GetID() == id)
 			{
-				// iObject¸¦ Á¦°ÅÇÑ´Ù.
+				// iObjectë¥¼ ì œê±°í•œë‹¤.
 				m_mapObject.erase( iObject );
 				
 				m_nImageObject--;				
@@ -1617,12 +1617,12 @@ MSector::RemoveImageObject(TYPE_OBJECTID id)
 				return true;
 			}		
 
-			// ´ÙÀ½ ImageObject
+			// ë‹¤ìŒ ImageObject
 			iObject ++;
 		}
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 
@@ -1630,18 +1630,18 @@ MSector::RemoveImageObject(TYPE_OBJECTID id)
 //----------------------------------------------------------------------
 // Remove Item
 //----------------------------------------------------------------------
-// ItemÀÌ ÀÖÀ¸¸é Á¦°ÅÇÏ°í Flag¸¦ ¾ø¾Ø´Ù.
+// Itemì´ ìˆìœ¼ë©´ ì œê±°í•˜ê³  Flagë¥¼ ì—†ì•¤ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveItem()
 {
-	// ItemÀÌ ÀÖÀ¸¸é
+	// Itemì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_ITEM)
 	{
-		// ItemÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// Itemì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.find(POSITION_ITEM);
 
-		// ¾øÀ» °æ¿ì return false
+		// ì—†ì„ ê²½ìš° return false
 		if (iObject == m_mapObject.end()) 
 			return false;
 
@@ -1651,132 +1651,132 @@ MSector::RemoveItem()
 			((MCorpse*)pItem)->GetCreature()->GetCreatureType() == 672 )
 			m_fProperty &= ~FLAG_SECTOR_BLOCK_GROUND;
 		
-		// Á¦°ÅÇÏ°í
+		// ì œê±°í•˜ê³ 
 		m_mapObject.erase( iObject );
 
-		// Item Flag¸¸ Á¦°ÅÇÑ´Ù.
+		// Item Flagë§Œ ì œê±°í•œë‹¤.
 		m_fProperty &= ~FLAG_SECTOR_ITEM;
 
 		return true;
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 
 //----------------------------------------------------------------------
 // Remove UndergroundCreature
 //----------------------------------------------------------------------
-// UndergroundCreatureÀÌ ÀÖÀ¸¸é Á¦°ÅÇÏ°í Flag¸¦ ¾ø¾Ø´Ù.
+// UndergroundCreatureì´ ìˆìœ¼ë©´ ì œê±°í•˜ê³  Flagë¥¼ ì—†ì•¤ë‹¤.
 //----------------------------------------------------------------------
 /*
 bool	
 MSector::RemoveUndergroundCreature()
 {
-	// UndergroundCreatureÀÌ ÀÖÀ¸¸é
+	// UndergroundCreatureì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_UNDERGROUNDCREATURE)
 	{
-		// UndergroundCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// UndergroundCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.find(POSITION_UNDERGROUNDCREATURE);
 
-		// ¾øÀ» °æ¿ì return false
+		// ì—†ì„ ê²½ìš° return false
 		if (iObject == m_mapObject.end()) 
 			return false;
 		
-		// Á¦°ÅÇÏ°í
+		// ì œê±°í•˜ê³ 
 		m_mapObject.erase( iObject );
 
-		// UndergroundCreature Flag¸¸ Á¦°ÅÇÑ´Ù.
+		// UndergroundCreature Flagë§Œ ì œê±°í•œë‹¤.
 		m_fProperty &= ~FLAG_SECTOR_UNDERGROUNDCREATURE;
 
 		return true;
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 
 //----------------------------------------------------------------------
 // Remove Creature
 //----------------------------------------------------------------------
-// CreatureÀÌ ÀÖÀ¸¸é Á¦°ÅÇÏ°í Flag¸¦ ¾ø¾Ø´Ù.
+// Creatureì´ ìˆìœ¼ë©´ ì œê±°í•˜ê³  Flagë¥¼ ì—†ì•¤ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveGroundCreature()
 {
-	// CreatureÀÌ ÀÖÀ¸¸é
+	// Creatureì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_GROUNDCREATURE)
 	{
-		// CreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// Creatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.find(POSITION_GROUNDCREATURE);
 
-		// ¾øÀ» °æ¿ì return false
+		// ì—†ì„ ê²½ìš° return false
 		if (iObject == m_mapObject.end()) 
 			return false;
 		
-		// Á¦°ÅÇÏ°í
+		// ì œê±°í•˜ê³ 
 		m_mapObject.erase( iObject );
 
-		// Creature Flag¸¸ Á¦°ÅÇÑ´Ù.
+		// Creature Flagë§Œ ì œê±°í•œë‹¤.
 		m_fProperty &= ~FLAG_SECTOR_GROUNDCREATURE;
 
 		return true;
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 
 //----------------------------------------------------------------------
 // Remove FlyingCreature
 //----------------------------------------------------------------------
-// FlyingCreatureÀÌ ÀÖÀ¸¸é Á¦°ÅÇÏ°í Flag¸¦ ¾ø¾Ø´Ù.
+// FlyingCreatureì´ ìˆìœ¼ë©´ ì œê±°í•˜ê³  Flagë¥¼ ì—†ì•¤ë‹¤.
 //----------------------------------------------------------------------
 bool	
 MSector::RemoveFlyingCreature()
 {
-	// FlyingCreatureÀÌ ÀÖÀ¸¸é
+	// FlyingCreatureì´ ìˆìœ¼ë©´
 	if (m_fProperty & FLAG_SECTOR_FLYINGCREATURE)
 	{
-		// FlyingCreatureÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// FlyingCreatureì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		OBJECT_MAP::iterator iObject = m_mapObject.find(POSITION_FLYINGCREATURE);
 
-		// ¾øÀ» °æ¿ì return false
+		// ì—†ì„ ê²½ìš° return false
 		if (iObject == m_mapObject.end()) 
 			return false;
 		
-		// Á¦°ÅÇÏ°í
+		// ì œê±°í•˜ê³ 
 		m_mapObject.erase( iObject );
 
-		// FlyingCreature Flag¸¸ Á¦°ÅÇÑ´Ù.
+		// FlyingCreature Flagë§Œ ì œê±°í•œë‹¤.
 		m_fProperty &= ~FLAG_SECTOR_FLYINGCREATURE;
 
 		return true;
 	}
 
-	// ¾øÀ¸¸é
+	// ì—†ìœ¼ë©´
 	return false;
 }
 */
 
 //----------------------------------------------------------------------
 //
-//                      iterator¸¦ ³Ñ°ÜÁØ´Ù.
+//                      iteratorë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 //
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
 // ImageObject Iterator
 //----------------------------------------------------------------------
-// ImageObject°¡ ÀÖ´Â °æ¿ì¿¡.. ÃÖÃÊÀÇ ImageObject¿¡ ´ëÇÑ
-// Iterator¸¦ ³Ñ°ÜÁØ´Ù.
+// ImageObjectê°€ ìˆëŠ” ê²½ìš°ì—.. ìµœì´ˆì˜ ImageObjectì— ëŒ€í•œ
+// Iteratorë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 OBJECT_MAP::const_iterator	
 MSector::GetImageObjectIterator() const
 {
 	if (m_nImageObject)
 	{
-		// ImageObjectÀÇ À§Ä¡¿¡ ÀÖ´Â Object¸¦ Ã£´Â´Ù.
+		// ImageObjectì˜ ìœ„ì¹˜ì— ìˆëŠ” Objectë¥¼ ì°¾ëŠ”ë‹¤.
 		return m_mapObject.find(POSITION_IMAGEOBJECT);
 	}
 
@@ -1786,25 +1786,25 @@ MSector::GetImageObjectIterator() const
 
 //----------------------------------------------------------------------
 //
-//                       Effect List Ã³¸®
+//                       Effect List ì²˜ë¦¬
 //
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
 // Add Effect
 //----------------------------------------------------------------------
-// Effect ListÀÇ ³¡¿¡ Effect¸¦ Ãß°¡ÇÑ´Ù.
+// Effect Listì˜ ëì— Effectë¥¼ ì¶”ê°€í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MSector::AddEffect(const MEffect* pEffect)
 {
-	// NULLÀÌ ¾Æ´Ò °æ¿ì Ãß°¡..(±×³É.. - -;;)
+	// NULLì´ ì•„ë‹ ê²½ìš° ì¶”ê°€..(ê·¸ëƒ¥.. - -;;)
 	if (pEffect!=NULL)
 	{
 		m_listEffect.push_back((MEffect*)pEffect);
 
-		// DarknessÀÎÁö Ã¼Å©ÇÑ´Ù.
-		if (!m_bDarkness || !m_bSanctuary)	// [»õ±â¼ú]
+		// Darknessì¸ì§€ ì²´í¬í•œë‹¤.
+		if (!m_bDarkness || !m_bSanctuary)	// [ìƒˆê¸°ìˆ ]
 		{
 			int fid = pEffect->GetFrameID();
 			int est = g_pTopView->GetEffectSpriteType( (BLT_TYPE)pEffect->GetBltType(), fid );
@@ -1812,7 +1812,7 @@ MSector::AddEffect(const MEffect* pEffect)
 //			if(est >= EFFECTSPRITETYPE_MAP_BLACK_LARGE_SMOKE &&
 //				est >= EFFECTSPRITETYPE_MAP_BLACK_SMALL_SMOKE_3)
 //				m_bDarkness = true;
-			// darkness ÀÖ´Â °æ¿ì			
+			// darkness ìˆëŠ” ê²½ìš°			
 			if (est>=EFFECTSPRITETYPE_DARKNESS_2_1
 					&& est<=EFFECTSPRITETYPE_DARKNESS_2_5)
 			{
@@ -1825,7 +1825,7 @@ MSector::AddEffect(const MEffect* pEffect)
 				m_bDarkness = true;
 			}
 
-			// sanctuary ÀÖ´Â °æ¿ì			
+			// sanctuary ìˆëŠ” ê²½ìš°			
 			if (est>=EFFECTSPRITETYPE_SANCTUARY_1
 					&& est<=EFFECTSPRITETYPE_SANCTUARY_3)
 			{
@@ -1839,7 +1839,7 @@ MSector::AddEffect(const MEffect* pEffect)
 //----------------------------------------------------------------------
 // Get Effect
 //----------------------------------------------------------------------
-// Effect ID°¡ idÀÎ effect¸¦ Ã£´Â´Ù.
+// Effect IDê°€ idì¸ effectë¥¼ ì°¾ëŠ”ë‹¤.
 //----------------------------------------------------------------------
 MEffect*	
 MSector::GetEffect(TYPE_OBJECTID id) const
@@ -1848,7 +1848,7 @@ MSector::GetEffect(TYPE_OBJECTID id) const
 
 	while (iEffect != m_listEffect.end())
 	{
-		// ¿øÇÏ´Â idÀÎÁö check
+		// ì›í•˜ëŠ” idì¸ì§€ check
 		if ((*iEffect)->GetID()==id)
 		{
 			return *iEffect;
@@ -1864,7 +1864,7 @@ MSector::GetEffect(TYPE_OBJECTID id) const
 //----------------------------------------------------------------------
 // Remove Effect(id)
 //----------------------------------------------------------------------
-// Effect List¿¡¼­ ID°¡ idÀÎ °ÍÀ» Ã£¾Æ¼­ list¿¡¼­ Á¦°ÅÇÑ´Ù.
+// Effect Listì—ì„œ IDê°€ idì¸ ê²ƒì„ ì°¾ì•„ì„œ listì—ì„œ ì œê±°í•œë‹¤.
 //----------------------------------------------------------------------
 bool		
 MSector::RemoveEffect(TYPE_OBJECTID id)
@@ -1875,14 +1875,14 @@ MSector::RemoveEffect(TYPE_OBJECTID id)
 	{
 		MEffect* pEffect = *iEffect;				
 
-		// ¿øÇÏ´Â idÀÎÁö check
+		// ì›í•˜ëŠ” idì¸ì§€ check
 		if (pEffect->GetID()==id)
 		{
-			// Á¦°Å~
+			// ì œê±°~
 			m_listEffect.erase( iEffect );
 
-			// DarknessÀÎÁö Ã¼Å©ÇÑ´Ù.
-			if (m_bDarkness || m_bSanctuary)	// [»õ±â¼ú]
+			// Darknessì¸ì§€ ì²´í¬í•œë‹¤.
+			if (m_bDarkness || m_bSanctuary)	// [ìƒˆê¸°ìˆ ]
 			{
 				int fid = pEffect->GetFrameID();
 				int est = g_pTopView->GetEffectSpriteType( (BLT_TYPE)pEffect->GetBltType(), fid );
@@ -1893,7 +1893,7 @@ MSector::RemoveEffect(TYPE_OBJECTID id)
 //				{
 //					m_bDarkness = false;
 //				}
-				// darkness ÀÖ´Â °æ¿ì			
+				// darkness ìˆëŠ” ê²½ìš°			
 				if (est>=EFFECTSPRITETYPE_DARKNESS_2_1
 						&& est<=EFFECTSPRITETYPE_DARKNESS_2_5)
 				{
@@ -1906,7 +1906,7 @@ MSector::RemoveEffect(TYPE_OBJECTID id)
 					m_bDarkness = false;
 				}				
 
-				// sanctuary ÀÖ´Â °æ¿ì			
+				// sanctuary ìˆëŠ” ê²½ìš°			
 				if (est>=EFFECTSPRITETYPE_SANCTUARY_1
 						&& est<=EFFECTSPRITETYPE_SANCTUARY_3)
 				{
@@ -1926,8 +1926,8 @@ MSector::RemoveEffect(TYPE_OBJECTID id)
 //----------------------------------------------------------------------
 // Remove Effect(id, &pEffect)
 //----------------------------------------------------------------------
-// Effect List¿¡¼­ ID°¡ idÀÎ °ÍÀ» Ã£¾Æ¼­ list¿¡¼­ Á¦°ÅÇÏ°í
-// ±× Effect¸¦ ³Ñ°ÜÁØ´Ù.
+// Effect Listì—ì„œ IDê°€ idì¸ ê²ƒì„ ì°¾ì•„ì„œ listì—ì„œ ì œê±°í•˜ê³ 
+// ê·¸ Effectë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool		
 MSector::RemoveEffect(TYPE_OBJECTID id, MEffect*& pEffect)
@@ -1938,22 +1938,22 @@ MSector::RemoveEffect(TYPE_OBJECTID id, MEffect*& pEffect)
 	{
 		MEffect* pEffect = *iEffect;
 
-		// ¿øÇÏ´Â idÀÎÁö check
+		// ì›í•˜ëŠ” idì¸ì§€ check
 		if (pEffect->GetID()==id)
 		{
-			// Á¦°ÅÇÒ Effect¸¦ ³Ñ°ÜÁØ´Ù.
+			// ì œê±°í•  Effectë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 			pEffect = *iEffect;
 
-			// Á¦°Å~
+			// ì œê±°~
 			m_listEffect.erase( iEffect );
 
-			// DarknessÀÎÁö Ã¼Å©ÇÑ´Ù.
-			if (m_bDarkness || m_bSanctuary)	// [»õ±â¼ú]
+			// Darknessì¸ì§€ ì²´í¬í•œë‹¤.
+			if (m_bDarkness || m_bSanctuary)	// [ìƒˆê¸°ìˆ ]
 			{
 				int fid = pEffect->GetFrameID();
 				int est = g_pTopView->GetEffectSpriteType( (BLT_TYPE)pEffect->GetBltType(), fid );
 
-				// darkness ÀÖ´Â °æ¿ì			
+				// darkness ìˆëŠ” ê²½ìš°			
 				if (est>=EFFECTSPRITETYPE_DARKNESS_2_1
 						&& est<=EFFECTSPRITETYPE_DARKNESS_2_5)
 				{
@@ -1966,7 +1966,7 @@ MSector::RemoveEffect(TYPE_OBJECTID id, MEffect*& pEffect)
 					m_bDarkness = false;
 				}				
 
-				// sanctuary ÀÖ´Â °æ¿ì			
+				// sanctuary ìˆëŠ” ê²½ìš°			
 				if (est>=EFFECTSPRITETYPE_SANCTUARY_1
 						&& est<=EFFECTSPRITETYPE_SANCTUARY_3)
 				{
@@ -1986,20 +1986,20 @@ MSector::RemoveEffect(TYPE_OBJECTID id, MEffect*& pEffect)
 //----------------------------------------------------------------------
 // Add Portal ( zoneID )
 //----------------------------------------------------------------------
-// ÀÌ¹Ì ÀÖ´Â°Å¸é Ãß°¡ÇÏÁö ¾Ê´Â´Ù.
-// cut&paste .. ¿ìÇìÇì
+// ì´ë¯¸ ìˆëŠ”ê±°ë©´ ì¶”ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
+// cut&paste .. ìš°í—¤í—¤
 //----------------------------------------------------------------------
 bool					
 MSector::AddPortal(int type, int zoneID)
 {
 	PORTAL_LIST::iterator iData = m_listPortal.begin();
 
-	// ÀÌ¹Ì list¿¡ µé¾îÀÖ´Â ¸ğµç Data°ú ºñ±³ÇØº¸°í
-	// °°Àº°Ô ¾øÀ» ¶§ Ãß°¡ÇÑ´Ù.
+	// ì´ë¯¸ listì— ë“¤ì–´ìˆëŠ” ëª¨ë“  Dataê³¼ ë¹„êµí•´ë³´ê³ 
+	// ê°™ì€ê²Œ ì—†ì„ ë•Œ ì¶”ê°€í•œë‹¤.
 	while (iData != m_listPortal.end())
 	{
-		// ÇöÀç µé¾îÀÖ´Â°Ô Ãß°¡ÇÒ·Á´Â°Íº¸´Ù Å¬ °æ¿ì,
-		// ÇöÀç À§Ä¡¿¡ Ãß°¡ÇÏ¸é µÈ´Ù.
+		// í˜„ì¬ ë“¤ì–´ìˆëŠ”ê²Œ ì¶”ê°€í• ë ¤ëŠ”ê²ƒë³´ë‹¤ í´ ê²½ìš°,
+		// í˜„ì¬ ìœ„ì¹˜ì— ì¶”ê°€í•˜ë©´ ëœë‹¤.
 		if (iData->ZoneID > zoneID)
 		{
 			m_listPortal.insert(iData, PORTAL_INFO(type, zoneID));
@@ -2009,8 +2009,8 @@ MSector::AddPortal(int type, int zoneID)
 			return true;
 		}
 
-		// ÀÌ¹Ì ÀÖ´Â °ªÀÌ¸é
-		// Ãß°¡ÇÏÁö ¾Ê´Â´Ù.
+		// ì´ë¯¸ ìˆëŠ” ê°’ì´ë©´
+		// ì¶”ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		if (iData->ZoneID==zoneID)
 		{
 			return false;
@@ -2019,8 +2019,8 @@ MSector::AddPortal(int type, int zoneID)
 		iData++;
 	}	
 
-	// listÀÇ ¸ğµç ¿ø¼Òµéº¸´Ù Å©¹Ç·Î 
-	// listÀÇ ³¡¿¡ Ãß°¡ÇÑ´Ù.
+	// listì˜ ëª¨ë“  ì›ì†Œë“¤ë³´ë‹¤ í¬ë¯€ë¡œ 
+	// listì˜ ëì— ì¶”ê°€í•œë‹¤.
 	m_listPortal.push_back( PORTAL_INFO(type, zoneID) );
 
 	m_fProperty |= FLAG_SECTOR_PORTAL;
@@ -2051,20 +2051,20 @@ MSector::AddSectorSound(const SECTORSOUND_INFO& info)
 //----------------------------------------------------------------------
 // Add SectorSound ( ZoneSoundID, Xo, Yo )
 //----------------------------------------------------------------------
-// ÀÌ¹Ì ÀÖ´Â°Å¸é Ãß°¡ÇÏÁö ¾Ê´Â´Ù.
-// cut&paste .. ¿ìÇìÇì
+// ì´ë¯¸ ìˆëŠ”ê±°ë©´ ì¶”ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
+// cut&paste .. ìš°í—¤í—¤
 //----------------------------------------------------------------------
 bool					
 MSector::AddSectorSound(int zoneSoundID, TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y)
 {
 	SECTORSOUND_LIST::iterator iData = m_listSectorSound.begin();
 
-	// ÀÌ¹Ì list¿¡ µé¾îÀÖ´Â ¸ğµç Data°ú ºñ±³ÇØº¸°í
-	// °°Àº°Ô ¾øÀ» ¶§ Ãß°¡ÇÑ´Ù.
+	// ì´ë¯¸ listì— ë“¤ì–´ìˆëŠ” ëª¨ë“  Dataê³¼ ë¹„êµí•´ë³´ê³ 
+	// ê°™ì€ê²Œ ì—†ì„ ë•Œ ì¶”ê°€í•œë‹¤.
 	while (iData != m_listSectorSound.end())
 	{
-		// ÇöÀç µé¾îÀÖ´Â°Ô Ãß°¡ÇÒ·Á´Â°Íº¸´Ù Å¬ °æ¿ì,
-		// ÇöÀç À§Ä¡¿¡ Ãß°¡ÇÏ¸é µÈ´Ù.
+		// í˜„ì¬ ë“¤ì–´ìˆëŠ”ê²Œ ì¶”ê°€í• ë ¤ëŠ”ê²ƒë³´ë‹¤ í´ ê²½ìš°,
+		// í˜„ì¬ ìœ„ì¹˜ì— ì¶”ê°€í•˜ë©´ ëœë‹¤.
 		if (iData->ZoneSoundID > zoneSoundID)
 		{
 			m_listSectorSound.insert(iData, SECTORSOUND_INFO(zoneSoundID, x, y));
@@ -2072,8 +2072,8 @@ MSector::AddSectorSound(int zoneSoundID, TYPE_SECTORPOSITION x, TYPE_SECTORPOSIT
 			return true;
 		}
 
-		// ÀÌ¹Ì ÀÖ´Â °ªÀÌ¸é
-		// Ãß°¡ÇÏÁö ¾Ê´Â´Ù.
+		// ì´ë¯¸ ìˆëŠ” ê°’ì´ë©´
+		// ì¶”ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		if (iData->ZoneSoundID==zoneSoundID)
 		{
 			return false;
@@ -2082,8 +2082,8 @@ MSector::AddSectorSound(int zoneSoundID, TYPE_SECTORPOSITION x, TYPE_SECTORPOSIT
 		iData++;
 	}	
 
-	// listÀÇ ¸ğµç ¿ø¼Òµéº¸´Ù Å©¹Ç·Î 
-	// listÀÇ ³¡¿¡ Ãß°¡ÇÑ´Ù.
+	// listì˜ ëª¨ë“  ì›ì†Œë“¤ë³´ë‹¤ í¬ë¯€ë¡œ 
+	// listì˜ ëì— ì¶”ê°€í•œë‹¤.
 	m_listSectorSound.push_back( SECTORSOUND_INFO(zoneSoundID, x, y) );
 
 	return true;

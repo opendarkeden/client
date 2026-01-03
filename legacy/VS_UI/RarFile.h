@@ -1,5 +1,5 @@
 // RarFile.h: interface for the CRarFile class.
-// Made by ¾¦°« 2001. 7. 24
+// Made by ì‘¥ê°“ 2001. 7. 24
 //////////////////////////////////////////////////////////////////////
 
 #ifndef _RAR_FILE_HEADER_
@@ -67,31 +67,31 @@ private:
 	int m_size;
 
 public:
-	// »ı¼ºÀÚ
+	// ìƒì„±ì
 	CRarFile();
 	CRarFile(const char *rar_filename, const char *pass);
 
-	// ¼Ò¸êÀÚ
+	// ì†Œë©¸ì
 	~CRarFile();
 
-	// ÀĞ¾î¿Â rarÀ» ÇØÁ¦ÇÑ´Ù.
+	// ì½ì–´ì˜¨ rarì„ í•´ì œí•œë‹¤.
 	void Release();
 
-	// rarÆÄÀÏ ÀÌ¸§ & ÆĞ½º ¼¼ÆÃ
+	// raríŒŒì¼ ì´ë¦„ & íŒ¨ìŠ¤ ì„¸íŒ…
 	void SetRAR(const char *rar_filename, const char *pass);
 
-	// ÆÄÀÏ ¿­±â
+	// íŒŒì¼ ì—´ê¸°
 	bool Open(const char *in_filename);
 
-	// ÆÄÀÏ¿¡¼­ ÀĞ±â
+	// íŒŒì¼ì—ì„œ ì½ê¸°
 	char*	Read(char *buf, int size);
 	char*	Read(int size);
 	bool	GetString(char* buf, int size);
 
-	// ÆÄÀÏÀÌ ¿­·È³ª?
+	// íŒŒì¼ì´ ì—´ë ¸ë‚˜?
 	bool	IsSet()	{ return (m_rar_filename !=""); }
 
-	//	ÆÄÀÏÀÇ ³¡ÀÌ¸é true else false
+	//	íŒŒì¼ì˜ ëì´ë©´ true else false
 	bool	IsEOF(int plus = 0);
 
 	std::vector<std::string> *GetList(char *filter = NULL);

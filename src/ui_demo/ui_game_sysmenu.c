@@ -51,7 +51,7 @@ static void draw_sprite(UI_GlobalResource* gr, SpritePack* pack, int index, int 
 
 /* Button callback */
 static void on_button_click(UI_Button* button, int button_id) {
-    struct UI_GameSysMenu* menu = (struct UI_GameSysMenu*)button->user_data;
+    struct UI_GameSysMenu* menu = (struct UI_GameSysMenu*)button->on_press.data;
     if (menu && menu->callback) {
         int event = 0;
         if (button_id == BTN_ID_OPTION) event = UI_SYSMENU_EVENT_OPTION;
@@ -64,19 +64,25 @@ static void on_button_click(UI_Button* button, int button_id) {
     }
 }
 
+typedef struct {
+    UI_Button base;
+    int16_t sprite_index;
+} UI_GameSysMenuButton;
+
 /* Custom button render - mimics legacy ShowButtonWidget */
-static void render_sysmenu_button(UI_Button* button, UI_Surface* surface, SpritePack* pack, int parent_x, int parent_y) {
+static void render_sysmenu_button(void* data, UI_Surface* surface, SpritePack* pack, int parent_x, int parent_y) {
+    UI_GameSysMenuButton* button = (UI_GameSysMenuButton*)data;
     if (!button || !pack) return;
     
     /* Only render sprite when button has focus (hover) */
-    if (button->focus) {
+    if (button->base.focus) {
         Sprite* s = spritepack_get(pack, (uint16_t)button->sprite_index);
         if (s && s->is_valid) {
             DecodedSprite decoded = {0};
             if (sprite_decode(s, &decoded, 0) == 0) {
                 if (decoded_sprite_create_texture(&decoded, surface->renderer) == 0) {
-                    int abs_x = parent_x + button->x;
-                    int abs_y = parent_y + button->y;
+                    int abs_x = parent_x + button->base.x;
+                    int abs_y = parent_y + button->base.y;
                     ui_surface_blit_sprite(surface, abs_x, abs_y, &decoded);
                 }
                 decoded_sprite_free(&decoded);
@@ -86,13 +92,13 @@ static void render_sysmenu_button(UI_Button* button, UI_Surface* surface, Sprite
 }
 
 static void add_button(struct UI_GameSysMenu* menu, int x, int y, int w, int h, int id) {
-    UI_Button* btn = (UI_Button*)malloc(sizeof(UI_Button));
+    UI_GameSysMenuButton* btn = (UI_GameSysMenuButton*)malloc(sizeof(UI_GameSysMenuButton));
     if (!btn) return;
-    ui_button_init(btn, x, y, w, h, id);
-    ui_button_set_callback(btn, on_button_click);
-    ui_button_set_render_callback(btn, render_sysmenu_button);  /* Custom render */
-    ui_button_set_user_data(btn, menu);
-    ui_button_set_sprite_index(btn, id);
+    ui_button_init(&btn->base, x, y, w, h, id);
+    ui_button_set_on_press(&btn->base, on_button_click, menu);
+    btn->sprite_index = id;
+    ui_button_set_show_widget(&btn->base, render_sysmenu_button, btn);
+    
     ui_button_group_add(&menu->buttons, btn);
 }
 

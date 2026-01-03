@@ -13,7 +13,7 @@
 
 #include "VS_UI_Base.h"
 #include "VS_UI_util.h"
-#include "VS_UI_extradialog.h"	//VS_UI_DESC¸¦ ºÒ·¯¿À¸é extradialog°¡ ¿¡·¯³­´Ù ¿Ö±×·²±î-_-a
+#include "VS_UI_extradialog.h"	//VS_UI_DESCë¥¼ ë¶ˆëŸ¬ì˜¤ë©´ extradialogê°€ ì—ëŸ¬ë‚œë‹¤ ì™œê·¸ëŸ´ê¹Œ-_-a
 /*
 enum PROGRESS_SPK_INDEX
 {
@@ -104,7 +104,7 @@ public:
 	int GetServerStatus() { return m_server_status; }
 
 	//
-	// !gC_vs_ui.StartProgress() ÈÄ¿¡ ¼³Á¤ÇÑ´Ù.
+	// !gC_vs_ui.StartProgress() í›„ì— ì„¤ì •í•œë‹¤.
 	//
 //	void	SetProgressStyle(PROGRESS_SPK_INDEX style);
 };

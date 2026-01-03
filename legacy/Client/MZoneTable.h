@@ -1,14 +1,14 @@
 //----------------------------------------------------------------------
 // MZoneTable.h
 //----------------------------------------------------------------------
-// Zone Loading½Ã¿¡ Zone¸¶´Ù ÇÊ¿äÇÑ Á¤º¸¸¦ ÀúÀåÇÏ´Â class
+// Zone Loadingì‹œì— Zoneë§ˆë‹¤ í•„ìš”í•œ ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” class
 //----------------------------------------------------------------------
 //
-// [ Zoneº°·Î Loadind¿¡ ÇÊ¿äÇÑ Á¤º¸ ] 
+// [ Zoneë³„ë¡œ Loadindì— í•„ìš”í•œ ì •ë³´ ] 
 //
 // - ZoneID
-// - ZoneÅ©±âType (Large or Small)
-// - fileÀÌ¸§
+// - Zoneí¬ê¸°Type (Large or Small)
+// - fileì´ë¦„
 // 
 //----------------------------------------------------------------------
 
@@ -24,16 +24,16 @@
 #define	FLAG_ZONESIZE_SMALL		0x01
 
 
-// 2004, 5, 14 sobeit add start - pk zone °ü·Ã
-#define PK_TYPE_NULL			0			// ±×³É default map
-#define PK_TYPE_DISABLE			0x01		// ´Ù ¿ì¸®Æí..-_-; pk ±İÁö
-#define PK_TYPE_ALL				0x02		// ³ª »©°í ´Ù Àû
-#define PK_TYPE_GUILD			0x03		// ¿ì¸® ±æµå »©°í ´Ù Àû..
-#define PK_TYPE_SIEGE			0x04		// Siege ¸Ê // effect status¿¡µû¶ó Àû
-// 2004, 5, 14 sobeit add end - pk zone °ü·Ã
+// 2004, 5, 14 sobeit add start - pk zone ê´€ë ¨
+#define PK_TYPE_NULL			0			// ê·¸ëƒ¥ default map
+#define PK_TYPE_DISABLE			0x01		// ë‹¤ ìš°ë¦¬í¸..-_-; pk ê¸ˆì§€
+#define PK_TYPE_ALL				0x02		// ë‚˜ ë¹¼ê³  ë‹¤ ì 
+#define PK_TYPE_GUILD			0x03		// ìš°ë¦¬ ê¸¸ë“œ ë¹¼ê³  ë‹¤ ì ..
+#define PK_TYPE_SIEGE			0x04		// Siege ë§µ // effect statusì—ë”°ë¼ ì 
+// 2004, 5, 14 sobeit add end - pk zone ê´€ë ¨
 //----------------------------------------------------------------------
 //
-// ÇÑ Á¾·ùÀÇ Zone¿¡ ´ëÇÑ Á¤º¸
+// í•œ ì¢…ë¥˜ì˜ Zoneì— ëŒ€í•œ ì •ë³´
 //
 //----------------------------------------------------------------------
 class ZONETABLE_INFO {
@@ -43,23 +43,23 @@ class ZONETABLE_INFO {
 	
 	public :
 		TYPE_ZONEID				ID;						// Zone ID
-		MString					Name;					// Zone ÀÌ¸§
-		BYTE					Property;				// ZoneÀÇ ¼Ó¼º
-		MString					Filename;				// Zone FileÀÌ¸§
-		MString					InfoFilename;			// ZoneInfo FileÀÌ¸§
-		MString					TeenFilename;			// Minimap FileÀÌ¸§
-		TYPE_MUSICID			MusicIDSlayer;			// MusicÁ¾·ù		
-		TYPE_MUSICID			MusicIDVampire;			// MusicÁ¾·ù		
-		SOUNDID_LIST			SoundIDList;			// randomÇÏ°Ô ³ª´Â ¼Ò¸®µé..
-		WORD					CreatureColorSet;		// Zone ÀüÃ¼ÀÇ ¸÷ »ö±ò ¹Ù²Ù±â
+		MString					Name;					// Zone ì´ë¦„
+		BYTE					Property;				// Zoneì˜ ì†ì„±
+		MString					Filename;				// Zone Fileì´ë¦„
+		MString					InfoFilename;			// ZoneInfo Fileì´ë¦„
+		MString					TeenFilename;			// Minimap Fileì´ë¦„
+		TYPE_MUSICID			MusicIDSlayer;			// Musicì¢…ë¥˜		
+		TYPE_MUSICID			MusicIDVampire;			// Musicì¢…ë¥˜		
+		SOUNDID_LIST			SoundIDList;			// randomí•˜ê²Œ ë‚˜ëŠ” ì†Œë¦¬ë“¤..
+		WORD					CreatureColorSet;		// Zone ì „ì²´ì˜ ëª¹ ìƒ‰ê¹” ë°”ê¾¸ê¸°
 		bool					Safety;
-		unsigned short			MinimapSpriteID;		// ¹Ì´Ï¸ÊÀÇ ½ºÇÁ¶óÀÌÆ® ¾ÆÀÌµğ
-		bool					HolyLand;				// ¾Æ´ãÀÇ ¼ºÁöÀÎ°¡
-		bool					ChatMaskByRace;			// Á¾Á·¿¡ µû¶ó Ã¤ÆÃ³»¿ë¿¡ ¸¶½ºÅ©¸¦ ¾º¿ì´Â°¡
-		bool					CannotAttackInSafe;		// ¾ÈÀüÁö´ë¿¡¼­ °ø°İÇÒ ¼ö ¾ø´Â°¡
-		bool					CannotUseSpecialItem;	// º¯½ÅÀÌ³ª ¼ÒÈ¯ ±İÁö ¿©ºÎ
+		unsigned short			MinimapSpriteID;		// ë¯¸ë‹ˆë§µì˜ ìŠ¤í”„ë¼ì´íŠ¸ ì•„ì´ë””
+		bool					HolyLand;				// ì•„ë‹´ì˜ ì„±ì§€ì¸ê°€
+		bool					ChatMaskByRace;			// ì¢…ì¡±ì— ë”°ë¼ ì±„íŒ…ë‚´ìš©ì— ë§ˆìŠ¤í¬ë¥¼ ì”Œìš°ëŠ”ê°€
+		bool					CannotAttackInSafe;		// ì•ˆì „ì§€ëŒ€ì—ì„œ ê³µê²©í•  ìˆ˜ ì—†ëŠ”ê°€
+		bool					CannotUseSpecialItem;	// ë³€ì‹ ì´ë‚˜ ì†Œí™˜ ê¸ˆì§€ ì—¬ë¶€
 		bool					CompetenceZone;
-		BYTE					PKType;					// ÀÚÀ¯ PK Áö¿ªÀÎ°¡?
+		BYTE					PKType;					// ììœ  PK ì§€ì—­ì¸ê°€?
 		
 	public :
 		ZONETABLE_INFO();
@@ -75,7 +75,7 @@ class ZONETABLE_INFO {
 
 //----------------------------------------------------------------------
 //
-// ÀüÃ¼ Zone¿¡ ´ëÇÑ Á¤º¸
+// ì „ì²´ Zoneì— ëŒ€í•œ ì •ë³´
 //
 //----------------------------------------------------------------------
 class CZoneTable {
@@ -92,7 +92,7 @@ class CZoneTable {
 		void				Release();
 
 		//-------------------------------------------------------
-		// zoneID°¡ idÀÎ zoneÀÇ Á¤º¸¸¦ ¾ò´Â´Ù.
+		// zoneIDê°€ idì¸ zoneì˜ ì •ë³´ë¥¼ ì–»ëŠ”ë‹¤.
 		//-------------------------------------------------------
 		bool				Add(ZONETABLE_INFO* pZoneInfo);
 		ZONETABLE_INFO*		Get(TYPE_ZONEID id);
@@ -106,7 +106,7 @@ class CZoneTable {
 		void				LoadFromFile(class ifstream& file);
 	
 	protected :
-		ZONEINFO_MAP		m_mapZoneInfo;		// zoneÁ¤º¸ map
+		ZONEINFO_MAP		m_mapZoneInfo;		// zoneì •ë³´ map
 };
 
 extern CZoneTable*		g_pZoneTable;

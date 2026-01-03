@@ -1,14 +1,14 @@
 //----------------------------------------------------------------------
 // CShadowPartManager.h
 //----------------------------------------------------------------------
-// Æ¯Á¤File(SSPK)¿¡ ´ëÇØ¼­
-// FileIndex(SSPKI)¸¦ ÂüÁ¶ÇØ¼­
-// ÀÏºÎÀÇ ShadowSprite¸¦ LoadÇØ¼­ »ç¿ëÇÏ°Ô ÇÏ´Â class
+// íŠ¹ì •File(SSPK)ì— ëŒ€í•´ì„œ
+// FileIndex(SSPKI)ë¥¼ ì°¸ì¡°í•´ì„œ
+// ì¼ë¶€ì˜ ShadowSpriteë¥¼ Loadí•´ì„œ ì‚¬ìš©í•˜ê²Œ í•˜ëŠ” class
 //----------------------------------------------------------------------
-// ±×¸²ÀÚ TextureÀÇ ±âº» Å©±â´Â 64*64ÀÌ´Ù.
+// ê·¸ë¦¼ì Textureì˜ ê¸°ë³¸ í¬ê¸°ëŠ” 64*64ì´ë‹¤.
 //----------------------------------------------------------------------
-// ÀÌ°Å¶û TexturePartManager¶û °ÅÀÇ °°´Ù..
-// templateÀ¸·Î ¹Ù²ã¾ß µÇ´Âµ¥.. - -;; ¾Æ ±ÍÂú¾Æ... ³ªÁß¿¡.. - -;
+// ì´ê±°ë‘ TexturePartManagerë‘ ê±°ì˜ ê°™ë‹¤..
+// templateìœ¼ë¡œ ë°”ê¿”ì•¼ ë˜ëŠ”ë°.. - -;; ì•„ ê·€ì°®ì•„... ë‚˜ì¤‘ì—.. - -;
 //----------------------------------------------------------------------
 
 #ifndef	__CSHADOWPARTMANAGER_H__
@@ -22,7 +22,7 @@
 class ifstream;
 class CFileIndexTable;
 
-// <ÀüÃ¼°³¼ö, »ç¿ë°³¼ö, »ç¿ëData>
+// <ì „ì²´ê°œìˆ˜, ì‚¬ìš©ê°œìˆ˜, ì‚¬ìš©Data>
 class CShadowPartManager : public CPartManager<WORD, WORD, CSpriteSurface*>
 {
 	public :
@@ -40,41 +40,41 @@ class CShadowPartManager : public CPartManager<WORD, WORD, CSpriteSurface*>
 		void				Init(const char* SSPKFilename, WORD partSize);
 		void				Release();
 	
-		// data³»¿ëÀ» ÃÊ±âÈ­ ½ÃÅ²´Ù.
+		// dataë‚´ìš©ì„ ì´ˆê¸°í™” ì‹œí‚¨ë‹¤.
 		void				Clear();
 
 		//---------------------------------------------------
-		// sspkÀÇ id¹øÂ° AlphaSprite¸¦ ³Ñ°Ü¹Ş´Â´Ù.
+		// sspkì˜ idë²ˆì§¸ AlphaSpriteë¥¼ ë„˜ê²¨ë°›ëŠ”ë‹¤.
 		//---------------------------------------------------
 		CSpriteSurface*		GetTexture(TYPE_SPRITEID id);
 
-		// AlphaSpriteÀÇ ¿ø·¡ Å©±â¸¦ ³Ñ°ÜÁØ´Ù.
+		// AlphaSpriteì˜ ì›ë˜ í¬ê¸°ë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 		int					GetWidth(TYPE_SPRITEID id)	{ return m_pWidth[id]; }
 		int					GetHeight(TYPE_SPRITEID id)	{ return m_pHeight[id]; }
 
-		// Sprite¸¦ ³Ñ°ÜÁØ´Ù.
+		// Spriteë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 		CShadowSprite&		GetSprite(TYPE_SPRITEID id);
 
 		//---------------------------------------------------
-		// Áö¿ö¾ß ÇÒ °Íµé
+		// ì§€ì›Œì•¼ í•  ê²ƒë“¤
 		//---------------------------------------------------
 		void				DeleteRemoved();
 
 
 	protected :
-//		bool				m_bOpen;		// SSPK FileÀ» OpenÇß´Â°¡?
+//		bool				m_bOpen;		// SSPK Fileì„ Opení–ˆëŠ”ê°€?
 //		class ifstream		m_SSPKFile;		// SSPK File
-//		CFileIndexTable		m_SSPKIndex;	// SSPK Index Á¤º¸
+//		CFileIndexTable		m_SSPKIndex;	// SSPK Index ì •ë³´
 		CShadowSpritePack	m_SSPK;			// SSPK
 
 		//CShadowSpritePack	*m_pSSPK;			// SSPK
 		
 
-		// Texture Ãâ·ÂÇÒ¶§ÀÇ Å©±â
+		// Texture ì¶œë ¥í• ë•Œì˜ í¬ê¸°
 		int					*m_pWidth;
 		int					*m_pHeight;
 
-		// Áö¿ö¾ßÇÒ °Íµé..
+		// ì§€ì›Œì•¼í•  ê²ƒë“¤..
 		SPRITESURFACE_LIST	m_listRemoved;
 };
 

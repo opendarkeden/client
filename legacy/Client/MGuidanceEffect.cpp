@@ -36,7 +36,7 @@ MGuidanceEffect::~MGuidanceEffect()
 //----------------------------------------------------------------------
 // Move
 //----------------------------------------------------------------------
-// ¸Å ¼ø°£¸¶´Ù StepX~Z°¡ ´Þ¶óÁø´Ù.
+// ë§¤ ìˆœê°„ë§ˆë‹¤ StepX~Zê°€ ë‹¬ë¼ì§„ë‹¤.
 //----------------------------------------------------------------------
 void				
 MGuidanceEffect::SetTraceCreatureID(TYPE_OBJECTID id)
@@ -57,7 +57,7 @@ MGuidanceEffect::TraceCreature()
 {
 	MCreature* pCreature = g_pZone->GetCreature( m_CreatureID );
 
-	// Creature°¡ »ç¶óÁ³À» °æ¿ì..
+	// Creatureê°€ ì‚¬ë¼ì¡Œì„ ê²½ìš°..
 	if (pCreature == NULL)
 	{
 		m_CreatureID = OBJECTID_NULL;
@@ -65,14 +65,14 @@ MGuidanceEffect::TraceCreature()
 		return false;
 	}
 
-	// ÇöÀçÀÇ ÁÂÇ¥¸¦ ÀÐ¾î¿Â´Ù.
+	// í˜„ìž¬ì˜ ì¢Œí‘œë¥¼ ì½ì–´ì˜¨ë‹¤.
 	POINT point;// = MTopView::MapToPixel(pCreature->GetX(), pCreature->GetY());
 	//point.x += pCreature->GetSX();
 	//point.y += pCreature->GetSY();	
 	point.x = pCreature->GetPixelX();
 	point.y = pCreature->GetPixelY();
 
-	// »õ·Î¿î ¸ñÀûÁö ¼³Á¤
+	// ìƒˆë¡œìš´ ëª©ì ì§€ ì„¤ì •
 	MLinearEffect::SetTarget( point.x, point.y, 
 								pCreature->GetZ(),
 								m_StepPixel);
@@ -92,15 +92,15 @@ MGuidanceEffect::Update()
 			return false;
 
 		//--------------------------------
-		// Pixel ÁÂÇ¥¸¦ ¹Ù²Û´Ù.
+		// Pixel ì¢Œí‘œë¥¼ ë°”ê¾¼ë‹¤.
 		//--------------------------------
-		// °¢°¢ÀÇ ¹æÇâ¿¡ ´ëÇØ¼­ Step¸¸Å­ ÀÌµ¿ÇØÁØ´Ù.
+		// ê°ê°ì˜ ë°©í–¥ì— ëŒ€í•´ì„œ Stepë§Œí¼ ì´ë™í•´ì¤€ë‹¤.
 		m_PixelX += m_StepX;
 		m_PixelY += m_StepY;
 		m_PixelZ += m_StepZ;
 
 		//------------------------------------------
-		// ´Ù ¿òÁ÷ÀÎ °æ¿ì¸¦ »ý°¢ÇØºÁ¾ß ÇÑ´Ù.
+		// ë‹¤ ì›€ì§ì¸ ê²½ìš°ë¥¼ ìƒê°í•´ë´ì•¼ í•œë‹¤.
 		//------------------------------------------
 		if (fabs(m_PixelX-m_TargetX)<m_StepPixel &&
 			fabs(m_PixelY-m_TargetY)<m_StepPixel &&
@@ -115,7 +115,7 @@ MGuidanceEffect::Update()
 			m_StepZ = 0;
 
 			//------------------------------------------
-			// ´õ ¿òÁ÷ÀÏ ÇÊ¿ä°¡ ¾ø´Â °æ¿ìÀÌ´Ù.			
+			// ë” ì›€ì§ì¼ í•„ìš”ê°€ ì—†ëŠ” ê²½ìš°ì´ë‹¤.			
 			//------------------------------------------
 			m_EndFrame = 0;
 
@@ -123,12 +123,12 @@ MGuidanceEffect::Update()
 		}
 
 		//--------------------------------
-		// Sector ÁÂÇ¥¸¦ ¸ÂÃá´Ù.
+		// Sector ì¢Œí‘œë¥¼ ë§žì¶˜ë‹¤.
 		//--------------------------------
 		AffectPosition();
 
 		//--------------------------------
-		// FrameÀ» ¹Ù²ãÁØ´Ù.
+		// Frameì„ ë°”ê¿”ì¤€ë‹¤.
 		//--------------------------------
 		NextFrame();
 
@@ -138,14 +138,14 @@ MGuidanceEffect::Update()
 		}
 
 		//--------------------------------
-		// Counter¸¦ ÇÏ³ª ÁÙÀÎ´Ù.
+		// Counterë¥¼ í•˜ë‚˜ ì¤„ì¸ë‹¤.
 		//--------------------------------
 		//m_Count--;
 
 		return true;
 	}
 
-	// ³¡~
+	// ë~
 
 	return false;
 }

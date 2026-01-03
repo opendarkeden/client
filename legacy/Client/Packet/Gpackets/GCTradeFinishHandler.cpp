@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCTradeFinishHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ void GCTradeFinishHandler::execute ( GCTradeFinish * pPacket , Player * pPlayer 
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------------------------
-	// TradeManager°¡ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì --> -_-;;
+	// TradeManagerê°€ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš° --> -_-;;
 	//------------------------------------------------------------------------
 	/*
 	if (g_pTradeManager==NULL)
@@ -38,7 +38,7 @@ void GCTradeFinishHandler::execute ( GCTradeFinish * pPacket , Player * pPlayer 
 	switch (pPacket->getCode())
 	{
 		//------------------------------------------------------------------------
-		// »ó´ë¹æ OK
+		// ìƒëŒ€ë°© OK
 		//------------------------------------------------------------------------
 		case GC_TRADE_FINISH_ACCEPT :
 			if (g_pTradeManager!=NULL)
@@ -48,7 +48,7 @@ void GCTradeFinishHandler::execute ( GCTradeFinish * pPacket , Player * pPlayer 
 		break;
 
 		//------------------------------------------------------------------------
-		// ±³È¯ °ÅºÎ..
+		// êµí™˜ ê±°ë¶€..
 		//------------------------------------------------------------------------
 		case GC_TRADE_FINISH_REJECT :
 			if (g_pTradeManager!=NULL)
@@ -72,7 +72,7 @@ void GCTradeFinishHandler::execute ( GCTradeFinish * pPacket , Player * pPlayer 
 		break;
 
 		//------------------------------------------------------------------------
-		// »ó´ë¹æÀÌ cancelÇÑ °æ¿ì
+		// ìƒëŒ€ë°©ì´ cancelí•œ ê²½ìš°
 		//------------------------------------------------------------------------
 		case GC_TRADE_FINISH_RECONSIDER :
 			if (g_pTradeManager!=NULL)
@@ -82,7 +82,7 @@ void GCTradeFinishHandler::execute ( GCTradeFinish * pPacket , Player * pPlayer 
 		break;
 
 		//------------------------------------------------------------------------
-		// ±³È¯~~
+		// êµí™˜~~
 		//------------------------------------------------------------------------
 		case GC_TRADE_FINISH_EXECUTE :
 			if (g_pTradeManager!=NULL)
@@ -90,7 +90,7 @@ void GCTradeFinishHandler::execute ( GCTradeFinish * pPacket , Player * pPlayer 
 				g_pTradeManager->Trade();
 
 				//----------------------------------------------------------------
-				// OK Ãë¼Ò
+				// OK ì·¨ì†Œ
 				//----------------------------------------------------------------
 				g_pTradeManager->RefuseMyTrade();
 				g_pTradeManager->RefuseOtherTrade();

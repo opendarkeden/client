@@ -46,7 +46,7 @@ static void draw_sprite(UI_GlobalResource* gr, SpritePack* pack, int index, int 
 }
 
 static void internal_button_callback(UI_Button* button, int id) {
-    struct UI_NewChar* nc = (struct UI_NewChar*)button->user_data;
+    struct UI_NewChar* nc = (struct UI_NewChar*)button->on_press.data;
     if (nc && nc->callback) {
         int event = 0;
         if (id == UI_NC_ID_OK) event = UI_NEWCHAR_EVENT_CREATE_OK;
@@ -62,8 +62,7 @@ static void add_button(struct UI_NewChar* nc, int x, int y, int w, int h, int id
     UI_Button* btn = (UI_Button*)malloc(sizeof(UI_Button));
     if (!btn) return;
     ui_button_init(btn, x, y, w, h, id);
-    ui_button_set_callback(btn, internal_button_callback);
-    ui_button_set_user_data(btn, nc);
+    ui_button_set_on_press(btn, internal_button_callback, nc);
     ui_button_group_add(&nc->buttons, btn);
 }
 

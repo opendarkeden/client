@@ -22,11 +22,11 @@ void GCTakeOffHandler::execute ( GCTakeOff * pPacket , Player * pPlayer )
 
 	//------------------------------------------------------
 	//
-	//  CreatureÀÇ AddonÀ» Á¦°ÅÇÑ´Ù.
+	//  Creatureì˜ Addonì„ ì œê±°í•œë‹¤.
 	//
 	//------------------------------------------------------
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -34,28 +34,28 @@ void GCTakeOffHandler::execute ( GCTakeOff * pPacket , Player * pPlayer )
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
 		//--------------------------------------------------
-		// Creature°¡ ¾ø´Â °æ¿ì
+		// Creatureê°€ ì—†ëŠ” ê²½ìš°
 		//--------------------------------------------------
 		if (pCreature==NULL)
 		{
 			DEBUG_ADD_FORMAT("[Error] Not Exist Creature. ID=%d", pPacket->getObjectID());
 		}
 		//--------------------------------------------------
-		// Á¸ÀçÇÏ´Â CreatureÀÎ °æ¿ì
-		// º¹ÀåÀÌ ÀÖ´Â creatureÀÌ¸é --> AddonÁ¦°Å
+		// ì¡´ì¬í•˜ëŠ” Creatureì¸ ê²½ìš°
+		// ë³µì¥ì´ ìˆëŠ” creatureì´ë©´ --> Addonì œê±°
 		//--------------------------------------------------
 		else if (pCreature->IsWear())
 		{
 			MCreatureWear* pCreatureWear = (MCreatureWear*)pCreature;
 			
-			// Ä³¸¯ÅÍ¸¦ Á¤Áö½ÃÅ²´Ù.
+			// ìºë¦­í„°ë¥¼ ì •ì§€ì‹œí‚¨ë‹¤.
 			pCreatureWear->SetStop();
 
 			#ifdef	OUTPUT_DEBUG				
@@ -74,7 +74,7 @@ void GCTakeOffHandler::execute ( GCTakeOff * pPacket , Player * pPlayer )
 		}
 			
 		//--------------------------------------------------
-		// ¿ÊÀ» ÀÔÀ» ¼ö ¾ø´Â CreatureÀÎ °æ¿ì
+		// ì˜·ì„ ì…ì„ ìˆ˜ ì—†ëŠ” Creatureì¸ ê²½ìš°
 		//--------------------------------------------------
 		else 
 		{

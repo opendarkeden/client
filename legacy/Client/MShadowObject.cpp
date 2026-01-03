@@ -20,7 +20,7 @@ MShadowObject::MShadowObject()
 
 MShadowObject::MShadowObject(TYPE_OBJECTID id, TYPE_OBJECTID shadowObjectID, TYPE_SPRITEID SpriteID, int pX, int pY, TYPE_SECTORPOSITION viewpoint, bool trans)
 {
-	// instace ID¹ß±Þ
+	// instace IDë°œê¸‰
 	m_ID			= id;
 
 	// type

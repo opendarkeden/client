@@ -22,7 +22,7 @@ CSpriteSet::CSpriteSet()
 
 CSpriteSet::~CSpriteSet()
 {
-	// array¸¦ ¸Ş¸ğ¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
+	// arrayë¥¼ ë©”ëª¨ë¦¬ì—ì„œ ì œê±°í•œë‹¤.
 	Release();
 }
 
@@ -38,14 +38,14 @@ CSpriteSet::~CSpriteSet()
 void
 CSpriteSet::Init(TYPE_SPRITEID count)
 {
-	// °³¼ö°¡ ¾øÀ» °æ¿ì 
+	// ê°œìˆ˜ê°€ ì—†ì„ ê²½ìš° 
 	if (count==0) 
 		return;
 
-	// ÀÏ´Ü ÇØÁ¦
+	// ì¼ë‹¨ í•´ì œ
 	Release();
 
-	// ¸Ş¸ğ¸® Àâ±â
+	// ë©”ëª¨ë¦¬ ì¡ê¸°
 	m_nSprites = count;
 
 	if (CDirectDraw::Is565())
@@ -66,7 +66,7 @@ CSpriteSet::Release()
 {
 	if (m_pSprites != NULL)
 	{
-		// ¸ğµç MSprite¸¦ Áö¿î´Ù.
+		// ëª¨ë“  MSpriteë¥¼ ì§€ìš´ë‹¤.
 		delete [] m_pSprites;
 		m_pSprites = NULL;
 
@@ -77,8 +77,8 @@ CSpriteSet::Release()
 //----------------------------------------------------------------------
 // Load From File
 //----------------------------------------------------------------------
-// SpriteSet IndexFileÀ» ÀÌ¿ëÇØ¼­ SpritePack File¿¡¼­ 
-// Æ¯Á¤ À§Ä¡ÀÇ SpriteµéÀ» LoadÇÑ´Ù.
+// SpriteSet IndexFileì„ ì´ìš©í•´ì„œ SpritePack Fileì—ì„œ 
+// íŠ¹ì • ìœ„ì¹˜ì˜ Spriteë“¤ì„ Loadí•œë‹¤.
 //----------------------------------------------------------------------
 bool		
 CSpriteSet::LoadFromFile(ifstream& indexFile, ifstream& packFile)
@@ -86,7 +86,7 @@ CSpriteSet::LoadFromFile(ifstream& indexFile, ifstream& packFile)
 	TYPE_SPRITEID	count;
 	
 	//------------------------------------------------------
-	// SpriteSetÀÇ Sprite°³¼ö¸¦ ÀĞ¾îµéÀÎ´Ù.
+	// SpriteSetì˜ Spriteê°œìˆ˜ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
 	//------------------------------------------------------
 	indexFile.read((char*)&count, SIZE_SPRITEID);
 
@@ -94,26 +94,26 @@ CSpriteSet::LoadFromFile(ifstream& indexFile, ifstream& packFile)
 	long* pIndex = new long [count];	// file position
 
 	//------------------------------------------------------
-	// SpriteSet IndexFileÀ» ¸ğµÎ ÀĞ¾îµéÀÎ´Ù.
+	// SpriteSet IndexFileì„ ëª¨ë‘ ì½ì–´ë“¤ì¸ë‹¤.
 	//------------------------------------------------------
 	for (TYPE_SPRITEID i=0; i<count; i++)
 	{		
 		indexFile.read((char*)&pIndex[i], 4);
 	}
 
-	// Loop¸¦ µû·Î »ç¿ëÇÏ´Â ÀÌÀ¯´Â 
-	// ¾Æ¹«·¡µµ µÎ°³ÀÇ fileÀ» µ¿½Ã¿¡ accessÇÏ¸é
-	// ´À·ÁÁú °Í °°¾Æ¼­... Á¤¸»ÀÏ±î? - -;;
+	// Loopë¥¼ ë”°ë¡œ ì‚¬ìš©í•˜ëŠ” ì´ìœ ëŠ” 
+	// ì•„ë¬´ë˜ë„ ë‘ê°œì˜ fileì„ ë™ì‹œì— accessí•˜ë©´
+	// ëŠë ¤ì§ˆ ê²ƒ ê°™ì•„ì„œ... ì •ë§ì¼ê¹Œ? - -;;
 
 
 	//------------------------------------------------------
-	// Sprite¸¦ LoadÇÒ memory¸¦ Àâ´Â´Ù.
+	// Spriteë¥¼ Loadí•  memoryë¥¼ ì¡ëŠ”ë‹¤.
 	//------------------------------------------------------
 	Init( count );
 
 	//------------------------------------------------------
-	// Index(File Position)¸¦ ÀÌ¿ëÇØ¼­ SpritePack¿¡¼­
-	// Æ¯Á¤ SpriteµéÀ» LoadÇÑ´Ù.
+	// Index(File Position)ë¥¼ ì´ìš©í•´ì„œ SpritePackì—ì„œ
+	// íŠ¹ì • Spriteë“¤ì„ Loadí•œë‹¤.
 	//------------------------------------------------------
 	for (i=0; i<count; i++)
 	{

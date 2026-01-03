@@ -33,9 +33,9 @@ bool	ChecknProtectCRC(HINSTANCE dll, char* FilePath);
 
 //----------------------------------------------------------------------
 //
-// ·Î±×ÀÎ ¼­¹ö·ÎºÎÅÍ ¾ÆÀÌµğ¿Í ÆĞ½º¿öµåÀÇ ÀÎÁõÀ» ¹Ş¾Ò´Ù´Â ¼Ò¸®´Ù.
+// ë¡œê·¸ì¸ ì„œë²„ë¡œë¶€í„° ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œì˜ ì¸ì¦ì„ ë°›ì•˜ë‹¤ëŠ” ì†Œë¦¬ë‹¤.
 //
-// ÀÌÁ¦ ·Î±×ÀÎ ¼­¹ö¿¡°Ô PC ÀÇ ¸®½ºÆ®¸¦ ¿äÃ»ÇÏ´Â ÆĞÅ¶À» Àü¼ÛÇÏ¸é µÈ´Ù.
+// ì´ì œ ë¡œê·¸ì¸ ì„œë²„ì—ê²Œ PC ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ìš”ì²­í•˜ëŠ” íŒ¨í‚·ì„ ì „ì†¡í•˜ë©´ ëœë‹¤.
 //
 //----------------------------------------------------------------------
 void LCLoginOKHandler::execute ( LCLoginOK * pPacket , Player * pPlayer )
@@ -55,7 +55,7 @@ void LCLoginOKHandler::execute ( LCLoginOK * pPacket , Player * pPlayer )
 	if (!g_bNeedUpdate)
 	{
 		// 2004, 07, 20 sobeit add start
-		// ºí·° Ã³¸® µÈ°Ç ±×Àü ²¨
+		// ë¸”ëŸ­ ì²˜ë¦¬ ëœê±´ ê·¸ì „ êº¼
 //			ClientPlayer * pClientPlayer = dynamic_cast<ClientPlayer*>(pPlayer);
 //
 //			CLGetWorldList clGetWorldList;
@@ -91,32 +91,32 @@ void LCLoginOKHandler::execute ( LCLoginOK * pPacket , Player * pPlayer )
 
 
 		/*
-		// ¿¹Àü²¨
+		// ì˜ˆì „êº¼
 		ClientPlayer * pClientPlayer = dynamic_cast<ClientPlayer*>(pPlayer);
 
 		CLGetPCList clGetPCList;
 
 		pClientPlayer->sendPacket( &clGetPCList );
 		
-		// ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ¸¦ ¹Ù²Û´Ù.
+		// í”Œë ˆì´ì–´ì˜ ìƒíƒœë¥¼ ë°”ê¾¼ë‹¤.
 		pClientPlayer->setPlayerStatus( CPS_AFTER_SENDING_CL_GET_PC_LIST );
 
 		//------------------------------------------------------------
-		// ÇöÀç Server Á¤º¸¸¦ ÀúÀåÇØµĞ´Ù.
+		// í˜„ì¬ Server ì •ë³´ë¥¼ ì €ì¥í•´ë‘”ë‹¤.
 		//------------------------------------------------------------
 		SetServerGroupName( pPacket->getGroupName().c_str() );
 		SetServerGroupStatus( (int)pPacket->getStat() );
 		//SetServerName( pPacket->getServerName().c_str() );
 
 		//------------------------------------------------------------
-		// Client´Â PC List¸¦ ±â´Ù·Á¾ß ÇÑ´Ù.
+		// ClientëŠ” PC Listë¥¼ ê¸°ë‹¤ë ¤ì•¼ í•œë‹¤.
 		//------------------------------------------------------------	
 		SetMode( MODE_WAIT_PCLIST );
 		*/
 
-		// ³İ¸¶ºí¿ë
+		// ë„·ë§ˆë¸”ìš©
 		//------------------------------------------------------------
-		// Gore LevelÀ» ¹Ù²Û´Ù.
+		// Gore Levelì„ ë°”ê¾¼ë‹¤.
 		//------------------------------------------------------------
 		bool bGoreLevel;
 		
@@ -166,7 +166,7 @@ void LCLoginOKHandler::execute ( LCLoginOK * pPacket , Player * pPlayer )
 		// 2005, 1, 24, sobeit add start
 		if(0xFFFD == pPacket->getLastDays())
 		{
-			g_LeftPremiumDays = 7; // ÈŞ¸é °èÁ¤ ¾ÆÀÌÅÛ ÁÖ´Â ÀÌº¥Æ® ½Ã Ã¹ Á¢¼ÓÀÏ¶§ fffd°¡ ³¯¶ó¿Â´Ù. -> ¹«·á ÇÁ¸®¹Ì¾ö 7ÀÏ ½ÃÀÛ
+			g_LeftPremiumDays = 7; // íœ´ë©´ ê³„ì • ì•„ì´í…œ ì£¼ëŠ” ì´ë²¤íŠ¸ ì‹œ ì²« ì ‘ì†ì¼ë•Œ fffdê°€ ë‚ ë¼ì˜¨ë‹¤. -> ë¬´ë£Œ í”„ë¦¬ë¯¸ì—„ 7ì¼ ì‹œì‘
 			g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[UI_STRING_MESSAGE_GET_EVENT_ITEM_NOTICE].GetString() );
 		}
 		else

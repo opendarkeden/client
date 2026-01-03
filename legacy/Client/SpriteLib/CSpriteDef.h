@@ -16,7 +16,7 @@ class ofstream;
 typedef	std::list<int>	INT_LIST;
 
 //----------------------------------------------------------------------
-// (SpriteID, FilePosition)¿« List∏¶ πﬁæ∆º≠ Load«—¥Ÿ.
+// (SpriteID, FilePosition)Ïùò ListÎ•º Î∞õÏïÑÏÑú LoadÌïúÎã§.
 //----------------------------------------------------------------------
 class SPRITE_FILEPOSITION_NODE
 {
@@ -31,7 +31,7 @@ class SPRITE_FILEPOSITION_NODE
 };
 
 //----------------------------------------------------------------------
-// FilePosition Array ¡§¿«
+// FilePosition Array Ï†ïÏùò
 //----------------------------------------------------------------------
 typedef	TArray<SPRITE_FILEPOSITION_NODE, TYPE_SPRITEID>	CSpriteFilePositionArray;
 

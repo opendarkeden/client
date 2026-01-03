@@ -26,12 +26,12 @@ void GCMoveHandler::execute ( GCMove * pPacket , Player * pPlayer )
 		
 #ifdef __GAME_CLIENT__
 
-		// ID°¡ getObjectID()ÀÎ Creature¸¦ ¿òÁ÷¿©ÁØ´Ù.
-		// ¾øÀ¸¸é Zone¿¡ »õ·Î Ãß°¡
-		// ÀÖÀ¸¸é ¿òÁ÷ÀÓ..
+		// IDê°€ getObjectID()ì¸ Creatureë¥¼ ì›€ì§ì—¬ì¤€ë‹¤.
+		// ì—†ìœ¼ë©´ Zoneì— ìƒˆë¡œ ì¶”ê°€
+		// ìˆìœ¼ë©´ ì›€ì§ì„..
 
 		//------------------------------------------------------
-		// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+		// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 		//------------------------------------------------------
 
 		if (g_pZone==NULL)
@@ -40,14 +40,14 @@ void GCMoveHandler::execute ( GCMove * pPacket , Player * pPlayer )
 			DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 		}
 		//------------------------------------------------------
-		// Á¤»ó.. 
+		// ì •ìƒ.. 
 		//------------------------------------------------------
 		else
 		{
 			MCreature* pCreature = g_pZone->GetCreature(pPacket->getObjectID());
 
 			//--------------------------------------------------
-			// »õ·Î¿î CreatureÀÌ¸é Ãß°¡
+			// ìƒˆë¡œìš´ Creatureì´ë©´ ì¶”ê°€
 			//--------------------------------------------------
 			if (pCreature==NULL)
 			{
@@ -75,7 +75,7 @@ void GCMoveHandler::execute ( GCMove * pPacket , Player * pPlayer )
 //					pPacket->getDir() );
 			}
 			//--------------------------------------------------
-			// ÀÌ¹Ì Á¸ÀçÇÏ´Â CreatureÀÌ¸é ÀÌµ¿
+			// ì´ë¯¸ ì¡´ì¬í•˜ëŠ” Creatureì´ë©´ ì´ë™
 			//--------------------------------------------------
 			else
 			{

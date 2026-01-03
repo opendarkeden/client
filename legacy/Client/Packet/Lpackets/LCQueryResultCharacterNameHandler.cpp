@@ -21,8 +21,8 @@ void LCQueryResultCharacterNameHandler::execute ( LCQueryResultCharacterName * p
 {
 	__BEGIN_TRY
 
-	// Ä³¸¯ »ý¼ºÁßÀÌ°í
-	// Ä³¸¯ÅÍ ¾ÆÀÌµð ¸Â´Â °æ¿ì..
+	// ìºë¦­ ìƒì„±ì¤‘ì´ê³ 
+	// ìºë¦­í„° ì•„ì´ë”” ë§žëŠ” ê²½ìš°..
 	if (g_Mode==MODE_WAIT_SELECTPC
 		&& g_pUserInformation->WhisperID==pPacket->getCharacterName().c_str())
 	{

@@ -11,7 +11,7 @@ void
 CSoundPartManager::Release()
 {
 	//---------------------------------------------------
-	// ³»ºÎ¿¡ ÀÖ´Â LPDIRECTSOUNDBUFFER¸¦ ´Ù Áö¿öÁØ´Ù.
+	// ë‚´ë¶€ì— ìžˆëŠ” LPDIRECTSOUNDBUFFERë¥¼ ë‹¤ ì§€ì›Œì¤€ë‹¤.
 	//---------------------------------------------------
 	if (m_pData!=NULL)
 	{
@@ -39,7 +39,7 @@ void
 CSoundPartManager::Stop()
 {
 	//---------------------------------------------------
-	// ³»ºÎ¿¡ ÀÖ´Â LPDIRECTSOUNDBUFFER¸¦ ´Ù stopÇÑ´Ù.
+	// ë‚´ë¶€ì— ìžˆëŠ” LPDIRECTSOUNDBUFFERë¥¼ ë‹¤ stopí•œë‹¤.
 	//---------------------------------------------------
 	if (m_pData!=NULL)
 	{

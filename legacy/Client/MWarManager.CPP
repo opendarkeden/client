@@ -16,10 +16,10 @@ MWarManager *g_pWarManager = NULL;
 
 MWarManager::MWarManager()
 {
-//	// ¾Æ´ãÀÇ ¼ºÁö Á¸ ¾ÆÀÌµğ.
-//	// ¾Æ´ãÀÇ ¼ºÁö¿¡¼­´Â ´Ù¸¥ ¼º 4°³ÀÇ Á¤º¸°¡ °°ÀÌ Àû¿ëµÈ´Ù.
-//	// ±×·¯¹Ç·Î WarInfo ¸¦ ¾ò¾î¿Ã¶§ ¾Æ´ãÀÇ ¼ºÁö Á¸ ¾ÆÀÌµğ¸¦ Ã¼Å©ÇÏ¿© 4°³¸¦ °°ÀÌ ³Ñ°ÜÁÖ¾î¾ß ÇÑ´Ù.
-//	// Á» HardCoding Æ½ÇÏÁö¸¸... -_-
+//	// ì•„ë‹´ì˜ ì„±ì§€ ì¡´ ì•„ì´ë””.
+//	// ì•„ë‹´ì˜ ì„±ì§€ì—ì„œëŠ” ë‹¤ë¥¸ ì„± 4ê°œì˜ ì •ë³´ê°€ ê°™ì´ ì ìš©ëœë‹¤.
+//	// ê·¸ëŸ¬ë¯€ë¡œ WarInfo ë¥¼ ì–»ì–´ì˜¬ë•Œ ì•„ë‹´ì˜ ì„±ì§€ ì¡´ ì•„ì´ë””ë¥¼ ì²´í¬í•˜ì—¬ 4ê°œë¥¼ ê°™ì´ ë„˜ê²¨ì£¼ì–´ì•¼ í•œë‹¤.
+//	// ì¢€ HardCoding í‹±í•˜ì§€ë§Œ... -_-
 //
 //	HolyLandZone.clear();
 //
@@ -35,7 +35,7 @@ MWarManager::~MWarManager()
 	ClearWar();
 }
 
-// WarList ¸¦ µî·ÏÇØÁØ´Ù. ±âÁ¸¿¡ ÀÖÀ¸¸é left_time ¸¸ Update ÇØÁØ´Ù.
+// WarList ë¥¼ ë“±ë¡í•´ì¤€ë‹¤. ê¸°ì¡´ì— ìˆìœ¼ë©´ left_time ë§Œ Update í•´ì¤€ë‹¤.
 void			MWarManager::SetWar(WarInfo *info)
 {
 	if(info == NULL)
@@ -43,11 +43,11 @@ void			MWarManager::SetWar(WarInfo *info)
 
 	std::vector<WAR_INFO>::iterator itr = g_pUserInformation->WarInfo.begin();
 
-	switch(info->getWarType())	// Á¾Á·Àü
+	switch(info->getWarType())	// ì¢…ì¡±ì „
 	{
 	case WAR_RACE:
 		{
-			// ÆíÁö º¸³»Àğ
+			// í¸ì§€ ë³´ë‚´ìŸˆ
 			UI_RunNotice(6, info->getStartTime());
 			UI_DeleteNotice(5);
 			
@@ -64,7 +64,7 @@ void			MWarManager::SetWar(WarInfo *info)
 
 				while(itr != g_pUserInformation->WarInfo.end())
 				{
-					if(itr->zone_id == id && itr->war_type == WAR_RACE)		// ±âÁ¸¿¡ ÀÖÀ¸¸é ¾÷µ¥ÀÌÆ®!
+					if(itr->zone_id == id && itr->war_type == WAR_RACE)		// ê¸°ì¡´ì— ìˆìœ¼ë©´ ì—…ë°ì´íŠ¸!
 					{
 						itr->left_time = pInfo->getRemainTime() + (timeGetTime()/1000);
 						bUpdate = true;
@@ -96,7 +96,7 @@ void			MWarManager::SetWar(WarInfo *info)
 					UI_RunBloodBibleStatus();
 					
 					//--------------------------------------------------
-					// È¦¸®·£µå º¸³Ê½º RaceWar ½ÃÀÛÇÒ¶§ reset
+					// í™€ë¦¬ëœë“œ ë³´ë„ˆìŠ¤ RaceWar ì‹œì‘í• ë•Œ reset
 					//--------------------------------------------------
 					for(int i = 0; i < HOLYLAND_BONUS_MAX; i++)
 					{
@@ -104,7 +104,7 @@ void			MWarManager::SetWar(WarInfo *info)
 					}
 					
 					//--------------------------------------------------
-					// ÇöÀç »ç¿ë °¡´ÉÇÑ skillµéÀ» ´Ù½Ã Ã¼Å©ÇÑ´Ù.
+					// í˜„ì¬ ì‚¬ìš© ê°€ëŠ¥í•œ skillë“¤ì„ ë‹¤ì‹œ ì²´í¬í•œë‹¤.
 					//--------------------------------------------------
 					g_pSkillAvailable->SetAvailableSkills();
 				}
@@ -126,7 +126,7 @@ void			MWarManager::SetWar(WarInfo *info)
 		
 			while(itr != g_pUserInformation->WarInfo.end())
 			{
-				if(itr->zone_id == pInfo->getCastleID() && itr->war_type == WAR_GUILD)		// ±âÁ¸¿¡ ÀÖÀ¸¸é ¾÷µ¥ÀÌÆ®!
+				if(itr->zone_id == pInfo->getCastleID() && itr->war_type == WAR_GUILD)		// ê¸°ì¡´ì— ìˆìœ¼ë©´ ì—…ë°ì´íŠ¸!
 				{
 					itr->left_time = pInfo->getRemainTime() + (timeGetTime()/1000);
 					return;
@@ -164,7 +164,7 @@ void			MWarManager::SetWar(WarInfo *info)
 }
 
 
-// ÇØ´ç Á¸ÀÇ ÀüÀï Á¤º¸¸¦ Áö¿öÁØ´Ù.
+// í•´ë‹¹ ì¡´ì˜ ì „ìŸ ì •ë³´ë¥¼ ì§€ì›Œì¤€ë‹¤.
 void			MWarManager::RemoveWar(ZoneID_t id)
 {
 	WarInfoMapItr	itr = m_WarInfo.find(id);
@@ -347,7 +347,7 @@ bool			MWarManager::IsExist(ZoneID_t id)
 	return true;
 }
 
-//// ¾Æ´ãÀÇ ¼ºÁö ÇÊµå¸ÊÀÎ°¡?
+//// ì•„ë‹´ì˜ ì„±ì§€ í•„ë“œë§µì¸ê°€?
 //bool			MWarManager::IsHolyLand(ZoneID_t id)
 //{
 //	list<ZoneID_t>::const_iterator itr = HolyLandZone.begin();

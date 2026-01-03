@@ -11,7 +11,7 @@
 MMusic		g_Music;
 
 /////////////////////////////////////////////////////////////////////////////
-// ¹®Á¦°¡ ¹ß»ýÇß´Ù¸é MCI ¿¡·¯¸¦ ¼³¸íÇÏ´Â ¹®ÀÚ¿­¿­À» ¸Þ½ÃÁö »óÀÚ¿¡Ãâ·ÂÇÑ´Ù.
+// ë¬¸ì œê°€ ë°œìƒí–ˆë‹¤ë©´ MCI ì—ëŸ¬ë¥¼ ì„¤ëª…í•˜ëŠ” ë¬¸ìžì—´ì—´ì„ ë©”ì‹œì§€ ìƒìžì—ì¶œë ¥í•œë‹¤.
 bool 
 MMusic::ErrorMsg()
 {
@@ -44,7 +44,7 @@ MMusic::~MMusic()
 
 
 /////////////////////////////////////////////////////////
-// ÃÊ±âÈ­ 
+// ì´ˆê¸°í™” 
 bool MMusic::Init(HWND hwnd)
 {
 	DWORD volume;
@@ -85,7 +85,7 @@ MMusic::SetVolume(WORD volume)
 }
 
 /////////////////////////////////////////////////////////
-// Á¦°Å
+// ì œê±°
 void MMusic::UnInit()
 {
 	if(m_bInit && m_bLoad)
@@ -133,7 +133,7 @@ bool MMusic::Play(LPCSTR	filename)
 	{
 		char buffer[256];
 
-		// À½¾ÇÀÌ ·ÎµåµÇ¾î ÀÖ´Ù¸é Á¤Áö½ÃÅ²´Ù.
+		// ìŒì•…ì´ ë¡œë“œë˜ì–´ ìžˆë‹¤ë©´ ì •ì§€ì‹œí‚¨ë‹¤.
 		if(m_bLoad)
 		{
 			Stop();

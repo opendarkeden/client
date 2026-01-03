@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // DrawTextNode.h
 //----------------------------------------------------------------------
-// È­¸é¿¡ StringÀ» Ãâ·ÂÇÏ±â À§ÇÑ Á¤º¸ÀÌ´Ù.
+// í™”ë©´ì— Stringì„ ì¶œë ¥í•˜ê¸° ìœ„í•œ ì •ë³´ì´ë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__DRAWTEXTNODE_H__
@@ -9,7 +9,7 @@
 
 #include <Windows.h>
 
-#define	FLAG_DRAWTEXT_OUTLINE			0x01	// ¿Ü°û¼±
+#define	FLAG_DRAWTEXT_OUTLINE			0x01	// ì™¸ê³½ì„ 
 
 class DRAWTEXT_NODE {
 	public :
@@ -67,18 +67,18 @@ class DRAWTEXT_NODE {
 		QWORD			GetTextTime() const		{ return TextTime; }
 		
 	protected :
-		int				X, Y;		// È­¸é »óÀÇ Ãâ·Â ÁÂÇ¥
-		const char*		String;		// Ãâ·ÂÇÒ·Á´Â string
-		COLORREF		Color;		// ±ÛÀÚ »ö
-		BYTE			Font;		// font Á¾·ù
-		BYTE			Flag;		// ±ÛÀÚ È¿°ú
-		bool			bBox;		// boxÀÖ³ª?
-		RECT			Box;		// ±ÛÀÚ ¹Ø¿¡ ±ò¸± Box¿µ¿ª
-		WORD			BoxColor;	// box »ö±ò	
-		bool			bBoxOutline;	// ¹Ú½º¿¡ Å×µÎ¸® ÀÖ³ª?
-		WORD			BoxOutlineColor;	// box¼± »ö±ò	
-		bool			bTransBox;	// Åõ¸íÇÑ ¹Ú½ºÀÎ°¡?
-		QWORD			TextTime;	// Ãâ·Â ½Ã°£
+		int				X, Y;		// í™”ë©´ ìƒì˜ ì¶œë ¥ ì¢Œí‘œ
+		const char*		String;		// ì¶œë ¥í• ë ¤ëŠ” string
+		COLORREF		Color;		// ê¸€ì ìƒ‰
+		BYTE			Font;		// font ì¢…ë¥˜
+		BYTE			Flag;		// ê¸€ì íš¨ê³¼
+		bool			bBox;		// boxìˆë‚˜?
+		RECT			Box;		// ê¸€ì ë°‘ì— ê¹”ë¦´ Boxì˜ì—­
+		WORD			BoxColor;	// box ìƒ‰ê¹”	
+		bool			bBoxOutline;	// ë°•ìŠ¤ì— í…Œë‘ë¦¬ ìˆë‚˜?
+		WORD			BoxOutlineColor;	// boxì„  ìƒ‰ê¹”	
+		bool			bTransBox;	// íˆ¬ëª…í•œ ë°•ìŠ¤ì¸ê°€?
+		QWORD			TextTime;	// ì¶œë ¥ ì‹œê°„
 };
 
 #endif

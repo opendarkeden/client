@@ -226,10 +226,10 @@ void g_StartOustersDownSkill( int _x, int _y , int PriceRaito)
 	char szBuffer[256];
 	char szCost[100];
 
-	// 1·¹º§°¨¼Ò´çÈ¸¼öÆ÷ÀÎÆ® * °¨¼Ò·¹º§ * (Ä³¸¯ÅÍ·¹º§)^1.3 * 200
+	// 1é¥­éª‡çš‘å®¶å¯¸é›€èå™¨ç‰¢é£˜ * çš‘å®¶é¥­éª‡ * (æŸè…ç£é¥­éª‡)^1.3 * 200
 	int DownPrice = int ( float((*g_pSkillInfoTable)[g_CurrentSkillID].LevelUpPoint) * pow(g_char_slot_ingame.level, 1.3 ) * 200.0f   ) * PriceRaito;
 	if(0 == DownPrice)
-		DownPrice = 1000000; // ¹é¸¸¿ø
+		DownPrice = 1000000; // å½’çˆ¶ç›”
 	wsprintf(szCost,"%d", DownPrice);
 	
 	std::string sstr = szCost;
@@ -261,7 +261,7 @@ void g_StartOustersDownSkill( int _x, int _y , int PriceRaito)
 //------------------------------------------------------------------------------
 // C_VS_UI_ITEM_LIST
 //
-// ÆË¾÷Ã¢À» ¶ç¿î´Ù.
+// æ‰‘è¯€èŠ’é˜‘ å‰æ¬¾ä¿ƒ.
 //------------------------------------------------------------------------------
 C_VS_UI_ITEM_LIST::C_VS_UI_ITEM_LIST()
 {	
@@ -446,13 +446,13 @@ void	C_VS_UI_ITEM_LIST::Show()
 			TitleColor = g_pClientConfig->COLOR_NAME_ITEM_RARE_OPTION;
 			ShadowColor = 0;//RGB(0,0,31<<3);
 		}
-		// add by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈıÊôĞÔ×°±¸ÎªºìÉ«
+		// add by Sonic 2006.10.28 å¢åŠ æ˜¾ç¤ºä¸‰å±æ€§è£…å¤‡ä¸ºçº¢è‰²
 		else if(pItem->GetItemOptionListCount() > 2)
 		{
 			TitleColor = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
 			ShadowColor = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
 		}
-		// end by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈıÊôĞÔ×°±¸ÎªºìÉ«
+		// end by Sonic 2006.10.28 å¢åŠ æ˜¾ç¤ºä¸‰å±æ€§è£…å¤‡ä¸ºçº¢è‰²
 		else
 		if ( pItem->IsEmptyItemOptionList() )
 		{
@@ -517,13 +517,13 @@ void	C_VS_UI_ITEM_LIST::Show()
 			TitleColor = g_pClientConfig->COLOR_NAME_ITEM_RARE_OPTION;
 			ShadowColor = 0;//RGB(0,0,31<<3);
 		}
-		// add by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈıÊôĞÔ×°±¸ÎªºìÉ«
+		// add by Sonic 2006.10.28 å¢åŠ æ˜¾ç¤ºä¸‰å±æ€§è£…å¤‡ä¸ºçº¢è‰²
 		else if(pCurrentFocusItem->GetItemOptionListCount() > 2)
 		{
 			TitleColor = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
 			ShadowColor = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
 		}
-		// end by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈıÊôĞÔ×°±¸ÎªºìÉ«
+		// end by Sonic 2006.10.28 å¢åŠ æ˜¾ç¤ºä¸‰å±æ€§è£…å¤‡ä¸ºçº¢è‰²
 		else
 		if ( pCurrentFocusItem->IsEmptyItemOptionList() )
 		{
@@ -594,7 +594,7 @@ void	C_VS_UI_ITEM_LIST::Show()
 		}
 		int vx;
 		// Damage
-		if (pCurrentFocusItem->GetMaxDamage() != -1) // damage°¡ ÀÖ´Â°¡?
+		if (pCurrentFocusItem->GetMaxDamage() != -1) // damageå•Š ä¹ç»°å•Š?
 		{
 			vx = g_PrintColorStr(strX, strY, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DAMAGE].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 			sprintf(sz_buf, "%d~%d", pCurrentFocusItem->GetMinDamage(), pCurrentFocusItem->GetMaxDamage());				
@@ -602,7 +602,7 @@ void	C_VS_UI_ITEM_LIST::Show()
 			strY += line_gap;
 		}			
 		// critical hit
-		if (pCurrentFocusItem->GetCriticalHit() != -1)//Å©¸®Æ®ÄÃ È÷Æ®°¡ ÀÖ´Â°¡?
+		if (pCurrentFocusItem->GetCriticalHit() != -1)//å†œåºœé£˜æ‹¿ æ´’é£˜å•Š ä¹ç»°å•Š?
 		{
 			vx = g_PrintColorStr(strX, strY, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_CRITICALHIT].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 			sprintf(sz_buf, "%d", pCurrentFocusItem->GetCriticalHit());
@@ -741,7 +741,7 @@ void	C_VS_UI_ITEM_LIST::Show()
 					if(pCurrentFocusItem->IsVampireItem() && strstr(pPartName,"MP") != NULL)
 						*strstr(pPartName,"MP") = 'H';
 					
-					BYTE PlusPoint	= optionInfo.PlusPoint; // Àû¿ëµÇ´Â ¼öÄ¡
+					BYTE PlusPoint	= optionInfo.PlusPoint; // åˆ©ä¾©ç™»ç»° èæ‘¹
 					
 					if (pPartName)
 					{
@@ -785,7 +785,7 @@ void	C_VS_UI_ITEM_LIST::Show()
 					if(pCurrentFocusItem->IsVampireItem() && strstr(pPartName,"MP") != NULL)
 						*strstr(pPartName,"MP") = 'H';
 					
-					BYTE PlusPoint	= optionInfo.PlusPoint; // Àû¿ëµÇ´Â ¼öÄ¡
+					BYTE PlusPoint	= optionInfo.PlusPoint; // åˆ©ä¾©ç™»ç»° èæ‘¹
 					
 					if (pPartName)
 					{
@@ -1130,7 +1130,7 @@ bool	C_VS_UI_ITEM_LIST::DeleteItem( DWORD ID )
 //------------------------------------------------------------------------------
 // C_VS_UI_IMAGE_NOTICE
 //
-// ÆË¾÷Ã¢À» ¶ç¿î´Ù.
+// æ‰‘è¯€èŠ’é˜‘ å‰æ¬¾ä¿ƒ.
 //------------------------------------------------------------------------------
 
 C_VS_UI_IMAGE_NOTICE::C_VS_UI_IMAGE_NOTICE()
@@ -1399,7 +1399,7 @@ C_VS_UI_BULLETIN_BOARD::C_VS_UI_BULLETIN_BOARD(const MItem *pItem)
 	AttrTopmost(true);
 	AttrKeyboardControl(true);
 	
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(169, 116, m_pC_back_spk->GetWidth(BUTTON_OK), 
@@ -1512,7 +1512,7 @@ void	C_VS_UI_BULLETIN_BOARD::WindowEventReceiver(id_t event)
 //-----------------------------------------------------------------------------
 void	C_VS_UI_BULLETIN_BOARD::Run(id_t id)
 {
-	// ¹öÆ°ÀÌ ºñÈ°¼º»óÅÂÀÌ¸é ¸®ÅÏ!
+	// æ»šç“¢æ åšåŠå·±æƒ‘æ€•ææ åºœç•”!
 	if(status == true) return;
 
 	switch (id)
@@ -1561,7 +1561,7 @@ void	C_VS_UI_BULLETIN_BOARD::Run(id_t id)
 			}
 			else
 			{
-				// ºóÇ×¸ñÀÌ ÀÖ½À´Ï´Ù.
+				// åäº²æ ¼æ ä¹åš¼èªä¿ƒ.
 				gpC_base->SendMessage(UI_USE_XMAS_TREE, (int)m_pItem, 1, NULL);
 			}
 		}
@@ -2113,7 +2113,7 @@ C_VS_UI_MIXING_FORGE::C_VS_UI_MIXING_FORGE( FORGE_CLASS forge_class, FORGE_TYPE 
 	AttrTopmost(true);
 	//AttrKeyboardControl(true);
 	
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(26, 123, m_pC_back_spk->GetWidth(BUTTON_OK), 
@@ -2302,7 +2302,7 @@ bool	C_VS_UI_MIXING_FORGE::MouseControl(UINT message, int _x, int _y)
 
 				if (loop == ITEM_REF_POINT_COUNT)
 				{
-					// itemÀÌ grid ¿µ¿ª¿¡ ¾î´ÀÁ¤µµ µé¾î¿À¸é ¾ÈÀ¸·Î À§Ä¡½ÃÅ²´Ù.
+					// itemæ grid åº·å¼€ä¿Š ç»¢è ¢æ²¥æ¡£ ç”¸ç»¢å·æ æ•‘æ è‚º å›°æ‘¹çŸ«æŒªä¿ƒ.
 					const MItem * p_pickup_item = gpC_mouse_pointer->GetPickUpItem();
 					int a, b;
 					switch (i)
@@ -2400,7 +2400,7 @@ void	C_VS_UI_MIXING_FORGE::Show()
 	m_pC_button_group->ShowDescription();
 	SHOW_WINDOW_ATTR;
 
-	//±ÛÀÚ ÂïÀ»°ÍµéÀ» ±â¾ïÇØµ×´Ù°¡ ÇÑ²¨¹ø¿¡ Âï´Â´Ù.
+	//è‡‚ç£Š å˜›é˜‘å·´ç”¸é˜‘ æ‰æ’…ç§¦åº•ä¿ƒå•Š èŒ„æ³¢é”…ä¿Š å˜›ç»°ä¿ƒ.
 	std::vector<RECT>	vNumRect;
 	std::vector<int>	vNum;
 	
@@ -2432,7 +2432,7 @@ void	C_VS_UI_MIXING_FORGE::Show()
 		{
 			const MItem * p_item = g_pInventory->Get();
 
-			// p_itemÀº NULLÀÌ ¹İµå½Ã ¾Æ´Ï´Ù. ¿Ö³ÄÇÏ¸é Á¸ÀçÇÏ´Â °Í¸¸ Get()ÇÏ±â ¶§¹®ÀÌ´Ù.
+			// p_itemç¯® NULLæ é¦†é›çŸ« é…’èªä¿ƒ. æè¡¬çªæ ç²®çŠçªç»° å·´çˆ¶ Get()çªæ‰ é”­å·©æä¿ƒ.
 			assert(p_item);
 
 			// frame id -> sprite id
@@ -2444,12 +2444,12 @@ void	C_VS_UI_MIXING_FORGE::Show()
 			int print_y = item_y + p_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y - 12;
 			int print_x = item_x + p_item->GetGridWidth()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X-1;
 
-			// ItemÀÌ ³õ¿©ÀÖ´Â ¿µ¿ª Ç¥½Ã
+			// Itemæ åˆå’¯ä¹ç»° åº·å¼€ é’çŸ«
 			for (int j = 0; j < p_item->GetGridHeight(); j++)
 				for (int i = 0; i < p_item->GetGridWidth(); i++)
 				{
 					//------------------------------------------------------------
-					// ±³È¯ÇÒ·Á´Â ¾ÆÀÌÅÛÀÎ °æ¿ì
+					// èƒŒåˆ¸ä¸”å¦¨ç»° é…’æè¢ç‰¢ ç‰ˆå¿«
 					//------------------------------------------------------------
 					if( m_v_check[check_index] )//if (p_item->IsTrade())
 					{
@@ -2485,7 +2485,7 @@ void	C_VS_UI_MIXING_FORGE::Show()
 					CIndexSprite::SetUsingColorSet(const_cast<MItem *>(p_item)->GetItemOptionColorSet(), 0);
 
 				//------------------------------------------------------------
-				// ±³È¯ÇÒ·Á´Â ¾ÆÀÌÅÛÀÎ °æ¿ì
+				// èƒŒåˆ¸ä¸”å¦¨ç»° é…’æè¢ç‰¢ ç‰ˆå¿«
 				//------------------------------------------------------------
 				if( m_v_check[check_index] )
 				{
@@ -2500,7 +2500,7 @@ void	C_VS_UI_MIXING_FORGE::Show()
 					}
 				}
 				//------------------------------------------------------------
-				// ±³È¯ÇÒ·Á´Â ¾ÆÀÌÅÛÀÌ ¾Æ´Ñ °æ¿ì
+				// èƒŒåˆ¸ä¸”å¦¨ç»° é…’æè¢æ é…’å›± ç‰ˆå¿«
 				//------------------------------------------------------------
 				else
 				{
@@ -2508,7 +2508,7 @@ void	C_VS_UI_MIXING_FORGE::Show()
 				}
 			}
 
-			//¾ÆÀÌÅÛ °³¼ö ÂïÀ» alphabox ¼ıÀÚ´Â ÂïÁö ¾Ê´Â´Ù ÀúÀåÇØ µ×´Ù°¡ ³ªÁß¿¡ ¸ô¾Æ¼­ ÇÑ²¨¹ø¿¡ Âï´Â´Ù
+			//é…’æè¢ ä¿ºè å˜›é˜‘ alphabox ç®­ç£Šç»° å˜›ç˜¤ è‡¼ç»°ä¿ƒ å†å˜ç§¦ åº•ä¿ƒå•Š å”±åä¿Š éš”é…’è¾‘ èŒ„æ³¢é”…ä¿Š å˜›ç»°ä¿ƒ
 			if(p_item->IsPileItem() || p_item->IsChargeItem())
 			{
 				RECT rt;
@@ -2631,11 +2631,11 @@ bool	C_VS_UI_MIXING_FORGE::IsPixel(int _x, int _y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_MIXING_FORGE::Check
 //
-// ±³È¯ÇÒ·Á´Â itemÀ» Ã¼Å©ÇÑ´Ù. 
-// ÀÌ¹Ì Ã¼Å©µÇ¾îÀÖ´Ù¸é.. Ãë¼ÒÇÑ´Ù.
+// èƒŒåˆ¸ä¸”å¦¨ç»° itemé˜‘ çœ‰å†œèŒ„ä¿ƒ. 
+// æå›º çœ‰å†œç™»ç»¢ä¹ä¿ƒæ.. ç§’å®¶èŒ„ä¿ƒ.
 //
-// grid_start_x, grid_start_y´Â igrid ½ÃÀÛÁ¡ÀÌ´Ù. ÀÌ°ÍÀ» ÂüÁ¶ÇÏ¿© item
-// (x, y)¸¦ ±¸ÇÑ´Ù.
+// grid_start_x, grid_start_yç»° igrid çŸ«ç´¯ç—¢æä¿ƒ. æå·´é˜‘ æ›¼ç‚¼çªå’¯ item
+// (x, y)ç”« å¤‡èŒ„ä¿ƒ.
 //-----------------------------------------------------------------------------
 bool C_VS_UI_MIXING_FORGE::Check(int grid_start_x, int grid_start_y)
 {
@@ -2688,7 +2688,7 @@ bool C_VS_UI_MIXING_FORGE::Check(int grid_start_x, int grid_start_y)
 			msg = UI_STRING_MESSAGE_CANNOT_MIXING_GRADE_VALUE;
 		/*********************************************************
 
-			TO DO : ÃßÈÄ ¿É¼Ç Ã¼Å©°¡ ´õ ÇÊ¿ä ÇÒ ¶© ¿©±â¿¡ Ãß°¡
+			TO DO : çœ é¥¶ å¯è®° çœ‰å†œå•Š æ­¹ é˜å¤¸ ä¸” è®¢ å’¯æ‰ä¿Š çœ å•Š
 			
 		**********************************************************/
 //		else if(p_item->GetItemClass() == ITEM_CLASS_OUSTERS_WRISTLET)
@@ -2725,7 +2725,7 @@ bool C_VS_UI_MIXING_FORGE::Check(int grid_start_x, int grid_start_y)
 //		}
 //		//2004,04,27 sobeit check grade add end
 //		else if(p_item->GetItemClass() != ITEM_CLASS_OUSTERS_STONE)
-//		{// ¾Æ¿ì½ºÅÍÁî Á¤·É¼®ÀÌ ¾Æ´Ò ¶§ ¿É¼Ç Ã¼Å© 
+//		{// é…’å¿«èƒ¶ç£ä»¤ æ²¥é£ç±æ é…’åŒ† é”­ å¯è®° çœ‰å†œ 
 //			if( !IsCorrectType( p_item->GetItemType() , p_item->GetItemClass()))
 //				msg = UI_STRING_MESSAGE_CANNOT_MIXING_ITEM_TYPE;
 //			else		
@@ -2739,10 +2739,10 @@ bool C_VS_UI_MIXING_FORGE::Check(int grid_start_x, int grid_start_y)
 //
 //		}
 //		else if(p_item->GetItemClass() == ITEM_CLASS_OUSTERS_STONE)
-//		{	// ¾Æ¿ì½ºÅÍÁî Á¤·É¼® ÀÏ ¶§
-//			// 0~4 ºÒ Á¤·É¼®
-//			// 5~9 ¹° Á¤·É¼®
-//			// 10~14 ´ëÁö Á¤·É¼®
+//		{	// é…’å¿«èƒ¶ç£ä»¤ æ²¥é£ç± è€ é”­
+//			// 0~4 é˜‚ æ²¥é£ç±
+//			// 5~9 æ‹± æ²¥é£ç±
+//			// 10~14 æªç˜¤ æ²¥é£ç±
 //			int nType1 = -1; int nType2 = -1;
 //			if(m_p_select_item[0] == NULL && m_p_select_item[1] != NULL)
 //			{
@@ -2784,7 +2784,7 @@ bool C_VS_UI_MIXING_FORGE::Check(int grid_start_x, int grid_start_y)
 #endif
 	if( m_p_select_item[0] == NULL && m_p_select_item[1] == NULL )
 	{
-		// ¹Í½Ì°¡´ÉÇÑ Á¶°Ç, ¿şÆù,¾Æ¸Ó,¾Ç¼¼¿¡ ¸Â´ÂÁö Ã¼Å©
+		// é›‡æ•™å•Šç“·èŒ„ ç‚¼æ‰’, å‚€è¿„,é…’èµ£,å©æŠ€ä¿Š å˜ç»°ç˜¤ çœ‰å†œ
 		if (p_item != NULL &&
 			p_item->IsUniqueItem() == false &&
 			p_item->GetItemOptionListCount() == 1 &&
@@ -2802,15 +2802,15 @@ bool C_VS_UI_MIXING_FORGE::Check(int grid_start_x, int grid_start_y)
 	else
 	if( m_p_select_item[0] == NULL && m_p_select_item[1] != NULL )
 	{
-		// °°Àº ¾ÆÀÌÅÛÀÌ¸é Check Off
+		// éç¯® é…’æè¢ææ Check Off
 		if( p_item == m_p_select_item[1] )
 		{
 			m_p_select_item[1] = NULL;
 			b_check = true;
 		}
 		else
-		// Ã¹¹øÂ° ¾ÆÀÌÅÛ°ú °°Àº°è¿­ÀÎÁö, ¹Í½Ì°¡´ÉÇÑ Á¶°ÇÀÎÁö °Ë»ç
-		// °°Àº °è¿­, ´Ù¸¥ ¿É¼Ç, ·¹¾î¾ÆÀÌÅÛÀº ¾ÊµÊ
+		// éœ‰é”…æ³ é…’æè¢è‹ éç¯®æ‹Œå‡¯ç‰¢ç˜¤, é›‡æ•™å•Šç“·èŒ„ ç‚¼æ‰’ç‰¢ç˜¤ å…«è¤
+		// éç¯® æ‹Œå‡¯, ä¿ƒå¼— å¯è®°, é¥­ç»¢é…’æè¢ç¯® è‡¼å‡³
 		if( p_item != NULL &&			
 			p_item->GetItemClass() == m_p_select_item[1]->GetItemClass() &&
 			p_item->GetItemType()  == m_p_select_item[1]->GetItemType() &&
@@ -2829,15 +2829,15 @@ bool C_VS_UI_MIXING_FORGE::Check(int grid_start_x, int grid_start_y)
 	else
 	if( m_p_select_item[0] != NULL && m_p_select_item[1] == NULL )
 	{
-		// °°Àº ¾ÆÀÌÅÛÀÌ¸é Check Off
+		// éç¯® é…’æè¢ææ Check Off
 		if( p_item == m_p_select_item[0] )
 		{
 			m_p_select_item[0] = NULL;
 			b_check = true;
 		}
 		else
-		// Ã¹¹øÂ° ¾ÆÀÌÅÛ°ú °°Àº°è¿­ÀÎÁö, ¹Í½Ì°¡´ÉÇÑ Á¶°ÇÀÎÁö °Ë»ç
-		// °°Àº °è¿­, ´Ù¸¥ ¿É¼Ç, ·¹¾î¾ÆÀÌÅÛÀº ¾ÊµÊ
+		// éœ‰é”…æ³ é…’æè¢è‹ éç¯®æ‹Œå‡¯ç‰¢ç˜¤, é›‡æ•™å•Šç“·èŒ„ ç‚¼æ‰’ç‰¢ç˜¤ å…«è¤
+		// éç¯® æ‹Œå‡¯, ä¿ƒå¼— å¯è®°, é¥­ç»¢é…’æè¢ç¯® è‡¼å‡³
 		if( p_item != NULL &&			
 			p_item->GetItemClass() == m_p_select_item[0]->GetItemClass() &&
 			p_item->GetItemType() == m_p_select_item[0]->GetItemType() &&
@@ -3179,7 +3179,7 @@ bool C_VS_UI_MIXING_FORGE::IsCorrectOption(MItem *p_item1, MItem *p_item2)
 //--------------------------------------------------------------------------------------
 // C_VS_UI_REMOVE_OPTION
 // 
-// ·¹¾î¾ÆÀÌÅÛ ¿É¼ÇÀ» Áö¿ì´Â ¾ÆÀÌÅÛ.
+// é¥­ç»¢é…’æè¢ å¯è®°é˜‘ ç˜¤å¿«ç»° é…’æè¢.
 //--------------------------------------------------------------------------------------
 C_VS_UI_REMOVE_OPTION::C_VS_UI_REMOVE_OPTION(const MItem * pItem, const MItem *pCurItem)
 {		
@@ -3204,7 +3204,7 @@ C_VS_UI_REMOVE_OPTION::C_VS_UI_REMOVE_OPTION(const MItem * pItem, const MItem *p
 
 	if(m_pMouseItem->GetItemClass() == ITEM_CLASS_MIXING_ITEM && m_pMouseItem->GetItemType() == 18)
 		m_IsBokjory = true;
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(ok_x, ok_y, 
@@ -3524,14 +3524,14 @@ void	C_VS_UI_REMOVE_OPTION::CheckOption()
 }
 
 
-// ÇöÀç µé°í ÀÖ´Â ¾ÆÀÌÅÛÀ¸·Î ¼±ÅÃÇÑ ¾ÆÀÌÅÛÀÇ ¿É¼ÇÀ» »èÁ¦ÇÒ ¼ö ÀÖ´ÂÁö ÆÇº°ÇÑ´Ù.
+// æ³…çŠ ç”¸ç»Š ä¹ç»° é…’æè¢æ è‚º æ€¥ç¶èŒ„ é…’æè¢ç‹¼ å¯è®°é˜‘ æ˜åŠ›ä¸” è ä¹ç»°ç˜¤ é­„å–ŠèŒ„ä¿ƒ.
 bool
 C_VS_UI_REMOVE_OPTION::IsCanRemoveOption_Puritas(const MItem* pItem, const MItem* pTItem)
 {
 	if( pItem == NULL || pTItem == NULL ||
 		pTItem->IsQuestItem() || pTItem->IsUniqueItem() || 
 		
-		pItem->GetItemClass() == ITEM_CLASS_MIXING_ITEM && pItem->GetItemType() != 18 &&pTItem->GetItemClass() != ITEM_CLASS_PET_ITEM && pTItem->GetItemOptionListCount() != 2 || // ÀÏ¹İÀûÀ¸·Î 2¿É¼ÇÁß ÇÏ³ª¸¦ »èÁ¦ ÇÑ´Ù.
+		pItem->GetItemClass() == ITEM_CLASS_MIXING_ITEM && pItem->GetItemType() != 18 &&pTItem->GetItemClass() != ITEM_CLASS_PET_ITEM && pTItem->GetItemOptionListCount() != 2 || // è€é¦†åˆ©æ è‚º 2å¯è®°å çªå”±ç”« æ˜åŠ› èŒ„ä¿ƒ.
 		pItem->GetItemClass() == ITEM_CLASS_MIXING_ITEM && pItem->GetItemType() == 18 &&pTItem->GetItemClass() != ITEM_CLASS_PET_ITEM && pTItem->GetItemOptionListCount() != 1||
 		!(
 		pItem->GetItemClass() == ITEM_CLASS_MIXING_ITEM && 
@@ -3559,7 +3559,7 @@ C_VS_UI_REMOVE_OPTION::IsCanRemoveOption_Puritas(const MItem* pItem, const MItem
 	else if(pItem->GetItemType() >= 15 && pItem->GetItemType() <= 17
 		|| pItem->GetItemType() == 24)
 		RemoveItemClass = CLASS_ACCESSORY;
-	else if(pItem->GetItemType() == 18) // º¹Á¶¸®
+	else if(pItem->GetItemType() == 18) // æ±—ç‚¼åºœ
 		RemoveItemClass = CLASS_ALL;
 	else return false;
 
@@ -3616,7 +3616,7 @@ C_VS_UI_REMOVE_OPTION::IsCanRemoveOption_Puritas(const MItem* pItem, const MItem
 	default :
 		return false;
 	}	
-	// ¿©±â±îÁö ¾ÆÀÌÅÛ Å¬·¡½º´Â °ËÁõµÇ¾ú´Ù. ¾ÆÀÌÅÛ Å¸ÀÔÀ»-_- °ËÁõÇÏ¸é µÈ´Ù.
+	// å’¯æ‰é³–ç˜¤ é…’æè¢ åŠªè´°èƒ¶ç»° å…«åˆ˜ç™»èŒä¿ƒ. é…’æè¢ é¸¥æ¶é˜‘-_- å…«åˆ˜çªæ ç­‰ä¿ƒ.
 	
 	enum {TYPE_A,TYPE_B,TYPE_C, TYPE_D};
 	int RemoveItemType = TYPE_A + (pItem->GetItemType() - 9) %3;
@@ -3809,7 +3809,7 @@ C_VS_UI_OUSTERS_SKILL_INFO::C_VS_UI_OUSTERS_SKILL_INFO(int skillID, int window_x
 
 	SetSkillID(skillID);
 	
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 
 	int close_x = w-45, close_y = h-40;
@@ -3817,7 +3817,7 @@ C_VS_UI_OUSTERS_SKILL_INFO::C_VS_UI_OUSTERS_SKILL_INFO(int skillID, int window_x
 	int alpha_x = 30, alpha_y = h-40;
 	int learn_x = w-140, learn_y = h-43;
 
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_x, close_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_X), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_X), CLOSE_ID, this,C_GLOBAL_RESOURCE::AB_BUTTON_X));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(help_x, help_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_QUESTION), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_QUESTION), HELP_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_QUESTION));
@@ -4529,14 +4529,14 @@ C_VS_UI_HORN::C_VS_UI_HORN(int currentZoneID)
 		Set(800/2-m_SPK.GetWidth(MAIN_WINDOW)/2, 600/2-m_SPK.GetHeight(MAIN_WINDOW)/2, m_SPK.GetWidth(MAIN_WINDOW), m_SPK.GetHeight(MAIN_WINDOW));
 	}
 
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 //	m_pC_button_group = new ButtonGroup(this);
 
 	int close_x = 217, close_y = 242;
 	int up_x = 114, up_y = 51;
 	int down_x = 114, down_y = 198;
 
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(up_x, up_y, m_SPK.GetWidth(UD_BUTTON), m_SPK.GetHeight(UD_BUTTON), UP_ID, this,UD_BUTTON));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(down_x, down_y, m_SPK.GetWidth(UD_BUTTON), m_SPK.GetHeight(UD_BUTTON), DOWN_ID, this,UD_BUTTON));
@@ -4670,7 +4670,7 @@ void	C_VS_UI_HORN::Show()
 		gpC_base->m_p_DDSurface_back->Unlock();
 	}
 	
-	// ¾ø´Â ¸Ê °¡¸®±â 
+	// ç»ç»° ç”˜ å•Šåºœæ‰ 
 	num = 0;	itr = portalList.begin();
 	while(itr != endItr)
 	{
@@ -4968,7 +4968,7 @@ C_VS_UI_MAILBOX::C_VS_UI_MAILBOX()
 
 	m_listCount = 10;
 	m_overcnt = NULL;
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 //	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group = NULL;
 	m_pC_scroll_bar = NULL;
@@ -5016,7 +5016,7 @@ void	C_VS_UI_MAILBOX::Start(TAB_ID tab_id)
 		break;
 	}
 
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(m_ptTab.x, m_ptTab.y, 62, 18, MAILTAB_ID, this, 0));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(m_ptTab.x+62, m_ptTab.y, 57, 18, HELPTAB_ID, this, 0));
@@ -5080,7 +5080,7 @@ void	C_VS_UI_MAILBOX::Show()
 	}
 	else
 	{
-		// ¸®½ºÆ® Ãâ·Â¿ë
+		// åºœèƒ¶é£˜ å…ä»¿ä¾©
 		if(gpC_base->m_p_DDSurface_back->Lock())
 		{
 			gpC_global_resource->DrawDialogLocked(x+10, y, w, h, GetAttributes()->alpha);
@@ -5123,7 +5123,7 @@ void	C_VS_UI_MAILBOX::Show()
 			m_SPK.BltLocked(x+title_x, y+title_y, titleSpriteID);
 			m_SPK.BltLocked(x+m_ptTab.x, y+m_ptTab.y, tabSpriteID);
 
-			// ¾È¿¡ ³»ºÎ ¸®½ºÆ® Ãâ·Â
+			// æ•‘ä¿Š éƒ´ä½• åºœèƒ¶é£˜ å…ä»¿
 			m_rtContents.x = w/2-m_SPK.GetWidth(contentsSpriteID)/2;
 			m_rtContents.y = 80;
 			m_rtContents.w = m_SPK.GetWidth(contentsSpriteID);
@@ -5157,7 +5157,7 @@ void	C_VS_UI_MAILBOX::Show()
 			gpC_base->m_p_DDSurface_back->Unlock();
 		}
 		
-		// ³»ºÎ ¸®½ºÆ® ³»¿ë Ãâ·Â
+		// éƒ´ä½• åºœèƒ¶é£˜ éƒ´ä¾© å…ä»¿
 		g_FL2_GetDC();
 
 		const int sender_x = 80, title_x = 145, line_plus = 4, date_x = 450;
@@ -5221,7 +5221,7 @@ bool	C_VS_UI_MAILBOX::MouseControl(UINT message, int _x, int _y)
 		{
 			m_focusContents = (_y-(m_rtContents.y+m_rtContents.h))/m_rtContents.h;
 
-			// ¹üÀ§¸¦ ³Ñ¾î°¡¸é -1
+			// è£¹å›°ç”« é€ç»¢å•Šæ -1
 			int indexSize = 0;
 			for(int mailIndex = 0; mailIndex < m_mail[m_currentTab].size(); mailIndex++)
 			{
@@ -5411,7 +5411,7 @@ void	C_VS_UI_MAILBOX::AddHelpMail(DWORD id, bool open)
 	MAILVECTOR_TYPE::iterator itr = m_mail[TAB_HELP_ID].begin();
 	MAILVECTOR_TYPE::iterator endItr = m_mail[TAB_HELP_ID].end();
 
-	// °°Àº ¸ŞÀÏÀÌ ÀÖÀ½ ±×³É ¸®ÅÏ..
+	// éç¯® çš‹è€æ ä¹æ¾œ å¼Šæˆ åºœç•”..
 	while(itr != endItr)
 	{
 		if(itr->id == id)
@@ -5425,31 +5425,31 @@ void	C_VS_UI_MAILBOX::AddHelpMail(DWORD id, bool open)
 	const MHelpMessage& message = MHelpMessageManager::Instance().getMessage(id);
 
 	
-	// Á¶°Ç Ã¼Å©
+	// ç‚¼æ‰’ çœ‰å†œ
 	switch(g_eRaceInterface)
 	{
-		case RACE_SLAYER: // ´É·ÂÄ¡ ÇÕÀ¸·Î Ã¼Å©
+		case RACE_SLAYER: // ç“·ä»¿æ‘¹ é’¦æ è‚º çœ‰å†œ
 			if(message.m_iAttrLow[RACE_SLAYER] != -1)
 			{
 				int Attr_sum = g_char_slot_ingame.STR_CUR + g_char_slot_ingame.DEX_CUR + g_char_slot_ingame.INT_CUR;
 				if(Attr_sum < message.m_iAttrLow[RACE_SLAYER] || Attr_sum > message.m_iAttrLow[RACE_SLAYER])
 					return;
 			}
-//			if(message.m_iLevelLow[RACE_SLAYER] != -1) // ·¹º§·Î Ã¼Å©
+//			if(message.m_iLevelLow[RACE_SLAYER] != -1) // é¥­éª‡è‚º çœ‰å†œ
 //			{
 //				int Lead_Lev = max(g_char_slot_ingame.DOMAIN_SWORD, max(g_char_slot_ingame.DOMAIN_BLADE, max(g_char_slot_ingame.DOMAIN_GUN, max(g_char_slot_ingame.DOMAIN_HEAL, g_char_slot_ingame.DOMAIN_ENCHANT))));
 //				if(Lead_Lev < message.m_iAttrLow[RACE_SLAYER] || Lead_Lev > message.m_iLevelMax[RACE_SLAYER])
 //					return;
 //			}
 			break;
-		case RACE_VAMPIRE: // ·¹º§·Î Ã¼Å©
+		case RACE_VAMPIRE: // é¥­éª‡è‚º çœ‰å†œ
 			if(message.m_iLevelLow[RACE_VAMPIRE] != -1)
 			{
 				if(g_char_slot_ingame.level < message.m_iLevelLow[RACE_VAMPIRE] || g_char_slot_ingame.level > message.m_iLevelMax[RACE_VAMPIRE])
 					return;
 			}
 			break;
-		case RACE_OUSTERS: // ·¹º§·Î Ã¼Å©
+		case RACE_OUSTERS: // é¥­éª‡è‚º çœ‰å†œ
 			if(message.m_iLevelLow[RACE_OUSTERS] != -1)
 			{
 				if(g_char_slot_ingame.level < message.m_iLevelLow[RACE_OUSTERS] || g_char_slot_ingame.level > message.m_iLevelMax[RACE_OUSTERS])
@@ -5464,7 +5464,7 @@ void	C_VS_UI_MAILBOX::AddHelpMail(DWORD id, bool open)
 	
 	if(nSender<0 || nSender >= nMaxSenderSize)
 	{
-		// º¸³½ »ç¶÷ ÀÔ·Â ¾ÈÇß°Å³ª..°ªÀÌ ÀÌ»ó ÇÒ ¶§ 
+		// ç„Šè¾° è¤æ© æ¶ä»¿ æ•‘æ²èŠ­å”±..è”¼æ ææƒ‘ ä¸” é”­ 
 		strSender = "";  
 	}
 	else
@@ -5494,7 +5494,7 @@ void	C_VS_UI_MAILBOX::AddHelpMail(DWORD id, bool open)
 		mail.contents = message.m_strDetail[g_eRaceInterface];
 		break;
 	}
-	if(!mail.title.GetLength()) //Á¦¸ñÀÌ ¾øÀ¸¸é...¸®ÅÏ..
+	if(!mail.title.GetLength()) //åŠ›æ ¼æ ç»æ æ...åºœç•”..
 		return;
 	mail.show = true;
 	mail.mark = false;
@@ -5528,9 +5528,9 @@ void	C_VS_UI_MAILBOX::AddMail(TAB_ID tab_id, DWORD id, SIZE windowSize, const ch
 	std::string dateString;
 	sprintf(szTemp, "%d", date/100);
 	
-	// ¾Õ¿¡ ³âµµ°¡ ¿À¸é 03 ÀÌ·±½ÄÀ¸·Î ¿À¸é ¾Õ¿¡ 0ÀÌ ¾ø´Âµ¥ Ãâ·ÂÇÒ¶© 03³â ÀÌ·¸°Ô Âï¾îÁà¾ß ÇÏ¹Ç·Î ³âµµ°¡ ÇÑÀÚ¸®¼ö¸é ¾Õ¿¡ 0À» ºÙ¿©ÁØ´Ù.
+	// èŠä¿Š æ–¥æ¡£å•Š å·æ 03 æç¹ä¾¥æ è‚º å·æ èŠä¿Š 0æ ç»ç»°å• å…ä»¿ä¸”è®¢ 03æ–¥ æçŠ¯éœ¸ å˜›ç»¢æ‹å…· çªéª¨è‚º æ–¥æ¡£å•Š èŒ„ç£Šåºœèæ èŠä¿Š 0é˜‘ å˜¿å’¯éœ–ä¿ƒ.
 //	if(date < 10000000)
-//		// ³âµµ°¡ ÇÑÀÚ¸®ÀÏ¶§
+//		// æ–¥æ¡£å•Š èŒ„ç£Šåºœè€é”­
 //	{
 //		dateString = "0";
 //	}
@@ -5550,7 +5550,7 @@ void	C_VS_UI_MAILBOX::AddMail(TAB_ID tab_id, DWORD id, SIZE windowSize, const ch
 	{
 		if(itr->id == id)
 		{
-			// ³¯Â¥°¡ ´Ş¶ó
+			// æœæ¥¼å•Š å´”æ‰¼
 			if(strcmp(itr->date.GetString(), dateString.c_str()) != 0)
 			{
 				itr->date = dateString.c_str();
@@ -5592,9 +5592,9 @@ void	C_VS_UI_MAILBOX::AddMail(TAB_ID tab_id, DWORD id, SIZE windowSize, const ch
 //	std::string dateString;
 //	sprintf(szTemp, "%d", date/100);
 //	
-//	// ¾Õ¿¡ ³âµµ°¡ ¿À¸é 03 ÀÌ·±½ÄÀ¸·Î ¿À¸é ¾Õ¿¡ 0ÀÌ ¾ø´Âµ¥ Ãâ·ÂÇÒ¶© 03³â ÀÌ·¸°Ô Âï¾îÁà¾ß ÇÏ¹Ç·Î ³âµµ°¡ ÇÑÀÚ¸®¼ö¸é ¾Õ¿¡ 0À» ºÙ¿©ÁØ´Ù.
+//	// èŠä¿Š æ–¥æ¡£å•Š å·æ 03 æç¹ä¾¥æ è‚º å·æ èŠä¿Š 0æ ç»ç»°å• å…ä»¿ä¸”è®¢ 03æ–¥ æçŠ¯éœ¸ å˜›ç»¢æ‹å…· çªéª¨è‚º æ–¥æ¡£å•Š èŒ„ç£Šåºœèæ èŠä¿Š 0é˜‘ å˜¿å’¯éœ–ä¿ƒ.
 ////	if(date < 10000000)
-////		// ³âµµ°¡ ÇÑÀÚ¸®ÀÏ¶§
+////		// æ–¥æ¡£å•Š èŒ„ç£Šåºœè€é”­
 ////	{
 ////		dateString = "0";
 ////	}
@@ -5614,7 +5614,7 @@ void	C_VS_UI_MAILBOX::AddMail(TAB_ID tab_id, DWORD id, SIZE windowSize, const ch
 //	{
 //		if(itr->id == id)
 //		{
-//			// ³¯Â¥°¡ ´Ş¶ó
+//			// æœæ¥¼å•Š å´”æ‰¼
 //			if(strcmp(itr->date.GetString(), dateString.c_str()) != 0)
 //			{
 //				itr->date = dateString.c_str();
@@ -5729,7 +5729,7 @@ void	C_VS_UI_MAILBOX::ReadMail(TAB_ID tabID, DWORD id)
 	MAILVECTOR_TYPE::iterator itr = m_mail[tabID].begin();
 	MAILVECTOR_TYPE::iterator endItr = m_mail[tabID].end();
 
-	//by csm ÇöÁ¦ ÀĞ¾îµå¸° id °¡ ¿ÜºÎ¿¡¼­ ÇÊ¿äÇØ¼­ 
+	//by csm æ³…åŠ› ä½¬ç»¢é›èµ´ id å•Š å¯‡ä½•ä¿Šè¾‘ é˜å¤¸ç§¦è¾‘ 
 	SetCurId(id);
 	DIALOG_MENU d_menu[] = {	{(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_JOIN_ACCEPT].GetString(), 0},
 								{(*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_JOIN_DENY].GetString(), 1},
@@ -5754,11 +5754,11 @@ void	C_VS_UI_MAILBOX::ReadMail(TAB_ID tabID, DWORD id)
 
 			if(itr->contents.GetLength() == 0)
 			{
-				// ¸Ş¼¼Áö º¸³»ÀÚ
+				// çš‹æŠ€ç˜¤ ç„Šéƒ´ç£Š
 			}
 			else
 			{
-				if(tabID == TAB_HELP_ID) //HelPMessage °æ¿ì
+				if(tabID == TAB_HELP_ID) //HelPMessage ç‰ˆå¿«
 				{
 					//gC_vs_ui.RunHelpDesc(m_mail[tabID][id].contents ,m_mail[tabID][id].title , id);
 					gC_vs_ui.RunHelpDesc((itr)->contents,(itr)->title, id);
@@ -5854,7 +5854,7 @@ bool C_VS_UI_MAILBOX::C_VS_UI_MAIL::LoadFromFile(class ifstream &file)
 	contents.LoadFromFile(file);
 	date.LoadFromFile(file);
 	file.read((char *)&windowSize, sizeof(SIZE));
-	if(id == 9) // À¯´Ï¿Â ±æµå¿¡ °üÇÑ°Å¸é ·Îµù¾Ê´Â´Ù.
+	if(id == 9) // èœ¡èªæŸ¯ è¾¨é›ä¿Š åŒ…èŒ„èŠ­æ è‚ºçˆ¹è‡¼ç»°ä¿ƒ.
 		return false;
 	return true;
 }
@@ -5966,14 +5966,14 @@ C_VS_UI_FINDING_MINE::C_VS_UI_FINDING_MINE()
 
 // 	m_SPK.Open(SPK_HORN);
 	
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 
 	int close_x = 217, close_y = 242;
 	int start_x = 30, start_y = BLOCK_START_Y-41;
 ;
 
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(start_x, start_y, 26, 26, START_ID, this, 0));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(BLOCK_START_X, BLOCK_START_X, 42, 26, LEVEL0_ID, this, 0));
@@ -6092,7 +6092,7 @@ void	C_VS_UI_FINDING_MINE::Finish()
 
 void	C_VS_UI_FINDING_MINE::Show()
 {
-	// ±âº» ¹è°æ ¸¸µé±â
+	// æ‰å¤¯ ç¡…ç‰ˆ çˆ¶ç”¸æ‰
 	RECT rect = {x, y, x+w, y+h};
 	gpC_base->m_p_DDSurface_back->FillRect(&rect, GRAY);
 
@@ -6438,9 +6438,9 @@ void	C_VS_UI_FINDING_MINE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 	{
 		char szGameLevel[GAMELEVEL_MAX][10] = 
 		{
-			"ÃÊ±Ş",
-			"Áß±Ş",
-			"°í±Ş",
+			"æª¬é­",
+			"åé­",
+			"ç»Šé­",
 		};
 
 		g_PrintColorStr(smile_x+5, smile_y+6, szGameLevel[p_button->GetID()-LEVEL0_ID], gpC_base->m_item_name_pi, BLACK);
@@ -6498,7 +6498,7 @@ void C_VS_UI_FINDING_MINE::DrawRect(RECT &rect, int depth, WORD color, WORD colo
 {
 	RECT drawRect = {rect.left, rect.top, rect.right, rect.bottom};
 	
-	// ¹Ù±ù Å×µÎ¸®
+	// å®˜å†° æŠ›æ»´åºœ
 	drawRect.bottom = drawRect.top+depth;
 	gpC_base->m_p_DDSurface_back->FillRect(&drawRect, color);
 	
@@ -6519,7 +6519,7 @@ void C_VS_UI_FINDING_MINE::DrawRect(RECT &rect, int depth, WORD color, WORD colo
 
 	for(int i = 0; i < depth; i++)
 	{
-		// ¿ì»ó
+		// å¿«æƒ‘
 		drawRect.left = rect.right-i-1;
 		drawRect.top = rect.top+i;
 		drawRect.right = drawRect.left+1;
@@ -6532,7 +6532,7 @@ void C_VS_UI_FINDING_MINE::DrawRect(RECT &rect, int depth, WORD color, WORD colo
 		drawRect.bottom = drawRect.top+1;
 		gpC_base->m_p_DDSurface_back->FillRect(&drawRect, color);
 
-		// ÁÂÇÏ
+		// è°…çª
 		drawRect.left = rect.left+i;
 		drawRect.top = rect.bottom-i-1;
 		drawRect.right = drawRect.left+1;
@@ -6569,19 +6569,19 @@ void	C_VS_UI_FINDING_MINE::ClearBlockFocus(int x, int y, int w, int h)
 void	C_VS_UI_FINDING_MINE::OpenBlock(int x, int y, bool bCenter)
 {
 
-	// ¹üÀ§¸¦ ¹ş¾î³µÀ¸¸é return
+	// è£¹å›°ç”« å“ˆç»¢è½¦æ æ return
 	if(x < 0 || y < 0 || x >= m_boardSize.cx || y >= m_boardSize.cy)
 		return;
 
-	// °ÔÀÓÁØºñÁßÀÌ³ª °ÔÀÓÁßÀÎ°æ¿ì°¡ ¾Æ´Ï¸é return
+	// éœ¸çƒ™éœ–åšåæå”± éœ¸çƒ™åç‰¢ç‰ˆå¿«å•Š é…’èªæ return
 	if(m_status == GAMESTATUS_DIE || m_status == GAMESTATUS_CLEAR)
 	{
 		return;
 	}
 	
-	if(bCenter)	// °¡¿îµ¥ ¹öÆ° ´­·¶À»¶§
+	if(bCenter)	// å•Šæ¬¾å• æ»šç“¢ å–˜èŒƒé˜‘é”­
 	{
-		// ¿­¸° »óÅÂ°¡ ¾Æ´Ï¸é return
+		// å‡¯èµ´ æƒ‘æ€•å•Š é…’èªæ return
 		if(m_Blocks[y*m_boardSize.cx+x].status != BLOCKSTATUS_OPEN)
 			return;
 
@@ -6595,11 +6595,11 @@ void	C_VS_UI_FINDING_MINE::OpenBlock(int x, int y, bool bCenter)
 			}
 		}
 
-		// ÁÖÀ§ÀÇ ±ê¹ß °¹¼ö¿Í numÀÌ Æ²¸®¸é return
+		// æ—å›°ç‹¼ æ ‡æƒ¯ è‚®èå®¢ numæ æ’‡åºœæ return
 		if(flagSum != m_Blocks[y*m_boardSize.cx+x].num)
 			return;
 
-		// ÁÖÀ§ 8°³¸¦ ¿¬´Ù
+		// æ—å›° 8ä¿ºç”« æ¥·ä¿ƒ
 		OpenBlock(x-1, y-1);
 		OpenBlock(x, y-1);
 		OpenBlock(x+1, y-1);
@@ -6610,9 +6610,9 @@ void	C_VS_UI_FINDING_MINE::OpenBlock(int x, int y, bool bCenter)
 		OpenBlock(x+1, y+1);
 
 	}
-	else	// ¿ŞÂÊ¹öÆ° ´­·¶À»¶§
+	else	// å“­ç‡æ»šç“¢ å–˜èŒƒé˜‘é”­
 	{
-		// ÀÌ¹Ì ¿­·ÁÀÖ°Å³ª ±ê¹ß »óÅÂ¸é return
+		// æå›º å‡¯å¦¨ä¹èŠ­å”± æ ‡æƒ¯ æƒ‘æ€•æ return
 		if(m_Blocks[y*m_boardSize.cx+x].status == BLOCKSTATUS_OPEN || m_Blocks[y*m_boardSize.cx+x].status == BLOCKSTATUS_FLAG)
 			return;
 
@@ -6622,16 +6622,16 @@ void	C_VS_UI_FINDING_MINE::OpenBlock(int x, int y, bool bCenter)
 			m_startTime = timeGetTime();
 		}
 
-		// ¿¬´Ù
+		// æ¥·ä¿ƒ
 		m_Blocks[y*m_boardSize.cx+x].status = BLOCKSTATUS_OPEN;
 		
-		// Áö·Ú°¡ ÀÖÀ¸¸é ´ÙÀÌ´ÙÀÌ
+		// ç˜¤æ±¾å•Š ä¹æ æ ä¿ƒæä¿ƒæ
 		if(m_Blocks[y*m_boardSize.cx+x].num == -1)
 		{
 			m_status = GAMESTATUS_DIE;
 			m_startTime = timeGetTime()-m_startTime;
 		}
-		else if(m_Blocks[y*m_boardSize.cx+x].num == 0)	// ¼ıÀÚ°¡ ¾øÀ¸¸é ÁÖÀ§ ºí·ÏµéÀ» ¿¬´Ù
+		else if(m_Blocks[y*m_boardSize.cx+x].num == 0)	// ç®­ç£Šå•Š ç»æ æ æ—å›° å–‰åºŸç”¸é˜‘ æ¥·ä¿ƒ
 		{
 			OpenBlock(x-1, y-1);
 			OpenBlock(x, y-1);
@@ -6670,7 +6670,7 @@ void	C_VS_UI_FINDING_MINE::DrawBlock(int x, int y, BLOCK_STRUCT &block)
 	switch(block.status)
 	{
 	case BLOCKSTATUS_CLOSE:
-		if(m_status == GAMESTATUS_DIE && block.num == -1)	// Áö·Ú±×¸®±â
+		if(m_status == GAMESTATUS_DIE && block.num == -1)	// ç˜¤æ±¾å¼Šåºœæ‰
 		{
 			gpC_base->m_p_DDSurface_back->HLine(rect.left, rect.top, rect.right-rect.left, DARKGRAY);
 			gpC_base->m_p_DDSurface_back->VLine(rect.left, rect.top, rect.bottom-rect.top, DARKGRAY);
@@ -6704,7 +6704,7 @@ void	C_VS_UI_FINDING_MINE::DrawBlock(int x, int y, BLOCK_STRUCT &block)
 		break;
 		
 	case BLOCKSTATUS_QUESTION:
-		if(m_status == GAMESTATUS_DIE && block.num == -1)	// Áö·Ú±×¸®±â
+		if(m_status == GAMESTATUS_DIE && block.num == -1)	// ç˜¤æ±¾å¼Šåºœæ‰
 		{
 			gpC_base->m_p_DDSurface_back->HLine(rect.left, rect.top, rect.right-rect.left, DARKGRAY);
 			gpC_base->m_p_DDSurface_back->VLine(rect.left, rect.top, rect.bottom-rect.top, DARKGRAY);
@@ -6744,7 +6744,7 @@ void	C_VS_UI_FINDING_MINE::DrawBlock(int x, int y, BLOCK_STRUCT &block)
 		gpC_base->m_p_DDSurface_back->HLine(rect.left, rect.top, rect.right-rect.left, DARKGRAY);
 		gpC_base->m_p_DDSurface_back->VLine(rect.left, rect.top, rect.bottom-rect.top, DARKGRAY);
 		
-		if(block.num == -1)	// Áö·Ú±×¸®±â
+		if(block.num == -1)	// ç˜¤æ±¾å¼Šåºœæ‰
 		{
 			RECT fillRect = {rect.left+1, rect.top+1, rect.right, rect.bottom };
 			gpC_base->m_p_DDSurface_back->FillRect(&fillRect, RED);
@@ -6855,7 +6855,7 @@ void C_VS_UI_FINDING_MINE::DrawNumbers(int x, int y, int number)
 
 void C_VS_UI_FINDING_MINE::DrawNumber(int x, int y, BYTE flag)
 {
-	// Á© À§¿¡ 
+	// ä¿© å›°ä¿Š 
 	if(flag & 0x40)
 	{
 		gpC_base->m_p_DDSurface_back->HLine(x+2, y+1, 9, LIGHTRED);
@@ -6875,7 +6875,7 @@ void C_VS_UI_FINDING_MINE::DrawNumber(int x, int y, BYTE flag)
 		gpC_base->m_p_DDSurface_back->HLine(x+7, y+3, 1, DARKRED);
 	}
 
-	// À§¿¡ ¿ŞÂÊ
+	// å›°ä¿Š å“­ç‡
 	if(flag & 0x20)
 	{
 		gpC_base->m_p_DDSurface_back->VLine(x+1, y+2, 9, LIGHTRED);
@@ -6898,7 +6898,7 @@ void C_VS_UI_FINDING_MINE::DrawNumber(int x, int y, BYTE flag)
 		gpC_base->m_p_DDSurface_back->VLine(x+3, y+8, 1, DARKRED);
 	}
 
-	// À§¿¡ ¿À¸¥ÂÊ
+	// å›°ä¿Š å·å¼—ç‡
 	if(flag & 0x10)
 	{
 		gpC_base->m_p_DDSurface_back->VLine(x+11, y+2, 9, LIGHTRED);
@@ -6921,7 +6921,7 @@ void C_VS_UI_FINDING_MINE::DrawNumber(int x, int y, BYTE flag)
 		gpC_base->m_p_DDSurface_back->VLine(x+9, y+8, 1, DARKRED);
 	}
 
-	// °¡¿îµ¥
+	// å•Šæ¬¾å•
 	if(flag & 0x08)
 	{
 		gpC_base->m_p_DDSurface_back->HLine(x+3, y+10, 7, LIGHTRED);
@@ -6942,7 +6942,7 @@ void C_VS_UI_FINDING_MINE::DrawNumber(int x, int y, BYTE flag)
 		gpC_base->m_p_DDSurface_back->HLine(x+8, y+12, 1, DARKRED);
 	}
 
-	// ¾Æ·¡ ¿ŞÂÊ
+	// é…’è´° å“­ç‡
 	if(flag & 0x04)
 	{
 		gpC_base->m_p_DDSurface_back->VLine(x+1, y+12, 9, LIGHTRED);
@@ -6965,7 +6965,7 @@ void C_VS_UI_FINDING_MINE::DrawNumber(int x, int y, BYTE flag)
 		gpC_base->m_p_DDSurface_back->VLine(x+3, y+18, 1, DARKRED);
 	}
 	
-	// ¾Æ·¡ ¿À¸¥ÂÊ
+	// é…’è´° å·å¼—ç‡
 	if(flag & 0x02)
 	{
 		gpC_base->m_p_DDSurface_back->VLine(x+11, y+12, 9, LIGHTRED);
@@ -6988,7 +6988,7 @@ void C_VS_UI_FINDING_MINE::DrawNumber(int x, int y, BYTE flag)
 		gpC_base->m_p_DDSurface_back->VLine(x+9, y+18, 1, DARKRED);
 	}
 
-	// Á© ÀÌ·¡
+	// ä¿© æè´°
 	if(flag & 0x01)
 	{
 		gpC_base->m_p_DDSurface_back->HLine(x+2, y+21, 9, LIGHTRED);
@@ -7107,7 +7107,7 @@ void	C_VS_UI_ARROW_TILE::Show()
 
 		if(GetMapSize() > 0 )
 		{
-			// º¸µå¸¦ ±×¸°´Ù 		
+			// ç„Šé›ç”« å¼Šèµ´ä¿ƒ 		
 			int index=0;
 			for(int tx=0;tx<GetMapSize();tx++)
 			{
@@ -7179,18 +7179,18 @@ void	C_VS_UI_ARROW_TILE::Show()
 				break;
 			}
 			m_SPK.BltLocked(startX+ArrowSizeX*GetMapSize()+m_SPK.GetWidth(SPK_GOAL)-2, startY+ArrowSizeY*GetMapSize(),SPK_IN_BOX_BOTTOM);
-			if( m_Player.X == -1 && m_Player.Y == 0 )		// ÇÃ·¹ÀÌ¾î°¡ ½ÃÀÛ ÁØºñÁßÀÌ¸é
+			if( m_Player.X == -1 && m_Player.Y == 0 )		// æ•²é¥­æç»¢å•Š çŸ«ç´¯ éœ–åšåææ
 			{
 				m_SPK.BltLocked( startX + ( m_SPK.GetWidth(SPK_START)/2 - m_SPK.GetWidth(myspr+2)/2) ,
 					startY + (m_SPK.GetHeight(SPK_START)/2 - m_SPK.GetHeight(myspr+2)/2), myspr+2 );
 			} else
-			if( m_Player.X == GetMapSize() && m_Player.Y == GetMapSize() -1 )		// ÇÃ·¡ÀÌ¾î°¡ ¸ñÇ¥ ÁöÁ¡¿¡ µµ´ŞÇßÀ» °æ¿ì
+			if( m_Player.X == GetMapSize() && m_Player.Y == GetMapSize() -1 )		// æ•²è´°æç»¢å•Š æ ¼é’ ç˜¤ç—¢ä¿Š æ¡£å´”æ²é˜‘ ç‰ˆå¿«
 			{
 				m_SPK.BltLocked( startX + m_SPK.GetWidth(SPK_GOAL)+GetMapSize() * ArrowSizeX + m_SPK.GetWidth(SPK_START) + (m_SPK.GetWidth(SPK_GOAL)/2 - m_SPK.GetWidth(myspr+2)/2) ,
 					startY + (GetMapSize() -1) * ArrowSizeY + (m_SPK.GetHeight(SPK_GOAL)/2 - m_SPK.GetHeight(myspr+2)/2), myspr+2 );
 				m_Player.Status = PLAYER_STATUS_FINISH;
 			} else
-			{												// ÀÏ¹İ °ÔÀÓÁßÀÌ¸é
+			{												// è€é¦† éœ¸çƒ™åææ
 				if( m_Player.Status != PLAYER_STATUS_FINISH )
 				{
 					int sprid = myspr + GetDirection(&m_Player);
@@ -7252,7 +7252,7 @@ void	C_VS_UI_ARROW_TILE::Show()
 //		wsprintf(szTemp,"%d.%d",m_MyBestScore/100, (m_MyBestScore%100) );
 //		g_PrintColorStrOut(x+440,y+53,szTemp, gpC_base->m_item_name_pi, RGB_WHITE, RGB_BLACK);
 
-		// ½Ã°£ Ç¥½Ã		
+		// çŸ«åŸƒ é’çŸ«		
 		if( m_Player.Status != PLAYER_STATUS_READY )
 		{
 			if( m_Player.Status == PLAYER_STATUS_DIE || m_Player.Status == PLAYER_STATUS_FINISH )
@@ -7268,7 +7268,7 @@ void	C_VS_UI_ARROW_TILE::Show()
 			}
 		}
 
-		// ÃÖ°í ±â·ÏÇ¥½Ã		
+		// å¼¥ç»Š æ‰åºŸé’çŸ«		
 		wsprintf(szTemp, "%s Best Score : %s %d.%d",g_pUserInformation->WorldName.GetString(),
 			m_topName.c_str(), m_topScore/100, (m_topScore%100));
 		g_PrintColorStrOut(x+120, y+20, szTemp,gpC_base->m_item_name_pi, RGB_WHITE,RGB_BLACK);
@@ -7436,7 +7436,7 @@ void	C_VS_UI_ARROW_TILE::ProcessGameMain()
 		m_Stage = GAME_STAGE(m_Stage+1);
 		if(m_Stage == STAGE_END )
 		{
-			// Á¾·á
+			// è¾†ä¸°
 //			gpC_base->SendMessage(UI_CLEAR_STAGE,MAKELONG(WORD(m_Stage-STAGE_5X5),0), m_Player.EndTime-m_Player.StartTime);
 			m_Stage = GAME_STAGE(m_Stage);
 
@@ -7469,12 +7469,12 @@ void	C_VS_UI_ARROW_TILE::ProcessTile()
 
 void	C_VS_UI_ARROW_TILE::ProcessTimeExpired()
 {
-	// ÇöÀç ½Ã°£Á¦ÇÑÀº ¾ø´Ù.
+	// æ³…çŠ çŸ«åŸƒåŠ›èŒ„ç¯® ç»ä¿ƒ.
 }
 
 void	C_VS_UI_ARROW_TILE::ProcessRotation()
 {
-	// È¸ÀüºÎºĞ Ã³¸®.
+	// é›€å‚ˆä½•ç›’ è´¸åºœ.
 }
 
 void	C_VS_UI_ARROW_TILE::ProcessCharacter()
@@ -7492,7 +7492,7 @@ void	C_VS_UI_ARROW_TILE::ProcessCharacter()
 		
 		if( m_Player.X == Monster->X && m_Player.Y == Monster->Y )
 		{
-			// °°Àº À§Ä¡¿¡ ÀÖÀ¸¸é Á×À½
+			// éç¯® å›°æ‘¹ä¿Š ä¹æ æ ç£·æ¾œ
 			
 			SetDie();
 		}
@@ -7522,7 +7522,7 @@ void	C_VS_UI_ARROW_TILE::ProcessCharacter()
 	if( m_Player.X == 0 && m_Player.bCanRotation == false && GetDirection(&m_Player) == DIRECTION_LEFT 
 		&&	m_Player.Status != PLAYER_STATUS_READY)
 	{
-		// Ä³¸¯ÅÍ Á×À½
+		// æŸè…ç£ ç£·æ¾œ
 		SetDie();
 	}
 	else if ( m_Player.Y == 0 && m_Player.bCanRotation == false && GetDirection(&m_Player) == DIRECTION_UP 
@@ -7542,15 +7542,15 @@ void	C_VS_UI_ARROW_TILE::ProcessCharacter()
 	}
 }
 
-void	C_VS_UI_ARROW_TILE::ActionMove()					// Move ¹öÆ° Å¬¸¯½Ã
+void	C_VS_UI_ARROW_TILE::ActionMove()					// Move æ»šç“¢ åŠªè…çŸ«
 {
 	if( m_Player.Status == PLAYER_STATUS_DIE || !m_bCanStart)
 		return;
 	
-	// Ãâ¹ßÁ¡ÀÌ¸é
+	// å…æƒ¯ç—¢ææ
 	if( m_Player.X == -1 && m_Player.Y == 0 || m_Player.Status == PLAYER_STATUS_READY)
 	{
-		// ½ÃÀÛ
+		// çŸ«ç´¯
 		m_Player.X = 0;
 		m_Player.Y = 0;
 		m_Player.bCanRotation = true;
@@ -7559,7 +7559,7 @@ void	C_VS_UI_ARROW_TILE::ActionMove()					// Move ¹öÆ° Å¬¸¯½Ã
 	} 
 	else if( m_Player.X == GetMapSize() -1 && m_Player.Y == GetMapSize() -1 && GetDirection(&m_Player) == DIRECTION_RIGHT ) 
 	{
-		// ³¡ÁöÁ¡ÀÌ¸é
+		// åœºç˜¤ç—¢ææ
 		m_Player.EndTime = timeGetTime();
 		m_Player.X ++;
 	} 
@@ -7646,7 +7646,7 @@ void	C_VS_UI_ARROW_TILE::ActionMove()					// Move ¹öÆ° Å¬¸¯½Ã
 	}
 }
 
-void	C_VS_UI_ARROW_TILE::ActionRotation(BYTE Direction)					// 0Àº ¿ŞÂÊ 1Àº ¿À¸¥ÂÊ
+void	C_VS_UI_ARROW_TILE::ActionRotation(BYTE Direction)					// 0ç¯® å“­ç‡ 1ç¯® å·å¼—ç‡
 {
 	if( m_Stage == STAGE_NONE || m_Stage == STAGE_END || !m_Player.bCanRotation || m_Player.Status == PLAYER_STATUS_DIE)
 		return;
@@ -7662,7 +7662,7 @@ void	C_VS_UI_ARROW_TILE::ActionRotation(BYTE Direction)					// 0Àº ¿ŞÂÊ 1Àº ¿À¸¥
 		break;
 	}
 
-	// À¸¾Æ ³ë°¡´Ù È¸Àü
+	// æ é…’ ç•´å•Šä¿ƒ é›€å‚ˆ
 	if( Value != 0 )
 	{
 		for(int i=0;i<GetMapSize()*GetMapSize();i++)
@@ -7673,7 +7673,7 @@ void	C_VS_UI_ARROW_TILE::ActionRotation(BYTE Direction)					// 0Àº ¿ŞÂÊ 1Àº ¿À¸¥
 				m_Tile[i].Direction -= MAX_DIRECTION;
 			if(m_Tile[i].Direction < 0 )
 				m_Tile[i].Direction += MAX_DIRECTION;
-			if( temp < m_Tile[i].Direction )	// ¿À¸¥ÂÊÀ¸·Î µµ´Â °æ¿ì
+			if( temp < m_Tile[i].Direction )	// å·å¼—ç‡æ è‚º æ¡£ç»° ç‰ˆå¿«
 			{
 				m_Tile[i].RemainRotationAngle = 3;
 				m_Tile[i].AniFrame[2] = SPK_ARROW_UP+(temp*4) +1;
@@ -7681,7 +7681,7 @@ void	C_VS_UI_ARROW_TILE::ActionRotation(BYTE Direction)					// 0Àº ¿ŞÂÊ 1Àº ¿À¸¥
 				m_Tile[i].AniFrame[0] = SPK_ARROW_UP+(temp*4) +3;
 			} else
 			{
-				// ¿ŞÂÊÀ¸·Î µµ´Â °æ¿ì
+				// å“­ç‡æ è‚º æ¡£ç»° ç‰ˆå¿«
 				if( temp == DIRECTION_RIGHT )
 				{
 					m_Tile[i].RemainRotationAngle = 3;
@@ -7703,7 +7703,7 @@ void	C_VS_UI_ARROW_TILE::ActionRotation(BYTE Direction)					// 0Àº ¿ŞÂÊ 1Àº ¿À¸¥
 
 void	C_VS_UI_ARROW_TILE::MoveMonster()
 {
-	// ¸ó½ºÅÍ°¡ ¿òÁ÷ÀÎ ½Ã°£ -_- »ç½Ç ÇÊ¿ä ¾ø´Âµ¥ ¤»
+	// é˜èƒ¶ç£å•Š æ¡†æµç‰¢ çŸ«åŸƒ -_- è¤è§’ é˜å¤¸ ç»ç»°å• ã›
 	m_TimeMoveMonster = timeGetTime();
 	
 	std::list<S_CHARACTER*>::const_iterator itr = m_MonsterList.begin();
@@ -7743,7 +7743,7 @@ bool	C_VS_UI_ARROW_TILE::MoveRIGHT(S_CHARACTER *Character)
 	{
 		Character->X ++;
 
-		// Ãâ±¸ÀÎÁö ÆÇº°ÇÑ´Ù.
+		// å…å¤‡ç‰¢ç˜¤ é­„å–ŠèŒ„ä¿ƒ.
 		if(Character->Y == GetMapSize() - 1 && Character->X == GetMapSize() && Character->PlayerType == PLAYER_USER )
 		{
 			m_Player.Status = PLAYER_STATUS_FINISH;
@@ -8019,7 +8019,7 @@ bool	C_VS_UI_ARROW_TILE::TimerMonsterMove(DWORD len)
 
 bool	C_VS_UI_ARROW_TILE::IsExistMonster(short id, int x, int y )
 {
-	// ¸ó½ºÅÍ³¢¸®¸¸ Ãæµ¹ÇÏ´Â°É ¸·À»¶ó°í-_- ¤»
+	// é˜èƒ¶ç£å°åºœçˆ¶ é¢å€’çªç»°å§ é˜œé˜‘æ‰¼ç»Š-_- ã›
 	if( id == 0 )
 		return false;
 	
@@ -8654,7 +8654,7 @@ void C_VS_UI_CRAZY_MINE::ActionDoubleClick(int x, int y)
 
 			if ( m_MineBoard[x][y].isMine )
 			{
-				/// ²Ù¿¡¿¢
+				/// æ“ä¿Šç«£
 				m_bDead = true;
 				g_StartGameOverMessage(-1,-1);
 //				gpC_base->SendMessage(UI_REQUEST_FORCE_DIE, 11);
@@ -8665,7 +8665,7 @@ void C_VS_UI_CRAZY_MINE::ActionDoubleClick(int x, int y)
 		}
 	}
 
-	m_LatestClickTime = GetTickCount() - 5000;				// -_- 5ÃÊÀüÀ¸·Î ÇØ³õ´Â´ç~
+	m_LatestClickTime = GetTickCount() - 5000;				// -_- 5æª¬å‚ˆæ è‚º ç§¦åˆç»°å¯¸~
 
 	CheckSuccess();
 }
@@ -8725,7 +8725,7 @@ C_VS_UI_QUEST_INVENTORY::C_VS_UI_QUEST_INVENTORY(const MItem* pItem)
 	Set(80, g_GameRect.bottom/2 - m_SPK.GetHeight(INVENTORY_WINDOW)/2, m_SPK.GetWidth(INVENTORY_WINDOW), m_SPK.GetHeight(INVENTORY_WINDOW));
 	
 	
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(help_button_offset_x, help_button_offset_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_QUESTION), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_QUESTION), HELP_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_QUESTION));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_button_offset_x, close_button_offset_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_X), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_X), CLOSE_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_X));	
@@ -8825,7 +8825,7 @@ void	C_VS_UI_QUEST_INVENTORY::WindowEventReceiver(id_t event)
 //-----------------------------------------------------------------------------
 void	C_VS_UI_QUEST_INVENTORY::Run(id_t id)
 {
-	// ¹öÆ°ÀÌ ºñÈ°¼º»óÅÂÀÌ¸é ¸®ÅÏ!
+	// æ»šç“¢æ åšåŠå·±æƒ‘æ€•ææ åºœç•”!
 	switch (id)
 	{
 	case OK_ID:		
@@ -9015,14 +9015,14 @@ void	C_VS_UI_QUEST_INVENTORY::DropToQuestInventory( const MItem* pItem)
 	if(! CanDropToInventory( pItem ) || m_CurMousePos < 0 || m_CurMousePos >= 60)
 		return;
 
-	// ¾ÆÀÌÅÛÀ» ³ÖÀ» ¼ö ÀÖ´Ù.
+	// é…’æè¢é˜‘ æŒé˜‘ è ä¹ä¿ƒ.
 
 	gpC_base->SendMessage(UI_ADD_ITEM_TO_CODE_SHEET, MAKELONG(m_CurMousePos/10,m_CurMousePos%10), pItem->GetItemType() - minType ,(void*) m_pCodeSheet );
 }
 
 bool	C_VS_UI_QUEST_INVENTORY::CanDropToInventory(const MItem* pItem)
 {
-	// ÀÚ Ã¼Å©ÇØº¸ÀÚ.
+	// ç£Š çœ‰å†œç§¦ç„Šç£Š.
 	const int minType = 22;
 	
 	int InvenX = m_CurMousePos%10;
@@ -9035,31 +9035,31 @@ bool	C_VS_UI_QUEST_INVENTORY::CanDropToInventory(const MItem* pItem)
 	if( InvenX < 0 || InvenX >= 10 || InvenY < 0 || InvenY >= 6 )
 		return false;
 
-	// 4°³ÀÇ ¹æÇâÀ» Ã¼Å©ÇØ¾ß ÇÑ´Ù. °°Àº ¾ÆÀÌÅÛ Å¸ÀÔÀÌ ÀÖÀ¸¸é ¹«È¿!
+	// 4ä¿ºç‹¼ è§„æ°¢é˜‘ çœ‰å†œç§¦å…· èŒ„ä¿ƒ. éç¯® é…’æè¢ é¸¥æ¶æ ä¹æ æ å…¬ç“¤!
 	bool	bCanDrop = true;
 
 	if( m_Inventory[InvenY*10+InvenX] != -1 )
 		return false;
 
-	// ¿ŞÂÊ -_-
+	// å“­ç‡ -_-
 	if( InvenX > 0 )
 	{
 		 if( m_Inventory[InvenY*10+InvenX-1] == ItemType )
 			 bCanDrop = false;
 	}
-	// ¿À¸¥ÂÊ -_-
+	// å·å¼—ç‡ -_-
 	if( InvenX < 9 )
 	{
 		if( m_Inventory[InvenY*10+InvenX+1] == ItemType )
 			 bCanDrop = false;		
 	}
-	// À§ÂÊ -_-
+	// å›°ç‡ -_-
 	if( InvenY > 0 )
 	{
 		if( m_Inventory[(InvenY-1)*10+InvenX] == ItemType )
 			 bCanDrop = false;		
 	}
-	// ¾Æ·¡ÂÊ -_-
+	// é…’è´°ç‡ -_-
 	if( InvenY < 5 )
 	{
 		if( m_Inventory[(InvenY+1)*10+InvenX] == ItemType )
@@ -9085,7 +9085,7 @@ C_VS_UI_STATUS_CTF::C_VS_UI_STATUS_CTF()
 	
 	g_RegisterWindow(this);
 	
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(248, 7, m_pC_spk.GetWidth(HELP_BUTTON), 
@@ -9342,7 +9342,7 @@ void	C_VS_UI_STATUS_CTF::Show()
 		if( m_num_flag[0] == m_num_flag[1] && m_num_flag[1] == m_num_flag[2] )
 			topscore = -1;
 		
-		// ³²Àº½Ã°£ Ãâ·Â
+		// å·¢ç¯®çŸ«åŸƒ å…ä»¿
 		char szBuffer[64],min[5],sec[5];
 		DWORD RemainTime = m_finish_time - timeGetTime();
 		if( (RemainTime/1000)/60/60 > 3 )
@@ -9672,10 +9672,10 @@ C_VS_UI_PET_INFO::C_VS_UI_PET_INFO(PETINFO *petInfo)
 		m_IsWolverine = true;
 	else
 		m_IsWolverine = false;
-	// add by coffee 2006-12-21  Ôö¼ÓÊ¥µ®³èÎïÃû³Æ
+	// add by coffee 2006-12-21  å¢åŠ åœ£è¯å® ç‰©åç§°
 	//if (m_PetInfo.ITEM_TYPE==6)
 	//{
-	//	m_PetInfo.NAME="Â¹";
+	//	m_PetInfo.NAME="é¹¿";
 	//}
 	switch(m_PetInfo.ITEM_TYPE)
 	{
@@ -9737,7 +9737,7 @@ C_VS_UI_PET_INFO::C_VS_UI_PET_INFO(PETINFO *petInfo)
 
 	AttrPin(true);
 	
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(223, h-19, m_pC_spk.GetWidth(CLOSE_BUTTON), m_pC_spk.GetHeight(CLOSE_BUTTON), CLOSE_ID, this, CLOSE_BUTTON));
@@ -9786,12 +9786,12 @@ C_VS_UI_PET_INFO::~C_VS_UI_PET_INFO()
 void	C_VS_UI_PET_INFO::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 {	
 	const char* description_msg[6] = {
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_PET_INFO].GetString(), //"¾Ö¿Ïµ¿¹° Á¤º¸Ã¢À» ´İ½À´Ï´Ù.";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_ENCHANT_PET].GetString(), //"2Â÷ ´É·ÂÀ» ºÎ¿©ÇÒ ¼ö ÀÖ½À´Ï´Ù.";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_ENCHANT_PET].GetString(), //"¾ÆÁ÷Àº 2Â÷ ´É·ÂÀ» ºÎ¿©ÇÒ ¼ö ¾ø½À´Ï´Ù."
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_3RD_ENCHANT_PET].GetString(),	//"3Â÷ ´É·ÂÀ» ºÎ¿©ÇÒ ¼ö ÀÖ½À´Ï´Ù.";	
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_3RD_ENCHANT_PET].GetString(),	//"¾ÆÁ÷Àº 3Â÷ ´É·ÂÀ» ºÎ¿©ÇÒ ¼ö ¾ø½À´Ï´Ù."
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_PET_NICKNAME].GetString()	//] = "ÆêÀÇ ´Ğ³×ÀÓÀ» º¯°æÇÕ´Ï´Ù.";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_PET_INFO].GetString(), //"å±€è‚¯æ‚¼æ‹± æ²¥ç„ŠèŠ’é˜‘ æ‘§åš¼èªä¿ƒ.";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_ENCHANT_PET].GetString(), //"2ç’ ç“·ä»¿é˜‘ ä½•å’¯ä¸” è ä¹åš¼èªä¿ƒ.";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_ENCHANT_PET].GetString(), //"é…’æµç¯® 2ç’ ç“·ä»¿é˜‘ ä½•å’¯ä¸” è ç»åš¼èªä¿ƒ."
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CAN_3RD_ENCHANT_PET].GetString(),	//"3ç’ ç“·ä»¿é˜‘ ä½•å’¯ä¸” è ä¹åš¼èªä¿ƒ.";	
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_3RD_ENCHANT_PET].GetString(),	//"é…’æµç¯® 3ç’ ç“·ä»¿é˜‘ ä½•å’¯ä¸” è ç»åš¼èªä¿ƒ."
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_PET_NICKNAME].GetString()	//] = "è„ç‹¼ è‘±åŒ™çƒ™é˜‘ å‡½ç‰ˆé’¦èªä¿ƒ.";
 	};
 	
 	switch( p_button->GetID() )
@@ -9816,7 +9816,7 @@ void	C_VS_UI_PET_INFO::ShowButtonDescription(C_VS_UI_EVENT_BUTTON * p_button)
 			{
 				if(!m_PetInfo.ATTACK)
 				{ 
-					if(m_PetInfo.CUT_HEAD && m_PetInfo.ITEM_TYPE >2) // 2Â÷ Æê¸¸ 3Â÷´É·Â(°ø°İ or Èí¿µ)ÀÌ ÀÖ´Ù
+					if(m_PetInfo.CUT_HEAD && m_PetInfo.ITEM_TYPE >2) // 2ç’ è„çˆ¶ 3ç’ç“·ä»¿(å‚æ‹œ or è½¯åº·)æ ä¹ä¿ƒ
 						g_descriptor_manager.Set(DID_INFO, x+p_button->x, y+p_button->y, (void *)description_msg[4],0,0);
 					else
 						g_descriptor_manager.Set(DID_INFO, x+p_button->x, y+p_button->y, (void *)description_msg[2],0,0);
@@ -9928,7 +9928,7 @@ bool	C_VS_UI_PET_INFO::MouseControl(UINT message, int _x, int _y)
 			
 			std::string tempStr;
 
-			// ³²Àº °æÇèÄ¡
+			// å·¢ç¯® ç‰ˆæ°°æ‘¹
 			if( Exp.IsInRect( _x, _y ) && m_PetInfo.LEVEL < 50 )
 			{
 				sprintf( sztemp, "%d", m_PetInfo.LEVEL );
@@ -10037,7 +10037,7 @@ void	C_VS_UI_PET_INFO::Show()
 	}
 
 	int hpday_y = y+166, hptime_y = y+180, hp_x = x+117;
-	// hptime Àº ºĞ´ÜÀ§·Î °¡Áö°í ÀÖ´Â´Ù.
+	// hptime ç¯® ç›’çªœå›°è‚º å•Šç˜¤ç»Š ä¹ç»°ä¿ƒ.
 	int hptime = m_PetInfo.HP%(60*24), hpday = m_PetInfo.HP/(60*24);
 
 
@@ -10046,13 +10046,13 @@ void	C_VS_UI_PET_INFO::Show()
 	{
 		m_pC_spk.BltLocked(x+m_MainWindowPosition.x, y+m_MainWindowPosition.y, MAIN_WINDOW);
 
-		// pet ¾ó±¼
+		// pet å€”å¥”
 		int PetFaceLevel = max(0,m_PetInfo.LEVEL/10 -1);
 		int PetType  = max( 0, (m_PetInfo.ITEM_TYPE-2));
 		int faceSpriteID = max(0, PetFaceLevel+(PetType*5));
 		m_pC_pet_face.BltLocked(x+48, y+68, faceSpriteID);
 
-		// pet ¸ÔÀÌ
+		// pet å†ˆæ
 		TYPE_FRAMEID frame_id = (*g_pItemTable)[ITEM_CLASS_PET_FOOD][m_PetInfo.FOODTYPE].InventoryFrameID;
 		int item_x = x+73-gpC_item->GetWidth(frame_id)/2, item_y = y+173-gpC_item->GetHeight(frame_id)/2;
 		gpC_item->BltLocked(item_x, item_y, frame_id);
@@ -10063,7 +10063,7 @@ void	C_VS_UI_PET_INFO::Show()
 
 		if(hpday > 0 && hpday <= 30)
 		{
-			Rect rect(0, 0, m_pC_spk.GetWidth(HP_DAY_BAR)*hpday/30, m_pC_spk.GetHeight(HP_DAY_BAR));	// 30ÀÏ ¸Æ½º
+			Rect rect(0, 0, m_pC_spk.GetWidth(HP_DAY_BAR)*hpday/30, m_pC_spk.GetHeight(HP_DAY_BAR));	// 30è€ é’™èƒ¶
 			m_pC_spk.BltLockedClip(hp_x+1, hpday_y+1, rect, HP_DAY_BAR);
 		}
 
@@ -10083,7 +10083,7 @@ void	C_VS_UI_PET_INFO::Show()
 	{
 		COLORREF fontColor = RGB(255, 255, 120);
 		
-		// Æê ÀÌ¸§
+		// è„ ææŠš
 		const int name_x = x+130, name_y = y+25;
 		std::string petName;
 //		if(m_PetInfo.NICK_NAME.size())
@@ -10095,24 +10095,24 @@ void	C_VS_UI_PET_INFO::Show()
 		if(!m_IsWolverine && m_PetInfo.NICK_NAME.size())
 			g_PrintColorStr(x +50, name_y+ 202, m_PetInfo.NICK_NAME.c_str(), gpC_base->m_char_chat_pi, RGB_YELLOW);
 
-		// ¼Ó¼º
-		// ÆêÀº enchant levelÀ» Æê¼Ó¼ºÀ¸·Î Ãâ·ÂÇÑ´Ù
-		// enchant level Àº ÀÎÃ¾Æ®¿Í´Â ¾Æ¹« °ü·Ã ¾øÀ¸¸ç »ç½ÇÀº ChargeItemÀÇ Charge¼ö¸¦ ¹ŞÀ» ¶§ ¾´´Ù
-		// »ç½Ç ¹ŞÀ»¶§´Â Enchant Level·Î ¹ŞÁö¸¸ ÀúÀåÀº Number¿¡ ÀúÀåÇÑ´Ù. ±×·¡¼­ Â÷Áö ¾ÆÀÌÅÛ¿¡¼­
-		// GetEnchantLevelÀ» ÇØµµ ¾Æ¹«°Íµµ ¾È³ª¿Â´Ù.
-		// ±×°Ç Â÷Áö ¾ÆÀÌÅÛ¸¸ÀÌ°í ÆêÀº ±×³É EnchantLevel ±×´ë·Î ¾´´Ù
-		// Æê ¼Ó¼º ¼öÄ¡´Â Silver°ªÀ» ¾´´Ù. 
+		// åŠ å·±
+		// è„ç¯® enchant levelé˜‘ è„åŠ å·±æ è‚º å…ä»¿èŒ„ä¿ƒ
+		// enchant level ç¯® ç‰¢é•é£˜å®¢ç»° é…’å…¬ åŒ…è®¿ ç»æ å“¥ è¤è§’ç¯® ChargeItemç‹¼ Chargeèç”« ç½é˜‘ é”­ æ•¬ä¿ƒ
+		// è¤è§’ ç½é˜‘é”­ç»° Enchant Levelè‚º ç½ç˜¤çˆ¶ å†å˜ç¯® Numberä¿Š å†å˜èŒ„ä¿ƒ. å¼Šè´°è¾‘ ç’ç˜¤ é…’æè¢ä¿Šè¾‘
+		// GetEnchantLevelé˜‘ ç§¦æ¡£ é…’å…¬å·´æ¡£ æ•‘å”±æŸ¯ä¿ƒ.
+		// å¼Šæ‰’ ç’ç˜¤ é…’æè¢çˆ¶æç»Š è„ç¯® å¼Šæˆ EnchantLevel å¼Šæªè‚º æ•¬ä¿ƒ
+		// è„ åŠ å·± èæ‘¹ç»° Silverè”¼é˜‘ æ•¬ä¿ƒ. 
 
 		int px;
 
 		char sz_buf[512];
 
-		// ·¹º§
+		// é¥­éª‡
 		sprintf(sz_buf, "%d", m_PetInfo.LEVEL);
 		int level_x = x+230-g_GetStringWidth(sz_buf, gpC_base->m_char_chat_large_pi.hfont)/2, level_y = y+23;
 		g_PrintColorStr(level_x, level_y, sz_buf, gpC_base->m_char_chat_large_pi, RGB_YELLOW);
 
-		// Æê ¼Ó¼º
+		// è„ åŠ å·±
 		px = g_PrintColorStr(hp_x, str_y[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_PET_ATTR].GetString(), gpC_base->m_item_desc_pi, ITEM_DESC_RGB);
 		if(m_PetInfo.ATTR_VALUE > 0)
 		{
@@ -10124,7 +10124,7 @@ void	C_VS_UI_PET_INFO::Show()
 			g_PrintColorStr(px, str_y[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_NOT_EXIST].GetString(), gpC_base->m_chatting_pi, RGB_WHITE);
 		}
 
-		// ¿É¼Ç
+		// å¯è®°
 		px = g_PrintColorStr(hp_x, str_y[1], (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_OPTION].GetString(), gpC_base->m_chatting_pi, ITEM_DESC_RGB);
 		if(m_PetInfo.OPTION >= 0)
 		{
@@ -10140,7 +10140,7 @@ void	C_VS_UI_PET_INFO::Show()
 					*strstr(pPartName,"MP") = 'E';
 			}
 			
-			BYTE PlusPoint	= optionInfo.PlusPoint; // Àû¿ëµÇ´Â ¼öÄ¡
+			BYTE PlusPoint	= optionInfo.PlusPoint; // åˆ©ä¾©ç™»ç»° èæ‘¹
 			
 			if (pPartName)
 			{
@@ -10167,19 +10167,19 @@ void	C_VS_UI_PET_INFO::Show()
 		{
 			g_PrintColorStr(px, str_y[1], (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_NOT_EXIST].GetString(), gpC_base->m_chatting_pi, RGB_WHITE);
 		}
-		// 2Â÷´É·Â
+		// 2ç’ç“·ä»¿
 		if(m_PetInfo.CUT_HEAD)
 			g_PrintColorStr(hp_x, str_y[2], (*g_pGameStringTable)[UI_STRING_MESSAGE_PET_CAN_CUT_HEAD].GetString(), gpC_base->m_chatting_pi, RGB_YELLOW);
 		else
 			g_PrintColorStr(hp_x, str_y[2], (*g_pGameStringTable)[UI_STRING_MESSAGE_PET_CANNOT_CUT_HEAD].GetString(), gpC_base->m_chatting_pi, RGB_RED);
 
-		// °æÇèÄ¡
+		// ç‰ˆæ°°æ‘¹
 		g_PrintColorStr(hp_x, str_y[3], (*g_pGameStringTable)[UI_STRING_MESSAGE_LEFT_EXP].GetString(), gpC_base->m_chatting_pi, ITEM_DESC_RGB);
 
-		// °æÇèÄ¡ ¼öÄ¡
+		// ç‰ˆæ°°æ‘¹ èæ‘¹
 		g_PrintColorStr(hp_x, str_y[4], g_GetNumberString(m_PetInfo.EXP_REMAIN).c_str(), gpC_base->m_chatting_pi, RGB_WHITE);
 
-		// ³²Àº ¸ÔÀÌ¾ç
+		// å·¢ç¯® å†ˆæå‰§
 		g_PrintColorStr(hp_x, hpday_y-15, (*g_pGameStringTable)[UI_STRING_MESSAGE_PET_DESC_DURABILITY_2].GetString(), gpC_base->m_chatting_pi, ITEM_DESC_RGB);
 		
 		// hp
@@ -10284,8 +10284,8 @@ C_VS_UI_HELPDESC::C_VS_UI_HELPDESC(const char *detail,const char *title,DWORD id
 	int window_w = 500, window_h = 450;
 	Set(g_GameRect.right/2-window_w/2, g_GameRect.bottom/2-window_h/2, window_w, window_h);
 	int close_x = w-95, close_y = h-50;
-//	m_SPK.Open(HELP_MESSAGE_DESC); // ½ÇÁ¦ ÇïÇÁ ¸Ş¼¼Áö ÀÌ¹ÌÁö°¡ µé¾î°¡¾ßÇÑ´Ù.
-//	m_SPK.Open(SPK_BULLETIN_BOARD);// ÀÓ½Ã¿ë ÀÌ¹ÌÁö 
+//	m_SPK.Open(HELP_MESSAGE_DESC); // è§’åŠ› ç§‹æ©‡ çš‹æŠ€ç˜¤ æå›ºç˜¤å•Š ç”¸ç»¢å•Šå…·èŒ„ä¿ƒ.
+//	m_SPK.Open(SPK_BULLETIN_BOARD);// çƒ™çŸ«ä¾© æå›ºç˜¤ 
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_x, close_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE), CLOSE_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE));
 	m_pC_scroll_bar = new C_VS_UI_SCROLL_BAR(0, Rect(w-25,50,-1,window_h-140));
@@ -10343,7 +10343,7 @@ void C_VS_UI_HELPDESC::Run(id_t id)
 	{
 	case CLOSE_ID:
 		Finish();
-		// 2004, 5, 6 - sobeit add start - ÀÎÅÍÆäÀÌ½º µµ¿ò¸» ´İÀº ÈÄ ÃÊº¸ÀÚ »ç³ÉÅÍ µµ¿ò¸» ¶ß°Ô ^^
+		// 2004, 5, 6 - sobeit add start - ç‰¢ç£å…¶æèƒ¶ æ¡£æ¡†å¯Œ æ‘§ç¯® é¥¶ æª¬ç„Šç£Š è¤æˆç£ æ¡£æ¡†å¯Œ å“†éœ¸ ^^
 		if( HELP_EVENT_INTERFACE == m_helpindex )
 			gC_vs_ui.AddHelpMail(HELP_EVENT_BEGINNER_ZONE);
 		// 2004, 5, 6 - sobeit add end
@@ -10366,7 +10366,7 @@ void C_VS_UI_HELPDESC::Show()
 	std::string content  = m_title;
 	
 	char buf[1024];
-	sprintf(buf, "Á¦¸ñ : %s", content.c_str());
+	sprintf(buf, "åŠ›æ ¼ : %s", content.c_str());
 	g_PrintColorStr(x+30, y+10, buf , gpC_base->m_dialog_msg_pi, RGB_GOLD);
 	
 	int NullSizex,NullSizey;
@@ -10398,43 +10398,43 @@ void C_VS_UI_HELPDESC::Show()
 		istag = strstr(str.c_str(), "<");
 		isfont =  strstr(str.c_str(),"#");
 
-		if(istag)  // Ã¹¹øÂ° ¹®ÀÚ¿­ÀÌ '<'ÀÎ°æ¿ì
+		if(istag)  // éœ‰é”…æ³ å·©ç£Šå‡¯æ '<'ç‰¢ç‰ˆå¿«
 		{
 			tagstr = str ;
-			if(isfont)// ÅÂÅ©¿¡ "#"ÀÌ ÀÖÀ»°æ¿ì
+			if(isfont)// æ€•å†œä¿Š "#"æ ä¹é˜‘ç‰ˆå¿«
 			{
 				tempappend = findkey(tagstr.c_str(),"a");
 				tempcolor = findkey(tagstr.c_str(),"color");
 			}
-			else // ÅÂ±×¿¡ "<" ÀÌ Æ÷ÇÔµÇ¾îÀÖÀ»°æ¿ì
+			else // æ€•å¼Šä¿Š "<" æ å™¨çªƒç™»ç»¢ä¹é˜‘ç‰ˆå¿«
 			{
 				
-				tempspk = findkey( tagstr.c_str(), "file" );     					 // spk °ªÀ» ¾ò¾î¿Â´Ù.
-				tempPos = findkey( tagstr.c_str(), "pos" );							 // pos °ªÀ» ¾ò¾î¿Â´Ù
+				tempspk = findkey( tagstr.c_str(), "file" );     					 // spk è”¼é˜‘ æ˜ç»¢æŸ¯ä¿ƒ.
+				tempPos = findkey( tagstr.c_str(), "pos" );							 // pos è”¼é˜‘ æ˜ç»¢æŸ¯ä¿ƒ
 				tempspk += ".jpg";
 				
 				CDirectDrawSurface *pSurface = GetJpgFileLoading(tempspk);
-				m_width = pSurface->GetWidth();										// ¼±ÅÃÇÑ spk ÀÇm_midth ¸¦ ¾ò¾î¿Â´Ù
+				m_width = pSurface->GetWidth();										// æ€¥ç¶èŒ„ spk ç‹¼m_midth ç”« æ˜ç»¢æŸ¯ä¿ƒ
 				m_height = pSurface->GetHeight();		
 				
-				NullSizex = (m_width/(char_width));									// ÀÌ¹ÌÁö¿¡ ÇÊ¿ä¶õ °ø¹é °è»ê
+				NullSizex = (m_width/(char_width));									// æå›ºç˜¤ä¿Š é˜å¤¸é„‚ å‚å½’ æ‹Œé­‚
 				NullSizey = (m_height/(char_height+5))+1;	
-				// ÀÌ¹ÌÁö¿¡ ÇÊ¿äÇÑ ¶óÀÎÀ» °è»ê
+				// æå›ºç˜¤ä¿Š é˜å¤¸èŒ„ æ‰¼ç‰¢é˜‘ æ‹Œé­‚
 				DrawImg(m_width, m_height, tempspk.c_str(), tempPos.c_str() , max(imgcnt,line));
 				imgcnt+=NullSizey;		
-				// Memdc ·Î..pasing ÇÑ µ¥ÀÌÅÍ¸¦ °¡Á®¿Í¼­ µå·Î¿ì ÇÑ´Ù.
+				// Memdc è‚º..pasing èŒ„ å•æç£ç”« å•Šå»‰å®¢è¾‘ é›è‚ºå¿« èŒ„ä¿ƒ.
 			}
 		}
 		else 
 		{
-			// ¸¸¾à ¼±ÅÃµÈ »ö°¥ÀÌ ÀÖÀ¸¸é?
+			// çˆ¶è· æ€¥ç¶ç­‰ ç¥¸å“æ ä¹æ æ?
 			color = RGB_WHITE;
 			if(!tempcolor.empty())
 			{
 				_stscanf(tempcolor.c_str(),_T("%x"),&color);
 			}
 			
-			if(strcmp(tempappend.c_str(),"y") == 0) // ÆùÆ® ÅÂÅ© ´ÙÀ½ÁÙÀ» ÀÌ¾î¾²±âÇÑ´Ù
+			if(strcmp(tempappend.c_str(),"y") == 0) // è¿„é£˜ æ€•å†œ ä¿ƒæ¾œä¸´é˜‘ æç»¢é™æ‰èŒ„ä¿ƒ
 			{
 				line --;
 				if(line < 0) line = 0;
@@ -10514,42 +10514,42 @@ void C_VS_UI_HELPDESC::Show()
 		istag = strstr(str.c_str(), "<");
 		isfont =  strstr(str.c_str(),"#");
 
-		if(istag)  // Ã¹¹øÂ° ¹®ÀÚ¿­ÀÌ '<'ÀÎ°æ¿ì
+		if(istag)  // éœ‰é”…æ³ å·©ç£Šå‡¯æ '<'ç‰¢ç‰ˆå¿«
 		{
 			tagstr = str ;
-			if(isfont)// ÅÂÅ©¿¡ "#"ÀÌ ÀÖÀ»°æ¿ì
+			if(isfont)// æ€•å†œä¿Š "#"æ ä¹é˜‘ç‰ˆå¿«
 			{
 				tempappend = findkey(tagstr.c_str(),"a");
 				tempcolor = findkey(tagstr.c_str(),"color");
 			}
-			else // ÅÂ±×¿¡ "<" ÀÌ Æ÷ÇÔµÇ¾îÀÖÀ»°æ¿ì
+			else // æ€•å¼Šä¿Š "<" æ å™¨çªƒç™»ç»¢ä¹é˜‘ç‰ˆå¿«
 			{
-//				tempspk = findkey( tagstr.c_str(), "file" );     					 // spk °ªÀ» ¾ò¾î¿Â´Ù.
-//				tempPos = findkey( tagstr.c_str(), "pos" );							 // pos °ªÀ» ¾ò¾î¿Â´Ù
+//				tempspk = findkey( tagstr.c_str(), "file" );     					 // spk è”¼é˜‘ æ˜ç»¢æŸ¯ä¿ƒ.
+//				tempPos = findkey( tagstr.c_str(), "pos" );							 // pos è”¼é˜‘ æ˜ç»¢æŸ¯ä¿ƒ
 //				tempspk += ".jpg";
 //				
 //				CDirectDrawSurface *pSurface = GetJpgFileLoading(tempspk);
-//				m_width = pSurface->GetWidth();										// ¼±ÅÃÇÑ spk ÀÇm_midth ¸¦ ¾ò¾î¿Â´Ù
+//				m_width = pSurface->GetWidth();										// æ€¥ç¶èŒ„ spk ç‹¼m_midth ç”« æ˜ç»¢æŸ¯ä¿ƒ
 //				m_height = pSurface->GetHeight();		
 //				
-//				NullSizex = (m_width/(char_width-1));									// ÀÌ¹ÌÁö¿¡ ÇÊ¿ä¶õ °ø¹é °è»ê
+//				NullSizex = (m_width/(char_width-1));									// æå›ºç˜¤ä¿Š é˜å¤¸é„‚ å‚å½’ æ‹Œé­‚
 //				NullSizey = (m_height/(char_height+5))+1;	
-				// ÀÌ¹ÌÁö¿¡ ÇÊ¿äÇÑ ¶óÀÎÀ» °è»ê
+				// æå›ºç˜¤ä¿Š é˜å¤¸èŒ„ æ‰¼ç‰¢é˜‘ æ‹Œé­‚
 //				DrawImg(m_width, m_height, tempspk.c_str(), tempPos.c_str() , max(imgcnt,line));
 //				imgcnt+=NullSizey;		
-				// Memdc ·Î..pasing ÇÑ µ¥ÀÌÅÍ¸¦ °¡Á®¿Í¼­ µå·Î¿ì ÇÑ´Ù.	
+				// Memdc è‚º..pasing èŒ„ å•æç£ç”« å•Šå»‰å®¢è¾‘ é›è‚ºå¿« èŒ„ä¿ƒ.	
 			}
 		}
 		else 
 		{
-			// ¸¸¾à ¼±ÅÃµÈ »ö°¥ÀÌ ÀÖÀ¸¸é?
+			// çˆ¶è· æ€¥ç¶ç­‰ ç¥¸å“æ ä¹æ æ?
 			color = RGB_WHITE;
 			if(!tempcolor.empty())
 			{
 				_stscanf(tempcolor.c_str(),_T("%x"),&color);
 			}
 			
-			if(strcmp(tempappend.c_str(),"y") == 0) // ÆùÆ® ÅÂÅ© ´ÙÀ½ÁÙÀ» ÀÌ¾î¾²±âÇÑ´Ù
+			if(strcmp(tempappend.c_str(),"y") == 0) // è¿„é£˜ æ€•å†œ ä¿ƒæ¾œä¸´é˜‘ æç»¢é™æ‰èŒ„ä¿ƒ
 			{
 				line --;
 				if(line < 0) line = 0;
@@ -10588,31 +10588,31 @@ void C_VS_UI_HELPDESC::Show()
 		istag = strstr(str.c_str(), "<");
 		isfont =  strstr(str.c_str(),"#");
 		
-		if(istag)  // Ã¹¹øÂ° ¹®ÀÚ¿­ÀÌ '<'ÀÎ°æ¿ì
+		if(istag)  // éœ‰é”…æ³ å·©ç£Šå‡¯æ '<'ç‰¢ç‰ˆå¿«
 		{
 			tagstr = str ;
-			if(isfont)// ÅÂÅ©¿¡ "#"ÀÌ ÀÖÀ»°æ¿ì
+			if(isfont)// æ€•å†œä¿Š "#"æ ä¹é˜‘ç‰ˆå¿«
 			{
 				tempappend = findkey(tagstr.c_str(),"a");
 				tempcolor = findkey(tagstr.c_str(),"color");
 			}
-			else // ÅÂ±×¿¡ "<" ÀÌ Æ÷ÇÔµÇ¾îÀÖÀ»°æ¿ì
+			else // æ€•å¼Šä¿Š "<" æ å™¨çªƒç™»ç»¢ä¹é˜‘ç‰ˆå¿«
 			{
 				
-				tempspk = findkey( tagstr.c_str(), "file" );     					 // spk °ªÀ» ¾ò¾î¿Â´Ù.
-				tempPos = findkey( tagstr.c_str(), "pos" );							 // pos °ªÀ» ¾ò¾î¿Â´Ù
+				tempspk = findkey( tagstr.c_str(), "file" );     					 // spk è”¼é˜‘ æ˜ç»¢æŸ¯ä¿ƒ.
+				tempPos = findkey( tagstr.c_str(), "pos" );							 // pos è”¼é˜‘ æ˜ç»¢æŸ¯ä¿ƒ
 				tempspk += ".jpg";
 				
 				CDirectDrawSurface *pSurface = GetJpgFileLoading(tempspk);
-				m_width = pSurface->GetWidth();										// ¼±ÅÃÇÑ spk ÀÇm_midth ¸¦ ¾ò¾î¿Â´Ù
+				m_width = pSurface->GetWidth();										// æ€¥ç¶èŒ„ spk ç‹¼m_midth ç”« æ˜ç»¢æŸ¯ä¿ƒ
 				m_height = pSurface->GetHeight();		
 				
-				NullSizex = (m_width/(char_width-1));									// ÀÌ¹ÌÁö¿¡ ÇÊ¿ä¶õ °ø¹é °è»ê
+				NullSizex = (m_width/(char_width-1));									// æå›ºç˜¤ä¿Š é˜å¤¸é„‚ å‚å½’ æ‹Œé­‚
 				NullSizey = (m_height/(char_height+5))+1;	
-				// ÀÌ¹ÌÁö¿¡ ÇÊ¿äÇÑ ¶óÀÎÀ» °è»ê
+				// æå›ºç˜¤ä¿Š é˜å¤¸èŒ„ æ‰¼ç‰¢é˜‘ æ‹Œé­‚
 				DrawImg(m_width, m_height, tempspk.c_str(), tempPos.c_str() , max(imgcnt,line));
 				imgcnt+=NullSizey;		
-				// Memdc ·Î..pasing ÇÑ µ¥ÀÌÅÍ¸¦ °¡Á®¿Í¼­ µå·Î¿ì ÇÑ´Ù.
+				// Memdc è‚º..pasing èŒ„ å•æç£ç”« å•Šå»‰å®¢è¾‘ é›è‚ºå¿« èŒ„ä¿ƒ.
 			}
 		}
 		else 
@@ -10623,7 +10623,7 @@ void C_VS_UI_HELPDESC::Show()
 				_stscanf(tempcolor.c_str(),_T("%x"),&color);
 			}
 			
-			if(strcmp(tempappend.c_str(),"y") == 0) // ÆùÆ® ÅÂÅ© ´ÙÀ½ÁÙÀ» ÀÌ¾î¾²±âÇÑ´Ù
+			if(strcmp(tempappend.c_str(),"y") == 0) // è¿„é£˜ æ€•å†œ ä¿ƒæ¾œä¸´é˜‘ æç»¢é™æ‰èŒ„ä¿ƒ
 			{
 				line --;
 				if(line < 0) line = 0;
@@ -10660,44 +10660,44 @@ void C_VS_UI_HELPDESC::Show()
 void  C_VS_UI_HELPDESC::DrawImg(int m_width, int m_height ,const char * filename,const char * pos, int linecnt)
 {
 
-	int Pagewidth = 500;										// ÇöÁ¦ ÇÁ¸®ºä¿¡ Ãâ·ÂµÉ x ½ÎÀÌÁî
-	int Pageheight = 500;										// ÇöÁ¦ ÇÁ¸®ºä¿¡ Ãâ·ÂµÉ y ½ÎÀÌÁî
-	int blankwidth = 35;										// left ¿©¹é ½ÎÀÌÁî
-	int blankheight = 7;										// top ¿©¹é ½ÎÀÌÁî
+	int Pagewidth = 500;										// æ³…åŠ› æ©‡åºœè½°ä¿Š å…ä»¿çª x è½¿æä»¤
+	int Pageheight = 500;										// æ³…åŠ› æ©‡åºœè½°ä¿Š å…ä»¿çª y è½¿æä»¤
+	int blankwidth = 35;										// left å’¯å½’ è½¿æä»¤
+	int blankheight = 7;										// top å’¯å½’ è½¿æä»¤
 	int imagelinesize = 20;
 	
 	Rect rect;
-	if(strcmp("L",pos) == 0)			// ¿ŞÂÊÁ¤¿­ÀÏ°æ¿ì
+	if(strcmp("L",pos) == 0)			// å“­ç‡æ²¥å‡¯è€ç‰ˆå¿«
 	{
 		rect.x = blankheight+20;        
 		rect.y = (linecnt*imagelinesize)+blankwidth-15;
 	}
 	
-	if(strcmp("R",pos) == 0)			// ¿À¸¥ÂÊÁ¤¿­ÀÏ°æ¿ì,
+	if(strcmp("R",pos) == 0)			// å·å¼—ç‡æ²¥å‡¯è€ç‰ˆå¿«,
 	{
 		rect.x = Pagewidth-m_width-30 ; 
 		rect.y =(linecnt*imagelinesize) +blankwidth-15;
 	}
 
-	if(strcmp("LT",pos) == 0)			// ,¿ŞÂÊ ÀüÃ¼ 
+	if(strcmp("LT",pos) == 0)			// ,å“­ç‡ å‚ˆçœ‰ 
 	{
 		rect.x = blankheight+20;        
 		rect.y = (linecnt*imagelinesize)+blankwidth-15;
 	}
 
-	if( strcmp("RT",pos)  == 0)		 //  ¿À¸¥ÂÊÀüÃ¼ 
+	if( strcmp("RT",pos)  == 0)		 //  å·å¼—ç‡å‚ˆçœ‰ 
 	{
 		rect.x = Pagewidth-m_width+blankheight -40; 
 		rect.y  =(linecnt*imagelinesize) +blankwidth-15;
 	}
 	
-	if(strcmp("C",pos) == 0)		// ¼¾ÅÍÀÏ°æ¿ì 
+	if(strcmp("C",pos) == 0)		// å­£ç£è€ç‰ˆå¿« 
 	{
 		rect.x = (Pagewidth-m_width)/2;  
 		rect.y = (linecnt*imagelinesize)+blankwidth+15;
 	}
 	Rect rectimg(0,0, m_width, m_height);
-	// Å¬¸®ÇÎ Ã³¸® 	
+	// åŠªåºœä¿ è´¸åºœ 	
 	int top = rect.y - (m_pC_scroll_bar->GetScrollPos()*imagelinesize);
 
 	POINT p = { x + rect.x,  20 + y +top };
@@ -10997,8 +10997,8 @@ void C_VS_UI_HELPDESC::LoadCustomstr(char * customstrfilename)
 	
 	while(file.getline(sztemp,1024))
 	{
-		int len = strlen(sztemp);				    	// ÇÑ¶óÀÎÀÇ ±æÀÌ¸¦ ±¸ÇÑ´Ù.
-		for(int i = len ; i >= 0; i--)					// ¸¶Áö¸·¶óÀÎÀÇ ¸¶Áö¸·¿¡ /r,/n ÀÇ °ø¹éÀ» Áö¿öÁÖ±â À§ÇØ¼­
+		int len = strlen(sztemp);				    	// èŒ„æ‰¼ç‰¢ç‹¼ è¾¨æç”« å¤‡èŒ„ä¿ƒ.
+		for(int i = len ; i >= 0; i--)					// ä»˜ç˜¤é˜œæ‰¼ç‰¢ç‹¼ ä»˜ç˜¤é˜œä¿Š /r,/n ç‹¼ å‚å½’é˜‘ ç˜¤å†µæ—æ‰ å›°ç§¦è¾‘
 		{
 			if(sztemp[i] =='\r' || sztemp[i] =='\n')
 			{
@@ -11020,14 +11020,14 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 	char sztemp[MAXBUFFER];
 	int  m_width,m_height;
 	std::string szParsingData;
-	std::string tempstr;												// ½ºÆ®¸µÀ» ÀúÀåÇÏ´Â ÇÔ¼ö
-	std::string tempspk;												// spk º¯¼ö
-	std::string tempPos;												// ÀÌ¹ÌÁö À§Ä¡ 
-	std::string tempindex;												// spk ÀÎÅØ½º
-	std::string tempappend;												// ÀÌ¾î¾²±â
-	char *pCur = NULL;													// ÇÑ¶óÀÎÀ» ÀĞ¾îµå·Á¼­ ÀúÀåÇÏ´Â º¯¼ö
-	char *istag = NULL;													//ÅÂÅ©°¡ ÀÖ´ÂÁö °Ë»çÇÏ´Â º¯¼ö
-	char *isfont = NULL;												//ÅÂÅ©°¡ ÀÖ´ÂÁö °Ë»çÇÏ´Â º¯¼ö
+	std::string tempstr;												// èƒ¶é£˜å‚…é˜‘ å†å˜çªç»° çªƒè
+	std::string tempspk;												// spk å‡½è
+	std::string tempPos;												// æå›ºç˜¤ å›°æ‘¹ 
+	std::string tempindex;												// spk ç‰¢å’†èƒ¶
+	std::string tempappend;												// æç»¢é™æ‰
+	char *pCur = NULL;													// èŒ„æ‰¼ç‰¢é˜‘ ä½¬ç»¢é›å¦¨è¾‘ å†å˜çªç»° å‡½è
+	char *istag = NULL;													//æ€•å†œå•Š ä¹ç»°ç˜¤ å…«è¤çªç»° å‡½è
+	char *isfont = NULL;												//æ€•å†œå•Š ä¹ç»°ç˜¤ å…«è¤çªç»° å‡½è
 	
 	int NullSizex = 0,NullSizey = 0;
 	
@@ -11043,7 +11043,7 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 //	std::string  content = 	message.m_strDetail[g_eRaceInterface];
 	std::string content  = m_detail;
 	
-	content +="\r\n";		// ¸¶Áö¸·¿¡ ¶óÀÎ±îÁö °Ë»ç¸¦ ÇÏ±âÀ§ÇØ¼­ 
+	content +="\r\n";		// ä»˜ç˜¤é˜œä¿Š æ‰¼ç‰¢é³–ç˜¤ å…«è¤ç”« çªæ‰å›°ç§¦è¾‘ 
 	while(pCur != NULL || ((cur= content.find("\r\n")) != -1))
 	{
 		if(pCur == NULL)
@@ -11056,24 +11056,24 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 //			}
 		}
 		tempstr = sztemp;
-		istag = strstr(tempstr.c_str(),"<");  //ÀÌ¹ÌÁö ÅÂ±×ÀÏ°æ¿ì
-		isfont = strstr(tempstr.c_str(),"#"); // ÅØ½ºÆ® ÅÂ±×
+		istag = strstr(tempstr.c_str(),"<");  //æå›ºç˜¤ æ€•å¼Šè€ç‰ˆå¿«
+		isfont = strstr(tempstr.c_str(),"#"); // å’†èƒ¶é£˜ æ€•å¼Š
 
 		int  num =0;
 		int start = 0;
 		int index = 0;
 		char* pch = NULL;
-		std::string digit,custom;										// Ä¿½ºÅè ½ºÆ®¸µ ÀúÀå º¯¼ö
-		pch = strchr(sztemp, '%');										// '%' ¸¦ Ã£¾Æ¼­ ±×°÷ÀÇ À§Ä¡¸¦ ¸®ÅÏÇÑ´Ù.
-		szParsingData = sztemp;											// ÇÑ¶óÀÎÀ» ÀĞ¾î¿Í¼­ szpasingdata ¿¡ ÀúÀåÇÑ´Ù.
+		std::string digit,custom;										// ç›®èƒ¶ç›† èƒ¶é£˜å‚… å†å˜ å‡½è
+		pch = strchr(sztemp, '%');										// '%' ç”« èŒ«é…’è¾‘ å¼Šé•‘ç‹¼ å›°æ‘¹ç”« åºœç•”èŒ„ä¿ƒ.
+		szParsingData = sztemp;											// èŒ„æ‰¼ç‰¢é˜‘ ä½¬ç»¢å®¢è¾‘ szpasingdata ä¿Š å†å˜èŒ„ä¿ƒ.
 		
-		while (pch!=NULL)												// '%' °¡ ¾øÀ»¶§ ±îÁö while µ¿ÀÛ
+		while (pch!=NULL)												// '%' å•Š ç»é˜‘é”­ é³–ç˜¤ while æ‚¼ç´¯
 		{
-			num = pch-(sztemp+start);									// % ³ª¿À±âÀü±îÁöÀÇ ±æÀÌ¸¦ ±¸ÇÑ´Ù/
-			custom = "%";												// customstr "%" À¸·Î ÃÊ±âÈ­ÇØÁØ´Ù
+			num = pch-(sztemp+start);									// % å”±å·æ‰å‚ˆé³–ç˜¤ç‹¼ è¾¨æç”« å¤‡èŒ„ä¿ƒ/
+			custom = "%";												// customstr "%" æ è‚º æª¬æ‰æ‹³ç§¦éœ–ä¿ƒ
 			int cnt = 0;
-			start += (num+1);											///%°¡³ª¿À±âÀü±îÁöÀÇ ±æÀÌ¸¦ °è¼Ó´õÇØÁØ´Ù.
-			while(sztemp[start+cnt] >= '0' && sztemp[start+cnt] <= '9') // ´ÙÀ½¿¡ ¼ıÀÚ°¡ ¾Æ´Ò¶§ ±îÁö ´õÇØÁØ´Ù/
+			start += (num+1);											///%å•Šå”±å·æ‰å‚ˆé³–ç˜¤ç‹¼ è¾¨æç”« æ‹ŒåŠ æ­¹ç§¦éœ–ä¿ƒ.
+			while(sztemp[start+cnt] >= '0' && sztemp[start+cnt] <= '9') // ä¿ƒæ¾œä¿Š ç®­ç£Šå•Š é…’åŒ†é”­ é³–ç˜¤ æ­¹ç§¦éœ–ä¿ƒ/
 			{
 				digit += sztemp[start+cnt];		
 				custom += sztemp[start+cnt];
@@ -11082,7 +11082,7 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 			
 			if(custom_strting.size() > 0)
 			{
-				if(num >= 0)									// ÀÌ»óÇÏÁö¸¸ empty °¡ ÀÌ»óÇÑ°ªÀÌ ³ª¿Í¼­ ¾îÂ¿¼ö ¾øÀÌ size ·Î Ã³¸®Çßµû ¤Ñ¤Ñ
+				if(num >= 0)									// ææƒ‘çªç˜¤çˆ¶ empty å•Š ææƒ‘èŒ„è”¼æ å”±å®¢è¾‘ ç»¢é©´è ç»æ size è‚º è´¸åºœæ²è¶ ã±ã±
 				{
 					if(custom_strting[num].size() < 2048)
 					{						
@@ -11108,14 +11108,14 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 /*		int  num =0;
 		int start = 0;
 		int index = 0;
-		szParsingData = sztemp;											// ÇÑ¶óÀÎÀ» ÀĞ¾î¿Í¼­ szpasingdata ¿¡ ÀúÀåÇÑ´Ù.
+		szParsingData = sztemp;											// èŒ„æ‰¼ç‰¢é˜‘ ä½¬ç»¢å®¢è¾‘ szpasingdata ä¿Š å†å˜èŒ„ä¿ƒ.
 		int pos;
 
-		while( ( pos = szParsingData.find( "%" ) ) != -1 )				// '%' °¡ ¾øÀ»‹š±îÁö ¹®ÀÚ¿­À» Ã£¾Æ³½´Ù
+		while( ( pos = szParsingData.find( "%" ) ) != -1 )				// '%' å•Š ç»é˜‘å«é³–ç˜¤ å·©ç£Šå‡¯é˜‘ èŒ«é…’è¾°ä¿ƒ
 		{
 			int cnt = 1;
 			strcpy(sztemp ,szParsingData.c_str());
-			while(sztemp[pos+cnt] >= '0' && sztemp[pos+cnt] <= '9') // ´ÙÀ½¿¡ ¼ıÀÚ°¡ ¾Æ´Ò¶§ ±îÁö ´õÇØÁØ´Ù/
+			while(sztemp[pos+cnt] >= '0' && sztemp[pos+cnt] <= '9') // ä¿ƒæ¾œä¿Š ç®­ç£Šå•Š é…’åŒ†é”­ é³–ç˜¤ æ­¹ç§¦éœ–ä¿ƒ/
 			cnt++;
 			char digit[100];
 			memset( digit, 0, 100 );
@@ -11123,7 +11123,7 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 			int num = atoi(digit);			
 			if(custom_strting.size() > 0)
 			{
-				if(num >= 0)									// ÀÌ»óÇÏÁö¸¸ empty °¡ ÀÌ»óÇÑ°ªÀÌ ³ª¿Í¼­ ¾îÂ¿¼ö ¾øÀÌ size ·Î Ã³¸®Çßµû ¤Ñ¤Ñ
+				if(num >= 0)									// ææƒ‘çªç˜¤çˆ¶ empty å•Š ææƒ‘èŒ„è”¼æ å”±å®¢è¾‘ ç»¢é©´è ç»æ size è‚º è´¸åºœæ²è¶ ã±ã±
 				{
 					if(custom_strting[num].size() < 2048)
 					{						
@@ -11139,9 +11139,9 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 			}
 		}
 */
-		strcpy(sztemp,szParsingData.c_str());       // Ä¿½ºÅè ½ºÆ®¸µÀÌ Àû¿ëµÈ¹®ÀÚ¿­//
-		int len = strlen(sztemp);					// ÇÑ¶óÀÎÀÇ ±æÀÌ¸¦ ±¸ÇÑ´Ù.
-		for(int  i = len ; i >= 0; i--)					// ¸¶Áö¸·¶óÀÎÀÇ ¸¶Áö¸·¿¡ /r,/n ÀÇ °ø¹éÀ» Áö¿öÁÖ±â À§ÇØ¼­
+		strcpy(sztemp,szParsingData.c_str());       // ç›®èƒ¶ç›† èƒ¶é£˜å‚…æ åˆ©ä¾©ç­‰å·©ç£Šå‡¯//
+		int len = strlen(sztemp);					// èŒ„æ‰¼ç‰¢ç‹¼ è¾¨æç”« å¤‡èŒ„ä¿ƒ.
+		for(int  i = len ; i >= 0; i--)					// ä»˜ç˜¤é˜œæ‰¼ç‰¢ç‹¼ ä»˜ç˜¤é˜œä¿Š /r,/n ç‹¼ å‚å½’é˜‘ ç˜¤å†µæ—æ‰ å›°ç§¦è¾‘
 		{
 			if(sztemp[i] =='\r' || sztemp[i] =='\n')
 			{
@@ -11150,27 +11150,27 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 			}
 		}
 
-		if(istag)// ÅÂ±×ÀÏ°æ¿ì
+		if(istag)// æ€•å¼Šè€ç‰ˆå¿«
 		{
-			if(isfont) // ÆùÆ®(»ö»ó) ÅÂ±× ÀÏ°æ¿ì
+			if(isfont) // è¿„é£˜(ç¥¸æƒ‘) æ€•å¼Š è€ç‰ˆå¿«
 			{
 				parsing_data.push_back(tempstr.c_str());
-				tempappend = findkey(tempstr.c_str(),"a"); // Àû¿ëµÈ »ö»óÀ» ÀÌ¾î¾²±âÇÑ´Ù
+				tempappend = findkey(tempstr.c_str(),"a"); // åˆ©ä¾©ç­‰ ç¥¸æƒ‘é˜‘ æç»¢é™æ‰èŒ„ä¿ƒ
 				linecnt = 1;
 			}
-			else // ÀÌ¹ÌÁö Ãâ·ÂÅÂ±×ÀÏ°æ¿ì
+			else // æå›ºç˜¤ å…ä»¿æ€•å¼Šè€ç‰ˆå¿«
 			{
-				while(NullSizey > 0)						// ÀÌ°÷Àº ÀÌ¹ÌÁöÀÇ ysize º¸´Ù ÅØ½ºÆ®°¡ ÀÛÀ»‹š
-				{											// ³²Àº ysize ¸¸Å­ °ø¹é¶óÀÎÀ» ³Ö¾îÁØ´Ù
+				while(NullSizey > 0)						// æé•‘ç¯® æå›ºç˜¤ç‹¼ ysize ç„Šä¿ƒ å’†èƒ¶é£˜å•Š ç´¯é˜‘å«
+				{											// å·¢ç¯® ysize çˆ¶æ€’ å‚å½’æ‰¼ç‰¢é˜‘ æŒç»¢éœ–ä¿ƒ
 					NullSizey--;
 					parsing_data.push_back(" ");
 					if(NullSizey == 0) break;
 				}
 
-				parsing_data.push_back(tempstr.c_str());        // ÀÌ°÷Àº ÅÂ±× ÀüÃ¼ ¶óÀÎÀ» ÀúÀåÇÑ´Ù
-				tempspk = findkey( tempstr.c_str(), "file" );    // ÅÂ±×°ªÀÇ ½ºÇÁ¶óÀÌÆ® ³×ÀÓ Ã£±â
-				tempPos = findkey( tempstr.c_str(), "pos" );	// ÅÂ±×ÀÇ ÀÌ¹ÌÁö À§Ä¡¸¦ ÃßÃâ
-				//tempindex = findkey( tempstr.c_str(), "index" ); // spk ÀÇ ÀÎµ¦½º¸¦ Ã£´Â´Ù
+				parsing_data.push_back(tempstr.c_str());        // æé•‘ç¯® æ€•å¼Š å‚ˆçœ‰ æ‰¼ç‰¢é˜‘ å†å˜èŒ„ä¿ƒ
+				tempspk = findkey( tempstr.c_str(), "file" );    // æ€•å¼Šè”¼ç‹¼ èƒ¶æ©‡æ‰¼æé£˜ åŒ™çƒ™ èŒ«æ‰
+				tempPos = findkey( tempstr.c_str(), "pos" );	// æ€•å¼Šç‹¼ æå›ºç˜¤ å›°æ‘¹ç”« çœ å…
+				//tempindex = findkey( tempstr.c_str(), "index" ); // spk ç‹¼ ç‰¢éƒ¸èƒ¶ç”« èŒ«ç»°ä¿ƒ
 				tempstr = "";
 			
 //				CJpeg jpg;
@@ -11183,13 +11183,13 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 //				jpg.Open(file_path.c_str());
 				
 				CDirectDrawSurface *pJpgSurface = GetJpgFileLoading( tempspk );
-				m_width = pJpgSurface->GetWidth();										// ¼±ÅÃÇÑ spk ÀÇm_midth ¸¦ ¾ò¾î¿Â´Ù
+				m_width = pJpgSurface->GetWidth();										// æ€¥ç¶èŒ„ spk ç‹¼m_midth ç”« æ˜ç»¢æŸ¯ä¿ƒ
 				m_height = pJpgSurface->GetHeight();	
-			//	m_width = m_SPK.GetWidth(atoi(tempindex.c_str()));										// ¼±ÅÃÇÑ spk ÀÇm_midth ¸¦ ¾ò¾î¿Â´Ù
-			//	m_height = m_SPK.GetHeight(atoi(tempindex.c_str()));									// ¼±ÅÃÇÑ spk ÀÇm_heigh ¸¦ ¾ò¾î¿Â´Ù
+			//	m_width = m_SPK.GetWidth(atoi(tempindex.c_str()));										// æ€¥ç¶èŒ„ spk ç‹¼m_midth ç”« æ˜ç»¢æŸ¯ä¿ƒ
+			//	m_height = m_SPK.GetHeight(atoi(tempindex.c_str()));									// æ€¥ç¶èŒ„ spk ç‹¼m_heigh ç”« æ˜ç»¢æŸ¯ä¿ƒ
 				
-				NullSizex = (m_width/(char_width-1));									// ÀÌ¹ÌÁö¿¡ ÇÊ¿ä¶õ °ø¹é °è»ê
-				NullSizey = (m_height/(char_height+5))+1;								// ÀÌ¹ÌÁö¿¡ ÇÊ¿äÇÑ ¶óÀÎÀ» °è»ê
+				NullSizex = (m_width/(char_width-1));									// æå›ºç˜¤ä¿Š é˜å¤¸é„‚ å‚å½’ æ‹Œé­‚
+				NullSizey = (m_height/(char_height+5))+1;								// æå›ºç˜¤ä¿Š é˜å¤¸èŒ„ æ‰¼ç‰¢é˜‘ æ‹Œé­‚
 //				jpg.Release();
 				
 			}
@@ -11197,7 +11197,7 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 		else 
 		{
 			tempstr = "";
-			if(strcmp(tempPos.c_str(),"L") == 0) // ¿ŞÂÊ¿¡ ÀÌ¹ÌÁö°¡ ÀÖ´Â°æ¿ì:¿ì¼±¾Õ¿¡ sizex ÀÇ °ø¹éÀ» ³ÖÀºµÚ ÇÑÁÙ¿¡ ÂïÀ»¼ö ÀÖ´Â ±æÀÌ¸¦ Á¦ÇÑÇÑ´Ù
+			if(strcmp(tempPos.c_str(),"L") == 0) // å“­ç‡ä¿Š æå›ºç˜¤å•Š ä¹ç»°ç‰ˆå¿«:å¿«æ€¥èŠä¿Š sizex ç‹¼ å‚å½’é˜‘ æŒç¯®ç¬¬ èŒ„ä¸´ä¿Š å˜›é˜‘è ä¹ç»° è¾¨æç”« åŠ›èŒ„èŒ„ä¿ƒ
 			{
 				if(strcmp(tempappend.c_str(),"y") == 0 )
 				{
@@ -11214,13 +11214,13 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 				}
 			}
 
-			if(strcmp(tempPos.c_str(),"R") == 0) //¿À¸¥ÂÊ¿¡ ÀÌ¹ÌÁö°¡ ÀÖ´Â°æ¿ì:ÇÑÁÙ¿¡ ÂïÀ»¼öÀÖ´Â ±æÀÌ¸¦ Á¦ÇÑ
+			if(strcmp(tempPos.c_str(),"R") == 0) //å·å¼—ç‡ä¿Š æå›ºç˜¤å•Š ä¹ç»°ç‰ˆå¿«:èŒ„ä¸´ä¿Š å˜›é˜‘èä¹ç»° è¾¨æç”« åŠ›èŒ„
 			{
 				count = limitlinecnt -NullSizex;
 			}
 
 			if(strcmp(tempPos.c_str(),"C") == 0 || strcmp(tempPos.c_str(),"RT") == 0 || strcmp(tempPos.c_str(),"LT") == 0)
-			{ // Áß°£ , ¿ŞÂÊ ÀüÃ¼Â÷Áö, ¿À¸¥ÂÊ ÀüÃ¼ Â÷Áö : size y ¸¸Å­¸¸ °ø¹é¶óÀÎÀ»³Ö¾îÁØ´Ù
+			{ // ååŸƒ , å“­ç‡ å‚ˆçœ‰ç’ç˜¤, å·å¼—ç‡ å‚ˆçœ‰ ç’ç˜¤ : size y çˆ¶æ€’çˆ¶ å‚å½’æ‰¼ç‰¢é˜‘æŒç»¢éœ–ä¿ƒ
 				while(NullSizey > 0)
 				{
 					NullSizey--;
@@ -11228,7 +11228,7 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 				}
 			}
 
-			if(strcmp(tempappend.c_str(),"y") == 0 ) // ¾îÆæµå ¸ğµå³Ä?¾Æ´Ï³Ä?
+			if(strcmp(tempappend.c_str(),"y") == 0 ) // ç»¢å¥‡é› è‘›é›è¡¬?é…’èªè¡¬?
 			{
 				count = count - appendtemp;
 				while(appendtemp > 0)
@@ -11243,35 +11243,35 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 				NullSizey++;
 			}
 
-			if(NullSizey > 0)						// ÀÌ¹ÌÁö °¡ ÀÖ´Ù¸é yszie °¡ ³²¾ÆÀÖÀ»°æ¿ì
+			if(NullSizey > 0)						// æå›ºç˜¤ å•Š ä¹ä¿ƒæ yszie å•Š å·¢é…’ä¹é˜‘ç‰ˆå¿«
 			{
-				NullSizex = (m_width/(char_width-1)); // °ø¹éÀ» ³Ö¾î¼­ ÁÙ¾îµç  Nullsizex Å©±â¸¦ ¼ÂÆÃÇØÁØ´Ù
+				NullSizex = (m_width/(char_width-1)); // å‚å½’é˜‘ æŒç»¢è¾‘ ä¸´ç»¢ç”µ  Nullsizex å†œæ‰ç”« æ‚¸æ³¼ç§¦éœ–ä¿ƒ
 			}
 			else
 			{
-				tempPos = "";					 // ÀÌ¹ÌÁöÀÇ ysize ÀÇ °ø¹é¶óÀÎÀÌ ³¡³ª¸é pos ÅÂ±×¸¦ Å¬¸®¾î ÇØÁØ´Ù
+				tempPos = "";					 // æå›ºç˜¤ç‹¼ ysize ç‹¼ å‚å½’æ‰¼ç‰¢æ åœºå”±æ pos æ€•å¼Šç”« åŠªåºœç»¢ ç§¦éœ–ä¿ƒ
 			}
 
-			if(pCur == NULL) // pCur °¡ ºñ¾îÀÖÀ»¶§
+			if(pCur == NULL) // pCur å•Š åšç»¢ä¹é˜‘é”­
 			{
-				pCur = sztemp;  // pCur ¿¡.. ÇÑ¶óÀÎÀĞ¾îµå¸° ¹®ÀÚ¿­À» ÀúÀåÇÑ´Ù.
+				pCur = sztemp;  // pCur ä¿Š.. èŒ„æ‰¼ç‰¢ä½¬ç»¢é›èµ´ å·©ç£Šå‡¯é˜‘ å†å˜èŒ„ä¿ƒ.
 			}
 			
-			size_t linecount = strlen(pCur); // linecount ¿¡ ÇÑ¶óÀÎÀÇ ÃÑ¹®ÀÚ¿­ ±æÀÌ¸¦ ÀúÀåÇÑ´Ù
-			size_t cutCount = count;         // ÇÑ±Û 2byte Áß°£¿¡ ±úÁö´Â Çö»óÀ» ¸·±âÀ§ÇØ¼­ »ç¿ëÇÏ´Â º¯¼ö
-			if(linecount < count)			//  ¹®ÀÚ¿­ÀÌ count º¸´Ù ÀÛÀº°æ¿ì
+			size_t linecount = strlen(pCur); // linecount ä¿Š èŒ„æ‰¼ç‰¢ç‹¼ é†šå·©ç£Šå‡¯ è¾¨æç”« å†å˜èŒ„ä¿ƒ
+			size_t cutCount = count;         // èŒ„è‡‚ 2byte ååŸƒä¿Š æŸ„ç˜¤ç»° æ³…æƒ‘é˜‘ é˜œæ‰å›°ç§¦è¾‘ è¤ä¾©çªç»° å‡½è
+			if(linecount < count)			//  å·©ç£Šå‡¯æ count ç„Šä¿ƒ ç´¯ç¯®ç‰ˆå¿«
 			{
-				tempstr += pCur;			// ÇØ´ç¹®ÀÚ¿­À» ÀúÀåÇÑ´Ù
-				count -= linecount;			// count ´Â ´ÙÀ½¹®ÀÚ¿­±îÁöÀÇ °ªÀ» °¡Á®¿Í¾ß ÇÔÀ¸·Î ÇöÁ¦±îÁöÀÇ ¹®ÀÚ¿­±æÀÌ¸¦ •ûÁØ´Ù
+				tempstr += pCur;			// ç§¦å¯¸å·©ç£Šå‡¯é˜‘ å†å˜èŒ„ä¿ƒ
+				count -= linecount;			// count ç»° ä¿ƒæ¾œå·©ç£Šå‡¯é³–ç˜¤ç‹¼ è”¼é˜‘ å•Šå»‰å®¢å…· çªƒæ è‚º æ³…åŠ›é³–ç˜¤ç‹¼ å·©ç£Šå‡¯è¾¨æç”« æ›½éœ–ä¿ƒ
 				pCur = NULL;		
 				count = limitlinecnt;
 			}
 			else
 			{
 				char szbuf[MAXBUFFER];    
-				if(g_PossibleStringCut(pCur, static_cast<int>(cutCount)) == false) // ¸¶Áö¸·¹®ÀÚ¿­À» Á¶»çÇØ¼­ ÇÑ±ÛÀÏ°æ¿ì 
+				if(g_PossibleStringCut(pCur, static_cast<int>(cutCount)) == false) // ä»˜ç˜¤é˜œå·©ç£Šå‡¯é˜‘ ç‚¼è¤ç§¦è¾‘ èŒ„è‡‚è€ç‰ˆå¿« 
 				{
-					cutCount--;  // ¹®ÀÚ¿­ÀÇ ¼ıÀÚ¸¦ ÇÏ³ª ÁÙ¿©ÁØ´Ù
+					cutCount--;  // å·©ç£Šå‡¯ç‹¼ ç®­ç£Šç”« çªå”± ä¸´å’¯éœ–ä¿ƒ
 				}
 				memcpy(szbuf, pCur, cutCount);
 				szbuf[cutCount] = '\0';
@@ -11280,14 +11280,14 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 				count = limitlinecnt;
 			}
 			
-			appendtemp = tempstr.length(); // appen ¸ğµåÀÏ¶§ ´ÙÀ½ÁÙ¿¡ ¾ÕÂÊ¿¡ °ø¹éÀ» ³ÖÅ°À§ÇØ¼­
+			appendtemp = tempstr.length(); // appen è‘›é›è€é”­ ä¿ƒæ¾œä¸´ä¿Š èŠç‡ä¿Š å‚å½’é˜‘ æŒè™å›°ç§¦è¾‘
 			parsing_data.push_back(tempstr.c_str());
-			NullSizey--; // ÀÌ¹ÌÁö°¡ ÀÖÀ»°æ¿ì ÇÑÁÙÇÑÁÙ push_back ¿¡ ³ÖÀ»‹š ¸¶´Ù ÇÑÁÙ¾¿ •ûÁØ´Ù.
+			NullSizey--; // æå›ºç˜¤å•Š ä¹é˜‘ç‰ˆå¿« èŒ„ä¸´èŒ„ä¸´ push_back ä¿Š æŒé˜‘å« ä»˜ä¿ƒ èŒ„ä¸´ç©¶ æ›½éœ–ä¿ƒ.
 			tempstr = "";
 		}
 	}
-	while(NullSizey > 0)						// ÀÌ°÷Àº ÀÌ¹ÌÁöÀÇ ysize º¸´Ù ÅØ½ºÆ®°¡ ÀÛÀ»‹š
-	{											// ³²Àº ysize ¸¸Å­ °ø¹é¶óÀÎÀ» ³Ö¾îÁØ´Ù
+	while(NullSizey > 0)						// æé•‘ç¯® æå›ºç˜¤ç‹¼ ysize ç„Šä¿ƒ å’†èƒ¶é£˜å•Š ç´¯é˜‘å«
+	{											// å·¢ç¯® ysize çˆ¶æ€’ å‚å½’æ‰¼ç‰¢é˜‘ æŒç»¢éœ–ä¿ƒ
 		NullSizey--;
 		parsing_data.push_back(" ");
 		if(NullSizey == 0) break;
@@ -11311,7 +11311,7 @@ char* C_VS_UI_HELPDESC::findkey(const char* tagstr ,char* keyword)
 	if(s == NULL )
 		return NULL;
 	
-	static char Buffer[512];  // º¯¼ö¸¦ static  À¸·Î ÇØ¾ßÇÑ´Ù ¸Ş¸ğ¸® Ä§¹üÀ» ¸·±âÀ§ÇØ¼­ (Áß¿äÇÏ´Ù)
+	static char Buffer[512];  // å‡½èç”« static  æ è‚º ç§¦å…·èŒ„ä¿ƒ çš‹è‘›åºœ é­”è£¹é˜‘ é˜œæ‰å›°ç§¦è¾‘ (åå¤¸çªä¿ƒ)
 	memset( Buffer, 0, 512 );
 	
 	char *start = strstr( s, "'" );
@@ -11885,7 +11885,7 @@ bool	C_VS_UI_SMS_MESSAGE::MouseControl(UINT message, int _x, int _y)
 	if(m_SubWindow == true && m_sub_rect.IsInRect(_x, _y))
 	{
 		gpC_mouse_pointer->SetCursorDefault();
-		// sub window ¾È¿¡ ÀÖÀ¸¸é sub scroll
+		// sub window æ•‘ä¿Š ä¹æ æ sub scroll
 		re &= m_pC_sub_scroll_bar->MouseControl(message, _x-m_sub_rect.x, _y-m_sub_rect.y);
 		switch(message)
 		{
@@ -11894,13 +11894,13 @@ bool	C_VS_UI_SMS_MESSAGE::MouseControl(UINT message, int _x, int _y)
 			{
 				m_sub_selected.x = (_x - m_sub_rect.x-MARK_X)/14;
 				m_sub_selected.y = (_y - m_sub_rect.y-MARK_Y)/14+m_pC_sub_scroll_bar->GetScrollPos();
-				// 2004, 5, 10 sobeit add start - Å¬¸¯ À§Ä¡ º¸Á¤
+				// 2004, 5, 10 sobeit add start - åŠªè… å›°æ‘¹ ç„Šæ²¥
 				if(RACE_OUSTERS == g_eRaceInterface)
 				{
 					m_sub_selected.x -= 1;
 					m_sub_selected.y -= 1;
 				}
-				// 2004, 5, 10 sobeit add end - Å¬¸¯ À§Ä¡ º¸Á¤
+				// 2004, 5, 10 sobeit add end - åŠªè… å›°æ‘¹ ç„Šæ²¥
 				if(m_sub_selected.x < 0 || m_sub_selected.x > 8 || m_sub_selected.y < 0 || m_sub_selected.y >= MARK_MAX)
 					m_sub_selected.x = -1;
 				if(m_sub_selected.x != -1 )
@@ -13030,7 +13030,7 @@ void	C_VS_UI_SMS_RECORD::Run(id_t id)
 //------------------------------------------------------------------------------
 // C_VS_UI_NAMING
 //
-// ³×ÀÌ¹Ö ¸®½ºÆ®
+// åŒ™ææ€ª åºœèƒ¶é£˜
 //------------------------------------------------------------------------------
 C_VS_UI_NAMING::C_VS_UI_NAMING(std::vector<C_VS_UI_NicknameInfo*> &_NamingList)
 {	
@@ -13082,7 +13082,7 @@ C_VS_UI_NAMING::C_VS_UI_NAMING(std::vector<C_VS_UI_NicknameInfo*> &_NamingList)
 	int pin_x = w-24-20, pin_y = h-19;
 	int alpha_x = 6, alpha_y = h-21;
 
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_x, close_y, 
 		gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::BUTTON_CLOSE), 
@@ -13392,9 +13392,9 @@ void	C_VS_UI_NAMING::ShowButtonDescription(C_VS_UI_EVENT_BUTTON *p_button)
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_NO_ALPHA_WINDOW].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_OFF].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_AUTO_HIDE_ON].GetString(),
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_PLAYER_NICKNAME].GetString(),// = "Ä¿½ºÅÒ ´Ğ³×ÀÓÀ» º¯°æÇÕ´Ï´Ù.";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_PLAYER_NICKNAME].GetString(),// = "¼±ÅÃµÈ ´Ğ³×ÀÓÀ¸·Î º¯°æÇÕ´Ï´Ù.";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP].GetString(),// = "µµ¿ò¸»À» º¾´Ï´Ù..";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_PLAYER_NICKNAME].GetString(),// = "ç›®èƒ¶ä¹“ è‘±åŒ™çƒ™é˜‘ å‡½ç‰ˆé’¦èªä¿ƒ.";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_PLAYER_NICKNAME].GetString(),// = "æ€¥ç¶ç­‰ è‘±åŒ™çƒ™æ è‚º å‡½ç‰ˆé’¦èªä¿ƒ.";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_HELP].GetString(),// = "æ¡£æ¡†å¯Œé˜‘ å£•èªä¿ƒ..";
 	};
 	switch(p_button->GetID())
 	{
@@ -13522,7 +13522,7 @@ void	C_VS_UI_NAMING::Change_Custom_Naming(int nID, char* szName)
 //------------------------------------------------------------------------------
 // C_VS_UI_NAMING_CHANGE
 //
-// ³×ÀÌ¹Ö ¸®½ºÆ® Ã¼ÀÎÁö
+// åŒ™ææ€ª åºœèƒ¶é£˜ çœ‰ç‰¢ç˜¤
 //------------------------------------------------------------------------------
 C_VS_UI_NAMING_CHANGE::C_VS_UI_NAMING_CHANGE(MItem* pItem, char* szCustom)
 {	
@@ -13572,7 +13572,7 @@ C_VS_UI_NAMING_CHANGE::C_VS_UI_NAMING_CHANGE(MItem* pItem, char* szCustom)
 	int close_x = w-24, close_y = h-22;		
 	int select_x = w-120, select_y = h-45;		
 
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_x, close_y, 
 		gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::BUTTON_CLOSE), 
@@ -13766,9 +13766,9 @@ void	C_VS_UI_NAMING_CHANGE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON *p_button
 	const static char* help_info_button_string[4]=
 	{
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_WINDOW].GetString(),
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_PLAYER_NICKNAME].GetString(),// = "À¯Àú ÀÚÀ¯ ´Ğ³×ÀÓÀ» º¯°æÇÕ´Ï´Ù.";.";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_ADD_PLAYER_NICKNAME].GetString(),// = "´Ğ³×ÀÓÀ» Ãß°¡ ÇÕ´Ï´Ù".";
-		(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_PET_NICKNAME].GetString(),// = "ÆêÀÇ ´Ğ³×ÀÓÀ» º¯°æÇÕ´Ï´Ù.".";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_PLAYER_NICKNAME].GetString(),// = "èœ¡å† ç£Šèœ¡ è‘±åŒ™çƒ™é˜‘ å‡½ç‰ˆé’¦èªä¿ƒ.";.";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_ADD_PLAYER_NICKNAME].GetString(),// = "è‘±åŒ™çƒ™é˜‘ çœ å•Š é’¦èªä¿ƒ".";
+		(*g_pGameStringTable)[UI_STRING_MESSAGE_CHANGE_PET_NICKNAME].GetString(),// = "è„ç‹¼ è‘±åŒ™çƒ™é˜‘ å‡½ç‰ˆé’¦èªä¿ƒ.".";
 		
 
 	};
@@ -13780,9 +13780,9 @@ void	C_VS_UI_NAMING_CHANGE::ShowButtonDescription(C_VS_UI_EVENT_BUTTON *p_button
 	case CHANGE_ID:
 		if(m_PenItem)
 		{
-			if(m_PenItem->GetItemType() == 22 || m_PenItem->GetItemType() == 25) // À¯Àú³×ÀÌ¹Ö ¼öÁ¤ Ææ
+			if(m_PenItem->GetItemType() == 22 || m_PenItem->GetItemType() == 25) // èœ¡å†åŒ™ææ€ª èæ²¥ å¥‡
 				g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)help_info_button_string[1],0,0);
-			else if(m_PenItem->GetItemType() == 23)// Æê ³×ÀÌ¹Ö ¼öÁ¤ Ææ
+			else if(m_PenItem->GetItemType() == 23)// è„ åŒ™ææ€ª èæ²¥ å¥‡
 				g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)help_info_button_string[3],0,0);
 			else if(m_PenItem->GetItemType() == 24)
 				g_descriptor_manager.Set(DID_INFO, p_button->x+x, p_button->y+y, (void *)help_info_button_string[2],0,0);
@@ -13894,8 +13894,8 @@ C_VS_UI_QUEST_MANAGER::C_VS_UI_QUEST_MANAGER()
 //	struct _GMissionInfo{
 //		std::string		szMissionTitle;
 //		BYTE			bStatus;
-//		BYTE			bCondition;	// ¾î´À Á¶°Ç¿¡ ÀÖ´Â°¡ 0 : Happen, 1 : Complete, 2 : Fail, 3 : Reward
-//		WORD			bIndex;		// ÇØ´ç Á¶°ÇÀÇ ¸î¹øÂ° elementÀÎ°¡
+//		BYTE			bCondition;	// ç»¢è ¢ ç‚¼æ‰’ä¿Š ä¹ç»°å•Š 0 : Happen, 1 : Complete, 2 : Fail, 3 : Reward
+//		WORD			bIndex;		// ç§¦å¯¸ ç‚¼æ‰’ç‹¼ å‰²é”…æ³ elementç‰¢å•Š
 //	};
 
 		
@@ -13965,7 +13965,7 @@ C_VS_UI_QUEST_MANAGER::C_VS_UI_QUEST_MANAGER()
 	for(int TempCount = 0; TempCount< 13 ; TempCount++)
 	{
 		//----------------------------------------------------
-		// Item »ı¼º --> Ãß°¡
+		// Item ç§¯å·± --> çœ å•Š
 		//----------------------------------------------------
 		pItem = MItem::NewItem( ITEM_CLASS_GQUEST_ITEM );
 	//	pItem->SetID( 0 );
@@ -13998,10 +13998,10 @@ C_VS_UI_QUEST_MANAGER::~C_VS_UI_QUEST_MANAGER()
 	
 }
 
-// ÇÊ¿äÇÒ¶§¸¶´Ù ·Îµå ÇØ¼­ ¾µÁö...ÇÑ¹ø ·ÎµåÇØ³õ°í ¾µÁö..°í¹ÎÁß..
-// ÀÏ´Ü Ã·¿¡ ·ÎµåÇØ³õ°í ÂŞ~¿í ¾²±â·Î ÄÚµù^^;
-// »ı°¢ ÇØº¸´Ï ±×¶§ ±×¶§ ·ÎµùÇÏ´Â°Ô ÁÁÀ»µí ÇØ¼­ ¼öÁ¤..¤»¤»
-// Ã³À½ ¸®½ºÆ® ¹ŞÀ» ¶© ±âº» tree¸¦ °è¼Ó °¡Áö°í ÀÖ°í Áß°£Áß°£ modifyÇÒ¶© ±×¶§ ±×¶§ ÀĞ¾î ¿Â´Ù.
+// é˜å¤¸ä¸”é”­ä»˜ä¿ƒ è‚ºé› ç§¦è¾‘ é•œç˜¤...èŒ„é”… è‚ºé›ç§¦åˆç»Š é•œç˜¤..ç»Šåˆ®å..
+// è€çªœ æ¢…ä¿Š è‚ºé›ç§¦åˆç»Š ç½—~å®½ é™æ‰è‚º å†…çˆ¹^^;
+// ç§¯é˜¿ ç§¦ç„Šèª å¼Šé”­ å¼Šé”­ è‚ºçˆ¹çªç»°éœ¸ äº®é˜‘æ·€ ç§¦è¾‘ èæ²¥..ã›ã›
+// è´¸æ¾œ åºœèƒ¶é£˜ ç½é˜‘ è®¢ æ‰å¤¯ treeç”« æ‹ŒåŠ  å•Šç˜¤ç»Š ä¹ç»Š ååŸƒååŸƒ modifyä¸”è®¢ å¼Šé”­ å¼Šé”­ ä½¬ç»¢ æŸ¯ä¿ƒ.
 bool	C_VS_UI_QUEST_MANAGER::LoadQuestXML()
 {
 	m_Quest_XML_file.SetRAR(RPK_TUTORIAL_ETC, RPK_PASSWORD);
@@ -14010,7 +14010,7 @@ bool	C_VS_UI_QUEST_MANAGER::LoadQuestXML()
 
 	XMLParser	parser;
 
-	// quest xmlÀº vector¸¸ ¾²±â·Î ÇØ¼­·ò..-_-;
+	// quest xmlç¯® vectorçˆ¶ é™æ‰è‚º ç§¦è¾‘å¤«..-_-;
 	parser.parse( (char *)m_Quest_XML_file.GetFilePointer(), &m_Quest_XML_Tree, true);
 
 	m_Quest_XML_file.Release();
@@ -14028,7 +14028,7 @@ void	C_VS_UI_QUEST_MANAGER::ReleaseQuestXML()
 {
 	m_Quest_XML_Tree.Release();
 }
-// Äù½ºÆ® ¼ö¶ô/Æ÷±â ÆĞÅ¶ º¸³¿
+// æ¶…èƒ¶é£˜ èé/å™¨æ‰ è©å“¦ ç„Šæ™¨
 void	C_VS_UI_QUEST_MANAGER::SendQuestIntention(bool bIntention)
 {
 	if(bIntention)
@@ -14040,7 +14040,7 @@ void	C_VS_UI_QUEST_MANAGER::SendQuestIntention(bool bIntention)
 		gpC_base->SendMessage(UI_GQUEST_GIVEUP, m_SelectedQuestID);
 	}
 }
-// detail, mission À©µµ¸¦ °»½ÅÇÑ´Ù.
+// detail, mission æ‰©æ¡£ç”« ç›è„šèŒ„ä¿ƒ.
 void	C_VS_UI_QUEST_MANAGER::SetSubWindowInfo(DWORD qID, bool bOpenSubWindows)
 {
 	if(bOpenSubWindows)
@@ -14073,7 +14073,7 @@ void	C_VS_UI_QUEST_MANAGER::SetSubWindowInfo(DWORD qID, bool bOpenSubWindows)
 		}
 	}
 }
-// Item À©µµ¸¦ °»½ÅÇÑ´Ù.
+// Item æ‰©æ¡£ç”« ç›è„šèŒ„ä¿ƒ.
 void	C_VS_UI_QUEST_MANAGER::UpdateQuestItemInfo(std::vector<MItem*>& vItem)
 {
 	ClearQuestItem();
@@ -14104,29 +14104,29 @@ void	C_VS_UI_QUEST_MANAGER::DeleteQuestItem(int nSlot)
 	}
 	
 }
-// Äù½ºÆ® ¸®½ºÆ®¿¡ ¹«Á¶°Ç Ãß°¡(Ã³À½ ·Îµù½Ã ³¯¶ó¿Â´Ù)
+// æ¶…èƒ¶é£˜ åºœèƒ¶é£˜ä¿Š å…¬ç‚¼æ‰’ çœ å•Š(è´¸æ¾œ è‚ºçˆ¹çŸ« æœæ‰¼æŸ¯ä¿ƒ)
 bool	C_VS_UI_QUEST_MANAGER::SetQuestManagerInfo(void* pVoid)
 {
 	_GQuestInfo * TempInfo = (_GQuestInfo*)pVoid;
 	if(NULL != TempInfo)
 	{
-		// string update ÈÄ Ãß°¡ - Äù½ºÆ® ¸®½ºÆ®´Â id·Î Ã£´Â´Ù..º¹Àâ½Ã·´³×.-_-;;;
+		// string update é¥¶ çœ å•Š - æ¶…èƒ¶é£˜ åºœèƒ¶é£˜ç»° idè‚º èŒ«ç»°ä¿ƒ..æ±—æ£±çŸ«ååŒ™.-_-;;;
 		const XMLTree *pElement = m_Quest_XML_Tree.GetChildByAttr( TempInfo->dwQuestID , "id");
 		if(NULL != pElement)
 		{
 			if( TempInfo->bStatus == C_VS_UI_QUEST_LIST::CAN_ACCEPT ||
-				TempInfo->bStatus == C_VS_UI_QUEST_LIST::CAN_REPLAY ) // ¼öÇà °¡´É ÀÌ¸é
+				TempInfo->bStatus == C_VS_UI_QUEST_LIST::CAN_REPLAY ) // èé’ å•Šç“· ææ
 			{
 				RunQuestIcon();
 
-				// ¼öÇà°¡´ÉÀÌ°í ÀÚµ¿ ¼öÇà ½ÃÀÛ ÀÏ¶§
+				// èé’å•Šç“·æç»Š ç£Šæ‚¼ èé’ çŸ«ç´¯ è€é”­
 				const XMLAttribute* _TempAttr = pElement->GetAttribute("autostart");
 				if(_TempAttr != NULL)
 				{
-					if(_TempAttr->ToInt()>0) // ÀÚµ¿ ¼öÇàÀÌ¸é
+					if(_TempAttr->ToInt()>0) // ç£Šæ‚¼ èé’ææ
 					{
 						m_SelectedQuestID = TempInfo->dwQuestID;
-						gC_vs_ui.SendQuestIntention(true); // ¼öÇàÇÏ°Ú´Ü ÆĞÅ¶À» º¸³½´Ù.
+						gC_vs_ui.SendQuestIntention(true); // èé’çªæ‘†çªœ è©å“¦é˜‘ ç„Šè¾°ä¿ƒ.
 					}
 				}
 			}
@@ -14140,12 +14140,12 @@ bool	C_VS_UI_QUEST_MANAGER::SetQuestManagerInfo(void* pVoid)
 				const XMLTree * TempMissionElement = GetMissionElement(pElement,TempMission->bCondition);
 				if( NULL != TempMissionElement)
 				{
-					// ¹Ì¼Ç ¸®½ºÆ®´Â "index"·Î Ã£´Â´Ù..º¹Àâ½Ã·´³×.-_-;;;
+					// å›ºè®° åºœèƒ¶é£˜ç»° "index"è‚º èŒ«ç»°ä¿ƒ..æ±—æ£±çŸ«ååŒ™.-_-;;;
 					const XMLTree *pChildElement2 = TempMissionElement->GetChildByAttr(TempMission->bIndex, "index");
 					if(NULL != pChildElement2)
 					{
 						TempMission->szMissionTitle =  (char*)pChildElement2->GetText().c_str();
-						if(0 == stricmp(pChildElement2->GetName().c_str(),"Time")) // ½Ã°£ Á¦ÇÑÀÌ ÀÖ´Â ¹Ì¼ÇÀÌ¸é
+						if(0 == stricmp(pChildElement2->GetName().c_str(),"Time")) // çŸ«åŸƒ åŠ›èŒ„æ ä¹ç»° å›ºè®°ææ
 						{
 							TempMission->dwTimeLimit = timeGetTime();
 						}
@@ -14154,7 +14154,7 @@ bool	C_VS_UI_QUEST_MANAGER::SetQuestManagerInfo(void* pVoid)
 				}
 				//TempMission->szMissionTitle = GetMissionTitle(pElement, TempMission->bIndex, TempMission->bCondition);
 				
-				// modify start- conditionÀÌ fail(2)ÀÏ¶§ ¼º°øÀÌ¸é ½ÇÆĞ·Î, ½ÇÆĞ¸é ¼º°øÀ¸·Î º¸¿©´Ş¶ó°í ÇØ¼­ ¼öÁ¤..Çæ..
+				// modify start- conditionæ fail(2)è€é”­ å·±å‚ææ è§’è©è‚º, è§’è©æ å·±å‚æ è‚º ç„Šå’¯å´”æ‰¼ç»Š ç§¦è¾‘ èæ²¥..æ“..
 				if(TempMission->bCondition == 2)
 				{
 					if(TempMission->bStatus == 2)
@@ -14176,7 +14176,7 @@ bool	C_VS_UI_QUEST_MANAGER::SetQuestManagerInfo(void* pVoid)
 	}
 	return false;
 }
-// ±âÁ¸¿¡ ÀÖ´Â Äù½ºÆ®¸é °»½Å, ¾øÀ¸¸é Ãß°¡(°ÔÀÓ Áß°£¿¡ ³¯¶ó¿Â´Ù)
+// æ‰ç²®ä¿Š ä¹ç»° æ¶…èƒ¶é£˜æ ç›è„š, ç»æ æ çœ å•Š(éœ¸çƒ™ ååŸƒä¿Š æœæ‰¼æŸ¯ä¿ƒ)
 bool	C_VS_UI_QUEST_MANAGER::ModifyQuestManagerInfo(void* pVoid, int nType)
 {
 	if(LoadQuestXML() == false)
@@ -14203,13 +14203,13 @@ bool	C_VS_UI_QUEST_MANAGER::ModifyQuestManagerInfo(void* pVoid, int nType)
 			}
 		}
 
-		SetSubWindowInfo(TempInfo->dwQuestID , false); // ¼­ºê À©µµ¿ì¸¦ °»½Å ÇÏÁö¸¸ ±»ÀÌ Ã¢À» ¿­Áø ¾Ê´Â´Ù.
+		SetSubWindowInfo(TempInfo->dwQuestID , false); // è¾‘å® æ‰©æ¡£å¿«ç”« ç›è„š çªç˜¤çˆ¶ è¢«æ èŠ’é˜‘ å‡¯æŸ³ è‡¼ç»°ä¿ƒ.
 		ReleaseQuestXML();
 		return true;
 	}
 	return false;
 }
-// ±âÁ¸ÀÇ qid°¡ ÀÖÀ¸¸é ±âÁ¸ Æ÷ÀÎÅÍ¸¦ QInfo·Î ¹Ù²Û´Ù.
+// æ‰ç²®ç‹¼ qidå•Š ä¹æ æ æ‰ç²® å™¨ç‰¢ç£ç”« QInfoè‚º å®˜æ§½ä¿ƒ.
 bool	C_VS_UI_QUEST_MANAGER::UpdateQuestInfo(_GQuestInfo *QInfo, int nType)
 {
 	if(NULL != QInfo)
@@ -14220,21 +14220,21 @@ bool	C_VS_UI_QUEST_MANAGER::UpdateQuestInfo(_GQuestInfo *QInfo, int nType)
 			_GQuestInfo* TempInfo = (*itr);
 			if(TempInfo->dwQuestID == QInfo->dwQuestID)
 			{
-				// Äù½ºÆ® ¸®½ºÆ®´Â id·Î Ã£´Â´Ù..º¹Àâ½Ã·´³×.-_-;;;
+				// æ¶…èƒ¶é£˜ åºœèƒ¶é£˜ç»° idè‚º èŒ«ç»°ä¿ƒ..æ±—æ£±çŸ«ååŒ™.-_-;;;
 				const XMLTree *pElement = m_Quest_XML_Tree.GetChildByAttr( TempInfo->dwQuestID , "id");
 				if(pElement != NULL)
 				{
 					if( TempInfo->bStatus == C_VS_UI_QUEST_LIST::CAN_ACCEPT ||
-						TempInfo->bStatus == C_VS_UI_QUEST_LIST::CAN_REPLAY ) // ¼öÇà °¡´É ÀÌ¸é
+						TempInfo->bStatus == C_VS_UI_QUEST_LIST::CAN_REPLAY ) // èé’ å•Šç“· ææ
 					{
-						// ¼öÇà°¡´ÉÀÌ°í ÀÚµ¿ ¼öÇà ½ÃÀÛ ÀÏ¶§
+						// èé’å•Šç“·æç»Š ç£Šæ‚¼ èé’ çŸ«ç´¯ è€é”­
 						const XMLAttribute* _TempAttr = pElement->GetAttribute("autostart");
 						if(_TempAttr != NULL)
 						{
-							if(_TempAttr->ToInt()>0) // ÀÚµ¿ ¼öÇàÀÌ¸é
+							if(_TempAttr->ToInt()>0) // ç£Šæ‚¼ èé’ææ
 							{
 								m_SelectedQuestID = TempInfo->dwQuestID;
-								gC_vs_ui.SendQuestIntention(true); // ¼öÇàÇÏ°Ú´Ü ÆĞÅ¶À» º¸³½´Ù.
+								gC_vs_ui.SendQuestIntention(true); // èé’çªæ‘†çªœ è©å“¦é˜‘ ç„Šè¾°ä¿ƒ.
 							}
 						}
 					}
@@ -14248,12 +14248,12 @@ bool	C_VS_UI_QUEST_MANAGER::UpdateQuestInfo(_GQuestInfo *QInfo, int nType)
 						const XMLTree * TempMissionElement = GetMissionElement(pElement,TempMission->bCondition);
 						if( NULL != TempMissionElement)
 						{
-							// ¹Ì¼Ç ¸®½ºÆ®´Â "index"·Î Ã£´Â´Ù..º¹Àâ½Ã·´³×.-_-;;;
+							// å›ºè®° åºœèƒ¶é£˜ç»° "index"è‚º èŒ«ç»°ä¿ƒ..æ±—æ£±çŸ«ååŒ™.-_-;;;
 							const XMLTree *pChildElement2 = TempMissionElement->GetChildByAttr(TempMission->bIndex, "index");
 							if(NULL != pChildElement2)
 							{
 								TempMission->szMissionTitle =  (char*)pChildElement2->GetText().c_str();
-								if(0 == stricmp(pChildElement2->GetName().c_str(),"Time")) // ½Ã°£ Á¦ÇÑÀÌ ÀÖ´Â ¹Ì¼ÇÀÌ¸é
+								if(0 == stricmp(pChildElement2->GetName().c_str(),"Time")) // çŸ«åŸƒ åŠ›èŒ„æ ä¹ç»° å›ºè®°ææ
 								{
 									TempMission->dwTimeLimit = timeGetTime();
 								}
@@ -14262,7 +14262,7 @@ bool	C_VS_UI_QUEST_MANAGER::UpdateQuestInfo(_GQuestInfo *QInfo, int nType)
 						}
 						//TempMission->szMissionTitle = GetMissionTitle(pElement, TempMission->bIndex, TempMission->bCondition);
 
-						// modify start- conditionÀÌ fail(2)ÀÏ¶§ ¼º°øÀÌ¸é ½ÇÆĞ·Î, ½ÇÆĞ¸é ¼º°øÀ¸·Î º¸¿©´Ş¶ó°í ÇØ¼­ ¼öÁ¤..Çæ..
+						// modify start- conditionæ fail(2)è€é”­ å·±å‚ææ è§’è©è‚º, è§’è©æ å·±å‚æ è‚º ç„Šå’¯å´”æ‰¼ç»Š ç§¦è¾‘ èæ²¥..æ“..
 						if(TempMission->bCondition == 2)
 						{
 							if(TempMission->bStatus == 2)
@@ -14276,7 +14276,7 @@ bool	C_VS_UI_QUEST_MANAGER::UpdateQuestInfo(_GQuestInfo *QInfo, int nType)
 						
 					(*itr) = QInfo;
 
-					if(nType == 0||nType == 1) // 0: ¼º°ø or 1:½ÇÆĞ ÀÏ¶§ - ±ŞÁ¶µÈ Ãß°¡..-_-;
+					if(nType == 0||nType == 1) // 0: å·±å‚ or 1:è§’è© è€é”­ - é­ç‚¼ç­‰ çœ å•Š..-_-;
 					{
 						RunQuestFail_or_Sucess(pElement, nType);
 					}
@@ -14289,7 +14289,7 @@ bool	C_VS_UI_QUEST_MANAGER::UpdateQuestInfo(_GQuestInfo *QInfo, int nType)
 	}
 	return false;
 }
-// xml¿¡¼­ Äù½ºÆ®ÀÇ titleÀ» °¡Á®¿Â´Ù
+// xmlä¿Šè¾‘ æ¶…èƒ¶é£˜ç‹¼ titleé˜‘ å•Šå»‰æŸ¯ä¿ƒ
 char*	C_VS_UI_QUEST_MANAGER::GetQuestTitle(const XMLTree *pElement)
 {
 	char* TempTitle = "";
@@ -14302,7 +14302,7 @@ char*	C_VS_UI_QUEST_MANAGER::GetQuestTitle(const XMLTree *pElement)
 	}
 	return TempTitle;
 }
-// xml¿¡¼­ Äù½ºÆ®ÀÇ descriptionÀ» °¡Á®¿Â´Ù
+// xmlä¿Šè¾‘ æ¶…èƒ¶é£˜ç‹¼ descriptioné˜‘ å•Šå»‰æŸ¯ä¿ƒ
 char*	C_VS_UI_QUEST_MANAGER::GetQuestDescription(const XMLTree *pElement)
 {
 	char* TempTitle = "";
@@ -14315,7 +14315,7 @@ char*	C_VS_UI_QUEST_MANAGER::GetQuestDescription(const XMLTree *pElement)
 	}
 	return TempTitle;
 }
-// xml¿¡¼­ Äù½ºÆ® ³»ÀÇ ¹Ì¼Ç Å¸ÀÌÆ²À» °¡Á®¿Â´Ù.
+// xmlä¿Šè¾‘ æ¶…èƒ¶é£˜ éƒ´ç‹¼ å›ºè®° é¸¥ææ’‡é˜‘ å•Šå»‰æŸ¯ä¿ƒ.
 char*	C_VS_UI_QUEST_MANAGER::GetMissionTitle(const XMLTree *pElement, WORD Index, BYTE Condition)
 {
 	char* TempTitle = "";
@@ -14331,7 +14331,7 @@ char*	C_VS_UI_QUEST_MANAGER::GetMissionTitle(const XMLTree *pElement, WORD Index
 		const XMLTree *pChildElement = pElement->GetChild( szConditonType[ min(3, Condition)] );
 		if(NULL != pChildElement)
 		{
-			// ¹Ì¼Ç ¸®½ºÆ®´Â "index"·Î Ã£´Â´Ù..º¹Àâ½Ã·´³×.-_-;;;
+			// å›ºè®° åºœèƒ¶é£˜ç»° "index"è‚º èŒ«ç»°ä¿ƒ..æ±—æ£±çŸ«ååŒ™.-_-;;;
 			const XMLTree *pChildElement2 = pChildElement->GetChildByAttr(Index, "index");
 			if(NULL != pChildElement2)
 				return (char*)pChildElement2->GetText().c_str();
@@ -14339,7 +14339,7 @@ char*	C_VS_UI_QUEST_MANAGER::GetMissionTitle(const XMLTree *pElement, WORD Index
 	}
 	return TempTitle;
 }
-// xml¿¡¼­ Äù½ºÆ® ³»ÀÇ ¹Ì¼Ç Å¸ÀÌÆ²À» °¡Á®¿Â´Ù.
+// xmlä¿Šè¾‘ æ¶…èƒ¶é£˜ éƒ´ç‹¼ å›ºè®° é¸¥ææ’‡é˜‘ å•Šå»‰æŸ¯ä¿ƒ.
 const XMLTree *	C_VS_UI_QUEST_MANAGER::GetMissionElement(const XMLTree *pElement, BYTE Condition)
 {
 	if(NULL != pElement)
@@ -14358,7 +14358,7 @@ const XMLTree *	C_VS_UI_QUEST_MANAGER::GetMissionElement(const XMLTree *pElement
 	}
 	return NULL;
 }
-// Äù½ºÆ® ¸®½ºÆ®¸¦ ÇØÁ¦
+// æ¶…èƒ¶é£˜ åºœèƒ¶é£˜ç”« ç§¦åŠ›
 void	C_VS_UI_QUEST_MANAGER::ClearQuestInfo()
 {
 	std::vector<_GQuestInfo*>::iterator itr = m_QuestListInfo.begin();
@@ -14370,7 +14370,7 @@ void	C_VS_UI_QUEST_MANAGER::ClearQuestInfo()
 	}
 	m_QuestListInfo.clear();
 }
-// Äù½ºÆ® ¾ÆÀÌÅÛÀ» ÇØÁ¦
+// æ¶…èƒ¶é£˜ é…’æè¢é˜‘ ç§¦åŠ›
 void	C_VS_UI_QUEST_MANAGER::ClearQuestItem()
 {
 	std::vector<MItem*>::iterator itr = m_QuestItemInfo.begin();
@@ -14394,7 +14394,7 @@ void	C_VS_UI_QUEST_MANAGER::ClearExcuteElement()
 	}
 	m_QuestExcutElement.clear();
 }
-// sub À©µµ¿ì°¡ ¶°ÀÖ´ÂÁö °Ë»ç
+// sub æ‰©æ¡£å¿«å•Š æ ‹ä¹ç»°ç˜¤ å…«è¤
 bool	C_VS_UI_QUEST_MANAGER::IsAnyWindowOpened() const
 {
 	if( IsRunningQuestList()
@@ -14405,12 +14405,12 @@ bool	C_VS_UI_QUEST_MANAGER::IsAnyWindowOpened() const
 
 	return false;
 }
-// ¼­ºê À©µµ ÀüÃ¼¸¦ ´İ¾Ò´Ù ¿­¾ú´Ù ÇÑ´Ù.
+// è¾‘å® æ‰©æ¡£ å‚ˆçœ‰ç”« æ‘§ç–½ä¿ƒ å‡¯èŒä¿ƒ èŒ„ä¿ƒ.
 void	C_VS_UI_QUEST_MANAGER::ToggleWindow() 
 {
-	if(IsAnyWindowOpened()) // ÇÑ Äù½ºÆ® À©µµ¶óµµ ¿­·ÈÀ¸¸é ´İ´Â´Ù
+	if(IsAnyWindowOpened()) // èŒ„ æ¶…èƒ¶é£˜ æ‰©æ¡£æ‰¼æ¡£ å‡¯å•¡æ æ æ‘§ç»°ä¿ƒ
 		CloseAllWinow();
-	else // ¿­¸°°Ô ÇÏ³ªµµ ¾øÀ¸¸é ´Ù ¿­¾îÁØ´Ù ¤¾¤¾
+	else // å‡¯èµ´éœ¸ çªå”±æ¡£ ç»æ æ ä¿ƒ å‡¯ç»¢éœ–ä¿ƒ ãã
 	{
 		//RunAllWinow();
 		RunQuestList();
@@ -14575,7 +14575,7 @@ void	C_VS_UI_QUEST_MANAGER::CloseQuestIcon(int JustClose)
 	
 	DeleteNew(m_Ui_Quest_Icon);
 	
-	if(JustClose>0) // ´Ù¸¥ Ã¢À» ¿­¾îÁØ´Ù
+	if(JustClose>0) // ä¿ƒå¼— èŠ’é˜‘ å‡¯ç»¢éœ–ä¿ƒ
 	{
 		RunQuestList();
 		if(IsRunningQuestList())
@@ -14596,12 +14596,12 @@ void	C_VS_UI_QUEST_MANAGER::CloseQuestIcon(int JustClose)
 //	if(IsAllWindowClosed())
 //		gpC_base->SendMessage(UI_CLOSE_QUEST_MANAGER);
 }
-// ½ÇÆĞ,¼º°ø½Ã npc dialog¸¦ ¶ç¿î´Ù. nType == 0 : ¼º°ø, nType == 1 : ½ÇÆĞ
+// è§’è©,å·±å‚çŸ« npc dialogç”« å‰æ¬¾ä¿ƒ. nType == 0 : å·±å‚, nType == 1 : è§’è©
 void	C_VS_UI_QUEST_MANAGER::RunQuestFail_or_Sucess(const XMLTree *pElement, int nType)
 {
 	if(pElement != NULL)
 	{
-		// ´ÙÀ½¿£ string À¸·Î Ã£´Â´Ù..-_-
+		// ä¿ƒæ¾œæµš string æ è‚º èŒ«ç»°ä¿ƒ..-_-
 		const static char * szFail_or_Sucess[2] = {
 													"CompleteMessage",
 													"FailMessage",
@@ -14650,7 +14650,7 @@ void	C_VS_UI_QUEST_MANAGER::RunQuestFail_or_Sucess(const XMLTree *pElement, int 
 			gC_vs_ui.SetQuestNpcDialog((void*)TempDialog);
 		}
 		
-		if(nType == 0) // ¼º°øÀÏ °æ¿ì ¿£µù ÀÌº¥Æ®¸¦ º¸¿©Áà¾ß ÇÑ´Ù¸é
+		if(nType == 0) // å·±å‚è€ ç‰ˆå¿« æµšçˆ¹ æäº¥é£˜ç”« ç„Šå’¯æ‹å…· èŒ„ä¿ƒæ
 		{
 			const XMLAttribute* _TempAttr = pElement->GetAttribute("ending");
 			if(NULL != _TempAttr)
@@ -14664,7 +14664,7 @@ void	C_VS_UI_QUEST_MANAGER::RunQuestFail_or_Sucess(const XMLTree *pElement, int 
 
 void	C_VS_UI_QUEST_MANAGER::PushGQuestExcuteElement(DWORD qID, BYTE bCondition, WORD wIndex)
 {
-	if(0 == m_QuestExcutElement.size()) // ½×ÀÎ°Ô ¾øÀ¸¸é ¹Ù·Î ½ÇÇà
+	if(0 == m_QuestExcutElement.size()) // é˜¶ç‰¢éœ¸ ç»æ æ å®˜è‚º è§’é’
 	{
 		RunGQuestExcuteElement(qID, bCondition, wIndex);
 	}
@@ -14677,7 +14677,7 @@ void	C_VS_UI_QUEST_MANAGER::PushGQuestExcuteElement(DWORD qID, BYTE bCondition, 
 }
 void	C_VS_UI_QUEST_MANAGER::RunNextGQuestExcuteElement()
 {
-	if(m_QuestExcutElement.size()) // ÀÏ´Ü »çÀÌÁî Ã¼Å©
+	if(m_QuestExcutElement.size()) // è€çªœ è¤æä»¤ çœ‰å†œ
 	{
 		std::vector<_GQuestExcuteElement*>::iterator itr = m_QuestExcutElement.begin();
 		C_VS_UI_QUEST_MANAGER::_GQuestExcuteElement * TempRun = NULL;
@@ -14702,17 +14702,17 @@ void	C_VS_UI_QUEST_MANAGER::RunNextGQuestExcuteElement()
 		}
 	}
 }
-// npc dialog È®ÀÎ Å¬¸¯ ÈÄ¿¡ Å¬¶óÀÌ¾ğÆ®¿¡¼­ µû·Î Ã³¸®ÇÒ Çàµ¿ÀÌ ÀÖ´ÂÁö Ã¼Å©...ÇÏµåÄÚµùÀÓ.
+// npc dialog çŠ¬ç‰¢ åŠªè… é¥¶ä¿Š åŠªæ‰¼ææ”«é£˜ä¿Šè¾‘ è¶è‚º è´¸åºœä¸” é’æ‚¼æ ä¹ç»°ç˜¤ çœ‰å†œ...çªé›å†…çˆ¹çƒ™.
 void	C_VS_UI_QUEST_MANAGER::RunGQuestExcuteElementAction(DWORD qID, BYTE bCondition, WORD wIndex)
 {
 	if(LoadQuestXML() == false)
 		return ;
 	
-	// Äù½ºÆ® ¸®½ºÆ®´Â id·Î Ã£´Â´Ù..º¹Àâ½Ã·´³×.-_-;;;
+	// æ¶…èƒ¶é£˜ åºœèƒ¶é£˜ç»° idè‚º èŒ«ç»°ä¿ƒ..æ±—æ£±çŸ«ååŒ™.-_-;;;
 	const XMLTree *pElement = m_Quest_XML_Tree.GetChildByAttr( qID , "id");
 	if(pElement != NULL)
 	{
-		// ´ÙÀ½¿£ string À¸·Î Ã£´Â´Ù..-_-
+		// ä¿ƒæ¾œæµš string æ è‚º èŒ«ç»°ä¿ƒ..-_-
 		const static char * szConditonType[4] = {	"Happen",
 													"Complete",
 													"Fail",
@@ -14730,7 +14730,7 @@ void	C_VS_UI_QUEST_MANAGER::RunGQuestExcuteElementAction(DWORD qID, BYTE bCondit
 				if(NULL != _TempAttr)
 				{
 					const char* TempAction = _TempAttr->ToString();
-					if(0 == strcmp(TempAction, "dead")) // g_pPlayer Á×´Â µ¿ÀÛ
+					if(0 == strcmp(TempAction, "dead")) // g_pPlayer ç£·ç»° æ‚¼ç´¯
 					{
 						int TargetZoneID = 0;
 						const XMLAttribute* _TempAttr2 = pElement3->GetAttribute("warp");
@@ -14738,7 +14738,7 @@ void	C_VS_UI_QUEST_MANAGER::RunGQuestExcuteElementAction(DWORD qID, BYTE bCondit
 						{
 							TargetZoneID = _TempAttr2->ToInt();
 						}
-						// 1 : Á×´Â µ¿ÀÛÀ¸·Î ÇÏÀÚ..-_-;
+						// 1 : ç£·ç»° æ‚¼ç´¯æ è‚º çªç£Š..-_-;
 						gpC_base->SendMessage(UI_GQUEST_SET_ACTION, 1, TargetZoneID ); 
 					}
 				}
@@ -14747,17 +14747,17 @@ void	C_VS_UI_QUEST_MANAGER::RunGQuestExcuteElementAction(DWORD qID, BYTE bCondit
 	}
 	ReleaseQuestXML();
 }
-// GCExcuteElement ³¯¶ó ¿ÔÀ» ¶§ npc dialog¸¦ ¶ç¿î´Ù.
+// GCExcuteElement æœæ‰¼ å­é˜‘ é”­ npc dialogç”« å‰æ¬¾ä¿ƒ.
 void	C_VS_UI_QUEST_MANAGER::RunGQuestExcuteElement(DWORD qID, BYTE bCondition, WORD wIndex)
 {
 	if(LoadQuestXML() == false)
 		return ;
 	
-	// Äù½ºÆ® ¸®½ºÆ®´Â id·Î Ã£´Â´Ù..º¹Àâ½Ã·´³×.-_-;;;
+	// æ¶…èƒ¶é£˜ åºœèƒ¶é£˜ç»° idè‚º èŒ«ç»°ä¿ƒ..æ±—æ£±çŸ«ååŒ™.-_-;;;
 	const XMLTree *pElement = m_Quest_XML_Tree.GetChildByAttr( qID , "id");
 	if(pElement != NULL)
 	{
-		// ´ÙÀ½¿£ string À¸·Î Ã£´Â´Ù..-_-
+		// ä¿ƒæ¾œæµš string æ è‚º èŒ«ç»°ä¿ƒ..-_-
 		const static char * szConditonType[4] = {	"Happen",
 													"Complete",
 													"Fail",
@@ -14859,7 +14859,7 @@ C_VS_UI_QUEST_LIST::C_VS_UI_QUEST_LIST(C_SPRITE_PACK* spr)
 	int close_x = w-20, close_y = h-152 +m_OustersOffset;		
 	int alpha_x = 6, alpha_y = h-154 +m_OustersOffset;
 		
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(pin_x, pin_y, 
 		gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), 
@@ -14882,12 +14882,12 @@ C_VS_UI_QUEST_LIST::C_VS_UI_QUEST_LIST(C_SPRITE_PACK* spr)
 //
 //	C_VS_UI_QUEST_MANAGER::_GQuestInfo* Test1 = new C_VS_UI_QUEST_MANAGER::_GQuestInfo;
 //	Test1->bStatus = CAN_ACCEPT;
-//	Test1->szQuestTitle = "ÀÏÀÏÀÏÀÏÀÏÀÏÀÏÀÏÀÏÀÏÀÏÀÏÀÏÀÏÀÏÀÏÀÏ¿ìÇìÇì";
+//	Test1->szQuestTitle = "è€è€è€è€è€è€è€è€è€è€è€è€è€è€è€è€è€å¿«åº†åº†";
 //	Test1->dwQuestID = 1;
 //	m_QuestListInfo[0].push_back(Test1);
 //	C_VS_UI_QUEST_MANAGER::_GQuestInfo* Test2 = new C_VS_UI_QUEST_MANAGER::_GQuestInfo;
 //	Test2->bStatus = DOING;
-//	Test2->szQuestTitle = "ÀÌÀÌÀÌÀÌÀÌÀÌÀÌÀÌÀÌÀÌÀÌÀÌÀÌÀÌÀÌÀÌÀÌ¿ìÇìÇì";
+//	Test2->szQuestTitle = "æææææææææææææææææå¿«åº†åº†";
 //	Test2->dwQuestID = 2;
 //	m_QuestListInfo[1].push_back(Test2);
 //	m_pC_scroll_bar->SetPosMax(1);
@@ -14976,13 +14976,13 @@ void	C_VS_UI_QUEST_LIST::Show()
 
 		const static char* szQuestStatus[7]=
 		{
-			(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_NOT].GetString(),// = "¼öÇàºÒ°¡";
-			(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_ACCEPT].GetString(),// = "¼öÇà°¡´É";
-			(*g_pGameStringTable)[UI_STRING_GQUEST_DOING].GetString(),// = "¼öÇàÁß";
-			(*g_pGameStringTable)[UI_STRING_GQUEST_SUCCESS].GetString(),// = "¼º°ø";
-			(*g_pGameStringTable)[UI_STRING_GQUEST_COMPLETE].GetString(),// = "¿Ï·á";
-			(*g_pGameStringTable)[UI_STRING_GQUEST_FAIL].GetString(),// = "½ÇÆĞ";
-			(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_REPLAY].GetString(),// = "Àç¼öÇà°¡";
+			(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_NOT].GetString(),// = "èé’é˜‚å•Š";
+			(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_ACCEPT].GetString(),// = "èé’å•Šç“·";
+			(*g_pGameStringTable)[UI_STRING_GQUEST_DOING].GetString(),// = "èé’å";
+			(*g_pGameStringTable)[UI_STRING_GQUEST_SUCCESS].GetString(),// = "å·±å‚";
+			(*g_pGameStringTable)[UI_STRING_GQUEST_COMPLETE].GetString(),// = "è‚¯ä¸°";
+			(*g_pGameStringTable)[UI_STRING_GQUEST_FAIL].GetString(),// = "è§’è©";
+			(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_REPLAY].GetString(),// = "çŠèé’å•Š";
 		};
 		for(int i =ScrPos; i< m_QuestListInfo[m_TabID].size(); i++)
 		{
@@ -15250,7 +15250,7 @@ void	C_VS_UI_QUEST_LIST::Process()
 	m_pC_button_group->Process();
 	ProcessHide();
 }
-// Äù½ºÆ® ¸®½ºÆ®¸¦ ¹Ş¾Æ ÁøÇàÁßÀÎ °Í°ú ¿Ï·áµÈ°Íµé µû·Î ¸®½ºÆ®·Î ¸¸µç´Ù.
+// æ¶…èƒ¶é£˜ åºœèƒ¶é£˜ç”« ç½é…’ æŸ³é’åç‰¢ å·´è‹ è‚¯ä¸°ç­‰å·´ç”¸ è¶è‚º åºœèƒ¶é£˜è‚º çˆ¶ç”µä¿ƒ.
 void	C_VS_UI_QUEST_LIST::SetQuestListInfo(void* pVoid)
 {
 	if(m_QuestListInfo[0].size())
@@ -15283,19 +15283,19 @@ void	C_VS_UI_QUEST_LIST::SetQuestListInfo(void* pVoid)
 		C_VS_UI_QUEST_MANAGER::_GQuestInfo * TempInfo = (*itr);
 		if(TempInfo->bStatus == CAN_ACCEPT
 	     ||TempInfo->bStatus == DOING
-		 ||TempInfo->bStatus == SUCCESS ) // ¼öÇàÁß ¸®½ºÆ®·Î Ãß°¡
+		 ||TempInfo->bStatus == SUCCESS ) // èé’å åºœèƒ¶é£˜è‚º çœ å•Š
 		 m_QuestListInfo[0].push_back(TempInfo);
 		else if(  TempInfo->bStatus == COMPLETE
 				||TempInfo->bStatus == FAIL
-				||TempInfo->bStatus == CAN_REPLAY ) // ¿Ï·á ¸®½ºÆ®·Î Ãß°¡
+				||TempInfo->bStatus == CAN_REPLAY ) // è‚¯ä¸° åºœèƒ¶é£˜è‚º çœ å•Š
 		m_QuestListInfo[1].push_back(TempInfo);
 
 		itr++;
 	}
 
-	if(m_TabID == 0) // ÁøÇà ÅÇ
+	if(m_TabID == 0) // æŸ³é’ å¾˜
 		m_pC_scroll_bar->SetPosMax(m_QuestListInfo[0].size());
-	else if(m_TabID == 1) // ¿Ï·á ÅÇ
+	else if(m_TabID == 1) // è‚¯ä¸° å¾˜
 		m_pC_scroll_bar->SetPosMax(m_QuestListInfo[1].size());
 }
 //-----------------------------------------------------------------------------
@@ -15339,7 +15339,7 @@ C_VS_UI_QUEST_DETAIL::C_VS_UI_QUEST_DETAIL(C_SPRITE_PACK* spr)
 	int alpha_x = 6, alpha_y = h-154+m_OustersOffset;
 	int accept_x = w-80, accept_y = h-36+m_OustersOffset;
 		
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(pin_x, pin_y, 
 		gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), 
@@ -15361,7 +15361,7 @@ C_VS_UI_QUEST_DETAIL::C_VS_UI_QUEST_DETAIL(C_SPRITE_PACK* spr)
 		m_pImage_Spk->GetHeight(C_VS_UI_QUEST_MANAGER::BUTTON_ACCEPT),
 		ACCEPT_ID, this, C_VS_UI_QUEST_MANAGER::BUTTON_ACCEPT));
 #ifndef _LIB
-//	char* TempStr = "ÀÏÀÌ»ï»ç¿ÀÀ°Ä¥ÆÈ±¸½ÊÀÏÀÌ»ï»ç¿ÀÀ°Ä¥ÆÈ±¸½Ê";
+//	char* TempStr = "è€æä¼™è¤å·è…Šç£¨è¿«å¤‡ç»è€æä¼™è¤å·è…Šç£¨è¿«å¤‡ç»";
 //	if(LoadDescFromString(TempStr, 44, 4, false)==true)
 //	{
 //		SetDesc(8, 50+m_OustersOffset, RGB_GRAY, gpC_base->m_chatting_pi);
@@ -15561,7 +15561,7 @@ void	C_VS_UI_QUEST_DETAIL::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 	}else
 	if(p_button->GetID() == ACCEPT_ID)
 	{
-		if(m_IsAbleRunQuest == 1)//¼öÇà
+		if(m_IsAbleRunQuest == 1)//èé’
 		{
 			if(p_button->GetFocusState())
 			{
@@ -15575,7 +15575,7 @@ void	C_VS_UI_QUEST_DETAIL::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 				m_pImage_Spk->BltLocked(x+p_button->x, y+p_button->y, C_VS_UI_QUEST_MANAGER::BUTTON_ACCEPT);
 			}
 		}
-		else if(m_IsAbleRunQuest == 2) // Æ÷±â
+		else if(m_IsAbleRunQuest == 2) // å™¨æ‰
 		{
 			if(p_button->GetFocusState())
 			{
@@ -15695,7 +15695,7 @@ void	C_VS_UI_QUEST_DETAIL::Process()
 	m_pC_button_group->Process();
 	ProcessHide();
 }
-// Äù½ºÆ®ÀÇ Å¸ÀÌÆ²°ú ½ºÅ©¸³Æ®, ±×¸®°í ¼öÇà°¡´É »óÅÂ¸¦ ¼¼ÆÃ ÇÑ´Ù.
+// æ¶…èƒ¶é£˜ç‹¼ é¸¥ææ’‡è‹ èƒ¶å†œèµ‹é£˜, å¼Šåºœç»Š èé’å•Šç“· æƒ‘æ€•ç”« æŠ€æ³¼ èŒ„ä¿ƒ.
 void	C_VS_UI_QUEST_DETAIL::SetQuestDetailInfo(char* szTitle, char* szDescription, int Status)
 {
 	if(szDescription != NULL && strlen(szDescription)>0)
@@ -15713,7 +15713,7 @@ void	C_VS_UI_QUEST_DETAIL::SetQuestDetailInfo(char* szTitle, char* szDescription
 	}
 	if(szTitle != NULL&& strlen(szTitle)>0)
 		m_szTitle = szTitle;
-	// status´Â C_VS_UI_QUEST_LISTÀÇ QUEST_LIST_STATUS ÀÌ´Ù.
+	// statusç»° C_VS_UI_QUEST_LISTç‹¼ QUEST_LIST_STATUS æä¿ƒ.
 	if( Status == 1 || Status == 6)
 		m_IsAbleRunQuest = 1; // accept
 	else if( Status == 2 || Status == 3)
@@ -15761,7 +15761,7 @@ C_VS_UI_QUEST_MISSION::C_VS_UI_QUEST_MISSION(C_SPRITE_PACK* spr)
 	int close_x = w-20, close_y = h-152+m_OustersOffset;		
 	int alpha_x = 6, alpha_y = h-154 +m_OustersOffset;
 		
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(pin_x, pin_y, 
 		gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), 
@@ -15780,12 +15780,12 @@ C_VS_UI_QUEST_MISSION::C_VS_UI_QUEST_MISSION(C_SPRITE_PACK* spr)
 
 #ifndef _LIB
 	C_VS_UI_QUEST_MANAGER::_GMissionInfo *TempInfo = new C_VS_UI_QUEST_MANAGER::_GMissionInfo ;
-	TempInfo->szMissionTitle = "ÀÏÀÌ»ï»ç¿ÀÀ°Ä¥ÆÈ%s:%d";
+	TempInfo->szMissionTitle = "è€æä¼™è¤å·è…Šç£¨è¿«%s:%d";
 	TempInfo->bStatus = CURRENT;
 	TempInfo->dwTimeLimit = timeGetTime() + (60000);
 	m_QuestMissionInfo.push_back(TempInfo);
 	C_VS_UI_QUEST_MANAGER::_GMissionInfo *TempInfo2 = new C_VS_UI_QUEST_MANAGER::_GMissionInfo ;
-	TempInfo2->szMissionTitle = "¹Ùº¸¸¦ ±¸ÇÏ¶ó";
+	TempInfo2->szMissionTitle = "å®˜ç„Šç”« å¤‡çªæ‰¼";
 	TempInfo2->bStatus = SUCCESS;
 	m_QuestMissionInfo.push_back(TempInfo2);
 
@@ -15864,10 +15864,10 @@ void	C_VS_UI_QUEST_MISSION::Show()
 	{
 		const static char* szQuestStatus[4]=
 		{
-			(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_NOT].GetString(),// = "¼öÇàºÒ°¡";
-			(*g_pGameStringTable)[UI_STRING_GQUEST_DOING].GetString(),// = "¼öÇàÁß";
-			(*g_pGameStringTable)[UI_STRING_GQUEST_COMPLETE].GetString(),// = "¿Ï·á";
-			(*g_pGameStringTable)[UI_STRING_GQUEST_FAIL].GetString(),// = "½ÇÆĞ";
+			(*g_pGameStringTable)[UI_STRING_GQUEST_CAN_NOT].GetString(),// = "èé’é˜‚å•Š";
+			(*g_pGameStringTable)[UI_STRING_GQUEST_DOING].GetString(),// = "èé’å";
+			(*g_pGameStringTable)[UI_STRING_GQUEST_COMPLETE].GetString(),// = "è‚¯ä¸°";
+			(*g_pGameStringTable)[UI_STRING_GQUEST_FAIL].GetString(),// = "è§’è©";
 		};
 		char szString[512];
 		char szString2[512];
@@ -15890,7 +15890,7 @@ void	C_VS_UI_QUEST_MISSION::Show()
 						TempValue = 0;
 					}
 
-					if(TempInfo->bStatus == SUCCESS || TempInfo->bStatus == FAIL) // ¼º°ø È¤Àº ½ÇÆĞ ÀÏ¶§
+					if(TempInfo->bStatus == SUCCESS || TempInfo->bStatus == FAIL) // å·±å‚ è¶£ç¯® è§’è© è€é”­
 					{
 						TempInfo->dwTimeLimit = 0;
 						TempInfo->m_NumArg = 0;
@@ -15910,7 +15910,7 @@ void	C_VS_UI_QUEST_MISSION::Show()
 					ReduceString2(szString2,36);
 				}
 				g_PrintColorStr(x+7, y+42 + (i-ScrPos)*17, szString2, gpC_base->m_chatting_pi, RGB_WHITE);
-				if(TempInfo->bStatus != 1 && TempInfo->bStatus<3) // ¼öÇàÁß..ÀÌ°Ç º¸¿©ÁÖÁö ¸»¶ó°í ÇØ¼­.¤¾¤¾
+				if(TempInfo->bStatus != 1 && TempInfo->bStatus<3) // èé’å..ææ‰’ ç„Šå’¯æ—ç˜¤ å¯Œæ‰¼ç»Š ç§¦è¾‘.ãã
 				{
 					sprintf(szString,"%s", szQuestStatus[TempInfo->bStatus]);
 					g_PrintColorStr(x+235, y+42 + (i-ScrPos)*17, szString, gpC_base->m_chatting_pi, RGB_YELLOW);
@@ -16140,7 +16140,7 @@ void	C_VS_UI_QUEST_MISSION::Process()
 	m_pC_button_group->Process();
 	ProcessHide();
 }
-// Äù½ºÆ® ¹Ì¼Ç Á¤º¸¸¦ ¼¼ÆÃÇÑ´Ù.
+// æ¶…èƒ¶é£˜ å›ºè®° æ²¥ç„Šç”« æŠ€æ³¼èŒ„ä¿ƒ.
 void	C_VS_UI_QUEST_MISSION::SetQuestMissionInfo(std::vector<C_VS_UI_QUEST_MANAGER::_GMissionInfo*>& Info)
 {
 	m_QuestMissionInfo = Info;
@@ -16160,7 +16160,7 @@ void	C_VS_UI_QUEST_MISSION::SetQuestMissionInfo(std::vector<C_VS_UI_QUEST_MANAGE
 //	while(itr != TempInfo->end())
 //	{
 //		C_VS_UI_QUEST_MANAGER::_GMissionInfo * TempInfo = (*itr);
-//		if(TempInfo->bStatus != HIDE) // º¸¿©ÁÖÁö ¾ÊÀ½
+//		if(TempInfo->bStatus != HIDE) // ç„Šå’¯æ—ç˜¤ è‡¼æ¾œ
 //			m_QuestMissionInfo.push_back(TempInfo);
 //		
 //		itr++;
@@ -16207,7 +16207,7 @@ C_VS_UI_QUEST_ITEM::C_VS_UI_QUEST_ITEM(C_SPRITE_PACK* spr)
 	int close_x = w-20, close_y = h-252+m_OustersOffset;		
 	int alpha_x = 24, alpha_y = h-254+m_OustersOffset;
 		
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(pin_x, pin_y, 
 		gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), 
@@ -16230,7 +16230,7 @@ C_VS_UI_QUEST_ITEM::C_VS_UI_QUEST_ITEM(C_SPRITE_PACK* spr)
 //	MItem*		pItem;
 //
 //	//----------------------------------------------------
-//	// Item »ı¼º --> Ãß°¡
+//	// Item ç§¯å·± --> çœ å•Š
 //	//----------------------------------------------------
 //	pItem = MItem::NewItem( ITEM_CLASS_POTION );
 //	pItem->SetID( 0 );
@@ -16241,7 +16241,7 @@ C_VS_UI_QUEST_ITEM::C_VS_UI_QUEST_ITEM(C_SPRITE_PACK* spr)
 //	m_QuestItemInfo.push_back(pItem);
 //
 //	//----------------------------------------------------
-//	// Item »ı¼º --> Ãß°¡
+//	// Item ç§¯å·± --> çœ å•Š
 //	//----------------------------------------------------
 //	pItem = MItem::NewItem( ITEM_CLASS_RING );
 //	pItem->SetID( 1 );
@@ -16251,7 +16251,7 @@ C_VS_UI_QUEST_ITEM::C_VS_UI_QUEST_ITEM(C_SPRITE_PACK* spr)
 //	m_QuestItemInfo.push_back(pItem);
 //	
 //	//----------------------------------------------------
-//	// Item »ı¼º --> Ãß°¡
+//	// Item ç§¯å·± --> çœ å•Š
 //	//----------------------------------------------------
 //	pItem = MItem::NewItem( ITEM_CLASS_RING );
 //	pItem->SetID( 2 );
@@ -16261,7 +16261,7 @@ C_VS_UI_QUEST_ITEM::C_VS_UI_QUEST_ITEM(C_SPRITE_PACK* spr)
 //	m_QuestItemInfo.push_back(pItem);
 //
 //	//----------------------------------------------------
-//	// Item »ı¼º --> Ãß°¡
+//	// Item ç§¯å·± --> çœ å•Š
 //	//----------------------------------------------------
 //	pItem = MItem::NewItem( ITEM_CLASS_RING );
 //	pItem->SetID( 3 );
@@ -16271,7 +16271,7 @@ C_VS_UI_QUEST_ITEM::C_VS_UI_QUEST_ITEM(C_SPRITE_PACK* spr)
 //	m_QuestItemInfo.push_back(pItem);
 //
 //	//----------------------------------------------------
-//	// Item »ı¼º --> Ãß°¡
+//	// Item ç§¯å·± --> çœ å•Š
 //	//----------------------------------------------------
 //	pItem = MItem::NewItem( ITEM_CLASS_RING );
 //	pItem->SetID( 4 );
@@ -16366,13 +16366,13 @@ void	C_VS_UI_QUEST_ITEM::Show()
 				
 				int item_x = x+5 + ((i-ScrPos*2)/2)*SLOT_WIDTH;
 				
-				// ¹Ù´Û¿¡ ³õÀÌ°Ô ÇÑ´Ù.
+				// å®˜ç¯¡ä¿Š åˆæéœ¸ èŒ„ä¿ƒ.
 				int item_y = y+ 124 + ((i&0x01)*SLOT_HEIGHT) -gpC_item->GetHeight(frame_id)-4 + m_OustersOffset;
 				
-				// itemÀ» center¿¡ ¸ÂÃá´Ù.
+				// itemé˜‘ centerä¿Š å˜å†•ä¿ƒ.
 				item_x += SLOT_WIDTH/2-gpC_item->GetWidth(frame_id)/2;
 				
-				// identifyµÈ ¾ÆÀÌÅÛÀÎ °æ¿ì.. by sigi
+				// identifyç­‰ é…’æè¢ç‰¢ ç‰ˆå¿«.. by sigi
 				if (p_item->IsIdentified())
 				{
 					if(p_item->IsQuestItem())
@@ -16385,7 +16385,7 @@ void	C_VS_UI_QUEST_ITEM::Show()
 				}
 				else
 				{
-					// identify ¾È µÈ °æ¿ì´Â ¹«Á¶°Ç Èò»ö
+					// identify æ•‘ ç­‰ ç‰ˆå¿«ç»° å…¬ç‚¼æ‰’ é—°ç¥¸
 					CIndexSprite::SetUsingColorSet(378, 378);
 				}
 								
@@ -16439,7 +16439,7 @@ void	C_VS_UI_QUEST_ITEM::Show()
 					}
 				}
 
-//				// ¾ÆÀÌÅÛ °³¼öÇ¥½Ã
+//				// é…’æè¢ ä¿ºèé’çŸ«
 //				if(p_item->IsPileItem() || p_item->IsChargeItem())
 //				{
 //					RECT rt;
@@ -16935,7 +16935,7 @@ C_VS_UI_RANGER_CHAT::C_VS_UI_RANGER_CHAT()
 	int pin_x = 580, pin_y = h-22;
 	int alpha_x = 600, alpha_y = h-22;
 		
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(pin_x, pin_y, 
 		gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_PUSHPIN), 
@@ -16949,7 +16949,7 @@ C_VS_UI_RANGER_CHAT::C_VS_UI_RANGER_CHAT()
 
 	
 #ifndef _LIB
-	m_Str = "a°¡³ª´Ù¶ó¸¶¹Ù »ç¾ÆÀÚÂ÷Ä«Å¸ÆÄÇÏ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÀÚÂ÷Ä«Å¸ÆÄÇÏ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÀÚÂ÷Ä«Å¸ÆÄÇÏ°¡³ª´Ù¶ó¸¶¹Ù»ç¾Æ";
+	m_Str = "aå•Šå”±ä¿ƒæ‰¼ä»˜å®˜ è¤é…’ç£Šç’å¢¨é¸¥é¢‡çªå•Šå”±ä¿ƒæ‰¼ä»˜å®˜è¤é…’ç£Šç’å¢¨é¸¥é¢‡çªå•Šå”±ä¿ƒæ‰¼ä»˜å®˜è¤é…’ç£Šç’å¢¨é¸¥é¢‡çªå•Šå”±ä¿ƒæ‰¼ä»˜å®˜è¤é…’";
 #endif
 }
 
@@ -17127,7 +17127,7 @@ void	C_VS_UI_RANGER_CHAT::Process()
 //------------------------------------------------------------------------------
 // C_VS_UI_PERSNALSHOP_MESSAGE
 //
-// °³ÀÎ»óÁ¡¿¡ ±¤°í ¸Ş¼¼Áö 
+// ä¿ºç‰¢æƒ‘ç—¢ä¿Š å ¡ç»Š çš‹æŠ€ç˜¤ 
 //------------------------------------------------------------------------------
 C_VS_UI_PERSNALSHOP_MESSAGE::C_VS_UI_PERSNALSHOP_MESSAGE()
 {	
@@ -17241,7 +17241,7 @@ void	C_VS_UI_PERSNALSHOP_MESSAGE::Show()
 			
 			char *sz_string2 = sz_string;
 			
-			while(*sz_string2 == ' ')		// ¾ÕÀÇ °ø¹éÁ¦°Å
+			while(*sz_string2 == ' ')		// èŠç‹¼ å‚å½’åŠ›èŠ­
 			{
 				sz_string2++;
 				next++;
@@ -17254,7 +17254,7 @@ void	C_VS_UI_PERSNALSHOP_MESSAGE::Show()
 			sz_string2[cut_pos] = NULL;
 			
 			char *return_char = NULL;
-			if((return_char = strchr(sz_string2, '\n')) != NULL)	// return Ã³¸®
+			if((return_char = strchr(sz_string2, '\n')) != NULL)	// return è´¸åºœ
 			{
 				cut_pos = return_char - sz_string2+1;
 				sz_string2[cut_pos-1] = NULL;
@@ -17440,7 +17440,7 @@ void	C_VS_UI_PERSNALSHOP_MESSAGE::Process()
 //------------------------------------------------------------------------------
 // C_VS_UI_POWER_JJANG
 //
-// ÆÄ¿öÂ¯ -_-
+// é¢‡å†µç‚‰ -_-
 //------------------------------------------------------------------------------
 C_VS_UI_POWER_JJANG::C_VS_UI_POWER_JJANG()
 {	
@@ -17489,7 +17489,7 @@ C_VS_UI_POWER_JJANG::C_VS_UI_POWER_JJANG()
 	int pin_x = w-24-20, pin_y = h-19;
 	int alpha_x = 6, alpha_y = h-21;
 	int phone_x = w - 85, phone_y = h - 267;
-	//°øÅë¹öÆ°
+	//å‚çƒ¹æ»šç“¢
 	m_pC_button_group = new ButtonGroup(this);
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(close_x, close_y, 
 		gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE), 
@@ -17586,37 +17586,37 @@ void	C_VS_UI_POWER_JJANG::Show()
 
 	gpC_global_resource->DrawDialog(x, y, w, h, GetAttributes()->alpha);
 	
-	RECT rect2 = { x+20, y+190, x+215, y+310 }; // ¾ÆÀÌÅÛ Ä­
+	RECT rect2 = { x+20, y+190, x+215, y+310 }; // é…’æè¢ æ²«
 	Rect rt2(rect2.left, rect2.top, rect2.right - rect2.left, rect2.bottom - rect2.top );
 	//gpC_base->m_p_DDSurface_back->FillRect(&rect2, 0);
 	gpC_global_resource->DrawOutBox(rt2);
 	
-	SetRect(&rect2, x+70, y+90, x+158, y+118 ); // ÇÚµåÆİ Ä­
+	SetRect(&rect2, x+70, y+90, x+158, y+118 ); // å‹¤é›æˆš æ²«
 	rt2.Set(rect2.left, rect2.top, rect2.right - rect2.left, rect2.bottom - rect2.top );
-//	RECT rect2 = { x+70, y+90, x+158, y+118 }; // ÇÚµåÆİ Ä­
+//	RECT rect2 = { x+70, y+90, x+158, y+118 }; // å‹¤é›æˆš æ²«
 //	Rect rt2(rect2.left, rect2.top, rect2.right - rect2.left, rect2.bottom - rect2.top );
 	gpC_base->m_p_DDSurface_back->FillRect(&rect2, 0);
 	gpC_global_resource->DrawOutBox(rt2);
 
-	SetRect(&rect2, x+20, y+65, x+230, y+125 ); //ÇÚÆİ ¿Ü°û
+	SetRect(&rect2, x+20, y+65, x+230, y+125 ); //å‹¤æˆš å¯‡èƒ
 	rt2.Set(rect2.left, rect2.top, rect2.right - rect2.left, rect2.bottom - rect2.top );
 	gpC_global_resource->DrawOutBox(rt2);
 
-	SetRect(&rect2, x+168, y+128, x+222, y+152 ); // ´©Àû Æ÷ÀÎÆ® Ä­
-	rt2.Set(rect2.left, rect2.top, rect2.right - rect2.left, rect2.bottom - rect2.top );
-	gpC_base->m_p_DDSurface_back->FillRect(&rect2, 0);
-	gpC_global_resource->DrawOutBox(rt2);
-
-	SetRect(&rect2, x+20, y+125, x+230, y+155 ); // ´©Àû Æ÷ÀÎÆ® ¿Ü°û
-	rt2.Set(rect2.left, rect2.top, rect2.right - rect2.left, rect2.bottom - rect2.top );
-	gpC_global_resource->DrawOutBox(rt2);
-
-	SetRect(&rect2, x+168, y+158, x+222, y+182 ); // °×ºí °¡´É  Æ÷ÀÎÆ® Ä­
+	SetRect(&rect2, x+168, y+128, x+222, y+152 ); // ç©¿åˆ© å™¨ç‰¢é£˜ æ²«
 	rt2.Set(rect2.left, rect2.top, rect2.right - rect2.left, rect2.bottom - rect2.top );
 	gpC_base->m_p_DDSurface_back->FillRect(&rect2, 0);
 	gpC_global_resource->DrawOutBox(rt2);
 
-	SetRect(&rect2, x+20, y+155, x+230, y+185 ); // °×ºí °¡´É Æ÷ÀÎÆ® ¿Ü°û
+	SetRect(&rect2, x+20, y+125, x+230, y+155 ); // ç©¿åˆ© å™¨ç‰¢é£˜ å¯‡èƒ
+	rt2.Set(rect2.left, rect2.top, rect2.right - rect2.left, rect2.bottom - rect2.top );
+	gpC_global_resource->DrawOutBox(rt2);
+
+	SetRect(&rect2, x+168, y+158, x+222, y+182 ); // ç™½å–‰ å•Šç“·  å™¨ç‰¢é£˜ æ²«
+	rt2.Set(rect2.left, rect2.top, rect2.right - rect2.left, rect2.bottom - rect2.top );
+	gpC_base->m_p_DDSurface_back->FillRect(&rect2, 0);
+	gpC_global_resource->DrawOutBox(rt2);
+
+	SetRect(&rect2, x+20, y+155, x+230, y+185 ); // ç™½å–‰ å•Šç“· å™¨ç‰¢é£˜ å¯‡èƒ
 	rt2.Set(rect2.left, rect2.top, rect2.right - rect2.left, rect2.bottom - rect2.top );
 	gpC_global_resource->DrawOutBox(rt2);
 	
@@ -17662,13 +17662,13 @@ void	C_VS_UI_POWER_JJANG::Show()
 		}
 		BYTE TempPos = m_OutLinePositon%3;
 
-		SetRect(&rect2, x+29, y+197 + (TempPos)*35, x+205, y+230 + (TempPos)*35 ); // °×ºí °¡´É Æ÷ÀÎÆ® ¿Ü°û
+		SetRect(&rect2, x+29, y+197 + (TempPos)*35, x+205, y+230 + (TempPos)*35 ); // ç™½å–‰ å•Šç“· å™¨ç‰¢é£˜ å¯‡èƒ
 		gpC_base->m_p_DDSurface_back->DrawRect(&rect2, YELLOW);
 	}
 	else if(m_SelectPos>=ScrPos && m_SelectPos <= ScrPos+2)
 	{
 		int TempPos = m_SelectPos - ScrPos;/*min(2, max(0, (m_SelectPos - ScrPos)));*/
-		SetRect(&rect2, x+29, y+197 + (TempPos)*35, x+205, y+230 + (TempPos)*35 ); // °×ºí °¡´É Æ÷ÀÎÆ® ¿Ü°û
+		SetRect(&rect2, x+29, y+197 + (TempPos)*35, x+205, y+230 + (TempPos)*35 ); // ç™½å–‰ å•Šç“· å™¨ç‰¢é£˜ å¯‡èƒ
 		gpC_base->m_p_DDSurface_back->DrawRect(&rect2, YELLOW);
 	}
 
@@ -17875,8 +17875,8 @@ void	C_VS_UI_POWER_JJANG::ShowButtonDescription(C_VS_UI_EVENT_BUTTON *p_button)
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_CLOSE_WINDOW].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_ALPHA_WINDOW].GetString(),
 		(*g_pGameStringTable)[UI_STRING_MESSAGE_SHOW_NO_ALPHA_WINDOW].GetString(),
-		(*g_pGameStringTable)[UI_STRING_POWER_JJANG_GET_POINT_HELP].GetString(),//] = "ÆÄ¿öÂ¯ Æ÷ÀÎÆ®¸¦ °¡Á®¿É´Ï´Ù.";
-		(*g_pGameStringTable)[UI_STRING_POWER_JJANG_EXCHANGE_HELP].GetString(),//] = "ÆÄ¿öÂ¯ Æ÷ÀÎÆ®·Î ¾ÆÀÌÅÛÀ» ±³È¯ÇÕ´Ï´Ù.";
+		(*g_pGameStringTable)[UI_STRING_POWER_JJANG_GET_POINT_HELP].GetString(),//] = "é¢‡å†µç‚‰ å™¨ç‰¢é£˜ç”« å•Šå»‰å¯èªä¿ƒ.";
+		(*g_pGameStringTable)[UI_STRING_POWER_JJANG_EXCHANGE_HELP].GetString(),//] = "é¢‡å†µç‚‰ å™¨ç‰¢é£˜è‚º é…’æè¢é˜‘ èƒŒåˆ¸é’¦èªä¿ƒ.";
 	};
 	switch(p_button->GetID())
 	{
@@ -17971,7 +17971,7 @@ void	C_VS_UI_POWER_JJANG::SetItemList()
 {
 	ReleaseItemList();
 	
-	// ¿¡À¶..Å¬·¡½º ¸¸µé±â ±¸ÂùÅ¸..
+	// ä¿Šè“..åŠªè´°èƒ¶ çˆ¶ç”¸æ‰ å¤‡è›®é¸¥..
 	BYTE MaxItem = 0;
 	ifstream file("data\\info\\PowerjjangItem.inf",ios::binary);
 	file.read(&MaxItem, 1);
@@ -18013,7 +18013,7 @@ void	C_VS_UI_POWER_JJANG::PowerjjangGambleResult(BYTE bItemCode)
 	}
 }
 
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 å¢åŠ åŒ…ä¸­åŒ…
 //-----------------------------------------------------------------------------
 // C_VS_UI_INVENTORY_SUB::C_VS_UI_INVENTORY_SUB
 //
@@ -18333,9 +18333,9 @@ void C_VS_UI_INVENTORY_SUB::Run(id_t id)
 //-----------------------------------------------------------------------------
 // C_VS_UI_INVENTORY_SUB::AnyMatchWindowPixel
 //
-// Window imageÀÇ pixelÀÌ (x, y) ÇÑ Á¡ÀÌ¶óµµ ÀÏÄ¡ÇÏ¸é true¸¦ ¾Æ´Ï¸é false¸¦ ¹İÈ¯ÇÑ´Ù.
+// Window imageç‹¼ pixelæ (x, y) èŒ„ ç—¢ææ‰¼æ¡£ è€æ‘¹çªæ trueç”« é…’èªæ falseç”« é¦†åˆ¸èŒ„ä¿ƒ.
 //
-// ItemÀ» µé°í ÀÖÀ» ¶§¿¡´Â 'item ÂüÁ¶Æ÷ÀÎÆ®'¿¡ µû¶ó ÁøÇàÇÑ´Ù.
+// Itemé˜‘ ç”¸ç»Š ä¹é˜‘ é”­ä¿Šç»° 'item æ›¼ç‚¼å™¨ç‰¢é£˜'ä¿Š è¶æ‰¼ æŸ³é’èŒ„ä¿ƒ.
 //-----------------------------------------------------------------------------
 bool C_VS_UI_INVENTORY_SUB::AnyMatchWindowPixel(int _x, int _y) const
 {
@@ -18521,7 +18521,7 @@ void C_VS_UI_INVENTORY_SUB::Show()
 			MItem * p_item = m_MultiPackItem->Get();
 			
 			
-			// p_itemÀº NULLÀÌ ¹İµå½Ã ¾Æ´Ï´Ù. ¿Ö³ÄÇÏ¸é Á¸ÀçÇÏ´Â °Í¸¸ Get()ÇÏ±â ¶§¹®ÀÌ´Ù.
+			// p_itemç¯® NULLæ é¦†é›çŸ« é…’èªä¿ƒ. æè¡¬çªæ ç²®çŠçªç»° å·´çˆ¶ Get()çªæ‰ é”­å·©æä¿ƒ.
 			assert(p_item);
 
 			// frame id -> sprite id
@@ -18557,7 +18557,7 @@ void C_VS_UI_INVENTORY_SUB::Show()
 					break;
 				}				
 				
-				// ItemÀÌ ³õ¿©ÀÖ´Â ¿µ¿ª Ç¥½Ã
+				// Itemæ åˆå’¯ä¹ç»° åº·å¼€ é’çŸ«
 				for (int j = 0; j < p_item->GetGridHeight(); j++)
 				{
 					for (int i = 0; i < p_item->GetGridWidth(); i++)
@@ -18709,7 +18709,7 @@ void C_VS_UI_INVENTORY_SUB::Show()
 			
 		}
 		//
-		// ItemÀ» µé°í ÀÖÀ¸¸é grid À§Ä¡¸¦ ¹Ì¸® ¾Ë ¼ö ÀÖµµ·Ï ÇÑ´Ù.
+		// Itemé˜‘ ç”¸ç»Š ä¹æ æ grid å›°æ‘¹ç”« å›ºåºœ èˆ… è ä¹æ¡£åºŸ èŒ„ä¿ƒ.
 		//
 		if (gpC_mouse_pointer->GetPickUpItem() && 
 			m_focus_grid_x != NOT_SELECTED && 
@@ -18745,7 +18745,7 @@ void C_VS_UI_INVENTORY_SUB::Show()
 		gpC_base->m_p_DDSurface_back->Unlock();
 	}
 	//
-	// ¾ÆÀÌÅÛ °³¼ö Ç¥½Ã
+	// é…’æè¢ ä¿ºè é’çŸ«
 	//
 	int len = 0;
 	RECT rect[60];
@@ -18758,9 +18758,9 @@ void C_VS_UI_INVENTORY_SUB::Show()
 		
 		const MItem * p_item = m_MultiPackItem->Get();
 		
-		// p_itemÀº NULLÀÌ ¹İµå½Ã ¾Æ´Ï´Ù. ¿Ö³ÄÇÏ¸é Á¸ÀçÇÏ´Â °Í¸¸ Get()ÇÏ±â ¶§¹®ÀÌ´Ù.
+		// p_itemç¯® NULLæ é¦†é›çŸ« é…’èªä¿ƒ. æè¡¬çªæ ç²®çŠçªç»° å·´çˆ¶ Get()çªæ‰ é”­å·©æä¿ƒ.
 		
-				// ¾ÆÀÌÅÛ °³¼öÇ¥½Ã
+				// é…’æè¢ ä¿ºèé’çŸ«
 
 		if( p_item == NULL )
 		{			
@@ -18877,7 +18877,7 @@ bool C_VS_UI_INVENTORY_SUB::MouseControl(UINT message, int _x, int _y)
 				
 				if (loop == ITEM_REF_POINT_COUNT)
 				{
-					// itemÀÌ grid ¿µ¿ª¿¡ ¾î´ÀÁ¤µµ µé¾î¿À¸é ¾ÈÀ¸·Î À§Ä¡½ÃÅ²´Ù.
+					// itemæ grid åº·å¼€ä¿Š ç»¢è ¢æ²¥æ¡£ ç”¸ç»¢å·æ æ•‘æ è‚º å›°æ‘¹çŸ«æŒªä¿ƒ.
 					const MItem * p_pickup_item = gpC_mouse_pointer->GetPickUpItem();
 					int a, b;
 					switch (i)
@@ -18932,7 +18932,7 @@ bool C_VS_UI_INVENTORY_SUB::MouseControl(UINT message, int _x, int _y)
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
 
-			if(gC_vs_ui.inventory_mode != 1 && !gC_vs_ui.IsRunningExchange())// °³ÀÎ»óÁ¡ ¿ÀÇÂ¸ğµå ÀÌ°Å³ª ±³È¯Ã¢ÀÌ ¶° ÀÖÀ» ¶§
+			if(gC_vs_ui.inventory_mode != 1 && !gC_vs_ui.IsRunningExchange())// ä¿ºç‰¢æƒ‘ç—¢ å·é”¹è‘›é› æèŠ­å”± èƒŒåˆ¸èŠ’æ æ ‹ ä¹é˜‘ é”­
 			{
 				if (gpC_mouse_pointer->GetPickUpItem() == NULL && re && m_MultiPackItem->GetItem(m_focus_grid_x, m_focus_grid_y) == NULL)
 					//TestGridRect(_x, _y) == false && re)
@@ -18943,7 +18943,7 @@ bool C_VS_UI_INVENTORY_SUB::MouseControl(UINT message, int _x, int _y)
 				}
 				
 				//
-				// ItemÀ» Áı´ø°¡ ³õ´Â´Ù.
+				// Itemé˜‘ ç¬¼å¸¦å•Š åˆç»°ä¿ƒ.
 				//
 				{
 					bool ret = Click(m_grid_rect.x, m_grid_rect.y);
@@ -18959,7 +18959,7 @@ bool C_VS_UI_INVENTORY_SUB::MouseControl(UINT message, int _x, int _y)
 		break;
 		
 	case M_RIGHTBUTTON_DOWN:
-		// °³ÀÎ »óÁ¡ ¸ğµå, °Å·¡ Áß ¾Æ´Ò¶§, ¸¶¿ì½º¿¡ ¾ÆÀÌÅÛÀÌ ¾øÀ»¶§
+		// ä¿ºç‰¢ æƒ‘ç—¢ è‘›é›, èŠ­è´° å é…’åŒ†é”­, ä»˜å¿«èƒ¶ä¿Š é…’æè¢æ ç»é˜‘é”­
 		if(gC_vs_ui.inventory_mode != 1 && !gC_vs_ui.IsRunningExchange() && NULL == gpC_mouse_pointer->GetPickUpItem()) 
 		{
 			const MItem* p_cur_item = m_MultiPackItem->GetItem(m_focus_grid_x, m_focus_grid_y);
@@ -18985,7 +18985,7 @@ bool C_VS_UI_INVENTORY_SUB::MouseControl(UINT message, int _x, int _y)
 				}
 			}
 			else 
-			if(p_cur_item->GetItemClass() == ITEM_CLASS_PET_ITEM && p_cur_item->GetItemType() >2) // 2Â÷ Æê ¼ÒÈ¯¾ÆÀÌÅÛ ÀÌ¸é
+			if(p_cur_item->GetItemClass() == ITEM_CLASS_PET_ITEM && p_cur_item->GetItemType() >2) // 2ç’ è„ å®¶åˆ¸é…’æè¢ ææ
 			{
 				switch(g_eRaceInterface)
 				{
@@ -18999,7 +18999,7 @@ bool C_VS_UI_INVENTORY_SUB::MouseControl(UINT message, int _x, int _y)
 //							g_char_slot_ingame.DOMAIN_ENCHANT	< 40 &&
 //							g_char_slot_ingame.DOMAIN_GUN		< 40 &&
 //							g_char_slot_ingame.DOMAIN_HEAL		< 40 &&
-//							g_char_slot_ingame.DOMAIN_SWORD) // ·¾ 40 ÀÌÇÏ´Â ¸ø ¾´´Ù.
+//							g_char_slot_ingame.DOMAIN_SWORD) // è‚ª 40 æçªç»° ç»™ æ•¬ä¿ƒ.
 							{
 								gpC_base->SendMessage(UI_MESSAGE_BOX, UI_STRING_MESSAGE_CANNOT_SUMMON_2ND_PET, 0, 	NULL);
 								return true;
@@ -19034,7 +19034,7 @@ bool C_VS_UI_INVENTORY_SUB::MouseControl(UINT message, int _x, int _y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_INVENTORY_SUB::ResetRect
 //
-// ÀüÃ¼ Grid rect¸¦ ¼³Á¤ÇÑ´Ù. ÀÌ°ÍÀº InventoryÀÇ ÀÌµ¿ÀÌ ÀÖÀ» ¶§¸¶´Ù ÇØÁà¾ß ÇÑ´Ù.
+// å‚ˆçœ‰ Grid rectç”« æ±²æ²¥èŒ„ä¿ƒ. æå·´ç¯® Inventoryç‹¼ ææ‚¼æ ä¹é˜‘ é”­ä»˜ä¿ƒ ç§¦æ‹å…· èŒ„ä¿ƒ.
 //-----------------------------------------------------------------------------
 void C_VS_UI_INVENTORY_SUB::ResetRect()
 {
@@ -19047,13 +19047,13 @@ void C_VS_UI_INVENTORY_SUB::ResetRect()
 //-----------------------------------------------------------------------------
 // C_VS_UI_INVENTORY_SUB::Click
 //
-// ÇöÀç ItemÀ» µé°í ÀÖÀ¸¸é ³õ´ø°¡ ±³Ã¼ÇÏ°í, µé°í ÀÖÁö ¾ÊÀ¸¸é Inventory¿¡ ÀÖ´Â
-// °ÍÀ» Áı´Â´Ù.
+// æ³…çŠ Itemé˜‘ ç”¸ç»Š ä¹æ æ åˆå¸¦å•Š èƒŒçœ‰çªç»Š, ç”¸ç»Š ä¹ç˜¤ è‡¼æ æ Inventoryä¿Š ä¹ç»°
+// å·´é˜‘ ç¬¼ç»°ä¿ƒ.
 //
-// ¹º°¡ Çß´Ù¸é true¸¦, ±×·¸Áö¾ÊÀ¸¸é false¸¦ ¹İÈ¯ÇÑ´Ù.
+// è´­å•Š æ²ä¿ƒæ trueç”«, å¼ŠçŠ¯ç˜¤è‡¼æ æ falseç”« é¦†åˆ¸èŒ„ä¿ƒ.
 //
-// grid_start_x, grid_start_y´Â inventory grid ½ÃÀÛÁ¡ÀÌ´Ù. ÀÌ°ÍÀ» ÂüÁ¶ÇÏ¿© item
-// (x, y)¸¦ ±¸ÇÑ´Ù.
+// grid_start_x, grid_start_yç»° inventory grid çŸ«ç´¯ç—¢æä¿ƒ. æå·´é˜‘ æ›¼ç‚¼çªå’¯ item
+// (x, y)ç”« å¤‡èŒ„ä¿ƒ.
 //-----------------------------------------------------------------------------
 bool C_VS_UI_INVENTORY_SUB::Click(int grid_start_x, int grid_start_y)
 {
@@ -19069,26 +19069,26 @@ bool C_VS_UI_INVENTORY_SUB::Click(int grid_start_x, int grid_start_y)
 	const MItem* pMouseItem = gpC_mouse_pointer->GetPickUpItem();
 	
 	 
-	if (pMouseItem) // µé°í ÀÖ´Â°¡?
+	if (pMouseItem) // ç”¸ç»Š ä¹ç»°å•Š?
 	{
-//		if(pMouseItem->GetItemClass() == ITEM_CLASS_PET_ITEM ) // ¿ä°Ç ´ã¿¡ »èÁ¦]
+//		if(pMouseItem->GetItemClass() == ITEM_CLASS_PET_ITEM ) // å¤¸æ‰’ æ·¬ä¿Š æ˜åŠ›]
 //			return false;
-		// Ãß°¡µÉ ¼ö ¾ø´Â °æ¿ì
-		// ´ÙÀ½ÀÇ ¾ÆÀÌÅÛÀº ¸ÖÆ¼ÆÑ¿¡ Ãß°¡ÇÒ ¼ö ¾ø´Ù. by bezz
+		// çœ å•Šçª è ç»ç»° ç‰ˆå¿«
+		// ä¿ƒæ¾œç‹¼ é…’æè¢ç¯® é’¢èè’²ä¿Š çœ å•Šä¸” è ç»ä¿ƒ. by bezz
 		ITEM_CLASS ItemClass = pMouseItem->GetItemClass();
 		TYPE_ITEMTYPE ItemType = pMouseItem->GetItemType();
-		if ( ( ItemClass == ITEM_CLASS_RELIC )								// ¼º¹°
-			|| ( ItemClass == ITEM_CLASS_BLOOD_BIBLE )						// ÇÇÀÇ ¼º¼­
-			|| ( ItemClass == ITEM_CLASS_CASTLE_SYMBOL )					// ¼º »óÂ¡
-			|| ( ItemClass == ITEM_CLASS_WAR_ITEM )							// ÀüÀï ¾ÆÀÌÅÛ/ µå·¡°ï ¾ÆÀÌ
-			|| ( ItemClass == ITEM_CLASS_EVENT_ITEM && ItemType == 27 )		// ±ê¹ß
+		if ( ( ItemClass == ITEM_CLASS_RELIC )								// å·±æ‹±
+			|| ( ItemClass == ITEM_CLASS_BLOOD_BIBLE )						// ä¹”ç‹¼ å·±è¾‘
+			|| ( ItemClass == ITEM_CLASS_CASTLE_SYMBOL )					// å·± æƒ‘éš†
+			|| ( ItemClass == ITEM_CLASS_WAR_ITEM )							// å‚ˆé‡Œ é…’æè¢/ é›è´°å¸® é…’æ
+			|| ( ItemClass == ITEM_CLASS_EVENT_ITEM && ItemType == 27 )		// æ ‡æƒ¯
 
 			// sjheon 2004.04.28 add
-			|| ( ItemClass == ITEM_CLASS_EVENT_ETC && ItemType == 18 )		// ÆĞ¹Ğ¸® ÄÚÀÎ
-			|| ( ItemClass == ITEM_CLASS_EVENT_ITEM && (ItemType >= 32 && ItemType <= 36) )		// Ç³¼± ¸Ó¸®¶ì 
+			|| ( ItemClass == ITEM_CLASS_EVENT_ETC && ItemType == 18 )		// è©å‰åºœ å†…ç‰¢
+			|| ( ItemClass == ITEM_CLASS_EVENT_ITEM && (ItemType >= 32 && ItemType <= 36) )		// æµ…æ€¥ èµ£åºœé¹… 
 			// sjheon 2004.04.28 add
 							
-			|| ( ItemClass == ITEM_CLASS_SWEEPER ) )						// ½ºÀ§ÆÛ
+			|| ( ItemClass == ITEM_CLASS_SWEEPER ) )						// èƒ¶å›°æ¬º
 		{
 			return false;
 		}
@@ -19098,9 +19098,9 @@ bool C_VS_UI_INVENTORY_SUB::Click(int grid_start_x, int grid_start_y)
 
 		MItem* p_old_item  = NULL;
 			
-		if (m_MultiPackItem->CanReplaceItem(gpC_mouse_pointer->GetPickUpItem(),		// Ãß°¡ÇÒ item
-			m_focus_grid_x, m_focus_grid_y,	// Ãß°¡ÇÒ À§Ä¡ 
-			p_old_item))								// ¿ø·¡ÀÖ´ø item
+		if (m_MultiPackItem->CanReplaceItem(gpC_mouse_pointer->GetPickUpItem(),		// çœ å•Šä¸” item
+			m_focus_grid_x, m_focus_grid_y,	// çœ å•Šä¸” å›°æ‘¹ 
+			p_old_item))								// ç›”è´°ä¹å¸¦ item
 		{
 			
 			gpC_base->SendMessage(UI_ITEM_DROP_TO_INVENTORY_SUB, 
@@ -19116,10 +19116,10 @@ bool C_VS_UI_INVENTORY_SUB::Click(int grid_start_x, int grid_start_y)
 	}
 	else
 	{
-		// Áı´Â´Ù.
+		// ç¬¼ç»°ä¿ƒ.
 		MItem * p_item = m_MultiPackItem->GetItem(m_focus_grid_x, m_focus_grid_y);
 		
-		if (p_item != NULL) // ItemÀÌ ÀÖ´Ù.
+		if (p_item != NULL) // Itemæ ä¹ä¿ƒ.
 		{
 			int number = p_item->GetNumber();
 			
@@ -19151,26 +19151,26 @@ bool C_VS_UI_INVENTORY_SUB::Click(int grid_start_x, int grid_start_y)
 					{
 						const MItem* p_cur_item = g_pInventory->GetItem(point.x, point.y);
 						
-						// ÃÑ¿¡ ÅºÃ¢À» ³¢¿ì´Â °Í°ú °°Àº °ÍÀÌ insert itemÀÌ´Ù.
-						// À§Ä¡°¡ ¿ÏÀüÈ÷ ÀÏÄ¡ÇÒ°æ¿ì¿¡¸¸ Ãß°¡ÇÑ´Ù.
+						// é†šä¿Š è—•èŠ’é˜‘ å°å¿«ç»° å·´è‹ éç¯® å·´æ insert itemæä¿ƒ.
+						// å›°æ‘¹å•Š è‚¯å‚ˆæ´’ è€æ‘¹ä¸”ç‰ˆå¿«ä¿Šçˆ¶ çœ å•ŠèŒ„ä¿ƒ.
 						if (p_item->IsInsertToItem( p_cur_item ) && p_cur_item->GetGridX() == point.x && p_cur_item->GetGridY() == point.y)
 						{
-							// ÀÌÀü¿¡ ÀÖ´ø item¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+							// æå‚ˆä¿Š ä¹å¸¦ itemä¿Š çœ å•Šçª è ä¹ç»° ç‰ˆå¿«
 							
-							// ´ë»ó Item°ú µé°í ÀÖ´Â(Ãß°¡ÇÒ Item)À» Client¿¡¼­ ¾Ë¾Æ¾ß ÇÑ´Ù.
-							// µé°í ÀÖ´Â ItemÀº Client¿¡¼­ accessÇÒ ¼ö ÀÖÀ¸¹Ç·Î ´ë»ó ItemÀ» º¸³½´Ù.
+							// æªæƒ‘ Itemè‹ ç”¸ç»Š ä¹ç»°(çœ å•Šä¸” Item)é˜‘ Clientä¿Šè¾‘ èˆ…é…’å…· èŒ„ä¿ƒ.
+							// ç”¸ç»Š ä¹ç»° Itemç¯® Clientä¿Šè¾‘ accessä¸” è ä¹æ éª¨è‚º æªæƒ‘ Itemé˜‘ ç„Šè¾°ä¿ƒ.
 							gpC_base->SendMessage(UI_ITEM_INSERT_FROM_INVENTORY,
 								point.x, point.y,
-								(void *)p_cur_item); // ´ë»ó Item
+								(void *)p_cur_item); // æªæƒ‘ Item
 						}
 						else
 						{	
-							// Ãß°¡µÉ ¼ö ¾ø´Â °æ¿ì
+							// çœ å•Šçª è ç»ç»° ç‰ˆå¿«
 							MItem* p_old_item  = NULL;
 							
-							if (g_pInventory->CanReplaceItem((MItem *)p_item,		// Ãß°¡ÇÒ item
-								point.x, point.y,	// Ãß°¡ÇÒ À§Ä¡ 
-								p_old_item))								// ¿ø·¡ÀÖ´ø item
+							if (g_pInventory->CanReplaceItem((MItem *)p_item,		// çœ å•Šä¸” item
+								point.x, point.y,	// çœ å•Šä¸” å›°æ‘¹ 
+								p_old_item))								// ç›”è´°ä¹å¸¦ item
 							{
 								
 								gpC_base->SendMessage(UI_ITEM_DROP_TO_INVENTORY, 

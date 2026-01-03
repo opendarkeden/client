@@ -114,7 +114,7 @@ public:
 	bool		IsLoading() const	{ return m_bLoading; }
 
 	//---------------------------------------------------------
-	// m_pDataÀÇ memory¸¦ ReleaseÇÑ´Ù.		
+	// m_pDataì˜ memoryë¥¼ Releaseí•œë‹¤.		
 	//---------------------------------------------------------
 	void		Release();
 
@@ -145,15 +145,15 @@ public:
 	
 
 protected:
-	WORD			m_Width;		// °¡·Î pixel¼ö
-	WORD			m_Height;		// ¼¼·Î pixel¼ö		
-	DWORD			m_Size;			// ½ºÇÁ¶óÀÌÆ®ÀÇ size
+	WORD			m_Width;		// ê°€ë¡œ pixelìˆ˜
+	WORD			m_Height;		// ì„¸ë¡œ pixelìˆ˜		
+	DWORD			m_Size;			// ìŠ¤í”„ë¼ì´íŠ¸ì˜ size
 
 	BYTE**			m_pPixels;		// pixels point array
 	BYTE*			m_pData;			// data
 
-	bool			m_bInit;		// data°¡ ÀÖ´Â°¡?
-	bool			m_bLoading;		// LoadingÁßÀÎ°¡?
+	bool			m_bInit;		// dataê°€ ìˆëŠ”ê°€?
+	bool			m_bLoading;		// Loadingì¤‘ì¸ê°€?
 
 	static BYTE		s_Colorkey;
 

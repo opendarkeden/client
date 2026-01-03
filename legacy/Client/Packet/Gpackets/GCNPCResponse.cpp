@@ -8,7 +8,7 @@
 #include "GCNPCResponse.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
 void GCNPCResponse::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
@@ -19,14 +19,14 @@ void GCNPCResponse::read ( SocketInputStream & iStream )
 
 	switch (m_Code)
 	{
-		// �Ķ���͸� ��� �ϴ� �ڵ�
+		// 파라미터를 써야 하는 코드
 		case NPC_RESPONSE_REPAIR_OK:
 		case NPC_RESPONSE_SILVER_COATING_OK:
 		case NPC_RESPONSE_DONATION_OK:
 		case NPC_RESPONSE_DECREASE_BALL:
 		case NPC_RESPONSE_GUILD_SHOW_REGIST:
 		case NPC_RESPONSE_SHOW_TAX_BALANCE:
-		case NPC_RESPONSE_WITHDRAW_TAX_OK:				// ��� �����Ͱ� ������ ã�� ���� �����ߴ�.
+		case NPC_RESPONSE_WITHDRAW_TAX_OK:				// 길드 마스터가 세금을 찾는 데에 성공했다.
 		case NPC_RESPONSE_COUPLE_CANNOT_MEET:
 		case NPC_RESPONSE_NOT_COUPLE:
 		case NPC_RESPONSE_QUEST:
@@ -37,7 +37,7 @@ void GCNPCResponse::read ( SocketInputStream & iStream )
 		case NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG:
 			iStream.read(m_Parameter);
 			break;
-		// �Ķ���͸� ���� �ʾƵ� �Ǵ� �ڵ�
+		// 파라미터를 쓰지 않아도 되는 코드
 		default:
 			break;
 	}
@@ -46,7 +46,7 @@ void GCNPCResponse::read ( SocketInputStream & iStream )
 }
 		    
 //////////////////////////////////////////////////////////////////////////////
-// ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
 void GCNPCResponse::write ( SocketOutputStream & oStream ) const 
      throw ( ProtocolException , Error )
@@ -57,14 +57,14 @@ void GCNPCResponse::write ( SocketOutputStream & oStream ) const
 
 	switch (m_Code)
 	{
-		// �Ķ���͸� ��� �ϴ� �ڵ�
+		// 파라미터를 써야 하는 코드
 		case NPC_RESPONSE_REPAIR_OK:
 		case NPC_RESPONSE_SILVER_COATING_OK:
 		case NPC_RESPONSE_DONATION_OK:
 		case NPC_RESPONSE_DECREASE_BALL:
 		case NPC_RESPONSE_GUILD_SHOW_REGIST:
 		case NPC_RESPONSE_SHOW_TAX_BALANCE:
-		case NPC_RESPONSE_WITHDRAW_TAX_OK:				// ��� �����Ͱ� ������ ã�� ���� �����ߴ�.
+		case NPC_RESPONSE_WITHDRAW_TAX_OK:				// 길드 마스터가 세금을 찾는 데에 성공했다.
 		case NPC_RESPONSE_COUPLE_CANNOT_MEET:
 		case NPC_RESPONSE_NOT_COUPLE:
 		case NPC_RESPONSE_QUEST:
@@ -75,7 +75,7 @@ void GCNPCResponse::write ( SocketOutputStream & oStream ) const
 		case NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG:
 			oStream.write(m_Parameter);
 			break;
-		// �Ķ���͸� ���� �ʾƵ� �Ǵ� �ڵ�
+		// 파라미터를 쓰지 않아도 되는 코드
 		default:
 			break;
 	}
@@ -97,7 +97,7 @@ void GCNPCResponse::execute ( Player * pPlayer )
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ��Ŷ ������
+// 패킷 사이즈
 //////////////////////////////////////////////////////////////////////////////
 
 PacketSize_t GCNPCResponse::getPacketSize () const 
@@ -109,14 +109,14 @@ PacketSize_t GCNPCResponse::getPacketSize () const
 
 	switch (m_Code)
 	{
-		// �Ķ���͸� ��� �ϴ� �ڵ�
+		// 파라미터를 써야 하는 코드
 		case NPC_RESPONSE_REPAIR_OK:
 		case NPC_RESPONSE_SILVER_COATING_OK:
 		case NPC_RESPONSE_DONATION_OK:
 		case NPC_RESPONSE_DECREASE_BALL:
 		case NPC_RESPONSE_GUILD_SHOW_REGIST:
 		case NPC_RESPONSE_SHOW_TAX_BALANCE:
-		case NPC_RESPONSE_WITHDRAW_TAX_OK:				// ��� �����Ͱ� ������ ã�� ���� �����ߴ�.
+		case NPC_RESPONSE_WITHDRAW_TAX_OK:				// 길드 마스터가 세금을 찾는 데에 성공했다.
 		case NPC_RESPONSE_COUPLE_CANNOT_MEET:
 		case NPC_RESPONSE_NOT_COUPLE:
 		case NPC_RESPONSE_QUEST:
@@ -127,7 +127,7 @@ PacketSize_t GCNPCResponse::getPacketSize () const
 		case NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG:
 			size += szuint;
 			break;
-		// �Ķ���͸� ���� �ʾƵ� �Ǵ� �ڵ�
+		// 파라미터를 쓰지 않아도 되는 코드
 		default:
 			break;
 	}

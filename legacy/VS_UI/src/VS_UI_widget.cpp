@@ -26,7 +26,7 @@ void C_VS_UI_BUTTON::SetPosition(int x, int y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_BUTTON
 //
-// set_end´Â ani buttonÀ» focus rectÀÇ ³¡ Á¤·Ä¿©ºÎ¸¦ °áÁ¤ÇÑ´Ù.
+// set_endëŠ” ani buttonì„ focus rectì˜ ë ì •ë ¬ì—¬ë¶€ë¥¼ ê²°ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 C_VS_UI_BUTTON::C_VS_UI_BUTTON(int _x, int _y, int _w, int _h, id_t id, Exec * pC_exec_handler, bool set_end, bool image_show) : 
 						EventButton(_x, _y, _w, _h, id, pC_exec_handler)
@@ -78,7 +78,7 @@ void C_VS_UI_BUTTON::Refresh()
 //-----------------------------------------------------------------------------
 // Show
 //
-// ButtonÀ» º¸ÀÎ´Ù.
+// Buttonì„ ë³´ì¸ë‹¤.
 //-----------------------------------------------------------------------------
 void C_VS_UI_BUTTON::Show()
 {

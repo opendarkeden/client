@@ -24,9 +24,9 @@
 
 //////////////////////////////////////////////////
 //
-// Windows¿¡¼­´Â SOCKET°ú INVALID_SOCKET¿¡ unsigned int¸¦
-// »ç¿ëÇÑ´Ù. ¸¸¾à Windows¶ó¸é WinSock.h¸¦ includeÇßÀ¸¹Ç·Î
-// SOCKET°ú INVALID_SOCKETÀÌ Á¤ÀÇµÇ¾î ÀÖ°Ô µÈ´Ù.
+// Windowsì—ì„œëŠ” SOCKETê³¼ INVALID_SOCKETì— unsigned intë¥¼
+// ì‚¬ìš©í•œë‹¤. ë§Œì•½ Windowsë¼ë©´ WinSock.hë¥¼ includeí–ˆìœ¼ë¯€ë¡œ
+// SOCKETê³¼ INVALID_SOCKETì´ ì •ì˜ë˜ì–´ ìžˆê²Œ ëœë‹¤.
 //
 //////////////////////////////////////////////////
 #if __LINUX__

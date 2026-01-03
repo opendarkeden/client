@@ -20,7 +20,7 @@
 
 //--------------------------------------------------------------------------------
 //
-// PC ¸¦ ¼º°øÀûÀ¸·Î »èÁ¦Çß´Ù´Â ¶æÀÌ´Ù.
+// PC ë¥¼ ì„±ê³µì ìœ¼ë¡œ ì‚­ì œí–ˆë‹¤ëŠ” ëœ»ì´ë‹¤.
 //
 //--------------------------------------------------------------------------------
 void LCDeletePCOKHandler::execute ( LCDeletePCOK * pPacket , Player * pPlayer )
@@ -40,7 +40,7 @@ void LCDeletePCOKHandler::execute ( LCDeletePCOK * pPacket , Player * pPlayer )
 		cout << "+--------------------------+" << endl;
 		cout << "                            " << endl;
 
-		// ´Ù½Ã PC LIST ¸¦ ¹Ş¾Æ¿Í¾ß ÇÑ´Ù.
+		// ë‹¤ì‹œ PC LIST ë¥¼ ë°›ì•„ì™€ì•¼ í•œë‹¤.
 		CLGetPCList clGetPCList;
 		pClientPlayer->sendPacket( &clGetPCList );	
 
@@ -50,16 +50,16 @@ void LCDeletePCOKHandler::execute ( LCDeletePCOK * pPacket , Player * pPlayer )
 
 		ClientPlayer * pClientPlayer = dynamic_cast<ClientPlayer*>(pPlayer);
 
-		// delete¼º°ø
+		// deleteì„±ê³µ
 		UI_DeleteCharacterOK();
 
-		// ´Ù½Ã PC LIST¸¦ ¹Ş¾Æ¾ß ÇÑ´Ù.
+		// ë‹¤ì‹œ PC LISTë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
 		CLGetPCList clGetPCList;
 		pClientPlayer->sendPacket( &clGetPCList );	
 
 		pClientPlayer->setPlayerStatus( CPS_AFTER_SENDING_CL_GET_PC_LIST );
 
-		// PC List¸¦ ±â´Ù¸®´Â mode
+		// PC Listë¥¼ ê¸°ë‹¤ë¦¬ëŠ” mode
 		g_ModeNext = MODE_WAIT_PCLIST;
 
 	#endif

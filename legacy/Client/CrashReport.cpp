@@ -5,9 +5,9 @@
 	file path:	D:\study\smodulelib
 	file base:	CrashReport
 	file ext:	cpp
-	author:		¾¦°«
+	author:		ì‘¥ê°“
 	
-	purpose:	Ä¡¸íÀûÀÎ ¿À·ù°¡ ¹ß»ıÇßÀ»¶§ ·Î±×¸¦ ³²±ä´Ù.
+	purpose:	ì¹˜ëª…ì ì¸ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆì„ë•Œ ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
 *********************************************************************/
 #include "Client_PCH.h"
 #include <windows.h>
@@ -362,7 +362,7 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 //		strcpy(szWinVer, "");
 //		GetWinVersion(szWinVer);
 //
-//		// *CrashLog 2003-12-01 10:50:00 98 0xffffffff 0xffffffff¿¡¼­ ¸Ş¸ğ¸® Ä§¹ü ¿¡·¯
+//		// *CrashLog 2003-12-01 10:50:00 98 0xffffffff 0xffffffffì—ì„œ ë©”ëª¨ë¦¬ ì¹¨ë²” ì—ëŸ¬
 //		wsprintf(szTemp, "%04d-%02d-%02d %02d:%02d:%02d %d 0x%08x %s (0x%08x), %s", 
 //			st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond,
 //			version,

@@ -97,7 +97,7 @@ private:
 	EffectInfo*   m_pEffectInfo;  // effects info on monster
 	HP_t          m_CurrentHP;    // current hp
 	HP_t          m_MaxHP;        // max hp
-	BYTE           m_FromFlag;    // ¾îµğ·ÎºÎÅÍÀÎ°¡? Á¤»óÀÏ °æ¿ì¿¡´Â 0, Æ÷Å»À» ÅëÇßÀ» °æ¿ì¿¡´Â 1
+	BYTE           m_FromFlag;    // ì–´ë””ë¡œë¶€í„°ì¸ê°€? ì •ìƒì¼ ê²½ìš°ì—ëŠ” 0, í¬íƒˆì„ í†µí–ˆì„ ê²½ìš°ì—ëŠ” 1
 };
 
 
@@ -120,7 +120,7 @@ public :
 
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static GCAddMonsterPacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCAddMonsterPacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketMaxSize() const throw() 
 	{ 
 		return szObjectID +            // object id

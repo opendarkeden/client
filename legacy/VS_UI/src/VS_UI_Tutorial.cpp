@@ -54,10 +54,10 @@ C_VS_UI_BOOKCASE::C_VS_UI_BOOKCASE()
 				
 //	FindClose( h);
 
-// BOOKLISTÆÄÀÏ LOAD
+// BOOKLISTíŒŒì¼ LOAD
 /*	assert(TXT_TUTORIAL_BOOKLIST);
 
-	FILE *fp=fopen(TXT_TUTORIAL_BOOKLIST,"rt"); // ÆÄÀÏ ¿­±â 
+	FILE *fp=fopen(TXT_TUTORIAL_BOOKLIST,"rt"); // íŒŒì¼ ì—´ê¸° 
 
 	if(!fp)_Error(FAILED_JOB);
 
@@ -229,9 +229,9 @@ void C_VS_UI_BOOKCASE::Show()
 				memcpy( tempstr, (*g_pGameStringTable)[UI_STRING_MESSAGE_BOOK_NAME_0+num].GetString(), size-1 );
 				tempstr[size-1] = 0;
 				
-				rect.right = g_GetStringWidth(tempstr, gpC_base->m_chatting_pi.hfont); //ÀÌÇÔ¼ö È£ÃâÇÒ¶§ ¿ÜºÎ¿¡¼­ ¶ô°É¸é ¾ÈµÊ
+				rect.right = g_GetStringWidth(tempstr, gpC_base->m_chatting_pi.hfont); //ì´í•¨ìˆ˜ í˜¸ì¶œí• ë•Œ ì™¸ë¶€ì—ì„œ ë½ê±¸ë©´ ì•ˆë¨
 
-				// °ËÀº»ö ¹Ú½º Ãâ·Â..
+				// ê²€ì€ìƒ‰ ë°•ìŠ¤ ì¶œë ¥..
 	//			if (gpC_base->m_p_DDSurface_back->Lock())
 				{		
 
@@ -642,11 +642,11 @@ void C_VS_UI_BOOK::KeyboardControl(UINT message, UINT key, long extra)
 	{
 		switch (key)
 		{
-			case VK_RETURN: // ok·Î °£ÁÖ. !cancelÀº ¹İµå½Ã ok¿Í ÇÔ²² ÀÖ´Ù.
+			case VK_RETURN: // okë¡œ ê°„ì£¼. !cancelì€ ë°˜ë“œì‹œ okì™€ í•¨ê»˜ ìˆë‹¤.
 				Run(BOOK_NEXT_ID);
 				break;
 
-			case VK_ESCAPE: // ¾Æ¹«°Íµµ ¾ÈÇÔ.
+			case VK_ESCAPE: // ì•„ë¬´ê²ƒë„ ì•ˆí•¨.
 				Run(BOOK_CLOSE_ID);
 				break;
 		}
@@ -689,7 +689,7 @@ void	C_VS_UI_BOOK::Run(id_t id)
 /*
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_BOOK_Load
-// txt·Î µÈ bookÆÄÀÏÀ» ºÒ·¯¿Â´Ù.
+// txtë¡œ ëœ bookíŒŒì¼ì„ ë¶ˆëŸ¬ì˜¨ë‹¤.
 ////////////////////////////////////////////////////////////////////////
 bool	C_VS_UI_BOOK::Load(const char *szFilename, int row, int col)
 {
@@ -699,7 +699,7 @@ bool	C_VS_UI_BOOK::Load(const char *szFilename, int row, int col)
 	std::string spkname = TXT_TUTORIAL_BOOKROOT;
 	filename += szFilename;
 
-	FILE *fp=fopen(filename.c_str(),"rt"); // ÆÄÀÏ ¿­±â 
+	FILE *fp=fopen(filename.c_str(),"rt"); // íŒŒì¼ ì—´ê¸° 
 
 	if(!fp)_Error(FAILED_JOB);
 	assert(fp);
@@ -718,7 +718,7 @@ bool	C_VS_UI_BOOK::Load(const char *szFilename, int row, int col)
 		int ret=strlen(szLine)-1;
 		if(szLine[ret] == '\n')szLine[ret]='\0';
 
-		if(szLine[0] == '&')// ±×¸²»ğÀÔ ±×¸² ÆÄÀÏ¸í
+		if(szLine[0] == '&')// ê·¸ë¦¼ì‚½ì… ê·¸ë¦¼ íŒŒì¼ëª…
 		{
 			spkname += &szLine[1];
 			m_pC_inpicture = new C_SPRITE_PACK(spkname.c_str());
@@ -726,7 +726,7 @@ bool	C_VS_UI_BOOK::Load(const char *szFilename, int row, int col)
 			continue;
 		}
 
-		if(szLine[0] == '^')//±×¸²»ğÀÔ ±×¸² ÅÂ±×
+		if(szLine[0] == '^')//ê·¸ë¦¼ì‚½ì… ê·¸ë¦¼ íƒœê·¸
 		{
 			int num = szLine[1] - '0';
 			w = (m_pC_inpicture->GetWidth(num) + fontx -1)/fontx;
@@ -832,7 +832,7 @@ C_VS_UI_BRIEFING::C_VS_UI_BRIEFING()
 	m_char_y = 20;
 	m_char_y_distance = 20;
 
-//	BRIEFINGÆÄÀÏ LOAD
+//	BRIEFINGíŒŒì¼ LOAD
 	m_briefing_file.SetRAR(RPK_TUTORIAL_ETC, RPK_PASSWORD);
 
 	assert(TXT_TUTORIAL_BRIEFING);
@@ -941,7 +941,7 @@ void	C_VS_UI_BRIEFING::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 	assert(p_button);
 
 	static char	m_help_string[1][30] = {
-		"BriefingÃ¢À» ´İ½À´Ï´Ù",
+		"Briefingì°½ì„ ë‹«ìŠµë‹ˆë‹¤",
 	};
 
 	if (p_button->GetFocusState())
@@ -1040,7 +1040,7 @@ bool	C_VS_UI_BRIEFING::Timer()
 
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_BRIEFING::Load
-// txt·Î µÈ ºê¸®ÇÎ³»¿ëÀ» ºÒ·¯¿Â´Ù.
+// txtë¡œ ëœ ë¸Œë¦¬í•‘ë‚´ìš©ì„ ë¶ˆëŸ¬ì˜¨ë‹¤.
 ////////////////////////////////////////////////////////////////////////
 bool	C_VS_UI_BRIEFING::Load(const char *szFilename)
 {
@@ -1048,7 +1048,7 @@ bool	C_VS_UI_BRIEFING::Load(const char *szFilename)
 	assert(szFilename);
 
 	m_briefing_file.Open(szFilename);
-//	FILE *fp=fopen(szFilename,"rt"); // ÆÄÀÏ ¿­±â 
+//	FILE *fp=fopen(szFilename,"rt"); // íŒŒì¼ ì—´ê¸° 
 
 //	if(!fp)_Error(FAILED_JOB);
 //	assert(fp);
@@ -1410,7 +1410,7 @@ void	C_VS_UI_COMPUTER::Run(id_t id)
 
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_COMPUTER_LOAD_TREE
-// tre(text)·Î µÈ Æ®¸®ÆÄÀÏÀ» ºÒ·¯¿Â´Ù.
+// tre(text)ë¡œ ëœ íŠ¸ë¦¬íŒŒì¼ì„ ë¶ˆëŸ¬ì˜¨ë‹¤.
 ////////////////////////////////////////////////////////////////////////
 //char szLine[dSTRING_LEN+1]; 
 	
@@ -1420,7 +1420,7 @@ bool	C_VS_UI_COMPUTER::LoadTree(const char* szFilename)
 
 	std::string spkname = _ROOT"spk\\";
 
-//	FILE *fp=fopen(szFilename,"rt"); // ÆÄÀÏ ¿­±â 
+//	FILE *fp=fopen(szFilename,"rt"); // íŒŒì¼ ì—´ê¸° 
 
 //	if(!fp)_Error(FAILED_JOB);
 //	assert(fp);
@@ -1544,7 +1544,7 @@ bool	C_VS_UI_COMPUTER::LoadTree(const char* szFilename)
 //
 //		for(int i=0; i < dSTRING_LEN && i < ret+1 && (szLine[i] == ' ' || szLine[i] == '\t'); i++);
 //		
-//		if(szLine[0] == '&')// ±×¸²»ğÀÔ ±×¸² ÆÄÀÏ¸í
+//		if(szLine[0] == '&')// ê·¸ë¦¼ì‚½ì… ê·¸ë¦¼ íŒŒì¼ëª…
 //		{
 //			spkname += &szLine[1];
 //
@@ -1604,7 +1604,7 @@ bool	C_VS_UI_COMPUTER::LoadTree(const char* szFilename)
 
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_COMPUTER_PrintTree
-// Æ®¸®¸¦ È­¸é¿¡ Ãâ·ÂÇÑ´Ù.
+// íŠ¸ë¦¬ë¥¼ í™”ë©´ì— ì¶œë ¥í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////
 int	C_VS_UI_COMPUTER::PrintTree(int _x, int _y, int y_distance, int depth, int &limit, bool close, std::vector<C_TREE_BASE> &tree)
 {
@@ -1680,7 +1680,7 @@ int	C_VS_UI_COMPUTER::PrintTree(int _x, int _y, int y_distance, int depth, int &
 
 ////////////////////////////////////////////////////////////////////////
 // C_VS_UI_COMPUTER_OpenTree
-// Æ®¸®¸¦ index ¹øÈ£¿¡ µû¶ó ¿¬´Ù.
+// íŠ¸ë¦¬ë¥¼ index ë²ˆí˜¸ì— ë”°ë¼ ì—°ë‹¤.
 ////////////////////////////////////////////////////////////////////////
 bool C_VS_UI_COMPUTER::OpenTree(int &index, std::vector<C_TREE_BASE> &tree)
 {
@@ -1698,14 +1698,14 @@ bool C_VS_UI_COMPUTER::OpenTree(int &index, std::vector<C_TREE_BASE> &tree)
 		if(itemClass != old_itemClass)itemType = 0;
 		old_itemClass = itemClass;
 
-		if(index == 0)	// Ã£¾Ò´Ù
+		if(index == 0)	// ì°¾ì•˜ë‹¤
 		{
-			if(tree[i].open > 0)	// Æ®¸®°¡ ¿­·ÁÀÖ´Â°æ¿ì
+			if(tree[i].open > 0)	// íŠ¸ë¦¬ê°€ ì—´ë ¤ìˆëŠ”ê²½ìš°
 			{
 				tree[i].open = -tree[i].open;
 				OpenTree(index, tree[i].Tree);
 			}
-			else // Æ®¸®°¡ ´İÇôÀÖ´Â°æ¿ì
+			else // íŠ¸ë¦¬ê°€ ë‹«í˜€ìˆëŠ”ê²½ìš°
 			{
 				tree[i].open = 1;
 				OpenTree(index, tree[i].Tree);
@@ -1905,8 +1905,8 @@ void	C_VS_UI_TUTORIAL_EXIT::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 	assert(p_button);
 
 	static char	m_help_string[2][30] = {
-		"¹«±â¸¦ °áÁ¤ÇÕ´Ï´Ù",
-		"¹«±â¼±ÅÃÀ» Ãë¼ÒÇÕ´Ï´Ù",
+		"ë¬´ê¸°ë¥¼ ê²°ì •í•©ë‹ˆë‹¤",
+		"ë¬´ê¸°ì„ íƒì„ ì·¨ì†Œí•©ë‹ˆë‹¤",
 	};
 
 	if ((p_button->GetID() == OK_ID || p_button->GetID() == CANCEL_ID) && p_button->GetFocusState())
@@ -1973,9 +1973,9 @@ void	C_VS_UI_TUTORIAL_EXIT::Run(id_t id)
 	case OK_ID:
 		{
 			if(m_select == -1)return;
-			static char select_name[8][20] = {"µµ", "°Ë", "¸ŞÀÌ½º", "½ÊÀÚ°¡", "AR", "TR", "SMG", "SG"};
+			static char select_name[8][20] = {"ë„", "ê²€", "ë©”ì´ìŠ¤", "ì‹­ìê°€", "AR", "TR", "SMG", "SG"};
 			
-			// message ÇÊ¿ä¾øÀ½ by sigi
+			// message í•„ìš”ì—†ìŒ by sigi
 			//gpC_base->SendMessage(UI_CONFIRM_TUTORIAL_EXIT, m_select-2, 0, select_name[m_select-2]);
 			gC_vs_ui.RunTutorialExitAsk(m_select-2, select_name[m_select-2]);
 		}
@@ -2008,7 +2008,7 @@ void	C_VS_UI_TUTORIAL_EXIT::Accept()
 	//gpC_base->SendMessage(UI_TUTORIAL_EXIT_SELECT, m_select-2);
 	//gpC_base->SendMessage(UI_CLOSE_TUTORIAL_EXIT);
 
-	// message ÇÏ³ª¸¸..  by sigi
+	// message í•˜ë‚˜ë§Œ..  by sigi
 	gpC_base->SendMessage(UI_CLOSE_TUTORIAL_EXIT, m_select-2);
 }
 

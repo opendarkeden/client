@@ -30,7 +30,7 @@ MHelpMessage::~MHelpMessage()
 MHelpMessageManager::MHelpMessageManager()
 {
 	m_KeyCnt = -1;
-	m_SenderCnt = -1; // °¹¼ö
+	m_SenderCnt = -1; // ê°¯ìˆ˜
 	LoadHelpMessageRpk("helpmessage.txt");
 }
 
@@ -62,7 +62,7 @@ void MHelpMessageManager::SaveToFile(const char * filename)
 		file.close();
 	}
 }
-// HelpMessageRpk ÆÄÀÏ ·Îµå 
+// HelpMessageRpk íŒŒì¼ ë¡œë“œ 
 bool MHelpMessageManager::LoadHelpMessageRpk(const char *helprpkfilename)
 {
 	m_pack_file.SetRAR(RPK_HELP, RPK_PASSWORD);
@@ -83,13 +83,13 @@ bool MHelpMessageManager::LoadHelpMessageRpk(const char *helprpkfilename)
 	Sendercnt = atoi(sztemp);
 	m_pack_file.GetString(sztemp, dSTRING_LEN);
 
-	for(i = 0; i<Sendercnt; i++)		// º¸³»´Â »ç¶÷ ¼ıÀÚ¸¦ ¼¾´Ù
+	for(i = 0; i<Sendercnt; i++)		// ë³´ë‚´ëŠ” ì‚¬ëŒ ìˆ«ìë¥¼ ì„¼ë‹¤
 	{
 		m_pack_file.GetString(sztemp, dSTRING_LEN);
 		temp = sztemp;		
 		int nCharToDel2 = 0;
 		int len2 = temp.length();
-		for (std::string::reverse_iterator itor = temp.rbegin(); itor != temp.rend(); itor++) // º¸³»´Â »ç¶÷µÚ¿¡ °ø¹éÀÌ³ª °³ÇàÃ³¸®
+		for (std::string::reverse_iterator itor = temp.rbegin(); itor != temp.rend(); itor++) // ë³´ë‚´ëŠ” ì‚¬ëŒë’¤ì— ê³µë°±ì´ë‚˜ ê°œí–‰ì²˜ë¦¬
 		{
 			char c = *itor;
 			if (c=='\r')
@@ -116,7 +116,7 @@ bool MHelpMessageManager::LoadHelpMessageRpk(const char *helprpkfilename)
 		}
 		else
 		{
-			for (std::string::iterator itr = temp.begin(); itr != temp.end(); itr++) // ¾Õ¿¡ °ø¹éÀÌ³ª ÅÇÀÌÀÖÀ»°æ¿ì
+			for (std::string::iterator itr = temp.begin(); itr != temp.end(); itr++) // ì•ì— ê³µë°±ì´ë‚˜ íƒ­ì´ìˆì„ê²½ìš°
 			{
 				c = *itr;
 				if (c == ' ' || c == '\t')
@@ -124,7 +124,7 @@ bool MHelpMessageManager::LoadHelpMessageRpk(const char *helprpkfilename)
 				else break;
 			}
 			
-			temp.erase(0, nCharToDel);			//°ø¹éÀÌ³ª ÅÇ¸¸Å­ »èÁ¦ÇØÁØ´Ù
+			temp.erase(0, nCharToDel);			//ê³µë°±ì´ë‚˜ íƒ­ë§Œí¼ ì‚­ì œí•´ì¤€ë‹¤
 		}
 
 		nCharToDel = 0;
@@ -136,48 +136,48 @@ bool MHelpMessageManager::LoadHelpMessageRpk(const char *helprpkfilename)
 				nCharToDel++;
 			else break;
 		} 
-		// µÚÂÊ °³ÇàÃ³¸®°ø¹éÃ³¸®
+		// ë’¤ìª½ ê°œí–‰ì²˜ë¦¬ê³µë°±ì²˜ë¦¬
 		if(isTitle)
 			temp.erase(len - nCharToDel, len);
 		else
 			temp.replace( temp.begin()+len-nCharToDel, temp.begin() + len, "\r\n");
 		
-		if(iskeyword)		// Å°¿öµå¸¦ ÀĞ¾úÀ»‹š
+		if(iskeyword)		// í‚¤ì›Œë“œë¥¼ ì½ì—ˆì„ë–„
 		{	
 			temp.erase(temp.length()-2 ,2);
 			message.m_strKeyword  = temp.c_str();
 			iskeyword = NULL;
 			temp  = "";
 		}
-		if(isMessagetype) // ¸Ş¼¼Áö Å¸ÀÔ
+		if(isMessagetype) // ë©”ì„¸ì§€ íƒ€ì…
 		{
 			message.m_messageType = atoi(sztemp);
 			isMessagetype = NULL;
 		}
-		if(isEvent)  // ÀÌº¥Æ® 
+		if(isEvent)  // ì´ë²¤íŠ¸ 
 		{
 			temp.erase(temp.length()-2 ,2);
 			message.m_strEvent  = temp.c_str();
 			isEvent = NULL;
 			temp = "";
 		}
-		if(isTitle) // Å¸ÀÌÆ²ÀÏ °æ¿ì
+		if(isTitle) // íƒ€ì´í‹€ì¼ ê²½ìš°
 		{
 			message.m_strTitle[current_race]  = temp.c_str();
 			isTitle = NULL; 
 			temp = "";
 		}
-		if(isSender) // º¸³»´Â »ç¶÷ÀÏ °æ¿ì
+		if(isSender) // ë³´ë‚´ëŠ” ì‚¬ëŒì¼ ê²½ìš°
 		{
 			message.m_iSender[current_race]  = atoi(sztemp);	
 			isSender = NULL;
 		}	
-		if(isLevel) // ·¹º§
+		if(isLevel) // ë ˆë²¨
 		{
 			char levline[dSTRING_LEN];
 			memset(levline,0,dSTRING_LEN);
 			memcpy(levline, temp.c_str(), temp.length());
-			token = strtok(levline, seps);							// ·¹º§
+			token = strtok(levline, seps);							// ë ˆë²¨
 			int cnt = 0;
 			while(token!=NULL)
 			{
@@ -197,7 +197,7 @@ bool MHelpMessageManager::LoadHelpMessageRpk(const char *helprpkfilename)
 		if(isDetail)
 		{
 			detail_flag = true;
-			if(isDetailEnd) // ³»¿ëÀÇ ¸¶Áö¸·ÀÏ°æ¿ì Ã³¸®
+			if(isDetailEnd) // ë‚´ìš©ì˜ ë§ˆì§€ë§‰ì¼ê²½ìš° ì²˜ë¦¬
 			{
 				if(temp2.length() > 0)
 					temp2.erase(temp2.length()-2 ,2);
@@ -208,7 +208,7 @@ bool MHelpMessageManager::LoadHelpMessageRpk(const char *helprpkfilename)
 				isDetailEnd = NULL;
 				detail_flag = false;
 			}
-			else // ³»¿ëÀÌ ÅÂ±×°¡ µé¾î¿À¸é End °¡ µé¾î¿Ã‹š±îÁö °è¼Ó detail ¿¡ ÀúÀåÇÑ´Ù
+			else // ë‚´ìš©ì´ íƒœê·¸ê°€ ë“¤ì–´ì˜¤ë©´ End ê°€ ë“¤ì–´ì˜¬ë–„ê¹Œì§€ ê³„ì† detail ì— ì €ì¥í•œë‹¤
 			{
 				temp2 += temp.c_str();
 			}
@@ -219,7 +219,7 @@ bool MHelpMessageManager::LoadHelpMessageRpk(const char *helprpkfilename)
 		isEvent   = strstr(temp.c_str(),"[===Event===]");
 		isTitle  = strstr(temp.c_str(),"[==Title==]");
 		isSender = strstr(temp.c_str(),"[==Sender==]");
-		isLevel  = strstr(temp.c_str(),"[==Level Á¶°ÇÇ¥==]");
+		isLevel  = strstr(temp.c_str(),"[==Level ì¡°ê±´í‘œ==]");
 		if(detail_flag == false) 
 		{
 			isDetail = strstr(temp.c_str(),"[==Detail==]");
@@ -253,14 +253,14 @@ void MHelpMessageManager::LoadFromFile(class ifstream &file)
 
 	file.getline(sztemp, dSTRING_LEN);			
 	m_SenderCnt = atoi(sztemp);
-	file.getline(sztemp, dSTRING_LEN);			// ÇÑÁÙ °Ç³Ê¼­ ÀĞ±â// 
-	for(i = 0; i<m_SenderCnt; i++)		// º¸³»´Â »ç¶÷ ¼ıÀÚ¸¦ ¼¾´Ù
+	file.getline(sztemp, dSTRING_LEN);			// í•œì¤„ ê±´ë„ˆì„œ ì½ê¸°// 
+	for(i = 0; i<m_SenderCnt; i++)		// ë³´ë‚´ëŠ” ì‚¬ëŒ ìˆ«ìë¥¼ ì„¼ë‹¤
 	{
 		file.getline(sztemp,dSTRING_LEN);		
 		temp = sztemp;		
 		int nCharToDel2 = 0;
 		int len2 = temp.length();
-		for (std::string::reverse_iterator itor = temp.rbegin(); itor != temp.rend(); itor++) // º¸³»´Â »ç¶÷µÚ¿¡ °ø¹éÀÌ³ª °³ÇàÃ³¸®
+		for (std::string::reverse_iterator itor = temp.rbegin(); itor != temp.rend(); itor++) // ë³´ë‚´ëŠ” ì‚¬ëŒë’¤ì— ê³µë°±ì´ë‚˜ ê°œí–‰ì²˜ë¦¬
 		{
 			char c = *itor;
 			if (c=='\r')
@@ -281,14 +281,14 @@ void MHelpMessageManager::LoadFromFile(class ifstream &file)
 		temp = sztemp;
 		char c;
 		int nCharToDel = 0;
-	/*	for (std::string::iterator itr = temp.begin(); itr != temp.end(); itr++) // ¾Õ¿¡ °ø¹éÀÌ³ª ÅÇÀÌÀÖÀ»°æ¿ì
+	/*	for (std::string::iterator itr = temp.begin(); itr != temp.end(); itr++) // ì•ì— ê³µë°±ì´ë‚˜ íƒ­ì´ìˆì„ê²½ìš°
 		{
 			c = *itr;
 			if (c == ' ' || c == '\t')
 				nCharToDel++;
 			else break;
 		}
-		temp.erase(0, nCharToDel);			//°ø¹éÀÌ³ª ÅÇ¸¸Å­ »èÁ¦ÇØÁØ´Ù*/
+		temp.erase(0, nCharToDel);			//ê³µë°±ì´ë‚˜ íƒ­ë§Œí¼ ì‚­ì œí•´ì¤€ë‹¤*/
 
 		if(isDetail)
 		{
@@ -296,7 +296,7 @@ void MHelpMessageManager::LoadFromFile(class ifstream &file)
 		}
 		else
 		{
-			for (std::string::iterator itr = temp.begin(); itr != temp.end(); itr++) // ¾Õ¿¡ °ø¹éÀÌ³ª ÅÇÀÌÀÖÀ»°æ¿ì
+			for (std::string::iterator itr = temp.begin(); itr != temp.end(); itr++) // ì•ì— ê³µë°±ì´ë‚˜ íƒ­ì´ìˆì„ê²½ìš°
 			{
 				c = *itr;
 				if (c == ' ' || c == '\t')
@@ -304,7 +304,7 @@ void MHelpMessageManager::LoadFromFile(class ifstream &file)
 				else break;
 			}
 			
-			temp.erase(0, nCharToDel);			//°ø¹éÀÌ³ª ÅÇ¸¸Å­ »èÁ¦ÇØÁØ´Ù
+			temp.erase(0, nCharToDel);			//ê³µë°±ì´ë‚˜ íƒ­ë§Œí¼ ì‚­ì œí•´ì¤€ë‹¤
 		}
 
 		nCharToDel = 0;
@@ -317,48 +317,48 @@ void MHelpMessageManager::LoadFromFile(class ifstream &file)
 				nCharToDel++;
 			else break;
 		} 
-		// µÚÂÊ °³ÇàÃ³¸®°ø¹éÃ³¸®
+		// ë’¤ìª½ ê°œí–‰ì²˜ë¦¬ê³µë°±ì²˜ë¦¬
 		if(isTitle)
 			temp.erase(len - nCharToDel, len);
 		else
 			temp.replace( temp.begin()+len-nCharToDel, temp.begin() + len, "\r\n");
 		
-		if(iskeyword)		// Å°¿öµå¸¦ ÀĞ¾úÀ»‹š
+		if(iskeyword)		// í‚¤ì›Œë“œë¥¼ ì½ì—ˆì„ë–„
 		{	
 			temp.erase(temp.length()-2 ,2);
 			message.m_strKeyword  = temp.c_str();
 			iskeyword = NULL;
 			temp  = "";
 		}
-		if(isMessagetype) // ¸Ş¼¼Áö Å¸ÀÔ
+		if(isMessagetype) // ë©”ì„¸ì§€ íƒ€ì…
 		{
 			message.m_messageType = atoi(sztemp);
 			isMessagetype = NULL;
 		}
-		if(isEvent)  // ÀÌº¥Æ® 
+		if(isEvent)  // ì´ë²¤íŠ¸ 
 		{
 			temp.erase(temp.length()-2 ,2);
 			message.m_strEvent  = temp.c_str();
 			isEvent = NULL;
 			temp = "";
 		}
-		if(isTitle) // Å¸ÀÌÆ²ÀÏ °æ¿ì	
+		if(isTitle) // íƒ€ì´í‹€ì¼ ê²½ìš°	
 		{
 			message.m_strTitle[current_race]  = temp.c_str();
 			isTitle = NULL; 
 			temp = "";
 		}
-		if(isSender) // º¸³»´Â »ç¶÷ÀÏ °æ¿ì
+		if(isSender) // ë³´ë‚´ëŠ” ì‚¬ëŒì¼ ê²½ìš°
 		{
 			message.m_iSender[current_race]  = atoi(sztemp);	
 			isSender = NULL;
 		}	
-		if(isLevel) // ·¹º§
+		if(isLevel) // ë ˆë²¨
 		{
 			char levline[100];
 			memset(levline,0,100);
 			memcpy(levline, temp.c_str(), 100);
-			token = strtok(levline, seps);							// ·¹º§
+			token = strtok(levline, seps);							// ë ˆë²¨
 			int cnt = 0;
 			while(token!=NULL)
 			{
@@ -378,7 +378,7 @@ void MHelpMessageManager::LoadFromFile(class ifstream &file)
 		if(isDetail)
 		{
 			detail_flag = true;
-			if(isDetailEnd) // ³»¿ëÀÇ ¸¶Áö¸·ÀÏ°æ¿ì Ã³¸®
+			if(isDetailEnd) // ë‚´ìš©ì˜ ë§ˆì§€ë§‰ì¼ê²½ìš° ì²˜ë¦¬
 			{
 				if(temp2.length() > 0)
 					temp2.erase(temp2.length()-2 ,2);
@@ -389,7 +389,7 @@ void MHelpMessageManager::LoadFromFile(class ifstream &file)
 				isDetailEnd = NULL;
 				detail_flag = false;
 			}
-			else // ³»¿ëÀÌ ÅÂ±×°¡ µé¾î¿À¸é End °¡ µé¾î¿Ã‹š±îÁö °è¼Ó detail ¿¡ ÀúÀåÇÑ´Ù
+			else // ë‚´ìš©ì´ íƒœê·¸ê°€ ë“¤ì–´ì˜¤ë©´ End ê°€ ë“¤ì–´ì˜¬ë–„ê¹Œì§€ ê³„ì† detail ì— ì €ì¥í•œë‹¤
 			{
 				temp2 += temp.c_str();
 			}
@@ -400,7 +400,7 @@ void MHelpMessageManager::LoadFromFile(class ifstream &file)
 		isEvent   = strstr(temp.c_str(),"[===Event===]");
 		isTitle  = strstr(temp.c_str(),"[==Title==]");
 		isSender = strstr(temp.c_str(),"[==Sender==]");
-		isLevel  = strstr(temp.c_str(),"[==Level Á¶°ÇÇ¥==]");
+		isLevel  = strstr(temp.c_str(),"[==Level ì¡°ê±´í‘œ==]");
 		if(detail_flag == false) 
 		{
 			isDetail = strstr(temp.c_str(),"[==Detail==]");
@@ -446,7 +446,7 @@ void MHelpMessageManager::SaveToFile(class ofstream &file)
 		{
 		file <<  "\r\n" ;
 		}
-		// ¸Ş¼¼Áö Å¸ÀÔ ³Ö¾î¾ßÇÔ
+		// ë©”ì„¸ì§€ íƒ€ì… ë„£ì–´ì•¼í•¨
 		for(int j = 0; j<3; j++)
 		{
 
@@ -468,7 +468,7 @@ void MHelpMessageManager::SaveToFile(class ofstream &file)
 			}
 			file << "		[==Sender==]" << "\r\n";
 			file << "		   " << message.m_iSender[j] << "\r\n";
-			file << "		[==Level Á¶°ÇÇ¥==]" << "\r\n" ;
+			file << "		[==Level ì¡°ê±´í‘œ==]" << "\r\n" ;
 			file << "		   " << message.m_iLevelLow[j] << " " << message.m_iLevelMax[j] << " " <<
 				message.m_iDomainLow[j]<< " " << message.m_iDomainMax[j] << " " <<
 				message.m_iAttrLow[j] << " "  << message.m_iAttrLow[j] << "\r\n";

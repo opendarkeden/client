@@ -18,15 +18,15 @@ enum UNION_ERROR
 		OK = 0,
         ALREADY_IN_UNION,		
         ALREADY_OFFER_SOMETHING,
-        TARGET_IS_NOT_MASTER,   // ╩С╢К╧Фюл ╦╤╫╨ем╟║ ╬ф╢о╤СЁв;;
-        NOT_IN_UNION,           // ©╛гу©║ ╟║ют╣х ╩Себ╟║ ╬ф╢т
-        MASTER_CANNOT_QUIT,     // ©╛гуюг ╦╤╫╨ем ╠Ф╣Е╢б ╫╨╫╨╥н е╩еП╨р╟║(гою╖╠Ф╣Е╟║ ╬Ью╩╤╖╦╦ ╟║╢и-юз╣©юл╥║)
-        NO_TARGET_UNION,        // гь╢Гго╢б ©╛гуюл ╬Ью╫
-        NOT_YOUR_UNION,         // ╪р╪с╣х ©╛гуюл ╬ф╢о╢ы.
-        SOURCE_IS_NOT_MASTER,   // ╫ец╩гя ╩Г╤Вюл ╦╤╫╨ем╟║ ╬ф╢о╢ы    
-		YOU_HAVE_PENALTY,        // ╟╜а╕╥н е╩еПгя ╠Б╥оюл юж╢ы.
-		NOT_ENOUGH_SLOT,			// Ё╡╬фюж╢б ╫╫╥тюл ╬Ь╢ы.
-		TOO_MANY_MEMBER,		// ╦Б╧Ж╟║ 50╦Мюл╩Сюл╤С ╟║ютгр ╪Ж ╬Ь╫ю╢о╢ы.
+        TARGET_IS_NOT_MASTER,   // Л┐│К▄─К╟╘Л²╢ К╖┬Л┼╓М└╟Й╟─ Л∙└К▀┬К²╪К└╓;;
+        NOT_IN_UNION,           // Л≈╟М∙╘Л≈░ Й╟─Л·┘К░° Л┐│М┐°Й╟─ Л∙└К▀≤
+        MASTER_CANNOT_QUIT,     // Л≈╟М∙╘Л²≤ К╖┬Л┼╓М└╟ Й╦╦К⌠°К┼■ Л┼╓Л┼╓К║° М┐┬М┤╢К╤┬Й╟─(М∙≤Л°└Й╦╦К⌠°Й╟─ Л≈├Л²└К∙▄К╖▄ Й╟─К┼╔-Л·░К▐≥Л²╢К·≤)
+        NO_TARGET_UNION,        // М∙╢К▀╧М∙≤К┼■ Л≈╟М∙╘Л²╢ Л≈├Л²▄
+        NOT_YOUR_UNION,         // Л├▄Л├█К░° Л≈╟М∙╘Л²╢ Л∙└К▀┬К▀╓.
+        SOURCE_IS_NOT_MASTER,   // Л▀═Л╡╜М∙° Л┌╛К·▄Л²╢ К╖┬Л┼╓М└╟Й╟─ Л∙└К▀┬К▀╓    
+		YOU_HAVE_PENALTY,        // Й╟∙Л═°К║° М┐┬М┤╢М∙° Й╦╟К║²Л²╢ Л·┬К▀╓.
+		NOT_ENOUGH_SLOT,			// К┌╗Л∙└Л·┬К┼■ Л┼╛К║╞Л²╢ Л≈├К▀╓.
+		TOO_MANY_MEMBER,		// К╘╓К╡└Й╟─ 50К╙┘Л²╢Л┐│Л²╢К²╪ Й╟─Л·┘М∙═ Л┬≤ Л≈├Л┼╣К▀┬К▀╓.
 };
 
 class GCGuildResponse : public Packet 

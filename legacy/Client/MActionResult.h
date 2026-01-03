@@ -2,43 +2,43 @@
 // MActionResult.h
 //----------------------------------------------------------------------
 //
-// ¾î¶² ActionInfoÀÇ °á°ú·Î Ç¥ÇöµÇ´Â °Íµé¿¡ ´ëÇÑ Á¤º¸
+// ì–´ë–¤ ActionInfoì˜ ê²°ê³¼ë¡œ í‘œí˜„ë˜ëŠ” ê²ƒë“¤ì— ëŒ€í•œ ì •ë³´
 //
-// ACTIONRESULT_NODE¸¦ »ı¼ºÇØ¼­(new) AddÇØÁÖ°í
-// ÇÊ¿äÇÒ¶§, GetIterator·Î.. ÀĞ¾î¾ß ÇÑ´Ù.
+// ACTIONRESULT_NODEë¥¼ ìƒì„±í•´ì„œ(new) Addí•´ì£¼ê³ 
+// í•„ìš”í• ë•Œ, GetIteratorë¡œ.. ì½ì–´ì•¼ í•œë‹¤.
 //
-// delete´Â ³»ºÎ¿¡¼­ ÇÑ´Ù.
+// deleteëŠ” ë‚´ë¶€ì—ì„œ í•œë‹¤.
 //
 //----------------------------------------------------------------------
 /*
 
-- ¼ø°£ÀûÀÎ EffectÇ¥½Ã 
-  »ç¿ë --> Server°ËÁõ --> EffectÇ¥½Ã
+- ìˆœê°„ì ì¸ Effectí‘œì‹œ 
+  ì‚¬ìš© --> Serverê²€ì¦ --> Effectí‘œì‹œ
 
-- Áö¼ÓÀûÀ¸·Î Tile¿¡ Á¸ÀçÇÏ´Â Effect
-  »ç¿ë --> Server°ËÁõ --> Tile¿¡ EffectÇ¥½Ã
+- ì§€ì†ì ìœ¼ë¡œ Tileì— ì¡´ì¬í•˜ëŠ” Effect
+  ì‚¬ìš© --> Serverê²€ì¦ --> Tileì— Effectí‘œì‹œ
 
-- È¿°ú ¸¶¹ı
-  »ç¿ë --> Server°ËÁõ --> ´ë»ó¿¡ È¿°ú Ç¥Çö
+- íš¨ê³¼ ë§ˆë²•
+  ì‚¬ìš© --> Serverê²€ì¦ --> ëŒ€ìƒì— íš¨ê³¼ í‘œí˜„
 
-- Å¸ÀÎ °ø°İ ¸¶¹ı
-  »ç¿ë --> Server°ËÁõ --> ´ë»ó µ¥¹ÌÁö
+- íƒ€ì¸ ê³µê²© ë§ˆë²•
+  ì‚¬ìš© --> Serverê²€ì¦ --> ëŒ€ìƒ ë°ë¯¸ì§€
 
-- »çÀÎ¿¹
-  »ç¿ë --> Server°ËÁõ --> ´ë»ó µ¥¹ÌÁö, Ä³¸¯ÅÍ ÀÌµ¿
+- ì‚¬ì¸ì˜ˆ
+  ì‚¬ìš© --> Serverê²€ì¦ --> ëŒ€ìƒ ë°ë¯¸ì§€, ìºë¦­í„° ì´ë™
 
 
 
-  = ³»°¡ »ç¿ëÇÑ ±â¼ú : 
-    ½ÃÀÛActionInfo¸¦ º¸¿©ÁÖ°í 
-	Server¿¡¼­ °á°ú°¡ ¿À¸é °á°ú¸¦ ºÙ¿©¼­ °á°úActionInfo¸¦ ½ÇÇàÇÑ´Ù.
+  = ë‚´ê°€ ì‚¬ìš©í•œ ê¸°ìˆ  : 
+    ì‹œì‘ActionInfoë¥¼ ë³´ì—¬ì£¼ê³  
+	Serverì—ì„œ ê²°ê³¼ê°€ ì˜¤ë©´ ê²°ê³¼ë¥¼ ë¶™ì—¬ì„œ ê²°ê³¼ActionInfoë¥¼ ì‹¤í–‰í•œë‹¤.
 
-  = Å¸ÀÎÀÌ »ç¿ëÇÑ ±â¼ú :
-    ½ÃÀÛ°ú °á°ú°¡ °°ÀÌ Á¸ÀçÇÏ´Âµ¥...
-	½ÃÀÛActionInfo¿¡ °á°úActionInfo+°á°ú¸¦ ºÙ¿©¾ß ÇÑ´Ù.
+  = íƒ€ì¸ì´ ì‚¬ìš©í•œ ê¸°ìˆ  :
+    ì‹œì‘ê³¼ ê²°ê³¼ê°€ ê°™ì´ ì¡´ì¬í•˜ëŠ”ë°...
+	ì‹œì‘ActionInfoì— ê²°ê³¼ActionInfo+ê²°ê³¼ë¥¼ ë¶™ì—¬ì•¼ í•œë‹¤.
 
-  = ½ÃÀÛActionInfo¿¡´Â °á°úActionInfo¿¡ ´ëÇÑ pointer
-	°á°ú ActionInfo¿¡´Â °á°ú¿¡ ´ëÇÑ list
+  = ì‹œì‘ActionInfoì—ëŠ” ê²°ê³¼ActionInfoì— ëŒ€í•œ pointer
+	ê²°ê³¼ ActionInfoì—ëŠ” ê²°ê³¼ì— ëŒ€í•œ list
 
 
 */
@@ -58,7 +58,7 @@
 #include <list>
 
 //----------------------------------------------------------------------
-// ÇÏ³ªÀÇ °á°ú¿¡ ´ëÇÑ Á¤º¸¸¦ ´ã°í ÀÖ´Â nodeÀÇ base class
+// í•˜ë‚˜ì˜ ê²°ê³¼ì— ëŒ€í•œ ì •ë³´ë¥¼ ë‹´ê³  ìˆëŠ” nodeì˜ base class
 //----------------------------------------------------------------------
 class MActionResultNode {
 	public :
@@ -66,12 +66,12 @@ class MActionResultNode {
 		virtual ~MActionResultNode()	{}
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		virtual TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_NULL; }
 		
 		//------------------------------------------------------
-		// ¾î¶² Á¾·ùÀÎ°¡?
+		// ì–´ë–¤ ì¢…ë¥˜ì¸ê°€?
 		//------------------------------------------------------
 		virtual bool		IsNodeActionInfo() const		{ return false; }		
 		virtual bool		IsNodeChangePosition() const	{ return false; }
@@ -93,13 +93,13 @@ class MActionResultNode {
 
 
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		virtual void		Execute() = 0;
 };
 
 //----------------------------------------------------------------------
-// ´©°¡(UserID) ´©±º°¡(TargetID)¿¡°Ô ActionInfo¸¦ »ç¿ëÇÑ °á°únode
+// ëˆ„ê°€(UserID) ëˆ„êµ°ê°€(TargetID)ì—ê²Œ ActionInfoë¥¼ ì‚¬ìš©í•œ ê²°ê³¼node
 //----------------------------------------------------------------------
 class MActionResultNodeActionInfo : public MActionResultNode {
 	public :
@@ -107,7 +107,7 @@ class MActionResultNodeActionInfo : public MActionResultNode {
 		~MActionResultNodeActionInfo()		{};
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_ACTIONINFO; }
 
@@ -127,7 +127,7 @@ class MActionResultNodeActionInfo : public MActionResultNode {
 		void		SetSY(TYPE_SECTORPOSITION sY)	{ m_sY = sY; }
 	
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 
@@ -145,7 +145,7 @@ class MActionResultNodeActionInfo : public MActionResultNode {
 
 
 //----------------------------------------------------------------------
-// ´©±º°¡(ID)ÀÇ ÁÂÇ¥(sX,sY)¸¦ ¹Ù²Ù°Ô ÇÏ´Â °á°únode
+// ëˆ„êµ°ê°€(ID)ì˜ ì¢Œí‘œ(sX,sY)ë¥¼ ë°”ê¾¸ê²Œ í•˜ëŠ” ê²°ê³¼node
 //----------------------------------------------------------------------
 class MActionResultNodeChangePosition : public MActionResultNode {
 	public :
@@ -153,7 +153,7 @@ class MActionResultNodeChangePosition : public MActionResultNode {
 		~MActionResultNodeChangePosition()		{};
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_CHANGE_POSITION; }
 
@@ -170,7 +170,7 @@ class MActionResultNodeChangePosition : public MActionResultNode {
 		void		SetY(TYPE_SECTORPOSITION y)	{ m_Y = y; }
 	
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -181,7 +181,7 @@ class MActionResultNodeChangePosition : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// ´©±º°¡(ID)ÀÇ »óÅÂ¸¦ ¹Ù²Ù°Ô ÇÏ´Â °á°únode
+// ëˆ„êµ°ê°€(ID)ì˜ ìƒíƒœë¥¼ ë°”ê¾¸ê²Œ í•˜ëŠ” ê²°ê³¼node
 //----------------------------------------------------------------------
 class MActionResultNodeChangeStatus : public MActionResultNode {
 	public :
@@ -189,7 +189,7 @@ class MActionResultNodeChangeStatus : public MActionResultNode {
 		~MActionResultNodeChangeStatus();
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_CHANGE_STATUS; }
 
@@ -205,7 +205,7 @@ class MActionResultNodeChangeStatus : public MActionResultNode {
 		void		SetStatus(MStatus* pStatus)		{ m_pStatus = pStatus; }
 
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -215,7 +215,7 @@ class MActionResultNodeChangeStatus : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// ´©±º°¡(ID)¸¦ Á×°Ô ÇÏ´Â °á°ú
+// ëˆ„êµ°ê°€(ID)ë¥¼ ì£½ê²Œ í•˜ëŠ” ê²°ê³¼
 //----------------------------------------------------------------------
 class MActionResultNodeCreatureDie : public MActionResultNode {
 	public :
@@ -223,7 +223,7 @@ class MActionResultNodeCreatureDie : public MActionResultNode {
 		~MActionResultNodeCreatureDie() {}
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_CREATURE_DIE; }
 
@@ -238,7 +238,7 @@ class MActionResultNodeCreatureDie : public MActionResultNode {
 		void		SetCreatureID(TYPE_OBJECTID tid)	{ m_TargetID = tid; }
 		
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -247,7 +247,7 @@ class MActionResultNodeCreatureDie : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// ´©±º°¡(ID)¸¦ ¶¥ ¼Ó¿¡ ¼û°Ô ÇÏ´Â °á°ú
+// ëˆ„êµ°ê°€(ID)ë¥¼ ë•… ì†ì— ìˆ¨ê²Œ í•˜ëŠ” ê²°ê³¼
 //----------------------------------------------------------------------
 class MActionResultNodeCreatureBurrow : public MActionResultNode {
 	public :
@@ -255,7 +255,7 @@ class MActionResultNodeCreatureBurrow : public MActionResultNode {
 		~MActionResultNodeCreatureBurrow() {}
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_CREATURE_BURROW; }
 
@@ -270,7 +270,7 @@ class MActionResultNodeCreatureBurrow : public MActionResultNode {
 		void		SetCreatureID(TYPE_OBJECTID tid)	{ m_TargetID = tid; }
 		
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -279,7 +279,7 @@ class MActionResultNodeCreatureBurrow : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// ´©±º°¡(ID)¸¦ »ç¶óÁö°Ô ÇÏ´Â °á°ú 
+// ëˆ„êµ°ê°€(ID)ë¥¼ ì‚¬ë¼ì§€ê²Œ í•˜ëŠ” ê²°ê³¼ 
 //----------------------------------------------------------------------
 class MActionResultNodeCreatureInvisible : public MActionResultNode {
 	public :
@@ -287,7 +287,7 @@ class MActionResultNodeCreatureInvisible : public MActionResultNode {
 		~MActionResultNodeCreatureInvisible() {}
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_CREATURE_INVISIBLE; }
 
@@ -302,7 +302,7 @@ class MActionResultNodeCreatureInvisible : public MActionResultNode {
 		void		SetCreatureID(TYPE_OBJECTID tid)	{ m_TargetID = tid; }
 		
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -311,7 +311,7 @@ class MActionResultNodeCreatureInvisible : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// ´©±º°¡(ID)¸¦ º¸ÀÌ°Ô ÇÏ´Â °á°ú 
+// ëˆ„êµ°ê°€(ID)ë¥¼ ë³´ì´ê²Œ í•˜ëŠ” ê²°ê³¼ 
 //----------------------------------------------------------------------
 class MActionResultNodeCreatureVisible : public MActionResultNode {
 	public :
@@ -319,7 +319,7 @@ class MActionResultNodeCreatureVisible : public MActionResultNode {
 		~MActionResultNodeCreatureVisible() {}
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_CREATURE_VISIBLE; }
 
@@ -334,7 +334,7 @@ class MActionResultNodeCreatureVisible : public MActionResultNode {
 		void		SetCreatureID(TYPE_OBJECTID tid)	{ m_TargetID = tid; }
 		
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -343,7 +343,7 @@ class MActionResultNodeCreatureVisible : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// ´©±º°¡(ID)¸¦ ¶¥ ¼Ó¿¡ ¼û°Ô ÇÏ´Â °á°ú
+// ëˆ„êµ°ê°€(ID)ë¥¼ ë•… ì†ì— ìˆ¨ê²Œ í•˜ëŠ” ê²°ê³¼
 //----------------------------------------------------------------------
 class MActionResultNodeAddEffectStatus : public MActionResultNode {
 	public :
@@ -351,7 +351,7 @@ class MActionResultNodeAddEffectStatus : public MActionResultNode {
 		~MActionResultNodeAddEffectStatus() {}
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_ADD_EFFECTSTATUS; }
 
@@ -368,18 +368,18 @@ class MActionResultNodeAddEffectStatus : public MActionResultNode {
 		void		SetCreatureID(DWORD df)				{ m_DelayFrame = df; }
 		
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
 	public :
-		TYPE_OBJECTID		m_TargetID;				// ´ë»ó
-		EFFECTSTATUS		m_EffectStatus;		// ºÙÀÌ´Â effect
-		DWORD				m_DelayFrame;		// Áö¼Ó ½Ã°£		
+		TYPE_OBJECTID		m_TargetID;				// ëŒ€ìƒ
+		EFFECTSTATUS		m_EffectStatus;		// ë¶™ì´ëŠ” effect
+		DWORD				m_DelayFrame;		// ì§€ì† ì‹œê°„		
 };
 
 //----------------------------------------------------------------------
-// ´©±º°¡(ID)¸¦ snipping mode·Î..
+// ëˆ„êµ°ê°€(ID)ë¥¼ snipping modeë¡œ..
 //----------------------------------------------------------------------
 class MActionResultNodeCreatureSnipping : public MActionResultNode {
 	public :
@@ -387,7 +387,7 @@ class MActionResultNodeCreatureSnipping : public MActionResultNode {
 		~MActionResultNodeCreatureSnipping() {}
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_CREATURE_SNIPPING; }
 
@@ -402,7 +402,7 @@ class MActionResultNodeCreatureSnipping : public MActionResultNode {
 		void		SetCreatureID(TYPE_OBJECTID tid)	{ m_TargetID = tid; }
 		
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -411,7 +411,7 @@ class MActionResultNodeCreatureSnipping : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// CreatureTypeÀ» ¹Ù²Ù´Â Result
+// CreatureTypeì„ ë°”ê¾¸ëŠ” Result
 //----------------------------------------------------------------------
 class MActionResultNodeChangeCreatureType : public MActionResultNode {
 	public :
@@ -419,7 +419,7 @@ class MActionResultNodeChangeCreatureType : public MActionResultNode {
 		~MActionResultNodeChangeCreatureType();
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_CHANGE_CREATURE_TYPE; }
 
@@ -435,7 +435,7 @@ class MActionResultNodeChangeCreatureType : public MActionResultNode {
 		void		SetCreatureType(int ctype)		{ m_CreatureType = ctype; }
 
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -445,7 +445,7 @@ class MActionResultNodeChangeCreatureType : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// °ü ¼ÒÈ¯ (tid°¡ (x,y)¿¡¼­ °ü ¼ÒÈ¯)
+// ê´€ ì†Œí™˜ (tidê°€ (x,y)ì—ì„œ ê´€ ì†Œí™˜)
 //----------------------------------------------------------------------
 class MActionResultNodeSummonCasket : public MActionResultNode {
 	public :
@@ -453,7 +453,7 @@ class MActionResultNodeSummonCasket : public MActionResultNode {
 		~MActionResultNodeSummonCasket();
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_SUMMON_CASKET; }
 
@@ -469,7 +469,7 @@ class MActionResultNodeSummonCasket : public MActionResultNode {
 		void		SetType(int type)				{ m_CasketType = type; }
 
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -479,7 +479,7 @@ class MActionResultNodeSummonCasket : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// °ü¿¡¼­ ³ª°¡±â
+// ê´€ì—ì„œ ë‚˜ê°€ê¸°
 //----------------------------------------------------------------------
 class MActionResultNodeOpenCasket : public MActionResultNode {
 	public :
@@ -487,7 +487,7 @@ class MActionResultNodeOpenCasket : public MActionResultNode {
 		~MActionResultNodeOpenCasket();
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_OPEN_CASKET; }
 
@@ -502,7 +502,7 @@ class MActionResultNodeOpenCasket : public MActionResultNode {
 		void		SetTargetID(TYPE_OBJECTID tid)	{ m_TargetID = tid; }
 		
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -511,7 +511,7 @@ class MActionResultNodeOpenCasket : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// ´©±º°¡(ID)¸¦ »ç¶óÁö°Ô ÇÏ´Â °á°ú 
+// ëˆ„êµ°ê°€(ID)ë¥¼ ì‚¬ë¼ì§€ê²Œ í•˜ëŠ” ê²°ê³¼ 
 //----------------------------------------------------------------------
 class MActionResultNodeCreatureTurning : public MActionResultNode {
 	public :
@@ -519,7 +519,7 @@ class MActionResultNodeCreatureTurning : public MActionResultNode {
 		~MActionResultNodeCreatureTurning() {}
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_CREATURE_TURNING; }
 
@@ -534,7 +534,7 @@ class MActionResultNodeCreatureTurning : public MActionResultNode {
 		void		SetCreatureID(TYPE_OBJECTID tid)	{ m_TargetID = tid; }
 		
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -544,7 +544,7 @@ class MActionResultNodeCreatureTurning : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// ÀÎº¥Åä¸® ¾ÆÀÌÅÛ(ID)À» ¾ø¾Ú
+// ì¸ë²¤í† ë¦¬ ì•„ì´í…œ(ID)ì„ ì—†ì•°
 //----------------------------------------------------------------------
 class MActionResultNodeRemoveItemInInventory : public MActionResultNode {
 	public :
@@ -552,7 +552,7 @@ class MActionResultNodeRemoveItemInInventory : public MActionResultNode {
 		~MActionResultNodeRemoveItemInInventory() {}
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_REMOVE_ITEM_IN_INVENTORY; }
 
@@ -567,7 +567,7 @@ class MActionResultNodeRemoveItemInInventory : public MActionResultNode {
 		void		SetItemID(TYPE_OBJECTID tid)	{ m_TargetID = tid; }
 		
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -576,7 +576,7 @@ class MActionResultNodeRemoveItemInInventory : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// ÀÎº¥Åä¸® ¾ÆÀÌÅÛ(ID)ÀÇ ¿É¼ÇÀ» ¹Ù²Ş
+// ì¸ë²¤í† ë¦¬ ì•„ì´í…œ(ID)ì˜ ì˜µì…˜ì„ ë°”ê¿ˆ
 //----------------------------------------------------------------------
 class MActionResultNodeChangeItemOptionInInventory : public MActionResultNode {
 	public :
@@ -584,7 +584,7 @@ class MActionResultNodeChangeItemOptionInInventory : public MActionResultNode {
 		~MActionResultNodeChangeItemOptionInInventory() {}
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_CHANGE_ITEM_OPTION_IN_INVENTORY; }
 
@@ -600,7 +600,7 @@ class MActionResultNodeChangeItemOptionInInventory : public MActionResultNode {
 		void		SetOption(DWORD type)	{ m_Type = type; }
 		
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -629,7 +629,7 @@ public :
 };
 
 //----------------------------------------------------------------------
-// ´©±º°¡(ID)¸¦ »ç¶óÁö°Ô(°¡Â¥ Ä³¸¯ÅÍ Á×À»¶§) ÇÏ´Â °á°ú
+// ëˆ„êµ°ê°€(ID)ë¥¼ ì‚¬ë¼ì§€ê²Œ(ê°€ì§œ ìºë¦­í„° ì£½ì„ë•Œ) í•˜ëŠ” ê²°ê³¼
 //----------------------------------------------------------------------
 class MActionResultNodeFakeDie : public MActionResultNode {
 	public :
@@ -637,7 +637,7 @@ class MActionResultNodeFakeDie : public MActionResultNode {
 		~MActionResultNodeFakeDie() {}
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_FAKE_DIE; }
 
@@ -652,7 +652,7 @@ class MActionResultNodeFakeDie : public MActionResultNode {
 		void		SetCreatureID(TYPE_OBJECTID tid)	{ m_TargetID = tid; }
 		
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -661,7 +661,7 @@ class MActionResultNodeFakeDie : public MActionResultNode {
 };
 
 //----------------------------------------------------------------------
-// ÀÌº¥Æ®¸¦ Ãß°¡ÇÑ´Ù
+// ì´ë²¤íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤
 //----------------------------------------------------------------------
 class MActionResultNodeEvent : public MActionResultNode {
 	public :
@@ -669,7 +669,7 @@ class MActionResultNodeEvent : public MActionResultNode {
 		~MActionResultNodeEvent() {}
 
 		//------------------------------------------------------
-		// ActionResultÀÇ Á¾·ù
+		// ActionResultì˜ ì¢…ë¥˜
 		//------------------------------------------------------
 		TYPE_ACTIONRESULTID		GetType() const		{ return ACTIONRESULTNODE_EVENT; }
 
@@ -679,7 +679,7 @@ class MActionResultNodeEvent : public MActionResultNode {
 		bool		IsNodeEvent() const		{ return true; }
 
 		//------------------------------------------------------
-		// °á°ú¸¦ Àû¿ë½ÃÅ²´Ù.
+		// ê²°ê³¼ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
 		//------------------------------------------------------
 		void		Execute();
 		
@@ -689,17 +689,17 @@ class MActionResultNodeEvent : public MActionResultNode {
 
 
 //----------------------------------------------------------------------
-// ActionInfo¿¡ µû¸¥ Server¿¡¼­ °ËÁõ¹ŞÀº °á°úµéÀÇ list
+// ActionInfoì— ë”°ë¥¸ Serverì—ì„œ ê²€ì¦ë°›ì€ ê²°ê³¼ë“¤ì˜ list
 //----------------------------------------------------------------------
 typedef	std::list<MActionResultNode*>	ACTIONRESULTNODE_LIST;
 
 
 //----------------------------------------------------------------------
-// ¾î¶² ActionInfo¿¡ ÀÇÇØ¼­ ¹ß»ıÇÑ ¸ğµç °á°ú¸¦ 
-// Server·ÎºÎÅÍ °ËÁõÀ» ¹ŞÀº ÈÄ¿¡.. ±×°ÍµéÀ» ´Ù~ ÀúÀåÇÏ°í ÀÖ´Â class
+// ì–´ë–¤ ActionInfoì— ì˜í•´ì„œ ë°œìƒí•œ ëª¨ë“  ê²°ê³¼ë¥¼ 
+// Serverë¡œë¶€í„° ê²€ì¦ì„ ë°›ì€ í›„ì—.. ê·¸ê²ƒë“¤ì„ ë‹¤~ ì €ì¥í•˜ê³  ìˆëŠ” class
 //
-// destructor¿¡¼­ ExecuteÇØ¹ö¸®±â ¶§¹®¿¡
-// ½ÇÇàÇÒ ÇÊ¿ä°¡ ¾ø´Ù¸é ReleaseÇØ¾ßÇÑ´Ù.
+// destructorì—ì„œ Executeí•´ë²„ë¦¬ê¸° ë•Œë¬¸ì—
+// ì‹¤í–‰í•  í•„ìš”ê°€ ì—†ë‹¤ë©´ Releaseí•´ì•¼í•œë‹¤.
 //----------------------------------------------------------------------
 class MActionResult {
 	public :
@@ -712,7 +712,7 @@ class MActionResult {
 		void		Release();
 
 		//--------------------------------------------------------
-		// °á°ú ÇÏ³ª¸¦ Ãß°¡ÇÑ´Ù.
+		// ê²°ê³¼ í•˜ë‚˜ë¥¼ ì¶”ê°€í•œë‹¤.
 		//--------------------------------------------------------
 		void		Add(MActionResultNode* pNode);
 
@@ -724,7 +724,7 @@ class MActionResult {
 		ACTIONRESULTNODE_LIST::const_iterator GetIterator() const	{ return m_List.begin(); }
 
 		//--------------------------------------------------------
-		// °á°ú¸¦ ½ÇÇàÇÑ´Ù.
+		// ê²°ê³¼ë¥¼ ì‹¤í–‰í•œë‹¤.
 		//--------------------------------------------------------
 		void		Execute();
 

@@ -77,7 +77,7 @@ void g_InitMessage()
 	g_msg_left_bonus_point->SetMessage(pp_dmsg_left_bonus_point, 1, SMO_NOFIT);
 	
 //	g_msg_server_disconnect = new C_VS_UI_DIALOG(-1, -1, 2, 0, g_ExecF, DIALOG_OK);
-//	static char * pp_dmsg_server_disconnect[] ={ {"¼­¹ö¿ÍÀÇ ¿¬°áÀÌ ²÷¾îÁ³½À´Ï´Ù."}};
+//	static char * pp_dmsg_server_disconnect[] ={ {"ì„œë²„ì™€ì˜ ì—°ê²°ì´ ëŠì–´ì¡ŒìŠµë‹ˆë‹¤."}};
 //	g_msg_server_disconnect->SetMessage(pp_dmsg_server_disconnect, 1, SMO_NOFIT);
 
 	g_msg_server_connect_failed = new C_VS_UI_DIALOG(-1, -1, 2, 0, g_ExecF, DIALOG_OK);
@@ -105,11 +105,11 @@ void g_InitMessage()
 	g_msg_character_create_failed->SetMessage(pp_dmsg_character_create_failed, 1, SMO_NOFIT);
 
 //	g_msg_character_used_id = new C_VS_UI_DIALOG(-1, -1, 2, 0, g_ExecF, DIALOG_OK);
-//	static char * pp_dmsg_character_used_id[] = {"ÀÌ¹Ì »ç¿ëÇÏ°í ÀÖ½À´Ï´Ù."};
+//	static char * pp_dmsg_character_used_id[] = {"ì´ë¯¸ ì‚¬ìš©í•˜ê³  ìžˆìŠµë‹ˆë‹¤."};
 //	g_msg_character_used_id->SetMessage(pp_dmsg_character_used_id, 1, SMO_NOFIT);
 
 //	g_msg_character_empty_id = new C_VS_UI_DIALOG(-1, -1, 2, 0, g_ExecF, DIALOG_OK);
-//	static char * pp_dmsg_character_empty_id[] = {"»ç¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù."};
+//	static char * pp_dmsg_character_empty_id[] = {"ì‚¬ìš©í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤."};
 //	g_msg_character_empty_id->SetMessage(pp_dmsg_character_empty_id, 1, SMO_NOFIT);
 
 	g_msg_new_user_not_completed = new C_VS_UI_DIALOG(-1, -1, 3, 0, g_ExecF, DIALOG_OK);
@@ -129,7 +129,7 @@ void g_InitMessage()
 	g_msg_password_mismatch->SetMessage(pp_dmsg_password_mismatch, 1, SMO_NOFIT);
 
 //	g_msg_not_empty_slot = new C_VS_UI_DIALOG(-1, -1, 2, 0, g_ExecF, DIALOG_OK);
-//	static char * pp_dmsg_not_empty_slot[] = {"Ä³¸¯ÅÍ°¡ ÀÌ¹Ì »ý¼ºµÇ¾î ÀÖ½À´Ï´Ù."};
+//	static char * pp_dmsg_not_empty_slot[] = {"ìºë¦­í„°ê°€ ì´ë¯¸ ìƒì„±ë˜ì–´ ìžˆìŠµë‹ˆë‹¤."};
 //	g_msg_not_empty_slot->SetMessage(pp_dmsg_not_empty_slot, 1, SMO_NOFIT);
 }
 

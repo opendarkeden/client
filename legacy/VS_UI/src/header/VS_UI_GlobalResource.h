@@ -2,7 +2,7 @@
 
 	VS_UI_GlobalResource.h
 
-	Æ¯Á¤ ObjectÀÇ ÀÚ¿øÀÌ ¾Æ´Ñ °Íµé.
+	íŠ¹ì • Objectì˜ ìì›ì´ ì•„ë‹Œ ê²ƒë“¤.
 
 	2000.8.9. KJTINC
 
@@ -23,10 +23,10 @@ class C_GLOBAL_RESOURCE
 {
 public:
 	//
-	// ¿ÜºÎ¿¡¼­ Á÷Á¢ Á¢±ÙÇÑ´Ù.
+	// ì™¸ë¶€ì—ì„œ ì§ì ‘ ì ‘ê·¼í•œë‹¤.
 	//
 	//C_ANI_OBJECT *				m_pC_ao_ani_button;
-//	Tga *							m_pic_box_back; // Á¶¸³¹Ú½º ¹è°æ
+//	Tga *							m_pic_box_back; // ì¡°ë¦½ë°•ìŠ¤ ë°°ê²½
 //	C_SPRITE_PACK *			m_pC_box_line_spk;
 //	C_SPRITE_PACK *			m_pC_ok_spk;
 
@@ -44,7 +44,7 @@ public:
 //		NEXT_BUTTON_OFFSET = 9, // 3x3
 //	};
 
-//	C_SPRITE_PACK *			m_pC_common_button; // toggle¿ë ÀÛÀº¹öÆ°, OK, Cancel ...
+//	C_SPRITE_PACK *			m_pC_common_button; // toggleìš© ì‘ì€ë²„íŠ¼, OK, Cancel ...
 
 	//
 	//	(1) (2) (3)
@@ -73,7 +73,7 @@ public:
 		AB_DOWN2,
 		AB_RIGHTDOWN2,
 
-		// ¿©±âºÎÅÏ ¾Æ¿ì½ºÅÍÁî¸¸ ÀÖÀ½
+		// ì—¬ê¸°ë¶€í„´ ì•„ìš°ìŠ¤í„°ì¦ˆë§Œ ìˆìŒ
 		AB_DOWN4,
 		AB_RIGHTDOWN4,
 	};
@@ -556,12 +556,12 @@ public:
 	void	DrawDialogLocked2(int x, int y, int w, int h, bool alpha = false);
 	void	DrawDialogLocked2(Rect &rect, bool alpha = false);
 	
-	// ¾Æ¿ì½ºÅÍÁî ¹è°æ ¹Ù²Û°Å
+	// ì•„ìš°ìŠ¤í„°ì¦ˆ ë°°ê²½ ë°”ê¾¼ê±°
 	void	DrawDialog4(int x, int y, int w, int h, bool alpha = false);
 	void	DrawDialog4(Rect &rect, bool alpha = false);
 	void	DrawDialogLocked4(int x, int y, int w, int h, bool alpha = false);
 	void	DrawDialogLocked4(Rect &rect, bool alpha = false);
-	// ¾ËÆÄ´Â »©°í Å×µÎ¸®¸¸
+	// ì•ŒíŒŒëŠ” ë¹¼ê³  í…Œë‘ë¦¬ë§Œ
 	void	DrawDialogOnly(int x, int y, int w, int h);
 	void	DrawDialogOnly(Rect &rect);
 	void	DrawDialogOnlyLocked(int x, int y, int w, int h);

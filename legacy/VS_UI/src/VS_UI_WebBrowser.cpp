@@ -72,11 +72,11 @@ bool C_VS_UI_WEBBROWSER::Start(HWND hwndApp,  char* pURL, void* pWebOjbect)
 	SetWebBrowserStyle(dwStyle);
 	
 	
-//	m_pWebBrowser->put_Width(100);                  // °¡·Î Æø
-//	m_pWebBrowser->put_Height(100);                //  ¼¼·Î Æø
+//	m_pWebBrowser->put_Width(100);                  // ê°€ë¡œ í­
+//	m_pWebBrowser->put_Height(100);                //  ì„¸ë¡œ í­
 	m_pWebBrowser->put_Left(0);
 	m_pWebBrowser->put_Top(0);
-	m_pWebBrowser->put_AddressBar(FALSE);  // ÁÖ¼ÒÃ¢ ¾ø¾Ú
+	m_pWebBrowser->put_AddressBar(FALSE);  // ì£¼ì†Œì°½ ì—†ì•°
 	m_pWebBrowser->put_MenuBar(FALSE);
 	m_pWebBrowser->put_StatusBar(FALSE);
 	m_pWebBrowser->put_ToolBar(FALSE);
@@ -96,7 +96,7 @@ bool C_VS_UI_WEBBROWSER::Start(HWND hwndApp,  char* pURL, void* pWebOjbect)
 //
 //    CComVariant vtTarget;
 //    vtTarget.vt = VT_BSTR;
-//    vtTarget.bstrVal = BSTR("_SELF");  //Å¸°Ù ºê¶ó¿ìÁ® ÀÌ¸§ ÀÔ·Â
+//    vtTarget.bstrVal = BSTR("_SELF");  //íƒ€ê²Ÿ ë¸Œë¼ìš°ì ¸ ì´ë¦„ ì…ë ¥
 
 	hr = m_pWebBrowser->Navigate(url, &vtEmpty, &vtEmpty, &vtEmpty, &vtEmpty);
 
@@ -166,7 +166,7 @@ DWORD C_VS_UI_WEBBROWSER::GetWebBrowserStyle()
 
 //-----------------------------------------------------------------------------
 // GetMouseCursorInfo
-//	return value == 0 : º¯°æÇÒ ÇÊ¿ä ¾øÀ½
+//	return value == 0 : ë³€ê²½í•  í•„ìš” ì—†ìŒ
 // 	return value == 1 : ShowCursor(TRUE)
 //	return value == -1 : ShowCursor(FALSE)
 //-----------------------------------------------------------------------------

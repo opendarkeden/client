@@ -277,14 +277,14 @@ uint SocketImpl::send ( const void * buf , uint len , uint flags )
      throw ( IOException , Error )
 {
 	__BEGIN_TRY 
-#ifdef __USE_ENCRY__  //Ê¹ÓÃ¼ÓÃÜĞ­Òé
+#ifdef __USE_ENCRY__  //ä½¿ç”¨åŠ å¯†åè®®
 
 	DWORD enlen =len+5;
 	char* enbuf = new char[enlen];
 	
-	//ÉèÖÃ·â°üKey
+	//è®¾ç½®å°åŒ…Key
 	enbuf[4]=m_key;
-	// ÉèÖÃ·â°ü³¤¶È
+	// è®¾ç½®å°åŒ…é•¿åº¦
 	memcpy(enbuf,&enlen,4);
 
 	memcpy(&enbuf[5],buf,len);
@@ -295,7 +295,7 @@ uint SocketImpl::send ( const void * buf , uint len , uint flags )
 	enbuf =NULL;
 	return len;
 	//return SocketAPI::send_ex( m_SocketID , buf , len , flags );
-#else //²»Ê¹ÓÃ¼ÓÃÜ 
+#else //ä¸ä½¿ç”¨åŠ å¯† 
 	return SocketAPI::send_ex( m_SocketID , buf , len , flags );
 #endif
 	__END_CATCH

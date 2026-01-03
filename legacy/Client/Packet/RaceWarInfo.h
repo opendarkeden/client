@@ -18,7 +18,7 @@
 //
 // class WarInfo;
 //
-// ÇÏ³ªÀÇ ÀüÀï¿¡ ´ëÇÑ Á¤º¸
+// í•˜ë‚˜ì˜ ì „ìŸì— ëŒ€í•œ ì •ë³´
 //
 //--------------------------------------------------------------------------------
 
@@ -31,10 +31,10 @@ public :
 	RaceWarInfo() {}
 	~RaceWarInfo() {}
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream & iStream) throw(ProtocolException, Error);
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
 
 //	// execute packet's handler
@@ -62,7 +62,7 @@ public :
 	void 				addCastleID(ZoneID_t zid) 	{ m_CastleIDs.addValue( zid ); }
 
 private :
-	ZoneIDList			m_CastleIDs;		// ÀüÀïÁßÀÎ ¼º
+	ZoneIDList			m_CastleIDs;		// ì „ìŸì¤‘ì¸ ì„±
 };
 
 #endif

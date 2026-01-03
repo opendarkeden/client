@@ -38,10 +38,10 @@ void ui_button_init(UI_Button* button, int x, int y, int w, int h, int id) {
     button->id = id;
     button->focus = 0;
     button->pressed = 0;
-    button->sprite_index = 0;
-    button->callback = NULL;
-    button->render_callback = NULL;
-    button->user_data = NULL;
+    button->on_press.fn = NULL;
+    button->on_press.data = NULL;
+    button->show_widget.fn = NULL;
+    button->show_widget.data = NULL;
 }
 
 void ui_button_free(UI_Button* button) {
@@ -68,27 +68,17 @@ int ui_button_get_pressed(UI_Button* button) {
  * Configuration
  * ============================================================================ */
 
-void ui_button_set_callback(UI_Button* button, UI_ButtonCallback callback) {
+void ui_button_set_on_press(UI_Button* button, UI_ButtonOnPressCallback callback, void* data) {
     if (button) {
-        button->callback = callback;
+        button->on_press.fn = callback;
+        button->on_press.data = data;
     }
 }
 
-void ui_button_set_sprite_index(UI_Button* button, int sprite_index) {
+void ui_button_set_show_widget(UI_Button* button, UI_ButtonRenderCallback callback, void* data) {
     if (button) {
-        button->sprite_index = sprite_index;
-    }
-}
-
-void ui_button_set_user_data(UI_Button* button, void* user_data) {
-    if (button) {
-        button->user_data = user_data;
-    }
-}
-
-void ui_button_set_render_callback(UI_Button* button, UI_ButtonRenderCallback render_callback) {
-    if (button) {
-        button->render_callback = render_callback;
+        button->show_widget.fn = callback;
+        button->show_widget.data = data;
     }
 }
 
@@ -138,8 +128,8 @@ int ui_button_mouse_control(UI_Button* button, uint32_t message, int x, int y) {
                 button->pressed = 0;
                 
                 /* Trigger callback only if released inside */
-                if (inside && was_pressed && button->callback) {
-                    button->callback(button, button->id);
+                if (inside && was_pressed && button->on_press.fn) {
+                    button->on_press.fn(button, button->id);
                 }
                 return 1; /* Consumed */
             }
@@ -174,29 +164,11 @@ void ui_button_render(UI_Button* button, UI_Surface* surface, SpritePack* pack, 
     }
 
     /* Use custom render callback if provided */
-    if (button->render_callback) {
-        button->render_callback(button, surface, pack, parent_x, parent_y);
-        return;
-    }
-
-    int sprite_idx = button->sprite_index;
-    Sprite* sprite = spritepack_get(pack, (uint16_t)sprite_idx);
-    if (!sprite || !sprite->is_valid) {
+    if (!button->show_widget.fn) {
         goto fallback;
     }
 
-    /* Decode and render sprite */
-    DecodedSprite decoded = {0};
-    if (sprite_decode(sprite, &decoded, 0) != 0) {
-         goto fallback;
-    }
-
-    if (decoded_sprite_create_texture(&decoded, surface->renderer) == 0) {
-        int abs_x = parent_x + button->x;
-        int abs_y = parent_y + button->y;
-        ui_surface_blit_sprite(surface, abs_x, abs_y, &decoded);
-    }
-    decoded_sprite_free(&decoded);
+    button->show_widget.fn(button, surface, pack, parent_x, parent_y);
     return;
 
 fallback:

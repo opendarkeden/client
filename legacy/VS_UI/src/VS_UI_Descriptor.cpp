@@ -72,7 +72,7 @@ void	DescriptorManager::Set(id_t id, int x, int y, void * void_ptr, long left, l
 //
 // by sigi
 // 
-// NULLÀÎ °æ¿ì´Â ±×³É UnSet
+// NULLì¸ ê²½ìš°ëŠ” ê·¸ëƒ¥ UnSet
 //-----------------------------------------------------------------------------
 void	DescriptorManager::Unset(void* pPtr)
 {
@@ -84,7 +84,7 @@ void	DescriptorManager::Unset(void* pPtr)
 
 	if (m_fp_show)
 	{		
-		// °°Àº pointerÀÎ °æ¿ì¸¸ Á¦°ÅÇÑ´Ù.
+		// ê°™ì€ pointerì¸ ê²½ìš°ë§Œ ì œê±°í•œë‹¤.
 		if (pPtr==m_fp_show_param.void_ptr)
 		{
 			m_fp_show = NULL;

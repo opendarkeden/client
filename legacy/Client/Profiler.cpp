@@ -128,7 +128,7 @@ Profiler::Begin(const char* pName)
 	}
 	else
 	{
-		// พ๘ภธธ้ ปýผบวุผญ ร฿ฐกวุมุดู.
+		// ์—์ผ๋ฉด ์์ฑํ•ด์ ์ถ”๊ฐ€ํ•ด์ค€๋ค.
 		ProfilerInfo* pInfo = new ProfilerInfo;
 
 		m_mapProfile[name] = pInfo;

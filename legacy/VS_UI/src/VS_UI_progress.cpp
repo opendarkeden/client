@@ -44,7 +44,7 @@ C_VS_UI_PROGRESS::C_VS_UI_PROGRESS()
 
 		if(g_pUserInformation->GoreLevel == false)
 		{
-			// Æ¾¹öÀü ÇÏµåÄÚµù
+			// í‹´ë²„ì „ í•˜ë“œì½”ë”©
 			Check[4] = true;
 			Check[9] = true;
 			Check[11] = true;
@@ -204,7 +204,7 @@ C_VS_UI_PROGRESS::C_VS_UI_PROGRESS()
 
 //	m_p_bar_buf = new WORD[m_bar_width*m_bar_height];
 
-	// bar image¸¦ offscreen¿¡ bltÇÑ´Ù.
+	// bar imageë¥¼ offscreenì— bltí•œë‹¤.
 //	gpC_base->m_DDSurface_offscreen.FillSurface(BAR_COLORKEY);
 //	m_pC_progress->BltOffscreen(0, 0, BAR);
 
@@ -351,7 +351,7 @@ void C_VS_UI_PROGRESS::SetProgress(WORD cur_val, WORD max_val)
 //		float t = n;
 //		float r = f - t;
 //		if (r > 0.)
-//			n += 1; // ¹Ý¿Ã¸².
+//			n += 1; // ë°˜ì˜¬ë¦¼.
 //
 //		if (m_percent < 100 && n >= TOTAL_BAR_LINE)
 //			n = TOTAL_BAR_LINE - 1;
@@ -403,7 +403,7 @@ void C_VS_UI_PROGRESS::Show()
 	{
 		if(m_pC_event_progress != NULL)	// EVENT_PROGRESS
 		{
-			// ÇÏµåÄÚµù
+			// í•˜ë“œì½”ë”©
 			Rect rect;
 			m_pC_event_progress->BltLocked(0, 0, (m_Event_Num*2));
 			rect.Set(0, m_pC_event_progress->GetHeight(m_Event_Num)*(100-m_percent)/100, m_pC_event_progress->GetWidth(m_Event_Num), m_pC_event_progress->GetHeight(m_Event_Num)*(m_percent)/100);
@@ -411,13 +411,13 @@ void C_VS_UI_PROGRESS::Show()
 		}
 		else
 		{
-			//BACKÂï±â
+			//BACKì°ê¸°
 			gpC_base->m_p_DDSurface_back->BltSprite(&p, &(*m_pC_progress)[BACK]);
 			
-			//Ä³¸¯ÅÍ Âï±â
+			//ìºë¦­í„° ì°ê¸°
 			p.x = 200 - (*m_pC_character)[0].GetWidth()/2;
 			p.y = 300 - (*m_pC_character)[0].GetHeight()/2;
-			gpC_base->m_p_DDSurface_back->s_Value1 = m_percent*32/100; 	// 0ÀÌ¸é ¿ÏÀü gray, 32ÀÌ¸é ¿ø·¡»ö±ò
+			gpC_base->m_p_DDSurface_back->s_Value1 = m_percent*32/100; 	// 0ì´ë©´ ì™„ì „ gray, 32ì´ë©´ ì›ëž˜ìƒ‰ê¹”
 			
 			gpC_base->m_p_DDSurface_back->SetEffect( CSpriteSurface::EFFECT_GRAY_SCALE );//EFFECT_NET);//
 			
@@ -481,7 +481,7 @@ void C_VS_UI_PROGRESS::Show()
 			gpC_base->m_p_DDSurface_back->BltSpriteEffect(&p, &(*m_pC_progress)[PROGRESS_BAR]);
 			
 			
-			//Ä³¸¯ÅÍÀÌ¸§Âï±â(ÇÏ´ÜÅ«°Å)
+			//ìºë¦­í„°ì´ë¦„ì°ê¸°(í•˜ë‹¨í°ê±°)
 			// add by Sonic 2006.9.26
 			if(g_MyFull)
 			{
@@ -512,7 +512,7 @@ void C_VS_UI_PROGRESS::Show()
 		gpC_base->m_p_DDSurface_back->Unlock();
 	}
 
-	//ÇöÀç ¼­¹öÀÌ¸§ Ç¥½Ã
+	//í˜„ìž¬ ì„œë²„ì´ë¦„ í‘œì‹œ
 	COLORREF focus_color;
 	focus_color = RGB_WHITE;
 	if(m_pC_event_progress != NULL)
@@ -559,7 +559,7 @@ void C_VS_UI_PROGRESS::Show()
 		ShowDesc(x, y);
 		
 		p.x = m_desc_title_x + g_GetStringWidth(m_desc_title.c_str())/2 - (*m_pC_progress)[CHAR_NAME_ALPHA].GetWidth()/2;
-		//Ä³¸¯ÅÍ ÀÌ¸§À§¿¡ ¾ËÆÄ
+		//ìºë¦­í„° ì´ë¦„ìœ„ì— ì•ŒíŒŒ
 		if(gpC_base->m_p_DDSurface_back->Lock())
 		{
 			p.y = m_desc_title_y-4;
@@ -572,7 +572,7 @@ void C_VS_UI_PROGRESS::Show()
 
 //	DrawBar();
 
-	// percent Ãâ·Â
+	// percent ì¶œë ¥
 #ifndef _LIB
 //	char str[5];
 //	sprintf(str, "%d%%", m_percent);

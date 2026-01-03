@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // CSprite565.h
 //----------------------------------------------------------------------
-// 5:6:5 video card¿¡ ´ëÇÑ sprite class
+// 5:6:5 video cardì— ëŒ€í•œ sprite class
 //----------------------------------------------------------------------
 
 #ifndef	__CSPRITE565_H__
@@ -18,7 +18,7 @@ class ifstream;
 class CSprite565 : public CSprite {
 	public :
 		//---------------------------------------------------------
-		// fstream¿¡¼­ save/load¸¦ ÇÑ´Ù.
+		// fstreamì—ì„œ save/loadë¥¼ í•œë‹¤.
 		//---------------------------------------------------------
 		bool		SaveToFile(class ofstream& file);
 		bool		LoadFromFile(class ifstream& file);

@@ -314,8 +314,8 @@ void C_ANIMATION::Timer()
 				{
 					m_play_order = STOP;
 
-					// m_play_order°¡ next order·Î ¹Ù²ğ ¶§, ½Ã°£°£°İÀÌ ÀÖ±â ¶§¹®¿¡(¿ÜºÎ¿¡¼­ ¾Ë ¶§
-					// ÀÌ°ÍÀº Áß¿äÇÑ ¹®Á¦´Ù) °ğ¹Ù·Î next order¸¦ ¼öÇàÇÑ´Ù.
+					// m_play_orderê°€ next orderë¡œ ë°”ë€” ë•Œ, ì‹œê°„ê°„ê²©ì´ ìˆê¸° ë•Œë¬¸ì—(ì™¸ë¶€ì—ì„œ ì•Œ ë•Œ
+					// ì´ê²ƒì€ ì¤‘ìš”í•œ ë¬¸ì œë‹¤) ê³§ë°”ë¡œ next orderë¥¼ ìˆ˜í–‰í•œë‹¤.
 					RunNextPlayOrder();
 				}
 				break;
@@ -354,7 +354,7 @@ void C_ANIMATION::Timer()
 
 /*-----------------------------------------------------------------------------
 - Doing
-- Animation ÁßÀÌ¶ó¸é true¸¦ ¹İÈ¯ÇÑ´Ù.
+- Animation ì¤‘ì´ë¼ë©´ trueë¥¼ ë°˜í™˜í•œë‹¤.
 -----------------------------------------------------------------------------*/
 C_ANIMATION::PLAY_ORDER C_ANIMATION::GetAnimationState() const
 {
@@ -391,8 +391,8 @@ C_ANIMATION::~C_ANIMATION()
 //-----------------------------------------------------------------------------
 // RunNextPlayOrder
 //
-// next order°¡ ÀÖÀ¸¸é m_play_orderÀ¸·Î ´ëÃ¼ÇÏ°í, next order¸¦ ´Ù½Ã ´ë±â»óÅÂ(STOP)·Î
-// ¹Ù²Û´Ù.
+// next orderê°€ ìˆìœ¼ë©´ m_play_orderìœ¼ë¡œ ëŒ€ì²´í•˜ê³ , next orderë¥¼ ë‹¤ì‹œ ëŒ€ê¸°ìƒíƒœ(STOP)ë¡œ
+// ë°”ê¾¼ë‹¤.
 //-----------------------------------------------------------------------------
 void C_ANIMATION::RunNextPlayOrder()
 {
@@ -420,7 +420,7 @@ void C_ANIMATION::RunNextPlayOrder()
 
 /*-----------------------------------------------------------------------------
 - SetSpeed
-- timer ¼Óµµ¸¦ ¼³Á¤ÇÑ´Ù.
+- timer ì†ë„ë¥¼ ì„¤ì •í•œë‹¤.
 -----------------------------------------------------------------------------*/
 void C_ANIMATION::SetSpeed(DWORD millisec)
 {
@@ -429,7 +429,7 @@ void C_ANIMATION::SetSpeed(DWORD millisec)
 
 /*-----------------------------------------------------------------------------
 - SetPlayPosition
-- animationÀ» ÇÏ´Â Àı´ëÀ§Ä¡¸¦ ¼³Á¤ÇÑ´Ù.
+- animationì„ í•˜ëŠ” ì ˆëŒ€ìœ„ì¹˜ë¥¼ ì„¤ì •í•œë‹¤.
 -----------------------------------------------------------------------------*/
 void C_ANIMATION::SetPlayPosition(int x, int y)
 {
@@ -453,7 +453,7 @@ void C_ANIMATION::PlayLoop()
 //-----------------------------------------------------------------------------
 // PlayLoopBack
 //
-// play -> back -> play (¹İº¹)
+// play -> back -> play (ë°˜ë³µ)
 //-----------------------------------------------------------------------------
 void C_ANIMATION::PlayLoopBack()
 {
@@ -467,7 +467,7 @@ void C_ANIMATION::PlayLoopBack()
 
 /*-----------------------------------------------------------------------------
 - Play
-- ¾Õ¿¡¼­ µÚ·Î ÇÑ ¹ø animationÇÑ´Ù.
+- ì•ì—ì„œ ë’¤ë¡œ í•œ ë²ˆ animationí•œë‹¤.
 -----------------------------------------------------------------------------*/
 void C_ANIMATION::Play()
 {
@@ -481,7 +481,7 @@ void C_ANIMATION::Play()
 //-----------------------------------------------------------------------------
 // Stop
 //
-// ÇöÀç À§Ä¡¿¡¼­ ¸ØÃá´Ù.
+// í˜„ì¬ ìœ„ì¹˜ì—ì„œ ë©ˆì¶˜ë‹¤.
 //-----------------------------------------------------------------------------
 void C_ANIMATION::Stop()
 {
@@ -525,7 +525,7 @@ void C_ANIMATION::Refresh()
 
 /*-----------------------------------------------------------------------------
 - PlayBack
-- µÚ¿¡¼­ ¾ÕÀ¸·Î ÇÑ ¹ø animationÇÑ´Ù.
+- ë’¤ì—ì„œ ì•ìœ¼ë¡œ í•œ ë²ˆ animationí•œë‹¤.
 -----------------------------------------------------------------------------*/
 void C_ANIMATION::PlayBack()
 {
@@ -538,7 +538,7 @@ void C_ANIMATION::PlayBack()
 
 /*-----------------------------------------------------------------------------
 - Show
-- animationÀÌ ³¡³ª¸é ¸¶Áö¸· frameÀ» º¸ÀÎ´Ù.
+- animationì´ ëë‚˜ë©´ ë§ˆì§€ë§‰ frameì„ ë³´ì¸ë‹¤.
 -----------------------------------------------------------------------------*/
 void C_ANIMATION::Show(bool enable)
 {
@@ -550,13 +550,13 @@ void C_ANIMATION::Show(bool enable)
 //		gpC_base->m_p_DDSurface_back->BltIndexSpriteDarkness(&point, &m_pC_slayer_woman_ispk[m_pC_slayer_woman_cfpk[p_slot->woman_info.right][0][0][index].GetSpriteID()], DARK_BIT);
 		m_pC_ani_object->BltDarkness(point, m_current_frame, 2);
 
-	// ¼Óµµ¸¦ À§ÇØ Show()¿¡ Æ÷ÇÔ...
+	// ì†ë„ë¥¼ ìœ„í•´ Show()ì— í¬í•¨...
 	Timer();
 }
 
 /*-----------------------------------------------------------------------------
 - Size
-- frameÀÇ Ãæ ¼ö¸¦ ¹İÈ¯ÇÑ´Ù.
+- frameì˜ ì¶© ìˆ˜ë¥¼ ë°˜í™˜í•œë‹¤.
 -----------------------------------------------------------------------------*/
 int C_FRR::Size() const
 {
@@ -610,14 +610,14 @@ C_FRR::~C_FRR()
 /*-----------------------------------------------------------------------------
 - Open
 -
-  `ÀÌ¹Ì loadµÇ¾î ÀÖ´Ù¸é, releaseÇÏ°í sz_filenameÀ» openÇÑ´Ù.
+  `ì´ë¯¸ loadë˜ì–´ ìˆë‹¤ë©´, releaseí•˜ê³  sz_filenameì„ opení•œë‹¤.
 -----------------------------------------------------------------------------*/
 bool C_FRR::Open(const char *sz_filename)
 {
 	if (!sz_filename)
 		return false;
 
-	// ÀÌÀü¿¡ loadÇß´Ù¸é releaseÇÑ´Ù.
+	// ì´ì „ì— loadí–ˆë‹¤ë©´ releaseí•œë‹¤.
 	if (m_C_frame_array.GetSize() > 0)
 		m_C_frame_array.Release();
 
@@ -633,10 +633,10 @@ bool C_FRR::Open(const char *sz_filename)
 
 /*-----------------------------------------------------------------------------
 - Open
-- Sprite Pack fileÀ» openÇÑ´Ù.
+- Sprite Pack fileì„ opení•œë‹¤.
 
-  `Sprite pack fileÀÌ ¾Æ´Ò°æ¿ìÀÇ ¿¹¿ÜÃ³¸®´Â ¾ø´Ù.
-  `ÀÌ¹Ì loadµÇ¾î ÀÖ´Ù¸é, releaseÇÏ°í sz_filenameÀ» openÇÑ´Ù.
+  `Sprite pack fileì´ ì•„ë‹ê²½ìš°ì˜ ì˜ˆì™¸ì²˜ë¦¬ëŠ” ì—†ë‹¤.
+  `ì´ë¯¸ loadë˜ì–´ ìˆë‹¤ë©´, releaseí•˜ê³  sz_filenameì„ opení•œë‹¤.
 -----------------------------------------------------------------------------*/
 void C_SPRITE_PACK::Open(const char *sz_filename)
 {
@@ -646,7 +646,7 @@ void C_SPRITE_PACK::Open(const char *sz_filename)
 //		_ErrorStr((char *)sz_filename);//(FAILED_JOB);
 
 	// by sigi
-	// ÀÌÀü¿¡ loadÇß´Ù¸é releaseÇÑ´Ù.
+	// ì´ì „ì— loadí–ˆë‹¤ë©´ releaseí•œë‹¤.
 	//if (m_pC_spk_list->GetSize() > 0)
 	//	m_pC_spk_list->Release();
 
@@ -667,8 +667,8 @@ void C_SPRITE_PACK::Open(const char *sz_filename)
 -----------------------------------------------------------------------------*/
 C_SPRITE_PACK::C_SPRITE_PACK(const char *sz_filename)
 {
-	// Sprite¸¦ ÀúÀåÇÒ ¶§ 565ÀÎÁö 555ÀÎÁö ¾Ë¾Æ¾ßµÇ´Ï±î...
-	// ±×·±µ¥ ÀÌ °Ë»ç¸¦ ¿ÜºÎ¿¡¼­ ÇÏ°Ô Çß´Ù´Â±º...
+	// Spriteë¥¼ ì €ì¥í•  ë•Œ 565ì¸ì§€ 555ì¸ì§€ ì•Œì•„ì•¼ë˜ë‹ˆê¹Œ...
+	// ê·¸ëŸ°ë° ì´ ê²€ì‚¬ë¥¼ ì™¸ë¶€ì—ì„œ í•˜ê²Œ í–ˆë‹¤ëŠ”êµ°...
 	
 	// by sigi
 	//if (CDirectDraw::Is565())
@@ -676,7 +676,7 @@ C_SPRITE_PACK::C_SPRITE_PACK(const char *sz_filename)
 	//else
 	//	m_pC_spk_list = new CSpritePackList555;
 
-	if (sz_filename) // file¸íÀ» ÁöÁ¤ÇÏ¿´´Ù¸é...
+	if (sz_filename) // fileëª…ì„ ì§€ì •í•˜ì˜€ë‹¤ë©´...
 		Open(sz_filename);
 }
 
@@ -693,7 +693,7 @@ C_SPRITE_PACK::~C_SPRITE_PACK()
 //-----------------------------------------------------------------------------
 // BltColor
 //
-// rgb Áß ÇÏ³ª¸¸À¸·Î bltÇÑ´Ù.
+// rgb ì¤‘ í•˜ë‚˜ë§Œìœ¼ë¡œ bltí•œë‹¤.
 //-----------------------------------------------------------------------------
 void C_SPRITE_PACK::BltColor(int x, int y, SPRITE_ID sprite_id, int rgb)
 {
@@ -719,7 +719,7 @@ void C_SPRITE_PACK::BltColor(int x, int y, SPRITE_ID sprite_id, int rgb)
 //-----------------------------------------------------------------------------
 // BltColor
 //
-// rgb Áß ÇÏ³ª¸¸À¸·Î bltÇÑ´Ù.
+// rgb ì¤‘ í•˜ë‚˜ë§Œìœ¼ë¡œ bltí•œë‹¤.
 //-----------------------------------------------------------------------------
 void C_SPRITE_PACK::BltColor(POINT &point, SPRITE_ID sprite_id, int rgb)
 {
@@ -789,8 +789,8 @@ void C_SPRITE_PACK::BltDarkness(POINT &point, SPRITE_ID sprite_id, int dark)
 //-----------------------------------------------------------------------------
 // BltClip
 //
-// sprite¸¦ clippingÇÑ´Ù.
-// spriteÀÇ ¿øÇÏ´Â ºÎºĞ¸¸ Ãâ·ÂÇÒ ¶§ ¿ëÀÌÇÏ´Ù.
+// spriteë¥¼ clippingí•œë‹¤.
+// spriteì˜ ì›í•˜ëŠ” ë¶€ë¶„ë§Œ ì¶œë ¥í•  ë•Œ ìš©ì´í•˜ë‹¤.
 //-----------------------------------------------------------------------------
 void C_SPRITE_PACK::BltClip(int x, int y, Rect &rect, SPRITE_ID sprite_id)
 {
@@ -903,7 +903,7 @@ int C_SPRITE_PACK::GetHeight(SPRITE_ID sprite_id)
 //-----------------------------------------------------------------------------
 // IsPixel
 //
-// (x, y)°¡ Åõ¸í»öÀÌ¸é false¸¦ ¹İÈ¯ÇÑ´Ù.
+// (x, y)ê°€ íˆ¬ëª…ìƒ‰ì´ë©´ falseë¥¼ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 bool C_SPRITE_PACK::IsPixel(int x, int y, SPRITE_ID sprite_id)
 {
@@ -928,7 +928,7 @@ void C_SPRITE_PACK::Blt(int x, int y, SPRITE_ID sprite_id)
 
 /*-----------------------------------------------------------------------------
 - Blt
-- Sprite SurfaceÀÎ BackSurface¿¡ bltÇÑ´Ù.
+- Sprite Surfaceì¸ BackSurfaceì— bltí•œë‹¤.
 -----------------------------------------------------------------------------*/
 void C_SPRITE_PACK::Blt(POINT &point, SPRITE_ID sprite_id)
 {
@@ -949,7 +949,7 @@ void C_SPRITE_PACK::Blt(POINT &point, SPRITE_ID sprite_id)
 
 /*-----------------------------------------------------------------------------
 - BltOffscreen
-- Sprite SurfaceÀÎ BackSurface¿¡ bltÇÑ´Ù.
+- Sprite Surfaceì¸ BackSurfaceì— bltí•œë‹¤.
 -----------------------------------------------------------------------------*/
 void C_SPRITE_PACK::BltOffscreen(POINT &point, SPRITE_ID sprite_id)
 {
@@ -977,7 +977,7 @@ void C_SPRITE_PACK::BltOffscreen(int x, int y, SPRITE_ID sprite_id)
 //-----------------------------------------------------------------------------
 // BltOutline
 //
-// Sprite¿¡ ¿Ü°û¼±À» ±×·Á¼­ ÇÔ²² Ãâ·ÂÇÑ´Ù.
+// Spriteì— ì™¸ê³½ì„ ì„ ê·¸ë ¤ì„œ í•¨ê»˜ ì¶œë ¥í•œë‹¤.
 //-----------------------------------------------------------------------------
 void C_SPRITE_PACK::BltOutline(int x, int y, int color, SPRITE_ID sprite_id)
 {
@@ -985,10 +985,10 @@ void C_SPRITE_PACK::BltOutline(int x, int y, int color, SPRITE_ID sprite_id)
 
 	//assert(p_sprite);
 
-	// focusµÈ °ÍÀº ¿Ü°û¼±À» ±×¸°´Ù.
-	CSpriteOutlineManager	outline_o; // ¿Ü°û¼±Ãâ·Â °´Ã¼.
+	// focusëœ ê²ƒì€ ì™¸ê³½ì„ ì„ ê·¸ë¦°ë‹¤.
+	CSpriteOutlineManager	outline_o; // ì™¸ê³½ì„ ì¶œë ¥ ê°ì²´.
 
-	// ¿Ü°û¼±Ãâ·Â °´Ã¼ Ãß°¡.
+	// ì™¸ê³½ì„ ì¶œë ¥ ê°ì²´ ì¶”ê°€.
 	outline_o.Add(x, y, &m_SPK[sprite_id]);
 	outline_o.Generate();
 
@@ -1016,7 +1016,7 @@ void C_SPRITE_PACK::BltLocked(int x, int y, SPRITE_ID sprite_id)
 
 /*-----------------------------------------------------------------------------
 - BltLocked
-- Sprite SurfaceÀÎ BackSurface¿¡ bltÇÑ´Ù.
+- Sprite Surfaceì¸ BackSurfaceì— bltí•œë‹¤.
 -----------------------------------------------------------------------------*/
 void C_SPRITE_PACK::BltLocked(POINT &point, SPRITE_ID sprite_id)
 {
@@ -1032,7 +1032,7 @@ void C_SPRITE_PACK::BltLocked(POINT &point, SPRITE_ID sprite_id)
 
 /*-----------------------------------------------------------------------------
 - BltLockedOffscreen
-- Sprite SurfaceÀÎ BackSurface¿¡ bltÇÑ´Ù.
+- Sprite Surfaceì¸ BackSurfaceì— bltí•œë‹¤.
 -----------------------------------------------------------------------------*/
 void C_SPRITE_PACK::BltLockedOffscreen(POINT &point, SPRITE_ID sprite_id)
 {
@@ -1055,7 +1055,7 @@ void C_SPRITE_PACK::BltLockedOffscreen(int x, int y, SPRITE_ID sprite_id)
 //-----------------------------------------------------------------------------
 // BltOutline
 //
-// Sprite¿¡ ¿Ü°û¼±À» ±×·Á¼­ ÇÔ²² Ãâ·ÂÇÑ´Ù.
+// Spriteì— ì™¸ê³½ì„ ì„ ê·¸ë ¤ì„œ í•¨ê»˜ ì¶œë ¥í•œë‹¤.
 //-----------------------------------------------------------------------------
 void C_SPRITE_PACK::BltLockedOutline(int x, int y, int color, SPRITE_ID sprite_id)
 {
@@ -1063,10 +1063,10 @@ void C_SPRITE_PACK::BltLockedOutline(int x, int y, int color, SPRITE_ID sprite_i
 
 	//assert(p_sprite);
 
-	// focusµÈ °ÍÀº ¿Ü°û¼±À» ±×¸°´Ù.
-	CSpriteOutlineManager	outline_o; // ¿Ü°û¼±Ãâ·Â °´Ã¼.
+	// focusëœ ê²ƒì€ ì™¸ê³½ì„ ì„ ê·¸ë¦°ë‹¤.
+	CSpriteOutlineManager	outline_o; // ì™¸ê³½ì„ ì¶œë ¥ ê°ì²´.
 
-	// ¿Ü°û¼±Ãâ·Â °´Ã¼ Ãß°¡.
+	// ì™¸ê³½ì„ ì¶œë ¥ ê°ì²´ ì¶”ê°€.
 	outline_o.Add(x, y, &m_SPK[sprite_id]);
 	outline_o.Generate();
 
@@ -1079,7 +1079,7 @@ void C_SPRITE_PACK::BltLockedOutline(int x, int y, int color, SPRITE_ID sprite_i
 //-----------------------------------------------------------------------------
 // BltLockedColor
 //
-// rgb Áß ÇÏ³ª¸¸À¸·Î bltÇÑ´Ù.
+// rgb ì¤‘ í•˜ë‚˜ë§Œìœ¼ë¡œ bltí•œë‹¤.
 //-----------------------------------------------------------------------------
 void C_SPRITE_PACK::BltLockedColor(int x, int y, SPRITE_ID sprite_id, int rgb)
 {
@@ -1121,8 +1121,8 @@ void C_SPRITE_PACK::BltLockedDarkness(int x, int y, SPRITE_ID sprite_id, int dar
 //-----------------------------------------------------------------------------
 // BltLockedClip
 //
-// sprite¸¦ clippingÇÑ´Ù.
-// spriteÀÇ ¿øÇÏ´Â ºÎºĞ¸¸ Ãâ·ÂÇÒ ¶§ ¿ëÀÌÇÏ´Ù.
+// spriteë¥¼ clippingí•œë‹¤.
+// spriteì˜ ì›í•˜ëŠ” ë¶€ë¶„ë§Œ ì¶œë ¥í•  ë•Œ ìš©ì´í•˜ë‹¤.
 //-----------------------------------------------------------------------------
 void C_SPRITE_PACK::BltLockedClip(int x, int y, Rect &rect, SPRITE_ID sprite_id)
 {

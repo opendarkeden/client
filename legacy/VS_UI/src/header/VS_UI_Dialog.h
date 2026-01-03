@@ -2,8 +2,8 @@
 
 	VS_UI_Dialog.h
 
-	ÀÏ¹İÀûÀÎ Dialog box¸¦ »ı¼ºÇÑ´Ù. ³»ºÎÀÇ WidgetÀº scroll bar,	ButtonÀÌ´Ù.
-	ÀÌ °´Ã¼´Â °ø°³µÇ¾î ¹ü¿ëÀûÀ¸·Î »ç¿ëµÈ´Ù.
+	ì¼ë°˜ì ì¸ Dialog boxë¥¼ ìƒì„±í•œë‹¤. ë‚´ë¶€ì˜ Widgetì€ scroll bar,	Buttonì´ë‹¤.
+	ì´ ê°ì²´ëŠ” ê³µê°œë˜ì–´ ë²”ìš©ì ìœ¼ë¡œ ì‚¬ìš©ëœë‹¤.
 
 	2000.11.2. KJTINC
 
@@ -19,14 +19,14 @@
 
 
 //-----------------------------------------------------------------------------
-// Dialog ÇÏ´Ü¿¡ ³ª¿À´Â Á¤ÀÇµÈ ¹öÆ°.
+// Dialog í•˜ë‹¨ì— ë‚˜ì˜¤ëŠ” ì •ì˜ëœ ë²„íŠ¼.
 //-----------------------------------------------------------------------------
 #define DIALOG_NO_BUTTON				0x0000
 #define DIALOG_OK						0x0001
 #define DIALOG_CANCEL					0x0002
 #define DIALOG_FRIEND_BLACK				0x0004		//add by viva
 //-----------------------------------------------------------------------------
-// Dialog Á¤ÀÇµÈ ¹öÆ° exec id.
+// Dialog ì •ì˜ëœ ë²„íŠ¼ exec id.
 //-----------------------------------------------------------------------------
 #define DIALOG_EXECID_EXIT				0xFFFF0000
 #define DIALOG_EXECID_OK				0xFFFF0001
@@ -44,7 +44,7 @@ struct DIALOG_MENU
 	id_t		exec_id;
 };
 
-struct DIALOG_MENU_INNER	// ³»ºÎ¿¡¼­ ¾²ÀÓ
+struct DIALOG_MENU_INNER	// ë‚´ë¶€ì—ì„œ ì“°ì„
 {
 	std::vector<std::string>	sz_menu_str;
 	id_t		exec_id;
@@ -53,9 +53,9 @@ struct DIALOG_MENU_INNER	// ³»ºÎ¿¡¼­ ¾²ÀÓ
 //-----------------------------------------------------------------------------
 // DIALOG_BUTTON_X
 //
-// ButtonÀÇ À§Ä¡´Â ¹öÆ°ÀÇ °³¼ö¿¡ µû¶ó¼­ ´Ş¶óÁöÁö¸¸ ±âº»ÀûÀ¸·Î boxÀÇ ¿ìÃø ³¡¿¡
-// Á¤·ÄµÈ´Ù. buttonÀÌ 2°³ÀÏ °æ¿ì button_n = 1ÀÌ¸é °¡Àå ¿ìÃøÀÌ°í 2ÀÌ¸é ±× ´ÙÀ½ÀÌ´Ù.
-// ¿¹¸¦µé¾î Ok buttonÀº Cancel buttonÀÌ ÀÖÀ» °æ¿ì À§Ä¡°¡ ¹Ù²ï´Ù.
+// Buttonì˜ ìœ„ì¹˜ëŠ” ë²„íŠ¼ì˜ ê°œìˆ˜ì— ë”°ë¼ì„œ ë‹¬ë¼ì§€ì§€ë§Œ ê¸°ë³¸ì ìœ¼ë¡œ boxì˜ ìš°ì¸¡ ëì—
+// ì •ë ¬ëœë‹¤. buttonì´ 2ê°œì¼ ê²½ìš° button_n = 1ì´ë©´ ê°€ì¥ ìš°ì¸¡ì´ê³  2ì´ë©´ ê·¸ ë‹¤ìŒì´ë‹¤.
+// ì˜ˆë¥¼ë“¤ì–´ Ok buttonì€ Cancel buttonì´ ìˆì„ ê²½ìš° ìœ„ì¹˜ê°€ ë°”ë€ë‹¤.
 //-----------------------------------------------------------------------------
 #define DIALOG_BUTTON_EXTRA_HGAP		10
 
@@ -79,8 +79,8 @@ enum BUTTON_SEQUENCE
 //-----------------------------------------------------------------------------
 enum SETMESSAGE_MODE_OPTION
 {
-	SMO_FIT,	// Msg rect¿¡ Á¤È®È÷ ¸ÂÃß°í Á¤·ÄÇÏÁö ¾Ê´Â´Ù. ¶ÇÇÑ ÇÊ¿äÇÏ´Ù¸é scroll bar¸¦ »ı¼ºÇÑ´Ù.
-	SMO_NOFIT, // Msg rect ³»¿¡¼­ À§/¾Æ·¡ °¡¿îµ¥ Á¤·ÄÀ» ÇÏ¸ç scroll bar¸¦ »ı¼ºÇÏÁö ¾Ê´Â´Ù.
+	SMO_FIT,	// Msg rectì— ì •í™•íˆ ë§ì¶”ê³  ì •ë ¬í•˜ì§€ ì•ŠëŠ”ë‹¤. ë˜í•œ í•„ìš”í•˜ë‹¤ë©´ scroll barë¥¼ ìƒì„±í•œë‹¤.
+	SMO_NOFIT, // Msg rect ë‚´ì—ì„œ ìœ„/ì•„ë˜ ê°€ìš´ë° ì •ë ¬ì„ í•˜ë©° scroll barë¥¼ ìƒì„±í•˜ì§€ ì•ŠëŠ”ë‹¤.
 };
 
 //-----------------------------------------------------------------------------
@@ -89,7 +89,7 @@ enum SETMESSAGE_MODE_OPTION
 // format>
 //
 //				+----------------------------+
-//				|			Message			 | -> Message°¡ ¿µ¿ªº¸´Ù Å©¸é scroll bar°¡ ºÙ´Â´Ù.
+//				|			Message			 | -> Messageê°€ ì˜ì—­ë³´ë‹¤ í¬ë©´ scroll barê°€ ë¶™ëŠ”ë‹¤.
 //				|							 |
 //				+----------------------------+
 //				|							 |
@@ -99,24 +99,24 @@ enum SETMESSAGE_MODE_OPTION
 //				|	Button 1.   Button 2.	 |
 //				+----------------------------+
 //
-// ±âº»ÀûÀ¸·Î ¿ÜºÎ¿¡¼­ boxÀÇ size¸¦ °áÁ¤ÇÑ´Ù. ±×°ÍÀÌ ´õ ¹ü¿ëÀûÀ¸·Î ¾²´Â µ¥ ÁöÀåÀÌ
-// ¾ø±â ¶§¹®ÀÌ´Ù. Button, Menu°¡ ¹èÄ¡µÇ°í Message area°¡ Á¼À¸¸é ÀÚµ¿À¸·Î scroll bar¸¦
-// ºÎÂøÇÑ´Ù.
+// ê¸°ë³¸ì ìœ¼ë¡œ ì™¸ë¶€ì—ì„œ boxì˜ sizeë¥¼ ê²°ì •í•œë‹¤. ê·¸ê²ƒì´ ë” ë²”ìš©ì ìœ¼ë¡œ ì“°ëŠ” ë° ì§€ì¥ì´
+// ì—†ê¸° ë•Œë¬¸ì´ë‹¤. Button, Menuê°€ ë°°ì¹˜ë˜ê³  Message areaê°€ ì¢ìœ¼ë©´ ìë™ìœ¼ë¡œ scroll barë¥¼
+// ë¶€ì°©í•œë‹¤.
 //
-// !box°¡ ³Ê¹« ÀÛÀ¸¸é Menu ¹× ButtonÀÌ ¾È ³ª¿Ã ¼ö ÀÖ´Ù.
+// !boxê°€ ë„ˆë¬´ ì‘ìœ¼ë©´ Menu ë° Buttonì´ ì•ˆ ë‚˜ì˜¬ ìˆ˜ ìˆë‹¤.
 //
-// »ç¿ë¹ı>
-//				// func´Â menuÀÇ ½ÇÇàÇÔ¼öÀÌ´Ù.
+// ì‚¬ìš©ë²•>
+//				// funcëŠ” menuì˜ ì‹¤í–‰í•¨ìˆ˜ì´ë‹¤.
 //				C_VS_UI_DIALOG m_pC_dialog = new C_VS_UI_DIALOG(50, 20, 6, 2, func, DIALOG_OK);
 //
 //				DIALOG_MENU d_menu[] = {
-//					{"»ç±â", 0},
-//					{"ÆÈ±â", 1},
-//					{"³¡³»±â", DIALOG_EXECID_EXIT},
+//					{"ì‚¬ê¸°", 0},
+//					{"íŒ”ê¸°", 1},
+//					{"ëë‚´ê¸°", DIALOG_EXECID_EXIT},
 //				};
 //				m_pC_dialog->SetMenu(d_menu, 3);
 //
-//				static char * pp_dmsg[] = { // Message´Â ¹İµå½Ã static or global·Î ÇØ¾ß ÇÑ´Ù.
+//				static char * pp_dmsg[] = { // MessageëŠ” ë°˜ë“œì‹œ static or globalë¡œ í•´ì•¼ í•œë‹¤.
 //					"line 1",
 //					"line 2",
 //				};
@@ -133,8 +133,8 @@ protected:
 	//
 	// center (x, y)
 	//
-	// Á¶¸³¹Ú½ºÀÇ x, y center °³¼ö.
-	// default·Î °¡·Î 2°³ ¼¼·Î 2°³°¡ ÀÖ°í centerÀÇ Á¶¸³ÀÌ¹ÌÁöÀÇ °³¼ö¸¦ ´Ã¸± ¼ö ÀÖ´Ù.
+	// ì¡°ë¦½ë°•ìŠ¤ì˜ x, y center ê°œìˆ˜.
+	// defaultë¡œ ê°€ë¡œ 2ê°œ ì„¸ë¡œ 2ê°œê°€ ìˆê³  centerì˜ ì¡°ë¦½ì´ë¯¸ì§€ì˜ ê°œìˆ˜ë¥¼ ëŠ˜ë¦´ ìˆ˜ ìˆë‹¤.
 	//
 //	int							m_width, m_height;
 
@@ -148,7 +148,7 @@ protected:
 	UINT							m_line_count;
 	UINT							m_print_line_count;
 	SETMESSAGE_MODE_OPTION	m_message_mode;
-	int							m_nofit_mode_msg_y; // no fit modeÀÏ °æ¿ì msgÀÇ y.
+	int							m_nofit_mode_msg_y; // no fit modeì¼ ê²½ìš° msgì˜ y.
 
 	C_VS_UI_SCROLL_BAR			* m_pC_msg_scroll_bar,*m_pC_menu_scroll_bar;
 //	Scrollbar					m_scrollbar;
@@ -166,9 +166,9 @@ protected:
 	//
 	// rect
 	//
-	// Box¿¡¼­ Message rect¿Í Menu rectÀÌ´Ù. ÀÌ°ÍÀº ÀÏ´Ü ButtonÀ» Á¦¿ÜÇÑ ¿µ¿ªÀÌ´Ù.
-	// Button -> Menu -> Message ¼øÀ¸·Î rect¸¦ Çü¼ºÇÏ´Â µ¥, °ø°£ÀÌ ¾øÀ¸¸é ±×°Í¿¡ ÇØ´çÇÏ´Â
-	// °ÍÀº Ãâ·ÂµÇÁö ¾Ê´Â´Ù. ButtonÀº ÃÖ¼Ò box size¿¡¼­µµ °¡´ÉÇÏ¸ç Á¦ÀÏ ÇÏ´ÜÀ» Â÷ÁöÇÑ´Ù.
+	// Boxì—ì„œ Message rectì™€ Menu rectì´ë‹¤. ì´ê²ƒì€ ì¼ë‹¨ Buttonì„ ì œì™¸í•œ ì˜ì—­ì´ë‹¤.
+	// Button -> Menu -> Message ìˆœìœ¼ë¡œ rectë¥¼ í˜•ì„±í•˜ëŠ” ë°, ê³µê°„ì´ ì—†ìœ¼ë©´ ê·¸ê²ƒì— í•´ë‹¹í•˜ëŠ”
+	// ê²ƒì€ ì¶œë ¥ë˜ì§€ ì•ŠëŠ”ë‹¤. Buttonì€ ìµœì†Œ box sizeì—ì„œë„ ê°€ëŠ¥í•˜ë©° ì œì¼ í•˜ë‹¨ì„ ì°¨ì§€í•œë‹¤.
 	//
 	Rect							m_msg_rect;
 	Rect							m_menu_rect;
@@ -176,8 +176,8 @@ protected:
 //	Rect							m_tag_rect;
 
 	int							m_button_count;
-	int								*m_button_y_list;		// ½ºÅ©·Ñ µÉ¶§ y Å©±â¸¦ ¾Ë±â À§ÇÔ.
-	int								m_menu_y_size,m_temp_menu_rect_y;	// ¸Ş´º Rect »çÀÌÁî º¯°æ½Ã º¯°æµÈ y Å©±â
+	int								*m_button_y_list;		// ìŠ¤í¬ë¡¤ ë ë•Œ y í¬ê¸°ë¥¼ ì•Œê¸° ìœ„í•¨.
+	int								m_menu_y_size,m_temp_menu_rect_y;	// ë©”ë‰´ Rect ì‚¬ì´ì¦ˆ ë³€ê²½ì‹œ ë³€ê²½ëœ y í¬ê¸°
 
 
 
@@ -223,10 +223,10 @@ public:
 	void	ProcessMenuScrollBar();
 
 	void	SetOkOnly(bool bFlag) { m_bOkOnly = bFlag;}
-	// 2005, 1, 18, sobeit add start - ºÒ¿ìÀÌ¿ôµ½±â ¼º±İ ÀÌº¥Æ®¿¡¼­ °³ÀÎ ¼º±İÀÎÁö ±æµå ¼º±İ ÀÎÁö Ã¼Å© ÇÏ±â À§ÇØ
+	// 2005, 1, 18, sobeit add start - ë¶ˆìš°ì´ì›ƒë•ê¸° ì„±ê¸ˆ ì´ë²¤íŠ¸ì—ì„œ ê°œì¸ ì„±ê¸ˆì¸ì§€ ê¸¸ë“œ ì„±ê¸ˆ ì¸ì§€ ì²´í¬ í•˜ê¸° ìœ„í•´
 	int GetTempValue() { return m_TempValue1;}
 	void SetTempValue(int TempValue) { m_TempValue1 = TempValue;}
-	// 2005, 1, 18, sobeit add end - ºÒ¿ìÀÌ¿ôµ½±â ¼º±İ ÀÌº¥Æ®¿¡¼­ °³ÀÎ ¼º±İÀÎÁö ±æµå ¼º±İ ÀÎÁö Ã¼Å© ÇÏ±â À§ÇØ
+	// 2005, 1, 18, sobeit add end - ë¶ˆìš°ì´ì›ƒë•ê¸° ì„±ê¸ˆ ì´ë²¤íŠ¸ì—ì„œ ê°œì¸ ì„±ê¸ˆì¸ì§€ ê¸¸ë“œ ì„±ê¸ˆ ì¸ì§€ ì²´í¬ í•˜ê¸° ìœ„í•´
 };
 //
 // exec function prototype

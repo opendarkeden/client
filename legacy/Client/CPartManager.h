@@ -1,11 +1,11 @@
 //----------------------------------------------------------------------
 // CPartManager.h
 //----------------------------------------------------------------------
-// index(IndexType)°³¼ö Áß¿¡¼­ 
-// ÀÏºÎ(PartIndexType)¸¸ memory¸¦ Àâ¾Æ¼­ DataTypeÀ¸·Î »ç¿ëÇÏµµ·Ï ÇÑ´Ù.
+// index(IndexType)ê°œìˆ˜ ì¤‘ì—ì„œ 
+// ì¼ë¶€(PartIndexType)ë§Œ memoryë¥¼ ì¡ì•„ì„œ DataTypeìœ¼ë¡œ ì‚¬ìš©í•˜ë„ë¡ í•œë‹¤.
 //
 //----------------------------------------------------------------------
-//  Index : PartIndex    PartIndex : Data        : ½ÇÁ¦Index
+//  Index : PartIndex    PartIndex : Data        : ì‹¤ì œIndex
 //----------------------------------------------------------------------
 //	    0 : .					 0 : DataType[4] : 4
 //	    1 : .					 1 : DataType[2] : 2
@@ -15,55 +15,55 @@
 //	    5 : .					
 //----------------------------------------------------------------------
 //
-// [ÇÊ¿ä¼º]
+// [í•„ìš”ì„±]
 //
-// ÇÏ³ªÀÇ Data°¡ 1KÀÌ°í »ç¿ëÇÒ·Á´Â DataÀÇ Array°¡ 1¸¸°³¶ó¸é..
-// ¾à 10MÀÇ ¸Ş¸ğ¸®°¡ ÇÊ¿äÇÏ´Ù. 
+// í•˜ë‚˜ì˜ Dataê°€ 1Kì´ê³  ì‚¬ìš©í• ë ¤ëŠ” Dataì˜ Arrayê°€ 1ë§Œê°œë¼ë©´..
+// ì•½ 10Mì˜ ë©”ëª¨ë¦¬ê°€ í•„ìš”í•˜ë‹¤. 
 //
-// ±×·¯³ª, ½ÇÁ¦·Î 10MÀÇ ¸Ş¸ğ¸®¸¦ ±× DataµéÀ» À§ÇØ¼­ ÇÒ´çÇØÁÖ´Â°Ô Èûµé°æ¿ì
-// 1MÁ¤µµÀÇ ¿©À¯¸¸ ÀÖ¾î¼­ 1M¸¸ ½á¾ßÇÑ´Ù¸é..??
+// ê·¸ëŸ¬ë‚˜, ì‹¤ì œë¡œ 10Mì˜ ë©”ëª¨ë¦¬ë¥¼ ê·¸ Dataë“¤ì„ ìœ„í•´ì„œ í• ë‹¹í•´ì£¼ëŠ”ê²Œ í˜ë“¤ê²½ìš°
+// 1Mì •ë„ì˜ ì—¬ìœ ë§Œ ìˆì–´ì„œ 1Më§Œ ì¨ì•¼í•œë‹¤ë©´..??
 //
-// 1M¿¡ ÇØ´çÇÏ´Â °³¼ö(Ãµ°³=PartIndexType)¸¸Å­¸¸ 
-// DataTypeÀ¸·Î ¸Ş¸ğ¸®¸¦ Àâ¾ÆµÎ°í
-// ½ÇÁ¦·Î ÀüÃ¼ Data°³¼ö¿¡ ÇØ´çÇÏ´Â ¸¸Å­ÀÇ Array¸¦ Àâ¾ÆµÎ°í
-// ÀÌ°ÍÀº ½ÇÁ¦ Index(¸¸°³)°¡ PartIndex(Ãµ°³)¸¦ °¡¸®Å°µµ·Ï ÇÑ´Ù.
-// Áï, ½ÇÁ¦IndexÀÇ °ªÀÎ PartIndex¸¦ ÅëÇØ¼­ PartIndex¿¡ ÇØ´çÇÏ´Â 
-// Data¸¦ ¾òÀ» ¼ö ÀÖ´Ù. 
+// 1Mì— í•´ë‹¹í•˜ëŠ” ê°œìˆ˜(ì²œê°œ=PartIndexType)ë§Œí¼ë§Œ 
+// DataTypeìœ¼ë¡œ ë©”ëª¨ë¦¬ë¥¼ ì¡ì•„ë‘ê³ 
+// ì‹¤ì œë¡œ ì „ì²´ Dataê°œìˆ˜ì— í•´ë‹¹í•˜ëŠ” ë§Œí¼ì˜ Arrayë¥¼ ì¡ì•„ë‘ê³ 
+// ì´ê²ƒì€ ì‹¤ì œ Index(ë§Œê°œ)ê°€ PartIndex(ì²œê°œ)ë¥¼ ê°€ë¦¬í‚¤ë„ë¡ í•œë‹¤.
+// ì¦‰, ì‹¤ì œIndexì˜ ê°’ì¸ PartIndexë¥¼ í†µí•´ì„œ PartIndexì— í•´ë‹¹í•˜ëŠ” 
+// Dataë¥¼ ì–»ì„ ìˆ˜ ìˆë‹¤. 
 //
 //
-// [±¸Çö ¹æ¹ı] 
+// [êµ¬í˜„ ë°©ë²•] 
 //
-// ±×·¸´Ù¸é, ¾î¶»°Ô Ãµ°³(1M)¸¦ ÀÌ¿ëÇØ¼­ ¸¸°³(10M)¸¦ ÀûÀıÈ÷ »ç¿ëÇÒ ¼ö ÀÖÀ»±î?
+// ê·¸ë ‡ë‹¤ë©´, ì–´ë–»ê²Œ ì²œê°œ(1M)ë¥¼ ì´ìš©í•´ì„œ ë§Œê°œ(10M)ë¥¼ ì ì ˆíˆ ì‚¬ìš©í•  ìˆ˜ ìˆì„ê¹Œ?
 //
-// ÀÏ´Ü.. »ç¿ë¿¡ ÇÊ¿äÇÏ´Ù´Â ¿äÃ»¿¡ ÀÇÇØ¼­ 
-// PartIndexÀÇ Data¿¡ Ãµ°³ÀÇ Data¸¦ »ı¼ºÇÑ´Ù.
-// (¿¹) Index 1ÀÇ Data°¡ ÇÊ¿äÇÏ´Ù¸é, 
-//      Index 1À» º¸°í .. PartIndex°¡ ÀÖÀ¸¸é ±× PartIndexÀÇ Data¸¦ »ç¿ëÇÑ´Ù.
-//      PartIndex°¡ ¾ø´Ù¸é, ±× Data´Â ¾ø´Â °æ¿ìÀÌ¹Ç·Î LoadÇØ¾ß ÇÑ´Ù.
-//      PartIndex°¡ ²Ë Ã¡´Ù¸é.. °¡Àå ¾µ¸ğ ¾ø´Â °ÍÀ» ÇÏ³ª ¾ø¾Ö¾ß ÇÏ´Âµ¥,
-//      ÀÌ¶§ LRU(Least Recently Used) ¹æ¹ıÀ» ÀÌ¿ëÇÑ´Ù.
-//      Á¦°Å´ë»óÀÌ µÈ PartIndexÀÇ ½ÇÁ¦IndexÀÇ PartIndex¿¡´Â INDEX_NULL Ç¥½Ã
+// ì¼ë‹¨.. ì‚¬ìš©ì— í•„ìš”í•˜ë‹¤ëŠ” ìš”ì²­ì— ì˜í•´ì„œ 
+// PartIndexì˜ Dataì— ì²œê°œì˜ Dataë¥¼ ìƒì„±í•œë‹¤.
+// (ì˜ˆ) Index 1ì˜ Dataê°€ í•„ìš”í•˜ë‹¤ë©´, 
+//      Index 1ì„ ë³´ê³  .. PartIndexê°€ ìˆìœ¼ë©´ ê·¸ PartIndexì˜ Dataë¥¼ ì‚¬ìš©í•œë‹¤.
+//      PartIndexê°€ ì—†ë‹¤ë©´, ê·¸ DataëŠ” ì—†ëŠ” ê²½ìš°ì´ë¯€ë¡œ Loadí•´ì•¼ í•œë‹¤.
+//      PartIndexê°€ ê½‰ ì°¼ë‹¤ë©´.. ê°€ì¥ ì“¸ëª¨ ì—†ëŠ” ê²ƒì„ í•˜ë‚˜ ì—†ì• ì•¼ í•˜ëŠ”ë°,
+//      ì´ë•Œ LRU(Least Recently Used) ë°©ë²•ì„ ì´ìš©í•œë‹¤.
+//      ì œê±°ëŒ€ìƒì´ ëœ PartIndexì˜ ì‹¤ì œIndexì˜ PartIndexì—ëŠ” INDEX_NULL í‘œì‹œ
 //		...
 //
-// LRU´Â ¾î¶»°Ô ±¸ÇöÇÒ±î?
-//      //°¡Àå ¿À·¡Àü¿¡ »ç¿ëÇÑ °ÍÀ» ¾Ë¾Æ³»¾ß ÇÑ´Ù.
-//      //Data»ç¿ëÇÒ ¶§ ¸¶´Ù.. ±× index¿¡ 'ÃÖ±Ù½Ã°£' Ç¥½Ã¸¦ ÇØ µĞ´Ù.
-//      //LRU¸¦ Ã£¾Æ¾ß ÇÒ °æ¿ì´Â.. 'ÃÖ±Ù ½Ã°£'ÀÌ °¡Àå ¿À·¡ÀüÀÎ°É Á¦°ÅÇÑ´Ù.
-//      //´Ü, ÀÌ·¸°Ô¸¸ ±¸ÇöÇÏ¸é LRU¸¦ Ã£À» ¶§, ¸ğµÎ ºñ±³ ÇÒ ¼ö ¹Û¿¡ ¾ø´Ù T_T
+// LRUëŠ” ì–´ë–»ê²Œ êµ¬í˜„í• ê¹Œ?
+//      //ê°€ì¥ ì˜¤ë˜ì „ì— ì‚¬ìš©í•œ ê²ƒì„ ì•Œì•„ë‚´ì•¼ í•œë‹¤.
+//      //Dataì‚¬ìš©í•  ë•Œ ë§ˆë‹¤.. ê·¸ indexì— 'ìµœê·¼ì‹œê°„' í‘œì‹œë¥¼ í•´ ë‘”ë‹¤.
+//      //LRUë¥¼ ì°¾ì•„ì•¼ í•  ê²½ìš°ëŠ”.. 'ìµœê·¼ ì‹œê°„'ì´ ê°€ì¥ ì˜¤ë˜ì „ì¸ê±¸ ì œê±°í•œë‹¤.
+//      //ë‹¨, ì´ë ‡ê²Œë§Œ êµ¬í˜„í•˜ë©´ LRUë¥¼ ì°¾ì„ ë•Œ, ëª¨ë‘ ë¹„êµ í•  ìˆ˜ ë°–ì— ì—†ë‹¤ T_T
 //
-//      //½Ã°£¿¡ µû¸¥ Priority Queue¸¦ »ç¿ëÇÏ¸é Á» ºü¸¦±î?
-//      //±×·¯¸é, ÀÏ¹İÀûÀÎ Ãß°¡½Ã°£¿¡ ¼Óµµ¸¦ ¼ÕÇØº¸´Âµ¥...
+//      //ì‹œê°„ì— ë”°ë¥¸ Priority Queueë¥¼ ì‚¬ìš©í•˜ë©´ ì¢€ ë¹ ë¥¼ê¹Œ?
+//      //ê·¸ëŸ¬ë©´, ì¼ë°˜ì ì¸ ì¶”ê°€ì‹œê°„ì— ì†ë„ë¥¼ ì†í•´ë³´ëŠ”ë°...
 //
-//      LRU list¸¦ »ç¿ëÇÑ´Ù.
+//      LRU listë¥¼ ì‚¬ìš©í•œë‹¤.
 //
-//      PartIndex dataµé ÀÌ¿Ü¿¡ LRU list¸¦ °¡Áö°í .. ´ÙÀ½°ú °°Àº ¼ø¼­·Î À¯ÁöÇÑ´Ù.
+//      PartIndex dataë“¤ ì´ì™¸ì— LRU listë¥¼ ê°€ì§€ê³  .. ë‹¤ìŒê³¼ ê°™ì€ ìˆœì„œë¡œ ìœ ì§€í•œë‹¤.
 //      LRU list :  MRU ----> LRU 
 //
-//      ÀÌ °æ¿ì, PartIndexIterator¸¦ µÖ¼­ °¢°¢ listÀÇ ÀÚ±â node¸¦ °¡¸®Å°µµ·Ï ÇØ¾ßÇÑ´Ù.
+//      ì´ ê²½ìš°, PartIndexIteratorë¥¼ ë‘¬ì„œ ê°ê° listì˜ ìê¸° nodeë¥¼ ê°€ë¦¬í‚¤ë„ë¡ í•´ì•¼í•œë‹¤.
 //
-//      [»ç¿ëÇÒ¶§] partIndexÀÇ iterator·Î LRU list¿¡ Á¢±ÙÇØ¼­ ±× node¸¦ front·Î ¿Å±ä´Ù.
-//      [LRU Ã£±â] LRU listÀÇ backÀÌ LRU indexÀÌ´Ù.
-//      [Ã³À½ »ı¼º½Ã] listÀÇ front¿¡ Ãß°¡ÇÏ°í partIndexIterator¿¡ iterator¸¦ ¼³Á¤ÇÑ´Ù.
+//      [ì‚¬ìš©í• ë•Œ] partIndexì˜ iteratorë¡œ LRU listì— ì ‘ê·¼í•´ì„œ ê·¸ nodeë¥¼ frontë¡œ ì˜®ê¸´ë‹¤.
+//      [LRU ì°¾ê¸°] LRU listì˜ backì´ LRU indexì´ë‹¤.
+//      [ì²˜ìŒ ìƒì„±ì‹œ] listì˜ frontì— ì¶”ê°€í•˜ê³  partIndexIteratorì— iteratorë¥¼ ì„¤ì •í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -77,7 +77,7 @@
 template <class IndexType, class PartIndexType, class DataType>
 class CPartManager {
 	public :
-		typedef	std::list<PartIndexType>	PARTINDEX_LIST;				// PartIndexÀÇ ID
+		typedef	std::list<PartIndexType>	PARTINDEX_LIST;				// PartIndexì˜ ID
 		typedef	PARTINDEX_LIST::iterator	PARTINDEX_LIST_ITERATOR;
 		
 	public :
@@ -91,7 +91,7 @@ class CPartManager {
 		void			Release();
 
 		//-------------------------------------------------------
-		// ±× index¿¡ °ü·ÃµÈ data°¡ »ı¼ºµÇ¾î ÀÖ´Â°¡?
+		// ê·¸ indexì— ê´€ë ¨ëœ dataê°€ ìƒì„±ë˜ì–´ ìˆëŠ”ê°€?
 		//-------------------------------------------------------
 		bool			IsDataNULL(IndexType index)		{ return m_pPartIndex[index]==m_PartIndexNULL; }
 		bool			IsDataNotNULL(IndexType index)	{ return m_pPartIndex[index]!=m_PartIndexNULL; }
@@ -100,18 +100,18 @@ class CPartManager {
 		// Get / Set		
 		//-------------------------------------------------------
 		void			SetData(IndexType index, const DataType& data);
-		// return°ªÀº bReplaceÀÌ´Ù. Áï, ¿ø·¡ ¹º°¡°¡ ÀÖ¾úÀ¸¸é.. true
+		// returnê°’ì€ bReplaceì´ë‹¤. ì¦‰, ì›ë˜ ë­”ê°€ê°€ ìˆì—ˆìœ¼ë©´.. true
 		IndexType		SetData(IndexType index, const DataType& data, DataType& oldData);
 		bool			GetData(IndexType index, DataType& data);
 
-		// »ç¿ëÇÑ PartIndex °³¼ö
+		// ì‚¬ìš©í•œ PartIndex ê°œìˆ˜
 		PartIndexType	GetUsed() const					{ return m_nPartUsed; }
 		IndexType		GetMaxIndex() const				{ return m_nIndex; }
 		PartIndexType	GetMaxPartIndex() const			{ return m_nPart; }
 
 	protected :
 		//-------------------------------------------------------
-		// Least_Recently_Used PartIndex¸¦ Ã£¾Æ³½´Ù.
+		// Least_Recently_Used PartIndexë¥¼ ì°¾ì•„ë‚¸ë‹¤.
 		//-------------------------------------------------------
 		PartIndexType	GetLRU() const;
 		DataType&		GetPartData(PartIndexType partIndex)	{ return m_pData[partIndex]; }
@@ -121,17 +121,17 @@ class CPartManager {
 		//-------------------------------------------------------
 		// [Index] ( PartIndex )
 		//-------------------------------------------------------
-		IndexType			m_nIndex;			// ÀüÃ¼ index °³¼ö		
-		PartIndexType*		m_pPartIndex;		// Part ÇÏ³ª¸¦ °¡¸®Å°´Â index
+		IndexType			m_nIndex;			// ì „ì²´ index ê°œìˆ˜		
+		PartIndexType*		m_pPartIndex;		// Part í•˜ë‚˜ë¥¼ ê°€ë¦¬í‚¤ëŠ” index
 
 		//-------------------------------------------------------
 		// [PartIndex] ( Data : ParentIndex : LastTime )
 		//-------------------------------------------------------
-		PartIndexType		m_nPart;			// PartÀÇ °³¼ö
-		PartIndexType		m_nPartUsed;		// ÀÌ¹Ì »ç¿ëÇÑ PartÀÇ °³¼ö
-		DataType*			m_pData;			// ½ÇÁ¦ Data
-		IndexType*			m_pParentIndex;		// ¿ø·¡ÀÇ index
-		DWORD*				m_pLastTime;		// ÃÖÁ¾ »ç¿ë ½Ã°£
+		PartIndexType		m_nPart;			// Partì˜ ê°œìˆ˜
+		PartIndexType		m_nPartUsed;		// ì´ë¯¸ ì‚¬ìš©í•œ Partì˜ ê°œìˆ˜
+		DataType*			m_pData;			// ì‹¤ì œ Data
+		IndexType*			m_pParentIndex;		// ì›ë˜ì˜ index
+		DWORD*				m_pLastTime;		// ìµœì¢… ì‚¬ìš© ì‹œê°„
 
 		//-------------------------------------------------------
 		// LRU list
@@ -140,10 +140,10 @@ class CPartManager {
 		PARTINDEX_LIST_ITERATOR*	m_pPartIterator;	// iterator for LRU list
 		
 		//-------------------------------------------------------
-		// ±âÅ¸ ÇÊ¿äÇÑ °ª
+		// ê¸°íƒ€ í•„ìš”í•œ ê°’
 		//-------------------------------------------------------
-		IndexType			m_IndexNULL;		// index NULL °ª
-		PartIndexType		m_PartIndexNULL;	// part index NULL °ª
+		IndexType			m_IndexNULL;		// index NULL ê°’
+		PartIndexType		m_PartIndexNULL;	// part index NULL ê°’
 
 		//-------------------------------------------------------
 		// count
@@ -172,7 +172,7 @@ CPartManager<IndexType, PartIndexType, DataType>::CPartManager()
 	// LRU
 	m_pPartIterator = NULL;
 
-	// Null°ª
+	// Nullê°’
 	m_IndexNULL	= (IndexType)0xFFFFFFFF;
 	m_PartIndexNULL = (PartIndexType)0xFFFFFFFF;
 
@@ -202,7 +202,7 @@ CPartManager<IndexType, PartIndexType, DataType>::Init(IndexType maxIndex, PartI
 	Release();
 
 	//------------------------------------------------------
-	// ºÎºĞÀÌ ÀüÃ¼º¸´Ù Å¬¼ö´Â ¾øÀ¸¹Ç·Î...
+	// ë¶€ë¶„ì´ ì „ì²´ë³´ë‹¤ í´ìˆ˜ëŠ” ì—†ìœ¼ë¯€ë¡œ...
 	//------------------------------------------------------
 	if (maxPart > maxIndex)
 	{
@@ -210,7 +210,7 @@ CPartManager<IndexType, PartIndexType, DataType>::Init(IndexType maxIndex, PartI
 	}
 
 	//------------------------------------------------------
-	// PartIndexTypeÀ» m_nIndex°³ »ı¼ºÇÑ´Ù.
+	// PartIndexTypeì„ m_nIndexê°œ ìƒì„±í•œë‹¤.
 	//------------------------------------------------------
 	m_nIndex = maxIndex;
 	m_pPartIndex = new PartIndexType [m_nIndex];
@@ -221,13 +221,13 @@ CPartManager<IndexType, PartIndexType, DataType>::Init(IndexType maxIndex, PartI
 	}
 
 	//------------------------------------------------------
-	// PartIndex°ü·Ã ºÎºĞ »ı¼º
+	// PartIndexê´€ë ¨ ë¶€ë¶„ ìƒì„±
 	//------------------------------------------------------
 	m_nPart			= maxPart;
 	m_nPartUsed		= 0;
 	m_pData			= new DataType [m_nPart];
-	m_pParentIndex	= new IndexType [m_nPart];	// ¿ø·¡ÀÇ index
-	m_pLastTime		= new DWORD [m_nPart];		// ÃÖÁ¾ »ç¿ë ½Ã°£
+	m_pParentIndex	= new IndexType [m_nPart];	// ì›ë˜ì˜ index
+	m_pLastTime		= new DWORD [m_nPart];		// ìµœì¢… ì‚¬ìš© ì‹œê°„
 	
 	//------------------------------------------------------
 	// LRU list
@@ -293,49 +293,49 @@ CPartManager<IndexType, PartIndexType, DataType>::Release()
 //----------------------------------------------------------------------
 // Set Data
 //----------------------------------------------------------------------
-// index¹øÂ° data¸¦ Ãß°¡½ÃÅ²´Ù.
-// ÀÌ¹Ì »ç¿ëÁßÀÎ°Ô ÀÖ´õ¶óµµ µ¤¾î¹ö¸°´Ù.
+// indexë²ˆì§¸ dataë¥¼ ì¶”ê°€ì‹œí‚¨ë‹¤.
+// ì´ë¯¸ ì‚¬ìš©ì¤‘ì¸ê²Œ ìˆë”ë¼ë„ ë®ì–´ë²„ë¦°ë‹¤.
 //----------------------------------------------------------------------
 template <class IndexType, class PartIndexType, class DataType>
 void
 CPartManager<IndexType, PartIndexType, DataType>::SetData(IndexType index, const DataType& data)
 {
-	// Ãß°¡ÇÒ À§Ä¡
+	// ì¶”ê°€í•  ìœ„ì¹˜
 	PartIndexType	newPartIndex = GetLRU();
 
 	//------------------------------------------------------------
-	// ¿ø·¡ ÀÖ´ø°Å Á¦°Å
+	// ì›ë˜ ìˆë˜ê±° ì œê±°
 	//------------------------------------------------------------		
 	IndexType oldIndex = m_pParentIndex[newPartIndex];
 	if (oldIndex != m_IndexNULL)
 	{
-		// ¿ø·¡ÀÇ PartIndex¿Í °ü·ÃÀÖ´Â index¸¦ null·Î ¹Ù²Û´Ù.		
+		// ì›ë˜ì˜ PartIndexì™€ ê´€ë ¨ìˆëŠ” indexë¥¼ nullë¡œ ë°”ê¾¼ë‹¤.		
 		m_pPartIndex[oldIndex] = m_PartIndexNULL;
 		m_pParentIndex[newPartIndex] = m_IndexNULL;	
 	}
 
 	//------------------------------------------------------------
-	// »õ°Í »ı¼º
+	// ìƒˆê²ƒ ìƒì„±
 	//------------------------------------------------------------
-	// link »ı¼º
+	// link ìƒì„±
 	m_pPartIndex[index] = newPartIndex;
 	m_pParentIndex[newPartIndex] = index;
 
-	// data ¼³Á¤
+	// data ì„¤ì •
 	m_pData[newPartIndex] = data;
 
-	// ÃÖÁ¾ »ç¿ë ½Ã°£ : counter¸¦ Áõ°¡½ÃÅ³ ÇÊ¿ä´Â ¾ø´Ù.
+	// ìµœì¢… ì‚¬ìš© ì‹œê°„ : counterë¥¼ ì¦ê°€ì‹œí‚¬ í•„ìš”ëŠ” ì—†ë‹¤.
 	m_pLastTime[newPartIndex] = m_Counter;
 
 	//------------------------------------------------------------
 	// LRU list
 	//------------------------------------------------------------
-	// front°¡ °¡Àå ÃÖ±Ù¿¡ »ç¿ëµÈ °ÍÀÌ´Ù.
-	// m_pPartIterator[]¿¡´Â ±× partIndexÀÇ iterator¸¦ ÀúÀåÇÑ´Ù.
+	// frontê°€ ê°€ì¥ ìµœê·¼ì— ì‚¬ìš©ëœ ê²ƒì´ë‹¤.
+	// m_pPartIterator[]ì—ëŠ” ê·¸ partIndexì˜ iteratorë¥¼ ì €ì¥í•œë‹¤.
 	m_listLRU.push_front( newPartIndex );
 	m_pPartIterator[newPartIndex] = m_listLRU.begin();
 	
-	// »ç¿ëÇÑ °³¼ö Áõ°¡
+	// ì‚¬ìš©í•œ ê°œìˆ˜ ì¦ê°€
 	if (m_nPartUsed < m_nPart) 
 		m_nPartUsed++;
 }
@@ -343,57 +343,57 @@ CPartManager<IndexType, PartIndexType, DataType>::SetData(IndexType index, const
 //----------------------------------------------------------------------
 // Set Data
 //----------------------------------------------------------------------
-// index¹øÂ° data¸¦ Ãß°¡½ÃÅ²´Ù.
-// ÀÌ¹Ì »ç¿ëÁßÀÎ°Ô ÀÖÀ¸¸é ³Ñ°ÜÁØ´Ù.
+// indexë²ˆì§¸ dataë¥¼ ì¶”ê°€ì‹œí‚¨ë‹¤.
+// ì´ë¯¸ ì‚¬ìš©ì¤‘ì¸ê²Œ ìˆìœ¼ë©´ ë„˜ê²¨ì¤€ë‹¤.
 //
-// return°ªÀº Á¦°ÅµÇ´Â dataÀÇ indexÀÌ´Ù.
-// m_IndexNULLÀÌ¸é ¾ø´Â °Í..
+// returnê°’ì€ ì œê±°ë˜ëŠ” dataì˜ indexì´ë‹¤.
+// m_IndexNULLì´ë©´ ì—†ëŠ” ê²ƒ..
 //----------------------------------------------------------------------
 template <class IndexType, class PartIndexType, class DataType>
 IndexType
 CPartManager<IndexType, PartIndexType, DataType>::SetData(IndexType index, const DataType& data, DataType& oldData)
 {
-	// Ãß°¡ÇÒ À§Ä¡
+	// ì¶”ê°€í•  ìœ„ì¹˜
 	PartIndexType	newPartIndex = GetLRU();
 
 	//bool bReplace = false;
 	//------------------------------------------------------------
-	// ¿ø·¡ ÀÖ´ø°Å Á¦°Å
+	// ì›ë˜ ìˆë˜ê±° ì œê±°
 	//------------------------------------------------------------	
 	IndexType oldIndex = m_pParentIndex[newPartIndex];
 	if (oldIndex != m_IndexNULL)
 	{
-		// ¿ø·¡ÀÇ PartIndex¿Í °ü·ÃÀÖ´Â index¸¦ null·Î ¹Ù²Û´Ù.		
+		// ì›ë˜ì˜ PartIndexì™€ ê´€ë ¨ìˆëŠ” indexë¥¼ nullë¡œ ë°”ê¾¼ë‹¤.		
 		m_pPartIndex[oldIndex] = m_PartIndexNULL;
 		m_pParentIndex[newPartIndex] = m_IndexNULL;
 
-		// ¿ø·¡ ÀÖ´ø°É ³Ñ°ÜÁØ´Ù.
+		// ì›ë˜ ìˆë˜ê±¸ ë„˜ê²¨ì¤€ë‹¤.
 		oldData = m_pData[newPartIndex];
 
 		//bReplace = true;
 	}
 
 	//------------------------------------------------------------
-	// »õ°Í »ı¼º
+	// ìƒˆê²ƒ ìƒì„±
 	//------------------------------------------------------------
-	// link »ı¼º
+	// link ìƒì„±
 	m_pPartIndex[index] = newPartIndex;
 	m_pParentIndex[newPartIndex] = index;
 
-	// data ¼³Á¤
+	// data ì„¤ì •
 	m_pData[newPartIndex] = data;
 
-	// ÃÖÁ¾ »ç¿ë ½Ã°£ 
+	// ìµœì¢… ì‚¬ìš© ì‹œê°„ 
 	m_pLastTime[newPartIndex] = m_Counter++;
 
 	//------------------------------------------------------------
 	// LRU list
 	//------------------------------------------------------------
-	// front°¡ °¡Àå ÃÖ±Ù¿¡ »ç¿ëµÈ °ÍÀÌ´Ù.
-	// m_pPartIterator[]¿¡´Â ±× partIndexÀÇ iterator¸¦ ÀúÀåÇÑ´Ù.
+	// frontê°€ ê°€ì¥ ìµœê·¼ì— ì‚¬ìš©ëœ ê²ƒì´ë‹¤.
+	// m_pPartIterator[]ì—ëŠ” ê·¸ partIndexì˜ iteratorë¥¼ ì €ì¥í•œë‹¤.
 	if (m_pPartIterator[newPartIndex]!=m_listLRU.end())
 	{
-		m_listLRU.erase( m_pPartIterator[newPartIndex] );		// Á¦°Å
+		m_listLRU.erase( m_pPartIterator[newPartIndex] );		// ì œê±°
 	}
 	m_listLRU.push_front( newPartIndex );
 	m_pPartIterator[newPartIndex] = m_listLRU.begin();
@@ -416,7 +416,7 @@ CPartManager<IndexType, PartIndexType, DataType>::SetData(IndexType index, const
 	*/
 	//---------------------------------------------------
 	
-	// »ç¿ëÇÑ °³¼ö Áõ°¡
+	// ì‚¬ìš©í•œ ê°œìˆ˜ ì¦ê°€
 	if (m_nPartUsed < m_nPart) 
 		m_nPartUsed++;
 
@@ -429,8 +429,8 @@ CPartManager<IndexType, PartIndexType, DataType>::SetData(IndexType index, const
 //----------------------------------------------------------------------
 // Get Data
 //----------------------------------------------------------------------
-// ¿ÜºÎ¿¡¼­ index¹øÂ° data¸¦ ¾ò´Â´Ù.
-// ¸¸¾à ¾øÀ¸¸é? LRU¸¦ Á¦°ÅÇÑ´Ù.
+// ì™¸ë¶€ì—ì„œ indexë²ˆì§¸ dataë¥¼ ì–»ëŠ”ë‹¤.
+// ë§Œì•½ ì—†ìœ¼ë©´? LRUë¥¼ ì œê±°í•œë‹¤.
 //----------------------------------------------------------------------
 template <class IndexType, class PartIndexType, class DataType>
 bool
@@ -439,27 +439,27 @@ CPartManager<IndexType, PartIndexType, DataType>::GetData(IndexType index, DataT
 	PartIndexType partIndex = m_pPartIndex[index];
 
 	//------------------------------------------------------
-	// »ç¿ëÁßÀÎ Data°¡ ¾øÀ» °æ¿ì returnÇØÁØ´Ù.
+	// ì‚¬ìš©ì¤‘ì¸ Dataê°€ ì—†ì„ ê²½ìš° returní•´ì¤€ë‹¤.
 	//------------------------------------------------------
 	if (partIndex==m_PartIndexNULL)
 	{
 		return false;
 	}
 
-	// »ç¿ë ½Ã°£ check
+	// ì‚¬ìš© ì‹œê°„ check
 	m_pLastTime[partIndex] = m_Counter++;
 
 	//------------------------------------------------------
-	// LRU list¿¡¼­ ÇöÀç partIndex¸¦ 
-	// °¡Àå ÃÖ±Ù¿¡ »ç¿ëÇÑ °É·Î ¹Ù²Û´Ù.
+	// LRU listì—ì„œ í˜„ì¬ partIndexë¥¼ 
+	// ê°€ì¥ ìµœê·¼ì— ì‚¬ìš©í•œ ê±¸ë¡œ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------
-	// iterator¸¦ ÀÌ¿ëÇØ¼­ ¼ø¼­¸¦ ¹Ù²Û´Ù.
+	// iteratorë¥¼ ì´ìš©í•´ì„œ ìˆœì„œë¥¼ ë°”ê¾¼ë‹¤.
 	if (m_pPartIterator[partIndex]!=m_listLRU.end())
 	{
-		m_listLRU.erase( m_pPartIterator[partIndex] );		// Á¦°Å
+		m_listLRU.erase( m_pPartIterator[partIndex] );		// ì œê±°
 	}
-	m_listLRU.push_front( partIndex );				// Ãß°¡
-	m_pPartIterator[partIndex] = m_listLRU.begin();		// iterator ´Ù½Ã ¼³Á¤
+	m_listLRU.push_front( partIndex );				// ì¶”ê°€
+	m_pPartIterator[partIndex] = m_listLRU.begin();		// iterator ë‹¤ì‹œ ì„¤ì •
 
 	//---------------------------------------------------
 	// [ TEST CODE ]
@@ -481,41 +481,41 @@ CPartManager<IndexType, PartIndexType, DataType>::GetData(IndexType index, DataT
 
 
 	//------------------------------------------------------
-	// counter°¡ ³¡ÀÌ¸é.. Á¤¸®~~
+	// counterê°€ ëì´ë©´.. ì •ë¦¬~~
 	//------------------------------------------------------
 	if (m_Counter==0xFFFFFFFF)
 	{
-		// Á¦ÀÏ ¿À·¡µÈ ½Ã°£À» Ã£¾Æ¼­...
-		// ±× ½Ã°£À» 0À¸·Î ¸¸µç´Ù. --> ¸ğµÎ ±× ½Ã°£¸¸Å­ »«´Ù.
+		// ì œì¼ ì˜¤ë˜ëœ ì‹œê°„ì„ ì°¾ì•„ì„œ...
+		// ê·¸ ì‹œê°„ì„ 0ìœ¼ë¡œ ë§Œë“ ë‹¤. --> ëª¨ë‘ ê·¸ ì‹œê°„ë§Œí¼ ëº€ë‹¤.
 		int leastTimeIndex = 0;
 		int maxTimeIndex = 0;
 		for (int i=1; i<m_nPart; i++)
 		{
-			// °¡Àå ÀûÀº ½Ã°£
+			// ê°€ì¥ ì ì€ ì‹œê°„
 			if (m_pLastTime[i] < m_pLastTime[leastTimeIndex])
 			{
 				leastTimeIndex = i;
 			}
 
-			// °¡Àå Å« ½Ã°£
+			// ê°€ì¥ í° ì‹œê°„
 			if (m_pLastTime[i] > m_pLastTime[maxTimeIndex])
 			{
 				maxTimeIndex = i;
 			}
 		}
 
-		// ¸ğµÎ °¡Àå ÀÛÀº ½Ã°£¸¸Å­ »«´Ù.
+		// ëª¨ë‘ ê°€ì¥ ì‘ì€ ì‹œê°„ë§Œí¼ ëº€ë‹¤.
 		int leastTime = m_pLastTime[leastTimeIndex];
 		for (i=0; i<m_nPart; i++)
 		{
 			m_pLastTime[i] -= m_pLastTime[leastTimeIndex];
 		}
 
-		// Counter´Â ÇöÀç²¨ Áß¿¡¼­ °¡Àå Å« ½Ã°£ÀÇ °ÍÀÌ´Ù.
+		// CounterëŠ” í˜„ì¬êº¼ ì¤‘ì—ì„œ ê°€ì¥ í° ì‹œê°„ì˜ ê²ƒì´ë‹¤.
 		m_Counter = m_pLastTime[maxTimeIndex];
 	}
 
-	// ³Ñ°ÜÁÙ data¼³Á¤
+	// ë„˜ê²¨ì¤„ dataì„¤ì •
 	data = m_pData[partIndex];
 
 	return true;
@@ -524,15 +524,15 @@ CPartManager<IndexType, PartIndexType, DataType>::GetData(IndexType index, DataT
 //----------------------------------------------------------------------
 // Get LRU
 //----------------------------------------------------------------------
-// °¡Àå ¿À·¡Àü¿¡ »ç¿ëµÈ °ÍÀÇ PartIndex¸¦ returnÇÑ´Ù.
+// ê°€ì¥ ì˜¤ë˜ì „ì— ì‚¬ìš©ëœ ê²ƒì˜ PartIndexë¥¼ returní•œë‹¤.
 //----------------------------------------------------------------------
 template <class IndexType, class PartIndexType, class DataType>
 PartIndexType
 CPartManager<IndexType, PartIndexType, DataType>::GetLRU() const
 {
 	//---------------------------------------------------
-	// m_nPart°³ Áß¿¡¼­ ¾ÆÁ÷ ²Ë Âù »óÅÂ°¡ ¾Æ´Ï¸é...
-	// »ç¿ëÁßÀÎ ¸¶Áö¸· PartIndex¸¦ ³Ñ°ÜÁØ´Ù.
+	// m_nPartê°œ ì¤‘ì—ì„œ ì•„ì§ ê½‰ ì°¬ ìƒíƒœê°€ ì•„ë‹ˆë©´...
+	// ì‚¬ìš©ì¤‘ì¸ ë§ˆì§€ë§‰ PartIndexë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 	//---------------------------------------------------
 	if (m_nPartUsed < m_nPart)
 	{	
@@ -541,7 +541,7 @@ CPartManager<IndexType, PartIndexType, DataType>::GetLRU() const
 	}
 
 	//---------------------------------------------------
-	// LRU listÀÇ tailÀÌ LRU indexÀÌ´Ù.
+	// LRU listì˜ tailì´ LRU indexì´ë‹¤.
 	//---------------------------------------------------
 	PartIndexType leastTimeIndex = *m_listLRU.rbegin();
 
@@ -565,14 +565,14 @@ CPartManager<IndexType, PartIndexType, DataType>::GetLRU() const
 	//---------------------------------------------------
 
 	//---------------------------------------------------
-	// ÀüÃ¼¸¦ °Ë»öÇØ¼­ °¡Àå ¿À·¡Àü¿¡ »ç¿ëµÈ °É Ã£´Â´Ù.
+	// ì „ì²´ë¥¼ ê²€ìƒ‰í•´ì„œ ê°€ì¥ ì˜¤ë˜ì „ì— ì‚¬ìš©ëœ ê±¸ ì°¾ëŠ”ë‹¤.
 	//---------------------------------------------------
 	/*
 	PartIndexType leastTimeIndex = 0;
 
 	for (int i=1; i<m_nPart; i++)
 	{
-		// °¡Àå ÀûÀº ½Ã°£
+		// ê°€ì¥ ì ì€ ì‹œê°„
 		if (m_pLastTime[i] < m_pLastTime[leastTimeIndex])
 		{
 			leastTimeIndex = i;
@@ -581,7 +581,7 @@ CPartManager<IndexType, PartIndexType, DataType>::GetLRU() const
 	*/
 
 	//---------------------------------------------------
-	// °¡Àå ¿À·¡Àü¿¡ »ç¿ëµÈ °ÍÀÇ PartIndex
+	// ê°€ì¥ ì˜¤ë˜ì „ì— ì‚¬ìš©ëœ ê²ƒì˜ PartIndex
 	//---------------------------------------------------
 	//DEBUG_ADD_FORMAT("[LRU] %d", leastTimeIndex);
 	return leastTimeIndex;

@@ -28,7 +28,7 @@ void Scrollbar::Init()
 //-----------------------------------------------------------------------------
 // IncreaseAmountToScroll
 //
-// m_dw_amount_to_scrollÀ» 1 Áõ°¡½ÃÅ²´Ù.
+// m_dw_amount_to_scrollì„ 1 ì¦ê°€ì‹œí‚¨ë‹¤.
 //-----------------------------------------------------------------------------
 void Scrollbar::IncreaseAmountToScroll()
 {
@@ -39,7 +39,7 @@ void Scrollbar::IncreaseAmountToScroll()
 //-----------------------------------------------------------------------------
 // DecreaseAmountToScroll
 //
-// m_dw_amount_to_scrollÀ» 1 °¨¼Ò½ÃÅ²´Ù.
+// m_dw_amount_to_scrollì„ 1 ê°ì†Œì‹œí‚¨ë‹¤.
 //-----------------------------------------------------------------------------
 void Scrollbar::DecreaseAmountToScroll()
 {
@@ -50,7 +50,7 @@ void Scrollbar::DecreaseAmountToScroll()
 //-----------------------------------------------------------------------------
 // SetAmountForScroll
 //
-// m_dw_amount_to_scrollÀº ±×´ë·Î ³öµĞ´Ù. ¿ÜºÎ¿¡¼­ ¾Ë¾Æ¼­ ÇØ¾ßÇÑ´Ù.
+// m_dw_amount_to_scrollì€ ê·¸ëŒ€ë¡œ ë†”ë‘”ë‹¤. ì™¸ë¶€ì—ì„œ ì•Œì•„ì„œ í•´ì•¼í•œë‹¤.
 //-----------------------------------------------------------------------------
 void Scrollbar::SetAmountForScroll(DWORD amount_for_scroll)
 {
@@ -74,7 +74,7 @@ void Scrollbar::SetAmountToScroll(DWORD amount_to_scroll)
 //-----------------------------------------------------------------------------
 // SetAmountToScrollByPercent
 //
-// percent·Î scrollÇÑ ¾çÀ» ±¸ÇÑ´Ù.
+// percentë¡œ scrollí•œ ì–‘ì„ êµ¬í•œë‹¤.
 //-----------------------------------------------------------------------------
 void Scrollbar::SetAmountToScrollByPercent(double percent)
 {
@@ -82,7 +82,7 @@ void Scrollbar::SetAmountToScrollByPercent(double percent)
 
 	double val = Proportion(percent, PERCENTAGE, m_dw_amount_for_scroll);
 
-	// ¼Ò¼ö Ã¹Â° ÀÚ¸® ¹İ¿Ã¸²ÇÑ´Ù.
+	// ì†Œìˆ˜ ì²«ì§¸ ìë¦¬ ë°˜ì˜¬ë¦¼í•œë‹¤.
 	val += 0.5;
 	m_dw_amount_to_scroll = (DWORD)floor(val);
 }
@@ -90,7 +90,7 @@ void Scrollbar::SetAmountToScrollByPercent(double percent)
 //-----------------------------------------------------------------------------
 // NoScroll
 //
-// scrollÀÌ µÇÁö ¾Ê¾ÒÀ¸¸é true¸¦ ¹İÈ¯ÇÏ°í, ±×·¸Áö ¾ÊÀ¸¸é false¸¦ ¹İÈ¯ÇÑ´Ù.
+// scrollì´ ë˜ì§€ ì•Šì•˜ìœ¼ë©´ trueë¥¼ ë°˜í™˜í•˜ê³ , ê·¸ë ‡ì§€ ì•Šìœ¼ë©´ falseë¥¼ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 bool Scrollbar::NoScroll()
 {
@@ -100,9 +100,9 @@ bool Scrollbar::NoScroll()
 //-----------------------------------------------------------------------------
 // GetPercentToScroll
 //
-// scrollÇÑ ¾çÀ» percent·Î ¹Ù²Ù¾î ¹İÈ¯ÇÑ´Ù.
+// scrollí•œ ì–‘ì„ percentë¡œ ë°”ê¾¸ì–´ ë°˜í™˜í•œë‹¤.
 //
-// Á¤¹ĞÇÔÀ» À§ÇÏ¿© double typeÀ¸·Î ÇÑ´Ù.
+// ì •ë°€í•¨ì„ ìœ„í•˜ì—¬ double typeìœ¼ë¡œ í•œë‹¤.
 //-----------------------------------------------------------------------------
 int Scrollbar::GetPercentToScroll() const
 {
@@ -110,7 +110,7 @@ int Scrollbar::GetPercentToScroll() const
 
 	double percent = Percentage(m_dw_amount_to_scroll, m_dw_amount_for_scroll);
 
-	// ¼Ò¼ö Ã¹Â° ÀÚ¸® ¹İ¿Ã¸²ÇÑ´Ù.
+	// ì†Œìˆ˜ ì²«ì§¸ ìë¦¬ ë°˜ì˜¬ë¦¼í•œë‹¤.
 	percent += 0.5;
 	int integer = (int)floor(percent);
 

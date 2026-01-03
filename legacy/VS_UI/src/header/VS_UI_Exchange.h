@@ -2,7 +2,7 @@
 
 	VS_UI_Exchange.h
 
-	¾ÆÀÌÅÛ ±³È¯ ÀÎÅÍÆäÀÌ½º.
+	ì•„ì´í…œ êµí™˜ ì¸í„°í˜ì´ìŠ¤.
 
 	2000.11.9. KJTINC
 
@@ -19,8 +19,8 @@
 //-----------------------------------------------------------------------------
 // C_VS_UI_EXCHANGE
 //
-// ¾ÆÀÌÅÛÀ» ±³È¯ÇÏ´Â ÀÎÅÍÆäÀÌ½ºÀÌ´Ù. ÀÚ½ÅÀÇ Grid¿Í »ó´ë¹æÀÇ Grid°¡ º¸ÀÌ¸ç,
-// ¼­·Î confirmÀ» ÇØ¾ß ±³È¯ÀÌ ÀÌ·ç¾îÁø´Ù.
+// ì•„ì´í…œì„ êµí™˜í•˜ëŠ” ì¸í„°í˜ì´ìŠ¤ì´ë‹¤. ìì‹ ì˜ Gridì™€ ìƒëŒ€ë°©ì˜ Gridê°€ ë³´ì´ë©°,
+// ì„œë¡œ confirmì„ í•´ì•¼ êµí™˜ì´ ì´ë£¨ì–´ì§„ë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_EXCHANGE : public Window, public Exec, public ButtonVisual
 {
@@ -42,9 +42,9 @@ private:
 
 	enum EXEC_ID
 	{
-		EXCHANGE_OK_ID,			// tradeÇÒ°Å´Ù¶ó°í OK´©¸£´Â°Å.
-		EXCHANGE_OK_CANCEL_ID,	// OKÇÏ°í ³ª¼­ OK¸¦ Ãë¼ÒÇÑ´Ù.
-		EXCHANGE_CANCEL_ID,		// Ã¢´İ±â
+		EXCHANGE_OK_ID,			// tradeí• ê±°ë‹¤ë¼ê³  OKëˆ„ë¥´ëŠ”ê±°.
+		EXCHANGE_OK_CANCEL_ID,	// OKí•˜ê³  ë‚˜ì„œ OKë¥¼ ì·¨ì†Œí•œë‹¤.
+		EXCHANGE_CANCEL_ID,		// ì°½ë‹«ê¸°
 		HELP_ID,
 		MONEY_ID,
 		INVENTORY_MONEY_ID,
@@ -55,14 +55,14 @@ private:
 
 	ButtonGroup *				m_pC_button_group;
 
-	C_VS_UI_EVENT_BUTTON*		m_pC_button_cancel;	// ±×Àú ÂüÁ¶¸¦ À§ÇÑ pointerÀÌ´Ù.
+	C_VS_UI_EVENT_BUTTON*		m_pC_button_cancel;	// ê·¸ì € ì°¸ì¡°ë¥¼ ìœ„í•œ pointerì´ë‹¤.
 
 	int							m_focus_grid_x, m_focus_grid_y;
 	Rect							m_my_grid_rect, m_your_grid_rect;
 	
-	POINT							m_money_button_point;			// ±³È¯Ã¢¿¡ ³ÖÀ» µ·
-	POINT							m_inventory_money_button_point;	// inventory¿¡ °®°í ÀÖ´Â µ·
-	POINT							m_your_money_button_point;		//³²µ·-_-
+	POINT							m_money_button_point;			// êµí™˜ì°½ì— ë„£ì„ ëˆ
+	POINT							m_inventory_money_button_point;	// inventoryì— ê°–ê³  ìˆëŠ” ëˆ
+	POINT							m_your_money_button_point;		//ë‚¨ëˆ-_-
 
 	int							m_other_ok_button_offset_x, m_other_ok_button_offset_y;
 	int							m_your_name_x, m_your_name_y, m_my_name_x, m_my_name_y;

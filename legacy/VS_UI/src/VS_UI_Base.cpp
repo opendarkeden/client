@@ -95,11 +95,11 @@ void Base::SetFont(PrintInfo &pi, LOGFONT &lf, COLORREF textcolor, COLORREF back
 void Base::SetDefaultLogfont(LOGFONT &lf) const
 {
 	lf.lfHeight = 0; // 0 = default
-	lf.lfWidth = 0; // 0 = ³ôÀÌ¿¡ ±âÁØÇÏ¿© ÀÚµ¿À¸·Î ¼³Á¤µÊ.
-	lf.lfEscapement = 0; // ¹æÇâ¼³Á¤ (900, 2700)
+	lf.lfWidth = 0; // 0 = ë†’ì´ì— ê¸°ì¤€í•˜ì—¬ ìë™ìœ¼ë¡œ ì„¤ì •ë¨.
+	lf.lfEscapement = 0; // ë°©í–¥ì„¤ì • (900, 2700)
 	lf.lfOrientation = 0;
 	lf.lfWeight = FW_NORMAL; // FW_BOLD
-	lf.lfItalic = 0; // 0 ¾Æ´Ñ °ªÀÌ¸é italicÀÌ´Ù.
+	lf.lfItalic = 0; // 0 ì•„ë‹Œ ê°’ì´ë©´ italicì´ë‹¤.
 	lf.lfUnderline = 0;
 	lf.lfStrikeOut = 0;
 	if(gC_ci->IsChinese())
@@ -110,7 +110,7 @@ void Base::SetDefaultLogfont(LOGFONT &lf) const
 	lf.lfClipPrecision = CLIP_DEFAULT_PRECIS;
 	lf.lfQuality = DEFAULT_QUALITY;
 	lf.lfPitchAndFamily = DEFAULT_PITCH|FF_DONTCARE;
-	strcpy(lf.lfFaceName, "±¼¸²Ã¼");//"Times New Roman");
+	strcpy(lf.lfFaceName, "êµ´ë¦¼ì²´");//"Times New Roman");
 }
 
 //-----------------------------------------------------------------------------
@@ -178,18 +178,18 @@ void Base::InitFont()
 	LOGFONT lf;
 
 	// 
-	// ±¦ÂúÀº style
+	// ê´œì°®ì€ style
 	//
-	// - ¹ÙÅÁ, 13
+	// - ë°”íƒ•, 13
 	//
-	// !Times New Romans·Î ÇÏÁö ¸»°Í. OS°£ À§Ä¡ ¾È¸Â´Â ¹®Á¦ ¹ß»ıÇÔ.
+	// !Times New Romansë¡œ í•˜ì§€ ë§ê²ƒ. OSê°„ ìœ„ì¹˜ ì•ˆë§ëŠ” ë¬¸ì œ ë°œìƒí•¨.
 	//
 	const char szFontName[4][2][20] = {
 		// Hangul Font      Chinese Font
-		{ "±¼¸²Ã¼",			"ËÎÌå" },
+		{ "êµ´ë¦¼ì²´",			"èŠ¥ç«Ÿ" },
 		{ "MS Sans Serif",	"MS Sans Serif" },
-		{ "µ¸¿òÃ¼",			"ĞÂËÎÌå" },
-		{ "±¼¸²",			"ËÎÌå" }
+		{ "ë‹ì›€ì²´",			"åŠ¤èŠ¥ç«Ÿ" },
+		{ "êµ´ë¦¼",			"èŠ¥ç«Ÿ" }
 	};
 
 	char Language;
@@ -284,11 +284,11 @@ void Base::InitFont()
 	SetFont(m_char_value_pi, lf, RGB(255, 255, 255));
 
 	//
-	//font used by Client by larosel ¹ÛÀÇ ÆùÆ®º¸´Ù 2¾¿ Å©°Ô ÇØÁà¾ßÇÔ.
+	//font used by Client by larosel ë°–ì˜ í°íŠ¸ë³´ë‹¤ 2ì”© í¬ê²Œ í•´ì¤˜ì•¼í•¨.
 	//
 	//SetDefaultLogfont(lf);
 	//lf.lfHeight = 12;
-	//strcpy(lf.lfFaceName, "±¼¸²");
+	//strcpy(lf.lfFaceName, "êµ´ë¦¼");
 	//SetFont(m_chat_dialog_pi, lf, RGB(255, 255, 255));
 
 	SetDefaultLogfont(lf);
@@ -358,8 +358,8 @@ void Base::InitSurface(CSpriteSurface *surface)
 		_Error(FAILED_JOB);
 
 	//
-	// offscreenÀÇ colorkey¸¦ ¼³Á¤ÇÑ´Ù. »óÈ²¿¡ µû¶ó¼­ Image¿¡¼­ ¾È ¾²´Â »öÀ» 
-	// °áÁ¤ÇØ¾ß ÇÑ´Ù.
+	// offscreenì˜ colorkeyë¥¼ ì„¤ì •í•œë‹¤. ìƒí™©ì— ë”°ë¼ì„œ Imageì—ì„œ ì•ˆ ì“°ëŠ” ìƒ‰ì„ 
+	// ê²°ì •í•´ì•¼ í•œë‹¤.
 	//
 	m_colorkey_red = RED;
 

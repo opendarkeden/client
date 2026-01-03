@@ -18,6 +18,7 @@
 #include "spritepack.h"
 #include "ui_surface.h"
 #include "sprite.h"
+#include "ui_other_info.h"
 
 /* Structure to hold Game UI state and specific resources */
 struct UI_GameMain {
@@ -34,11 +35,12 @@ struct UI_GameMain {
     UI_Window* sysmenu_window;  /* System Menu as window, not component */
 
     /* Slayer UI Resources */
-    SpritePack* spk_hp_bar;
     /* spk_chat moved to ui_game_chat */
     /* spk_minimap moved to ui_game_minimap */
     /* spk_sys_button moved to ui_game_sysmenu */
     SpritePack* spk_skill_etc;
+
+    UI_OtherInfo* other_info;
 };
 
 /* Forward declarations */
@@ -102,37 +104,30 @@ void ui_game_main_render(UI_Window* window) {
     if (!window) return;
     struct UI_GameMain* game = (struct UI_GameMain*)window->user_data;
 
-    /* 1. HP Bar: Bottom Center or Left?
-       Legacy Slayer Health bar is usually bottom left/center structure.
-    */
-    if (game->spk_hp_bar) {
-        /* Index 0 is usually the background frame */
-        draw_sprite_at(game->gr, game->spk_hp_bar, 0, 0, 600 - 150); /* Guestimate Y */
-    }
 
     /* 2. Chat Box: Bottom Left */
-    if (game->chat) {
-        ui_game_chat_render(game->chat, 0, 600 - 150);
-    }
+    // if (game->chat) {
+    //     ui_game_chat_render(game->chat, 0, 600 - 150);
+    // }
 
     /* 3. Minimap: Top Right */
-    if (game->minimap) {
-        ui_game_minimap_render(game->minimap, 800 - 150, 0);
-    }
+ //   if (game->minimap) {
+ //       ui_game_minimap_render(game->minimap, 800 - 150, 0);
+ //   }
 
     /* SysMenu is a separate window managed by window manager, not rendered here */
 
     /* 4. Quick Slot: Bottom Right */
-    if (game->quickslot) {
-        ui_game_quickslot_render(game->quickslot, 800 - (30 * 8) - 10, 600 - 40);
-    }
+//    if (game->quickslot) {
+//        ui_game_quickslot_render(game->quickslot, 800 - (30 * 8) - 10, 600 - 40);
+//    }
 
     /* 5. Gear Window (Render on top) */
-    if (game->gear) {
+//    if (game->gear) {
         /* Position: Right side aligned? */
         /* Legacy: Gear is roughly 520, ... */
         // ui_game_gear_render(game->gear, 800 - 250, 100);
-    }
+//    }
 }
 
 /* Main Process Function */
@@ -184,14 +179,25 @@ UI_Window* ui_game_main_create(UI_GlobalResource* global_resource, UI_GameMainCa
     game->sysmenu_window = ui_game_sysmenu_create(global_resource, on_sysmenu_event, game);
 
     /* Load Resources (Slayer Default) */
-    game->spk_hp_bar = load_pack("DarkEden/Data/Ui/spk/HPBarSlayer.spk");
     /* game->spk_chat moved */
     /* game->spk_minimap moved */
     game->spk_skill_etc = load_pack("DarkEden/Data/Ui/spk/SkillEtcSlayer.spk");
     /* game->spk_sys_button moved */
 
+    game->other_info = (UI_OtherInfo*)ui_other_info_create(global_resource);
+
+    UI_OtherInfoPlayer *player = (UI_OtherInfoPlayer*)malloc(sizeof(UI_OtherInfoPlayer));
+    memset(player, 0, sizeof(UI_OtherInfoPlayer));
+    int race = 0;
+    ui_other_info_set_race(game->other_info, race);
+    ui_other_info_set_player(game->other_info, player);
+    ui_other_info_start(game->other_info);
+    ui_window_set_visible(game->other_info, 1);
+  
     return &game->base;
 }
+
+
 
 static int ui_game_main_mouse_control(UI_Window* window, uint32_t message, int x, int y) {
     /* Handle clicks on Quit button etc. */
@@ -214,6 +220,11 @@ static void ui_game_main_keyboard_control(UI_Window* window, uint32_t message, u
 UI_Window* ui_game_main_get_sysmenu(UI_Window* window) {
     struct UI_GameMain* game = (struct UI_GameMain*)window->user_data;
     return game ? game->sysmenu_window : NULL;
+}
+
+UI_Window* ui_game_main_get_other_info(UI_Window* window) {
+    struct UI_GameMain* game = (struct UI_GameMain*)window->user_data;
+    return game ? game->other_info : NULL;
 }
 
 void ui_game_main_toggle_sysmenu(UI_Window* window) {

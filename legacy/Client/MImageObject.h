@@ -2,47 +2,47 @@
 // MImageObject.h
 //----------------------------------------------------------------------
 //
-// ÇÏ³ªÀÇ ±×¸²¿¡ ´ëÇÑ Á¤º¸
+// í•˜ë‚˜ì˜ ê·¸ë¦¼ì— ëŒ€í•œ ì •ë³´
 // 
-//  - ±×¸²ÀÇ ±×¸²Àº Surface¿¡ ÀúÀåµÇ´Â °ÍÀÌ ¾Æ´Ï¶ó 
-//    Sprite·Î ÀúÀåµÈ´Ù.  Å©±â°¡ ´Ù¾çÇÏ±â ¶§¹®ÀÌ´Ù.
-//    ´ç¿¬ÇÑ ¾ê±âÁö¸¸, ±×¸²Sprite´Â »ç°¢ÇüÀÌ´Ù.
-//    Åõ¸í»öÀ» Æ÷ÇÔÇÏ±â ¶§¹®¿¡ ¸¶¸§¸ð²Ã ±×¸²ÀÌ±â´Â ÇÏÁö¸¸...
+//  - ê·¸ë¦¼ì˜ ê·¸ë¦¼ì€ Surfaceì— ì €ìž¥ë˜ëŠ” ê²ƒì´ ì•„ë‹ˆë¼ 
+//    Spriteë¡œ ì €ìž¥ëœë‹¤.  í¬ê¸°ê°€ ë‹¤ì–‘í•˜ê¸° ë•Œë¬¸ì´ë‹¤.
+//    ë‹¹ì—°í•œ ì–˜ê¸°ì§€ë§Œ, ê·¸ë¦¼SpriteëŠ” ì‚¬ê°í˜•ì´ë‹¤.
+//    íˆ¬ëª…ìƒ‰ì„ í¬í•¨í•˜ê¸° ë•Œë¬¸ì— ë§ˆë¦„ëª¨ê¼´ ê·¸ë¦¼ì´ê¸°ëŠ” í•˜ì§€ë§Œ...
 //
-//  - ±×¸²ÀÇ À§Ä¡´Â SectorÁÂÇ¥·Î Ç¥½ÃÇÏ±â°¡ °ï¶õÇÏ´Ù.
-//    »ç°¢Çü ±×¸²¸¸ ÀÖ´Â °ÍÀÌ ¾Æ´Ï±â ¶§¹®¿¡ »ç°¢¿µ¿ªµµ ¾ÈµÈ´Ù.
-//    ±×³É Zone¿¡¼­ Pixel´ÜÀ§ÀÇ ÁÂÇ¥·Î Ç¥½ÃÇØ¾ß ÇÑ´Ù.
-//    Áï, ±×¸² SpriteÀÇ ÁÂÃø»ó´ÜÀÌ À§Ä¡´Â ÁöÁ¡ÀÌ ±×¸²ÀÇ À§Ä¡ÀÌ´Ù.
+//  - ê·¸ë¦¼ì˜ ìœ„ì¹˜ëŠ” Sectorì¢Œí‘œë¡œ í‘œì‹œí•˜ê¸°ê°€ ê³¤ëž€í•˜ë‹¤.
+//    ì‚¬ê°í˜• ê·¸ë¦¼ë§Œ ìžˆëŠ” ê²ƒì´ ì•„ë‹ˆê¸° ë•Œë¬¸ì— ì‚¬ê°ì˜ì—­ë„ ì•ˆëœë‹¤.
+//    ê·¸ëƒ¥ Zoneì—ì„œ Pixelë‹¨ìœ„ì˜ ì¢Œí‘œë¡œ í‘œì‹œí•´ì•¼ í•œë‹¤.
+//    ì¦‰, ê·¸ë¦¼ Spriteì˜ ì¢Œì¸¡ìƒë‹¨ì´ ìœ„ì¹˜ëŠ” ì§€ì ì´ ê·¸ë¦¼ì˜ ìœ„ì¹˜ì´ë‹¤.
 //
-// ±×¸² ±×¸²Àº ±×Àú Zone¿¡¼­ ¾î¶² À§Ä¡(pixel)¿¡ ±×·ÁÁú »ÓÀÌ´Ù.
-// ±×·¯¹Ç·Î, Ãæµ¹ check °°Àº Á¤º¸µéÀº ZoneÀÇ Sector¿¡ Ç¥ÇöÇØ¾ß ÇÑ´Ù.
+// ê·¸ë¦¼ ê·¸ë¦¼ì€ ê·¸ì € Zoneì—ì„œ ì–´ë–¤ ìœ„ì¹˜(pixel)ì— ê·¸ë ¤ì§ˆ ë¿ì´ë‹¤.
+// ê·¸ëŸ¬ë¯€ë¡œ, ì¶©ëŒ check ê°™ì€ ì •ë³´ë“¤ì€ Zoneì˜ Sectorì— í‘œí˜„í•´ì•¼ í•œë‹¤.
 //
-// ±×¸²ÀÇ ¹®ÀÌ ÀÖÀ» °æ¿ì´Â MTransfer·Î Sector¿¡ Ç¥ÇöµÇ´Â °ÍÀÌÁö
-// Æ¯º°È÷ ´Ù¸¥ Ã³¸®¸¦ ÇÏ´Â °ÍÀÌ ¾Æ´Ï´Ù.
+// ê·¸ë¦¼ì˜ ë¬¸ì´ ìžˆì„ ê²½ìš°ëŠ” MTransferë¡œ Sectorì— í‘œí˜„ë˜ëŠ” ê²ƒì´ì§€
+// íŠ¹ë³„ížˆ ë‹¤ë¥¸ ì²˜ë¦¬ë¥¼ í•˜ëŠ” ê²ƒì´ ì•„ë‹ˆë‹¤.
 //
-// ±×¸²ÀÇ ±×¸²Àº °°Àº ½ÃÁ¡¿¡¼­ Ãâ·ÂµÇ´Â °ÍÀÌ ÇÏ³ªÀÇ Sprite·Î Ç¥ÇöµÇ¾î¾ß ÇÑ´Ù.
+// ê·¸ë¦¼ì˜ ê·¸ë¦¼ì€ ê°™ì€ ì‹œì ì—ì„œ ì¶œë ¥ë˜ëŠ” ê²ƒì´ í•˜ë‚˜ì˜ Spriteë¡œ í‘œí˜„ë˜ì–´ì•¼ í•œë‹¤.
 //
 //----------------------------------------------------------------------
 //
-// [ SectorÀÇ Á¤º¸ ¼³Á¤ ]
+// [ Sectorì˜ ì •ë³´ ì„¤ì • ]
 //
-// ±×¸²ÀÌ È­¸é¿¡ Ãâ·ÂµÇ´Â Sector¿¡´Â FLAG_SECTOR_BUILDING¸¦ Ç¥½ÃÇÑ´Ù.
-// ±×¸²ÀÇ ¹Ù´ÚÀÌ À§Ä¡ÇÏ´Â Sector¿¡´Â FLAG_SECTOR_BLOCK¸¦ Ç¥½ÃÇÑ´Ù.
+// ê·¸ë¦¼ì´ í™”ë©´ì— ì¶œë ¥ë˜ëŠ” Sectorì—ëŠ” FLAG_SECTOR_BUILDINGë¥¼ í‘œì‹œí•œë‹¤.
+// ê·¸ë¦¼ì˜ ë°”ë‹¥ì´ ìœ„ì¹˜í•˜ëŠ” Sectorì—ëŠ” FLAG_SECTOR_BLOCKë¥¼ í‘œì‹œí•œë‹¤.
 //
-// FLAG_SECTOR_BUILDINGÀº Ç¥½ÃµÇ¾úÁö¸¸, FLAG_SECTOR_BLOCKÀÌ Ç¥½ÃµÇÁö
-// ¾ÊÀº °÷Àº Player°¡ ±×¸²¿¡ °¡·ÁÁö´Â ºÎºÐÀÌ¹Ç·Î ±×¸²À» ¹ÝÅõ¸í Ã³¸® ÇØ¾ßÇÑ´Ù.
+// FLAG_SECTOR_BUILDINGì€ í‘œì‹œë˜ì—ˆì§€ë§Œ, FLAG_SECTOR_BLOCKì´ í‘œì‹œë˜ì§€
+// ì•Šì€ ê³³ì€ Playerê°€ ê·¸ë¦¼ì— ê°€ë ¤ì§€ëŠ” ë¶€ë¶„ì´ë¯€ë¡œ ê·¸ë¦¼ì„ ë°˜íˆ¬ëª… ì²˜ë¦¬ í•´ì•¼í•œë‹¤.
 //----------------------------------------------------------------------
 //
-// ±×¸²Àº °á°úÀûÀ¸·Î ÇÏ³ªÀÇ ±×¸²À¸·Î Ç¥ÇöµÇ±â´Â ÇÏÁö¸¸,
-// ³»ºÎÀûÀ¸·Î´Â ¸î°³ÀÇ Sprite·Î ³ª´· ¼ö ÀÖ´Ù.
-// ´Ü, ¹ÝÅõ¸í Ã³¸®¸¦ ÇÒ ¶§, ¿©·¯°³ÀÇ Sprite°¡ µ¿½Ã¿¡ Åõ¸íÀÌ µÇ¾î¾ß ÇÑ´Ù.
+// ê·¸ë¦¼ì€ ê²°ê³¼ì ìœ¼ë¡œ í•˜ë‚˜ì˜ ê·¸ë¦¼ìœ¼ë¡œ í‘œí˜„ë˜ê¸°ëŠ” í•˜ì§€ë§Œ,
+// ë‚´ë¶€ì ìœ¼ë¡œëŠ” ëª‡ê°œì˜ Spriteë¡œ ë‚˜ë‰  ìˆ˜ ìžˆë‹¤.
+// ë‹¨, ë°˜íˆ¬ëª… ì²˜ë¦¬ë¥¼ í•  ë•Œ, ì—¬ëŸ¬ê°œì˜ Spriteê°€ ë™ì‹œì— íˆ¬ëª…ì´ ë˜ì–´ì•¼ í•œë‹¤.
 // 
 // 
 //----------------------------------------------------------------------
-// - µÎ°³ÀÇ Image·Î ÇÏ³ªÀÇ Object¸¦ Ç¥ÇöÇØ¾ßÇÒ °æ¿ì°¡ ÀÖ´Ù.
-//   ÀÌ¶§ Object¸¦ ±¸ºÐÇÏ´Â°Ô ImageObjectIDÀÌ´Ù.
+// - ë‘ê°œì˜ Imageë¡œ í•˜ë‚˜ì˜ Objectë¥¼ í‘œí˜„í•´ì•¼í•  ê²½ìš°ê°€ ìžˆë‹¤.
+//   ì´ë•Œ Objectë¥¼ êµ¬ë¶„í•˜ëŠ”ê²Œ ImageObjectIDì´ë‹¤.
 //
-// - m_ID´Â °°Àº Object¶óµµ ´Ù¸£´Ù. °°À» ¼ö ¾ø´Ù.
+// - m_IDëŠ” ê°™ì€ Objectë¼ë„ ë‹¤ë¥´ë‹¤. ê°™ì„ ìˆ˜ ì—†ë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__MIMAGEOBJECT_H__
@@ -64,13 +64,13 @@ class ifstream;
 //----------------------------------------------------------------------
 class MImageObject : public MObject {
 	public :
-		// ÀÌ°Å´Â º®°°Àº°Å.. ¹æÇâÀ» ¼³Á¤ÇÒ¶§ ¾´´Ù.
+		// ì´ê±°ëŠ” ë²½ê°™ì€ê±°.. ë°©í–¥ì„ ì„¤ì •í• ë•Œ ì“´ë‹¤.
 		enum WALL_DIRECTION
 		{
-			WALL_RIGHTDOWN = 1,		// ¿À¸¥ÂÊÀ¸·Î °¡¸é¼­ ¾Æ·¡·Î ³»·Á°¡´Â º®
-			WALL_RIGHTUP,			// ¿À¸¥ÂÊÀ¸·Î °¡¸é¼­ À§·Î ¿Ã¶ó°¡´Â º®			
+			WALL_RIGHTDOWN = 1,		// ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ë©´ì„œ ì•„ëž˜ë¡œ ë‚´ë ¤ê°€ëŠ” ë²½
+			WALL_RIGHTUP,			// ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ë©´ì„œ ìœ„ë¡œ ì˜¬ë¼ê°€ëŠ” ë²½			
 
-			WALL_NULL = SECTORPOSITION_NULL,			// º® °°Àº°Ô ¾Æ´Ï´Ù. - -;			
+			WALL_NULL = SECTORPOSITION_NULL,			// ë²½ ê°™ì€ê²Œ ì•„ë‹ˆë‹¤. - -;			
 		};
 
 	public :
@@ -116,11 +116,11 @@ class MImageObject : public MObject {
 		TYPE_SECTORPOSITION			GetViewpoint() const	{ return m_Viewpoint; }
 		
 		//-------------------------------------------------------
-		// ±×¸²ÀÌ ÀÖ´Â Sector¿¡ ´ëÇÑ Á¤º¸
+		// ê·¸ë¦¼ì´ ìžˆëŠ” Sectorì— ëŒ€í•œ ì •ë³´
 		//-------------------------------------------------------
 
 		//-------------------------------------------------------
-		// º® °°Àº°Å(-_-;)
+		// ë²½ ê°™ì€ê±°(-_-;)
 		//-------------------------------------------------------
 		void				SetWall(WALL_DIRECTION wd);
 		bool				IsWall() const;
@@ -131,24 +131,24 @@ class MImageObject : public MObject {
 
 	protected :
 
-		// Sprite°¡ ¿©·¯°³ÀÏ¶§ ÇÑ ±×¸²Àº ÇÏ³ªÀÇ ID¸¦ °®µµ·Ï ÇØ¾ßÇÒ °ÍÀÌ´Ù.
-		// °°Àº ±×¸²ÀÓÀ» ³ªÅ¸³»´Â ID°¡ ÀÖ¾î¾ß ÇÒ °ÍÀÌ´Ù.
+		// Spriteê°€ ì—¬ëŸ¬ê°œì¼ë•Œ í•œ ê·¸ë¦¼ì€ í•˜ë‚˜ì˜ IDë¥¼ ê°–ë„ë¡ í•´ì•¼í•  ê²ƒì´ë‹¤.
+		// ê°™ì€ ê·¸ë¦¼ìž„ì„ ë‚˜íƒ€ë‚´ëŠ” IDê°€ ìžˆì–´ì•¼ í•  ê²ƒì´ë‹¤.
 		TYPE_OBJECTID			m_ImageObjectID;
 
-		// SpritePack¿¡ ÀÖ´Â Sprite ID
+		// SpritePackì— ìžˆëŠ” Sprite ID
 		TYPE_SPRITEID			m_SpriteID;
 
-		// AnimationµÇ´Â °ÍÀÎ°¡?
+		// Animationë˜ëŠ” ê²ƒì¸ê°€?
 		bool					m_bAnimation;
 
-		// ±×¸²ÀÌ Ãâ·ÂµÉ Zone»óÀÇ PixelÀ§Ä¡
+		// ê·¸ë¦¼ì´ ì¶œë ¥ë  Zoneìƒì˜ Pixelìœ„ì¹˜
 		int						m_PixelX;
 		int						m_PixelY;
 
-		// Ãâ·ÂµÉ Sector »óÀÇ ¼¼·Î À§Ä¡
+		// ì¶œë ¥ë  Sector ìƒì˜ ì„¸ë¡œ ìœ„ì¹˜
 		TYPE_SECTORPOSITION					m_Viewpoint;
 		
-		// Player¸¦ °¡¸± ¶§ ¹ÝÅõ¸íÀÌ µÇ¾î¾ß ÇÏ´Â°¡?
+		// Playerë¥¼ ê°€ë¦´ ë•Œ ë°˜íˆ¬ëª…ì´ ë˜ì–´ì•¼ í•˜ëŠ”ê°€?
 		BYTE					m_bTrans;
 };
 

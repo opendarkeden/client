@@ -5,14 +5,14 @@
 // Proportion
 //
 // (target <= target_max)
-// base´Â Ç¥ÇöÇÏ·Á´Â ±âÁØÀÌ´Ù.
+// baseëŠ” í‘œí˜„í•˜ë ¤ëŠ” ê¸°ì¤€ì´ë‹¤.
 //
 // ex) target = 50, target_max = 100, base = 51
-//		 => 100¿¡ ´ëÇÑ 50ÀÌ baseÀÎ 51¿¡¼­ ¾ó¸¶ÀÎ°¡¸¦ ±¸ÇÑ´Ù.
+//		 => 100ì— ëŒ€í•œ 50ì´ baseì¸ 51ì—ì„œ ì–¼ë§ˆì¸ê°€ë¥¼ êµ¬í•œë‹¤.
 //
-// ÀÌ°ÍÀº ¹éºÐÀ²À» ±¸ÇÏ´Â ½Ä°ú °°´Ù. ¾ðÁ¦³ª 100ÀÌ ¾Æ´Ò °æ¿ì ÀÌ°ÍÀ» »ç¿ëÇÏ¸é µÈ´Ù.
+// ì´ê²ƒì€ ë°±ë¶„ìœ¨ì„ êµ¬í•˜ëŠ” ì‹ê³¼ ê°™ë‹¤. ì–¸ì œë‚˜ 100ì´ ì•„ë‹ ê²½ìš° ì´ê²ƒì„ ì‚¬ìš©í•˜ë©´ ëœë‹¤.
 //
-// ¹ÝÈ¯µÇ´Â °ª x´Â (0 <= x <= base)ÀÌ´Ù.
+// ë°˜í™˜ë˜ëŠ” ê°’ xëŠ” (0 <= x <= base)ì´ë‹¤.
 //-----------------------------------------------------------------------------
 double Proportion(double target, double target_max, double base)
 {
@@ -27,7 +27,7 @@ double Proportion(double target, double target_max, double base)
 //-----------------------------------------------------------------------------
 // Percentage
 //
-// ¹éºÐÀ²À» ±¸ÇÑ´Ù.
+// ë°±ë¶„ìœ¨ì„ êµ¬í•œë‹¤.
 //-----------------------------------------------------------------------------
 double Percentage(double target, double target_max)
 {

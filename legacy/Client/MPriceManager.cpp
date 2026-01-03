@@ -35,8 +35,8 @@ MPriceManager*		g_pPriceManager = NULL;
 //-----------------------------------------------------------------------------
 MPriceManager::MPriceManager()
 {
-	m_MarketCondBuy		= 25;		// NPC°¡ »ì¶§(25)
-	m_MarketCondSell	= 100;		// NPC°¡ ÆÈ¶§(100)
+	m_MarketCondBuy		= 25;		// NPCê°€ ì‚´ë•Œ(25)
+	m_MarketCondSell	= 100;		// NPCê°€ íŒ”ë•Œ(100)
 	m_EventFixPrice		= 0;
 }
 
@@ -70,19 +70,19 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 		return m_EventFixPrice;
 	// 2004, 08, 02, sobeit add end				
 	//-------------------------------------------------------
-	// »ì¶§, ÆÈ¶§..
+	// ì‚´ë•Œ, íŒ”ë•Œ..
 	//-------------------------------------------------------
 	int nRatio;
 
 	switch (type)
 	{
 		//-------------------------------------------------------
-		// »óÁ¡¿¡¼­ »ì¶§
+		// ìƒì ì—ì„œ ì‚´ë•Œ
 		//-------------------------------------------------------
 		case NPC_TO_PC :
 			if (pItem->GetItemClass()==ITEM_CLASS_SKULL)
 			{
-				// ÇØ°ñÀº ÆÄ´Â °æ¿ì¹Û¿¡ ¾ø´Ù.
+				// í•´ê³¨ì€ íŒŒëŠ” ê²½ìš°ë°–ì— ì—†ë‹¤.
 				nRatio = m_MarketCondBuy;
 			}
 			else
@@ -92,14 +92,14 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 		break;
 
 		//-------------------------------------------------------
-		// »óÁ¡¿¡ ÆÈ ¶§
+		// ìƒì ì— íŒ” ë•Œ
 		//-------------------------------------------------------
 		case PC_TO_NPC :
 			nRatio = m_MarketCondBuy;
 		break;
 
 		//-------------------------------------------------------
-		// Àºµµ±Ý
+		// ì€ë„ê¸ˆ
 		//-------------------------------------------------------
 		case SILVERING :
 		{
@@ -114,13 +114,13 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 				double    curSilver  = pItem->GetSilver();
 				double    finalPrice = 0;
 
-				// Àºµµ±Ý ²ËÂ÷ÀÖ´Â»óÅÂ..
+				// ì€ë„ê¸ˆ ê½‰ì°¨ìžˆëŠ”ìƒíƒœ..
 				if (maxSilver==curSilver)
 				{
 					return 0;
 				}
 
-				// ¶«»§À¸·Î Áý¾î³ÖÀº ÀºÀÇ °¡°ÝÀÌ´Ù.
+				// ë•œë¹µìœ¼ë¡œ ì§‘ì–´ë„£ì€ ì€ì˜ ê°€ê²©ì´ë‹¤.
 				finalPrice = maxSilver; 
 
 				return (int)finalPrice;
@@ -133,18 +133,18 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 		break;
 
 		//-------------------------------------------------------
-		// ¼ö¸®
+		// ìˆ˜ë¦¬
 		//-------------------------------------------------------
 		case REPAIR :
-			// vampire Æ÷Å»Àº ¼ö¸® ¾ÈµÈ´Ù.
+			// vampire í¬íƒˆì€ ìˆ˜ë¦¬ ì•ˆëœë‹¤.
 			if (pItem->GetItemClass()==ITEM_CLASS_VAMPIRE_PORTAL_ITEM 
-				// 2004, 8, 17, sobeit add start - ½Ã°£Á¦ ¾ÆÀÌÅÛ Âø¿ë½Ã ÀüÃ¼ ¼ö¸®°¡ ¾ÈµÇ´ø ¹ö±× ¼öÁ¤ ¶§¹®¿¡ Ãß°¡.
+				// 2004, 8, 17, sobeit add start - ì‹œê°„ì œ ì•„ì´í…œ ì°©ìš©ì‹œ ì „ì²´ ìˆ˜ë¦¬ê°€ ì•ˆë˜ë˜ ë²„ê·¸ ìˆ˜ì • ë•Œë¬¸ì— ì¶”ê°€.
 #ifdef __GAME_CLIENT__
 				|| g_pTimeItemManager->IsExist( pItem->GetID() )
 #endif
 				// 2004, 8, 17, sobeit add end
 
-				// 2004, 10, 21, sobeit add start = ºí·¯µå ¹ÙÀÌºí ¼ö¸® ÇÒÇÊ¿ä ¾øÀ½.
+				// 2004, 10, 21, sobeit add start = ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìˆ˜ë¦¬ í• í•„ìš” ì—†ìŒ.
 				|| pItem->GetItemClass() == ITEM_CLASS_BLOOD_BIBLE_SIGN
 				// 2004, 10, 21, sobeit add end
 				)
@@ -152,16 +152,16 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 				return 0;	
 			}
 
-			// ¼ö¸®ÇÒ¶§´Â ¿ø·¡ °¡°ÝÀÇ 1/10
+			// ìˆ˜ë¦¬í• ë•ŒëŠ” ì›ëž˜ ê°€ê²©ì˜ 1/10
 			nRatio = 10;
 
-			// À½.. - -; 
+			// ìŒ.. - -; 
 //			bMysterious = false;
 		break;
 	}
 
 	//-------------------------------------------------------
-	// Charge ItemÀÎ °æ¿ì
+	// Charge Itemì¸ ê²½ìš°
 	//-------------------------------------------------------
 	if (pItem->IsChargeItem())
 	{		
@@ -175,7 +175,7 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 
 		if (type==REPAIR)
 		{
-			// ºÎÁ·ÇÑ charge¸¦ Ã¤¿öÁØ´Ù.
+			// ë¶€ì¡±í•œ chargeë¥¼ ì±„ì›Œì¤€ë‹¤.
 			int charge = maxCharge - curCharge;
 
 			return charge * ChargePrice;
@@ -208,21 +208,21 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 	*/
 	//-------------------------------------------------------
 	//
-	//					ÀÏ¹ÝÀûÀÎ Itemµé..
+	//					ì¼ë°˜ì ì¸ Itemë“¤..
 	//
 	//-------------------------------------------------------
 	//else
 	{
 		//-------------------------------------------------------
-		// ItemÀÇ Á¤º¸¸¦ ÀÐ´Â´Ù.
+		// Itemì˜ ì •ë³´ë¥¼ ì½ëŠ”ë‹¤.
 		//-------------------------------------------------------
-		// ¿ø·¡ ¹°°Ç °ª°ú ÃÖ´ë ³»±¸Ä¡¸¦ ¾Ë¾Æ³½´Ù.
+		// ì›ëž˜ ë¬¼ê±´ ê°’ê³¼ ìµœëŒ€ ë‚´êµ¬ì¹˜ë¥¼ ì•Œì•„ë‚¸ë‹¤.
 		int		itemDur = pItem->GetMaxDurability();
 		long	curDurability = pItem->GetCurrentDurability();
 		
 		//--------------------------------------------------
-		// ¼ö¸®ÇÒ¶§´Â maxDur==curDurÀÌ¸é °¡°ÝÀÌ 0ÀÌ´Ù.
-		// maxDurability°¡ 0ÀÌÇÏÀÌ¸é ¼ö¸®ÇÒ ÇÊ¿ä°¡ ¾ø´Â itemÀÌ´Ù.
+		// ìˆ˜ë¦¬í• ë•ŒëŠ” maxDur==curDurì´ë©´ ê°€ê²©ì´ 0ì´ë‹¤.
+		// maxDurabilityê°€ 0ì´í•˜ì´ë©´ ìˆ˜ë¦¬í•  í•„ìš”ê°€ ì—†ëŠ” itemì´ë‹¤.
 		//--------------------------------------------------
 		if (type==REPAIR)
 		{
@@ -244,26 +244,26 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 		finalPrice = originalPrice;
 		
 		//-------------------------------------------------------
-		// GambleÀº ºñ½Î´Ù
+		// Gambleì€ ë¹„ì‹¸ë‹¤
 		//-------------------------------------------------------
 //		if (bMysterious)
 //		{
-//			// ÇÒÀÎÀ²¿¡ µû¶ó¼­ ¹°°Ç°ªÀ» ³·Ãá´Ù.
+//			// í• ì¸ìœ¨ì— ë”°ë¼ì„œ ë¬¼ê±´ê°’ì„ ë‚®ì¶˜ë‹¤.
 //			finalPrice = finalPrice*nRatio / 100;
 //
-//			// MYSTERIOUS ¾ÆÀÌÅÛÀº ¹«Á¶°Ç 5¹è´Ù. Ä«Ä«
+//			// MYSTERIOUS ì•„ì´í…œì€ ë¬´ì¡°ê±´ 5ë°°ë‹¤. ì¹´ì¹´
 //			finalPrice = finalPrice * 5;
 //		}
 //		else
 		{
-			// ¿É¼Ç ¿©ºÎ¿¡ µû¶ó¼­ ¹°°Ç°ªÀ» ´õÇÑ´Ù.
+			// ì˜µì…˜ ì—¬ë¶€ì— ë”°ë¼ì„œ ë¬¼ê±´ê°’ì„ ë”í•œë‹¤.
 			if (!pItem->IsEmptyItemOptionList())
 			{
 				int priceMult = pItem->GetItemOptionPriceMultiplier();//(*g_pItemOptionTable)[pItem->GetItemOption()].PriceMultiplier;
 				finalPrice = finalPrice * priceMult / 100;
 			}
 			
-			// ³»±¸¼ºÀÌ ¾ó¸¶³ª ¶³¾îÁ³´Â°¡¿¡ µû¶ó ¹°°Ç°ªÀ» ³·Ãá´Ù.
+			// ë‚´êµ¬ì„±ì´ ì–¼ë§ˆë‚˜ ë–¨ì–´ì¡ŒëŠ”ê°€ì— ë”°ë¼ ë¬¼ê±´ê°’ì„ ë‚®ì¶˜ë‹¤.
 			float damaged;
 			if (maxDurability==0)
 			{
@@ -275,7 +275,7 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 			}
 
 			//--------------------------------------------------
-			// ¼ö¸®ÇÒ¶§´Â damage ¹ÞÀº ¸¸Å­ ºñ½ÎÁø´Ù.
+			// ìˆ˜ë¦¬í• ë•ŒëŠ” damage ë°›ì€ ë§Œí¼ ë¹„ì‹¸ì§„ë‹¤.
 			//--------------------------------------------------
 			if (type==REPAIR)
 			{
@@ -284,14 +284,14 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 			
 			finalPrice = finalPrice * damaged;
 			
-			// ÇÒÀÎÀ²¿¡ µû¶ó¼­ ¹°°Ç°ªÀ» ³·Ãá´Ù.
+			// í• ì¸ìœ¨ì— ë”°ë¼ì„œ ë¬¼ê±´ê°’ì„ ë‚®ì¶˜ë‹¤.
 			finalPrice = finalPrice * nRatio / 100;
 		}	
 	}
 
 	
 	//-------------------------------------------------------
-	// potionÀÎ °æ¿ì
+	// potionì¸ ê²½ìš°
 	//-------------------------------------------------------
 #ifdef __GAME_CLIENT__
 	if (pItem->GetItemClass()==ITEM_CLASS_POTION)
@@ -339,7 +339,7 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 	}
 #endif
 
-	// ÃÖÇÏ °¡°ÝÀº 1ÀÌ´Ù.
+	// ìµœí•˜ ê°€ê²©ì€ 1ì´ë‹¤.
 	if (finalPrice==0)
 	{
 		return 1;
@@ -349,7 +349,7 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 		if (pItem->GetItemClass()==ITEM_CLASS_SKULL
 			&& g_pPlayer->IsVampire())
 		{
-			finalPrice >>= 1;	// °ªÀ» ¹ÝÀ¸·Î ÁÙÀÎ´Ù.
+			finalPrice >>= 1;	// ê°’ì„ ë°˜ìœ¼ë¡œ ì¤„ì¸ë‹¤.
 		} 
 		else
 		if (pItem->GetItemClass()==ITEM_CLASS_SKULL &&g_pPlayer->IsOusters() )
@@ -359,7 +359,7 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 	#endif
 
 		
-	// ¼­¹ö¿¡¼­ º¸³»ÁØ ¸Ó¸®°¡°Ý ¹èÀ²À» Àû¿ëÇÑ´Ù
+	// ì„œë²„ì—ì„œ ë³´ë‚´ì¤€ ë¨¸ë¦¬ê°€ê²© ë°°ìœ¨ì„ ì ìš©í•œë‹¤
 	if(pItem->GetItemClass() == ITEM_CLASS_SKULL)
 	{
 		finalPrice    = finalPrice * g_pUserInformation->HeadPrice / 100;
@@ -372,7 +372,7 @@ MPriceManager::GetItemPrice(MItem* pItem, TRADE_TYPE type, bool bMysterious)
 //-----------------------------------------------------------------------------
 // Get ItemPrice
 //-----------------------------------------------------------------------------
-// ¹º°¡ ÀÌ»óÇÑ °æ¿ì´Â..
+// ë­”ê°€ ì´ìƒí•œ ê²½ìš°ëŠ”..
 // price.type = -1;
 // price.number = 0;
 //-----------------------------------------------------------------------------
@@ -386,14 +386,14 @@ MPriceManager::GetItemPrice(MItem* pItem, STAR_ITEM_PRICE& price)
 		return;
 	}
 
-	// ¿É¼Ç¿¡ µû¶ó¼­ º°ÀÇ typeÀ» °áÁ¤ÇÑ´Ù.
+	// ì˜µì…˜ì— ë”°ë¼ì„œ ë³„ì˜ typeì„ ê²°ì •í•œë‹¤.
 	switch (pItem->GetItemOptionPart())
     {
-		case ITEMOPTION_TABLE::PART_DAMAGE		: price.type = 0; break;	// °ËÁ¤
-        case ITEMOPTION_TABLE::PART_STR			: price.type = 1; break;	// »¡°­
-        case ITEMOPTION_TABLE::PART_INT			: price.type = 2; break;	// ÆÄ¶û
-        case ITEMOPTION_TABLE::PART_DEX			: price.type = 3; break;	// ÃÊ·Ï
-        case ITEMOPTION_TABLE::PART_ATTACK_SPEED	: price.type = 4; break;	// ÇÏ´Ã
+		case ITEMOPTION_TABLE::PART_DAMAGE		: price.type = 0; break;	// ê²€ì •
+        case ITEMOPTION_TABLE::PART_STR			: price.type = 1; break;	// ë¹¨ê°•
+        case ITEMOPTION_TABLE::PART_INT			: price.type = 2; break;	// íŒŒëž‘
+        case ITEMOPTION_TABLE::PART_DEX			: price.type = 3; break;	// ì´ˆë¡
+        case ITEMOPTION_TABLE::PART_ATTACK_SPEED	: price.type = 4; break;	// í•˜ëŠ˜
 
         default: 
 			price.type = -1;
@@ -401,13 +401,13 @@ MPriceManager::GetItemPrice(MItem* pItem, STAR_ITEM_PRICE& price)
 		return;
 	}
 
-	// type¿¡ µû¶ó¼­ º°ÀÇ °³¼ö¸¦ °áÁ¤ÇÑ´Ù.
+	// typeì— ë”°ë¼ì„œ ë³„ì˜ ê°œìˆ˜ë¥¼ ê²°ì •í•œë‹¤.
 	price.number = (pItem->GetItemType() - 1) * 20;
 }
 
 
-// Mysterious Item °¡°Ý
-// itemClass¿Í pCreatureÀÇ ´É·ÂÄ¡¿¡ µû¶ó¼­ °¡°ÝÀÌ ´Þ¶óÁø´Ù.
+// Mysterious Item ê°€ê²©
+// itemClassì™€ pCreatureì˜ ëŠ¥ë ¥ì¹˜ì— ë”°ë¼ì„œ ê°€ê²©ì´ ë‹¬ë¼ì§„ë‹¤.
 int MPriceManager::GetMysteriousPrice(MItem *pItem) const
 {
 	int multiplier = 1;
@@ -419,7 +419,7 @@ int MPriceManager::GetMysteriousPrice(MItem *pItem) const
 		int CINT = g_pPlayer->GetBASIC_INT();
 		int CSUM = CSTR + CDEX + CINT;
 
-		// 0~20 »çÀÌ
+		// 0~20 ì‚¬ì´
 		if(CSUM > 0)
 			multiplier = CSUM / 15;
 	}
@@ -427,14 +427,14 @@ int MPriceManager::GetMysteriousPrice(MItem *pItem) const
 	{
 		int CLevel = g_pPlayer->GetLEVEL();
 
-		// 0~20 »çÀÌ
+		// 0~20 ì‚¬ì´
 		multiplier = CLevel / 5;
 	}
 
-	// 1~20»çÀÌ
+	// 1~20ì‚¬ì´
 	multiplier = max(1, multiplier);
 
-	// °¡°Ý Æò±ÕÀ» ¾Ë¾Æ¿Â´Ù.
+	// ê°€ê²© í‰ê· ì„ ì•Œì•„ì˜¨ë‹¤.
 	int avr = (*g_pItemTable)[pItem->GetItemClass()].GetAveragePrice();
 #else
 	if(g_eRaceInterface == RACE_SLAYER)
@@ -457,7 +457,7 @@ int MPriceManager::GetMysteriousPrice(MItem *pItem) const
 	int avr = (*g_pItemTable)[pItem->GetItemClass()].GetAveragePrice();
 #endif
 
-	// °¡°Ý Æò±Õ * ´É·ÂÄ¡ ºñÀ²?
+	// ê°€ê²© í‰ê·  * ëŠ¥ë ¥ì¹˜ ë¹„ìœ¨?
 	int final_price = avr * multiplier;
 
 	if(g_pSkillAvailable->IsEnableSkill(SKILL_HOLYLAND_BLOOD_BIBLE_JAVE))

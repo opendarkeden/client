@@ -19,7 +19,7 @@ RCPositionInfo::RCPositionInfo()
 }
 
 //////////////////////////////////////////////////////////////////////
-// Datagram °´Ã¼·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// Datagram ê°ì²´ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void RCPositionInfo::read ( Datagram & iDatagram ) 
 	 throw ( ProtocolException , Error )
@@ -52,7 +52,7 @@ void RCPositionInfo::read ( Datagram & iDatagram )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// Datagram °´Ã¼·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// Datagram ê°ì²´ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void RCPositionInfo::write ( Datagram & oDatagram ) const 
      throw ( ProtocolException , Error )

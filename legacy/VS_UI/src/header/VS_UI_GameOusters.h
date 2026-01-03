@@ -27,37 +27,37 @@ class C_VS_UI_OUSTERS_GEAR : public C_VS_UI_GEAR
 public:
 	enum SLOT_NAME
 	{
-		SN_CIRCLET,			// ¼­Å¬¸´
-		SN_COAT,				// ¿Ê
-		SN_LEFTHAND,			// ¿Þ¼Õ
-		SN_RIGHTHAND,			// ¿À¸¥¼Õ
-		SN_BOOTS,				// ½Å¹ß
-		SN_ARMSBAND1,			// ¾Ï½º¹êµå1
-		SN_ARMSBAND2,			// ¾Ï½º¹êµå2
-		SN_RING1,				// ¸µ1
-		SN_RING2,				// ¸µ2
-		SN_PENDENT1,			// ¸ñ°ÉÀÌ1
-		SN_PENDENT2,			// ¸ñ°ÉÀÌ2
-		SN_PENDENT3,			// ¸ñ°ÉÀÌ3
-		SN_STONE1,			// Á¤·É¼®1
-		SN_STONE2,			// Á¤·É¼®2
-		SN_STONE3,			// Á¤·É¼®3
-		SN_STONE4,			// Á¤·É¼®4
+		SN_CIRCLET,			// ì„œí´ë¦¿
+		SN_COAT,				// ì˜·
+		SN_LEFTHAND,			// ì™¼ì†
+		SN_RIGHTHAND,			// ì˜¤ë¥¸ì†
+		SN_BOOTS,				// ì‹ ë°œ
+		SN_ARMSBAND1,			// ì•”ìŠ¤ë°´ë“œ1
+		SN_ARMSBAND2,			// ì•”ìŠ¤ë°´ë“œ2
+		SN_RING1,				// ë§1
+		SN_RING2,				// ë§2
+		SN_PENDENT1,			// ëª©ê±¸ì´1
+		SN_PENDENT2,			// ëª©ê±¸ì´2
+		SN_PENDENT3,			// ëª©ê±¸ì´3
+		SN_STONE1,			// ì •ë ¹ì„1
+		SN_STONE2,			// ì •ë ¹ì„2
+		SN_STONE3,			// ì •ë ¹ì„3
+		SN_STONE4,			// ì •ë ¹ì„4
 
-		SN_COREZAP1,		// ÄÚ¾îÀì1
-		SN_COREZAP2,		// ÄÚ¾îÀì2
-		SN_COREZAP3,		// ÄÚ¾îÀì3
-		SN_COREZAP4,		// ÄÚ¾îÀì4
+		SN_COREZAP1,		// ì½”ì–´ìž½1
+		SN_COREZAP2,		// ì½”ì–´ìž½2
+		SN_COREZAP3,		// ì½”ì–´ìž½3
+		SN_COREZAP4,		// ì½”ì–´ìž½4
 		
-		SN_FASCIA,			// ½ÂÁ÷¿ë Çã¸®Àå½Ä
-        SN_MITTEN,			// ½ÂÁ÷¿ë Àå°©?
+		SN_FASCIA,			// ìŠ¹ì§ìš© í—ˆë¦¬ìž¥ì‹
+        SN_MITTEN,			// ìŠ¹ì§ìš© ìž¥ê°‘?
 
-		SN_BLOODBIBLE1,		// ºí·¯µð¹ÙÀÌºí1
-		SN_BLOODBIBLE2,		// ºí·¯µð¹ÙÀÌºí2
-		SN_BLOODBIBLE3,		// ºí·¯µð¹ÙÀÌºí3
-		SN_BLOODBIBLE4,		// ºí·¯µð¹ÙÀÌºí4
-		SN_BLOODBIBLE5,		// ºí·¯µð¹ÙÀÌºí5
-		SN_BLOODBIBLE6,		// ºí·¯µð¹ÙÀÌºí6
+		SN_BLOODBIBLE1,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”1
+		SN_BLOODBIBLE2,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”2
+		SN_BLOODBIBLE3,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”3
+		SN_BLOODBIBLE4,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”4
+		SN_BLOODBIBLE5,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”5
+		SN_BLOODBIBLE6,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”6
 
 		SLOT_SIZE,	
 	};
@@ -127,12 +127,12 @@ public:
 //	bool	MouseControl(UINT message, int _x, int _y);
 	void	KeyboardControl(UINT message, UINT key, long extra);
 
-	void	HotKey_F1();	//Ç÷Ã» »ç¿ëÇÏ±â
-	void	HotKey_F2();	//Ç÷Ã» »ç¿ëÇÏ±â
-	void	HotKey_F3();	//Ç÷Ã» »ç¿ëÇÏ±â
-	void	HotKey_F4();	//Ç÷Ã» »ç¿ëÇÏ±â
-	void	HotKey_F5();	//Ç÷Ã» »ç¿ëÇÏ±â
-	void	HotKey_F6();	//Ç÷Ã» »ç¿ëÇÏ±â	
+	void	HotKey_F1();	//í˜ˆì²­ ì‚¬ìš©í•˜ê¸°
+	void	HotKey_F2();	//í˜ˆì²­ ì‚¬ìš©í•˜ê¸°
+	void	HotKey_F3();	//í˜ˆì²­ ì‚¬ìš©í•˜ê¸°
+	void	HotKey_F4();	//í˜ˆì²­ ì‚¬ìš©í•˜ê¸°
+	void	HotKey_F5();	//í˜ˆì²­ ì‚¬ìš©í•˜ê¸°
+	void	HotKey_F6();	//í˜ˆì²­ ì‚¬ìš©í•˜ê¸°	
 	void	HotKey_F7();
 	void	HotKey_F8();
 	void	HotKey_QuickItemSlot();

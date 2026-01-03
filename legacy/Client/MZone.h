@@ -2,36 +2,36 @@
 // MZone.h
 //----------------------------------------------------------------------
 //
-// Creature : ID·Î °ü¸®µÈ´Ù. ¸¶±¸ ¿òÁ÷ÀÎ´Ù. - -;;
-// Item     : ID·Î °ü¸®µÈ´Ù. »ç¶óÁ³´Ù°¡(creature°¡ pickup) »ı±â±âµµ ÇÑ´Ù(drop)
-// Obstacle : Sector¿¡ °íÁ¤µÈ´Ù. ¿òÁ÷ÀÌÁö ¾Ê´Â´Ù.
+// Creature : IDë¡œ ê´€ë¦¬ëœë‹¤. ë§ˆêµ¬ ì›€ì§ì¸ë‹¤. - -;;
+// Item     : IDë¡œ ê´€ë¦¬ëœë‹¤. ì‚¬ë¼ì¡Œë‹¤ê°€(creatureê°€ pickup) ìƒê¸°ê¸°ë„ í•œë‹¤(drop)
+// Obstacle : Sectorì— ê³ ì •ëœë‹¤. ì›€ì§ì´ì§€ ì•ŠëŠ”ë‹¤.
 // ImageObject : ??
 //
 //----------------------------------------------------------------------
-// File¿¡ ÀúÀåµÈ Á¤º¸
+// Fileì— ì €ì¥ëœ ì •ë³´
 //----------------------------------------------------------------------
 //
-// [ MapData : Filename.MD ]   - Zone¿¡¼­ LoadÇÑ´Ù.
-//   °¡·Î size, ¼¼·Î size
+// [ MapData : Filename.MD ]   - Zoneì—ì„œ Loadí•œë‹¤.
+//   ê°€ë¡œ size, ì„¸ë¡œ size
 //   Zone ID
-//   ¼Ó¼º
-//   °¡·Îsize * ¼¼·Îsize °³ÀÇ SectorÁ¤º¸(TileSpriteID, Flag)
-//   Obstacle¼ö, Obstacle¼ö * Obstacle Á¤º¸
-//   ImageObject¼ö, ImageObject¼ö * (ImageObject, ImageObjectSectorInfo)
+//   ì†ì„±
+//   ê°€ë¡œsize * ì„¸ë¡œsize ê°œì˜ Sectorì •ë³´(TileSpriteID, Flag)
+//   Obstacleìˆ˜, Obstacleìˆ˜ * Obstacle ì •ë³´
+//   ImageObjectìˆ˜, ImageObjectìˆ˜ * (ImageObject, ImageObjectSectorInfo)
 //
 //
 //----------------------------------------------------------------------
 // On-line Update
 //----------------------------------------------------------------------
 //
-// FileÀ» ÇÏ³ª·Î °ü¸®ÇÏ°Ô µÇ¸é, 
-// FileÀÇ Áß°£¿¡ data¸¦ Ãß°¡ÇÒ ¼ö ¾øÀ¸¹Ç·Î FileÀüÃ¼¸¦ LoadÇß´Ù°¡
-// Memory¿¡¼­ UpdateÇÏ°í FileÀüÃ¼¸¦ SaveÇØ¾ßÇÑ´Ù.
-// (!)¼Óµµ ¹®Á¦°¡ ÀÖÀ» ¼ö ÀÖ´Ù.
+// Fileì„ í•˜ë‚˜ë¡œ ê´€ë¦¬í•˜ê²Œ ë˜ë©´, 
+// Fileì˜ ì¤‘ê°„ì— dataë¥¼ ì¶”ê°€í•  ìˆ˜ ì—†ìœ¼ë¯€ë¡œ Fileì „ì²´ë¥¼ Loadí–ˆë‹¤ê°€
+// Memoryì—ì„œ Updateí•˜ê³  Fileì „ì²´ë¥¼ Saveí•´ì•¼í•œë‹¤.
+// (!)ì†ë„ ë¬¸ì œê°€ ìˆì„ ìˆ˜ ìˆë‹¤.
 //
-// ±×·¸´Ù°í, °¢°¢ÀÇ DataºÎºĞµéÀ» µû·Î file·Î µÎ¸é ÁöÀúºĞÇÏ´ç. - -;
-// Zone ÇÏ³ª°¡ »ı¼ºµÇ¾úÀ» ¶§, ´õ ÀÌ»ó data°¡ ¹Ù²îÁö ¾Ê´Â´Ù°í ÇÏ¸é..
-// ÇÏ³ªÀÇ File·Î »ç¿ëÇØµµ ¹®Á¦°¡ ¾øÀ» °ÍÀÌ´Ù.
+// ê·¸ë ‡ë‹¤ê³ , ê°ê°ì˜ Dataë¶€ë¶„ë“¤ì„ ë”°ë¡œ fileë¡œ ë‘ë©´ ì§€ì €ë¶„í•˜ë‹¹. - -;
+// Zone í•˜ë‚˜ê°€ ìƒì„±ë˜ì—ˆì„ ë•Œ, ë” ì´ìƒ dataê°€ ë°”ë€Œì§€ ì•ŠëŠ”ë‹¤ê³  í•˜ë©´..
+// í•˜ë‚˜ì˜ Fileë¡œ ì‚¬ìš©í•´ë„ ë¬¸ì œê°€ ì—†ì„ ê²ƒì´ë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -69,7 +69,7 @@ typedef std::vector<UI_PORTAL_LIST> UI_PORTAL_VECTOR;
 
 //----------------------------------------------------------------------
 //
-// Zone class´Â SectorÀÇ 2Â÷¿ø ¹è¿­ÀÌ´Ù.
+// Zone classëŠ” Sectorì˜ 2ì°¨ì› ë°°ì—´ì´ë‹¤.
 //
 //----------------------------------------------------------------------
 class MZone {
@@ -80,10 +80,10 @@ class MZone {
 		// building map
 		typedef std::map<TYPE_OBJECTID, MImageObject*>				IMAGEOBJECT_MAP;
 
-		// IMAGEOBJECT_POSITION_LIST¸¦ Á¤ÀÇÇÑ´Ù.
+		// IMAGEOBJECT_POSITION_LISTë¥¼ ì •ì˜í•œë‹¤.
 		typedef	CPositionList<TYPE_SECTORPOSITION>							IMAGEOBJECT_POSITION_LIST;
 
-		// IMAGEOBJECT_POSITION_LISTÀÇ mapÀÌ´Ù.
+		// IMAGEOBJECT_POSITION_LISTì˜ mapì´ë‹¤.
 		typedef	std::map<TYPE_OBJECTID, IMAGEOBJECT_POSITION_LIST*>	IMAGEOBJECT_POSITION_LIST_MAP;
 
 
@@ -136,15 +136,15 @@ class MZone {
 		bool		LoadFromFileSectorSound(class ifstream& file);
 
 		//--------------------------------------------------------------		
-		// Zone File Header ºÎºĞ
+		// Zone File Header ë¶€ë¶„
 		//--------------------------------------------------------------		
-		const MString&	GetVersion() const			{ return m_Info.ZoneVersion; } // ÃÖÁ¾ ¾÷µ¥ÀÌÆ®µÈ ³¯Â¥
-		WORD			GetID() const				{ return m_Info.ZoneID; }			//	Á¸ ¾ÆÀÌµğ
-		WORD			GetGroupID() const			{ return m_Info.ZoneGroupID; }	//	Á¸ ±×·ì ¾ÆÀÌµğ
-		const MString&	GetName() const				{ return m_Info.ZoneName; }		// Á¸ ÀÌ¸§
-		BYTE			GetType() const				{ return m_Info.ZoneType; }		//	Á¸ÀÇ Å¸ÀÔ
-		BYTE			GetLevel() const			{ return m_Info.ZoneLevel; }		//	Á¸¿¡ ³ª¿À´Â ¸ó½ºÅÍÀÇ ·¹º§. 1-10 »çÀÌ.
-		const MString&	GetDescription() const		{ return m_Info.Description; }	//	Á¸	
+		const MString&	GetVersion() const			{ return m_Info.ZoneVersion; } // ìµœì¢… ì—…ë°ì´íŠ¸ëœ ë‚ ì§œ
+		WORD			GetID() const				{ return m_Info.ZoneID; }			//	ì¡´ ì•„ì´ë””
+		WORD			GetGroupID() const			{ return m_Info.ZoneGroupID; }	//	ì¡´ ê·¸ë£¹ ì•„ì´ë””
+		const MString&	GetName() const				{ return m_Info.ZoneName; }		// ì¡´ ì´ë¦„
+		BYTE			GetType() const				{ return m_Info.ZoneType; }		//	ì¡´ì˜ íƒ€ì…
+		BYTE			GetLevel() const			{ return m_Info.ZoneLevel; }		//	ì¡´ì— ë‚˜ì˜¤ëŠ” ëª¬ìŠ¤í„°ì˜ ë ˆë²¨. 1-10 ì‚¬ì´.
+		const MString&	GetDescription() const		{ return m_Info.Description; }	//	ì¡´	
 
 
 
@@ -156,27 +156,27 @@ class MZone {
 		void		SetPlayer();//MPlayer* pPlayer);
 		void		RemovePlayer();
 		
-		// Creature Map : Zone¿¡ Á¸ÀçÇÏ´Â ÀüÃ¼ creature ¼ö
+		// Creature Map : Zoneì— ì¡´ì¬í•˜ëŠ” ì „ì²´ creature ìˆ˜
 		int			GetCreatureNumber() const		{ return m_mapCreature.size(); }
 		CREATURE_MAP::const_iterator GetCreatureBegin()		{ return m_mapCreature.begin(); }
 
 		// Move
 		void		UpdateAllCreature();
 
-		// playerÀÇ ½Ã¾ß¸¦ ¹ş¾î³ª´Â ObjectµéÀ» Á¦°ÅÇÑ´Ù.
+		// playerì˜ ì‹œì•¼ë¥¼ ë²—ì–´ë‚˜ëŠ” Objectë“¤ì„ ì œê±°í•œë‹¤.
 		void		KeepObjectInSight(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE sight);
 
-		// (x,y) sector¿¡ µé¾î°¥ ¼ö ÀÖ´Â°¡?
+		// (x,y) sectorì— ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ”ê°€?
 		bool		CanMove(BYTE creatureType, TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y);
 		void		SetServerBlock(BYTE creatureType, TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y);
 		void		UnSetServerBlock(BYTE creatureType, TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y);
 
-		// (xo,yo)¿¡ ÀÖ´ø Creature¸¦ (xn,yn)À¸·Î ¿Å±ä´Ù.		
+		// (xo,yo)ì— ìˆë˜ Creatureë¥¼ (xn,yn)ìœ¼ë¡œ ì˜®ê¸´ë‹¤.		
 		bool		MoveGroundCreature(MCreature* pCreature, TYPE_SECTORPOSITION xo, TYPE_SECTORPOSITION yo, TYPE_SECTORPOSITION xn, TYPE_SECTORPOSITION yn);
 		bool		MoveFlyingCreature(MCreature* pCreature, TYPE_SECTORPOSITION xo, TYPE_SECTORPOSITION yo, TYPE_SECTORPOSITION xn, TYPE_SECTORPOSITION yn);
 		bool		MoveUndergroundCreature(MCreature* pCreature, TYPE_SECTORPOSITION xo, TYPE_SECTORPOSITION yo, TYPE_SECTORPOSITION xn, TYPE_SECTORPOSITION yn);
 
-		// (x,y) Sector¿¡ ÀÖ´Â CreatureÀÇ ID¸¦ ³Ñ°ÜÁØ´Ù.
+		// (x,y) Sectorì— ìˆëŠ” Creatureì˜ IDë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 		
 		TYPE_OBJECTID		GetCreatureID(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);
 		TYPE_OBJECTID		GetFlyingCreatureID(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);
@@ -185,23 +185,23 @@ class MZone {
 		TYPE_OBJECTID		GetCreatureID(const char* pName, int flag = 0) const;
 
 		// other creatures : Add, Get, Remove
-		bool		AddCreature(MCreature* pCreature);	// Zone¿¡ Creature Ãß°¡
-		bool		RemoveCreature(TYPE_OBJECTID	id);			// Zone¿¡¼­ Creature Á¦°Å
-		MCreature*	GetCreature(TYPE_OBJECTID id);				// ZoneÀÇ Creature ÀĞ¾î¿À±â
+		bool		AddCreature(MCreature* pCreature);	// Zoneì— Creature ì¶”ê°€
+		bool		RemoveCreature(TYPE_OBJECTID	id);			// Zoneì—ì„œ Creature ì œê±°
+		MCreature*	GetCreature(TYPE_OBJECTID id);				// Zoneì˜ Creature ì½ì–´ì˜¤ê¸°
 		MCreature*	GetCreatureOnly(TYPE_OBJECTID id);
 
 		// 2004, 8, 12 sobeit add start
 		MCreature*  GetCreatureBySector(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y);
 		// 2004, 8, 12 sobeit add end
-		//MCreature*	GetUndergroundCreature(TYPE_OBJECTID id);				// ZoneÀÇ UndergroundCreature ÀĞ¾î¿À±â
-		//MCreature*	GetFlyingCreature(TYPE_OBJECTID id);				// ZoneÀÇ FlyingCreature ÀĞ¾î¿À±â
+		//MCreature*	GetUndergroundCreature(TYPE_OBJECTID id);				// Zoneì˜ UndergroundCreature ì½ì–´ì˜¤ê¸°
+		//MCreature*	GetFlyingCreature(TYPE_OBJECTID id);				// Zoneì˜ FlyingCreature ì½ì–´ì˜¤ê¸°
 
-		// Sector¿¡¼­ Creature Á¦°Å
+		// Sectorì—ì„œ Creature ì œê±°
 		void		RemoveUndergroundCreature(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, TYPE_OBJECTID id)	{ m_ppSector[sY][sX].RemoveUndergroundCreature(id); }
 		void		RemoveGroundCreature(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, TYPE_OBJECTID id)		{ m_ppSector[sY][sX].RemoveGroundCreature(id); }
 		void		RemoveFlyingCreature(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, TYPE_OBJECTID id)		{ m_ppSector[sY][sX].RemoveFlyingCreature(id); }
 
-		// Hallu°ü·Ã
+		// Halluê´€ë ¨
 		void		ChangeToHalluCreature();
 		void		RemoveHalluCreature();
 
@@ -211,20 +211,20 @@ class MZone {
 		//							Item
 		//
 		//--------------------------------------------------------------
-		bool		AddItem(MItem* pItem, BOOL bDropping=false);				// Zone¿¡ Item Ãß°¡, bDroppingÀº ¶³¾îÁö±â ½ÃÀÛÇÏ´Â°ÍÀÎ°¡?¸¦ ³ªÅ¸³¿..
-		bool		RemoveItem(TYPE_OBJECTID	id);	// Zone¿¡¼­ Item Á¦°Å(deleteÇØÁÜ)
-		bool		PickupItem(TYPE_OBJECTID	id);	// Zone¿¡¼­ Item Á¦°Å
-		MItem*		GetItem(TYPE_OBJECTID id);			// ZoneÀÇ Item ÀĞ¾î¿À±â
-		MItem*		GetCorpseKilledByMe(int limitItemCount = 0);				// Zone¿¡¼­ ³»°¡ Á×ÀÎ ¸ó½ºÅÍ ÇÏ³ª ³Ñ°ÜÁØ´Ù.
+		bool		AddItem(MItem* pItem, BOOL bDropping=false);				// Zoneì— Item ì¶”ê°€, bDroppingì€ ë–¨ì–´ì§€ê¸° ì‹œì‘í•˜ëŠ”ê²ƒì¸ê°€?ë¥¼ ë‚˜íƒ€ëƒ„..
+		bool		RemoveItem(TYPE_OBJECTID	id);	// Zoneì—ì„œ Item ì œê±°(deleteí•´ì¤Œ)
+		bool		PickupItem(TYPE_OBJECTID	id);	// Zoneì—ì„œ Item ì œê±°
+		MItem*		GetItem(TYPE_OBJECTID id);			// Zoneì˜ Item ì½ì–´ì˜¤ê¸°
+		MItem*		GetCorpseKilledByMe(int limitItemCount = 0);				// Zoneì—ì„œ ë‚´ê°€ ì£½ì¸ ëª¬ìŠ¤í„° í•˜ë‚˜ ë„˜ê²¨ì¤€ë‹¤.
 		
-		// (x,y) Sector¿¡ ÀÖ´Â ItemÀÇ ID¸¦ ³Ñ°ÜÁØ´Ù.
+		// (x,y) Sectorì— ìˆëŠ” Itemì˜ IDë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 		TYPE_OBJECTID		GetItemID(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);	
 
-		// Creature°¡ ½ÃÃ¼·Î º¯ÇÏ´Â °Í... - -;
+		// Creatureê°€ ì‹œì²´ë¡œ ë³€í•˜ëŠ” ê²ƒ... - -;
 		//bool		AddCorpseFromCreature(MCreature* pCreature);
 		bool		AddCorpseFromCreature(TYPE_OBJECTID id);
 
-		// Item Map : Zone¿¡ Á¸ÀçÇÏ´Â ÀüÃ¼ Item ¼ö
+		// Item Map : Zoneì— ì¡´ì¬í•˜ëŠ” ì „ì²´ Item ìˆ˜
 		int			GetItemNumber() const		{ return m_mapItem.size(); }
 		ITEM_MAP::const_iterator GetItemBegin()		{ return m_mapItem.begin(); }
 
@@ -237,9 +237,9 @@ class MZone {
 		//							ImageObject
 		//
 		//--------------------------------------------------------------
-		bool		AddImageObject(MImageObject* pImageObject);	// Zone¿¡ ImageObject Ãß°¡
-		bool		RemoveImageObject(TYPE_OBJECTID	id);			// Zone¿¡¼­ ImageObject Á¦°Å
-		MImageObject*	GetImageObject(TYPE_OBJECTID id);				// ZoneÀÇ ImageObject ÀĞ¾î¿À±â
+		bool		AddImageObject(MImageObject* pImageObject);	// Zoneì— ImageObject ì¶”ê°€
+		bool		RemoveImageObject(TYPE_OBJECTID	id);			// Zoneì—ì„œ ImageObject ì œê±°
+		MImageObject*	GetImageObject(TYPE_OBJECTID id);				// Zoneì˜ ImageObject ì½ì–´ì˜¤ê¸°
 		void		SetImageObjectSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, TYPE_OBJECTID id);	// ImageObject Sector
 		void		UnSetImageObjectSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, TYPE_OBJECTID id);	// Unset ImageObject Sector	
 
@@ -248,18 +248,18 @@ class MZone {
 		//							Obstacle
 		//
 		//--------------------------------------------------------------
-		//bool		AddObstacle(MObstacle* pObstacle);	// Zone¿¡ Obstacle Ãß°¡
-		//bool		RemoveObstacle(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);	// Zone¿¡¼­ Obstacle Á¦°Å
-		//void		ChangeFrameObstacle();				// Frameº¯È­ (ÀÓ½ÃÇÔ¼ö!!!)
+		//bool		AddObstacle(MObstacle* pObstacle);	// Zoneì— Obstacle ì¶”ê°€
+		//bool		RemoveObstacle(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);	// Zoneì—ì„œ Obstacle ì œê±°
+		//void		ChangeFrameObstacle();				// Frameë³€í™” (ì„ì‹œí•¨ìˆ˜!!!)
 
 		//--------------------------------------------------------------
 		//
 		//							 Effect
 		//
 		//--------------------------------------------------------------
-		bool		AddEffect(MEffect* pEffect, DWORD dwWaitCount = 0);	// Zone¿¡ Effect Ãß°¡	
+		bool		AddEffect(MEffect* pEffect, DWORD dwWaitCount = 0);	// Zoneì— Effect ì¶”ê°€	
 		bool		RemoveEffect(TYPE_OBJECTID id);
-		void		UpdateEffects();				// Frameº¯È­ (ÀÓ½ÃÇÔ¼ö!!!)
+		void		UpdateEffects();				// Frameë³€í™” (ì„ì‹œí•¨ìˆ˜!!!)
 		// 2004, 8, 31, sobeit add start
 		void		UpdateWaitEffects();
 		// 2004, 8, 31, sobeit add end
@@ -271,12 +271,12 @@ class MZone {
 		void		ChangeSwapViceType(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, TYPE_EFFECTSPRITETYPE type, WORD wDelay = 0xffff);
 		void		RemoveSwapViceType();
 		//--------------------------------------------------------------
-		//						Ground Effect - Tile°ú ºÙÀ½..
+		//						Ground Effect - Tileê³¼ ë¶™ìŒ..
 		//--------------------------------------------------------------
-		bool		AddGroundEffect(MEffect* pEffect);	// Zone¿¡ Effect Ãß°¡	
+		bool		AddGroundEffect(MEffect* pEffect);	// Zoneì— Effect ì¶”ê°€	
 		bool		RemoveGroundEffect(TYPE_OBJECTID id);
 		MEffect*	GetGroundEffect(TYPE_OBJECTID id) const;
-		void		UpdateGroundEffects();				// Frameº¯È­ (ÀÓ½ÃÇÔ¼ö!!!)
+		void		UpdateGroundEffects();				// Frameë³€í™” (ì„ì‹œí•¨ìˆ˜!!!)
 		int			GetGroundEffectCount()				{ return m_mapGroundEffect.size(); }
 		EFFECT_MAP::const_iterator GetGroundEffects()	{ return m_mapGroundEffect.begin(); }
 		EFFECT_MAP::const_iterator GetGroundEffectsEnd()	{ return m_mapGroundEffect.end(); }
@@ -286,8 +286,8 @@ class MZone {
 		//						 Item
 		//
 		//--------------------------------------------------------------
-		void		AddSound(SOUND_NODE* pNode);	// ¼Ò¸® Ãß°¡
-		void		UpdateSound();					// ¼Ò¸® Ãâ·Â
+		void		AddSound(SOUND_NODE* pNode);	// ì†Œë¦¬ ì¶”ê°€
+		void		UpdateSound();					// ì†Œë¦¬ ì¶œë ¥
 
 
 		//--------------------------------------------------------------
@@ -299,17 +299,17 @@ class MZone {
 
 		void		SetSector(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, const MSector& sector)	{ m_ppSector[y][x]=sector; }
 
-		void		SetBlockAllSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)				{ m_ppSector[sY][sX].SetBlockAll(); }		// All Block sector·Î ¸¸µç´Ù.
-		void		UnSetBlockAllSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)			{ m_ppSector[sY][sX].UnSetBlockAll(); }	// All Block sector·Î ¸¸µç´Ù.
+		void		SetBlockAllSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)				{ m_ppSector[sY][sX].SetBlockAll(); }		// All Block sectorë¡œ ë§Œë“ ë‹¤.
+		void		UnSetBlockAllSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)			{ m_ppSector[sY][sX].UnSetBlockAll(); }	// All Block sectorë¡œ ë§Œë“ ë‹¤.
 
-		void		SetBlockUndergroundSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)		{ m_ppSector[sY][sX].SetBlockUnderground(); }		// UndergroundBlock sector ¼³Á¤
-		void		UnSetBlockUndergroundSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)	{ m_ppSector[sY][sX].UnSetBlockUnderground(); }	// UndergroundBlock sector ÇØÁ¦
+		void		SetBlockUndergroundSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)		{ m_ppSector[sY][sX].SetBlockUnderground(); }		// UndergroundBlock sector ì„¤ì •
+		void		UnSetBlockUndergroundSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)	{ m_ppSector[sY][sX].UnSetBlockUnderground(); }	// UndergroundBlock sector í•´ì œ
 
-		void		SetBlockGroundSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)			{ m_ppSector[sY][sX].SetBlockGround(); }	// Ground Block sector ¼³Á¤
-		void		UnSetBlockGroundSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)		{ m_ppSector[sY][sX].UnSetBlockGround(); }	// Ground Block sector ÇØÁ¦
+		void		SetBlockGroundSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)			{ m_ppSector[sY][sX].SetBlockGround(); }	// Ground Block sector ì„¤ì •
+		void		UnSetBlockGroundSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)		{ m_ppSector[sY][sX].UnSetBlockGround(); }	// Ground Block sector í•´ì œ
 
-		void		SetBlockFlyingSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)	{ m_ppSector[sY][sX].SetBlockFlying(); }					// Flying Block sector·Î ¸¸µç´Ù.
-		void		UnSetBlockFlyingSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)	{ m_ppSector[sY][sX].UnSetBlockFlying(); }			// Flying Block sector·Î ¸¸µç´Ù.
+		void		SetBlockFlyingSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)	{ m_ppSector[sY][sX].SetBlockFlying(); }					// Flying Block sectorë¡œ ë§Œë“ ë‹¤.
+		void		UnSetBlockFlyingSector(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)	{ m_ppSector[sY][sX].UnSetBlockFlying(); }			// Flying Block sectorë¡œ ë§Œë“ ë‹¤.
 
 		void		SetVisitedFlag(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)				{ m_ppSector[sY][sX].SetVisitedFlag(); }
 		void		UnSetVisitedFlag(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)			{ m_ppSector[sY][sX].UnSetVisitedFlag(); }
@@ -329,7 +329,7 @@ class MZone {
 		long						GetImageObjectFilePosition() const	{ return m_fpImageObject; }
 
 		//--------------------------------------------------------------
-		// Tile SpriteID ¾ò±â
+		// Tile SpriteID ì–»ê¸°
 		//--------------------------------------------------------------
 		void						GetNearSpriteSet(CSpriteSetManager& TileSSM, CSpriteSetManager& ImageObjectSSM, TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY) const;
 
@@ -354,7 +354,7 @@ class MZone {
 		// Fake Creature
 		//
 		//--------------------------------------------------------------
-		// Creature Map : Zone¿¡ Á¸ÀçÇÏ´Â ÀüÃ¼ creature ¼ö
+		// Creature Map : Zoneì— ì¡´ì¬í•˜ëŠ” ì „ì²´ creature ìˆ˜
 		int			GetFakeCreatureNumber() const		{ return m_mapFakeCreature.size(); }
 		CREATURE_MAP::const_iterator GetFakeCreatureBegin()		{ return m_mapFakeCreature.begin(); }
 
@@ -362,9 +362,9 @@ class MZone {
 		void		UpdateFakeCreature();
 
 		// other creatures : Add, Get, Remove
-		bool		AddFakeCreature(MCreature* pCreature);	// Zone¿¡ Creature Ãß°¡
-		bool		RemoveFakeCreature(TYPE_OBJECTID id);			// Zone¿¡¼­ Creature Á¦°Å
-		MCreature*	GetFakeCreature(TYPE_OBJECTID id);				// ZoneÀÇ Creature ÀĞ¾î¿À±â		
+		bool		AddFakeCreature(MCreature* pCreature);	// Zoneì— Creature ì¶”ê°€
+		bool		RemoveFakeCreature(TYPE_OBJECTID id);			// Zoneì—ì„œ Creature ì œê±°
+		MCreature*	GetFakeCreature(TYPE_OBJECTID id);				// Zoneì˜ Creature ì½ì–´ì˜¤ê¸°		
 	
 		//--------------------------------------------------------------
 		// ZoneSound
@@ -379,7 +379,7 @@ class MZone {
 		void			RemoveHelicopter(TYPE_OBJECTID creatureID);
 		UI_PORTAL_VECTOR &	GetHorn() { return m_horn; }
 		
-		void			SetCurrentZoneID( WORD id ) { m_Info.ZoneID = id; }			// ¾Æ¾Æ¾Æ ¿Ö map ¿¡ zoneid °¡ µé¾îÀÖ´Â°Å¾æ!!
+		void			SetCurrentZoneID( WORD id ) { m_Info.ZoneID = id; }			// ì•„ì•„ì•„ ì™œ map ì— zoneid ê°€ ë“¤ì–´ìˆëŠ”ê±°ì–!!
 
 		BYTE			GetPKType();
 
@@ -388,9 +388,9 @@ class MZone {
 		// Zone File Header
 		FILEINFO_ZONE_HEADER	m_Info;
 
-		TYPE_SECTORPOSITION					m_Width;		// ZoneÀÇ °¡·Î Å©±â
-		TYPE_SECTORPOSITION					m_Height;		// ZoneÀÇ ¼¼·Î Å©±â
-		MSector**				m_ppSector;		// °¢°¢ÀÇ Sector
+		TYPE_SECTORPOSITION					m_Width;		// Zoneì˜ ê°€ë¡œ í¬ê¸°
+		TYPE_SECTORPOSITION					m_Height;		// Zoneì˜ ì„¸ë¡œ í¬ê¸°
+		MSector**				m_ppSector;		// ê°ê°ì˜ Sector
 
 		// Other Creature
 		CREATURE_MAP			m_mapCreature;	// other creatures	
@@ -410,16 +410,16 @@ class MZone {
 		// Effects
 		EFFECT_MAP				m_mapGroundEffect;	// Effect map
 
-		// Zone¿¡ ÇÊ¿äÇÑ ±×¸² Á¤º¸¿¡ ´ëÇÑ File Position
+		// Zoneì— í•„ìš”í•œ ê·¸ë¦¼ ì •ë³´ì— ëŒ€í•œ File Position
 		long					m_fpTile;
 		long					m_fpImageObject;
 
 		SOUND_NODE_LIST			m_listSoundNode;
 
-		// client¿¡¼­¸¸ µ¹¾Æ°¡´Â ¼­ºñ½º¿ë creature - -;;
+		// clientì—ì„œë§Œ ëŒì•„ê°€ëŠ” ì„œë¹„ìŠ¤ìš© creature - -;;
 		CREATURE_MAP			m_mapFakeCreature;
 
-		// sound°¡ loadµÇ¾ú³ª.. ÄÉÄÉ..
+		// soundê°€ loadë˜ì—ˆë‚˜.. ì¼€ì¼€..
 		bool					m_bZoneSoundLoaded;
 
 		MHelicopterManager		m_HelicopterManager;

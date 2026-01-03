@@ -106,7 +106,7 @@ private:
 
 	int							m_skill_x, m_skill_y, m_skill_x_gap, m_skill_y_gap;
 
-//	int							m_extra_offset_x, m_extra_offset_y; // »ó¼Ó¹Ş´Â °÷¿¡¼­ setÇÒ °Í.
+//	int							m_extra_offset_x, m_extra_offset_y; // ìƒì†ë°›ëŠ” ê³³ì—ì„œ setí•  ê²ƒ.
 
 //	enum
 //	{

@@ -15,7 +15,7 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ðÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Þ½ÃÁö¸¦ ¹Þ¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Þ½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GCNPCSayHandler::execute ( GCNPCSay * pPacket , Player * pPlayer )
@@ -27,7 +27,7 @@ void GCNPCSayHandler::execute ( GCNPCSay * pPacket , Player * pPlayer )
 		// Debug Message
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -35,30 +35,30 @@ void GCNPCSayHandler::execute ( GCNPCSay * pPacket , Player * pPlayer )
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		//---------------------------------------------------------------
-		// Ä³¸¯ÅÍ ¸Ó¸® À§¿¡ Ã¤ÆÃÀ» ¶ç¿î´Ù.
+		// ìºë¦­í„° ë¨¸ë¦¬ ìœ„ì— ì±„íŒ…ì„ ë„ìš´ë‹¤.
 		//---------------------------------------------------------------
 		MCreature*	pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
 		if (pCreature==NULL)
 		{
-			// ±×·± Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é ¹«½ÃÇÑ´Ù.
+			// ê·¸ëŸ° ìºë¦­í„°ê°€ ì—†ìœ¼ë©´ ë¬´ì‹œí•œë‹¤.
 		}
 		else
 		{		
 			//-------------------------------------------------
-			// Á¤»óÀûÀÎ ´ëÈ­
+			// ì •ìƒì ì¸ ëŒ€í™”
 			//-------------------------------------------------
 			if (g_pChatManager->IsAcceptID( pCreature->GetName() ))
 			{
 				int scriptID = pPacket->getScriptID();
 				int subjectID = pPacket->getSubjectID();
 
-				// Ã¤ÆÃ~~
+				// ì±„íŒ…~~
 				char str[256];
 				const char* pString = g_pNPCScriptTable->GetSubject( scriptID, subjectID );
 
@@ -70,14 +70,14 @@ void GCNPCSayHandler::execute ( GCNPCSay * pPacket , Player * pPlayer )
 				}
 			}
 			//-------------------------------------------------
-			// ´ëÈ­ °ÅºÎ·Î ¼³Á¤µÇ¾î ÀÖ´Ù¸é Ãâ·Â¾ÈÇÑ´Ù.
+			// ëŒ€í™” ê±°ë¶€ë¡œ ì„¤ì •ë˜ì–´ ìžˆë‹¤ë©´ ì¶œë ¥ì•ˆí•œë‹¤.
 			//-------------------------------------------------
 			else
 			{
 				pCreature->SetChatString( "......" );
 			}
 
-			// history¿¡ Ãß°¡
+			// historyì— ì¶”ê°€
 			//char temp[128];
 			//sprintf(temp, "%s> %s", pCreature->GetName(), str);
 			//UI_AddChatToHistory( temp );

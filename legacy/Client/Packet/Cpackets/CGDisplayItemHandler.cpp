@@ -44,7 +44,7 @@ void CGDisplayItemHandler::execute (CGDisplayItem* pPacket , Player* pPlayer)
 
 	if ( pPacket->getIndex() > MAX_ITEM_NUM )
 	{
-		filelog("Store.log", "[%s:%s] (%u) Àß¸øµÈ ÀÎµ¦½ºÀÔ´Ï´Ù.",
+		filelog("Store.log", "[%s:%s] (%u) ì˜ëª»ëœ ì¸ë±ìŠ¤ì…ë‹ˆë‹¤.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pPacket->getIndex());
 		return;
 	}
@@ -52,14 +52,14 @@ void CGDisplayItemHandler::execute (CGDisplayItem* pPacket , Player* pPlayer)
 	Item* pItem = pInventory->getItem( pPacket->getX(), pPacket->getY() );
 	if ( pItem == NULL || pItem->getObjectID() != pPacket->getItemObjectID() )
 	{
-		filelog("Store.log", "[%s:%s] (%u, %u) : %u ¾ÆÀÌÅÛ ÁÂÇ¥°¡ Àß¸øµÇ¾ú°Å³ª ¿ÀºêÁ§Æ® ¾ÆÀÌµğ°¡ Àß¸øµÇ¾ú½À´Ï´Ù.",
+		filelog("Store.log", "[%s:%s] (%u, %u) : %u ì•„ì´í…œ ì¢Œí‘œê°€ ì˜ëª»ë˜ì—ˆê±°ë‚˜ ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””ê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pPacket->getX(), pPacket->getY(), pPacket->getItemObjectID() );
 		return;
 	}
 
 	if ( pItem->isTimeLimitItem() || !canSell( pItem ) )
 	{
-		filelog("Store.log", "[%s:%s] (%s) ÆÈ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÔ´Ï´Ù.",
+		filelog("Store.log", "[%s:%s] (%s) íŒ” ìˆ˜ ì—†ëŠ” ì•„ì´í…œì…ë‹ˆë‹¤.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pItem->toString().c_str());
 		return;
 	}
@@ -67,7 +67,7 @@ void CGDisplayItemHandler::execute (CGDisplayItem* pPacket , Player* pPlayer)
 	BYTE result = pStore->setStoreItem( pPacket->getIndex(), pItem, pPacket->getPrice() );
 	if (  result != 0 )
 	{
-		filelog("Store.log", "[%s:%s] (%u) ¾ÆÀÌÅÛÀ» ³õÀ» ¼ö ¾ø½À´Ï´Ù.",
+		filelog("Store.log", "[%s:%s] (%u) ì•„ì´í…œì„ ë†“ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), result);
 		return;
 	}

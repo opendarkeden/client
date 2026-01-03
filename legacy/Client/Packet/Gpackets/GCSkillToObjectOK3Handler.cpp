@@ -22,7 +22,7 @@ void GCSkillToObjectOK3Handler::execute ( GCSkillToObjectOK3 * pPacket , Player 
 
 	
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -30,13 +30,13 @@ void GCSkillToObjectOK3Handler::execute ( GCSkillToObjectOK3 * pPacket , Player 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pUserCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 		
-		// Creature¿¡°Ô Damage ÀÔÈû
+		// Creatureì—ê²Œ Damage ì…í˜
 		if (pUserCreature != NULL)
 		{
 			int skillID = pPacket->getSkillType();
@@ -49,7 +49,7 @@ void GCSkillToObjectOK3Handler::execute ( GCSkillToObjectOK3 * pPacket , Player 
 			}
 
 
-			// ÇöÀç ¹«±âÀÇ Àû¿ëÀ» ¹Ş´Â ±â¼úÀÌ¸é..
+			// í˜„ì¬ ë¬´ê¸°ì˜ ì ìš©ì„ ë°›ëŠ” ê¸°ìˆ ì´ë©´..
 			if ((*g_pActionInfoTable)[skillID].IsAffectCurrentWeaponAction())
 			{
 				skillID = pUserCreature->GetBasicActionInfo();
@@ -63,10 +63,10 @@ void GCSkillToObjectOK3Handler::execute ( GCSkillToObjectOK3 * pPacket , Player 
 			if( (*g_pActionInfoTable)[skillID].IsUseActionStep() && pPacket->getGrade() > 0)
 				skillID = (*g_pActionInfoTable)[skillID].GetActionStep( pPacket->getGrade() - 1);
 	
-			// ¼­·Î ¹Ù¶óº¸±â
+			// ì„œë¡œ ë°”ë¼ë³´ê¸°
 			pUserCreature->SetDirectionToPosition(pPacket->getTargetX(), pPacket->getTargetY());
 			
-			// ±× ¹æÇâÀ¸·Î ±â¼ú »ç¿ëÇÏ´Â ¸ğ½À¸¸ º¸¿©ÁÖ±â..
+			// ê·¸ ë°©í–¥ìœ¼ë¡œ ê¸°ìˆ  ì‚¬ìš©í•˜ëŠ” ëª¨ìŠµë§Œ ë³´ì—¬ì£¼ê¸°..
 			pUserCreature->PacketSpecialActionToNobody(
 								skillID, 
 								pPacket->getTargetX(),

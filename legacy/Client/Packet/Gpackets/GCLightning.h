@@ -17,7 +17,7 @@
 //
 // class GCLightning;
 //
-// π¯∞≥∞° √∆¿ª ∞ÊøÏ, º≠πˆø°º≠ ±◊ ¡∏¿« ∏µÁ ≈¨∂Û¿Ãæ∆ÆµÈø°∞‘ ¿¸º€«œ¥¬ ∆–≈∂¿Ã¥Ÿ.
+// Î≤àÍ∞úÍ∞Ä Ï≥§ÏùÑ Í≤ΩÏö∞, ÏÑúÎ≤ÑÏóêÏÑú Í∑∏ Ï°¥Ïùò Î™®Îì† ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Îì§ÏóêÍ≤å Ï†ÑÏÜ°ÌïòÎäî Ìå®ÌÇ∑Ïù¥Îã§.
 // 
 //
 //////////////////////////////////////////////////////////////////////
@@ -26,10 +26,10 @@ class GCLightning : public Packet {
 
 public :
 	
-    // ¿‘∑¬Ω∫∆Æ∏≤(πˆ∆€)¿∏∑Œ∫Œ≈Õ µ•¿Ã≈∏∏¶ ¿–æÓº≠ ∆–≈∂¿ª √ ±‚»≠«—¥Ÿ.
+    // ÏûÖÎ†•Ïä§Ìä∏Î¶º(Î≤ÑÌçº)ÏúºÎ°úÎ∂ÄÌÑ∞ Îç∞Ïù¥ÌÉÄÎ•º ÏùΩÏñ¥ÏÑú Ìå®ÌÇ∑ÏùÑ Ï¥àÍ∏∞ÌôîÌïúÎã§.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // √‚∑¬Ω∫∆Æ∏≤(πˆ∆€)¿∏∑Œ ∆–≈∂¿« πŸ¿Ã≥ ∏Æ ¿ÃπÃ¡ˆ∏¶ ∫∏≥Ω¥Ÿ.
+    // Ï∂úÎ†•Ïä§Ìä∏Î¶º(Î≤ÑÌçº)ÏúºÎ°ú Ìå®ÌÇ∑Ïùò Î∞îÏù¥ÎÑàÎ¶¨ Ïù¥ÎØ∏ÏßÄÎ•º Î≥¥ÎÇ∏Îã§.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -40,7 +40,7 @@ public :
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static GCLightningPacketSize ∏¶ ¡§¿«, ∏Æ≈œ«œ∂Û.
+	// const static GCLightningPacketSize Î•º Ï†ïÏùò, Î¶¨ÌÑ¥ÌïòÎùº.
 	PacketSize_t getPacketSize () const throw () { return szBYTE; }
 
 	#ifdef __DEBUG_OUTPUT__
@@ -60,8 +60,8 @@ public :
 
 private :
 
-	// π¯∞≥∞° ƒ£ »ƒ, √µµ’¿Ã ø√ ∂ß±Ó¡ˆ¿« µÙ∑π¿ÃΩ√∞£
-	// 1 -> 0.1√ 
+	// Î≤àÍ∞úÍ∞Ä Ïπú ÌõÑ, Ï≤úÎë•Ïù¥ Ïò¨ ÎïåÍπåÏßÄÏùò ÎîúÎ†àÏù¥ÏãúÍ∞Ñ
+	// 1 -> 0.1Ï¥à
 	BYTE m_Delay;
 
 };
@@ -92,7 +92,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GCLightningPacketSize ∏¶ ¡§¿«, ∏Æ≈œ«œ∂Û.
+	// const static GCLightningPacketSize Î•º Ï†ïÏùò, Î¶¨ÌÑ¥ÌïòÎùº.
 	PacketSize_t getPacketMaxSize () const throw () { return szBYTE; }
 
 };

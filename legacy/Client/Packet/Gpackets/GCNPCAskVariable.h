@@ -14,7 +14,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCNPCAskVariable;
-// NPC ÀÇ ´ë»ç¸¦ ÁÖº¯ÀÇ PC µé¿¡°Ô Àü¼ÛÇÑ´Ù.
+// NPC ì˜ ëŒ€ì‚¬ë¥¼ ì£¼ë³€ì˜ PC ë“¤ì—ê²Œ ì „ì†¡í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 typedef std::map<std::string,ScriptParameter*>			HashMapScriptParameter;
@@ -57,7 +57,7 @@ public:
 private:
 	ObjectID_t m_ObjectID; // NPC's object id
 	ScriptID_t m_ScriptID; // script id
-	HashMapScriptParameter m_ScriptParameters; // ½ºÅ©¸³Æ®ÀÇ º¯¼ö ÆÄ¶ó¹ÌÅÍµé
+	HashMapScriptParameter m_ScriptParameters; // ìŠ¤í¬ë¦½íŠ¸ì˜ ë³€ìˆ˜ íŒŒë¼ë¯¸í„°ë“¤
 };
 
 //////////////////////////////////////////////////////////////////////////////

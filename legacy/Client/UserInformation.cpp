@@ -47,12 +47,12 @@ UserInformation::UserInformation()
 	HasMagicBloodyWarp = false;
 	HasMagicBloodySnake = false;
 
-	// 0ÀÌ¸é ½Ã°£ÀÌ ¼³Á¤µÇ¾î ÀÖÁö ¾Ê´Â°Å´Ù.
+	// 0ì´ë©´ ì‹œê°„ì´ ì„¤ì •ë˜ì–´ ìˆì§€ ì•ŠëŠ”ê±°ë‹¤.
 	LogoutTime = 0;
 
 	GameVersion = 0;
 
-	// ³İ¸¶ºí¿ë
+	// ë„·ë§ˆë¸”ìš©
 	IsNetmarble = false;
 	WorldID = 0;
 	ServerID = 0;
@@ -66,7 +66,7 @@ UserInformation::UserInformation()
 	bJapanese = false;
 	bEnglish = false;
 	
-	// ¸Ó¸®°¡°İ ±âº»°ª 100%´Ù.
+	// ë¨¸ë¦¬ê°€ê²© ê¸°ë³¸ê°’ 100%ë‹¤.
 	HeadPrice = 100;
 	bCompetence = false;
 	bCompetenceShape = false;

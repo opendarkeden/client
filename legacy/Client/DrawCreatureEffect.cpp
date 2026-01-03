@@ -3,8 +3,8 @@
 // MTopViewDraw.cpp
 //----------------------------------------------------------------------
 //
-// º¹ÀâÇÑ Draw ÇÔ¼ö ºÎºĞ¸¸ µû·Î »©³õ´Â´Ù.
-// ÀÛ¾÷ÇÏ±â°¡ ¿µ ºÒÆíÇØ¼­ 
+// ë³µì¡í•œ Draw í•¨ìˆ˜ ë¶€ë¶„ë§Œ ë”°ë¡œ ë¹¼ë†“ëŠ”ë‹¤.
+// ì‘ì—…í•˜ê¸°ê°€ ì˜ ë¶ˆí¸í•´ì„œ 
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #pragma warning(disable:4786)
@@ -89,15 +89,15 @@ void	MTopView::DrawFadeOut( POINT *pPoint, MCreature* pCreature, int action, int
 	MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
 
 	//-----------------------------------------------------------
-	// ÁÂ¿ì ÀÜ»ó
+	// ì¢Œìš° ì”ìƒ
 	//-----------------------------------------------------------
 	for (int i=0; i<ADDON_MAX; i++)
 	{
-		// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-		// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+		// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+		// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 		clothesType = MCreatureWear::s_AddonOrder[pCreature->GetDirection()][i];
 		
-		// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+		// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ì…ê³  ìˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 		const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(clothesType);
 		
 		if (addonInfo.bAddon)
@@ -106,7 +106,7 @@ void	MTopView::DrawFadeOut( POINT *pPoint, MCreature* pCreature, int action, int
 			
 			FRAME_ARRAY &FA = m_AddonFPK[clothes][action][direction];
 			
-			// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+			// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 			if (FA.GetSize() > frame)
 			{
 				CFrame &Frame = FA[frame];					
@@ -117,7 +117,7 @@ void	MTopView::DrawFadeOut( POINT *pPoint, MCreature* pCreature, int action, int
 				
 				CIndexSprite* pSprite = &m_AddonSPK[ sprite ];					
 				
-				// º¹ÀåSprite°¡ ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì
+				// ë³µì¥Spriteê°€ ì´ˆê¸°í™” ë˜ì§€ ì•Šì€ ê²½ìš°
 				//							if (pSprite->IsNotInit())
 				//							{								
 				//								LoadFromFileAddonSPK( clothes, action );
@@ -128,7 +128,7 @@ void	MTopView::DrawFadeOut( POINT *pPoint, MCreature* pCreature, int action, int
 				pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 				//---------------------------------------- 	
 				rect.left	= pointTemp.x;
 				rect.top	= pointTemp.y;
@@ -139,7 +139,7 @@ void	MTopView::DrawFadeOut( POINT *pPoint, MCreature* pCreature, int action, int
 				int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 				if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 				{
-					// À¯´ÏÅ© ¾ÆÀÌÅÛÀÌ°Å³ª Äù½ºÆ® ¾ÆÀÌÅÛÀÌ¸é
+					// ìœ ë‹ˆí¬ ì•„ì´í…œì´ê±°ë‚˜ í€˜ìŠ¤íŠ¸ ì•„ì´í…œì´ë©´
 					//								
 					//								if(colorSet2 == QUEST_ITEM_COLOR)
 					//									colorSet2 = MItem::GetQuestItemColorset();
@@ -154,24 +154,24 @@ void	MTopView::DrawFadeOut( POINT *pPoint, MCreature* pCreature, int action, int
 				CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 				
 				//-----------------------------------------------------------
-				// ÁÂ¿ì ÀÜ»ó
+				// ì¢Œìš° ì”ìƒ
 				//-----------------------------------------------------------
 				POINT pointTemp2;
 				
 				//CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_NET );
 				//CIndexSprite::SetEffect( CIndexSprite::EFFECT_NET );
 				
-				// ¿ŞÂÊ
+				// ì™¼ìª½
 				pointTemp2.x = pointTemp.x - 25;
 				pointTemp2.y = pointTemp.y;
 				m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite, 2);
 				
-				// ¿À¸¥ÂÊ
+				// ì˜¤ë¥¸ìª½
 				pointTemp2.x = pointTemp.x + 25;
 				pointTemp2.y = pointTemp.y;
 				m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite, 2);
 				
-				// °¡¿îµ¥							
+				// ê°€ìš´ë°							
 				//m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);	
 				//m_pSurface->BltIndexSprite(&pointTemp, pSprite);	
 			}
@@ -207,15 +207,15 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 
 
 	//-----------------------------------------------------------
-	// ÁÂ¿ì ÀÜ»ó
+	// ì¢Œìš° ì”ìƒ
 	//-----------------------------------------------------------
 	for (int i=0; i<AC_ADDON_MAX; i++)
 	{
-		// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-		// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+		// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+		// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 		clothesType = MCreatureWear::s_ACAddonOrder[ direction ][ i ];
 		
-		// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+		// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ì…ê³  ìˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 		const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetACAddonInfo(clothesType);
 
 		if (addonInfo.bAddon )
@@ -242,7 +242,7 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 					if(action_viva > newslayerFPK[clothes].GetSize() -1) continue;
 					try{
 					FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
-					// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+					// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 					if (FA.GetSize() > frame)
 					{
 						CFrame &Frame = FA[frame];					
@@ -253,7 +253,7 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 						
 						CIndexSprite* pSprite = &newaddonISPK[ sprite ];					
 						
-						// º¹ÀåSprite°¡ ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì
+						// ë³µì¥Spriteê°€ ì´ˆê¸°í™” ë˜ì§€ ì•Šì€ ê²½ìš°
 						//							if (pSprite->IsNotInit())
 						//							{								
 						//								LoadFromFileAddonSPK( clothes, action );
@@ -264,7 +264,7 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 						pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 						
 						//---------------------------------------- 
-						// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+						// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 						//---------------------------------------- 	
 						rect.left	= pointTemp.x;
 						rect.top	= pointTemp.y;
@@ -275,7 +275,7 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 						int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 						if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 						{
-							// À¯´ÏÅ© ¾ÆÀÌÅÛÀÌ°Å³ª Äù½ºÆ® ¾ÆÀÌÅÛÀÌ¸é
+							// ìœ ë‹ˆí¬ ì•„ì´í…œì´ê±°ë‚˜ í€˜ìŠ¤íŠ¸ ì•„ì´í…œì´ë©´
 							//								
 							//								if(colorSet2 == QUEST_ITEM_COLOR)
 							//									colorSet2 = MItem::GetQuestItemColorset();
@@ -290,24 +290,24 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 						CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 						
 						//-----------------------------------------------------------
-						// ÁÂ¿ì ÀÜ»ó
+						// ì¢Œìš° ì”ìƒ
 						//-----------------------------------------------------------
 						POINT pointTemp2;
 						
 						//CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_NET );
 						//CIndexSprite::SetEffect( CIndexSprite::EFFECT_NET );
 						
-						// ¿ŞÂÊ
+						// ì™¼ìª½
 						pointTemp2.x = pointTemp.x - 25;
 						pointTemp2.y = pointTemp.y;
 						m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite, 2);
 						
-						// ¿À¸¥ÂÊ
+						// ì˜¤ë¥¸ìª½
 						pointTemp2.x = pointTemp.x + 25;
 						pointTemp2.y = pointTemp.y;
 						m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite, 2);
 						
-						// °¡¿îµ¥							
+						// ê°€ìš´ë°							
 						//m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);	
 						//m_pSurface->BltIndexSprite(&pointTemp, pSprite);	
 					}
@@ -323,7 +323,7 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 				try{
 				FRAME_ARRAY &FA = slayerFPK[clothes][action][direction];
 				
-				// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+				// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 				if (FA.GetSize() > frame)
 				{
 					CFrame &Frame = FA[frame];					
@@ -334,7 +334,7 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 					
 					CIndexSprite* pSprite = &addonISPK[ sprite ];					
 					
-					// º¹ÀåSprite°¡ ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì
+					// ë³µì¥Spriteê°€ ì´ˆê¸°í™” ë˜ì§€ ì•Šì€ ê²½ìš°
 					//							if (pSprite->IsNotInit())
 					//							{								
 					//								LoadFromFileAddonSPK( clothes, action );
@@ -345,7 +345,7 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 					pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 					
 					//---------------------------------------- 
-					// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+					// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 					//---------------------------------------- 	
 					rect.left	= pointTemp.x;
 					rect.top	= pointTemp.y;
@@ -356,7 +356,7 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 					int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 					if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 					{
-						// À¯´ÏÅ© ¾ÆÀÌÅÛÀÌ°Å³ª Äù½ºÆ® ¾ÆÀÌÅÛÀÌ¸é
+						// ìœ ë‹ˆí¬ ì•„ì´í…œì´ê±°ë‚˜ í€˜ìŠ¤íŠ¸ ì•„ì´í…œì´ë©´
 						//								
 						//								if(colorSet2 == QUEST_ITEM_COLOR)
 						//									colorSet2 = MItem::GetQuestItemColorset();
@@ -371,24 +371,24 @@ void	MTopView::DrawFadeOutForACSlayer( POINT *pPoint, MCreature* pCreature, int 
 					CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 					
 					//-----------------------------------------------------------
-					// ÁÂ¿ì ÀÜ»ó
+					// ì¢Œìš° ì”ìƒ
 					//-----------------------------------------------------------
 					POINT pointTemp2;
 					
 					//CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_NET );
 					//CIndexSprite::SetEffect( CIndexSprite::EFFECT_NET );
 					
-					// ¿ŞÂÊ
+					// ì™¼ìª½
 					pointTemp2.x = pointTemp.x - 25;
 					pointTemp2.y = pointTemp.y;
 					m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite, 2);
 					
-					// ¿À¸¥ÂÊ
+					// ì˜¤ë¥¸ìª½
 					pointTemp2.x = pointTemp.x + 25;
 					pointTemp2.y = pointTemp.y;
 					m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite, 2);
 					
-					// °¡¿îµ¥							
+					// ê°€ìš´ë°							
 					//m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);	
 					//m_pSurface->BltIndexSprite(&pointTemp, pSprite);	
 				}
@@ -406,11 +406,11 @@ void	MTopView::DrawFastMove(POINT* pPoint, MCreature* pCreature, int action, int
 	
 	for (int i=0; i<ADDON_MAX; i++)
 	{
-		// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-		// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+		// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+		// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 		clothesType = MCreatureWear::s_AddonOrder[pCreature->GetDirection()][i];
 		
-		// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+		// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ì…ê³  ìˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 		const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(clothesType);
 		
 		if (addonInfo.bAddon)
@@ -419,7 +419,7 @@ void	MTopView::DrawFastMove(POINT* pPoint, MCreature* pCreature, int action, int
 			
 			FRAME_ARRAY &FA = m_AddonFPK[clothes][action][direction];
 			
-			// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+			// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 			if (FA.GetSize() > frame)
 			{
 				CFrame &Frame = FA[frame];					
@@ -435,7 +435,7 @@ void	MTopView::DrawFastMove(POINT* pPoint, MCreature* pCreature, int action, int
 				pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 				//---------------------------------------- 	
 				rect.left	= pointTemp.x;
 				rect.top	= pointTemp.y;
@@ -446,7 +446,7 @@ void	MTopView::DrawFastMove(POINT* pPoint, MCreature* pCreature, int action, int
 				int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 				if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 				{
-					//								// À¯´ÏÅ© ¾ÆÀÌÅÛÀÌ¸é
+					//								// ìœ ë‹ˆí¬ ì•„ì´í…œì´ë©´
 					//								if(colorSet2 == QUEST_ITEM_COLOR)
 					//									colorSet2 = MItem::GetQuestItemColorset();
 					//								else
@@ -459,7 +459,7 @@ void	MTopView::DrawFastMove(POINT* pPoint, MCreature* pCreature, int action, int
 				CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 				
 				//-----------------------------------------------------------
-				// ºü¸£°Ô ¿òÁ÷ÀÌ´Â Áß
+				// ë¹ ë¥´ê²Œ ì›€ì§ì´ëŠ” ì¤‘
 				//-----------------------------------------------------------
 				POINT pointTemp2;
 				
@@ -483,7 +483,7 @@ void	MTopView::DrawFastMove(POINT* pPoint, MCreature* pCreature, int action, int
 				m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite, 1);
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+				// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 				//---------------------------------------- 
 				//if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 				//{
@@ -491,11 +491,11 @@ void	MTopView::DrawFastMove(POINT* pPoint, MCreature* pCreature, int action, int
 				//									addonInfo.EffectColorSet);
 				//}
 				//---------------------------------------- 
-				// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+				// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 				//---------------------------------------- 
 				//else
 				{								
-					// [»õ±â¼ú] - fake´Â fast moveÀÏ¶§ ¹«Á¶°Ç ¾îµÓ°Ô..
+					// [ìƒˆê¸°ìˆ ] - fakeëŠ” fast moveì¼ë•Œ ë¬´ì¡°ê±´ ì–´ë‘¡ê²Œ..
 					if (pCreature->IsFakeCreature())
 					{
 						MFakeCreature *pFakeCreature = dynamic_cast<MFakeCreature*>(pCreature);
@@ -509,7 +509,7 @@ void	MTopView::DrawFastMove(POINT* pPoint, MCreature* pCreature, int action, int
 						m_pSurface->BltIndexSprite(&pointTemp, pSprite);							
 					}						
 					
-					// Á¤»óÀûÀÎ Ãâ·Â
+					// ì •ìƒì ì¸ ì¶œë ¥
 					//CIndexSprite::SetUsingColorSet( addonInfo.ColorSet1, addonInfo.ColorSet2 );
 					//m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 				}
@@ -544,15 +544,15 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 	
 	
 	//-----------------------------------------------------------
-	// ÁÂ¿ì ÀÜ»ó
+	// ì¢Œìš° ì”ìƒ
 	//-----------------------------------------------------------
 	for (int i=0; i<AC_ADDON_MAX; i++)
 	{
-		// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-		// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+		// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+		// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 		clothesType = MCreatureWear::s_ACAddonOrder[ direction ][ i ];
 		
-		// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+		// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ì…ê³  ìˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 		const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetACAddonInfo(clothesType);
 				
 		if (addonInfo.bAddon)
@@ -579,7 +579,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 					try{
 					FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
 					
-					// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+					// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 					if (FA.GetSize() > frame)
 					{
 						CFrame &Frame = FA[frame];					
@@ -595,7 +595,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 						pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 						
 						//---------------------------------------- 
-						// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+						// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 						//---------------------------------------- 	
 						rect.left	= pointTemp.x;
 						rect.top	= pointTemp.y;
@@ -606,7 +606,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 						int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 						if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 						{
-							//								// À¯´ÏÅ© ¾ÆÀÌÅÛÀÌ¸é
+							//								// ìœ ë‹ˆí¬ ì•„ì´í…œì´ë©´
 							//								if(colorSet2 == QUEST_ITEM_COLOR)
 							//									colorSet2 = MItem::GetQuestItemColorset();
 							//								else
@@ -619,7 +619,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 						CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 						
 						//-----------------------------------------------------------
-						// ºü¸£°Ô ¿òÁ÷ÀÌ´Â Áß
+						// ë¹ ë¥´ê²Œ ì›€ì§ì´ëŠ” ì¤‘
 						//-----------------------------------------------------------
 						POINT pointTemp2;
 						
@@ -643,7 +643,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 						m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite, 1);
 						
 						//---------------------------------------- 
-						// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+						// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 						//---------------------------------------- 
 						//if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 						//{
@@ -651,11 +651,11 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 						//									addonInfo.EffectColorSet);
 						//}
 						//---------------------------------------- 
-						// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+						// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 						//---------------------------------------- 
 						//else
 						{								
-							// [»õ±â¼ú] - fake´Â fast moveÀÏ¶§ ¹«Á¶°Ç ¾îµÓ°Ô..
+							// [ìƒˆê¸°ìˆ ] - fakeëŠ” fast moveì¼ë•Œ ë¬´ì¡°ê±´ ì–´ë‘¡ê²Œ..
 							if (pCreature->IsFakeCreature())
 							{
 								MFakeCreature *pFakeCreature = dynamic_cast<MFakeCreature*>(pCreature);
@@ -669,7 +669,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 								m_pSurface->BltIndexSprite(&pointTemp, pSprite);							
 							}						
 							
-							// Á¤»óÀûÀÎ Ãâ·Â
+							// ì •ìƒì ì¸ ì¶œë ¥
 							//CIndexSprite::SetUsingColorSet( addonInfo.ColorSet1, addonInfo.ColorSet2 );
 							//m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 						}
@@ -686,7 +686,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 				try{
 				FRAME_ARRAY &FA = slayerFPK[clothes][action][direction];
 				
-				// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+				// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 				if (FA.GetSize() > frame)
 				{
 					CFrame &Frame = FA[frame];					
@@ -702,7 +702,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 					pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 					
 					//---------------------------------------- 
-					// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+					// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 					//---------------------------------------- 	
 					rect.left	= pointTemp.x;
 					rect.top	= pointTemp.y;
@@ -713,7 +713,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 					int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 					if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 					{
-						//								// À¯´ÏÅ© ¾ÆÀÌÅÛÀÌ¸é
+						//								// ìœ ë‹ˆí¬ ì•„ì´í…œì´ë©´
 						//								if(colorSet2 == QUEST_ITEM_COLOR)
 						//									colorSet2 = MItem::GetQuestItemColorset();
 						//								else
@@ -726,7 +726,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 					CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 					
 					//-----------------------------------------------------------
-					// ºü¸£°Ô ¿òÁ÷ÀÌ´Â Áß
+					// ë¹ ë¥´ê²Œ ì›€ì§ì´ëŠ” ì¤‘
 					//-----------------------------------------------------------
 					POINT pointTemp2;
 					
@@ -750,7 +750,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 					m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite, 1);
 					
 					//---------------------------------------- 
-					// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+					// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 					//---------------------------------------- 
 					//if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 					//{
@@ -758,11 +758,11 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 					//									addonInfo.EffectColorSet);
 					//}
 					//---------------------------------------- 
-					// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+					// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 					//---------------------------------------- 
 					//else
 					{								
-						// [»õ±â¼ú] - fake´Â fast moveÀÏ¶§ ¹«Á¶°Ç ¾îµÓ°Ô..
+						// [ìƒˆê¸°ìˆ ] - fakeëŠ” fast moveì¼ë•Œ ë¬´ì¡°ê±´ ì–´ë‘¡ê²Œ..
 						if (pCreature->IsFakeCreature())
 						{
 							MFakeCreature *pFakeCreature = dynamic_cast<MFakeCreature*>(pCreature);
@@ -776,7 +776,7 @@ void	MTopView::DrawFastMoveForACSlayer(POINT* pPoint, MCreature* pCreature, int 
 							m_pSurface->BltIndexSprite(&pointTemp, pSprite);							
 						}						
 						
-						// Á¤»óÀûÀÎ Ãâ·Â
+						// ì •ìƒì ì¸ ì¶œë ¥
 						//CIndexSprite::SetUsingColorSet( addonInfo.ColorSet1, addonInfo.ColorSet2 );
 						//m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 					}
@@ -795,11 +795,11 @@ void	MTopView::DrawInvisible(POINT* pPoint, MCreature* pCreature, int action, in
 		
 	for (int i=0; i<ADDON_MAX; i++)
 	{
-		// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-		// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+		// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+		// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 		clothesType = MCreatureWear::s_AddonOrder[pCreature->GetDirection()][i];
 		
-		// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+		// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ì…ê³  ìˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 		const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(clothesType);
 		
 		if (addonInfo.bAddon)
@@ -808,7 +808,7 @@ void	MTopView::DrawInvisible(POINT* pPoint, MCreature* pCreature, int action, in
 	
 			FRAME_ARRAY &FA = m_AddonFPK[clothes][action][direction];
 			
-			// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+			// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 			if (FA.GetSize() > frame)
 			{
 				CFrame &Frame = FA[frame];					
@@ -824,7 +824,7 @@ void	MTopView::DrawInvisible(POINT* pPoint, MCreature* pCreature, int action, in
 				pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 				//---------------------------------------- 	
 				rect.left	= pointTemp.x;
 				rect.top	= pointTemp.y;
@@ -833,7 +833,7 @@ void	MTopView::DrawInvisible(POINT* pPoint, MCreature* pCreature, int action, in
 				pCreature->AddScreenRect( &rect );
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+				// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 				//---------------------------------------- 
 				//if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 				//{
@@ -841,14 +841,14 @@ void	MTopView::DrawInvisible(POINT* pPoint, MCreature* pCreature, int action, in
 				//									addonInfo.EffectColorSet);
 				//}
 				//---------------------------------------- 
-				// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+				// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 				//---------------------------------------- 
 				//else
 				{
 					int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 					if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 					{
-						// À¯´ÏÅ© ¾ÆÀÌÅÛÀÌ¸é
+						// ìœ ë‹ˆí¬ ì•„ì´í…œì´ë©´
 						//									if(colorSet2 == QUEST_ITEM_COLOR)
 						//										colorSet2 = MItem::GetQuestItemColorset();
 						//									else
@@ -875,13 +875,13 @@ void	MTopView::DrawInvisible(POINT* pPoint, MCreature* pCreature, int action, in
 						
 						//m_pSurface->BltIndexSpriteEffect(&pointTemp, pSprite);
 						
-						// slayerÀÇ invisibleÀÎ snipping
+						// slayerì˜ invisibleì¸ snipping
 						m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, SHIFT_SNIPPING);
 					}
 					else
 					{
 						POINT pointTemp2 = pointTemp;
-						// slayerÀÇ invisibleÀÎ snipping
+						// slayerì˜ invisibleì¸ snipping
 						m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite, SHIFT_SNIPPING);
 						
 						CSpriteSurface::s_Value1 = wipeValue;
@@ -900,7 +900,7 @@ void	MTopView::DrawInvisible(POINT* pPoint, MCreature* pCreature, int action, in
 					}
 				}						
 				
-				// Á¤»óÀûÀÎ Ãâ·Â
+				// ì •ìƒì ì¸ ì¶œë ¥
 				//CIndexSprite::SetUsingColorSet( addonInfo.ColorSet1, addonInfo.ColorSet2 );
 				//m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 				
@@ -935,15 +935,15 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 	
 	
 	//-----------------------------------------------------------
-	// ÁÂ¿ì ÀÜ»ó
+	// ì¢Œìš° ì”ìƒ
 	//-----------------------------------------------------------
 	for (int i=0; i<AC_ADDON_MAX; i++)
 	{
-		// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-		// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+		// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+		// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 		clothesType = MCreatureWear::s_ACAddonOrder[ direction ][ i ];
 		
-		// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+		// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ì…ê³  ìˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 		const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetACAddonInfo(clothesType);
 		
 		if (addonInfo.bAddon)
@@ -970,7 +970,7 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 					try{
 					FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
 					
-					// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+					// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 					if (FA.GetSize() > frame)
 					{
 						CFrame &Frame = FA[frame];					
@@ -986,7 +986,7 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 						pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 						
 						//---------------------------------------- 
-						// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+						// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 						//---------------------------------------- 	
 						rect.left	= pointTemp.x;
 						rect.top	= pointTemp.y;
@@ -995,7 +995,7 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 						pCreature->AddScreenRect( &rect );
 						
 						//---------------------------------------- 
-						// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+						// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 						//---------------------------------------- 
 						//if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 						//{
@@ -1003,14 +1003,14 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 						//									addonInfo.EffectColorSet);
 						//}
 						//---------------------------------------- 
-						// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+						// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 						//---------------------------------------- 
 						//else
 						{
 							int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 							if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 							{
-								// À¯´ÏÅ© ¾ÆÀÌÅÛÀÌ¸é
+								// ìœ ë‹ˆí¬ ì•„ì´í…œì´ë©´
 								//									if(colorSet2 == QUEST_ITEM_COLOR)
 								//										colorSet2 = MItem::GetQuestItemColorset();
 								//									else
@@ -1037,13 +1037,13 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 								
 								//m_pSurface->BltIndexSpriteEffect(&pointTemp, pSprite);
 								
-								// slayerÀÇ invisibleÀÎ snipping
+								// slayerì˜ invisibleì¸ snipping
 								m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, SHIFT_SNIPPING);
 							}
 							else
 							{
 								POINT pointTemp2 = pointTemp;
-								// slayerÀÇ invisibleÀÎ snipping
+								// slayerì˜ invisibleì¸ snipping
 								m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite, SHIFT_SNIPPING);
 								
 								CSpriteSurface::s_Value1 = wipeValue;
@@ -1062,7 +1062,7 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 							}
 						}						
 						
-						// Á¤»óÀûÀÎ Ãâ·Â
+						// ì •ìƒì ì¸ ì¶œë ¥
 						//CIndexSprite::SetUsingColorSet( addonInfo.ColorSet1, addonInfo.ColorSet2 );
 						//m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 						
@@ -1079,7 +1079,7 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 				try{
 				FRAME_ARRAY &FA = slayerFPK[clothes][action][direction];
 				
-				// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+				// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 				if (FA.GetSize() > frame)
 				{
 					CFrame &Frame = FA[frame];					
@@ -1095,7 +1095,7 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 					pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 					
 					//---------------------------------------- 
-					// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+					// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 					//---------------------------------------- 	
 					rect.left	= pointTemp.x;
 					rect.top	= pointTemp.y;
@@ -1104,7 +1104,7 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 					pCreature->AddScreenRect( &rect );
 					
 					//---------------------------------------- 
-					// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+					// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 					//---------------------------------------- 
 					//if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 					//{
@@ -1112,14 +1112,14 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 					//									addonInfo.EffectColorSet);
 					//}
 					//---------------------------------------- 
-					// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+					// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 					//---------------------------------------- 
 					//else
 					{
 						int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 						if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 						{
-							// À¯´ÏÅ© ¾ÆÀÌÅÛÀÌ¸é
+							// ìœ ë‹ˆí¬ ì•„ì´í…œì´ë©´
 							//									if(colorSet2 == QUEST_ITEM_COLOR)
 							//										colorSet2 = MItem::GetQuestItemColorset();
 							//									else
@@ -1146,13 +1146,13 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 							
 							//m_pSurface->BltIndexSpriteEffect(&pointTemp, pSprite);
 							
-							// slayerÀÇ invisibleÀÎ snipping
+							// slayerì˜ invisibleì¸ snipping
 							m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, SHIFT_SNIPPING);
 						}
 						else
 						{
 							POINT pointTemp2 = pointTemp;
-							// slayerÀÇ invisibleÀÎ snipping
+							// slayerì˜ invisibleì¸ snipping
 							m_pSurface->BltIndexSpriteDarkness(&pointTemp2, pSprite, SHIFT_SNIPPING);
 							
 							CSpriteSurface::s_Value1 = wipeValue;
@@ -1171,7 +1171,7 @@ void	MTopView::DrawInvisibleForACSlayer(POINT* pPoint, MCreature* pCreature, int
 						}
 					}						
 					
-					// Á¤»óÀûÀÎ Ãâ·Â
+					// ì •ìƒì ì¸ ì¶œë ¥
 					//CIndexSprite::SetUsingColorSet( addonInfo.ColorSet1, addonInfo.ColorSet2 );
 					//m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 					
@@ -1190,11 +1190,11 @@ void	MTopView::DrawWeaponFadeOut(POINT* pPoint, MCreature* pCreature, int action
 	
 	for (int i=0; i<ADDON_MAX; i++)
 	{
-		// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-		// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+		// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+		// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 		clothesType = MCreatureWear::s_AddonOrder[pCreature->GetDirection()][i];
 		
-		// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+		// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ì…ê³  ìˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 		const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(clothesType);
 		
 		if (addonInfo.bAddon)
@@ -1203,7 +1203,7 @@ void	MTopView::DrawWeaponFadeOut(POINT* pPoint, MCreature* pCreature, int action
 			
 			FRAME_ARRAY &FA = m_AddonFPK[clothes][action][direction];
 			
-			// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+			// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 			if (FA.GetSize() > frame)
 			{
 				CFrame &Frame = FA[frame];					
@@ -1219,7 +1219,7 @@ void	MTopView::DrawWeaponFadeOut(POINT* pPoint, MCreature* pCreature, int action
 				pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 				//---------------------------------------- 	
 				rect.left	= pointTemp.x;
 				rect.top	= pointTemp.y;
@@ -1229,7 +1229,7 @@ void	MTopView::DrawWeaponFadeOut(POINT* pPoint, MCreature* pCreature, int action
 				
 				
 				//------------------------------------------------------
-				// ÀÜ»ó Ãß°¡
+				// ì”ìƒ ì¶”ê°€
 				//------------------------------------------------------
 				if (clothesType==ADDON_RIGHTHAND)
 				{			
@@ -1258,7 +1258,7 @@ void	MTopView::DrawWeaponFadeOut(POINT* pPoint, MCreature* pCreature, int action
 						CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 						
 						//---------------------------------------- 
-						// f frame Àü
+						// f frame ì „
 						//---------------------------------------- 
 						CFrame &Frame_f = FA[frame-f];					
 						int sprite_f	= Frame_f.GetSpriteID();	//m_AddonFPK[clothes][action][direction][frame].GetSpriteID();
@@ -1280,7 +1280,7 @@ void	MTopView::DrawWeaponFadeOut(POINT* pPoint, MCreature* pCreature, int action
 				}
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+				// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 				//---------------------------------------- 
 				if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 				{
@@ -1288,7 +1288,7 @@ void	MTopView::DrawWeaponFadeOut(POINT* pPoint, MCreature* pCreature, int action
 						addonInfo.EffectColorSet);
 				}
 				//---------------------------------------- 
-				// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+				// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 				//---------------------------------------- 
 				else
 				{
@@ -1303,7 +1303,7 @@ void	MTopView::DrawWeaponFadeOut(POINT* pPoint, MCreature* pCreature, int action
 					
 					CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 					
-					// ¾îµÓ°Ô Âï±â
+					// ì–´ë‘¡ê²Œ ì°ê¸°
 					if (pCreature->IsFade())
 					{
 						m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -1314,7 +1314,7 @@ void	MTopView::DrawWeaponFadeOut(POINT* pPoint, MCreature* pCreature, int action
 					}
 				}						
 				
-				// Á¤»óÀûÀÎ Ãâ·Â
+				// ì •ìƒì ì¸ ì¶œë ¥
 				//CIndexSprite::SetUsingColorSet( addonInfo.ColorSet1, addonInfo.ColorSet2 );
 				//m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 				
@@ -1357,15 +1357,15 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 	
 	
 	//-----------------------------------------------------------
-	// ÁÂ¿ì ÀÜ»ó
+	// ì¢Œìš° ì”ìƒ
 	//-----------------------------------------------------------
 	for (int i=0; i<AC_ADDON_MAX; i++)
 	{
-		// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-		// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+		// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+		// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 		clothesType = MCreatureWear::s_ACAddonOrder[ direction ][ i ];
 		
-		// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+		// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ì…ê³  ìˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 		const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetACAddonInfo(clothesType);
 		
 		if (addonInfo.bAddon)
@@ -1392,7 +1392,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 					try{
 					FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
 					
-					// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+					// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 					if (FA.GetSize() > frame)
 					{
 						CFrame &Frame = FA[frame];					
@@ -1408,7 +1408,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 						pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 						
 						//---------------------------------------- 
-						// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+						// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 						//---------------------------------------- 	
 						rect.left	= pointTemp.x;
 						rect.top	= pointTemp.y;
@@ -1418,7 +1418,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 						
 						
 						//------------------------------------------------------
-						// ÀÜ»ó Ãß°¡
+						// ì”ìƒ ì¶”ê°€
 						//------------------------------------------------------
 						if (clothesType==ADDON_RIGHTHAND)
 						{			
@@ -1447,7 +1447,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 								CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 								
 								//---------------------------------------- 
-								// f frame Àü
+								// f frame ì „
 								//---------------------------------------- 
 								CFrame &Frame_f = FA[frame-f];					
 								int sprite_f	= Frame_f.GetSpriteID();	//m_AddonFPK[clothes][action][direction][frame].GetSpriteID();
@@ -1469,7 +1469,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 						}
 						
 						//---------------------------------------- 
-						// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+						// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 						//---------------------------------------- 
 						if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 						{
@@ -1477,7 +1477,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 								addonInfo.EffectColorSet);
 						}
 						//---------------------------------------- 
-						// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+						// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 						//---------------------------------------- 
 						else
 						{
@@ -1492,7 +1492,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 							
 							CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 							
-							// ¾îµÓ°Ô Âï±â
+							// ì–´ë‘¡ê²Œ ì°ê¸°
 							if (pCreature->IsFade())
 							{
 								m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -1503,7 +1503,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 							}
 						}						
 						
-						// Á¤»óÀûÀÎ Ãâ·Â
+						// ì •ìƒì ì¸ ì¶œë ¥
 						//CIndexSprite::SetUsingColorSet( addonInfo.ColorSet1, addonInfo.ColorSet2 );
 						//m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 					}
@@ -1520,7 +1520,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 				try{
 				FRAME_ARRAY &FA = slayerFPK[clothes][action][direction];
 				
-				// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+				// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 				if (FA.GetSize() > frame)
 				{
 					CFrame &Frame = FA[frame];					
@@ -1536,7 +1536,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 					pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 					
 					//---------------------------------------- 
-					// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+					// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 					//---------------------------------------- 	
 					rect.left	= pointTemp.x;
 					rect.top	= pointTemp.y;
@@ -1546,7 +1546,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 					
 					
 					//------------------------------------------------------
-					// ÀÜ»ó Ãß°¡
+					// ì”ìƒ ì¶”ê°€
 					//------------------------------------------------------
 					if (clothesType==ADDON_RIGHTHAND)
 					{			
@@ -1575,7 +1575,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 							CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 							
 							//---------------------------------------- 
-							// f frame Àü
+							// f frame ì „
 							//---------------------------------------- 
 							CFrame &Frame_f = FA[frame-f];					
 							int sprite_f	= Frame_f.GetSpriteID();	//m_AddonFPK[clothes][action][direction][frame].GetSpriteID();
@@ -1597,7 +1597,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 					}
 					
 					//---------------------------------------- 
-					// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+					// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 					//---------------------------------------- 
 					if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 					{
@@ -1605,7 +1605,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 							addonInfo.EffectColorSet);
 					}
 					//---------------------------------------- 
-					// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+					// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 					//---------------------------------------- 
 					else
 					{
@@ -1620,7 +1620,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 						
 						CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 						
-						// ¾îµÓ°Ô Âï±â
+						// ì–´ë‘¡ê²Œ ì°ê¸°
 						if (pCreature->IsFade())
 						{
 							m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -1631,7 +1631,7 @@ void	MTopView::DrawWeaponFadeOutForACSlayer(POINT* pPoint, MCreature* pCreature,
 						}
 					}						
 					
-					// Á¤»óÀûÀÎ Ãâ·Â
+					// ì •ìƒì ì¸ ì¶œë ¥
 					//CIndexSprite::SetUsingColorSet( addonInfo.ColorSet1, addonInfo.ColorSet2 );
 					//m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 					
@@ -1658,14 +1658,14 @@ void	MTopView::DrawCentauroTurret( POINT* pPoint, MCreature* pCreature, int acti
 	{
 		POINT pointGap[8] = 
 		{
-			{ 11, 6 },	// ÁÂ
-			{ 8, 2 },	// ÁÂÇÏ
-			{ 0, 0 },	// ÇÏ
-			{ -7, 2 },	// ¿ìÇÏ
-			{ -10, 6 },	// ¿ì
-			{ -7, 10 },	// ¿ì»ó
-			{ 0, 12 },	// »ó
-			{ 8, 10 },	// ÁÂ»ó
+			{ 11, 6 },	// ì¢Œ
+			{ 8, 2 },	// ì¢Œí•˜
+			{ 0, 0 },	// í•˜
+			{ -7, 2 },	// ìš°í•˜
+			{ -10, 6 },	// ìš°
+			{ -7, 10 },	// ìš°ìƒ
+			{ 0, 12 },	// ìƒ
+			{ 8, 10 },	// ì¢Œìƒ
 		};
 		cx += pointGap[pFakeCreature->GetDirection()].x;
 		cy += pointGap[pFakeCreature->GetDirection()].y;
@@ -1679,7 +1679,7 @@ void	MTopView::DrawCentauroTurret( POINT* pPoint, MCreature* pCreature, int acti
 		cy -= g_DirectionValue[direct].y*pFakeCreature->GetTurretDelay()*2;
 	}
 	
-	// ÁÂÇ¥ º¸Á¤
+	// ì¢Œí‘œ ë³´ì •
 	pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 	pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 	
@@ -1727,7 +1727,7 @@ void	MTopView::DrawInstallTurret( POINT *pPoint, MCreature* pCreature, int actio
 		pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();			
 		
 		//---------------------------------------- 		
-		// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+		// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 		//---------------------------------------- 	
 		rect.left	= pointTemp.x;
 		rect.top	= pointTemp.y;

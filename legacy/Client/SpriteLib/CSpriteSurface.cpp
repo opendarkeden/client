@@ -86,7 +86,7 @@ CSpriteSurface::~CSpriteSurface()
 //----------------------------------------------------------------------
 // VLine
 //----------------------------------------------------------------------
-// ¼¼·Î ¼± ±×¸®±â 
+// ì„¸ë¡œ ì„  ê·¸ë¦¬ê¸° 
 //----------------------------------------------------------------------
 void
 CSpriteSurface::VLine(int x, int y, int length, WORD color)
@@ -103,7 +103,7 @@ CSpriteSurface::VLine(int x, int y, int length, WORD color)
 //----------------------------------------------------------------------
 // HLine
 //----------------------------------------------------------------------
-// °¡·Î¼± ±×¸®±â 
+// ê°€ë¡œì„  ê·¸ë¦¬ê¸° 
 //----------------------------------------------------------------------
 void
 CSpriteSurface::HLine(int x, int y, int length, WORD color)
@@ -120,7 +120,7 @@ CSpriteSurface::HLine(int x, int y, int length, WORD color)
 //----------------------------------------------------------------------
 // DrawRect
 //----------------------------------------------------------------------
-// ¼ÓÀÌ ºó »óÀÚ ±×¸®±â 
+// ì†ì´ ë¹ˆ ìƒì ê·¸ë¦¬ê¸° 
 //----------------------------------------------------------------------
 void
 CSpriteSurface::DrawRect(RECT* pRect, WORD color)
@@ -139,12 +139,12 @@ CSpriteSurface::DrawRect(RECT* pRect, WORD color)
 }
 
 //----------------------------------------------------------------------
-// Á÷¼± ±×¸®±â 
+// ì§ì„  ê·¸ë¦¬ê¸° 
 //----------------------------------------------------------------------
 void
 CSpriteSurface::Line(int x1, int y1, int x2, int y2, WORD color)
 {
-	// ÇÑ Á¡¾¿ Âï¾î¼­ Á÷¼±À» ±×¸°´Ù.	
+	// í•œ ì ì”© ì°ì–´ì„œ ì§ì„ ì„ ê·¸ë¦°ë‹¤.	
 	WORD*	lpSurface	= (WORD*)m_ddsd.lpSurface;
 	WORD	lPitch		= m_ddsd.lPitch;
 
@@ -262,13 +262,13 @@ CSpriteSurface::Line(int x1, int y1, int x2, int y2, WORD color)
 }
 
 //----------------------------------------------------------------------
-// Rect¿µ¿ªÀ» ÀĞ¾î¼­ PointÀ§Ä¡¿¡ ÂïÀ» °æ¿ì
-// È­¸é Å©±â¸¦ ³ÑÁö ¾Êµµ·Ï ÁÂÇ¥¸¦ ´Ù½Ã ¼³Á¤ÇØÁØ´Ù.
+// Rectì˜ì—­ì„ ì½ì–´ì„œ Pointìœ„ì¹˜ì— ì°ì„ ê²½ìš°
+// í™”ë©´ í¬ê¸°ë¥¼ ë„˜ì§€ ì•Šë„ë¡ ì¢Œí‘œë¥¼ ë‹¤ì‹œ ì„¤ì •í•´ì¤€ë‹¤.
 //----------------------------------------------------------------------
 bool
 CSpriteSurface::ClippingRectToPoint(RECT*& pRect, POINT*& pPoint)
 {
-	// ¿µ¿ªÀ» ³Ñ¾î°¡´ÂÁö¿¡ ´ëÇÑ Ã¼Å©
+	// ì˜ì—­ì„ ë„˜ì–´ê°€ëŠ”ì§€ì— ëŒ€í•œ ì²´í¬
 	if (pPoint->x>=(int)m_ClipRight || pPoint->y>=(int)m_ClipBottom)		
 		return false;
 
@@ -294,7 +294,7 @@ CSpriteSurface::ClippingRectToPoint(RECT*& pRect, POINT*& pPoint)
 		pRect->bottom = pRect->top+ m_ClipBottom-pPoint->y;
 	}
 
-	// È­¸é ¿µ¿ªÀ» ³Ñ¾î°¡¸é ¾ÈµÈ´Ù->
+	// í™”ë©´ ì˜ì—­ì„ ë„˜ì–´ê°€ë©´ ì•ˆëœë‹¤->
 	if (pRect->left >= pRect->right || pRect->top >= pRect->bottom)
 		return false;
 
@@ -305,7 +305,7 @@ CSpriteSurface::ClippingRectToPoint(RECT*& pRect, POINT*& pPoint)
 //----------------------------------------------------------------------
 // Blt Darkness
 //----------------------------------------------------------------------
-// SourceSurface¸¦ DarkBits¸¸Å­ ¾îµÓ°Ô ¸¸µé¾î¼­ *this¿¡ Ãâ·Â
+// SourceSurfaceë¥¼ DarkBitsë§Œí¼ ì–´ë‘¡ê²Œ ë§Œë“¤ì–´ì„œ *thisì— ì¶œë ¥
 //----------------------------------------------------------------------
 void
 CSpriteSurface::BltHalf(POINT* pPoint, 
@@ -314,7 +314,7 @@ CSpriteSurface::BltHalf(POINT* pPoint,
 	//------------------------
 	// Clipping
 	//------------------------
-	// TargetSurfaceÀÇ ¿µ¿ªÀ» ³Ñ¾î°¡´ÂÁö¿¡ ´ëÇÑ Ã¼Å©
+	// TargetSurfaceì˜ ì˜ì—­ì„ ë„˜ì–´ê°€ëŠ”ì§€ì— ëŒ€í•œ ì²´í¬
 	if (pPoint->x>=(int)m_ClipRight || pPoint->y>=(int)m_ClipBottom) 
 		return;
 
@@ -349,7 +349,7 @@ CSpriteSurface::BltHalf(POINT* pPoint,
 	WORD*	lpTargetSurface	= (WORD*)m_ddsd.lpSurface;
 	WORD	lTargetPitch	= m_ddsd.lPitch;
 
-	// µÎ Surface¿¡ LockÀ» °Ç´Ù.	
+	// ë‘ Surfaceì— Lockì„ ê±´ë‹¤.	
 	SourceSurface->Lock();
 
 	WORD*	lpSourceSurface	= (WORD*)m_ddsd.lpSurface;
@@ -379,7 +379,7 @@ CSpriteSurface::BltHalf(POINT* pPoint,
 //----------------------------------------------------------------------
 // Blt Darkness
 //----------------------------------------------------------------------
-// SourceSurface¸¦ DarkBits¸¸Å­ ¾îµÓ°Ô ¸¸µé¾î¼­ *this¿¡ Ãâ·Â
+// SourceSurfaceë¥¼ DarkBitsë§Œí¼ ì–´ë‘¡ê²Œ ë§Œë“¤ì–´ì„œ *thisì— ì¶œë ¥
 //----------------------------------------------------------------------
 void
 CSpriteSurface::BltDarkness(POINT* pPoint, 
@@ -389,7 +389,7 @@ CSpriteSurface::BltDarkness(POINT* pPoint,
 	//------------------------
 	// Clipping
 	//------------------------
-	// TargetSurfaceÀÇ ¿µ¿ªÀ» ³Ñ¾î°¡´ÂÁö¿¡ ´ëÇÑ Ã¼Å©
+	// TargetSurfaceì˜ ì˜ì—­ì„ ë„˜ì–´ê°€ëŠ”ì§€ì— ëŒ€í•œ ì²´í¬
 	if (pPoint->x>=(int)m_ClipRight || pPoint->y>=(int)m_ClipBottom) 
 		return;
 
@@ -424,7 +424,7 @@ CSpriteSurface::BltDarkness(POINT* pPoint,
 	WORD*	lpTargetSurface	= (WORD*)m_ddsd.lpSurface;
 	WORD	lTargetPitch	= m_ddsd.lPitch;
 
-	// µÎ Surface¿¡ LockÀ» °Ç´Ù.	
+	// ë‘ Surfaceì— Lockì„ ê±´ë‹¤.	
 	SourceSurface->Lock();
 
 	WORD*	lpSourceSurface	= (WORD*)m_ddsd.lpSurface;
@@ -453,7 +453,7 @@ CSpriteSurface::BltDarkness(POINT* pPoint,
 //----------------------------------------------------------------------
 // Blt Darkness
 //----------------------------------------------------------------------
-// SourceSurface¸¦ DarkBits¸¸Å­ ¾îµÓ°Ô ¸¸µé¾î¼­ *this¿¡ Ãâ·Â
+// SourceSurfaceë¥¼ DarkBitsë§Œí¼ ì–´ë‘¡ê²Œ ë§Œë“¤ì–´ì„œ *thisì— ì¶œë ¥
 //----------------------------------------------------------------------
 void
 CSpriteSurface::BltBrightness(POINT* pPoint, 
@@ -463,7 +463,7 @@ CSpriteSurface::BltBrightness(POINT* pPoint,
 	//------------------------
 	// Clipping
 	//------------------------
-	// TargetSurfaceÀÇ ¿µ¿ªÀ» ³Ñ¾î°¡´ÂÁö¿¡ ´ëÇÑ Ã¼Å©
+	// TargetSurfaceì˜ ì˜ì—­ì„ ë„˜ì–´ê°€ëŠ”ì§€ì— ëŒ€í•œ ì²´í¬
 	if (pPoint->x>=(int)m_ClipRight || pPoint->y>=(int)m_ClipBottom) 
 		return;
 
@@ -498,7 +498,7 @@ CSpriteSurface::BltBrightness(POINT* pPoint,
 	WORD*	lpTargetSurface	= (WORD*)m_ddsd.lpSurface;
 	WORD	lTargetPitch	= m_ddsd.lPitch;
 
-	// µÎ Surface¿¡ LockÀ» °Ç´Ù.	
+	// ë‘ Surfaceì— Lockì„ ê±´ë‹¤.	
 	SourceSurface->Lock();
 
 	WORD*	lpSourceSurface	= (WORD*)m_ddsd.lpSurface;
@@ -527,9 +527,9 @@ CSpriteSurface::BltBrightness(POINT* pPoint,
 //----------------------------------------------------------------------
 // Blt DarknessFilter
 //----------------------------------------------------------------------
-// SourceSurface¸¦ Filter·Î »ı°¢ÇØ¼­
-// ÇöÀç SurfaceÀÇ °¢ Á¡(R,G,B)¿¡¼­ 
-// SourceSurfaceÀÇ °¢ Á¡(R,G,B) ¸¸Å­À» »©ÁÖ¾î¼­ ¾îµÓ°Ô ¸¸µç´Ù.
+// SourceSurfaceë¥¼ Filterë¡œ ìƒê°í•´ì„œ
+// í˜„ì¬ Surfaceì˜ ê° ì (R,G,B)ì—ì„œ 
+// SourceSurfaceì˜ ê° ì (R,G,B) ë§Œí¼ì„ ë¹¼ì£¼ì–´ì„œ ì–´ë‘¡ê²Œ ë§Œë“ ë‹¤.
 //----------------------------------------------------------------------
 void
 CSpriteSurface::BltDarknessFilter(POINT* pPoint, 
@@ -539,7 +539,7 @@ CSpriteSurface::BltDarknessFilter(POINT* pPoint,
 	//------------------------
 	// Clipping
 	//------------------------
-	// TargetSurfaceÀÇ ¿µ¿ªÀ» ³Ñ¾î°¡´ÂÁö¿¡ ´ëÇÑ Ã¼Å©
+	// TargetSurfaceì˜ ì˜ì—­ì„ ë„˜ì–´ê°€ëŠ”ì§€ì— ëŒ€í•œ ì²´í¬
 	if (pPoint->x>=(int)m_ClipRight || pPoint->y>=(int)m_ClipBottom) 
 		return;
 
@@ -574,7 +574,7 @@ CSpriteSurface::BltDarknessFilter(POINT* pPoint,
 			*lpTargetTemp, *lpSourceTemp;
 	WORD	lTargetPitch, lSourcePitch;
 
-	// µÎ Surface¿¡ LockÀ» °Ç´Ù.
+	// ë‘ Surfaceì— Lockì„ ê±´ë‹¤.
 	LockW(lpTargetSurface, lTargetPitch);
 	SourceSurface->LockW(lpSourceSurface, lSourcePitch);
 
@@ -593,10 +593,10 @@ CSpriteSurface::BltDarknessFilter(POINT* pPoint,
 
 		for (int register j=pRect->left; j<pRect->right; j++)
 		{	
-			// Åõ¸í»öÀÌ ¾Æ´Ò¶§ Ãâ·Â
+			// íˆ¬ëª…ìƒ‰ì´ ì•„ë‹ë•Œ ì¶œë ¥
 			if (*lpTargetTemp != TransColor)
 			{				
-				filter = *lpSourceTemp & 0x1F;	// Blue°ª
+				filter = *lpSourceTemp & 0x1F;	// Blueê°’
 
 				*lpTargetTemp = 
 					(((((*lpTargetTemp >> 11) & 0x1F) * filter) >> 5) << 11)
@@ -626,7 +626,7 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 	POINT	point = pSOM->GetPosition();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (point.x >= m_ClipRight || point.y >= m_ClipBottom)
 		return;
@@ -635,7 +635,7 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 	//WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSOM->GetWidth();
@@ -649,13 +649,13 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 	int yPlusSpriteHeight	= point.y + pSOM->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (point.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -663,24 +663,24 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -point.x + m_ClipLeft;		
 		point.x = m_ClipLeft;
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - point.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -688,7 +688,7 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 				point.y = m_ClipTop;
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -699,7 +699,7 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + point.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -707,17 +707,17 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			//pSOM->BltClipWidth( (WORD*)m_ddsd.lpSurface, Pitch, color, &rect);
 			pSOM->BltClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -725,7 +725,7 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 				point.y = m_ClipTop;
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -736,7 +736,7 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + point.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -744,26 +744,26 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip			
+			// ì™¼ìª½ Clip			
 			//pSOM->BltClipLeft( (WORD*)m_ddsd.lpSurface, Pitch, color, &rect);
 			pSOM->BltClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - point.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -772,7 +772,7 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 				point.y = m_ClipTop;
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -783,7 +783,7 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + point.y*Pitch + (point.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -791,17 +791,17 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip			
+			// ì˜¤ë¥¸ìª½ Clip			
 			//pSOM->BltClipRight( (WORD*)m_ddsd.lpSurface, Pitch, color, &rect);
 			pSOM->BltClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -810,14 +810,14 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 				point.y = m_ClipTop;
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - point.y;					
 				}
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				//pSOM->BltClipHeight( (WORD*)m_ddsd.lpSurface, Pitch, color, &rect);
 				pSOM->BltClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 			}
@@ -825,12 +825,12 @@ CSpriteSurface::BltSpriteOutline(CSpriteOutlineManager* pSOM, WORD color)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + point.y*Pitch + (point.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - point.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					//pSOM->BltClipHeight( (WORD*)m_ddsd.lpSurface, Pitch, color, &rect);
 					pSOM->BltClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 				}
@@ -857,7 +857,7 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 	POINT	point = pSOM->GetPosition();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (point.x >= m_ClipRight || point.y >= m_ClipBottom)
 		return;
@@ -867,7 +867,7 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 	//WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSOM->GetWidth();
@@ -881,13 +881,13 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 	int yPlusSpriteHeight	= point.y + pSOM->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (point.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -895,24 +895,24 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -point.x + m_ClipLeft;		
 		point.x = m_ClipLeft;
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - point.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -920,7 +920,7 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 				point.y = m_ClipTop;
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -931,7 +931,7 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + point.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -939,17 +939,17 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			//pSOM->BltOutlineClipWidth( (WORD*)m_ddsd.lpSurface, Pitch, color, &rect);
 			pSOM->BltOutlineClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -957,7 +957,7 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 				point.y = m_ClipTop;
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -968,7 +968,7 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + point.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -976,26 +976,26 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip			
+			// ì™¼ìª½ Clip			
 			//pSOM->BltOutlineClipLeft( (WORD*)m_ddsd.lpSurface, Pitch, color, &rect);
 			pSOM->BltOutlineClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - point.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -1004,7 +1004,7 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 				point.y = m_ClipTop;
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -1015,7 +1015,7 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + point.y*Pitch + (point.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -1023,17 +1023,17 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip			
+			// ì˜¤ë¥¸ìª½ Clip			
 			//pSOM->BltOutlineClipRight( (WORD*)m_ddsd.lpSurface, Pitch, color, &rect);
 			pSOM->BltOutlineClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -1042,14 +1042,14 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 				point.y = m_ClipTop;
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - point.y;					
 				}
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				//pSOM->BltOutlineClipHeight( (WORD*)m_ddsd.lpSurface, Pitch, color, &rect);
 				pSOM->BltOutlineClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 			}
@@ -1057,12 +1057,12 @@ CSpriteSurface::BltSpriteOutlineOnly(CSpriteOutlineManager* pSOM, WORD color)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + point.y*Pitch + (point.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - point.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					//pSOM->BltOutlineClipHeight( (WORD*)m_ddsd.lpSurface, Pitch, color, &rect);
 					pSOM->BltOutlineClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 				}
@@ -1089,7 +1089,7 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 	POINT	point = pSOM->GetPosition();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (point.x >= m_ClipRight || point.y >= m_ClipBottom)
 		return;
@@ -1099,7 +1099,7 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 	//WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSOM->GetWidth();
@@ -1113,13 +1113,13 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 	int yPlusSpriteHeight	= point.y + pSOM->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (point.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -1127,24 +1127,24 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -point.x + m_ClipLeft;		
 		point.x = m_ClipLeft;
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - point.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -1152,7 +1152,7 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 				point.y = m_ClipTop;
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -1163,7 +1163,7 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 			{
 				//lpSurface = (WORD*)( (BYTE*)lpSurface + point.y*m_ddsd.lPitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -1171,17 +1171,17 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			//pSOM->BltClipWidth( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 			pSOM->BltDarknessClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, DarkBits, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -1189,7 +1189,7 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 				point.y = m_ClipTop;
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -1200,7 +1200,7 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + point.y*m_ddsd.lPitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -1208,26 +1208,26 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 				}				
 			}
 
-			// ¿ŞÂÊ Clip			
+			// ì™¼ìª½ Clip			
 			//pSOM->BltClipLeft( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 			pSOM->BltDarknessClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, DarkBits, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - point.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -1236,7 +1236,7 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 				point.y = m_ClipTop;
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -1247,7 +1247,7 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + point.y*m_ddsd.lPitch + (point.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -1255,17 +1255,17 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip			
+			// ì˜¤ë¥¸ìª½ Clip			
 			//pSOM->BltClipRight( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 			pSOM->BltDarknessClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, DarkBits, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -1274,14 +1274,14 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 				point.y = m_ClipTop;
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - point.y;					
 				}
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				//pSOM->BltClipHeight( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 				pSOM->BltDarknessClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, DarkBits, &rect);
 			}
@@ -1289,12 +1289,12 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + point.y*m_ddsd.lPitch + (point.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - point.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					//pSOM->BltClipHeight( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, &rect);
 					pSOM->BltDarknessClip( (WORD*)m_ddsd.lpSurface, m_ddsd.lPitch, color, DarkBits, &rect);
 				}
@@ -1316,10 +1316,10 @@ CSpriteSurface::BltSpriteOutlineDarkness(CSpriteOutlineManager* pSOM, WORD color
 //----------------------------------------------------------------------
 // Change Brightness
 //----------------------------------------------------------------------
-// m_pDDSurfaceÀÇ pRect¿µ¿ªÀ» ¾îµÓ°Ô ÇÑ´Ù. 
-// DarkBits´Â (0~5) bit´ÜÀ§·Î 1, 1/2, 1/4, 1/8, 1/16, 1/32, 0ÀÌ´Ù.
+// m_pDDSurfaceì˜ pRectì˜ì—­ì„ ì–´ë‘¡ê²Œ í•œë‹¤. 
+// DarkBitsëŠ” (0~5) bitë‹¨ìœ„ë¡œ 1, 1/2, 1/4, 1/8, 1/16, 1/32, 0ì´ë‹¤.
 //----------------------------------------------------------------------
-// pRectÀÇ ¿µ¿ªÀº right, bottomÀÇ ÁÂÇ¥´Â Æ÷ÇÔÇÏÁö ¾Ê´Â´Ù.  -1±îÁöÀÌ´Ù.
+// pRectì˜ ì˜ì—­ì€ right, bottomì˜ ì¢Œí‘œëŠ” í¬í•¨í•˜ì§€ ì•ŠëŠ”ë‹¤.  -1ê¹Œì§€ì´ë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
@@ -1331,7 +1331,7 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 	if (pRect->top < m_ClipTop) pRect->top=m_ClipTop;
 	if ((WORD)pRect->bottom > m_ClipBottom) pRect->bottom=m_ClipBottom;
 
-	// ¿µ¿ªÀ» ¹ş¾î³ª´Â °æ¿ì
+	// ì˜ì—­ì„ ë²—ì–´ë‚˜ëŠ” ê²½ìš°
 	if (pRect->left >= pRect->right || pRect->top >= pRect->bottom)
 		return;
 
@@ -1340,7 +1340,7 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 	QWORD	*lpTargetSurface	= (QWORD*)m_ddsd.lpSurface;
 	WORD	Pitch			= m_ddsd.lPitch;
 	
-	// Ãâ·Â ½ÃÀÛ À§Ä¡
+	// ì¶œë ¥ ì‹œì‘ ìœ„ì¹˜
 	lpTargetSurface = (QWORD*)((BYTE*)lpTargetSurface + pRect->top*Pitch + (pRect->left<<1));
 
 	register int i;
@@ -1351,101 +1351,101 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 	int width = pRect->right - pRect->left;
 	int qTimes = width >> 2;
 
-	// Target SurfaceÀÇ Á¤ÇØÁø ¿µ¿ªÀ» ¾îµÓ°Ô ÇÑ´Ù.
+	// Target Surfaceì˜ ì •í•´ì§„ ì˜ì—­ì„ ì–´ë‘¡ê²Œ í•œë‹¤.
 	/*
 	switch ( width & 0x03 )
 	{
 		//------------------
-		// 4Á¡¾¿
+		// 4ì ì”©
 		//------------------
 		case 0 :			
 			for (i=pRect->top; i<rectBottom; i++)
 			{
 				lpTargetTemp = lpTargetSurface;	
 
-				// ³×Á¡¾¿ Âï±â
+				// ë„¤ì ì”© ì°ê¸°
 				for (j=0; j<qTimes; j++)
 				{
 					*lpTargetTemp++ = (*lpTargetTemp >> DarkBits) & s_qwMASK_SHIFT[DarkBits];					
 				}
 
-				// ´ÙÀ½ ÁÙ
+				// ë‹¤ìŒ ì¤„
 				lpTargetSurface = (QWORD*)((BYTE*)lpTargetSurface + Pitch);
 			}
 		break;
 
 		//------------------
-		// 1Á¡ + 4Á¡¾¿
+		// 1ì  + 4ì ì”©
 		//------------------
 		case 1 :
 			for (i=pRect->top; i<rectBottom; i++)
 			{
 				lpTargetTemp = lpTargetSurface;	
 
-				// ÇÑÁ¡ Âï±â
+				// í•œì  ì°ê¸°
 				*((WORD*)lpTargetTemp) = 
 					(*((WORD*)lpTargetTemp) >> DarkBits) & s_wMASK_SHIFT[DarkBits];
 				
 				lpTargetTemp = (QWORD*)((WORD*)lpTargetTemp + 1);
 
-				// ³×Á¡¾¿ Âï±â
+				// ë„¤ì ì”© ì°ê¸°
 				for (j=0; j<qTimes; j++)
 				{
 					*lpTargetTemp++ = (*lpTargetTemp >> DarkBits) & s_qwMASK_SHIFT[DarkBits];
 				}
 
-				// ´ÙÀ½ ÁÙ
+				// ë‹¤ìŒ ì¤„
 				lpTargetSurface = (QWORD*)((BYTE*)lpTargetSurface + Pitch);
 			}
 		break;
 
 		//------------------
-		// 2Á¡ + 4Á¡¾¿
+		// 2ì  + 4ì ì”©
 		//------------------
 		case 2 :
 			for (i=pRect->top; i<rectBottom; i++)
 			{
 				lpTargetTemp = lpTargetSurface;	
 
-				// µÎÁ¡ Âï±â
+				// ë‘ì  ì°ê¸°
 				*((DWORD*)lpTargetTemp) = (*((DWORD*)lpTargetTemp) >> DarkBits) & s_dwMASK_SHIFT[DarkBits];
 				lpTargetTemp = (QWORD*)((DWORD*)lpTargetTemp + 1);
 
-				// ³×Á¡¾¿ Âï±â
+				// ë„¤ì ì”© ì°ê¸°
 				for (j=0; j<qTimes; j++)
 				{
 					*lpTargetTemp++ = (*lpTargetTemp >> DarkBits) & s_qwMASK_SHIFT[DarkBits];
 				}
 
-				// ´ÙÀ½ ÁÙ
+				// ë‹¤ìŒ ì¤„
 				lpTargetSurface = (QWORD*)((BYTE*)lpTargetSurface + Pitch);
 			}
 		break;
 
 		//------------------
-		// 1Á¡ + 2Á¡ + 4Á¡¾¿
+		// 1ì  + 2ì  + 4ì ì”©
 		//------------------
 		case 3 :
 			for (i=pRect->top; i<rectBottom; i++)
 			{
 				lpTargetTemp = lpTargetSurface;	
 
-				// ÇÑÁ¡ Âï±â
+				// í•œì  ì°ê¸°
 				*((WORD*)lpTargetTemp) = 
 					(*((WORD*)lpTargetTemp) >> DarkBits) & s_wMASK_SHIFT[DarkBits];
 				lpTargetTemp = (QWORD*)((WORD*)lpTargetTemp + 1);
 
-				// µÎÁ¡ Âï±â
+				// ë‘ì  ì°ê¸°
 				*((DWORD*)lpTargetTemp) = (*((DWORD*)lpTargetTemp) >> DarkBits) & s_dwMASK_SHIFT[DarkBits];
 				lpTargetTemp = (QWORD*)((DWORD*)lpTargetTemp + 1);
 
-				// ³×Á¡¾¿ Âï±â
+				// ë„¤ì ì”© ì°ê¸°
 				for (j=0; j<qTimes; j++)
 				{
 					*lpTargetTemp++ = (*lpTargetTemp >> DarkBits) & s_qwMASK_SHIFT[DarkBits];
 				}
 
-				// ´ÙÀ½ ÁÙ
+				// ë‹¤ìŒ ì¤„
 				lpTargetSurface = (QWORD*)((BYTE*)lpTargetSurface + Pitch);
 			}
 		break;
@@ -1453,7 +1453,7 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 	*/
 
 ///*
-	// Èå¸§À» ¹Ù²Û´Ù.. À¸Èì..~	
+	// íë¦„ì„ ë°”ê¾¼ë‹¤.. ìœ¼í ..~	
 	int maxWave = 8;		// 2, 4, 8, 16...
 
 	if (maxWave >= width)
@@ -1478,8 +1478,8 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 
 	for (i=pRect->top; i<rectBottom; i++)
 	{			
-		// step¸¸Å­ ¿À¸¥ÂÊ¿¡¼­ Ãâ·ÂÇÑ´Ù. 
-		// 4-step¸¸Å­Àº ´ú Ãâ·ÂÇÑ´Ù.
+		// stepë§Œí¼ ì˜¤ë¥¸ìª½ì—ì„œ ì¶œë ¥í•œë‹¤. 
+		// 4-stepë§Œí¼ì€ ëœ ì¶œë ¥í•œë‹¤.
 		int widthPlus = (width - width2)>>1;
 
 		int newWidth = width2 - maxWave + step;
@@ -1491,7 +1491,7 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 		switch (newWidth & 0x03)
 		{
 			//------------------
-			// 4Á¡¾¿
+			// 4ì ì”©
 			//------------------
 			case 0 :
 				for (j=0; j<qTimes; j++)
@@ -1501,16 +1501,16 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 			break;			
 
 			//------------------
-			// 1Á¡ + 4Á¡¾¿
+			// 1ì  + 4ì ì”©
 			//------------------
 			case 1 :
-				// ÇÑÁ¡ Âï±â
+				// í•œì  ì°ê¸°
 				*((WORD*)lpTargetTemp) = *((WORD*)pSourceTemp);
 				
 				lpTargetTemp = (QWORD*)((WORD*)lpTargetTemp + 1);
 				pSourceTemp = (QWORD*)((WORD*)pSourceTemp + 1);
 
-				// ³×Á¡¾¿ Âï±â
+				// ë„¤ì ì”© ì°ê¸°
 				for (j=0; j<qTimes; j++)
 				{
 					*lpTargetTemp++ = *pSourceTemp++;
@@ -1518,15 +1518,15 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 			break;
 
 			//------------------
-			// 2Á¡ + 4Á¡¾¿
+			// 2ì  + 4ì ì”©
 			//------------------
 			case 2 :
-				// µÎÁ¡ Âï±â
+				// ë‘ì  ì°ê¸°
 				*((DWORD*)lpTargetTemp) = *((DWORD*)pSourceTemp);
 				lpTargetTemp = (QWORD*)((DWORD*)lpTargetTemp + 1);
 				pSourceTemp = (QWORD*)((DWORD*)pSourceTemp + 1);
 
-				// ³×Á¡¾¿ Âï±â
+				// ë„¤ì ì”© ì°ê¸°
 				for (j=0; j<qTimes; j++)
 				{
 					*lpTargetTemp++ = *pSourceTemp++;
@@ -1534,20 +1534,20 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 			break;
 
 			//------------------
-			// 1Á¡ + 2Á¡ + 4Á¡¾¿
+			// 1ì  + 2ì  + 4ì ì”©
 			//------------------
 			case 3 :			
-				// ÇÑÁ¡ Âï±â
+				// í•œì  ì°ê¸°
 				*((WORD*)lpTargetTemp) = *((WORD*)pSourceTemp);
 				lpTargetTemp = (QWORD*)((WORD*)lpTargetTemp + 1);
 				pSourceTemp = (QWORD*)((WORD*)pSourceTemp + 1);
 
-				// µÎÁ¡ Âï±â
+				// ë‘ì  ì°ê¸°
 				*((DWORD*)lpTargetTemp) = *((DWORD*)pSourceTemp);
 				lpTargetTemp = (QWORD*)((DWORD*)lpTargetTemp + 1);
 				pSourceTemp = (QWORD*)((DWORD*)pSourceTemp + 1);
 
-				// ³×Á¡¾¿ Âï±â
+				// ë„¤ì ì”© ì°ê¸°
 				for (j=0; j<qTimes; j++)
 				{
 					*lpTargetTemp++ = *pSourceTemp++;
@@ -1555,7 +1555,7 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 			break;
 		}
 
-		// ´ÙÀ½ ÁÙ
+		// ë‹¤ìŒ ì¤„
 		lpTargetSurface = (QWORD*)((BYTE*)lpTargetSurface + Pitch);
 
 		step += stepInc;
@@ -1589,8 +1589,8 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 //----------------------------------------------------------------------
 // Blt Color Alpha
 //----------------------------------------------------------------------
-// ´Ü»öÀ¸·Î(color) SurfaceÀÇ pRect¿µ¿ªÀ»
-// alpha°ª¸¸Å­ alpha blendingÇÑ´Ù.
+// ë‹¨ìƒ‰ìœ¼ë¡œ(color) Surfaceì˜ pRectì˜ì—­ì„
+// alphaê°’ë§Œí¼ alpha blendingí•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
@@ -1602,7 +1602,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 	if (pRect->top < m_ClipTop) pRect->top=m_ClipTop;
 	if ((WORD)pRect->bottom > m_ClipBottom) pRect->bottom=m_ClipBottom;
 
-	// ¿µ¿ªÀ» ¹ş¾î³ª´Â °æ¿ì
+	// ì˜ì—­ì„ ë²—ì–´ë‚˜ëŠ” ê²½ìš°
 	if (pRect->left >= pRect->right || pRect->top >= pRect->bottom)
 		return;
 
@@ -1610,7 +1610,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 	QWORD	*lpTargetSurface	= (QWORD*)m_ddsd.lpSurface;
 	WORD	Pitch			= m_ddsd.lPitch;
 	
-	// Ãâ·Â ½ÃÀÛ À§Ä¡
+	// ì¶œë ¥ ì‹œì‘ ìœ„ì¹˜
 	lpTargetSurface = (QWORD*)((BYTE*)lpTargetSurface + pRect->top*Pitch + (pRect->left<<1));
 
 	register int i;
@@ -1634,12 +1634,12 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 	BYTE alpha = 31 - alpha2;
 		
 	//-----------------------------------------------------
-	// SurfaceÀÇ Á¤ÇØÁø ¿µ¿ªÀ» alpha blending				
+	// Surfaceì˜ ì •í•´ì§„ ì˜ì—­ì„ alpha blending				
 	//-----------------------------------------------------
 	switch ( width & 0x03 )
 	{
 		//-----------------------------------------------------
-		// Á¤È®È÷ 4ÀÇ ¹è¼ö°¡ µÇ´Â °æ¿ì..
+		// ì •í™•íˆ 4ì˜ ë°°ìˆ˜ê°€ ë˜ëŠ” ê²½ìš°..
 		//-----------------------------------------------------
 		case 0 :
 			for (i=pRect->top; i<rectBottom; i++)
@@ -1649,7 +1649,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				int qTimesTemp = qTimes;
 
 				//-----------------------------------
-				// 4Á¡¾¿...
+				// 4ì ì”©...
 				//-----------------------------------
 				while (qTimesTemp--)
 				{
@@ -1684,13 +1684,13 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 					lpTargetTemp++;					
 				}
 
-				// ´ÙÀ½ ÁÙ
+				// ë‹¤ìŒ ì¤„
 				lpTargetSurface = (QWORD*)((BYTE*)lpTargetSurface + Pitch);
 			}
 		break;
 
 		//-----------------------------------------------------
-		// 1Á¡ Âï°í  4Á¡¾¿...
+		// 1ì  ì°ê³   4ì ì”©...
 		//-----------------------------------------------------
 		case 1 :
 			for (i=pRect->top; i<rectBottom; i++)
@@ -1698,7 +1698,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				lpTargetTemp = lpTargetSurface;	
 
 				//-----------------------------------
-				// ÇÑ Á¡ Âï±â...
+				// í•œ ì  ì°ê¸°...
 				//-----------------------------------
 				destColor2 = *(WORD*)lpTargetTemp;
 
@@ -1734,7 +1734,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				int qTimesTemp = qTimes;
 				
 				//-----------------------------------
-				// 4Á¡¾¿..
+				// 4ì ì”©..
 				//-----------------------------------
 				while (qTimesTemp--)
 				{
@@ -1769,13 +1769,13 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 					lpTargetTemp++;					
 				}
 
-				// ´ÙÀ½ ÁÙ
+				// ë‹¤ìŒ ì¤„
 				lpTargetSurface = (QWORD*)((BYTE*)lpTargetSurface + Pitch);
 			}
 		break;
 
 		//-----------------------------------------------------
-		// 2Á¡Âï°í.. 4Á¡¾¿...
+		// 2ì ì°ê³ .. 4ì ì”©...
 		//-----------------------------------------------------
 		case 2 :
 			for (i=pRect->top; i<rectBottom; i++)
@@ -1783,7 +1783,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				lpTargetTemp = lpTargetSurface;	
 			
 				//-----------------------------------
-				// µÎ Á¡ Âï±â..
+				// ë‘ ì  ì°ê¸°..
 				//-----------------------------------
 				destColor2 = *(DWORD*)lpTargetTemp;
 
@@ -1819,7 +1819,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				int qTimesTemp = qTimes;
 				
 				//-----------------------------------
-				// 4Á¡¾¿..
+				// 4ì ì”©..
 				//-----------------------------------
 				while (qTimesTemp--)
 				{
@@ -1854,13 +1854,13 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 					lpTargetTemp++;					
 				}
 
-				// ´ÙÀ½ ÁÙ
+				// ë‹¤ìŒ ì¤„
 				lpTargetSurface = (QWORD*)((BYTE*)lpTargetSurface + Pitch);
 			}
 		break;
 
 		//-----------------------------------------------------
-		// 1Á¡ Âï°í 2Á¡Âï°í.. 4Á¡¾¿...
+		// 1ì  ì°ê³  2ì ì°ê³ .. 4ì ì”©...
 		//-----------------------------------------------------
 		case 3 :
 			for (i=pRect->top; i<rectBottom; i++)
@@ -1868,7 +1868,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				lpTargetTemp = lpTargetSurface;	
 
 				//-----------------------------------
-				// ÇÑ Á¡ Âï±â...
+				// í•œ ì  ì°ê¸°...
 				//-----------------------------------
 				destColor2 = *(WORD*)lpTargetTemp;
 
@@ -1901,7 +1901,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				lpTargetTemp = (QWORD*)((WORD*)lpTargetTemp + 1);	
 
 				//-----------------------------------
-				// µÎ Á¡ Âï±â..
+				// ë‘ ì  ì°ê¸°..
 				//-----------------------------------
 				destColor2 = *(DWORD*)lpTargetTemp;
 
@@ -1937,7 +1937,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 				int qTimesTemp = qTimes;
 				
 				//-----------------------------------
-				// 4Á¡¾¿..
+				// 4ì ì”©..
 				//-----------------------------------
 				while (qTimesTemp--)
 				{
@@ -1972,7 +1972,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 					lpTargetTemp++;					
 				}
 
-				// ´ÙÀ½ ÁÙ
+				// ë‹¤ìŒ ì¤„
 				lpTargetSurface = (QWORD*)((BYTE*)lpTargetSurface + Pitch);
 			}
 		break;
@@ -1982,17 +1982,17 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 //----------------------------------------------------------------------
 // Blt Sprite
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -2003,7 +2003,7 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -2017,13 +2017,13 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -2031,30 +2031,30 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;			
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -2067,7 +2067,7 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -2075,24 +2075,24 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -2105,7 +2105,7 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -2113,26 +2113,26 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -2140,7 +2140,7 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -2153,7 +2153,7 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -2161,17 +2161,17 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -2179,7 +2179,7 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -2188,7 +2188,7 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -2196,12 +2196,12 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -2226,7 +2226,7 @@ CSpriteSurface::BltSprite(POINT* pPoint, CSprite* pSprite)
 void	
 CSpriteSurface::BltSpriteNoClip(POINT* pPoint, CSprite* pSprite)
 {
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
@@ -2236,10 +2236,10 @@ CSpriteSurface::BltSpriteNoClip(POINT* pPoint, CSprite* pSprite)
 	// Lock
 	//LockW(lpSurface, Pitch);
 
-	// Ãâ·Â ½ÃÀÛ À§Ä¡			
+	// ì¶œë ¥ ì‹œì‘ ìœ„ì¹˜			
 	lpSurface = (WORD*)((BYTE*)lpSurface + pPoint->y*Pitch + (pPoint->x<<1));
 
-	// Ãâ·Â
+	// ì¶œë ¥
 	pSprite->Blt(lpSurface, Pitch);	
 
 	// Unlock
@@ -2252,12 +2252,12 @@ CSpriteSurface::BltSpriteNoClip(POINT* pPoint, CSprite* pSprite)
 void	
 CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -2268,7 +2268,7 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -2282,13 +2282,13 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -2296,31 +2296,31 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -2333,7 +2333,7 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -2341,24 +2341,24 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltHalfClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -2371,7 +2371,7 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -2379,26 +2379,26 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltHalfClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -2406,7 +2406,7 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -2419,7 +2419,7 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -2427,17 +2427,17 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltHalfClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -2445,7 +2445,7 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -2454,7 +2454,7 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltHalfClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -2462,12 +2462,12 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltHalfClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -2489,17 +2489,17 @@ CSpriteSurface::BltSpriteHalf(POINT* pPoint, CSprite* pSprite)
 //----------------------------------------------------------------------
 // Blt Sprite Alpha
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -2510,7 +2510,7 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -2524,13 +2524,13 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -2538,31 +2538,31 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -2575,7 +2575,7 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -2583,24 +2583,24 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltAlphaClipWidth(lpSurface, Pitch, &rect, alpha);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -2613,7 +2613,7 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -2621,26 +2621,26 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltAlphaClipLeft(lpSurface, Pitch, &rect, alpha);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -2648,7 +2648,7 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -2661,7 +2661,7 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -2669,17 +2669,17 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltAlphaClipRight(lpSurface, Pitch, &rect, alpha);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -2687,7 +2687,7 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -2696,7 +2696,7 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltAlphaClipHeight(lpSurface, Pitch, &rect, alpha);
 			}
@@ -2704,12 +2704,12 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltAlphaClipHeight(lpSurface, Pitch, &rect, alpha);
 				}
@@ -2732,17 +2732,17 @@ CSpriteSurface::BltSpriteAlpha(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 //----------------------------------------------------------------------
 // Blt Sprite Color
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -2753,7 +2753,7 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -2767,13 +2767,13 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -2781,31 +2781,31 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -2818,7 +2818,7 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -2826,24 +2826,24 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltColorClipWidth(lpSurface, Pitch, &rect, rgb);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -2856,7 +2856,7 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -2864,26 +2864,26 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltColorClipLeft(lpSurface, Pitch, &rect, rgb);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -2891,7 +2891,7 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -2904,7 +2904,7 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -2912,17 +2912,17 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltColorClipRight(lpSurface, Pitch, &rect, rgb);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -2930,7 +2930,7 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -2939,7 +2939,7 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltColorClipHeight(lpSurface, Pitch, &rect, rgb);
 			}
@@ -2947,12 +2947,12 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltColorClipHeight(lpSurface, Pitch, &rect, rgb);
 				}
@@ -2975,17 +2975,17 @@ CSpriteSurface::BltSpriteColor(POINT* pPoint, CSprite* pSprite, BYTE rgb)
 //----------------------------------------------------------------------
 // Blt Sprite ColorSet
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -2996,7 +2996,7 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -3010,13 +3010,13 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -3024,31 +3024,31 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -3061,7 +3061,7 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -3069,24 +3069,24 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltColorSetClipWidth(lpSurface, Pitch, &rect, colorSet);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -3099,7 +3099,7 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -3107,26 +3107,26 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltColorSetClipLeft(lpSurface, Pitch, &rect, colorSet);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -3134,7 +3134,7 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -3147,7 +3147,7 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -3155,17 +3155,17 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltColorSetClipRight(lpSurface, Pitch, &rect, colorSet);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -3173,7 +3173,7 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -3182,7 +3182,7 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltColorSetClipHeight(lpSurface, Pitch, &rect, colorSet);
 			}
@@ -3190,12 +3190,12 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltColorSetClipHeight(lpSurface, Pitch, &rect, colorSet);
 				}
@@ -3217,17 +3217,17 @@ CSpriteSurface::BltSpriteColorSet(POINT* pPoint, CSprite* pSprite, WORD colorSet
 //----------------------------------------------------------------------
 // Blt Sprite Darkness
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -3238,7 +3238,7 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -3252,13 +3252,13 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -3266,31 +3266,31 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -3303,7 +3303,7 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -3311,24 +3311,24 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltDarknessClipWidth(lpSurface, Pitch, &rect, DarkBits);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -3341,7 +3341,7 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -3349,26 +3349,26 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltDarknessClipLeft(lpSurface, Pitch, &rect, DarkBits);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -3376,7 +3376,7 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -3389,7 +3389,7 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -3397,17 +3397,17 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltDarknessClipRight(lpSurface, Pitch, &rect, DarkBits);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -3415,7 +3415,7 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -3424,7 +3424,7 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltDarknessClipHeight(lpSurface, Pitch, &rect, DarkBits);
 			}
@@ -3432,12 +3432,12 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltDarknessClipHeight(lpSurface, Pitch, &rect, DarkBits);
 				}
@@ -3459,17 +3459,17 @@ CSpriteSurface::BltSpriteDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits
 //----------------------------------------------------------------------
 // Blt Sprite Effect
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -3480,7 +3480,7 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -3494,13 +3494,13 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -3508,31 +3508,31 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -3545,7 +3545,7 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -3553,24 +3553,24 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltEffectClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -3583,7 +3583,7 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -3591,26 +3591,26 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltEffectClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -3618,7 +3618,7 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -3631,7 +3631,7 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -3639,17 +3639,17 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltEffectClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -3657,7 +3657,7 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -3666,7 +3666,7 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 				pSprite->BltEffectClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -3674,12 +3674,12 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 					pSprite->BltEffectClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -3701,18 +3701,18 @@ CSpriteSurface::BltSpriteEffect(POINT* pPoint, CSprite* pSprite)
 //----------------------------------------------------------------------
 // Blt Sprite Effect
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette &pal)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -3723,7 +3723,7 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -3737,13 +3737,13 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -3751,31 +3751,31 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -3788,7 +3788,7 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -3796,24 +3796,24 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltEffectClipWidth(lpSurface, Pitch, &rect, pal);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -3826,7 +3826,7 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -3834,26 +3834,26 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltEffectClipLeft(lpSurface, Pitch, &rect, pal);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -3861,7 +3861,7 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -3874,7 +3874,7 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -3882,17 +3882,17 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltEffectClipRight(lpSurface, Pitch, &rect, pal);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -3900,7 +3900,7 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -3909,7 +3909,7 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 				pSprite->BltEffectClipHeight(lpSurface, Pitch, &rect, pal);
 			}
@@ -3917,12 +3917,12 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 					pSprite->BltEffectClipHeight(lpSurface, Pitch, &rect, pal);
 				}
@@ -3944,17 +3944,17 @@ CSpriteSurface::BltSpritePalEffect(POINT* pPoint, CSpritePal* pSprite, MPalette 
 //----------------------------------------------------------------------
 // Blt Sprite Scale 
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -3965,7 +3965,7 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -3979,13 +3979,13 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -3993,31 +3993,31 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -4030,7 +4030,7 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -4038,24 +4038,24 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->BltScaleClipWidth(lpSurface, Pitch, &rect, scale);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -4068,7 +4068,7 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -4076,26 +4076,26 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->BltScaleClipLeft(lpSurface, Pitch, &rect, scale);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -4103,7 +4103,7 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -4116,7 +4116,7 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -4124,17 +4124,17 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 			pSprite->BltScaleClipRight(lpSurface, Pitch, &rect, scale);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -4142,7 +4142,7 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -4151,7 +4151,7 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 				pSprite->BltScaleClipHeight(lpSurface, Pitch, &rect, scale);
 			}
@@ -4159,12 +4159,12 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 					pSprite->BltScaleClipHeight(lpSurface, Pitch, &rect, scale);
 				}
@@ -4188,17 +4188,17 @@ CSpriteSurface::BltSpriteScale(POINT* pPoint, CSprite* pSprite, BYTE scale)
 //----------------------------------------------------------------------
 // Blt AlphaSprite
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -4210,7 +4210,7 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -4224,13 +4224,13 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -4238,31 +4238,31 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -4275,7 +4275,7 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -4283,24 +4283,24 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->BltClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -4313,7 +4313,7 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -4321,26 +4321,26 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->BltClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -4348,7 +4348,7 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -4361,7 +4361,7 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -4369,17 +4369,17 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 			pSprite->BltClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -4387,7 +4387,7 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -4396,7 +4396,7 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 				pSprite->BltClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -4404,12 +4404,12 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 					pSprite->BltClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -4431,18 +4431,18 @@ CSpriteSurface::BltAlphaSprite(POINT* pPoint, CAlphaSprite* pSprite)
 //----------------------------------------------------------------------
 // Blt AlphaSprite
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPalette &pal)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 	
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -4454,7 +4454,7 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -4468,13 +4468,13 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -4482,31 +4482,31 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -4519,7 +4519,7 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -4527,24 +4527,24 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->BltClipWidth(lpSurface, Pitch, &rect, pal);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -4557,7 +4557,7 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -4565,26 +4565,26 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->BltClipLeft(lpSurface, Pitch, &rect, pal);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -4592,7 +4592,7 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -4605,7 +4605,7 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -4613,17 +4613,17 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 			pSprite->BltClipRight(lpSurface, Pitch, &rect, pal);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -4631,7 +4631,7 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -4640,7 +4640,7 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 				pSprite->BltClipHeight(lpSurface, Pitch, &rect, pal);
 			}
@@ -4648,12 +4648,12 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 					pSprite->BltClipHeight(lpSurface, Pitch, &rect, pal);
 				}
@@ -4676,17 +4676,17 @@ CSpriteSurface::BltAlphaSpritePal(POINT* pPoint, CAlphaSpritePal* pSprite, MPale
 //----------------------------------------------------------------------
 // Blt AlphaSprite Alpha
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE alpha)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -4698,7 +4698,7 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -4712,13 +4712,13 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -4726,31 +4726,31 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -4763,7 +4763,7 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -4771,24 +4771,24 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->BltAlphaClipWidth(lpSurface, Pitch, &rect, alpha);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -4801,7 +4801,7 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -4809,26 +4809,26 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->BltAlphaClipLeft(lpSurface, Pitch, &rect, alpha);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -4836,7 +4836,7 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -4849,7 +4849,7 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -4857,17 +4857,17 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 			pSprite->BltAlphaClipRight(lpSurface, Pitch, &rect, alpha);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -4875,7 +4875,7 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -4884,7 +4884,7 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 				pSprite->BltAlphaClipHeight(lpSurface, Pitch, &rect, alpha);
 			}
@@ -4892,12 +4892,12 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 					pSprite->BltAlphaClipHeight(lpSurface, Pitch, &rect, alpha);
 				}
@@ -4919,18 +4919,18 @@ CSpriteSurface::BltAlphaSpriteAlpha(POINT* pPoint, CAlphaSprite* pSprite, BYTE a
 //----------------------------------------------------------------------
 // Blt AlphaSprite Alpha
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, BYTE alpha, MPalette &pal)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -4943,7 +4943,7 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -4957,13 +4957,13 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -4971,31 +4971,31 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5008,7 +5008,7 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5016,24 +5016,24 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->BltAlphaClipWidth(lpSurface, Pitch, &rect, alpha, pal);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -5046,7 +5046,7 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -5054,26 +5054,26 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->BltAlphaClipLeft(lpSurface, Pitch, &rect, alpha, pal);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -5081,7 +5081,7 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -5094,7 +5094,7 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5102,17 +5102,17 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 			pSprite->BltAlphaClipRight(lpSurface, Pitch, &rect, alpha, pal);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -5120,7 +5120,7 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -5129,7 +5129,7 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 				pSprite->BltAlphaClipHeight(lpSurface, Pitch, &rect, alpha, pal);
 			}
@@ -5137,12 +5137,12 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));			
 					pSprite->BltAlphaClipHeight(lpSurface, Pitch, &rect, alpha, pal);
 				}
@@ -5165,17 +5165,17 @@ CSpriteSurface::BltAlphaSpritePalAlpha(POINT* pPoint, CAlphaSpritePal* pSprite, 
 //----------------------------------------------------------------------
 // Blt AlphaSprite4444
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -5187,7 +5187,7 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -5201,13 +5201,13 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -5215,31 +5215,31 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5252,7 +5252,7 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5260,24 +5260,24 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->Blt4444ClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -5290,7 +5290,7 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -5298,26 +5298,26 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->Blt4444ClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -5325,7 +5325,7 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -5338,7 +5338,7 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5346,17 +5346,17 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->Blt4444ClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -5364,7 +5364,7 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -5373,7 +5373,7 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->Blt4444ClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -5381,12 +5381,12 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->Blt4444ClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -5408,18 +5408,18 @@ CSpriteSurface::BltAlphaSprite4444(POINT* pPoint, CAlphaSprite* pSprite)
 //----------------------------------------------------------------------
 // Blt AlphaSprite4444
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, MPalette &pal)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -5431,7 +5431,7 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -5445,13 +5445,13 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -5459,31 +5459,31 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5496,7 +5496,7 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5504,24 +5504,24 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->Blt4444ClipWidth(lpSurface, Pitch, &rect, pal);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -5534,7 +5534,7 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -5542,26 +5542,26 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));			
 			pSprite->Blt4444ClipLeft(lpSurface, Pitch, &rect, pal);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -5569,7 +5569,7 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -5582,7 +5582,7 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5590,17 +5590,17 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->Blt4444ClipRight(lpSurface, Pitch, &rect, pal);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -5608,7 +5608,7 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -5617,7 +5617,7 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->Blt4444ClipHeight(lpSurface, Pitch, &rect, pal);
 			}
@@ -5625,12 +5625,12 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->Blt4444ClipHeight(lpSurface, Pitch, &rect, pal);
 				}
@@ -5653,17 +5653,17 @@ CSpriteSurface::BltAlphaSpritePal4444(POINT* pPoint, CAlphaSpritePal* pSprite, M
 //----------------------------------------------------------------------
 // Blt AlphaSprite4444 NotTrans
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù. Åõ¸í»ö ºÎºĞÀº °Ë°Ô Ä¥ÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤. íˆ¬ëª…ìƒ‰ ë¶€ë¶„ì€ ê²€ê²Œ ì¹ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -5675,7 +5675,7 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -5689,13 +5689,13 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -5703,31 +5703,31 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5740,7 +5740,7 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5748,24 +5748,24 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->Blt4444NotTransClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -5778,7 +5778,7 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -5786,26 +5786,26 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->Blt4444NotTransClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -5813,7 +5813,7 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -5826,7 +5826,7 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5834,17 +5834,17 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->Blt4444NotTransClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -5852,7 +5852,7 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -5861,7 +5861,7 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->Blt4444NotTransClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -5869,12 +5869,12 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->Blt4444NotTransClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -5896,17 +5896,17 @@ CSpriteSurface::BltAlphaSprite4444NotTrans(POINT* pPoint, CAlphaSprite* pSprite)
 //----------------------------------------------------------------------
 // Blt AlphaSprite4444 NotTrans
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù. Åõ¸í»ö ºÎºĞÀº °Ë°Ô Ä¥ÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤. íˆ¬ëª…ìƒ‰ ë¶€ë¶„ì€ ê²€ê²Œ ì¹ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pSprite, MPalette &pal)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -5918,7 +5918,7 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -5932,13 +5932,13 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -5946,31 +5946,31 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5983,7 +5983,7 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -5991,24 +5991,24 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->Blt4444NotTransClipWidth(lpSurface, Pitch, &rect, pal);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -6021,7 +6021,7 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -6029,26 +6029,26 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->Blt4444NotTransClipLeft(lpSurface, Pitch, &rect, pal);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -6056,7 +6056,7 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -6069,7 +6069,7 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -6077,17 +6077,17 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->Blt4444NotTransClipRight(lpSurface, Pitch, &rect, pal);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -6095,7 +6095,7 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -6104,7 +6104,7 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->Blt4444NotTransClipHeight(lpSurface, Pitch, &rect, pal);
 			}
@@ -6112,12 +6112,12 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->Blt4444NotTransClipHeight(lpSurface, Pitch, &rect, pal);
 				}
@@ -6140,17 +6140,17 @@ CSpriteSurface::BltAlphaSpritePal4444NotTrans(POINT* pPoint, CAlphaSpritePal* pS
 //----------------------------------------------------------------------
 // Blt AlphaSprite4444 NotTrans
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù. Åõ¸í»ö ºÎºĞÀº °Ë°Ô Ä¥ÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤. íˆ¬ëª…ìƒ‰ ë¶€ë¶„ì€ ê²€ê²Œ ì¹ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSprite, BYTE shift)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -6162,7 +6162,7 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth() >> shift;
@@ -6176,13 +6176,13 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 	int yPlusSpriteHeight	= pt.y + (pSprite->GetHeight() >> shift);
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -6190,30 +6190,30 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -(pt.x << shift);		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -6226,7 +6226,7 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -6234,24 +6234,24 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444SmallClipWidth(lpSurface, Pitch, &rect, shift);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -6264,7 +6264,7 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -6272,26 +6272,26 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444SmallClipLeft(lpSurface, Pitch, &rect, shift);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -6299,7 +6299,7 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -6312,7 +6312,7 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -6320,17 +6320,17 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			//pSprite->Blt4444SmallClipRight(lpSurface, Pitch, &rect, shift);			
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -6338,14 +6338,14 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 				rect.top = -(pt.y << shift);
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
 				}
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//pSprite->Blt4444SmallClipHeight(lpSurface, Pitch, &rect, shift);
 			}
@@ -6353,12 +6353,12 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					//pSprite->Blt4444SmallClipHeight(lpSurface, Pitch, &rect, shift);
 				}
@@ -6380,18 +6380,18 @@ CSpriteSurface::BltAlphaSprite4444SmallNotTrans(POINT* pPoint, CAlphaSprite* pSp
 //----------------------------------------------------------------------
 // Blt AlphaSprite4444 NotTrans
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù. Åõ¸í»ö ºÎºĞÀº °Ë°Ô Ä¥ÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤. íˆ¬ëª…ìƒ‰ ë¶€ë¶„ì€ ê²€ê²Œ ì¹ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePal* pSprite, BYTE shift, MPalette &pal)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -6403,7 +6403,7 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth() >> shift;
@@ -6417,13 +6417,13 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 	int yPlusSpriteHeight	= pt.y + (pSprite->GetHeight() >> shift);
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -6431,30 +6431,30 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -(pt.x << shift);		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -6467,7 +6467,7 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -6475,24 +6475,24 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444SmallClipWidth(lpSurface, Pitch, &rect, shift);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -6505,7 +6505,7 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -6513,26 +6513,26 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444SmallClipLeft(lpSurface, Pitch, &rect, shift);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -6540,7 +6540,7 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -6553,7 +6553,7 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -6561,17 +6561,17 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			//pSprite->Blt4444SmallClipRight(lpSurface, Pitch, &rect, shift);			
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -6579,14 +6579,14 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 				rect.top = -(pt.y << shift);
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
 				}
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//pSprite->Blt4444SmallClipHeight(lpSurface, Pitch, &rect, shift);
 			}
@@ -6594,12 +6594,12 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					//pSprite->Blt4444SmallClipHeight(lpSurface, Pitch, &rect, shift);
 				}
@@ -6622,17 +6622,17 @@ CSpriteSurface::BltAlphaSpritePal4444SmallNotTrans(POINT* pPoint, CAlphaSpritePa
 //----------------------------------------------------------------------
 // Blt IndexSprite
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -6643,7 +6643,7 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -6657,13 +6657,13 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -6671,31 +6671,31 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -6708,7 +6708,7 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -6716,24 +6716,24 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -6746,7 +6746,7 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -6754,26 +6754,26 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -6781,7 +6781,7 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -6794,7 +6794,7 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -6802,17 +6802,17 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -6820,7 +6820,7 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -6829,7 +6829,7 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -6837,12 +6837,12 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -6864,17 +6864,17 @@ CSpriteSurface::BltIndexSprite(POINT* pPoint, CIndexSprite* pSprite)
 //----------------------------------------------------------------------
 // Blt IndexSprite Darkness
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYTE DarkBits)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -6886,7 +6886,7 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -6900,13 +6900,13 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -6914,31 +6914,31 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -6951,7 +6951,7 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -6959,24 +6959,24 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltDarknessClipWidth(lpSurface, Pitch, &rect, DarkBits);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -6989,7 +6989,7 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -6997,26 +6997,26 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltDarknessClipLeft(lpSurface, Pitch, &rect, DarkBits);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -7024,7 +7024,7 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -7037,7 +7037,7 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -7045,17 +7045,17 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltDarknessClipRight(lpSurface, Pitch, &rect, DarkBits);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -7063,7 +7063,7 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -7072,7 +7072,7 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltDarknessClipHeight(lpSurface, Pitch, &rect, DarkBits);
 			}
@@ -7080,12 +7080,12 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltDarknessClipHeight(lpSurface, Pitch, &rect, DarkBits);
 				}
@@ -7107,17 +7107,17 @@ CSpriteSurface::BltIndexSpriteDarkness(POINT* pPoint, CIndexSprite* pSprite, BYT
 //----------------------------------------------------------------------
 // Blt IndexSprite Alpha
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE alpha)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -7129,7 +7129,7 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -7143,13 +7143,13 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -7157,31 +7157,31 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -7194,7 +7194,7 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -7202,24 +7202,24 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltAlphaClipWidth(lpSurface, Pitch, &rect, alpha);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -7232,7 +7232,7 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -7240,26 +7240,26 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltAlphaClipLeft(lpSurface, Pitch, &rect, alpha);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -7267,7 +7267,7 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -7280,7 +7280,7 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -7288,17 +7288,17 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltAlphaClipRight(lpSurface, Pitch, &rect, alpha);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -7306,7 +7306,7 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -7315,7 +7315,7 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltAlphaClipHeight(lpSurface, Pitch, &rect, alpha);
 			}
@@ -7323,12 +7323,12 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltAlphaClipHeight(lpSurface, Pitch, &rect, alpha);
 				}
@@ -7352,17 +7352,17 @@ CSpriteSurface::BltIndexSpriteAlpha(POINT* pPoint, CIndexSprite* pSprite, BYTE a
 //----------------------------------------------------------------------
 // Blt IndexSprite Color
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE rgb)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -7374,7 +7374,7 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -7388,13 +7388,13 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -7402,31 +7402,31 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -7439,7 +7439,7 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -7447,24 +7447,24 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltColorClipWidth(lpSurface, Pitch, &rect, rgb);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -7477,7 +7477,7 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -7485,26 +7485,26 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltColorClipLeft(lpSurface, Pitch, &rect, rgb);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -7512,7 +7512,7 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -7525,7 +7525,7 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -7533,17 +7533,17 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltColorClipRight(lpSurface, Pitch, &rect, rgb);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -7551,7 +7551,7 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -7560,7 +7560,7 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltColorClipHeight(lpSurface, Pitch, &rect, rgb);
 			}
@@ -7568,12 +7568,12 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltColorClipHeight(lpSurface, Pitch, &rect, rgb);
 				}
@@ -7595,17 +7595,17 @@ CSpriteSurface::BltIndexSpriteColor(POINT* pPoint, CIndexSprite* pSprite, BYTE r
 //----------------------------------------------------------------------
 // Blt IndexSprite ColorSet
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WORD colorSet)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -7617,7 +7617,7 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -7631,13 +7631,13 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -7645,31 +7645,31 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -7682,7 +7682,7 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -7690,24 +7690,24 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltColorSetClipWidth(lpSurface, Pitch, &rect, colorSet);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -7720,7 +7720,7 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -7728,26 +7728,26 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltColorSetClipLeft(lpSurface, Pitch, &rect, colorSet);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -7755,7 +7755,7 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -7768,7 +7768,7 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -7776,17 +7776,17 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltColorSetClipRight(lpSurface, Pitch, &rect, colorSet);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -7794,7 +7794,7 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -7803,7 +7803,7 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltColorSetClipHeight(lpSurface, Pitch, &rect, colorSet);
 			}
@@ -7811,12 +7811,12 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltColorSetClipHeight(lpSurface, Pitch, &rect, colorSet);
 				}
@@ -7839,17 +7839,17 @@ CSpriteSurface::BltIndexSpriteColorSet(POINT* pPoint, CIndexSprite* pSprite, WOR
 //----------------------------------------------------------------------
 // Blt IndexSpriteEffect
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -7861,7 +7861,7 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -7875,13 +7875,13 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -7889,31 +7889,31 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -7926,7 +7926,7 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -7934,24 +7934,24 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltEffectClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -7964,7 +7964,7 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -7972,26 +7972,26 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltEffectClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -7999,7 +7999,7 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -8012,7 +8012,7 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -8020,17 +8020,17 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltEffectClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -8038,7 +8038,7 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -8047,7 +8047,7 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltEffectClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -8055,12 +8055,12 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltEffectClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -8082,7 +8082,7 @@ CSpriteSurface::BltIndexSpriteEffect(POINT* pPoint, CIndexSprite* pSprite)
 //----------------------------------------------------------------------
 // Blt SpriteAlpha Filter
 //----------------------------------------------------------------------
-// ¾ÆÁ÷ ClippingÀÌ Áö¿øµÇÁö ¾ÊÀ½
+// ì•„ì§ Clippingì´ ì§€ì›ë˜ì§€ ì•ŠìŒ
 //----------------------------------------------------------------------
 /*
 void	
@@ -8094,7 +8094,7 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite, CFilter* p
 	// Lock
 	LockW(lpSurface, Pitch);
 
-	// Ãâ·Â ½ÃÀÛ À§Ä¡			
+	// ì¶œë ¥ ì‹œì‘ ìœ„ì¹˜			
 	//lpSurface = (WORD*)((BYTE*)lpSurface + pPoint->y*Pitch + (pPoint->x<<1));
 	lpSurface = (WORD*)((BYTE*)lpSurface + pPoint->y*Pitch + (pPoint->x<<1));
 	pSprite->BltAlphaFilter(lpSurface, Pitch, pFilter);
@@ -8107,22 +8107,22 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite, CFilter* p
 //----------------------------------------------------------------------
 // Blt SpriteAlphaFilter
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
-// Filter´Â CSprite::SetFilter(...)¸¦ ÅëÇØ¼­ ¼³Á¤µÈ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
+// FilterëŠ” CSprite::SetFilter(...)ë¥¼ í†µí•´ì„œ ì„¤ì •ëœë‹¤.
 //
-// Filter°¡ Sprite¿Í °ãÄ¡Áö ¾Ê´Â °æ¿ì...
-// BltSprite¸¦ È£ÃâÇÏµµ·Ï ÇÑ´Ù.
+// Filterê°€ Spriteì™€ ê²¹ì¹˜ì§€ ì•ŠëŠ” ê²½ìš°...
+// BltSpriteë¥¼ í˜¸ì¶œí•˜ë„ë¡ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit() || CSprite::GetFilter()->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// Filter°¡ Sprite¿Í °ãÄ¡Áö ¾Ê´Â °æ¿ì...
-	// BltSprite¸¦ È£ÃâÇÏµµ·Ï ÇÑ´Ù.
+	// Filterê°€ Spriteì™€ ê²¹ì¹˜ì§€ ì•ŠëŠ” ê²½ìš°...
+	// BltSpriteë¥¼ í˜¸ì¶œí•˜ë„ë¡ í•œë‹¤.
 	//-------------------------------------------------------------
 	if (!pSprite->IsIntersectFilter())
 	{
@@ -8131,7 +8131,7 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 	}
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -8143,7 +8143,7 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -8157,13 +8157,13 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -8171,31 +8171,31 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -8208,7 +8208,7 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -8216,24 +8216,24 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltAlphaFilterClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -8246,7 +8246,7 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -8254,26 +8254,26 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltAlphaFilterClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -8281,7 +8281,7 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -8294,7 +8294,7 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -8302,17 +8302,17 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltAlphaFilterClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -8320,7 +8320,7 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -8329,7 +8329,7 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltAlphaFilterClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -8337,12 +8337,12 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltAlphaFilterClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -8365,22 +8365,22 @@ CSpriteSurface::BltSpriteAlphaFilter(POINT* pPoint, CSprite* pSprite)
 //----------------------------------------------------------------------
 // Blt SpriteAlphaFilter Darkness
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
-// Filter´Â CSprite::SetFilter(...)¸¦ ÅëÇØ¼­ ¼³Á¤µÈ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
+// FilterëŠ” CSprite::SetFilter(...)ë¥¼ í†µí•´ì„œ ì„¤ì •ëœë‹¤.
 //
-// Filter°¡ Sprite¿Í °ãÄ¡Áö ¾Ê´Â °æ¿ì...
-// BltSpriteDarkness¸¦ È£ÃâÇÏµµ·Ï ÇÑ´Ù.
+// Filterê°€ Spriteì™€ ê²¹ì¹˜ì§€ ì•ŠëŠ” ê²½ìš°...
+// BltSpriteDarknessë¥¼ í˜¸ì¶œí•˜ë„ë¡ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BYTE DarkBits)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit() || CSprite::GetFilter()->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// Filter°¡ Sprite¿Í °ãÄ¡Áö ¾Ê´Â °æ¿ì...
-	// BltSprite¸¦ È£ÃâÇÏµµ·Ï ÇÑ´Ù.
+	// Filterê°€ Spriteì™€ ê²¹ì¹˜ì§€ ì•ŠëŠ” ê²½ìš°...
+	// BltSpriteë¥¼ í˜¸ì¶œí•˜ë„ë¡ í•œë‹¤.
 	//-------------------------------------------------------------
 	if (!pSprite->IsIntersectFilter())
 	{
@@ -8389,7 +8389,7 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 	}
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -8401,7 +8401,7 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -8415,13 +8415,13 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -8429,31 +8429,31 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -8466,7 +8466,7 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -8474,24 +8474,24 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltAlphaFilterDarknessClipWidth(lpSurface, Pitch, &rect, DarkBits);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -8504,7 +8504,7 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -8512,26 +8512,26 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltAlphaFilterDarknessClipLeft(lpSurface, Pitch, &rect, DarkBits);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -8539,7 +8539,7 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -8552,7 +8552,7 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -8560,17 +8560,17 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltAlphaFilterDarknessClipRight(lpSurface, Pitch, &rect, DarkBits);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -8578,7 +8578,7 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -8587,7 +8587,7 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltAlphaFilterDarknessClipHeight(lpSurface, Pitch, &rect, DarkBits);
 			}
@@ -8595,12 +8595,12 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltAlphaFilterDarknessClipHeight(lpSurface, Pitch, &rect, DarkBits);
 				}
@@ -8622,17 +8622,17 @@ CSpriteSurface::BltSpriteAlphaFilterDarkness(POINT* pPoint, CSprite* pSprite, BY
 //----------------------------------------------------------------------
 // Blt Sprite Alpha4444 NotTrans
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù. Åõ¸í»ö ºÎºĞÀº °Ë°Ô Ä¥ÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤. íˆ¬ëª…ìƒ‰ ë¶€ë¶„ì€ ê²€ê²Œ ì¹ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE alpha)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -8644,7 +8644,7 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -8658,13 +8658,13 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -8672,31 +8672,31 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -8709,7 +8709,7 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -8717,24 +8717,24 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444NotTransClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -8747,7 +8747,7 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -8755,26 +8755,26 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444NotTransClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -8782,7 +8782,7 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -8795,7 +8795,7 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -8803,17 +8803,17 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			//pSprite->Blt4444NotTransClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -8821,7 +8821,7 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -8830,7 +8830,7 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//pSprite->Blt4444NotTransClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -8838,12 +8838,12 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					//pSprite->Blt4444NotTransClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -8865,17 +8865,17 @@ CSpriteSurface::BltSpriteAlpha4444NotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 //----------------------------------------------------------------------
 // Blt AlphaSprite4444 NotTrans
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù. Åõ¸í»ö ºÎºĞÀº °Ë°Ô Ä¥ÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤. íˆ¬ëª…ìƒ‰ ë¶€ë¶„ì€ ê²€ê²Œ ì¹ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE alpha, BYTE shift)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -8887,7 +8887,7 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth() >> shift;
@@ -8901,13 +8901,13 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 	int yPlusSpriteHeight	= pt.y + (pSprite->GetHeight() >> shift);
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -8915,30 +8915,30 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -(pt.x << shift);		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -8951,7 +8951,7 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -8959,24 +8959,24 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444SmallClipWidth(lpSurface, Pitch, &rect, shift);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -8989,7 +8989,7 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -8997,26 +8997,26 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444SmallClipLeft(lpSurface, Pitch, &rect, shift);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -9024,7 +9024,7 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -9037,7 +9037,7 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -9045,17 +9045,17 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			//pSprite->Blt4444SmallClipRight(lpSurface, Pitch, &rect, shift);			
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -9063,14 +9063,14 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 				rect.top = -(pt.y << shift);
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
 				}
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//pSprite->Blt4444SmallClipHeight(lpSurface, Pitch, &rect, shift);
 			}
@@ -9078,12 +9078,12 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					//pSprite->Blt4444SmallClipHeight(lpSurface, Pitch, &rect, shift);
 				}
@@ -9105,17 +9105,17 @@ CSpriteSurface::BltSpriteAlpha4444SmallNotTrans(POINT* pPoint, CSprite* pSprite,
 //----------------------------------------------------------------------
 // Blt Sprite 1555 NotTrans
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù. Åõ¸í»ö ºÎºĞÀº °Ë°Ô Ä¥ÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤. íˆ¬ëª…ìƒ‰ ë¶€ë¶„ì€ ê²€ê²Œ ì¹ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -9127,7 +9127,7 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -9141,13 +9141,13 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -9155,31 +9155,31 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -9192,7 +9192,7 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -9200,24 +9200,24 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444NotTransClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -9230,7 +9230,7 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -9238,26 +9238,26 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444NotTransClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -9265,7 +9265,7 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -9278,7 +9278,7 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -9286,17 +9286,17 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			//pSprite->Blt4444NotTransClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -9304,7 +9304,7 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -9313,7 +9313,7 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//pSprite->Blt4444NotTransClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -9321,12 +9321,12 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					//pSprite->Blt4444NotTransClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -9349,18 +9349,18 @@ CSpriteSurface::BltSprite1555NotTrans(POINT* pPoint, CSprite* pSprite)
 //----------------------------------------------------------------------
 // Blt Sprite 1555 NotTrans
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù. Åõ¸í»ö ºÎºĞÀº °Ë°Ô Ä¥ÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤. íˆ¬ëª…ìƒ‰ ë¶€ë¶„ì€ ê²€ê²Œ ì¹ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPalette &pal)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -9372,7 +9372,7 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -9386,13 +9386,13 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -9400,31 +9400,31 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -9437,7 +9437,7 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -9445,24 +9445,24 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444NotTransClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -9475,7 +9475,7 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -9483,26 +9483,26 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444NotTransClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -9510,7 +9510,7 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -9523,7 +9523,7 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -9531,17 +9531,17 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			//pSprite->Blt4444NotTransClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -9549,7 +9549,7 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -9558,7 +9558,7 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//pSprite->Blt4444NotTransClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -9566,12 +9566,12 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					//pSprite->Blt4444NotTransClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -9593,17 +9593,17 @@ CSpriteSurface::BltSpritePal1555NotTrans(POINT* pPoint, CSpritePal* pSprite, MPa
 //----------------------------------------------------------------------
 // Blt AlphaSprite4444 NotTrans
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù. Åõ¸í»ö ºÎºĞÀº °Ë°Ô Ä¥ÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤. íˆ¬ëª…ìƒ‰ ë¶€ë¶„ì€ ê²€ê²Œ ì¹ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE shift)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -9615,7 +9615,7 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth() >> shift;
@@ -9629,13 +9629,13 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 	int yPlusSpriteHeight	= pt.y + (pSprite->GetHeight() >> shift);
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -9643,30 +9643,30 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -(pt.x << shift);		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -9679,7 +9679,7 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -9687,24 +9687,24 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444SmallClipWidth(lpSurface, Pitch, &rect, shift);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -9717,7 +9717,7 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -9725,26 +9725,26 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444SmallClipLeft(lpSurface, Pitch, &rect, shift);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -9752,7 +9752,7 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -9765,7 +9765,7 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -9773,17 +9773,17 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			//pSprite->Blt4444SmallClipRight(lpSurface, Pitch, &rect, shift);			
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -9791,14 +9791,14 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 				rect.top = -(pt.y << shift);
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
 				}
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//pSprite->Blt4444SmallClipHeight(lpSurface, Pitch, &rect, shift);
 			}
@@ -9806,12 +9806,12 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					//pSprite->Blt4444SmallClipHeight(lpSurface, Pitch, &rect, shift);
 				}
@@ -9834,18 +9834,18 @@ CSpriteSurface::BltSprite1555SmallNotTrans(POINT* pPoint, CSprite* pSprite, BYTE
 //----------------------------------------------------------------------
 // Blt AlphaSprite4444 NotTrans
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù. Åõ¸í»ö ºÎºĞÀº °Ë°Ô Ä¥ÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤. íˆ¬ëª…ìƒ‰ ë¶€ë¶„ì€ ê²€ê²Œ ì¹ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite, BYTE shift, MPalette &pal)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -9857,7 +9857,7 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth() >> shift;
@@ -9871,13 +9871,13 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 	int yPlusSpriteHeight	= pt.y + (pSprite->GetHeight() >> shift);
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -9885,30 +9885,30 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -(pt.x << shift);		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -9921,7 +9921,7 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -9929,24 +9929,24 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444SmallClipWidth(lpSurface, Pitch, &rect, shift);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -9959,7 +9959,7 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -9967,26 +9967,26 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->Blt4444SmallClipLeft(lpSurface, Pitch, &rect, shift);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -9994,7 +9994,7 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -10007,7 +10007,7 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -10015,17 +10015,17 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			//pSprite->Blt4444SmallClipRight(lpSurface, Pitch, &rect, shift);			
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -10033,14 +10033,14 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 				rect.top = -(pt.y << shift);
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
 				}
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//pSprite->Blt4444SmallClipHeight(lpSurface, Pitch, &rect, shift);
 			}
@@ -10048,12 +10048,12 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					//pSprite->Blt4444SmallClipHeight(lpSurface, Pitch, &rect, shift);
 				}
@@ -10076,25 +10076,25 @@ CSpriteSurface::BltSpritePal1555SmallNotTrans(POINT* pPoint, CSpritePal* pSprite
 //----------------------------------------------------------------------
 // Blt SpriteDarkerFilter
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
-// Filter´Â CSprite::SetFilter(...)¸¦ ÅëÇØ¼­ ¼³Á¤µÈ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
+// FilterëŠ” CSprite::SetFilter(...)ë¥¼ í†µí•´ì„œ ì„¤ì •ëœë‹¤.
 //
-// Filter°¡ Sprite¿Í °ãÄ¡Áö ¾Ê´Â °æ¿ì...
-// BltSprite¸¦ È£ÃâÇÏµµ·Ï ÇÑ´Ù.
+// Filterê°€ Spriteì™€ ê²¹ì¹˜ì§€ ì•ŠëŠ” ê²½ìš°...
+// BltSpriteë¥¼ í˜¸ì¶œí•˜ë„ë¡ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit() || CSprite::GetFilter()->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// Filter°¡ Sprite¿Í °ãÄ¡Áö ¾Ê´Â °æ¿ì...
-	// BltSprite¸¦ È£ÃâÇÏµµ·Ï ÇÑ´Ù.
+	// Filterê°€ Spriteì™€ ê²¹ì¹˜ì§€ ì•ŠëŠ” ê²½ìš°...
+	// BltSpriteë¥¼ í˜¸ì¶œí•˜ë„ë¡ í•œë‹¤.
 	//-------------------------------------------------------------
-	// Darker´Â Tile¿¡¼­¸¸ »ç¿ëÇÒ ¿¹Á¤ÀÌ¹Ç·Î..
-	// ÀÏ´ÜÀº... 
+	// DarkerëŠ” Tileì—ì„œë§Œ ì‚¬ìš©í•  ì˜ˆì •ì´ë¯€ë¡œ..
+	// ì¼ë‹¨ì€... 
 	/*
 	if (!pSprite->IsIntersectFilter())
 	{
@@ -10104,7 +10104,7 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 	*/
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -10116,7 +10116,7 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -10130,13 +10130,13 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -10144,31 +10144,31 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -10181,7 +10181,7 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -10189,24 +10189,24 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltDarkerFilterClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -10219,7 +10219,7 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -10227,26 +10227,26 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltDarkerFilterClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -10254,7 +10254,7 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -10267,7 +10267,7 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -10275,17 +10275,17 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltDarkerFilterClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -10293,7 +10293,7 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -10302,7 +10302,7 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltDarkerFilterClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -10310,12 +10310,12 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltDarkerFilterClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -10338,17 +10338,17 @@ CSpriteSurface::BltSpriteDarkerFilter(POINT* pPoint, CSprite* pSprite)
 //----------------------------------------------------------------------
 // Blt Sprite
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -10360,7 +10360,7 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -10374,13 +10374,13 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -10388,31 +10388,31 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -10425,7 +10425,7 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -10433,24 +10433,24 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltClipWidth(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -10463,7 +10463,7 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -10471,26 +10471,26 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltClipLeft(lpSurface, Pitch, &rect);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -10498,7 +10498,7 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -10511,7 +10511,7 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -10519,17 +10519,17 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltClipRight(lpSurface, Pitch, &rect);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -10537,7 +10537,7 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -10546,7 +10546,7 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltClipHeight(lpSurface, Pitch, &rect);
 			}
@@ -10554,12 +10554,12 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltClipHeight(lpSurface, Pitch, &rect);
 				}
@@ -10582,17 +10582,17 @@ CSpriteSurface::BltShadowSprite(POINT* pPoint, CShadowSprite* pSprite)
 //----------------------------------------------------------------------
 // BltDarkness Sprite
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, BYTE DarkBits)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -10604,7 +10604,7 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -10618,13 +10618,13 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -10632,31 +10632,31 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -10669,7 +10669,7 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -10677,24 +10677,24 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltDarknessClipWidth(lpSurface, Pitch, &rect, DarkBits);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -10707,7 +10707,7 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -10715,26 +10715,26 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltDarknessClipLeft(lpSurface, Pitch, &rect, DarkBits);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -10742,7 +10742,7 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -10755,7 +10755,7 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -10763,17 +10763,17 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltDarknessClipRight(lpSurface, Pitch, &rect, DarkBits);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -10781,7 +10781,7 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -10790,7 +10790,7 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltDarknessClipHeight(lpSurface, Pitch, &rect, DarkBits);
 			}
@@ -10798,12 +10798,12 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltDarknessClipHeight(lpSurface, Pitch, &rect, DarkBits);
 				}
@@ -10825,17 +10825,17 @@ CSpriteSurface::BltShadowSpriteDarkness(POINT* pPoint, CShadowSprite* pSprite, B
 //----------------------------------------------------------------------
 // BltSmall Sprite
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE shift)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -10847,7 +10847,7 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth() >> shift;
@@ -10861,13 +10861,13 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 	int yPlusSpriteHeight	= pt.y + (pSprite->GetHeight() >> shift);
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -10875,30 +10875,30 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -(pt.x << shift);		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -10911,7 +10911,7 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -10919,24 +10919,24 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltSmallClipWidth(lpSurface, Pitch, &rect, shift);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -10949,7 +10949,7 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -10957,26 +10957,26 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltSmallClipLeft(lpSurface, Pitch, &rect, shift);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -10984,7 +10984,7 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -10997,7 +10997,7 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -11005,17 +11005,17 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltSmallClipRight(lpSurface, Pitch, &rect, shift);			
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -11023,14 +11023,14 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 				rect.top = -(pt.y << shift);
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
 				}
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltSmallClipHeight(lpSurface, Pitch, &rect, shift);
 			}
@@ -11038,12 +11038,12 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltSmallClipHeight(lpSurface, Pitch, &rect, shift);
 				}
@@ -11066,17 +11066,17 @@ CSpriteSurface::BltShadowSpriteSmall(POINT* pPoint, CShadowSprite* pSprite, BYTE
 //----------------------------------------------------------------------
 // BltSmall4444 Sprite
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, WORD pixel, BYTE shift)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -11088,7 +11088,7 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth() >> shift;
@@ -11102,13 +11102,13 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 	int yPlusSpriteHeight	= pt.y + (pSprite->GetHeight() >> shift);
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -11116,30 +11116,30 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -(pt.x << shift);		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -11152,7 +11152,7 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -11160,24 +11160,24 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->BltSmall4444ClipWidth(lpSurface, Pitch, &rect, pixel, shift);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -11190,7 +11190,7 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -11198,26 +11198,26 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			//pSprite->BltSmall4444ClipLeft(lpSurface, Pitch, &rect, pixel, shift);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -11225,7 +11225,7 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -11238,7 +11238,7 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -11246,17 +11246,17 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 //			pSprite->BltSmall4444ClipRight(lpSurface, Pitch, &rect, pixel, shift);			
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -11264,14 +11264,14 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 				rect.top = -(pt.y << shift);
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
 				}
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 //				pSprite->BltSmall4444ClipHeight(lpSurface, Pitch, &rect, pixel, shift);
 			}
@@ -11279,12 +11279,12 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 //					pSprite->BltSmall4444ClipHeight(lpSurface, Pitch, &rect, pixel, shift);
 				}
@@ -11306,17 +11306,17 @@ CSpriteSurface::BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, 
 //----------------------------------------------------------------------
 // Blt ShadowSprite4444
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD pixel)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -11328,7 +11328,7 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -11342,13 +11342,13 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -11356,31 +11356,31 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -11393,7 +11393,7 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -11401,24 +11401,24 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->Blt4444ClipWidth(lpSurface, Pitch, &rect, pixel);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -11431,7 +11431,7 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -11439,26 +11439,26 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->Blt4444ClipLeft(lpSurface, Pitch, &rect, pixel);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -11466,7 +11466,7 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -11479,7 +11479,7 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -11487,17 +11487,17 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->Blt4444ClipRight(lpSurface, Pitch, &rect, pixel);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -11505,7 +11505,7 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -11514,7 +11514,7 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->Blt4444ClipHeight(lpSurface, Pitch, &rect, pixel);
 			}
@@ -11522,12 +11522,12 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->Blt4444ClipHeight(lpSurface, Pitch, &rect, pixel);
 				}
@@ -11551,7 +11551,7 @@ CSpriteSurface::BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD 
 //----------------------------------------------------------------------
 // Half Copy
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ ¹İÅõ¸í Ãâ·ÂÀ» ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ ë°˜íˆ¬ëª… ì¶œë ¥ì„ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
@@ -11562,14 +11562,14 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 
 	register int qTimes = pixels >> 2;	// pixels / 4
 
-	// ¹İÅõ¸í
+	// ë°˜íˆ¬ëª…
 	switch ( pixels & 0x03 )	// pixels % 4
 	{
 		//------------------
-		// 4Á¡¾¿
+		// 4ì ì”©
 		//------------------
 		case 0 :			
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				*qpDest = 
@@ -11583,10 +11583,10 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 		break;
 
 		//------------------
-		// 1Á¡ + 4Á¡¾¿
+		// 1ì  + 4ì ì”©
 		//------------------
 		case 1 :
-			// ÇÑÁ¡ Âï±â
+			// í•œì  ì°ê¸°
 			*(WORD*)qpDest = 
 					((*(WORD*)qpDest >> 1) & CDirectDraw::s_wMASK_SHIFT[1]) +
 					((*(WORD*)qpSource >> 1) & CDirectDraw::s_wMASK_SHIFT[1]);
@@ -11594,7 +11594,7 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				*qpDest = 
@@ -11608,10 +11608,10 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 		break;
 
 		//------------------
-		// 2Á¡ + 4Á¡¾¿
+		// 2ì  + 4ì ì”©
 		//------------------
 		case 2 :
-			// µÎÁ¡ Âï±â
+			// ë‘ì  ì°ê¸°
 			*(DWORD*)qpDest = 
 					((*(DWORD*)qpDest >> 1) & CDirectDraw::s_dwMASK_SHIFT[1]) +
 					((*(DWORD*)qpSource >> 1) & CDirectDraw::s_dwMASK_SHIFT[1]);
@@ -11620,7 +11620,7 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 			qpSource = (QWORD*)((DWORD*)qpSource + 1);
 
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				*qpDest = 
@@ -11633,10 +11633,10 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 		break;
 
 		//------------------
-		// 1Á¡ + 2Á¡ + 4Á¡¾¿
+		// 1ì  + 2ì  + 4ì ì”©
 		//------------------
 		case 3 :
-			// ÇÑÁ¡ Âï±â
+			// í•œì  ì°ê¸°
 			*(WORD*)qpDest = 
 					((*(WORD*)qpDest >> 1) & CDirectDraw::s_wMASK_SHIFT[1]) +
 					((*(WORD*)qpSource >> 1) & CDirectDraw::s_wMASK_SHIFT[1]);
@@ -11645,7 +11645,7 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
 
 
-			// µÎÁ¡ Âï±â
+			// ë‘ì  ì°ê¸°
 			*(DWORD*)qpDest = 
 					((*(DWORD*)qpDest >> 1) & CDirectDraw::s_dwMASK_SHIFT[1]) +
 					((*(DWORD*)qpSource >> 1) & CDirectDraw::s_dwMASK_SHIFT[1]);
@@ -11653,7 +11653,7 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 			qpDest = (QWORD*)((DWORD*)qpDest + 1);
 			qpSource = (QWORD*)((DWORD*)qpSource + 1);
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				*qpDest = 
@@ -11671,7 +11671,7 @@ CSpriteSurface::memcpyHalf(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Alpha Copy 1Pixel
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ s_Value1°ªÀ¸·Î Ãâ·ÂÀ» ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ s_Value1ê°’ìœ¼ë¡œ ì¶œë ¥ì„ í•œë‹¤.
 //
 // s_Value1 = 1~32
 //
@@ -11682,7 +11682,7 @@ CSpriteSurface::memcpyAlpha1Pixel(WORD pDest, WORD pSource)
 {
 	WORD sr,sg,sb, dr,dg,db;
 
-	// ÇÑÁ¡ Âï±â
+	// í•œì  ì°ê¸°
 	sr = CDirectDraw::Red(pSource);
 	sg = CDirectDraw::Green(pSource);
 	sb = CDirectDraw::Blue(pSource);
@@ -11700,7 +11700,7 @@ CSpriteSurface::memcpyAlpha1Pixel(WORD pDest, WORD pSource)
 //----------------------------------------------------------------------
 // Alpha Copy
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ s_Value1°ªÀ¸·Î Ãâ·ÂÀ» ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ s_Value1ê°’ìœ¼ë¡œ ì¶œë ¥ì„ í•œë‹¤.
 //
 // s_Value1 = 1~32
 //
@@ -11712,7 +11712,7 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 //	
 //	while(pixels--)
 //	{
-//	// ÇÑÁ¡ Âï±â
+//	// í•œì  ì°ê¸°
 //	sr = CDirectDraw::Red(*pSource);
 //	sg = CDirectDraw::Green(*pSource);
 //	sb = CDirectDraw::Blue(*pSource);
@@ -11748,10 +11748,10 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 	switch ( pixels & 0x03 )	// pixels % 4
 	{
 		//------------------
-		// 4Á¡¾¿
+		// 4ì ì”©
 		//------------------
 		case 0 :			
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			/*
 			while (qTimes--)
 			{
@@ -11816,10 +11816,10 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 		break;
 
 		//------------------
-		// 1Á¡ + 4Á¡¾¿
+		// 1ì  + 4ì ì”©
 		//------------------
 		case 1 :
-			// ÇÑ Á¡ Âï±â
+			// í•œ ì  ì°ê¸°
 			srcColor2  = *(WORD*)qpSource;
 			destColor2 = *(WORD*)qpDest;
 
@@ -11856,7 +11856,7 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
 			
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				if(*qpSource != *qpDest)
@@ -11898,10 +11898,10 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 		break;
 
 		//------------------
-		// 2Á¡ + 4Á¡¾¿
+		// 2ì  + 4ì ì”©
 		//------------------
 		case 2 :
-			// µÎÁ¡ Âï±â
+			// ë‘ì  ì°ê¸°
 			srcColor2  = *(DWORD*)qpSource;
 			destColor2 = *(DWORD*)qpDest;
 
@@ -11938,7 +11938,7 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 			qpSource = (QWORD*)((DWORD*)qpSource + 1);
 
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				if(*qpSource != *qpDest)
@@ -11978,10 +11978,10 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 		break;
 
 		//------------------
-		// 1Á¡ + 2Á¡ + 4Á¡¾¿
+		// 1ì  + 2ì  + 4ì ì”©
 		//------------------
 		case 3 :
-			// ÇÑÁ¡ Âï±â
+			// í•œì  ì°ê¸°
 			/*
 			sTemp = *((WORD*)qpSource);
 			dTemp = *((WORD*)qpDest);
@@ -12002,7 +12002,7 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
 			*/
-			// ÇÑÁ¡ Âï±â		
+			// í•œì  ì°ê¸°		
 			srcColor2  = *(WORD*)qpSource;
 			destColor2 = *(WORD*)qpDest;
 
@@ -12039,7 +12039,7 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 			qpSource = (QWORD*)((WORD*)qpSource + 1);				
 			
 
-			// µÎÁ¡ Âï±â
+			// ë‘ì  ì°ê¸°
 			srcColor2  = *(DWORD*)qpSource;
 			destColor2 = *(DWORD*)qpDest;
 
@@ -12077,7 +12077,7 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 			qpDest = (QWORD*)((DWORD*)qpDest + 1);
 			qpSource = (QWORD*)((DWORD*)qpSource + 1);
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				if(*qpSource != *qpDest)
@@ -12123,7 +12123,7 @@ CSpriteSurface::memcpyAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Color Copy
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯Á¤ÇÑ Color°ª(s_Value1)À¸·Î Ãâ·ÂÀ» ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ì •í•œ Colorê°’(s_Value1)ìœ¼ë¡œ ì¶œë ¥ì„ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12134,14 +12134,14 @@ CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
 
 	register int qTimes = pixels >> 2;	// pixels / 4
 
-	// rgb°ª Áß ÇÏ³ª¸¸ Ãâ·ÂÇÑ´Ù.
+	// rgbê°’ ì¤‘ í•˜ë‚˜ë§Œ ì¶œë ¥í•œë‹¤.
 	switch ( pixels & 0x03 )	// pixels % 4
 	{
 		//------------------
-		// 4Á¡¾¿
+		// 4ì ì”©
 		//------------------
 		case 0 :			
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				*qpDest = (*qpSource & CDirectDraw::s_qwMASK_RGB[s_Value1]);
@@ -12152,16 +12152,16 @@ CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
 		break;
 
 		//------------------
-		// 1Á¡ + 4Á¡¾¿
+		// 1ì  + 4ì ì”©
 		//------------------
 		case 1 :
-			// ÇÑÁ¡ Âï±â
+			// í•œì  ì°ê¸°
 			*(WORD*)qpDest = *(WORD*)qpSource & CDirectDraw::s_wMASK_RGB[s_Value1];
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				*qpDest = (*qpSource & CDirectDraw::s_qwMASK_RGB[s_Value1]);
@@ -12173,16 +12173,16 @@ CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
 		break;
 
 		//------------------
-		// 2Á¡ + 4Á¡¾¿
+		// 2ì  + 4ì ì”©
 		//------------------
 		case 2 :
-			// µÎÁ¡ Âï±â
+			// ë‘ì  ì°ê¸°
 			*(DWORD*)qpDest = *(DWORD*)qpSource & CDirectDraw::s_dwMASK_RGB[s_Value1];
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				*qpDest = (*qpSource & CDirectDraw::s_qwMASK_RGB[s_Value1]);
@@ -12193,22 +12193,22 @@ CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
 		break;
 
 		//------------------
-		// 1Á¡ + 2Á¡ + 4Á¡¾¿
+		// 1ì  + 2ì  + 4ì ì”©
 		//------------------
 		case 3 :
-			// ÇÑÁ¡ Âï±â
+			// í•œì  ì°ê¸°
 			*(WORD*)qpDest = *(WORD*)qpSource & CDirectDraw::s_wMASK_RGB[s_Value1];
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
 
-			// µÎÁ¡ Âï±â
+			// ë‘ì  ì°ê¸°
 			*(DWORD*)qpDest = *(DWORD*)qpSource & CDirectDraw::s_dwMASK_RGB[s_Value1];
 
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				*qpDest = (*qpSource & CDirectDraw::s_qwMASK_RGB[s_Value1]);
@@ -12223,11 +12223,11 @@ CSpriteSurface::memcpyColor(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Scale Copy
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Scale(s_Value1)À» ¹Ù²ã¼­ 
-// Ãâ·ÂÇÑ´Ù. 
+// source --> dest ë¡œ pixelsë§Œí¼ Scale(s_Value1)ì„ ë°”ê¿”ì„œ 
+// ì¶œë ¥í•œë‹¤. 
 //
-// ÀÌ ÇÔ¼ö´Â ½ÇÁ¦ °ÔÀÓ¿¡¼­ »ç¿ëÇÏÁö ¾ÊÀ¸¹Ç·Î 
-// ¼Óµµ¿¡ ½Å°æÀ» ¾È½áµµ µÉ °ÍÀÌ´Ù. - -;;;
+// ì´ í•¨ìˆ˜ëŠ” ì‹¤ì œ ê²Œì„ì—ì„œ ì‚¬ìš©í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ 
+// ì†ë„ì— ì‹ ê²½ì„ ì•ˆì¨ë„ ë  ê²ƒì´ë‹¤. - -;;;
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyScale(WORD* pDest, WORD destPitch, WORD* pSource, WORD pixels)
@@ -12236,11 +12236,11 @@ CSpriteSurface::memcpyScale(WORD* pDest, WORD destPitch, WORD* pSource, WORD pix
 
 	register int n=pixels,i,j;
 
-	// n°³ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// nê°œì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	while (n--)
 	{
 		pDestTemp = pDest;
-		// °¢ Á¡¿¡ ´ëÇØ¼­ scale*scaleÀÇ Å©±â·Î Ãâ·ÂÇÑ´Ù.
+		// ê° ì ì— ëŒ€í•´ì„œ scale*scaleì˜ í¬ê¸°ë¡œ ì¶œë ¥í•œë‹¤.
 
 		i = s_Value1;
 		while (i--)
@@ -12264,8 +12264,8 @@ CSpriteSurface::memcpyScale(WORD* pDest, WORD destPitch, WORD* pSource, WORD pix
 //----------------------------------------------------------------------
 // Darkness Copy
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯Á¤ÇÑ Darkness°ª(s_Value1)¸¸Å­
-// ¾îµÓ°Ô Ãâ·ÂÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ì •í•œ Darknessê°’(s_Value1)ë§Œí¼
+// ì–´ë‘¡ê²Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12276,14 +12276,14 @@ CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
 
 	register int qTimes = pixels >> 2;	// pixels / 4
 
-	// ¾îµÓ°Ô Ãâ·ÂÇÑ´Ù.
+	// ì–´ë‘¡ê²Œ ì¶œë ¥í•œë‹¤.
 	switch ( pixels & 0x03 )	// pixels % 4
 	{
 		//------------------
-		// 4Á¡¾¿
+		// 4ì ì”©
 		//------------------
 		case 0 :			
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{					
 				*qpDest = (*qpSource >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1];
@@ -12294,16 +12294,16 @@ CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
 		break;
 
 		//------------------
-		// 1Á¡ + 4Á¡¾¿
+		// 1ì  + 4ì ì”©
 		//------------------
 		case 1 :
-			// ÇÑÁ¡ Âï±â
+			// í•œì  ì°ê¸°
 			*(WORD*)qpDest = (*(WORD*)qpSource >> s_Value1) & CDirectDraw::s_wMASK_SHIFT[s_Value1];
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				*qpDest = (*qpSource >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1];
@@ -12315,16 +12315,16 @@ CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
 		break;
 
 		//------------------
-		// 2Á¡ + 4Á¡¾¿
+		// 2ì  + 4ì ì”©
 		//------------------
 		case 2 :
-			// µÎÁ¡ Âï±â
+			// ë‘ì  ì°ê¸°
 			*(DWORD*)qpDest = (*(DWORD*)qpSource >> s_Value1) & CDirectDraw::s_dwMASK_SHIFT[s_Value1];
 				
 			qpDest = (QWORD*)((DWORD*)qpDest + 1);
 			qpSource = (QWORD*)((DWORD*)qpSource + 1);
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				*qpDest = (*qpSource >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1];
@@ -12335,22 +12335,22 @@ CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
 		break;
 
 		//------------------
-		// 1Á¡ + 2Á¡ + 4Á¡¾¿
+		// 1ì  + 2ì  + 4ì ì”©
 		//------------------
 		case 3 :
-			// ÇÑÁ¡ Âï±â
+			// í•œì  ì°ê¸°
 			*(WORD*)qpDest = (*(WORD*)qpSource >> s_Value1) & CDirectDraw::s_wMASK_SHIFT[s_Value1];
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);
 			qpSource = (QWORD*)((WORD*)qpSource + 1);
 
-			// µÎÁ¡ Âï±â
+			// ë‘ì  ì°ê¸°
 			*(DWORD*)qpDest = (*(DWORD*)qpSource >> s_Value1) & CDirectDraw::s_dwMASK_SHIFT[s_Value1];
 
 			qpDest = (QWORD*)((DWORD*)qpDest + 1);
 			qpSource = (QWORD*)((DWORD*)qpSource + 1);
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			while (qTimes--)
 			{
 				*qpDest = (*qpSource >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1];
@@ -12365,8 +12365,8 @@ CSpriteSurface::memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Brightness Copy
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯Á¤ÇÑ Brightness°ª(s_Value1)¸¸Å­
-// ¹à°Ô Ãâ·ÂÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ì •í•œ Brightnessê°’(s_Value1)ë§Œí¼
+// ë°ê²Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyBrightness(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12397,7 +12397,7 @@ CSpriteSurface::memcpyBrightness(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect Copy - Darker
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyEffectDarker(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12430,7 +12430,7 @@ CSpriteSurface::memcpyEffectDarker(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect Copy - GrayScale
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyEffectGrayScale(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12460,7 +12460,7 @@ CSpriteSurface::memcpyEffectGrayScale(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect Copy - Lighten
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyEffectLighten(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12485,7 +12485,7 @@ CSpriteSurface::memcpyEffectLighten(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect Copy - Darken
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyEffectDarken(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12512,7 +12512,7 @@ CSpriteSurface::memcpyEffectDarken(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect Copy - ColorDodge
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyEffectColorDodge(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12540,7 +12540,7 @@ CSpriteSurface::memcpyEffectColorDodge(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect Copy - Screen
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyEffectScreen(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12591,7 +12591,7 @@ CSpriteSurface::memcpyEffectScreen(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect Copy - Screen
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyEffectScreenAlpha(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12633,7 +12633,7 @@ CSpriteSurface::memcpyEffectScreenAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 		temp |= s_EffectScreenTableB[d][s];
 		
 		// 
-		// ÇÑÁ¡ Âï±â
+		// í•œì  ì°ê¸°
 		sr = CDirectDraw::Red(temp);
 		sg = CDirectDraw::Green(temp);
 		sb = CDirectDraw::Blue(temp);
@@ -12655,7 +12655,7 @@ CSpriteSurface::memcpyEffectScreenAlpha(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect Copy - DodgeBurn
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyEffectDodgeBurn(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12683,7 +12683,7 @@ CSpriteSurface::memcpyEffectDodgeBurn(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect Copy - Different
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyEffectDifferent(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12722,9 +12722,9 @@ CSpriteSurface::memcpyEffectDifferent(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect Copy - Gradation
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //
-// s_Value1ÀÌ ColorSet¹øÈ£ÀÌ´Ù.
+// s_Value1ì´ ColorSetë²ˆí˜¸ì´ë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyEffectGradation(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12758,29 +12758,29 @@ CSpriteSurface::memcpyEffectGradation(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect SimpleOutline
 //----------------------------------------------------------------------
-// Á» ¶ç¾ö¶ç¾öÇÑ ¿Ü°û¼± Ãâ·Â(Åõ¸í»ö ¾ĞÃàÀÇ ¾ç ³¡ Á¡¿¡ Ãâ·Â)
-// pixels´Â 1ÀÌ»óÀÌ¶ó°í °¡Á¤ÇÑ´Ù.
+// ì¢€ ë„ì—„ë„ì—„í•œ ì™¸ê³½ì„  ì¶œë ¥(íˆ¬ëª…ìƒ‰ ì••ì¶•ì˜ ì–‘ ë ì ì— ì¶œë ¥)
+// pixelsëŠ” 1ì´ìƒì´ë¼ê³  ê°€ì •í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 CSpriteSurface::memcpyEffectSimpleOutline(WORD* pDest, WORD* pSource, WORD pixels)
 {
-	// Ã¹ Á¡
+	// ì²« ì 
 	*pDest = *pSource;
 	
 	int pixels_1 = pixels-1;
 
-	// ³¡ Á¡ - pixels°¡ 1ÀÏ¶§ ºñ±³ÇÏ´Â°Åº¸´Ù ±×³É Âï´Â°Ô ´õ ºü¸¦±î?
+	// ë ì  - pixelsê°€ 1ì¼ë•Œ ë¹„êµí•˜ëŠ”ê±°ë³´ë‹¤ ê·¸ëƒ¥ ì°ëŠ”ê²Œ ë” ë¹ ë¥¼ê¹Œ?
 	*(pDest+pixels_1) = *(pSource+pixels_1);	
 }
 
 //----------------------------------------------------------------------
 // Effect WipeOut
 //----------------------------------------------------------------------
-// s_Value1 : ´ú Ãâ·ÂÇÒ ¼öÁØ? 
-//				64 - Åõ¸í
-//				0 - ´Ù Ãâ·Â
+// s_Value1 : ëœ ì¶œë ¥í•  ìˆ˜ì¤€? 
+//				64 - íˆ¬ëª…
+//				0 - ë‹¤ ì¶œë ¥
 //
-// Áß½É¿¡¼­ºÎÅÍ ¾çÂÊÀ¸·Î Áö¿öÁ®°£´Ù.
+// ì¤‘ì‹¬ì—ì„œë¶€í„° ì–‘ìª½ìœ¼ë¡œ ì§€ì›Œì ¸ê°„ë‹¤.
 //
 // ***************
 // ******   ******
@@ -12794,25 +12794,25 @@ CSpriteSurface::memcpyEffectWipeOut(WORD* pDest, WORD* pSource, WORD pixels)
 	int drawPixels = (pixels - skipPixels)>>1;
 	int drawPixels2 = pixels - drawPixels - skipPixels;
 	
-	// [1] drawPixels¸¸Å­ Ãâ·ÂÇÏ°í..
-	// [2] skipPixels ¸¸Å­ °Ç³Ê¶ç°í
-	// [3] drawPixels2¸¸Å­ Ãâ·Â
+	// [1] drawPixelsë§Œí¼ ì¶œë ¥í•˜ê³ ..
+	// [2] skipPixels ë§Œí¼ ê±´ë„ˆë„ê³ 
+	// [3] drawPixels2ë§Œí¼ ì¶œë ¥
 	
 	//------------------------------------------------------------	
-	// drawPixels¸¸Å­ Ãâ·Â
+	// drawPixelsë§Œí¼ ì¶œë ¥
 	//------------------------------------------------------------	
 	memcpy(pDest, pSource, (drawPixels<<1));
 	pDest += drawPixels;
 	pSource += drawPixels;
 
 	//------------------------------------------------------------	
-	// skipPixels¸¸Å­ °Ç³Ê¶ê
+	// skipPixelsë§Œí¼ ê±´ë„ˆë”
 	//------------------------------------------------------------	
 	pDest += skipPixels;
 	pSource += skipPixels;
 
 	//------------------------------------------------------------	
-	// drawPixels2¸¸Å­ Ãâ·Â
+	// drawPixels2ë§Œí¼ ì¶œë ¥
 	//------------------------------------------------------------	
 	memcpy(pDest, pSource, (drawPixels2<<1));
 	//pDest += drawPixels2;
@@ -12822,9 +12822,9 @@ CSpriteSurface::memcpyEffectWipeOut(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect Net
 //----------------------------------------------------------------------
-// s_Value1 : °Ç³Ê¶ç´Â Á¡
+// s_Value1 : ê±´ë„ˆë„ëŠ” ì 
 //
-// ÇÑ Á¡ Âï°í.. s_Value1ÀÇ Á¡ ¼ö¸¸Å­ °Ç³Ê¶è´Ù.
+// í•œ ì  ì°ê³ .. s_Value1ì˜ ì  ìˆ˜ë§Œí¼ ê±´ë„ˆëˆë‹¤.
 //
 // ***************
 // * * * * * * * *	: s_Value1 = 1
@@ -12839,7 +12839,7 @@ CSpriteSurface::memcpyEffectNet(WORD* pDest, WORD* pSource, WORD pixels)
 	int skipPixels = 1 + s_Value1;
 	
 	//------------------------------------------------------------	
-	// drawPixels¸¸Å­ Ãâ·Â
+	// drawPixelsë§Œí¼ ì¶œë ¥
 	//------------------------------------------------------------	
 	do {
 		//memcpy(pDest, pSource, (drawPixels<<1));
@@ -12855,10 +12855,10 @@ CSpriteSurface::memcpyEffectNet(WORD* pDest, WORD* pSource, WORD pixels)
 //----------------------------------------------------------------------
 // Effect Copy - GrayScaleVarious
 //----------------------------------------------------------------------
-// s_Value1 Àº ¾ó¸¶³ª grayµÇ´Â°¡?(-_-;)ÀÌ´Ù..
-// s_Value1°ªÀº 0~31.. 32ÀÎ°¡?.. - -
-// 0ÀÌ¸é ¿ÏÀü gray
-// 32ÀÌ¸é ¿ø·¡»ö±ò
+// s_Value1 ì€ ì–¼ë§ˆë‚˜ grayë˜ëŠ”ê°€?(-_-;)ì´ë‹¤..
+// s_Value1ê°’ì€ 0~31.. 32ì¸ê°€?.. - -
+// 0ì´ë©´ ì™„ì „ gray
+// 32ì´ë©´ ì›ë˜ìƒ‰ê¹”
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyEffectGrayScaleVarious(WORD* pDest, WORD* pSource, WORD pixels)
@@ -12922,7 +12922,7 @@ CSpriteSurface::memcpyEffectGrayScaleVarious(WORD* pDest, WORD* pSource, WORD pi
 //----------------------------------------------------------------------
 // Effect Copy - Darker
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyPalEffectDarker(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -12955,7 +12955,7 @@ CSpriteSurface::memcpyPalEffectDarker(WORD* pDest, BYTE* pSource, WORD pixels, M
 //----------------------------------------------------------------------
 // Effect Copy - GrayScale
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyPalEffectGrayScale(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -12985,7 +12985,7 @@ CSpriteSurface::memcpyPalEffectGrayScale(WORD* pDest, BYTE* pSource, WORD pixels
 //----------------------------------------------------------------------
 // Effect Copy - Lighten
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyPalEffectLighten(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -13010,7 +13010,7 @@ CSpriteSurface::memcpyPalEffectLighten(WORD* pDest, BYTE* pSource, WORD pixels, 
 //----------------------------------------------------------------------
 // Effect Copy - Darken
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyPalEffectDarken(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -13037,7 +13037,7 @@ CSpriteSurface::memcpyPalEffectDarken(WORD* pDest, BYTE* pSource, WORD pixels, M
 //----------------------------------------------------------------------
 // Effect Copy - ColorDodge
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyPalEffectColorDodge(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -13065,7 +13065,7 @@ CSpriteSurface::memcpyPalEffectColorDodge(WORD* pDest, BYTE* pSource, WORD pixel
 //----------------------------------------------------------------------
 // Effect Copy - Screen
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyPalEffectScreen(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -13116,7 +13116,7 @@ CSpriteSurface::memcpyPalEffectScreen(WORD* pDest, BYTE* pSource, WORD pixels, M
 //----------------------------------------------------------------------
 // Effect Copy - Screen
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyPalEffectScreenAlpha(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -13126,7 +13126,7 @@ CSpriteSurface::memcpyPalEffectScreenAlpha(WORD* pDest, BYTE* pSource, WORD pixe
 //----------------------------------------------------------------------
 // Effect Copy - DodgeBurn
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyPalEffectDodgeBurn(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -13154,7 +13154,7 @@ CSpriteSurface::memcpyPalEffectDodgeBurn(WORD* pDest, BYTE* pSource, WORD pixels
 //----------------------------------------------------------------------
 // Effect Copy - Different
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyPalEffectDifferent(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -13193,9 +13193,9 @@ CSpriteSurface::memcpyPalEffectDifferent(WORD* pDest, BYTE* pSource, WORD pixels
 //----------------------------------------------------------------------
 // Effect Copy - Gradation
 //----------------------------------------------------------------------
-// source --> dest ·Î pixels¸¸Å­ Æ¯¼öÈ¿°ú Ã³¸®¸¦ ÇÑ´Ù.
+// source --> dest ë¡œ pixelsë§Œí¼ íŠ¹ìˆ˜íš¨ê³¼ ì²˜ë¦¬ë¥¼ í•œë‹¤.
 //
-// s_Value1ÀÌ ColorSet¹øÈ£ÀÌ´Ù.
+// s_Value1ì´ ColorSetë²ˆí˜¸ì´ë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyPalEffectGradation(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -13229,29 +13229,29 @@ CSpriteSurface::memcpyPalEffectGradation(WORD* pDest, BYTE* pSource, WORD pixels
 //----------------------------------------------------------------------
 // Effect SimpleOutline
 //----------------------------------------------------------------------
-// Á» ¶ç¾ö¶ç¾öÇÑ ¿Ü°û¼± Ãâ·Â(Åõ¸í»ö ¾ĞÃàÀÇ ¾ç ³¡ Á¡¿¡ Ãâ·Â)
-// pixels´Â 1ÀÌ»óÀÌ¶ó°í °¡Á¤ÇÑ´Ù.
+// ì¢€ ë„ì—„ë„ì—„í•œ ì™¸ê³½ì„  ì¶œë ¥(íˆ¬ëª…ìƒ‰ ì••ì¶•ì˜ ì–‘ ë ì ì— ì¶œë ¥)
+// pixelsëŠ” 1ì´ìƒì´ë¼ê³  ê°€ì •í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 CSpriteSurface::memcpyPalEffectSimpleOutline(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
 {
-	// Ã¹ Á¡
+	// ì²« ì 
 	*pDest = pal[*pSource];
 	
 	int pixels_1 = pixels-1;
 
-	// ³¡ Á¡ - pixels°¡ 1ÀÏ¶§ ºñ±³ÇÏ´Â°Åº¸´Ù ±×³É Âï´Â°Ô ´õ ºü¸¦±î?
+	// ë ì  - pixelsê°€ 1ì¼ë•Œ ë¹„êµí•˜ëŠ”ê±°ë³´ë‹¤ ê·¸ëƒ¥ ì°ëŠ”ê²Œ ë” ë¹ ë¥¼ê¹Œ?
 	*(pDest+pixels_1) = *(pSource+pixels_1);	
 }
 
 //----------------------------------------------------------------------
 // Effect WipeOut
 //----------------------------------------------------------------------
-// s_Value1 : ´ú Ãâ·ÂÇÒ ¼öÁØ? 
-//				64 - Åõ¸í
-//				0 - ´Ù Ãâ·Â
+// s_Value1 : ëœ ì¶œë ¥í•  ìˆ˜ì¤€? 
+//				64 - íˆ¬ëª…
+//				0 - ë‹¤ ì¶œë ¥
 //
-// Áß½É¿¡¼­ºÎÅÍ ¾çÂÊÀ¸·Î Áö¿öÁ®°£´Ù.
+// ì¤‘ì‹¬ì—ì„œë¶€í„° ì–‘ìª½ìœ¼ë¡œ ì§€ì›Œì ¸ê°„ë‹¤.
 //
 // ***************
 // ******   ******
@@ -13265,25 +13265,25 @@ CSpriteSurface::memcpyPalEffectWipeOut(WORD* pDest, BYTE* pSource, WORD pixels, 
 	int drawPixels = (pixels - skipPixels)>>1;
 	int drawPixels2 = pixels - drawPixels - skipPixels;
 	
-	// [1] drawPixels¸¸Å­ Ãâ·ÂÇÏ°í..
-	// [2] skipPixels ¸¸Å­ °Ç³Ê¶ç°í
-	// [3] drawPixels2¸¸Å­ Ãâ·Â
+	// [1] drawPixelsë§Œí¼ ì¶œë ¥í•˜ê³ ..
+	// [2] skipPixels ë§Œí¼ ê±´ë„ˆë„ê³ 
+	// [3] drawPixels2ë§Œí¼ ì¶œë ¥
 	
 	//------------------------------------------------------------	
-	// drawPixels¸¸Å­ Ãâ·Â
+	// drawPixelsë§Œí¼ ì¶œë ¥
 	//------------------------------------------------------------	
 	memcpy(pDest, pSource, (drawPixels<<1));
 	pDest += drawPixels;
 	pSource += drawPixels;
 
 	//------------------------------------------------------------	
-	// skipPixels¸¸Å­ °Ç³Ê¶ê
+	// skipPixelsë§Œí¼ ê±´ë„ˆë”
 	//------------------------------------------------------------	
 	pDest += skipPixels;
 	pSource += skipPixels;
 
 	//------------------------------------------------------------	
-	// drawPixels2¸¸Å­ Ãâ·Â
+	// drawPixels2ë§Œí¼ ì¶œë ¥
 	//------------------------------------------------------------	
 	memcpy(pDest, pSource, (drawPixels2<<1));
 	//pDest += drawPixels2;
@@ -13293,9 +13293,9 @@ CSpriteSurface::memcpyPalEffectWipeOut(WORD* pDest, BYTE* pSource, WORD pixels, 
 //----------------------------------------------------------------------
 // Effect Net
 //----------------------------------------------------------------------
-// s_Value1 : °Ç³Ê¶ç´Â Á¡
+// s_Value1 : ê±´ë„ˆë„ëŠ” ì 
 //
-// ÇÑ Á¡ Âï°í.. s_Value1ÀÇ Á¡ ¼ö¸¸Å­ °Ç³Ê¶è´Ù.
+// í•œ ì  ì°ê³ .. s_Value1ì˜ ì  ìˆ˜ë§Œí¼ ê±´ë„ˆëˆë‹¤.
 //
 // ***************
 // * * * * * * * *	: s_Value1 = 1
@@ -13310,7 +13310,7 @@ CSpriteSurface::memcpyPalEffectNet(WORD* pDest, BYTE* pSource, WORD pixels, MPal
 	int skipPixels = 1 + s_Value1;
 	
 	//------------------------------------------------------------	
-	// drawPixels¸¸Å­ Ãâ·Â
+	// drawPixelsë§Œí¼ ì¶œë ¥
 	//------------------------------------------------------------	
 	do {
 		//memcpy(pDest, pSource, (drawPixels<<1));
@@ -13326,10 +13326,10 @@ CSpriteSurface::memcpyPalEffectNet(WORD* pDest, BYTE* pSource, WORD pixels, MPal
 //----------------------------------------------------------------------
 // Effect Copy - GrayScaleVarious
 //----------------------------------------------------------------------
-// s_Value1 Àº ¾ó¸¶³ª grayµÇ´Â°¡?(-_-;)ÀÌ´Ù..
-// s_Value1°ªÀº 0~31.. 32ÀÎ°¡?.. - -
-// 0ÀÌ¸é ¿ÏÀü gray
-// 32ÀÌ¸é ¿ø·¡»ö±ò
+// s_Value1 ì€ ì–¼ë§ˆë‚˜ grayë˜ëŠ”ê°€?(-_-;)ì´ë‹¤..
+// s_Value1ê°’ì€ 0~31.. 32ì¸ê°€?.. - -
+// 0ì´ë©´ ì™„ì „ gray
+// 32ì´ë©´ ì›ë˜ìƒ‰ê¹”
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::memcpyPalEffectGrayScaleVarious(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -13430,17 +13430,17 @@ CSpriteSurface::InitEffectTable()
 //----------------------------------------------------------------------
 // Blt IndexSprite Darkness
 //----------------------------------------------------------------------
-// pPoint¿¡ pSprite¸¦ Ãâ·ÂÇÑ´Ù.
+// pPointì— pSpriteë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, BYTE BrightBits)
 {	
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 1
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 1
 	//-------------------------------------------------------------
 	if (pPoint->x >= m_ClipRight || pPoint->y >= m_ClipBottom)
 		return;
@@ -13452,7 +13452,7 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 	WORD	Pitch		= m_ddsd.lPitch;
 	RECT	rect;
 
-	// sprite³»ºÎÀÇ Ãâ·Â ¿µ¿ª
+	// spriteë‚´ë¶€ì˜ ì¶œë ¥ ì˜ì—­
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = pSprite->GetWidth();
@@ -13466,13 +13466,13 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 	int yPlusSpriteHeight	= pt.y + pSprite->GetHeight();
 
 	//-------------------------------------------------------------
-	// È­¸é¿¡ º¸ÀÌÁö ¾Ê´Â °æ¿ì 2
+	// í™”ë©´ì— ë³´ì´ì§€ ì•ŠëŠ” ê²½ìš° 2
 	//-------------------------------------------------------------
 	if (xPlusSpriteWidth <= m_ClipLeft || yPlusSpriteHeight <= m_ClipTop)
 		return;
 
 	//-------------------------------------------------------------
-	// ClippingÀÌ ÇÊ¿äÇÑ ºÎºĞ¿¡ ´ëÇÑ check
+	// Clippingì´ í•„ìš”í•œ ë¶€ë¶„ì— ëŒ€í•œ check
 	//-------------------------------------------------------------
 	bool	leftClip	= (pt.x < m_ClipLeft) && (xPlusSpriteWidth > m_ClipLeft);
 	bool	rightClip	= (xPlusSpriteWidth > m_ClipRight);
@@ -13480,31 +13480,31 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 	bool	bottomClip	= (yPlusSpriteHeight > m_ClipBottom);
 
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ..
 	//------------------------------------------
 	if (leftClip)
 	{
-		// ¿ŞÂÊÀ¸·Î µé¾î°£¸¸Å­Àº »ı·«ÇØ¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ì™¼ìª½ìœ¼ë¡œ ë“¤ì–´ê°„ë§Œí¼ì€ ìƒëµí•´ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 		rect.left = -pt.x + m_ClipLeft;    
 		//pt.x = m_ClipLeft;		
 		
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;			
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -13517,7 +13517,7 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -13525,24 +13525,24 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 				}								
 			}
 
-			// ¿ŞÂÊ + ¿À¸¥ÂÊ			
+			// ì™¼ìª½ + ì˜¤ë¥¸ìª½			
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltBrightnessClipWidth(lpSurface, Pitch, &rect, BrightBits);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -13555,7 +13555,7 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch);
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -13563,26 +13563,26 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 				}				
 			}
 
-			// ¿ŞÂÊ Clip
+			// ì™¼ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (m_ClipLeft<<1));
 			pSprite->BltBrightnessClipLeft(lpSurface, Pitch, &rect, BrightBits);
 		}
 	}
 	//------------------------------------------
-	// ¿ŞÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ..
+	// ì™¼ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ..
 	//------------------------------------------
 	else
 	{
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 		//------------------------------------------
 		if (rightClip)
 		{	
-			// °¡·Î ±æÀÌ¸¦ ÁÙÀÎ´Ù.
+			// ê°€ë¡œ ê¸¸ì´ë¥¼ ì¤„ì¸ë‹¤.
 			rect.right = m_ClipRight - pt.x;
 
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{				
@@ -13590,7 +13590,7 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{						
@@ -13603,7 +13603,7 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{					
@@ -13611,17 +13611,17 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 				}								
 			}	
 			
-			// ¿À¸¥ÂÊ Clip
+			// ì˜¤ë¥¸ìª½ Clip
 			lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 			pSprite->BltBrightnessClipRight(lpSurface, Pitch, &rect, BrightBits);
 		}
 		//------------------------------------------
-		// ¿À¸¥ÂÊ ClippingÀÌ ÇÊ¿ä ¾ø´Â »óÅÂ
+		// ì˜¤ë¥¸ìª½ Clippingì´ í•„ìš” ì—†ëŠ” ìƒíƒœ
 		//------------------------------------------
 		else
 		{
 			//------------------------------------------
-			// À§ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+			// ìœ„ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 			//------------------------------------------
 			if (topClip)
 			{
@@ -13629,7 +13629,7 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 				rect.top = -pt.y + m_ClipTop;   				
 
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
@@ -13638,7 +13638,7 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 
 				pt.y = m_ClipTop;
 				
-				// Height¸¸ Clip
+				// Heightë§Œ Clip
 				lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				pSprite->BltBrightnessClipHeight(lpSurface, Pitch, &rect, BrightBits);
 			}
@@ -13646,12 +13646,12 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 			{
 				//lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 				//------------------------------------------
-				// ¾Æ·¡ÂÊ ClippingÀÌ ÇÊ¿äÇÑ »óÅÂ
+				// ì•„ë˜ìª½ Clippingì´ í•„ìš”í•œ ìƒíƒœ
 				//------------------------------------------
 				if (bottomClip)
 				{
 					rect.bottom = m_ClipBottom - pt.y;					
-					// Height¸¸ Clip
+					// Heightë§Œ Clip
 					lpSurface = (WORD*)((BYTE*)lpSurface + pt.y*Pitch + (pt.x<<1));
 					pSprite->BltBrightnessClipHeight(lpSurface, Pitch, &rect, BrightBits);
 				}

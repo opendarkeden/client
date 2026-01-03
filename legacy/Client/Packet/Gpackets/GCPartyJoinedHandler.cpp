@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCPartyJoinedHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -76,7 +76,7 @@ void GCPartyJoinedHandler::execute (GCPartyJoined * pPacket , Player * pPlayer)
 				pNewInfo->IP		= inet_ntoa( sa );
 
 				//---------------------------------------------------------
-				// ¾ó±¼ ¹Þ¾Æ¿À±â
+				// ì–¼êµ´ ë°›ì•„ì˜¤ê¸°
 				//---------------------------------------------------------
 				const char* pName = pInfo->name.c_str();
 
@@ -93,7 +93,7 @@ void GCPartyJoinedHandler::execute (GCPartyJoined * pPacket , Player * pPlayer)
 				}
 
 				//---------------------------------------------------------
-				// ÀÌÀü ÆÄÆ¼ Á¤º¸¿¡ ÀÖ´ÂÁö ..
+				// ì´ì „ íŒŒí‹° ì •ë³´ì— ìžˆëŠ”ì§€ ..
 				//---------------------------------------------------------
 				PARTY_INFO* pOldInfo = pOldParty->GetMemberInfo( pInfo->name.c_str() );
 					
@@ -108,7 +108,7 @@ void GCPartyJoinedHandler::execute (GCPartyJoined * pPacket , Player * pPlayer)
 				}			
 
 				//---------------------------------------------------------
-				// ÇöÀç zone¿¡ ÀÖ´ÂÁö Ã¼Å©
+				// í˜„ìž¬ zoneì— ìžˆëŠ”ì§€ ì²´í¬
 				//---------------------------------------------------------
 				if (g_pZone!=NULL)
 				{
@@ -167,15 +167,15 @@ void GCPartyJoinedHandler::execute (GCPartyJoined * pPacket , Player * pPlayer)
 		UI_RunParty();
 	}	
 
-	// ÀÌÀü¿¡ ¾Æ¹«µµ ¾ø¾ú´Âµ¥ ÆÄÆ¼¿øµéÀÌ »ý±ä´Ù¸é
-	// ³»°¡ ÆÄÆ¼¿¡ µé¾î°£°Å´Ù.
+	// ì´ì „ì— ì•„ë¬´ë„ ì—†ì—ˆëŠ”ë° íŒŒí‹°ì›ë“¤ì´ ìƒê¸´ë‹¤ë©´
+	// ë‚´ê°€ íŒŒí‹°ì— ë“¤ì–´ê°„ê±°ë‹¤.
 	if (previousSize==0)
 	{
 		g_pParty->SetJoinTime();
 	}
 
 	//---------------------------------------------------------------
-	// ³» Á¤º¸¸¦ º¸³»ÁØ´Ù.
+	// ë‚´ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 	//---------------------------------------------------------------
 	SendCharacterInfoToParty();
 	SendPositionInfoToParty();
@@ -184,7 +184,7 @@ void GCPartyJoinedHandler::execute (GCPartyJoined * pPacket , Player * pPlayer)
 	delete pOldParty;
 
 	//---------------------------------------------------------------
-	// ÆÄÆ¼¿øµé¿¡ ´ëÇÑ Á¢¼ÓÀ» Ã¼Å©ÇÑ´Ù.
+	// íŒŒí‹°ì›ë“¤ì— ëŒ€í•œ ì ‘ì†ì„ ì²´í¬í•œë‹¤.
 	//---------------------------------------------------------------
 	/*
 	int num = g_pParty->GetSize();
@@ -195,7 +195,7 @@ void GCPartyJoinedHandler::execute (GCPartyJoined * pPacket , Player * pPlayer)
 
 		if (pInfo!=NULL)
 		{
-			// »ó´ë¿¡ ´ëÇÑ Á¢¼ÓÀÌ ¾ø´Ù¸é IP¸¦ ¿äÃ»ÇØ¾ß ÇÑ´Ù.
+			// ìƒëŒ€ì— ëŒ€í•œ ì ‘ì†ì´ ì—†ë‹¤ë©´ IPë¥¼ ìš”ì²­í•´ì•¼ í•œë‹¤.
 			if (!g_pRequestClientPlayerManager->HasConnection( pInfo->Name.GetString() ))
 			{
 				CGRequestIP _CGRequestIP;

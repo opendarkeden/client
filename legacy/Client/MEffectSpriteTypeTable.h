@@ -1,14 +1,14 @@
 //----------------------------------------------------------------------
 // MEffectSpriteTypeTable.h
 //----------------------------------------------------------------------
-// EffectSpriteTypeÀÇ Á¾·ù¿¡ µû¸¥ Á¤º¸¸¦ ÀúÀåÇÏ´Â class
+// EffectSpriteTypeì˜ ì¢…ë¥˜ì— ë”°ë¥¸ ì •ë³´ë¥¼ ì €ìž¥í•˜ëŠ” class
 //----------------------------------------------------------------------
 //
-// [ Á¾·ùº°·Î ÀÖ´Â Á¤º¸ ] 
+// [ ì¢…ë¥˜ë³„ë¡œ ìžˆëŠ” ì •ë³´ ] 
 //
-// - Tile¿¡¼­ÀÇ FrameID
-// - Inventory¿¡¼­ÀÇ SpriteID
-// - ÀÌ¸§... µîµî...
+// - Tileì—ì„œì˜ FrameID
+// - Inventoryì—ì„œì˜ SpriteID
+// - ì´ë¦„... ë“±ë“±...
 // 
 //----------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ class ofstream;
 
 //----------------------------------------------------------------------
 //
-// ÇÑ Á¾·ùÀÇ EffectSpriteType¿¡ ´ëÇÑ Á¤º¸
+// í•œ ì¢…ë¥˜ì˜ EffectSpriteTypeì— ëŒ€í•œ ì •ë³´
 //
 //----------------------------------------------------------------------
 class EFFECTSPRITETYPETABLE_INFO {
@@ -34,14 +34,14 @@ class EFFECTSPRITETYPETABLE_INFO {
 		typedef std::list<TYPE_FRAMEID>		FRAMEID_LIST;
 
 	public :
-		BLT_TYPE					BltType;				// Ãâ·ÂÇü½Ä
+		BLT_TYPE					BltType;				// ì¶œë ¥í˜•ì‹
 		TYPE_FRAMEID				FrameID;				// Frame ID	
-		bool						RepeatFrame;			// ¹Ýº¹µÇ´Â frameÀÎ°¡?
-		TYPE_FRAMEID				ActionEffectFrameID;	// action ¸¶´Ù ´Ù¸¥ frameÀ» º¸¿©Áà¾ßÇÏ´Â effectÀÎ°¡?
-		//TYPE_FRAMEID				PairFrameID;			// µ¿½Ã¿¡ Ãâ·ÂµÇ¾î¾ß ÇÏ´Â Â¦~ÀÌ´Ù.
-		FRAMEID_LIST				PairFrameIDList;		// µ¿½Ã¿¡ Ãâ·ÂµÇ¾î¾ß ÇÏ´Â ÀÌÆåÆ®µé~ÀÌ´Ù.
-		bool						bPairFrameBack;			// µ¿½Ã¿¡ Ãâ·ÂµÇ´Â ÀÌÆåÆ®°¡ µÚ¿¡ Ãâ·ÂµÇ´Â°¡
-		TYPE_EFFECTSPRITETYPE		FemaleEffectSpriteType;	// ¿©ÀÚ¿ë..
+		bool						RepeatFrame;			// ë°˜ë³µë˜ëŠ” frameì¸ê°€?
+		TYPE_FRAMEID				ActionEffectFrameID;	// action ë§ˆë‹¤ ë‹¤ë¥¸ frameì„ ë³´ì—¬ì¤˜ì•¼í•˜ëŠ” effectì¸ê°€?
+		//TYPE_FRAMEID				PairFrameID;			// ë™ì‹œì— ì¶œë ¥ë˜ì–´ì•¼ í•˜ëŠ” ì§~ì´ë‹¤.
+		FRAMEID_LIST				PairFrameIDList;		// ë™ì‹œì— ì¶œë ¥ë˜ì–´ì•¼ í•˜ëŠ” ì´íŽ™íŠ¸ë“¤~ì´ë‹¤.
+		bool						bPairFrameBack;			// ë™ì‹œì— ì¶œë ¥ë˜ëŠ” ì´íŽ™íŠ¸ê°€ ë’¤ì— ì¶œë ¥ë˜ëŠ”ê°€
+		TYPE_EFFECTSPRITETYPE		FemaleEffectSpriteType;	// ì—¬ìžìš©..
 
 	public :
 		EFFECTSPRITETYPETABLE_INFO();
@@ -58,7 +58,7 @@ typedef CTypeTable<EFFECTSPRITETYPETABLE_INFO>	EFFECTSPRITETYPE_TABLE;
 
 //----------------------------------------------------------------------
 //
-// Action¿¡ ¸Â´Â EffectSpriteType
+// Actionì— ë§žëŠ” EffectSpriteType
 //
 //----------------------------------------------------------------------
 class FRAME_TYPE {

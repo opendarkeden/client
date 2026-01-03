@@ -17,7 +17,7 @@
 class Point
 {
 public:
-	int		x, y; // ¿ÜºÎ¿¡¼­ ÂüÁ¶ÇÏ¹Ç·Î m_ ºÙÀÌÁö ¾ÊÀ½.
+	int		x, y; // ì™¸ë¶€ì—ì„œ ì°¸ì¡°í•˜ë¯€ë¡œ m_ ë¶™ì´ì§€ ì•ŠìŒ.
 
 	Point(int _x, int _y);
 	Point();
@@ -33,7 +33,7 @@ public:
 class Rect
 {
 public:
-	int		x, y, w, h; // ¿ÜºÎ¿¡¼­ ÂüÁ¶ÇÏ¹Ç·Î m_ ºÙÀÌÁö ¾ÊÀ½.
+	int		x, y, w, h; // ì™¸ë¶€ì—ì„œ ì°¸ì¡°í•˜ë¯€ë¡œ m_ ë¶™ì´ì§€ ì•ŠìŒ.
 
 	Rect(int _x, int _y, int _w, int _h);
 	Rect();

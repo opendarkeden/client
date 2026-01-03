@@ -21,9 +21,9 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 #ifdef __GAME_CLIENT__
 	
 
-	// Creature¸¦ »ı¼ºÇØ¼­ MCorpse¿¡ Ãß°¡ÇØ¼­ Zone¿¡ ³Ö´Â´Ù.
+	// Creatureë¥¼ ìƒì„±í•´ì„œ MCorpseì— ì¶”ê°€í•´ì„œ Zoneì— ë„£ëŠ”ë‹¤.
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -31,36 +31,36 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{	
 		//----------------------------------------	
-		// ÀÌ¹Ì ÀÖ´Â CreatureÀÎ°¡?
+		// ì´ë¯¸ ìˆëŠ” Creatureì¸ê°€?
 		//----------------------------------------	
 		MCreature* pCreature = g_pZone->GetCreatureOnly( pPacket->getObjectID() );
 		
 		static bool IsIKilled = false;
 		
-		// 2005, 1, 18 , sobeit add start - ½½·¹, ¹ìÆÄ, ¾Æ¿ì ¸ğ½ÀÀÇ ¸ó½ºÅÍµéÀº ½ÃÃ¼ ¹«½Ã(¹ìÆÄ´Â »ó°ü ¾ø´Âµ¥..¾ÏÆ°..)
-		// gcaddslayercorps³ª gcaddousterscorps°¡ ³¯¶ó¿Í¾ß ¾È ÆÃ±â´Âµ¥...¾ÏÆ°...ÀÌ·± Àú·± ÀÌÀ¯·Î ¹«½Ã..
+		// 2005, 1, 18 , sobeit add start - ìŠ¬ë ˆ, ë±€íŒŒ, ì•„ìš° ëª¨ìŠµì˜ ëª¬ìŠ¤í„°ë“¤ì€ ì‹œì²´ ë¬´ì‹œ(ë±€íŒŒëŠ” ìƒê´€ ì—†ëŠ”ë°..ì•”íŠ¼..)
+		// gcaddslayercorpsë‚˜ gcaddousterscorpsê°€ ë‚ ë¼ì™€ì•¼ ì•ˆ íŒ…ê¸°ëŠ”ë°...ì•”íŠ¼...ì´ëŸ° ì €ëŸ° ì´ìœ ë¡œ ë¬´ì‹œ..
 		int MonsterType = pPacket->getMonsterType();
 		if(MonsterType == 735 || MonsterType == 736 ||MonsterType == 737 || (MonsterType>= 792 && MonsterType<=800))
 			return ;
 		// 2005, 1, 18 , sobeit add end
 		//---------------------------------------------------------
 		//
-		//					Zone¿¡ ¾ø´Â °æ¿ì
+		//					Zoneì— ì—†ëŠ” ê²½ìš°
 		//
 		//---------------------------------------------------------
 		if (pCreature==NULL)
 		{
-			// ÀÌ¹Ì ½ÃÃ¼°¡ ÀÖ³ª?
+			// ì´ë¯¸ ì‹œì²´ê°€ ìˆë‚˜?
 			MItem* pItem = g_pZone->GetItem( pPacket->getObjectID() );
 
 			//---------------------------------------------------------
 			//
-			// »õ·Î¿î ½ÃÃ¼¸¦ »ı¼º
+			// ìƒˆë¡œìš´ ì‹œì²´ë¥¼ ìƒì„±
 			//
 			//---------------------------------------------------------
 			if (pItem==NULL)
@@ -69,7 +69,7 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 				
 				//----------------------------------------	
 				//
-				// Á×Àº Creature¸¦ »ı¼ºÇÑ´Ù.
+				// ì£½ì€ Creatureë¥¼ ìƒì„±í•œë‹¤.
 				//
 				//----------------------------------------	
 				MCreature*	pCreature = new MCreature;
@@ -87,13 +87,13 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 				pCreature->SetStatus( MODIFY_MAX_HP, 100 );
 				pCreature->SetStatus( MODIFY_CURRENT_HP, 0 );
 
-				// ½ÃÃ¼·Î ¹Ù²Û´Ù.
+				// ì‹œì²´ë¡œ ë°”ê¾¼ë‹¤.
 				pCreature->SetCorpse();
 				//pCreature->SetName( (*g_pCreatureTable)[pPacket->getMonsterType()].Name.GetString() );
 				pCreature->SetName( pPacket->getMonsterName().c_str() );
 				pCreature->SetDrainCreatureID( pPacket->getLastKiller() );
 
-				// 2004, 5, 7 sobeit add start - ³»°¡ Á×ÀÎ ¸ó½ºÅÍ ÀÏ ¶§ - ÈíÇ÷ µµ¿ò¸»
+				// 2004, 5, 7 sobeit add start - ë‚´ê°€ ì£½ì¸ ëª¬ìŠ¤í„° ì¼ ë•Œ - í¡í˜ˆ ë„ì›€ë§
 				if(pPacket->getLastKiller() == g_pPlayer->GetID() && !IsIKilled)
 				{
 					ExecuteHelpEvent(HELP_EVENT_KILL);
@@ -101,11 +101,11 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 				}
 				// 2004, 5, 7 sobeit add end
 
-				// ÀÓ½Ã·Î..
+				// ì„ì‹œë¡œ..
 				pCreature->SetGuildNumber( 1 );				
 
 				
-				// ¸Ó¸®°¡ ¾øÀ¸¸é -_-;
+				// ë¨¸ë¦¬ê°€ ì—†ìœ¼ë©´ -_-;
 				if (!pPacket->gethasHead())
 				{
 					pCreature->RemoveHead();
@@ -113,7 +113,7 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 
 				//----------------------------------------	
 				//
-				// ½ÃÃ¼itemÀ» »ı¼ºÇÑ´Ù.
+				// ì‹œì²´itemì„ ìƒì„±í•œë‹¤.
 				//
 				//----------------------------------------	
 				MCorpse* pCorpse = (MCorpse*)MItem::NewItem( ITEM_CLASS_CORPSE );
@@ -123,18 +123,18 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 				pCorpse->SetPosition( pPacket->getX(), pPacket->getY() );		
 
 				//---------------------------------------------------------
-				// ½ÃÃ¼¿¡ µé¾îÀÖ´Â Item °³¼ö ¼³Á¤
+				// ì‹œì²´ì— ë“¤ì–´ìˆëŠ” Item ê°œìˆ˜ ì„¤ì •
 				//---------------------------------------------------------
 				pCorpse->SetNumber( pPacket->getTreasureCount() );
 
 
 				//----------------------------------------
-				// Zone¿¡ ItemÃß°¡
+				// Zoneì— Itemì¶”ê°€
 				//----------------------------------------
 				if (g_pZone->AddItem( pCorpse ))
 				{
 					//------------------------------------------------------------
-					// LoadµÇÁö ¾Ê¾ÒÀ¸¸é loadÇÑ´Ù.
+					// Loadë˜ì§€ ì•Šì•˜ìœ¼ë©´ loadí•œë‹¤.
 					//------------------------------------------------------------
 //					LoadCreatureType( pPacket->getMonsterType() );			
 				}
@@ -143,8 +143,8 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 					DEBUG_ADD_FORMAT("[Error] Can't add Corpse to Zone. id=%d, xy=(%d, %d)", pPacket->getObjectID(), pPacket->getX(), pPacket->getY());
 					
 					//---------------------------------------------------------
-					// Ãß°¡°¡ ¾ÈµÈ °æ¿ì
-					// ÀÌ¹Ì ÀÖ´Â ItemÀ» Á¦°ÅÇÏ°í ´Ù½Ã Ãß°¡ÇÑ´Ù.
+					// ì¶”ê°€ê°€ ì•ˆëœ ê²½ìš°
+					// ì´ë¯¸ ìˆëŠ” Itemì„ ì œê±°í•˜ê³  ë‹¤ì‹œ ì¶”ê°€í•œë‹¤.
 					//---------------------------------------------------------
 					TYPE_OBJECTID oldItemID = g_pZone->GetItemID( pPacket->getX(), pPacket->getY() );
 
@@ -152,7 +152,7 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 						
 					if (g_pZone->RemoveItem( oldItemID ))				
 					{
-						// ´Ù½Ã Ãß°¡ÇÑ´Ù.
+						// ë‹¤ì‹œ ì¶”ê°€í•œë‹¤.
 						if (!g_pZone->AddItem( pCorpse ))
 						{
 							DEBUG_ADD_FORMAT("[Error] Can't add Corpse to Zone, too. id=%d, xy=(%d, %d)", pPacket->getObjectID(), pPacket->getX(), pPacket->getY());
@@ -162,14 +162,14 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 					}
 					else
 					{
-						// ÀÌ¹Ì ÀÖ´Â itemÀ» Á¦°ÅÇÒ ¼ö ¾ø´Â °æ¿ì
+						// ì´ë¯¸ ìˆëŠ” itemì„ ì œê±°í•  ìˆ˜ ì—†ëŠ” ê²½ìš°
 						DEBUG_ADD_FORMAT("[Error] Can't remove old Item. id=%d, xy=(%d, %d)", oldItemID, pPacket->getX(), pPacket->getY());
 						
 						delete pCorpse;
 					}								
 				}
 				
-				// Å©¸®½º ¸¶½º Æ®¸®´Â ÀÌÆåÆ® ºÙÀÎ´Ù.
+				// í¬ë¦¬ìŠ¤ ë§ˆìŠ¤ íŠ¸ë¦¬ëŠ” ì´í™íŠ¸ ë¶™ì¸ë‹¤.
 				if(pCreature->GetCreatureType() == 482 || pCreature->GetCreatureType() == 650)
 				{
 					if(pCreature->GetCreatureType() == 482)
@@ -179,7 +179,7 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 			}
 			//---------------------------------------------------------
 			//
-			// ÀÌ¹Ì ½ÃÃ¼°¡ ÀÖ´Â °æ¿ì 
+			// ì´ë¯¸ ì‹œì²´ê°€ ìˆëŠ” ê²½ìš° 
 			//
 			//---------------------------------------------------------
 			else
@@ -187,13 +187,13 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 				#ifdef	OUTPUT_DEBUG
 					if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 					{
-						// ½ÃÃ¼°¡ ÀÌ¹Ì ÀÖ´Â °æ¿ì
+						// ì‹œì²´ê°€ ì´ë¯¸ ìˆëŠ” ê²½ìš°
 						DEBUG_ADD("[Collide] Already Exist the Corpse");
 					}					
 				#endif								
 
 				//---------------------------------------------------------
-				// ½ÃÃ¼¿¡ µé¾îÀÖ´Â Item °³¼ö ¼³Á¤
+				// ì‹œì²´ì— ë“¤ì–´ìˆëŠ” Item ê°œìˆ˜ ì„¤ì •
 				//---------------------------------------------------------
 				pItem->SetNumber( pPacket->getTreasureCount() );
 			}
@@ -201,7 +201,7 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 		}
 		//---------------------------------------------------------
 		//
-		//				Zone¿¡ ÀÌ¹Ì ÀÖ´Â °æ¿ì
+		//				Zoneì— ì´ë¯¸ ìˆëŠ” ê²½ìš°
 		//
 		//---------------------------------------------------------		
 		else
@@ -223,7 +223,7 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 			pCreature->SetStatus( MODIFY_CURRENT_HP, 0 );
 
 			//---------------------------------------------------------
-			// Creature¸¦ Á×¿©¾ß ÇÑ´Ù.
+			// Creatureë¥¼ ì£½ì—¬ì•¼ í•œë‹¤.
 			//---------------------------------------------------------
 			if (!pCreature->IsDead())
 			{
@@ -233,18 +233,18 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 
 			pCreature->SetItemCount( pPacket->getTreasureCount() );
 
-			// ÀÓ½Ã·Î..
+			// ì„ì‹œë¡œ..
 			pCreature->SetGuildNumber( 1 );
 			pCreature->SetDrainCreatureID( pPacket->getLastKiller() );
 
-			// 2004, 5, 7 sobeit add start - ³»°¡ Á×ÀÎ ¸ó½ºÅÍ ÀÏ ¶§ - ÈíÇ÷ µµ¿ò¸»
+			// 2004, 5, 7 sobeit add start - ë‚´ê°€ ì£½ì¸ ëª¬ìŠ¤í„° ì¼ ë•Œ - í¡í˜ˆ ë„ì›€ë§
 			if(pPacket->getLastKiller() == g_pPlayer->GetID() && !IsIKilled)
 			{
 				ExecuteHelpEvent(HELP_EVENT_KILL);
 				IsIKilled = true;
 			}
 			// 2004, 5, 7 sobeit add end
-			// ¸Ó¸®°¡ ¾øÀ¸¸é -_-;
+			// ë¨¸ë¦¬ê°€ ì—†ìœ¼ë©´ -_-;
 			if (!pPacket->gethasHead())
 			{
 				pCreature->RemoveHead();
@@ -253,7 +253,7 @@ void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player 
 
 	}
 
-	// [µµ¿ò¸»] ½ÃÃ¼ »ı±æ ¶§
+	// [ë„ì›€ë§] ì‹œì²´ ìƒê¸¸ ë•Œ
 //	__BEGIN_HELP_EVENT
 ////		ExecuteHelpEvent( HE_ITEM_APPEAR_CORPSE );	
 //	__END_HELP_EVENT

@@ -76,7 +76,7 @@ int		MTimeItemManager::GetHour( TYPE_OBJECTID objectID )
 	
 	//time = time - ( GetDay() * 60 * 60 * 24 );
 	
-	// % ´Â ³»°¡ °¡Àå ½È¾îÇÏ´Â ¿¬»êÀÜµ¥..¤Ñ.¤Ì °è»êÇÏ±â ±ÍÂú¾Æ¼­..
+	// % ëŠ” ë‚´ê°€ ê°€ì¥ ì‹«ì–´í•˜ëŠ” ì—°ì‚°ì”ë°..ã…¡.ã…œ ê³„ì‚°í•˜ê¸° ê·€ì°®ì•„ì„œ..
 	return ( (time/60/60) % 24 );
 }
 
@@ -92,7 +92,7 @@ int		MTimeItemManager::GetMinute(TYPE_OBJECTID objectID )
 
 	DWORD time = (*c_itr).second - timeGetTime()/1000;
 	
-	// % ´Â ³»°¡ °¡Àå ½È¾îÇÏ´Â ¿¬»êÀÜµ¥..¤Ñ.¤Ì °è»êÇÏ±â ±ÍÂú¾Æ¼­..
+	// % ëŠ” ë‚´ê°€ ê°€ì¥ ì‹«ì–´í•˜ëŠ” ì—°ì‚°ì”ë°..ã…¡.ã…œ ê³„ì‚°í•˜ê¸° ê·€ì°®ì•„ì„œ..
 	return ( (time/60 ) % 60 );
 }
 
@@ -108,7 +108,7 @@ int		MTimeItemManager::GetSecond(TYPE_OBJECTID objectID )
 
 	DWORD time = (*c_itr).second - timeGetTime()/1000;
 
-	// % ´Â ³»°¡ °¡Àå ½È¾îÇÏ´Â ¿¬»êÀÜµ¥..¤Ñ.¤Ì °è»êÇÏ±â ±ÍÂú¾Æ¼­..
+	// % ëŠ” ë‚´ê°€ ê°€ì¥ ì‹«ì–´í•˜ëŠ” ì—°ì‚°ì”ë°..ã…¡.ã…œ ê³„ì‚°í•˜ê¸° ê·€ì°®ì•„ì„œ..
 	return ( time % 60 );
 }
 

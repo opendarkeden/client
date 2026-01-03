@@ -19,7 +19,7 @@ void GCMPRecoveryStartHandler::execute ( GCMPRecoveryStart * pPacket , Player * 
 	__BEGIN_TRY
 
 
-	// item »ηΏλ °ΛΑυ
+	// item μ‚¬μ© κ²€μ¦
 	//UseItemOK();
 
 	if (g_pPlayer!=NULL)

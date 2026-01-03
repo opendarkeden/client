@@ -3,37 +3,37 @@
 //----------------------------------------------------------------------
 //
 //
-// 5:6:5 ¿Í  5:5:5ÀÇ Â÷ÀÌ´Â 
-// Bit Mask¿¡ ÀÇÇØ Ã³¸®µÇ´Â ºÎºÐ¿¡¼­ ¹ß»ýÇÏ´Âµ¥
-// CDirectDraw classÀÇ InitMask()¿¡¼­ Video Card¿¡ ¸Â´Â
-// ÀûÀýÇÑ Mask¸¦ »ý¼ºÇÏ¹Ç·Î ±×³É~ CDirectDrawÀÇ Mask¸¦ »ç¿ëÇÏ¸é µÈ´Ù.
+// 5:6:5 ì™€  5:5:5ì˜ ì°¨ì´ëŠ” 
+// Bit Maskì— ì˜í•´ ì²˜ë¦¬ë˜ëŠ” ë¶€ë¶„ì—ì„œ ë°œìƒí•˜ëŠ”ë°
+// CDirectDraw classì˜ InitMask()ì—ì„œ Video Cardì— ë§žëŠ”
+// ì ì ˆí•œ Maskë¥¼ ìƒì„±í•˜ë¯€ë¡œ ê·¸ëƒ¥~ CDirectDrawì˜ Maskë¥¼ ì‚¬ìš©í•˜ë©´ ëœë‹¤.
 //
 //
 //
 //----------------------------------------------------------------------
 /*
 
-  < DDSurface°¡ »ý¼ºµÇ´Â MEMORY >
+  < DDSurfaceê°€ ìƒì„±ë˜ëŠ” MEMORY >
 
-	- DDSCAPS_SYSTEMMEMORY´Â LockÀ» »ç¿ëÇÒ ¶§ ºü¸£´Ù.
-	- DDSCAPS_VIDEOMEMORY´Â Blt¸¦ »ç¿ëÇÒ ¶§ ºü¸£´Ù.
-	  ´Ü, VIDEOMEMORY°¡ ºÎÁ·ÇÏ¸é Surface¸¦ »ý¼ºÇÏÁö ¾ÊÀ¸¹Ç·Î error!
-	- ÁöÁ¤À» ¾È ÇØ ÁÖ¸é VIDEOMEMORY°¡ »ç¿ë°¡´ÉÇÏ¸é »ç¿ëÇÏ°í 
-   	  ¾Æ´Ï¸é SYSTEMMEMORY¸¦ »ç¿ëÇÑ´Ù.
+	- DDSCAPS_SYSTEMMEMORYëŠ” Lockì„ ì‚¬ìš©í•  ë•Œ ë¹ ë¥´ë‹¤.
+	- DDSCAPS_VIDEOMEMORYëŠ” Bltë¥¼ ì‚¬ìš©í•  ë•Œ ë¹ ë¥´ë‹¤.
+	  ë‹¨, VIDEOMEMORYê°€ ë¶€ì¡±í•˜ë©´ Surfaceë¥¼ ìƒì„±í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ error!
+	- ì§€ì •ì„ ì•ˆ í•´ ì£¼ë©´ VIDEOMEMORYê°€ ì‚¬ìš©ê°€ëŠ¥í•˜ë©´ ì‚¬ìš©í•˜ê³  
+   	  ì•„ë‹ˆë©´ SYSTEMMEMORYë¥¼ ì‚¬ìš©í•œë‹¤.
 	
   < Alpha Blending >
-    - »ç¿ëÇÏ·Á¸é DDSCAPS_SYSTEMMEMORY¸¦ »ç¿ëÇÏ´Â°Ô ÁÁ´Ù.
-	- Surface --> Surface·ÎÀÇ Alpha Blendingº¸´Ù
-	  Memory(SpriteFile) --> Surface·ÎÀÇ Alpha BlendingÀÌ ºü¸£´Ù.
+    - ì‚¬ìš©í•˜ë ¤ë©´ DDSCAPS_SYSTEMMEMORYë¥¼ ì‚¬ìš©í•˜ëŠ”ê²Œ ì¢‹ë‹¤.
+	- Surface --> Surfaceë¡œì˜ Alpha Blendingë³´ë‹¤
+	  Memory(SpriteFile) --> Surfaceë¡œì˜ Alpha Blendingì´ ë¹ ë¥´ë‹¤.
 
   < Sprite File >
-    - 0¹ø ¾ÐÃà µÈ °Í°ú ¾È µÈ °Í µÎ°¡ÁöÀÇ °æ¿ì°¡ ÀÖ´Ù.
-	- 0¹ø ¾ÐÃà µÈ °ÍÀº Åõ¸í»öÀÌ ÀÖ´Â ¸ðµç °æ¿ì¿¡ ºü¸£´Ù.
-	  ´Ü, MMX instructionÀ¸·Î Åõ¸í»öÀ» Á¦°ÅÇÒ °æ¿ì°¡ ´õ ºü¸£°ÚÁö...
+    - 0ë²ˆ ì••ì¶• ëœ ê²ƒê³¼ ì•ˆ ëœ ê²ƒ ë‘ê°€ì§€ì˜ ê²½ìš°ê°€ ìžˆë‹¤.
+	- 0ë²ˆ ì••ì¶• ëœ ê²ƒì€ íˆ¬ëª…ìƒ‰ì´ ìžˆëŠ” ëª¨ë“  ê²½ìš°ì— ë¹ ë¥´ë‹¤.
+	  ë‹¨, MMX instructionìœ¼ë¡œ íˆ¬ëª…ìƒ‰ì„ ì œê±°í•  ê²½ìš°ê°€ ë” ë¹ ë¥´ê² ì§€...
 
-  < »ç¿ë½Ã ÁÖÀÇ »çÇ× >
-    - ClippingÀÌ µÇ´Â ÇÔ¼ö¿Í ¾È µÇ´Â ÇÔ¼ö°¡ ÀÖ´Âµ¥
-	  ÀûÀýÇÑ °æ¿ì¿¡ ¸ÂÃç¼­ »ç¿ëÇØ¾ßÇÒ °ÍÀÌ´Ù. ¼Óµµ ¹®Á¦°¡ ÀÖÀ¸´Ï±î!
+  < ì‚¬ìš©ì‹œ ì£¼ì˜ ì‚¬í•­ >
+    - Clippingì´ ë˜ëŠ” í•¨ìˆ˜ì™€ ì•ˆ ë˜ëŠ” í•¨ìˆ˜ê°€ ìžˆëŠ”ë°
+	  ì ì ˆí•œ ê²½ìš°ì— ë§žì¶°ì„œ ì‚¬ìš©í•´ì•¼í•  ê²ƒì´ë‹¤. ì†ë„ ë¬¸ì œê°€ ìžˆìœ¼ë‹ˆê¹Œ!
 
 
 */
@@ -71,12 +71,12 @@ class CSpriteSurface : public CDirectDrawSurface {
 		void	BltDarknessFilter(POINT* pPoint, CDirectDrawSurface* SourceSurface, RECT*  pRect, WORD TransColor=0);
 
 		//------------------------------------------------------------
-		// Drawing ÇÔ¼ö
+		// Drawing í•¨ìˆ˜
 		//------------------------------------------------------------
 		void	DrawRect(RECT* rect, WORD color);
-		void	HLine(int x, int y, int length, WORD color);		// °¡·Î
-		void	VLine(int x, int y, int length, WORD color);		// ¼¼·Î
-		void	Line(int x1, int y1, int x2, int y2, WORD color);	// Á÷¼±
+		void	HLine(int x, int y, int length, WORD color);		// ê°€ë¡œ
+		void	VLine(int x, int y, int length, WORD color);		// ì„¸ë¡œ
+		void	Line(int x1, int y1, int x2, int y2, WORD color);	// ì§ì„ 
 		
 	
 		//------------------------------------------------------------
@@ -86,13 +86,13 @@ class CSpriteSurface : public CDirectDrawSurface {
 		//------------------------------------------------------------
 
 		//------------------------------------------------------------
-		// ¾îµÓ°Ô ÇÏ±â
+		// ì–´ë‘¡ê²Œ í•˜ê¸°
 		//------------------------------------------------------------
 		void	ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits);
 		
 		//------------------------------------------------------------
-		// ´Ü»ö Alpha blending (È­¸éÀÇ pRect¸¦ color¿Í alpha·Î..)
-		// alpha2°¡ 0ÀÌ¸é color·Î.. 31ÀÌ¸é.. ¿ø·¡ surface
+		// ë‹¨ìƒ‰ Alpha blending (í™”ë©´ì˜ pRectë¥¼ colorì™€ alphaë¡œ..)
+		// alpha2ê°€ 0ì´ë©´ colorë¡œ.. 31ì´ë©´.. ì›ëž˜ surface
 		//------------------------------------------------------------
 		void	BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2);
 
@@ -100,13 +100,13 @@ class CSpriteSurface : public CDirectDrawSurface {
 		//virtual void	BltDarkness(POINT* pPoint, CDirectDrawSurface* SourceSurface, RECT*  pRect, BYTE bits, WORD ColorKey=0);		
 
 		//------------------------------------------------------------
-		// AlphaDepth´Â 1~32ÀÌ´Ù.
+		// AlphaDepthëŠ” 1~32ì´ë‹¤.
 		//------------------------------------------------------------		
 		//virtual void	BltTransAlpha(POINT* pPoint, CDirectDrawSurface* SourceSurface, RECT*  pRect, int alphaDepth, DWORD ColorKey=0);
 
 		//------------------------------------------------------------
 		//
-		// CSprite °ü·Ã ÇÔ¼ö
+		// CSprite ê´€ë ¨ í•¨ìˆ˜
 		//
 		//------------------------------------------------------------
 		// Sprite
@@ -168,7 +168,7 @@ class CSpriteSurface : public CDirectDrawSurface {
 		void	BltShadowSprite4444(POINT* pPoint, CShadowSprite* pSprite, WORD pixel);
 		void	BltShadowSpriteSmall4444(POINT* pPoint, CShadowSprite* pSprite, WORD pixel, BYTE shift);
 
-	// class ³»ºÎ¿¡¼­ ¾²´Â ÇÔ¼ö
+	// class ë‚´ë¶€ì—ì„œ ì“°ëŠ” í•¨ìˆ˜
 	protected :	
 		bool	ClippingRectToPoint(RECT*& pRect, POINT*& pPoint);
 
@@ -184,7 +184,7 @@ class CSpriteSurface : public CDirectDrawSurface {
 		{
 			int sr,sg,sb, dr,dg,db;
 
-			// ÇÑÁ¡ Âï±â
+			// í•œì  ì°ê¸°
 			sr = CDirectDraw::Red(pSource);
 			sg = CDirectDraw::Green(pSource);
 			sb = CDirectDraw::Blue(pSource);
@@ -198,13 +198,13 @@ class CSpriteSurface : public CDirectDrawSurface {
 						((s_Value1 * (sr - dr) >> 5) + dr) << CDirectDraw::s_bSHIFT_R);
 		}
 
-		// memcpy..()¿¡¼­ ÀÌ¿ëÇÏ´Â °ªµé
+		// memcpy..()ì—ì„œ ì´ìš©í•˜ëŠ” ê°’ë“¤
 		static int		s_Value1;	// DarkBits, Alpha
 		static int		s_Value2;	// 32-Alpha
 		static int		s_Value3;
 
 	public :
-		// memcpyEffectÀÇ Á¾·ù
+		// memcpyEffectì˜ ì¢…ë¥˜
 		enum FUNCTION_EFFECT
 		{
 			EFFECT_DARKER = 0,
@@ -225,7 +225,7 @@ class CSpriteSurface : public CDirectDrawSurface {
 		};
 
 	public :
-		// Æ¯¼öÈ¿°ú Ãâ·Â¿ë
+		// íŠ¹ìˆ˜íš¨ê³¼ ì¶œë ¥ìš©
 		static void		SetEffect(enum FUNCTION_EFFECT func)	{ s_pMemcpyEffectFunction = s_pMemcpyEffectFunctionTable[func]; }
 		static void		SetPalEffect(enum FUNCTION_EFFECT func)	{ s_pMemcpyPalEffectFunction = s_pMemcpyPalEffectFunctionTable[func]; }
 		static void		memcpyEffect(WORD* pDest, WORD* pSource, WORD pixels)

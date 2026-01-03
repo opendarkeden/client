@@ -4,8 +4,8 @@
 //  
 //  by sonee
 // 
-//  ÀüÀï Á¤º¸¸¦ °¡Áö°í ÀÖ´Â´Ù.
-//  ÀüÀï Á¤º¸¿¡ µû¶ó UI ¿¡¼­ È®ÀÎ ÇÒ ¼ö ÀÖµµ·Ï Push ÇØÁØ´Ù.
+//  ì „ìŸ ì •ë³´ë¥¼ ê°€ì§€ê³  ìˆëŠ”ë‹¤.
+//  ì „ìŸ ì •ë³´ì— ë”°ë¼ UI ì—ì„œ í™•ì¸ í•  ìˆ˜ ìˆë„ë¡ Push í•´ì¤€ë‹¤.
 //-----------------------------------------------------------------------------------------------
 
 #ifndef __MWARMANAGER_H__
@@ -18,10 +18,10 @@
 #include <list>
 #include <vector>
 
-enum WAR_TYPE_ID // ¾È¾¸
+enum WAR_TYPE_ID // ì•ˆì”€
 {
-	WAR_TYPE_HOLYLAND,					// ¾Æ´ãÀÇ ¼ºÁö
-	WAR_TYPE_GUILD,						// ±æµåÀü 
+	WAR_TYPE_HOLYLAND,					// ì•„ë‹´ì˜ ì„±ì§€
+	WAR_TYPE_GUILD,						// ê¸¸ë“œì „ 
 };
 
 typedef			std::map<ZoneID_t, WarInfo*>			WarInfoMap;
@@ -32,8 +32,8 @@ class MWarManager
 {
 private :
 
-// 	list<ZoneID_t>		HolyLandZone;							// ¾Æ´ãÀÇ ¼ºÁö ÇÊµå Á¸ ID List	
-	WarInfoMap			m_WarInfo;								// ÀüÀï Á¤º¸ Map<ZoneID>
+// 	list<ZoneID_t>		HolyLandZone;							// ì•„ë‹´ì˜ ì„±ì§€ í•„ë“œ ì¡´ ID List	
+	WarInfoMap			m_WarInfo;								// ì „ìŸ ì •ë³´ Map<ZoneID>
 
 public :	
 	MWarManager();
@@ -58,8 +58,8 @@ public :
 	//-------------------------------------------------------------------
 	// Check
 	//-------------------------------------------------------------------
-	bool			IsExist(ZoneID_t id);						// Á¸¾ÆÀÌµğ°¡ ÀüÀï¿¡ Æ÷ÇÔµÇ¾îÀÖ´Â°¡
-// 	bool			IsHolyLand(ZoneID_t id);					// ¼ºÀÌ ¾Æ´Ï¶ó ¾Æ´ãÀÇ ¼ºÁö ÇÊµåÀÎ°¡
+	bool			IsExist(ZoneID_t id);						// ì¡´ì•„ì´ë””ê°€ ì „ìŸì— í¬í•¨ë˜ì–´ìˆëŠ”ê°€
+// 	bool			IsHolyLand(ZoneID_t id);					// ì„±ì´ ì•„ë‹ˆë¼ ì•„ë‹´ì˜ ì„±ì§€ í•„ë“œì¸ê°€
 	
 	void			Update();	
 };

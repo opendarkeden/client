@@ -36,7 +36,7 @@
 #if !defined(_LIB) && !defined(__GAME_CLIENT__)
 	
 //-----------------------------------------------------------------------------
-// ÃÊ±âÈ­ ÇÒ ¶§,
+// ì´ˆê¸°í™” í•  ë•Œ,
 //-----------------------------------------------------------------------------
 void
 InitSound()
@@ -55,12 +55,12 @@ InitSound()
 
 
 	//------------------------------------------------
-	// DXSound & SoundManager ÃÊ±âÈ­
+	// DXSound & SoundManager ì´ˆê¸°í™”
 	//------------------------------------------------
 	if (g_DXSound.Init(g_hWnd))
 	{
 		g_pSoundManager = new CSoundPartManager;
-		g_pSoundManager->Init( g_pSoundTable->GetSize(), 50 );	// 50°³ÀÇ wav¸¸ loadingÇÑ´Ù´Â ÀÇ¹Ì
+		g_pSoundManager->Init( g_pSoundTable->GetSize(), 50 );	// 50ê°œì˜ wavë§Œ loadingí•œë‹¤ëŠ” ì˜ë¯¸
 	}
 }
 
@@ -81,38 +81,38 @@ UnInitSound()
 	//---------------------------------------------------------------------------
 	// PlaySound
 	//---------------------------------------------------------------------------
-	// Client°¡ ¾Æ´Ñ °æ¿ì¿¡ »ç¿ë..
+	// Clientê°€ ì•„ë‹Œ ê²½ìš°ì— ì‚¬ìš©..
 	//---------------------------------------------------------------------------	
 	void		
 	PlaySound(TYPE_SOUNDID soundID)
 	{
 		//-----------------------------------------------------------
-		// Á¤ÀÇµÇÁö ¾Ê´Â sound IDÀÏ °æ¿ì..
+		// ì •ì˜ë˜ì§€ ì•ŠëŠ” sound IDì¼ ê²½ìš°..
 		//-----------------------------------------------------------
 		if (!g_DXSound.IsInit() || soundID >= g_pSoundTable->GetSize())
 			return;
 
 		//-----------------------------------------------------------
-		// ¾øÀ¸¸é --> Load & Play
+		// ì—†ìœ¼ë©´ --> Load & Play
 		//-----------------------------------------------------------
 		if (g_pSoundManager->IsDataNULL(soundID))
 		{
-			// ´Ù½Ã load						
+			// ë‹¤ì‹œ load						
 			const char* filename = (*g_pSoundTable)[soundID].Filename.GetString();
  			LPDIRECTSOUNDBUFFER pBuffer = g_DXSound.LoadWav( (char*)filename );
 
 			//-----------------------------------------------------------
-			// Loading ½ÇÆÐ
+			// Loading ì‹¤íŒ¨
 			//-----------------------------------------------------------
 			if (pBuffer==NULL)
 			{
 			}
 			//-----------------------------------------------------------
-			// Load¿¡ ¼º°ø ÇßÀ¸¸é...
+			// Loadì— ì„±ê³µ í–ˆìœ¼ë©´...
 			//-----------------------------------------------------------
 			else		
 			{
-				// ReplaceµÆÀ¸¸é ¿ø·¡°ÍÀ» ¸Þ¸ð¸®¿¡¼­ Áö¿î´Ù.
+				// Replaceëìœ¼ë©´ ì›ëž˜ê²ƒì„ ë©”ëª¨ë¦¬ì—ì„œ ì§€ìš´ë‹¤.
 				LPDIRECTSOUNDBUFFER pOld;
 				if (g_pSoundManager->SetData( soundID, pBuffer, pOld )!=0xFFFF)
 				{
@@ -124,7 +124,7 @@ UnInitSound()
 			}
 		}
 		//-----------------------------------------------------------
-		// ÀÖ´Â °æ¿ì --> Play
+		// ìžˆëŠ” ê²½ìš° --> Play
 		//-----------------------------------------------------------
 		else
 		{
@@ -184,13 +184,13 @@ UnInitSound()
 //---------------------------------------------------------------------------
 // DrawInventoryEffect
 //---------------------------------------------------------------------------
-// InventoryEffectµéÀ» ±×·ÁÁØ´Ù.
+// InventoryEffectë“¤ì„ ê·¸ë ¤ì¤€ë‹¤.
 //---------------------------------------------------------------------------
 void
 DrawInventoryEffect()
 {
 	#ifdef __GAME_CLIENT__
-		// ÇöÀç inventoryÀÇ Ã¹ ÁÂÇ¥			
+		// í˜„ìž¬ inventoryì˜ ì²« ì¢Œí‘œ			
 		POINT point = UI_GetInventoryPosition();
 		
 		g_pTopView->DrawInventoryEffect(&point);
@@ -202,7 +202,7 @@ void
 DrawTitleEffect()
 {
 	#ifdef __GAME_CLIENT__
-		// ÇöÀç inventoryÀÇ Ã¹ ÁÂÇ¥			
+		// í˜„ìž¬ inventoryì˜ ì²« ì¢Œí‘œ			
 		POINT point = 	{400,528};
 
 		g_pTopView->DrawTitleEffect(&point);
@@ -212,14 +212,14 @@ DrawTitleEffect()
 
 // 2004, 11, 22, sobeit add start
 //--------------------------------------------------------------------
-//	±â¾î Ã¢¿¡ ÇÇÀÇ ¼º¼­ ¾ÆÀÌÅÛ µÚ¿¡ »Ñ¸°´Ù..
-//  DrawInventoryEffect Ã³·³ generator ¸¸µé¼öµµ ÀÖÁö¸¸..Æ¯¼öÇÑ °æ¿ì±â ¶§¹®¿¡ ¹«½Ã
+//	ê¸°ì–´ ì°½ì— í”¼ì˜ ì„±ì„œ ì•„ì´í…œ ë’¤ì— ë¿Œë¦°ë‹¤..
+//  DrawInventoryEffect ì²˜ëŸ¼ generator ë§Œë“¤ìˆ˜ë„ ìžˆì§€ë§Œ..íŠ¹ìˆ˜í•œ ê²½ìš°ê¸° ë•Œë¬¸ì— ë¬´ì‹œ
 //-------------------------------------------------------------------
 void 
 DrawBloodBibleEffect_InGear(int X, int Y)
 {
 	#ifdef __GAME_CLIENT__
-		// ÇöÀç inventoryÀÇ Ã¹ ÁÂÇ¥			
+		// í˜„ìž¬ inventoryì˜ ì²« ì¢Œí‘œ			
 		POINT point = 	{X,Y};
 
 		g_pTopView->DrawBloodBibleEffect_InGear(&point);
@@ -230,7 +230,7 @@ DrawBloodBibleEffect_InGear(int X, int Y)
 //---------------------------------------------------------------------------
 // Add New_Inventory_Effect
 //---------------------------------------------------------------------------
-// È­¸éÁÂÇ¥(x,y)
+// í™”ë©´ì¢Œí‘œ(x,y)
 //---------------------------------------------------------------------------
 void
 AddNewInventoryEffect(TYPE_OBJECTID id, TYPE_ACTIONINFO ai, DWORD delayFrame, DWORD value)
@@ -240,14 +240,14 @@ AddNewInventoryEffect(TYPE_OBJECTID id, TYPE_ACTIONINFO ai, DWORD delayFrame, DW
 		DEBUG_ADD("AddNewInventoryEffect");
 
 		//---------------------------------------------------------
-		// ±â¼ú ¼³Á¤ÀÌ Àß¸øµÈ °æ¿ì
+		// ê¸°ìˆ  ì„¤ì •ì´ ìž˜ëª»ëœ ê²½ìš°
 		//---------------------------------------------------------
 		if (ai>=g_pActionInfoTable->GetSize())
 		{
 			return;
 		}
 
-		// itemÀÇ grid ÁÂÇ¥
+		// itemì˜ grid ì¢Œí‘œ
 		int x, y;
 
 		const MItem* pItem = g_pInventory->GetItemToModify( id );
@@ -270,7 +270,7 @@ AddNewInventoryEffect(TYPE_OBJECTID id, TYPE_ACTIONINFO ai, DWORD delayFrame, DW
 		*/
 
 		//---------------------------------------------------------
-		// itemÀÌ ¾ø´Â °æ¿ì
+		// itemì´ ì—†ëŠ” ê²½ìš°
 		//---------------------------------------------------------
 		if (pItem==NULL || !(*g_pActionInfoTable)[ai].IsTargetItem())
 		{
@@ -282,7 +282,7 @@ AddNewInventoryEffect(TYPE_OBJECTID id, TYPE_ACTIONINFO ai, DWORD delayFrame, DW
 		y = pItem->GetGridY();
 
 		//---------------------------------------------------------
-		// ±â¼úÀÇ ¿¬°á µ¿ÀÛ?µéÀÌ ÀÖ´Â °æ¿ì¿¡¸¸...
+		// ê¸°ìˆ ì˜ ì—°ê²° ë™ìž‘?ë“¤ì´ ìžˆëŠ” ê²½ìš°ì—ë§Œ...
 		//---------------------------------------------------------
 		if ((*g_pActionInfoTable)[ai].GetSize()!=0)
 		{
@@ -294,19 +294,19 @@ AddNewInventoryEffect(TYPE_OBJECTID id, TYPE_ACTIONINFO ai, DWORD delayFrame, DW
 
 			//--------------------------------------------------------
 			//
-			//                   Effect»ý¼º		
+			//                   Effectìƒì„±		
 			//
 			//--------------------------------------------------------
 			g_pEffectGeneratorTable->Generate(
-					x,y,0,		// ½ÃÀÛ À§Ä¡
-					0, 			// ¹æÇâ
+					x,y,0,		// ì‹œìž‘ ìœ„ì¹˜
+					0, 			// ë°©í–¥
 					1,			// power
-					ai,			//	ActionInfoTableÁ¾·ù,
-					pEffectTarget		// ¸ñÇ¥ Á¤º¸
+					ai,			//	ActionInfoTableì¢…ë¥˜,
+					pEffectTarget		// ëª©í‘œ ì •ë³´
 			);
 
 			//------------------------------------------------------
-			// °á°ú »ý¼º
+			// ê²°ê³¼ ìƒì„±
 			//------------------------------------------------------
 			MActionResult* pResult = new MActionResult;
 			MActionResultNode* pActionResultNode = NULL;
@@ -328,7 +328,7 @@ AddNewInventoryEffect(TYPE_OBJECTID id, TYPE_ACTIONINFO ai, DWORD delayFrame, DW
 				{
 					MItem* pInvenItem = g_pInventory->GetItem(id);
 
-					// ´ë»ó ¾ÆÀÌÅÛÀÌ Æê¾ÆÀÌÅÛÀÎ°æ¿ì´Â Ã³¸® ¾ÈÇÔ
+					// ëŒ€ìƒ ì•„ì´í…œì´ íŽ«ì•„ì´í…œì¸ê²½ìš°ëŠ” ì²˜ë¦¬ ì•ˆí•¨
 					if(pInvenItem != NULL)
 					{
 						if(pInvenItem->GetItemClass() != ITEM_CLASS_PET_ITEM)
@@ -369,14 +369,14 @@ AddNewInventoryEffect(TYPE_OBJECTID id, TYPE_ACTIONINFO ai, DWORD delayFrame, DW
 			DEBUG_ADD_FORMAT("[AddNewInventoryEffect] ai=%d, item id=%d", ai, id);
 		}
 		//---------------------------------------------------------
-		// ±â¼úÀÇ ¿¬°á µ¿ÀÛÀÌ ¾ø´Â °æ¿ì
+		// ê¸°ìˆ ì˜ ì—°ê²° ë™ìž‘ì´ ì—†ëŠ” ê²½ìš°
 		//---------------------------------------------------------
 		else
 		{
 			//------------------------------------------------------------
-			// °á°ú¸¦ Ã³¸®ÇØ¾ßÇÏ´Â ½ÃÁ¡ÀÎ°¡? - ´ç¿¬ÇÏ´Ù°í º»´Ù *_*;
+			// ê²°ê³¼ë¥¼ ì²˜ë¦¬í•´ì•¼í•˜ëŠ” ì‹œì ì¸ê°€? - ë‹¹ì—°í•˜ë‹¤ê³  ë³¸ë‹¤ *_*;
 			//------------------------------------------------------------				
-			// À½.. °á°ú´Â ¾îµøÁö.. - -;;
+			// ìŒ.. ê²°ê³¼ëŠ” ì–´ë”¨ì§€.. - -;;
 		}
 	#endif
 }
@@ -385,12 +385,12 @@ AddNewInventoryEffect(TYPE_OBJECTID id, TYPE_ACTIONINFO ai, DWORD delayFrame, DW
 //---------------------------------------------------------------------------
 // Draw AlphaBox (pRect,  (r,g,b),  alpha)
 //---------------------------------------------------------------------------
-// alpha°¡ Ä¿Áö¸é.. ´õ ÁøÇØÁö°Ô µÇ¾î ÀÖÀ½..
+// alphaê°€ ì»¤ì§€ë©´.. ë” ì§„í•´ì§€ê²Œ ë˜ì–´ ìžˆìŒ..
 //---------------------------------------------------------------------------
 void
 DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 {
-	// Å¬¸®ÇÎ
+	// í´ë¦¬í•‘
 	RECT rect = *pRect;
 	pRect = &rect;
 	// add by Sonic 2006.9.26
@@ -423,7 +423,7 @@ DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 
 		WORD color;
 		//------------------------------------------------
-		// Lock »óÅÂ·Î ¸¸µç´Ù.
+		// Lock ìƒíƒœë¡œ ë§Œë“ ë‹¤.
 		//------------------------------------------------
 		BOOL bUnlock = !gpC_base->m_p_DDSurface_back->IsLock();
 		if (bUnlock)
@@ -434,7 +434,7 @@ DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 		color = CDirectDraw::Color(r,g,b);
 
 		//-------------------------------------------------
-		// °ËÁ¤»öÀÌ¸é.. ½±°Ô µÈ´Ù~
+		// ê²€ì •ìƒ‰ì´ë©´.. ì‰½ê²Œ ëœë‹¤~
 		//-------------------------------------------------
 		if (color==0)
 		{
@@ -450,7 +450,7 @@ DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 			}
 		}
 		//-------------------------------------------------
-		// ¾Æ´Ï¸é...
+		// ì•„ë‹ˆë©´...
 		//-------------------------------------------------
 		else
 		{
@@ -458,7 +458,7 @@ DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 		}
 
 		//------------------------------------------------
-		// ¿ø·¡ÀÇ Lock »óÅÂ·Î µÇµ¹¸°´Ù.
+		// ì›ëž˜ì˜ Lock ìƒíƒœë¡œ ë˜ëŒë¦°ë‹¤.
 		//------------------------------------------------
 		if (bUnlock)
 		{

@@ -3,13 +3,13 @@
 //----------------------------------------------------------------------
 /*
 	//--------------------------------------------------------
-	// °¡·Î * ¼¼·Î = (5 * 4) ÀÎ GridInventory »ı¼º
+	// ê°€ë¡œ * ì„¸ë¡œ = (5 * 4) ì¸ GridInventory ìƒì„±
 	//--------------------------------------------------------
 	g_Inventory.Init(5, 4);
 	MItem* pNewItem;
 
 	//--------------------------------------------------------
-	// Å×½ºÆ®¿ë Item »ı¼º
+	// í…ŒìŠ¤íŠ¸ìš© Item ìƒì„±
 	//--------------------------------------------------------
 	pNewItem = MItem::NewItem( ITEM_CLASS_SWORD );
 	pNewItem->SetID( 2 );
@@ -30,7 +30,7 @@
 
 
 	//--------------------------------------------------------
-	// ½É½ÉÇØ¼­ remove ÇØ º½... - -;;
+	// ì‹¬ì‹¬í•´ì„œ remove í•´ ë´„... - -;;
 	//--------------------------------------------------------
 	g_Inventory.RemoveItem( 0, 0 );
 	g_Inventory.RemoveItem( 1, 3 );
@@ -38,9 +38,9 @@
 
 	
 	//--------------------------------------------------------
-	// Ãâ·Â¹æ¹ı1
+	// ì¶œë ¥ë°©ë²•1
 	//--------------------------------------------------------
-	// ItemÀ» ÇÑ¹ø¾¿ Ãâ·Â
+	// Itemì„ í•œë²ˆì”© ì¶œë ¥
 	//--------------------------------------------------------
 	g_Inventory.SetBegin();
 	while (g_Inventory.IsNotEnd())
@@ -58,9 +58,9 @@
 
 
 	//--------------------------------------------------------
-	// Ãâ·Â¹æ¹ı2
+	// ì¶œë ¥ë°©ë²•2
 	//--------------------------------------------------------
-	// °¢ grid¿¡ ÀÖ´Â ItemµéÀ» ÀĞ¾î¼­ Ãâ·Â
+	// ê° gridì— ìˆëŠ” Itemë“¤ì„ ì½ì–´ì„œ ì¶œë ¥
 	//--------------------------------------------------------
 	for (int i=0; i<g_Inventory.GetHeight(); i++)
 	{
@@ -102,15 +102,15 @@ class MInventory : public MGridItemManager {
 		//------------------------------------------------------
 		// Add
 		//------------------------------------------------------		
-		bool			AddItem(MItem* pItem);					// ÀûÀıÇÑ grid¿¡ Ãß°¡ÇÑ´Ù.
-		bool			AddItem(MItem* pItem, BYTE x, BYTE y);	// grid(x,y)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+		bool			AddItem(MItem* pItem);					// ì ì ˆí•œ gridì— ì¶”ê°€í•œë‹¤.
+		bool			AddItem(MItem* pItem, BYTE x, BYTE y);	// grid(x,y)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 	
-		bool			ReplaceItem(MItem* pItem, BYTE x, BYTE y, MItem*& pOldItem);	// (x,y)À§Ä¡ÀÇ Item±³È¯
+		bool			ReplaceItem(MItem* pItem, BYTE x, BYTE y, MItem*& pOldItem);	// (x,y)ìœ„ì¹˜ì˜ Itemêµí™˜
 		
 		//------------------------------------------------------		
 		// Get FitPosition
 		//------------------------------------------------------		
-		bool			GetFitPosition(MItem* pItem, POINT& point);	// pItemÀÌ µé¾î°¥ ¼ö ÀÖ´Â ÀûÀıÇÑ gridÀ§Ä¡¸¦ ±¸ÇÑ´Ù.
+		bool			GetFitPosition(MItem* pItem, POINT& point);	// pItemì´ ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ” ì ì ˆí•œ gridìœ„ì¹˜ë¥¼ êµ¬í•œë‹¤.
 
 		//------------------------------------------------------
 		// Find Item
@@ -118,10 +118,10 @@ class MInventory : public MGridItemManager {
 		MItem*			FindItem( ITEM_CLASS itemClass, TYPE_ITEMTYPE itemType=ITEMTYPE_NULL);
 
 		//------------------------------------------------------
-		// ÇöÀç »ç¿ë°¡´ÉÇÑ°Ç°¡?
+		// í˜„ì¬ ì‚¬ìš©ê°€ëŠ¥í•œê±´ê°€?
 		//------------------------------------------------------
-		void			CheckAffectStatus();				// ¸ğµç ¾ÆÀÌÅÛ
-		void			CheckAffectStatus(MItem* pItem);	// Æ¯Á¤ ¾ÆÀÌÅÛ
+		void			CheckAffectStatus();				// ëª¨ë“  ì•„ì´í…œ
+		void			CheckAffectStatus(MItem* pItem);	// íŠ¹ì • ì•„ì´í…œ
 
 		/*
 	#ifdef __GAME_CLIENT__

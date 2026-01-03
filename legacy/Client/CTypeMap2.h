@@ -1,11 +1,11 @@
 //----------------------------------------------------------------------
 // CTypeMap2.h
 //----------------------------------------------------------------------
-// DataTypeÀº pointer typeÀÌ¾î¾ß ÇÑ´Ù.
+// DataTypeì€ pointer typeì´ì–´ì•¼ í•œë‹¤.
 //
-// fstream.h¿Í fstreamÀÇ Ãæµ¹·Î ÀÎÇØ¼­..
-// ÀÓ½Ã·Î...
-// fstreamÀ» »ç¿ëÇÏÁö ¾Ê´Â versionÀÌ´ç. - -;
+// fstream.hì™€ fstreamì˜ ì¶©ëŒë¡œ ì¸í•´ì„œ..
+// ì„ì‹œë¡œ...
+// fstreamì„ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” versionì´ë‹¹. - -;
 //----------------------------------------------------------------------
 
 #ifndef __CTYPEMAP2_H__
@@ -16,7 +16,7 @@
 #include <map>
 
 //----------------------------------------------------------------------
-// CTypeMap2 (id, DataType*)ÀÇ map
+// CTypeMap2 (id, DataType*)ì˜ map
 //----------------------------------------------------------------------
 template <class DataType>
 class CTypeMap2 : public std::map<unsigned int, DataType*> {
@@ -93,13 +93,13 @@ CTypeMap2<DataType>::AddData( unsigned int id, DataType* pData )
 
 	if (iData != end())
 	{
-		// ÀÌ¹Ì ÀÖ´Â °æ¿ì
-		// pData´Â ¿ÜºÎ¿¡¼­ Áö¿öÁà¾ßÇÑ´Ù.
+		// ì´ë¯¸ ìˆëŠ” ê²½ìš°
+		// pDataëŠ” ì™¸ë¶€ì—ì„œ ì§€ì›Œì¤˜ì•¼í•œë‹¤.
 		return false;
 	}
 
 	//------------------------------------------------------
-	// ¾ø´Â °æ¿ì --> Ãß°¡
+	// ì—†ëŠ” ê²½ìš° --> ì¶”ê°€
 	//------------------------------------------------------
 	insert(TYPE_MAP::value_type(id, pData));
 
@@ -117,11 +117,11 @@ CTypeMap2<DataType>::GetData( unsigned int id )
 
 	if (iData == end())
 	{
-		// ¾ø´Â °æ¿ì 
+		// ì—†ëŠ” ê²½ìš° 
 		return NULL;
 	}
 
-	// ÀÖ´Â °æ¿ì
+	// ìˆëŠ” ê²½ìš°
 	return (*iData).second;
 }
 
@@ -136,11 +136,11 @@ CTypeMap2<DataType>::GetData( unsigned int id ) const
 
 	if (iData == end())
 	{
-		// ¾ø´Â °æ¿ì 
+		// ì—†ëŠ” ê²½ìš° 
 		return NULL;
 	}
 
-	// ÀÖ´Â °æ¿ì
+	// ìˆëŠ” ê²½ìš°
 	return (*iData).second;
 }
 
@@ -155,11 +155,11 @@ CTypeMap2<DataType>::RemoveData( unsigned int id )
 
 	if (iData == end())
 	{
-		// ¾ø´Â °æ¿ì 
+		// ì—†ëŠ” ê²½ìš° 
 		return false;
 	}
 
-	// ÀÖÀ¸¸é Áö¿öÁà¾ß ÇÑ´Ù.
+	// ìˆìœ¼ë©´ ì§€ì›Œì¤˜ì•¼ í•œë‹¤.
 	delete (*iData).second;
 
 	erase( iData );

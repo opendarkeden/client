@@ -20,7 +20,7 @@
 
 extern int g_MorphCreatureType;
 
-// [»õ±â¼ú]
+// [ìƒˆê¸°ìˆ ]
 void		SkillShadowDancing(MCreature* pUserCreature, MCreature* pTargetCreature, int skillID);
 
 //----------------------------------------------------------------------
@@ -63,12 +63,12 @@ MActionResultNodeActionInfo::Execute()
 
 
 	//--------------------------------------------------------
-	// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+	// ëª©í‘œ ìœ„ì¹˜ Pixelì¢Œí‘œ
 	//--------------------------------------------------------
 	MCreature*	pTargetCreature = g_pZone->GetCreature( m_TargetID );
 	MCreature*	pUserCreature	= g_pZone->GetCreature( m_UserID );
 
-	// Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é... ³¡~
+	// ìºë¦­í„°ê°€ ì—†ìœ¼ë©´... ë~
 	if (pTargetCreature==NULL)// || pUserCreature==NULL)
 	{
 		//MItem* pItem = g_pZone->GetItem( m_TargetID );	
@@ -86,7 +86,7 @@ MActionResultNodeActionInfo::Execute()
 	{
 		//--------------------------------------------------------
 		//
-		//					Effect ¸ñÇ¥ ¼³Á¤
+		//					Effect ëª©í‘œ ì„¤ì •
 		//
 		//--------------------------------------------------------
 		MEffectTarget* pEffectTarget = new MEffectTarget( (*g_pActionInfoTable)[nUsedActionInfo].GetSize() );
@@ -95,13 +95,13 @@ MActionResultNodeActionInfo::Execute()
 
 		//--------------------------------------------------------
 		//
-		//					½ÃÀÛ À§Ä¡¸¦ °áÁ¤ÇÑ´Ù.
+		//					ì‹œì‘ ìœ„ì¹˜ë¥¼ ê²°ì •í•œë‹¤.
 		//
 		//--------------------------------------------------------
 		int x,y,z, direction;
 
 		//--------------------------------------------------------
-		// User À§Ä¡¿¡¼­ ½ÃÀÛÇÏ´Â °æ¿ì
+		// User ìœ„ì¹˜ì—ì„œ ì‹œì‘í•˜ëŠ” ê²½ìš°
 		//--------------------------------------------------------
 		if ((*g_pActionInfoTable)[nUsedActionInfo].IsStartUser())
 		{
@@ -112,7 +112,7 @@ MActionResultNodeActionInfo::Execute()
 			z			= pUserCreature->GetZ();//+60;
 		}
 		//--------------------------------------------------------
-		// Target À§Ä¡¿¡¼­ ½ÃÀÛÇÏ´Â °æ¿ì
+		// Target ìœ„ì¹˜ì—ì„œ ì‹œì‘í•˜ëŠ” ê²½ìš°
 		//--------------------------------------------------------
 		else if ((*g_pActionInfoTable)[nUsedActionInfo].IsStartTarget())
 		{
@@ -122,7 +122,7 @@ MActionResultNodeActionInfo::Execute()
 		}
 
 		//--------------------------------------------------------
-		// °øÁß¿¡¼­ ½ÃÀÛÇÏ´Â °æ¿ì
+		// ê³µì¤‘ì—ì„œ ì‹œì‘í•˜ëŠ” ê²½ìš°
 		//--------------------------------------------------------
 		if ((*g_pActionInfoTable)[nUsedActionInfo].IsStartSky())
 		{
@@ -131,7 +131,7 @@ MActionResultNodeActionInfo::Execute()
 			direction	= DIRECTION_DOWN;
 		}
 		//--------------------------------------------------------
-		// Áö»ó¿¡¼­ ½ÃÀÛÇÏ´Â °æ¿ì
+		// ì§€ìƒì—ì„œ ì‹œì‘í•˜ëŠ” ê²½ìš°
 		//--------------------------------------------------------
 		else
 		{
@@ -140,26 +140,26 @@ MActionResultNodeActionInfo::Execute()
 
 		//--------------------------------------------------------
 		//
-		//                   Effect»ı¼º		
+		//                   Effectìƒì„±		
 		//
 		//--------------------------------------------------------
 		g_EffectGeneratorTable.Generate(
-				x,y,z,				// ½ÃÀÛ À§Ä¡
-				direction, 			// ¹æÇâ
+				x,y,z,				// ì‹œì‘ ìœ„ì¹˜
+				direction, 			// ë°©í–¥
 				1,					// power
-				nUsedActionInfo,	//	ActionInfoTableÁ¾·ù,
-				pEffectTarget		// ¸ñÇ¥ Á¤º¸
+				nUsedActionInfo,	//	ActionInfoTableì¢…ë¥˜,
+				pEffectTarget		// ëª©í‘œ ì •ë³´
 		);
 	}
 	*/
 	//--------------------------------------------------------
-	// ´ë»óÀÌ µÇ´Â Ä³¸¯ÅÍ´Â Æ¯Á¤ÇÑ ActionÀ» ÃëÇÏ°Ô µÈ´Ù.
+	// ëŒ€ìƒì´ ë˜ëŠ” ìºë¦­í„°ëŠ” íŠ¹ì •í•œ Actionì„ ì·¨í•˜ê²Œ ëœë‹¤.
 	//--------------------------------------------------------
 	//pTargetCreature->SetStop();
 	//pTargetCreature->SetAction( (*g_pActionInfoTable)[nUsedActionInfo].GetAction() );
 
 	int resultActionInfo;
-	resultActionInfo = nUsedActionInfo + (*g_pActionInfoTable).GetMinResultActionInfo();	// °á°ú
+	resultActionInfo = nUsedActionInfo + (*g_pActionInfoTable).GetMinResultActionInfo();	// ê²°ê³¼
 
 	switch( nUsedActionInfo )
 	{
@@ -195,7 +195,7 @@ MActionResultNodeActionInfo::Execute()
 		}
 	#endif
 
-	// [»õ±â¼ú]
+	// [ìƒˆê¸°ìˆ ]
 
 	
 	pTargetCreature->SetEffectDelayFrame(resultActionInfo, m_DelayFrame );
@@ -227,7 +227,7 @@ MActionResultNodeActionInfo::Execute()
 	}
 	
 	//--------------------------------------------------------
-	// ±â¼úÀÇ µ¿ÀÛ¿¡ ¸Â´Â sound¸¦ Ãâ·ÂÇØÁØ´Ù.
+	// ê¸°ìˆ ì˜ ë™ì‘ì— ë§ëŠ” soundë¥¼ ì¶œë ¥í•´ì¤€ë‹¤.
 	//--------------------------------------------------------
 	//g_Sound.Play( g_SoundTable[(*g_pActionInfoTable)[nUsedActionInfo].GetSoundID()].pDSBuffer );
 	//PlaySound( (*g_pActionInfoTable)[nUsedActionInfo].GetSoundID(),
@@ -236,14 +236,14 @@ MActionResultNodeActionInfo::Execute()
 	//			pTargetCreature->GetY());
 
 	//--------------------------------------------------------
-	// EffectºÙÀÌ´Â °á°úÀÌ¸é ..
+	// Effectë¶™ì´ëŠ” ê²°ê³¼ì´ë©´ ..
 	//--------------------------------------------------------
 	/*
 	EFFECTSTATUS	status		= (*g_pActionInfoTable)[resultActionInfo].GetEffectStatus();
 
 	if (status!=EFFECTSTATUS_NULL)
 	{
-		// ½Ã°£ÀÌ ³²¾Æ ÀÖ´Â °æ¿ì¿¡¸¸...
+		// ì‹œê°„ì´ ë‚¨ì•„ ìˆëŠ” ê²½ìš°ì—ë§Œ...
 		if (m_DelayFrame > 0)
 		{
 			pTargetCreature->AddEffectStatus( status, m_DelayFrame );
@@ -278,7 +278,7 @@ MActionResultNodeChangePosition::Execute()
 	}
 
 	//-----------------------------------------------------------
-	// PlayerÀÎ °æ¿ì
+	// Playerì¸ ê²½ìš°
 	//-----------------------------------------------------------
 	if (m_UserID==g_pPlayer->GetID())
 	{
@@ -286,22 +286,22 @@ MActionResultNodeChangePosition::Execute()
 		g_pPlayer->SetServerPosition( m_X, m_Y );
 	}
 	//-----------------------------------------------------------
-	// ´Ù¸¥ ¾ÖµéÀÎ °æ¿ì
+	// ë‹¤ë¥¸ ì• ë“¤ì¸ ê²½ìš°
 	//-----------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( m_UserID );
 
-		// playerÀÎ °æ¿ì¸¦ µû·Î Ã¼Å©ÇØ¾ß ÇÒ±î??
+		// playerì¸ ê²½ìš°ë¥¼ ë”°ë¡œ ì²´í¬í•´ì•¼ í• ê¹Œ??
 
 		if (pCreature!=NULL)
 		{
 			//------------------------------------------------
-			// ±âÁ¸ÀÇ MoveBuffer¸¦ ´Ù Á¦°Å½ÃÅ²´Ù.
+			// ê¸°ì¡´ì˜ MoveBufferë¥¼ ë‹¤ ì œê±°ì‹œí‚¨ë‹¤.
 			//------------------------------------------------
 			pCreature->ReleaseMoveBuffer();
 
-			// ÁÂÇ¥¸¦ ¹Ù²Û´Ù.
+			// ì¢Œí‘œë¥¼ ë°”ê¾¼ë‹¤.
 			pCreature->MovePosition( m_X, m_Y );
 			pCreature->SetServerPosition( m_X, m_Y );
 			//pCreature->SetStop();
@@ -341,8 +341,8 @@ MActionResultNodeChangeStatus::Execute()
 	}
 
 	//---------------------------------------------------------
-	// Player¸¸ MStatus¸¦ °¡Áö°í ÀÖ´Ù.. - -;;
-	// ±×·¸´Ù¸é.. m_TargetID´Â ÇÊ¿ä¾ø´Âµ¥.. À½.. - -;; 
+	// Playerë§Œ MStatusë¥¼ ê°€ì§€ê³  ìˆë‹¤.. - -;;
+	// ê·¸ë ‡ë‹¤ë©´.. m_TargetIDëŠ” í•„ìš”ì—†ëŠ”ë°.. ìŒ.. - -;; 
 	//---------------------------------------------------------
 	if (m_TargetID==g_pPlayer->GetID()
 		&& m_pStatus!=NULL)
@@ -364,21 +364,21 @@ MActionResultNodeCreatureDie::Execute()
 	}
 
 	//---------------------------------------------------------
-	// Player ÀÎ °æ¿ì
+	// Player ì¸ ê²½ìš°
 	//---------------------------------------------------------
 	if (m_TargetID == g_pPlayer->GetID())
 	{
 		g_pPlayer->SetDead();
 	}
 	//---------------------------------------------------------
-	// ´Ù¸¥ CreatureÀÎ °æ¿ì
+	// ë‹¤ë¥¸ Creatureì¸ ê²½ìš°
 	//---------------------------------------------------------
 	else
 	{
 		MCreature*	pCreature = g_pZone->GetCreature( m_TargetID );
 
 		//---------------------------------------------------------
-		// Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é... ÀÇ¹Ì¾ø°ÚÁö..
+		// ìºë¦­í„°ê°€ ì—†ìœ¼ë©´... ì˜ë¯¸ì—†ê² ì§€..
 		//---------------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -386,7 +386,7 @@ MActionResultNodeCreatureDie::Execute()
 		}
 		
 		//---------------------------------------------------------
-		// Á×ÀÎ´Ù. - -;
+		// ì£½ì¸ë‹¤. - -;
 		//---------------------------------------------------------		
 		pCreature->SetDead();	
 	}
@@ -405,27 +405,27 @@ MActionResultNodeCreatureBurrow::Execute()
 	}
 
 	//---------------------------------------------------------
-	// Player ÀÎ °æ¿ì
+	// Player ì¸ ê²½ìš°
 	//---------------------------------------------------------
 	if (m_TargetID == g_pPlayer->GetID())
 	{
-		// Underground Creature·Î ¸¸µç´Ù.
+		// Underground Creatureë¡œ ë§Œë“ ë‹¤.
 		g_pPlayer->SetUndergroundCreature();
 
-		// [µµ¿ò¸»] burrow
+		// [ë„ì›€ë§] burrow
 //		__BEGIN_HELP_EVENT
 //			ExecuteHelpEvent( HE_EFFECT_BURROW );
 //		__END_HELP_EVENT
 	}
 	//---------------------------------------------------------
-	// ´Ù¸¥ CreatureÀÎ °æ¿ì
+	// ë‹¤ë¥¸ Creatureì¸ ê²½ìš°
 	//---------------------------------------------------------
 	else
 	{
 		MCreature*	pCreature = g_pZone->GetCreature( m_TargetID );
 
 		//---------------------------------------------------------
-		// Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é... ÀÇ¹Ì¾ø°ÚÁö..
+		// ìºë¦­í„°ê°€ ì—†ìœ¼ë©´... ì˜ë¯¸ì—†ê² ì§€..
 		//---------------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -433,7 +433,7 @@ MActionResultNodeCreatureBurrow::Execute()
 		}
 		
 		//---------------------------------------------------------
-		// ¼û±ä´Ù. 
+		// ìˆ¨ê¸´ë‹¤. 
 		//---------------------------------------------------------		
 		pCreature->SetUndergroundCreature();
 	}
@@ -452,27 +452,27 @@ MActionResultNodeCreatureInvisible::Execute()
 	}
 
 	//---------------------------------------------------------
-	// Player ÀÎ °æ¿ì
+	// Player ì¸ ê²½ìš°
 	//---------------------------------------------------------
 	if (m_TargetID == g_pPlayer->GetID())
 	{
-		// Underground Creature·Î ¸¸µç´Ù.
+		// Underground Creatureë¡œ ë§Œë“ ë‹¤.
 		g_pPlayer->SetInvisible();
 
-		// [µµ¿ò¸»] burrow
+		// [ë„ì›€ë§] burrow
 //		__BEGIN_HELP_EVENT
 //			ExecuteHelpEvent( HE_EFFECT_BURROW );
 //		__END_HELP_EVENT
 	}
 	//---------------------------------------------------------
-	// ´Ù¸¥ CreatureÀÎ °æ¿ì
+	// ë‹¤ë¥¸ Creatureì¸ ê²½ìš°
 	//---------------------------------------------------------
 	else
 	{
 		MCreature*	pCreature = g_pZone->GetCreature( m_TargetID );
 
 		//---------------------------------------------------------
-		// Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é... ÀÇ¹Ì¾ø°ÚÁö..
+		// ìºë¦­í„°ê°€ ì—†ìœ¼ë©´... ì˜ë¯¸ì—†ê² ì§€..
 		//---------------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -499,27 +499,27 @@ MActionResultNodeCreatureVisible::Execute()
 	}
 
 	//---------------------------------------------------------
-	// Player ÀÎ °æ¿ì
+	// Player ì¸ ê²½ìš°
 	//---------------------------------------------------------
 	if (m_TargetID == g_pPlayer->GetID())
 	{
-		// Underground Creature·Î ¸¸µç´Ù.
+		// Underground Creatureë¡œ ë§Œë“ ë‹¤.
 		g_pPlayer->SetVisible();
 
-		// [µµ¿ò¸»] burrow
+		// [ë„ì›€ë§] burrow
 //		__BEGIN_HELP_EVENT
 //			//ExecuteHelpEvent( HE_EFFECT_BURROW );
 //		__END_HELP_EVENT
 	}
 	//---------------------------------------------------------
-	// ´Ù¸¥ CreatureÀÎ °æ¿ì
+	// ë‹¤ë¥¸ Creatureì¸ ê²½ìš°
 	//---------------------------------------------------------
 	else
 	{
 		MCreature*	pCreature = g_pZone->GetCreature( m_TargetID );
 
 		//---------------------------------------------------------
-		// Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é... ÀÇ¹Ì¾ø°ÚÁö..
+		// ìºë¦­í„°ê°€ ì—†ìœ¼ë©´... ì˜ë¯¸ì—†ê² ì§€..
 		//---------------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -553,27 +553,27 @@ MActionResultNodeCreatureSnipping::Execute()
 	}
 
 	//---------------------------------------------------------
-	// Player ÀÎ °æ¿ì
+	// Player ì¸ ê²½ìš°
 	//---------------------------------------------------------
 	if (m_TargetID == g_pPlayer->GetID())
 	{		
 		g_pPlayer->AddEffectStatus( EFFECTSTATUS_SNIPPING_MODE, 0xFFFF );
 		g_pPlayer->SetInvisible();
 
-		// [µµ¿ò¸»] burrow
+		// [ë„ì›€ë§] burrow
 //		__BEGIN_HELP_EVENT
 //			//ExecuteHelpEvent( HE_EFFECT_BURROW );
 //		__END_HELP_EVENT
 	}
 	//---------------------------------------------------------
-	// ´Ù¸¥ CreatureÀÎ °æ¿ì
+	// ë‹¤ë¥¸ Creatureì¸ ê²½ìš°
 	//---------------------------------------------------------
 	else
 	{
 		MCreature*	pCreature = g_pZone->GetCreature( m_TargetID );
 
 		//---------------------------------------------------------
-		// Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é... ÀÇ¹Ì¾ø°ÚÁö..
+		// ìºë¦­í„°ê°€ ì—†ìœ¼ë©´... ì˜ë¯¸ì—†ê² ì§€..
 		//---------------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -601,22 +601,22 @@ MActionResultNodeCreatureTurning::Execute()
 	}
 
 	//---------------------------------------------------------
-	// Player ÀÎ °æ¿ì
+	// Player ì¸ ê²½ìš°
 	//---------------------------------------------------------
 	if (m_TargetID == g_pPlayer->GetID())
 	{
-		// Underground Creature·Î ¸¸µç´Ù.
+		// Underground Creatureë¡œ ë§Œë“ ë‹¤.
 		g_pPlayer->SetTurning( m_TurnFrame );
 	}
 	//---------------------------------------------------------
-	// ´Ù¸¥ CreatureÀÎ °æ¿ì
+	// ë‹¤ë¥¸ Creatureì¸ ê²½ìš°
 	//---------------------------------------------------------
 	else
 	{
 		MCreature*	pCreature = g_pZone->GetCreature( m_TargetID );
 
 		//---------------------------------------------------------
-		// Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é... ÀÇ¹Ì¾ø°ÚÁö..
+		// ìºë¦­í„°ê°€ ì—†ìœ¼ë©´... ì˜ë¯¸ì—†ê² ì§€..
 		//---------------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -643,12 +643,12 @@ MActionResultNodeAddEffectStatus::Execute()
 
 	MCreature*	pTargetCreature = g_pZone->GetCreature( m_TargetID );
 
-	// Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é... ³¡~
+	// ìºë¦­í„°ê°€ ì—†ìœ¼ë©´... ë~
 	if (pTargetCreature==NULL)// || pUserCreature==NULL)
 		return;
 
 	//--------------------------------------------------------
-	// EffectStatus¸¦ ºÙÀÎ´Ù.
+	// EffectStatusë¥¼ ë¶™ì¸ë‹¤.
 	//--------------------------------------------------------
 	pTargetCreature->AddEffectStatus(m_EffectStatus, m_DelayFrame);	
 }
@@ -682,18 +682,18 @@ MActionResultNodeChangeCreatureType::Execute()
 
 	MCreature*	pCreature = g_pZone->GetCreature( m_TargetID );
 	
-	// Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é... ³¡~
+	// ìºë¦­í„°ê°€ ì—†ìœ¼ë©´... ë~
 	if (pCreature==NULL)
 		return;
 
 
 	if (pCreature->IsUndergroundCreature())
 	{
-		// ±×³É ¹¯¾îµĞ´Ù. - -;
+		// ê·¸ëƒ¥ ë¬»ì–´ë‘”ë‹¤. - -;
 	}
 	else
 	{
-		// ¼ºº°À» ´Ù½Ã ¼³Á¤ÇØÁà¾ß ÇÑ´Ù.
+		// ì„±ë³„ì„ ë‹¤ì‹œ ì„¤ì •í•´ì¤˜ì•¼ í•œë‹¤.
 		bool bMale = pCreature->IsMale();
 		WORD cs1 = pCreature->GetBodyColor1();
 		WORD cs2 = pCreature->GetBodyColor2();
@@ -708,7 +708,7 @@ MActionResultNodeChangeCreatureType::Execute()
 
 		pCreature->SetBodyColor2( cs2 );
 
-		// ÀÌµ¿¹æ¹ı¿¡ µû¶ó..
+		// ì´ë™ë°©ë²•ì— ë”°ë¼..
 		if ((*g_pCreatureTable)[m_CreatureType].IsFlyingCreature())
 		{
 			pCreature->SetFlyingCreature();
@@ -719,7 +719,7 @@ MActionResultNodeChangeCreatureType::Execute()
 		}
 	}
 
-	// playerÀÎ °æ¿ì´Â skillÃë¼Ò
+	// playerì¸ ê²½ìš°ëŠ” skillì·¨ì†Œ
 	if (m_TargetID == g_pPlayer->GetID())
 	{
 		int selectSkill = ACTIONINFO_NULL;
@@ -738,7 +738,7 @@ MActionResultNodeChangeCreatureType::Execute()
 				selectSkill = MAGIC_UN_TRANSFORM;
 			break;
 			
-			// 2004, 9, 13, sobeit add start - ÃÑ½½ 130 skill
+			// 2004, 9, 13, sobeit add start - ì´ìŠ¬ 130 skill
 			case CREATURETYPE_INSTALL_TURRET:
 				selectSkill = MAGIC_UN_TRANSFORM;
 			break;
@@ -754,7 +754,7 @@ MActionResultNodeChangeCreatureType::Execute()
 			gC_vs_ui.UnselectSkill();
 		}
 
-		// ÀÌÀü¿¡ ¼³Á¤ÇØµĞ°Å ¾ø¾Ø´Ù.
+		// ì´ì „ì— ì„¤ì •í•´ë‘”ê±° ì—†ì•¤ë‹¤.
 //		if (g_MorphCreatureType==m_CreatureType)
 		{
 			g_MorphCreatureType = 0;
@@ -764,7 +764,7 @@ MActionResultNodeChangeCreatureType::Execute()
 
 
 //----------------------------------------------------------------------
-// [»õ±â¼ú]
+// [ìƒˆê¸°ìˆ ]
 //----------------------------------------------------------------------
 MActionResultNodeSummonCasket::MActionResultNodeSummonCasket(TYPE_OBJECTID tid, int casketType)
 {
@@ -789,7 +789,7 @@ MActionResultNodeSummonCasket::Execute()
 
 	MCreature*	pCreature = g_pZone->GetCreature( m_TargetID );
 	
-	// Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é... ³¡~
+	// ìºë¦­í„°ê°€ ì—†ìœ¼ë©´... ë~
 	if (pCreature==NULL)
 		return;
 
@@ -815,7 +815,7 @@ MActionResultNodeOpenCasket::Execute()
 
 	MCreature*	pCreature = g_pZone->GetCreature( m_TargetID );
 	
-	// Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é... ³¡~
+	// ìºë¦­í„°ê°€ ì—†ìœ¼ë©´... ë~
 	if (pCreature==NULL)
 		return;
 
@@ -884,7 +884,7 @@ MActionResultNodeChangeItemOptionInInventory::Execute()
 			if(pMouseItem->GetItemClass() == ITEM_CLASS_PET_ENCHANT_ITEM)
 			{
 				if(pMouseItem->GetItemType() == 13 ||
-					pMouseItem->GetItemType() == 14)	// Æê ºÎÈ° Â¥ÀÜ~
+					pMouseItem->GetItemType() == 14)	// í« ë¶€í™œ ì§œì”~
 				{
 					bRevivalPet = true;
 				}
@@ -899,7 +899,7 @@ MActionResultNodeChangeItemOptionInInventory::Execute()
 			}
 
 			if(pMouseItem->GetItemClass() == ITEM_CLASS_EVENT_STAR &&
-				pMouseItem->GetItemType() == 23) // ¿»·Î¿ì µå·Ó
+				pMouseItem->GetItemType() == 23) // ì˜ë¡œìš° ë“œë¡­
 			{
 				bGradePlus = true;
 			}
@@ -907,7 +907,7 @@ MActionResultNodeChangeItemOptionInInventory::Execute()
 		}
 	}
 	
-	// ¾ÆÀÌÅÛÀÌ ¾øÀ¸¸é... ³¡~
+	// ì•„ì´í…œì´ ì—†ìœ¼ë©´... ë~
 	if (pInvenItem==NULL)
 		return;
 
@@ -933,7 +933,7 @@ MActionResultNodeChangeItemOptionInInventory::Execute()
 		else
 		if(bSecondPetEnchant == false)
 		{
-			// Æê 1Â÷ ÀÎÃ¾Æ® ÇÊ»ì! ¼Ó¼º ºÙÀÌ±â
+			// í« 1ì°¨ ì¸ì²¸íŠ¸ í•„ì‚´! ì†ì„± ë¶™ì´ê¸°
 			WORD AttrType = HIWORD(m_Type);
 			WORD AttrLevel = LOWORD(m_Type);
 			pInvenItem->SetEnchantLevel(AttrType);	// Attr Type
@@ -943,8 +943,8 @@ MActionResultNodeChangeItemOptionInInventory::Execute()
 		}
 		else
 		{
-			// Æê 2Â÷ ÀÎÃ¾Æ® ¿É¼Ç ºÙÀÌ±â, ¾Æ·¡ ÄÚµå ±×´ë·Î ½áµµ µÉ°Å °°Àºµ¥ ¾ç±ºÀÌ ÂÌ¶ú´Ù.-¤µ-
-			pInvenItem->ClearItemOption();	// ÀÏ´Ü ¸Ó°¡ ÀÖÀ»Áö ¸ğ¸£´Ï Áö¿ì°í º»´Ù-0-
+			// í« 2ì°¨ ì¸ì²¸íŠ¸ ì˜µì…˜ ë¶™ì´ê¸°, ì•„ë˜ ì½”ë“œ ê·¸ëŒ€ë¡œ ì¨ë„ ë ê±° ê°™ì€ë° ì–‘êµ°ì´ ì«„ëë‹¤.-ã……-
+			pInvenItem->ClearItemOption();	// ì¼ë‹¨ ë¨¸ê°€ ìˆì„ì§€ ëª¨ë¥´ë‹ˆ ì§€ìš°ê³  ë³¸ë‹¤-0-
 			pInvenItem->AddItemOption(m_Type);
 			bSucces = true;
 		}
@@ -956,7 +956,7 @@ MActionResultNodeChangeItemOptionInInventory::Execute()
 	//	int Option2 = LOWORD(m_Type);
 
 	//	if(oriOption < newOption)
-		for(; Option != NULL; Option >>= 16)	// 2¹ÙÀÌÆ® ½¬ÇÁÆ® ÇÏ¸é LOWORD, HIWORD¼øÀ¸·Î µÇ³ª
+		for(; Option != NULL; Option >>= 16)	// 2ë°”ì´íŠ¸ ì‰¬í”„íŠ¸ í•˜ë©´ LOWORD, HIWORDìˆœìœ¼ë¡œ ë˜ë‚˜
 		{
 			int oriOption = (Option & 0xff00) >> 8;
 			int newOption = (Option & 0xff);
@@ -1022,12 +1022,12 @@ MActionResult::~MActionResult()
 {
 	ACTIONRESULTNODE_LIST::iterator	iNode = m_List.begin();
 
-	// ¸ğµç node¸¦ deleteÇØÁØ´Ù.
+	// ëª¨ë“  nodeë¥¼ deleteí•´ì¤€ë‹¤.
 	while (iNode != m_List.end())
 	{
 		MActionResultNode* pResultNode = *iNode;
 		
-		// °á°ú ½ÇÇà..
+		// ê²°ê³¼ ì‹¤í–‰..
 		//pResultNode->Execute();
 
 		delete pResultNode;
@@ -1051,7 +1051,7 @@ MActionResult::Release()
 {
 	ACTIONRESULTNODE_LIST::iterator	iNode = m_List.begin();
 
-	// ¸ğµç node¸¦ deleteÇØÁØ´Ù.
+	// ëª¨ë“  nodeë¥¼ deleteí•´ì¤€ë‹¤.
 	while (iNode != m_List.end())
 	{
 		MActionResultNode* pResultNode = *iNode;
@@ -1065,7 +1065,7 @@ MActionResult::Release()
 }
 
 //----------------------------------------------------------------------
-// Add : °á°ú ÇÏ³ª¸¦ Ãß°¡ÇÑ´Ù.
+// Add : ê²°ê³¼ í•˜ë‚˜ë¥¼ ì¶”ê°€í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 MActionResult::Add(MActionResultNode* pNode)
@@ -1073,20 +1073,20 @@ MActionResult::Add(MActionResultNode* pNode)
 	if (pNode==NULL)
 		return;
 
-	// list¿¡ Ãß°¡
+	// listì— ì¶”ê°€
 	m_List.push_back( pNode );
 }
 
 //----------------------------------------------------------------------
 // ExecuteResult
 //----------------------------------------------------------------------
-// ActionInfo(Effect)¿¡ µû¸¥ °á°ú¸¦ ½ÇÇàÇÑ´Ù.
+// ActionInfo(Effect)ì— ë”°ë¥¸ ê²°ê³¼ë¥¼ ì‹¤í–‰í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MActionResult::Execute()
 {
 	//------------------------------------------------
-	// ¸ğµÎ~~ Ã³¸®ÇÑ´Ù.
+	// ëª¨ë‘~~ ì²˜ë¦¬í•œë‹¤.
 	//------------------------------------------------
 	while (!m_List.empty())
 	{	
@@ -1126,7 +1126,7 @@ MActionResultNodeChangeItemGenderInInventory::Execute()
 			delete pMouseItem;
 	}
 	
-	// ¾ÆÀÌÅÛÀÌ ¾øÀ¸¸é... ³¡~
+	// ì•„ì´í…œì´ ì—†ìœ¼ë©´... ë~
 	if (pInvenItem==NULL)
 		return;
 

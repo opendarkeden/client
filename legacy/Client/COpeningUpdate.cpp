@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 // COpeningUpdate.cpp
 //---------------------------------------------------------------------------
-// Opening µøøµªÛ¿ª ∫∏ø©¡Ÿ∂ß¿« loop
+// Opening ÎèôÏòÅÏÉÅÏùÑ Î≥¥Ïó¨Ï§ÑÎïåÏùò loop
 //---------------------------------------------------------------------------
 #include "Client_PCH.h"
 #pragma warning(disable:4786)
@@ -23,10 +23,10 @@ COpeningUpdate*		g_pCOpeningUpdate;
 void
 COpeningUpdate::Init()
 {
-	// mouse event √≥∏Æ
+	// mouse event Ï≤òÎ¶¨
 	g_pDXInput->SetMouseEventReceiver( NULL );
 
-	// keyboard event √≥∏Æ
+	// keyboard event Ï≤òÎ¶¨
 	g_pDXInput->SetKeyboardEventReceiver( NULL );
 }
 
@@ -61,7 +61,7 @@ COpeningUpdate::PlayMPG(char* filename)
 //-----------------------------------------------------------------------------
 // UpdateOpening
 //-----------------------------------------------------------------------------
-// ¡¢º” ¿¸..
+// Ï†ëÏÜç Ï†Ñ..
 //-----------------------------------------------------------------------------
 void		
 COpeningUpdate::Update()

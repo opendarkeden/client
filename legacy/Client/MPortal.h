@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MPortal.h
 //----------------------------------------------------------------------
-// Zone ÀÌµ¿ Á¤º¸
+// Zone ì´ë™ ì •ë³´
 //----------------------------------------------------------------------
 
 #ifndef	__MPORTAL_H__
@@ -17,7 +17,7 @@
 
 struct B_RECT
 {
-	BYTE flag;	// 1-slayer, 2-vampire, 4-°øÅë
+	BYTE flag;	// 1-slayer, 2-vampire, 4-ê³µí†µ
 	BYTE left;
 	BYTE top;
 	BYTE right;
@@ -97,8 +97,8 @@ class MPortal{
 
 	protected :		
 		
-		// PortalÀÇ Á¾·ù
-		std::vector<WORD>		m_ZoneID;		// ÀÌµ¿ÇÏ°Ô µÇ´Â Zone ID
+		// Portalì˜ ì¢…ë¥˜
+		std::vector<WORD>		m_ZoneID;		// ì´ë™í•˜ê²Œ ë˜ëŠ” Zone ID
 		P_RECT		m_Rect;
 		BYTE		m_Type;
 };

@@ -6,7 +6,7 @@
 #endif
 
 //#define __WORK__
-//#define __MK_DLL__			// DLL¸¸µé¶§
+//#define __MK_DLL__			// DLLë§Œë“¤ë•Œ
 #ifdef __WORK__
 
         #define         __EX

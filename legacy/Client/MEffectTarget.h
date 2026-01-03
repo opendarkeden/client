@@ -2,12 +2,12 @@
 // MEffectTarget.h
 //----------------------------------------------------------------------
 //
-//  = °¢°¢ÀÇ Effect¸¶´Ù ÇÊ¿äÇÑ Á¤º¸µé
+//  = ê°ê°ì˜ Effectë§ˆë‹¤ í•„ìš”í•œ ì •ë³´ë“¤
 //
-//  = ¸ÕÀú ¼³Á¤µÈ ¸ñÇ¥¿¡ ¸ÕÀú µµ´ŞÇØ¾ß ÇÑ´Ù. (queue·Î ±¸Çö)
+//  = ë¨¼ì € ì„¤ì •ëœ ëª©í‘œì— ë¨¼ì € ë„ë‹¬í•´ì•¼ í•œë‹¤. (queueë¡œ êµ¬í˜„)
 //
 //  = EffectTargetNode
-//    - ¸ñÇ¥(pX,pY,pZ)
+//    - ëª©í‘œ(pX,pY,pZ)
 //    - CreatureID
 //
 //----------------------------------------------------------------------
@@ -23,7 +23,7 @@
 #include "MString.h"
 
 //----------------------------------------------------------------------
-// EFFECT_TARGET_NODEÀÇ list (queue·Î ÇÏ¸é ÁÁ°ÚÁö¸¸.. ¹®Á¦°¡.. - -;) 
+// EFFECT_TARGET_NODEì˜ list (queueë¡œ í•˜ë©´ ì¢‹ê² ì§€ë§Œ.. ë¬¸ì œê°€.. - -;) 
 //----------------------------------------------------------------------
 class MEffectTarget {
 	public :
@@ -71,12 +71,12 @@ class MEffectTarget {
 
 
 		//-------------------------------------------------------
-		// ÁøÇàÁßÀÎ ´Ü°è
+		// ì§„í–‰ì¤‘ì¸ ë‹¨ê³„
 		//-------------------------------------------------------
 		void			NextPhase()				{ m_CurrentPhase++; }
 		bool			IsEnd() const			{ return m_CurrentPhase>=m_MaxPhase; }
 		
-		// °á°ú¸¦ Ãâ·ÂÇØÁà¾ß ÇÏ´Â ½Ã°£ÀÌ Áö³µ´Ù´Â ÀÇ¹Ì..
+		// ê²°ê³¼ë¥¼ ì¶œë ¥í•´ì¤˜ì•¼ í•˜ëŠ” ì‹œê°„ì´ ì§€ë‚¬ë‹¤ëŠ” ì˜ë¯¸..
 		bool			IsResultTime()	const	{ return m_bResultTime; }
 		void			SetResultTime()			{ m_bResultTime = true; }
 
@@ -93,7 +93,7 @@ class MEffectTarget {
 		TYPE_OBJECTID	GetServerID() const		{ return m_ServerID; }
 
 		//-------------------------------------------------------		
-		// ¿¬°áµÇ´Â °á°ú¿¡ ´ëÇÑ Á¤º¸
+		// ì—°ê²°ë˜ëŠ” ê²°ê³¼ì— ëŒ€í•œ ì •ë³´
 		//-------------------------------------------------------		
 		bool			IsResultEmpty() const					{ return m_pResult==NULL; }
 		bool			IsExistResult() const					{ return m_pResult!=NULL; }
@@ -104,15 +104,15 @@ class MEffectTarget {
 		//void			SetResultActionInfo(TYPE_ACTIONINFO rai)	{ m_nResultActionInfo = rai; }
 		
 	public :
-		BYTE			m_MaxPhase;			// ÀüÃ¼ ´Ü°è¼ö
-		BYTE			m_CurrentPhase;		// ÇöÀç ´Ü°è
+		BYTE			m_MaxPhase;			// ì „ì²´ ë‹¨ê³„ìˆ˜
+		BYTE			m_CurrentPhase;		// í˜„ì¬ ë‹¨ê³„
 
-		bool			m_bResultTime;		// °á°ú ½Ã°£ÀÌ Áö³µ´Â°¡?
+		bool			m_bResultTime;		// ê²°ê³¼ ì‹œê°„ì´ ì§€ë‚¬ëŠ”ê°€?
 
-		DWORD			m_DelayFrame;		// Áö¼Ó ½Ã°£
+		DWORD			m_DelayFrame;		// ì§€ì† ì‹œê°„
 
 		//-------------------------------------------------------		
-		// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+		// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 		//-------------------------------------------------------		
 		int				m_X;				
 		int				m_Y;
@@ -121,10 +121,10 @@ class MEffectTarget {
 		TYPE_OBJECTID	m_ServerID;
 
 		//-------------------------------------------------------		
-		// °á°ú¿¡ ´ëÇÑ Á¤º¸
+		// ê²°ê³¼ì— ëŒ€í•œ ì •ë³´
 		//-------------------------------------------------------		
-		//TYPE_ACTIONINFO	m_nResultActionInfo;	// °á°ú¸¦ Ç¥ÇöÇÏ´Â ActionInfoTableID
-		MActionResult*	m_pResult;				// °á°úµé
+		//TYPE_ACTIONINFO	m_nResultActionInfo;	// ê²°ê³¼ë¥¼ í‘œí˜„í•˜ëŠ” ActionInfoTableID
+		MActionResult*	m_pResult;				// ê²°ê³¼ë“¤
 
 
 		//-------------------------------------------------------		

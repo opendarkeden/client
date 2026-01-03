@@ -34,7 +34,7 @@ void GCAddInstalledMineToZoneHandler::execute ( GCAddInstalledMineToZone * pPack
 
 	if (pItem==NULL)
 	{
-		// ¸ÓÁö
+		// ë¨¸ì§€
 		DEBUG_ADD("[Error] Can't Installed Mine");
 	}
 	else if (pItem->GetItemClass()==ITEM_CLASS_MINE)

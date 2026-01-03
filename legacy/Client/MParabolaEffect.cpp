@@ -39,20 +39,20 @@ MParabolaEffect::~MParabolaEffect()
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// ¸ñÇ¥¸¦ ¼³Á¤ÇÑ´Ù.
+// ëª©í‘œë¥¼ ì„¤ì •í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 MParabolaEffect::SetTarget(int x, int y, int z, WORD speed)
 {
-	// ¸ñÇ¥ ¼³Á¤..
+	// ëª©í‘œ ì„¤ì •..
 	MLinearEffect::SetTarget(x, y, z, speed);
 
 	//--------------------------------------------------
-	// Grenade´Â ¸Å ¼ø°£¸¶´Ù ZÃàÀÇ ³ôÀÌ°¡ ´Ş¶óÁø´Ù.
+	// GrenadeëŠ” ë§¤ ìˆœê°„ë§ˆë‹¤ Zì¶•ì˜ ë†’ì´ê°€ ë‹¬ë¼ì§„ë‹¤.
 	//--------------------------------------------------
-	int steps = (int)m_Len / speed;	// ¸î¹ø ¿òÁ÷¿©¾ß ¸ñÇ¥ µµ´ŞÀÎ°¡?
+	int steps = (int)m_Len / speed;	// ëª‡ë²ˆ ì›€ì§ì—¬ì•¼ ëª©í‘œ ë„ë‹¬ì¸ê°€?
 
-	//m_RadStep = (float)PI / steps;	// ¸Å¹ø ¿òÁ÷ÀÏ¶§¸¶´Ù ´Ş¶óÁö´Â theta
+	//m_RadStep = (float)PI / steps;	// ë§¤ë²ˆ ì›€ì§ì¼ë•Œë§ˆë‹¤ ë‹¬ë¼ì§€ëŠ” theta
 	m_RadStep = MathTable::FPI / (float)steps;
 	m_RadCurrent = 0;
 }
@@ -64,7 +64,7 @@ MParabolaEffect::MakeCannonadeSmoke()
 	TYPE_FRAMEID	frameID	= (*g_pEffectSpriteTypeTable)[EFFECTSPRITETYPE_CANNONADE_SMOKE].FrameID;
 	int maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);
 	//---------------------------------------------
-	// Effect »ı¼º
+	// Effect ìƒì„±
 	//---------------------------------------------
 	pEffect = new MEffect(bltType);
 			
@@ -72,10 +72,10 @@ MParabolaEffect::MakeCannonadeSmoke()
 
 	pEffect->SetPixelPosition( m_PixelX, m_PixelY, m_PixelZ);
 	pEffect->SetZ(m_PixelZ);			
-//	pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-	pEffect->SetCount( 9 );			// Áö¼ÓµÇ´Â Frame
+//	pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ì…í•´ì¤€ë‹¤.
+	pEffect->SetCount( 9 );			// ì§€ì†ë˜ëŠ” Frame
 			
-	// ¹æÇâ ¼³Á¤
+	// ë°©í–¥ ì„¤ì •
 	pEffect->SetDirection( GetDirection());
 	pEffect->SetMulti(true);
 	g_pZone->AddEffect( pEffect,10);
@@ -85,7 +85,7 @@ MParabolaEffect::MakeCannonadeSmoke()
 //----------------------------------------------------------------------
 // Move
 //----------------------------------------------------------------------
-// ¸Å ¼ø°£¸¶´Ù StepX~Z°¡ ´Ş¶óÁø´Ù.
+// ë§¤ ìˆœê°„ë§ˆë‹¤ StepX~Zê°€ ë‹¬ë¼ì§„ë‹¤.
 //----------------------------------------------------------------------
 bool
 MParabolaEffect::Update()
@@ -93,28 +93,28 @@ MParabolaEffect::Update()
 	if (g_CurrentFrame < m_EndFrame)
 	{
 		//--------------------------------
-		// Pixel ÁÂÇ¥¸¦ ¹Ù²Û´Ù.
+		// Pixel ì¢Œí‘œë¥¼ ë°”ê¾¼ë‹¤.
 		//--------------------------------
-		// °¢°¢ÀÇ ¹æÇâ¿¡ ´ëÇØ¼­ Step¸¸Å­ ÀÌµ¿ÇØÁØ´Ù.
+		// ê°ê°ì˜ ë°©í–¥ì— ëŒ€í•´ì„œ Stepë§Œí¼ ì´ë™í•´ì¤€ë‹¤.
 		m_PixelX += m_StepX;
 		m_PixelY += m_StepY;
 		m_PixelZ += m_StepZ;
 
-		m_RadCurrent += m_RadStep;			// ÇöÀç Radian°ª º¯È­
+		m_RadCurrent += m_RadStep;			// í˜„ì¬ Radianê°’ ë³€í™”
 
-		m_PixelZ += ((MathTable::FCos(m_RadCurrent)*m_StepPixel)>>16);	// ZÁÂÇ¥ º¯È­
+		m_PixelZ += ((MathTable::FCos(m_RadCurrent)*m_StepPixel)>>16);	// Zì¢Œí‘œ ë³€í™”
 
 		
 		if(GetActionInfo() == SKILL_CANNONADE)
 			MakeCannonadeSmoke();
 		//------------------------------------------
-		// ´Ù ¿òÁ÷ÀÎ °æ¿ì¸¦ »ı°¢ÇØºÁ¾ß ÇÑ´Ù.
+		// ë‹¤ ì›€ì§ì¸ ê²½ìš°ë¥¼ ìƒê°í•´ë´ì•¼ í•œë‹¤.
 		//------------------------------------------
 		if (fabs(m_PixelX-m_TargetX)<m_StepPixel &&
 			fabs(m_PixelY-m_TargetY)<m_StepPixel &&
 			//fabs(m_PixelZ-m_TargetZ)<m_StepPixel &&
 			m_RadCurrent >= MathTable::FPI			
-			|| m_PixelZ < m_TargetZ	// ¹Ù´Ú¿¡ ¶³¾îÁø °æ¿ì.
+			|| m_PixelZ < m_TargetZ	// ë°”ë‹¥ì— ë–¨ì–´ì§„ ê²½ìš°.
 			
 			)
 		{
@@ -127,7 +127,7 @@ MParabolaEffect::Update()
 			m_StepZ = 0;
 
 			//------------------------------------------
-			// ´õ ¿òÁ÷ÀÏ ÇÊ¿ä°¡ ¾ø´Â °æ¿ìÀÌ´Ù.			
+			// ë” ì›€ì§ì¼ í•„ìš”ê°€ ì—†ëŠ” ê²½ìš°ì´ë‹¤.			
 			//------------------------------------------
 			m_EndFrame = 0;
 
@@ -142,12 +142,12 @@ MParabolaEffect::Update()
 		}
 
 		//--------------------------------
-		// Sector ÁÂÇ¥¸¦ ¸ÂÃá´Ù.
+		// Sector ì¢Œí‘œë¥¼ ë§ì¶˜ë‹¤.
 		//--------------------------------
 		AffectPosition();
 
 		//--------------------------------
-		// FrameÀ» ¹Ù²ãÁØ´Ù.
+		// Frameì„ ë°”ê¿”ì¤€ë‹¤.
 		//--------------------------------
 		NextFrame();
 
@@ -157,14 +157,14 @@ MParabolaEffect::Update()
 		}
 
 		//--------------------------------
-		// Counter¸¦ ÇÏ³ª ÁÙÀÎ´Ù.
+		// Counterë¥¼ í•˜ë‚˜ ì¤„ì¸ë‹¤.
 		//--------------------------------
 		//m_Count--;
 
 		return true;
 	}
 
-	// ³¡~
+	// ë~
 
 	return false;
 

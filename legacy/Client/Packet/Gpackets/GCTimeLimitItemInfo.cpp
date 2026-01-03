@@ -106,7 +106,7 @@ void GCTimeLimitItemInfo::addTimeLimit(ObjectID_t objectID, DWORD time)
 
 	ItemTimeLimitMap::const_iterator	itr = m_TimeLimitItemInfos.find(objectID);
 
-	if ( itr != m_TimeLimitItemInfos.end() ) throw Error( "¾ÆÀÌÅÛ ¿ÀºêÁ§Æ® ¾ÆÀÌµğ°¡ °ãÄ¡³×¿ë.");
+	if ( itr != m_TimeLimitItemInfos.end() ) throw Error( "ì•„ì´í…œ ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””ê°€ ê²¹ì¹˜ë„¤ìš©.");
 
 	m_TimeLimitItemInfos[ objectID ] = time;
 

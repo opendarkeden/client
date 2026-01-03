@@ -22,9 +22,9 @@
 #endif
 
 //----------------------------------------------------------------------
-// ¼­¹ö·ÎºÎÅÍ Ä³¸¯ÅÍ ¸®½ºÆ®¸¦ ¹Ş¾Ò´Ù. 
-// ÀÌÁ¦ Ä³¸¯ÅÍ °ü¸® ÀÎÅÍÆäÀÌ½ºÀÇ ÀûÀıÇÑ °÷¿¡ Àü¼Û¹ŞÀº °ªÀ» Áı¾î ³Ö¾î¼­
-// Ãâ·ÂÇÏÀÚ.
+// ì„œë²„ë¡œë¶€í„° ìºë¦­í„° ë¦¬ìŠ¤íŠ¸ë¥¼ ë°›ì•˜ë‹¤. 
+// ì´ì œ ìºë¦­í„° ê´€ë¦¬ ì¸í„°í˜ì´ìŠ¤ì˜ ì ì ˆí•œ ê³³ì— ì „ì†¡ë°›ì€ ê°’ì„ ì§‘ì–´ ë„£ì–´ì„œ
+// ì¶œë ¥í•˜ì.
 //----------------------------------------------------------------------
 void LCPCListHandler::execute ( LCPCList * pPacket , Player * pPlayer )
 	 throw ( ProtocolException , Error )
@@ -79,7 +79,7 @@ void LCPCListHandler::execute ( LCPCList * pPacket , Player * pPlayer )
 		}
 
 		if ( nPCs == 0 ) {
-			cout << "Ä³¸¯ÅÍ°¡ ÇÏ³ªµµ ¾ø½À´Ï´Ù." << endl;
+			cout << "ìºë¦­í„°ê°€ í•˜ë‚˜ë„ ì—†ìŠµë‹ˆë‹¤." << endl;
 		}
 
 		char cmd[80+1];
@@ -121,9 +121,9 @@ void LCPCListHandler::execute ( LCPCList * pPacket , Player * pPlayer )
 			else slot = SLOT1;
 			clCreatePC.setSlot(slot);
 
-			cout << "Sex (³²/¿©) : ";
+			cout << "Sex (ë‚¨/ì—¬) : ";
 			cin.getline(cmd,80);
-			Sex sex = ( strcmp(cmd,"³²") == 0 ) ? sex = MALE : sex = FEMALE;
+			Sex sex = ( strcmp(cmd,"ë‚¨") == 0 ) ? sex = MALE : sex = FEMALE;
 			clCreatePC.setSex(sex);
 			cout << "Sex : " << Sex2String[sex] << endl;
 
@@ -206,7 +206,7 @@ void LCPCListHandler::execute ( LCPCList * pPacket , Player * pPlayer )
 			else
 				clSelectPC.setPCType(PC_SLAYER);
 
-			// CGConnect ¶§ »ç¿ëÇÏ·Á¸é ¿©±â¼­ ÀúÀåÇØµÖ¾ß ÇÑ´Ù.
+			// CGConnect ë•Œ ì‚¬ìš©í•˜ë ¤ë©´ ì—¬ê¸°ì„œ ì €ì¥í•´ë‘¬ì•¼ í•œë‹¤.
 			pClientPlayer->setPCType(clSelectPC.getPCType());
 			pClientPlayer->setPCName(clSelectPC.getPCName());
 
@@ -267,7 +267,7 @@ void LCPCListHandler::execute ( LCPCList * pPacket , Player * pPlayer )
 	};
 	struct S_SLOT
 	{
-		bool							bl_set; // slotÀÌ ¼³Á¤µÇ¾ú´Â°¡?
+		bool							bl_set; // slotì´ ì„¤ì •ë˜ì—ˆëŠ”ê°€?
 		bool							bl_female;
 		C_VS_UI_NEWCHAR::MAN_INFO		man_info;
 		C_VS_UI_NEWCHAR::WOMAN_INFO		woman_info;
@@ -276,7 +276,7 @@ void LCPCListHandler::execute ( LCPCList * pPacket , Player * pPlayer )
 	*/
 
 	//------------------------------------------------------------
-	// Characer ¼±ÅÃ Ã¢À» ¶ç¿ö¾ß ÇÑ´Ù.
+	// Characer ì„ íƒ ì°½ì„ ë„ì›Œì•¼ í•œë‹¤.
 	//------------------------------------------------------------
 	UI_StartCharacterManager();				
 			
@@ -295,7 +295,7 @@ void LCPCListHandler::execute ( LCPCList * pPacket , Player * pPlayer )
 					//char johapName[16];
 
 					//------------------------------------------------------------
-					// ¿Ï¼ºÇü --> Á¶ÇÕÇü
+					// ì™„ì„±í˜• --> ì¡°í•©í˜•
 					//------------------------------------------------------------
 					//UI_WansungToJohap( pPCSlayerInfo->getName().c_str(), johapName );
 
@@ -316,7 +316,7 @@ void LCPCListHandler::execute ( LCPCList * pPacket , Player * pPlayer )
 					//char johapName[16];
 
 					//------------------------------------------------------------
-					// ¿Ï¼ºÇü --> Á¶ÇÕÇü
+					// ì™„ì„±í˜• --> ì¡°í•©í˜•
 					//------------------------------------------------------------
 					//UI_WansungToJohap( pPCVampireInfo->getName().c_str(), johapName );
 
@@ -337,7 +337,7 @@ void LCPCListHandler::execute ( LCPCList * pPacket , Player * pPlayer )
 					//char johapName[16];
 					
 					//------------------------------------------------------------
-					// ¿Ï¼ºÇü --> Á¶ÇÕÇü
+					// ì™„ì„±í˜• --> ì¡°í•©í˜•
 					//------------------------------------------------------------
 					//UI_WansungToJohap( pPCVampireInfo->getName().c_str(), johapName );
 					
@@ -357,7 +357,7 @@ void LCPCListHandler::execute ( LCPCList * pPacket , Player * pPlayer )
 	}
 
 	//----------------------------------------------
-	// º¸°üÇÔÀ» ºñ¿öµĞ´Ù.
+	// ë³´ê´€í•¨ì„ ë¹„ì›Œë‘”ë‹¤.
 	//----------------------------------------------
 	if (g_pStorage!=NULL)
 	{
@@ -367,7 +367,7 @@ void LCPCListHandler::execute ( LCPCList * pPacket , Player * pPlayer )
 
 			
 
-	// ´ÙÀ½Àº 
+	// ë‹¤ìŒì€ 
 	SetMode( MODE_WAIT_SELECTPC );
 	
 

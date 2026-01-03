@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MPlayerGear.cpp
 //----------------------------------------------------------------------
-// PlayerÀÇ Gear¿¡ ´ëÇÑ class
+// Playerì˜ Gearì— ëŒ€í•œ class
 //----------------------------------------------------------------------
 
 #ifndef __MPLAYERGEAR_H__
@@ -13,9 +13,9 @@ class MPlayerGear : public MSlotItemManager {
 	public :
 		enum ITEM_STATUS
 		{
-			ITEM_STATUS_OK,					// ÁÁÀº »óÅÂ
-			ITEM_STATUS_SOMEWHAT_BROKEN,		// ¾à°£ ºÎ¼­Áü - -;
-			ITEM_STATUS_ALMOST_BROKEN		// ¸¹ÀÌ ºÎ¼­Áü
+			ITEM_STATUS_OK,					// ì¢‹ì€ ìƒíƒœ
+			ITEM_STATUS_SOMEWHAT_BROKEN,		// ì•½ê°„ ë¶€ì„œì§ - -;
+			ITEM_STATUS_ALMOST_BROKEN		// ë§ì´ ë¶€ì„œì§
 		};
 
 	public :
@@ -31,34 +31,34 @@ class MPlayerGear : public MSlotItemManager {
 		//------------------------------------------------------
 		// Add / Get / Remove
 		//------------------------------------------------------		
-		bool			AddItem(MItem* pItem, BYTE n);		// slot(n)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+		bool			AddItem(MItem* pItem, BYTE n);		// slot(n)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 
-		MItem*			GetItem(BYTE n) const;				// slot(n)ÀÇ itemÀ» ÀĞ¾î¿Â´Ù.
+		MItem*			GetItem(BYTE n) const;				// slot(n)ì˜ itemì„ ì½ì–´ì˜¨ë‹¤.
 		
-		MItem*			RemoveItem(BYTE n);					// slot(n)ÀÇ itemÀ» Á¦°ÅÇÑ´Ù.
-		MItem*			RemoveItem(TYPE_OBJECTID id);		// id°¡ °°Àº itemÀ» Á¦°ÅÇÑ´Ù.
+		MItem*			RemoveItem(BYTE n);					// slot(n)ì˜ itemì„ ì œê±°í•œë‹¤.
+		MItem*			RemoveItem(TYPE_OBJECTID id);		// idê°€ ê°™ì€ itemì„ ì œê±°í•œë‹¤.
 
-		bool			ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);	// (n)À§Ä¡ÀÇ Item±³È¯
+		bool			ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);	// (n)ìœ„ì¹˜ì˜ Itemêµí™˜
 
 		//------------------------------------------------------
-		// Item º¯È­
+		// Item ë³€í™”
 		//------------------------------------------------------
 		bool			ModifyDurability(BYTE n, int changeValue);
 
 		//------------------------------------------------------
-		// ºÎ¼­Áú·Á´Â ¾ÆÀÌÅÛÀÌ ÀÖ´Â°¡?
+		// ë¶€ì„œì§ˆë ¤ëŠ” ì•„ì´í…œì´ ìˆëŠ”ê°€?
 		//------------------------------------------------------
 		ITEM_STATUS		GetItemStatus(int slot) const	{ return m_pItemStatus[slot]; }
 		BOOL			HasBrokenItem() const			{ return m_nBrokenItem!=0; }
 		void			CheckItemStatusAll();
 
 	protected :
-		//virtual void	CheckItemStatusAll() = 0;	// ÇÊ¿ä ¾øÀ» µí..
-		void			SetItemStatusOK(int slot);	// slot¹øÂ°´Â ±Â~À¸·Î ¸¸µç´Ù.
+		//virtual void	CheckItemStatusAll() = 0;	// í•„ìš” ì—†ì„ ë“¯..
+		void			SetItemStatusOK(int slot);	// slotë²ˆì§¸ëŠ” êµ¿~ìœ¼ë¡œ ë§Œë“ ë‹¤.
 		void			CheckItemStatus(const MItem* pItem, int slot);
 		
 	protected :
-		int				m_nBrokenItem;	// ºÎ¼­Áø itemÀÇ °³¼ö
+		int				m_nBrokenItem;	// ë¶€ì„œì§„ itemì˜ ê°œìˆ˜
 		ITEM_STATUS*	m_pItemStatus;
 };
 

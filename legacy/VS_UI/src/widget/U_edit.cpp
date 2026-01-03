@@ -10,11 +10,11 @@
 //
 // gpC_focused_line_editor
 //
-// ÀÔ·ÂµÇ´Â lineÀº ´Ü ÇÏ³ªÀÇ focused lineÀÌ´Ù. LineEditor object°¡ AcquireµÇ¸é
-// ÀÚ½ÅÀÇ this *¸¦ ÀÌ°Í¿¡ ´ëÀÔÇÏ¿© ÀÔ·Â±â·ÎºÎÅÍ ÀÔ·ÂÀ» ¹ŞÀ» ¼ö ÀÖµµ·Ï ÁØºñÇÑ´Ù.
+// ì…ë ¥ë˜ëŠ” lineì€ ë‹¨ í•˜ë‚˜ì˜ focused lineì´ë‹¤. LineEditor objectê°€ Acquireë˜ë©´
+// ìì‹ ì˜ this *ë¥¼ ì´ê²ƒì— ëŒ€ì…í•˜ì—¬ ì…ë ¥ê¸°ë¡œë¶€í„° ì…ë ¥ì„ ë°›ì„ ìˆ˜ ìˆë„ë¡ ì¤€ë¹„í•œë‹¤.
 //
-// !ÀÌ°ÍÀº ¹İµå½Ã (LineEditor *)ÀÌ¾î¾ß ÇÑ´Ù. ¿Ö³ÄÇÏ¸é ÀÌ°ÍÀÌ ´Ù¸¥ °ÍµéÀ»
-//  »ó¼ÓÇÏ±â ¶§¹®ÀÌ´Ù.
+// !ì´ê²ƒì€ ë°˜ë“œì‹œ (LineEditor *)ì´ì–´ì•¼ í•œë‹¤. ì™œëƒí•˜ë©´ ì´ê²ƒì´ ë‹¤ë¥¸ ê²ƒë“¤ì„
+//  ìƒì†í•˜ê¸° ë•Œë¬¸ì´ë‹¤.
 //
 static LineEditor *	gpC_focused_line_editor = NULL;
 extern HWND g_hWnd;
@@ -81,7 +81,7 @@ LineEditor::~LineEditor()
 //-----------------------------------------------------------------------------
 // LineEditor::AddString
 //
-// sz_strÀ» ³¡¿¡ µ¡ºÙÀÎ´Ù. Ä¿¼­´Â ³¡À¸·Î ÀÌµ¿µÈ´Ù.
+// sz_strì„ ëì— ë§ë¶™ì¸ë‹¤. ì»¤ì„œëŠ” ëìœ¼ë¡œ ì´ë™ëœë‹¤.
 //-----------------------------------------------------------------------------
 void	LineEditor::AddString(const char * sz_str)
 {
@@ -113,7 +113,7 @@ void	LineEditor::AddString(const char * sz_str)
 //-----------------------------------------------------------------------------
 // CheckInputCharLimit
 //
-// ÀÔ·ÂÁ¦ÇÑ¿¡ °É¸±°ÍÀÎ°¡?
+// ì…ë ¥ì œí•œì— ê±¸ë¦´ê²ƒì¸ê°€?
 //-----------------------------------------------------------------------------
 bool LineEditor::CheckInputCharLimit() const
 {
@@ -133,7 +133,7 @@ void LineEditor::SetByteLimit(int byte)
 //-----------------------------------------------------------------------------
 // CheckInputLimit
 //
-// ÀÔ·ÂÁ¦ÇÑ¿¡ °É¸®¸é true¸¦ ¹İÈ¯ÇÑ´Ù.
+// ì…ë ¥ì œí•œì— ê±¸ë¦¬ë©´ trueë¥¼ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 bool LineEditor::CheckInputLimit(char_t will_input_char)
 {
@@ -171,7 +171,7 @@ bool LineEditor::CheckInputLimit(char_t will_input_char)
 //-----------------------------------------------------------------------------
 // EraseCharacterFrontCursor
 //
-// cursor ¾Õ¿¡ ÇÑ ¹®ÀÚ¸¦ »èÁ¦ÇÑ´Ù.
+// cursor ì•ì— í•œ ë¬¸ìë¥¼ ì‚­ì œí•œë‹¤.
 //-----------------------------------------------------------------------------
 bool LineEditor::EraseCharacterFrontCursor()
 {
@@ -203,7 +203,7 @@ bool LineEditor::EraseCharacterBegin()
 //-----------------------------------------------------------------------------
 // EraseAll
 //
-// ¹®ÀÚ¿­ ÀüºÎ¸¦ Áö¿î´Ù.
+// ë¬¸ìì—´ ì „ë¶€ë¥¼ ì§€ìš´ë‹¤.
 //-----------------------------------------------------------------------------
 void LineEditor::EraseAll()
 { 
@@ -215,7 +215,7 @@ void LineEditor::EraseAll()
 //-----------------------------------------------------------------------------
 // InsertGap
 //
-// m_stringÀÇ cursor position¿¡ gapÀ» »ğÀÔÇÑ´Ù.
+// m_stringì˜ cursor positionì— gapì„ ì‚½ì…í•œë‹¤.
 //-----------------------------------------------------------------------------
 bool LineEditor::InsertGap()
 {
@@ -357,8 +357,8 @@ void LineEditor::Init()
 //-----------------------------------------------------------------------------
 /*void LineEditor::SetLogicalSize(int logical_size)
 {
-	// logical size´Â ÃÖ¼Ò ÇÑ ±ÛÀÚ¶óµµ ÀÔ·ÂÇÒ ¼ö ÀÖ´Â Å©±â¿©¾ß¾Ê°Ú³ª?
-	// 0ÀÌ¶ó¸é ÇÒ ¼ö ¾ø±¸...
+	// logical sizeëŠ” ìµœì†Œ í•œ ê¸€ìë¼ë„ ì…ë ¥í•  ìˆ˜ ìˆëŠ” í¬ê¸°ì—¬ì•¼ì•Šê² ë‚˜?
+	// 0ì´ë¼ë©´ í•  ìˆ˜ ì—†êµ¬...
 
 	assert(logical_size > -1);
 
@@ -371,7 +371,7 @@ void LineEditor::Init()
 //-----------------------------------------------------------------------------
 // SetInputCharCount
 //
-// ÀÔ·Â°¡´ÉÇÑ ¹®ÀÚ°³¼ö¸¦ ¼³Á¤ÇÑ´Ù.
+// ì…ë ¥ê°€ëŠ¥í•œ ë¬¸ìê°œìˆ˜ë¥¼ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void LineEditor::SetInputCharCount(int char_count)
 {
@@ -502,15 +502,15 @@ void LineEditor::KeyboardControl(UINT message, UINT key, long extra)
 
 		case WM_CHAR:
 			//
-			// WM_IME_CHAR°¡ DefWindowProc()·Î µé¾î°¡¸é µÎ °³ÀÇ WM_CHAR¸¦ ¹ß»ı½ÃÅ°´Âµ¥, ÀÌ°ÍÀº
-			// ÇöÀç IME¿¡ ÀÖ´Â DBCSÀÌ´Ù. »óÇÏÀ§ ³ª´µ¾î¼­ µÎ ¹ø ³¯¾Æ¿Â´Ù.
-			// ±×·±µ¥ ¸¸¾à¿¡ ÇÑ±ÛÀÔ·ÂÁß¿¡ ASCII code¸¦ ÀÔ·ÂÇÏ¿´´Ù¸é ±× µÎ °³¿¡´Ù ÇÏ³ª°¡ ´õ
-			// ³¯¾Æ¿Â´Ù. ±×°ÍÀº ¹Ù·Î ÇØ´ç ASCII codeÀÌ´Ù.
+			// WM_IME_CHARê°€ DefWindowProc()ë¡œ ë“¤ì–´ê°€ë©´ ë‘ ê°œì˜ WM_CHARë¥¼ ë°œìƒì‹œí‚¤ëŠ”ë°, ì´ê²ƒì€
+			// í˜„ì¬ IMEì— ìˆëŠ” DBCSì´ë‹¤. ìƒí•˜ìœ„ ë‚˜ë‰˜ì–´ì„œ ë‘ ë²ˆ ë‚ ì•„ì˜¨ë‹¤.
+			// ê·¸ëŸ°ë° ë§Œì•½ì— í•œê¸€ì…ë ¥ì¤‘ì— ASCII codeë¥¼ ì…ë ¥í•˜ì˜€ë‹¤ë©´ ê·¸ ë‘ ê°œì—ë‹¤ í•˜ë‚˜ê°€ ë”
+			// ë‚ ì•„ì˜¨ë‹¤. ê·¸ê²ƒì€ ë°”ë¡œ í•´ë‹¹ ASCII codeì´ë‹¤.
 			//
-			// ex) '¤¡' -> '.'		; '¤¡'¿¡ ´ëÇÑ DBCS, ±×¸®°í ¸¶Áö¸·¿¡ '.'¿¡ ´ëÇÑ ASCII code
+			// ex) 'ã„±' -> '.'		; 'ã„±'ì— ëŒ€í•œ DBCS, ê·¸ë¦¬ê³  ë§ˆì§€ë§‰ì— '.'ì— ëŒ€í•œ ASCII code
 			//
 
-			// ASCII code°¡ ¾Æ´Ï¸é ÀÔ·ÂÇÏÁö ¾Ê´Â´Ù.
+			// ASCII codeê°€ ì•„ë‹ˆë©´ ì…ë ¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
 			if ((char)key >= 32 && (char)key <= 126)
 			{
 				if (m_bl_digit_only)
@@ -550,14 +550,14 @@ void LineEditor::KeyboardControl(UINT message, UINT key, long extra)
 //-----------------------------------------------------------------------------
 bool LineEditor::IsAcquire() const
 {
-	// this´Â »ó¼Ó¹ŞÀ» °æ¿ì (LineEditor *)°¡ ¾Æ´Ò ¼ö ÀÖ´Ù. ±×·¡¼­ castÇØÁØ´Ù.
+	// thisëŠ” ìƒì†ë°›ì„ ê²½ìš° (LineEditor *)ê°€ ì•„ë‹ ìˆ˜ ìˆë‹¤. ê·¸ë˜ì„œ castí•´ì¤€ë‹¤.
 	return (gpC_focused_line_editor == (LineEditor *)this);
 }
 
 //-----------------------------------------------------------------------------
 // Acquire
 //
-// ÀÔ·ÂÀ» ¹ŞÀ» ¼ö ÀÖµµ·Ï ÇÑ´Ù.
+// ì…ë ¥ì„ ë°›ì„ ìˆ˜ ìˆë„ë¡ í•œë‹¤.
 //-----------------------------------------------------------------------------
 void LineEditor::Acquire()
 {
@@ -569,7 +569,7 @@ void LineEditor::Acquire()
 //-----------------------------------------------------------------------------
 // Unacquire
 //
-// ÀÔ·ÂÀ» ¹ŞÀ» ¼ö ¾ø°Ô ÇÑ´Ù.
+// ì…ë ¥ì„ ë°›ì„ ìˆ˜ ì—†ê²Œ í•œë‹¤.
 //-----------------------------------------------------------------------------
 void LineEditor::Unacquire()
 {
@@ -579,7 +579,7 @@ void LineEditor::Unacquire()
 //-----------------------------------------------------------------------------
 // InsertToCursorPosition
 //
-// stringÀÇ cursor position¿¡ a_char¸¦ insertÇÑ´Ù.
+// stringì˜ cursor positionì— a_charë¥¼ insertí•œë‹¤.
 //-----------------------------------------------------------------------------
 //void LineEditor::InsertToCursorPosition(char_t a_char)
 //{
@@ -606,7 +606,7 @@ void LineEditor::Unacquire()
 //-----------------------------------------------------------------------------
 // EditToCursorPosition
 //
-// cursor position¿¡¼­ editÇÑ´Ù.
+// cursor positionì—ì„œ edití•œë‹¤.
 //-----------------------------------------------------------------------------
 void LineEditor::EditToCursorPosition(char_t a_char)
 {
@@ -627,7 +627,7 @@ void LineEditor::EditToCursorPosition(char_t a_char)
 //-----------------------------------------------------------------------------
 // EditToCursorPositionForIME
 //
-// cursor position¿¡¼­ editÇÑ´Ù. ÀÌ°ÍÀº IMEÀÏ °æ¿ì¿¡¸¸ ½ÇÇàµÈ´Ù.
+// cursor positionì—ì„œ edití•œë‹¤. ì´ê²ƒì€ IMEì¼ ê²½ìš°ì—ë§Œ ì‹¤í–‰ëœë‹¤.
 //-----------------------------------------------------------------------------
 void LineEditor::EditToCursorPositionForIME(char_t a_char)
 {
@@ -636,7 +636,7 @@ void LineEditor::EditToCursorPositionForIME(char_t a_char)
 
 	m_string[m_cursor-1] = a_char;
 
-	// back space ¸¶Áö¸· µ¿ÀÛ¿¡¼­ ½ÇÁ¦·Î Áö¿ì±â.
+	// back space ë§ˆì§€ë§‰ ë™ì‘ì—ì„œ ì‹¤ì œë¡œ ì§€ìš°ê¸°.
 	if (a_char == 0)
 		EraseCharacterFrontCursor();
 }
@@ -666,13 +666,13 @@ void LineEditor::InsertMark(char_t a_char)
 }
 
 //----------------------------------------------------------------------------
-//  CI(Character Inputer)¿¡¼­ ½ÇÇàÇØÁÖ´Â °Íµé.
+//  CI(Character Inputer)ì—ì„œ ì‹¤í–‰í•´ì£¼ëŠ” ê²ƒë“¤.
 //----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // IME_EndComposition - auto call
 //
-// ÀÔ·ÂÀÌ ³¡³µ´Ù.
+// ì…ë ¥ì´ ëë‚¬ë‹¤.
 //-----------------------------------------------------------------------------
 void IME_EndComposition()
 {
@@ -698,7 +698,7 @@ void CI_KOREAN::IME_Composition()
 //-----------------------------------------------------------------------------
 // IME_StartComposition - auto call
 //
-// ÀÔ·ÂÀÌ ½ÃÀÛµÇ¸é ½ÇÇàµÈ´Ù.
+// ì…ë ¥ì´ ì‹œì‘ë˜ë©´ ì‹¤í–‰ëœë‹¤.
 //-----------------------------------------------------------------------------
 void IME_StartComposition()
 {
@@ -747,9 +747,9 @@ void IME_StartComposition()
 //-----------------------------------------------------------------------------
 // IME_NextComposition - auto call
 //
-// ¿¬¼ÓÀ¸·Î CompositionµÇ°í ´ÙÀ½¹®ÀÚ·Î ³Ñ¾î°¥ ¶§ ½ÇÇàµÈ´Ù.
+// ì—°ì†ìœ¼ë¡œ Compositionë˜ê³  ë‹¤ìŒë¬¸ìë¡œ ë„˜ì–´ê°ˆ ë•Œ ì‹¤í–‰ëœë‹¤.
 //
-// ex) ±èÁø_  ; '¤¸'À» ÀÔ·ÂÇÏ´Â ¼ø°£¿¡ ½ÇÇà.
+// ex) ê¹€ì§„_  ; 'ã…ˆ'ì„ ì…ë ¥í•˜ëŠ” ìˆœê°„ì— ì‹¤í–‰.
 //-----------------------------------------------------------------------------
 void CI_KOREAN::IME_NextComposition()
 {
@@ -758,10 +758,10 @@ void CI_KOREAN::IME_NextComposition()
 		if (gC_ci->GetEndOfIME() == false)
 		{
 			//
-			// ¹®ÀÚº¸Á¤
+			// ë¬¸ìë³´ì •
 			//
-			// 'ÇÏ¼¼'¿¡¼­ 'ÇÖ'+'¤Ä'°¡ µÇ¸é¼­ IME_NextCompositionÀÌ ½ÇÇàµÊÀ¸·Î
-			// ¿©±â¼­ ÇÑ ¹ø ´õ cursor°¡ ÀÌµ¿µÇ±â Àü¿¡ edit ÇØÁà¾ß ÇÑ´Ù.
+			// 'í•˜ì„¸'ì—ì„œ 'í•«'+'ã…”'ê°€ ë˜ë©´ì„œ IME_NextCompositionì´ ì‹¤í–‰ë¨ìœ¼ë¡œ
+			// ì—¬ê¸°ì„œ í•œ ë²ˆ ë” cursorê°€ ì´ë™ë˜ê¸° ì „ì— edit í•´ì¤˜ì•¼ í•œë‹¤.
 			//
 			if (gC_ci->ImeRunning() == true)
 				gpC_focused_line_editor->EditToCursorPositionForIME(gC_ci->GetComposingChar());
@@ -813,7 +813,7 @@ void CI_KOREAN::IME_NextComposition()
 //-----------------------------------------------------------------------------
 // IME_Normal - auto call
 //
-// ASCII code¿Í ±âÅ¸ code°¡ ´­·ÁÁú °æ¿ì CI¿¡ ÀÇÇØ ½ÇÇàµÈ´Ù.
+// ASCII codeì™€ ê¸°íƒ€ codeê°€ ëˆŒë ¤ì§ˆ ê²½ìš° CIì— ì˜í•´ ì‹¤í–‰ëœë‹¤.
 //-----------------------------------------------------------------------------
 void IME_Normal(UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -854,7 +854,7 @@ LineEditorVisual::~LineEditorVisual()
 //-----------------------------------------------------------------------------
 // SetPrintInfo
 //
-// !LineEditorVisual¿¡¼­ print_info.hfont¸¦ delete(DeleteObject)ÇÏÁö ¾Ê´Â´Ù.
+// !LineEditorVisualì—ì„œ print_info.hfontë¥¼ delete(DeleteObject)í•˜ì§€ ì•ŠëŠ”ë‹¤.
 //-----------------------------------------------------------------------------
 void LineEditorVisual::SetPrintInfo(PrintInfo &print_info)
 {
@@ -864,7 +864,7 @@ void LineEditorVisual::SetPrintInfo(PrintInfo &print_info)
 //-----------------------------------------------------------------------------
 // ReachEndOfBox
 //
-// DBCSÀÏ °æ¿ì will_input_char´Â 0ÀÌ´Ù.
+// DBCSì¼ ê²½ìš° will_input_charëŠ” 0ì´ë‹¤.
 //-----------------------------------------------------------------------------
 bool LineEditorVisual::ReachEndOfBox(char_t will_input_char) const
 {
@@ -877,7 +877,7 @@ bool LineEditorVisual::ReachEndOfBox(char_t will_input_char) const
 		if (will_input_char > 0) // ASCII?
 			temp_string += (char_t)'a';
 		else
-			temp_string += *((char_t *)"±è");
+			temp_string += *((char_t *)"ê¹€");
 	}
 
 	int len = g_Convert_DBCS_Ascii2SingleByte(temp_string.c_str()+m_scroll, temp_string.size(), str_buf);
@@ -895,7 +895,7 @@ bool LineEditorVisual::ReachEndOfBox(char_t will_input_char) const
 //-----------------------------------------------------------------------------
 // ReachEndOfBox
 //
-// DBCSÀÏ °æ¿ì will_input_char´Â 0ÀÌ´Ù.
+// DBCSì¼ ê²½ìš° will_input_charëŠ” 0ì´ë‹¤.
 //-----------------------------------------------------------------------------
 int LineEditorVisual::ReachSizeOfBox() const
 {
@@ -928,7 +928,7 @@ void LineEditorVisual::PasswordMode(bool enable)
 //-----------------------------------------------------------------------------
 // EndOfLogicalSize
 //
-// m_string+(ÀÔ·ÂÇÒ ¹®ÀÚ)ÀÇ ±æÀÌ°¡ logical size ÀÌ»óÀÌ¸é true¸¦ ¹İÈ¯ÇÑ´Ù.
+// m_string+(ì…ë ¥í•  ë¬¸ì)ì˜ ê¸¸ì´ê°€ logical size ì´ìƒì´ë©´ trueë¥¼ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 //bool LineEditorVisual::EndOfLogicalSize() const
 //{
@@ -954,7 +954,7 @@ void LineEditorVisual::SetCursorColor(COLORREF color)
 //-----------------------------------------------------------------------------
 // SetPosition
 //
-// LineEditor°¡ Ãâ·ÂµÉ À§Ä¡¸¦ ¼³Á¤ÇÑ´Ù.
+// LineEditorê°€ ì¶œë ¥ë  ìœ„ì¹˜ë¥¼ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void LineEditorVisual::SetPosition(int x, int y)
 {
@@ -964,7 +964,7 @@ void LineEditorVisual::SetPosition(int x, int y)
 //-----------------------------------------------------------------------------
 // Show
 //
-// string, cursor¸¦ Ãâ·ÂÇÑ´Ù.
+// string, cursorë¥¼ ì¶œë ¥í•œë‹¤.
 //-----------------------------------------------------------------------------
 void LineEditorVisual::Show() const
 {
@@ -1021,7 +1021,7 @@ void LineEditorVisual::Show() const
 
 	std::vector<int> v_cut;
 	
-	// print_y ºÎºĞ¿¡ ÇÑ°è¸¦ µÎ¾î Ã¼Å©¸¦ ÇÑ´Ù.
+	// print_y ë¶€ë¶„ì— í•œê³„ë¥¼ ë‘ì–´ ì²´í¬ë¥¼ í•œë‹¤.
 	if(str_buf)
 	{
 		if(m_gap == 0)
@@ -1115,16 +1115,16 @@ void LineEditorVisual::Show() const
 				HBRUSH holdbrush = (HBRUSH)SelectObject(hdc, hbrush);
 				
 				// DBCS width
-				// text matricÀ¸·Î ¾òÀº°Ô ¸ÂÁö ¾ÊÀº °Í °°¾Æ¼­ ±×³É ÇÑ ¹®ÀÚÀÇ ±æÀÌ¸¦ ±¸ÇÑ´Ù.
+				// text matricìœ¼ë¡œ ì–»ì€ê²Œ ë§ì§€ ì•Šì€ ê²ƒ ê°™ì•„ì„œ ê·¸ëƒ¥ í•œ ë¬¸ìì˜ ê¸¸ì´ë¥¼ êµ¬í•œë‹¤.
 				SIZE dbcs_size;
-				char str[] = "±è";
+				char str[] = "ê¹€";
 				GetTextExtentPoint32(hdc, str, 2, &dbcs_size);
 				
 				px = m_xy.x+size.cx-dbcs_size.cx-1;
 				py = m_xy.y-1;
 				
 //				DEBUG_ADD("[LineEditorVisual] Show 4-4");
-				//editor modeÀÏ¶§
+				//editor modeì¼ë•Œ
 				if(m_gap != 0)
 				{
 					std::vector<int>::iterator itr = v_cut.begin();
@@ -1169,7 +1169,7 @@ void LineEditorVisual::Show() const
 				px = m_xy.x+size.cx+1;
 				py = m_xy.y;
 				
-				//editor modeÀÏ¶§
+				//editor modeì¼ë•Œ
 				if(m_gap != 0)
 				{
 					std::vector<int>::iterator itr = v_cut.begin();
@@ -1334,13 +1334,13 @@ void CI_CHINESE::IME_Composition()
 //-----------------------------------------------------------------------------
 // IME_NextComposition - auto call
 //
-// ¿¬¼ÓÀ¸·Î CompositionµÇ°í ´ÙÀ½¹®ÀÚ·Î ³Ñ¾î°¥ ¶§ ½ÇÇàµÈ´Ù.
+// ì—°ì†ìœ¼ë¡œ Compositionë˜ê³  ë‹¤ìŒë¬¸ìë¡œ ë„˜ì–´ê°ˆ ë•Œ ì‹¤í–‰ëœë‹¤.
 //
-// ex) ±èÁø_  ; '¤¸'À» ÀÔ·ÂÇÏ´Â ¼ø°£¿¡ ½ÇÇà.
+// ex) ê¹€ì§„_  ; 'ã…ˆ'ì„ ì…ë ¥í•˜ëŠ” ìˆœê°„ì— ì‹¤í–‰.
 //-----------------------------------------------------------------------------
 void CI_CHINESE::IME_NextComposition()
 {
-	// ÀÔ·ÂµÈ ¹öÆÛ
+	// ì…ë ¥ëœ ë²„í¼
 //by viva
 	bool LastErase=false;
 	const char *temp_str=gC_ci->GetComposingStringPtr();

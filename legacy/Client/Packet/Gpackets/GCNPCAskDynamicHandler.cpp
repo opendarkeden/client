@@ -17,7 +17,7 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ðÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Þ½ÃÁö¸¦ ¹Þ¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Þ½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GCNPCAskDynamicHandler::execute ( GCNPCAskDynamic * pPacket , Player * pPlayer )
@@ -28,7 +28,7 @@ void GCNPCAskDynamicHandler::execute ( GCNPCAskDynamic * pPacket , Player * pPla
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -36,7 +36,7 @@ void GCNPCAskDynamicHandler::execute ( GCNPCAskDynamic * pPacket , Player * pPla
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
@@ -57,14 +57,14 @@ void GCNPCAskDynamicHandler::execute ( GCNPCAskDynamic * pPacket , Player * pPla
 
 				if (pCreature==NULL)
 				{
-					// ±×·± Ä³¸¯ÅÍ°¡ ¾øÀ¸¸é ¹«½ÃÇÑ´Ù.
+					// ê·¸ëŸ° ìºë¦­í„°ê°€ ì—†ìœ¼ë©´ ë¬´ì‹œí•œë‹¤.
 				}
 				else
 				{
 					//---------------------------------------------------
-					// g_PCTalkBox¿¡ Ãß°¡ÇÏ¸é µÈ´Ù.
+					// g_PCTalkBoxì— ì¶”ê°€í•˜ë©´ ëœë‹¤.
 					//---------------------------------------------------
-					// ±âÁ¸¿¡ ÀÖ´ø°Í Á¦°Å
+					// ê¸°ì¡´ì— ìžˆë˜ê²ƒ ì œê±°
 					g_pPCTalkBox->Release();
 
 					//---------------------------------------------------
@@ -73,7 +73,7 @@ void GCNPCAskDynamicHandler::execute ( GCNPCAskDynamic * pPacket , Player * pPla
 					g_pPCTalkBox->SetType( PCTalkBox::NORMAL );
 
 					//---------------------------------------------------
-					// PC Talk BoxÀÇ Á¤º¸ ¼³Á¤
+					// PC Talk Boxì˜ ì •ë³´ ì„¤ì •
 					//---------------------------------------------------
 					g_pPCTalkBox->SetContent( pPacket->getSubject().c_str() );
 					g_pPCTalkBox->SetNPCID( pPacket->getObjectID() );
@@ -81,13 +81,13 @@ void GCNPCAskDynamicHandler::execute ( GCNPCAskDynamic * pPacket , Player * pPla
 					g_pPCTalkBox->SetScriptID( pPacket->getScriptID() );
 
 					//---------------------------------------------------
-					// °¢ std::string Ãß°¡
+					// ê° std::string ì¶”ê°€
 					//---------------------------------------------------
 
 					g_pPCTalkBox->m_AnswerIDMap.clear();
 					for (int i=0; i<size; i++)
 					{
-						// g_PCTalkBox¿¡ Ãß°¡
+						// g_PCTalkBoxì— ì¶”ê°€
 						if( g_pSystemAvailableManager->ScriptFiltering( pPacket->getScriptID(), i ) )
 						{
 							g_pPCTalkBox->AddString( pPacket->popContent().c_str() );
@@ -99,7 +99,7 @@ void GCNPCAskDynamicHandler::execute ( GCNPCAskDynamic * pPacket , Player * pPla
 				}
 
 				//---------------------------------------------------
-				// Dialog¸¦ ¶ç¿î´Ù.
+				// Dialogë¥¼ ë„ìš´ë‹¤.
 				//---------------------------------------------------
 				//POINT point = ConvertPositionMapToScreen(pCreature->GetX(), pCreature->GetY());
 

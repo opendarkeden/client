@@ -1,21 +1,21 @@
 //----------------------------------------------------------------------
 // PCConfigTable.h
 //----------------------------------------------------------------------
-// key°ªÀÌ <WorldID, PlayerID>¿¡ ´ëÇÑ PCConfigÁ¤º¸
+// keyê°’ì´ <WorldID, PlayerID>ì— ëŒ€í•œ PCConfigì •ë³´
 //
-// ÀÏ´ÜÀº... PlayerIDÀÇ 3Ä³¸¯ Áß¿¡¼­ 
-//           ¾î´À Ä³¸¯ÀÌ ÃÖ±Ù¿¡ Á¢¼ÓÇß³Ä?´Â Á¤º¸¸¸ ÀÖÀ¸¸é µÈ´Ù.
+// ì¼ë‹¨ì€... PlayerIDì˜ 3ìºë¦­ ì¤‘ì—ì„œ 
+//           ì–´ëŠ ìºë¦­ì´ ìµœê·¼ì— ì ‘ì†í–ˆëƒ?ëŠ” ì •ë³´ë§Œ ìžˆìœ¼ë©´ ëœë‹¤.
 //
-// ±â¼ú ´ÜÃàÅ°, ±âÅ¸ Ä³¸¯ÅÍ ¸¶´ÙÀÇ ¿É¼Ç? ¼³Á¤ Á¤º¸...µî?
-// ¹¹ ³ª¸§´ë·Î ³ÖÀ» ¼ö ÀÖ°ÚÁö...
-// Áö±ÝÀÌ¾ß.. PlayerID¹Û¿¡.. -_-;
+// ê¸°ìˆ  ë‹¨ì¶•í‚¤, ê¸°íƒ€ ìºë¦­í„° ë§ˆë‹¤ì˜ ì˜µì…˜? ì„¤ì • ì •ë³´...ë“±?
+// ë­ ë‚˜ë¦„ëŒ€ë¡œ ë„£ì„ ìˆ˜ ìžˆê² ì§€...
+// ì§€ê¸ˆì´ì•¼.. PlayerIDë°–ì—.. -_-;
 //
-// [ RecentCountÃ³¸® ]
+// [ RecentCountì²˜ë¦¬ ]
 //
-// PlayerID data°³¼ö¸¦ Á¦ÇÑÇÏ±â À§ÇØ¼­ LRU PlayerID¸¦ Á¦°ÅÇÑ´Ù.
-// saveÇÒ¶§¸¶´Ù RecentCount¸¦ 1¾¿ Áõ°¡½ÃÅ²´Ù.
-// SetLastSlot(Á¢¼ÓÇÒ¶§)À» ÇÏÁö ¾Ê°í.. save¸¸ ÇÏ°Ô µÇ¸é
-// °á±¹ RecentCount°¡ °¡Àå Å« ¾Ö°¡.. Á¦ÀÏ~~ ¿À·¡Àü¿¡ Á¢¼ÓÇÑ¾Ö°¡ µÈ´Ù.
+// PlayerID dataê°œìˆ˜ë¥¼ ì œí•œí•˜ê¸° ìœ„í•´ì„œ LRU PlayerIDë¥¼ ì œê±°í•œë‹¤.
+// saveí• ë•Œë§ˆë‹¤ RecentCountë¥¼ 1ì”© ì¦ê°€ì‹œí‚¨ë‹¤.
+// SetLastSlot(ì ‘ì†í• ë•Œ)ì„ í•˜ì§€ ì•Šê³ .. saveë§Œ í•˜ê²Œ ë˜ë©´
+// ê²°êµ­ RecentCountê°€ ê°€ìž¥ í° ì• ê°€.. ì œì¼~~ ì˜¤ëž˜ì „ì— ì ‘ì†í•œì• ê°€ ëœë‹¤.
 // 
 //----------------------------------------------------------------------
 
@@ -68,9 +68,9 @@ class PlayerConfig {
 
 	protected :
 		std::string	m_PlayerID;
-		BYTE		m_LastSlot;			// ÃÖ±Ù¿¡ loginÇÑ Ä³¸¯ÅÍÀÇ slot¹øÈ£( 0,1,2 )
-		DWORD		m_RecentCount;		// °¡Àå ¿À·¡Àü¿¡ »ç¿ëµÈ(LRU) Ä³¸¯ÅÍ Ã¼Å©¿ë.
-		//CharacterConfig[3]			// Ä³¸¯ÅÍµé¿¡ ´ëÇÑ Á¤º¸
+		BYTE		m_LastSlot;			// ìµœê·¼ì— loginí•œ ìºë¦­í„°ì˜ slotë²ˆí˜¸( 0,1,2 )
+		DWORD		m_RecentCount;		// ê°€ìž¥ ì˜¤ëž˜ì „ì— ì‚¬ìš©ëœ(LRU) ìºë¦­í„° ì²´í¬ìš©.
+		//CharacterConfig[3]			// ìºë¦­í„°ë“¤ì— ëŒ€í•œ ì •ë³´
 };
 
 //----------------------------------------------------------------------

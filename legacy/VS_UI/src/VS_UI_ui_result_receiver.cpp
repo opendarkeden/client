@@ -35,7 +35,7 @@ void C_VS_UI_UI_RESULT_RECEIVER::SetResultReceiver(void (*fp)(DWORD, int, int, v
 
 /*-----------------------------------------------------------------------------
 - SendMessage
-- Message queue¿¡ message¸¦ ³Ö´Â´Ù.
+- Message queueì— messageë¥¼ ë„£ëŠ”ë‹¤.
 -----------------------------------------------------------------------------*/
 void C_VS_UI_UI_RESULT_RECEIVER::_SendMessage(DWORD message, int left, int right, 
 															 void *void_ptr)
@@ -54,7 +54,7 @@ void C_VS_UI_UI_RESULT_RECEIVER::_SendMessage(DWORD message, int left, int right
 
 /*-----------------------------------------------------------------------------
 - DispatchMessage
-- °¡Àå »¡¸® ÀúÀåµÈ message¸¦ ÇÑ °³ º¸³½´Ù. ±×¸®°í ±×°ÍÀ» queue¿¡¼­ »èÁ¦ÇÑ´Ù.
+- ê°€ì¥ ë¹¨ë¦¬ ì €ì¥ëœ messageë¥¼ í•œ ê°œ ë³´ë‚¸ë‹¤. ê·¸ë¦¬ê³  ê·¸ê²ƒì„ queueì—ì„œ ì‚­ì œí•œë‹¤.
 -----------------------------------------------------------------------------*/
 void C_VS_UI_UI_RESULT_RECEIVER::_DispatchMessage()
 {

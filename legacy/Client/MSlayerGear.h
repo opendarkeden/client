@@ -1,18 +1,18 @@
 	//----------------------------------------------------------------------
 // MSlayerGear.h
 //----------------------------------------------------------------------
-// SlayerÀÇ Gear¿¡ ´ëÇÑ class
+// Slayerì˜ Gearì— ëŒ€í•œ class
 //----------------------------------------------------------------------
 /*
 	//---------------------------------
-	// ÃÊ±âÈ­ ÇÑ´Ù.
+	// ì´ˆê¸°í™” í•œë‹¤.
 	//---------------------------------
 	g_SlayerGear.Init();
 
 	MItem* pNewItem;
 
 	//--------------------------------------------------------
-	// Å×½ºÆ®¿ë Item »ý¼º
+	// í…ŒìŠ¤íŠ¸ìš© Item ìƒì„±
 	//--------------------------------------------------------
 	pNewItem = MItem::NewItem( ITEM_CLASS_BLADE );
 	pNewItem->SetID( 3 );
@@ -57,9 +57,9 @@
 
 
 	//--------------------------------------------------------
-	// Ãâ·Â¹æ¹ý1
+	// ì¶œë ¥ë°©ë²•1
 	//--------------------------------------------------------
-	// ItemÀ» ÇÑ¹ø¾¿ Ãâ·Â
+	// Itemì„ í•œë²ˆì”© ì¶œë ¥
 	//--------------------------------------------------------
 	g_SlayerGear.SetBegin();
 	while (g_SlayerGear.IsNotEnd())
@@ -89,48 +89,48 @@ class MMagazine;
 class MSlayerGear : public MPlayerGear	{
 	public :
 		//----------------------------------------------------
-		// QuickItem SlotÀÇ Slot ID
+		// QuickItem Slotì˜ Slot ID
 		//----------------------------------------------------
-		// (!) ID¸¦ ¹Ù²Ù¸é s_GearSlotCheckTableÀÇ ¼ø¼­µµ ¹Ù²ãÁà¾ß ÇÑ´Ù.
+		// (!) IDë¥¼ ë°”ê¾¸ë©´ s_GearSlotCheckTableì˜ ìˆœì„œë„ ë°”ê¿”ì¤˜ì•¼ í•œë‹¤.
 		//----------------------------------------------------
 		enum GEAR_SLAYER 
 		{
-			GEAR_SLAYER_HELM = 0,			// ¸ðÀÚ
-			GEAR_SLAYER_NECKLACE,			// ¸ñ°ÉÀÌ
-			GEAR_SLAYER_COAT,				// »óÀÇ
-			GEAR_SLAYER_LEFTHAND,			// ¿Þ¼Õ
-			GEAR_SLAYER_RIGHTHAND,			// ¿À¸¥¼Õ
-			GEAR_SLAYER_GLOVE,				// Àå°©
-			GEAR_SLAYER_BELT,				// Çõ´ë
-			GEAR_SLAYER_TROUSER,			// ÇÏÀÇ			
-			GEAR_SLAYER_BRACELET1,			// ÆÈÂî1
-			GEAR_SLAYER_BRACELET2,			// ÆÈÂî2
-			GEAR_SLAYER_RING1,				// ¹ÝÁö1
-			GEAR_SLAYER_RING2,				// ¹ÝÁö2
-			GEAR_SLAYER_RING3,				// ¹ÝÁö3
-			GEAR_SLAYER_RING4,				// ¹ÝÁö4
-			GEAR_SLAYER_SHOES,				// ½Å¹ß
+			GEAR_SLAYER_HELM = 0,			// ëª¨ìž
+			GEAR_SLAYER_NECKLACE,			// ëª©ê±¸ì´
+			GEAR_SLAYER_COAT,				// ìƒì˜
+			GEAR_SLAYER_LEFTHAND,			// ì™¼ì†
+			GEAR_SLAYER_RIGHTHAND,			// ì˜¤ë¥¸ì†
+			GEAR_SLAYER_GLOVE,				// ìž¥ê°‘
+			GEAR_SLAYER_BELT,				// í˜ëŒ€
+			GEAR_SLAYER_TROUSER,			// í•˜ì˜			
+			GEAR_SLAYER_BRACELET1,			// íŒ”ì°Œ1
+			GEAR_SLAYER_BRACELET2,			// íŒ”ì°Œ2
+			GEAR_SLAYER_RING1,				// ë°˜ì§€1
+			GEAR_SLAYER_RING2,				// ë°˜ì§€2
+			GEAR_SLAYER_RING3,				// ë°˜ì§€3
+			GEAR_SLAYER_RING4,				// ë°˜ì§€4
+			GEAR_SLAYER_SHOES,				// ì‹ ë°œ
 		
-			GEAR_SLAYER_ZAP1,				// Àì1 - ¸µ¿¡ ´ùºÙÀÌ´Â ¾ÆÀÌÅÛ
-			GEAR_SLAYER_ZAP2,				// Àì2
-			GEAR_SLAYER_ZAP3,				// Àì3
-			GEAR_SLAYER_ZAP4,				// Àì4
+			GEAR_SLAYER_ZAP1,				// ìž½1 - ë§ì— ë›ë¶™ì´ëŠ” ì•„ì´í…œ
+			GEAR_SLAYER_ZAP2,				// ìž½2
+			GEAR_SLAYER_ZAP3,				// ìž½3
+			GEAR_SLAYER_ZAP4,				// ìž½4
 
-			GEAR_SLAYER_PDA,			// ½ÂÁ÷¿ë Çã¸®Àå½Ä
-	        GEAR_SLAYER_SHOULDER,			// ½ÂÁ÷¿ë Àå°©?
+			GEAR_SLAYER_PDA,			// ìŠ¹ì§ìš© í—ˆë¦¬ìž¥ì‹
+	        GEAR_SLAYER_SHOULDER,			// ìŠ¹ì§ìš© ìž¥ê°‘?
 
-			GEAR_SLAYER_BLOOD_BIBLE1,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 1
-			GEAR_SLAYER_BLOOD_BIBLE2,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 2
-			GEAR_SLAYER_BLOOD_BIBLE3,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 3
-			GEAR_SLAYER_BLOOD_BIBLE4,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 4
-			GEAR_SLAYER_BLOOD_BIBLE5,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 5
-			GEAR_SLAYER_BLOOD_BIBLE6,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 6
+			GEAR_SLAYER_BLOOD_BIBLE1,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 1
+			GEAR_SLAYER_BLOOD_BIBLE2,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 2
+			GEAR_SLAYER_BLOOD_BIBLE3,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 3
+			GEAR_SLAYER_BLOOD_BIBLE4,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 4
+			GEAR_SLAYER_BLOOD_BIBLE5,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 5
+			GEAR_SLAYER_BLOOD_BIBLE6,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 6
 
 			MAX_GEAR_SLAYER
 		};
 
 		//----------------------------------------------------
-		// Æ¯Á¤ÇÑ ºÎÀ§¿¡ ÀåÂøÇÒ ¼ö ÀÖ´Â ItemÀÎÁö È®ÀÎ
+		// íŠ¹ì •í•œ ë¶€ìœ„ì— ìž¥ì°©í•  ìˆ˜ ìžˆëŠ” Itemì¸ì§€ í™•ì¸
 		//----------------------------------------------------
 		inline static bool		IsGearSlotHelm(MItem* pItem);
 		inline static bool		IsGearSlotNecklace(MItem* pItem);
@@ -155,83 +155,83 @@ class MSlayerGear : public MPlayerGear	{
 		~MSlayerGear();
 
 		//------------------------------------------------
-		// ±ú²ýÇÏ°Ô~ ÃÊ±âÈ­ ½ÃÄÑ ÁØ´Ù.
+		// ê¹¨ë—í•˜ê²Œ~ ì´ˆê¸°í™” ì‹œì¼œ ì¤€ë‹¤.
 		//------------------------------------------------
 		void			Init();
 
 		//------------------------------------------------
-		// AddItem : slot(n)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+		// AddItem : slot(n)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 		//------------------------------------------------
 		bool			AddItem(MItem* pItem);
 		bool			AddItem(MItem* pItem, GEAR_SLAYER n);
 
 		//------------------------------------------------
-		// GetItem : slot(n)ÀÇ itemÀ» ÀÐ¾î¿Â´Ù.
+		// GetItem : slot(n)ì˜ itemì„ ì½ì–´ì˜¨ë‹¤.
 		//------------------------------------------------
 		MItem*			GetItem(GEAR_SLAYER n) const { return MSlotItemManager::GetItem( (BYTE)n ); }
 		
 		//------------------------------------------------
-		// RemoveItem : slot(n)ÀÇ itemÀ» Á¦°ÅÇÑ´Ù.
+		// RemoveItem : slot(n)ì˜ itemì„ ì œê±°í•œë‹¤.
 		//------------------------------------------------
 		MItem*			RemoveItem(GEAR_SLAYER n);
 
 		//------------------------------------------------
-		// RemoveItem : id°¡ °°Àº itemÀ» Á¦°ÅÇÑ´Ù.
+		// RemoveItem : idê°€ ê°™ì€ itemì„ ì œê±°í•œë‹¤.
 		//------------------------------------------------
 		MItem*			RemoveItem(TYPE_OBJECTID id);
 
 		//------------------------------------------------
-		// ReplaceItem : pItemÀ» Ãß°¡ÇÏ°í µý°Ô ÀÖ´Ù¸é Item±³È¯
+		// ReplaceItem : pItemì„ ì¶”ê°€í•˜ê³  ë”´ê²Œ ìžˆë‹¤ë©´ Itemêµí™˜
 		//------------------------------------------------
 		bool			ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);	
 
 		//------------------------------------------------
-		// Can ReplaceItem : (n) slot¿¡ pItemÀ» Ãß°¡ÇÏ°Å³ª 
-		//						¿ø·¡ ÀÖ´ø Item°ú ±³Ã¼°¡ °¡´ÉÇÑ°¡?
+		// Can ReplaceItem : (n) slotì— pItemì„ ì¶”ê°€í•˜ê±°ë‚˜ 
+		//						ì›ëž˜ ìžˆë˜ Itemê³¼ êµì²´ê°€ ê°€ëŠ¥í•œê°€?
 		//------------------------------------------------
 		bool			CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);
 
 		//------------------------------------------------------		
 		// Get FitSlot
 		//------------------------------------------------------		
-		bool			GetFitSlot(MItem* pItem, GEAR_SLAYER& n);	// pItemÀÌ µé¾î°¥ ¼ö ÀÖ´Â ÀûÀýÇÑ slotÀ§Ä¡¸¦ ±¸ÇÑ´Ù.
+		bool			GetFitSlot(MItem* pItem, GEAR_SLAYER& n);	// pItemì´ ë“¤ì–´ê°ˆ ìˆ˜ ìžˆëŠ” ì ì ˆí•œ slotìœ„ì¹˜ë¥¼ êµ¬í•œë‹¤.
 
 		//------------------------------------------------------
-		// ÇöÀç »ç¿ë°¡´ÉÇÑ°Ç°¡?
+		// í˜„ìž¬ ì‚¬ìš©ê°€ëŠ¥í•œê±´ê°€?
 		//------------------------------------------------------
-		void			CheckAffectStatus(MItem* pItem);	// Æ¯Á¤ ¾ÆÀÌÅÛ
+		void			CheckAffectStatus(MItem* pItem);	// íŠ¹ì • ì•„ì´í…œ
 
 		//------------------------------------------------
-		// GetItem : ±â¾î Ã¢¿¡¼­ pick ÇÒ¶§¸¸ »ç¿ë slot(n)ÀÇ itemÀ» ÀÐ¾î¿Â´Ù.
+		// GetItem : ê¸°ì–´ ì°½ì—ì„œ pick í• ë•Œë§Œ ì‚¬ìš© slot(n)ì˜ itemì„ ì½ì–´ì˜¨ë‹¤.
 		//------------------------------------------------
 		MItem*			GetGearItem_PickUp(int &n) const ;
 		//------------------------------------------------
-		// GetItem : ÄÚ¾îÀì ¾ÆÀÌÅÛÀÌ ´ùºÙ¿©Á® ÀÖ´ÂÁö °Ë»ç
+		// GetItem : ì½”ì–´ìž½ ì•„ì´í…œì´ ë›ë¶™ì—¬ì ¸ ìžˆëŠ”ì§€ ê²€ì‚¬
 		//------------------------------------------------
 		MItem*			GetGearCoreZapItem(int slot) const	;
 		//------------------------------------------------
-		// GetItem : ÄÚ¾îÀì ¾ÆÀÌÅÛ ¹ØÀÇ ¾ÆÀÌÅÛÀ» °Ë»ç
+		// GetItem : ì½”ì–´ìž½ ì•„ì´í…œ ë°‘ì˜ ì•„ì´í…œì„ ê²€ì‚¬
 		//------------------------------------------------
 		MItem*			GetGearCoreZapedItem(int slot) const	;
 		//------------------------------------------------
-		// GetItem : ÄÚ¾îÀìÀ» ´Ù ¸ð¾Ò´ÂÁö..
+		// GetItem : ì½”ì–´ìž½ì„ ë‹¤ ëª¨ì•˜ëŠ”ì§€..
 		//------------------------------------------------
 		const bool			IsHasAllCoreZap(int CoreZapType) const	;
 
 		//------------------------------------------------
-		// bool : ºí·¯µå ±â¾îÃ¢ÀÌ ¿­·È´ÂÁö.
+		// bool : ë¸”ëŸ¬ë“œ ê¸°ì–´ì°½ì´ ì—´ë ¸ëŠ”ì§€.
 		//------------------------------------------------
 		void			SetBloodBibleOpenSlot(int Num) { m_bBloodBibleOpenCount = Num;	}
 		BYTE			GetBloodBibleOpenSlot() { return m_bBloodBibleOpenCount;	}
 		const bool		IsCloseBloodBibleSlot(int slot) const	;
 	protected :
 		//------------------------------------------------
-		// IsGearSlot...()¿¡ ´ëÇÑ function pointer
+		// IsGearSlot...()ì— ëŒ€í•œ function pointer
 		//------------------------------------------------
 		typedef bool (*FUNCTION_GEARSLOT_CHECK)(MItem*);
 
 		//------------------------------------------------
-		// °¢ ºÎÀ§º°·Î IsGearSlot...()¿¡ ´ëÇÑ function pointer
+		// ê° ë¶€ìœ„ë³„ë¡œ IsGearSlot...()ì— ëŒ€í•œ function pointer
 		//------------------------------------------------
 		static FUNCTION_GEARSLOT_CHECK		s_GearSlotCheckTable[MAX_GEAR_SLAYER];
 

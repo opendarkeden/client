@@ -15,7 +15,7 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ðÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Þ½ÃÁö¸¦ ¹Þ¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Þ½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void RCRequestedFileHandler::execute ( RCRequestedFile * pPacket , Player * pPlayer )
@@ -52,7 +52,7 @@ void RCRequestedFileHandler::execute ( RCRequestedFile * pPacket , Player * pPla
 		
 		if (g_pRequestFileManager->AddMyRequest(pInfo))
 		{
-			// ¹Þ±â ½ÃÀÛÇÒ ÁØºñ¸¦ ÇÑ´Ù.
+			// ë°›ê¸° ì‹œìž‘í•  ì¤€ë¹„ë¥¼ í•œë‹¤.
 			//pInfo->StartReceive( pFileInfo->getFileSize() );
 		}
 		else

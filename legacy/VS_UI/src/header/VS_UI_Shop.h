@@ -22,8 +22,8 @@
 //-----------------------------------------------------------------------------
 // C_VS_UI_SHOP
 //
-// ¼¼ Á¾·ùÀÇ Item, Normal/Special/MysteriousÀ» ±¸ÀÔÇÒ ¼ö ÀÖ´Â ÀÎÅÍÆäÀÌ½ºÀÌ´Ù.
-// ±¸ÀÔ½Ã °³¼ö¸¦ °áÁ¤ÇÒ ¼ö ÀÖ´Ù.
+// ì„¸ ì¢…ë¥˜ì˜ Item, Normal/Special/Mysteriousì„ êµ¬ì…í•  ìˆ˜ ìˆëŠ” ì¸í„°í˜ì´ìŠ¤ì´ë‹¤.
+// êµ¬ì…ì‹œ ê°œìˆ˜ë¥¼ ê²°ì •í•  ìˆ˜ ìˆë‹¤.
 //-----------------------------------------------------------------------------
 #define NORMAL_TAB_ID					0
 #define SPECIAL_TAB_ID					1
@@ -34,8 +34,8 @@
 class C_VS_UI_SHOP : public Window, public Exec, public ButtonVisual
 {
 public:
-	static bool					m_bl_mysterious_tab; // item description price ¾òÀ» ¶§ checkÇÑ´Ù.
-	static MShop::SHOP_TYPE		m_shop_type; // item description price ¾òÀ» ¶§ checkÇÑ´Ù.
+	static bool					m_bl_mysterious_tab; // item description price ì–»ì„ ë•Œ checkí•œë‹¤.
+	static MShop::SHOP_TYPE		m_shop_type; // item description price ì–»ì„ ë•Œ checkí•œë‹¤.
 
 	enum IMAGE_SPK_INDEX
 	{

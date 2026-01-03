@@ -18,7 +18,7 @@ extern "C" {
 #define UI_SYSMENU_EVENT_LOGOUT   2
 #define UI_SYSMENU_EVENT_CONTINUE 3
 
-typedef struct UI_GameSysMenu UI_GameSysMenu;
+typedef struct UI_GameSysMenu C_VS_UI_GAMEMENU;
 typedef void (*UI_SysMenuCallback)(UI_Window* window, int event, void* data);
 
 /**

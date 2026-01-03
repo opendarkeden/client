@@ -151,7 +151,7 @@ C_VS_UI_EXCHANGE::C_VS_UI_EXCHANGE()
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+button_x, y+ok_button_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_O), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_O), EXCHANGE_OK_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_O));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+help_x, y+help_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_QUESTION), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_QUESTION), HELP_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_QUESTION));
 
-	// ´ÜÁö ÂüÁ¶¿ë pointer.. by sigi
+	// ë‹¨ì§€ ì°¸ì¡°ìš© pointer.. by sigi
 	m_pC_button_cancel = new C_VS_UI_EVENT_BUTTON(x+button_x, y+close_button_y, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_X), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_X), EXCHANGE_CANCEL_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_X);
 	m_pC_button_group->Add(m_pC_button_cancel);
 
@@ -176,7 +176,7 @@ C_VS_UI_EXCHANGE::C_VS_UI_EXCHANGE()
 
 	MItem* pItem;
 	//----------------------------------------------------
-	// Item »ı¼º --> Ãß°¡
+	// Item ìƒì„± --> ì¶”ê°€
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_PET_ITEM );
 	pItem->SetID( 6120 );
@@ -187,7 +187,7 @@ C_VS_UI_EXCHANGE::C_VS_UI_EXCHANGE()
 	g_pTradeManager->GetOtherInventory()->AddItem( pItem,  2, 1 );
 
 	//----------------------------------------------------
-	// Item »ı¼º --> Ãß°¡
+	// Item ìƒì„± --> ì¶”ê°€
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_POTION );
 	pItem->SetID( 361 );
@@ -197,7 +197,7 @@ C_VS_UI_EXCHANGE::C_VS_UI_EXCHANGE()
 	g_pTradeManager->GetOtherInventory()->AddItem( pItem,  4, 0 );
 
 	//----------------------------------------------------
-	// Item »ı¼º --> Ãß°¡
+	// Item ìƒì„± --> ì¶”ê°€
 	//----------------------------------------------------
 	pItem = MItem::NewItem( ITEM_CLASS_COAT );
 	pItem->SetID( 642 );
@@ -206,7 +206,7 @@ C_VS_UI_EXCHANGE::C_VS_UI_EXCHANGE()
 	pItem->SetCurrentDurability( 300 );	
 	g_pTradeManager->GetOtherInventory()->AddItem( pItem,  7, 2 );
 	
-	//g_pTradeManager->AcceptOtherTrade();	// ´Ù¸¥ »ç¶÷ÀÌ OK´©¸§.
+	//g_pTradeManager->AcceptOtherTrade();	// ë‹¤ë¥¸ ì‚¬ëŒì´ OKëˆ„ë¦„.
 #endif
 }
 
@@ -227,13 +227,13 @@ C_VS_UI_EXCHANGE::~C_VS_UI_EXCHANGE()
 //-----------------------------------------------------------------------------
 // C_VS_UI_EXCHANGE::Click
 //
-// ÇöÀç ItemÀ» µé°í ÀÖÀ¸¸é ³õ´ø°¡ ±³Ã¼ÇÏ°í, µé°í ÀÖÁö ¾ÊÀ¸¸é ±³È¯Ã¢¿¡ ÀÖ´Â
-// °ÍÀ» Áı´Â´Ù.
+// í˜„ì¬ Itemì„ ë“¤ê³  ìˆìœ¼ë©´ ë†“ë˜ê°€ êµì²´í•˜ê³ , ë“¤ê³  ìˆì§€ ì•Šìœ¼ë©´ êµí™˜ì°½ì— ìˆëŠ”
+// ê²ƒì„ ì§‘ëŠ”ë‹¤.
 //
-// ¹º°¡ Çß´Ù¸é true¸¦, ±×·¸Áö¾ÊÀ¸¸é false¸¦ ¹İÈ¯ÇÑ´Ù.
+// ë­”ê°€ í–ˆë‹¤ë©´ trueë¥¼, ê·¸ë ‡ì§€ì•Šìœ¼ë©´ falseë¥¼ ë°˜í™˜í•œë‹¤.
 //
-// grid_start_x, grid_start_y´Â igrid ½ÃÀÛÁ¡ÀÌ´Ù. ÀÌ°ÍÀ» ÂüÁ¶ÇÏ¿© item
-// (x, y)¸¦ ±¸ÇÑ´Ù.
+// grid_start_x, grid_start_yëŠ” igrid ì‹œì‘ì ì´ë‹¤. ì´ê²ƒì„ ì°¸ì¡°í•˜ì—¬ item
+// (x, y)ë¥¼ êµ¬í•œë‹¤.
 //-----------------------------------------------------------------------------
 bool C_VS_UI_EXCHANGE::Click(int grid_start_x, int grid_start_y)
 {
@@ -247,50 +247,50 @@ bool C_VS_UI_EXCHANGE::Click(int grid_start_x, int grid_start_y)
 	int item_x, item_y;
 
 	//-----------------------------------------------------------
-	// ³»°¡ OK¸¦ ´©¸¥ »óÅÂÀÎ°¡??
+	// ë‚´ê°€ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœì¸ê°€??
 	//-----------------------------------------------------------
 	BOOL bAcceptTrade = g_pTradeManager->IsAcceptMyTrade();
 
 	//-----------------------------------------------------------
-	// inventory¿¡ ÀÖ´Â°Í°ú ±³È¯ÇÏ°Å³ª.. ±×³É ³õÀ»¶§
+	// inventoryì— ìˆëŠ”ê²ƒê³¼ êµí™˜í•˜ê±°ë‚˜.. ê·¸ëƒ¥ ë†“ì„ë•Œ
 	//-----------------------------------------------------------
-	if (gpC_mouse_pointer->GetPickUpItem()) // µé°í ÀÖ´Â°¡?
+	if (gpC_mouse_pointer->GetPickUpItem()) // ë“¤ê³  ìˆëŠ”ê°€?
 	{
 		const MItem* p_cur_item = g_pTradeManager->GetMyInventory()->GetItem(m_focus_grid_x, m_focus_grid_y);
 
 		//-----------------------------------------------------------
-		// ÃÑ¿¡ ÅºÃ¢À» ³¢¿ì´Â °Í°ú °°Àº °ÍÀÌ insert itemÀÌ´Ù.
+		// ì´ì— íƒ„ì°½ì„ ë¼ìš°ëŠ” ê²ƒê³¼ ê°™ì€ ê²ƒì´ insert itemì´ë‹¤.
 		//-----------------------------------------------------------
 		if (gpC_mouse_pointer->GetPickUpItem()->IsInsertToItem( p_cur_item ))
 		{
-			// ÀÌÀü¿¡ ÀÖ´ø item¿¡ Ãß°¡µÉ ¼ö ÀÖ´Â °æ¿ì
+			// ì´ì „ì— ìˆë˜ itemì— ì¶”ê°€ë  ìˆ˜ ìˆëŠ” ê²½ìš°
 
-			// ´ë»ó Item°ú µé°í ÀÖ´Â(Ãß°¡ÇÒ Item)À» Client¿¡¼­ ¾Ë¾Æ¾ß ÇÑ´Ù.
-			// µé°í ÀÖ´Â ItemÀº Client¿¡¼­ accessÇÒ ¼ö ÀÖÀ¸¹Ç·Î ´ë»ó ItemÀ» º¸³½´Ù.
+			// ëŒ€ìƒ Itemê³¼ ë“¤ê³  ìˆëŠ”(ì¶”ê°€í•  Item)ì„ Clientì—ì„œ ì•Œì•„ì•¼ í•œë‹¤.
+			// ë“¤ê³  ìˆëŠ” Itemì€ Clientì—ì„œ accessí•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ëŒ€ìƒ Itemì„ ë³´ë‚¸ë‹¤.
 			gpC_base->SendMessage(UI_ITEM_INSERT_FROM_INVENTORY,
 																  m_focus_grid_x, m_focus_grid_y,
-																  (void *)p_cur_item); // ´ë»ó Item
+																  (void *)p_cur_item); // ëŒ€ìƒ Item
 		}
 		//-----------------------------------------------------------
-		// inventoryÀÇ ¾ÆÀÌÅÛ°ú mouse ¾ÆÀÌÅÛÀÌ ¹Ù²î´Â °æ¿ì
+		// inventoryì˜ ì•„ì´í…œê³¼ mouse ì•„ì´í…œì´ ë°”ë€ŒëŠ” ê²½ìš°
 		//-----------------------------------------------------------
 		else
 		{	
-			// Ãß°¡µÉ ¼ö ¾ø´Â °æ¿ì
+			// ì¶”ê°€ë  ìˆ˜ ì—†ëŠ” ê²½ìš°
 			MItem* p_old_item  = NULL;
 
 			//-----------------------------------------------------------
-			// ³»°¡ OK´©¸¥ »óÅÂ
+			// ë‚´ê°€ OKëˆ„ë¥¸ ìƒíƒœ
 			//-----------------------------------------------------------
 			if (bAcceptTrade)
 			{
-				if (g_pTradeManager->GetMyInventory()->CanReplaceItem(gpC_mouse_pointer->GetPickUpItem(),		// Ãß°¡ÇÒ item
-															m_focus_grid_x, m_focus_grid_y,	// Ãß°¡ÇÒ À§Ä¡ 
-															p_old_item))								// ¿ø·¡ÀÖ´ø item
+				if (g_pTradeManager->GetMyInventory()->CanReplaceItem(gpC_mouse_pointer->GetPickUpItem(),		// ì¶”ê°€í•  item
+															m_focus_grid_x, m_focus_grid_y,	// ì¶”ê°€í•  ìœ„ì¹˜ 
+															p_old_item))								// ì›ë˜ìˆë˜ item
 				{
 					gpC_base->SendMessage(UI_ITEM_DROP_TO_INVENTORY,
 											  m_focus_grid_x, m_focus_grid_y,
-											  p_old_item); // µé°í ÀÖ´ø °ÍÀ» º¸³½´Ù.
+											  p_old_item); // ë“¤ê³  ìˆë˜ ê²ƒì„ ë³´ë‚¸ë‹¤.
 				}
 				else
 				{
@@ -299,24 +299,24 @@ bool C_VS_UI_EXCHANGE::Click(int grid_start_x, int grid_start_y)
 				}
 			}
 			//-----------------------------------------------------------
-			// OK ¾È ´©¸¥ »óÅÂ
+			// OK ì•ˆ ëˆ„ë¥¸ ìƒíƒœ
 			//-----------------------------------------------------------
 			else
 			{
-				if (g_pTradeManager->GetMyInventory()->CanReplaceItem(gpC_mouse_pointer->GetPickUpItem(),		// Ãß°¡ÇÒ item
-															m_focus_grid_x, m_focus_grid_y,	// Ãß°¡ÇÒ À§Ä¡ 
-															p_old_item))								// ¿ø·¡ÀÖ´ø item
+				if (g_pTradeManager->GetMyInventory()->CanReplaceItem(gpC_mouse_pointer->GetPickUpItem(),		// ì¶”ê°€í•  item
+															m_focus_grid_x, m_focus_grid_y,	// ì¶”ê°€í•  ìœ„ì¹˜ 
+															p_old_item))								// ì›ë˜ìˆë˜ item
 				{
-					if (p_old_item != NULL) // replace µÇ¾ú´Â°¡?
+					if (p_old_item != NULL) // replace ë˜ì—ˆëŠ”ê°€?
 					{
 						item_x = grid_start_x+p_old_item->GetGridX()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X+(p_old_item->GetGridWidth()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X)/2-gpC_item->GetWidth(p_old_item->GetInventoryFrameID())/2;
 						item_y = grid_start_y+p_old_item->GetGridY()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y+(p_old_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y)/2-gpC_item->GetHeight(p_old_item->GetInventoryFrameID())/2;
 
 						gpC_base->SendMessage(UI_ITEM_DROP_TO_INVENTORY,
 											  m_focus_grid_x, m_focus_grid_y,
-											  p_old_item); // ±³È¯µÉ ¾ÆÀÌÅÛ..
+											  p_old_item); // êµí™˜ë  ì•„ì´í…œ..
 
-						// UI¿¡¼­ ¹Ù²ã¾ß ÇÑ´Ù.
+						// UIì—ì„œ ë°”ê¿”ì•¼ í•œë‹¤.
 						//gpC_mouse_pointer->PickUpItem((MItem *)p_old_item);
 					}
 					else
@@ -327,7 +327,7 @@ bool C_VS_UI_EXCHANGE::Click(int grid_start_x, int grid_start_y)
 											  m_focus_grid_x, m_focus_grid_y,
 											  p_old_item);
 
-						// 100% ³õÀ» ¼ö ÀÖÀ¸´Ï±î UI¿¡¼­ drop½ÃÅ²´Ù.
+						// 100% ë†“ì„ ìˆ˜ ìˆìœ¼ë‹ˆê¹Œ UIì—ì„œ dropì‹œí‚¨ë‹¤.
 						//gpC_mouse_pointer->DropItem();
 					}
 				}
@@ -340,18 +340,18 @@ bool C_VS_UI_EXCHANGE::Click(int grid_start_x, int grid_start_y)
 		}
 	}
 	//-----------------------------------------------------------
-	// inventory¿¡ ÀÖ´Â °É ÁıÀ» ¶§
+	// inventoryì— ìˆëŠ” ê±¸ ì§‘ì„ ë•Œ
 	//-----------------------------------------------------------
 	else
 	{
-		// Áı´Â´Ù.
+		// ì§‘ëŠ”ë‹¤.
 		const MItem * p_item = g_pTradeManager->GetMyInventory()->GetItem(m_focus_grid_x, m_focus_grid_y);
 
-		if (p_item != NULL) // ItemÀÌ ÀÖ´Ù.
+		if (p_item != NULL) // Itemì´ ìˆë‹¤.
 		{
 			{
 				//-----------------------------------------------------------
-				// OK ´©¸¥ »óÅÂ
+				// OK ëˆ„ë¥¸ ìƒíƒœ
 				//-----------------------------------------------------------
 				if (bAcceptTrade)
 				{
@@ -385,11 +385,11 @@ bool C_VS_UI_EXCHANGE::Click(int grid_start_x, int grid_start_y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_EXCHANGE::Check
 //
-// ±³È¯ÇÒ·Á´Â itemÀ» Ã¼Å©ÇÑ´Ù. 
-// ÀÌ¹Ì Ã¼Å©µÇ¾îÀÖ´Ù¸é.. Ãë¼ÒÇÑ´Ù.
+// êµí™˜í• ë ¤ëŠ” itemì„ ì²´í¬í•œë‹¤. 
+// ì´ë¯¸ ì²´í¬ë˜ì–´ìˆë‹¤ë©´.. ì·¨ì†Œí•œë‹¤.
 //
-// grid_start_x, grid_start_y´Â igrid ½ÃÀÛÁ¡ÀÌ´Ù. ÀÌ°ÍÀ» ÂüÁ¶ÇÏ¿© item
-// (x, y)¸¦ ±¸ÇÑ´Ù.
+// grid_start_x, grid_start_yëŠ” igrid ì‹œì‘ì ì´ë‹¤. ì´ê²ƒì„ ì°¸ì¡°í•˜ì—¬ item
+// (x, y)ë¥¼ êµ¬í•œë‹¤.
 //-----------------------------------------------------------------------------
 bool C_VS_UI_EXCHANGE::Check(int grid_start_x, int grid_start_y)
 {
@@ -400,7 +400,7 @@ bool C_VS_UI_EXCHANGE::Check(int grid_start_x, int grid_start_y)
 		return false;
 	}
 	
-	// Áı´Â´Ù.
+	// ì§‘ëŠ”ë‹¤.
 	const MItem * p_item = g_pTradeManager->GetMyInventory()->GetItem(m_focus_grid_x, m_focus_grid_y);
 
 	if (p_item != NULL && p_item->GetItemClass() != ITEM_CLASS_RELIC
@@ -408,9 +408,9 @@ bool C_VS_UI_EXCHANGE::Check(int grid_start_x, int grid_start_y)
 		&& p_item->GetItemClass() != ITEM_CLASS_COUPLE_RING
 		&& p_item->GetItemClass() != ITEM_CLASS_VAMPIRE_COUPLE_RING
 		&& !p_item->IsQuestItem()
-		) // ItemÀÌ ÀÖ´Ù. ±×¸®°í ¼º¹°ÀÌ ¾Æ´Ï´Ù.
+		) // Itemì´ ìˆë‹¤. ê·¸ë¦¬ê³  ì„±ë¬¼ì´ ì•„ë‹ˆë‹¤.
 	{
-		// Ã³¸®´Â client¿¡ ¸Ã±ä´Ù.
+		// ì²˜ë¦¬ëŠ” clientì— ë§¡ê¸´ë‹¤.
 		gpC_base->SendMessage(UI_ITEM_SELECT_EXCHANGE,
 							  m_focus_grid_x, m_focus_grid_y,
 							  (MItem *)p_item);				
@@ -541,13 +541,13 @@ void	C_VS_UI_EXCHANGE::Run(id_t id)
 	{
 		case EXCHANGE_OK_ID:
 			if(!g_pTradeManager->IsAcceptTime())break;
-			// OKÇÑ°Å¸¦ Ãë¼ÒÇÒ¼ö ÀÖ°Ô ÇÑ´Ù.
+			// OKí•œê±°ë¥¼ ì·¨ì†Œí• ìˆ˜ ìˆê²Œ í•œë‹¤.
 			if (m_pC_button_cancel!=NULL)
 			{
 				m_pC_button_cancel->SetID( EXCHANGE_OK_CANCEL_ID );
 			}
 			
-			// ÀÌ¹Ì ´­·ÁÁø »óÅÂ°¡ ¾Æ´Ñ °æ¿ì¸¸ ¸Ş¼¼Áö º¸³½´Ù.
+			// ì´ë¯¸ ëˆŒë ¤ì§„ ìƒíƒœê°€ ì•„ë‹Œ ê²½ìš°ë§Œ ë©”ì„¸ì§€ ë³´ë‚¸ë‹¤.
 			if (!g_pTradeManager->IsAcceptMyTrade())
 			{
 				gpC_base->SendMessage(UI_OK_EXCHANGE);
@@ -555,7 +555,7 @@ void	C_VS_UI_EXCHANGE::Run(id_t id)
 			//m_CheckMoneyMove = true;
 			break;
 
-		// OKÇÑ°Å¸¦ Ãë¼ÒÇÏ´Â °æ¿ì --> cancelÀº ´Ù½Ã ÁøÁ¤ÇÑ(-_-;) cancel·Î ¹Ù²ï´Ù.
+		// OKí•œê±°ë¥¼ ì·¨ì†Œí•˜ëŠ” ê²½ìš° --> cancelì€ ë‹¤ì‹œ ì§„ì •í•œ(-_-;) cancelë¡œ ë°”ë€ë‹¤.
 		case EXCHANGE_OK_CANCEL_ID :
 			if (m_pC_button_cancel!=NULL)
 			{
@@ -578,8 +578,8 @@ void	C_VS_UI_EXCHANGE::Run(id_t id)
 			break;
 
 		case MONEY_ID:
-			// money buttonÀÌ ´­·È´Ù.
-			// ±³È¯ÇÒ µ·¿¡¼­ »«´Ù
+			// money buttonì´ ëˆŒë ¸ë‹¤.
+			// êµí™˜í•  ëˆì—ì„œ ëº€ë‹¤
 			DeleteNew(m_pC_dialog_withdraw_money);
 			if (false == m_CheckMoneyMove && g_pTradeManager->GetMyMoneyManager()->GetMoney() > 0)
 			{
@@ -593,8 +593,8 @@ void	C_VS_UI_EXCHANGE::Run(id_t id)
 			break;
 			
 		case INVENTORY_MONEY_ID:
-			// money buttonÀÌ ´­·È´Ù.
-			// ±³È¯ÇÒ µ·À» Ãß°¡ÇÑ´Ù.
+			// money buttonì´ ëˆŒë ¸ë‹¤.
+			// êµí™˜í•  ëˆì„ ì¶”ê°€í•œë‹¤.
 			DeleteNew(m_pC_dialog_exchange_money);
 			if (false == m_CheckMoneyMove && g_pMoneyManager->GetMoney() > 0)
 			{
@@ -769,7 +769,7 @@ bool	C_VS_UI_EXCHANGE::MouseControl(UINT message, int _x, int _y)
 
 					if (loop == ITEM_REF_POINT_COUNT)
 					{
-						// itemÀÌ grid ¿µ¿ª¿¡ ¾î´ÀÁ¤µµ µé¾î¿À¸é ¾ÈÀ¸·Î À§Ä¡½ÃÅ²´Ù.
+						// itemì´ grid ì˜ì—­ì— ì–´ëŠì •ë„ ë“¤ì–´ì˜¤ë©´ ì•ˆìœ¼ë¡œ ìœ„ì¹˜ì‹œí‚¨ë‹¤.
 						const MItem * p_pickup_item = gpC_mouse_pointer->GetPickUpItem();
 						int a, b;
 						switch (i)
@@ -824,7 +824,7 @@ bool	C_VS_UI_EXCHANGE::MouseControl(UINT message, int _x, int _y)
 
 					if (loop == ITEM_REF_POINT_COUNT)
 					{
-						// itemÀÌ grid ¿µ¿ª¿¡ ¾î´ÀÁ¤µµ µé¾î¿À¸é ¾ÈÀ¸·Î À§Ä¡½ÃÅ²´Ù.
+						// itemì´ grid ì˜ì—­ì— ì–´ëŠì •ë„ ë“¤ì–´ì˜¤ë©´ ì•ˆìœ¼ë¡œ ìœ„ì¹˜ì‹œí‚¨ë‹¤.
 						const MItem * p_pickup_item = gpC_mouse_pointer->GetPickUpItem();
 						int a, b;
 						switch (i)
@@ -875,7 +875,7 @@ bool	C_VS_UI_EXCHANGE::MouseControl(UINT message, int _x, int _y)
 		case M_LEFTBUTTON_DOWN:
 		case M_LB_DOUBLECLICK:
 			//
-			// ItemÀ» Áı´ø°¡ ³õ´Â´Ù.
+			// Itemì„ ì§‘ë˜ê°€ ë†“ëŠ”ë‹¤.
 			//
 			{
 				bool ret = Click(m_my_grid_rect.x, m_my_grid_rect.y);
@@ -969,7 +969,7 @@ void	C_VS_UI_EXCHANGE::Show()
 		return;
 	}
 
-	//±ÛÀÚ ÂïÀ»°ÍµéÀ» ±â¾ïÇØµ×´Ù°¡ ÇÑ²¨¹ø¿¡ Âï´Â´Ù.
+	//ê¸€ì ì°ì„ê²ƒë“¤ì„ ê¸°ì–µí•´ë’€ë‹¤ê°€ í•œêº¼ë²ˆì— ì°ëŠ”ë‹¤.
 	std::vector<RECT>	vNumRect;
 	std::vector<int>	vNum;
 	
@@ -1002,7 +1002,7 @@ void	C_VS_UI_EXCHANGE::Show()
 		gpC_global_resource->m_pC_assemble_box_button_spk->BltLocked(x+m_your_money_button_point.x+25, y+m_your_money_button_point.y, C_GLOBAL_RESOURCE::AB_MONEY_BAR);
 
 		//----------------------------------------------------------------
-		// »ó´ë¹æÀÇ OK¹öÆ° »óÅÂ¸¦ Ç¥½ÃÇÑ´Ù.
+		// ìƒëŒ€ë°©ì˜ OKë²„íŠ¼ ìƒíƒœë¥¼ í‘œì‹œí•œë‹¤.
 		//----------------------------------------------------------------
 		if(g_pTradeManager->IsAcceptOtherTrade()&&g_pTradeManager->IsAcceptTime())
 		{
@@ -1028,7 +1028,7 @@ void	C_VS_UI_EXCHANGE::Show()
 		{
 			const MItem * p_item = g_pTradeManager->GetMyInventory()->Get();
 
-			// p_itemÀº NULLÀÌ ¹İµå½Ã ¾Æ´Ï´Ù. ¿Ö³ÄÇÏ¸é Á¸ÀçÇÏ´Â °Í¸¸ Get()ÇÏ±â ¶§¹®ÀÌ´Ù.
+			// p_itemì€ NULLì´ ë°˜ë“œì‹œ ì•„ë‹ˆë‹¤. ì™œëƒí•˜ë©´ ì¡´ì¬í•˜ëŠ” ê²ƒë§Œ Get()í•˜ê¸° ë•Œë¬¸ì´ë‹¤.
 			assert(p_item);
 
 			// frame id -> sprite id
@@ -1040,14 +1040,14 @@ void	C_VS_UI_EXCHANGE::Show()
 			int print_y = item_y + p_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y - 12;
 			int print_x = item_x + p_item->GetGridWidth()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X-1;
 
-			// ItemÀÌ ³õ¿©ÀÖ´Â ¿µ¿ª Ç¥½Ã
+			// Itemì´ ë†“ì—¬ìˆëŠ” ì˜ì—­ í‘œì‹œ
 			for (int j = 0; j < p_item->GetGridHeight(); j++)
 				for (int i = 0; i < p_item->GetGridWidth(); i++)
 				{
 //					int back_color = (p_item->GetGridY()+j)*C_VS_UI_INVENTORY::GRID_X+(p_item->GetGridX()+i);
 
 					//------------------------------------------------------------
-					// ±³È¯ÇÒ·Á´Â ¾ÆÀÌÅÛÀÎ °æ¿ì
+					// êµí™˜í• ë ¤ëŠ” ì•„ì´í…œì¸ ê²½ìš°
 					//------------------------------------------------------------
 					if (p_item->IsTrade())
 					{
@@ -1067,7 +1067,7 @@ void	C_VS_UI_EXCHANGE::Show()
 						}						
 					}
 					//------------------------------------------------------------
-					// ±³È¯ÇÒ·Á´Â ¾ÆÀÌÅÛÀÌ ¾Æ´Ñ °æ¿ì
+					// êµí™˜í• ë ¤ëŠ” ì•„ì´í…œì´ ì•„ë‹Œ ê²½ìš°
 					//------------------------------------------------------------
 //					else
 //					{
@@ -1098,7 +1098,7 @@ void	C_VS_UI_EXCHANGE::Show()
 						eType == ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH
 						)
 					{
-						// 2004, 3, 9 sobeit - x,y º¯°æ
+						// 2004, 3, 9 sobeit - x,y ë³€ê²½
 						//gpC_global_resource->m_pC_info_spk->BltLockedOutline(item_x-(p_item->GetGridWidth()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X)/2, item_y-(p_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y)/2, RGB_WHITE, C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType);
 						gpC_global_resource->m_pC_info_spk->BltLockedOutline(GetFocusedItemGridX(p_item), GetFocusedItemGridY(p_item), RGB_WHITE, C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType);
 
@@ -1116,7 +1116,7 @@ void	C_VS_UI_EXCHANGE::Show()
 					CIndexSprite::SetUsingColorSet(const_cast<MItem *>(p_item)->GetItemOptionColorSet(), 0);
 
 				//------------------------------------------------------------
-				// ±³È¯ÇÒ·Á´Â ¾ÆÀÌÅÛÀÎ °æ¿ì
+				// êµí™˜í• ë ¤ëŠ” ì•„ì´í…œì¸ ê²½ìš°
 				//------------------------------------------------------------
 				if (p_item->IsTrade())
 				{
@@ -1132,7 +1132,7 @@ void	C_VS_UI_EXCHANGE::Show()
 								eType == ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH
 								)
 							{
-								// 2004, 3, 9 sobeit - x,y º¯°æ
+								// 2004, 3, 9 sobeit - x,y ë³€ê²½
 								//gpC_global_resource->m_pC_info_spk->BltLocked(item_x-(p_item->GetGridWidth()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X)/2, item_y-(p_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y)/2, C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType);
 								gpC_global_resource->m_pC_info_spk->BltLocked(GetFocusedItemGridX(p_item), GetFocusedItemGridY(p_item), C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType);
 							}
@@ -1149,7 +1149,7 @@ void	C_VS_UI_EXCHANGE::Show()
 								eType == ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH
 								)
 							{
-								// 2004, 3, 9 sobeit - x,y º¯°æ
+								// 2004, 3, 9 sobeit - x,y ë³€ê²½
 								//gpC_global_resource->m_pC_info_spk->BltLockedColor(item_x-(p_item->GetGridWidth()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X)/2, item_y-(p_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y)/2, C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType, 0);
 								gpC_global_resource->m_pC_info_spk->BltLockedColor(GetFocusedItemGridX(p_item), GetFocusedItemGridY(p_item), C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType, 0);
 							}
@@ -1157,7 +1157,7 @@ void	C_VS_UI_EXCHANGE::Show()
 					}
 				}
 				//------------------------------------------------------------
-				// ±³È¯ÇÒ·Á´Â ¾ÆÀÌÅÛÀÌ ¾Æ´Ñ °æ¿ì
+				// êµí™˜í• ë ¤ëŠ” ì•„ì´í…œì´ ì•„ë‹Œ ê²½ìš°
 				//------------------------------------------------------------
 				else
 				{
@@ -1170,7 +1170,7 @@ void	C_VS_UI_EXCHANGE::Show()
 							eType == ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH
 							)
 						{
-							// 2004, 3, 9 sobeit - x,y º¯°æ
+							// 2004, 3, 9 sobeit - x,y ë³€ê²½
 							//gpC_global_resource->m_pC_info_spk->BltLockedDarkness(item_x-(p_item->GetGridWidth()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X)/2, item_y-(p_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y)/2, C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType, DARKBITS_NOT_TRADE);
 							gpC_global_resource->m_pC_info_spk->BltLockedDarkness(GetFocusedItemGridX(p_item), GetFocusedItemGridY(p_item), C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType, DARKBITS_NOT_TRADE);
 						}
@@ -1178,7 +1178,7 @@ void	C_VS_UI_EXCHANGE::Show()
 				}
 			}
 
-			//¾ÆÀÌÅÛ °³¼ö ÂïÀ» alphabox ¼ıÀÚ´Â ÂïÁö ¾Ê´Â´Ù ÀúÀåÇØ µ×´Ù°¡ ³ªÁß¿¡ ¸ô¾Æ¼­ ÇÑ²¨¹ø¿¡ Âï´Â´Ù
+			//ì•„ì´í…œ ê°œìˆ˜ ì°ì„ alphabox ìˆ«ìëŠ” ì°ì§€ ì•ŠëŠ”ë‹¤ ì €ì¥í•´ ë’€ë‹¤ê°€ ë‚˜ì¤‘ì— ëª°ì•„ì„œ í•œêº¼ë²ˆì— ì°ëŠ”ë‹¤
 			if(p_item->IsPileItem() || p_item->IsChargeItem())
 			{
 				RECT rt;
@@ -1203,7 +1203,7 @@ void	C_VS_UI_EXCHANGE::Show()
 
 		//----------------------------------------------------------------
 		//
-		// ItemÀ» µé°í ÀÖÀ¸¸é grid À§Ä¡¸¦ ¹Ì¸® ¾Ë ¼ö ÀÖµµ·Ï ÇÑ´Ù.
+		// Itemì„ ë“¤ê³  ìˆìœ¼ë©´ grid ìœ„ì¹˜ë¥¼ ë¯¸ë¦¬ ì•Œ ìˆ˜ ìˆë„ë¡ í•œë‹¤.
 		//
 		//----------------------------------------------------------------
 		if (gpC_mouse_pointer->GetPickUpItem() && 
@@ -1240,7 +1240,7 @@ void	C_VS_UI_EXCHANGE::Show()
 		{
 			const MItem * p_item = g_pTradeManager->GetOtherInventory()->Get();
 
-			// p_itemÀº NULLÀÌ ¹İµå½Ã ¾Æ´Ï´Ù. ¿Ö³ÄÇÏ¸é Á¸ÀçÇÏ´Â °Í¸¸ Get()ÇÏ±â ¶§¹®ÀÌ´Ù.
+			// p_itemì€ NULLì´ ë°˜ë“œì‹œ ì•„ë‹ˆë‹¤. ì™œëƒí•˜ë©´ ì¡´ì¬í•˜ëŠ” ê²ƒë§Œ Get()í•˜ê¸° ë•Œë¬¸ì´ë‹¤.
 			assert(p_item);
 
 			// frame id -> sprite id
@@ -1252,7 +1252,7 @@ void	C_VS_UI_EXCHANGE::Show()
 			int print_y = item_y + p_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y - 12;
 			int print_x = item_x + p_item->GetGridWidth()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X-1;
 			
-			// ItemÀÌ ³õ¿©ÀÖ´Â ¿µ¿ª Ç¥½Ã
+			// Itemì´ ë†“ì—¬ìˆëŠ” ì˜ì—­ í‘œì‹œ
 			for (int j = 0; j < p_item->GetGridHeight(); j++)
 				for (int i = 0; i < p_item->GetGridWidth(); i++)
 				{
@@ -1294,7 +1294,7 @@ void	C_VS_UI_EXCHANGE::Show()
 						eType == ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH
 						)
 					{
-						// 2004, 3, 9 sobeit - x,y º¯°æ
+						// 2004, 3, 9 sobeit - x,y ë³€ê²½
 						//gpC_global_resource->m_pC_info_spk->BltLocked(item_x-(p_item->GetGridWidth()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X)/2, item_y-(p_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y)/2, C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType);
 						gpC_global_resource->m_pC_info_spk->BltLocked(GetFocusedItemGridX(p_item), GetFocusedItemGridY(p_item), C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType);
 					}
@@ -1311,14 +1311,14 @@ void	C_VS_UI_EXCHANGE::Show()
 						eType == ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH
 						)
 					{
-						// 2004, 3, 9 sobeit - x,y º¯°æ
+						// 2004, 3, 9 sobeit - x,y ë³€ê²½
 						//gpC_global_resource->m_pC_info_spk->BltLockedColor(item_x-(p_item->GetGridWidth()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X)/2, item_y-(p_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y)/2, C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType, 0);
 						gpC_global_resource->m_pC_info_spk->BltLockedColor(GetFocusedItemGridX(p_item), GetFocusedItemGridY(p_item), C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType, 0);
 					}
 				}
 			}
 
-			//¾ÆÀÌÅÛ °³¼ö ÂïÀ» alphabox ¼ıÀÚ´Â ÂïÁö ¾Ê´Â´Ù ÀúÀåÇØ µ×´Ù°¡ ³ªÁß¿¡ ¸ô¾Æ¼­ ÇÑ²¨¹ø¿¡ Âï´Â´Ù
+			//ì•„ì´í…œ ê°œìˆ˜ ì°ì„ alphabox ìˆ«ìëŠ” ì°ì§€ ì•ŠëŠ”ë‹¤ ì €ì¥í•´ ë’€ë‹¤ê°€ ë‚˜ì¤‘ì— ëª°ì•„ì„œ í•œêº¼ë²ˆì— ì°ëŠ”ë‹¤
 			if(p_item->IsPileItem() || p_item->IsChargeItem())
 			{
 				RECT rt;
@@ -1346,7 +1346,7 @@ void	C_VS_UI_EXCHANGE::Show()
 	}
 	
 
-//±ÛÀÚ Ãâ·Â¿ë dc¸¦ Àâ´Â´Ù.
+//ê¸€ì ì¶œë ¥ìš© dcë¥¼ ì¡ëŠ”ë‹¤.
 	g_FL2_GetDC();
 	m_pC_button_group->ShowDescription();
 
@@ -1359,7 +1359,7 @@ void	C_VS_UI_EXCHANGE::Show()
 	}
 
 	//----------------------------------------------------------------
-	// ³»°¡ °¡Áø µ·	
+	// ë‚´ê°€ ê°€ì§„ ëˆ	
 	//----------------------------------------------------------------
 	// 2004, 12, 14, sobeit modify start
 	char money_buf[512];
@@ -1382,7 +1382,7 @@ void	C_VS_UI_EXCHANGE::Show()
 	}
 	// 2004, 12, 14, sobeit modify end
 	//----------------------------------------------------------------
-	// ±³È¯ÇÒ ³» µ·
+	// êµí™˜í•  ë‚´ ëˆ
 	//----------------------------------------------------------------
 	// 2004, 12, 14, sobeit modify start
 //	wsprintf(money_buf, "%d", g_pTradeManager->GetMyMoneyManager()->GetMoney());
@@ -1410,7 +1410,7 @@ void	C_VS_UI_EXCHANGE::Show()
 	}
 	// 2004, 12, 14, sobeit modify end
 	//----------------------------------------------------------------
-	// ³² µ· - -;
+	// ë‚¨ ëˆ - -;
 	//----------------------------------------------------------------
 	// 2004, 12, 14, sobeit modify start
 //	wsprintf(money_buf, "%d", g_pTradeManager->GetOtherMoneyManager()->GetMoney());
@@ -1443,7 +1443,7 @@ void	C_VS_UI_EXCHANGE::Show()
 	// show your name on trade interface
 	g_Print(x+m_your_name_x+6, y+m_your_name_y+2, g_pTradeManager->GetOtherName(), &gpC_base->m_char_value_pi);
 
-//±ÛÀÚ Ãâ·Â¿ë dc¸¦ Ç®¾îÁØ´Ù.
+//ê¸€ì ì¶œë ¥ìš© dcë¥¼ í’€ì–´ì¤€ë‹¤.
 	g_FL2_ReleaseDC();
 
 	SHOW_WINDOW_ATTR;

@@ -10,11 +10,11 @@
 //-----------------------------------------------------------------------------
 
 //
-// FL2¿¡¼­´Â DC¸¦ »ç¿ëÇÏ¹Ç·Î surface°¡ ÇÊ¿äÇÏ´Ù. ÀÌ°ÍÀº ÀÏ¹İÀûÀ¸·Î ÀÔÃâ·Â 
-// surfaceÀÌ°ÚÁö¸¸, offscreen surface·Îµµ ÇÒ ¼ö ÀÖ°Ú´Ù.
+// FL2ì—ì„œëŠ” DCë¥¼ ì‚¬ìš©í•˜ë¯€ë¡œ surfaceê°€ í•„ìš”í•˜ë‹¤. ì´ê²ƒì€ ì¼ë°˜ì ìœ¼ë¡œ ì…ì¶œë ¥ 
+// surfaceì´ê² ì§€ë§Œ, offscreen surfaceë¡œë„ í•  ìˆ˜ ìˆê² ë‹¤.
 //
-// Unicorn edit line widget¿¡¼­ FL2¸¦ »ç¿ëÇÏ¹Ç·Î ±×°÷¿¡¼­ ÀÌ surface¸¦ ÂüÁ¶ÇÒ
-// °ÍÀÌ´Ù.
+// Unicorn edit line widgetì—ì„œ FL2ë¥¼ ì‚¬ìš©í•˜ë¯€ë¡œ ê·¸ê³³ì—ì„œ ì´ surfaceë¥¼ ì°¸ì¡°í• 
+// ê²ƒì´ë‹¤.
 //
 LPDIRECTDRAWSURFACE7	gpC_fl2_surface = NULL;
 HDC gh_FL2_DC = NULL;
@@ -32,8 +32,8 @@ void g_SetFL2Surface(LPDIRECTDRAWSURFACE7 surface)
 //-----------------------------------------------------------------------------
 // g_PossibleStringCut
 //
-// sz_strÀÇ position(byte)ÀÌ cutµÉ ¼ö ÀÖ´Â°¡ ¿©ºÎ¸¦ ¹İÈ¯ÇÑ´Ù.
-// sz_strÀº ÇÑ±Û 2byte, ¿µ¹® 1byteÀÌ´Ù.
+// sz_strì˜ position(byte)ì´ cutë  ìˆ˜ ìˆëŠ”ê°€ ì—¬ë¶€ë¥¼ ë°˜í™˜í•œë‹¤.
+// sz_strì€ í•œê¸€ 2byte, ì˜ë¬¸ 1byteì´ë‹¤.
 //-----------------------------------------------------------------------------
 bool g_PossibleStringCut(const char * sz_str, int position)
 {
@@ -43,14 +43,14 @@ bool g_PossibleStringCut(const char * sz_str, int position)
 			return true;
 
 		//
-		// position¿¡´Â ¼¼°¡Áö °æ¿ìÀÇ data°¡ ÀÖÀ» ¼ö ÀÖ´Ù.
+		// positionì—ëŠ” ì„¸ê°€ì§€ ê²½ìš°ì˜ dataê°€ ìˆì„ ìˆ˜ ìˆë‹¤.
 		//
 		// (1) ASCII
-		// (2) ÇÑ±Û 1 byte
-		// (3) ÇÑ±Û 2 byte
+		// (2) í•œê¸€ 1 byte
+		// (3) í•œê¸€ 2 byte
 		//
-		// ±×·¯³ª (3)ÀÇ °æ¿ì ±× °ªÀÌ ASCII°¡ ¾Æ´Ï¶ó°í Àå´ãÇÒ ¼ö ¾ø´Ù.
-		// ±×·¡¼­ Ã³À½ºÎÅÍ position±îÁö °Ë»ç¸¦ ÇØ¾ß ÇÑ´Ù.
+		// ê·¸ëŸ¬ë‚˜ (3)ì˜ ê²½ìš° ê·¸ ê°’ì´ ASCIIê°€ ì•„ë‹ˆë¼ê³  ì¥ë‹´í•  ìˆ˜ ì—†ë‹¤.
+		// ê·¸ë˜ì„œ ì²˜ìŒë¶€í„° positionê¹Œì§€ ê²€ì‚¬ë¥¼ í•´ì•¼ í•œë‹¤.
 		//
 		enum _CODE
 		{
@@ -84,10 +84,10 @@ bool g_PossibleStringCut(const char * sz_str, int position)
 //-----------------------------------------------------------------------------
 // g_GetStringWidth
 //
-// p_strÀº null terminated stringÀÌ´Ù.
-// hfont¸¦ ¿Ã¹Ù¸£°Ô settingÇØ¾ß Á¤È®ÇÑ °ªÀÌ ³ª¿Â´Ù.
+// p_strì€ null terminated stringì´ë‹¤.
+// hfontë¥¼ ì˜¬ë°”ë¥´ê²Œ settingí•´ì•¼ ì •í™•í•œ ê°’ì´ ë‚˜ì˜¨ë‹¤.
 //
-// ! ¿ÜºÎ¿¡¼­ lock°É¸é ¾ÈµÈ´Ù.
+// ! ì™¸ë¶€ì—ì„œ lockê±¸ë©´ ì•ˆëœë‹¤.
 //-----------------------------------------------------------------------------
 int g_GetStringWidth(const char * sz_str, HFONT hfont)
 {
@@ -119,10 +119,10 @@ int g_GetStringWidth(const char * sz_str, HFONT hfont)
 //-----------------------------------------------------------------------------
 // g_GetStringHeight
 //
-// p_strÀº null terminated stringÀÌ´Ù.
-// hfont¸¦ ¿Ã¹Ù¸£°Ô settingÇØ¾ß Á¤È®ÇÑ °ªÀÌ ³ª¿Â´Ù.
+// p_strì€ null terminated stringì´ë‹¤.
+// hfontë¥¼ ì˜¬ë°”ë¥´ê²Œ settingí•´ì•¼ ì •í™•í•œ ê°’ì´ ë‚˜ì˜¨ë‹¤.
 //
-// !¿ÜºÎ¿¡¼­ lock°É¸é ¾ÈµÈ´Ù.
+// !ì™¸ë¶€ì—ì„œ lockê±¸ë©´ ì•ˆëœë‹¤.
 //-----------------------------------------------------------------------------
 int g_GetStringHeight(const char * sz_str, HFONT hfont)
 {
@@ -155,10 +155,10 @@ int g_GetStringHeight(const char * sz_str, HFONT hfont)
 //-----------------------------------------------------------------------------
 // g_Print
 //
-// gpC_fl2_surface¿¡ Ãâ·ÂÇÑ´Ù.
-// p_strÀº null terminated stringÀÌ´Ù.
+// gpC_fl2_surfaceì— ì¶œë ¥í•œë‹¤.
+// p_strì€ null terminated stringì´ë‹¤.
 //
-// !¿ÜºÎ¿¡¼­ lock°É¸é ¾ÈµÈ´Ù.
+// !ì™¸ë¶€ì—ì„œ lockê±¸ë©´ ì•ˆëœë‹¤.
 //-----------------------------------------------------------------------------
 void g_Print(int x, int y, const char * sz_str, PrintInfo * p_print_info)
 {
@@ -196,7 +196,7 @@ void g_Print(int x, int y, const char * sz_str, PrintInfo * p_print_info)
 //-----------------------------------------------------------------------------
 // g_DBCSLen
 //
-// p_dbcsÀÇ length¸¦ ¹İÈ¯ÇÑ´Ù.
+// p_dbcsì˜ lengthë¥¼ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 int g_DBCSLen(const char_t * p_dbcs)
 {
@@ -233,10 +233,10 @@ int	g_GetByteLenth(const char_t * p_dbcs, int dbcs_len)
 //-----------------------------------------------------------------------------
 // g_Convert_DBCS_Ascii2SingleByte
 //
-// DBCS Ascii code¸¦ single byte·Î ¹Ù²Û´Ù. ´Ù¸¥ ¹®ÀÚµéÀ» ±×´ë·Î À¯Áö½ÃÅ²´Ù.
-// p_new_buf¸¦ new·Î ÇÒ´çÇÑ´Ù. µû¶ó¼­ ¿ÜºÎ¿¡¼­ p_new_buf¸¦ deleteÇØÁà¾ß ÇÑ´Ù.
+// DBCS Ascii codeë¥¼ single byteë¡œ ë°”ê¾¼ë‹¤. ë‹¤ë¥¸ ë¬¸ìë“¤ì„ ê·¸ëŒ€ë¡œ ìœ ì§€ì‹œí‚¨ë‹¤.
+// p_new_bufë¥¼ newë¡œ í• ë‹¹í•œë‹¤. ë”°ë¼ì„œ ì™¸ë¶€ì—ì„œ p_new_bufë¥¼ deleteí•´ì¤˜ì•¼ í•œë‹¤.
 //
-// ÀúÀåµÈ bufferÀÇ ±æÀÌ(by byte)¸¦ ¹İÈ¯ÇÑ´Ù.
+// ì €ì¥ëœ bufferì˜ ê¸¸ì´(by byte)ë¥¼ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 int g_Convert_DBCS_Ascii2SingleByte(const char_t * p_dbcs, int dbcs_len, char * &p_new_buf)
 {
@@ -282,8 +282,8 @@ int g_Convert_DBCS_Ascii2SingleByte(const char_t * p_dbcs, int dbcs_len, char * 
 //-----------------------------------------------------------------------------
 // g_ConvertAscii2DBCS
 //
-// ascii code(single byte±îÁö Æ÷ÇÔ)¸¦ DBCS·Î º¯È¯ÇÏ¿© p_new_buf¿¡ ÇÒ´çÇÑ´Ù.
-// p_new_buf´Â ¿ÜºÎ¿¡¼­ deleteÇØ¾ß ÇÑ´Ù.
+// ascii code(single byteê¹Œì§€ í¬í•¨)ë¥¼ DBCSë¡œ ë³€í™˜í•˜ì—¬ p_new_bufì— í• ë‹¹í•œë‹¤.
+// p_new_bufëŠ” ì™¸ë¶€ì—ì„œ deleteí•´ì•¼ í•œë‹¤.
 //
 //-----------------------------------------------------------------------------
 // p_ascii:		single byte string
@@ -317,8 +317,8 @@ int g_ConvertAscii2DBCS(const char * p_ascii, int ascii_len, char_t * &p_new_buf
 			i++;
 		}
 
-	// Á¤È®ÇÑ sizeÀÇ buffer¸¦ p_new_buf°¡ °¡¸®Å°µµ·Ï ÇÑ´Ù.
-	// ÇÑ±ÛÀÌ Æ÷ÇÔµÇ¸é dbcs¿Í ascii_lenÀº ´Ù¸£´Ù.
+	// ì •í™•í•œ sizeì˜ bufferë¥¼ p_new_bufê°€ ê°€ë¦¬í‚¤ë„ë¡ í•œë‹¤.
+	// í•œê¸€ì´ í¬í•¨ë˜ë©´ dbcsì™€ ascii_lenì€ ë‹¤ë¥´ë‹¤.
 	p_new_buf = new char_t[dbcs+1];
 
 	for (int m=0; m < dbcs; m++)
@@ -330,7 +330,7 @@ int g_ConvertAscii2DBCS(const char * p_ascii, int ascii_len, char_t * &p_new_buf
 	return dbcs;
 }
 
-// DC¸¦ GetÇÑ´Ù.
+// DCë¥¼ Getí•œë‹¤.
 bool	g_FL2_GetDC()
 {
 	assert(!gpC_base->m_p_DDSurface_back->IsLock());
@@ -347,7 +347,7 @@ bool	g_FL2_GetDC()
 	return false;
 }
 
-// DC¸¦ Release ÇÑ´Ù.
+// DCë¥¼ Release í•œë‹¤.
 bool	g_FL2_ReleaseDC()
 {
 	assert(!gpC_base->m_p_DDSurface_back->IsLock());
@@ -367,11 +367,11 @@ bool	g_FL2_ReleaseDC()
 
 
 ////////////////////////////////////////////////
-// ÀÌ¸§ ÁÙ¿©ÁÖ´Â ¼Ò½º by sonee
+// ì´ë¦„ ì¤„ì—¬ì£¼ëŠ” ì†ŒìŠ¤ by sonee
 //
-// ±ä ¹®ÀÚ¸¦ 40ÀÚ·Î ÁÙÀÌ°í ½ÍÀ¸¸é ReduceString(str,40);
-// str ÀÚÃ¼¸¦ º¯°æÇÑ´Ù.
-// º¯°æÇÏÁö ¾Ê°í ¸®ÅÏ°ªÀ¸·Î ÇÒ°æ¿ì ¸¶Áö¸· º¹»çºÎºĞÀ» »©°í ±×³É ¸®ÅÏÇÏ¸é‰Î
+// ê¸´ ë¬¸ìë¥¼ 40ìë¡œ ì¤„ì´ê³  ì‹¶ìœ¼ë©´ ReduceString(str,40);
+// str ìì²´ë¥¼ ë³€ê²½í•œë‹¤.
+// ë³€ê²½í•˜ì§€ ì•Šê³  ë¦¬í„´ê°’ìœ¼ë¡œ í• ê²½ìš° ë§ˆì§€ë§‰ ë³µì‚¬ë¶€ë¶„ì„ ë¹¼ê³  ê·¸ëƒ¥ ë¦¬í„´í•˜ë©´ëŒ
 ////////////////////////////////////////////////
 
 void ReduceString(char *str,int len)
@@ -412,7 +412,7 @@ void ReduceString(char *str,int len)
 	}		
 }
 
-// µŞºÎºĞ¿¡ ... À» Âï¾îÁØ´Ù.				 by sonee
+// ë’·ë¶€ë¶„ì— ... ì„ ì°ì–´ì¤€ë‹¤.				 by sonee
 void ReduceString2(char *str,int len)
 {
 	if(len<15) return;
@@ -471,7 +471,7 @@ void ReduceString3(char *str,int len)
 //-----------------------------------------------------------------------------
 // g_PrintColorStr
 //
-// strÀ» Ãâ·ÂÇÑ ÈÄÀÇ x¸¦ ¹İÈ¯ÇÑ´Ù.
+// strì„ ì¶œë ¥í•œ í›„ì˜ xë¥¼ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 int g_PrintColorStr(int x, int y, const char * sz_str, PrintInfo &pi, COLORREF str_rgb)
 {
@@ -494,7 +494,7 @@ int g_PrintColorStr(int x, int y, const char * sz_str, PrintInfo &pi, COLORREF s
 //-----------------------------------------------------------------------------
 // g_PrintColorStrOut
 //
-// strÀ» Ãâ·ÂÇÑ ÈÄÀÇ x¸¦ ¹İÈ¯ÇÑ´Ù.
+// strì„ ì¶œë ¥í•œ í›„ì˜ xë¥¼ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 int g_PrintColorStrOut(int x, int y, const char * sz_str, PrintInfo &pi, COLORREF str_rgb, COLORREF out_rgb)
 {
@@ -521,7 +521,7 @@ int g_PrintColorStrOut(int x, int y, const char * sz_str, PrintInfo &pi, COLORRE
 //-----------------------------------------------------------------------------
 // g_PrintColorStrShadow
 //
-// strÀ» Ãâ·ÂÇÑ ÈÄÀÇ x¸¦ ¹İÈ¯ÇÑ´Ù.
+// strì„ ì¶œë ¥í•œ í›„ì˜ xë¥¼ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 int g_PrintColorStrShadow(int x, int y, const char * sz_str, PrintInfo &pi, COLORREF str_rgb, COLORREF shadow_rgb)
 {
@@ -570,21 +570,21 @@ std::string g_GetStringByMoney(DWORD dwMoney)
 	char TempBuffer[32] = {0,};
 	std::string sstr;
 	DWORD TempMoney = 0;
-	if(dwMoney>=100000000) // ¾ï
+	if(dwMoney>=100000000) // ì–µ
 	{
 		TempMoney = dwMoney / 100000000;
 		if(TempMoney)
 		{
-			wsprintf(TempBuffer, "%d¾ï", TempMoney);
+			wsprintf(TempBuffer, "%dì–µ", TempMoney);
 			sstr+= TempBuffer;
 		}
 	}
-	if(dwMoney>=10000) // ¸¸
+	if(dwMoney>=10000) // ë§Œ
 	{
 		TempMoney = (dwMoney%100000000) / 10000;
 		if(TempMoney)
 		{
-			wsprintf(TempBuffer, "%d¸¸", TempMoney);
+			wsprintf(TempBuffer, "%dë§Œ", TempMoney);
 			sstr+= TempBuffer;
 		}
 	}

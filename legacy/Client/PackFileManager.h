@@ -1,15 +1,15 @@
 //--------------------------------------------------------------------------
 // PackFileManager.h
 //--------------------------------------------------------------------------
-// È­ÀÏµéÀ» ¹­¾î¼­ °ü¸®ÇÑ´Ù.
-// Ãß°¡, ¼öÁ¤ÀÌ ½¬¿ö¾ß ÇÑ´Ù.
+// í™”ì¼ë“¤ì„ ë¬¶ì–´ì„œ ê´€ë¦¬í•œë‹¤.
+// ì¶”ê°€, ìˆ˜ì •ì´ ì‰¬ì›Œì•¼ í•œë‹¤.
 //
-// [ È­ÀÏÇü½Ä ]
+// [ í™”ì¼í˜•ì‹ ]
 // 
 //  DataFile  : [Data0]....[DataX][DataY][DataZ]
 //	IndexFile : [ID, DataFP]....[ID, DataFP][ID, DataFP][ID, DataFP]
 //
-// Merge´Â AppendPatch¸¦ ÀÌ¿ëÇÏ¸é µÈ´Ù.
+// MergeëŠ” AppendPatchë¥¼ ì´ìš©í•˜ë©´ ëœë‹¤.
 //--------------------------------------------------------------------------
 
 #ifndef __PACK_FILE_MANAGER_H__
@@ -25,7 +25,7 @@
 //--------------------------------------------------------------------------
 // Pack FileInfo
 //--------------------------------------------------------------------------
-// DataÈ­ÀÏÀ» ¸ÕÀú ÀúÀåÇÏ°í Index¸¦ ÀúÀåÇØ¾ß ÇÑ´Ù.
+// Dataí™”ì¼ì„ ë¨¼ì € ì €ì¥í•˜ê³  Indexë¥¼ ì €ì¥í•´ì•¼ í•œë‹¤.
 //--------------------------------------------------------------------------
 class PackFileInfo {
 	public :
@@ -52,7 +52,7 @@ class PackFileInfo {
 
 	protected :
 		DWORD				m_ID;			// ID
-		std::string			m_Filename;		// È­ÀÏÀÌ¸§
+		std::string			m_Filename;		// í™”ì¼ì´ë¦„
 		long				m_FP;			// File Position
 };
 
@@ -141,7 +141,7 @@ PackFileManager<FileInfoType>::Release()
 {
 	//----------------------------------------------------------
 	// ID map
-	// °°Àº pointer¸¦ »ç¿ëÇÏ¹Ç·Î...
+	// ê°™ì€ pointerë¥¼ ì‚¬ìš©í•˜ë¯€ë¡œ...
 	//----------------------------------------------------------
 	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.begin();
 
@@ -350,11 +350,11 @@ PackFileManager<FileInfoType>::SaveToFileInfo(const char* pFilename)
 {
 	class ofstream file(pFilename, ios::binary | ios::trunc);
 
-	// °³¼ö
+	// ê°œìˆ˜
 	WORD num = m_IDInfos.size();
 	file.write((const char*)&num, 2);
 
-	// Header ÀúÀå
+	// Header ì €ì¥
 	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.begin();
 
 	while (iInfo != m_IDInfos.end())
@@ -382,7 +382,7 @@ PackFileManager<FileInfoType>::LoadFromFileInfo(const char* pFilename)
 
 	class ifstream file(pFilename, ios::binary | ios::nocreate);
 
-	// °³¼ö
+	// ê°œìˆ˜
 	if (file.is_open())
 	{
 		WORD num;
@@ -390,7 +390,7 @@ PackFileManager<FileInfoType>::LoadFromFileInfo(const char* pFilename)
 
 		for (int i=0; i<num; i++)
 		{
-			// Header ÀĞ±â
+			// Header ì½ê¸°
 			FileInfoType* pInfo = new FileInfoType;
 
 			pInfo->LoadFromFile( file );
@@ -415,7 +415,7 @@ PackFileManager<FileInfoType>::SaveToFileData(const char* pFilename)
 {
 	class ofstream file(pFilename, ios::binary | ios::trunc);
 
-	// °³¼ö
+	// ê°œìˆ˜
 	WORD num = m_IDInfos.size();
 	file.write((const char*)&num, 2);	
 
@@ -514,11 +514,11 @@ PackFileManager<FileInfoType>::Merge(const char* pInfoFilenameOrg,
 	//class ifstream fileInfoApp(pInfoFilenameApp, ios::binary);
 	//class ifstream fileDataApp(pDataFilenameApp, ios::binary);
 
-	// pInfoFilenameOrgÀÇ °³¼ö º¯°æ
-	// pInfoFilenameOrgÀÇ ³¡¿¡ pInfoFilenameApp¸¦ ºÙÀÎ´Ù.
+	// pInfoFilenameOrgì˜ ê°œìˆ˜ ë³€ê²½
+	// pInfoFilenameOrgì˜ ëì— pInfoFilenameAppë¥¼ ë¶™ì¸ë‹¤.
 
-	// pDataFilenameOrgÀÇ °³¼ö º¯°æ
-	// pDataFilenameOrgÀÇ ³¡¿¡ pDataFilenameApp¸¦ ºÙÀÎ´Ù.
+	// pDataFilenameOrgì˜ ê°œìˆ˜ ë³€ê²½
+	// pDataFilenameOrgì˜ ëì— pDataFilenameAppë¥¼ ë¶™ì¸ë‹¤.
 
 	return true;
 }

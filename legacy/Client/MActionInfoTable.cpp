@@ -19,12 +19,12 @@ MActionInfoTable*			g_pActionInfoTable = NULL;
 //----------------------------------------------------------------------
 
 //-------------------------------------------------------
-// ¾Öµé ¹öÀü.. -_-;
+// ì• ë“¤ ë²„ì „.. -_-;
 //-------------------------------------------------------
 void			
 ACTION_INFO_NODE::SetChildMode()
 {
-	// ÇÏ...ÇÏµåÄÚµù-_-;
+	// í•˜...í•˜ë“œì½”ë”©-_-;
 	if(EffectSpriteType >= EFFECTSPRITETYPE_BLOOD_DRAIN_1 &&
 		EffectSpriteType <= EFFECTSPRITETYPE_BLOOD_DRAIN_3)
 	{
@@ -115,23 +115,23 @@ MActionInfo::MActionInfo()
 	m_bAdvancementClassSkill = false;
 	m_bNonAdvancementClassSkill = false;
 
-	m_CastingActionInfo = ACTIONINFO_NULL;	// casting Action Info¸¦ ¾ø¾Ø´Ù.
-	m_bCastingAction = false;				// casting µ¿ÀÛÀº ¾Æ´Ï¶ó°í ¼³Á¤..
+	m_CastingActionInfo = ACTIONINFO_NULL;	// casting Action Infoë¥¼ ì—†ì•¤ë‹¤.
+	m_bCastingAction = false;				// casting ë™ì‘ì€ ì•„ë‹ˆë¼ê³  ì„¤ì •..
 
 	m_fUserType = FLAG_ACTIONINFO_USER_ALL;
 	m_fWeaponType = 0;//FLAG_ACTIONINFO_WEAPON_ALL;
-	m_fCurrentWeapon = 0;	// ÇöÀç µé°í ÀÖ´Â ¹«±âÀÇ Àû¿ëÀ» ¹Ş´Â°¡?
+	m_fCurrentWeapon = 0;	// í˜„ì¬ ë“¤ê³  ìˆëŠ” ë¬´ê¸°ì˜ ì ìš©ì„ ë°›ëŠ”ê°€?
 	m_MainNode = MAIN_NODE_NULL;
-	m_bAttack = TRUE;			// ±âº»ÀûÀ¸·Î °ø°İ±â¼ú·Î ¼³Á¤
+	m_bAttack = TRUE;			// ê¸°ë³¸ì ìœ¼ë¡œ ê³µê²©ê¸°ìˆ ë¡œ ì„¤ì •
 
 	m_bUseRepeatFrame = false;
 
 	for (int i=0; i<3; i++)
 	{
-		m_CastingStartFrame[i] = 0;	// casting effectÀÇ ½ÃÀÛ frame
-		m_CastingFrames[i]		= 0;	// casting effectÀÇ Áö¼Ó frame
+		m_CastingStartFrame[i] = 0;	// casting effectì˜ ì‹œì‘ frame
+		m_CastingFrames[i]		= 0;	// casting effectì˜ ì§€ì† frame
 		
-		m_StartFrame[i] = 0xFFFF;	// max°ªÀº ¾Æ´ÏÁö¸¸. ÀÌ Á¤µµ¸é ÃæºĞ.. À½³ÄÇÏ.
+		m_StartFrame[i] = 0xFFFF;	// maxê°’ì€ ì•„ë‹ˆì§€ë§Œ. ì´ ì •ë„ë©´ ì¶©ë¶„.. ìŒëƒí•˜.
 
 		m_RepeatStartFrame[i] = m_RepeatEndFrame[i] = -1;
 	}
@@ -148,7 +148,7 @@ MActionInfo::MActionInfo()
 
 	m_EffectStatus = EFFECTSTATUS_NULL;
 
-	// °á°ú id
+	// ê²°ê³¼ id
 	m_ActionResultID	= ACTIONRESULTNODE_NULL;
 	m_ActionResultValue	= 0;
 
@@ -180,12 +180,12 @@ MActionInfo::~MActionInfo()
 
 
 //-------------------------------------------------------
-// ¾Öµé ¹öÀü.. -_-;
+// ì• ë“¤ ë²„ì „.. -_-;
 //-------------------------------------------------------
 void			
 MActionInfo::SetChildMode()
 {
-	// ÇÏ...ÇÏµåÄÚµù-_-;
+	// í•˜...í•˜ë“œì½”ë”©-_-;
 
 	// male
 	if(m_ActionEffectSpriteType >= EFFECTSPRITETYPE_BLOOD_GUN_1_1 &&
@@ -245,8 +245,8 @@ MActionInfo::SetChildMode()
 void			
 MActionInfo::SaveToFile(class ofstream& file)
 {
-	// ÀÓ½Ã·Î °è»ê.. - -;
-	// startframeÀÌ ´ÊÀº ¸¸Å­ delayµµ ÁÙ¾îµç´Ù
+	// ì„ì‹œë¡œ ê³„ì‚°.. - -;
+	// startframeì´ ëŠ¦ì€ ë§Œí¼ delayë„ ì¤„ì–´ë“ ë‹¤
 	/*
 	if (m_StartFrame==0xFFFF)
 	{
@@ -308,7 +308,7 @@ MActionInfo::SaveToFile(class ofstream& file)
 	file.write((const char*)&m_SoundID, SIZE_SOUNDID);
 	file.write((const char*)&m_MainNode, 4);
 	
-	// °á°ú 
+	// ê²°ê³¼ 
 	file.write((const char*)&m_ActionResultID, SIZE_ACTIONRESULTID);
 	file.write((const char*)&m_ActionResultValue, 4);
 
@@ -346,7 +346,7 @@ MActionInfo::SaveToFile(class ofstream& file)
 	if( m_bNonAdvancementClassSkill ) flag |= 0x2;
 	file.write( (const char*)&flag, sizeof( char ) );
 */	
-	// °¢ ´Ü°è¿¡ ´ëÇÑ Á¤º¸
+	// ê° ë‹¨ê³„ì— ëŒ€í•œ ì •ë³´
 	CTypeTable<ACTION_INFO_NODE>::SaveToFile(file);
 }
 
@@ -399,7 +399,7 @@ MActionInfo::LoadFromFile(class ifstream& file)
 	file.read((char*)&m_SoundID, SIZE_SOUNDID);
 	file.read((char*)&m_MainNode, 4);
 	
-	// °á°ú 
+	// ê²°ê³¼ 
 	file.read((char*)&m_ActionResultID, SIZE_ACTIONRESULTID);
 	file.read((char*)&m_ActionResultValue, 4);
 
@@ -434,7 +434,7 @@ MActionInfo::LoadFromFile(class ifstream& file)
 	m_bAdvancementClassSkill = (flag & 0x1 ) != 0;
 	m_bNonAdvancementClassSkill = (flag & 0x2) != 0;
 */
-	// °¢ ´Ü°è¿¡ ´ëÇÑ Á¤º¸
+	// ê° ë‹¨ê³„ì— ëŒ€í•œ ì •ë³´
 	CTypeTable<ACTION_INFO_NODE>::LoadFromFile(file);
 }
 
@@ -488,7 +488,7 @@ MActionInfoTable::~MActionInfoTable()
 //
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-// ÇÇ ¾ø´Â ¸ğµå..
+// í”¼ ì—†ëŠ” ëª¨ë“œ..
 //----------------------------------------------------------------------
 void			
 MActionInfoTable::SetChildMode()

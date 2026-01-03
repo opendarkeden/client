@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------
 // CToken.h
 //------------------------------------------------------------------------
-//													Made by À±¿µ½Ä(9684050)
+//													Made by ìœ¤ì˜ì‹(9684050)
 //													Coding : 1998.11.
 //													Modify : 1998.11.20
 //------------------------------------------------------------------------
@@ -20,14 +20,14 @@ class CToken {
 		// set string
 		void SetString(const char* str);
 
-		// °ø¹éÀÌ ¿©·¯°³ ÀÖÀ»¶§ ¹«½ÃÇÑ´Ù.
+		// ê³µë°±ì´ ì—¬ëŸ¬ê°œ ìˆì„ë•Œ ë¬´ì‹œí•œë‹¤.
 		void SkipSpace();
 
 
-		// delimiter¿¡ ÀÇÇØ¼­ ÇöÀçÀÇ token stringÀ» ±¸ÇÑ´Ù.
+		// delimiterì— ì˜í•´ì„œ í˜„ì¬ì˜ token stringì„ êµ¬í•œë‹¤.
 		const char* GetToken(const char* delimiter=" ");
 
-		// ÇöÀç À§Ä¡ºÎÅÍ ³¡±îÁöÀÇ stringÀ» ³Ñ°ÜÁØ´Ù.
+		// í˜„ì¬ ìœ„ì¹˜ë¶€í„° ëê¹Œì§€ì˜ stringì„ ë„˜ê²¨ì¤€ë‹¤.
 		const char* GetEnd();
 
 
@@ -36,7 +36,7 @@ class CToken {
 	// private member functions
 	private :
 
-		// ¸Ş¸ğ¸® ÇØÁ¦
+		// ë©”ëª¨ë¦¬ í•´ì œ
 		void Release();
 
 
@@ -45,10 +45,10 @@ class CToken {
 	// data members
 	protected :
 
-		// tokenÀ¸·Î ³ª´­·Á´Â string
+		// tokenìœ¼ë¡œ ë‚˜ëˆŒë ¤ëŠ” string
 		char* m_pString;
 
-		// m_pString¿¡¼­ÀÇ ÇöÀçÀÇ À§Ä¡
+		// m_pStringì—ì„œì˜ í˜„ì¬ì˜ ìœ„ì¹˜
 		char* m_pCurrent;
 };
 

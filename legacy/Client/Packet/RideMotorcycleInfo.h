@@ -2,10 +2,10 @@
 // Filename    : RideMotorcycleInfo.h 
 // Written By  : elca@ewestsoft.com
 // Description : 
-// Å¸°í ÀÖ´Â ¸ðÅÍ»çÀÌÅ¬¿¡ ´ëÇÑ Á¤º¸¸¦ °¡Áö°í ÀÖ´Â ÆÐÅ¶ÀÌ´Ù.
-// ¸ðÅÍ »çÀÌÅ¬ ÀÚÃ¼¿¡ °üÇÑ Á¤º¸ ¿Ü¿¡µµ, ¸ðÅÍ »çÀÌÅ¬ ³»ºÎ¿¡ ÀÖ´Â
-// ÀÎº¥Åä¸®¿¡ ´ëÇÑ Á¤º¸µµ °°ÀÌ °¡Áö°í ÀÖ´Ù. ÀÎº¥Åä¸® Á¤º¸¿¡ ´ëÇÑ °ÍÀº
-// RideMotorcycleSlotInfo¿Í InventorySlotInfo¸¦ ÂüÁ¶ÇÏ¶ó.
+// íƒ€ê³  ìžˆëŠ” ëª¨í„°ì‚¬ì´í´ì— ëŒ€í•œ ì •ë³´ë¥¼ ê°€ì§€ê³  ìžˆëŠ” íŒ¨í‚·ì´ë‹¤.
+// ëª¨í„° ì‚¬ì´í´ ìžì²´ì— ê´€í•œ ì •ë³´ ì™¸ì—ë„, ëª¨í„° ì‚¬ì´í´ ë‚´ë¶€ì— ìžˆëŠ”
+// ì¸ë²¤í† ë¦¬ì— ëŒ€í•œ ì •ë³´ë„ ê°™ì´ ê°€ì§€ê³  ìžˆë‹¤. ì¸ë²¤í† ë¦¬ ì •ë³´ì— ëŒ€í•œ ê²ƒì€
+// RideMotorcycleSlotInfoì™€ InventorySlotInfoë¥¼ ì°¸ì¡°í•˜ë¼.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __RIDE_MOTORCYCLE_INFO_H__

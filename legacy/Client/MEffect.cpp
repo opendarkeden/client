@@ -37,7 +37,7 @@ MEffect::MEffect(BYTE bltType)
 	m_PixelZ		= 0;
 	m_StepPixel		= 0;
 
-	// ´ÙÀ½ Effect¾øÀ½
+	// ë‹¤ìŒ Effectì—†ìŒ
 	m_pEffectTarget = NULL;
 
 	m_Light = 0;
@@ -131,8 +131,8 @@ MEffect::SetEffectTargetNULL()
 //----------------------------------------------------------------------
 // Set Position(x,y)
 //----------------------------------------------------------------------
-// pixelÁÂÇ¥¸¦ ¼³Á¤ÇÏ°í
-// Zone¿¡¼­ ÇØ´çÇÏ´Â SectorÀÇ ÁÂÇ¥µµ ¼³Á¤ÇØÁà¾ß ÇÑ´Ù.
+// pixelì¢Œí‘œë¥¼ ì„¤ì •í•˜ê³ 
+// Zoneì—ì„œ í•´ë‹¹í•˜ëŠ” Sectorì˜ ì¢Œí‘œë„ ì„¤ì •í•´ì¤˜ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void			
 MEffect::SetPixelPosition(int x, int y, int z)
@@ -148,12 +148,12 @@ MEffect::SetPixelPosition(int x, int y, int z)
 //----------------------------------------------------------------------
 // Affect Position
 //----------------------------------------------------------------------
-// PixelPositonÀ¸·Î¼­ SectorÁÂÇ¥¸¦ ¼³Á¤ÇÑ´Ù.
+// PixelPositonìœ¼ë¡œì„œ Sectorì¢Œí‘œë¥¼ ì„¤ì •í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MEffect::AffectPosition()
 {
-	// PixelÁÂÇ¥¸¦ SectorÁÂÇ¥·Î ¹Ù²Û´Ù.
+	// Pixelì¢Œí‘œë¥¼ Sectorì¢Œí‘œë¡œ ë°”ê¾¼ë‹¤.
 	m_X = MTopView::PixelToMapX( m_PixelX );
 	m_Y = MTopView::PixelToMapY( m_PixelY );
 }
@@ -162,14 +162,14 @@ MEffect::AffectPosition()
 //----------------------------------------------------------------------
 // SetFrameID
 //----------------------------------------------------------------------
-// Base classÀÎ CAnimationFrameÀÇ SetFrameID¸¦ overloadÇÑ´Ù.
+// Base classì¸ CAnimationFrameì˜ SetFrameIDë¥¼ overloadí•œë‹¤.
 //----------------------------------------------------------------------
 void			
 MEffect::SetFrameID(TYPE_FRAMEID FrameID, BYTE max)
 { 
 	CAnimationFrame::SetFrameID(FrameID, max);
 
-	// EffectFrameÀÇ ¹à±â¿¡ µû¶ó¼­ ºûÀÇ Å©±â¸¦ Á¤ÇÑ´Ù.
+	// EffectFrameì˜ ë°ê¸°ì— ë”°ë¼ì„œ ë¹›ì˜ í¬ê¸°ë¥¼ ì •í•œë‹¤.
 	m_Light = g_pTopView->GetEffectLight((BLT_TYPE)m_BltType, FrameID, m_Direction, 0);
 }
 
@@ -209,17 +209,17 @@ MEffect::SetY(TYPE_SECTORPOSITION y)
 //----------------------------------------------------------------------
 // Update
 //----------------------------------------------------------------------
-// m_Count°¡ 0ÀÏ¶§±îÁö -1 ÇØÁÖ¸é¼­ FrameÀ» ¹Ù²Û´Ù.
+// m_Countê°€ 0ì¼ë•Œê¹Œì§€ -1 í•´ì£¼ë©´ì„œ Frameì„ ë°”ê¾¼ë‹¤.
 //----------------------------------------------------------------------
 bool
 MEffect::Update()
 {
-	// FrameÀ» ¹Ù²ãÁØ´Ù.
+	// Frameì„ ë°”ê¿”ì¤€ë‹¤.
 	NextFrame();
 
 	m_Light = g_pTopView->GetEffectLight((BLT_TYPE)m_BltType, m_FrameID, m_Direction, m_CurrentFrame);
 		
-	// °è¼Ó UpdateÇØµµ µÇ´Â°¡?
+	// ê³„ì† Updateí•´ë„ ë˜ëŠ”ê°€?
 	return g_CurrentFrame < m_EndFrame;
 }
 

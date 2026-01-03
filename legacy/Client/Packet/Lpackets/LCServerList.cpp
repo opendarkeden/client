@@ -31,7 +31,7 @@ LCServerList::~LCServerList ()
 {
 	__BEGIN_TRY
 
-	// ¼Ò¼ÓµÈ ¸ğµç °´Ã¼µéÀ» »èÁ¦ÇÑ´Ù.
+	// ì†Œì†ëœ ëª¨ë“  ê°ì²´ë“¤ì„ ì‚­ì œí•œë‹¤.
 	while ( !m_ServerGroupInfoList.empty() ) 
 	{
 		ServerGroupInfo * pServerGroupInfo = m_ServerGroupInfoList.front();
@@ -48,7 +48,7 @@ LCServerList::~LCServerList ()
 
 
 //----------------------------------------------------------------------
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //----------------------------------------------------------------------
 void LCServerList::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
@@ -59,7 +59,7 @@ void LCServerList::read ( SocketInputStream & iStream )
 
 	BYTE ListNum;
 
-    // ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+    // ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
 	iStream.read( ListNum );
 	for( int i = 0; i < ListNum; i++ ) {
 		ServerGroupInfo * pServerGroupInfo = new ServerGroupInfo();
@@ -72,7 +72,7 @@ void LCServerList::read ( SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void LCServerList::write ( SocketOutputStream & oStream ) const 
      throw ( ProtocolException , Error )
@@ -82,7 +82,7 @@ void LCServerList::write ( SocketOutputStream & oStream ) const
 	oStream.write( m_CurrentServerGroupID );
 
 	BYTE ListNum = m_ServerGroupInfoList.size();
-	// ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+	// ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
 	oStream.write( ListNum );
 
 	for ( std::list<ServerGroupInfo*>:: const_iterator itr = m_ServerGroupInfoList.begin(); itr!= m_ServerGroupInfoList.end(); itr++) {
@@ -113,7 +113,7 @@ PacketSize_t LCServerList::getPacketSize () const
 {
 	__BEGIN_TRY
 
-	// ¸®½ºÆ® ÀÎÀÚÀÇ °¹¼ö
+	// ë¦¬ìŠ¤íŠ¸ ì¸ìì˜ ê°¯ìˆ˜
 	PacketSize_t PacketSize = szServerGroupID + szBYTE;
 
 	for ( std::list< ServerGroupInfo* >::const_iterator itr = m_ServerGroupInfoList.begin() ; itr != m_ServerGroupInfoList.end() ; itr ++ ) {

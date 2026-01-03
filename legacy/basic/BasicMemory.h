@@ -2,7 +2,7 @@
 
 	BasicMemory.h	
 
-	Memory °ü·Ã functions & utility.
+	Memory ê´€ë ¨ functions & utility.
 
 	2000.8.25. KJTINC
 
@@ -14,8 +14,8 @@
 //----------------------------------------------------------------------------
 // Memory release define.
 // 
-// ÇÔ¼ö·Î ÇÏ¸é x°¡ classÀÎ °æ¿ì destructor°¡ ºÒ¸®Áö ¾Ê´Â´Ù.
-// templateÀ¸·Î ÇÏ¸é µÉ±î?
+// í•¨ìˆ˜ë¡œ í•˜ë©´ xê°€ classì¸ ê²½ìš° destructorê°€ ë¶ˆë¦¬ì§€ ì•ŠëŠ”ë‹¤.
+// templateìœ¼ë¡œ í•˜ë©´ ë ê¹Œ?
 //----------------------------------------------------------------------------
 #define DeleteNew(x)						if (x) { delete x; x = NULL; }
 #define DeleteNewArray(x)				if (x) { delete []x; x = NULL; }

@@ -1,12 +1,12 @@
 //----------------------------------------------------------------------
 // CMessageArray.h
 //----------------------------------------------------------------------
-// String ArrayÀÌ´Ù.
+// String Arrayì´ë‹¤.
 // 
-// ÃÊ±âÈ­ ÇÒ ¶§ : Init(String¼ö, ÇÑStringÀÇ ÃÖ´ë±æÀÌ, log File);
+// ì´ˆê¸°í™” í•  ë•Œ : Init(Stringìˆ˜, í•œStringì˜ ìµœëŒ€ê¸¸ì´, log File);
 //
-// Init(...)ÇÒ¶§ ¸Ş¸ğ¸®¸¦ ´Ù Àâ¾Æ¹ö¸°´Ù.
-// filenameÀ» ½áÁÖ¸é ÀÚµ¿À¸·Î stringÀÌ Ãß°¡µÉ¶§ logÇÑ´Ù.
+// Init(...)í• ë•Œ ë©”ëª¨ë¦¬ë¥¼ ë‹¤ ì¡ì•„ë²„ë¦°ë‹¤.
+// filenameì„ ì¨ì£¼ë©´ ìë™ìœ¼ë¡œ stringì´ ì¶”ê°€ë ë•Œ logí•œë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__CMESSAGEARRAY_H__
@@ -34,10 +34,10 @@ class CMessageArray {
 		void		AddFormatVL(const char* format, va_list& vl);
 		const char*	operator [] (int i);
 
-		// ¿ÜºÎ¿¡¼­ ÆíÁı..
+		// ì™¸ë¶€ì—ì„œ í¸ì§‘..
 		char*&		GetCurrent()		{ return m_ppMessage[m_Current]; }
 
-		// ´ÙÀ½ °Í
+		// ë‹¤ìŒ ê²ƒ
 		void		Next();
 
 		// size
@@ -51,11 +51,11 @@ class CMessageArray {
 
 
 	protected :		
-		int			m_Length;		// Message ÇÏ³ªÀÇ ±æÀÌ
-		int			m_Max;			// Message °³¼ö
+		int			m_Length;		// Message í•˜ë‚˜ì˜ ê¸¸ì´
+		int			m_Max;			// Message ê°œìˆ˜
 
-		char**		m_ppMessage;	// ÀÔ·ÂµÈ Message
-		int			m_Current;		// ÀÔ·ÂÇÒ·Á´Â Message 
+		char**		m_ppMessage;	// ì…ë ¥ëœ Message
+		int			m_Current;		// ì…ë ¥í• ë ¤ëŠ” Message 
 
 		// file Log
 		bool			m_bLog;

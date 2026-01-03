@@ -23,7 +23,7 @@ MAnimationObject::MAnimationObject()
 MAnimationObject::MAnimationObject(TYPE_OBJECTID id, TYPE_OBJECTID ImageObjectID, TYPE_SPRITEID SpriteID, int pX, int pY, TYPE_SECTORPOSITION viewpoint, bool trans, BYTE bltType)
 : CAnimationFrame(bltType)
 {
-	// instace ID¹ß±Þ
+	// instace IDë°œê¸‰
 	m_ID			= id;
 
 	// type
@@ -58,7 +58,7 @@ MAnimationObject::~MAnimationObject()
 void
 MAnimationObject::Set(TYPE_OBJECTID id, TYPE_OBJECTID ImageObjectID, TYPE_SPRITEID SpriteID, int pX, int pY, TYPE_SECTORPOSITION viewpoint, bool trans, BYTE bltType)
 {
-	// instace ID¹ß±Þ
+	// instace IDë°œê¸‰
 	m_ID			= id;
 
 	// type

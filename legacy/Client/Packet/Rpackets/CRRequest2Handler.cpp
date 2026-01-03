@@ -26,8 +26,8 @@ void CRRequest2Handler::execute ( CRRequest2 * pPacket )
 	DEBUG_ADD("CRRequest2Handler");
 
 	if ((g_Mode==MODE_GAME
-			|| g_Mode==MODE_WAIT_UPDATEINFO			// �ε� ���� �ƴϰų�..
-			|| g_Mode==MODE_WAIT_SETPOSITION		// ��ǥ ��ٸ��� ���
+			|| g_Mode==MODE_WAIT_UPDATEINFO			// 로딩 중이 아니거나..
+			|| g_Mode==MODE_WAIT_SETPOSITION		// 좌표 기다리는 경우
 			)
 		&& g_pUserInformation!=NULL)
 	{

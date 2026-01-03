@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // CGameUpdate.cpp
 //-----------------------------------------------------------------------------
-// ½ÇÁ¦ °ÔÀÓÀ» ÁøÇàÇÏ´Â ºÎºĞ
+// è§’åŠ› éœ¸çƒ™é˜‘ æŸ³é’çªç»° ä½•ç›’
 //-----------------------------------------------------------------------------
 #include "Client_PCH.h"
 
@@ -88,7 +88,7 @@ extern bool	g_bTestMode;
 
 extern bool g_bZoneSafe;
 
-// ÇÒÇÒ...
+// ä¸”ä¸”...
 extern void	SetWatchMode( bool );
 extern bool g_bWatchMode;
 
@@ -98,7 +98,7 @@ extern int g_CheckErrorTime=0;
 extern BOOL g_MyFull;
 extern RECT g_GameRect;
 //add by sonic 2006.7.30
-//¼ì²âÏµÍ³µÇÂ½µÄÓÃ»§
+//æ£€æµ‹ç³»ç»Ÿç™»é™†çš„ç”¨æˆ·
 #include <tlhelp32.h>
 #pragma comment(lib, "th32")
 extern int GetCurrentUserNumber();
@@ -121,7 +121,7 @@ extern char	g_CWD[_MAX_PATH];
 	extern int g_tempY;
 #endif
 
-// update loop¿¡ ´ëÇÑ debug message¸¦ Ãâ·ÂÇÒ±î ¸»±î?
+// update loopä¿Š æªèŒ„ debug messageç”« å…ä»¿ä¸”é³– å¯Œé³–?
 #if defined(OUTPUT_DEBUG) //&& defined(_DEBUG)
 	#ifdef __METROTECH_TEST__
 //		#define	OUTPUT_DEBUG_UPDATE_LOOP	
@@ -174,10 +174,10 @@ CGameUpdate::Init()
 {
 	g_bPreviousMove = false;
 
-	// mouse event Ã³¸®
+	// mouse event è´¸åºœ
 	g_pDXInput->SetMouseEventReceiver( DXMouseEvent );
 	
-	// keyboard event Ã³¸®
+	// keyboard event è´¸åºœ
 	g_pDXInput->SetKeyboardEventReceiver( DXKeyboardEvent );
 }
 
@@ -239,9 +239,9 @@ CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z
 				}
 
 				//---------------------------------------------------------
-				// Minimap¿¡ Å¬¸¯ÇÏ¸é ±×ÂÊÀ¸·Î ÀÌµ¿ÇÑ´Ù.
+				// Minimapä¿Š åŠªè…çªæ å¼Šç‡æ è‚º ææ‚¼èŒ„ä¿ƒ.
 				//---------------------------------------------------------
-				/* // 2001.7.14 ÁÖ¼®Ã³¸®
+				/* // 2001.7.14 æ—ç±è´¸åºœ
 				if (g_pDXInput->KeyDown(DIK_RCONTROL) && g_pUserOption->DrawMinimap)
 				{
 					int x = g_x - (800 - 256) * g_pZone->GetWidth() / 256;
@@ -269,7 +269,7 @@ CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z
 				}
 
 				//---------------------------------------------------------
-				// ChattingÃ¢¿¡ extra input
+				// ChattingèŠ’ä¿Š extra input
 				//---------------------------------------------------------
 				gC_vs_ui.ChatMouseControlExtra( M_LEFTBUTTON_DOWN, g_x, g_y );
 				*/
@@ -277,7 +277,7 @@ CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z
 			break;
 
 			case CDirectInput::RIGHTUP :
-				// Áö·Ú ¸¸µå´Â °Å ÁßÁö
+				// ç˜¤æ±¾ çˆ¶é›ç»° èŠ­ åç˜¤
 				gC_vs_ui.EndInstallMineProgress();
 				//gC_vs_ui.EndCreateMineProgress();
 				//gC_vs_ui.EndCreateBombProgress();
@@ -285,9 +285,9 @@ CGameUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int z
 
 			//case CDirectInput::RIGHTDOWN :
 				//---------------------------------------------------------
-				// ChattingÃ¢¿¡ extra input
+				// ChattingèŠ’ä¿Š extra input
 				//---------------------------------------------------------
-				// 2001.7.14 ÁÖ¼®Ã³¸®
+				// 2001.7.14 æ—ç±è´¸åºœ
 				//gC_vs_ui.ChatMouseControlExtra( M_RIGHTBUTTON_DOWN, g_x, g_y );
 			//break;
 
@@ -319,7 +319,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 	
 	if (event==CDirectInput::KEYDOWN)
 	{
-		if(key == 0xcc) return;		// ÀÌ°Ç ¸ÓÁö-_-?;;
+		if(key == 0xcc) return;		// ææ‰’ èµ£ç˜¤-_-?;;
 				
 		gC_vs_ui.DIKeyboardControl(event, key);
 	
@@ -327,13 +327,13 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 		{	
 //			__BEGIN_HELP_EVENT
 //				case DIK_LMENU :
-//					// [µµ¿ò¸»] alt´©¸¦¶§
+//					// [æ¡£æ¡†å¯Œ] altç©¿ç”«é”­
 //				
 //					ExecuteHelpEvent( HE_PRESSED_ALT );					
 //				break;
 //			__END_HELP_EVENT				
 
-// ¸ÓÁö ÀÌ°Ç-_-?;;; È¤½Ã ? ¾Æ´Ñµ¥-_-;
+// èµ£ç˜¤ ææ‰’-_-?;;; è¶£çŸ« ? é…’å›±å•-_-;
 //			case DIK_F10 :
 //				gC_vs_ui.HotKey_F10();
 //			break;
@@ -361,7 +361,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					}
 					*/
 					/*
-					// ÀÓ½Ã...
+					// çƒ™çŸ«...
 					g_TempInformation.Value2 = SKILL_DOUBLE_IMPACT;
 
 					if (g_TempInformation.Mode==TempInformation::MODE_SKILL_LEARN)
@@ -369,7 +369,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						#ifdef CONNECT_SERVER
 							CGLearnSkill _CGLearnSkill;
 
-							// temp information¿¡ ÀúÀåµÈ Á¤º¸ ÀĞ±â
+							// temp informationä¿Š å†å˜ç­‰ æ²¥ç„Š ä½¬æ‰
 							_CGLearnSkill.setSkillDomainType( g_TempInformation.Value1 );
 							_CGLearnSkill.setSkillType( g_TempInformation.Value2 );
 							
@@ -407,17 +407,17 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					//
 					//---------------------------------------------------
 					//---------------------------------------------------
-					// UI¿¡ ¾Ë¸²...
+					// UIä¿Š èˆ…è¦†...
 					//---------------------------------------------------
 					//
 					// [ TEST CODE ]
 					//
-					// UI¿¡¼­ ¼±ÅÃµÈ ´ë´ä
+					// UIä¿Šè¾‘ æ€¥ç¶ç­‰ æªç¿ 
 					/*
 					g_PCTalkBox.SetAnswerID( rand()%g_PCTalkBox.size() );
 
 					//---------------------------------------------------
-					// server¿¡ ¾Ë¸²
+					// serverä¿Š èˆ…è¦†
 					//---------------------------------------------------
 					#ifdef CONNECT_SERVER
 						CGNPCAskAnswer _CGNPCAskAnswer;
@@ -469,7 +469,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						}
 						else
 						{
-							// 5ÃÊ µ¿¾È ÁÂ¿ì ÀÜ»ó
+							// 5æª¬ æ‚¼æ•‘ è°…å¿« å„¡æƒ‘
 							g_pPlayer->AddEffectStatus( EFFECTSTATUS_FADE_OUT, 5*1000 );
 						}
 					}
@@ -525,14 +525,14 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 			*/
 
 			//------------------------------------
-			// È¿°úÀ½ on/off
+			// ç“¤è‹æ¾œ on/off
 			//------------------------------------
 			/*
 			case DIK_E : 
 				if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
 				{
 					//------------------------------------
-					// ¿¬ÁÖÁßÀÌ¸é.. Áß´Ü..
+					// æ¥·æ—åææ.. åçªœ..
 					//------------------------------------
 					if (g_pUserOption->PlaySound)
 					{
@@ -557,13 +557,13 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 			*/
 
 			//------------------------------------
-			// ¹è°æ À½¾Ç on/off
+			// ç¡…ç‰ˆ æ¾œå© on/off
 			//------------------------------------
 			/*
 			case DIK_B : 
 				#ifdef OUTPUT_DEBUG
 					//------------------------------------
-					// ¹ÚÁã º¯½Å test
+					// å† é›¶ å‡½è„š test
 					//------------------------------------
 					if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
 					{
@@ -583,22 +583,22 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						}
 
 						//--------------------------------------------------
-						// ¹ÚÁã º¯½Å test
+						// å† é›¶ å‡½è„š test
 						//--------------------------------------------------								
 						ExecuteActionInfoFromMainNode(
-							RESULT_MAGIC_TRANSFORM_TO_BAT,										// »ç¿ë ±â¼ú ¹øÈ£
+							RESULT_MAGIC_TRANSFORM_TO_BAT,										// è¤ä¾© æ‰è´± é”…é¾‹
 						
 							g_pPlayer->GetX(), g_pPlayer->GetY(), 0,
-							g_pPlayer->GetDirection(),														// »ç¿ë ¹æÇâ
+							g_pPlayer->GetDirection(),														// è¤ä¾© è§„æ°¢
 							
-							OBJECTID_NULL,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+							OBJECTID_NULL,												// æ ¼é’ä¿Š æªèŒ„ æ²¥ç„Š
 							g_pPlayer->GetX(), g_pPlayer->GetY(), 0, 
 							
-							0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+							0,													// æ‰è´±ç‹¼ (å·¢ç¯®) ç˜¤åŠ  çŸ«åŸƒ		
 							
 							pResult, //NULL,
 							
-							false);			// ±â¼ú Ã·ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+							false);			// æ‰è´± æ¢…ä½•ç£ çŸ«ç´¯èŒ„ä¿ƒ.
 
 						g_pPlayer->SetDelay( 1000 );
 					}
@@ -616,7 +616,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					//}
 					
 					//------------------------------------
-					// ¿¬ÁÖÁßÀÌ¸é.. Áß´Ü..
+					// æ¥·æ—åææ.. åçªœ..
 					//------------------------------------
 					if (g_pUserOption->PlayWaveMusic)
 					{
@@ -630,7 +630,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 							}
 						}
 						//------------------------------------
-						// ¾Æ´Ï¸é.. ´Ù½Ã play
+						// é…’èªæ.. ä¿ƒçŸ« play
 						//------------------------------------
 						else 
 						{
@@ -651,7 +651,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 							}
 						}
 						//------------------------------------
-						// ¾Æ´Ï¸é.. ´Ù½Ã play
+						// é…’èªæ.. ä¿ƒçŸ« play
 						//------------------------------------
 						else 
 						{
@@ -680,7 +680,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				{
 					//(*g_pUserOption).DrawInterface = !(*g_pUserOption).DrawInterface;
 
-					// µµ¿ò¸» ¶ç¿î´Ù.
+					// æ¡£æ¡†å¯Œ å‰æ¬¾ä¿ƒ.
 					//(*g_pUIDialog).PopupHelpDlg();
 				}
 			break;
@@ -732,7 +732,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				#if defined(_DEBUG) || defined(OUTPUT_DEBUG)
 					case DIK_F1 :
 					{
-						// info ´Ù½Ã ÀĞ±â 
+						// info ä¿ƒçŸ« ä½¬æ‰ 
 						if (g_pDXInput->KeyDown(DIK_LMENU) 
 							|| g_pDXInput->KeyDown(DIK_RMENU))
 						{
@@ -744,7 +744,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 					//------------------------------------------------------------
 					//
-					// ±â¼ú »ç¿ë - packet Å×½ºÆ®¸¦ À§ÇØ¼­
+					// æ‰è´± è¤ä¾© - packet æŠ›èƒ¶é£˜ç”« å›°ç§¦è¾‘
 					//
 					//------------------------------------------------------------
 					case DIK_L : 
@@ -759,15 +759,15 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 								if (pCreature!=g_pPlayer)
 								{
-									// ±â¼ú »ç¿ë
-									// ±â¼ú ½ÇÆĞ
+									// æ‰è´± è¤ä¾©
+									// æ‰è´± è§’è©
 									//int targetID;						
 										
 									//int nth;
 									
 									MZone::CREATURE_MAP::const_iterator iCreature2;
 
-									// ±â¼ú ¼º°ø
+									// æ‰è´± å·±å‚
 									if (rand()%2==0)
 									{
 										GCSkillToTileOK2 gcSkillToTileOK2;
@@ -841,7 +841,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 									}
 									else
 									{
-										// ±â¼ú ½ÇÆĞ
+										// æ‰è´± è§’è©
 										nth = rand()%g_pZone->GetCreatureNumber();
 
 										iCreature2 = g_pZone->GetCreatureBegin();
@@ -894,9 +894,9 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 ////							g_pMP3->Open("data\\music\\blood.mp3");
 ////							g_pMP3->Play( true );
 ////							g_bTestMusic = false;
-////							g_pSystemMessage->Add("Blood.mp3 ¸¦ ¿¬ÁÖÇÕ´Ï´Ù");							
+////							g_pSystemMessage->Add("Blood.mp3 ç”« æ¥·æ—é’¦èªä¿ƒ");							
 //						}
-//						// ALT + 1  --> °ø°İ ¼Óµµ Slow
+//						// ALT + 1  --> å‚æ‹œ åŠ æ¡£ Slow
 						if(g_pDXInput->KeyDown(DIK_LCONTROL))
 						{ 
 							
@@ -980,7 +980,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //								event.eventType = EVENTTYPE_ZONE;
 //								event.eventFlag = EVENTFLAG_CLOUD_BACKGROUND;
 //								event.parameter3 = 2;
-//								event.eventDelay =60000; // 5 ÃÊ
+//								event.eventDelay =60000; // 5 æª¬
 //								g_pEventManager->AddEvent(event);
 //							}
 							
@@ -1006,29 +1006,29 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //								g_pPlayer->SetAction( ACTION_STAND );			
 //
 //								//--------------------------------------------------
-//								// ´Á´ë·Î º¯½ÅÇÏ´Â °á°ú
+//								// æˆ³æªè‚º å‡½è„šçªç»° æ¬è‹
 //								//--------------------------------------------------
 //								MActionResult* pResult = new MActionResult;
 //
 //								pResult->Add( new MActionResultNodeChangeCreatureType( g_pPlayer->GetID(), 742 ) );
 //
 //								//--------------------------------------------------
-//								// ´Á´ë º¯½Å 
+//								// æˆ³æª å‡½è„š 
 //								//--------------------------------------------------								
 //								ExecuteActionInfoFromMainNode(
-//									RESULT_SKILL_INSTALL_TURRET,										// »ç¿ë ±â¼ú ¹øÈ£
+//									RESULT_SKILL_INSTALL_TURRET,										// è¤ä¾© æ‰è´± é”…é¾‹
 //								
 //									g_pPlayer->GetX(), g_pPlayer->GetY(), 0,
-//									g_pPlayer->GetDirection(),														// »ç¿ë ¹æÇâ
+//									g_pPlayer->GetDirection(),														// è¤ä¾© è§„æ°¢
 //									
-//									OBJECTID_NULL,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+//									OBJECTID_NULL,												// æ ¼é’ä¿Š æªèŒ„ æ²¥ç„Š
 //									g_pPlayer->GetX(), g_pPlayer->GetY(), 0, 
 //									
-//									0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+//									0,													// æ‰è´±ç‹¼ (å·¢ç¯®) ç˜¤åŠ  çŸ«åŸƒ		
 //									
 //									NULL, //NULL,
 //									
-//									false);			// ±â¼ú Ã·ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+//									false);			// æ‰è´± æ¢…ä½•ç£ çŸ«ç´¯èŒ„ä¿ƒ.
 //
 //							}
 //							else
@@ -1045,13 +1045,13 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 							
 //							UI_RunPetStorage();SKILL_CLIENT_TEST_SUMMON_GORE_GRAND_GROUND
 //							UI_SetPetStorage(g_pStorage);
-							// start Æê ¼ÒÈ¯ ´ÜÃàÅ° °ü·Ã
+							// start è„ å®¶åˆ¸ çªœç»µè™ åŒ…è®¿
 //							for(int i = 0; i< 10; i++)
 //								for(int j = 0; j < 6; j++)
 //								{
 //									const MItem * p_item = g_pInventory->GetItem(i, j);
 //				
-//									if (p_item) // ItemÀÌ ÀÖ´Ù.
+//									if (p_item) // Itemæ ä¹ä¿ƒ.
 //									{
 //										if(p_item->GetItemClass() == ITEM_CLASS_PET_ITEM)
 //										{
@@ -1060,9 +1060,9 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //										}
 //									}
 //								}
-							// end Æê ¼ÒÈ¯ ´ÜÃàÅ° °ü·Ã
+							// end è„ å®¶åˆ¸ çªœç»µè™ åŒ…è®¿
 
-							// start npc ´ëÈ­Ã¢ °ü·Ã
+							// start npc æªæ‹³èŠ’ åŒ…è®¿
 //							g_pPCTalkBox->Release();
 //							//---------------------------------------------------
 //							// normal
@@ -1072,28 +1072,28 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //							int scriptID = 101;
 //							
 //							//---------------------------------------------------
-//							// PC Talk BoxÀÇ Á¤º¸ ¼³Á¤
+//							// PC Talk Boxç‹¼ æ²¥ç„Š æ±²æ²¥
 //							//---------------------------------------------------
-//							// SetContent¶ó°í ÀÌ¸§ÀÌ µÇ¾îÀÖÁö¸¸.. SubjectÀÌ´Ù. - -;
-//							g_pPCTalkBox->SetContent( "ÇÏÇÏÇÏ" );
+//							// SetContentæ‰¼ç»Š ææŠšæ ç™»ç»¢ä¹ç˜¤çˆ¶.. Subjectæä¿ƒ. - -;
+//							g_pPCTalkBox->SetContent( "çªçªçª" );
 //							g_pPCTalkBox->SetNPCID( 297 );
 //							g_pPCTalkBox->SetCreatureType( 297 );
 //							g_pPCTalkBox->SetScriptID( scriptID );
 //							
 //							//---------------------------------------------------
-//							// °¢ string Ãß°¡
+//							// é˜¿ string çœ å•Š
 //							//---------------------------------------------------
 //							int contentSize = 2;//g_pNPCScriptTable->GetContentSize( scriptID );
 //							
 //							//for (int i=0; i<contentSize; i++)
 //							{
-//								// g_PCTalkBox¿¡ Ãß°¡
-//								g_pPCTalkBox->AddString( "¿ìÇìÇì" );
-//								g_pPCTalkBox->AddString( "Å©ÇÏÇÏ" );
+//								// g_PCTalkBoxä¿Š çœ å•Š
+//								g_pPCTalkBox->AddString( "å¿«åº†åº†" );
+//								g_pPCTalkBox->AddString( "å†œçªçª" );
 //							}
 //							
 //							g_pUIDialog->PopupPCTalkDlg();
-							// start npc ´ëÈ­Ã¢ °ü·Ã
+							// start npc æªæ‹³èŠ’ åŒ…è®¿
 
 //							gC_vs_ui.AddHelpMail(6); 
 //							gC_vs_ui.AddHelpMail(0); 
@@ -1203,15 +1203,15 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //
 //
 //								ExecuteActionInfoFromMainNode(
-//									SKILL_CLIENT_TANK_ATTACK_3,										// »ç¿ë ±â¼ú ¹øÈ£
+//									SKILL_CLIENT_TANK_ATTACK_3,										// è¤ä¾© æ‰è´± é”…é¾‹
 //									
 //									0, 0, 0,
-//									pCreature->GetDirection(), // »ç¿ë ¹æÇâ
+//									pCreature->GetDirection(), // è¤ä¾© è§„æ°¢
 //									
-//									petID,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+//									petID,												// æ ¼é’ä¿Š æªèŒ„ æ²¥ç„Š
 //									0, 0, 0, 
 //									
-//									0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+//									0,													// æ‰è´±ç‹¼ (å·¢ç¯®) ç˜¤åŠ  çŸ«åŸƒ		
 //									
 //									NULL,
 //									
@@ -1357,15 +1357,15 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //								
 //								g_pPlayer->SetAction( ACTION_DAMAGED );
 //								ExecuteActionInfoFromMainNode(
-//									SKILL_CLIENT_TANK_ATTACKED,										// »ç¿ë ±â¼ú ¹øÈ£
+//									SKILL_CLIENT_TANK_ATTACKED,										// è¤ä¾© æ‰è´± é”…é¾‹
 //									
 //									0, 0, 0,
-//									DIRECTION_DOWN, // »ç¿ë ¹æÇâ
+//									DIRECTION_DOWN, // è¤ä¾© è§„æ°¢
 //									
-//									g_pPlayer->GetID(),												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+//									g_pPlayer->GetID(),												// æ ¼é’ä¿Š æªèŒ„ æ²¥ç„Š
 //									0, 0, 0, 
 //									
-//									0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+//									0,													// æ‰è´±ç‹¼ (å·¢ç¯®) ç˜¤åŠ  çŸ«åŸƒ		
 //									
 //									NULL,
 //									
@@ -1383,7 +1383,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //							event.parameter4 = EVENTBACKGROUNDID_QUEST_2;
 //							g_pEventManager->AddEvent(event);		
 						}
-						// ALT + 2  --> °ø°İ ¼Óµµ normal
+						// ALT + 2  --> å‚æ‹œ åŠ æ¡£ normal
 						if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
 						{
 							//g_pPlayer->SetWeaponSpeed( MCreature::WEAPON_SPEED_NORMAL);
@@ -1406,7 +1406,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						{
 //							g_pZone->RemoveTileEffect( g_pPlayer->GetX()+3, g_pPlayer->GetY(), EFFECTSTATUS_DRAGON_TORNADO, 11000 );
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 å¢åŠ åŒ…ä¸­åŒ…
 							MItem* pItem = MItem::NewItem( ITEM_CLASS_SUB_INVENTORY );
 							pItem->SetID( rand()%10000 );
 							pItem->SetItemType( 0 );
@@ -1449,20 +1449,20 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //								g_pPlayer->GetX()+2, g_pPlayer->GetY()-2, 0, 1000, NULL, false);
 //							ExecuteActionInfoFromMainNode(SKILL_CLIENT_TURRET_LASER_ATTACK,g_pPlayer->GetX()+3, g_pPlayer->GetY()-1, 0,g_pPlayer->GetDirection(),0	,	
 //								g_pPlayer->GetX()+3, g_pPlayer->GetY()-1, 0, 1000, NULL, false);
-//”î      ”î   ”î ”î
-//”î      ”î   ”î ”î
-//”î”î”î”î”î   ”î ”î 
-//”î      ”î   ”î ”î
-//”î”î”î”î”î   ”î ”î
-//             ”î ”î
-//”î”î”î”î”î   ”î ”î
-//    ”î   ”î”î”î ”î
-//    ”î       ”î ”î
-//”î”î”î”î”î”î”î”î”î
-//        ”î      ”î
-//”î”î”î”î”î      ”î
-//”î              ”î
-//”î”î”î”î”î      ”î
+//æ—‘      æ—‘   æ—‘ æ—‘
+//æ—‘      æ—‘   æ—‘ æ—‘
+//æ—‘æ—‘æ—‘æ—‘æ—‘   æ—‘ æ—‘ 
+//æ—‘      æ—‘   æ—‘ æ—‘
+//æ—‘æ—‘æ—‘æ—‘æ—‘   æ—‘ æ—‘
+//             æ—‘ æ—‘
+//æ—‘æ—‘æ—‘æ—‘æ—‘   æ—‘ æ—‘
+//    æ—‘   æ—‘æ—‘æ—‘ æ—‘
+//    æ—‘       æ—‘ æ—‘
+//æ—‘æ—‘æ—‘æ—‘æ—‘æ—‘æ—‘æ—‘æ—‘
+//        æ—‘      æ—‘
+//æ—‘æ—‘æ—‘æ—‘æ—‘      æ—‘
+//æ—‘              æ—‘
+//æ—‘æ—‘æ—‘æ—‘æ—‘      æ—‘
 
 
 
@@ -1483,10 +1483,10 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //							g_pMP3->Stop();
 //							g_pMP3->Open("data\\music\\dominator of darkness.mp3");
 //							g_pMP3->Play( true );
-//							g_pSystemMessage->Add("dominator of darkness.mp3 ¸¦ ¿¬ÁÖÇÕ´Ï´Ù");
+//							g_pSystemMessage->Add("dominator of darkness.mp3 ç”« æ¥·æ—é’¦èªä¿ƒ");
 //							g_bTestMusic = false;
 						}
-						// ALT + 3  --> °ø°İ ¼Óµµ Fast
+						// ALT + 3  --> å‚æ‹œ åŠ æ¡£ Fast
 						if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
 						{
 							//g_pPlayer->SetWeaponSpeed( MCreature::WEAPON_SPEED_FAST );
@@ -1518,7 +1518,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //							g_pMP3->Stop();
 //							g_pMP3->Open("data\\music\\oblivion.mp3");
 //							g_pMP3->Play( true );
-//							g_pSystemMessage->Add("oblivion.mp3 ¸¦ ¿¬ÁÖÇÕ´Ï´Ù");
+//							g_pSystemMessage->Add("oblivion.mp3 ç”« æ¥·æ—é’¦èªä¿ƒ");
 //							g_bTestMusic = false;
 						}
 #ifdef __METROTECH_TEST__
@@ -1537,7 +1537,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //							g_pMP3->Stop();
 //							g_pMP3->Open("data\\music\\rest.mp3");
 //							g_pMP3->Play( true );
-//							g_pSystemMessage->Add("rest.mp3 ¸¦ ¿¬ÁÖÇÕ´Ï´Ù");
+//							g_pSystemMessage->Add("rest.mp3 ç”« æ¥·æ—é’¦èªä¿ƒ");
 //							g_bTestMusic = false;
 //						}
 						
@@ -1563,7 +1563,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //								g_pMP3->Stop();
 //								g_pMP3->Open("data\\music\\ruin.mp3");
 //								g_pMP3->Play( true );
-//								g_pSystemMessage->Add("ruin.mp3 ¸¦ ¿¬ÁÖÇÕ´Ï´Ù");
+//								g_pSystemMessage->Add("ruin.mp3 ç”« æ¥·æ—é’¦èªä¿ƒ");
 //								g_bTestMusic = false;
 //								
 //								(*g_pUserOption).BlendingShadow = !(*g_pUserOption).BlendingShadow;
@@ -1586,7 +1586,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //								g_pMP3->Stop();
 //								g_pMP3->Open("data\\music\\silence of battlefield.mp3");
 //								g_pMP3->Play( true );
-//								g_pSystemMessage->Add("silence of battlefield.mp3 ¸¦ ¿¬ÁÖÇÕ´Ï´Ù");
+//								g_pSystemMessage->Add("silence of battlefield.mp3 ç”« æ¥·æ—é’¦èªä¿ƒ");
 //								g_bTestMusic = false;
 //							}				
 //						}
@@ -1607,7 +1607,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //							g_pMP3->Stop();
 //							g_pMP3->Open("data\\music\\underworld.mp3");
 //							g_pMP3->Play( true );
-//							g_pSystemMessage->Add("underworld.mp3 ¸¦ ¿¬ÁÖÇÕ´Ï´Ù");
+//							g_pSystemMessage->Add("underworld.mp3 ç”« æ¥·æ—é’¦èªä¿ƒ");
 //							g_bTestMusic = false;
 //						}
 						break;
@@ -1692,24 +1692,24 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 									int scriptID = 101;
 									
 									//---------------------------------------------------
-									// PC Talk BoxÀÇ Á¤º¸ ¼³Á¤
+									// PC Talk Boxç‹¼ æ²¥ç„Š æ±²æ²¥
 									//---------------------------------------------------
-									// SetContent¶ó°í ÀÌ¸§ÀÌ µÇ¾îÀÖÁö¸¸.. SubjectÀÌ´Ù. - -;
-									g_pPCTalkBox->SetContent( "ÇÏÇÏÇÏ" );
+									// SetContentæ‰¼ç»Š ææŠšæ ç™»ç»¢ä¹ç˜¤çˆ¶.. Subjectæä¿ƒ. - -;
+									g_pPCTalkBox->SetContent( "çªçªçª" );
 									g_pPCTalkBox->SetNPCID( 297 );
 									g_pPCTalkBox->SetCreatureType( 297 );
 									g_pPCTalkBox->SetScriptID( scriptID );
 									
 									//---------------------------------------------------
-									// °¢ string Ãß°¡
+									// é˜¿ string çœ å•Š
 									//---------------------------------------------------
 									int contentSize = 2;//g_pNPCScriptTable->GetContentSize( scriptID );
 									
 									//for (int i=0; i<contentSize; i++)
 									{
-										// g_PCTalkBox¿¡ Ãß°¡
-										g_pPCTalkBox->AddString( "¿ìÇìÇì" );
-										g_pPCTalkBox->AddString( "Å©ÇÏÇÏ" );
+										// g_PCTalkBoxä¿Š çœ å•Š
+										g_pPCTalkBox->AddString( "å¿«åº†åº†" );
+										g_pPCTalkBox->AddString( "å†œçªçª" );
 									}
 									
 									g_pUIDialog->PopupPCTalkDlg();
@@ -1747,7 +1747,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //							pFakeCreature->SetFakeCreatureFastMoveAction(g_pPlayer->GetX()+10, g_pPlayer->GetY()+10, 0, 0);
 //							
 //							//------------------------------------------------------
-//							// Fake Creature¸¦ Zone¿¡ Ãß°¡
+//							// Fake Creatureç”« Zoneä¿Š çœ å•Š
 //							//------------------------------------------------------
 //							if (!g_pZone->AddFakeCreature( pFakeCreature ))
 //							{
@@ -1792,10 +1792,10 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 										int strValue = value/4;
 										int intValue = value - strValue;
 
-										// NPC Ã³¸® packetÀ» º¸³½´Ù.
+										// NPC è´¸åºœ packeté˜‘ ç„Šè¾°ä¿ƒ.
 										CGUseBonusPoint _CGUseBonusPoint;
 
-										// 1/4Àº STRÀ» ¿Ã¸°´Ù.
+										// 1/4ç¯® STRé˜‘ æ£µèµ´ä¿ƒ.
 										_CGUseBonusPoint.setWhich( INC_STR );
 
 										for (int i=0; i<strValue; i++)
@@ -1807,7 +1807,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 											#endif
 										}
 										
-										// 3/4´Â INT¸¦ ¿Ã¸°´Ù.
+										// 3/4ç»° INTç”« æ£µèµ´ä¿ƒ.
 										_CGUseBonusPoint.setWhich( INC_INT );
 
 										for (i=0; i<strValue; i++)
@@ -1830,7 +1830,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 				//------------------------------------------------------------
 				//
-				// À½¾Ç º¼·ı Á¶Àı
+				// æ¾œå© æ­ä¿˜ ç‚¼ä¾‹
 				//
 				//------------------------------------------------------------				
 				case DIK_SUBTRACT :
@@ -1890,7 +1890,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				case DIK_E : 
 					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
 					{
-						if (g_HISTORY_LINE > 4)//HISTORY_LINE) ¤»¤»
+						if (g_HISTORY_LINE > 4)//HISTORY_LINE) ã›ã›
 						{
 							g_HISTORY_LINE = 4;
 						}
@@ -1900,7 +1900,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						}
 					}
 					//---------------------------------------------------------
-					// Wolf º¯½Å test
+					// Wolf å‡½è„š test
 					//---------------------------------------------------------
 					else if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
 					{
@@ -1920,22 +1920,22 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						}
 
 						//--------------------------------------------------
-						// ´Á´ë º¯½Å test
+						// æˆ³æª å‡½è„š test
 						//--------------------------------------------------								
 						ExecuteActionInfoFromMainNode(
-							RESULT_MAGIC_TRANSFORM_TO_WOLF,										// »ç¿ë ±â¼ú ¹øÈ£
+							RESULT_MAGIC_TRANSFORM_TO_WOLF,										// è¤ä¾© æ‰è´± é”…é¾‹
 						
 							g_pPlayer->GetX(), g_pPlayer->GetY(), 0,
-							g_pPlayer->GetDirection(),														// »ç¿ë ¹æÇâ
+							g_pPlayer->GetDirection(),														// è¤ä¾© è§„æ°¢
 							
-							OBJECTID_NULL,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+							OBJECTID_NULL,												// æ ¼é’ä¿Š æªèŒ„ æ²¥ç„Š
 							g_pPlayer->GetX(), g_pPlayer->GetY(), 0, 
 							
-							0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+							0,													// æ‰è´±ç‹¼ (å·¢ç¯®) ç˜¤åŠ  çŸ«åŸƒ		
 							
 							pResult, //NULL,
 							
-							false);			// ±â¼ú Ã·ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+							false);			// æ‰è´± æ¢…ä½•ç£ çŸ«ç´¯èŒ„ä¿ƒ.
 
 						g_pPlayer->SetDelay( 1000 );
 					}
@@ -1943,12 +1943,12 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				break;
 				*/
 				//------------------------------------------------------------
-				// Çï±â
+				// ç§‹æ‰
 				//------------------------------------------------------------
 				/*
 				case DIK_H :
 				{
-					// helicopter Å×½ºÆ®
+					// helicopter æŠ›èƒ¶é£˜
 					if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
 					{
 						TYPE_OBJECTID creatureID = g_pPlayer->GetID();
@@ -2001,7 +2001,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				case DIK_P : 
 				{					
 					//------------------------------------------------------------
-					// ¿ŞÂÊ ´©¸£¸é µé¾î°¡±â
+					// å“­ç‡ ç©¿ç¦æ ç”¸ç»¢å•Šæ‰
 					//------------------------------------------------------------
 					if (g_pDXInput->KeyDown(DIK_LMENU))
 					{
@@ -2012,22 +2012,22 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 							MCreature* pCreature = (*iCreature).second;
 
 							//--------------------------------------------------
-							// Player, NPC°¡ ¾Æ´Ñ °æ¿ì
+							// Player, NPCå•Š é…’å›± ç‰ˆå¿«
 							//--------------------------------------------------					
 							if (pCreature->GetID()!=g_pPlayer->GetID()
 								&& pCreature->IsVampire()
 								&& !pCreature->IsNPC())
 							{					
 								AddVampirePortal(
-										0,								// ÀÌÆåÆ®ÀÇ OID
-										pCreature->GetName(),								// Æ÷Å» ÁÖÀÎ
-										pCreature->GetX(), pCreature->GetY(),		// Æ÷Å»ÀÇ ÁÂÇ¥
-										16*10,							// Æ÷Å»ÀÇ Áö¼Ó ½Ã°£
+										0,								// ææ£‹é£˜ç‹¼ OID
+										pCreature->GetName(),								// å™¨å‘• æ—ç‰¢
+										pCreature->GetX(), pCreature->GetY(),		// å™¨å‘•ç‹¼ è°…é’
+										16*10,							// å™¨å‘•ç‹¼ ç˜¤åŠ  çŸ«åŸƒ
 										
-										// ¸ñÇ¥ Á¤º¸
-										rand()%4+11,							// Æ÷Å»ÀÇ ¸ñÇ¥ Á¸ ID
-										rand()%255,			// Æ÷Å»ÀÇ ¸ñÇ¥ ÁÂÇ¥ x
-										rand()%255,			// Æ÷Å»ÀÇ ¸ñÇ¥ ÁÂÇ¥ y
+										// æ ¼é’ æ²¥ç„Š
+										rand()%4+11,							// å™¨å‘•ç‹¼ æ ¼é’ ç²® ID
+										rand()%255,			// å™¨å‘•ç‹¼ æ ¼é’ è°…é’ x
+										rand()%255,			// å™¨å‘•ç‹¼ æ ¼é’ è°…é’ y
 
 										(rand()%2? true : false) );
 
@@ -2042,7 +2042,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						}
 					}
 					//------------------------------------------------------------
-					// ¿À¸¥ÂÊ ´©¸£¸é ³ª¿À±â
+					// å·å¼—ç‡ ç©¿ç¦æ å”±å·æ‰
 					//------------------------------------------------------------
 					else if (g_pDXInput->KeyDown(DIK_RMENU))
 					{
@@ -2053,15 +2053,15 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 							&& !pCreature->IsNPC())
 						{
 							AddVampirePortal(
-										0,								// ÀÌÆåÆ®ÀÇ OID
-										pCreature->GetName(),								// Æ÷Å» ÁÖÀÎ
-										pCreature->GetX(), pCreature->GetY(),		// Æ÷Å»ÀÇ ÁÂÇ¥
-										16*10,							// Æ÷Å»ÀÇ Áö¼Ó ½Ã°£
+										0,								// ææ£‹é£˜ç‹¼ OID
+										pCreature->GetName(),								// å™¨å‘• æ—ç‰¢
+										pCreature->GetX(), pCreature->GetY(),		// å™¨å‘•ç‹¼ è°…é’
+										16*10,							// å™¨å‘•ç‹¼ ç˜¤åŠ  çŸ«åŸƒ
 										
-										// ¸ñÇ¥ Á¤º¸
-										rand()%4+11,							// Æ÷Å»ÀÇ ¸ñÇ¥ Á¸ ID
-										rand()%255,			// Æ÷Å»ÀÇ ¸ñÇ¥ ÁÂÇ¥ x
-										rand()%255,			// Æ÷Å»ÀÇ ¸ñÇ¥ ÁÂÇ¥ y
+										// æ ¼é’ æ²¥ç„Š
+										rand()%4+11,							// å™¨å‘•ç‹¼ æ ¼é’ ç²® ID
+										rand()%255,			// å™¨å‘•ç‹¼ æ ¼é’ è°…é’ x
+										rand()%255,			// å™¨å‘•ç‹¼ æ ¼é’ è°…é’ y
 
 										(rand()%2? true : false) );
 
@@ -2088,7 +2088,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 							MCreature* pCreature = (*iCreature).second;
 
 							//--------------------------------------------------
-							// Player, NPC°¡ ¾Æ´Ñ °æ¿ì
+							// Player, NPCå•Š é…’å›± ç‰ˆå¿«
 							//--------------------------------------------------					
 							if (pCreature->GetID()!=g_pPlayer->GetID()
 								&& pCreature->IsVampire()
@@ -2167,7 +2167,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 				//------------------------------------------------------------
 				//
-				// ÄÄÇ»ÅÍ ¶ç¿ì±â
+				// å“ªè…”ç£ å‰å¿«æ‰
 				//
 				//------------------------------------------------------------
 				case DIK_D : 
@@ -2179,7 +2179,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 				//------------------------------------------------------------
 				//
-				// Ä³¸¯ÅÍ Ãß°¡ - packet Å×½ºÆ®¸¦ À§ÇØ¼­
+				// æŸè…ç£ çœ å•Š - packet æŠ›èƒ¶é£˜ç”« å›°ç§¦è¾‘
 				//
 				//------------------------------------------------------------
 				case DIK_K : 
@@ -2205,7 +2205,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 
 							//------------------------------------------------------------
-							// Vampire Ãß°¡
+							// Vampire çœ å•Š
 							//------------------------------------------------------------
 							if (rand()%2)
 							{
@@ -2214,7 +2214,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 								pCreature->SetZone( g_pZone );
 								
 								//--------------------------------------------------
-								// CreatureType ¼³Á¤
+								// CreatureType æ±²æ²¥
 								//--------------------------------------------------
 								if (rand()%3)
 								{
@@ -2231,7 +2231,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 								pCreature->SetName( name );
 
-								// ÀÓ½Ã·Î
+								// çƒ™çŸ«è‚º
 								pCreature->SetGuildNumber( 2 );
 
 								pCreature->SetGroundCreature();
@@ -2244,7 +2244,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 								pCreature->SetCurrentDirection( dir );
 								pCreature->SetAction( ACTION_STAND );
 
-								// »ö±ò
+								// ç¥¸å½¬
 								pCreature->SetBodyColor1( rand()%MAX_COLORSET );
 								pCreature->SetBodyColor2( rand()%MAX_COLORSET );
 								
@@ -2260,7 +2260,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 								}
 							}
 							//------------------------------------------------------------
-							// Slayer Ãß°¡
+							// Slayer çœ å•Š
 							//------------------------------------------------------------
 							else
 							{
@@ -2281,16 +2281,16 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 								pCreatureWear->SetCurrentDirection( dir );
 								pCreatureWear->SetAction( ACTION_STAND );
 
-								// ÇÇºÎ»ö
+								// ä¹”ä½•ç¥¸
 								pCreatureWear->SetBodyColor2( rand()%MAX_COLORSET );
 
 								pCreatureWear->SetStatus( MODIFY_MAX_HP, 80 );
 								pCreatureWear->SetStatus( MODIFY_CURRENT_HP, 100 );
 
-								// ÀÌ¸§
+								// ææŠš
 								pCreatureWear->SetName( name );
 
-								// ÀÓ½Ã·Î NPCº¹ÀåÀ» ÀÔÈù´Ù.
+								// çƒ™çŸ«è‚º NPCæ±—å˜é˜‘ æ¶è…®ä¿ƒ.
 								SetAddonToSlayer( pCreatureWear, 250 );
 
 								
@@ -2307,7 +2307,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				
 
 				//-------------------------------------------------------------
-				// ¹æÇâ ¹Ù²Ù±â
+				// è§„æ°¢ å®˜æ“æ‰
 				//-------------------------------------------------------------
 				case DIK_LEFT :
 				case DIK_RIGHT :
@@ -2319,7 +2319,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						MCreature* pCreature = (*iCreature).second;
 
 						//--------------------------------------------------
-						// Player, NPC°¡ ¾Æ´Ñ °æ¿ì
+						// Player, NPCå•Š é…’å›± ç‰ˆå¿«
 						//--------------------------------------------------					
 						if (pCreature->GetID()!=g_pPlayer->GetID()
 							&& !pCreature->IsNPC())
@@ -2344,7 +2344,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 				break;
 
 				//------------------------------------
-				// HP È¸º¹ test
+				// HP é›€æ±— test
 				//------------------------------------
 				case DIK_R : 
 					if (g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU))
@@ -2358,7 +2358,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 				//------------------------------------------------------------
 				//
-				// zone ÀÌµ¿ ÀÚµ¿..
+				// zone ææ‚¼ ç£Šæ‚¼..
 				//
 				//------------------------------------------------------------
 				case DIK_LBRACKET : case DIK_RBRACKET :
@@ -2369,12 +2369,12 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 						if (key==DIK_LBRACKET)
 						{
-							// ½½·¹ÀÌ¾î ±æµå
+							// æµ‡é¥­æç»¢ è¾¨é›
 							strcpy(str, "*warp 3 229 52");
 						}
 						else
 						{
-							// ¹ìÆÄÀÌ¾î ±æµå
+							// è½¨é¢‡æç»¢ è¾¨é›
 							sprintf(str, "*warp 9 55 78");
 						}
 
@@ -2442,7 +2442,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //								{
 //									AddNewInventoryEffect( pItem->GetID(),
 //														RESULT_MAGIC_CREATE_HOLY_WATER,
-//														80	// 5ÃÊ
+//														80	// 5æª¬
 //													);
 //								}
 //							}
@@ -2574,13 +2574,13 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						}
 
 						#ifdef __FIX_GUNFRAME__
-							// ÀÓ½Ã ÃÑ ºÒ²É
+							// çƒ™çŸ« é†š é˜‚é‡‡
 							g_pPlayer->ClearAttachEffect();
 							MAttachEffect* pEffect = g_pPlayer->CreateAttachEffect( 
 																(*g_pActionInfoTable)[ac].GetActionEffectSpriteType(), 
 																//(*g_pActionInfoTable)[m_nUsedActionInfo].GetDelay()
 																0xFFFF
-																);	// Áö¼Ó ½Ã°£
+																);	// ç˜¤åŠ  çŸ«åŸƒ
 
 							if (pEffect != NULL)
 							{
@@ -2588,7 +2588,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 
 								pEffect->SetLink( ac, NULL );
 
-								// ºÙ¾î¾ß ÇÏ´Â Ä³¸¯ÅÍ
+								// å˜¿ç»¢å…· çªç»° æŸè…ç£
 								pEffect->SetAttachCreatureID( 1 );			
 							}
 						#endif
@@ -2597,10 +2597,10 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					
 						MMagazine* pMagazine = (MMagazine*)MItem::NewItem( (ITEM_CLASS)ITEM_CLASS_MAGAZINE );
 
-						// ÀÇ¹Ì ¾øÀ½ - -;
+						// ç‹¼å›º ç»æ¾œ - -;
 						pMagazine->SetID( 0 );
 
-						// ÀÌ°Å´Â ÃÑ¿¡ ¸ÂÃç¼­ ÇØÁà¾ßµÈ´Ù.
+						// æèŠ­ç»° é†šä¿Š å˜è‹—è¾‘ ç§¦æ‹å…·ç­‰ä¿ƒ.
 						for (int j=0; j<g_ItemTable[ITEM_CLASS_MAGAZINE].GetSize(); j++)			
 						{
 							pMagazine->SetItemType(	j );
@@ -2611,14 +2611,14 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 							}
 						}
 
-						// ÀÇ¹Ì ¾øÀ½
+						// ç‹¼å›º ç»æ¾œ
 						pMagazine->SetItemOption( 0 );
 
-						// ÅºÃ¢ °³¼ö
+						// è—•èŠ’ ä¿ºè
 						pMagazine->SetNumber( 0xFFFF );
 
 						//------------------------------------
-						// ÅºÃ¢ ¼³Á¤
+						// è—•èŠ’ æ±²æ²¥
 						//------------------------------------
 						pGunItem->SetMagazine( pMagazine );
 
@@ -2634,14 +2634,14 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 					if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
 					{
 						//------------------------------------------------------
-						// »ç¿ëÀÚ
+						// è¤ä¾©ç£Š
 						//------------------------------------------------------
 						MCreature* pCreature = g_pZone->GetCreature( 1000 );
 
 						if (pCreature!=NULL)
 						{
 							//------------------------------------------------------
-							// TileOK2·Î ÀÎÇÑ °á°ú 
+							// TileOK2è‚º ç‰¢èŒ„ æ¬è‹ 
 							//------------------------------------------------------
 							MActionResult* pResult = new MActionResult;
 	
@@ -2655,16 +2655,16 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 										);
 								
 							//------------------------------------------------------
-							// TileOK2·Î ÀÎÇÑ °á°ú Ãß°¡
+							// TileOK2è‚º ç‰¢èŒ„ æ¬è‹ çœ å•Š
 							//------------------------------------------------------
 							//Duration_t	m_Duration;
 							pCreature->PacketSpecialActionToSector(
 												MAGIC_LIGHT, 
 												g_pPlayer->GetX(), g_pPlayer->GetY(),
-												pResult						// °á°ú
+												pResult						// æ¬è‹
 							);
 
-							// ¹æÇâÀ» ¹Ù¶óº¸±â
+							// è§„æ°¢é˜‘ å®˜æ‰¼ç„Šæ‰
 							pCreature->SetDirectionToPosition(g_pPlayer->GetX(), g_pPlayer->GetY());
 					
 						}
@@ -2686,7 +2686,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 						}
 						else
 						{
-							// Á×Àº °æ¿ì..
+							// ç£·ç¯® ç‰ˆå¿«..
 							g_pPlayer->SetDead();						
 						}
 					}
@@ -2727,14 +2727,14 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 //-----------------------------------------------------------------------------
 // ProcessInput RButton Down
 //-----------------------------------------------------------------------------
-// pObject¿Í °ü·Ã..ÀÌ ÀÖÀ» ¼öµµ ÀÖ°í..
+// pObjectå®¢ åŒ…è®¿..æ ä¹é˜‘ èæ¡£ ä¹ç»Š..
 //-----------------------------------------------------------------------------
 void
 ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 {
 	g_bRButtonDown = TRUE;
 	
-	// ¼±ÅÃµÈ sector°¡ ¾ø°Ô ÇÑ´Ù.
+	// æ€¥ç¶ç­‰ sectorå•Š ç»éœ¸ èŒ„ä¿ƒ.
 	if (g_pTopView!=NULL)
 	{
 		g_pTopView->SetSelectedSectorNULL();
@@ -2798,10 +2798,10 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 	} else
 	//---------------------------------------------------------------
 	// 
-	// ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖ´Â °æ¿ì 
+	// å·é…å®˜æç”« é¸¥ç»Š ä¹ç»° ç‰ˆå¿« 
 	//
 	//---------------------------------------------------------------
-	// ¿ÀÅä¹ÙÀÌ¿¡¼­ ³»¸°´Ù.
+	// å·é…å®˜æä¿Šè¾‘ éƒ´èµ´ä¿ƒ.
 	//---------------------------------------------------------------
 	if (g_pPlayer->GetMoveDevice()==MCreature::MOVE_DEVICE_RIDE
 		&& g_pPlayer->IsStop()
@@ -2834,7 +2834,7 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 	}
 	//---------------------------------------------------------------
 	//
-	// Burrow µÈ °æ¿ì ¶¥À¸·Î ¼Ú¾Æ³ª¿Â´Ù´Â packetÀ» º¸³½´Ù.
+	// Burrow ç­‰ ç‰ˆå¿« é¡¶æ è‚º ç¨¼é…’å”±æŸ¯ä¿ƒç»° packeté˜‘ ç„Šè¾°ä¿ƒ.
 	//
 	//---------------------------------------------------------------
 	else if (g_pPlayer->IsUndergroundCreature())
@@ -2859,7 +2859,7 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 	}
 	//---------------------------------------------------------------
 	//
-	// object/tile¿¡ ±â¼úÀ» »ç¿ëÇÏ´Â °æ¿ì 
+	// object/tileä¿Š æ‰è´±é˜‘ è¤ä¾©çªç»° ç‰ˆå¿« 
 	//
 	//---------------------------------------------------------------
 	else
@@ -2868,7 +2868,7 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 			DEBUG_ADD("TileSkill");
 		#endif
 
-		// sector ¼±ÅÃÇÏ±â
+		// sector æ€¥ç¶çªæ‰
 		//g_SelectSector = g_pTopView->GetSelectedSector(g_x, g_y);
 		//g_pTopView->SetSelectedSector(g_SelectSector.x, g_SelectSector.y);
 
@@ -2876,7 +2876,7 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 		//MObject*	pObject = g_pTopView->GetSelectedObject(g_x, g_y);
 	
 		//--------------------------------------------------
-		// ¼±ÅÃÇÑ °÷¿¡ Object°¡ ¾øÀ¸¸é ..
+		// æ€¥ç¶èŒ„ é•‘ä¿Š Objectå•Š ç»æ æ ..
 		//--------------------------------------------------
 		if (pObject == NULL)
 		{		
@@ -2884,25 +2884,25 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 			//g_pPlayer->TraceNextNULL();
 
 			//--------------------------------------------------
-			// ÀÚ½ÅÇÑÅ× Æ¯¼ö ±â¼ú »ç¿ë
+			// ç£Šè„šèŒ„æŠ› æ¼‚è æ‰è´± è¤ä¾©
 			//--------------------------------------------------
 			if (g_pPlayer->SelfSpecialAction())
 			{
 				g_pPlayer->SetRepeatAction();
 			}
 			//--------------------------------------------------
-			// ÀÚ½ÅÇÑÅ× »ç¿ëÇÏ´Â Æ¯¼ö ±â¼úÀÌ ¾Æ´Ñ °æ¿ì
+			// ç£Šè„šèŒ„æŠ› è¤ä¾©çªç»° æ¼‚è æ‰è´±æ é…’å›± ç‰ˆå¿«
 			//--------------------------------------------------				
 			else if (!g_pPlayer->IsSpecialActionInfoTargetSelf())
 			{
 				g_SelectSector = g_pTopView->GetSelectedSector(g_x, g_y);
 
 				//--------------------------------------------------				
-				// Zone¿¡ Æ¯¼ö ±â¼úÀ» »ç¿ëÇÑ´Ù.
+				// Zoneä¿Š æ¼‚è æ‰è´±é˜‘ è¤ä¾©èŒ„ä¿ƒ.
 				//--------------------------------------------------				
 				if (g_pPlayer->TraceSectorToSpecialAction( g_SelectSector.x, g_SelectSector.y ))
 				{
-					// ¼±ÅÃµÈ Sector·Î Ç¥½ÃÇÑ´Ù.
+					// æ€¥ç¶ç­‰ Sectorè‚º é’çŸ«èŒ„ä¿ƒ.
 					g_pTopView->SetSelectedSector( g_SelectSector );
 				
 					g_pPlayer->SetRepeatAction();
@@ -2912,13 +2912,13 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 			}
 
 			//----------------------------------
-			// TileÀÌ³ª ÀÚ½Å¿¡°Ô ÇÏ´Â Çàµ¿ ¹İº¹ ¼³Á¤
+			// Tileæå”± ç£Šè„šä¿Šéœ¸ çªç»° é’æ‚¼ é¦†æ±— æ±²æ²¥
 			//----------------------------------						
 			g_pTopView->SetSelectedSectorNULL();
 			
 		}		
 		//--------------------------------------------------
-		// ¼±ÅÃµÈ Object¿¡ ´ëÇØ¼­ 
+		// æ€¥ç¶ç­‰ Objectä¿Š æªç§¦è¾‘ 
 		//--------------------------------------------------
 		else 
 		{				
@@ -2933,11 +2933,11 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 				//--------------------------------------------------
 				case MObject::TYPE_CREATURE :		
 				{
-					// ¸ñÇ¥°¡ µÇ´Â Creature
+					// æ ¼é’å•Š ç™»ç»° Creature
 					MCreature* pCreature = ((MCreature*)pObject);
 					
 					//--------------------------------------------------
-					// ´Ù¸¥ ¾Ö´ú¿¡°Ô »ç¿ëÇÏ´Â°Ç°¡?
+					// ä¿ƒå¼— å±€ä»£ä¿Šéœ¸ è¤ä¾©çªç»°æ‰’å•Š?
 					//--------------------------------------------------
 					if (g_pPlayer->TraceCreatureToSpecialAction( pCreature->GetID(), bForceAttack ))
 					{
@@ -2948,9 +2948,9 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 					else if (!g_pPlayer->IsSpecialActionInfoTargetOther())
 					{
 						//--------------------------------------------------
-						// (!) ´Ù¸¥ Creature¿¡ »ç¿ëÇÏ´Â°Ô ¾Æ´Ò °æ¿ì
+						// (!) ä¿ƒå¼— Creatureä¿Š è¤ä¾©çªç»°éœ¸ é…’åŒ† ç‰ˆå¿«
 						//--------------------------------------------------
-						// ÀÚ½ÅÇÑÅ× Æ¯¼ö ±â¼ú »ç¿ë
+						// ç£Šè„šèŒ„æŠ› æ¼‚è æ‰è´± è¤ä¾©
 						if (g_pPlayer->SelfSpecialAction())
 						{
 							g_pPlayer->SetRepeatAction();
@@ -2958,10 +2958,10 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 						else
 						{	
 							//--------------------------------------------------
-							// ÀÚ½Å¿¡°Ô »ç¿ëÇÏ´Â°Ô ¾Æ´Ñ °æ¿ì
+							// ç£Šè„šä¿Šéœ¸ è¤ä¾©çªç»°éœ¸ é…’å›± ç‰ˆå¿«
 							//--------------------------------------------------
-							// ¼±ÅÃµÆ´ø CreatureÀÇ ÁÂÇ¥ÀÇ ..
-							// Zone¿¡ Æ¯¼ö ±â¼úÀ» »ç¿ëÇÒ±î?
+							// æ€¥ç¶ç¯å¸¦ Creatureç‹¼ è°…é’ç‹¼ ..
+							// Zoneä¿Š æ¼‚è æ‰è´±é˜‘ è¤ä¾©ä¸”é³–?
 							if (!g_pPlayer->IsSpecialActionInfoTargetSelf()
 								&& g_pPlayer->TraceSectorToSpecialAction( pCreature->GetX(), pCreature->GetY()))
 							{
@@ -2973,7 +2973,7 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 					}
 					
 					//----------------------------------
-					// ¼±ÅÃ sectorÇ¥½Ã ¾ø¾Ö±â
+					// æ€¥ç¶ sectoré’çŸ« ç»å±€æ‰
 					//----------------------------------
 					g_pTopView->SetSelectedSectorNULL();
 				}
@@ -2982,11 +2982,11 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 				//--------------------------------------------------
 				// Item
 				//--------------------------------------------------
-				// ItemÀÏ °æ¿ì´Â.. ÀÚ½ÅÇÑÅ× »ç¿ëÇÏ°Å³ª Zone¿¡ »ç¿ëÇÑ´Ù.
+				// Itemè€ ç‰ˆå¿«ç»°.. ç£Šè„šèŒ„æŠ› è¤ä¾©çªèŠ­å”± Zoneä¿Š è¤ä¾©èŒ„ä¿ƒ.
 				case MObject::TYPE_ITEM :		
 				{
 					//--------------------------------------------------
-					// ÀÚ½ÅÇÑÅ× Æ¯¼ö ±â¼ú »ç¿ë
+					// ç£Šè„šèŒ„æŠ› æ¼‚è æ‰è´± è¤ä¾©
 					//--------------------------------------------------
 					if (g_pPlayer->SelfSpecialAction())
 					{
@@ -2995,22 +2995,22 @@ ProcessInputRButtonDown(MObject* pObject, bool bForceAttack = false)
 					else
 					{	
 						//--------------------------------------------------
-						// ÀÚ½ÅÇÑÅ× »ç¿ëÇÏ´Â°Ô ¾Æ´Ñ °æ¿ì..
+						// ç£Šè„šèŒ„æŠ› è¤ä¾©çªç»°éœ¸ é…’å›± ç‰ˆå¿«..
 						//--------------------------------------------------
-						// ¸ñÇ¥°¡ µÇ´Â Creature
+						// æ ¼é’å•Š ç™»ç»° Creature
 						if (!g_pPlayer->IsSpecialActionInfoTargetSelf())
 						{
 							MItem* pItem = ((MItem*)pObject);
 
 							if (pItem!=NULL)
 							{
-								// ¿ÍÀÏµå ¿ïÇÁ¸¦ ½ÃÃ¼ÇÑÅ× ½èÀ»¶§ ¿¹¿Ü Ã³¸®
+								// å®¢è€é› åŒ¡æ©‡ç”« çŸ«çœ‰èŒ„æŠ› å€Ÿé˜‘é”­ æŠ—å¯‡ è´¸åºœ
 								if(g_pPlayer->GetSpecialActionInfo() == SKILL_WILD_WOLF)
 								{
 									g_pPlayer->UseWildWolf_Corpse(pItem);
 								}
-								// ¼±ÅÃµÆ´ø CreatureÀÇ ÁÂÇ¥ÀÇ ..
-								// Zone¿¡ Æ¯¼ö ±â¼úÀ» »ç¿ëÇÑ´Ù.
+								// æ€¥ç¶ç¯å¸¦ Creatureç‹¼ è°…é’ç‹¼ ..
+								// Zoneä¿Š æ¼‚è æ‰è´±é˜‘ è¤ä¾©èŒ„ä¿ƒ.
 								else if (g_pPlayer->TraceSectorToSpecialAction( pItem->GetX(), pItem->GetY()))
 								{
 									g_pPlayer->SetRepeatAction();
@@ -3058,7 +3058,7 @@ CGameUpdate::ProcessInput()
 
 
 	//-----------------------------------------------
-	// packet ÀÌµ¿ Å×½ºÆ®
+	// packet ææ‚¼ æŠ›èƒ¶é£˜
 	//-----------------------------------------------
 	#ifdef OUTPUT_DEBUG
 		if (g_pDXInput->KeyDown(DIK_M) 
@@ -3095,7 +3095,7 @@ CGameUpdate::ProcessInput()
 	// LButton Up
 	//---------------------------------------------------	
 	if (g_bLButtonDown
-		// LÀÌ UpÀÌ°Å³ª.. RÀÌ DownÀÎ °æ¿ì
+		// Læ UpæèŠ­å”±.. Ræ Downç‰¢ ç‰ˆå¿«
 		&& (g_pDXInput->m_lb_up	|| g_pDXInput->m_rb_down)
 #ifdef __METROTECH_TEST__
 		&& !g_bCButtonDown
@@ -3108,12 +3108,12 @@ CGameUpdate::ProcessInput()
 
 		g_bLButtonDown = FALSE;
 
-		// ÁÖÀ§ÀÇ ´©±º°¡¸¦ °è¼Ó °ø°İÇÏ´Â mode¸¦ ÇØÁ¦ÇÑ´Ù.
+		// æ—å›°ç‹¼ ç©¿ç„™å•Šç”« æ‹ŒåŠ  å‚æ‹œçªç»° modeç”« ç§¦åŠ›èŒ„ä¿ƒ.
 		g_pPlayer->UnSetLockMode();
 	
 		if (g_pPlayer->IsRepeatAction())
 		{
-			// ¹öÆ°À» ¶¼¾úÀ¸¹Ç·Î Çàµ¿ ¹İº¹À» Ãë¼ÒÇÑ´Ù.
+			// æ»šç“¢é˜‘ éƒ½èŒæ éª¨è‚º é’æ‚¼ é¦†æ±—é˜‘ ç§’å®¶èŒ„ä¿ƒ.
 			g_pPlayer->UnSetRepeatAction();
 			//g_pPlayer->TraceNextNULL();
 
@@ -3124,14 +3124,14 @@ CGameUpdate::ProcessInput()
 		else 
 		{		
 			//---------------------------------------------------	
-			// itemÀ» µé°í ÀÖÁö ¾ÊÀº °æ¿ì
+			// itemé˜‘ ç”¸ç»Š ä¹ç˜¤ è‡¼ç¯® ç‰ˆå¿«
 			//---------------------------------------------------	
-			// ¼±ÅÃµÈ sector·Î Á¤ÇÑ´Ù.
+			// æ€¥ç¶ç­‰ sectorè‚º æ²¥èŒ„ä¿ƒ.
 			POINT point;
 			g_pPlayer->GetNextDestination( point );		
 			if (point.x==SECTORPOSITION_NULL || point.y==SECTORPOSITION_NULL)
 			{
-				// ÇöÀç °¡°í ÀÖ´Â °÷ÀÌ ¾øÀ¸¸é
+				// æ³…çŠ å•Šç»Š ä¹ç»° é•‘æ ç»æ æ
 				g_pPlayer->GetDestination( point );
 				if (point.x==SECTORPOSITION_NULL || point.y==SECTORPOSITION_NULL)
 				{
@@ -3153,7 +3153,7 @@ CGameUpdate::ProcessInput()
 	// RButton Up
 	//---------------------------------------------------	
 	if (g_bRButtonDown
-		// RÀÌ UpÀÌ°Å³ª. LÀÌ DownÀÎ °æ¿ì
+		// Ræ UpæèŠ­å”±. Læ Downç‰¢ ç‰ˆå¿«
 		&& (g_pDXInput->m_rb_up || g_pDXInput->m_lb_down)
 #ifdef __METROTECH_TEST__
 		&& !g_bCButtonDown
@@ -3174,7 +3174,7 @@ CGameUpdate::ProcessInput()
 		{
 			if (g_pPlayer->IsRepeatAction())
 			{
-				// ¹öÆ°À» ¶¼¾úÀ¸¹Ç·Î Çàµ¿ ¹İº¹À» Ãë¼ÒÇÑ´Ù.
+				// æ»šç“¢é˜‘ éƒ½èŒæ éª¨è‚º é’æ‚¼ é¦†æ±—é˜‘ ç§’å®¶èŒ„ä¿ƒ.
 				g_pPlayer->UnSetRepeatAction();
 				//g_pPlayer->TraceNextNULL();
 
@@ -3206,7 +3206,7 @@ CGameUpdate::ProcessInput()
 	//if (gC_vs_ui.MouseControl(M_MOVING, g_x, g_y))
 	//	return;
 
-	// Àü½ÃÈ¸¿ë Client´Â interface¸¦ ¾È ±×·ÁÁÙ¶§°¡ ÀÖ´Ù.
+	// å‚ˆçŸ«é›€ä¾© Clientç»° interfaceç”« æ•‘ å¼Šå¦¨ä¸´é”­å•Š ä¹ä¿ƒ.
 	//#ifdef __EXPO_CLIENT__	
 	//	if ((*g_pUserOption).DrawInterface)
 	//	{
@@ -3298,7 +3298,7 @@ CGameUpdate::ProcessInput()
 	}
 	
 	//#ifdef OUTPUT_DEBUG
-	// Ã¤ÆÃ
+	// ç›²æ³¼
 //		if (gC_vs_ui.ChatMouseControlExtra( M_MOVING, g_x, g_y ))
 //			return;
 	//#endif
@@ -3327,7 +3327,7 @@ CGameUpdate::ProcessInput()
 	#endif
 
 	//---------------------------------------------------	
-	// ItemName List Ãâ·Â?
+	// ItemName List å…ä»¿?
 	//---------------------------------------------------	
 	if ((g_pDXInput->KeyDown(DIK_LMENU) || g_pDXInput->KeyDown(DIK_RMENU) || g_pDXInput->KeyDown(DIK_RCONTROL)
 #ifdef __FRIEND_SYSTEM_VIVA__	// add by viva  g_pDXInput->KeyDown(DIK_LCONTROL
@@ -3344,9 +3344,9 @@ CGameUpdate::ProcessInput()
 		g_pTopView->SetDrawItemNameList();
 
 		if (!g_bWatchMode 
-			// ¹º°¡ ¹İº¹Çàµ¿À» ÇÏ°í ÀÖÁö ¾ÊÀº °æ¿ì
+			// è´­å•Š é¦†æ±—é’æ‚¼é˜‘ çªç»Š ä¹ç˜¤ è‡¼ç¯® ç‰ˆå¿«
 			&& !g_pPlayer->IsRepeatAction()
-			// ¹ÚÁã³ª ´Á´ë°¡ ¾Æ´Ñ °æ¿ì
+			// å† é›¶å”± æˆ³æªå•Š é…’å›± ç‰ˆå¿«
 			&& g_pPlayer->GetCreatureType()!=CREATURETYPE_BAT
 			&& g_pPlayer->GetCreatureType()!=CREATURETYPE_WOLF
 			)
@@ -3399,8 +3399,8 @@ CGameUpdate::ProcessInput()
 
 		
 	//---------------------------------------------------	
-	// ÆÄÆ¼ ¾ø´Âµ¥ ÆÄÆ¼Ã¢ÀÌ ¶° ÀÖ´Â °æ¿ì..
-	// ÆÄÆ¼ ½ÅÃ» ¸ğµå.
+	// é¢‡è ç»ç»°å• é¢‡èèŠ’æ æ ‹ ä¹ç»° ç‰ˆå¿«..
+	// é¢‡è è„šæ²¡ è‘›é›.
 	//---------------------------------------------------	
 //	if (g_pParty!=NULL 
 //		&& g_pParty->GetSize()==0
@@ -3408,9 +3408,9 @@ CGameUpdate::ProcessInput()
 //		&& !gC_vs_ui.IsRunningRequestParty()
 //		&& g_pTempInformation->Mode==TempInformation::MODE_NULL
 //		&& !g_bWatchMode 
-//		// ¹º°¡ ¹İº¹Çàµ¿À» ÇÏ°í ÀÖÁö ¾ÊÀº °æ¿ì
+//		// è´­å•Š é¦†æ±—é’æ‚¼é˜‘ çªç»Š ä¹ç˜¤ è‡¼ç¯® ç‰ˆå¿«
 //		&& !g_pPlayer->IsRepeatAction()
-//		// ¹ÚÁã³ª ´Á´ë°¡ ¾Æ´Ñ °æ¿ì
+//		// å† é›¶å”± æˆ³æªå•Š é…’å›± ç‰ˆå¿«
 //		&& g_pPlayer->GetCreatureType()!=CREATURETYPE_BAT
 //		&& g_pPlayer->GetCreatureType()!=CREATURETYPE_WOLF)
 //	{
@@ -3420,27 +3420,27 @@ CGameUpdate::ProcessInput()
 
 	//---------------------------------------------------	
 	//
-	//		ÀÔ·ÂÀÌ Á¦ÇÑµÇ´Â °æ¿ì..
+	//		æ¶ä»¿æ åŠ›èŒ„ç™»ç»° ç‰ˆå¿«..
 	//
 	//---------------------------------------------------	
-	// - °ÔÀÓ ¸øÇÏ°Ô ÇÏ´Â dialog°¡ ¶° ÀÖ´Â °æ¿ì
+	// - éœ¸çƒ™ ç»™çªéœ¸ çªç»° dialogå•Š æ ‹ ä¹ç»° ç‰ˆå¿«
 	//
-	// - Player°¡ server·ÎºÎÅÍ °ËÁõÀ» ±â´Ù¸®´Â »óÅÂ
+	// - Playerå•Š serverè‚ºä½•ç£ å…«åˆ˜é˜‘ æ‰ä¿ƒåºœç»° æƒ‘æ€•
 	//
-	// - ¹İº¹ actionÁß¿¡´Â µı ÀÔ·ÂÀº ÇÊ¿ä¾ø´Ù.(¹«½Ã)
+	// - é¦†æ±— actionåä¿Šç»° è° æ¶ä»¿ç¯® é˜å¤¸ç»ä¿ƒ.(å…¬çŸ«)
 	//
-	// - UI¿¡¼­ ÀÔ·ÂÀ» ¹Ş°í ÀÖ´Â °æ¿ì
+	// - UIä¿Šè¾‘ æ¶ä»¿é˜‘ ç½ç»Š ä¹ç»° ç‰ˆå¿«
 	//
 	//---------------------------------------------------	
 	if (g_pPlayer->IsWaitVerify() 
-		|| gC_vs_ui.IsInstallMineProgress()	// Áö·Ú ¸¸µå´Â ÁßÀÌ¸é..
-		//|| gC_vs_ui.IsCreateMineProgress()	// Áö·Ú ¸¸µå´Â ÁßÀÌ¸é..
-		//|| gC_vs_ui.IsCreateBombProgress()	// Áö·Ú ¸¸µå´Â ÁßÀÌ¸é..
-		|| g_pPlayer->IsFastMove()	// »¡¸® ¿òÁ÷ÀÌ´Â °æ¿ì
-		// 2004, 12, 3, ¼®¹Î¾¾ Ãß°¡
+		|| gC_vs_ui.IsInstallMineProgress()	// ç˜¤æ±¾ çˆ¶é›ç»° åææ..
+		//|| gC_vs_ui.IsCreateMineProgress()	// ç˜¤æ±¾ çˆ¶é›ç»° åææ..
+		//|| gC_vs_ui.IsCreateBombProgress()	// ç˜¤æ±¾ çˆ¶é›ç»° åææ..
+		|| g_pPlayer->IsFastMove()	// å¼§åºœ æ¡†æµæç»° ç‰ˆå¿«
+		// 2004, 12, 3, ç±åˆ®æª çœ å•Š
 //		|| g_pPlayer->CurPernalShop() == 1  || gC_vs_ui.inventory_mode == 2
 //		|| gC_vs_ui.IsRunningPersnalShop()
-		// 2004, 12, 3, ¼®¹Î¾¾ Ãß°¡
+		// 2004, 12, 3, ç±åˆ®æª çœ å•Š
 		|| UI_IsRunning_WebBrowser()
 		)	
 	{
@@ -3451,7 +3451,7 @@ CGameUpdate::ProcessInput()
 		return;
 	}
 
-	// ÇöÀç ¼¿·ºÆ®ÁßÀÎ Ä³¸¯ÅÍ¿¡ ´ëÇÑ µ¿ÀÛÀÌ ÀÖÀ¸¸é ¸®ÅÏ
+	// æ³…çŠ ä¼æ³›é£˜åç‰¢ æŸè…ç£ä¿Š æªèŒ„ æ‚¼ç´¯æ ä¹æ æ åºœç•”
 	if (g_pPlayer->IsRepeatAction())
 	{
 		g_pTopView->SetSelectedSectorNULL();
@@ -3468,15 +3468,15 @@ CGameUpdate::ProcessInput()
 	#endif
 
 	//---------------------------------------------------	
-	// UI¿¡¼­ mouseÄ¿¼­ ÀÔ·ÂÀ» Àâ°í ÀÖ´Â °æ¿ì
-	// elevator ÀÛµ¿Áß..
+	// UIä¿Šè¾‘ mouseç›®è¾‘ æ¶ä»¿é˜‘ æ£±ç»Š ä¹ç»° ç‰ˆå¿«
+	// elevator ç´¯æ‚¼å..
 	//---------------------------------------------------	
 	if ((g_pUIDialog->IsLockInput() || g_bUIInput)
 		
-		// ÆÄÆ¼ ¶°ÀÖÀ»¶§´Â ÆÄÆ¼Ã¢ÀÇ Ä³¸¯À» ¼±ÅÃÇÒ ¼öµµ ÀÖ´Ù.
+		// é¢‡è æ ‹ä¹é˜‘é”­ç»° é¢‡èèŠ’ç‹¼ æŸè…é˜‘ æ€¥ç¶ä¸” èæ¡£ ä¹ä¿ƒ.
 		&& !bRunningParty
 
-		// ´Ù¸¥ µ¿ÀÛ ¸øÇÏµµ·Ï ...
+		// ä¿ƒå¼— æ‚¼ç´¯ ç»™çªæ¡£åºŸ ...
 		|| gC_vs_ui.IsRunningElevator()
 		|| gC_vs_ui.IsRunningXmasCardWindow()
 		|| UI_IsRunningSelectWayPoint())
@@ -3494,7 +3494,7 @@ CGameUpdate::ProcessInput()
 	
 	//---------------------------------------------------	
 	//
-	// Player°¡ Á×Àº °æ¿ì... 
+	// Playerå•Š ç£·ç¯® ç‰ˆå¿«... 
 	//
 	//---------------------------------------------------		
 	if (g_pPlayer->IsDead())
@@ -3503,8 +3503,8 @@ CGameUpdate::ProcessInput()
 		g_pTopView->SetSelectedSectorNULL();
 
 		//---------------------------------------------------	
-		// delay½Ã°£ÀÌ Áö³ª°í ³ª¼­
-		// ¹º°¡¸¦ ´©¸£¸é ´Ù½Ã »ì¾Æ³ª¾ß ÇÑ´Ù.
+		// delayçŸ«åŸƒæ ç˜¤å”±ç»Š å”±è¾‘
+		// è´­å•Šç”« ç©¿ç¦æ ä¿ƒçŸ« æ··é…’å”±å…· èŒ„ä¿ƒ.
 		//---------------------------------------------------	
 		//if (g_pPlayer->IsNotDeadDelay() && g_pDXInput->KeyDown( DIK_SPACE ))
 		//{
@@ -3520,7 +3520,7 @@ CGameUpdate::ProcessInput()
  
 
 
-	// Mouse¸¦ ÇâÇØ¼­ ¹Ù¶óº¸´Â player...
+	// Mouseç”« æ°¢ç§¦è¾‘ å®˜æ‰¼ç„Šç»° player...
 	//POINT temp = g_pTopView->ScreenToPixel(g_x, g_y);
 	//temp = MTopView::PixelToMap( temp.x, temp.y );
 	//g_pPlayer->SetDirectionToPosition(temp.x, temp.y);
@@ -3531,15 +3531,15 @@ CGameUpdate::ProcessInput()
 
 	//---------------------------------------------------	
 	//
-	// ÇöÀç mouseÀÇ À§Ä¡¿¡ ÀÖ´Â object¿¡ ´ëÇØ¼­ check
+	// æ³…çŠ mouseç‹¼ å›°æ‘¹ä¿Š ä¹ç»° objectä¿Š æªç§¦è¾‘ check
 	//
 	//---------------------------------------------------	
-	// °­Á¦°ø°İÀÌ°Å³ª SmallZone¿¡ ÀÖ°Å³ª
-	// Hallucination¿¡ °É·ÈÀ¸¸é ´Ù~ ¼±ÅÃ
+	// ç¢åŠ›å‚æ‹œæèŠ­å”± SmallZoneä¿Š ä¹èŠ­å”±
+	// Hallucinationä¿Š å§å•¡æ æ ä¿ƒ~ æ€¥ç¶
 	//---------------------------------------------------	
 	
 
-	// °­Á¦ °ø°İÀÌ ¼³Á¤µÇ´Â °æ¿ì
+	// ç¢åŠ› å‚æ‹œæ æ±²æ²¥ç™»ç»° ç‰ˆå¿«
 	bool bForceAttack = (g_pDXInput->KeyDown(DIK_LSHIFT) 
 						|| g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION));
 						
@@ -3552,7 +3552,7 @@ CGameUpdate::ProcessInput()
 		|| g_pPlayer->IsSlayer() && g_pPlayer->GetSpecialActionInfo() != ACTIONINFO_NULL && (*g_pActionInfoTable)[g_pPlayer->GetSpecialActionInfo()].GetUser() == FLAG_ACTIONINFO_USER_SLAYER
 		|| g_pPlayer->IsVampire() && g_pPlayer->GetSpecialActionInfo() != ACTIONINFO_NULL && (*g_pActionInfoTable)[g_pPlayer->GetSpecialActionInfo()].GetUser() == FLAG_ACTIONINFO_USER_VAMPIRE
 		|| g_pPlayer->IsOusters() && g_pPlayer->GetSpecialActionInfo() != ACTIONINFO_NULL && (*g_pActionInfoTable)[g_pPlayer->GetSpecialActionInfo()].GetUser() == FLAG_ACTIONINFO_USER_OUSTERS
-		// 2004, 11, 26, sobeit add start - ½½·¹ 140 ÀÎÃ¦ ½ºÅ³ - ½½·¹¿¡°Õ Ãàº¹, ³ª¸ÓÁø ÀúÁÖ..¤»¤» 
+		// 2004, 11, 26, sobeit add start - æµ‡é¥­ 140 ç‰¢å¿™ èƒ¶æ‡¦ - æµ‡é¥­ä¿Šç½¢ ç»µæ±—, å”±èµ£æŸ³ å†æ—..ã›ã› 
 		|| g_pPlayer->GetSpecialActionInfo() == SKILL_INTIMATE_GRAIL
 		// 2004, 11, 26, sobeit add end
 		)
@@ -3560,7 +3560,7 @@ CGameUpdate::ProcessInput()
 		g_pObjectSelector->SelectAll();				
 	}
 	//---------------------------------------------------	
-	// L-Control´©¸£¸é ¿ì¸®Æí¸¸ ¼±ÅÃ
+	// L-Controlç©¿ç¦æ å¿«åºœç¥ˆçˆ¶ æ€¥ç¶
 	//---------------------------------------------------	
 	else if (g_pDXInput->KeyDown(DIK_LCONTROL)
 		|| g_pTopView->IsRequestMode())
@@ -3568,38 +3568,38 @@ CGameUpdate::ProcessInput()
 		g_pObjectSelector->SelectFriend();		
 	}
 	//---------------------------------------------------	
-	// ¾Æ´Ï¸é.. Àû¸¸ ¼±ÅÃ
+	// é…’èªæ.. åˆ©çˆ¶ æ€¥ç¶
 	//---------------------------------------------------	
 	else
 	{
-		// Notice Event Ã¼Å©ÇØ¼­ ...
-		// ¼ºÀ» Â÷ÁöÇÏ±â À§ÇÑ ÀüÀïÁßÀÌ¶ó¸é!!
-		// 1. ±âÁ¸¿¡ ¼öºñÇÏ´Â ±æµåÀÏ °æ¿ì ÀÚ±â ±æµå ¾Æ´Ï¸é ´Ù Àû!
-		// 2. °ø°İ ½ÅÃ»À» ÇÑ ±æµåÀÏ°æ¿ì ¿ì¸® ±æµå ¾Æ´Ï¸é ´Ù Àû!
-		// 3. ±æµå°£ ÀüÀï ½ÅÃ» ¿Ü¿¡ ´Ù¸¥»ç¶÷ÀÏ°æ¿ì ±× µÎ ±æµå¿ø »©°í ´Ù °°Àº ÆÀ!
+		// Notice Event çœ‰å†œç§¦è¾‘ ...
+		// å·±é˜‘ ç’ç˜¤çªæ‰ å›°èŒ„ å‚ˆé‡Œåææ‰¼æ!!
+		// 1. æ‰ç²®ä¿Š èåšçªç»° è¾¨é›è€ ç‰ˆå¿« ç£Šæ‰ è¾¨é› é…’èªæ ä¿ƒ åˆ©!
+		// 2. å‚æ‹œ è„šæ²¡é˜‘ èŒ„ è¾¨é›è€ç‰ˆå¿« å¿«åºœ è¾¨é› é…’èªæ ä¿ƒ åˆ©!
+		// 3. è¾¨é›åŸƒ å‚ˆé‡Œ è„šæ²¡ å¯‡ä¿Š ä¿ƒå¼—è¤æ©è€ç‰ˆå¿« å¼Š æ»´ è¾¨é›ç›” å“—ç»Š ä¿ƒ éç¯® è¯„!
 		
 		g_pObjectSelector->SelectEnemy();		
 	}
 
 	//---------------------------------------------------	
-	// ÀÌ°Í ¿Ü¿¡µµ..
+	// æå·´ å¯‡ä¿Šæ¡£..
 	//
-	// g_pObjectSelector->SelectByRace()ÀÎÁö
-	// g_pObjectSelector->SelectByGuild()ÀÎÁö¸¦ ¼±ÅÃÇØ¾ß ÇÑ´Ù.
+	// g_pObjectSelector->SelectByRace()ç‰¢ç˜¤
+	// g_pObjectSelector->SelectByGuild()ç‰¢ç˜¤ç”« æ€¥ç¶ç§¦å…· èŒ„ä¿ƒ.
 	//
-	// È­¸é¿¡ ´Ã IconÀ» ¶ç¿ö³õ´Â°Ô ÁÁÀ» µí.. Race/Guild
+	// æ‹³æä¿Š ç–µ Iconé˜‘ å‰å†µåˆç»°éœ¸ äº®é˜‘ æ·€.. Race/Guild
 	//
-	// ¶Ç, °ø°İ¸ğµå¿¡ µû¶ó¼­ Peace/Attack/Normal Iconµµ
-	// ÀÖ¾î¾ß ÇÑ´Ù.
+	// è‚š, å‚æ‹œè‘›é›ä¿Š è¶æ‰¼è¾‘ Peace/Attack/Normal Iconæ¡£
+	// ä¹ç»¢å…· èŒ„ä¿ƒ.
 	//---------------------------------------------------	
-	// SlayerÀÎ °æ¿ì´Â Á¾Á·¿¡ µû¶ó¼­ ¼±ÅÃ
+	// Slayerç‰¢ ç‰ˆå¿«ç»° è¾†ç»ƒä¿Š è¶æ‰¼è¾‘ æ€¥ç¶
 	//---------------------------------------------------	
 	if (g_pPlayer->IsSlayer() || g_pPlayer->IsOusters() )
 	{
 		g_pObjectSelector->SelectByRace();
 	}
 	//---------------------------------------------------	
-	// VampireÀÎ °æ¿ì´Â Guild¿¡ µû¶ó¼­ ¼±ÅÃ
+	// Vampireç‰¢ ç‰ˆå¿«ç»° Guildä¿Š è¶æ‰¼è¾‘ æ€¥ç¶
 	//---------------------------------------------------	
 	else
 	{
@@ -3618,7 +3618,7 @@ CGameUpdate::ProcessInput()
 	int partyMember = (bRunningParty? gC_vs_ui.GetPartyManagerFocused() : -1) - 1;
 
 	//---------------------------------------------------	
-	// ÆÄÆ¼UI¸¦ ¼±ÅÃÇÏ´Â °æ¿ì..
+	// é¢‡èUIç”« æ€¥ç¶çªç»° ç‰ˆå¿«..
 	//---------------------------------------------------	
 	if (partyMember >= 0
 		&& partyMember < g_pParty->GetSize())
@@ -3635,9 +3635,9 @@ CGameUpdate::ProcessInput()
 				DEBUG_ADD("SPM");
 			#endif
 
-			// ¿ì¿í.. terrible.. - -;
-			// MZone¿¡ NameÀ¸·Î id°Ë»öÇÒ ¼ö ÀÖ°Ô mapÀ» Ãß°¡ÇØ¾ßÇÑ´Ù.
-			// ±×¸®°í.. ¹Ù·Î Name --> MCreature* ¸¦ ¾Ë ¼ö ÀÖ°Ô ÇØ¾ßÇÑ´Ù.. ¾ğÁ¦? - -;
+			// å¿«å®½.. terrible.. - -;
+			// MZoneä¿Š Nameæ è‚º idå…«ç¥¸ä¸” è ä¹éœ¸ mapé˜‘ çœ å•Šç§¦å…·èŒ„ä¿ƒ.
+			// å¼Šåºœç»Š.. å®˜è‚º Name --> MCreature* ç”« èˆ… è ä¹éœ¸ ç§¦å…·èŒ„ä¿ƒ.. æ”«åŠ›? - -;
 			pObject = g_pZone->GetCreature( g_pZone->GetCreatureID( pInfo->Name.GetString(), 1 ) );
 
 			#ifdef OUTPUT_DEBUG_PROCESS_INPUT
@@ -3646,7 +3646,7 @@ CGameUpdate::ProcessInput()
 		}
 	}
 	//---------------------------------------------------	
-	// Á¸¿¡¼­ ¼±ÅÃ..
+	// ç²®ä¿Šè¾‘ æ€¥ç¶..
 	//---------------------------------------------------	
 	else
 	{
@@ -3655,11 +3655,11 @@ CGameUpdate::ProcessInput()
 		#endif
 
 		//---------------------------------------------------
-		// ¾Æ¿¹ µı UI¿¡ focus °¡ ÀÖÀ¸¸é °Á returnÇØ¾ß ÇÑ´Ù.
-		// inventory¿¡¼­ ¾ÆÀÌÅÛ »ç¿ëÇß´Âµ¥ ±â¼ú ³ª°¥ ¼ö°¡ ÀÖ¾î¼­.
+		// é…’æŠ— è° UIä¿Š focus å•Š ä¹æ æ å‚² returnç§¦å…· èŒ„ä¿ƒ.
+		// inventoryä¿Šè¾‘ é…’æè¢ è¤ä¾©æ²ç»°å• æ‰è´± å”±å“ èå•Š ä¹ç»¢è¾‘.
 		//---------------------------------------------------
-		if (partyMember==-2		// partyÃ¢¿¡ focus µÈ°Ô ¾Æ´Ï°í
-			&& g_bUIInput)		// UI¿¡ ÀÔ·ÂÀÌ ÀÖ´Ù¸é..
+		if (partyMember==-2		// partyèŠ’ä¿Š focus ç­‰éœ¸ é…’èªç»Š
+			&& g_bUIInput)		// UIä¿Š æ¶ä»¿æ ä¹ä¿ƒæ..
 		{
 			#ifdef OUTPUT_DEBUG_PROCESS_INPUT
 				DEBUG_ADD("selZk1");
@@ -3669,7 +3669,7 @@ CGameUpdate::ProcessInput()
 		}
 
 		//---------------------------------------------------	
-		// ItemNameÀ» ¼±ÅÃÇÏ´Â °æ¿ì¸é..
+		// ItemNameé˜‘ æ€¥ç¶çªç»° ç‰ˆå¿«æ..
 		//---------------------------------------------------	
 		if (g_pTopView->IsDrawItemNameList())
 		{
@@ -3693,7 +3693,7 @@ CGameUpdate::ProcessInput()
 			}
 
 			//---------------------------------------------------	
-			// ItemNameÀÌ ¼±ÅÃ ¾ÈµÆÀ¸¸é Object¼±ÅÃ
+			// ItemNameæ æ€¥ç¶ æ•‘ç¯æ æ Objectæ€¥ç¶
 			//---------------------------------------------------	
 			if (pObject==NULL)
 			{
@@ -3709,7 +3709,7 @@ CGameUpdate::ProcessInput()
 			}
 		}
 		//---------------------------------------------------	
-		// ±×³É Object ¼±ÅÃ
+		// å¼Šæˆ Object æ€¥ç¶
 		//---------------------------------------------------	
 		else
 		{
@@ -3777,7 +3777,7 @@ CGameUpdate::ProcessInput()
 	#endif
 
 	//---------------------------------------------------	
-	// Lock Mode Ã¼Å©
+	// Lock Mode çœ‰å†œ
 	//---------------------------------------------------	
 	if (g_pDXInput->KeyDown(DIK_CAPITAL) 
 		&& !g_pPlayer->IsInCasket()
@@ -3785,7 +3785,7 @@ CGameUpdate::ProcessInput()
 	{
 		g_pPlayer->SetLockMode();
 
-		// ¹«Á¶°Ç °ø°İ Ä¿¼­·Î ¹Ù²ï´Ù.
+		// å…¬ç‚¼æ‰’ å‚æ‹œ ç›®è¾‘è‚º å®˜è¯§ä¿ƒ.
 		gpC_mouse_pointer->SetCursorAttack();
 
 		if (g_pDXInput->m_lb_down)
@@ -3801,13 +3801,13 @@ CGameUpdate::ProcessInput()
 			g_bCButtonDown = TRUE;
 		}
 
-		// Lock Mode¿¡¼­´Â ¼±ÅÃµÈ sector¸¦ ¾ø¾Ø´Ù.
+		// Lock Modeä¿Šè¾‘ç»° æ€¥ç¶ç­‰ sectorç”« ç»çŸ©ä¿ƒ.
 		g_pTopView->SetSelectedSectorNULL();
 	}
 	else
 	{
-		// ¾Æ¹«°Íµµ ´©¸£Áö ¾ÊÀº »óÅÂ¿¡¼­ 
-		// LockModeÀÌ¸é LockMode ÇØÁ¦ÇØ¾ß ÇÑ´Ù.
+		// é…’å…¬å·´æ¡£ ç©¿ç¦ç˜¤ è‡¼ç¯® æƒ‘æ€•ä¿Šè¾‘ 
+		// LockModeææ LockMode ç§¦åŠ›ç§¦å…· èŒ„ä¿ƒ.
 		if (!g_bLButtonDown && !g_bRButtonDown
 #ifdef __METROTECH_TEST__
 			&& !g_bCButtonDown
@@ -3819,8 +3819,8 @@ CGameUpdate::ProcessInput()
 	}
 
 	//---------------------------------------------------	
-	// Lock Mode°¡ ¾Æ´Ñ °æ¿ì¸¸ 
-	// ÀÏ¹İÀûÀÎ ÀÔ·ÂÀ» ¹Ş¾Æµé¿© Çàµ¿À» ÃëÇÑ´Ù.
+	// Lock Modeå•Š é…’å›± ç‰ˆå¿«çˆ¶ 
+	// è€é¦†åˆ©ç‰¢ æ¶ä»¿é˜‘ ç½é…’ç”¸å’¯ é’æ‚¼é˜‘ ç§’èŒ„ä¿ƒ.
 	//---------------------------------------------------	
 	if (!g_pPlayer->IsLockMode())
 	{	
@@ -3829,7 +3829,7 @@ CGameUpdate::ProcessInput()
 #endif
 		
 		//---------------------------------------------------	
-		// Mouse À§Ä¡¿¡ Object°¡ ¾øÀ¸¸é..
+		// Mouse å›°æ‘¹ä¿Š Objectå•Š ç»æ æ..
 		//---------------------------------------------------	
 		if (pObject==NULL)
 		{
@@ -3837,11 +3837,11 @@ CGameUpdate::ProcessInput()
 			DEBUG_ADD("noObj");
 #endif
 			
-			// ¼±ÅÃµÈ °Í ¾ø°Ô ÇÑ´Ù.
+			// æ€¥ç¶ç­‰ å·´ ç»éœ¸ èŒ„ä¿ƒ.
 			g_pTopView->SetSelectedNULL();
 			
 			//---------------------------------------------------	
-			// mouse pointer ¼³Á¤
+			// mouse pointer æ±²æ²¥
 			//---------------------------------------------------	
 			//if (!g_bMouseInPortal)
 			{
@@ -3863,26 +3863,26 @@ CGameUpdate::ProcessInput()
 						const MSector& sector = g_pZone->GetSector(g_MouseSector.x, g_MouseSector.y);
 						
 						//---------------------------------------------------
-						// °¥ ¼ö ¾ø´Â °÷ÀÌ¸é
+						// å“ è ç»ç»° é•‘ææ
 						//---------------------------------------------------
 						if (g_pPlayer->IsGroundCreature() && sector.IsBlockGround()
 							|| g_pPlayer->IsUndergroundCreature() && sector.IsBlockUnderground()
 							|| g_pPlayer->IsFlyingCreature() && sector.IsBlockFlying())
 							//g_pZone->CanMove(g_pPlayer->GetMoveType(), g_MouseSector.x, g_MouseSector.y))
 						{	
-							// Æ÷Å»ÀÌ ¾Æ´Ï°í
+							// å™¨å‘•æ é…’èªç»Š
 							if (!g_bMouseInPortal
-								// UI¿¡ ÀÔ·ÂÀÌ ¾ø´Â °æ¿ì --> °ÔÀÓ¿¡ Ä¿¼­°¡ ÀÖ´Â °æ¿ì
+								// UIä¿Š æ¶ä»¿æ ç»ç»° ç‰ˆå¿« --> éœ¸çƒ™ä¿Š ç›®è¾‘å•Š ä¹ç»° ç‰ˆå¿«
 								&& !g_bUIInput
-								// ¼±ÅÃµÈ Ä³¸¯ÅÍ°¡ ¾ø´Â °æ¿ì
+								// æ€¥ç¶ç­‰ æŸè…ç£å•Š ç»ç»° ç‰ˆå¿«
 								&& g_pTopView->GetSelectedCreature()==OBJECTID_NULL)
 							{
-								// °¥ ¼ö ¾ø´Â Ä¿¼­·Î Ç¥½Ã
+								// å“ è ç»ç»° ç›®è¾‘è‚º é’çŸ«
 								gpC_mouse_pointer->SetCursorNotMove();					
 							}
 						}
 						//---------------------------------------------------
-						// °¥ ¼ö ÀÖ´Â °÷ÀÌ¸é..
+						// å“ è ä¹ç»° é•‘ææ..
 						//---------------------------------------------------
 						else
 						{
@@ -3908,7 +3908,7 @@ CGameUpdate::ProcessInput()
 		}
 		//---------------------------------------------------	
 		//
-		// Mouse À§Ä¡¿¡ Object°¡ ÀÖ´Â °æ¿ì
+		// Mouse å›°æ‘¹ä¿Š Objectå•Š ä¹ç»° ç‰ˆå¿«
 		//
 		//---------------------------------------------------	
 		else
@@ -3920,7 +3920,7 @@ CGameUpdate::ProcessInput()
 #endif
 			
 			//------------------------------------------------
-			// Creature À§¿¡ mouse°¡ ÀÖ´Â °æ¿ì
+			// Creature å›°ä¿Š mouseå•Š ä¹ç»° ç‰ˆå¿«
 			//------------------------------------------------
 			if (objectType==MObject::TYPE_CREATURE)
 			{
@@ -3930,11 +3930,11 @@ CGameUpdate::ProcessInput()
 					
 				if (!g_bMouseInPortal 
 						
-					// Á¾Á·¿¡ µû¶ó¼­ °ø°İÇÒ ¼ö ÀÖ°Å³ª
-					// °­Á¦ °ø°İÀÌ°Å³ª..
+					// è¾†ç»ƒä¿Š è¶æ‰¼è¾‘ å‚æ‹œä¸” è ä¹èŠ­å”±
+					// ç¢åŠ› å‚æ‹œæèŠ­å”±..
 					//&& (g_pPlayer->CanAttackTribe( pCreature ) || bForceAttack)
 					&& g_pObjectSelector->CanAttack( pCreature ) )
-					// ¹ìÆÄÀÌ¾îÀÎ °æ¿ì¿¡´Â Guild¿¡ µû¶ó¼­ °ø°İÇÒ ¼ö ÀÖ°Å³ª..	
+					// è½¨é¢‡æç»¢ç‰¢ ç‰ˆå¿«ä¿Šç»° Guildä¿Š è¶æ‰¼è¾‘ å‚æ‹œä¸” è ä¹èŠ­å”±..	
 						
 				{
 					if (pCreature->IsNPC())
@@ -3956,7 +3956,7 @@ CGameUpdate::ProcessInput()
 			}
 			
 			//------------------------------------------------
-			// Item À§¿¡ mouse°¡ ÀÖ´Â °æ¿ì
+			// Item å›°ä¿Š mouseå•Š ä¹ç»° ç‰ˆå¿«
 			//------------------------------------------------
 			else if (pObject->GetObjectType()==MObject::TYPE_ITEM)
 			{
@@ -3966,8 +3966,8 @@ CGameUpdate::ProcessInput()
 				
 				if(g_pZone != NULL && pItem != NULL )
 				{
-					// ½½·¹ÀÌ¾î¸é ¾ÈµÇ°Ô
-					// ¹ìÆÄÀÌ¾î¸é creature Ã£¾Æ¼­ ¼º¹°ÀÎ°æ¿ì¸¸
+					// æµ‡é¥­æç»¢æ æ•‘ç™»éœ¸
+					// è½¨é¢‡æç»¢æ creature èŒ«é…’è¾‘ å·±æ‹±ç‰¢ç‰ˆå¿«çˆ¶
 
 					if(!g_pZone->GetSector(pItem->GetX(), pItem->GetY()).HasDarkness() || 
 						g_pZone->GetSector(pItem->GetX(), pItem->GetY()).HasDarkness() && g_pPlayer->IsVampire() && g_pZone->GetID() != 3001||
@@ -3984,7 +3984,7 @@ CGameUpdate::ProcessInput()
 						
 						COLORREF color;
 						//------------------------------------------------
-						// option¿¡ µû¸¥ »ö±ò
+						// optionä¿Š è¶å¼— ç¥¸å½¬
 						//------------------------------------------------
 						if (pItem->IsSpecialColorItem() )
 						{
@@ -4000,28 +4000,28 @@ CGameUpdate::ProcessInput()
 						{
 							color = g_pClientConfig->COLOR_NAME_ITEM_RARE_OPTION;
 						}
-						// add by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈıÊôĞÔ×°±¸ÎªºìÉ«
+						// add by Sonic 2006.10.28 å¢åŠ æ˜¾ç¤ºä¸‰å±æ€§è£…å¤‡ä¸ºçº¢è‰²
 						else if(pItem->GetItemOptionListCount() > 2)
 						{
 							color = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
 						}
-						// end by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈıÊôĞÔ×°±¸ÎªºìÉ«
+						// end by Sonic 2006.10.28 å¢åŠ æ˜¾ç¤ºä¸‰å±æ€§è£…å¤‡ä¸ºçº¢è‰²
 						else
 						{
 							color = g_pClientConfig->COLOR_NAME_ITEM_OPTION;
 						}
 						
 						//------------------------------------------------
-						// itemÁı´Â Ä¿¼­
+						// itemç¬¼ç»° ç›®è¾‘
 						//------------------------------------------------
 						if (!g_bMouseInPortal&&!g_pPlayer->IsInDarkness())
 						{						
-							// ½ÃÃ¼ÀÎ °æ¿ì´Â '½ÃÃ¼'¶ó°í Ç¥½Ã ¾ÈÇÑ´Ù.
+							// çŸ«çœ‰ç‰¢ ç‰ˆå¿«ç»° 'çŸ«çœ‰'æ‰¼ç»Š é’çŸ« æ•‘èŒ„ä¿ƒ.
 							if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 							{
 								gpC_mouse_pointer->SetCursorPickUp( "", color );
 							}
-							// º¸Åë ¾ÆÀÌÅÛÀº ÀÌ¸§ Ç¥½ÃÇÑ´Ù.
+							// ç„Šçƒ¹ é…’æè¢ç¯® ææŠš é’çŸ«èŒ„ä¿ƒ.
 							else
 							{
 								char str[80];
@@ -4035,7 +4035,7 @@ CGameUpdate::ProcessInput()
 			}
 
 			//------------------------------------------------
-			// Effect À§¿¡ mouse°¡ ÀÖ´Â °æ¿ì
+			// Effect å›°ä¿Š mouseå•Š ä¹ç»° ç‰ˆå¿«
 			//------------------------------------------------
 			else if (pObject->GetObjectType()==MObject::TYPE_EFFECT)
 			{
@@ -4043,7 +4043,7 @@ CGameUpdate::ProcessInput()
 			}
 
 			//------------------------------------------------
-			// InteractionObject À§¿¡ mouse°¡ ÀÖ´Â °æ¿ì
+			// InteractionObject å›°ä¿Š mouseå•Š ä¹ç»° ç‰ˆå¿«
 			//------------------------------------------------
 //			else if (pObject->GetObjectType()==MObject::TYPE_INTERACTIONOBJECT)
 //			{
@@ -4054,7 +4054,7 @@ CGameUpdate::ProcessInput()
 
 		//---------------------------------------------------	
 		//
-		// playerÀÇ ±â¼ú »ç¿ë delay ½Ã°£ÀÌ Áö³ª¾ß °ø°İ °¡´ÉÇÏ´Ù.
+		// playerç‹¼ æ‰è´± è¤ä¾© delay çŸ«åŸƒæ ç˜¤å”±å…· å‚æ‹œ å•Šç“·çªä¿ƒ.
 		//
 		//---------------------------------------------------	
 		if (g_pPlayer->IsNotDelay() && !g_pPlayer->HasEffectStatus( EFFECTSTATUS_ETERNITY_PAUSE ) )
@@ -4064,7 +4064,7 @@ CGameUpdate::ProcessInput()
 			#endif
 
 			//-----------------------------------------------
-			// Shift + L/R ButtonDown : °­Á¦ Tile °ø°İ
+			// Shift + L/R ButtonDown : ç¢åŠ› Tile å‚æ‹œ
 			//-----------------------------------------------
 			if (g_pDXInput->KeyDown(DIK_LSHIFT))
 			{
@@ -4072,10 +4072,10 @@ CGameUpdate::ProcessInput()
 					DEBUG_ADD("shiAt");
 				#endif
 				//-----------------------------------------------
-				// Shift + LButtonDown : °­Á¦ °ø°İ
+				// Shift + LButtonDown : ç¢åŠ› å‚æ‹œ
 				//-----------------------------------------------
 				if (g_pDXInput->m_lb_down
-					// ¼û¾î ÀÖ´Â °æ¿ì°¡ ¾Æ´Ò¶§
+					// è§ç»¢ ä¹ç»° ç‰ˆå¿«å•Š é…’åŒ†é”­
 					&& !g_pPlayer->IsInCasket()
 					&& !g_pPlayer->IsUndergroundCreature()
 					&& !g_pPlayer->HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))
@@ -4083,14 +4083,14 @@ CGameUpdate::ProcessInput()
 					g_pPlayer->UnSetRequestMode();
 
 					//-----------------------------------------------
-					// Ä³¸¯ÅÍ¸¦ °­Á¦ °ø°İ..
+					// æŸè…ç£ç”« ç¢åŠ› å‚æ‹œ..
 					//-----------------------------------------------
 					if (pObject!=NULL)
 					{
 						if (pObject->GetObjectType()==MObject::TYPE_CREATURE)
 						{
-							// Object°¡ ¹º°¡ ¼±ÅÃµÆÀ» °æ¿ì¿¡´Â 
-							// LButtonÀ» ´©¸£°í ÀÖ´Â °Í¸¸À¸·Î ÀÌµ¿ÀÌ µÇÁö¾Ê°Ô ÇÑ´Ù.
+							// Objectå•Š è´­å•Š æ€¥ç¶ç¯é˜‘ ç‰ˆå¿«ä¿Šç»° 
+							// LButtoné˜‘ ç©¿ç¦ç»Š ä¹ç»° å·´çˆ¶æ è‚º ææ‚¼æ ç™»ç˜¤è‡¼éœ¸ èŒ„ä¿ƒ.
 							MCreature *pCreature = dynamic_cast<MCreature*>(pObject);
 							g_bLButtonDown = TRUE;
 							
@@ -4098,24 +4098,24 @@ CGameUpdate::ProcessInput()
 
 							if (g_pPlayer->TraceCreatureToBasicAction( 
 										pCreature->GetID(), 
-										true))		// °­Á¦ °ø°İ
+										true))		// ç¢åŠ› å‚æ‹œ
 							{
 								//----------------------------------
-								// ³²¿¡°Ô ÇÏ´Â ±âº» Çàµ¿ ¹İº¹ ¼³Á¤
+								// å·¢ä¿Šéœ¸ çªç»° æ‰å¤¯ é’æ‚¼ é¦†æ±— æ±²æ²¥
 								//----------------------------------
 								g_pPlayer->SetRepeatAction();
 								g_bPreviousMove = false;
 							}
-							// ¸ñÀûÁö Ç¥½Ã¸¦ ¾ø¾Ø´Ù.
+							// æ ¼åˆ©ç˜¤ é’çŸ«ç”« ç»çŸ©ä¿ƒ.
 							g_pTopView->SetSelectedSectorNULL();
 						}
 					}
 					//-----------------------------------------------
-					// °­Á¦ Tile °ø°İ
+					// ç¢åŠ› Tile å‚æ‹œ
 					//-----------------------------------------------
 					//g_SelectSector = g_pTopView->GetSelectedSector(g_x, g_y);
 					
-					// ¼±ÅÃµÈ Sector·Î Ç¥½ÃÇÑ´Ù.
+					// æ€¥ç¶ç­‰ Sectorè‚º é’çŸ«èŒ„ä¿ƒ.
 					//g_pTopView->SetSelectedSector( g_SelectSector );
 
 					//g_pPlayer->TraceSectorToBasicAction( g_SelectSector.x, g_SelectSector.y );			
@@ -4125,7 +4125,7 @@ CGameUpdate::ProcessInput()
 					#endif
 				}		
 				//-----------------------------------------------
-				// Shift + RButtonDown : °­Á¦ Tile ±â¼ú °ø°İ
+				// Shift + RButtonDown : ç¢åŠ› Tile æ‰è´± å‚æ‹œ
 				//-----------------------------------------------
 				else if (g_pDXInput->m_rb_down)
 				{
@@ -4137,7 +4137,7 @@ CGameUpdate::ProcessInput()
 					/*
 					g_SelectSector = g_pTopView->GetSelectedSector(g_x, g_y);
 
-					// ¼±ÅÃµÈ Sector·Î Ç¥½ÃÇÑ´Ù.
+					// æ€¥ç¶ç­‰ Sectorè‚º é’çŸ«èŒ„ä¿ƒ.
 					g_pTopView->SetSelectedSector( g_SelectSector );
 
 					if (g_pPlayer->TraceSectorToSpecialAction( g_SelectSector.x, g_SelectSector.y ))
@@ -4146,7 +4146,7 @@ CGameUpdate::ProcessInput()
 					}
 
 
-					// ¸ñÀûÁö Ç¥½Ã¸¦ ¾ø¾Ø´Ù.
+					// æ ¼åˆ©ç˜¤ é’çŸ«ç”« ç»çŸ©ä¿ƒ.
 					g_pTopView->SetSelectedSectorNULL();
 					*/
 
@@ -4172,7 +4172,7 @@ CGameUpdate::ProcessInput()
 				//
 				//---------------------------------------------------------------
 				if (g_pDXInput->m_lb_down 
-					// burrow »óÅÂ°¡ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
+					// burrow æƒ‘æ€•å•Š é…’èªç»¢å…· èŒ„ä¿ƒ.
 					&& !g_pPlayer->IsInCasket()
 					&& !g_pPlayer->IsUndergroundCreature()
 					&& g_pPlayer->CurPernalShop() != 2
@@ -4188,17 +4188,17 @@ CGameUpdate::ProcessInput()
 
 					g_bLButtonDown = TRUE;
 					
-					// ¼±ÅÃµÈ sector°¡ ¾ø°Ô ÇÑ´Ù.
+					// æ€¥ç¶ç­‰ sectorå•Š ç»éœ¸ èŒ„ä¿ƒ.
 					g_pTopView->SetSelectedSectorNULL();
 
-					// sector ¼±ÅÃÇÏ±â
+					// sector æ€¥ç¶çªæ‰
 					g_SelectSector = g_pTopView->GetSelectedSector(g_x, g_y);
 					//g_pTopView->SetSelectedSector(g_SelectSector.x, g_SelectSector.y);
 
 					//
 					//MObject*	pObject = g_pTopView->GetSelectedObject(g_x, g_y);
 
-					// ÀÎ½ºÅç ÅÍ·¿ÀÏ¶§.. Àâ´ÙÇÑ lbuttton Ã³¸® ¾Ê´Â´Ù.. lbutton = ¹«Á¶°Ç ÅÍ·¿ °ø°İ
+					// ç‰¢èƒ¶å–· ç£æˆ¿è€é”­.. æ£±ä¿ƒèŒ„ lbuttton è´¸åºœ è‡¼ç»°ä¿ƒ.. lbutton = å…¬ç‚¼æ‰’ ç£æˆ¿ å‚æ‹œ
 					if(g_pPlayer->HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET))
 					{		
 						int TempDir = MTopView::GetDirectionToPosition(g_pPlayer->GetX(), g_pPlayer->GetY(),g_SelectSector.x, g_SelectSector.y);
@@ -4218,7 +4218,7 @@ CGameUpdate::ProcessInput()
 //							g_pPlayer->SetSpecialActionInfo(SKILL_TURRET_FIRE);
 //							if (g_pPlayer->TraceSectorToSpecialAction( g_SelectSector.x, g_SelectSector.y ))
 //							{
-//								// ¼±ÅÃµÈ Sector·Î Ç¥½ÃÇÑ´Ù.
+//								// æ€¥ç¶ç­‰ Sectorè‚º é’çŸ«èŒ„ä¿ƒ.
 //								g_pTopView->SetSelectedSector( g_SelectSector );
 //							
 //								g_pPlayer->SetRepeatAction();
@@ -4226,7 +4226,7 @@ CGameUpdate::ProcessInput()
 //
 //							g_bPreviousMove = false;
 //								char szTemp[128];
-//								sprintf(szTemp, "¹æÇâÀÌ °°´Ù: %d,¹æÇâ ", TempDir);
+//								sprintf(szTemp, "è§„æ°¢æ éä¿ƒ: %d,è§„æ°¢ ", TempDir);
 //								g_pSystemMessage->Add(szTemp);
 						}
 						else
@@ -4241,25 +4241,25 @@ CGameUpdate::ProcessInput()
 						}
 					}
 					//--------------------------------------------------
-					// ¼±ÅÃÇÑ °÷¿¡ Object°¡ ¾øÀ¸¸é MOVE
+					// æ€¥ç¶èŒ„ é•‘ä¿Š Objectå•Š ç»æ æ MOVE
 					//--------------------------------------------------
 					else if (pObject == NULL)
 					{		
-						// l-shift³ª l-controlÀÌ ´­·ÁÀÖÁö ¾ÊÀº »óÅÂ¿¡¼­¸¸ ÀÌµ¿.
+						// l-shiftå”± l-controlæ å–˜å¦¨ä¹ç˜¤ è‡¼ç¯® æƒ‘æ€•ä¿Šè¾‘çˆ¶ ææ‚¼.
 						if (//!g_pDXInput->KeyDown(DIK_LSHIFT) &&
 							!g_pDXInput->KeyDown(DIK_LCONTROL))
 						{		
 							if (g_pPlayer->IsNotDelay() && !g_pPlayer->HasEffectStatus(EFFECTSTATUS_ETERNITY_PAUSE ) 
-								// 2004, 9, 14, sobeit add start - ÃÑ½½ 130 skill °ü·Ã
+								// 2004, 9, 14, sobeit add start - é†šæµ‡ 130 skill åŒ…è®¿
 								//&&  !g_pPlayer->HasEffectStatus(EFFECTSTATUS_INSTALL_TURRET ) 
-								// 2004, 9, 14, sobeit add end - ÃÑ½½ 130 skill °ü·Ã
+								// 2004, 9, 14, sobeit add end - é†šæµ‡ 130 skill åŒ…è®¿
 								)
 							{
 								if (g_pPlayer->SetMovePosition(g_SelectSector.x, g_SelectSector.y))
 								{
 									//if (g_pPlayer->IsStop())
 									{
-										// ´ÙÀ½ ¸ñÇ¥À§Ä¡·Î ¼³Á¤ÇÑ´Ù
+										// ä¿ƒæ¾œ æ ¼é’å›°æ‘¹è‚º æ±²æ²¥èŒ„ä¿ƒ
 										g_pPlayer->TraceNULL();							
 										
 										g_pPlayer->SetNextActionToMove();
@@ -4273,7 +4273,7 @@ CGameUpdate::ProcessInput()
 						/*
 						if (g_pPlayer->IsStop())
 						{
-							// ´ÙÀ½ ¸ñÇ¥À§Ä¡·Î ¼³Á¤ÇÑ´Ù
+							// ä¿ƒæ¾œ æ ¼é’å›°æ‘¹è‚º æ±²æ²¥èŒ„ä¿ƒ
 							g_pPlayer->TraceNULL();
 							
 							if (g_pPlayer->SetMovePosition(g_SelectSector.x, g_SelectSector.y))
@@ -4284,19 +4284,19 @@ CGameUpdate::ProcessInput()
 						*/
 					}
 					//--------------------------------------------------
-					// ¼±ÅÃµÈ Object¿¡ ´ëÇØ¼­ 
+					// æ€¥ç¶ç­‰ Objectä¿Š æªç§¦è¾‘ 
 					//--------------------------------------------------
 					else 
 					{	
-						// Object°¡ ¹º°¡ ¼±ÅÃµÆÀ» °æ¿ì¿¡´Â 
-						// LButtonÀ» ´©¸£°í ÀÖ´Â °Í¸¸À¸·Î ÀÌµ¿ÀÌ µÇÁö¾Ê°Ô ÇÑ´Ù.
+						// Objectå•Š è´­å•Š æ€¥ç¶ç¯é˜‘ ç‰ˆå¿«ä¿Šç»° 
+						// LButtoné˜‘ ç©¿ç¦ç»Š ä¹ç»° å·´çˆ¶æ è‚º ææ‚¼æ ç™»ç˜¤è‡¼éœ¸ èŒ„ä¿ƒ.
 						//g_bLButtonDown = FALSE;
 
 						switch (pObject->GetObjectType())
 						{			
 							case MObject::TYPE_CREATURE :	
 								{
-									// 2004, 12, 3, ¼®¹Î¾¾ Ãß°¡
+									// 2004, 12, 3, ç±åˆ®æª çœ å•Š
 									MCreature* TempCreature = (MCreature*)pObject;
 									if(TempCreature->CurPernalShop() == 1 )
 //										|| g_pPlayer->IsFlyingCreature() || g_pPlayer->IsUndergroundCreature() 
@@ -4306,13 +4306,13 @@ CGameUpdate::ProcessInput()
 										gpC_base->SendMessage(UI_REQUEST_STORE_INFO, pObject->GetID(),0);
 										gC_vs_ui.SetOtherObjectID(pObject->GetID());
 									}
-									// 2004, 12, 3, ¼®¹Î¾¾ Ãß°¡
+									// 2004, 12, 3, ç±åˆ®æª çœ å•Š
 
 									if (g_pPlayer->TraceCreatureToBasicAction( pObject->GetID(), 
 																				bForceAttack, true ))
 									{
 										//----------------------------------
-										// ³²¿¡°Ô ÇÏ´Â ±âº» Çàµ¿ ¹İº¹ ¼³Á¤
+										// å·¢ä¿Šéœ¸ çªç»° æ‰å¤¯ é’æ‚¼ é¦†æ±— æ±²æ²¥
 										//----------------------------------
 										g_pPlayer->SetRepeatAction();
 										g_bPreviousMove = false;
@@ -4379,9 +4379,9 @@ CGameUpdate::ProcessInput()
 				}
 
 				//---------------------------------------------------------------
-				// L/R ButtonÀ» ´©¸£Áö´Â ¾Ê¾ÒÁö¸¸,
-				// ÀÌÀü¿¡ ´©¸¥ LButtonÀÌ °è¼Ó ´­·ÁÁø »óÅÂ¶ó¸é..
-				// But(!), L-Shift°¡ ´­·¯ÁöÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+				// L/R Buttoné˜‘ ç©¿ç¦ç˜¤ç»° è‡¼ç–½ç˜¤çˆ¶,
+				// æå‚ˆä¿Š ç©¿å¼— LButtonæ æ‹ŒåŠ  å–˜å¦¨æŸ³ æƒ‘æ€•æ‰¼æ..
+				// But(!), L-Shiftå•Š å–˜çŸ¾ç˜¤ç˜¤ è‡¼é…’å…· èŒ„ä¿ƒ.
 				//---------------------------------------------------------------
 				else if (g_bLButtonDown 				
 						&& !g_pDXInput->KeyDown(DIK_LSHIFT)
@@ -4395,8 +4395,8 @@ CGameUpdate::ProcessInput()
 					#endif
 
 					//--------------------------------------------------
-					// ¼±ÅÃÇÑ °÷¿¡ Object°¡ ¾ø°í
-					// ¹æ±İÀü¿¡ ÀÌµ¿ÇÏ°í ÀÖ´ø ÁßÀÌ¸é MOVE
+					// æ€¥ç¶èŒ„ é•‘ä¿Š Objectå•Š ç»ç»Š
+					// è§„é™›å‚ˆä¿Š ææ‚¼çªç»Š ä¹å¸¦ åææ MOVE
 					//--------------------------------------------------
 					if (pObject == NULL && g_bPreviousMove)
 					{	
@@ -4404,7 +4404,7 @@ CGameUpdate::ProcessInput()
 						{
 							g_SelectSector = g_pTopView->GetSelectedSector(g_x, g_y);
 
-							// ´ÙÀ½ ¸ñÇ¥À§Ä¡·Î ¼³Á¤ÇÑ´Ù
+							// ä¿ƒæ¾œ æ ¼é’å›°æ‘¹è‚º æ±²æ²¥èŒ„ä¿ƒ
 							g_pPlayer->TraceNULL();
 							
 							if (g_pPlayer->SetMovePosition(g_SelectSector.x, g_SelectSector.y))
@@ -4439,7 +4439,7 @@ CGameUpdate::ProcessInput()
 	
 		if (g_pPlayer->IsRepeatAction())
 		{
-			// ¹öÆ°À» ¶¼¾úÀ¸¹Ç·Î Çàµ¿ ¹İº¹À» Ãë¼ÒÇÑ´Ù.
+			// æ»šç“¢é˜‘ éƒ½èŒæ éª¨è‚º é’æ‚¼ é¦†æ±—é˜‘ ç§’å®¶èŒ„ä¿ƒ.
 			g_pPlayer->UnSetRepeatAction();
 			//g_pPlayer->TraceNextNULL();
 
@@ -4447,14 +4447,14 @@ CGameUpdate::ProcessInput()
 		}
 		else
 		{	
-			// ¼±ÅÃµÈ sector·Î Á¤ÇÑ´Ù.
+			// æ€¥ç¶ç­‰ sectorè‚º æ²¥èŒ„ä¿ƒ.
 			POINT point;
 			
-			// ´ÙÀ½ °¥ °÷ÀÌ ¾øÀ¸¸é
+			// ä¿ƒæ¾œ å“ é•‘æ ç»æ æ
 			g_pPlayer->GetNextDestination( point );		
 			if (point.x==SECTORPOSITION_NULL || point.y==SECTORPOSITION_NULL)
 			{
-				// ÇöÀç °¡°í ÀÖ´Â °÷ÀÌ ¾øÀ¸¸é
+				// æ³…çŠ å•Šç»Š ä¹ç»° é•‘æ ç»æ æ
 				g_pPlayer->GetDestination( point );
 				if (point.x==SECTORPOSITION_NULL || point.y==SECTORPOSITION_NULL)
 				{
@@ -4489,7 +4489,7 @@ CGameUpdate::ProcessInput()
 	
 		if (g_pPlayer->IsRepeatAction())
 		{
-			// ¹öÆ°À» ¶¼¾úÀ¸¹Ç·Î Çàµ¿ ¹İº¹À» Ãë¼ÒÇÑ´Ù.
+			// æ»šç“¢é˜‘ éƒ½èŒæ éª¨è‚º é’æ‚¼ é¦†æ±—é˜‘ ç§’å®¶èŒ„ä¿ƒ.
 			g_pPlayer->UnSetRepeatAction();
 			//g_pPlayer->TraceNextNULL();
 		}
@@ -4500,7 +4500,7 @@ CGameUpdate::ProcessInput()
 		g_bCButtonDown = FALSE;
 	}
 
-	// °¡¸¸È÷ ¼­ ÀÖ´Â »óÅÂÀÌ¸é ¸ñÇ¥ À§Ä¡¸¦ ¾ø¾Ø´Ù.
+	// å•Šçˆ¶æ´’ è¾‘ ä¹ç»° æƒ‘æ€•ææ æ ¼é’ å›°æ‘¹ç”« ç»çŸ©ä¿ƒ.
 	if (g_pPlayer->GetAction()==ACTION_STAND)
 	{
 		g_pTopView->SetSelectedSectorNULL();
@@ -4517,7 +4517,7 @@ CGameUpdate::ProcessInput()
 	//
 	//---------------------------------------------------
 	/*
-	// Missile Á¾·ù ¹Ù²Ù±â
+	// Missile è¾†å¹… å®˜æ“æ‰
 	if (g_pDXInput->KeyDown(DIK_1))
 		g_pPlayer->SetActionInfo( ACTIONINFO_BOMB_TO_CREATURE );
 
@@ -4536,7 +4536,7 @@ CGameUpdate::ProcessInput()
 
 	#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
 		//---------------------------------------------------
-		// ºñ~~
+		// åš~~
 		//---------------------------------------------------
 		if (g_pDXInput->KeyDown(DIK_8))
 		{
@@ -4544,7 +4544,7 @@ CGameUpdate::ProcessInput()
 		}
 
 		//---------------------------------------------------
-		// ´«~~
+		// ä¼ ~~
 		//---------------------------------------------------
 		if (g_pDXInput->KeyDown(DIK_9))
 		{
@@ -4552,7 +4552,7 @@ CGameUpdate::ProcessInput()
 		}
 
 		//---------------------------------------------------
-		// ³¯¾¾ ¸ØÃã
+		// æœæª è‚›å‹‰
 		//---------------------------------------------------
 		if (g_pDXInput->KeyDown(DIK_0))
 		{
@@ -4562,7 +4562,7 @@ CGameUpdate::ProcessInput()
 
 
 		//---------------------------------------------------
-		// ½Ã¾ß  + / -
+		// çŸ«å…·  + / -
 		//---------------------------------------------------
 
 		if (g_pDXInput->KeyDown(DIK_SUBTRACT) 
@@ -4621,7 +4621,7 @@ CGameUpdate::ProcessInput()
 		}
 
 		//---------------------------------------------------
-		// ¹à±â °¨¼Ò
+		// çŒæ‰ çš‘å®¶
 		//---------------------------------------------------
 		if (g_pDXInput->KeyDown(DIK_F9))
 		{
@@ -4630,7 +4630,7 @@ CGameUpdate::ProcessInput()
 		}
 		
 		//---------------------------------------------------
-		// ¹à±â Áõ°¡
+		// çŒæ‰ åˆ˜å•Š
 		//---------------------------------------------------
 		if (g_pDXInput->KeyDown(DIK_F10))
 		{
@@ -4696,7 +4696,7 @@ CGameUpdate::ProcessInput()
 	*/
 		
 	#ifdef OUTPUT_DEBUG
-		// ZoneÀÌµ¿ test
+		// Zoneææ‚¼ test
 		/*
 		if (g_pDXInput->KeyDown(DIK_1))
 		{	
@@ -4746,9 +4746,9 @@ CGameUpdate::ProcessInput()
 								MEffect*	pEffect;
 								pEffect = new MEffect;
 
-								pEffect->SetFrameID(0, 8);		// 0¹ø Effect, Max 8 Frame
-								pEffect->SetPosition(g_pPlayer->GetX()+j, g_pPlayer->GetY()+i);	// Sector ÁÂÇ¥						
-								pEffect->SetCount(125+rand()%8);			// Áö¼ÓµÇ´Â Frame
+								pEffect->SetFrameID(0, 8);		// 0é”… Effect, Max 8 Frame
+								pEffect->SetPosition(g_pPlayer->GetX()+j, g_pPlayer->GetY()+i);	// Sector è°…é’						
+								pEffect->SetCount(125+rand()%8);			// ç˜¤åŠ ç™»ç»° Frame
 
 								g_pZone->AddEffect( pEffect );
 							}
@@ -4777,18 +4777,18 @@ CGameUpdate::ProcessInput()
 							//pEffect = new MParabolaEffect(BLT_EFFECT);
 							pEffect = new MLinearEffect(BLT_EFFECT);
 
-							pEffect->SetFrameID(frameID, maxFrame);		// 0¹ø Effect, Max 8 Frame
+							pEffect->SetFrameID(frameID, maxFrame);		// 0é”… Effect, Max 8 Frame
 
-							// ¹ß»ç À§Ä¡ PixelÁÂÇ¥
+							// æƒ¯è¤ å›°æ‘¹ Pixelè°…é’
 							pEffect->SetPixelPosition(playerPoint.x, playerPoint.y, 0);	
 							
-							// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+							// æ ¼é’ å›°æ‘¹ Pixelè°…é’
 							pEffect->SetTarget(playerPoint.x + -i*300, 
 												playerPoint.y + -j*350,
 												0,
 												20);	// step
 
-							// Áö¼ÓµÇ´Â Frame (¸ñÇ¥°¡ ÀÖ´Ù¸é º°·Î °ü°è ¾øÀ½ - -;)
+							// ç˜¤åŠ ç™»ç»° Frame (æ ¼é’å•Š ä¹ä¿ƒæ å–Šè‚º åŒ…æ‹Œ ç»æ¾œ - -;)
 							pEffect->SetCount(1000);							
 
 							//pEffect->SetLight(1);							
@@ -4801,21 +4801,21 @@ CGameUpdate::ProcessInput()
 							MLinearEffect*	pEffect;
 							pEffect = new MLinearEffect;
 
-							pEffect->SetFrameID(0, 8);		// 0¹ø Effect, Max 8 Frame
+							pEffect->SetFrameID(0, 8);		// 0é”… Effect, Max 8 Frame
 
-							// ¹ß»ç À§Ä¡ PixelÁÂÇ¥
+							// æƒ¯è¤ å›°æ‘¹ Pixelè°…é’
 							int xx=rand()%800-300;
 							int yy=rand()%400-400;
 							int last=rand()%500;
 							pEffect->SetPixelPosition(playerPoint.x+xx, playerPoint.y+yy, 0);
 							
-							// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+							// æ ¼é’ å›°æ‘¹ Pixelè°…é’
 							pEffect->SetTarget(playerPoint.x+xx-rand()%50 , 
 												playerPoint.y+yy+last,
 												0,
 												20);
 
-							// Áö¼ÓµÇ´Â Frame (¸ñÇ¥°¡ ÀÖ´Ù¸é º°·Î °ü°è ¾øÀ½ - -;)
+							// ç˜¤åŠ ç™»ç»° Frame (æ ¼é’å•Š ä¹ä¿ƒæ å–Šè‚º åŒ…æ‹Œ ç»æ¾œ - -;)
 							pEffect->SetCount(25);						
 
 							g_pZone->AddEffect( pEffect );
@@ -4857,11 +4857,11 @@ CGameUpdate::UpdateDraw()
 		char	str[128];
 	//#endif
 
-	// buffer : InitSurface¿¡¼­ SYSTEMMEMORY·Î ÇØÁÖ°í ½á¾ßµÈ´Ù.
+	// buffer : InitSurfaceä¿Šè¾‘ SYSTEMMEMORYè‚º ç§¦æ—ç»Š ç»“å…·ç­‰ä¿ƒ.
 	//
 	//g_pLast->FillSurface(CDirectDraw::Color(20,20,20));
 	
-	// È­¸é ¹Ø¿¡ InterfaceºÎºĞ Áö¿öÁÖ±â...
+	// æ‹³æ å…³ä¿Š Interfaceä½•ç›’ ç˜¤å†µæ—æ‰...
 	// [ TEST CODE ]
 	/*
 	rect.left = 0;
@@ -4872,18 +4872,18 @@ CGameUpdate::UpdateDraw()
 	*/
 
 	//-----------------------------------------------------------------		
-	// ¸¶¿ì½º ÁÂÇ¥ ´Ù½Ã ¼³Á¤
+	// ä»˜å¿«èƒ¶ è°…é’ ä¿ƒçŸ« æ±²æ²¥
 	//-----------------------------------------------------------------
 	GetCursorPos(&point);
 
 	ScreenToClient(g_hWnd, &point);//by viva
 	
 		
-	// ui¿¡ mouseÁÂÇ¥ ¼³Á¤
+	// uiä¿Š mouseè°…é’ æ±²æ²¥
 	gC_vs_ui.MouseControl(M_MOVING, point.x, point.y);
 
 	//-----------------------------------------------------------------
-	// Å¾ºä Zone Ãâ·Â
+	// å•ªè½° Zone å…ä»¿
 	//-----------------------------------------------------------------
 	#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 			//DEBUG_ADD("dd");//[Update-Draw] Before Draw");
@@ -4892,7 +4892,7 @@ CGameUpdate::UpdateDraw()
 //	if (CDirect3D::IsHAL())
 //	{
 //		//-----------------------------------------------------------------
-//		// Game È­¸é Ãâ·Â
+//		// Game æ‹³æ å…ä»¿
 //		//-----------------------------------------------------------------
 //		__BEGIN_PROFILE("GameDraw3D")
 //			
@@ -4921,7 +4921,7 @@ CGameUpdate::UpdateDraw()
 //		#endif
 //
 //		//-----------------------------------------------------------------
-//		// UI Ãâ·Â
+//		// UI å…ä»¿
 //		//-----------------------------------------------------------------		
 //		__BEGIN_PROFILE("UIDraw3D")
 //
@@ -4934,7 +4934,7 @@ CGameUpdate::UpdateDraw()
 //			if (outputInfo || g_pUserOption->DrawFPS)
 //			{
 //				//-----------------------------------------------------------------
-//				// FPS Âï±â	
+//				// FPS å˜›æ‰	
 //				//-----------------------------------------------------------------
 //				sprintf(str, "%d FPS(HAL)", g_FrameRate);	
 //			
@@ -4955,12 +4955,12 @@ CGameUpdate::UpdateDraw()
 //	else
 	{
 		//-----------------------------------------------------------------
-		// Font Ãâ·ÂÇÏ´Â Surface¸¦ ¹Ù²ãÁà¾ß ÇÑ´Ù.
+		// Font å…ä»¿çªç»° Surfaceç”« å®˜å±‚æ‹å…· èŒ„ä¿ƒ.
 		//-----------------------------------------------------------------
 		//g_SetFL2Surface( g_pLast->GetSurface() );
 
 		//-----------------------------------------------------------------
-		// Game È­¸é Ãâ·Â
+		// Game æ‹³æ å…ä»¿
 		//-----------------------------------------------------------------
 		__BEGIN_PROFILE("GameDraw2D")
 
@@ -4998,7 +4998,7 @@ CGameUpdate::UpdateDraw()
 		#endif
 
 		//-----------------------------------------------------------------
-		// UI Ãâ·Â
+		// UI å…ä»¿
 		//-----------------------------------------------------------------		
 		__BEGIN_PROFILE("UIDraw2D")
 
@@ -5024,7 +5024,7 @@ CGameUpdate::UpdateDraw()
 			if (outputInfo || g_pUserOption->DrawFPS)
 			{
 				//-----------------------------------------------------------------
-				// FPS Âï±â	
+				// FPS å˜›æ‰	
 				//-----------------------------------------------------------------				
 				sprintf(str, "%d FPS", g_FrameRate);	
 				
@@ -5034,7 +5034,7 @@ CGameUpdate::UpdateDraw()
 		__END_PROFILE("DrawFPS")
 
 		//-----------------------------------------------------------------
-		// Last¸¦ BackÀ¸·Î copy - 3D HALÀÌ ¾Æ´Ñ °æ¿ì¸¸..
+		// Lastç”« Backæ è‚º copy - 3D HALæ é…’å›± ç‰ˆå¿«çˆ¶..
 		//-----------------------------------------------------------------
 		__BEGIN_PROFILE("LastToBack")
 
@@ -5069,7 +5069,7 @@ CGameUpdate::UpdateDraw()
 
 
 	//-------------------------------------------------------------------
-	// Mouse·Î ¼±ÅÃÇÑ ÁÂÇ¥¿¡ ´ëÇÑ debug¿ë code
+	// Mouseè‚º æ€¥ç¶èŒ„ è°…é’ä¿Š æªèŒ„ debugä¾© code
 	//-------------------------------------------------------------------
 	/*
 	WORD*	lpSurface;
@@ -5095,7 +5095,7 @@ CGameUpdate::UpdateDraw()
 
 
 	//-----------------------------------------------------------------
-	// tab´©¸£¸é MiniMapÀÌ º¸¿©Áø´Ù.
+	// tabç©¿ç¦æ MiniMapæ ç„Šå’¯æŸ³ä¿ƒ.
 	//-----------------------------------------------------------------
 	//if (g_bDrawMinimap)
 	//{	
@@ -5106,7 +5106,7 @@ CGameUpdate::UpdateDraw()
 	//}
 
 	//-----------------------------------------------------------------
-	// ³×Æ®¿÷ »óÅÂ°¡ ÁÁÀº°¡?
+	// åŒ™é£˜äº æƒ‘æ€•å•Š äº®ç¯®å•Š?
 	//-----------------------------------------------------------------
 	/*
 	if (!g_bNetStatusGood)
@@ -5119,7 +5119,7 @@ CGameUpdate::UpdateDraw()
 	*/
 
 	//-----------------------------------------------------------------
-	// Á×Àº »óÅÂ..
+	// ç£·ç¯® æƒ‘æ€•..
 	//-----------------------------------------------------------------
 	if (g_pPlayer->IsDead())
 	{
@@ -5139,16 +5139,16 @@ CGameUpdate::UpdateDraw()
 				blackValue = min(31, second+20);
 			}
 
-			// Á×´Â µ¿ÀÛÀÌ ³¡³­ °æ¿ì¿¡ È­¸éÀ» °Ë°Ô...
+			// ç£·ç»° æ‚¼ç´¯æ åœºæŠ„ ç‰ˆå¿«ä¿Š æ‹³æé˜‘ å…«éœ¸...
 			g_pTopView->SetFadeStart(blackValue, 0, 0, 5,5,5);
 		
 
-			// 6 frame¾¿ º¸¿©ÁØ´Ù.
+			// 6 frameç©¶ ç„Šå’¯éœ–ä¿ƒ.
 			if ((a & 0x01)==0)
 			{
 				//if (second==0)
 				{
-					//sprintf(str, "[SPACE]¸¦ ´©¸£¸é µÇ»ì¾Æ³¯ ¼ö ÀÖ½À´Ï´Ù.", second);
+					//sprintf(str, "[SPACE]ç”« ç©¿ç¦æ ç™»æ··é…’æœ è ä¹åš¼èªä¿ƒ.", second);
 					//g_pBack->GDI_Text(270,400, str, RGB(230,230,230));
 				}
 				//else
@@ -5159,7 +5159,7 @@ CGameUpdate::UpdateDraw()
 				//	g_pBack->GDI_Text(300,400, str, RGB(230,230,230));
 				}
 				
-				// 6ÃÊ°¡ Áö³ª°í³ª¼­ ºÎÈ°¹öÆ°À» ¶ç¿î´Ù.
+				// 6æª¬å•Š ç˜¤å”±ç»Šå”±è¾‘ ä½•åŠæ»šç“¢é˜‘ å‰æ¬¾ä¿ƒ.
 				if (second < 4
 					&& g_pTempInformation->GetMode()==TempInformation::MODE_NULL)
 				{
@@ -5172,7 +5172,7 @@ CGameUpdate::UpdateDraw()
 					g_pTempInformation->SetMode(TempInformation::MODE_WAIT_RESURRECT);
 					bool bResurrect = false, bElixir= false, bEternity= false, IsSiegeAttacker= false ;
 
-					// 2005, 1, 18, sobeit add start - Äù½ºÆ® actionÀ¸·Î Á×Àº °æ¿ì¿£ ¾Æ·¡¸¦ Ã¼Å© ¾ÈÇÑ´Ù.
+					// 2005, 1, 18, sobeit add start - æ¶…èƒ¶é£˜ actionæ è‚º ç£·ç¯® ç‰ˆå¿«æµš é…’è´°ç”« çœ‰å†œ æ•‘èŒ„ä¿ƒ.
 					if(0 == g_pPlayer->GetResurrectZoneID())
 					// 2005, 1, 18, sobeit add end
 					{
@@ -5185,7 +5185,7 @@ CGameUpdate::UpdateDraw()
 						//bEternity = (*g_pSkillInfoTable)[SKILL_ETERNITY].IsEnable();						
 						bEternity = g_pSkillAvailable->IsEnableSkill( SKILL_ETERNITY ) &&
 									(*g_pSkillInfoTable)[SKILL_ETERNITY].IsAvailableTime() 
-									// 2004, 11, 11, sobeit add start - ·¹º§ °Ë»çµµ ÇÑ´Ù.. ¿ä°Å..g_char_slot_ingame.DOMAIN_HEAL´Â ¹¹Áö? -_-; ¹ö±× ¼öÁ¤..¤Ñ¤Ñ;
+									// 2004, 11, 11, sobeit add start - é¥­éª‡ å…«è¤æ¡£ èŒ„ä¿ƒ.. å¤¸èŠ­..g_char_slot_ingame.DOMAIN_HEALç»° æ„ç˜¤? -_-; æ»šå¼Š èæ²¥..ã±ã±;
 									&& (*g_pSkillManager)[SKILLDOMAIN_HEAL].GetDomainLevel() >= (*g_pSkillInfoTable)[SKILL_ETERNITY].GetLearnLevel();
 									// 2004, 11, 11, sobeit add end
 						IsSiegeAttacker = g_pZone->GetPKType() == PK_TYPE_SIEGE &&
@@ -5209,12 +5209,12 @@ CGameUpdate::UpdateDraw()
 	}
 
 	//-----------------------------------------------------------------
-	// Mouse Cursor À§Ä¡ÀÇ image¸¦ ±â¾ï½ÃÄÑµÎ±â
+	// Mouse Cursor å›°æ‘¹ç‹¼ imageç”« æ‰æ’…çŸ«éš¾æ»´æ‰
 	//-----------------------------------------------------------------
 	//
-	// FullScreenÀÌ°í...
-	// ¹Ù·Î ÀüÀÇ FPS°¡ Ãâ·ÂFPS ÇÑ°è¸¦ ³ÑÀ» °æ¿ì....
-	// Ä¿¼­ Ãâ·Â À§Ä¡¸¦ ±â¾ïÇÑ´Ù.
+	// FullScreenæç»Š...
+	// å®˜è‚º å‚ˆç‹¼ FPSå•Š å…ä»¿FPS èŒ„æ‹Œç”« é€é˜‘ ç‰ˆå¿«....
+	// ç›®è¾‘ å…ä»¿ å›°æ‘¹ç”« æ‰æ’…èŒ„ä¿ƒ.
 	// 	
 	if (g_pUserOption->UseSmoothCursor)
 	{
@@ -5224,10 +5224,10 @@ CGameUpdate::UpdateDraw()
 			
 			ScreenToClient(g_hWnd, &point);//by viva
 			
-			// ui¿¡ mouseÁÂÇ¥ ¼³Á¤
+			// uiä¿Š mouseè°…é’ æ±²æ²¥
 			gC_vs_ui.MouseControl(M_MOVING, point.x, point.y);
 
-			// ÀúÀåÇÒ ¿µ¿ª ¼³Á¤
+			// å†å˜ä¸” åº·å¼€ æ±²æ²¥
 			MOUSEPOINTER_INFO mp_info;
 			gC_vs_ui.GetCurrentMousePointerInfo(mp_info);
 
@@ -5250,14 +5250,14 @@ CGameUpdate::UpdateDraw()
 	{
 		//GetCursorPos(&point);	
 			
-		// ui¿¡ mouseÁÂÇ¥ ¼³Á¤
+		// uiä¿Š mouseè°…é’ æ±²æ²¥
 		//gC_vs_ui.MouseControl(M_MOVING, point.x, point.y);
 	}
 
 	if (CDirect3D::IsHAL())
 	{
 		//-----------------------------------------------------------------
-		// Mouse ±×¸®±â
+		// Mouse å¼Šåºœæ‰
 		//-----------------------------------------------------------------		
 		if (!g_pTopView->IsDrawRequest())
 		{
@@ -5266,15 +5266,15 @@ CGameUpdate::UpdateDraw()
 	}
 	else
 	{
-		// Ã¢¸ğµå¿¡¼­ 3D°¡¼Ó ¾ÈÇÑ °æ¿ì¿¡..
-		// ¿Ö ÀÌ°Å ÇÏ´Ï±î »¡¶óÁöÁö? - -;
+		// èŠ’è‘›é›ä¿Šè¾‘ 3Då•ŠåŠ  æ•‘èŒ„ ç‰ˆå¿«ä¿Š..
+		// æ æèŠ­ çªèªé³– å¼§æ‰¼ç˜¤ç˜¤? - -;
 		//HDC hdc;
 		//g_pBack->GetSurface()->GetDC(&hdc);
 		//g_pBack->GetSurface()->ReleaseDC(hdc);
 	}
 
 	//-----------------------------------------------------------------
-	// Debug InformationÃâ·Â
+	// Debug Informationå…ä»¿
 	//-----------------------------------------------------------------
 	__BEGIN_PROFILE("DrawDebugInfo")
 
@@ -5486,7 +5486,7 @@ CGameUpdate::UpdateDraw()
 			//-----------------------------------------------------------------
 			//if (!g_pBack->Lock()) return;
 
-			// SurfaceÀÇ Á¤º¸¸¦ ÀúÀåÇØµĞ´Ù.
+			// Surfaceç‹¼ æ²¥ç„Šç”« å†å˜ç§¦æ•Œä¿ƒ.
 			//S_SURFACEINFO		SurfaceInfo;
 			//SetSurfaceInfo(&SurfaceInfo, g_pBack->GetDDSD());
 		
@@ -5509,7 +5509,7 @@ CGameUpdate::UpdateDraw()
 					}
 				}
 
-				// Debug Log Filename Ãâ·ÂÇÏ±â
+				// Debug Log Filename å…ä»¿çªæ‰
 				if (g_pDebugMessage->GetFilename()!=NULL)
 				{
 					sprintf(str, "LogFile : %s", g_pDebugMessage->GetFilename());
@@ -5535,7 +5535,7 @@ CGameUpdate::UpdateDraw()
 				g_Print(300, 5, str, pPrintInfo);
 			}
 			
-			// MissileÁ¾·ù
+			// Missileè¾†å¹…
 			///*	 
 			if (g_pPlayer->GetSpecialActionInfo() != ACTIONINFO_NULL)
 			{
@@ -5558,7 +5558,7 @@ CGameUpdate::UpdateDraw()
 			}	
 			//*/
 
-			// °¡Áø µ·
+			// å•ŠæŸ³ æ£
 			sprintf(str, "Money : %d", (*g_pMoneyManager).GetMoney());
 			
 			//g_pBack->GDI_Text(550,10, str, RGB(20,20,20));
@@ -5586,7 +5586,7 @@ CGameUpdate::UpdateDraw()
 		
 
 			/*
-			// ÀÓ½Ã·Î item °³¼ö º¸¿©ÁÖ±â
+			// çƒ™çŸ«è‚º item ä¿ºè ç„Šå’¯æ—æ‰
 			if (gpC_mouse_pointer->GetPickUpItem() != NULL)
 			{
 				sprintf(str, "%d", gpC_mouse_pointer->GetPickUpItem()->GetNumber());
@@ -5606,7 +5606,7 @@ CGameUpdate::UpdateDraw()
 	if (outputInfo || (*g_pUserOption).DrawFPS)
 	{
 		//-----------------------------------------------------------------
-		// FPS Âï±â	
+		// FPS å˜›æ‰	
 		//-----------------------------------------------------------------
 		if (CDirect3D::IsHAL())
 		{
@@ -5625,14 +5625,14 @@ CGameUpdate::UpdateDraw()
 
 	//---------------------------------------------------------------------
 	//
-	// [ TEST CODE ] - Sword DomainÀÇ SkillµéÀ» °¡Áö°í ÀÛ¾÷ÇÑ´Ù.
+	// [ TEST CODE ] - Sword Domainç‹¼ Skillç”¸é˜‘ å•Šç˜¤ç»Š ç´¯è¯€èŒ„ä¿ƒ.
 	//
 	//---------------------------------------------------------------------
 	/*
 	MSkillDomain& swordDomain = g_SkillManager[SKILLDOMAIN_SWORD];
 
 	//---------------------------------------------------------------------
-	// ¸î°¡Áö skillÀ» ¹è¿ü´Ù°í Ç¥½ÃÇÑ´Ù.
+	// å‰²å•Šç˜¤ skillé˜‘ ç¡…å¥ä¿ƒç»Š é’çŸ«èŒ„ä¿ƒ.
 	//---------------------------------------------------------------------
 	//swordDomain.LearnSkill( SKILL_DOUBLE_IMPACT );
 	//swordDomain.LearnSkill( SKILL_TRIPLE_SLASHER );
@@ -5642,27 +5642,27 @@ CGameUpdate::UpdateDraw()
 	//swordDomain.UnLearnSkill( SKILL_HURRICANE_COMBO );
 
 	//---------------------------------------------------------------------
-	// Sword DomainÀÇ ¸ğµç ±â¼úµéÀ» Ãâ·ÂÇÑ´Ù.
+	// Sword Domainç‹¼ è‘›ç”µ æ‰è´±ç”¸é˜‘ å…ä»¿èŒ„ä¿ƒ.
 	//---------------------------------------------------------------------
 	swordDomain.SetBegin();
 	
 	while (swordDomain.IsNotEnd())
 	{
-		// skillÀÇ id¿Í status
+		// skillç‹¼ idå®¢ status
 		ACTIONINFO					id		= swordDomain.GetSkillID();
 		MSkillDomain::SKILLSTATUS	status	= swordDomain.GetSkillStatus();
 
 		//---------------------------------------
-		// status´Â ´ÙÀ½°ú °°´Ù. 
+		// statusç»° ä¿ƒæ¾œè‹ éä¿ƒ. 
 		//---------------------------------------
-		//	MSkillDomain::SKILLSTATUS_LEARNED		// ¹è¿ü´Ù.
-		//	MSkillDomain::SKILLSTATUS_NEXT			// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-		//	MSkillDomain::SKILLSTATUS_OTHER			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù.	
+		//	MSkillDomain::SKILLSTATUS_LEARNED		// ç¡…å¥ä¿ƒ.
+		//	MSkillDomain::SKILLSTATUS_NEXT			// ä¿ƒæ¾œä¿Š ç¡…åŒ¡ è ä¹ä¿ƒ.
+		//	MSkillDomain::SKILLSTATUS_OTHER			// é…’æµç¯® ç¡…åŒ¡ è ç»ä¿ƒ.	
 		//---------------------------------------
 		
 		//---------------------------------------
-		// id¸¦ ¾Ë¸é g_SkillInfoTable¿¡¼­ 
-		// ±× idÀÇ skill¿¡ ´ëÇÑ Á¤º¸¸¦ ¾òÀ» ¼ö ÀÖ´Ù.
+		// idç”« èˆ…æ g_SkillInfoTableä¿Šè¾‘ 
+		// å¼Š idç‹¼ skillä¿Š æªèŒ„ æ²¥ç„Šç”« æ˜é˜‘ è ä¹ä¿ƒ.
 		//---------------------------------------
 		COLORREF color;
 		switch (status)
@@ -5687,12 +5687,12 @@ CGameUpdate::UpdateDraw()
 		g_pBack->GDI_Text(x+1, y+1, skillInfo.GetName(), 0);
 		g_pBack->GDI_Text(x, y, skillInfo.GetName(), color);
 
-		// ´ÙÀ½
+		// ä¿ƒæ¾œ
 		swordDomain.Next();
 	}
 	//*/
 
-	// Ä¿¼­ Ãâ·Â
+	// ç›®è¾‘ å…ä»¿
 	//WORD color = 0xFFFF;//(rand()%2)?CDirectDraw::Color(20,20,20):CDirectDraw::Color(230,230,230);
 	//g_pBack->HLine(point.x-7, point.y, 7, color);
 	//g_pBack->HLine(point.x+1, point.y, 7, color);
@@ -5734,7 +5734,7 @@ CGameUpdate::UpdateDrawHelp()
 		}		
 	}
 
-	// 5ÃÊ¸¶´Ù ÇÑ¹ø¾¿.. scroll
+	// 5æª¬ä»˜ä¿ƒ èŒ„é”…ç©¶.. scroll
 	static DWORD HelplastTime = g_CurrentTime;
 	if (g_CurrentTime - HelplastTime >= g_pClientConfig->DELAY_GAMEMESSAGE)
 	{
@@ -5791,7 +5791,7 @@ PacketAttackMelee(int user, int target)
 	packet.execute( g_pSocket );
 }
 */
-///ÒÔÏÂÊÇ¼ì²âÏµÍ³ÊÇ·ñÓĞµÇÂ½¶ş¸öÓÃ»§
+///ä»¥ä¸‹æ˜¯æ£€æµ‹ç³»ç»Ÿæ˜¯å¦æœ‰ç™»é™†äºŒä¸ªç”¨æˆ·
 int GetCurrentUserNumber()
 {
 	HANDLE			hSnapShot;
@@ -5840,7 +5840,7 @@ int GetCurrentUserNumber()
 //-----------------------------------------------------------------------------
 // Update Game
 //-----------------------------------------------------------------------------
-// °ÔÀÓ ½ÇÇà Áß...
+// éœ¸çƒ™ è§’é’ å...
 //-----------------------------------------------------------------------------
 void 
 CGameUpdate::Update(void)
@@ -5863,7 +5863,7 @@ CGameUpdate::Update(void)
 	}
 	
 	//------------------------------------------
-	// Logout ÇÒ ½Ã°£ÀÎÄ¡ Ã¼Å©ÇÑ´Ù.
+	// Logout ä¸” çŸ«åŸƒç‰¢æ‘¹ çœ‰å†œèŒ„ä¿ƒ.
 	//------------------------------------------
 	if (g_pUserInformation!=NULL
 		&& g_pUserInformation->LogoutTime!=0
@@ -5872,7 +5872,7 @@ CGameUpdate::Update(void)
 	{
 		ExecuteLogout();
 
-		g_pUserInformation->LogoutTime = 0;	// Logout½Ã°£ Á¦°Å
+		g_pUserInformation->LogoutTime = 0;	// LogoutçŸ«åŸƒ åŠ›èŠ­
 
 		#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 			//DEBUG_ADD("UE2");
@@ -5899,9 +5899,9 @@ CGameUpdate::Update(void)
 
 
 	//---------------------------------------------
-	// Sound°ü·Ã
+	// SoundåŒ…è®¿
 	//---------------------------------------------
-	// ¸Å loop ¸¶´Ù ¾ÈÇØÁàµµ µÇÁö ¾ÊÀ»±î..
+	// æ¦‚ loop ä»˜ä¿ƒ æ•‘ç§¦æ‹æ¡£ ç™»ç˜¤ è‡¼é˜‘é³–..
 	#ifdef OUTPUT_DEBUG_UPDATE_LOOP
 		//DEBUG_ADD("DXRTDB");
 	#endif
@@ -5916,24 +5916,24 @@ CGameUpdate::Update(void)
 
 	if (g_CurrentTime > nextSoundCheckTime)
 	{
-		// ÃÊ´ç playÇÑ sound ¼ö..
+		// æª¬å¯¸ playèŒ„ sound è..
 		g_SoundPerSecond = 0;
 
-		// 1ÃÊ ÈÄ
+		// 1æª¬ é¥¶
 		nextSoundCheckTime = g_CurrentTime + 1000;
 	}
 
 	//---------------------------------------------------
 	//
-	// ÀÏÁ¤ ½Ã°£¸¶´Ù ÇÑ¹ø¾¿ Ã³¸®¸¦ ÇØÁØ´Ù.
+	// è€æ²¥ çŸ«åŸƒä»˜ä¿ƒ èŒ„é”…ç©¶ è´¸åºœç”« ç§¦éœ–ä¿ƒ.
 	//
 	//---------------------------------------------------
-	// [¿¹Á¦]
+	// [æŠ—åŠ›]
 	// g_UpdateDelay	: 100
 	// lastTime			: 1000 
 	// currentTime		: 1240 
 	//
-	// 1200, 1100ÀÇ µÎ¹øÀ» Ã³¸®ÇÏ°Ô µÈ´Ù.
+	// 1200, 1100ç‹¼ æ»´é”…é˜‘ è´¸åºœçªéœ¸ ç­‰ä¿ƒ.
 	//---------------------------------------------------
 
 	int k = g_pClientConfig->MAX_UPDATE_ONETIME;		// 12 frame * 1 Tile.. 
@@ -5948,9 +5948,9 @@ CGameUpdate::Update(void)
 	UpdateMouse();
 
 	//------------------------------------------
-	// ¹«ÇÑ·çÇÁ ¿¹¹æµµ µÇ°í...
-	// k°ª¸¶´Ù ÇÑ¹ø¾¿Àº Draw¸¦ ÇØÁÖ±â ¶§¹®¿¡
-	// Frame SkippingÀ» Àû¿ë½ÃÅ²´Ù.				
+	// å…¬èŒ„é£æ©‡ æŠ—è§„æ¡£ ç™»ç»Š...
+	// kè”¼ä»˜ä¿ƒ èŒ„é”…ç©¶ç¯® Drawç”« ç§¦æ—æ‰ é”­å·©ä¿Š
+	// Frame Skippingé˜‘ åˆ©ä¾©çŸ«æŒªä¿ƒ.				
 	//------------------------------------------
 	DWORD	TempCurrentTime	=g_CurrentTime;
 	DWORD	TemplastTime =lastTime;
@@ -5969,12 +5969,12 @@ CGameUpdate::Update(void)
 	if (g_CheckTimeNum>30)
 	{
 		g_CheckTimeNum=0;
-		// 2006.11.07  È¥³ı³ÌĞòË«¿ª¼ì²â Coffee 
+		// 2006.11.07  å»é™¤ç¨‹åºåŒå¼€æ£€æµ‹ Coffee 
 		/*
 		if(GetCurrentUserNumber()>1)
 		{
-			//char* szInfo="³ÌĞòÒÑ¼ì²â³öÄãÊ¹ÓÃÁËË«ÓÃ»§µÇÂ½ÏµÍ³£¬ÇëÍË³öÒ»¸öWindowsÓÃ»§ÔÙµÇÂ½ÓÎÏ·¡£";
-			//MessageBox(0,szInfo,"³ö´í",MB_OK);
+			//char* szInfo="ç¨‹åºå·²æ£€æµ‹å‡ºä½ ä½¿ç”¨äº†åŒç”¨æˆ·ç™»é™†ç³»ç»Ÿï¼Œè¯·é€€å‡ºä¸€ä¸ªWindowsç”¨æˆ·å†ç™»é™†æ¸¸æˆã€‚";
+			//MessageBox(0,szInfo,"å‡ºé”™",MB_OK);
 			g_bNeedUpdate = TRUE;
 			SetMode(MODE_QUIT);
 			g_ModeNext = MODE_QUIT;
@@ -5994,7 +5994,7 @@ CGameUpdate::Update(void)
 	FindWindow("a","b");
 	if (g_CurrentTime - lastTime >= tmp)
 	{
-		// º¯È­µÈ°ÍÀÌ ÀÖ´Ù°í check
+		// å‡½æ‹³ç­‰å·´æ ä¹ä¿ƒç»Š check
 		g_bFrameChanged = true;
 
 		do
@@ -6003,14 +6003,14 @@ CGameUpdate::Update(void)
 				//DEBUG_ADD("CGUP");
 			#endif
 
-			// °ÔÀÓÀÇ frame¼ö Áõ°¡
+			// éœ¸çƒ™ç‹¼ frameè åˆ˜å•Š
 			g_CurrentFrame++;
 		
 			//if (--k==0) break;
 
 			//------------------------------------------
 			//
-			// Socket ÀÔ·Â Ã³¸®
+			// Socket æ¶ä»¿ è´¸åºœ
 			//
 			//------------------------------------------
 			__BEGIN_PROFILE("GameSocketInput")
@@ -6037,12 +6037,12 @@ CGameUpdate::Update(void)
 
 			//------------------------------------------
 			//
-			// Input Ã³¸®
+			// Input è´¸åºœ
 			//
 			//------------------------------------------
 			if (g_bActiveGame)
 			{
-				// Input°ªÀ» ÀĞ¾î¿Â´Ù.
+				// Inputè”¼é˜‘ ä½¬ç»¢æŸ¯ä¿ƒ.
 				UpdateInput();
 				
 				__BEGIN_PROFILE("ProcessInput")
@@ -6078,18 +6078,18 @@ CGameUpdate::Update(void)
 			}
 
 			//------------------------------------------
-			// 1ºĞ¸¶´Ù ÇÑ¹ø¾¿ º¸³»´Â packet
+			// 1ç›’ä»˜ä¿ƒ èŒ„é”…ç©¶ ç„Šéƒ´ç»° packet
 			//------------------------------------------
 			CheckTime();
 //			CheckInvalidProcess();
 			//------------------------------------------
-			// Á¢¼ÓÀ» À¯ÁöÇØ¾ßÇÏ´Â °æ¿ì¿¡´Â Á¢¼Ó À¯Áö..
+			// ç«‹åŠ é˜‘ èœ¡ç˜¤ç§¦å…·çªç»° ç‰ˆå¿«ä¿Šç»° ç«‹åŠ  èœ¡ç˜¤..
 			//------------------------------------------			
 			//KeepConnection();
 
 			//------------------------------------------
 			//
-			// Socket Ãâ·Â Ã³¸®
+			// Socket å…ä»¿ è´¸åºœ
 			//
 			//------------------------------------------
 			__BEGIN_PROFILE("GameSocketOutput")
@@ -6111,7 +6111,7 @@ CGameUpdate::Update(void)
 
 			//------------------------------------------
 			//
-			//	³¯¾¾ Ã³¸®
+			//	æœæª è´¸åºœ
 			//
 			//------------------------------------------
 			if (g_pWeather!=NULL)
@@ -6161,7 +6161,7 @@ CGameUpdate::Update(void)
 
 			//------------------------------------------
 			//
-			// ZoneÀÇ objectµéÀ» updateÇÑ´Ù.
+			// Zoneç‹¼ objectç”¸é˜‘ updateèŒ„ä¿ƒ.
 			//
 			//------------------------------------------
 			#ifdef OUTPUT_DEBUG_UPDATE_LOOP
@@ -6198,11 +6198,11 @@ CGameUpdate::Update(void)
 //end
 
 /* add by sonic 2006.9.12 */
-//Ôö¼ÓÊ±¼ä¼ì²â
+//å¢åŠ æ—¶é—´æ£€æµ‹
 		static DWORD nextTime = g_CurrentTime + 60000;
 		
 		//------------------------------------------------------------------
-		// 1ºĞ ¸¶´Ù ÇÑ¹ø¾¿ garbarge packetÀ» º¸³½´Ù.
+		// 1ç›’ ä»˜ä¿ƒ èŒ„é”…ç©¶ garbarge packeté˜‘ ç„Šè¾°ä¿ƒ.
 		//------------------------------------------------------------------
 		int nextTimeValue =60000;
 		
@@ -6247,11 +6247,11 @@ CGameUpdate::Update(void)
 		*/
 /* add end by sonic */
 		//CRYPT_END
-		// k¹ø ¸¸Å­ updateÇß´Âµ¥µµ..
-		// ´õ updateÇØ¾ßÇÒ °ÍÀÌ ÀÖÀ¸¸é.. ¹«½ÃÇÑ´Ù..
-		// ¹«½ÃÇÒ±î??
-		// µğ¾ÆÃ³·³.. °©ÀÚ±â ´Ş¸®±â´Â ¾î¶³±î? -_-;
-		//¼ì²âÍâ¹Ò
+		// ké”… çˆ¶æ€’ updateæ²ç»°å•æ¡£..
+		// æ­¹ updateç§¦å…·ä¸” å·´æ ä¹æ æ.. å…¬çŸ«èŒ„ä¿ƒ..
+		// å…¬çŸ«ä¸”é³–??
+		// å¼é…’è´¸çƒ¦.. ç™Œç£Šæ‰ å´”åºœæ‰ç»° ç»¢å†»é³–? -_-;
+		//æ£€æµ‹å¤–æŒ‚
 		
 		if(g_CheckErrorTime>=5)
 		{
@@ -6263,12 +6263,12 @@ CGameUpdate::Update(void)
 		static int OnetimeUpdateCount = 0;
 		if (k==0)
 		{
-			//lastTime = g_CurrentTime;  // ¹«½ÃÇÏ´Â °æ¿ì..
+			//lastTime = g_CurrentTime;  // å…¬çŸ«çªç»° ç‰ˆå¿«..
 			OnetimeUpdateCount++;
 	
 			if (OnetimeUpdateCount > g_pClientConfig->MAX_UPDATE_ONETIME_COUNT)
 			{
-				// ´õ ÀÌ»óÀº update¸øÇÏ°Ô ÇÑ´Ù.
+				// æ­¹ ææƒ‘ç¯® updateç»™çªéœ¸ èŒ„ä¿ƒ.
 				lastTime = g_CurrentTime;
 				OnetimeUpdateCount = 0;
 			}
@@ -6288,7 +6288,7 @@ CGameUpdate::Update(void)
 	}
 //CRYPT_END
 	//---------------------------------------------
-	// Update È¸¼ö Ãâ·Â
+	// Update é›€è å…ä»¿
 	//---------------------------------------------
 	/*
 	#ifdef OUTPUT_DEBUG
@@ -6315,7 +6315,7 @@ CGameUpdate::Update(void)
 		if (lastHour != currentHour)
 		{
 			//---------------------------------------------
-			// ½Ã°£ÀÌ ¹Ù²¼À¸¸é ±×¸²ÀÚµµ ¹Ù²ã¾ß ÇÑ´Ù.
+			// çŸ«åŸƒæ å®˜å¸ƒæ æ å¼Šè¦†ç£Šæ¡£ å®˜å±‚å…· èŒ„ä¿ƒ.
 			//---------------------------------------------
 			if (g_pTopView!=NULL)
 			{
@@ -6325,9 +6325,9 @@ CGameUpdate::Update(void)
 			lastHour = g_pGameTime->GetHour();
 
 			//---------------------------------------------
-			// À½¾Çµµ ¹Ù²Û´Ù.
+			// æ¾œå©æ¡£ å®˜æ§½ä¿ƒ.
 			//---------------------------------------------
-			// Â¦¼ö ½Ã°£´ë¿¡¸¸ À½¾Ç ¿¬ÁÖ..
+			// å¨„è çŸ«åŸƒæªä¿Šçˆ¶ æ¾œå© æ¥·æ—..
 			if ((currentHour & 0x01)==0)
 			{
 				PlayMusicCurrentZone();
@@ -6337,7 +6337,7 @@ CGameUpdate::Update(void)
 
 		
 		//---------------------------------------------
-		// ½Ã°£
+		// çŸ«åŸƒ
 		//---------------------------------------------
 		char str[80];
 
@@ -6359,7 +6359,7 @@ CGameUpdate::Update(void)
 		}
 
 		//---------------------------------------------
-		// ½Ã°£
+		// çŸ«åŸƒ
 		//---------------------------------------------
 		sprintf(str, (*g_pGameStringTable)[STRING_DRAW_GAME_DATE].GetString(),
 					g_pGameTime->GetYear(),
@@ -6372,7 +6372,7 @@ CGameUpdate::Update(void)
 	
 	
 	//---------------------------------------------
-	// ZoneÀÇ È¯°æ »ç¿îµå Ãâ·Â
+	// Zoneç‹¼ åˆ¸ç‰ˆ è¤æ¬¾é› å…ä»¿
 	//---------------------------------------------
 	if (g_pZoneSoundManager!=NULL)
 	{
@@ -6380,13 +6380,13 @@ CGameUpdate::Update(void)
 	}
 
 	//---------------------------------------------
-	// UI¿¡ player ÁÂÇ¥ ¼³Á¤
+	// UIä¿Š player è°…é’ æ±²æ²¥
 	//---------------------------------------------
 	gC_vs_ui.SetXY( g_pPlayer->GetX(), g_pPlayer->GetY() );
 
 	//---------------------------------------------
 	//
-	// Draw - º¯È­µÈ°Ô ÀÖÀ¸¸é ±×·ÁÁØ´Ù.
+	// Draw - å‡½æ‹³ç­‰éœ¸ ä¹æ æ å¼Šå¦¨éœ–ä¿ƒ.
 	//
 	//---------------------------------------------
 // 	if (g_bActiveGame
@@ -6401,8 +6401,8 @@ CGameUpdate::Update(void)
 		static DWORD oldFrame = 0;
 
 		//------------------------------------------------------
-		// UpdateµÆÀ¸¸é.. 
-		// »õ·Î¿î °ÔÀÓ È­¸éÀ» ±×·ÁÁØ´Ù.
+		// Updateç¯æ æ.. 
+		// è´§è‚ºæ¬¾ éœ¸çƒ™ æ‹³æé˜‘ å¼Šå¦¨éœ–ä¿ƒ.
 		//------------------------------------------------------
 		if (g_bFrameChanged || !(*g_pUserOption).UseSmoothCursor)
 		{
@@ -6414,7 +6414,7 @@ CGameUpdate::Update(void)
 			
 			/*
 			//------------------------------------------------------
-			// ¿ÜÄ¡±â ½Ã°£ °»½Å..
+			// å¯‡æ‘¹æ‰ çŸ«åŸƒ ç›è„š..
 			//------------------------------------------------------
 			if (g_CurrentTime > g_pUserInformation->GlobalSayTime+g_pClientConfig->DELAY_GLOBAL_SAY
 				//#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
@@ -6422,11 +6422,11 @@ CGameUpdate::Update(void)
 				//#endif
 				)			
 			{
-				// Á¤»óÀûÀÎ Ãâ·Â			
+				// æ²¥æƒ‘åˆ©ç‰¢ å…ä»¿			
 				gC_vs_ui.SetInputStringColor( gpC_base->m_chatting_pi.text_color );
 			}
 			//------------------------------------------------------
-			// ¿ÜÄ¡±â ºÒ°¡´É »óÅÂ
+			// å¯‡æ‘¹æ‰ é˜‚å•Šç“· æƒ‘æ€•
 			//------------------------------------------------------
 			else
 			{
@@ -6452,9 +6452,9 @@ CGameUpdate::Update(void)
 			*/
 
 			//------------------------------------------------------
-			// È­¸é Ãâ·Â
+			// æ‹³æ å…ä»¿
 			//------------------------------------------------------
-			// ¸¶¿ì½º ÁÂÇ¥³ª ... frameÀÌ ¹Ù²ï °æ¿ì¿¡ Ãâ·Â..
+			// ä»˜å¿«èƒ¶ è°…é’å”± ... frameæ å®˜è¯§ ç‰ˆå¿«ä¿Š å…ä»¿..
 			if (g_CurrentFrame != oldFrame
 				|| g_x != oldX
 				|| g_y != oldY || 1)
@@ -6491,7 +6491,7 @@ CGameUpdate::Update(void)
 			//g_FrameCount++;
 		}		
 		//------------------------------------------------------
-		// ºÎµå·´°Ô ¿òÁ÷ÀÌ´Â Ä¿¼­¸¦ Ãâ·ÂÇÒ±î??
+		// ä½•é›åéœ¸ æ¡†æµæç»° ç›®è¾‘ç”« å…ä»¿ä¸”é³–??
 		//------------------------------------------------------
 		else if (g_bSmoothCursor)
 		{
@@ -6504,30 +6504,30 @@ CGameUpdate::Update(void)
 
 			ScreenToClient(g_hWnd, &cursorPoint);//by viva
 
-			// UI¿¡ ¸¶¿ì½º ÁÂÇ¥ ¼³Á¤
+			// UIä¿Š ä»˜å¿«èƒ¶ è°…é’ æ±²æ²¥
 			gC_vs_ui.MouseControl(M_MOVING, cursorPoint.x, cursorPoint.y);
 
 
 			//------------------------------------------------------
-			// ¹æ±İ °ÔÀÓ È­¸éÀÌ ±×·ÁÁø »óÅÂ¶ó¸é..
+			// è§„é™› éœ¸çƒ™ æ‹³ææ å¼Šå¦¨æŸ³ æƒ‘æ€•æ‰¼æ..
 			//------------------------------------------------------
-			// ´ÙÀ½ºÎÅÍ´Â FlipÇØ¼­ ¸¶¿ì½º¸¸ ±×¸®±â À§ÇØ¼­..
-			// Primary¿Í BackÀ» ¶È°°ÀÌ ¸¸µç´Ù.
+			// ä¿ƒæ¾œä½•ç£ç»° Flipç§¦è¾‘ ä»˜å¿«èƒ¶çˆ¶ å¼Šåºœæ‰ å›°ç§¦è¾‘..
+			// Primaryå®¢ Backé˜‘ åº¦éæ çˆ¶ç”µä¿ƒ.
 			//------------------------------------------------------
 			if (g_bNewDraw)
 			{
-				// ´Ù½Ã false·Î..
+				// ä¿ƒçŸ« falseè‚º..
 				g_bNewDraw = false;
 				
 				//------------------------------------------------------
-				// PrimarySurface --> BackSurface·Î copy
+				// PrimarySurface --> BackSurfaceè‚º copy
 				//------------------------------------------------------
-				// ÇÏµå¿ş¾î °¡¼ÓÀÌ µÇ´Â °æ¿ì..
-				// Primary --> BackÀ¸·Î..
-				// ±×·±µ¥(!) ¹®Á¦°¡ Á»!! ÀÖ´Ù.. 
-				// ±×·¡¼­ µÎ¹ø BltÇØÁá´Ù. - -;;
+				// çªé›å‚€ç»¢ å•ŠåŠ æ ç™»ç»° ç‰ˆå¿«..
+				// Primary --> Backæ è‚º..
+				// å¼Šç¹å•(!) å·©åŠ›å•Š ç²±!! ä¹ä¿ƒ.. 
+				// å¼Šè´°è¾‘ æ»´é”… Bltç§¦ç²ä¿ƒ. - -;;
 				//------------------------------------------------------
-				// (¹æ±İ ±×¸° È­¸é°ú ÀÌÀüÀÇ È­¸éÀÌ ´Ù¸£±â ¶§¹®¿¡.. ¶È°°ÀÌ ÇØÁØ´Ù)
+				// (è§„é™› å¼Šèµ´ æ‹³æè‹ æå‚ˆç‹¼ æ‹³ææ ä¿ƒç¦æ‰ é”­å·©ä¿Š.. åº¦éæ ç§¦éœ–ä¿ƒ)
 //				if (CDirect3D::IsHAL())
 //				{
 //					point.x = 0;
@@ -6536,33 +6536,33 @@ CGameUpdate::Update(void)
 //
 //					g_pBack->BltPrimarySurface(&point, &rect);
 //
-//					// ±â¾ïÇß´ø Ä¿¼­ ºÎºĞÀ» Áö¿öÁØ´Ù. --> (0)
+//					// æ‰æ’…æ²å¸¦ ç›®è¾‘ ä½•ç›’é˜‘ ç˜¤å†µéœ–ä¿ƒ. --> (0)
 //					//g_pCursorSurface->Restore(0, g_pBack);
 //					//g_FrameCount++;
 //					CDirectDraw::Flip();
 //
 //					g_pBack->BltPrimarySurface(&point, &rect);
 //
-//					// ±â¾ïÇß´ø Ä¿¼­ ºÎºĞÀ» Áö¿öÁØ´Ù. --> (0)
+//					// æ‰æ’…æ²å¸¦ ç›®è¾‘ ä½•ç›’é˜‘ ç˜¤å†µéœ–ä¿ƒ. --> (0)
 //					g_pCursorSurface->Restore(0, g_pBack);
 //					
-//					// °ÔÀÓ È­¸éÀÇ InterfaceºÎºĞÀ» Update½ÃÄÑÁà¾ß ÇÑ´Ù.
+//					// éœ¸çƒ™ æ‹³æç‹¼ Interfaceä½•ç›’é˜‘ UpdateçŸ«éš¾æ‹å…· èŒ„ä¿ƒ.
 //					//
 //					// [ TEST CODE ]					
 //					//gC_vs_ui.VS_UI_Loop();					
 //
 //					//---------------------------------------
-//					// ±ÛÀÚ Ãâ·Â
+//					// è‡‚ç£Š å…ä»¿
 //					//---------------------------------------
 //					//UpdateDrawText();
 //				}
 //				//------------------------------------------------------
-//				// ÇÏµå¿ş¾î °¡¼ÓÀÌ ¾ÈµÇ´Â °æ¿ì..
-//				// Last --> BackÀ¸·Î copy
+//				// çªé›å‚€ç»¢ å•ŠåŠ æ æ•‘ç™»ç»° ç‰ˆå¿«..
+//				// Last --> Backæ è‚º copy
 //				//------------------------------------------------------
 //				else
 				{
-					// Last --> BackÀ¸·Î copy
+					// Last --> Backæ è‚º copy
 					RECT rect;
 					point.x = 0;
 					point.y = 0;
@@ -6572,13 +6572,13 @@ CGameUpdate::Update(void)
 					rect.bottom = g_GameRect.bottom;
 					g_pBack->BltNoColorkey( &point, g_pLast, &rect );
 
-					// °ÔÀÓ È­¸éÀÇ InterfaceºÎºĞÀ» Update½ÃÄÑÁà¾ß ÇÑ´Ù.
+					// éœ¸çƒ™ æ‹³æç‹¼ Interfaceä½•ç›’é˜‘ UpdateçŸ«éš¾æ‹å…· èŒ„ä¿ƒ.
 					//
 					// [ TEST CODE ]					
 					gC_vs_ui.Show();					
 
 					//---------------------------------------
-					// ±ÛÀÚ Ãâ·Â
+					// è‡‚ç£Š å…ä»¿
 					//---------------------------------------
 					//UpdateDrawText();
 
@@ -6588,34 +6588,34 @@ CGameUpdate::Update(void)
 				MOUSEPOINTER_INFO mp_info;
 				gC_vs_ui.GetCurrentMousePointerInfo(mp_info);
 
-				// Ä¿¼­ Ãâ·Â À§Ä¡¸¦ ±â¾ï½ÃÅ²´Ù. --> (1)
+				// ç›®è¾‘ å…ä»¿ å›°æ‘¹ç”« æ‰æ’…çŸ«æŒªä¿ƒ. --> (1)
 				point.x = mp_info.x;
 				point.y = mp_info.y;
 				g_pCursorSurface->Store(1, g_pBack, &point);
 
-				// ´ÙÀ½¿¡ Ã³¸®ÇÒ surface¹øÈ£
+				// ä¿ƒæ¾œä¿Š è´¸åºœä¸” surfaceé”…é¾‹
 				surface = 0;
 			}
 			//------------------------------------------------------
-			// FlipÇØ¼­ ¸¶¿ì½º¸¸ UpdateÇÏ´Â »óÅÂ..
+			// Flipç§¦è¾‘ ä»˜å¿«èƒ¶çˆ¶ Updateçªç»° æƒ‘æ€•..
 			//------------------------------------------------------
 			else
 			{	
-				// ±â¾ïÇß´ø ºÎºĞÀ» Ãâ·ÂÇØ¼­ Ä¿¼­¸¦ Áö¿öÁØ´Ù. --> (surface)
+				// æ‰æ’…æ²å¸¦ ä½•ç›’é˜‘ å…ä»¿ç§¦è¾‘ ç›®è¾‘ç”« ç˜¤å†µéœ–ä¿ƒ. --> (surface)
 				g_pCursorSurface->Restore(surface, g_pBack);
 
-				// ¸¶¿ì½º Ãâ·Â ¿µ¿ª ¼³Á¤
+				// ä»˜å¿«èƒ¶ å…ä»¿ åº·å¼€ æ±²æ²¥
 				MOUSEPOINTER_INFO mp_info;
 				gC_vs_ui.GetCurrentMousePointerInfo(mp_info);
 
-				// Ä¿¼­ Ãâ·Â À§Ä¡¸¦ ±â¾ï½ÃÅ²´Ù. --> (surface)
+				// ç›®è¾‘ å…ä»¿ å›°æ‘¹ç”« æ‰æ’…çŸ«æŒªä¿ƒ. --> (surface)
 				point.x = mp_info.x;
 				point.y = mp_info.y;
 				g_pCursorSurface->Store(surface, g_pBack, &point);
 				
 				//g_pCursorSurface->Restore(surface, g_pBack);
 
-				// ´ÙÀ½¿¡ Ã³¸®ÇÒ surface¹øÈ£
+				// ä¿ƒæ¾œä¿Š è´¸åºœä¸” surfaceé”…é¾‹
 				surface = ((surface==0)? 1 : 0);				
 			}
 			
@@ -6640,7 +6640,7 @@ CGameUpdate::Update(void)
 	}
 //#ifdef OUTPUT_DEBUG
 //	static DWORD playTime = 0;
-//	if( g_bTestMusic )			// ¹è°æÀ½¾Ç ·çÇÁÁßÀÌ¸é
+//	if( g_bTestMusic )			// ç¡…ç‰ˆæ¾œå© é£æ©‡åææ
 //	{		
 //		if( playTime == 0 )
 //			playTime = timeGetTime();
@@ -6661,7 +6661,7 @@ CGameUpdate::Update(void)
 //		{
 //			g_pSystemMessage->Clear();
 //			char szbuffer[512];
-//			wsprintf(szbuffer,"CTRL+1~8À» ´©¸£½Ã¸é ÇØ´ç °î¸¸ ¹İº¹ÇØ¼­ µéÀ» ¼ö ÀÖ½À´Ï´Ù.CTRL+0 Àº ´ÙÀ½°îÀ¸·Î ³Ñ¾î°©´Ï´Ù.");
+//			wsprintf(szbuffer,"CTRL+1~8é˜‘ ç©¿ç¦çŸ«æ ç§¦å¯¸ é‚¦çˆ¶ é¦†æ±—ç§¦è¾‘ ç”¸é˜‘ è ä¹åš¼èªä¿ƒ.CTRL+0 ç¯® ä¿ƒæ¾œé‚¦æ è‚º é€ç»¢ç™Œèªä¿ƒ.");
 //			g_pSystemMessage->Add(szbuffer);
 //			wsprintf(szbuffer,"%s(%d/8) %2d:%2d", g_musicfilename[g_CurrentMusicNum].c_str(), g_CurrentMusicNum+1,(timeGetTime() - playTime)/1000/60, ((timeGetTime() - playTime )/ 1000)%60 );
 //			g_pSystemMessage->Add(szbuffer);

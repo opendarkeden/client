@@ -3,8 +3,8 @@
 // MTopViewDraw.cpp
 //----------------------------------------------------------------------
 //
-// º¹ÀâÇÑ Draw ÇÔ¼ö ºÎºÐ¸¸ µû·Î »©³õ´Â´Ù.
-// ÀÛ¾÷ÇÏ±â°¡ ¿µ ºÒÆíÇØ¼­ 
+// ë³µìž¡í•œ Draw í•¨ìˆ˜ ë¶€ë¶„ë§Œ ë”°ë¡œ ë¹¼ë†“ëŠ”ë‹¤.
+// ìž‘ì—…í•˜ê¸°ê°€ ì˜ ë¶ˆíŽ¸í•´ì„œ 
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #pragma warning(disable:4786)
@@ -82,8 +82,8 @@ BYTE GetCreatureActionCountMax( const MCreature* pCreature, int action );
 //----------------------------------------------------------------
 // Draw CreatureShadow
 //----------------------------------------------------------------
-// 2D/3D¿Í °ü·ÃÇØ¼­...
-// Lock / UnlockÀº ¿ÜºÎ¿¡¼­ ÇØÁà¾ß ÇÑ´Ù.
+// 2D/3Dì™€ ê´€ë ¨í•´ì„œ...
+// Lock / Unlockì€ ì™¸ë¶€ì—ì„œ í•´ì¤˜ì•¼ í•œë‹¤.
 //----------------------------------------------------------------
 void
 MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
@@ -97,10 +97,10 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 		return;
 	}
 
-	// EFFECTSTATUS_GHOST ¿¡ °É·ÁÀÖÀ¸¸é ³²µµ ¸øº¸°í ³ªµµ ¸øº»´Ù
+	// EFFECTSTATUS_GHOST ì— ê±¸ë ¤ìžˆìœ¼ë©´ ë‚¨ë„ ëª»ë³´ê³  ë‚˜ë„ ëª»ë³¸ë‹¤
 	if(pCreature->HasEffectStatus(EFFECTSTATUS_GHOST))return;
 
-	// 2004, 6, 7 sobeit add start - ÆêÀÏ °æ¿ì ÁÖÀÎÀÎ ´ÙÅ©´Ï½º ¾È¿¡ ÀÖÀ¸¸é ¾Èº¸ÀÌ°Ô..
+	// 2004, 6, 7 sobeit add start - íŽ«ì¼ ê²½ìš° ì£¼ì¸ì¸ ë‹¤í¬ë‹ˆìŠ¤ ì•ˆì— ìžˆìœ¼ë©´ ì•ˆë³´ì´ê²Œ..
 	if(pCreature->IsFakeCreature())
 	{
 		MCreature *OwnerCreature = g_pZone->GetCreature(((MFakeCreature*)pCreature)->GetOwnerID());
@@ -119,7 +119,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 		&& pCreature != g_pPlayer 
 		)
 	{
-		// °Å¸®¿¡ µû¶ó¼­ Ãâ·Â ¿©ºÎ¸¦ °áÁ¤ÇÑ´Ù.
+		// ê±°ë¦¬ì— ë”°ë¼ì„œ ì¶œë ¥ ì—¬ë¶€ë¥¼ ê²°ì •í•œë‹¤.
 		int sx,sy,ex,ey;
 
 		sx = g_pPlayer->GetX() - 1;
@@ -163,30 +163,30 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 			break;
 		case 717:
 		case 721:
-		case 723:// Áúµå·¹ or or Áúµå·¹ ºÐ½Å or °¢¼º Áúµå·¹
+		case 723:// ì§ˆë“œë ˆ or or ì§ˆë“œë ˆ ë¶„ì‹  or ê°ì„± ì§ˆë“œë ˆ
 			if( pCreature->HasEffectStatus( EFFECTSTATUS_GDR_FLOATING )/* && action == ACTION_MOVE */)
 			{
 				action = ACTION_VAMPIRE_DRAIN;
-				frame = 6 + (frame & 0x07);		// ÈíÇ÷ µ¿ÀÛ¿¡¼­ ¹Ýº¹ frameÀÇ ½ÃÀÛÀÌ 6ÀÌ´Ù.		
+				frame = 6 + (frame & 0x07);		// í¡í˜ˆ ë™ìž‘ì—ì„œ ë°˜ë³µ frameì˜ ì‹œìž‘ì´ 6ì´ë‹¤.		
 			}
 			if(pCreature->IsDead())
 			{
 				if(pCreature->GetActionCount()>=pCreature->GetActionCountMax())
 				{
 					if(creature_type == 723)
-						frame = 46; // ¹«¸­²ÝÀº »óÅÂ·Î..³ªµÐ´ç..
+						frame = 46; // ë¬´ë¦Žê¿‡ì€ ìƒíƒœë¡œ..ë‚˜ë‘”ë‹¹..
 				}
 			}
 			break;
-		case 722:// Áúµå·¹ ¾óÀ½ ¼®»ó - ±×¸²ÀÚ ¾øÀ½
+		case 722:// ì§ˆë“œë ˆ ì–¼ìŒ ì„ìƒ - ê·¸ë¦¼ìž ì—†ìŒ
 			return;
-		case 636:// »ý¼±°¡°Ô ÁÖÀÎ - Äù½ºÆ®¿ë ÀÏ´Ü ´©¿öÀÖ°Ô..³ªÁß¿¡ ºÐ¼®Á¡ ÇÏ°í ¼öÁ¤ÇÏÀÚ..
+		case 636:// ìƒì„ ê°€ê²Œ ì£¼ì¸ - í€˜ìŠ¤íŠ¸ìš© ì¼ë‹¨ ëˆ„ì›Œìžˆê²Œ..ë‚˜ì¤‘ì— ë¶„ì„ì  í•˜ê³  ìˆ˜ì •í•˜ìž..
 			{
 				action = 6;
 				frame = 14;
 			}
 			break;
-		case 698:// ´ëÁöÁ¤·É
+		case 698:// ëŒ€ì§€ì •ë ¹
 			{
 				if(!pCreature->HasEffectStatus(EFFECTSTATUS_COMA) && !pCreature->IsDead())
 				{
@@ -198,7 +198,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 				direction = 2;
 			}
 			break;
-		case 433:// Å×ÆäÁî °ü
+		case 433:// í…ŒíŽ˜ì¦ˆ ê´€
 			{
 				if(!pCreature->HasEffectStatus(EFFECTSTATUS_COMA) && !pCreature->IsDead())
 					action = ACTION_STAND;
@@ -227,7 +227,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 			break;
 		case 730:
 		case 731:
-		case 732: // ¿þÀÌÆ÷ÀÎÆ® 3Á¾
+		case 732: // ì›¨ì´í¬ì¸íŠ¸ 3ì¢…
 			{
 				if(pCreature->IsDead()) return;
 				action = ACTION_STAND;
@@ -241,7 +241,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 		case 745:
 		case 746:
 		case 747:
-		case 748: // Àå¾Ö¹° 5Á¾
+		case 748: // ìž¥ì• ë¬¼ 5ì¢…
 			{
 				if(pCreature->IsDead())
 				{
@@ -257,12 +257,12 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 				}
 			}
 			break;
-		case 738: // ÇÃ·¹Á® ½ºÅ×ÀÌ¼Ç
-		case 739: // ·£µå ¸¶ÀÎ
-		case 741: // ¿ÀÅä ÅÍ·¿
+		case 738: // í”Œë ˆì ¸ ìŠ¤í…Œì´ì…˜
+		case 739: // ëžœë“œ ë§ˆì¸
+		case 741: // ì˜¤í†  í„°ë ›
 			{ 
 	//			if(pCreature->IsDead()) return;
-	//			if(pCreature->HasEffectStatus(EFFECTSTATUS_HIDE_TO_ATTACKER)) // °ø¼ºÀü½Ã °ø°ÝÃøÀº ¾Èº¸ÀÓ
+	//			if(pCreature->HasEffectStatus(EFFECTSTATUS_HIDE_TO_ATTACKER)) // ê³µì„±ì „ì‹œ ê³µê²©ì¸¡ì€ ì•ˆë³´ìž„
 	//			{
 	//				if(g_pPlayer->HasEffectStatus(EFFECTSTATUS_SIEGE_ATTACKER_1) || 
 	//					g_pPlayer->HasEffectStatus(EFFECTSTATUS_SIEGE_ATTACKER_2) || 
@@ -277,10 +277,10 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 				bBlendingShadow= true;
 			}
 			break;
-		case 740: // Å©·¹ÀÌ¸ð¾î
+		case 740: // í¬ë ˆì´ëª¨ì–´
 			{
 	//			if(pCreature->IsDead()) return;
-	//			if(pCreature->HasEffectStatus(EFFECTSTATUS_HIDE_TO_ATTACKER)) // °ø¼ºÀü½Ã °ø°ÝÃøÀº ¾Èº¸ÀÓ
+	//			if(pCreature->HasEffectStatus(EFFECTSTATUS_HIDE_TO_ATTACKER)) // ê³µì„±ì „ì‹œ ê³µê²©ì¸¡ì€ ì•ˆë³´ìž„
 	//			{
 	//				if(g_pPlayer->HasEffectStatus(EFFECTSTATUS_SIEGE_ATTACKER_1) || 
 	//					g_pPlayer->HasEffectStatus(EFFECTSTATUS_SIEGE_ATTACKER_2) || 
@@ -293,7 +293,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 				frame = 0;
 				direction = 1;
 			}
-		case 734: // ±æµå Å¸¿ö
+		case 734: // ê¸¸ë“œ íƒ€ì›Œ
 			{
 				direction = 1;
 				if(pCreature->IsAlive())
@@ -303,7 +303,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 				}
 			}
 			break;
-		case 753:// ¼­¸Õ °í¾î ±×·£µå
+		case 753:// ì„œë¨¼ ê³ ì–´ ê·¸ëžœë“œ
 			{
 				direction = 2;
 				if(pCreature->IsDead())
@@ -315,7 +315,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 			}
 			break;
 		case 764:
-		case 765: // ±×·¹ÀÌÆ® ·¯ÇÇ¾ð 2Â÷
+		case 765: // ê·¸ë ˆì´íŠ¸ ëŸ¬í”¼ì–¸ 2ì°¨
 			if(action == ACTION_DIE && creature_type == 765)
 				direction = 2;
 			
@@ -334,7 +334,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 				}
 			}
 			break;
-		case 767:// ·ÎÄÏ ·±ÃÄ
+		case 767:// ë¡œì¼“ ëŸ°ì³
 			frame = 0;
 			action = ACTION_MOVE;
 			break;
@@ -345,11 +345,11 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 								&&	creature_type != 717 && creature_type != 721 && creature_type != 723;
 
 		//----------------------------------------------------------
-		// Hallu»óÅÂ
+		// Halluìƒíƒœ
 		//----------------------------------------------------------
 		if (pCreature->IsHallu())
 		{
-			// ¿©±â¼­ ÀÌ¹ø ÅÏÀÇ ±×¸²À» °áÁ¤ÇÑ´Ù. - -;
+			// ì—¬ê¸°ì„œ ì´ë²ˆ í„´ì˜ ê·¸ë¦¼ì„ ê²°ì •í•œë‹¤. - -;
 			pCreature->DetermineHalluActionFrame();
 
 			isSlayerCharacter = false;
@@ -361,7 +361,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 			creature_type = pCreature->GetHalluCreatureType();
 		}
 
-		// ¼º¹°Àº ¹«Á¶°Ç ¾Æ·¡, Å©¸®½º¸¶½ºÆ®¸®
+		// ì„±ë¬¼ì€ ë¬´ì¡°ê±´ ì•„ëž˜, í¬ë¦¬ìŠ¤ë§ˆìŠ¤íŠ¸ë¦¬
 		if(
 			creature_type >= 371 && creature_type <= 376 || 
 			creature_type >= 560 && creature_type <= 563 || 
@@ -379,7 +379,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 		}
 
 
-		// ÀÓ½Ã °íÁ¤ ±×¸²ÀÚ.
+		// ìž„ì‹œ ê³ ì • ê·¸ë¦¼ìž.
 		/*
 		if (pCreature->GetID()==g_pPlayer->GetID())
 		{
@@ -397,7 +397,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 					int sprite = 0;
 
 					m_pSurface->Unlock();
-					// EffectTexture ¼³Á¤
+					// EffectTexture ì„¤ì •
 					//CDirect3D::GetDevice()->SetTexture(0, m_EffectTPK[sprite].GetSurface());
 					CSpriteSurface* pSurface = m_pCreatureShadowManager->GetTexture(sprite);
 					CDirect3D::GetDevice()->SetTexture(0, pSurface->GetSurface());
@@ -445,13 +445,13 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 					creature_type == 670 || 
 					creature_type == 672 ||
 					creature_type == 673 ||
-					creature_type == 730 || // ¿þÀÌ Æ÷ÀÎÆ®1
-					creature_type == 731 || // ¿þÀÌ Æ÷ÀÎÆ®2
-					creature_type == 732 || // ¿þÀÌ Æ÷ÀÎÆ®3
-					creature_type == 636 // »ý¼± °¡°Ô ¾ÆÀú¾¾
-					)	// ¼º¹° // Å©¸®½º¸¶½ºÆ®¸®
+					creature_type == 730 || // ì›¨ì´ í¬ì¸íŠ¸1
+					creature_type == 731 || // ì›¨ì´ í¬ì¸íŠ¸2
+					creature_type == 732 || // ì›¨ì´ í¬ì¸íŠ¸3
+					creature_type == 636 // ìƒì„  ê°€ê²Œ ì•„ì €ì”¨
+					)	// ì„±ë¬¼ // í¬ë¦¬ìŠ¤ë§ˆìŠ¤íŠ¸ë¦¬
 					|| (creature_type >= 377 && creature_type <= 386)
-					|| creature_type == 480 // ´ÙÅ© °¡µð¾ðÀº ¸ÕÁö·Î Ç¥½Ã
+					|| creature_type == 480 // ë‹¤í¬ ê°€ë””ì–¸ì€ ë¨¼ì§€ë¡œ í‘œì‹œ
 				)
 				&&
 				(
@@ -460,23 +460,23 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 				)
 				&&
 				(
-					creature_type < 431		// ¹ÙÅä¸®
-					|| creature_type > 436	// Å×ÆäÁî
+					creature_type < 431		// ë°”í† ë¦¬
+					|| creature_type > 436	// í…ŒíŽ˜ì¦ˆ
 				);
 		
 
 		//---------------------------------------------------------
-		// PC VampireÀÎ °æ¿ì Á×À¸¸é '¸ÕÁö'·Î Ç¥ÇöÇÑ´Ù.
+		// PC Vampireì¸ ê²½ìš° ì£½ìœ¼ë©´ 'ë¨¼ì§€'ë¡œ í‘œí˜„í•œë‹¤.
 		//
-		// player´Â Á×¾îµµ ¾ÆÀÌÅÛÀ¸·Î º¯ÇÏÁö ¾Ê±â ¶§¹®¿¡..
-		// Æ¾¹öÀü¿¡¼± ¸ðµç ½ÃÃ¼¸¦ '¸ÕÁö'·Î Ç¥ÇöÇÑ´Ù.
+		// playerëŠ” ì£½ì–´ë„ ì•„ì´í…œìœ¼ë¡œ ë³€í•˜ì§€ ì•Šê¸° ë•Œë¬¸ì—..
+		// í‹´ë²„ì „ì—ì„  ëª¨ë“  ì‹œì²´ë¥¼ 'ë¨¼ì§€'ë¡œ í‘œí˜„í•œë‹¤.
 		//---------------------------------------------------------	
 		if (bPlayerVampire || bTeenVersion)
 		{
 			if(pCreature->IsSlayer())
 			{
 				CSprite *pSprite = &m_EtcSPK[ SPRITEID_SLAYER_CROSS_SHADOW ];
-				// ÁÂÇ¥ º¸Á¤
+				// ì¢Œí‘œ ë³´ì •
 				POINT pointTemp;
 				pointTemp.x = pPoint->x - 5;
 				pointTemp.y = pPoint->y;				
@@ -491,7 +491,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 		}
 
 		//------------------------------------------------
-		// SlayerÀÎ °æ¿ì Darkness ¾ÈÀ» º¼ ¼ö ¾ø´Ù.
+		// Slayerì¸ ê²½ìš° Darkness ì•ˆì„ ë³¼ ìˆ˜ ì—†ë‹¤.
 		//------------------------------------------------
 		if (pCreature->IsInDarkness() && !pCreature->IsNPC() && !g_pPlayer->IsVampire()
 			&& g_pPlayer!=pCreature && (!g_pPlayer->HasEffectStatus( EFFECTSTATUS_LIGHTNESS)|| g_pZone->GetID() == 3001) )
@@ -507,14 +507,14 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 
 
 		//------------------------------------------------
-		// ¶¥ ¼Ó¿¡ ¹¯Èù ¾ÖµéÀº ±×¸²ÀÚ ¾ø´Ù.
-		//// Åõ¸í »óÅÂ¿¡¼­´Â ±×¸²ÀÚ ¾ø´Ù 
+		// ë•… ì†ì— ë¬»ížŒ ì• ë“¤ì€ ê·¸ë¦¼ìž ì—†ë‹¤.
+		//// íˆ¬ëª… ìƒíƒœì—ì„œëŠ” ê·¸ë¦¼ìž ì—†ë‹¤ 
 		//------------------------------------------------
 		bool bPerfectCasket = pCreature->IsInCasket() && pCreature->GetCasketCount()==0;
 		if (pCreature->IsUndergroundCreature()
-			// Æ÷Å» ÀÌµ¿
+			// í¬íƒˆ ì´ë™
 			|| pCreature->IsCutHeight()
-			// °ü¿¡ ¿ÏÀüÈ÷ µé¾î°¡´Â °æ¿ì
+			// ê´€ì— ì™„ì „ížˆ ë“¤ì–´ê°€ëŠ” ê²½ìš°
 			|| bPerfectCasket
 			//|| pCreature->GetInvisibleCount()==64
 			)
@@ -524,11 +524,11 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 			#endif
 
 			//----------------------------------------------------
-			// °ü Ãâ·Â
+			// ê´€ ì¶œë ¥
 			//----------------------------------------------------
 			if (bPerfectCasket)
 			{
-				// ±×¸²ÀÚ´Â +1
+				// ê·¸ë¦¼ìžëŠ” +1
 				int casketType = pCreature->GetCasketType();
 				int casketID = SPRITEID_CASKET_1 + pCreature->GetCasketType()*2 + 1;
 
@@ -539,7 +539,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 
 					if (pSprite!=NULL)
 					{
-						// tileÀÇ Áß½É¿¡¼­ ¼¼¿î´Ù.
+						// tileì˜ ì¤‘ì‹¬ì—ì„œ ì„¸ìš´ë‹¤.
 						pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSpriteImage->GetWidth()>>1);
 
 						pointTemp.y = pPoint->y + TILE_Y - pSpriteImage->GetHeight();
@@ -570,46 +570,46 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 		//register int i;
 
 		//----------------------------------------------------------
-		// ¸Ó¸®°¡ ¾ø´Â °æ¿ì
+		// ë¨¸ë¦¬ê°€ ì—†ëŠ” ê²½ìš°
 		//----------------------------------------------------------
 		if (!pCreature->HasHead() 
 			&& pCreature->GetActionCount()==pCreature->GetActionCountMax())
 		{	
 			if (action==ACTION_DIE)
 			{
-				// ½ÇÁ¦·Î´Â..¸¶Áö¸· frame + 1ÀÌ´Ù.
+				// ì‹¤ì œë¡œëŠ”..ë§ˆì§€ë§‰ frame + 1ì´ë‹¤.
 				//frame	= (*g_pCreatureTable)[creature_type].GetActionCount( action );
 				frame	= GetCreatureActionCountMax( pCreature, action );
 			}
 		}
 		
-		// Teen¹öÀüÀÎ °æ¿ì Á×´Â µ¿ÀÛ ¾Ö´Ï¸ÞÀÌ¼Ç ¾ÈÇÔ
-		// Ã³À½¿£ ¸¶Áö¸·ÇÁ·¹ÀÓÀü±îÁöÀÇ µ¿ÀÛ¸¸ 0À¸·Î ¼¼ÆÃÇß´Âµ¥ Àú À§ÂÊ¿¡¼­ Àç·Î ÂïÀ» °æ¿ì returnÇØ¹ö·Á¼­ ÀÇ¹Ì¾øÀ½
+		// Teenë²„ì „ì¸ ê²½ìš° ì£½ëŠ” ë™ìž‘ ì• ë‹ˆë©”ì´ì…˜ ì•ˆí•¨
+		// ì²˜ìŒì—” ë§ˆì§€ë§‰í”„ë ˆìž„ì „ê¹Œì§€ì˜ ë™ìž‘ë§Œ 0ìœ¼ë¡œ ì„¸íŒ…í–ˆëŠ”ë° ì € ìœ„ìª½ì—ì„œ ìž¬ë¡œ ì°ì„ ê²½ìš° returní•´ë²„ë ¤ì„œ ì˜ë¯¸ì—†ìŒ
 		if(g_pUserInformation->GoreLevel == false && action == ACTION_DIE
 				&&
 				(
-					creature_type < 431		// ¹ÙÅä¸®
-					|| creature_type > 436	// Å×ÆäÁî
+					creature_type < 431		// ë°”í† ë¦¬
+					|| creature_type > 436	// í…ŒíŽ˜ì¦ˆ
 				)
 			)
 		{
 			frame = 0;
 		}
 
-		// Creature°¡ Á¸ÀçÇÏ´Â ³ôÀÌ¸¸Å­ »©ÁØ´Ù.
+		// Creatureê°€ ì¡´ìž¬í•˜ëŠ” ë†’ì´ë§Œí¼ ë¹¼ì¤€ë‹¤.
 
-		// ±×¸²ÀÚ´Â ¾È »©ÁØ´Ù.
+		// ê·¸ë¦¼ìžëŠ” ì•ˆ ë¹¼ì¤€ë‹¤.
 		//pPoint->y -= pCreature->GetZ();
 
 		//------------------------------------------------
 		//
-		//       ÀÏ¹ÝÀûÀÎ Creature Ãâ·Â
+		//       ì¼ë°˜ì ì¸ Creature ì¶œë ¥
 		//
 		//------------------------------------------------
 			
 		//------------------------------------------------
 		//
-		//         BodyÃâ·Â
+		//         Bodyì¶œë ¥
 		//
 		//------------------------------------------------
 		if (body!=FRAMEID_NULL)
@@ -627,11 +627,11 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 		
 		//----------------------------------------
 		//
-		//            º¹Àå Ãâ·Â
+		//            ë³µìž¥ ì¶œë ¥
 		//
 		//----------------------------------------
-		// ¸ðµç ÀÔÀ» ¼ö ÀÖ´Â Á¾·ùÀÇ ¿Ê Áß¿¡¼­ 
-		// ÀÔ°í ÀÖ´Â ¿ÊÀ» È®ÀÎÇØ¼­ Ãâ·ÂÇØÁà¾ß ÇÑ´Ù.
+		// ëª¨ë“  ìž…ì„ ìˆ˜ ìžˆëŠ” ì¢…ë¥˜ì˜ ì˜· ì¤‘ì—ì„œ 
+		// ìž…ê³  ìžˆëŠ” ì˜·ì„ í™•ì¸í•´ì„œ ì¶œë ¥í•´ì¤˜ì•¼ í•œë‹¤.
 		
 		//if (pCreature->IsWear())
 		if (isSlayerCharacter)
@@ -690,7 +690,7 @@ void	MTopView::DrawShadowSlayerCharacter( POINT *pPoint, MCreature* pCreature, i
 	{
 		MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
 		
-		// CreatureÀÇ Action¿¡ ¸Â´Â add-onÀ» Ãâ·ÂÇÑ´Ù.
+		// Creatureì˜ Actionì— ë§žëŠ” add-onì„ ì¶œë ¥í•œë‹¤.
 		//action = pCreature->GetAction();
 		
 		
@@ -700,11 +700,11 @@ void	MTopView::DrawShadowSlayerCharacter( POINT *pPoint, MCreature* pCreature, i
 		BYTE clothesType;
 		for (int i=0; i<ADDON_MAX; i++)
 		{
-			// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-			// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+			// Creatureì˜ í˜„ìž¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+			// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìžˆë‹¤.
 			clothesType = MCreatureWear::s_AddonOrder[pCreature->GetDirection()][i];
 			
-			// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+			// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ìž…ê³  ìžˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 			const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(clothesType);
 			
 			if (addonInfo.bAddon)
@@ -714,7 +714,7 @@ void	MTopView::DrawShadowSlayerCharacter( POINT *pPoint, MCreature* pCreature, i
 				
 				FRAME_ARRAY &FA = m_AddonShadowFPK[clothes][action][direction];
 				
-				// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+				// ìžˆëŠ” ë™ìž‘ì¸ ê²½ìš°
 				if (FA.GetSize() > frame)
 				{
 					CFrame &Frame = FA[frame];
@@ -725,7 +725,7 @@ void	MTopView::DrawShadowSlayerCharacter( POINT *pPoint, MCreature* pCreature, i
 					
 					//CIndexSprite* pSprite = &(*pAddonSPK)[ sprite ];					
 					
-					// º¹ÀåSprite°¡ ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì
+					// ë³µìž¥Spriteê°€ ì´ˆê¸°í™” ë˜ì§€ ì•Šì€ ê²½ìš°
 					//if (pSprite->IsNotInit())
 					//	continue;
 					
@@ -759,7 +759,7 @@ void	MTopView::DrawShadowVampireCharacter( POINT *pPoint, MCreature* pCreature, 
 			cx		= Frame.GetCX(),
 			cy		= Frame.GetCY();
 		
-		// ÁÂÇ¥ º¸Á¤
+		// ì¢Œí‘œ ë³´ì •
 		pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 		pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 		CShadowSprite* pSprite = &m_CreatureSSPK[sprite];
@@ -779,7 +779,7 @@ void	MTopView::DrawShadowVampireCharacter( POINT *pPoint, MCreature* pCreature, 
 		}
 	}		
 	
-	// ½½·¹ ÆêÀÎ °æ¿ì´Â ÅÍ·¿ Âï¾îÁà¾ß µÈ´Ù-¤µ-;;;; ÇÏµåÇÏµå..¾Æ¾Æ-_-/~
+	// ìŠ¬ë ˆ íŽ«ì¸ ê²½ìš°ëŠ” í„°ë › ì°ì–´ì¤˜ì•¼ ëœë‹¤-ã……-;;;; í•˜ë“œí•˜ë“œ..ì•„ì•„-_-/~
 	if( bSlayerPet_ShowTurret )
 	{
 		MFakeCreature *pFakeCreature = (MFakeCreature *)pCreature;
@@ -796,14 +796,14 @@ void	MTopView::DrawShadowVampireCharacter( POINT *pPoint, MCreature* pCreature, 
 		{
 			POINT pointGap[8] = 
 			{
-				{ 11, 6 },	// ÁÂ
-				{ 8, 2 },	// ÁÂÇÏ
-				{ 0, 0 },	// ÇÏ
-				{ -7, 2 },	// ¿ìÇÏ
-				{ -10, 6 },	// ¿ì
-				{ -7, 10 },	// ¿ì»ó
-				{ 0, 12 },	// »ó
-				{ 8, 10 },	// ÁÂ»ó
+				{ 11, 6 },	// ì¢Œ
+				{ 8, 2 },	// ì¢Œí•˜
+				{ 0, 0 },	// í•˜
+				{ -7, 2 },	// ìš°í•˜
+				{ -10, 6 },	// ìš°
+				{ -7, 10 },	// ìš°ìƒ
+				{ 0, 12 },	// ìƒ
+				{ 8, 10 },	// ì¢Œìƒ
 			};
 			cx += pointGap[pFakeCreature->GetDirection()].x;
 			cy += pointGap[pFakeCreature->GetDirection()].y;
@@ -816,7 +816,7 @@ void	MTopView::DrawShadowVampireCharacter( POINT *pPoint, MCreature* pCreature, 
 			cy -= g_DirectionValue[direct].y*pFakeCreature->GetTurretDelay()*2;
 		}
 		
-		// ÁÂÇ¥ º¸Á¤
+		// ì¢Œí‘œ ë³´ì •
 		pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 		pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 		
@@ -835,7 +835,7 @@ void	MTopView::DrawShadowVampireCharacter( POINT *pPoint, MCreature* pCreature, 
 
 void	MTopView::DrawShadowOustersCharacter( POINT *pPoint, MCreature* pCreature, int action, int direction, int frame )
 {
-	//  Ã­Å©¶÷ÀÌ ÀÖ´Ù
+	//  ì± í¬ëžŒì´ ìžˆë‹¤
 	MCreatureWear *pCreatureWear = (MCreatureWear *)pCreature;
 	
 	const MCreatureWear::ADDON_INFO& addonInfoChakram = pCreatureWear->GetAddonInfo(ADDON_RIGHTHAND);
@@ -856,7 +856,7 @@ void	MTopView::DrawShadowOustersCharacter( POINT *pPoint, MCreature* pCreature, 
 		}
 	}
 	
-	// ¸öÀ» Âï°í Ã­Å©¶÷À» Âï´Â´Ù
+	// ëª¸ì„ ì°ê³  ì± í¬ëžŒì„ ì°ëŠ”ë‹¤
 	const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(ADDON_COAT);
 	
 	if (addonInfo.bAddon && !pCreatureWear->IsGhost(1))
@@ -865,7 +865,7 @@ void	MTopView::DrawShadowOustersCharacter( POINT *pPoint, MCreature* pCreature, 
 		
 		FRAME_ARRAY &FA = m_OustersShadowFPK[clothes][tempAction][direction];
 		
-		// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+		// ìžˆëŠ” ë™ìž‘ì¸ ê²½ìš°
 		if (FA.GetSize() > frame)
 		{
 			CFrame &Frame = FA[frame];
@@ -902,7 +902,7 @@ void	MTopView::DrawShadowOustersCharacter( POINT *pPoint, MCreature* pCreature, 
 		
 		FRAME_ARRAY &FA = m_OustersShadowFPK[clothes][tempAction][direction];
 		
-		// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+		// ìžˆëŠ” ë™ìž‘ì¸ ê²½ìš°
 		if (FA.GetSize() > frame)
 		{
 			CFrame &Frame = FA[frame];					
@@ -984,11 +984,11 @@ void	MTopView::DrawShadowAdvancementClassSlayerCharacter( POINT *pPoint, MCreatu
 
 		for (int i=0; i<AC_ADDON_MAX; i++)
 		{
-			// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-			// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+			// Creatureì˜ í˜„ìž¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+			// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìžˆë‹¤.
 			clothesType = MCreatureWear::s_ACAddonOrder[ direction ][ i ];
 			
-			// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+			// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ìž…ê³  ìžˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 			const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetACAddonInfo(clothesType);
 			
 			if (addonInfo.bAddon || i == AC_ADDON_BODY )
@@ -1000,7 +1000,7 @@ void	MTopView::DrawShadowAdvancementClassSlayerCharacter( POINT *pPoint, MCreatu
 				
 				FRAME_ARRAY &FA = slayerFPK[clothes][action][direction];
 				
-				// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+				// ìžˆëŠ” ë™ìž‘ì¸ ê²½ìš°
 				if (FA.GetSize() > frame)
 				{
 					CFrame &Frame = FA[frame];
@@ -1011,7 +1011,7 @@ void	MTopView::DrawShadowAdvancementClassSlayerCharacter( POINT *pPoint, MCreatu
 					
 					//CIndexSprite* pSprite = &(*pAddonSPK)[ sprite ];					
 					
-					// º¹ÀåSprite°¡ ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì
+					// ë³µìž¥Spriteê°€ ì´ˆê¸°í™” ë˜ì§€ ì•Šì€ ê²½ìš°
 					//if (pSprite->IsNotInit())
 					//	continue;
 					
@@ -1056,7 +1056,7 @@ void	MTopView::DrawShadowAdvancementClassVampireCharacter( POINT *pPoint, MCreat
 			cx		= Frame.GetCX(),
 			cy		= Frame.GetCY();
 		
-		// ÁÂÇ¥ º¸Á¤
+		// ì¢Œí‘œ ë³´ì •
 		pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 		pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 		CShadowSprite* pSprite = &advanceVampireSSPK[sprite];
@@ -1094,7 +1094,7 @@ void	MTopView::DrawShadowAdvancementClassVampireCharacter( POINT *pPoint, MCreat
 				cx		= Frame.GetCX(),
 				cy		= Frame.GetCY();
 			
-			// ÁÂÇ¥ º¸Á¤
+			// ì¢Œí‘œ ë³´ì •
 			pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			CShadowSprite* pSprite = &advanceVampireSSPK[sprite];
@@ -1115,7 +1115,7 @@ void	MTopView::DrawShadowAdvancementClassVampireCharacter( POINT *pPoint, MCreat
 		}
 	}
 	
-	// ½½·¹ ÆêÀÎ °æ¿ì´Â ÅÍ·¿ Âï¾îÁà¾ß µÈ´Ù-¤µ-;;;; ÇÏµåÇÏµå..¾Æ¾Æ-_-/~
+	// ìŠ¬ë ˆ íŽ«ì¸ ê²½ìš°ëŠ” í„°ë › ì°ì–´ì¤˜ì•¼ ëœë‹¤-ã……-;;;; í•˜ë“œí•˜ë“œ..ì•„ì•„-_-/~
 	if( bSlayerPet_ShowTurret )
 	{
 		MFakeCreature *pFakeCreature = (MFakeCreature *)pCreature;
@@ -1132,14 +1132,14 @@ void	MTopView::DrawShadowAdvancementClassVampireCharacter( POINT *pPoint, MCreat
 		{
 			POINT pointGap[8] = 
 			{
-				{ 11, 6 },	// ÁÂ
-				{ 8, 2 },	// ÁÂÇÏ
-				{ 0, 0 },	// ÇÏ
-				{ -7, 2 },	// ¿ìÇÏ
-				{ -10, 6 },	// ¿ì
-				{ -7, 10 },	// ¿ì»ó
-				{ 0, 12 },	// »ó
-				{ 8, 10 },	// ÁÂ»ó
+				{ 11, 6 },	// ì¢Œ
+				{ 8, 2 },	// ì¢Œí•˜
+				{ 0, 0 },	// í•˜
+				{ -7, 2 },	// ìš°í•˜
+				{ -10, 6 },	// ìš°
+				{ -7, 10 },	// ìš°ìƒ
+				{ 0, 12 },	// ìƒ
+				{ 8, 10 },	// ì¢Œìƒ
 			};
 			cx += pointGap[pFakeCreature->GetDirection()].x;
 			cy += pointGap[pFakeCreature->GetDirection()].y;
@@ -1152,7 +1152,7 @@ void	MTopView::DrawShadowAdvancementClassVampireCharacter( POINT *pPoint, MCreat
 			cy -= g_DirectionValue[direct].y*pFakeCreature->GetTurretDelay()*2;
 		}
 		
-		// ÁÂÇ¥ º¸Á¤
+		// ì¢Œí‘œ ë³´ì •
 		pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 		pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 		
@@ -1171,7 +1171,7 @@ void	MTopView::DrawShadowAdvancementClassVampireCharacter( POINT *pPoint, MCreat
 
 void	MTopView::DrawShadowAdvancementClassOustersCharacter( POINT *pPoint, MCreature* pCreature, int action, int direction, int frame )
 {
-		//  Ã­Å©¶÷ÀÌ ÀÖ´Ù
+		//  ì± í¬ëžŒì´ ìžˆë‹¤
 	MCreatureWear *pCreatureWear = (MCreatureWear *)pCreature;
 	
 	const MCreatureWear::ADDON_INFO& addonInfoChakram = pCreatureWear->GetAddonInfo(ADDON_RIGHTHAND);
@@ -1184,7 +1184,7 @@ void	MTopView::DrawShadowAdvancementClassOustersCharacter( POINT *pPoint, MCreat
 	else
 		tempAction -= ADVANCEMENT_ACTION_START;
 	
-	// ¸öÀ» Âï°í Ã­Å©¶÷À» Âï´Â´Ù
+	// ëª¸ì„ ì°ê³  ì± í¬ëžŒì„ ì°ëŠ”ë‹¤
 	const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(ADDON_COAT);
 	
 	if (addonInfo.bAddon && !pCreatureWear->IsGhost(1))
@@ -1193,7 +1193,7 @@ void	MTopView::DrawShadowAdvancementClassOustersCharacter( POINT *pPoint, MCreat
 		
 		FRAME_ARRAY &FA = m_AdvancementOustersShadowFPK[1][tempAction][direction];
 		
-		// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+		// ìžˆëŠ” ë™ìž‘ì¸ ê²½ìš°
 		if (FA.GetSize() > frame)
 		{
 			CFrame &Frame = FA[frame];
@@ -1223,7 +1223,7 @@ void	MTopView::DrawShadowAdvancementClassOustersCharacter( POINT *pPoint, MCreat
 		
 		FRAME_ARRAY &FA = m_AdvancementOustersShadowFPK[0][tempAction][direction];
 		
-		// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+		// ìžˆëŠ” ë™ìž‘ì¸ ê²½ìš°
 		if (FA.GetSize() > frame)
 		{
 			CFrame &Frame = FA[frame];					

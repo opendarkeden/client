@@ -2,8 +2,8 @@
 // Filename    : GCAddVampirePortalHandler.cpp
 // Written By  : excel96
 // Description :
-// ¹ìÆÄÀÌ¾î Æ÷Å»Àº ÇöÀç ÀÌÆåÆ®ÀÇ ÀÏÁ¾À¸·Î¼­ ±¸ÇöµÇ´Âµ¥, ÀÌ ÆÐÅ¶Àº
-// Å¬¶óÀÌ¾ðÆ®¿¡°Ô ¹Ù´Ú¿¡´Ù ¹ìÆÄÀÌ¾î Æ÷Å» ÀÌÆåÆ®¸¦ ºÙÀÌ¶ó´Â ÆÐÅ¶ÀÌ´Ù.
+// ë±€íŒŒì´ì–´ í¬íƒˆì€ í˜„ìž¬ ì´íŽ™íŠ¸ì˜ ì¼ì¢…ìœ¼ë¡œì„œ êµ¬í˜„ë˜ëŠ”ë°, ì´ íŒ¨í‚·ì€
+// í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë°”ë‹¥ì—ë‹¤ ë±€íŒŒì´ì–´ í¬íƒˆ ì´íŽ™íŠ¸ë¥¼ ë¶™ì´ë¼ëŠ” íŒ¨í‚·ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 #include "Client_PCH.h"
 #include "GCAddVampirePortal.h"
@@ -31,7 +31,7 @@ void GCAddVampirePortalHandler::execute ( GCAddVampirePortal * pPacket , Player 
 	TYPE_SECTORPOSITION zoneX = pPacket->getTargetX();
 	TYPE_SECTORPOSITION zoneY = pPacket->getTargetY();
 
-	// ¿À·¡µÈ°Å¸é mainNodeºÎÅÍ ½ÇÇàÇØ¾ßµÇÁö..
+	// ì˜¤ëž˜ëœê±°ë©´ mainNodeë¶€í„° ì‹¤í–‰í•´ì•¼ë˜ì§€..
 	bool bStartFromMainNode = (pPacket->getCreateFlag()==0);
 
 	AddVampirePortal( serverID, 

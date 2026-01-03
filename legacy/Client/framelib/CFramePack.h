@@ -1,16 +1,16 @@
 //----------------------------------------------------------------------
 // CFramePack.h
 //----------------------------------------------------------------------
-// ¾Æ·¡ÀÇ FramePackµéÀ» Á¤ÀÇÇØ¼­ »ç¿ëÇÑ´Ù.
+// ì•„ë˜ì˜ FramePackë“¤ì„ ì •ì˜í•´ì„œ ì‚¬ìš©í•œë‹¤.
 //
 // typedef CFramePack<FRAME_ARRAY>				CThingFramePack;
 // typedef	CFramePack<DIRECTION_FRAME_ARRAY>	CEffectFramePack;
 // typedef	CFramePack<ACTION_FRAME_ARRAY>		CCreatureFramePack;
 //
 //
-// - ThingFramePack    : ¹æÇâ¼ºÀÌ ¾ø´Â ThingÀ» Ç¥Çö
-// - EffectFramePack   : ¹æÇâ¼ºÀÌ ÀÖ´Â Effect¸¦ Ç¥Çö
-// - CreatureFramePack : Action°ú ¹æÇâ¼ºÀÌ ÀÖ´Â Creature¸¦ Ç¥Çö
+// - ThingFramePack    : ë°©í–¥ì„±ì´ ì—†ëŠ” Thingì„ í‘œí˜„
+// - EffectFramePack   : ë°©í–¥ì„±ì´ ìˆëŠ” Effectë¥¼ í‘œí˜„
+// - CreatureFramePack : Actionê³¼ ë°©í–¥ì„±ì´ ìˆëŠ” Creatureë¥¼ í‘œí˜„
 //
 //----------------------------------------------------------------------
 
@@ -68,44 +68,44 @@ CFramePack<Type>::~CFramePack<Type>()
 //----------------------------------------------------------------------
 // Save To File
 //----------------------------------------------------------------------
-// CreatureFramePack FileÀ» ÀúÀåÇÏ°í
-// CreatureFramePack IndexFileµµ ÀúÀåÇØ¾ß ÇÑ´Ù.
+// CreatureFramePack Fileì„ ì €ì¥í•˜ê³ 
+// CreatureFramePack IndexFileë„ ì €ì¥í•´ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 template <class Type>
 bool
 CFramePack<Type>::SaveToFile(class ofstream& packFile, class ofstream& indexFile)
 {
 	//--------------------------------------------------
-	// SizeÀúÀå : 0ÀÌ¶óµµ °³¼ö´Â ÀúÀåÇÑ´Ù.
+	// Sizeì €ì¥ : 0ì´ë¼ë„ ê°œìˆ˜ëŠ” ì €ì¥í•œë‹¤.
 	//--------------------------------------------------
 	packFile.write((const char*)&m_Size, s_SIZEOF_SizeType);
 	indexFile.write((const char *)&m_Size, s_SIZEOF_SizeType); 
 
-	// ¾Æ¹«°Íµµ ¾øÀ¸¸é..
+	// ì•„ë¬´ê²ƒë„ ì—†ìœ¼ë©´..
 	if (m_pData==NULL || m_Size==0) 
 		return false;
 
 	//--------------------------------------------------
-	// index fileÀ» »ı¼ºÇÏ±â À§ÇÑ Á¤º¸
+	// index fileì„ ìƒì„±í•˜ê¸° ìœ„í•œ ì •ë³´
 	//--------------------------------------------------
 	long*	pIndex = new long [m_Size];
 
 	//--------------------------------------------------
 	//
-	// CreatureFramePack ¸ğµÎ ÀúÀå
+	// CreatureFramePack ëª¨ë‘ ì €ì¥
 	//
 	//--------------------------------------------------
 	for (TYPE_FRAMEID i=0; i<m_Size; i++)
 	{
-		// CreatureFrameÀÌ file¿¡ ¾²¿©Áö´Â index¸¦ ÀúÀå
+		// CreatureFrameì´ fileì— ì“°ì—¬ì§€ëŠ” indexë¥¼ ì €ì¥
 		pIndex[i] = packFile.tellp();
 
-		// CreatureFrameÀúÀå
+		// CreatureFrameì €ì¥
 		m_pData[i].SaveToFile(packFile);
 	}
 
 	//--------------------------------------------------
-	// index ÀúÀå
+	// index ì €ì¥
 	//--------------------------------------------------
 	for (i=0; i<m_Size; i++)
 	{
@@ -118,7 +118,7 @@ CFramePack<Type>::SaveToFile(class ofstream& packFile, class ofstream& indexFile
 }
 
 //----------------------------------------------------------------------
-// FramePackÀ» defineÇÑ´Ù.
+// FramePackì„ defineí•œë‹¤.
 //----------------------------------------------------------------------
 typedef CFramePack<CFrame>							CImageFramePack;
 typedef CFramePack<FRAME_ARRAY>						CAnimationFramePack;

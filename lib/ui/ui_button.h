@@ -25,7 +25,12 @@ typedef struct UI_Button UI_Button;
  * @param button The button that was clicked
  * @param id Button identifier
  */
-typedef void (*UI_ButtonCallback)(UI_Button* button, int id);
+typedef void (*UI_ButtonOnPressCallback)(UI_Button* button, int id);
+
+struct UI_ButtonOnPress {
+    void *data;
+    UI_ButtonOnPressCallback fn;  
+};
 
 /**
  * Button render callback function type
@@ -36,7 +41,12 @@ typedef void (*UI_ButtonCallback)(UI_Button* button, int id);
  * @param parent_x Parent window X position
  * @param parent_y Parent window Y position
  */
-typedef void (*UI_ButtonRenderCallback)(UI_Button* button, UI_Surface* surface, SpritePack* pack, int parent_x, int parent_y);
+typedef void (*UI_ButtonRenderCallback)(void* data, UI_Surface* surface, SpritePack* pack, int parent_x, int parent_y);
+
+struct UI_ButtonShowWidget {
+    void *data;
+    UI_ButtonRenderCallback fn;
+};
 
 struct UI_Button {
     int x, y;           /* Position relative to parent */
@@ -44,10 +54,9 @@ struct UI_Button {
     int id;             /* Button identifier */
     int focus;          /* Mouse hovering (1=hover, 0=normal) */
     int pressed;        /* Mouse button down (1=pressed, 0=released) */
-    int sprite_index;   /* Base sprite index in pack */
-    UI_ButtonCallback callback;
-    UI_ButtonRenderCallback render_callback;  /* Custom render function */
-    void* user_data;
+
+    struct UI_ButtonOnPress on_press;
+    struct UI_ButtonShowWidget show_widget;  /* Custom render function */
 };
 
 /* ============================================================================
@@ -93,34 +102,9 @@ int ui_button_get_pressed(UI_Button* button);
  * Configuration
  * ============================================================================ */
 
-/**
- * Set button callback
- * @param button Pointer to button structure
- * @param callback Callback function
- */
-void ui_button_set_callback(UI_Button* button, UI_ButtonCallback callback);
+void ui_button_set_on_press(UI_Button* button, UI_ButtonOnPressCallback callback, void* data);
 
-/**
- * Set button sprite index
- * @param button Pointer to button structure
- * @param sprite_index Base sprite index in pack
- */
-void ui_button_set_sprite_index(UI_Button* button, int sprite_index);
-
-/**
- * Set button user data
- * @param button Pointer to button structure
- * @param user_data User data pointer
- */
-void ui_button_set_user_data(UI_Button* button, void* user_data);
-
-/**
- * Set custom render callback
- * If set, this function will be called instead of default rendering
- * @param button Pointer to button structure
- * @param render_callback Custom render function (NULL for default)
- */
-void ui_button_set_render_callback(UI_Button* button, UI_ButtonRenderCallback render_callback);
+void ui_button_set_show_widget(UI_Button* button, UI_ButtonRenderCallback callback, void* data);
 
 /* ============================================================================
  * Event handling

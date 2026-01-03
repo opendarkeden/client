@@ -72,11 +72,11 @@ struct SOUNDBUF ;
 struct MP3
 {
 	MP3Header		Header ;
-	OFFSET			frameStart ;		// ÇÁ·¹ÀÓ µ¥ÀÌÅ¸°¡ ½ÃÀÛÇÏ´Â Offset (SEEK_SET)
-	OFFSET			part2Start ;		// Sample Data°¡ ½ÃÀÛµÇ´Â Offset
+	OFFSET			frameStart ;		// í”„ë ˆì„ ë°ì´íƒ€ê°€ ì‹œì‘í•˜ëŠ” Offset (SEEK_SET)
+	OFFSET			part2Start ;		// Sample Dataê°€ ì‹œì‘ë˜ëŠ” Offset
 	OFFSET			*offset ;
 	int				maxframes ;
-	int				curFrame ;			// ÇöÀç ¿¬ÁÖÇÏ°í ÀÖ´Â ÇÁ·¹ÀÓ Number
+	int				curFrame ;			// í˜„ì¬ ì—°ì£¼í•˜ê³  ìˆëŠ” í”„ë ˆì„ Number
 	e_channels		which_ch ;
 	char			*Huffdec_path;
 	SOUNDBUF		*soundbuf ;

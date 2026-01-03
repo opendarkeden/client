@@ -24,7 +24,7 @@ typedef	unsigned __int64		QWORD;
 
 /*-----------------------------------------------------------------------------
   Class DirectDraw
-  `CDirectDrawSurface¿¡¼­ »ó¼Ó¹Ş´Â´Ù. µû¶ó¼­ memberµéÀ» staticÀ¸·Î ÇÏ¿©¾ß ÇÑ´Ù.
+  `CDirectDrawSurfaceì—ì„œ ìƒì†ë°›ëŠ”ë‹¤. ë”°ë¼ì„œ memberë“¤ì„ staticìœ¼ë¡œ í•˜ì—¬ì•¼ í•œë‹¤.
 -----------------------------------------------------------------------------*/
 class CDirectDraw
 {	
@@ -40,13 +40,13 @@ protected:
 
 	static HWND								m_hWnd;
 
-	// SurfaceÀÇ Å©±â
+	// Surfaceì˜ í¬ê¸°
 	static WORD								m_ScreenWidth;
 	static WORD								m_ScreenHeight;
 
 	static bool								m_b565;
 
-	// 3D »ç¿ë?
+	// 3D ì‚¬ìš©?
 	static bool								m_b3D;
 
 	static bool								m_bMMX;
@@ -55,7 +55,7 @@ protected:
 	static WORD								m_GammaStep;
 	static WORD								m_AddGammaStep[3];
 
-	// Ã¢¸ğµå¿¡ ÇÊ¿äÇÑ °Íµé
+	// ì°½ëª¨ë“œì— í•„ìš”í•œ ê²ƒë“¤
 	static RECT								m_rcWindow;		// Saves the window size & pos.
 	static RECT								m_rcViewport;	// Pos. & size to blt from
 	static RECT								m_rcScreen;		// Screen pos. for blt
@@ -97,7 +97,7 @@ public:
 	static const LPDIRECTDRAW7 GetDD()	{ return m_pDD; }
 
 	//------------------------------------
-	// Window Message Ã³¸®
+	// Window Message ì²˜ë¦¬
 	//------------------------------------
 	static void		OnMove();
 
@@ -122,7 +122,7 @@ public:
 
 	//     0RRRRRGG GGGBBBBB 
 	// --> RRRRRGGG GG0BBBBB
-	static inline WORD	Convert555to565(WORD pixel)		// 5:5:5¸¦ 5:6:5·Î ¹Ù²Ü ¶§
+	static inline WORD	Convert555to565(WORD pixel)		// 5:5:5ë¥¼ 5:6:5ë¡œ ë°”ê¿€ ë•Œ
 	{
 		return ((pixel & 0x7FE0)<<1)	// RRRRRGGG GG000000
 				| (pixel & 0x001F);		// 00000000 000BBBBB										
@@ -130,7 +130,7 @@ public:
 
 	//     RRRRRGGG GGGBBBBB
 	// --> 0RRRRRGG GGGBBBBB 
-	static inline WORD Convert565to555(WORD pixel)		// 5:6:5¸¦ 5:5:5·Î ¹Ù²Ü ¶§
+	static inline WORD Convert565to555(WORD pixel)		// 5:6:5ë¥¼ 5:5:5ë¡œ ë°”ê¿€ ë•Œ
 	{
 		return (((pixel & 0xFFE0) >> 1)		// 0RRRRRGG GGGG0000
 				& 0x7FE0)					// 0RRRRRGG GGG00000
@@ -140,21 +140,21 @@ public:
 	//-----------------------------------
 	// (R,G,B) <--> RGB
 	//-----------------------------------
-	// 5:5:5ÀÌ¸é (32,32,32)
-	// 5:6:5ÀÌ¸é (32,64,32)
-	// `´Ü¼øÈ÷ ÇÕÄ¡±â¸¸ ÇÑ´Ù.
+	// 5:5:5ì´ë©´ (32,32,32)
+	// 5:6:5ì´ë©´ (32,64,32)
+	// `ë‹¨ìˆœíˆ í•©ì¹˜ê¸°ë§Œ í•œë‹¤.
 	static inline WORD	Color(const BYTE& r, const BYTE& g, const BYTE& b)
 	{			
 		return (r << s_bSHIFT_R) | (g << s_bSHIFT_G) | b;
 	}
 
-	// Red°ª
+	// Redê°’
 	static inline BYTE	Red(const WORD& c)
 	{			
 		return (c >> s_bSHIFT_R);
 	}
 
-	// Green°ª
+	// Greenê°’
 	static inline BYTE	Green(const WORD& c)
 	{
 		//return ((c >> s_bSHIFT_G) & s_bMASK_G);	
@@ -165,7 +165,7 @@ public:
 		return g;			
 	}
 
-	// Blue°ª
+	// Blueê°’
 	static inline BYTE	Blue(const WORD& c)
 	{
 		return (c & 0x1F);
@@ -200,7 +200,7 @@ public :
 	static BYTE		s_bSHIFT4_G;	
 	static BYTE		s_bSHIFT4_B;
 	
-	// ±âº» »ö»ó
+	// ê¸°ë³¸ ìƒ‰ìƒ
 	static WORD		RED;
 	static WORD		GREEN;
 	static WORD		BLUE;

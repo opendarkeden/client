@@ -57,7 +57,7 @@ CMessageArray::~CMessageArray()
 void
 CMessageArray::Init(int max, int length, const char* filename)
 {
-	// ÀÏ´Ü ¸Þ¸ð¸® Á¦°Å..
+	// ì¼ë‹¨ ë©”ëª¨ë¦¬ ì œê±°..
 	Release();
 
 	m_Max		= max;
@@ -76,7 +76,7 @@ CMessageArray::Init(int max, int length, const char* filename)
 	// file Log
 	if (filename!=NULL)
 	{
-		// filenameÀ» ±â¾ïÇØµÐ´Ù.
+		// filenameì„ ê¸°ì–µí•´ë‘”ë‹¤.
 		m_Filename = new char [strlen(filename)+1];
 		strcpy(m_Filename, filename);
 
@@ -95,9 +95,9 @@ CMessageArray::Init(int max, int length, const char* filename)
 void
 CMessageArray::Release()
 {
-	// ÀÚ²Ù ¿©±â¼­ ¿¡·¯³ª¼­¸®..
-	// À½³Ä.. µµ´ëÃ¼ ¾îµð¼­ ¹®Á¦°¡ »ý±â´Â°É±î.
-	// ¸øÃ£°Ú´Ù.. ¾ÆÀÌ°í..
+	// ìžê¾¸ ì—¬ê¸°ì„œ ì—ëŸ¬ë‚˜ì„œë¦¬..
+	// ìŒëƒ.. ë„ëŒ€ì²´ ì–´ë””ì„œ ë¬¸ì œê°€ ìƒê¸°ëŠ”ê±¸ê¹Œ.
+	// ëª»ì°¾ê² ë‹¤.. ì•„ì´ê³ ..
 	//#ifndef _DEBUG
 		if (m_ppMessage!=NULL)
 		{
@@ -134,7 +134,7 @@ CMessageArray::Release()
 //----------------------------------------------------------------------
 // Add 
 //----------------------------------------------------------------------
-// StringÀ» Ãß°¡ÇÑ´Ù. ³¡¿¡~..
+// Stringì„ ì¶”ê°€í•œë‹¤. ëì—~..
 //----------------------------------------------------------------------
 void		
 CMessageArray::Add(const char *str)
@@ -150,7 +150,7 @@ CMessageArray::Add(const char *str)
 	// file log
 	if (m_bLog)
 	{ 
-		// [ TEST CODE ] ½Ã°£ Ãâ·Â
+		// [ TEST CODE ] ì‹œê°„ ì¶œë ¥
 		//sprintf(g_MessageBuffer, "[%4d] ", timeGetTime() % 10000);
 		//_write( m_LogFile, g_MessageBuffer, strlen(g_MessageBuffer) );
 
@@ -158,7 +158,7 @@ CMessageArray::Add(const char *str)
 		_write( m_LogFile, str, len );
 		_write( m_LogFile, "\n", 1 );
 
-		// [ TEST CODE ] È­ÀÏ ´Ý°í ´Ù½Ã ¿­±â
+		// [ TEST CODE ] í™”ì¼ ë‹«ê³  ë‹¤ì‹œ ì—´ê¸°
 		#ifdef OUTPUT_FILE_LOG
 			_close( m_LogFile );
 			m_LogFile = _open(m_Filename, _O_WRONLY | _O_TEXT | _O_APPEND | _O_CREAT);
@@ -176,7 +176,7 @@ CMessageArray::Add(const char *str)
 	}
 	else
 	{
-		// ÀúÀå
+		// ì €ìž¥
 		strcpy(m_ppMessage[m_Current], str);
 	}
 
@@ -189,7 +189,7 @@ CMessageArray::Add(const char *str)
 //----------------------------------------------------------------------
 // Add To File
 //----------------------------------------------------------------------
-// File¿¡¸¸ Ãß°¡ÇÑ´Ù. ³¡¿¡~..
+// Fileì—ë§Œ ì¶”ê°€í•œë‹¤. ëì—~..
 //----------------------------------------------------------------------
 void		
 CMessageArray::AddToFile(const char *str)
@@ -203,7 +203,7 @@ CMessageArray::AddToFile(const char *str)
 	// file log
 	if (m_bLog)
 	{
-		// [ TEST CODE ] ½Ã°£ Ãâ·Â
+		// [ TEST CODE ] ì‹œê°„ ì¶œë ¥
 		//sprintf(g_MessageBuffer, "[%4d] ", timeGetTime() % 10000);
 		//_write( m_LogFile, g_MessageBuffer, strlen(g_MessageBuffer) );
 
@@ -211,7 +211,7 @@ CMessageArray::AddToFile(const char *str)
 		_write( m_LogFile, str, strlen( str ) );
 		_write( m_LogFile, "\n", 1 );
 
-		// [ TEST CODE ] È­ÀÏ ´Ý°í ´Ù½Ã ¿­±â
+		// [ TEST CODE ] í™”ì¼ ë‹«ê³  ë‹¤ì‹œ ì—´ê¸°
 		#ifdef OUTPUT_FILE_LOG
 			_close( m_LogFile );
 			m_LogFile = _open(m_Filename, _O_WRONLY | _O_TEXT | _O_APPEND | _O_CREAT);
@@ -242,7 +242,7 @@ CMessageArray::AddFormatVL(const char* format, va_list& vl)
 	// file log
 	if (m_bLog)
 	{
-		// [ TEST CODE ] ½Ã°£ Ãâ·Â
+		// [ TEST CODE ] ì‹œê°„ ì¶œë ¥
 		//sprintf(g_MessageBuffer, "[%4d] ", timeGetTime() % 10000);
 		//_write( m_LogFile, g_MessageBuffer, strlen(g_MessageBuffer) );
 
@@ -250,14 +250,14 @@ CMessageArray::AddFormatVL(const char* format, va_list& vl)
 		_write( m_LogFile, Buffer, len );
 		_write( m_LogFile, "\n", 1 );
 
-		// [ TEST CODE ] È­ÀÏ ´Ý°í ´Ù½Ã ¿­±â
+		// [ TEST CODE ] í™”ì¼ ë‹«ê³  ë‹¤ì‹œ ì—´ê¸°
 		#ifdef OUTPUT_FILE_LOG
 			_close( m_LogFile );
 			m_LogFile = _open(m_Filename, _O_WRONLY | _O_TEXT | _O_APPEND | _O_CREAT);
 		#endif
 	}	
 
-	// È¤½Ã ³Ñ¾î°¥±îºÁ.. (ÀÌ°Å ½É°¢ÇÑµ¥. - -;;)
+	// í˜¹ì‹œ ë„˜ì–´ê°ˆê¹Œë´.. (ì´ê±° ì‹¬ê°í•œë°. - -;;)
 	if (len >= m_Length)
 	{		
 		for (int i=0; i<m_Length; i++)
@@ -269,7 +269,7 @@ CMessageArray::AddFormatVL(const char* format, va_list& vl)
 	}
 	else
 	{
-		// ÀúÀå
+		// ì €ìž¥
 		strcpy(m_ppMessage[m_Current], Buffer);
 	}
 	
@@ -283,7 +283,7 @@ CMessageArray::AddFormatVL(const char* format, va_list& vl)
 //--------------------------------------------------------------------------
 // Add Format
 //--------------------------------------------------------------------------
-// ÀûÀýÇÑ Çü½ÄÀ¸·Î stringÀ» ¸¸µç´Ù.
+// ì ì ˆí•œ í˜•ì‹ìœ¼ë¡œ stringì„ ë§Œë“ ë‹¤.
 //--------------------------------------------------------------------------
 void
 CMessageArray::AddFormat(const char* format, ...)
@@ -307,7 +307,7 @@ CMessageArray::AddFormat(const char* format, ...)
 	// file log
 	if (m_bLog)
 	{
-		// [ TEST CODE ] ½Ã°£ Ãâ·Â
+		// [ TEST CODE ] ì‹œê°„ ì¶œë ¥
 		//sprintf(g_MessageBuffer, "[%4d] ", timeGetTime() % 10000);
 		//_write( m_LogFile, g_MessageBuffer, strlen(g_MessageBuffer) );
 
@@ -315,14 +315,14 @@ CMessageArray::AddFormat(const char* format, ...)
 		_write( m_LogFile, Buffer, len );
 		_write( m_LogFile, "\n", 1 );
 
-		// [ TEST CODE ] È­ÀÏ ´Ý°í ´Ù½Ã ¿­±â
+		// [ TEST CODE ] í™”ì¼ ë‹«ê³  ë‹¤ì‹œ ì—´ê¸°
 		#ifdef OUTPUT_FILE_LOG
 			_close( m_LogFile );
 			m_LogFile = _open(m_Filename, _O_WRONLY | _O_TEXT | _O_APPEND | _O_CREAT);
 		#endif
 	}	
 
-	// È¤½Ã ³Ñ¾î°¥±îºÁ.. (ÀÌ°Å ½É°¢ÇÑµ¥. - -;;)
+	// í˜¹ì‹œ ë„˜ì–´ê°ˆê¹Œë´.. (ì´ê±° ì‹¬ê°í•œë°. - -;;)
 	if (len >= m_Length)
 	{		
 		for (int i=0; i<m_Length; i++)
@@ -334,7 +334,7 @@ CMessageArray::AddFormat(const char* format, ...)
 	}
 	else
 	{
-		// ÀúÀå
+		// ì €ìž¥
 		strcpy(m_ppMessage[m_Current], Buffer);
 	}
 	
@@ -348,7 +348,7 @@ CMessageArray::AddFormat(const char* format, ...)
 //----------------------------------------------------------------------
 // Next
 //----------------------------------------------------------------------
-// Current¸¦ next·Î ¹Ù²Û´Ù..
+// Currentë¥¼ nextë¡œ ë°”ê¾¼ë‹¤..
 //----------------------------------------------------------------------
 void
 CMessageArray::Next()
@@ -377,13 +377,13 @@ CMessageArray::Next()
 // operator []
 //----------------------------------------------------------------------
 // 0 ~ MAX-1
-// 0ÀÌ °¡Àå ¿À·¡µÈ StringÀÌ°í MAX-1ÀÌ °¡Àå ÃÖ±Ù¿¡ °ÍÀ¸·Î
-// returnÇØ¾ß ÇÑ´Ù.
+// 0ì´ ê°€ìž¥ ì˜¤ëž˜ëœ Stringì´ê³  MAX-1ì´ ê°€ìž¥ ìµœê·¼ì— ê²ƒìœ¼ë¡œ
+// returní•´ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 const char*	
 CMessageArray::operator [] (int i)
 { 
-	//                i   = ½ÇÁ¦·Î returnµÇ¾î¾ß ÇÏ´Â °ª
+	//                i   = ì‹¤ì œë¡œ returnë˜ì–´ì•¼ í•˜ëŠ” ê°’
 	//m_Current - (3-[0]) = m_Current;
 	//m_Current - (3-[1]) = m_Current - 2;
 	//m_Current - (3-[2]) = m_Current - 1;

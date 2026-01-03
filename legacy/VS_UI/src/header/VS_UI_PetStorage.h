@@ -32,7 +32,7 @@
 //-----------------------------------------------------------------------------
 // C_VS_UI_PETSTORAGE
 //
-// º¸°üÇÔ. º¸°üÇÑ 1, 2, 3À¸·Î tabÀÌ ÀÖ´Ù. Shop ÀÎÅÍÆäÀÌ½º¿Í °°Àº ÇüÅÂÀÌ´Ù.
+// ë³´ê´€í•¨. ë³´ê´€í•œ 1, 2, 3ìœ¼ë¡œ tabì´ ìžˆë‹¤. Shop ì¸í„°íŽ˜ì´ìŠ¤ì™€ ê°™ì€ í˜•íƒœì´ë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_PETSTORAGE: public Window, public Exec, public ButtonVisual
 {
@@ -116,15 +116,15 @@ private:
 	enum INFO_SPK
 	{
 			PERSNALSHOP_MARK,
-			INPUT_MESSAGE,			// ¼ö¶ô ¹öÆ°
-			INPUT_MESSAGE_HILIGHT,	// ¼ö¶ô ¹öÆ° ÇÏÀÌ¶óÀÌÆ®
-			INPUT_MESSAGE_PUSH,		// ¼ö¶ô ¹öÆ° Çª½¬
-			SHOP_OPEN_MESSAGE,			// ¼ö¶ô ¹öÆ°
-			SHOP_OPEN_MESSAGE_HILIGHT,	// ¼ö¶ô ¹öÆ° ÇÏÀÌ¶óÀÌÆ®
-			SHOP_OPEN_MESSAGE_PUSH,		// ¼ö¶ô ¹öÆ° Çª½¬
-			SHOP_CLOSE_MESSAGE,			// ¼ö¶ô ¹öÆ°
-			SHOP_CLOSE_MESSAGE_HILIGHT,	// ¼ö¶ô ¹öÆ° ÇÏÀÌ¶óÀÌÆ®
-			SHOP_CLOSE_MESSAGE_PUSH,		// ¼ö¶ô ¹öÆ° Çª½¬
+			INPUT_MESSAGE,			// ìˆ˜ë½ ë²„íŠ¼
+			INPUT_MESSAGE_HILIGHT,	// ìˆ˜ë½ ë²„íŠ¼ í•˜ì´ë¼ì´íŠ¸
+			INPUT_MESSAGE_PUSH,		// ìˆ˜ë½ ë²„íŠ¼ í‘¸ì‰¬
+			SHOP_OPEN_MESSAGE,			// ìˆ˜ë½ ë²„íŠ¼
+			SHOP_OPEN_MESSAGE_HILIGHT,	// ìˆ˜ë½ ë²„íŠ¼ í•˜ì´ë¼ì´íŠ¸
+			SHOP_OPEN_MESSAGE_PUSH,		// ìˆ˜ë½ ë²„íŠ¼ í‘¸ì‰¬
+			SHOP_CLOSE_MESSAGE,			// ìˆ˜ë½ ë²„íŠ¼
+			SHOP_CLOSE_MESSAGE_HILIGHT,	// ìˆ˜ë½ ë²„íŠ¼ í•˜ì´ë¼ì´íŠ¸
+			SHOP_CLOSE_MESSAGE_PUSH,		// ìˆ˜ë½ ë²„íŠ¼ í‘¸ì‰¬
 	};
 
 	enum

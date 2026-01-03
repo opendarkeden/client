@@ -302,6 +302,7 @@ set(UI_DEMO_SOURCES
     src/ui_demo/ui_game_chat.c
     src/ui_demo/ui_game_minimap.c
     src/ui_demo/ui_game_sysmenu.c
+    src/ui_demo/ui_other_info.c
 )
 
 add_executable(UIDemo ${UI_DEMO_SOURCES})

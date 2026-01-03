@@ -28,17 +28,17 @@ class LCPCList : public Packet {
 public :
 
 	// constructor
-	// PCInfo* ¹è¿­¿¡ °¢°¢ NULLÀ» ÁöÁ¤ÇÑ´Ù.
+	// PCInfo* ë°°ì—´ì— ê°ê° NULLì„ ì§€ì •í•œë‹¤.
 	LCPCList () throw ();
 
 	// destructor
-	// PCInfo* ¹è¿­¿¡ ÇÒ´çµÈ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+	// PCInfo* ë°°ì—´ì— í• ë‹¹ëœ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 	~LCPCList () throw ();
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -78,7 +78,7 @@ public :
 
 private : 
 
-	// Ä³¸¯ÅÍ Á¤º¸
+	// ìºë¦­í„° ì •ë³´
 	PCInfo * m_pPCInfos[ SLOT_MAX ];
 
 };
@@ -110,8 +110,8 @@ public :
 	// get packet's max body size
 	PacketSize_t getPacketMaxSize () const throw () 
 	{ 
-		// ½½·¹ÀÌ¾î Á¤º¸°¡ ¹ìÆÄÀÌ¾î Á¤º¸º¸´Ù »çÀÌÁî°¡ Å©±â ¶§¹®¿¡,
-		// ÀÌ ÆÐÅ¶ÀÇ ÃÖ´ë Å©±â´Â ½½·¹ÀÌ¾î 3 ¸íÀÏ °æ¿ìÀÌ´Ù.
+		// ìŠ¬ë ˆì´ì–´ ì •ë³´ê°€ ë±€íŒŒì´ì–´ ì •ë³´ë³´ë‹¤ ì‚¬ì´ì¦ˆê°€ í¬ê¸° ë•Œë¬¸ì—,
+		// ì´ íŒ¨í‚·ì˜ ìµœëŒ€ í¬ê¸°ëŠ” ìŠ¬ë ˆì´ì–´ 3 ëª…ì¼ ê²½ìš°ì´ë‹¤.
 		return SLOT_MAX * sizeof(char) + PCSlayerInfo::getMaxSize() * SLOT_MAX; 
 	}
 	

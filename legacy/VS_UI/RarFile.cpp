@@ -57,7 +57,7 @@ void CRarFile::Release()
 
 //////////////////////////////////////////////////////////////////////
 // SetRAR
-// RARÆÄÀÏ ÀÌ¸§ ¼¼ÆÃ
+// RARíŒŒì¼ ì´ë¦„ ì„¸íŒ…
 //////////////////////////////////////////////////////////////////////
 void CRarFile::SetRAR(const char *rar_filename, const char *pass)
 {
@@ -67,7 +67,7 @@ void CRarFile::SetRAR(const char *rar_filename, const char *pass)
 
 //////////////////////////////////////////////////////////////////////
 // Open
-// RAR ÆÄÀÏÀ» ¿¬´Ù.
+// RAR íŒŒì¼ì„ ì—°ë‹¤.
 //////////////////////////////////////////////////////////////////////
 bool CRarFile::Open(const char *in_filename)
 {
@@ -82,11 +82,11 @@ bool CRarFile::Open(const char *in_filename)
 
 //////////////////////////////////////////////////////////////////////
 // Read
-// size ¸¸Å­ buf¿¡ ÀĞ´Â´Ù.
+// size ë§Œí¼ bufì— ì½ëŠ”ë‹¤.
 //////////////////////////////////////////////////////////////////////
 char* CRarFile::Read(char *buf, int size)
 {
-	if(m_file_pointer == NULL || IsEOF())return NULL;	// ÆÄÀÏÀ» ÀĞÁö ¾Ê¾Ò°Å³ª ÆÄÀÏÀÇ ³¡ÀÌ¸é
+	if(m_file_pointer == NULL || IsEOF())return NULL;	// íŒŒì¼ì„ ì½ì§€ ì•Šì•˜ê±°ë‚˜ íŒŒì¼ì˜ ëì´ë©´
 
 	memcpy(buf, m_file_pointer, size);
 	char* re = m_data;
@@ -96,11 +96,11 @@ char* CRarFile::Read(char *buf, int size)
 
 //////////////////////////////////////////////////////////////////////
 // Read
-// ÇöÀç µ¥ÀÌÅÍ¸¦ ¸®ÅÏÇÏ°í size¸¸Å­ plus
+// í˜„ì¬ ë°ì´í„°ë¥¼ ë¦¬í„´í•˜ê³  sizeë§Œí¼ plus
 //////////////////////////////////////////////////////////////////////
 char* CRarFile::Read(int size)
 {
-	if(m_file_pointer == NULL || IsEOF())return NULL;	// ÆÄÀÏÀ» ÀĞÁö ¾Ê¾Ò°Å³ª ÆÄÀÏÀÇ ³¡ÀÌ¸é
+	if(m_file_pointer == NULL || IsEOF())return NULL;	// íŒŒì¼ì„ ì½ì§€ ì•Šì•˜ê±°ë‚˜ íŒŒì¼ì˜ ëì´ë©´
 
 	char* re = m_file_pointer;
 	m_file_pointer += size;
@@ -109,7 +109,7 @@ char* CRarFile::Read(int size)
 
 //////////////////////////////////////////////////////////////////////
 // IsEOF
-// È­ÀÏÀÇ ³¡ÀÎ°¡.
+// í™”ì¼ì˜ ëì¸ê°€.
 //////////////////////////////////////////////////////////////////////
 bool CRarFile::IsEOF(int plus)
 {
@@ -120,11 +120,11 @@ bool CRarFile::IsEOF(int plus)
 
 //////////////////////////////////////////////////////////////////////
 // GetString
-// ¹®ÀÚ¿­ ÀĞ±â
+// ë¬¸ìì—´ ì½ê¸°
 //////////////////////////////////////////////////////////////////////
 bool CRarFile::GetString(char* buf, int size)
 {
-	if(m_file_pointer == NULL || IsEOF())return false;	// ÆÄÀÏÀ» ÀĞÁö ¾Ê¾Ò°Å³ª ÆÄÀÏÀÇ ³¡ÀÌ¸é
+	if(m_file_pointer == NULL || IsEOF())return false;	// íŒŒì¼ì„ ì½ì§€ ì•Šì•˜ê±°ë‚˜ íŒŒì¼ì˜ ëì´ë©´
 
 	int i;
 	for(i = 0; m_file_pointer + i < m_data + m_size && i < size; i++)
@@ -149,7 +149,7 @@ bool CRarFile::GetString(char* buf, int size)
 
 //////////////////////////////////////////////////////////////////////
 // GetList
-// ¸®½ºÆ® ÀĞ±â
+// ë¦¬ìŠ¤íŠ¸ ì½ê¸°
 //////////////////////////////////////////////////////////////////////
 std::vector<std::string> *CRarFile::GetList(char *filter)
 {

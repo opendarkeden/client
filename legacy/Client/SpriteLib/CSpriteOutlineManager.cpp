@@ -39,7 +39,7 @@ CSpriteOutlineManager::~CSpriteOutlineManager()
 void
 CSpriteOutlineManager::Clear()
 {
-	// µî·ÏµÈ sprite°¡ ¾ø°Ô ÇÑ´Ù.
+	// ë“±ë¡ëœ spriteê°€ ì—†ê²Œ í•œë‹¤.
 	for (int i=0; i<MAX_SPRITE_MERGE; i++)
 	{
 		m_Type[i]		= SPRITETYPE_NULL;
@@ -56,7 +56,7 @@ CSpriteOutlineManager::Clear()
 	m_pointOutput.x			= 0;
 	m_pointOutput.y			= 0;
 
-	// ¿Ü°û¼± Á¤º¸ °ü·Ã
+	// ì™¸ê³½ì„  ì •ë³´ ê´€ë ¨
 	ReleaseInfo();
 
 }
@@ -67,17 +67,17 @@ CSpriteOutlineManager::Clear()
 void
 CSpriteOutlineManager::InitInfo(int width, int height)
 {
-	// ÀÏ´Ü ¸Ş¸ğ¸® ÇØÁ¦
+	// ì¼ë‹¨ ë©”ëª¨ë¦¬ í•´ì œ
 	ReleaseInfo();
 
-	// ±æÀÌ°¡ ¾ø´Â °æ¿ì
+	// ê¸¸ì´ê°€ ì—†ëŠ” ê²½ìš°
 	if (width==0 || height==0)
 		return;
 
 	m_Width = width;
 	m_Height = height;
 
-	// ¸Ş¸ğ¸® Àâ±â..
+	// ë©”ëª¨ë¦¬ ì¡ê¸°..
 	m_ppPixelInfo = new BYTE* [m_Height];
 	m_ppColorInfo = new WORD* [m_Height];
 
@@ -86,7 +86,7 @@ CSpriteOutlineManager::InitInfo(int width, int height)
 		m_ppPixelInfo[i] = new BYTE [m_Width];
 		m_ppColorInfo[i] = new WORD [m_Width];
 
-		// ÀÏ´Ü ¸ğµç Á¡À» Åõ¸í»öÀ¸·Î ÃÊ±âÈ­ÇÑ´Ù.
+		// ì¼ë‹¨ ëª¨ë“  ì ì„ íˆ¬ëª…ìƒ‰ìœ¼ë¡œ ì´ˆê¸°í™”í•œë‹¤.
 		//for (int j=0; j<m_Width; j++)
 		//{
 		//	m_ppPixelInfo[i][j] = PIXELTYPE_TRANS;
@@ -101,7 +101,7 @@ CSpriteOutlineManager::InitInfo(int width, int height)
 void
 CSpriteOutlineManager::ReleaseInfo()
 {
-	// m_ppPixelInfoÁ¦°Å
+	// m_ppPixelInfoì œê±°
 	if (m_ppPixelInfo != NULL)
 	{		
 		for (int i=0; i<m_Height; i++)
@@ -113,7 +113,7 @@ CSpriteOutlineManager::ReleaseInfo()
 		m_ppPixelInfo	= NULL;
 	}
 
-	// m_ppColorInfoÁ¦°Å
+	// m_ppColorInfoì œê±°
 	if (m_ppColorInfo != NULL)
 	{				
 		for (int i=0; i<m_Height; i++)
@@ -136,11 +136,11 @@ CSpriteOutlineManager::ReleaseInfo()
 void		
 CSpriteOutlineManager::Add(int x, int y, CSprite* pSprite)
 {
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
-	// MAX_SPRITE_MERGEÀ» ³ÑÁö ¾Êµµ·Ï ÇÑ´Ù.
+	// MAX_SPRITE_MERGEì„ ë„˜ì§€ ì•Šë„ë¡ í•œë‹¤.
 	if (m_nSprite < MAX_SPRITE_MERGE)
 	{
 		m_Type[m_nSprite]		= SPRITETYPE_NORMAL;	
@@ -151,7 +151,7 @@ CSpriteOutlineManager::Add(int x, int y, CSprite* pSprite)
 		m_nSprite++;
 
 		
-		// ¿Ü°û¼± Á¤º¸ÀÇ Å©±â¸¦ °áÁ¤ÇÑ´Ù.
+		// ì™¸ê³½ì„  ì •ë³´ì˜ í¬ê¸°ë¥¼ ê²°ì •í•œë‹¤.
 		int temp;
 
 		if (x < m_rectOutline.left)
@@ -176,12 +176,12 @@ CSpriteOutlineManager::Add(int x, int y, CSprite* pSprite)
 void		
 CSpriteOutlineManager::Add(int x, int y, CIndexSprite* pSprite, WORD colorSet)
 {
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
 	register int i;
-	// MAX_SPRITE_MERGEÀ» ³ÑÁö ¾Êµµ·Ï ÇÑ´Ù.
+	// MAX_SPRITE_MERGEì„ ë„˜ì§€ ì•Šë„ë¡ í•œë‹¤.
 	if (m_nSprite < MAX_SPRITE_MERGE)
 	{
 		m_Type[m_nSprite]		= SPRITETYPE_INDEX;	
@@ -198,7 +198,7 @@ CSpriteOutlineManager::Add(int x, int y, CIndexSprite* pSprite, WORD colorSet)
 		m_nSprite++;
 
 		
-		// ¿Ü°û¼± Á¤º¸ÀÇ Å©±â¸¦ °áÁ¤ÇÑ´Ù.
+		// ì™¸ê³½ì„  ì •ë³´ì˜ í¬ê¸°ë¥¼ ê²°ì •í•œë‹¤.
 		int temp;
 
 		if (x < m_rectOutline.left)
@@ -223,11 +223,11 @@ CSpriteOutlineManager::Add(int x, int y, CIndexSprite* pSprite, WORD colorSet)
 void		
 CSpriteOutlineManager::Add(int x, int y, CAlphaSprite* pSprite)
 {
-	// Sprite°¡ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì..
+	// Spriteê°€ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°..
 	if (pSprite->IsNotInit())
 		return;
 
-	// MAX_SPRITE_MERGEÀ» ³ÑÁö ¾Êµµ·Ï ÇÑ´Ù.
+	// MAX_SPRITE_MERGEì„ ë„˜ì§€ ì•Šë„ë¡ í•œë‹¤.
 	if (m_nSprite < MAX_SPRITE_MERGE)
 	{
 		m_Type[m_nSprite]		= SPRITETYPE_ALPHA;	
@@ -238,7 +238,7 @@ CSpriteOutlineManager::Add(int x, int y, CAlphaSprite* pSprite)
 		m_nSprite++;
 
 		
-		// ¿Ü°û¼± Á¤º¸ÀÇ Å©±â¸¦ °áÁ¤ÇÑ´Ù.
+		// ì™¸ê³½ì„  ì •ë³´ì˜ í¬ê¸°ë¥¼ ê²°ì •í•œë‹¤.
 		int temp;
 
 		if (x < m_rectOutline.left)
@@ -260,7 +260,7 @@ CSpriteOutlineManager::Add(int x, int y, CAlphaSprite* pSprite)
 //----------------------------------------------------------------------
 // Generate
 //----------------------------------------------------------------------
-// ¿Ü°û¼±¿¡ ´ëÇÑ Á¤º¸¸¦ »ı¼ºÇÑ´Ù.
+// ì™¸ê³½ì„ ì— ëŒ€í•œ ì •ë³´ë¥¼ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 void		
 CSpriteOutlineManager::Generate(int opt)
@@ -272,15 +272,15 @@ CSpriteOutlineManager::Generate(int opt)
 	register int j;
 
 	//------------------------------------------------------
-	// ¿Ü°û¼± Á¤º¸ÀÇ Å©±â(m_rectOutline)¿¡ µû¶ó Á¤º¸ »ı¼º.
+	// ì™¸ê³½ì„  ì •ë³´ì˜ í¬ê¸°(m_rectOutline)ì— ë”°ë¼ ì •ë³´ ìƒì„±.
 	//------------------------------------------------------
 	//
-	// ex) (100,100) ~ (200,200) : µî·ÏµÈ SpriteµéÀÇ ¿Ü°û
+	// ex) (100,100) ~ (200,200) : ë“±ë¡ëœ Spriteë“¤ì˜ ì™¸ê³½
 	//
-	// --> (0,0) ~ (100,100)     : (0,0)À» ½ÃÀÛÁ¡À¸·Î.. 
-	// --> (0,0) ~ (102,102)     : ¿Ü°û¿¡ ÇÑÁÙ¾¿ ´õ Ãß°¡.
+	// --> (0,0) ~ (100,100)     : (0,0)ì„ ì‹œì‘ì ìœ¼ë¡œ.. 
+	// --> (0,0) ~ (102,102)     : ì™¸ê³½ì— í•œì¤„ì”© ë” ì¶”ê°€.
 	//
-	// Ãâ·ÂÀ§Ä¡ : (100,100) - (1,1) = (99,99)
+	// ì¶œë ¥ìœ„ì¹˜ : (100,100) - (1,1) = (99,99)
 	//
 	//------------------------------------------------------
 	m_pointOutput.x		= m_rectOutline.left - 1;
@@ -290,21 +290,21 @@ CSpriteOutlineManager::Generate(int opt)
 	m_rectOutline.bottom -= m_rectOutline.top;
 	//m_rectOutline.left = 0;
 	//m_rectOutline.top = 0;
-	m_rectOutline.right += 1;	// +2	¾Æ·¡ÂÊ¿¡¼­ °è»êÀÇ ÆíÀÇ»ó +1¸¸ gÀ½
+	m_rectOutline.right += 1;	// +2	ì•„ë˜ìª½ì—ì„œ ê³„ì‚°ì˜ í¸ì˜ìƒ +1ë§Œ gìŒ
 	m_rectOutline.bottom += 1;	// +2
 	
-	// Á¤º¸ »ı¼º
+	// ì •ë³´ ìƒì„±
 	InitInfo( m_rectOutline.right+1, m_rectOutline.bottom+1 );
 
 
 	//------------------------------------------------------
 	//
-	// °¢ Sprite¿¡ µû¶ó¼­ ¿Ü°û¼± Á¤º¸¸¦ º¯°æ½ÃÄÑ ÁØ´Ù.
+	// ê° Spriteì— ë”°ë¼ì„œ ì™¸ê³½ì„  ì •ë³´ë¥¼ ë³€ê²½ì‹œì¼œ ì¤€ë‹¤.
 	//
 	//------------------------------------------------------
 	for (i=0; i<m_nSprite; i++)
 	{
-		// ¿Ü°û¼± Á¤º¸¿¡¼­ ÀÌ Sprite°¡ À§Ä¡ÇÏ´Â position
+		// ì™¸ê³½ì„  ì •ë³´ì—ì„œ ì´ Spriteê°€ ìœ„ì¹˜í•˜ëŠ” position
 		m_Position[i].x	-= m_rectOutline.left;
 		m_Position[i].x	+= 1;
 		m_Position[i].y	-= m_rectOutline.top;
@@ -335,14 +335,14 @@ CSpriteOutlineManager::Generate(int opt)
 
 	//------------------------------------------------------
 	//
-	// »ı¼ºµÈ ¿Ü°û¼± Á¤º¸·Î -->  ¿Ü°û¼±À» ÃßÃâÇÑ´Ù.
+	// ìƒì„±ëœ ì™¸ê³½ì„  ì •ë³´ë¡œ -->  ì™¸ê³½ì„ ì„ ì¶”ì¶œí•œë‹¤.
 	//
 	//
-	// m_ppPixelInfo¿¡ PIXELTYPE_OUTLINEÀ» Ãß°¡ÇÑ´Ù.
+	// m_ppPixelInfoì— PIXELTYPE_OUTLINEì„ ì¶”ê°€í•œë‹¤.
 	// 
 	//------------------------------------------------------
 	//------------------------------------------------------
-	// ¼¼·Î·Î Scan
+	// ì„¸ë¡œë¡œ Scan
 	//------------------------------------------------------
 	BOOL bPreviousTrans;
 	for (i=1; i<m_rectOutline.right; i++)
@@ -351,20 +351,20 @@ CSpriteOutlineManager::Generate(int opt)
 
 		for (j=1; j<m_rectOutline.bottom; j++)
 		{
-			// Åõ¸í»öÀÎ °æ¿ì
+			// íˆ¬ëª…ìƒ‰ì¸ ê²½ìš°
 			if (m_ppPixelInfo[j][i] == PIXELTYPE_TRANS)
 			{
-				// ÀÌÀüÀÇ °ÍÀÌ Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì
+				// ì´ì „ì˜ ê²ƒì´ íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°
 				if (!bPreviousTrans)
 				{
 					m_ppPixelInfo[j][i] = PIXELTYPE_OUTLINE;
 					bPreviousTrans = TRUE;
 				}
 			}
-			// Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì
+			// íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°
 			else
 			{
-				// ÀÌÀüÀÇ °ÍÀÌ Åõ¸í»öÀÎ °æ¿ì
+				// ì´ì „ì˜ ê²ƒì´ íˆ¬ëª…ìƒ‰ì¸ ê²½ìš°
 				if (bPreviousTrans)
 				{
 					m_ppPixelInfo[j-1][i] = PIXELTYPE_OUTLINE;
@@ -373,7 +373,7 @@ CSpriteOutlineManager::Generate(int opt)
 			}	
 		}
 
-		// ¸¶Áö¸· °ÍÀÌ Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì
+		// ë§ˆì§€ë§‰ ê²ƒì´ íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°
 		if (!bPreviousTrans)
 		{
 			m_ppPixelInfo[j][i] = PIXELTYPE_OUTLINE;
@@ -381,13 +381,13 @@ CSpriteOutlineManager::Generate(int opt)
 	}
 	
 	//------------------------------------------------------
-	// °¡·Î·Î Scan
+	// ê°€ë¡œë¡œ Scan
 	//------------------------------------------------------
 	if(opt != GENERATE_EXCEPT_SIDE)
 	{
-		int	transCount;		// Åõ¸í»ö °³¼ö
+		int	transCount;		// íˆ¬ëª…ìƒ‰ ê°œìˆ˜
 		int transIndex;
-		int	colorCount;		// »ö °³¼ö
+		int	colorCount;		// ìƒ‰ ê°œìˆ˜
 		int colorIndex;
 		for (i=1; i<m_rectOutline.bottom; i++)
 		{
@@ -399,20 +399,20 @@ CSpriteOutlineManager::Generate(int opt)
 
 			for (j=1; j<m_rectOutline.right; j++)
 			{
-				// Åõ¸í»öÀÎ °æ¿ì
+				// íˆ¬ëª…ìƒ‰ì¸ ê²½ìš°
 				if (m_ppPixelInfo[i][j] == PIXELTYPE_TRANS)
 				{
-					// ÀÌÀüÀÇ °ÍÀÌ Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì
+					// ì´ì „ì˜ ê²ƒì´ íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°
 					if (!bPreviousTrans)
 					{
-						// ÀÌÀüÀÇ °ÍÀÌ outlineÀÌ¸é..
+						// ì´ì „ì˜ ê²ƒì´ outlineì´ë©´..
 						if (m_ppPixelInfo[i][j-1]==PIXELTYPE_OUTLINE)
 						{
-							// Åõ¸í»ö °³¼ö¸¦ ÀúÀåÇÒ À§Ä¡
+							// íˆ¬ëª…ìƒ‰ ê°œìˆ˜ë¥¼ ì €ì¥í•  ìœ„ì¹˜
 							transIndex		= j;
 							bPreviousTrans = TRUE;
 						}
-						// ÀÌÀüÀÇ °ÍÀÌ outlineÀÌ ¾Æ´Ï¸é(»ö±òÀÌ¸é)..
+						// ì´ì „ì˜ ê²ƒì´ outlineì´ ì•„ë‹ˆë©´(ìƒ‰ê¹”ì´ë©´)..
 						else
 						{				
 							if(opt != GENERATE_EXCEPT_RIGHT)
@@ -422,17 +422,17 @@ CSpriteOutlineManager::Generate(int opt)
 					}
 					transCount++;
 				}
-				// Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì
+				// íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°
 				else
 				{
-					// ÀÌÀüÀÇ °ÍÀÌ Åõ¸í»öÀÎ °æ¿ì
+					// ì´ì „ì˜ ê²ƒì´ íˆ¬ëª…ìƒ‰ì¸ ê²½ìš°
 					if (bPreviousTrans)
 					{
-						// ÀÌ¹Ì ¼¼·Îscan¿¡¼­ outlineÃ¼Å©°¡ µÇ¾î ÀÖ´Ù¸é
+						// ì´ë¯¸ ì„¸ë¡œscanì—ì„œ outlineì²´í¬ê°€ ë˜ì–´ ìˆë‹¤ë©´
 						if (m_ppPixelInfo[i][j]==PIXELTYPE_OUTLINE)
 						{
 						}
-						// ¾Æ´Ï¸é..
+						// ì•„ë‹ˆë©´..
 						else
 						{
 							if(opt != GENERATE_EXCEPT_LEFT)
@@ -444,11 +444,11 @@ CSpriteOutlineManager::Generate(int opt)
 						
 						bPreviousTrans = FALSE;
 
-						// Åõ¸í»ö °³¼ö¸¦ ÀúÀåÇØµĞ´Ù.
+						// íˆ¬ëª…ìƒ‰ ê°œìˆ˜ë¥¼ ì €ì¥í•´ë‘”ë‹¤.
 						//
-						// (!) transCount°¡ 200ÀÌ»óÀÏ °æ¿ì.. check
+						// (!) transCountê°€ 200ì´ìƒì¼ ê²½ìš°.. check
 						//
-						// 0ÀÌ¸é ÀúÀåÇØ¼­´Â ¾ÈµÈ´Ù.
+						// 0ì´ë©´ ì €ì¥í•´ì„œëŠ” ì•ˆëœë‹¤.
 						if (transCount > 0)
 						{
 							m_ppPixelInfo[i][transIndex] = transCount;
@@ -458,16 +458,16 @@ CSpriteOutlineManager::Generate(int opt)
 				}	
 			}
 
-			// ¸¶Áö¸· °ÍÀÌ Åõ¸í»öÀÎ °æ¿ì
+			// ë§ˆì§€ë§‰ ê²ƒì´ íˆ¬ëª…ìƒ‰ì¸ ê²½ìš°
 			if (bPreviousTrans)
 			{
-				// µÚ·Î´Â ¸ğµÎ Åõ¸í»öÀÌ¶ó´Â ÀÇ¹Ì.
+				// ë’¤ë¡œëŠ” ëª¨ë‘ íˆ¬ëª…ìƒ‰ì´ë¼ëŠ” ì˜ë¯¸.
 				if (transCount > 0)
 				{
 					m_ppPixelInfo[i][transIndex] = PIXELTYPE_TRANSEND;
 				}
 			}
-			// ¸¶Áö¸· °ÍÀÌ Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì
+			// ë§ˆì§€ë§‰ ê²ƒì´ íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°
 			else if (m_ppPixelInfo[i][j-1] != PIXELTYPE_OUTLINE)
 			{
 				if(opt != GENERATE_EXCEPT_RIGHT)
@@ -480,9 +480,9 @@ CSpriteOutlineManager::Generate(int opt)
 //----------------------------------------------------------------------
 // Blt
 //----------------------------------------------------------------------
-// ¿Ü°û¼±À» È­¸é¿¡ Ãâ·ÂÇÑ´Ù. 
+// ì™¸ê³½ì„ ì„ í™”ë©´ì— ì¶œë ¥í•œë‹¤. 
 //
-// pSurface¿¡.. ¿Ü°û¼±Àº color·Î 
+// pSurfaceì—.. ì™¸ê³½ì„ ì€ colorë¡œ 
 //----------------------------------------------------------------------
 void		
 CSpriteOutlineManager::Blt(WORD* pSurface, WORD Pitch, WORD color)
@@ -490,7 +490,7 @@ CSpriteOutlineManager::Blt(WORD* pSurface, WORD Pitch, WORD color)
 	if (m_nSprite==0)
 		return;
 
-	// ÁÂÇ¥ ¼³Á¤
+	// ì¢Œí‘œ ì„¤ì •
 	pSurface = (WORD*)((BYTE*)pSurface + Pitch*m_pointOutput.y + (m_pointOutput.x<<1));
 
 	register int i;
@@ -503,7 +503,7 @@ CSpriteOutlineManager::Blt(WORD* pSurface, WORD Pitch, WORD color)
 
 	int info;
 
-	// Clippingµµ ÇØ¾ßÇÑ´Ù. T_T;;;
+	// Clippingë„ í•´ì•¼í•œë‹¤. T_T;;;
 	for (i=0; i<=rectBottom; i++)
 	{
 		pSurfaceTemp = pSurface;
@@ -515,7 +515,7 @@ CSpriteOutlineManager::Blt(WORD* pSurface, WORD Pitch, WORD color)
 		{		
 			info = *pPixelInfo;
 
-			// Åõ¸í»ö¸¸Å­ °Ç³Ê¶Ú´Ù.
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë›´ë‹¤.
 			if (info < PIXELTYPE_MAXCOUNT)
 			{				
 				pSurfaceTemp += info;
@@ -523,17 +523,17 @@ CSpriteOutlineManager::Blt(WORD* pSurface, WORD Pitch, WORD color)
 				j += info;
 			}
 
-			// ¿Ü°û¼±ÀÎ °æ¿ì 
+			// ì™¸ê³½ì„ ì¸ ê²½ìš° 
 			if (info == PIXELTYPE_OUTLINE)
 			{
 				*pSurfaceTemp = color;
 			}
-			// »ö±òÀÎ °æ¿ì
+			// ìƒ‰ê¹”ì¸ ê²½ìš°
 			else if (info == PIXELTYPE_COLOR)
 			{
 				*pSurfaceTemp = m_ppColorInfo[i][j];
 			}
-			// ³¡±îÁö Åõ¸í»öÀÎ °æ¿ì
+			// ëê¹Œì§€ íˆ¬ëª…ìƒ‰ì¸ ê²½ìš°
 			else if (info==PIXELTYPE_TRANSEND)
 			{
 				break;
@@ -544,7 +544,7 @@ CSpriteOutlineManager::Blt(WORD* pSurface, WORD Pitch, WORD color)
 			j++;
 		}
 
-		// ´ÙÀ½ ÁÙ
+		// ë‹¤ìŒ ì¤„
 		pSurface = (WORD*)((BYTE*)pSurface + Pitch);
 	}
 }
@@ -552,9 +552,9 @@ CSpriteOutlineManager::Blt(WORD* pSurface, WORD Pitch, WORD color)
 //----------------------------------------------------------------------
 // Blt Clip
 //----------------------------------------------------------------------
-// ¿Ü°û¼±À» È­¸é¿¡ Ãâ·ÂÇÑ´Ù. 
+// ì™¸ê³½ì„ ì„ í™”ë©´ì— ì¶œë ¥í•œë‹¤. 
 //
-// pSurface¿¡.. ¿Ü°û¼±Àº color·Î 
+// pSurfaceì—.. ì™¸ê³½ì„ ì€ colorë¡œ 
 //----------------------------------------------------------------------
 void		
 CSpriteOutlineManager::BltClip(WORD* pSurface, WORD Pitch, WORD color, RECT* pRect)
@@ -562,7 +562,7 @@ CSpriteOutlineManager::BltClip(WORD* pSurface, WORD Pitch, WORD color, RECT* pRe
 	if (m_nSprite==0)
 		return;
 
-	// ÁÂÇ¥ ¼³Á¤
+	// ì¢Œí‘œ ì„¤ì •
 	pSurface = (WORD*)((BYTE*)pSurface + Pitch*m_pointOutput.y + (m_pointOutput.x<<1));
 
 	pSurface = (WORD*)((BYTE*)pSurface + Pitch*pRect->top + (pRect->left<<1));
@@ -576,7 +576,7 @@ CSpriteOutlineManager::BltClip(WORD* pSurface, WORD Pitch, WORD color, RECT* pRe
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
 
-	// Clippingµµ ÇØ¾ßÇÑ´Ù. T_T;;;
+	// Clippingë„ í•´ì•¼í•œë‹¤. T_T;;;
 	for (i=pRect->top; i<rectBottom; i++)
 	{
 		pSurfaceTemp = pSurface;
@@ -585,7 +585,7 @@ CSpriteOutlineManager::BltClip(WORD* pSurface, WORD Pitch, WORD color, RECT* pRe
 		j = rectLeft;
 		while (j < rectRight)
 		{		
-			// Åõ¸í»ö¸¸Å­ °Ç³Ê¶Ú´Ù.
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë›´ë‹¤.
 			if (m_ppPixelInfo[i][j] < PIXELTYPE_MAXCOUNT)
 			{				
 				pSurfaceTemp += m_ppPixelInfo[i][j];
@@ -594,17 +594,17 @@ CSpriteOutlineManager::BltClip(WORD* pSurface, WORD Pitch, WORD color, RECT* pRe
 				continue;
 			}
 
-			// ¿Ü°û¼±ÀÎ °æ¿ì 
+			// ì™¸ê³½ì„ ì¸ ê²½ìš° 
 			if (m_ppPixelInfo[i][j] == PIXELTYPE_OUTLINE)
 			{
 				*pSurfaceTemp = color;
 			}
-			// »ö±òÀÎ °æ¿ì
+			// ìƒ‰ê¹”ì¸ ê²½ìš°
 			else if (m_ppPixelInfo[i][j] == PIXELTYPE_COLOR)
 			{
 				*pSurfaceTemp = m_ppColorInfo[i][j];
 			}
-			// ³¡±îÁö Åõ¸í»öÀÎ °æ¿ì
+			// ëê¹Œì§€ íˆ¬ëª…ìƒ‰ì¸ ê²½ìš°
 			else if (m_ppPixelInfo[i][j]==PIXELTYPE_TRANSEND)
 			{
 				break;
@@ -616,7 +616,7 @@ CSpriteOutlineManager::BltClip(WORD* pSurface, WORD Pitch, WORD color, RECT* pRe
 			j++;
 		}
 
-		// ´ÙÀ½ ÁÙ
+		// ë‹¤ìŒ ì¤„
 		pSurface = (WORD*)((BYTE*)pSurface + Pitch);
 	}
 }
@@ -624,9 +624,9 @@ CSpriteOutlineManager::BltClip(WORD* pSurface, WORD Pitch, WORD color, RECT* pRe
 //----------------------------------------------------------------------
 // BltOutline
 //----------------------------------------------------------------------
-// ¿Ü°û¼±À» È­¸é¿¡ Ãâ·ÂÇÑ´Ù. 
+// ì™¸ê³½ì„ ì„ í™”ë©´ì— ì¶œë ¥í•œë‹¤. 
 //
-// pSurface¿¡.. ¿Ü°û¼±Àº color·Î 
+// pSurfaceì—.. ì™¸ê³½ì„ ì€ colorë¡œ 
 //----------------------------------------------------------------------
 void		
 CSpriteOutlineManager::BltOutline(WORD* pSurface, WORD Pitch, WORD color)
@@ -634,7 +634,7 @@ CSpriteOutlineManager::BltOutline(WORD* pSurface, WORD Pitch, WORD color)
 	if (m_nSprite==0)
 		return;
 
-	// ÁÂÇ¥ ¼³Á¤
+	// ì¢Œí‘œ ì„¤ì •
 	pSurface = (WORD*)((BYTE*)pSurface + Pitch*m_pointOutput.y + (m_pointOutput.x<<1));
 
 	register int i;
@@ -645,7 +645,7 @@ CSpriteOutlineManager::BltOutline(WORD* pSurface, WORD Pitch, WORD color)
 	int rectBottom = m_rectOutline.bottom;
 	int rectRight = m_rectOutline.right;
 
-	// Clippingµµ ÇØ¾ßÇÑ´Ù. T_T;;;
+	// Clippingë„ í•´ì•¼í•œë‹¤. T_T;;;
 	for (i=0; i<=rectBottom; i++)
 	{
 		pSurfaceTemp = pSurface;
@@ -654,24 +654,24 @@ CSpriteOutlineManager::BltOutline(WORD* pSurface, WORD Pitch, WORD color)
 		j = 0;
 		while (j <= rectRight)
 		{		
-			// Åõ¸í»ö¸¸Å­ °Ç³Ê¶Ú´Ù.
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë›´ë‹¤.
 			if (m_ppPixelInfo[i][j] < PIXELTYPE_MAXCOUNT)
 			{				
 				pSurfaceTemp += m_ppPixelInfo[i][j];
 				j += m_ppPixelInfo[i][j];
 			}
 
-			// ¿Ü°û¼±ÀÎ °æ¿ì 
+			// ì™¸ê³½ì„ ì¸ ê²½ìš° 
 			if (m_ppPixelInfo[i][j] == PIXELTYPE_OUTLINE)
 			{
 				*pSurfaceTemp = color;
 			}
-			// »ö±òÀÎ °æ¿ì
+			// ìƒ‰ê¹”ì¸ ê²½ìš°
 			//else if (m_ppPixelInfo[i][j] == PIXELTYPE_COLOR)
 			//{
 			//	*pSurfaceTemp = m_ppColorInfo[i][j];
 			//}
-			// ³¡±îÁö Åõ¸í»öÀÎ °æ¿ì
+			// ëê¹Œì§€ íˆ¬ëª…ìƒ‰ì¸ ê²½ìš°
 			else if (m_ppPixelInfo[i][j]==PIXELTYPE_TRANSEND)
 			{
 				break;
@@ -683,7 +683,7 @@ CSpriteOutlineManager::BltOutline(WORD* pSurface, WORD Pitch, WORD color)
 			j++;
 		}
 
-		// ´ÙÀ½ ÁÙ
+		// ë‹¤ìŒ ì¤„
 		pSurface = (WORD*)((BYTE*)pSurface + Pitch);
 	}
 }
@@ -691,9 +691,9 @@ CSpriteOutlineManager::BltOutline(WORD* pSurface, WORD Pitch, WORD color)
 //----------------------------------------------------------------------
 // BltOutline Clip
 //----------------------------------------------------------------------
-// ¿Ü°û¼±À» È­¸é¿¡ Ãâ·ÂÇÑ´Ù. 
+// ì™¸ê³½ì„ ì„ í™”ë©´ì— ì¶œë ¥í•œë‹¤. 
 //
-// pSurface¿¡.. ¿Ü°û¼±Àº color·Î 
+// pSurfaceì—.. ì™¸ê³½ì„ ì€ colorë¡œ 
 //----------------------------------------------------------------------
 void		
 CSpriteOutlineManager::BltOutlineClip(WORD* pSurface, WORD Pitch, WORD color, RECT* pRect)
@@ -701,7 +701,7 @@ CSpriteOutlineManager::BltOutlineClip(WORD* pSurface, WORD Pitch, WORD color, RE
 	if (m_nSprite==0)
 		return;
 
-	// ÁÂÇ¥ ¼³Á¤
+	// ì¢Œí‘œ ì„¤ì •
 	pSurface = (WORD*)((BYTE*)pSurface + Pitch*m_pointOutput.y + (m_pointOutput.x<<1));
 
 	pSurface = (WORD*)((BYTE*)pSurface + Pitch*pRect->top + (pRect->left<<1));
@@ -715,7 +715,7 @@ CSpriteOutlineManager::BltOutlineClip(WORD* pSurface, WORD Pitch, WORD color, RE
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
 
-	// Clippingµµ ÇØ¾ßÇÑ´Ù. T_T;;;
+	// Clippingë„ í•´ì•¼í•œë‹¤. T_T;;;
 	for (i=pRect->top; i<rectBottom; i++)
 	{
 		pSurfaceTemp = pSurface;
@@ -724,7 +724,7 @@ CSpriteOutlineManager::BltOutlineClip(WORD* pSurface, WORD Pitch, WORD color, RE
 		j = rectLeft;
 		while (j < rectRight)
 		{		
-			// Åõ¸í»ö¸¸Å­ °Ç³Ê¶Ú´Ù.
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë›´ë‹¤.
 			if (m_ppPixelInfo[i][j] < PIXELTYPE_MAXCOUNT)
 			{				
 				pSurfaceTemp += m_ppPixelInfo[i][j];
@@ -733,17 +733,17 @@ CSpriteOutlineManager::BltOutlineClip(WORD* pSurface, WORD Pitch, WORD color, RE
 				continue;
 			}
 
-			// ¿Ü°û¼±ÀÎ °æ¿ì 
+			// ì™¸ê³½ì„ ì¸ ê²½ìš° 
 			if (m_ppPixelInfo[i][j] == PIXELTYPE_OUTLINE)
 			{
 				*pSurfaceTemp = color;
 			}
-			// »ö±òÀÎ °æ¿ì
+			// ìƒ‰ê¹”ì¸ ê²½ìš°
 			//else if (m_ppPixelInfo[i][j] == PIXELTYPE_COLOR)
 			//{
 				//*pSurfaceTemp = m_ppColorInfo[i][j];
 			//}
-			// ³¡±îÁö Åõ¸í»öÀÎ °æ¿ì
+			// ëê¹Œì§€ íˆ¬ëª…ìƒ‰ì¸ ê²½ìš°
 			else if (m_ppPixelInfo[i][j]==PIXELTYPE_TRANSEND)
 			{
 				break;
@@ -755,7 +755,7 @@ CSpriteOutlineManager::BltOutlineClip(WORD* pSurface, WORD Pitch, WORD color, RE
 			j++;
 		}
 
-		// ´ÙÀ½ ÁÙ
+		// ë‹¤ìŒ ì¤„
 		pSurface = (WORD*)((BYTE*)pSurface + Pitch);
 	}
 }
@@ -764,9 +764,9 @@ CSpriteOutlineManager::BltOutlineClip(WORD* pSurface, WORD Pitch, WORD color, RE
 //----------------------------------------------------------------------
 // Blt Darkness
 //----------------------------------------------------------------------
-// ¿Ü°û¼±À» È­¸é¿¡ Ãâ·ÂÇÑ´Ù. 
+// ì™¸ê³½ì„ ì„ í™”ë©´ì— ì¶œë ¥í•œë‹¤. 
 //
-// pSurface¿¡.. ¿Ü°û¼±Àº color·Î 
+// pSurfaceì—.. ì™¸ê³½ì„ ì€ colorë¡œ 
 //----------------------------------------------------------------------
 void		
 CSpriteOutlineManager::BltDarkness(WORD* pSurface, WORD Pitch, WORD color, BYTE DarkBits)
@@ -774,7 +774,7 @@ CSpriteOutlineManager::BltDarkness(WORD* pSurface, WORD Pitch, WORD color, BYTE 
 	if (m_nSprite==0)
 		return;
 
-	// ÁÂÇ¥ ¼³Á¤
+	// ì¢Œí‘œ ì„¤ì •
 	pSurface = (WORD*)((BYTE*)pSurface + Pitch*m_pointOutput.y + (m_pointOutput.x<<1));
 
 	register int i;
@@ -785,7 +785,7 @@ CSpriteOutlineManager::BltDarkness(WORD* pSurface, WORD Pitch, WORD color, BYTE 
 	int rectBottom = m_rectOutline.bottom;
 	int rectRight = m_rectOutline.right;
 
-	// Clippingµµ ÇØ¾ßÇÑ´Ù. T_T;;;
+	// Clippingë„ í•´ì•¼í•œë‹¤. T_T;;;
 	for (i=0; i<=rectBottom; i++)
 	{
 		pSurfaceTemp = pSurface;
@@ -794,24 +794,24 @@ CSpriteOutlineManager::BltDarkness(WORD* pSurface, WORD Pitch, WORD color, BYTE 
 		j = 0;
 		while (j <= rectRight)
 		{		
-			// Åõ¸í»ö¸¸Å­ °Ç³Ê¶Ú´Ù.
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë›´ë‹¤.
 			if (m_ppPixelInfo[i][j] < PIXELTYPE_MAXCOUNT)
 			{				
 				pSurfaceTemp += m_ppPixelInfo[i][j];
 				j += m_ppPixelInfo[i][j];
 			}
 
-			// ¿Ü°û¼±ÀÎ °æ¿ì 
+			// ì™¸ê³½ì„ ì¸ ê²½ìš° 
 			if (m_ppPixelInfo[i][j] == PIXELTYPE_OUTLINE)
 			{
 				*pSurfaceTemp = color;
 			}
-			// »ö±òÀÎ °æ¿ì
+			// ìƒ‰ê¹”ì¸ ê²½ìš°
 			else if (m_ppPixelInfo[i][j] == PIXELTYPE_COLOR)
 			{
 				*pSurfaceTemp = (m_ppColorInfo[i][j] >> DarkBits) & CDirectDraw::s_wMASK_SHIFT[DarkBits];				
 			}
-			// ³¡±îÁö Åõ¸í»öÀÎ °æ¿ì
+			// ëê¹Œì§€ íˆ¬ëª…ìƒ‰ì¸ ê²½ìš°
 			else if (m_ppPixelInfo[i][j]==PIXELTYPE_TRANSEND)
 			{
 				break;
@@ -823,7 +823,7 @@ CSpriteOutlineManager::BltDarkness(WORD* pSurface, WORD Pitch, WORD color, BYTE 
 			j++;
 		}
 
-		// ´ÙÀ½ ÁÙ
+		// ë‹¤ìŒ ì¤„
 		pSurface = (WORD*)((BYTE*)pSurface + Pitch);
 	}
 }
@@ -832,9 +832,9 @@ CSpriteOutlineManager::BltDarkness(WORD* pSurface, WORD Pitch, WORD color, BYTE 
 //----------------------------------------------------------------------
 // Blt Darkness Clip
 //----------------------------------------------------------------------
-// ¿Ü°û¼±À» È­¸é¿¡ Ãâ·ÂÇÑ´Ù. 
+// ì™¸ê³½ì„ ì„ í™”ë©´ì— ì¶œë ¥í•œë‹¤. 
 //
-// pSurface¿¡.. ¿Ü°û¼±Àº color·Î 
+// pSurfaceì—.. ì™¸ê³½ì„ ì€ colorë¡œ 
 //----------------------------------------------------------------------
 void		
 CSpriteOutlineManager::BltDarknessClip(WORD* pSurface, WORD Pitch, WORD color, BYTE DarkBits, RECT* pRect)
@@ -842,7 +842,7 @@ CSpriteOutlineManager::BltDarknessClip(WORD* pSurface, WORD Pitch, WORD color, B
 	if (m_nSprite==0)
 		return;
 
-	// ÁÂÇ¥ ¼³Á¤
+	// ì¢Œí‘œ ì„¤ì •
 	pSurface = (WORD*)((BYTE*)pSurface + Pitch*m_pointOutput.y + (m_pointOutput.x<<1));
 
 	pSurface = (WORD*)((BYTE*)pSurface + Pitch*pRect->top + (pRect->left<<1));
@@ -856,7 +856,7 @@ CSpriteOutlineManager::BltDarknessClip(WORD* pSurface, WORD Pitch, WORD color, B
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
 
-	// Clippingµµ ÇØ¾ßÇÑ´Ù. T_T;;;
+	// Clippingë„ í•´ì•¼í•œë‹¤. T_T;;;
 	for (i=pRect->top; i<rectBottom; i++)
 	{
 		pSurfaceTemp = pSurface;
@@ -865,7 +865,7 @@ CSpriteOutlineManager::BltDarknessClip(WORD* pSurface, WORD Pitch, WORD color, B
 		j = rectLeft;
 		while (j < rectRight)
 		{		
-			// Åõ¸í»ö¸¸Å­ °Ç³Ê¶Ú´Ù.
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë›´ë‹¤.
 			if (m_ppPixelInfo[i][j] < PIXELTYPE_MAXCOUNT)
 			{				
 				pSurfaceTemp += m_ppPixelInfo[i][j];
@@ -874,17 +874,17 @@ CSpriteOutlineManager::BltDarknessClip(WORD* pSurface, WORD Pitch, WORD color, B
 				continue;
 			}
 
-			// ¿Ü°û¼±ÀÎ °æ¿ì 
+			// ì™¸ê³½ì„ ì¸ ê²½ìš° 
 			if (m_ppPixelInfo[i][j] == PIXELTYPE_OUTLINE)
 			{
 				*pSurfaceTemp = color;
 			}
-			// »ö±òÀÎ °æ¿ì
+			// ìƒ‰ê¹”ì¸ ê²½ìš°
 			else if (m_ppPixelInfo[i][j] == PIXELTYPE_COLOR)
 			{
 				*pSurfaceTemp = (m_ppColorInfo[i][j] >> DarkBits) & CDirectDraw::s_wMASK_SHIFT[DarkBits];
 			}
-			// ³¡±îÁö Åõ¸í»öÀÎ °æ¿ì
+			// ëê¹Œì§€ íˆ¬ëª…ìƒ‰ì¸ ê²½ìš°
 			else if (m_ppPixelInfo[i][j]==PIXELTYPE_TRANSEND)
 			{
 				break;
@@ -896,7 +896,7 @@ CSpriteOutlineManager::BltDarknessClip(WORD* pSurface, WORD Pitch, WORD color, B
 			j++;
 		}
 
-		// ´ÙÀ½ ÁÙ
+		// ë‹¤ìŒ ì¤„
 		pSurface = (WORD*)((BYTE*)pSurface + Pitch);
 	}
 }
@@ -904,8 +904,8 @@ CSpriteOutlineManager::BltDarknessClip(WORD* pSurface, WORD Pitch, WORD color, B
 //----------------------------------------------------------------------
 // Merge NormalSprite
 //----------------------------------------------------------------------
-// n¹øÂ° Sprite´Â Normal SpriteÀÌ¹Ç·Î 
-// Normal Sprite Á¤º¸¸¦ ÀĞ¾î¼­ ¿Ü°û¼± Á¤º¸¿¡ Ãß°¡ÇÑ´Ù.
+// në²ˆì§¸ SpriteëŠ” Normal Spriteì´ë¯€ë¡œ 
+// Normal Sprite ì •ë³´ë¥¼ ì½ì–´ì„œ ì™¸ê³½ì„  ì •ë³´ì— ì¶”ê°€í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CSpriteOutlineManager::MergeNormalSprite( int n )
@@ -925,38 +925,38 @@ CSpriteOutlineManager::MergeNormalSprite( int n )
 	int px = m_Position[n].x;
 	int py = m_Position[n].y;
 
-	// °¢ ÁÙ¿¡ ´ëÇØ¼­...
+	// ê° ì¤„ì— ëŒ€í•´ì„œ...
 	int height = pSprite->GetHeight();
 	for (i=0; i<height; i++)
 	{
-		// i¹øÂ° ÁÙÀ» ÀĞ¾îµéÀÎ´Ù.
+		// ië²ˆì§¸ ì¤„ì„ ì½ì–´ë“¤ì¸ë‹¤.
 		pPixels			= pSprite->GetPixelLine( i );
 
-		// ¿Ü°û¼± Á¤º¸¿¡¼­ ÀÌ Sprite°¡ ÀúÀåµÉ À§Ä¡..
+		// ì™¸ê³½ì„  ì •ë³´ì—ì„œ ì´ Spriteê°€ ì €ì¥ë  ìœ„ì¹˜..
 		pPixelInfoTemp	= m_ppPixelInfo[py] + px;
 		pColorInfoTemp	= m_ppColorInfo[py] + px;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;
 
- 		// ÇÑ ÁÙ Ãâ·Â
+ 		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{
 			j = count;
 			do {		
-				pPixelInfoTemp += *pPixels;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				pColorInfoTemp += *pPixels;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+				pPixelInfoTemp += *pPixels;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				pColorInfoTemp += *pPixels;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 				pPixels ++;	
 
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» ColorInfo¿¡ Ãß°¡
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ ColorInfoì— ì¶”ê°€
 				memcpy((void*)pColorInfoTemp, (void*)pPixels, colorCount << 1);
 				
-				// PixelInfo¿¡´Â »ö±òÀÌ¶ó´Â Ç¥½Ã¸¦ ÇØµĞ´Ù.
+				// PixelInfoì—ëŠ” ìƒ‰ê¹”ì´ë¼ëŠ” í‘œì‹œë¥¼ í•´ë‘”ë‹¤.
 				memset((void*)pPixelInfoTemp, PIXELTYPE_COLOR, colorCount);
 				
-				// Ãâ·ÂÇÑ »ö±ò¸¸Å­ pointerÁõ°¡
+				// ì¶œë ¥í•œ ìƒ‰ê¹”ë§Œí¼ pointerì¦ê°€
 				pPixels			+= colorCount;
 				pPixelInfoTemp	+= colorCount;
 				pColorInfoTemp	+= colorCount;
@@ -990,32 +990,32 @@ CSpriteOutlineManager::MergeAlphaSprite( int n )
 	int px = m_Position[n].x;
 	int py = m_Position[n].y;
 
-	// °¢ ÁÙ¿¡ ´ëÇØ¼­...
+	// ê° ì¤„ì— ëŒ€í•´ì„œ...
 	int height = pSprite->GetHeight();
 	for (i=0; i<height; i++)
 	{
-		// i¹øÂ° ÁÙÀ» ÀĞ¾îµéÀÎ´Ù.
+		// ië²ˆì§¸ ì¤„ì„ ì½ì–´ë“¤ì¸ë‹¤.
 		pPixels			= pSprite->GetPixelLine( i );
 
-		// ¿Ü°û¼± Á¤º¸¿¡¼­ ÀÌ Sprite°¡ ÀúÀåµÉ À§Ä¡..
+		// ì™¸ê³½ì„  ì •ë³´ì—ì„œ ì´ Spriteê°€ ì €ì¥ë  ìœ„ì¹˜..
 		pPixelInfoTemp	= m_ppPixelInfo[py] + px;
 		pColorInfoTemp	= m_ppColorInfo[py] + px;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;
 
- 		// ÇÑ ÁÙ Ãâ·Â
+ 		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{
 			j = count;
 			do {				
-				pPixelInfoTemp += *pPixels;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				pColorInfoTemp += *pPixels;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+				pPixelInfoTemp += *pPixels;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				pColorInfoTemp += *pPixels;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 				pPixels ++;	
 
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» ColorInfo¿¡ Ãß°¡
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ ColorInfoì— ì¶”ê°€
 				//memcpy((void*)pColorInfoTemp, (void*)pPixels, colorCount << 1);
 				for (k=0; k<colorCount; k++)
 				{
@@ -1025,10 +1025,10 @@ CSpriteOutlineManager::MergeAlphaSprite( int n )
 					pPixels += 2;
 				}
 				
-				// PixelInfo¿¡´Â »ö±òÀÌ¶ó´Â Ç¥½Ã¸¦ ÇØµĞ´Ù.
+				// PixelInfoì—ëŠ” ìƒ‰ê¹”ì´ë¼ëŠ” í‘œì‹œë¥¼ í•´ë‘”ë‹¤.
 				memset((void*)pPixelInfoTemp, PIXELTYPE_COLOR, colorCount);
 				
-				// Ãâ·ÂÇÑ »ö±ò¸¸Å­ pointerÁõ°¡
+				// ì¶œë ¥í•œ ìƒ‰ê¹”ë§Œí¼ pointerì¦ê°€
 				//pPixels			+= colorCount;
 				//pPixelInfoTemp	+= colorCount;
 				pColorInfoTemp	+= colorCount;
@@ -1065,53 +1065,53 @@ CSpriteOutlineManager::MergeIndexSprite( int n )
 	int px = m_Position[n].x;
 	int py = m_Position[n].y;
 
-	// °¢ ÁÙ¿¡ ´ëÇØ¼­...
+	// ê° ì¤„ì— ëŒ€í•´ì„œ...
 	int height = pSprite->GetHeight();
 	for (i=0; i<height; i++)
 	{
-		// i¹øÂ° ÁÙÀ» ÀĞ¾îµéÀÎ´Ù.
+		// ië²ˆì§¸ ì¤„ì„ ì½ì–´ë“¤ì¸ë‹¤.
 		pPixels			= pSprite->GetPixelLine( i );
 
-		// ¿Ü°û¼± Á¤º¸¿¡¼­ ÀÌ Sprite°¡ ÀúÀåµÉ À§Ä¡..
+		// ì™¸ê³½ì„  ì •ë³´ì—ì„œ ì´ Spriteê°€ ì €ì¥ë  ìœ„ì¹˜..
 		pPixelInfoTemp	= m_ppPixelInfo[py] + px;
 		pColorInfoTemp	= m_ppColorInfo[py] + px;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;
 
- 		// ÇÑ ÁÙ Ãâ·Â
+ 		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{
 			j = count;
 			do {				
-				pPixelInfoTemp += *pPixels;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				pColorInfoTemp += *pPixels;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+				pPixelInfoTemp += *pPixels;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				pColorInfoTemp += *pPixels;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 				pPixels ++;	
 
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö
+				indexCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜
 				
-				// index»öÀ» ColorInfo¿¡ Ãß°¡			
+				// indexìƒ‰ì„ ColorInfoì— ì¶”ê°€			
 				for (k=0; k<indexCount; k++)
 				{
 					colorSet		= (*pPixels >> 8) & 0xFF;	// set
 					colorGradation	= (BYTE)*pPixels;			// gradation
 					pPixels++;
 
-					// s_Value¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.
+					// s_Valueì™€ ê´€ë ¨ëœ ìƒ‰ì„ ì„ íƒí•´ì„œ ì¶œë ¥í•œë‹¤.
 					*pColorInfoTemp		= CIndexSprite::ColorSet[m_Value[n][colorSet]][colorGradation];
 					pColorInfoTemp ++;
 				}
 
-				// Normal »ö±ò ¼ö
+				// Normal ìƒ‰ê¹” ìˆ˜
 				colorCount = *pPixels++;
 
-				// Normal»öÀ» ColorInfo¿¡ Ãß°¡
+				// Normalìƒ‰ì„ ColorInfoì— ì¶”ê°€
 				memcpy((void*)pColorInfoTemp, (void*)pPixels, colorCount << 1);
 				
-				// PixelInfo¿¡´Â »ö±òÀÌ¶ó´Â Ç¥½Ã¸¦ ÇØµĞ´Ù.
+				// PixelInfoì—ëŠ” ìƒ‰ê¹”ì´ë¼ëŠ” í‘œì‹œë¥¼ í•´ë‘”ë‹¤.
 				memset((void*)pPixelInfoTemp, PIXELTYPE_COLOR, indexCount+colorCount);
 				
-				// Ãâ·ÂÇÑ »ö±ò¸¸Å­ pointerÁõ°¡
+				// ì¶œë ¥í•œ ìƒ‰ê¹”ë§Œí¼ pointerì¦ê°€
 				pPixels			+= colorCount;			
 				pColorInfoTemp	+= colorCount;
 				pPixelInfoTemp	+= indexCount + colorCount;
@@ -1125,7 +1125,7 @@ CSpriteOutlineManager::MergeIndexSprite( int n )
 //----------------------------------------------------------------------
 // Merge IndexSprite ColorSet
 //----------------------------------------------------------------------
-// Æ¯Á¤ ColorSetÀ¸·Î Ãâ·ÂÇÑ´Ù.
+// íŠ¹ì • ColorSetìœ¼ë¡œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CSpriteOutlineManager::MergeIndexSpriteColorSet( int n )
@@ -1156,54 +1156,54 @@ CSpriteOutlineManager::MergeIndexSpriteColorSet( int n )
 	int px = m_Position[n].x;
 	int py = m_Position[n].y;
 
-	// °¢ ÁÙ¿¡ ´ëÇØ¼­...
+	// ê° ì¤„ì— ëŒ€í•´ì„œ...
 	int height = pSprite->GetHeight();
 	for (i=0; i<height; i++)
 	{
-		// i¹øÂ° ÁÙÀ» ÀĞ¾îµéÀÎ´Ù.
+		// ië²ˆì§¸ ì¤„ì„ ì½ì–´ë“¤ì¸ë‹¤.
 		pPixels			= pSprite->GetPixelLine( i );
 
-		// ¿Ü°û¼± Á¤º¸¿¡¼­ ÀÌ Sprite°¡ ÀúÀåµÉ À§Ä¡..
+		// ì™¸ê³½ì„  ì •ë³´ì—ì„œ ì´ Spriteê°€ ì €ì¥ë  ìœ„ì¹˜..
 		pPixelInfoTemp	= m_ppPixelInfo[py] + px;
 		pColorInfoTemp	= m_ppColorInfo[py] + px;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;
 
- 		// ÇÑ ÁÙ Ãâ·Â
+ 		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{
 			j = count;
 			do {				
-				pPixelInfoTemp += *pPixels;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				pColorInfoTemp += *pPixels;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+				pPixelInfoTemp += *pPixels;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				pColorInfoTemp += *pPixels;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 				pPixels ++;	
 
-				indexCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö
+				indexCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜
 				
-				// index»öÀ» ColorInfo¿¡ Ãß°¡			
+				// indexìƒ‰ì„ ColorInfoì— ì¶”ê°€			
 				for (k=0; k<indexCount; k++)
 				{
 					//colorSet		= (*pPixels >> 8) & 0xFF;	// set
 					colorGradation	= (*pPixels & 0xFF);			// gradation
 					pPixels++;
 
-					// s_Value¿Í °ü·ÃµÈ »öÀ» ¼±ÅÃÇØ¼­ Ãâ·ÂÇÑ´Ù.				
+					// s_Valueì™€ ê´€ë ¨ëœ ìƒ‰ì„ ì„ íƒí•´ì„œ ì¶œë ¥í•œë‹¤.				
 					*pColorInfoTemp		= CIndexSprite::ColorSet[colorSet][colorGradation];
 					pColorInfoTemp ++;
 				}
 
-				// Normal »ö±ò ¼ö
+				// Normal ìƒ‰ê¹” ìˆ˜
 				colorCount = *pPixels++;
 
-				// Normal»öÀ» ColorInfo¿¡ Ãß°¡
+				// Normalìƒ‰ì„ ColorInfoì— ì¶”ê°€
 				CSpriteSurface::memcpyEffectGradation(pColorInfoTemp, pPixels, colorCount);
 				//memcpy((void*)pColorInfoTemp, (void*)pPixels, colorCount << 1);
 				
-				// PixelInfo¿¡´Â »ö±òÀÌ¶ó´Â Ç¥½Ã¸¦ ÇØµĞ´Ù.
+				// PixelInfoì—ëŠ” ìƒ‰ê¹”ì´ë¼ëŠ” í‘œì‹œë¥¼ í•´ë‘”ë‹¤.
 				memset((void*)pPixelInfoTemp, PIXELTYPE_COLOR, indexCount+colorCount);
 				
-				// Ãâ·ÂÇÑ »ö±ò¸¸Å­ pointerÁõ°¡
+				// ì¶œë ¥í•œ ìƒ‰ê¹”ë§Œí¼ pointerì¦ê°€
 				pPixels			+= colorCount;			
 				pColorInfoTemp	+= colorCount;
 				pPixelInfoTemp	+= indexCount + colorCount;

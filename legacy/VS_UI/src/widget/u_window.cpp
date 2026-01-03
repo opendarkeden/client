@@ -17,7 +17,7 @@ extern RECT g_GameRect;
 //----------------------------------------------------------------------------
 // Globals
 //----------------------------------------------------------------------------
-WindowManager *	gpC_window_manager; // App¿¡¼­ ÇÒ´çÇÑ´Ù.
+WindowManager *	gpC_window_manager; // Appì—ì„œ í• ë‹¹í•œë‹¤.
 
 //-----------------------------------------------------------------------------
 // Window
@@ -33,9 +33,9 @@ Window::Window(int _x, int _y, int _w, int _h) : Rect(_x, _y, _w, _h)
 	Init();
 
 	//
-	// constructor/destructor¿¡¼­´Â pure virtualÀÌ ºÒ°¡´ÉÇÏ´Ù. ¿Ö±×·¯´ÂÁö´Â
-	// ¸ğ¸£°Ú´Ù. ¾Æ¸¶ ±×·¸°ÔÇÏ¸é instatance°¡ ºÒ°¡´ÉÇÏ´Ù´Â °ÇÁö... À½...
-	// ±×·¡¼­ ÀÌ event´Â ÀÌ ¹æ½ÄÀ¸·Î´Â ºÒ°¡´ÉÇÏ´Ù.
+	// constructor/destructorì—ì„œëŠ” pure virtualì´ ë¶ˆê°€ëŠ¥í•˜ë‹¤. ì™œê·¸ëŸ¬ëŠ”ì§€ëŠ”
+	// ëª¨ë¥´ê² ë‹¤. ì•„ë§ˆ ê·¸ë ‡ê²Œí•˜ë©´ instatanceê°€ ë¶ˆê°€ëŠ¥í•˜ë‹¤ëŠ” ê±´ì§€... ìŒ...
+	// ê·¸ë˜ì„œ ì´ eventëŠ” ì´ ë°©ì‹ìœ¼ë¡œëŠ” ë¶ˆê°€ëŠ¥í•˜ë‹¤.
 	//
 	//WindowEventReceiver(EVENT_WINDOW_CREATE);
 }
@@ -72,29 +72,29 @@ Window::~Window()
 //-----------------------------------------------------------------------------
 // ShowWidget
 //
-// Window À§¿¡ ³õÀÌ´Â WidgetµéÀ» Ãâ·ÂÇÑ´Ù.
+// Window ìœ„ì— ë†“ì´ëŠ” Widgetë“¤ì„ ì¶œë ¥í•œë‹¤.
 //
-// !ÀÌ°ÍÀº ¿ÜºÎÀÇ Show() ·çÆ¾ ¸¶Áö¸·¿¡¼­ ½ÇÇàµÇ¾ß ÇÑ´Ù.
+// !ì´ê²ƒì€ ì™¸ë¶€ì˜ Show() ë£¨í‹´ ë§ˆì§€ë§‰ì—ì„œ ì‹¤í–‰ë˜ì•¼ í•œë‹¤.
 //-----------------------------------------------------------------------------
 void Window::ShowWidget() const
 {
 	LineEditorVisual * data;
 	for (int i=0; i < m_sdl_lev.Size(); i++)
 		if (m_sdl_lev.Data(i, data))
-			data->Show(); // ³»ºÎ¿¡¼­ dc¸¦ Get/Release ÇÑ´Ù.
+			data->Show(); // ë‚´ë¶€ì—ì„œ dcë¥¼ Get/Release í•œë‹¤.
 }
 
 //-----------------------------------------------------------------------------
 // Attach
 //
-// p_lev¸¦ Window¿¡ ºÙÀÎ´Ù.
+// p_levë¥¼ Windowì— ë¶™ì¸ë‹¤.
 //-----------------------------------------------------------------------------
 void Window::Attach(LineEditorVisual * p_lev)
 {
 	if (p_lev == NULL)
 		_Error(NULL_REF);
 
-	m_sdl_lev.Add(p_lev); // ÀÌ¹Ì Á¸ÀçÇÏ¸é ½ÇÆĞÀÌ´Ù.
+	m_sdl_lev.Add(p_lev); // ì´ë¯¸ ì¡´ì¬í•˜ë©´ ì‹¤íŒ¨ì´ë‹¤.
 }
 
 //-----------------------------------------------------------------------------
@@ -116,7 +116,7 @@ void Window::InitAttributes()
 //-----------------------------------------------------------------------------
 // AttrTopmost
 //
-// topmost ¼Ó¼ºÀ» ¼³Á¤ÇÑ´Ù.
+// topmost ì†ì„±ì„ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void Window::AttrTopmost(bool state)
 {
@@ -126,7 +126,7 @@ void Window::AttrTopmost(bool state)
 //-----------------------------------------------------------------------------
 // AttrKeyboardControl
 //
-// keyboard control ¼Ó¼ºÀ» ¼³Á¤ÇÑ´Ù.
+// keyboard control ì†ì„±ì„ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void Window::AttrKeyboardControl(bool state)
 {
@@ -139,20 +139,20 @@ void Window::AttrKeyboardControl(bool state)
 //-----------------------------------------------------------------------------
 // AttrWindowMove
 //
-// Window ÀÌµ¿ ¼Ó¼ºÀ» ¼³Á¤ÇÑ´Ù.
+// Window ì´ë™ ì†ì„±ì„ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void Window::AttrWindowMove(bool new_state)
 { 
 	m_attributes.window_move = new_state;
 
-	// move ready°¡ true·Î µÈ ÈÄ window_move attrÀÌ false·Î µÉ ¼ö ÀÖ´Ù.
+	// move readyê°€ trueë¡œ ëœ í›„ window_move attrì´ falseë¡œ ë  ìˆ˜ ìˆë‹¤.
 	m_bl_window_move_ready = false;
 }
 
 //-----------------------------------------------------------------------------
 // AttrAlpha
 //
-// Window ÀÌµ¿ ¼Ó¼ºÀ» ¼³Á¤ÇÑ´Ù.
+// Window ì´ë™ ì†ì„±ì„ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void Window::AttrAlpha(bool new_state)
 { 
@@ -162,7 +162,7 @@ void Window::AttrAlpha(bool new_state)
 //-----------------------------------------------------------------------------
 // AttrStatch
 //
-// Window ÀÌµ¿ ¼Ó¼ºÀ» ¼³Á¤ÇÑ´Ù.
+// Window ì´ë™ ì†ì„±ì„ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void Window::AttrStatch(bool new_state)
 { 
@@ -172,7 +172,7 @@ void Window::AttrStatch(bool new_state)
 //-----------------------------------------------------------------------------
 // AttrAutoHide
 //
-// Window ÀÌµ¿ ¼Ó¼ºÀ» ¼³Á¤ÇÑ´Ù.
+// Window ì´ë™ ì†ì„±ì„ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void Window::AttrAutoHide(ATTRIBUTES_HIDE new_state)
 { 
@@ -182,7 +182,7 @@ void Window::AttrAutoHide(ATTRIBUTES_HIDE new_state)
 //-----------------------------------------------------------------------------
 // ProcessHide
 //
-// Window ÀÌµ¿ ¼Ó¼ºÀ» ¼³Á¤ÇÑ´Ù.
+// Window ì´ë™ ì†ì„±ì„ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void Window::ProcessHide(int gap, bool alpha_window)
 {
@@ -216,7 +216,7 @@ void Window::ProcessHide(int gap, bool alpha_window)
 	}
 
 	if(IsPixel(gpC_mouse_pointer->GetX(), gpC_mouse_pointer->GetY()) && (gpC_window_manager->GetMouseFocusedWindow() == this || alpha_window))
-	// ¸¶¿ì½º°¡ À§¿¡ ÀÖÀ¸¸é ¿­¸°´Ù.
+	// ë§ˆìš°ìŠ¤ê°€ ìœ„ì— ìˆìœ¼ë©´ ì—´ë¦°ë‹¤.
 	{
 		if(x < 0)
 		{
@@ -252,7 +252,7 @@ void Window::ProcessHide(int gap, bool alpha_window)
 		}
 	}
 	else
-	// ¾Æ´Ï¸é ´İÈ÷µç°¡-_-;
+	// ì•„ë‹ˆë©´ ë‹«íˆë“ ê°€-_-;
 	{
 		if(!(GetAttributes()->autohide == ATTRIBUTES_HIDE_HEIGHT
 			&& (y <= 0 && y+h > gap || y+h >= g_GameRect.bottom && y < g_GameRect.bottom-gap))
@@ -275,7 +275,7 @@ void Window::ProcessHide(int gap, bool alpha_window)
 			}
 			else if(x+w < gap) x = gap-w;
 			else if(x > g_GameRect.right-gap)x = g_GameRect.right-gap;
-			// ¿­¸°´Ù
+			// ì—´ë¦°ë‹¤
 			if(y < 0)
 			{
 				if(g_pUserOption->AutoHideSmoothScroll)
@@ -311,7 +311,7 @@ void Window::ProcessHide(int gap, bool alpha_window)
 			}
 			else if(y+h < gap) y = gap-h;
 			else if(y > g_GameRect.bottom-gap)y = g_GameRect.bottom-gap;
-			// ¿­¸°´Ù
+			// ì—´ë¦°ë‹¤
 			if(x < 0)
 			{
 				if(g_pUserOption->AutoHideSmoothScroll)
@@ -336,17 +336,17 @@ void Window::ProcessHide(int gap, bool alpha_window)
 //-----------------------------------------------------------------------------
 // AttrPin
 //
-// Window¿¡ pin²È±â ¿©ºÎ¸¦ ¼³Á¤ÇÑ´Ù.
-// pinÀ» ²ÈÀ¸¸é pinÀ» ²ÈÁö ¾ÊÀº Window(WindowManager::m_show_list)º¸´Ù ³ôÀº 
-// ¿ì¼±¼øÀ§¿¡ ³õÀÎ´Ù. pinÀ» ²ÈÀº Window(WindowManager::m_show_list_pinned_window)´Â 
-// ±×µé³¢¸® ¿ì¼±¼øÀ§¸¦ °áÁ¤ÇÑ´Ù.
+// Windowì— pinê½‚ê¸° ì—¬ë¶€ë¥¼ ì„¤ì •í•œë‹¤.
+// pinì„ ê½‚ìœ¼ë©´ pinì„ ê½‚ì§€ ì•Šì€ Window(WindowManager::m_show_list)ë³´ë‹¤ ë†’ì€ 
+// ìš°ì„ ìˆœìœ„ì— ë†“ì¸ë‹¤. pinì„ ê½‚ì€ Window(WindowManager::m_show_list_pinned_window)ëŠ” 
+// ê·¸ë“¤ë¼ë¦¬ ìš°ì„ ìˆœìœ„ë¥¼ ê²°ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void Window::AttrPin(bool new_state)
 {
 	if (gpC_window_manager->GetShowState(this) == true)
 	{
-		// Window°¡ º¸¿©Áö°í ÀÖ´Â »óÅÂÀÌ¸é ÀÌÀü »óÅÂÀÇ show_list¸¦ ÇØÁ¦ÇÏ°í new_stateÀÇ
-		// show_list¿¡ ÀúÀåÇÑ´Ù.
+		// Windowê°€ ë³´ì—¬ì§€ê³  ìˆëŠ” ìƒíƒœì´ë©´ ì´ì „ ìƒíƒœì˜ show_listë¥¼ í•´ì œí•˜ê³  new_stateì˜
+		// show_listì— ì €ì¥í•œë‹¤.
 		gpC_window_manager->DisappearWindow(this);
 
 		m_attributes.pin = new_state;
@@ -354,8 +354,8 @@ void Window::AttrPin(bool new_state)
 	}
 	else
 	{
-		// º¸¿©Áö°í ÀÖÁö ¾ÊÀº »óÅÂ¸é ±×³É attr¸¸ ¹Ù²Û´Ù. ÀÌ°ÍÀº ´ÙÀ½ AppearWindow°¡
-		// ½ÇÇàµÇ¸é¼­ show_list¿¡ Á¤»óÀûÀ¸·Î ÀúÀåµÉ °ÍÀÌ´Ù.
+		// ë³´ì—¬ì§€ê³  ìˆì§€ ì•Šì€ ìƒíƒœë©´ ê·¸ëƒ¥ attrë§Œ ë°”ê¾¼ë‹¤. ì´ê²ƒì€ ë‹¤ìŒ AppearWindowê°€
+		// ì‹¤í–‰ë˜ë©´ì„œ show_listì— ì •ìƒì ìœ¼ë¡œ ì €ì¥ë  ê²ƒì´ë‹¤.
 		m_attributes.pin = new_state;
 	}
 }
@@ -363,7 +363,7 @@ void Window::AttrPin(bool new_state)
 //-----------------------------------------------------------------------------
 // ClearInputState
 //
-// ¿ÜºÎ¿¡¼­ WindowÀÇ ÀÔ·Â»óÅÂ¸¦ clearÇÑ´Ù.
+// ì™¸ë¶€ì—ì„œ Windowì˜ ì…ë ¥ìƒíƒœë¥¼ clearí•œë‹¤.
 //-----------------------------------------------------------------------------
 void Window::ClearInputState()
 {
@@ -400,7 +400,7 @@ MOUSE_STATE Window::GetMouseInputState()
 //-----------------------------------------------------------------------------
 // MoveReady
 //
-// Window°¡ ÀÌµ¿ ÁØºñ µÇ¾úÀ½À» ¾Ë¸°´Ù. ÀÌ°ÍÀ» ½ÇÇàÇØ¾ß Move¸¦ ÇÒ ¼ö ÀÖ´Ù.
+// Windowê°€ ì´ë™ ì¤€ë¹„ ë˜ì—ˆìŒì„ ì•Œë¦°ë‹¤. ì´ê²ƒì„ ì‹¤í–‰í•´ì•¼ Moveë¥¼ í•  ìˆ˜ ìˆë‹¤.
 //-----------------------------------------------------------------------------
 void Window::MoveReady()
 {
@@ -413,7 +413,7 @@ void Window::MoveReady()
 //-----------------------------------------------------------------------------
 // MoveOk
 //
-// Window ÀÌµ¿ÀÌ ³¡³µ´Ù.
+// Window ì´ë™ì´ ëë‚¬ë‹¤.
 //-----------------------------------------------------------------------------
 void Window::MoveOk()
 {
@@ -423,10 +423,10 @@ void Window::MoveOk()
 //-----------------------------------------------------------------------------
 // SetOrigin
 //
-// ÀÌµ¿Áß½É¼³Á¤, Áï ¿øÁ¡ÀÇ À§Ä¡¸¦ ¼³Á¤ÇÑ´Ù.
-// ¾î¶² targetÀÇ ¿øÁ¡À» ÀÌµ¿ÇÔÀ¸·Î½á ±× target ÀüÃ¼°¡ ÀÌµ¿ÇÏ´Â È¿°ú¸¦ º¼ ¼ö ÀÖ´Ù.
+// ì´ë™ì¤‘ì‹¬ì„¤ì •, ì¦‰ ì›ì ì˜ ìœ„ì¹˜ë¥¼ ì„¤ì •í•œë‹¤.
+// ì–´ë–¤ targetì˜ ì›ì ì„ ì´ë™í•¨ìœ¼ë¡œì¨ ê·¸ target ì „ì²´ê°€ ì´ë™í•˜ëŠ” íš¨ê³¼ë¥¼ ë³¼ ìˆ˜ ìˆë‹¤.
 //
-// 2Â÷¿ø µµÇüÀÇ Window¿¡¼­´Â ÀÓÀÇÀÇ (x, y)¸¦ ¿øÁ¡À¸·Î ¼³Á¤ÇÒ ¼ö ÀÖ´Ù.
+// 2ì°¨ì› ë„í˜•ì˜ Windowì—ì„œëŠ” ì„ì˜ì˜ (x, y)ë¥¼ ì›ì ìœ¼ë¡œ ì„¤ì •í•  ìˆ˜ ìˆë‹¤.
 //-----------------------------------------------------------------------------
 void Window::SetOrigin(int ox, int oy)
 {
@@ -436,8 +436,8 @@ void Window::SetOrigin(int ox, int oy)
 //-----------------------------------------------------------------------------
 // Move
 //
-// OriginÀÇ º¯È­·®À» Àû¿ëÇÏ¿© Window¸¦ ÀÌµ¿½ÃÅ²´Ù.
-// ÀÌµ¿ÇÏ¿´À¸¸é true¸¦, ¾Æ´Ï¸é false¸¦ ¹İÈ¯ÇÑ´Ù.
+// Originì˜ ë³€í™”ëŸ‰ì„ ì ìš©í•˜ì—¬ Windowë¥¼ ì´ë™ì‹œí‚¨ë‹¤.
+// ì´ë™í•˜ì˜€ìœ¼ë©´ trueë¥¼, ì•„ë‹ˆë©´ falseë¥¼ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 bool Window::Move(int new_ox, int new_oy)
 {
@@ -480,8 +480,8 @@ bool Window::Move(int new_ox, int new_oy)
 //-----------------------------------------------------------------------------
 // MouseControl
 //
-// Window Àü¿ë Mouse control.
-// (x, y)´Â Ç×»ó Window ³»ºÎ¿¡ ÀÖ´Ù.
+// Window ì „ìš© Mouse control.
+// (x, y)ëŠ” í•­ìƒ Window ë‚´ë¶€ì— ìˆë‹¤.
 //-----------------------------------------------------------------------------
 bool Window::MouseControl(UINT message, int _x, int _y)
 {
@@ -491,7 +491,7 @@ bool Window::MouseControl(UINT message, int _x, int _y)
 			if (Move(_x, _y) == true)
 			{
 
-				// ¼º°øÀûÀ¸·Î ÀÌµ¿µÇ¾ú´Ù. µû¶ó¼­ WindowManager¿¡°Ô ÀÌ »ç½ÇÀ» ¾Ë·Á¾ß ÇÑ´Ù.
+				// ì„±ê³µì ìœ¼ë¡œ ì´ë™ë˜ì—ˆë‹¤. ë”°ë¼ì„œ WindowManagerì—ê²Œ ì´ ì‚¬ì‹¤ì„ ì•Œë ¤ì•¼ í•œë‹¤.
 				m_u_mouse_state = MOUSE_MOVE;
 			}
 			break;
@@ -507,7 +507,7 @@ bool Window::MouseControl(UINT message, int _x, int _y)
 //-----------------------------------------------------------------------------
 // KeyboardControl
 //
-// Window Àü¿ë Keyboard control.
+// Window ì „ìš© Keyboard control.
 //-----------------------------------------------------------------------------
 void Window::KeyboardControl(UINT message, UINT key, long extra)
 {
@@ -552,7 +552,7 @@ WindowManager::~WindowManager()
 //-----------------------------------------------------------------------------
 // SetKeyboardControlWindow
 //
-// window keyboard control attrÀ» °Ë»öÇÏ¿© m_pC_keyboard_control_window¸¦ ¼³Á¤ÇÑ´Ù.
+// window keyboard control attrì„ ê²€ìƒ‰í•˜ì—¬ m_pC_keyboard_control_windowë¥¼ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void WindowManager::SetKeyboardControlWindow(Window * p_window)
 {
@@ -607,11 +607,11 @@ void WindowManager::SetNextKeyboardControlWindow()
 //-----------------------------------------------------------------------------
 // SetNextTopmostWindow
 //
-// Window topmost attrÀ» °Ë»öÇÏ¿© m_pC_topmost_window¸¦ ¼³Á¤ÇÑ´Ù.
+// Window topmost attrì„ ê²€ìƒ‰í•˜ì—¬ m_pC_topmost_windowë¥¼ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void WindowManager::SetNextTopmostWindow()
 {
-	// ! topmost WindowÀÌ¸é pinned Window°¡ ¾Æ´Ï´Ù!!!
+	// ! topmost Windowì´ë©´ pinned Windowê°€ ì•„ë‹ˆë‹¤!!!
 
 	List::iterator itr;
 
@@ -633,10 +633,10 @@ void WindowManager::SetNextTopmostWindow()
 //-----------------------------------------------------------------------------
 // CancelPushStateOfCurrentPushedWindow
 //
-// ÇöÀç ´­¸° Window(ÀÌµ¿ÇÏ±â À§ÇØ¼­µç, ...)ÀÇ ´­¸²»óÅÂ¸¦ ÇØÁ¦ÇÑ´Ù.
-// ÀÌ°ÍÀº ¿ÜºÎ¿¡¼­ pushed state¸¦ ÇÑ ¹ø¿¡ clearÇÏ±â À§ÇÑ °ÍÀÌ´Ù.
+// í˜„ì¬ ëˆŒë¦° Window(ì´ë™í•˜ê¸° ìœ„í•´ì„œë“ , ...)ì˜ ëˆŒë¦¼ìƒíƒœë¥¼ í•´ì œí•œë‹¤.
+// ì´ê²ƒì€ ì™¸ë¶€ì—ì„œ pushed stateë¥¼ í•œ ë²ˆì— clearí•˜ê¸° ìœ„í•œ ê²ƒì´ë‹¤.
 //
-// ´­¸° »óÅÂ¿¡ ÀÖ´Ù¸é true¸¦ ¹İÈ¯ÇÑ´Ù.
+// ëˆŒë¦° ìƒíƒœì— ìˆë‹¤ë©´ trueë¥¼ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 bool WindowManager::CancelPushStateOfCurrentPushedWindow()
 {
@@ -663,8 +663,8 @@ int WindowManager::ShowedWindowSize() const
 //-----------------------------------------------------------------------------
 // GetSequence
 //
-// p_this_windowÀÇ ¿ì¼±¼øÀ§¸¦ ¹İÈ¯ÇÑ´Ù. 0¿¡ °¡±î¿ï¼ö·Ï ¿ì¼±¼øÀ§°¡ ³ô´Ù.
-// ½ÇÆĞÇÏ¸é, -1À» ¹İÈ¯ÇÑ´Ù.
+// p_this_windowì˜ ìš°ì„ ìˆœìœ„ë¥¼ ë°˜í™˜í•œë‹¤. 0ì— ê°€ê¹Œìš¸ìˆ˜ë¡ ìš°ì„ ìˆœìœ„ê°€ ë†’ë‹¤.
+// ì‹¤íŒ¨í•˜ë©´, -1ì„ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 int WindowManager::GetSequence(Window * p_this_window)
 {
@@ -715,8 +715,8 @@ void WindowManager::SendMouseMoveMessageToMouseFocusedWindow()
 //-----------------------------------------------------------------------------
 // GetFirstPriorityWindow
 //
-// ÃÖ¿ì¼± Window¸¦ ¹İÈ¯ÇÑ´Ù.
-// º¸¿©Áö´Â Window°¡ ¾øÀ¸¸é NULLÀ» ¹İÈ¯ÇÑ´Ù.
+// ìµœìš°ì„  Windowë¥¼ ë°˜í™˜í•œë‹¤.
+// ë³´ì—¬ì§€ëŠ” Windowê°€ ì—†ìœ¼ë©´ NULLì„ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 Window * WindowManager::GetFirstPriorityWindow() const
 {
@@ -739,11 +739,11 @@ Window * WindowManager::GetFirstPriorityWindow() const
 //-----------------------------------------------------------------------------
 // GetMovingWindow
 //
-// ÇöÀç ÀÌµ¿ÁßÀÎ WindowÀÇ pointer¸¦ ¹İÈ¯ÇÑ´Ù. ÀÌ°ÍÀº ¾î¶² Window°¡ ÇöÀç ÀÌµ¿ÇÏ°í
-// ÀÖ´ÂÁö ¿ÜºÎ¿¡¼­ ¾Ë±âÀ§ÇÑ °ÍÀÌ´Ù.
+// í˜„ì¬ ì´ë™ì¤‘ì¸ Windowì˜ pointerë¥¼ ë°˜í™˜í•œë‹¤. ì´ê²ƒì€ ì–´ë–¤ Windowê°€ í˜„ì¬ ì´ë™í•˜ê³ 
+// ìˆëŠ”ì§€ ì™¸ë¶€ì—ì„œ ì•Œê¸°ìœ„í•œ ê²ƒì´ë‹¤.
 //
-// !Window´Â ÇÑ ¼ø°£¿¡ ´Ü ÇÏ³ª¸¸ ÀÌµ¿ÇÒ ¼ö ÀÖÀ¸¸ç ±×°ÍÀº 'º¸ÀÌ´Â' °ÍÀÌ´Ù. ¶ÇÇÑ
-// ±×°ÍÀº ÃÖ¿ì¼± WindowÀÌ´Ù.
+// !WindowëŠ” í•œ ìˆœê°„ì— ë‹¨ í•˜ë‚˜ë§Œ ì´ë™í•  ìˆ˜ ìˆìœ¼ë©° ê·¸ê²ƒì€ 'ë³´ì´ëŠ”' ê²ƒì´ë‹¤. ë˜í•œ
+// ê·¸ê²ƒì€ ìµœìš°ì„  Windowì´ë‹¤.
 //-----------------------------------------------------------------------------
 Window * WindowManager::GetMovingWindow() const
 {
@@ -769,8 +769,8 @@ Window * WindowManager::GetMovingWindow() const
 //-----------------------------------------------------------------------------
 // FirstPriority
 //
-// p_this_window¸¦ ÃÖ¿ì¼±¼øÀ§·Î ÇÑ´Ù.
-// p_this_window°¡ list¿¡ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// p_this_windowë¥¼ ìµœìš°ì„ ìˆœìœ„ë¡œ í•œë‹¤.
+// p_this_windowê°€ listì— ì¡´ì¬í•˜ì§€ ì•Šìœ¼ë©´ ì•„ë¬´ê²ƒë„ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 //-----------------------------------------------------------------------------
 void WindowManager::FirstPriority(Window * p_this_window)
 {
@@ -817,7 +817,7 @@ void WindowManager::FirstPriority(Window * p_this_window)
 //-----------------------------------------------------------------------------
 // Show
 //
-// m_show_list/m_show_list_pinned_window¿¡ ÀÖ´Â Window¸¸ Window::Show()¸¦ ½ÇÇàÇÑ´Ù.
+// m_show_list/m_show_list_pinned_windowì— ìˆëŠ” Windowë§Œ Window::Show()ë¥¼ ì‹¤í–‰í•œë‹¤.
 //-----------------------------------------------------------------------------
 void WindowManager::Show()
 {
@@ -832,7 +832,7 @@ void WindowManager::Show()
 		itr++;
 	}
 
-	// pinned Window°¡ no pinned Window º¸´Ù À§¿¡ Ãâ·ÂÇÑ´Ù.
+	// pinned Windowê°€ no pinned Window ë³´ë‹¤ ìœ„ì— ì¶œë ¥í•œë‹¤.
 	itr = m_show_list_pinned_window.rbegin();
 	while (itr != m_show_list_pinned_window.rend())
 	{
@@ -857,10 +857,10 @@ void WindowManager::Show()
 //-----------------------------------------------------------------------------
 // AppearWindow
 //
-// p_this_window¸¦ show list¿¡ µî·ÏÇÑ´Ù. ÀÌ¹Ì µÇ¾î ÀÖÀ¸¸é ÇöÀç node¸¦ deleteÇÏ°í
-// ´Ù½Ã insertÇÑ´Ù.
+// p_this_windowë¥¼ show listì— ë“±ë¡í•œë‹¤. ì´ë¯¸ ë˜ì–´ ìˆìœ¼ë©´ í˜„ì¬ nodeë¥¼ deleteí•˜ê³ 
+// ë‹¤ì‹œ insertí•œë‹¤.
 //
-// p_this_window°¡ µî·ÏµÇ¾î ÀÖÁö ¾ÊÀ¸¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// p_this_windowê°€ ë“±ë¡ë˜ì–´ ìˆì§€ ì•Šìœ¼ë©´ ì•„ë¬´ê²ƒë„ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 //-----------------------------------------------------------------------------
 void WindowManager::AppearWindow(Window * p_this_window)
 {
@@ -876,7 +876,7 @@ void WindowManager::AppearWindow(Window * p_this_window)
 	List::iterator itr;
 
 	//
-	// ÀÌ¹Ì Á¸ÀçÇÏ¸é »èÁ¦ÇÑ´Ù.
+	// ì´ë¯¸ ì¡´ì¬í•˜ë©´ ì‚­ì œí•œë‹¤.
 	//
 
 	if (p_this_window->GetAttributes()->pin == true)
@@ -947,8 +947,8 @@ void WindowManager::AppearWindow(Window * p_this_window)
 //-----------------------------------------------------------------------------
 // DisappearWindow
 //
-// p_this_window¸¦ show list¿¡¼­ deleteÇÑ´Ù.
-// p_this_window°¡ DisappearµÇ¾úÀ¸¸é true¸¦ ¹İÈ¯ÇÑ´Ù.
+// p_this_windowë¥¼ show listì—ì„œ deleteí•œë‹¤.
+// p_this_windowê°€ Disappearë˜ì—ˆìœ¼ë©´ trueë¥¼ ë°˜í™˜í•œë‹¤.
 //-----------------------------------------------------------------------------
 bool WindowManager::DisappearWindow(Window * p_this_window)
 {
@@ -1041,8 +1041,8 @@ bool WindowManager::DisappearWindow(Window * p_this_window)
 			p_first_window->AcquireFirstSequence();
 
 		//
-		// DisappearWindow°¡ ¾Æ´Ñ °æ¿ì¿¡´Â È®½ÇÈ÷ SetKeyboardControlWindow·Î keyboard control Window¸¦
-		// ¼³Á¤ÇÒ ¼ö ÀÖÁö¸¸, Disappear µÇ´Â °æ¿ì¿¡´Â ¼øÂ÷ÀûÀ¸·Î °Ë»öÇÏ¿© ±×°ÍÀ» Ã£¾Æ¾ß ÇÑ´Ù.
+		// DisappearWindowê°€ ì•„ë‹Œ ê²½ìš°ì—ëŠ” í™•ì‹¤íˆ SetKeyboardControlWindowë¡œ keyboard control Windowë¥¼
+		// ì„¤ì •í•  ìˆ˜ ìˆì§€ë§Œ, Disappear ë˜ëŠ” ê²½ìš°ì—ëŠ” ìˆœì°¨ì ìœ¼ë¡œ ê²€ìƒ‰í•˜ì—¬ ê·¸ê²ƒì„ ì°¾ì•„ì•¼ í•œë‹¤.
 		//
 		SetNextKeyboardControlWindow();
 	}
@@ -1053,15 +1053,15 @@ bool WindowManager::DisappearWindow(Window * p_this_window)
 //-----------------------------------------------------------------------------
 // SetMouseMoveFocusedWindow
 //
-// ÃÖ¿ì¼±¼øÀ§ WindowºÎÅÍ °Ë»çÇÏ¿© mouse (x, y)°¡ Window¿¡ À§Ä¡ÇÏ¸é move focused
-// Window¸¦ ¼³Á¤ÇÑ´Ù.
+// ìµœìš°ì„ ìˆœìœ„ Windowë¶€í„° ê²€ì‚¬í•˜ì—¬ mouse (x, y)ê°€ Windowì— ìœ„ì¹˜í•˜ë©´ move focused
+// Windowë¥¼ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 void WindowManager::SetMouseMoveFocusedWindow()
 {
 	List::iterator itr, endItr;
 
 	// topmost first
-	// "topmost Window´Â pinned Window°¡ ¾Æ´Ï´Ù."
+	// "topmost WindowëŠ” pinned Windowê°€ ì•„ë‹ˆë‹¤."
 	itr = m_show_list.begin();
 	while (itr != m_show_list.end())
 	{
@@ -1113,15 +1113,15 @@ void WindowManager::SetMouseMoveFocusedWindow()
 //-----------------------------------------------------------------------------
 // GetFocusedWindow
 //
-// ÃÖ¿ì¼±¼øÀ§ WindowºÎÅÍ °Ë»çÇÏ¿© mouse (x, y)°¡ Window¿¡ À§Ä¡ÇÏ¸é move focused
-// Window¸¦ ¼³Á¤ÇÑ´Ù.
+// ìµœìš°ì„ ìˆœìœ„ Windowë¶€í„° ê²€ì‚¬í•˜ì—¬ mouse (x, y)ê°€ Windowì— ìœ„ì¹˜í•˜ë©´ move focused
+// Windowë¥¼ ì„¤ì •í•œë‹¤.
 //-----------------------------------------------------------------------------
 Window* WindowManager::GetFocusedWindow(int x, int y)
 {
 	List::iterator itr;
 
 	// topmost first
-	// "topmost Window´Â pinned Window°¡ ¾Æ´Ï´Ù."
+	// "topmost WindowëŠ” pinned Windowê°€ ì•„ë‹ˆë‹¤."
 	itr = m_show_list.begin();
 	while (itr != m_show_list.end())
 	{
@@ -1165,12 +1165,12 @@ Window* WindowManager::GetFocusedWindow(int x, int y)
 //-----------------------------------------------------------------------------
 // MouseControl
 //
-// WindowManager::MouseControlÀº App MouseControl°ú Window::MouseControlÀÇ
-// Áß°èÀÚÀÌ´Ù.
+// WindowManager::MouseControlì€ App MouseControlê³¼ Window::MouseControlì˜
+// ì¤‘ê³„ìì´ë‹¤.
 //
-// > Mouse pointer move½Ã mouse pointer°¡ ¾î¶² Window¸¦ °¡¸®Å°¸é focus ´ë±â»óÅÂ¿¡
-//   µé¾î°¡°Ô ÇÑ´Ù. ÀÌ°ÍÀº ¿ì¼±¼øÀ§¿¡ »ó°ü¾ø´Ù. ¹°·Ğ ¿ì¼±¼øÀ§°¡ ³ôÀº °ÍºÎÅÍ
-//   °Ë»öÇÑ´Ù.
+// > Mouse pointer moveì‹œ mouse pointerê°€ ì–´ë–¤ Windowë¥¼ ê°€ë¦¬í‚¤ë©´ focus ëŒ€ê¸°ìƒíƒœì—
+//   ë“¤ì–´ê°€ê²Œ í•œë‹¤. ì´ê²ƒì€ ìš°ì„ ìˆœìœ„ì— ìƒê´€ì—†ë‹¤. ë¬¼ë¡  ìš°ì„ ìˆœìœ„ê°€ ë†’ì€ ê²ƒë¶€í„°
+//   ê²€ìƒ‰í•œë‹¤.
 //-----------------------------------------------------------------------------
 bool WindowManager::MouseControl(UINT message, int x, int y)
 {
@@ -1182,7 +1182,7 @@ bool WindowManager::MouseControl(UINT message, int x, int y)
 	//
 	if (message == M_MOVING)
 	{
-		// ÀÌµ¿Áß¿¡´Â move focused Window º¯°æÇÏÁö ¾Ê´Â´Ù.
+		// ì´ë™ì¤‘ì—ëŠ” move focused Window ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		if (gpC_Imm && m_pC_mouse_focused_window != NULL && m_pC_mouse_focused_window->Moving())
 			gpC_Imm->ForceUI(CImm::FORCE_UI_DRAG);
 
@@ -1215,7 +1215,7 @@ bool WindowManager::MouseControl(UINT message, int x, int y)
 
 	//
 	// change Window priority
-	// topmost Window°¡ ÀÖÀ» °æ¿ì¿¡´Â ¿ì¼±¼øÀ§¸¦ º¯°æÇÒ ¼ö ¾ø´Ù.
+	// topmost Windowê°€ ìˆì„ ê²½ìš°ì—ëŠ” ìš°ì„ ìˆœìœ„ë¥¼ ë³€ê²½í•  ìˆ˜ ì—†ë‹¤.
 	//
 	if (message == M_LEFTBUTTON_DOWN || message == M_RIGHTBUTTON_DOWN)
 	{
@@ -1248,7 +1248,7 @@ bool WindowManager::MouseControl(UINT message, int x, int y)
 		}
 	}
 
-	// focused Window¿¡°Ô ¸ğµç ÀÔ·ÂÀ» ÁØ´Ù.
+	// focused Windowì—ê²Œ ëª¨ë“  ì…ë ¥ì„ ì¤€ë‹¤.
 	if (m_pC_mouse_focused_window != NULL)
 	{
 		if (m_pC_topmost_window != NULL)
@@ -1260,7 +1260,7 @@ bool WindowManager::MouseControl(UINT message, int x, int y)
 		{
 			m_pC_mouse_focused_window->MouseControl(message, x, y);
 
-			//Ã¢³¢¸® statch
+			//ì°½ë¼ë¦¬ statch
 			if(message == M_MOVING && m_pC_mouse_focused_window->Moving())
 			{
 				if(m_pC_mouse_focused_window->GetAttributes()->statch)
@@ -1281,18 +1281,18 @@ bool WindowManager::MouseControl(UINT message, int x, int y)
 							
 							bool bl_statch = false;
 							
-							//¼¼·Î ¹üÀ§°¡ ¾î´ÀÁ¤µµ Æ÷ÇÔµÇÀÖÀ»¶§ °¡·Î¸¦ ¶¯°Ü¼­ ºÙÀÎ´Ù
+							//ì„¸ë¡œ ë²”ìœ„ê°€ ì–´ëŠì •ë„ í¬í•¨ë˜ìˆì„ë•Œ ê°€ë¡œë¥¼ ë•¡ê²¨ì„œ ë¶™ì¸ë‹¤
 							if(m_pC_mouse_focused_window->y < p_searched_window->y+p_searched_window->h &&
 								m_pC_mouse_focused_window->y+m_pC_mouse_focused_window->h > p_searched_window->y)
 							{
-								//¿ŞÂÊ¿¡ ºÙÀ»°Ô ÀÖ³ª?
+								//ì™¼ìª½ì— ë¶™ì„ê²Œ ìˆë‚˜?
 								if (m_pC_mouse_focused_window->x > p_searched_window->x+p_searched_window->w-STATCH_VALUE &&
 									m_pC_mouse_focused_window->x < p_searched_window->x+p_searched_window->w+STATCH_VALUE)
 								{
 									m_pC_mouse_focused_window->x = p_searched_window->x+p_searched_window->w;
 									bl_statch = true;
 								}
-								else //¿À¸¥ÂÊ¿¡ ºÙÀ»°Ô ÀÖ³ª?
+								else //ì˜¤ë¥¸ìª½ì— ë¶™ì„ê²Œ ìˆë‚˜?
 									if (m_pC_mouse_focused_window->x+m_pC_mouse_focused_window->w > p_searched_window->x-STATCH_VALUE &&
 										m_pC_mouse_focused_window->x+m_pC_mouse_focused_window->w < p_searched_window->x+STATCH_VALUE)
 									{
@@ -1300,15 +1300,15 @@ bool WindowManager::MouseControl(UINT message, int x, int y)
 										bl_statch = true;
 									}
 									
-									if(bl_statch)	//¾îµò°¡ ºÙ¾ú´Ù¸é ±× ³¡°ú ³¡À» ºÙÀÏ¼ö ÀÖ³ª º»´Ù
+									if(bl_statch)	//ì–´ë”˜ê°€ ë¶™ì—ˆë‹¤ë©´ ê·¸ ëê³¼ ëì„ ë¶™ì¼ìˆ˜ ìˆë‚˜ ë³¸ë‹¤
 									{
-										//À§ÂÊÀÇ ÁÂÇ¥¸¦ °°°ÔÇÏÀÚ
+										//ìœ„ìª½ì˜ ì¢Œí‘œë¥¼ ê°™ê²Œí•˜ì
 										if(m_pC_mouse_focused_window->y > p_searched_window->y-STATCH_VALUE &&
 											m_pC_mouse_focused_window->y < p_searched_window->y+STATCH_VALUE)
 										{
 											m_pC_mouse_focused_window->y = p_searched_window->y;
 										}
-										else	//¾Æ·¡ÂÊÀÇ ÁÂÇ¥¸¦ °°°ÔÇÏÀÚ
+										else	//ì•„ë˜ìª½ì˜ ì¢Œí‘œë¥¼ ê°™ê²Œí•˜ì
 											if(m_pC_mouse_focused_window->y+m_pC_mouse_focused_window->h > p_searched_window->y+p_searched_window->h-STATCH_VALUE &&
 												m_pC_mouse_focused_window->y+m_pC_mouse_focused_window->h < p_searched_window->y+p_searched_window->h+STATCH_VALUE)
 											{
@@ -1319,18 +1319,18 @@ bool WindowManager::MouseControl(UINT message, int x, int y)
 							}
 							
 							bl_statch = false;
-							//°¡·Î ¹üÀ§°¡ ¾î´ÀÁ¤µµ Æ÷ÇÔµÇÀÖÀ»¶§ ¼¼·Î¸¦ ¶¯°Ü¼­ ºÙÀÎ´Ù
+							//ê°€ë¡œ ë²”ìœ„ê°€ ì–´ëŠì •ë„ í¬í•¨ë˜ìˆì„ë•Œ ì„¸ë¡œë¥¼ ë•¡ê²¨ì„œ ë¶™ì¸ë‹¤
 							if (m_pC_mouse_focused_window->x < p_searched_window->x+p_searched_window->w &&
 								m_pC_mouse_focused_window->x+m_pC_mouse_focused_window->w > p_searched_window->x)
 							{
-								//À§ÂÊ¿¡ ºÙÀ»°Ô ÀÖ³ª?
+								//ìœ„ìª½ì— ë¶™ì„ê²Œ ìˆë‚˜?
 								if (m_pC_mouse_focused_window->y > p_searched_window->y+p_searched_window->h-STATCH_VALUE &&
 									m_pC_mouse_focused_window->y < p_searched_window->y+p_searched_window->h+STATCH_VALUE)
 								{
 									m_pC_mouse_focused_window->y = p_searched_window->y+p_searched_window->h;
 									bl_statch = true;
 								}
-								else //¾Æ·¡ÂÊ¿¡ ºÙÀ»°Ô ÀÖ³ª?
+								else //ì•„ë˜ìª½ì— ë¶™ì„ê²Œ ìˆë‚˜?
 									if (m_pC_mouse_focused_window->y+m_pC_mouse_focused_window->h > p_searched_window->y-STATCH_VALUE &&
 										m_pC_mouse_focused_window->y+m_pC_mouse_focused_window->h < p_searched_window->y+STATCH_VALUE)
 									{
@@ -1338,15 +1338,15 @@ bool WindowManager::MouseControl(UINT message, int x, int y)
 										bl_statch = true;
 									}
 							}
-							if(bl_statch == true)	//¾îµò°¡ ºÙ¾ú´Ù¸é ±× ³¡°ú ³¡À» ºÙÀÏ¼ö ÀÖ³ª º»´Ù
+							if(bl_statch == true)	//ì–´ë”˜ê°€ ë¶™ì—ˆë‹¤ë©´ ê·¸ ëê³¼ ëì„ ë¶™ì¼ìˆ˜ ìˆë‚˜ ë³¸ë‹¤
 							{
-								//¿ŞÂÊÀÇ ÁÂÇ¥¸¦ °°°ÔÇÏÀÚ
+								//ì™¼ìª½ì˜ ì¢Œí‘œë¥¼ ê°™ê²Œí•˜ì
 								if(m_pC_mouse_focused_window->x > p_searched_window->x-STATCH_VALUE &&
 									m_pC_mouse_focused_window->x < p_searched_window->x+STATCH_VALUE)
 								{
 									m_pC_mouse_focused_window->x = p_searched_window->x;
 								}
-								else	//¿À¸¥ÂÊÀÇ ÁÂÇ¥¸¦ °°°ÔÇÏÀÚ
+								else	//ì˜¤ë¥¸ìª½ì˜ ì¢Œí‘œë¥¼ ê°™ê²Œí•˜ì
 									if(m_pC_mouse_focused_window->x+m_pC_mouse_focused_window->w > p_searched_window->x+p_searched_window->w-STATCH_VALUE &&
 										m_pC_mouse_focused_window->x+m_pC_mouse_focused_window->w < p_searched_window->x+p_searched_window->w+STATCH_VALUE)
 									{
@@ -1374,13 +1374,13 @@ bool WindowManager::MouseControl(UINT message, int x, int y)
 		 message == M_RIGHTBUTTON_UP)
 	{
 		//
-		// - ÇöÀç ÃÖ¿ì¼±Window¿¡¼­ pushÇÑ ÈÄ ´Ù¸¥ Window ¶Ç´Â background¿¡ push upÇßÀ» °æ¿ì
-		//   pushÇÑ Window¿¡ push upÀ» ÇØÁà¾ß ÇÑ´Ù.
+		// - í˜„ì¬ ìµœìš°ì„ Windowì—ì„œ pushí•œ í›„ ë‹¤ë¥¸ Window ë˜ëŠ” backgroundì— push upí–ˆì„ ê²½ìš°
+		//   pushí•œ Windowì— push upì„ í•´ì¤˜ì•¼ í•œë‹¤.
 		//
-		// - pinned Window¿Í no pinned Window°¡ ÀÖÀ¸¹Ç·Î pushed Window°¡ first priority¶ó°í
-		//   Àå´ãÇÒ ¼ö ¾ø´Ù.
+		// - pinned Windowì™€ no pinned Windowê°€ ìˆìœ¼ë¯€ë¡œ pushed Windowê°€ first priorityë¼ê³ 
+		//   ì¥ë‹´í•  ìˆ˜ ì—†ë‹¤.
 
-		// mouse move focus°¡ Window priority¸¦ ¹Ù²Ù´Â ¸ğµåÀÌ¸é ´Ù¸£°Ô Ã³¸®ÇØ¾ß ÇÑ´Ù.
+		// mouse move focusê°€ Window priorityë¥¼ ë°”ê¾¸ëŠ” ëª¨ë“œì´ë©´ ë‹¤ë¥´ê²Œ ì²˜ë¦¬í•´ì•¼ í•œë‹¤.
 		//if (mouse_move_focus_change_window_priority?)
 		//{
 		//
@@ -1403,8 +1403,8 @@ bool WindowManager::MouseControl(UINT message, int x, int y)
 //-----------------------------------------------------------------------------
 // KeyboardControl
 //
-// WindowManager::KeyboardControlÀº App KeyboardControl°ú Window::KeyboardControlÀÇ 
-// Áß°èÀÚÀÌ´Ù.
+// WindowManager::KeyboardControlì€ App KeyboardControlê³¼ Window::KeyboardControlì˜ 
+// ì¤‘ê³„ìì´ë‹¤.
 //-----------------------------------------------------------------------------
 void WindowManager::KeyboardControl(UINT message, UINT key, long extra)
 {
@@ -1420,7 +1420,7 @@ void WindowManager::KeyboardControl(UINT message, UINT key, long extra)
 	}
 
 	//
-	// ¿ì¼±¼øÀ§, (1) topmost Window
+	// ìš°ì„ ìˆœìœ„, (1) topmost Window
 	//			 	 (2) keyboard control Window
 	//
 	if (m_pC_topmost_window != NULL)
@@ -1441,13 +1441,13 @@ void WindowManager::KeyboardControl(UINT message, UINT key, long extra)
 			return;
 		}
 
-		//°ÔÀÓ¸ğµå°¡ ¾Æ´Ò¶§´Â ¾Æ·¡·Î ³»·ÁÁÙ ÇÊ¿ä°¡ ¾ø´Ù
+		//ê²Œì„ëª¨ë“œê°€ ì•„ë‹ë•ŒëŠ” ì•„ë˜ë¡œ ë‚´ë ¤ì¤„ í•„ìš”ê°€ ì—†ë‹¤
 		if(!gC_vs_ui.IsGameMode())
 			return;
 		}
 	}
 
-	// topmost window°¡ ¶°ÀÖÀ»¶§µµ Ã¤ÆÃ¸Ô°Ô ÇÏ±â À§ÇØ¼­
+	// topmost windowê°€ ë– ìˆì„ë•Œë„ ì±„íŒ…ë¨¹ê²Œ í•˜ê¸° ìœ„í•´ì„œ
 	if (m_pC_keyboard_control_window != NULL && m_pC_keyboard_control_window != m_pC_topmost_window)
 		m_pC_keyboard_control_window->KeyboardControl(message, key, extra);
 
@@ -1481,7 +1481,7 @@ void WindowManager::KeyboardControl(UINT message, UINT key, long extra)
 //-----------------------------------------------------------------------------
 // AlreadyRegistered
 //
-// p_window°¡ µî·ÏµÇ¾ú´Â°¡?
+// p_windowê°€ ë“±ë¡ë˜ì—ˆëŠ”ê°€?
 //-----------------------------------------------------------------------------
 bool WindowManager::AlreadyRegistered(Window * p_window) const
 {
@@ -1529,8 +1529,8 @@ bool WindowManager::GetShowState(Window * p_window) const
 //-----------------------------------------------------------------------------
 // Register
 //
-// Window¸¦ µî·ÏÇÑ´Ù.
-// ÀÌ¹Ì µî·ÏµÇ¾ú´Â°¡ °Ë»çÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+// Windowë¥¼ ë“±ë¡í•œë‹¤.
+// ì´ë¯¸ ë“±ë¡ë˜ì—ˆëŠ”ê°€ ê²€ì‚¬í•  í•„ìš”ê°€ ì—†ë‹¤.
 //-----------------------------------------------------------------------------
 void WindowManager::Register(Window * p_window)
 {
@@ -1543,7 +1543,7 @@ void WindowManager::Register(Window * p_window)
 //-----------------------------------------------------------------------------
 // Unregister
 //
-// Window µî·ÏÀ» ÇØÁ¦ÇÑ´Ù.
+// Window ë“±ë¡ì„ í•´ì œí•œë‹¤.
 //-----------------------------------------------------------------------------
 void WindowManager::Unregister(Window * p_window)
 {
@@ -1551,7 +1551,7 @@ void WindowManager::Unregister(Window * p_window)
 		_Error(NULL_REF);
 
 	if (Delete(p_window) == true)
-		DisappearWindow(p_window); // ÇöÀç»óÅÂ´Â È®ÀÎÇÒ ÇÊ¿ä¾øÀÌ ¹«Á¶°Ç disappear.
+		DisappearWindow(p_window); // í˜„ì¬ìƒíƒœëŠ” í™•ì¸í•  í•„ìš”ì—†ì´ ë¬´ì¡°ê±´ disappear.
 
 	if (p_window == m_pC_pushed_window)
 		m_pC_pushed_window = NULL;
@@ -1569,7 +1569,7 @@ void WindowManager::Process()
 //-----------------------------------------------------------------------------
 // g_RegisterWindow
 //
-// Window¸¦ Window Manager¿¡ µî·ÏÇÑ´Ù.
+// Windowë¥¼ Window Managerì— ë“±ë¡í•œë‹¤.
 //-----------------------------------------------------------------------------
 void g_RegisterWindow(Window * p_window)
 {
@@ -1584,7 +1584,7 @@ void g_RegisterWindow(Window * p_window)
 //-----------------------------------------------------------------------------
 // g_UnregisterWindow
 //
-// Window Manager¿¡¼­ Window¸¦ µî·ÏÇØÁ¦ÇÑ´Ù.
+// Window Managerì—ì„œ Windowë¥¼ ë“±ë¡í•´ì œí•œë‹¤.
 //-----------------------------------------------------------------------------
 void g_UnregisterWindow(Window * p_window)
 {

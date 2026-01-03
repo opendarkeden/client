@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // CWinUpdate.h
 //-----------------------------------------------------------------------------
-// ½Ã°£À» ºñ±³ÇÏ¸é¼­ ÀÏÁ¤½Ã°£¸¶´Ù ÇÑ¹ø¾¿ Update°¡ µÇµµ·Ï ÇÑ´Ù.
+// ì‹œê°„ì„ ë¹„êµí•˜ë©´ì„œ ì¼ì •ì‹œê°„ë§ˆë‹¤ í•œë²ˆì”© Updateê°€ ë˜ë„ë¡ í•œë‹¤.
 //-----------------------------------------------------------------------------
 
 #ifndef	__CWINUPDATE_H__
@@ -44,11 +44,11 @@ class CWinUpdate {
 		
 
 	private :
-		static DWORD	m_CurrentTime;		// ÇöÀç time
+		static DWORD	m_CurrentTime;		// í˜„ì¬ time
 
 	protected :
-		DWORD			m_LastTime;			// °¡Àå ÃÖ±Ù¿¡ Update()ÇÑ ½Ã°£
-		DWORD			m_UpdateDelay;		// update delay½Ã°£
+		DWORD			m_LastTime;			// ê°€ì¥ ìµœê·¼ì— Update()í•œ ì‹œê°„
+		DWORD			m_UpdateDelay;		// update delayì‹œê°„
 };
 
 #endif		

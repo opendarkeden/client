@@ -2,7 +2,7 @@
 // MNPCScriptTable.h
 //---------------------------------------------------------------------------
 /*
-	int TotalNumberofScript; // ÃÑ ½ºÅ©¸³Æ®ÀÇ ¼ö
+	int TotalNumberofScript; // ì´ ìŠ¤í¬ë¦½íŠ¸ì˜ ìˆ˜
 	{
 		int    ScriptID; 
 		int    OwnerIDSize;
@@ -21,7 +21,7 @@
 		}
 	}
 
-	{} »çÀÌ´Â ¹İº¹
+	{} ì‚¬ì´ëŠ” ë°˜ë³µ
 */
 //---------------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ class NPC_SCRIPT {
 	public :
 		typedef CTypeTable<MString>		STRING_TABLE;		
 
-	public :		// public public ¤»¤»~~
+	public :		// public public ã…‹ã…‹~~
 		MString				OwnerID;
 
 		STRING_TABLE		SubjectTable;	
@@ -72,7 +72,7 @@ class MNPCScriptTable : public CTypeMap2<NPC_SCRIPT> {
 		const char*	GetSubject(int scriptID, int subjectID) const;
 		const char*	GetContent(int scriptID, int contentID) const;
 
-		// ÇØ´ç ½ºÅ©¸³Æ® ¾ÆÀÌµğ¿¡ ÆÄ¶ó¹ÌÅÍ°ªÀ» replace ÇÑ´Ù.
+		// í•´ë‹¹ ìŠ¤í¬ë¦½íŠ¸ ì•„ì´ë””ì— íŒŒë¼ë¯¸í„°ê°’ì„ replace í•œë‹¤.
 		void GetContentParameter(int scriptID, int contentID,HashMapScriptParameter para,std::string &str);
 		void GetSubjectParameter(int scriptID, int subjectID,HashMapScriptParameter para,std::string &str);
 };

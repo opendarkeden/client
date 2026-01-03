@@ -31,10 +31,10 @@ public :
 
 public :
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -45,7 +45,7 @@ public :
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static CGAddMouseToInventoryPacketSize ¸¦ Á¤ÀÇÇØ¼­ ¸®ÅÏÇÏ¶ó.
+	// const static CGAddMouseToInventoryPacketSize ë¥¼ ì •ì˜í•´ì„œ ë¦¬í„´í•˜ë¼.
 	//modify by viva
 	//PacketSize_t getPacketSize () const throw () { return szObjectID + szObjectID + szCoordInven + szCoordInven; }
 	PacketSize_t getPacketSize () const throw () { return szObjectID + szCoordInven + szCoordInven; }
@@ -80,10 +80,10 @@ private :
 	// ObjectID
 	ObjectID_t m_ObjectID;
 
-	// º¸Á¶ ÀÎº¥Åä¸® ¾ÆÀÌÅÛÀÇ ¿ÀºêÁ§Æ® ¾ÆÀÌµğ. 0ÀÌ¸é ¸ŞÀÎ ÀÎº¥Åä¸®¿¡¼­ ²¨³¿
+	// ë³´ì¡° ì¸ë²¤í† ë¦¬ ì•„ì´í…œì˜ ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””. 0ì´ë©´ ë©”ì¸ ì¸ë²¤í† ë¦¬ì—ì„œ êº¼ëƒ„
 	ObjectID_t m_InventoryItemObjectID;
 	
-	// InventoryÀÇ X, Y ÁÂÇ¥.
+	// Inventoryì˜ X, Y ì¢Œí‘œ.
 	CoordInven_t m_InvenX;
 	CoordInven_t m_InvenY;
 
@@ -115,7 +115,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static CGAddMouseToInventoryPacketSize ¸¦ Á¤ÀÇÇØ¼­ ¸®ÅÏÇÏ¶ó.
+	// const static CGAddMouseToInventoryPacketSize ë¥¼ ì •ì˜í•´ì„œ ë¦¬í„´í•˜ë¼.
 	//modify by viva
 	//PacketSize_t getPacketMaxSize () const throw () { return szObjectID + szObjectID + szCoordInven + szCoordInven; }
 	PacketSize_t getPacketMaxSize () const throw () { return szObjectID + szCoordInven + szCoordInven; }

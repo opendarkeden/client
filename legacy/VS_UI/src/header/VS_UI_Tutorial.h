@@ -35,7 +35,7 @@ public:
 //-----------------------------------------------------------------------------
 // C_VS_UI_BOOK
 //
-// Æ©Åä¸®¾ó ¸ðµåÀÇ Ã¥ ÀÎÅÍÆäÀÌ½ºÀÌ´Ù. Ã¥Àå¿¡¼­ Ã¥À» °í¸£¸é ³ª¿Â´Ù.
+// íŠœí† ë¦¬ì–¼ ëª¨ë“œì˜ ì±… ì¸í„°íŽ˜ì´ìŠ¤ì´ë‹¤. ì±…ìž¥ì—ì„œ ì±…ì„ ê³ ë¥´ë©´ ë‚˜ì˜¨ë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_BOOK : public Window, public Exec, public ButtonVisual, public C_VS_UI_DESC
 {
@@ -50,9 +50,9 @@ private:
 
 	enum EXEC_ID
 	{
-		BOOK_CLOSE_ID,			// Ã¢´Ý±â
-		BOOK_PREV_ID,			// ÀÌÀüÀå º¸±â
-		BOOK_NEXT_ID,			// ´ÙÀ½Àå º¸±â
+		BOOK_CLOSE_ID,			// ì°½ë‹«ê¸°
+		BOOK_PREV_ID,			// ì´ì „ìž¥ ë³´ê¸°
+		BOOK_NEXT_ID,			// ë‹¤ìŒìž¥ ë³´ê¸°
 	};
 
 	C_SPRITE_PACK *			m_pC_book_spk;
@@ -93,9 +93,9 @@ public:
 //-----------------------------------------------------------------------------
 // C_VS_UI_BOOKCASE
 //
-// Æ©Åä¸®¾ó ¸ðµåÀÇ Ã¥Àå ÀÎÅÍÆäÀÌ½ºÀÌ´Ù. µµ¼­°ü¿¡¼­ Ã¥ÀåÀ» Å¬¸¯ÇÏ¸é ³ª¿Â´Ù.
-// Ã¥À» ¼±ÅÃÇÏ°í Å¬¸¯ÇÏ¸é, Ã¥ÀÇ ³»¿ëÀÌ ³ª¿Â´Ù.
-// 68,55,67,67 ÃÑ : 257±Ç
+// íŠœí† ë¦¬ì–¼ ëª¨ë“œì˜ ì±…ìž¥ ì¸í„°íŽ˜ì´ìŠ¤ì´ë‹¤. ë„ì„œê´€ì—ì„œ ì±…ìž¥ì„ í´ë¦­í•˜ë©´ ë‚˜ì˜¨ë‹¤.
+// ì±…ì„ ì„ íƒí•˜ê³  í´ë¦­í•˜ë©´, ì±…ì˜ ë‚´ìš©ì´ ë‚˜ì˜¨ë‹¤.
+// 68,55,67,67 ì´ : 257ê¶Œ
 //-----------------------------------------------------------------------------
 class C_VS_UI_BOOKCASE : public Window, public Exec, public ButtonVisual
 {
@@ -108,7 +108,7 @@ private:
 
 	enum EXEC_ID
 	{
-		BOOKCASE_CLOSE_ID,			// Ã¢´Ý±â
+		BOOKCASE_CLOSE_ID,			// ì°½ë‹«ê¸°
 	};
 
 	C_SPRITE_PACK *			m_pC_bookcase_spk;
@@ -151,10 +151,10 @@ public:
 //-----------------------------------------------------------------------------
 // C_VS_UI_BRIEFING
 //
-// Æ©Åä¸®¾ó ¸ðµåÀÇ ºê¸®ÇÎÈ­¸é ÀÎÅÍÆäÀÌ½ºÀÌ´Ù.
-// ±³°ü¿¡°Ô ¸»À» °É°Å³ª, ¿µ»ç±â¸¦ ´õºí Å¬¸¯ÇÏ¸é 
-// ¹Ý´ëÆí ½ºÅ©¸°¿¡ ½ºÆ¿±×¸²ÀÌ º¸¿©Áö¸é¼­ ÅØ½ºÆ®°¡ È­¸é¿¡ ½ºÅ©·ÑµÈ´Ù.
-// ³»¿ëÀº ½½·¹ÀÌ¾îµéÀÌ ¾î¶² ¼³Á¤À¸·Î °ÔÀÓ¿¡ µé¾î°¡´Â Áö¿¡ °üÇÑ °ÍÀÌ´Ù.
+// íŠœí† ë¦¬ì–¼ ëª¨ë“œì˜ ë¸Œë¦¬í•‘í™”ë©´ ì¸í„°íŽ˜ì´ìŠ¤ì´ë‹¤.
+// êµê´€ì—ê²Œ ë§ì„ ê±¸ê±°ë‚˜, ì˜ì‚¬ê¸°ë¥¼ ë”ë¸” í´ë¦­í•˜ë©´ 
+// ë°˜ëŒ€íŽ¸ ìŠ¤í¬ë¦°ì— ìŠ¤í‹¸ê·¸ë¦¼ì´ ë³´ì—¬ì§€ë©´ì„œ í…ìŠ¤íŠ¸ê°€ í™”ë©´ì— ìŠ¤í¬ë¡¤ëœë‹¤.
+// ë‚´ìš©ì€ ìŠ¬ë ˆì´ì–´ë“¤ì´ ì–´ë–¤ ì„¤ì •ìœ¼ë¡œ ê²Œìž„ì— ë“¤ì–´ê°€ëŠ” ì§€ì— ê´€í•œ ê²ƒì´ë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_BRIEFING : public Window, public Exec, public ButtonVisual
 {
@@ -167,7 +167,7 @@ private:
 
 	enum EXEC_ID
 	{
-		SCREEN_CLOSE_ID,			// Ã¢´Ý±â
+		SCREEN_CLOSE_ID,			// ì°½ë‹«ê¸°
 	};
 
 	C_SPRITE_PACK *				m_pC_screen_spk;
@@ -210,9 +210,9 @@ public:
 */
 //-----------------------------------------------------------------------------
 // C_VS_UI_COMPUTER
-// Æ©Åä¸®¾ó ¸ðµåÀÇ ÄÄÇ»ÅÍ ÀÎÅÍÆäÀÌ½ºÀÌ´Ù.
-// ÄÄÇ»ÅÍ¸¦ ´õºí Å¬¸¯ÇÏ¸é ÄÄÇ»ÅÍ ¸ð´ÏÅÍ È­¸éÀÌ ¶ß°í
-// ÁÖ·Î ½½·¹ÀÌ¾îµéÀÇ ¹«±â¿Í ±â¼ú¿¡ °üÇÑ ¼³¸íÀÌ´Ù
+// íŠœí† ë¦¬ì–¼ ëª¨ë“œì˜ ì»´í“¨í„° ì¸í„°íŽ˜ì´ìŠ¤ì´ë‹¤.
+// ì»´í“¨í„°ë¥¼ ë”ë¸” í´ë¦­í•˜ë©´ ì»´í“¨í„° ëª¨ë‹ˆí„° í™”ë©´ì´ ëœ¨ê³ 
+// ì£¼ë¡œ ìŠ¬ë ˆì´ì–´ë“¤ì˜ ë¬´ê¸°ì™€ ê¸°ìˆ ì— ê´€í•œ ì„¤ëª…ì´ë‹¤
 //
 //-----------------------------------------------------------------------------
 class C_VS_UI_COMPUTER : public Window, public Exec, public ButtonVisual, public C_VS_UI_DESC
@@ -231,7 +231,7 @@ private:
 
 	enum EXEC_ID
 	{
-		MONITOR_CLOSE_ID,			// Ã¢´Ý±â
+		MONITOR_CLOSE_ID,			// ì°½ë‹«ê¸°
 		SCROLL_UP_ID,
 		SCROLL_DOWN_ID,
 		SCROLL_TREE_UP_ID,
@@ -248,7 +248,7 @@ private:
 
 	int m_row, m_col;
 	int							m_index_x, m_index_y, m_index_distance, m_index_max;
-	bool						m_isclose; //Æ®¸®°¡ ´ÝÈ÷°Å³ª ¿­¸®´Â »óÅÂ
+	bool						m_isclose; //íŠ¸ë¦¬ê°€ ë‹«ížˆê±°ë‚˜ ì—´ë¦¬ëŠ” ìƒíƒœ
 	int							m_scroll_x, m_scroll_y, m_scroll_h;
 	int							m_tree_limit_h;
 	int							m_tree_scroll, m_tree_scroll_x;
@@ -289,9 +289,9 @@ public:
 //-----------------------------------------------------------------------------
 // C_VS_UI_TUTORIAL_EXIT
 //
-// Æ©Åä¸®¾ó ¸ðµåÀÇ ³ª°¡±âÈ­¸é ÀÎÅÍÆäÀÌ½ºÀÌ´Ù.
-// ¹®¾ÕÀÇ ±³°ü¿¡°Ô ¸»À» °É¸é ½ÇÇàµÈ´Ù.
-// ³ª°¡±â Àü¿¡ ¹«±â¼±ÅÃÀ» ÇÏ°Ô µÈ´Ù.
+// íŠœí† ë¦¬ì–¼ ëª¨ë“œì˜ ë‚˜ê°€ê¸°í™”ë©´ ì¸í„°íŽ˜ì´ìŠ¤ì´ë‹¤.
+// ë¬¸ì•žì˜ êµê´€ì—ê²Œ ë§ì„ ê±¸ë©´ ì‹¤í–‰ëœë‹¤.
+// ë‚˜ê°€ê¸° ì „ì— ë¬´ê¸°ì„ íƒì„ í•˜ê²Œ ëœë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_TUTORIAL_EXIT : public Window, public Exec, public ButtonVisual
 {

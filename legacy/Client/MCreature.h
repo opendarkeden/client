@@ -1,14 +1,14 @@
 //----------------------------------------------------------------------
 // MCreature.h
 //----------------------------------------------------------------------
-// ¿òÁ÷ÀÌ´Â »ı¹°¿¡ ´ëÇÑ class
+// ì›€ì§ì´ëŠ” ìƒë¬¼ì— ëŒ€í•œ class
 //----------------------------------------------------------------------
 // UndergroundCreature
 // GroundCreature
-// FlyingCreature ·Î ±¸ºĞµÈ´Ù.
+// FlyingCreature ë¡œ êµ¬ë¶„ëœë‹¤.
 //
-// ¸ğµÎ ZÁÂÇ¥¸¦ °®°í ÀÖÁö¸¸, 
-// FlyingCreature¸¸ÀÌ ÀÏÁ¤ÇÑ ³ôÀÌ¿¡ Á¸ÀçÇÏ°Ô µÈ´Ù.
+// ëª¨ë‘ Zì¢Œí‘œë¥¼ ê°–ê³  ìˆì§€ë§Œ, 
+// FlyingCreatureë§Œì´ ì¼ì •í•œ ë†’ì´ì— ì¡´ì¬í•˜ê²Œ ëœë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__MCREATURE_H__
@@ -32,7 +32,7 @@ class MItem;
 //----------------------------------------------------------------------
 #define	MAX_FRAME_MOVE	16
 
-// °øÁß Ä³¸¯ÅÍÀÇ ³ôÀÌ(ÀÏÁ¤)
+// ê³µì¤‘ ìºë¦­í„°ì˜ ë†’ì´(ì¼ì •)
 //#define	FLYINGCREATURE_HEIGHT	0	//64
 
 class MZone;
@@ -53,40 +53,40 @@ class MCreature : public MObject, public MStatus {
 			CLASS_PLAYER
 		};
 
-		// CreatureÀÇ Á¾·ù : ÁöÇÏ,Áö»ó,°øÁß
+		// Creatureì˜ ì¢…ë¥˜ : ì§€í•˜,ì§€ìƒ,ê³µì¤‘
 		enum MOVE_TYPE
 		{
 			CREATURE_UNDERGROUND = 0,
 			CREATURE_GROUND,
 			CREATURE_FLYING,
-			CREATURE_FAKE_NO_BLOCK,		// sector¿¡ Á¸ÀçÇÏÁö ¾Ê´Â ¾Ö´ú..
+			CREATURE_FAKE_NO_BLOCK,		// sectorì— ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì• ëœ..
 			CREATURE_FAKE_UNDERGROUND,
 			CREATURE_FAKE_GROUND,
 			CREATURE_FAKE_FLYING,
 		};
 
-		// ÀÌµ¿ÇÏ´Â ¹æ¹ı
+		// ì´ë™í•˜ëŠ” ë°©ë²•
 		enum MOVE_DEVICE
 		{
-			MOVE_DEVICE_WALK,		// °É¾î´Ù´Ñ´Ù.
-			MOVE_DEVICE_RIDE,		// ¸ğÅÍ½ÎÀÌÅ¬			
-			MOVE_DEVICE_SUMMON_SYLPH,		// Á¤·ÉÅ¸°í ½µ~ 
+			MOVE_DEVICE_WALK,		// ê±¸ì–´ë‹¤ë‹Œë‹¤.
+			MOVE_DEVICE_RIDE,		// ëª¨í„°ì‹¸ì´í´			
+			MOVE_DEVICE_SUMMON_SYLPH,		// ì •ë ¹íƒ€ê³  ìŠ‰~ 
 			MOVE_DEVICE_MAX
 		};
 
-		// ÀÌµ¿ÇÏ´Â ¹æ¹ı
+		// ì´ë™í•˜ëŠ” ë°©ë²•
 		enum WEAPON_SPEED
 		{
-			WEAPON_SPEED_SLOW,			// ´À¸° ¹«±â
-			WEAPON_SPEED_NORMAL,			// º¸Åë ¹«±â
-			WEAPON_SPEED_FAST				// ºü¸¥ ¹«±â
+			WEAPON_SPEED_SLOW,			// ëŠë¦° ë¬´ê¸°
+			WEAPON_SPEED_NORMAL,			// ë³´í†µ ë¬´ê¸°
+			WEAPON_SPEED_FAST				// ë¹ ë¥¸ ë¬´ê¸°
 		};
 
 	public :
 		//----------------------------------------------------------------------
 		// MoveNode
 		//----------------------------------------------------------------------
-		// (x,y)¿¡¼­ direction¹æÇâÀ¸·Î ¿òÁ÷ÀÎ´Ù´Â ÀÇ¹Ì
+		// (x,y)ì—ì„œ directionë°©í–¥ìœ¼ë¡œ ì›€ì§ì¸ë‹¤ëŠ” ì˜ë¯¸
 		class MoveNode {
 			public :
 				int		x;
@@ -131,7 +131,7 @@ class MCreature : public MObject, public MStatus {
 		static void	ReleaseMoveTable();
 
 		//------------------------------------------------------
-		// (x,y)¿¡¼­ directionÀ¸·Î ¿òÁ÷ÀÎ ÁÂÇ¥¸¦ ³Ñ°ÜÁØ´Ù.
+		// (x,y)ì—ì„œ directionìœ¼ë¡œ ì›€ì§ì¸ ì¢Œí‘œë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 		//------------------------------------------------------
 		static void	GetPositionToDirection(TYPE_SECTORPOSITION &x, TYPE_SECTORPOSITION &y, BYTE direction);
 
@@ -153,7 +153,7 @@ class MCreature : public MObject, public MStatus {
 		bool			IsSlayerCharacter() const;
 		Race			GetRace() const			{ if(IsSlayer())return RACE_SLAYER; else if(IsVampire())return RACE_VAMPIRE; return RACE_OUSTERS; }
 
-		// 2004, 12, 7, sobeit add start - ¿î¿µÀÚ ÀÎÁö ¾Æ´ÑÁö
+		// 2004, 12, 7, sobeit add start - ìš´ì˜ì ì¸ì§€ ì•„ë‹Œì§€
 		bool			IsSlayerOperator() const { return m_CreatureType == CREATURETYPE_SLAYER_OPERATOR ;}
 		bool			IsVampireOperator() const { return m_CreatureType == CREATURETYPE_VAMPIRE_OPERATOR ;}
 		bool			IsOustersOperator() const { return m_CreatureType == CREATURETYPE_OUSTERS_OPERATOR ;}
@@ -162,7 +162,7 @@ class MCreature : public MObject, public MStatus {
 													||	m_CreatureType == CREATURETYPE_OUSTERS_OPERATOR);}
 		// 2004, 12, 7, sobeit add end
 		//------------------------------------------------------
-		// IndexSetÀ» Á¤ÇØÁØ´Ù.
+		// IndexSetì„ ì •í•´ì¤€ë‹¤.
 		//------------------------------------------------------
 		int			GetCreatureColorSet() const	{ return (*g_pCreatureTable)[m_CreatureType].ColorSet; }
 		
@@ -172,7 +172,7 @@ class MCreature : public MObject, public MStatus {
 		void		SetSameBody(const MCreature* pCreature);
 
 		//------------------------------------------------------
-		// »ö±ò °ü·Ã... 
+		// ìƒ‰ê¹” ê´€ë ¨... 
 		//------------------------------------------------------
 		void		SetBodyColor1(WORD set);
 		void		SetBodyColor2(WORD set);
@@ -201,7 +201,7 @@ class MCreature : public MObject, public MStatus {
 		bool	IsFakeCreature()	const		{ return m_MoveType == CREATURE_FAKE_NO_BLOCK || m_MoveType == CREATURE_FAKE_UNDERGROUND || m_MoveType == CREATURE_FAKE_GROUND || m_MoveType == CREATURE_FAKE_FLYING; }
 
 		//------------------------------------------------------
-		// ¼ºº°
+		// ì„±ë³„
 		//------------------------------------------------------
 		//bool	IsMale() const					{ return (*g_pCreatureTable)[m_CreatureType].bMale; }
 		//bool	IsFemale() const				{ return !(*g_pCreatureTable)[m_CreatureType].bMale; }
@@ -211,51 +211,51 @@ class MCreature : public MObject, public MStatus {
 		bool	IsFemale() const				{ return !m_bMale; }
 
 		//------------------------------------------------------
-		// Å° 
+		// í‚¤ 
 		//------------------------------------------------------
 		int		GetHeight() const				{ if (m_bAlive) return (*g_pCreatureTable)[m_CreatureType].Height; return (*g_pCreatureTable)[m_CreatureType].DeadHeight; }
 		
 		//------------------------------------------------------
-		// ÀÌµ¿ÇÏ´Â ¹æ¹ı
+		// ì´ë™í•˜ëŠ” ë°©ë²•
 		//------------------------------------------------------	
 		void		SetMoveDevice(MOVE_DEVICE md);
 		MOVE_DEVICE	GetMoveDevice()	const			{ return m_MoveDevice; }
 
 		//------------------------------------------------------
-		// ¿òÁ÷ÀÌ±â 
+		// ì›€ì§ì´ê¸° 
 		//------------------------------------------------------		
-		virtual void	Action();			// ÇöÀç Çàµ¿À» ÃëÇÏµµ·Ï ÇÑ´Ù.
+		virtual void	Action();			// í˜„ì¬ í–‰ë™ì„ ì·¨í•˜ë„ë¡ í•œë‹¤.
 		virtual BOOL	IsStop();
 		virtual void	SetStop();
 
 		//------------------------------------------------------		
-		// BufferingµÈ ´ÙÀ½ÀÇ ÀÌµ¿ Á¤º¸¸¦ °¡Á®¿Â´Ù.
+		// Bufferingëœ ë‹¤ìŒì˜ ì´ë™ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 		//------------------------------------------------------		
 		virtual bool	AffectMoveBuffer();		
 		virtual void	AffectMoveBufferAll();		
 		void			ReleaseMoveBuffer();
 
 		//----------------------------------------------------------
-		// »óÅÂ °ª ¹Ù²Ù±â
+		// ìƒíƒœ ê°’ ë°”ê¾¸ê¸°
 		//----------------------------------------------------------
 		virtual void	SetStatus(DWORD n, DWORD value);
 
 		//----------------------------------------------------------
-		// º¯½Å
+		// ë³€ì‹ 
 		//----------------------------------------------------------
 		virtual bool	ChangeToSlayer();
 		virtual bool	ChangeToVampire();
 
 		//----------------------------------------------------------
-		// item»ç¿ë °¡´É ¿©ºÎ Ã¼Å©
+		// itemì‚¬ìš© ê°€ëŠ¥ ì—¬ë¶€ ì²´í¬
 		//----------------------------------------------------------
-		virtual void	CheckAffectStatus(MItem* pItem);	// Æ¯Á¤ ¾ÆÀÌÅÛ
+		virtual void	CheckAffectStatus(MItem* pItem);	// íŠ¹ì • ì•„ì´í…œ
 
 		//------------------------------------------------------
 		//	set
 		//-------------------------------------x-----------------
 		void	SetName(const char* pName);
-		bool	MovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y);	// ZoneÀÇ Sector¿¡¼­µµ ÀÌµ¿ÇÑ´Ù.
+		bool	MovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y);	// Zoneì˜ Sectorì—ì„œë„ ì´ë™í•œë‹¤.
 		void	SetZone(MZone* pZone)		{ m_pZone = pZone; }
 		void	SetPosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y);
 		void	SetDirection(BYTE d)		{ m_Direction = d; }
@@ -266,16 +266,16 @@ class MCreature : public MObject, public MStatus {
 		//void	SetZ(short z)				{ m_Z = z; }	
 		
 		//----------------------------------------------------------
-		// ¹æÇâ ¼³Á¤
+		// ë°©í–¥ ì„¤ì •
 		//----------------------------------------------------------
-		bool	ChangeNearDirection();	// CurrentDirectionÀ» DirectionÀ¸·Î ÀÚ¿¬½º·´°Ô ¹Ù²Û´Ù.
+		bool	ChangeNearDirection();	// CurrentDirectionì„ Directionìœ¼ë¡œ ìì—°ìŠ¤ëŸ½ê²Œ ë°”ê¾¼ë‹¤.
 
 		//----------------------------------------------------------
 		// Server
 		//----------------------------------------------------------
 		virtual void		SetServerPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);
 
-		// ´ÙÀ½¿¡ ÇÒ Çàµ¿ ¼³Á¤.. 
+		// ë‹¤ìŒì— í•  í–‰ë™ ì„¤ì •.. 
 		virtual void	SetNextAction(BYTE action);				
 		virtual void	SetNextActionToMove();
 
@@ -284,10 +284,10 @@ class MCreature : public MObject, public MStatus {
 		// get
 		//------------------------------------------------------		
 		const char*	GetName() const				{ return m_pName; }
-		int	GetCX()	const				{ return m_cX; }	// ÇÑ¹ø¿¡ ÀÌµ¿ÇÏ´Â pixel x
-		int	GetCY()	const				{ return m_cY; }	// ÇÑ¹ø¿¡ ÀÌµ¿ÇÏ´Â pixel y
-		int	GetSX()	const				{ return m_sX; }	// sector¿¡¼­ ¶³¾îÁø X°ª
-		int	GetSY()	const				{ return m_sY; }	// sector¿¡¼­ ¶³¾îÁø Y°ª
+		int	GetCX()	const				{ return m_cX; }	// í•œë²ˆì— ì´ë™í•˜ëŠ” pixel x
+		int	GetCY()	const				{ return m_cY; }	// í•œë²ˆì— ì´ë™í•˜ëŠ” pixel y
+		int	GetSX()	const				{ return m_sX; }	// sectorì—ì„œ ë–¨ì–´ì§„ Xê°’
+		int	GetSY()	const				{ return m_sY; }	// sectorì—ì„œ ë–¨ì–´ì§„ Yê°’
 		TYPE_SECTORPOSITION	GetServerX() const	{ return m_ServerX; }
 		TYPE_SECTORPOSITION	GetServerY() const	{ return m_ServerY; }
 		BYTE		GetAction()	const			{ return m_Action; }
@@ -301,21 +301,21 @@ class MCreature : public MObject, public MStatus {
 		BYTE		GetMoveCountMax() const		{ return m_MoveCountMax; }
 		BYTE		GetFrame() const			
 		{ 
-			// Æ¯º°ÇÑ actionÀÌ ¾øÀÌ ¿òÁ÷ÀÌ°í ÀÖ´Â °æ¿ì
+			// íŠ¹ë³„í•œ actionì´ ì—†ì´ ì›€ì§ì´ê³  ìˆëŠ” ê²½ìš°
 			if (m_ActionCount>=GetActionCountMax())
 			{
-				// ´Ù ¿òÁ÷¿©¼­ Á¤ÁöÇÏ°í ÀÖ´Â °æ¿ì´Â...actionÀ» º¸¿©Áà¾ß ÇÑ´Ù.
+				// ë‹¤ ì›€ì§ì—¬ì„œ ì •ì§€í•˜ê³  ìˆëŠ” ê²½ìš°ëŠ”...actionì„ ë³´ì—¬ì¤˜ì•¼ í•œë‹¤.
 				return (m_MoveCount<m_MoveCountMax)?m_MoveCount:
 						(m_ActionCount==0)? 0 : GetActionCountMax()-1; 
 			}
-			// actionÀ» Ç¥ÇöÇØÁÖ´Â °æ¿ì
+			// actionì„ í‘œí˜„í•´ì£¼ëŠ” ê²½ìš°
 			else
 			{
 				return (m_ActionCount<GetActionCountMax())?m_ActionCount:GetActionCountMax()-1; 				
 			}
 		}
 
-		// nActionInfo¿¡ ÀûÀıÇÑ actionÀ» Ã£´Â´Ù.
+		// nActionInfoì— ì ì ˆí•œ actionì„ ì°¾ëŠ”ë‹¤.
 		int			GetActionInfoAction(TYPE_ACTIONINFO nActionInfo, bool IsSelfAction = false);
 		int			GetActionInfoCastingStartFrame(TYPE_ACTIONINFO nActionInfo);
 		int			GetActionInfoCastingFrames(TYPE_ACTIONINFO nActionInfo);
@@ -325,7 +325,7 @@ class MCreature : public MObject, public MStatus {
 		int			GetActionInfoRepeatEndFrame(TYPE_ACTIONINFO nActionInfo);
 		
 
-		// nActionInfo¿¡ ÀûÀıÇÑ casting sound¸¦ Ã£´Â´Ù.
+		// nActionInfoì— ì ì ˆí•œ casting soundë¥¼ ì°¾ëŠ”ë‹¤.
 		TYPE_SOUNDID	GetCastingSoundID(TYPE_ACTIONINFO nActionInfo);
 
 		void		GetNextPosition(BYTE direction, POINT &next);
@@ -333,11 +333,11 @@ class MCreature : public MObject, public MStatus {
 		void		GetNextPosition(TYPE_SECTORPOSITION &sX, TYPE_SECTORPOSITION &sY);
 		int			GetCounterDirection( int d );
 		
-		// LightSight³ª MaxEffectLight Áß¿¡¼­ Å« °ªÀ» ³Ñ°ÜÁØ´Ù. (ÇöÀçÀÇ °¡Àå Å« ½Ã¾ß)
+		// LightSightë‚˜ MaxEffectLight ì¤‘ì—ì„œ í° ê°’ì„ ë„˜ê²¨ì¤€ë‹¤. (í˜„ì¬ì˜ ê°€ì¥ í° ì‹œì•¼)
 		//char		GetMaxLightSight() const			{ return (m_MaxEffectLight > m_LightSight)? m_MaxEffectLight : m_LightSight; }
 		BYTE		GetDirectionToPosition(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY);
 
-		// PixelÁÂÇ¥
+		// Pixelì¢Œí‘œ
 		int			GetPixelX() const;
 		int			GetPixelY() const;
 
@@ -345,14 +345,14 @@ class MCreature : public MObject, public MStatus {
 		int			GetItemCount() const	{ return m_ItemCount; }
 		void		SetItemCount(int c)		{ m_ItemCount = c; }
 
-		// ( ±â¼úID, Effect DelayFrame )
+		// ( ê¸°ìˆ ID, Effect DelayFrame )
 		TYPE_ACTIONINFO	GetDelayActionInfo() const		{ return m_DelayActionInfo; }
 		DWORD			GetEffectDelayFrame() const		{ return m_EffectDelayFrame; }
 		void			SetEffectDelayFrame(TYPE_ACTIONINFO ai, DWORD f)	{ m_DelayActionInfo=ai; m_EffectDelayFrame = f; }
 
 
 		//------------------------------------------------------
-		// Ä³¸¯ÅÍ Á¤º¸
+		// ìºë¦­í„° ì •ë³´
 		//------------------------------------------------------
 		TYPE_FRAMEID	GetCreatureFrameID(int index) const	{ return m_CreatureFrameIDs[index]; }
 		int				GetCreatureFrameCount()	  const { return m_CreatureFrameIDs.GetSize();}
@@ -360,7 +360,7 @@ class MCreature : public MObject, public MStatus {
 		BOOL		IsExistBody() const			{ return m_bExistBody; }
 		
 		//------------------------------------------------------
-		// ±â¼ú
+		// ê¸°ìˆ 
 		//------------------------------------------------------
 		void				SetBasicActionInfo( TYPE_ACTIONINFO n )		{ m_nBasicActionInfo = n; }
 		TYPE_ACTIONINFO		GetBasicActionInfo() const;
@@ -370,7 +370,7 @@ class MCreature : public MObject, public MStatus {
 		TYPE_ACTIONINFO		GetUsedActionInfo() const					{ return m_nUsedActionInfo; }
 
 		//----------------------------------------------------------
-		// ±â¼ú ¸ñÇ¥´Â?
+		// ê¸°ìˆ  ëª©í‘œëŠ”?
 		//----------------------------------------------------------
 		BOOL	IsSpecialActionInfoTargetSelf()	const	{ return (m_nSpecialActionInfo==ACTIONINFO_NULL)?FALSE : (*g_pActionInfoTable)[m_nSpecialActionInfo].IsTargetSelf(); }	
 		BOOL	IsSpecialActionInfoTargetOther() const	{ return (m_nSpecialActionInfo==ACTIONINFO_NULL)?FALSE : (*g_pActionInfoTable)[m_nSpecialActionInfo].IsTargetOther(); }
@@ -378,7 +378,7 @@ class MCreature : public MObject, public MStatus {
 		BOOL	IsSpecialActionInfoTargetItem() const	{ return (m_nSpecialActionInfo==ACTIONINFO_NULL)?FALSE : (*g_pActionInfoTable)[m_nSpecialActionInfo].IsTargetItem(); }		
 		
 
-		// º¹Àå
+		// ë³µì¥
 		virtual BOOL		IsWear() const					{ return FALSE; }
 
 		//------------------------------------------------------
@@ -395,12 +395,12 @@ class MCreature : public MObject, public MStatus {
 
 		//------------------------------------------------
 		//
-		// Effect °ü·Ã...
+		// Effect ê´€ë ¨...
 		//
-		// AttachEffect´Â Ä³¸¯ÅÍ ¸ö¿¡ ºÙ¾îÀÖ´Â effect¸¦ ÀÇ¹ÌÇÑ´Ù.
-		// GroundAttachEffect´Â Ä³¸¯ÅÍÀÇ ¹ß ¹Ø¿¡ ºÙ¾îÀÖ´Â effect¸¦ ÀÇ¹ÌÇÑ´Ù.
-		// ±Ùµ¥, AttachEffect°¡ GroundAttachEffectµµ Æ÷ÇÔÇÏ´Â ÀÇ¹ÌÀÌ±âµµ ÇÑ´Ù.
-		// (±âÁ¸¿¡ ±âÈ¹¿¡ ¾ø´ø ³»¿ëÀÌ¶ó¼­ Ãß°¡ÇÏ¸é¼­ °³°¡ µÈ ¼ö¸¹Àº ÄÚµå ÁßÀÇ ÇÏ³ªÀÌ´Ù. 1818!)
+		// AttachEffectëŠ” ìºë¦­í„° ëª¸ì— ë¶™ì–´ìˆëŠ” effectë¥¼ ì˜ë¯¸í•œë‹¤.
+		// GroundAttachEffectëŠ” ìºë¦­í„°ì˜ ë°œ ë°‘ì— ë¶™ì–´ìˆëŠ” effectë¥¼ ì˜ë¯¸í•œë‹¤.
+		// ê·¼ë°, AttachEffectê°€ GroundAttachEffectë„ í¬í•¨í•˜ëŠ” ì˜ë¯¸ì´ê¸°ë„ í•œë‹¤.
+		// (ê¸°ì¡´ì— ê¸°íšì— ì—†ë˜ ë‚´ìš©ì´ë¼ì„œ ì¶”ê°€í•˜ë©´ì„œ ê°œê°€ ëœ ìˆ˜ë§ì€ ì½”ë“œ ì¤‘ì˜ í•˜ë‚˜ì´ë‹¤. 1818!)
 		//
 		//------------------------------------------------
 		bool		IsExistAttachEffect() const		{ return !m_listEffect.empty(); }
@@ -410,14 +410,14 @@ class MCreature : public MObject, public MStatus {
 		void		ClearAttachEffect();
 		
 
-		// ¿©·¯°¡Áö ºÙ¾îÀÖ´Â Effect¸¦ Ç¥ÇöÇÏ´Â »ö±ò Áß¿¡¼­ --> ÇöÀç Ãâ·ÂÇÒ·Á´Â »ö
+		// ì—¬ëŸ¬ê°€ì§€ ë¶™ì–´ìˆëŠ” Effectë¥¼ í‘œí˜„í•˜ëŠ” ìƒ‰ê¹” ì¤‘ì—ì„œ --> í˜„ì¬ ì¶œë ¥í• ë ¤ëŠ” ìƒ‰
 		WORD		GetAttachEffectColor() const	{ return m_AttachEffectColor; }
 
-		// AttachEffectÀÇ ½Ã¾ß Ãß°¡/»èÁ¦
+		// AttachEffectì˜ ì‹œì•¼ ì¶”ê°€/ì‚­ì œ
 		//void		SetLightSightAttachEffect();
 		//void		UnSetLightSightAttachEffect();
 
-		// ¿ÜºÎ¿¡¼­ iterator·Î ÀÛ¾÷À» ÇÒ ¼ö ÀÖµµ·Ï..
+		// ì™¸ë¶€ì—ì„œ iteratorë¡œ ì‘ì—…ì„ í•  ìˆ˜ ìˆë„ë¡..
 		ATTACHEFFECT_LIST::const_iterator GetAttachEffectIterator() const { return m_listEffect.begin(); }
 		ATTACHEFFECT_LIST::const_iterator GetGroundAttachEffectIterator() const { return m_listGroundEffect.begin(); }
 
@@ -436,11 +436,11 @@ class MCreature : public MObject, public MStatus {
 		//char		GetMaxEffectLight() const		{ return m_MaxEffectLight; }
 
 		//------------------------------------------------------
-		// Á×À½..
+		// ì£½ìŒ..
 		//------------------------------------------------------
-		virtual void		SetDead();		// Á×´Â ¸ğ½À º¸¿©ÁØ´Ù.
-		virtual void		SetAlive();		// »ì¾Æ³­´Ù.
-		virtual void		SetCorpse();	// Á×¾îÀÖ´Â ½ÃÃ¼ »óÅÂ
+		virtual void		SetDead();		// ì£½ëŠ” ëª¨ìŠµ ë³´ì—¬ì¤€ë‹¤.
+		virtual void		SetAlive();		// ì‚´ì•„ë‚œë‹¤.
+		virtual void		SetCorpse();	// ì£½ì–´ìˆëŠ” ì‹œì²´ ìƒíƒœ
 		virtual bool		IsDead() const		{ return !m_bAlive; }
 		virtual bool		IsAlive() const		{ return m_bAlive; }		
 		
@@ -449,7 +449,7 @@ class MCreature : public MObject, public MStatus {
 		//------------------------------------------------------
 		int					IsInvisible() const			{ return m_InvisibleCount; }
 		void				SetInvisible();
-		void				SetInvisibleSoon();	// Áï½Ã invisible·Î ¸¸µç´Ù.
+		void				SetInvisibleSoon();	// ì¦‰ì‹œ invisibleë¡œ ë§Œë“ ë‹¤.
 		void				SetVisible();
 		void				SetVisibleSoon();
 		int					GetInvisibleCount() const	{ return m_InvisibleCount; }
@@ -486,9 +486,9 @@ class MCreature : public MObject, public MStatus {
 		bool				HasHead() const					{ return m_bHasHead; }
 
 		//------------------------------------------------------
-		// HP È¸º¹
+		// HP íšŒë³µ
 		//------------------------------------------------------
-		// rate¸¸Å­ times¹ø È¸º¹µÈ´Ù.
+		// rateë§Œí¼ timesë²ˆ íšŒë³µëœë‹¤.
 		inline BOOL			IsRecoveryHP();
 		inline BOOL			IsRecoveryMP();
 		void				SetRecoveryHP(int amount, int times, DWORD delay);
@@ -509,35 +509,35 @@ class MCreature : public MObject, public MStatus {
 		void				UpdateStatus();
 
 		//------------------------------------------------------
-		// ÇÇ Èê¸®±â
+		// í”¼ í˜ë¦¬ê¸°
 		//------------------------------------------------------
 		virtual void		CheckDropBlood();
 
 		//------------------------------------------------------
-		// È­¸é¿¡ Ç¥½ÃÇÏ´Â HP barÀÇ ±æÀÌ
+		// í™”ë©´ì— í‘œì‹œí•˜ëŠ” HP barì˜ ê¸¸ì´
 		//------------------------------------------------------
 		int					GetHPBarWidth()	const				{ return (*g_pCreatureTable)[m_CreatureType].HPBarWidth; }
 
 		//------------------------------------------------------
 		// Fade
 		//------------------------------------------------------
-		// ¸ö ÀüÃ¼°¡ ¾îµÓ°Ô Ç¥ÇöµÇ´Â °æ¿ì
+		// ëª¸ ì „ì²´ê°€ ì–´ë‘¡ê²Œ í‘œí˜„ë˜ëŠ” ê²½ìš°
 		bool				IsFade() const						{ return m_bFade; }
 		void				SetFade() 							{ m_bFade = true; }
 		void				UnSetFade()							{ m_bFade = false; }
 
-		// Ä³¸¯ÅÍ µ¿ÀÛÀ» µû¸£´Â ±×¸²ÀÚ ¸ğ½À °³¼ö.. - -;
+		// ìºë¦­í„° ë™ì‘ì„ ë”°ë¥´ëŠ” ê·¸ë¦¼ì ëª¨ìŠµ ê°œìˆ˜.. - -;
 		int					GetShadowCount() const				{ return m_ShadowCount; }
 		void				SetShadowCount(int n);
 
 		//------------------------------------------------------
-		// ³È..
+		// ëƒ ..
 		//------------------------------------------------------
 		virtual int			FindEnemy();
 
 		//------------------------------------------------------
 		//
-		//              Server Packet Ã³¸®
+		//              Server Packet ì²˜ë¦¬
 		//
 		//------------------------------------------------------
 		virtual void		PacketSpecialActionResult(TYPE_ACTIONINFO nResultActionInfo, TYPE_OBJECTID id, TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, BYTE temp = 0);
@@ -545,7 +545,7 @@ class MCreature : public MObject, public MStatus {
 		virtual void		PacketMove(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y, BYTE direction);		
 		virtual void		PacketSpecialActionToSector(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY, MActionResult* pActionResult);
 		virtual void		PacketSpecialActionToOther(TYPE_ACTIONINFO nActionInfo, TYPE_OBJECTID id, MActionResult* pActionResult);
-		virtual void		PacketSpecialActionToNobody(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y);	// »ó´ë°¡ zone¿¡ ¾ø´Â °æ¿ì
+		virtual void		PacketSpecialActionToNobody(TYPE_ACTIONINFO nActionInfo, TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y);	// ìƒëŒ€ê°€ zoneì— ì—†ëŠ” ê²½ìš°
 		virtual void		PacketSpecialActionToSelf(TYPE_ACTIONINFO nActionInfo, MActionResult* pActionResult);
 		virtual void		PacketSpecialActionToInventoryItem(TYPE_ACTIONINFO nActionInfo);
 		
@@ -554,7 +554,7 @@ class MCreature : public MObject, public MStatus {
 		// Fast Move
 		//------------------------------------------------------
 		bool				IsFastMove() const	{ return m_bFastMove; }
-		virtual bool		FastMovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y,bool server = false);	// ZoneÀÇ Sector¿¡¼­µµ »¡¸®(-_-;) ÀÌµ¿ÇÑ´Ù.
+		virtual bool		FastMovePosition(TYPE_SECTORPOSITION x, TYPE_SECTORPOSITION y,bool server = false);	// Zoneì˜ Sectorì—ì„œë„ ë¹¨ë¦¬(-_-;) ì´ë™í•œë‹¤.
 		void				StopFastMove();
 
 		//------------------------------------------------------
@@ -665,20 +665,20 @@ class MCreature : public MObject, public MStatus {
 		void				UpdateFakeDie();
 
 		//----------------------------------------------------------
-		// player°¡ Darkness¾È¿¡ ÀÖ´Â°¡?
-		// DarknessCount´Â ¸îÅ¸ÀÏÀÌ º¸ÀÌ´Â°¡?ÀÌ´Ù.
+		// playerê°€ Darknessì•ˆì— ìˆëŠ”ê°€?
+		// DarknessCountëŠ” ëª‡íƒ€ì¼ì´ ë³´ì´ëŠ”ê°€?ì´ë‹¤.
 		//----------------------------------------------------------
 		BOOL				IsInDarkness() const		{ return m_DarknessCount>=0; }
 		BOOL				ShowInDarkness(int sX, int sY) const;
 		int					GetDarknessCount() const	{ return m_DarknessCount; }
 		void				UpdateDarkness();
 		virtual void		CheckInDarkness();
-		void				PlaceInDarkness(bool IsBlindness = false); // 2004, 6, 24 sobeit modify - blindness Ã³¸® ¶«¿¡
+		void				PlaceInDarkness(bool IsBlindness = false); // 2004, 6, 24 sobeit modify - blindness ì²˜ë¦¬ ë•œì—
 		void				PlaceNotInDarkness();
 
 		BOOL				IsInGroundElemental() const;
 		//--------------------------------------------------
-		// ÈíÇ÷ delay¸¦ ¾ø¾Ö±â À§ÇØ¼­ ÀÓ½Ã·Î..
+		// í¡í˜ˆ delayë¥¼ ì—†ì• ê¸° ìœ„í•´ì„œ ì„ì‹œë¡œ..
 		//--------------------------------------------------
 		void				SetStopBloodDrain()			{ m_bStopBloodDrain++; }
 		void				UnSetStopBloodDrain()		{ if (m_bStopBloodDrain>0) m_bStopBloodDrain--; }
@@ -686,7 +686,7 @@ class MCreature : public MObject, public MStatus {
 		virtual void		StopBloodDrain();
 
 		//--------------------------------------------------
-		// Èí¿µ delay¸¦ ¾ø¾Ö±â À§ÇØ¼­ ÀÓ½Ã·Î..
+		// í¡ì˜ delayë¥¼ ì—†ì• ê¸° ìœ„í•´ì„œ ì„ì‹œë¡œ..
 		//--------------------------------------------------
 		void				SetStopAbsorbSoul()			{ m_bStopAbsorbSoul++; }
 		void				UnSetStopAbsorbSoul()		{ if (m_bStopAbsorbSoul>0) m_bStopAbsorbSoul--; }
@@ -694,14 +694,14 @@ class MCreature : public MObject, public MStatus {
 		virtual void		StopAbsorbSoul();
 		
 		//--------------------------------------------------
-		// ÆÄÆ¼ Ã¼Å©
+		// íŒŒí‹° ì²´í¬
 		//--------------------------------------------------
 		bool				IsPlayerParty() const		{ return m_bPlayerParty; }
 		void				SetPlayerParty()			{ m_bPlayerParty = true; }
 		void				UnSetPlayerParty()			{ m_bPlayerParty = false; }
 
 		//--------------------------------------------------
-		// Hallucination°É·ÈÀ»¶§ ¸÷À¸·Î º¸ÀÌ±â - -;
+		// Hallucinationê±¸ë ¸ì„ë•Œ ëª¹ìœ¼ë¡œ ë³´ì´ê¸° - -;
 		//--------------------------------------------------		
 		bool				IsHallu() const				{ return m_bHallu; }
 		void				DetermineHalluActionFrame();
@@ -715,19 +715,19 @@ class MCreature : public MObject, public MStatus {
 		const char*			GetHalluName() const;
 		
 
-		// ¿î¿µÀÚ
+		// ìš´ì˜ì
 		void				SetCompetence(BYTE c)		{ m_Competence = c; }
 		BYTE				GetCompetence() const		{ return m_Competence; }
 
-		// ÈíÇ÷
+		// í¡í˜ˆ
 		void				SetDrainCreatureID(TYPE_OBJECTID id)	{ m_DrainCreatureID = id; }
 		const TYPE_OBJECTID	GetDrainCreatureID() const				{ return m_DrainCreatureID; }
-		void				StopDrain();	// ³ª¸¦ ÈíÇ÷ÇÏ°í ÀÖ´ø CreatureÀÇ ÈíÇ÷µ¿ÀÛÀ» ¸ØÃá´Ù
+		void				StopDrain();	// ë‚˜ë¥¼ í¡í˜ˆí•˜ê³  ìˆë˜ Creatureì˜ í¡í˜ˆë™ì‘ì„ ë©ˆì¶˜ë‹¤
 
-		// Èí¿µ
+		// í¡ì˜
 		void				SetAbsorbCreatureID(TYPE_OBJECTID id)	{ m_DrainCreatureID = id; }
 		const TYPE_OBJECTID	GetAbsorbCreatureID() const				{ return m_DrainCreatureID; }
-		void				StopAbsorb();	// ³ª¸¦ ÈíÇ÷ÇÏ°í ÀÖ´ø CreatureÀÇ Èí¿µµ¿ÀÛÀ» ¸ØÃá´Ù
+		void				StopAbsorb();	// ë‚˜ë¥¼ í¡í˜ˆí•˜ê³  ìˆë˜ Creatureì˜ í¡ì˜ë™ì‘ì„ ë©ˆì¶˜ë‹¤
 		
 		// PET
 		void				SetPetID(TYPE_OBJECTID id)				{ m_PetID = id; }
@@ -738,7 +738,7 @@ class MCreature : public MObject, public MStatus {
 		const TYPE_OBJECTID	GetElementalID() const						{ return m_ElementalID; }
 		
 		//--------------------------------------------------
-		// HP Modify°ü·Ã
+		// HP Modifyê´€ë ¨
 		//--------------------------------------------------		
 		const HPMODIFYLIST *GetHPModifyList() const			{ return &m_HPModifyList; }
 		void				AddHPModify(const int modify);
@@ -801,43 +801,43 @@ class MCreature : public MObject, public MStatus {
 	
 
 	protected :
-		// CreatureÀÇ Á¾·ù
+		// Creatureì˜ ì¢…ë¥˜
 		TYPE_CREATURETYPE		m_CreatureType;
 		//TYPE_FRAMEID			m_CreatureFrameID;
 		CTypeTable<TYPE_FRAMEID>			m_CreatureFrameIDs;
 		BOOL					m_bExistBody;
-		DWORD					m_TraceTimer;				// µû¶ó°¡±â Á¦ÇÑ½Ã°£
+		DWORD					m_TraceTimer;				// ë”°ë¼ê°€ê¸° ì œí•œì‹œê°„
 
 		//add by viva
-		BYTE					m_MoveCount;		// ÀÌµ¿ÇÑ È¸¼ö
+		BYTE					m_MoveCount;		// ì´ë™í•œ íšŒìˆ˜
 		//end
 
 		//--------------------------------------------------
-		// »ö±ò
+		// ìƒ‰ê¹”
 		//--------------------------------------------------
-		// PC Vampire : 1=ÇÇºÎ, 2=¿Ê		
-		// Monster : 1=¸öÀÇ ¾îµò°¡¿¡ º¯ÇÏ´Â »ö.. - -; 2=Nothing
+		// PC Vampire : 1=í”¼ë¶€, 2=ì˜·		
+		// Monster : 1=ëª¸ì˜ ì–´ë”˜ê°€ì— ë³€í•˜ëŠ” ìƒ‰.. - -; 2=Nothing
 		WORD					m_ColorBody1;		
 		WORD					m_ColorBody2;	
-		WORD					m_ChangeColorSet;	// ¸÷ ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+		WORD					m_ChangeColorSet;	// ëª¹ ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 		WORD					m_BatColorSet;
 		// 2005, 2, 21, sobeit add start
 		BYTE					m_MasterEffectType;
 		// 2005, 2, 21, sobeit add end
 		
 
-		// Move Á¾·ù : ÁöÇÏ,Áö»ó,°øÁß
+		// Move ì¢…ë¥˜ : ì§€í•˜,ì§€ìƒ,ê³µì¤‘
 		MOVE_TYPE				m_MoveType;
-		short					m_Z;			// ³ôÀÌ Z
+		short					m_Z;			// ë†’ì´ Z
 
-		// ÀÌµ¿ÇÏ´Â ¹æ¹ı
+		// ì´ë™í•˜ëŠ” ë°©ë²•
 		MOVE_DEVICE				m_MoveDevice;
 		BYTE					m_MoveAction;
 
-		MZone*					m_pZone;		// ÀÌ Creature°¡ ¼ÓÇÏ´Â Zone
+		MZone*					m_pZone;		// ì´ Creatureê°€ ì†í•˜ëŠ” Zone
 
 
-		// ´ÙÀ½ ¿òÁ÷ÀÏ ¹æÇâ
+		// ë‹¤ìŒ ì›€ì§ì¼ ë°©í–¥
 		TYPE_SECTORPOSITION		m_NextX;
 		TYPE_SECTORPOSITION		m_NextY;
 		BYTE					m_NextDirection;
@@ -848,99 +848,99 @@ class MCreature : public MObject, public MStatus {
 		MOVENODE_LIST			m_listMoveBuffer;
 	
 
-		// sector»çÀÌÀÇ smooth scrollÀ» À§ÇØ¼­		
-		int				m_sX, m_sY;		// ÀÌµ¿ÇØ¾ßÇÒ ³ª¸ÓÁö pixels
-		int				m_cX, m_cY;		// ÇÑ¹ø¿¡ ÀÌµ¿ÇÏ´Â °¡·Î pixel
+		// sectorì‚¬ì´ì˜ smooth scrollì„ ìœ„í•´ì„œ		
+		int				m_sX, m_sY;		// ì´ë™í•´ì•¼í•  ë‚˜ë¨¸ì§€ pixels
+		int				m_cX, m_cY;		// í•œë²ˆì— ì´ë™í•˜ëŠ” ê°€ë¡œ pixel
 		
-		// ÀÌµ¿ÇÏ´Âµ¥ ÇÊ¿äÇÑ Á¤º¸
+		// ì´ë™í•˜ëŠ”ë° í•„ìš”í•œ ì •ë³´
 		static int		m_sXTable[MAX_DIRECTION];
 		static int		m_sYTable[MAX_DIRECTION];
 		static int		*m_cXTable[MAX_FRAME_MOVE][MAX_DIRECTION];
 		static int		*m_cYTable[MAX_FRAME_MOVE][MAX_DIRECTION];		
 
-		// ÇöÀç frame¿¡ ´ëÇÑ Á¤º¸
-		BYTE					m_Action;			// Action¿¡ ´ëÇÑ ID
+		// í˜„ì¬ frameì— ëŒ€í•œ ì •ë³´
+		BYTE					m_Action;			// Actionì— ëŒ€í•œ ID
 		//add by viva for no increase speed
-		//BYTE					m_CurrentDirection;	// ÇöÀçÀÇ Direction
-		//BYTE					m_Direction;		// ¹Ù¶óºÁ¾ß ÇÏ´Â Direction
-		//BYTE					m_DirectionMove;	// ÀÌµ¿ÇÒ ¹æÇâ
-		//BYTE					m_DirectionMoved;	// ÀÌµ¿ÇÑ ¹æÇâ		
+		//BYTE					m_CurrentDirection;	// í˜„ì¬ì˜ Direction
+		//BYTE					m_Direction;		// ë°”ë¼ë´ì•¼ í•˜ëŠ” Direction
+		//BYTE					m_DirectionMove;	// ì´ë™í•  ë°©í–¥
+		//BYTE					m_DirectionMoved;	// ì´ë™í•œ ë°©í–¥		
 		//BYTE					m_ActionCount;		// ActionCount == Frame
 		//BYTE					m_ActionCountMax;	// ActionCountMax
-		//BYTE					m_MoveCount;		// ÀÌµ¿ÇÑ È¸¼ö
-		//BYTE					m_MoveCountMax;		// ÀÌµ¿ÇÏ´Â ¸ñÇ¥ È¸¼ö
-		//BYTE					m_MoveTableCount;	// cX,YTableÀÇ count
-		//BYTE					m_NextMoveCount;	// ´ÙÀ½¿¡ ÀÌµ¿ÇØ¾ßÇÏ´Â count¼ö
+		//BYTE					m_MoveCount;		// ì´ë™í•œ íšŒìˆ˜
+		//BYTE					m_MoveCountMax;		// ì´ë™í•˜ëŠ” ëª©í‘œ íšŒìˆ˜
+		//BYTE					m_MoveTableCount;	// cX,YTableì˜ count
+		//BYTE					m_NextMoveCount;	// ë‹¤ìŒì— ì´ë™í•´ì•¼í•˜ëŠ” countìˆ˜
 
 
 		//BYTE					m_NextAction;
 		//end
-		// ±â¼ú Á¾·ù		
-		TYPE_ACTIONINFO			m_nBasicActionInfo;		// ¼±ÅÃµÇ¾î ÀÖ´Â ±âº» ±â¼ú Á¾·ù				
-		TYPE_ACTIONINFO			m_nSpecialActionInfo;	// ¼±ÅÃµÇ¾î ÀÖ´Â Æ¯¼ö ±â¼ú Á¾·ù
-		TYPE_ACTIONINFO			m_nUsedActionInfo;		// »ç¿ëÇÑ °Í
+		// ê¸°ìˆ  ì¢…ë¥˜		
+		TYPE_ACTIONINFO			m_nBasicActionInfo;		// ì„ íƒë˜ì–´ ìˆëŠ” ê¸°ë³¸ ê¸°ìˆ  ì¢…ë¥˜				
+		TYPE_ACTIONINFO			m_nSpecialActionInfo;	// ì„ íƒë˜ì–´ ìˆëŠ” íŠ¹ìˆ˜ ê¸°ìˆ  ì¢…ë¥˜
+		TYPE_ACTIONINFO			m_nUsedActionInfo;		// ì‚¬ìš©í•œ ê²ƒ
 		
-		// ´ÙÀ½¿¡ »ç¿ëÇÏ°ÔµÇ´Â ±â¼ú..
+		// ë‹¤ìŒì— ì‚¬ìš©í•˜ê²Œë˜ëŠ” ê¸°ìˆ ..
 		TYPE_ACTIONINFO			m_nNextUsedActionInfo;
 
-		// °ø°İÇÏ´Â ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
-		TYPE_OBJECTID			m_TraceID;				// µû¶ó°¡´Â ObjectÀÇ ID		
-		TYPE_SECTORPOSITION		m_TraceX;				// ÃßÀûÇÏ´Â ¸ñÇ¥ À§Ä¡
+		// ê³µê²©í•˜ëŠ” ëª©í‘œì— ëŒ€í•œ ì •ë³´
+		TYPE_OBJECTID			m_TraceID;				// ë”°ë¼ê°€ëŠ” Objectì˜ ID		
+		TYPE_SECTORPOSITION		m_TraceX;				// ì¶”ì í•˜ëŠ” ëª©í‘œ ìœ„ì¹˜
 		TYPE_SECTORPOSITION		m_TraceY;
 		short					m_TraceZ;
 
 		
-		// Server¿¡¼­ ÃÖ±Ù¿¡ °ËÁõµÈ À§Ä¡
+		// Serverì—ì„œ ìµœê·¼ì— ê²€ì¦ëœ ìœ„ì¹˜
 		TYPE_SECTORPOSITION			m_ServerX;	
 		TYPE_SECTORPOSITION			m_ServerY;		
 
-		// Ä³¸¯ÅÍ¿¡ ºÙ¾î ÀÖ´Â Effect Ç¥Çö
+		// ìºë¦­í„°ì— ë¶™ì–´ ìˆëŠ” Effect í‘œí˜„
 		bool*					m_bAttachEffect;
 		bool*					m_bEffectStatus;
 		ATTACHEFFECT_LIST		m_listEffect;
 		ATTACHEFFECT_LIST		m_listGroundEffect;
-		WORD					m_AttachEffectColor;	// ÇöÀç Ãâ·ÂÇÒ·Á´Â Ä³¸¯ÅÍ »ö±ò ¹Ù²Ù±â »ö -_-;(¸»ÀÌ ÀÌ»óÇØ..À½³Ä)
+		WORD					m_AttachEffectColor;	// í˜„ì¬ ì¶œë ¥í• ë ¤ëŠ” ìºë¦­í„° ìƒ‰ê¹” ë°”ê¾¸ê¸° ìƒ‰ -_-;(ë§ì´ ì´ìƒí•´..ìŒëƒ)
 		//BYTE					m_nAlphaEffect;		
-		//char					m_MaxEffectLight;		// EffectÀÇ ÃÖ°í ¹à±â(½Ã¾ß)
+		//char					m_MaxEffectLight;		// Effectì˜ ìµœê³  ë°ê¸°(ì‹œì•¼)
 
 		// chat
-		COLORREF				m_ChatColor;				// ÇöÀçÀÇ Ã¤ÆÃ »ö
-		COLORREF				m_OriChatColor;				// fadeµÇ±â ÀüÀÇ Ã¤ÆÃ »ö
-		DWORD					m_NextChatFadeTime;		// ÃÖ±ÙÀÇ Chat stringÀÌ ÀÔ·ÂµÈ ½Ã°£
+		COLORREF				m_ChatColor;				// í˜„ì¬ì˜ ì±„íŒ… ìƒ‰
+		COLORREF				m_OriChatColor;				// fadeë˜ê¸° ì „ì˜ ì±„íŒ… ìƒ‰
+		DWORD					m_NextChatFadeTime;		// ìµœê·¼ì˜ Chat stringì´ ì…ë ¥ëœ ì‹œê°„
 		BYTE					m_ChatStringCurrent;
 		char**					m_ChatString;
 		DWORD					m_ChatTime;
 		BYTE					m_PersonalShopOpenTime;
 		
-		// ActionInfo¿¡ ´ëÇÑ °á°ú(Server·ÎºÎÅÍ °ËÁõµÈ °Í)
+		// ActionInfoì— ëŒ€í•œ ê²°ê³¼(Serverë¡œë¶€í„° ê²€ì¦ëœ ê²ƒ)
 		MActionResult*			m_pActionResult;
 
-		// Ä³¸¯ÅÍ ÀÌ¸§
+		// ìºë¦­í„° ì´ë¦„
 		char*					m_pName;
 
-		// »ì¾ÆÀÖ³ª?
+		// ì‚´ì•„ìˆë‚˜?
 		bool					m_bAlive;		
 
-		// ´ÙÀ½ Çàµ¿ÀÌ ÀÖ³ª?
+		// ë‹¤ìŒ í–‰ë™ì´ ìˆë‚˜?
 		bool					m_bNextAction;		
 
-		// °¡Áö°í ÀÖ´Â item °³¼ö [ TEST CODE ] - -;;
+		// ê°€ì§€ê³  ìˆëŠ” item ê°œìˆ˜ [ TEST CODE ] - -;;
 		int						m_ItemCount;
 		//add by viva
-		BYTE					m_DirectionMove;	// ÀÌµ¿ÇÒ ¹æÇâ
+		BYTE					m_DirectionMove;	// ì´ë™í•  ë°©í–¥
 		//end
-		// ±â¼úÀÇ Áö¼Ó ½Ã°£ ¼³Á¤
+		// ê¸°ìˆ ì˜ ì§€ì† ì‹œê°„ ì„¤ì •
 		TYPE_ACTIONINFO			m_DelayActionInfo;
 		DWORD					m_EffectDelayFrame;
 
 		// LevelName
 		int						m_LevelName;
 
-		// ±æµå
+		// ê¸¸ë“œ
 		int						m_GuildNumber;
 		int						m_nUnionGuildID;
 		//add by viva
-		BYTE					m_Direction;		// ¹Ù¶óºÁ¾ß ÇÏ´Â Direction
+		BYTE					m_Direction;		// ë°”ë¼ë´ì•¼ í•˜ëŠ” Direction
 		//end
 		// fast move
 		bool					m_bFastMove;
@@ -948,7 +948,7 @@ class MCreature : public MObject, public MStatus {
 		// repeat count
 		int						m_RepeatCount;
 
-		// ¹«±â °ø°İ ¼Óµµ
+		// ë¬´ê¸° ê³µê²© ì†ë„
 		WEAPON_SPEED			m_WeaponSpeed;
 
 		static int				s_SlayerActionSpeed[ACTION_MAX_SLAYER][3];
@@ -956,7 +956,7 @@ class MCreature : public MObject, public MStatus {
 		static int				s_OustersActionSpeed[ACTION_MAX_SLAYER][3];	//ACTION_MAX_VAMPIRE][3];
 
 		//--------------------------------------------------
-		// ½Ã°£¿¡ µû¸¥ HP È¸º¹
+		// ì‹œê°„ì— ë”°ë¥¸ HP íšŒë³µ
 		//--------------------------------------------------
 		DWORD					m_RecoveryHPNextTime;
 		DWORD					m_RecoveryHPDelayTime;
@@ -970,7 +970,7 @@ class MCreature : public MObject, public MStatus {
 		//add by viva
 		BYTE					m_NextAction;
 		//end
-		// ÀÚµ¿ regen - -;
+		// ìë™ regen - -;
 		DWORD					m_RegenDelayTime;
 		DWORD					m_RegenNextTime;
 		int						m_RegenAmount;
@@ -981,53 +981,53 @@ class MCreature : public MObject, public MStatus {
 		BYTE					m_ActionCountMax;	// ActionCountMax
 		//end
 		//--------------------------------------------------
-		// ¸Ó¸®°¡ ÀÖ³ª?
+		// ë¨¸ë¦¬ê°€ ìˆë‚˜?
 		//--------------------------------------------------
 		bool					m_bHasHead;
 
 		//--------------------------------------------------
-		// ¾îµÓ°Ô Âï±â
+		// ì–´ë‘¡ê²Œ ì°ê¸°
 		//--------------------------------------------------
 		bool					m_bFade;
 		int						m_ShadowCount;
 		//add by viva
-		BYTE					m_NextMoveCount;	// ´ÙÀ½¿¡ ÀÌµ¿ÇØ¾ßÇÏ´Â count¼ö
+		BYTE					m_NextMoveCount;	// ë‹¤ìŒì— ì´ë™í•´ì•¼í•˜ëŠ” countìˆ˜
 		//end
 		//--------------------------------------------------
-		// ¼ºº°
+		// ì„±ë³„
 		//--------------------------------------------------
 		bool					m_bMale;
 
 		//--------------------------------------------------
-		// ÇÇ Èê¸®±â
+		// í”¼ í˜ë¦¬ê¸°
 		//--------------------------------------------------
 		DWORD					m_NextBloodingTime;
 
 		//--------------------------------------------------
-		// KnockBack Ã³¸®
+		// KnockBack ì²˜ë¦¬
 		//--------------------------------------------------
-		int						m_bKnockBack;	// >0ÀÌ¸é KnockBackÁß.
+		int						m_bKnockBack;	// >0ì´ë©´ KnockBackì¤‘.
 
 		//--------------------------------------------------
-		// ÀÌ°Íµé ´Ù ¹­¾î¾ß µÇ´Âµ¥...  ¾ğÁ¦³ª~ --;;
+		// ì´ê²ƒë“¤ ë‹¤ ë¬¶ì–´ì•¼ ë˜ëŠ”ë°...  ì–¸ì œë‚˜~ --;;
 		//--------------------------------------------------
-		// Åõ¸í µÇ±â
+		// íˆ¬ëª… ë˜ê¸°
 		//--------------------------------------------------
-		int						m_InvisibleCount;	// 0ÀÌ¸é ¿ÏÀüÈ÷ º¸ÀÎ´Ù. 64¸é ¿ÏÀü Åõ¸í
+		int						m_InvisibleCount;	// 0ì´ë©´ ì™„ì „íˆ ë³´ì¸ë‹¤. 64ë©´ ì™„ì „ íˆ¬ëª…
 		int						m_InvisibleStep;
 		
 		//--------------------------------------------------
-		// °ü
+		// ê´€
 		//--------------------------------------------------
 		bool					m_bInCasket;
 		int						m_CasketCount;
 		int						m_CasketCountInc;
 		int						m_CasketType;
 		//add by viva
-		BYTE					m_MoveTableCount;	// cX,YTableÀÇ count
+		BYTE					m_MoveTableCount;	// cX,YTableì˜ count
 		//end
 		//--------------------------------------------------
-		// ´Ù ±×¸±±î ¸»±î..
+		// ë‹¤ ê·¸ë¦´ê¹Œ ë§ê¹Œ..
 		//--------------------------------------------------
 		bool					m_bCutHeight;
 		int						m_CutHeightCount;
@@ -1035,19 +1035,19 @@ class MCreature : public MObject, public MStatus {
 		int						m_CutHeightCountInc;
 
 		//--------------------------------------------------
-		// ºùºù µ¹±â
+		// ë¹™ë¹™ ëŒê¸°
 		//--------------------------------------------------
 		bool					m_bTurning;
 		int						m_TurningCount;
 
 		//--------------------------------------------------
-		// ÈíÇ÷ delay¸¦ ¾ø¾Ö±â À§ÇÑ ÀÓ½Ã ¹æÆí
+		// í¡í˜ˆ delayë¥¼ ì—†ì• ê¸° ìœ„í•œ ì„ì‹œ ë°©í¸
 		//--------------------------------------------------
 		BYTE					m_bStopBloodDrain;
 		BYTE					m_bStopAbsorbSoul;
 
 		//----------------------------------------------------
-		// CauseCriticalWounds¿¡ ¹­¿© ÀÖÀ»¶§ ÈíÇ÷ ´çÇÏ´Â µ¿ÀÛ
+		// CauseCriticalWoundsì— ë¬¶ì—¬ ìˆì„ë•Œ í¡í˜ˆ ë‹¹í•˜ëŠ” ë™ì‘
 		//----------------------------------------------------
 		bool					m_bCauseCriticalWounds; 
 		int						m_CauseCriticalWoundsCount; 
@@ -1055,33 +1055,33 @@ class MCreature : public MObject, public MStatus {
 		BYTE					m_ActionCount;		// ActionCount == Frame
 		//end
 		//----------------------------------------------------
-		// Bloody Zenith¿¡ ¹­¿© ÀÖÀ»¶§ ÈíÇ÷ ´çÇÏ´Â µ¿ÀÛ
+		// Bloody Zenithì— ë¬¶ì—¬ ìˆì„ë•Œ í¡í˜ˆ ë‹¹í•˜ëŠ” ë™ì‘
 		//----------------------------------------------------
 		bool					m_bBloodyZenith; 
 		int						m_BloodyZenithCount; 
 		
 		//----------------------------------------------------
-		// GunShotGuidance¿¡ ¹­¿© ÀÖÀ»¶§ ÃÑ½î´Â µ¿ÀÛ
+		// GunShotGuidanceì— ë¬¶ì—¬ ìˆì„ë•Œ ì´ì˜ëŠ” ë™ì‘
 		//----------------------------------------------------
 		bool					m_bGunShotGuidance; 
 		int						m_GunShotGuidanceCount; 
 		
 		//----------------------------------------------------
-		// Armageddon¿¡ ¹­¿© ÀÖÀ» ¶§
+		// Armageddonì— ë¬¶ì—¬ ìˆì„ ë•Œ
 		//----------------------------------------------------
 		bool					m_bArmageddon; 
 		int						m_ArmageddonCount; 
 		//add by viva
-		BYTE					m_CurrentDirection;	// ÇöÀçÀÇ Direction
+		BYTE					m_CurrentDirection;	// í˜„ì¬ì˜ Direction
 		//end
 		//----------------------------------------------------
-		// Teleport¿¡ ¹­¿© ÀÖÀ» ¶§
+		// Teleportì— ë¬¶ì—¬ ìˆì„ ë•Œ
 		//----------------------------------------------------
 		BYTE					m_fGhost; 
 		int						m_GhostCount; 
 		
 		//----------------------------------------------------
-		// Ä³¸¯ÅÍ »ç¶óÁö´Â µ¿ÀÛ
+		// ìºë¦­í„° ì‚¬ë¼ì§€ëŠ” ë™ì‘
 		//----------------------------------------------------
 		bool					m_bFakeDie; 
 		int						m_FakeDieCount; 
@@ -1093,12 +1093,12 @@ class MCreature : public MObject, public MStatus {
 		int						m_DarknessCountInc;
 
 		//----------------------------------------------------
-		// party - playerÀÇ Ã¼Å©¸¦ ºü¸£°Ô ÇÒ·Á°í..
+		// party - playerì˜ ì²´í¬ë¥¼ ë¹ ë¥´ê²Œ í• ë ¤ê³ ..
 		//----------------------------------------------------
 		bool					m_bPlayerParty;
 
 		//--------------------------------------------------
-		// Hallucination°É·ÈÀ»¶§ ¸÷À¸·Î º¸ÀÌ±â
+		// Hallucinationê±¸ë ¸ì„ë•Œ ëª¹ìœ¼ë¡œ ë³´ì´ê¸°
 		//--------------------------------------------------		
 		bool					m_bHallu;
 		TYPE_CREATURETYPE		m_HalluCreatureType;
@@ -1106,19 +1106,19 @@ class MCreature : public MObject, public MStatus {
 		WORD					m_HalluColorBody;
 		BYTE					m_HalluAction;
 		BYTE					m_HalluFrame;
-		WORD					m_HalluName;	// ÀÏ´Ü ÀÓ½Ã·Î...
-		short					m_DelayLastAction;					// ÇØ´ç ¾×¼ÇÀ» ÇÑ ÈÄ¿¡ ÀÏ¹İ ¾×¼ÇÀ¸·Î µ¹¾Æ¿Ã¶§ µô·¹ÀÌ
+		WORD					m_HalluName;	// ì¼ë‹¨ ì„ì‹œë¡œ...
+		short					m_DelayLastAction;					// í•´ë‹¹ ì•¡ì…˜ì„ í•œ í›„ì— ì¼ë°˜ ì•¡ì…˜ìœ¼ë¡œ ëŒì•„ì˜¬ë•Œ ë”œë ˆì´
 		//add by viva
-		BYTE					m_DirectionMoved;	// ÀÌµ¿ÇÑ ¹æÇâ	
+		BYTE					m_DirectionMoved;	// ì´ë™í•œ ë°©í–¥	
 		//end
 		//--------------------------------------------------		
-		// ¿î¿µÀÚ
+		// ìš´ì˜ì
 		//--------------------------------------------------		
 		BYTE					m_Competence;
 
 		//--------------------------------------------------		
-		// ÈíÇ÷Áß¿¡ ÈíÇ÷»ó´ë°¡ Á×À¸¸é ÈíÇ÷ µ¿ÀÛ ÁßÁöÇÏ±â À§ÇØ.
-		// ÈíÇ÷´çÇÏ´Â »ç¶÷ÀÌ ÀÚ½ÅÀ» ÈíÇ÷ ÇÏ´Â »ç¶÷ÀÇ ID¸¦ ±â¾ï
+		// í¡í˜ˆì¤‘ì— í¡í˜ˆìƒëŒ€ê°€ ì£½ìœ¼ë©´ í¡í˜ˆ ë™ì‘ ì¤‘ì§€í•˜ê¸° ìœ„í•´.
+		// í¡í˜ˆë‹¹í•˜ëŠ” ì‚¬ëŒì´ ìì‹ ì„ í¡í˜ˆ í•˜ëŠ” ì‚¬ëŒì˜ IDë¥¼ ê¸°ì–µ
 		//--------------------------------------------------		
 		TYPE_OBJECTID			m_DrainCreatureID;
 
@@ -1127,10 +1127,10 @@ class MCreature : public MObject, public MStatus {
 		TYPE_OBJECTID			m_ElementalID;
 		
 		//--------------------------------------------------
-		// HPÀÇ º¯È­·®À» ±â¾ï
+		// HPì˜ ë³€í™”ëŸ‰ì„ ê¸°ì–µ
 		//--------------------------------------------------
 		HPMODIFYLIST			m_HPModifyList;		
-		BYTE					m_GradeActionInfo;				// µ¿ÀÛÇÏ·Á´Â Action ÀÇ ´Ü°è.
+		BYTE					m_GradeActionInfo;				// ë™ì‘í•˜ë ¤ëŠ” Action ì˜ ë‹¨ê³„.
 		
 		int						m_HeadSkin;
 		
@@ -1138,13 +1138,13 @@ class MCreature : public MObject, public MStatus {
 		string					m_NickName;
 		
 		//--------------------------------------------------
-		// °ø¼ºÀü Âü°¡ ÁßÀÎÁö.. 
-		// 1,2 : ¼öºñÃø
-		// 3~7 : °ø°İÃø
+		// ê³µì„±ì „ ì°¸ê°€ ì¤‘ì¸ì§€.. 
+		// 1,2 : ìˆ˜ë¹„ì¸¡
+		// 3~7 : ê³µê²©ì¸¡
 		//--------------------------------------------------
 		BYTE					m_bSiegeWar;	
 
-		// ¹ö´× ¼Ö
+		// ë²„ë‹ ì†”
 		BYTE					m_bBurningSolCount;
 		bool					m_bBurningSol;
 
@@ -1153,7 +1153,7 @@ class MCreature : public MObject, public MStatus {
 		int						m_current_sprite_index;
 
 		//add by viva for no increase speed
-		BYTE					m_MoveCountMax;		// ÀÌµ¿ÇÏ´Â ¸ñÇ¥ È¸¼ö
+		BYTE					m_MoveCountMax;		// ì´ë™í•˜ëŠ” ëª©í‘œ íšŒìˆ˜
 		//end
 
 		string					m_PersnalMessage;

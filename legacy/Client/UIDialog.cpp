@@ -2,7 +2,7 @@
 // UIDialog.cpp
 //-----------------------------------------------------------------------------
 #include "Client_PCH.h"
-#include "Client.h"			// ÀÌ°Å ¾È ³ÖÀ¸´Ï±î ambigious.. T_T;;
+#include "Client.h"			// ì´ê±° ì•ˆ ë„£ìœ¼ë‹ˆê¹Œ ambigious.. T_T;;
 #include "UIDialog.h"
 #include "VS_UI_ExtraDialog.h" 
 #include "TalkBox.h"
@@ -24,7 +24,7 @@
 	#include "AddonDef.h"
 #endif
 
-bool g_bPartyRunning = false;		// ¤»¤»...
+bool g_bPartyRunning = false;		// ã…‹ã…‹...
 
 using namespace std;
 
@@ -219,7 +219,7 @@ UIDialog::Release()
 	}	
 	
 
-	// ÀÔ·Â Á¦ÇÑ ÇØÁ¦
+	// ìž…ë ¥ ì œí•œ í•´ì œ
 	s_LockGameInput	= 0;	
 
 #ifdef OUTPUT_DEBUG
@@ -256,7 +256,7 @@ UIDialog::ClosePCTalkDlg()
 
 		UnSetLockInputPCTalk();
 
-		// ÆÄÆ¼°¡ ¶° ÀÖ¾ú´Ù¸é... ´Ù½Ã ¶ç¿î´Ù.
+		// íŒŒí‹°ê°€ ë–  ìžˆì—ˆë‹¤ë©´... ë‹¤ì‹œ ë„ìš´ë‹¤.
 		if (g_bPartyRunning)
 		{
 			UI_RunParty();
@@ -320,21 +320,21 @@ UIDialog::ShowPCTalkDlg()
 }
 
 //-----------------------------------------------------------------------------
-// NPC ´ëÈ­ ¼±ÅÃ dialog
+// NPC ëŒ€í™” ì„ íƒ dialog
 //-----------------------------------------------------------------------------
 void 
 UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 {
 	//-----------------------------------------------------------
-	// ¹º°¡¸¦ ¼±ÅÃÇßÀ» ¶§, 
-	// server·Î ¼±ÅÃµÈ °ÍÀ» º¸³½´Ù.
+	// ë­”ê°€ë¥¼ ì„ íƒí–ˆì„ ë•Œ, 
+	// serverë¡œ ì„ íƒëœ ê²ƒì„ ë³´ë‚¸ë‹¤.
 	//-----------------------------------------------------------
-	// »ðÁú ÄÚµå.. - -;
+	// ì‚½ì§ˆ ì½”ë“œ.. - -;
 	g_pPCTalkBox->SetAnswerID(id);
 
 	int answerID;
 	//--------------------------------------------------
-	// dialog¸¦ '³¡'³ÂÀ» ¶§..
+	// dialogë¥¼ 'ë'ëƒˆì„ ë•Œ..
 	//--------------------------------------------------
 	//if (id==DIALOG_EXECID_EXIT)
 	//{
@@ -343,7 +343,7 @@ UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 		//UnSetLockInputPCTalk();		
 	//}
 	//--------------------------------------------------
-	// Á¤»óÀûÀÎ ¼±ÅÃ..
+	// ì •ìƒì ì¸ ì„ íƒ..
 	//--------------------------------------------------
 	//else
 	{
@@ -352,14 +352,14 @@ UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 	
 
 	//--------------------------------------------------
-	// °ËÁõ ¹ÞÀ»°Ô ¾ø´Â °æ¿ì¿¡¸¸ packetÀ» º¸³½´Ù.
+	// ê²€ì¦ ë°›ì„ê²Œ ì—†ëŠ” ê²½ìš°ì—ë§Œ packetì„ ë³´ë‚¸ë‹¤.
 	//--------------------------------------------------
 	if (g_Mode == MODE_GAME)
 	{
 		if (g_pPlayer->IsWaitVerifyNULL())
 		{	
 			//--------------------------------------------------
-			// ´Ù¸¥ UI°¡ ¶°ÀÖÁö ¾Ê´Â °æ¿ì¿¡..
+			// ë‹¤ë¥¸ UIê°€ ë– ìžˆì§€ ì•ŠëŠ” ê²½ìš°ì—..
 			//--------------------------------------------------
 			if (!UI_IsRunningStorage() 
 				&& !UI_IsRunningExchange()
@@ -372,7 +372,7 @@ UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 				switch (g_pPCTalkBox->GetType())
 				{				
 					//--------------------------------------------------
-					// ÀÏ¹ÝÀûÀÎ ´ëÈ­
+					// ì¼ë°˜ì ì¸ ëŒ€í™”
 					//--------------------------------------------------
 					case PCTalkBox::NORMAL :
 					{						
@@ -388,14 +388,14 @@ UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 						g_pSocket->sendPacket( &_CGNPCAskAnswer );
 
 						//--------------------------------------------------
-						// °ËÁõ packetÀ» ±â´Ù¸®´Â mode·Î ¼³Á¤ÇÑ´Ù.
+						// ê²€ì¦ packetì„ ê¸°ë‹¤ë¦¬ëŠ” modeë¡œ ì„¤ì •í•œë‹¤.
 						//--------------------------------------------------
 						g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_NPC_ASK );						
 					}
 					break;
 
 					//--------------------------------------------------
-					// ±â¼ú ¹è¿ï ‹š
+					// ê¸°ìˆ  ë°°ìš¸ ë–„
 					//--------------------------------------------------
 					case PCTalkBox::SKILL_LEARN :
 					{
@@ -403,7 +403,7 @@ UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 						{
 							if (id==999)
 							{
-								// ºüÁ® ³ª°¡±â
+								// ë¹ ì ¸ ë‚˜ê°€ê¸°
 								pDlg->Run( DIALOG_EXECID_EXIT );
 
 								UnSetLockInputPCTalk();
@@ -425,11 +425,11 @@ UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 								g_pSocket->sendPacket( &_CGLearnSkill );
 
 								//--------------------------------------------------
-								// °ËÁõ packetÀ» ±â´Ù¸®´Â mode·Î ¼³Á¤ÇÑ´Ù.
+								// ê²€ì¦ packetì„ ê¸°ë‹¤ë¦¬ëŠ” modeë¡œ ì„¤ì •í•œë‹¤.
 								//--------------------------------------------------
 								//g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_NPC_ASK );						
 								
-								// Dialog ºüÁ® ³ª°¡±â
+								// Dialog ë¹ ì ¸ ë‚˜ê°€ê¸°
 								pDlg->Run( DIALOG_EXECID_EXIT );
 
 								g_pPlayer->SetWaitVerifyNULL();								
@@ -475,7 +475,7 @@ UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 					}
 					break;
 					//--------------------------------------------------
-					// ºí·¯µð ¹ÙÀÌºí  ¹è¿ï ‹š
+					// ë¸”ëŸ¬ë”” ë°”ì´ë¸”  ë°°ìš¸ ë–„
 					//--------------------------------------------------
 					case PCTalkBox::BLOOD_BIBLE_SIGN :
 					{
@@ -483,7 +483,7 @@ UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 						{
 							if (id==999)
 							{
-								// ºüÁ® ³ª°¡±â
+								// ë¹ ì ¸ ë‚˜ê°€ê¸°
 								pDlg->Run( DIALOG_EXECID_EXIT );
 
 								UnSetLockInputPCTalk();
@@ -504,11 +504,11 @@ UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 								g_pSocket->sendPacket( &_CGSelectBloodBible );
 
 								//--------------------------------------------------
-								// °ËÁõ packetÀ» ±â´Ù¸®´Â mode·Î ¼³Á¤ÇÑ´Ù.
+								// ê²€ì¦ packetì„ ê¸°ë‹¤ë¦¬ëŠ” modeë¡œ ì„¤ì •í•œë‹¤.
 								//--------------------------------------------------
 								//g_pPlayer->SetWaitVerify( MPlayer::WAIT_VERIFY_NPC_ASK );						
 								
-								// Dialog ºüÁ® ³ª°¡±â
+								// Dialog ë¹ ì ¸ ë‚˜ê°€ê¸°
 //								pDlg->Run( DIALOG_EXECID_EXIT );
 //
 //								g_pPlayer->SetWaitVerifyNULL();								
@@ -530,7 +530,7 @@ UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 	}
 
 	//-------------------------------------------------------------
-	// ESC ´©¸£°Å³ª.. ±×³É ºüÁú¶§.. °ËÁõ... À¸Èì.. ¹º°¡ ºÒ¾È.. - -;
+	// ESC ëˆ„ë¥´ê±°ë‚˜.. ê·¸ëƒ¥ ë¹ ì§ˆë•Œ.. ê²€ì¦... ìœ¼í .. ë­”ê°€ ë¶ˆì•ˆ.. - -;
 	//-------------------------------------------------------------
 	if (id==DIALOG_EXECID_EXIT)
 	{
@@ -540,7 +540,7 @@ UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 
 		g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 
-		// ÆÄÆ¼°¡ ¶° ÀÖ¾ú´Ù¸é... ´Ù½Ã ¶ç¿î´Ù.
+		// íŒŒí‹°ê°€ ë–  ìžˆì—ˆë‹¤ë©´... ë‹¤ì‹œ ë„ìš´ë‹¤.
 		if (g_bPartyRunning)
 		{
 			UI_RunParty();
@@ -558,13 +558,13 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 //				C_VS_UI_DIALOG m_pC_dialog = new C_VS_UI_DIALOG(50, 20, 6, 2, func, DIALOG_OK);
 //
 //				DIALOG_MENU d_menu[] = {
-//					{"»ç±â, 0},
-//					{"ÆÈ±â", 1},
-//					{"³¡³»±â", DIALOG_EXECID_EXIT},
+//					{"ì‚¬ê¸°, 0},
+//					{"íŒ”ê¸°", 1},
+//					{"ëë‚´ê¸°", DIALOG_EXECID_EXIT},
 //				};
 //				m_pC_dialog->SetMenu(d_menu, 3);
 //
-//				static char * pp_dmsg[] = { // Message´Â ¹Ýµå½Ã static or global·Î ÇØ¾ß ÇÑ´Ù.
+//				static char * pp_dmsg[] = { // MessageëŠ” ë°˜ë“œì‹œ static or globalë¡œ í•´ì•¼ í•œë‹¤.
 //					"line 1",
 //					"line 2",
 //				};
@@ -581,7 +581,7 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 		return;
 	
 	//---------------------------------------------------------
-	// ±âÁ¸¿¡ ÀÖ´ø dialog¸¦ Áö¿î´Ù.
+	// ê¸°ì¡´ì— ìžˆë˜ dialogë¥¼ ì§€ìš´ë‹¤.
 	//---------------------------------------------------------
 	if (m_pPCTalkDlg!=NULL)
 	{
@@ -589,7 +589,7 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 		m_pPCTalkDlg = NULL;
 	}
 	
-	// ÆÄÆ¼°¡ ¶° ÀÖ¾ú´ÂÁö È®ÀÎ
+	// íŒŒí‹°ê°€ ë–  ìžˆì—ˆëŠ”ì§€ í™•ì¸
 	if (UI_IsRunningParty() || g_bPartyRunning)
 	{
 		g_bPartyRunning = true;
@@ -600,7 +600,7 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 	}
 
 	//---------------------------------------------------------
-	// ´Ù¸¥ dialogµé ´Ý±â
+	// ë‹¤ë¥¸ dialogë“¤ ë‹«ê¸°
 	//---------------------------------------------------------
 	DEBUG_ADD("UID-CloseUIDlg");
 
@@ -614,7 +614,7 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 	CloseMessageDlg();
 	
 	//---------------------------------------------------------
-	// size Ã¼Å©
+	// size ì²´í¬
 	//---------------------------------------------------------
 	int msgSize = g_pPCTalkBox->size();
 
@@ -624,15 +624,15 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 	}
 
 	//---------------------------------------------------------
-	// Á¦¸ñ
+	// ì œëª©
 	//---------------------------------------------------------
 	const char*	content = g_pPCTalkBox->GetContent();
 	int lenContent = strlen(content);
 
 	//---------------------------------------------------------
-	// dialogÀÇ ±æÀÌ¸¦ Á¤ÇÑ´Ù.
+	// dialogì˜ ê¸¸ì´ë¥¼ ì •í•œë‹¤.
 	//---------------------------------------------------------
-	// -1 ³ÖÀ¸¸é ÀÚµ¿ÀÌ´Ù.
+	// -1 ë„£ìœ¼ë©´ ìžë™ì´ë‹¤.
 	/*
 	int lengthY;
 	
@@ -648,7 +648,7 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 	lengthY += lenContent/150 + 1;	//(lenContent/40)/3 + 1;
 	*/
 	//---------------------------------------------------------
-	// dialog »ý¼º
+	// dialog ìƒì„±
 	//---------------------------------------------------------
 	DEBUG_ADD("newNPCDLG");
 
@@ -658,7 +658,7 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 							//g_pZone->GetCreature(g_pPCTalkBox->GetNPCID())->GetName());//, SMO_NOFIT);
 
 	//---------------------------------------------------------
-	// Á¦¸ñ µî·Ï
+	// ì œëª© ë“±ë¡
 	//---------------------------------------------------------	
 	/*
 	char* pContent = new char [lenContent+1];
@@ -666,9 +666,9 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 	char* pContentTemp = pContent;
 
 	//-------------------------------------------------------------
-	// 40±ÛÀÚ ÀÌ»ó
+	// 40ê¸€ìž ì´ìƒ
 	//-------------------------------------------------------------
-	// Äá°¡·ç~~~ ¤Ñ.¤Ñ; ±ÍÂ÷³ª.. À½³Ä..
+	// ì½©ê°€ë£¨~~~ ã…¡.ã…¡; ê·€ì°¨ë‚˜.. ìŒëƒ..
 	int numStr = 0;
 	
 	while (lenContent > 40)
@@ -690,13 +690,13 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 
 		lenContent -= i+1;
 
-		pContentTemp += i+1;		// +1Àº °ø¹éÀÌ´Ù.		
+		pContentTemp += i+1;		// +1ì€ ê³µë°±ì´ë‹¤.		
 
 		numStr++;
 	}
 
 	//-------------------------------------------------------------
-	// 40±ÛÀÚ ÀÌÇÏ
+	// 40ê¸€ìž ì´í•˜
 	//-------------------------------------------------------------
 	strcpy(m_ppDlgMessage[MESSAGE_PCTALK][numStr], pContentTemp);
 	numStr++;	
@@ -706,7 +706,7 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 
 
 	//---------------------------------------------------------
-	// ¸Þ´º ±¸¼º..
+	// ë©”ë‰´ êµ¬ì„±..
 	//---------------------------------------------------------
 	DEBUG_ADD("newDLGMENU");
 	DIALOG_MENU* pMenu = new DIALOG_MENU[msgSize];// + 1];
@@ -718,27 +718,27 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 	switch (g_pPCTalkBox->GetType())
 	{
 		//-----------------------------------------------------
-		// ÀÏ¹ÝÀûÀÎ ´ëÈ­
+		// ì¼ë°˜ì ì¸ ëŒ€í™”
 		//-----------------------------------------------------
 		case PCTalkBox::NORMAL :
 			while (iString != g_pPCTalkBox->end())
 			{
 				MString* pString = *iString;
 
-				// menu ³»¿ë ¼³Á¤
+				// menu ë‚´ìš© ì„¤ì •
 				pMenu[i].exec_id		= i+1;						// ID+1
-				pMenu[i].sz_menu_str	= pString->GetString();		// ³»¿ë..
+				pMenu[i].sz_menu_str	= pString->GetString();		// ë‚´ìš©..
 				
-				// ´ÙÀ½..
+				// ë‹¤ìŒ..
 				iString++;
 				i++;		
 			}
 		break;
 
 		//-----------------------------------------------------
-		// ±â¼ú ¹è¿ï ¶§
+		// ê¸°ìˆ  ë°°ìš¸ ë•Œ
 		//-----------------------------------------------------
-		// %3d%s Çü½ÄÀ¸·Î µÇ¾î ÀÖ´Ù. ÀÓ½Ã!~~~ ÂÁ~~
+		// %3d%s í˜•ì‹ìœ¼ë¡œ ë˜ì–´ ìžˆë‹¤. ìž„ì‹œ!~~~ ì©~~
 		//-----------------------------------------------------
 		case PCTalkBox::SKILL_LEARN :
 		case PCTalkBox::BLOOD_BIBLE_SIGN:
@@ -754,14 +754,14 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 				strID[3] = NULL;
 				strcpy(strName, pString->GetString()+3);
 
-				// ÀÌ¸§ ´Ù½Ã ¼³Á¤
+				// ì´ë¦„ ë‹¤ì‹œ ì„¤ì •
 				*pString = strName;
 				
-				// menu ³»¿ë ¼³Á¤
+				// menu ë‚´ìš© ì„¤ì •
 				pMenu[i].exec_id		= atoi(strID);
-				pMenu[i].sz_menu_str	= pString->GetString();		// ³»¿ë..
+				pMenu[i].sz_menu_str	= pString->GetString();		// ë‚´ìš©..
 				
-				// ´ÙÀ½..
+				// ë‹¤ìŒ..
 				iString++;
 				i++;		
 			}
@@ -779,14 +779,14 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 				strID[4] = NULL;
 				strcpy(strName, pString->GetString()+4);
 
-				// ÀÌ¸§ ´Ù½Ã ¼³Á¤
+				// ì´ë¦„ ë‹¤ì‹œ ì„¤ì •
 				*pString = strName;
 				
-				// menu ³»¿ë ¼³Á¤
+				// menu ë‚´ìš© ì„¤ì •
 				pMenu[i].exec_id		= atoi(strID);
-				pMenu[i].sz_menu_str	= pString->GetString();		// ³»¿ë..
+				pMenu[i].sz_menu_str	= pString->GetString();		// ë‚´ìš©..
 				
-				// ´ÙÀ½..
+				// ë‹¤ìŒ..
 				iString++;
 				i++;		
 			}
@@ -794,16 +794,16 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 	}
 
 
-	// "³¡³»±â"Ãß°¡
-	//pMenu[i].exec_id		= DIALOG_EXECID_EXIT;			// UI¿¡¼­ Á¤ÇÑ ID
+	// "ëë‚´ê¸°"ì¶”ê°€
+	//pMenu[i].exec_id		= DIALOG_EXECID_EXIT;			// UIì—ì„œ ì •í•œ ID
 	//pMenu[i].sz_menu_str	= new char [10];
-	//strcpy(pMenu[i].sz_menu_str, "³ª°¡±â");
+	//strcpy(pMenu[i].sz_menu_str, "ë‚˜ê°€ê¸°");
 
 	//---------------------------------------------------------
-	// ¸Þ´º µî·Ï
+	// ë©”ë‰´ ë“±ë¡
 	//---------------------------------------------------------
 	DEBUG_ADD("setMENU");
-	m_pPCTalkDlg->SetMenu(pMenu, msgSize, false);// + 1, false);		// ³¡³»±â Æ÷ÇÔ
+	m_pPCTalkDlg->SetMenu(pMenu, msgSize, false);// + 1, false);		// ëë‚´ê¸° í¬í•¨
 	
 	DEBUG_ADD("spMenu");
 	strcpy(m_ppDlgMessage[MESSAGE_PCTALK][0], g_pPCTalkBox->GetContent());
@@ -817,18 +817,18 @@ UIDialog::PopupPCTalkDlg(int x, int y)
 	//---------------------------------------------------------
 	// delete
 	//---------------------------------------------------------
-	//delete [] pMenu[i].sz_menu_str;		// ³¡³»±â string¸¸ Áö¿öÁÖ¸é µÈ´Ù.
+	//delete [] pMenu[i].sz_menu_str;		// ëë‚´ê¸° stringë§Œ ì§€ì›Œì£¼ë©´ ëœë‹¤.
 	delete [] pMenu;
 //	delete [] pContent;
 
 	//---------------------------------------------------------
-	// dialog ½ÃÀÛ..
+	// dialog ì‹œìž‘..
 	//---------------------------------------------------------
 	DEBUG_ADD("startTalk");
 	m_pPCTalkDlg->Start();
 
 	//---------------------------------------------------------
-	// gameÀ¸·ÎÀÇ ÀÔ·ÂÀ» Â÷´ÜÇÑ´Ù.
+	// gameìœ¼ë¡œì˜ ìž…ë ¥ì„ ì°¨ë‹¨í•œë‹¤.
 	//---------------------------------------------------------
 	SetLockInputPCTalk();
 }
@@ -841,7 +841,7 @@ void
 UIDialog::ProcessHelpDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 {
 	//--------------------------------------------------
-	// dialog¸¦ '³¡'³ÂÀ» ¶§..
+	// dialogë¥¼ 'ë'ëƒˆì„ ë•Œ..
 	//--------------------------------------------------
 	if (id==DIALOG_EXECID_EXIT)
 	{
@@ -860,13 +860,13 @@ UIDialog::PopupHelpDlg(int x, int y)
 //				C_VS_UI_DIALOG m_pC_dialog = new C_VS_UI_DIALOG(50, 20, 6, 2, func, DIALOG_OK);
 //
 //				DIALOG_MENU d_menu[] = {
-//					{"»ç±â, 0},
-//					{"ÆÈ±â", 1},
-//					{"³¡³»±â", DIALOG_EXECID_EXIT},
+//					{"ì‚¬ê¸°, 0},
+//					{"íŒ”ê¸°", 1},
+//					{"ëë‚´ê¸°", DIALOG_EXECID_EXIT},
 //				};
 //				m_pC_dialog->SetMenu(d_menu, 3);
 //
-//				static char * pp_dmsg[] = { // Message´Â ¹Ýµå½Ã static or global·Î ÇØ¾ß ÇÑ´Ù.
+//				static char * pp_dmsg[] = { // MessageëŠ” ë°˜ë“œì‹œ static or globalë¡œ í•´ì•¼ í•œë‹¤.
 //					"line 1",
 //					"line 2",
 //				};
@@ -874,7 +874,7 @@ UIDialog::PopupHelpDlg(int x, int y)
 //				m_pC_dialog->SetMessage(pp_dmsg, sizeof(pp_dmsg)/sizeof(char *))
 
 	//---------------------------------------------------------
-	// ±âÁ¸¿¡ ÀÖ´ø dialog¸¦ Áö¿î´Ù.
+	// ê¸°ì¡´ì— ìžˆë˜ dialogë¥¼ ì§€ìš´ë‹¤.
 	//---------------------------------------------------------
 	if (m_pHelpDlg!=NULL)
 	{
@@ -883,12 +883,12 @@ UIDialog::PopupHelpDlg(int x, int y)
 
 
 	//---------------------------------------------------------
-	// dialog »ý¼º
+	// dialog ìƒì„±
 	//---------------------------------------------------------
 	m_pHelpDlg = new C_VS_UI_DIALOG(x, y, 4, 3, ProcessHelpDlg, SMO_NOFIT);
 
 	//---------------------------------------------------------
-	// µµ¿ò¸»À» LoadingÇÑ´Ù.
+	// ë„ì›€ë§ì„ Loadingí•œë‹¤.
 	//---------------------------------------------------------
 	if (m_ppDlgMessage[MESSAGE_HELP]==NULL)
 	{	
@@ -914,12 +914,12 @@ UIDialog::PopupHelpDlg(int x, int y)
 	m_pHelpDlg->SetMessage(m_ppDlgMessage[MESSAGE_HELP], m_ppDlgMessageSize[MESSAGE_HELP]);
 
 	//---------------------------------------------------------
-	// dialog ½ÃÀÛ..
+	// dialog ì‹œìž‘..
 	//---------------------------------------------------------
 	m_pHelpDlg->Start();
 
 	//---------------------------------------------------------
-	// gameÀ¸·ÎÀÇ ÀÔ·ÂÀ» Â÷´ÜÇÑ´Ù.
+	// gameìœ¼ë¡œì˜ ìž…ë ¥ì„ ì°¨ë‹¨í•œë‹¤.
 	//---------------------------------------------------------
 	//SetLockInputHelp();
 }
@@ -935,13 +935,13 @@ UIDialog::PopupMessageDlg(UIDIALOG_MESSAGE msg, int x, int y)
 //				C_VS_UI_DIALOG m_pC_dialog = new C_VS_UI_DIALOG(50, 20, 6, 2, func, DIALOG_OK);
 //
 //				DIALOG_MENU d_menu[] = {
-//					{"»ç±â, 0},
-//					{"ÆÈ±â", 1},
-//					{"³¡³»±â", DIALOG_EXECID_EXIT},
+//					{"ì‚¬ê¸°, 0},
+//					{"íŒ”ê¸°", 1},
+//					{"ëë‚´ê¸°", DIALOG_EXECID_EXIT},
 //				};
 //				m_pC_dialog->SetMenu(d_menu, 3);
 //
-//				static char * pp_dmsg[] = { // Message´Â ¹Ýµå½Ã static or global·Î ÇØ¾ß ÇÑ´Ù.
+//				static char * pp_dmsg[] = { // MessageëŠ” ë°˜ë“œì‹œ static or globalë¡œ í•´ì•¼ í•œë‹¤.
 //					"line 1",
 //					"line 2",
 //				};
@@ -954,7 +954,7 @@ UIDialog::PopupMessageDlg(UIDIALOG_MESSAGE msg, int x, int y)
 	}
 
 	//---------------------------------------------------------
-	// ±âÁ¸¿¡ ÀÖ´ø dialog¸¦ Áö¿î´Ù.
+	// ê¸°ì¡´ì— ìžˆë˜ dialogë¥¼ ì§€ìš´ë‹¤.
 	//---------------------------------------------------------
 	if (m_pMessageDlg!=NULL)
 	{
@@ -962,7 +962,7 @@ UIDialog::PopupMessageDlg(UIDIALOG_MESSAGE msg, int x, int y)
 	}
 
 	//---------------------------------------------------------
-	// dialog »ý¼º
+	// dialog ìƒì„±
 	//---------------------------------------------------------
 	m_pMessageDlg = new C_VS_UI_DIALOG(x, y, 3, 0, ProcessMessageDlg, DIALOG_OK);
 
@@ -970,12 +970,12 @@ UIDialog::PopupMessageDlg(UIDIALOG_MESSAGE msg, int x, int y)
 
 
 	//---------------------------------------------------------
-	// dialog ½ÃÀÛ..
+	// dialog ì‹œìž‘..
 	//---------------------------------------------------------
 	m_pMessageDlg->Start();
 
 	//---------------------------------------------------------
-	// gameÀ¸·ÎÀÇ ÀÔ·ÂÀ» Â÷´ÜÇÑ´Ù.
+	// gameìœ¼ë¡œì˜ ìž…ë ¥ì„ ì°¨ë‹¨í•œë‹¤.
 	//---------------------------------------------------------
 	SetLockInputHelp();
 }
@@ -997,9 +997,9 @@ UIDialog::PopupFreeMessageDlg(const char* msg, int x, int y, WORD fButton, bool 
 	int dlgSizeY, numStr;
 
 	//-------------------------------------------------------------
-	// 40±ÛÀÚ ÀÌ»ó
+	// 40ê¸€ìž ì´ìƒ
 	//-------------------------------------------------------------
-	// Äá°¡·ç~~~ ¤Ñ.¤Ñ; ±ÍÂ÷³ª.. À½³Ä..
+	// ì½©ê°€ë£¨~~~ ã…¡.ã…¡; ê·€ì°¨ë‚˜.. ìŒëƒ..
 	if (msgSize > 40)
 	{
 		dlgSizeY = 1;
@@ -1029,7 +1029,7 @@ UIDialog::PopupFreeMessageDlg(const char* msg, int x, int y, WORD fButton, bool 
 		numStr = 2;
 	}
 	//-------------------------------------------------------------
-	// 40±ÛÀÚ ÀÌÇÏ
+	// 40ê¸€ìž ì´í•˜
 	//-------------------------------------------------------------
 	else
 	{
@@ -1039,7 +1039,7 @@ UIDialog::PopupFreeMessageDlg(const char* msg, int x, int y, WORD fButton, bool 
 	}
 
 	//---------------------------------------------------------
-	// ±âÁ¸¿¡ ÀÖ´ø dialog¸¦ Áö¿î´Ù.
+	// ê¸°ì¡´ì— ìžˆë˜ dialogë¥¼ ì§€ìš´ë‹¤.
 	//---------------------------------------------------------
 	if (m_pMessageDlg!=NULL)
 	{
@@ -1048,7 +1048,7 @@ UIDialog::PopupFreeMessageDlg(const char* msg, int x, int y, WORD fButton, bool 
 	}
 
 	//---------------------------------------------------------
-	// dialog »ý¼º
+	// dialog ìƒì„±
 	//---------------------------------------------------------
 	m_pMessageDlg = new C_VS_UI_DIALOG(x, y, 3, dlgSizeY, ProcessMessageDlg, fButton);
 
@@ -1058,12 +1058,12 @@ UIDialog::PopupFreeMessageDlg(const char* msg, int x, int y, WORD fButton, bool 
 
 
 	//---------------------------------------------------------
-	// dialog ½ÃÀÛ..
+	// dialog ì‹œìž‘..
 	//---------------------------------------------------------
 	m_pMessageDlg->Start();
 
 	//---------------------------------------------------------
-	// gameÀ¸·ÎÀÇ ÀÔ·ÂÀ» Â÷´ÜÇÑ´Ù.
+	// gameìœ¼ë¡œì˜ ìž…ë ¥ì„ ì°¨ë‹¨í•œë‹¤.
 	//---------------------------------------------------------
 	SetLockInputMessage();
 }
@@ -1090,7 +1090,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 	UIDialog::PopupAddonSelectDlg(int x, int y)
 	{
 		//---------------------------------------------------------
-		// ±âÁ¸¿¡ ÀÖ´ø dialog¸¦ Áö¿î´Ù.
+		// ê¸°ì¡´ì— ìžˆë˜ dialogë¥¼ ì§€ìš´ë‹¤.
 		//---------------------------------------------------------
 		if (m_pAddonSelectDlg!=NULL)
 		{
@@ -1099,33 +1099,33 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 
 	
 		//---------------------------------------------------------
-		// dialog »ý¼º
+		// dialog ìƒì„±
 		//---------------------------------------------------------
 		m_pAddonSelectDlg = new C_VS_UI_DIALOG(x, y, 1, 2, ProcessAddonSelectDlg);//, SMO_NOFIT);
 
 		//---------------------------------------------------------
-		// ¸Þ´º ±¸¼º..
+		// ë©”ë‰´ êµ¬ì„±..
 		//---------------------------------------------------------
 		const int menuSize = 9;
 		DIALOG_MENU menu[ menuSize ] = {
-					{"¸Ó¸®", 1},
-					{"¸ðÀÚ", 2},
-					{"»óÀÇ", 3},
-					{"ÇÏÀÇ", 4},
-					{"±ÙÁ¢¹«±â", 5},
-					{"ÃÑ", 6},
-					{"¹æÆÐ", 7},
-					{"¿ÀÅä¹ÙÀÌ", 8},
+					{"ë¨¸ë¦¬", 1},
+					{"ëª¨ìž", 2},
+					{"ìƒì˜", 3},
+					{"í•˜ì˜", 4},
+					{"ê·¼ì ‘ë¬´ê¸°", 5},
+					{"ì´", 6},
+					{"ë°©íŒ¨", 7},
+					{"ì˜¤í† ë°”ì´", 8},
 					{"EXIT", DIALOG_EXECID_EXIT},					
 				};
 
 		//---------------------------------------------------------
-		// ¸Þ´º µî·Ï
+		// ë©”ë‰´ ë“±ë¡
 		//---------------------------------------------------------
-		m_pAddonSelectDlg->SetMenu(menu, menuSize);		// ³¡³»±â Æ÷ÇÔ
+		m_pAddonSelectDlg->SetMenu(menu, menuSize);		// ëë‚´ê¸° í¬í•¨
 
 		//---------------------------------------------------------
-		// dialog ½ÃÀÛ..
+		// dialog ì‹œìž‘..
 		//---------------------------------------------------------
 		m_pAddonSelectDlg->Start();
 	}
@@ -1142,7 +1142,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 			break;
 
 			//----------------------------------------------------------------------
-			// ¸Ó¸®
+			// ë¨¸ë¦¬
 			//----------------------------------------------------------------------
 			case 1 :
 			{
@@ -1183,7 +1183,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 			break;
 
 			//----------------------------------------------------------------------
-			// ¸ðÀÚ
+			// ëª¨ìž
 			//----------------------------------------------------------------------
 			case 2 :
 			{
@@ -1210,7 +1210,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 			break;
 
 			//----------------------------------------------------------------------
-			// »óÀÇ
+			// ìƒì˜
 			//----------------------------------------------------------------------
 			case 3 :
 			{
@@ -1237,7 +1237,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 			break;
 
 			//----------------------------------------------------------------------
-			// ÇÏÀÇ
+			// í•˜ì˜
 			//----------------------------------------------------------------------
 			case 4 :
 			{
@@ -1264,7 +1264,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 			break;
 
 			//----------------------------------------------------------------------
-			// ±ÙÁ¢¹«±â
+			// ê·¼ì ‘ë¬´ê¸°
 			//----------------------------------------------------------------------
 			case 5 :
 			{
@@ -1314,7 +1314,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 			break;
 
 			//----------------------------------------------------------------------
-			// ÃÑ
+			// ì´
 			//----------------------------------------------------------------------
 			case 6 :
 			{
@@ -1351,10 +1351,10 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 				
 					MMagazine* pMagazine = (MMagazine*)MItem::NewItem( (ITEM_CLASS)ITEM_CLASS_MAGAZINE );
 
-					// ÀÇ¹Ì ¾øÀ½ - -;
+					// ì˜ë¯¸ ì—†ìŒ - -;
 					pMagazine->SetID( 0 );
 
-					// ÀÌ°Å´Â ÃÑ¿¡ ¸ÂÃç¼­ ÇØÁà¾ßµÈ´Ù.
+					// ì´ê±°ëŠ” ì´ì— ë§žì¶°ì„œ í•´ì¤˜ì•¼ëœë‹¤.
 					for (int j=0; j<(*g_pItemTable)[ITEM_CLASS_MAGAZINE].GetSize(); j++)			
 					{
 						pMagazine->SetItemType(	j );
@@ -1365,14 +1365,14 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 						}
 					}
 
-					// ÀÇ¹Ì ¾øÀ½
+					// ì˜ë¯¸ ì—†ìŒ
 					pMagazine->ClearItemOption();
 
-					// ÅºÃ¢ °³¼ö
+					// íƒ„ì°½ ê°œìˆ˜
 					pMagazine->SetNumber( 0xFFFF );
 
 					//------------------------------------
-					// ÅºÃ¢ ¼³Á¤
+					// íƒ„ì°½ ì„¤ì •
 					//------------------------------------
 					pGunItem->SetMagazine( pMagazine );
 
@@ -1388,7 +1388,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 
 
 			//----------------------------------------------------------------------
-			// ¹æÆÐ
+			// ë°©íŒ¨
 			//----------------------------------------------------------------------
 			case 7 :	
 			{
@@ -1416,7 +1416,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 			break;
 
 			//----------------------------------------------------------------------
-			// ¿ÀÅä¹ÙÀÌ
+			// ì˜¤í† ë°”ì´
 			//----------------------------------------------------------------------
 			case 8 :
 			{
@@ -1446,7 +1446,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 	UIDialog::PopupActionSelectDlg(int x, int y)
 	{
 		//---------------------------------------------------------
-		// ±âÁ¸¿¡ ÀÖ´ø dialog¸¦ Áö¿î´Ù.
+		// ê¸°ì¡´ì— ìžˆë˜ dialogë¥¼ ì§€ìš´ë‹¤.
 		//---------------------------------------------------------
 		if (m_pActionSelectDlg!=NULL)
 		{
@@ -1455,12 +1455,12 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 
 	
 		//---------------------------------------------------------
-		// dialog »ý¼º
+		// dialog ìƒì„±
 		//---------------------------------------------------------
 		m_pActionSelectDlg = new C_VS_UI_DIALOG(x, y, 1, 3, ProcessActionSelectDlg);//, SMO_NOFIT);
 
 		//---------------------------------------------------------
-		// ¸Þ´º ±¸¼º..
+		// ë©”ë‰´ êµ¬ì„±..
 		//---------------------------------------------------------
 		const int menuSize = 11;//21;
 		DIALOG_MENU menu[ menuSize ] = {
@@ -1492,12 +1492,12 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 				};
 
 		//---------------------------------------------------------
-		// ¸Þ´º µî·Ï
+		// ë©”ë‰´ ë“±ë¡
 		//---------------------------------------------------------
-		m_pActionSelectDlg->SetMenu(menu, menuSize);		// ³¡³»±â Æ÷ÇÔ
+		m_pActionSelectDlg->SetMenu(menu, menuSize);		// ëë‚´ê¸° í¬í•¨
 
 		//---------------------------------------------------------
-		// dialog ½ÃÀÛ..
+		// dialog ì‹œìž‘..
 		//---------------------------------------------------------
 		m_pActionSelectDlg->Start();
 	}
@@ -1515,7 +1515,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 			case DIALOG_EXECID_EXIT :
 			break;
 
-			// ZoneÀÇ ¸ðµç Ä³¸¯ÅÍÀÇ actionÀ» ¹Ù²Û´Ù.
+			// Zoneì˜ ëª¨ë“  ìºë¦­í„°ì˜ actionì„ ë°”ê¾¼ë‹¤.
 			default :
 			{
 				MZone::CREATURE_MAP::const_iterator iCreature = g_pZone->GetCreatureBegin();
@@ -1525,7 +1525,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 					MCreature* pCreature = (*iCreature).second;
 
 					//--------------------------------------------------
-					// playerÀÎ °æ¿ì						
+					// playerì¸ ê²½ìš°						
 					//--------------------------------------------------
 					if (pCreature->GetID()==g_pPlayer->GetID())
 					{
@@ -1542,12 +1542,12 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 						}
 						else
 						{
-							// ±×¸²ÀÌ ÀÖ´Ù¸é actionÀ» ¼³Á¤ÇÑ´Ù.
+							// ê·¸ë¦¼ì´ ìžˆë‹¤ë©´ actionì„ ì„¤ì •í•œë‹¤.
 							g_pPlayer->SetAction( actionID );
 						}
 					}
 					//--------------------------------------------------
-					// NPC°¡ ¾Æ´Ñ °æ¿ì¸¸...
+					// NPCê°€ ì•„ë‹Œ ê²½ìš°ë§Œ...
 					//--------------------------------------------------
 					else if (!pCreature->IsNPC())
 					{
@@ -1567,7 +1567,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 									FRAME_ARRAY& FA = DFA[direction];
 									if (FA.GetSize()!=0)
 									{
-										// ±×¸²ÀÌ ÀÖ´Ù¸é actionÀ» ¼³Á¤ÇÑ´Ù.
+										// ê·¸ë¦¼ì´ ìžˆë‹¤ë©´ actionì„ ì„¤ì •í•œë‹¤.
 										pCreature->SetNextAction( actionID );
 									}
 								}
@@ -1590,7 +1590,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 	UIDialog::PopupDirectionSelectDlg(int x, int y)
 	{
 		//---------------------------------------------------------
-		// ±âÁ¸¿¡ ÀÖ´ø dialog¸¦ Áö¿î´Ù.
+		// ê¸°ì¡´ì— ìžˆë˜ dialogë¥¼ ì§€ìš´ë‹¤.
 		//---------------------------------------------------------
 		if (m_pDirectionSelectDlg!=NULL)
 		{
@@ -1599,35 +1599,35 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 
 	
 		//---------------------------------------------------------
-		// dialog »ý¼º
+		// dialog ìƒì„±
 		//---------------------------------------------------------
 		m_pDirectionSelectDlg = new C_VS_UI_DIALOG(x, y, 1, 2, ProcessDirectionSelectDlg);//, SMO_NOFIT);
 
 		//---------------------------------------------------------
-		// ¸Þ´º ±¸¼º..
+		// ë©”ë‰´ êµ¬ì„±..
 		//---------------------------------------------------------
 		const int menuSize = 9;//21;
 		DIALOG_MENU menu[ menuSize ] = {
-					{ "ÁÂ (Left)",			0 }, 
-					{ "ÁÂÇÏ (LeftDown)", 	1 }, 
-					{ "ÇÏ (Down)", 			2 }, 
-					{ "¿ìÇÏ (RightDown)",	3 }, 
-					{ "¿ì (Right)", 		4 }, 
-					{ "¿ì»ó (RightUp)", 	5 }, 
-					{ "»ó (Up)", 			6 }, 
-					{ "ÁÂ»ó (LeftUp)",		7 }, 
+					{ "ì¢Œ (Left)",			0 }, 
+					{ "ì¢Œí•˜ (LeftDown)", 	1 }, 
+					{ "í•˜ (Down)", 			2 }, 
+					{ "ìš°í•˜ (RightDown)",	3 }, 
+					{ "ìš° (Right)", 		4 }, 
+					{ "ìš°ìƒ (RightUp)", 	5 }, 
+					{ "ìƒ (Up)", 			6 }, 
+					{ "ì¢Œìƒ (LeftUp)",		7 }, 
 					
 					
 					{"EXIT", DIALOG_EXECID_EXIT}
 				};
 
 		//---------------------------------------------------------
-		// ¸Þ´º µî·Ï
+		// ë©”ë‰´ ë“±ë¡
 		//---------------------------------------------------------
-		m_pDirectionSelectDlg->SetMenu(menu, menuSize);		// ³¡³»±â Æ÷ÇÔ
+		m_pDirectionSelectDlg->SetMenu(menu, menuSize);		// ëë‚´ê¸° í¬í•¨
 
 		//---------------------------------------------------------
-		// dialog ½ÃÀÛ..
+		// dialog ì‹œìž‘..
 		//---------------------------------------------------------
 		m_pDirectionSelectDlg->Start();
 	}
@@ -1645,7 +1645,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 			case DIALOG_EXECID_EXIT :
 			break;
 
-			// ZoneÀÇ ¸ðµç Ä³¸¯ÅÍÀÇ DirectionÀ» ¹Ù²Û´Ù.
+			// Zoneì˜ ëª¨ë“  ìºë¦­í„°ì˜ Directionì„ ë°”ê¾¼ë‹¤.
 			default :
 			{
 				MZone::CREATURE_MAP::const_iterator iCreature = g_pZone->GetCreatureBegin();
@@ -1655,7 +1655,7 @@ UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 					MCreature* pCreature = (*iCreature).second;
 
 					//--------------------------------------------------
-					// NPC°¡ ¾Æ´Ñ °æ¿ì
+					// NPCê°€ ì•„ë‹Œ ê²½ìš°
 					//--------------------------------------------------					
 					if (!pCreature->IsNPC())
 					{										

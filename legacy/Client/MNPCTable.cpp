@@ -257,43 +257,43 @@ MServerNPCTable::MServerNPCTable()
 	NPCSPRITEID[428] = 56;
 	NPCSPRITEID[429] = 57;
 	NPCSPRITEID[430] = 58;
-	NPCSPRITEID[519] = 59;			//���ϸ�',       
-	NPCSPRITEID[521] = 60;			//�˷�',         
-	NPCSPRITEID[525] = 66;			//�ø��',       
-	NPCSPRITEID[516] = 62;			//����',         
-	NPCSPRITEID[518] = 63;			//����Ʈ����',   	
-	NPCSPRITEID[522] = 64;			//�ֵ�',       
-	NPCSPRITEID[523] = 65;			//��ѵ�',       
-	NPCSPRITEID[524] = 61;			//�귻��',       
-	NPCSPRITEID[520] = 67;			//�ƹ�',         
-	NPCSPRITEID[517] = 68;			//����',    	
+	NPCSPRITEID[519] = 59;			//아일린',       
+	NPCSPRITEID[521] = 60;			//알렌',         
+	NPCSPRITEID[525] = 66;			//시모네',       
+	NPCSPRITEID[516] = 62;			//마리',         
+	NPCSPRITEID[518] = 63;			//베아트릭스',   	
+	NPCSPRITEID[522] = 64;			//주디스',       
+	NPCSPRITEID[523] = 65;			//헤롤드',       
+	NPCSPRITEID[524] = 61;			//브렌다',       
+	NPCSPRITEID[520] = 67;			//아미',         
+	NPCSPRITEID[517] = 68;			//몰록',    	
 
-	// 69 - 72 �� ���� �һ���, ��, ��, ��ǥ�� 
+	// 69 - 72 는 각각 불사조, 소, 용, 흑표범 
 	//
 	NPCSPRITEID[551] = 70;
 	NPCSPRITEID[553] = 72;
 	NPCSPRITEID[555] = 69;
 	NPCSPRITEID[557] = 71;
 	
-	NPCSPRITEID[634] = 78;		// Ŀ�Ǽ� ������
-	NPCSPRITEID[635] = 75;		// �Ǵ�
-	NPCSPRITEID[636] = 76;		// �������� ����
-	NPCSPRITEID[637] = 77;		// �ҸӴ�
-	NPCSPRITEID[638] = 73;		// �Ƹ�Ÿ
-	NPCSPRITEID[639] = 74;		// ����Ƽ
-	NPCSPRITEID[653] = 79;		// ���Ͼ�
-	NPCSPRITEID[654] = 74;		// ����Ƽ
-	NPCSPRITEID[655] = 80;		// ���׽���
-	NPCSPRITEID[656] = 81;		// �ÿ���
-	NPCSPRITEID[657] = 73;		// �Ƹ�Ÿ
-	NPCSPRITEID[658] = 82;		// ȣ��
+	NPCSPRITEID[634] = 78;		// 커피숍 여주인
+	NPCSPRITEID[635] = 75;		// 건달
+	NPCSPRITEID[636] = 76;		// 생선가게 주인
+	NPCSPRITEID[637] = 77;		// 할머니
+	NPCSPRITEID[638] = 73;		// 아마타
+	NPCSPRITEID[639] = 74;		// 리파티
+	NPCSPRITEID[653] = 79;		// 라비니아
+	NPCSPRITEID[654] = 74;		// 리파티
+	NPCSPRITEID[655] = 80;		// 마네스코
+	NPCSPRITEID[656] = 81;		// 시오람
+	NPCSPRITEID[657] = 73;		// 아마타
+	NPCSPRITEID[658] = 82;		// 호라
 	
-	NPCSPRITEID[676] = 85;		// ������
-	NPCSPRITEID[677] = 86;		// ����Ͼ�
-	NPCSPRITEID[678] = 87;		// �̱״Ͼ�
-	NPCSPRITEID[679] = 88;		// �ο�
-	NPCSPRITEID[680] = 89;		// ���̻���
-	NPCSPRITEID[681] = 90;		// ��Ʈ����
+	NPCSPRITEID[676] = 85;		// 레프리
+	NPCSPRITEID[677] = 86;		// 엘루니아
+	NPCSPRITEID[678] = 87;		// 이그니엄
+	NPCSPRITEID[679] = 88;		// 로와
+	NPCSPRITEID[680] = 89;		// 나이샤스
+	NPCSPRITEID[681] = 90;		// 니트리샤
 		
 }
 		
@@ -304,7 +304,7 @@ MServerNPCTable::~MServerNPCTable()
 
 int	MServerNPCTable::AffectToNPCTable(MNPCTable * npc)
 {
-	// ũ�Ⱑ ���ƾ� �Ѵ�.
+	// 크기가 같아야 한다.
 	int ServerSize = size();
 
 	TYPE_MAP::iterator iData = begin();

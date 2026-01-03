@@ -19,8 +19,8 @@ public:
 	HMODULE m_hws32;
 	int (__stdcall *m_hsend)(HWND ,LPSTR,LPSTR,int);
 	int (__stdcall *m_hrecv)(HWND ,LPSTR,LPSTR,int);
-	BYTE m_bSaveSend[5];//保存发送封包地址
-	BYTE m_bSaveRecv[5];//保存发送封包地址
+	BYTE m_bSaveSend[5];//甏忞嫺霝欑畤耄愱磤霋堝浌
+	BYTE m_bSaveRecv[5];//甏忞嫺霝欑畤耄愱磤霋堝浌
 private:
 	BOOL GetWsAddr();
 private:

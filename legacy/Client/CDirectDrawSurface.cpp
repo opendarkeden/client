@@ -63,8 +63,8 @@ CDirectDrawSurface::CDirectDrawSurface()
 
 CDirectDrawSurface::~CDirectDrawSurface()
 {
-	// BackSurface¿« ∞ÊøÏ¥¬ 
-	// CDirectDrawø°º≠ Release«œ±‚ ∂ßπÆø° Release«ÿº≠¥¬ æ»µ»¥Ÿ.
+	// BackSurfaceÏùò Í≤ΩÏö∞Îäî 
+	// CDirectDrawÏóêÏÑú ReleaseÌïòÍ∏∞ ÎïåÎ¨∏Ïóê ReleaseÌï¥ÏÑúÎäî ÏïàÎêúÎã§.
 	if (!m_bBackSurface && m_pDDSurface != NULL)
 	{
 		m_pDDSurface->Release();
@@ -83,10 +83,10 @@ CDirectDrawSurface::~CDirectDrawSurface()
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// BackBuffer∑Œ ªÁøÎ«œ¥¬ Surface¿Ã¥Ÿ.
-// CDirectDraw¿« Initø°º≠ ª˝º∫µ» ∞… ¿ÃøÎ«—¥Ÿ.
+// BackBufferÎ°ú ÏÇ¨Ïö©ÌïòÎäî SurfaceÏù¥Îã§.
+// CDirectDrawÏùò InitÏóêÏÑú ÏÉùÏÑ±Îêú Í±∏ Ïù¥Ïö©ÌïúÎã§.
 //
-// `¿ÃπÃ √ ±‚»≠µ«æÓ ¿÷¿∏∏È false∏¶ π›»Ø«—¥Ÿ.
+// `Ïù¥ÎØ∏ Ï¥àÍ∏∞ÌôîÎêòÏñ¥ ÏûàÏúºÎ©¥ falseÎ•º Î∞òÌôòÌïúÎã§.
 //----------------------------------------------------------------------
 bool CDirectDrawSurface::InitBacksurface()
 {
@@ -109,15 +109,15 @@ bool CDirectDrawSurface::InitBacksurface()
 }
 
 //----------------------------------------------------------------------
-// dwCaps¥¬ DDSCAPS_VIDEOMEMORY(default)≥™
-//          DDSCAPS_SYSTEMMEMORY∑Œ æµ ºˆ ¿÷¥Ÿ.
+// dwCapsÎäî DDSCAPS_VIDEOMEMORY(default)ÎÇò
+//          DDSCAPS_SYSTEMMEMORYÎ°ú Ïì∏ Ïàò ÏûàÎã§.
 //
-// system memory¥¬ Lock/Unlock¿ª ¿ÃøÎ«“ ∞ÊøÏ ∫¸∏£¡ˆ∏∏ Blt µÓ¿∫ ¥¿∏Æ∞Ì..
-// video memory¥¬ ±◊ π›¥Î¥Ÿ. (¡ﬂø‰!)
+// system memoryÎäî Lock/UnlockÏùÑ Ïù¥Ïö©Ìï† Í≤ΩÏö∞ Îπ†Î•¥ÏßÄÎßå Blt Îì±ÏùÄ ÎäêÎ¶¨Í≥†..
+// video memoryÎäî Í∑∏ Î∞òÎåÄÎã§. (Ï§ëÏöî!)
 // 
-// Lock∞˙ Blt¿« ªÁøÎ ∫Ò¿≤¿ª ∞Ì∑¡«ÿº≠ Surface¿« memory ¿ßƒ°∏¶ ∞·¡§«ÿæﬂ «—¥Ÿ.
+// LockÍ≥º BltÏùò ÏÇ¨Ïö© ÎπÑÏú®ÏùÑ Í≥†Î†§Ìï¥ÏÑú SurfaceÏùò memory ÏúÑÏπòÎ•º Í≤∞Ï†ïÌï¥Ïïº ÌïúÎã§.
 //
-// ¿ÃπÃ √ ±‚»≠µ«æÓ ¿÷¿∏∏È false∏¶ π›»Ø«—¥Ÿ.
+// Ïù¥ÎØ∏ Ï¥àÍ∏∞ÌôîÎêòÏñ¥ ÏûàÏúºÎ©¥ falseÎ•º Î∞òÌôòÌïúÎã§.
 //----------------------------------------------------------------------
 bool CDirectDrawSurface::InitOffsurface(int wWidth, int wHeight, DWORD dwCaps)
 {
@@ -131,8 +131,8 @@ bool CDirectDrawSurface::InitOffsurface(int wWidth, int wHeight, DWORD dwCaps)
 
 	DDSURFACEDESC2	ddsd;	
 	
-	// Surfaceø° ¥Î«— ¡§∫∏ º≥¡§
-	// m_pSurface∏¶ OffScreen¿∏∑Œ º≥¡§«—¥Ÿ.
+	// SurfaceÏóê ÎåÄÌïú Ï†ïÎ≥¥ ÏÑ§Ï†ï
+	// m_pSurfaceÎ•º OffScreenÏúºÎ°ú ÏÑ§Ï†ïÌïúÎã§.
 	ZeroMemory(&ddsd, sizeof(ddsd));
 	ddsd.dwSize = sizeof( ddsd );
 	ddsd.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
@@ -164,7 +164,7 @@ bool CDirectDrawSurface::InitOffsurface(int wWidth, int wHeight, DWORD dwCaps)
 	m_ClipBottom	= wHeight;	
 	m_bBackSurface	= false;
 
-	// ≈ı∏Ìªˆ¿ª ±‚∫ª¿∏∑Œ º≥¡§«ÿµ–¥Ÿ.
+	// Ìà¨Î™ÖÏÉâÏùÑ Í∏∞Î≥∏ÏúºÎ°ú ÏÑ§Ï†ïÌï¥ÎëîÎã§.
 	SetTransparency(0);
 
 	if (check)
@@ -174,14 +174,14 @@ bool CDirectDrawSurface::InitOffsurface(int wWidth, int wHeight, DWORD dwCaps)
 }
 
 //----------------------------------------------------------------------
-// BMP file¿ª load«—¥Ÿ.
+// BMP fileÏùÑ loadÌïúÎã§.
 //
-// `≥ª∫Œø°º≠ offscreen¿ª ∏∏µÈæÓ load«—¥Ÿ. 
+// `ÎÇ¥Î∂ÄÏóêÏÑú offscreenÏùÑ ÎßåÎì§Ïñ¥ loadÌïúÎã§. 
 //----------------------------------------------------------------------
 bool 
 CDirectDrawSurface::InitTextureSurfaceFromBMP(LPCSTR szBitmap, DWORD dwCaps)
 {
-	// ¿ÃπÃ ªÁøÎ¡ﬂ¿Ã∏È ¡ˆøÏ∞Ì Load«—¥Ÿ.
+	// Ïù¥ÎØ∏ ÏÇ¨Ïö©Ï§ëÏù¥Î©¥ ÏßÄÏö∞Í≥† LoadÌïúÎã§.
 	if (m_pDDSurface != NULL)
 	{
 		m_pDDSurface->Release();
@@ -216,9 +216,9 @@ CDirectDrawSurface::InitTextureSurfaceFromBMP(LPCSTR szBitmap, DWORD dwCaps)
 
 //----------------------------------------------------------------------
 //
-// Texture∑Œ ªÁøÎ«“ Surface∏¶ ª˝º∫«—¥Ÿ.
+// TextureÎ°ú ÏÇ¨Ïö©Ìï† SurfaceÎ•º ÏÉùÏÑ±ÌïúÎã§.
 //
-// ¿ÃπÃ √ ±‚»≠µ«æÓ ¿÷¿∏∏È false∏¶ π›»Ø«—¥Ÿ.
+// Ïù¥ÎØ∏ Ï¥àÍ∏∞ÌôîÎêòÏñ¥ ÏûàÏúºÎ©¥ falseÎ•º Î∞òÌôòÌïúÎã§.
 //----------------------------------------------------------------------
 bool 
 CDirectDrawSurface::InitTextureSurface(int wWidth, int wHeight, DWORD dwCaps, const LPDDPIXELFORMAT pDDPF)
@@ -247,8 +247,8 @@ CDirectDrawSurface::InitTextureSurface(int wWidth, int wHeight, DWORD dwCaps, co
 
 	DDSURFACEDESC2	ddsd;	
 	
-	// Surfaceø° ¥Î«— ¡§∫∏ º≥¡§
-	// m_pSurface∏¶ OffScreen¿∏∑Œ º≥¡§«—¥Ÿ.
+	// SurfaceÏóê ÎåÄÌïú Ï†ïÎ≥¥ ÏÑ§Ï†ï
+	// m_pSurfaceÎ•º OffScreenÏúºÎ°ú ÏÑ§Ï†ïÌïúÎã§.
 	ZeroMemory(&ddsd, sizeof(ddsd));
 	ddsd.dwSize = sizeof( ddsd );
 
@@ -265,7 +265,7 @@ CDirectDrawSurface::InitTextureSurface(int wWidth, int wHeight, DWORD dwCaps, co
 		}
 	#endif
 
-	// pixelformat¿ª ¿”¿«∑Œ ¡§«œ¥¬ ∞ÊøÏ
+	// pixelformatÏùÑ ÏûÑÏùòÎ°ú Ï†ïÌïòÎäî Í≤ΩÏö∞
 	if (pDDPF!=NULL)
 	{
 		ddsd.dwFlags |= DDSD_PIXELFORMAT;		
@@ -369,14 +369,14 @@ bool CDirectDrawSurface::Restore()
 	//if (m_pDDSPrimary->IsLost() == DDERR_SURFACELOST)
 	//	if (m_pDDSPrimary->Restore() != DD_OK)
 	//		return false;
-	RestoreAllSurfaces(); // ≥ª∫Œø°º≠ error √≥∏Æ.
+	RestoreAllSurfaces(); // ÎÇ¥Î∂ÄÏóêÏÑú error Ï≤òÎ¶¨.
 
 	HRESULT hr;
 	// restore current surface
 	//if (m_pDDSurface->IsLost() == DDERR_SURFACELOST)
 	//{
 	
-	// restore 100π¯ Ω√µµ... - -;
+	// restore 100Î≤à ÏãúÎèÑ... - -;
 	for (int i=0; i<100; i++)
 	{
 		hr = m_pDDSurface->Restore();
@@ -408,13 +408,13 @@ bool CDirectDrawSurface::Restore()
 
 
 //----------------------------------------------------------------------
-// BMP file¿ª load«—¥Ÿ.
+// BMP fileÏùÑ loadÌïúÎã§.
 //
-// `≥ª∫Œø°º≠ offscreen¿ª ∏∏µÈæÓ load«—¥Ÿ. 
+// `ÎÇ¥Î∂ÄÏóêÏÑú offscreenÏùÑ ÎßåÎì§Ïñ¥ loadÌïúÎã§. 
 //----------------------------------------------------------------------
 bool CDirectDrawSurface::InitFromBMP(LPCSTR szBitmap, DWORD dwCaps)
 {
-	// ¿ÃπÃ ªÁøÎ¡ﬂ¿Ã∏È ¡ˆøÏ∞Ì Load«—¥Ÿ.
+	// Ïù¥ÎØ∏ ÏÇ¨Ïö©Ï§ëÏù¥Î©¥ ÏßÄÏö∞Í≥† LoadÌïúÎã§.
 	if (m_pDDSurface != NULL)
 	{
 		m_pDDSurface->Release();
@@ -453,9 +453,9 @@ bool CDirectDrawSurface::InitFromBMP(LPCSTR szBitmap, DWORD dwCaps)
 
 
 //----------------------------------------------------------------------
-// «—π¯ Loadµ«æ˙¥¯ BMP file¿ª ¥ŸΩ√ Load«—¥Ÿ.
+// ÌïúÎ≤à LoadÎêòÏóàÎçò BMP fileÏùÑ Îã§Ïãú LoadÌïúÎã§.
 //
-// `¿Ω... ¿Ã∞≈ ¿ﬂ æ»µ«¥¬ ∞≈ ∞∞¥Ÿ. - 2000.1.5.
+// `Ïùå... Ïù¥Í±∞ Ïûò ÏïàÎêòÎäî Í±∞ Í∞ôÎã§. - 2000.1.5.
 //----------------------------------------------------------------------
 bool CDirectDrawSurface::ReLoadBMP(LPCSTR szBitmap)
 {
@@ -495,7 +495,7 @@ bool CDirectDrawSurface::ReLoadBMP(LPCSTR szBitmap)
 }
 
 //----------------------------------------------------------------------
-// Bitmap¿ª Surface∑Œ Copy«—¥Ÿ.
+// BitmapÏùÑ SurfaceÎ°ú CopyÌïúÎã§.
 //----------------------------------------------------------------------
 bool CDirectDrawSurface::CopyBitmap(HBITMAP hbm, int x, int y, int dx, int dy)
 {
@@ -543,14 +543,14 @@ bool CDirectDrawSurface::CopyBitmap(HBITMAP hbm, int x, int y, int dx, int dy)
 }
 
 //----------------------------------------------------------------------
-// transparency color∏¶ dwValue∑Œ º≥¡§«—¥Ÿ. (« ºˆ!!)
+// transparency colorÎ•º dwValueÎ°ú ÏÑ§Ï†ïÌïúÎã§. (ÌïÑÏàò!!)
 //----------------------------------------------------------------------
 void CDirectDrawSurface::SetTransparency(DWORD dwValue)
 {
 	DDCOLORKEY ddck;
 
-	// ≈ı∏Ìªˆ¿ª dwValue∑Œ º≥¡§
-	// ( Lowø°º≠ High±Ó¡ˆ )
+	// Ìà¨Î™ÖÏÉâÏùÑ dwValueÎ°ú ÏÑ§Ï†ï
+	// ( LowÏóêÏÑú HighÍπåÏßÄ )
 	ddck.dwColorSpaceLowValue  = dwValue;
 	ddck.dwColorSpaceHighValue = dwValue;
 
@@ -558,7 +558,7 @@ void CDirectDrawSurface::SetTransparency(DWORD dwValue)
 }
 
 //----------------------------------------------------------------------
-// Surface ¿¸√º∏¶ «— ªˆ±Ú∑Œ √§øÏ±‚
+// Surface Ï†ÑÏ≤¥Î•º Ìïú ÏÉâÍπîÎ°ú Ï±ÑÏö∞Í∏∞
 //----------------------------------------------------------------------
 void CDirectDrawSurface::FillSurface(WORD color)
 {
@@ -580,7 +580,7 @@ void CDirectDrawSurface::FillSurface(WORD color)
 }
 
 //----------------------------------------------------------------------
-// ªÁ∞¢«¸ ±◊∏Æ±‚
+// ÏÇ¨Í∞ÅÌòï Í∑∏Î¶¨Í∏∞
 //----------------------------------------------------------------------
 void CDirectDrawSurface::FillRect(RECT* pRect, WORD color)
 {
@@ -602,14 +602,14 @@ void CDirectDrawSurface::FillRect(RECT* pRect, WORD color)
 }
 
 //----------------------------------------------------------------------
-// Lock() : Surfaceø° ¡˜¡¢ ±◊∏Æ±‚ ¿ß«— ¡§∫∏
+// Lock() : SurfaceÏóê ÏßÅÏ†ë Í∑∏Î¶¨Í∏∞ ÏúÑÌïú Ï†ïÎ≥¥
 //
-// lpSurface : surface memory Ω√¿€ ¿ßƒ°
-// lPitch    : «— ¡Ÿ ºˆ 
+// lpSurface : surface memory ÏãúÏûë ÏúÑÏπò
+// lPitch    : Ìïú Ï§Ñ Ïàò 
 //
-// Surfaceø° ¥Î«ÿº≠ Lock()¿ª ªÁøÎ«— »ƒ¥¬ π›µÂΩ√ Unlock()¿ª «ÿ¡‡æﬂ «—¥Ÿ.
+// SurfaceÏóê ÎåÄÌï¥ÏÑú Lock()ÏùÑ ÏÇ¨Ïö©Ìïú ÌõÑÎäî Î∞òÎìúÏãú Unlock()ÏùÑ Ìï¥Ï§òÏïº ÌïúÎã§.
 //
-// `Ω«∆–«œ∏È false∏¶ π›»Ø«œ¥¬ µ•, ¿Ã ∂ß¥¬ Unlock()¿ª «ÿ¡÷¡ˆ ∏ªæ∆æﬂ «—¥Ÿ.
+// `Ïã§Ìå®ÌïòÎ©¥ falseÎ•º Î∞òÌôòÌïòÎäî Îç∞, Ïù¥ ÎïåÎäî Unlock()ÏùÑ Ìï¥Ï£ºÏßÄ ÎßêÏïÑÏïº ÌïúÎã§.
 //----------------------------------------------------------------------
 
 bool CDirectDrawSurface::Lock()
@@ -758,7 +758,7 @@ void CDirectDrawSurface::LockDW(DWORD*& lpSurface, WORD& lPitch)
 			hRet = m_pDDSurface->Lock(NULL, &ddsdDesc, 0, NULL);		
 		}		
 
-		// ¿Ã∞≈¥¬ æ¯æÓæﬂ µ«¥¬ code¿œ±Ó??
+		// Ïù¥Í±∞Îäî ÏóÜÏñ¥Ïïº ÎêòÎäî codeÏùºÍπå??
 		else if(hRet != DDERR_WASSTILLDRAWING) exitLoop = true;
 
 	} while(!exitLoop);
@@ -789,7 +789,7 @@ void CDirectDrawSurface::LockQW(QWORD*& lpSurface, WORD& lPitch)
 			hRet = m_pDDSurface->Lock(NULL, &ddsdDesc, 0, NULL);		
 		}		
 
-		// ¿Ã∞≈¥¬ æ¯æÓæﬂ µ«¥¬ code¿œ±Ó??
+		// Ïù¥Í±∞Îäî ÏóÜÏñ¥Ïïº ÎêòÎäî codeÏùºÍπå??
 		else if(hRet != DDERR_WASSTILLDRAWING) exitLoop = true;
 
 	} while(!exitLoop);
@@ -843,7 +843,7 @@ bool CDirectDrawSurface::Unlock()
 
 /*-----------------------------------------------------------------------------
 - GammaBox 555
-- 0 ~ 32±Ó¡ˆ..¿Œ∞°?? - -;;
+- 0 ~ 32ÍπåÏßÄ..Ïù∏Í∞Ä?? - -;;
 -----------------------------------------------------------------------------*/
 void CDirectDrawSurface::GammaBox555(RECT* pRect, int p)
 {
@@ -875,7 +875,7 @@ void CDirectDrawSurface::GammaBox555(RECT* pRect, int p)
 
 /*-----------------------------------------------------------------------------
 - GammaBox 565
-- 0 ~ 32±Ó¡ˆ..¿Œ∞°?? - -;;
+- 0 ~ 32ÍπåÏßÄ..Ïù∏Í∞Ä?? - -;;
 -----------------------------------------------------------------------------*/
 void CDirectDrawSurface::GammaBox565(RECT* pRect, int p)
 {
@@ -1156,16 +1156,16 @@ GAMMA_END:
 }
 
 //----------------------------------------------------------------------
-// Copy : pDDsourceSurface¿« rect øµø™¿ª 
-//        pDDTargetSurface¿« point ¿ßƒ°∑Œ Copy«—¥Ÿ.
+// Copy : pDDsourceSurfaceÏùò rect ÏòÅÏó≠ÏùÑ 
+//        pDDTargetSurfaceÏùò point ÏúÑÏπòÎ°ú CopyÌïúÎã§.
 //
-// `SetTransparency()∑Œ ≈ı∏Ìªˆ¿ª ¡ˆ¡§«—¥Ÿ.
-// `±◊≥… blt«œ∑¡∏È BltNoColorkey()∏¶ ªÁøÎ«—¥Ÿ.
+// `SetTransparency()Î°ú Ìà¨Î™ÖÏÉâÏùÑ ÏßÄÏ†ïÌïúÎã§.
+// `Í∑∏ÎÉ• bltÌïòÎ†§Î©¥ BltNoColorkey()Î•º ÏÇ¨Ïö©ÌïúÎã§.
 //----------------------------------------------------------------------
 void 
 CDirectDrawSurface::Blt(POINT* pPoint, CDirectDrawSurface* SourceSurface, RECT*  pRect)
 {
-	// TargetSurface¿« øµø™¿ª ≥—æÓ∞°¥¬¡ˆø° ¥Î«— √º≈©
+	// TargetSurfaceÏùò ÏòÅÏó≠ÏùÑ ÎÑòÏñ¥Í∞ÄÎäîÏßÄÏóê ÎåÄÌïú Ï≤¥ÌÅ¨
 	if (pPoint->x>=(int)m_ClipRight || pPoint->y>=(int)m_ClipBottom) 
 		return;
 
@@ -1211,13 +1211,13 @@ CDirectDrawSurface::Blt(POINT* pPoint, CDirectDrawSurface* SourceSurface, RECT* 
 }
 
 //----------------------------------------------------------------------
-// Copy : pDDsourceSurface¿« rect øµø™¿ª 
-//        pDDTargetSurface¿« point ¿ßƒ°∑Œ Copy«—¥Ÿ.
+// Copy : pDDsourceSurfaceÏùò rect ÏòÅÏó≠ÏùÑ 
+//        pDDTargetSurfaceÏùò point ÏúÑÏπòÎ°ú CopyÌïúÎã§.
 //----------------------------------------------------------------------
 void
 CDirectDrawSurface::BltNoColorkey(POINT* pPoint, CDirectDrawSurface* SourceSurface, RECT*  pRect)
 {
-	// TargetSurface¿« øµø™¿ª ≥—æÓ∞°¥¬¡ˆø° ¥Î«— √º≈©
+	// TargetSurfaceÏùò ÏòÅÏó≠ÏùÑ ÎÑòÏñ¥Í∞ÄÎäîÏßÄÏóê ÎåÄÌïú Ï≤¥ÌÅ¨
 	if (pPoint->x>=(int)m_ClipRight || pPoint->y>=(int)m_ClipBottom) 
 		return;
 
@@ -1264,12 +1264,12 @@ CDirectDrawSurface::BltNoColorkey(POINT* pPoint, CDirectDrawSurface* SourceSurfa
 
 
 //----------------------------------------------------------------------
-// Copy : pDDsourceSurface¿« rect øµø™¿ª 
-//        pDDTargetSurface¿« point ¿ßƒ°∑Œ Copy«—¥Ÿ.
+// Copy : pDDsourceSurfaceÏùò rect ÏòÅÏó≠ÏùÑ 
+//        pDDTargetSurfaceÏùò point ÏúÑÏπòÎ°ú CopyÌïúÎã§.
 //
-// `SetTransparency()∑Œ ≈ı∏Ìªˆ¿ª ¡ˆ¡§«—¥Ÿ.
-// `±◊≥… blt«œ∑¡∏È BltNoColorkey()∏¶ ªÁøÎ«—¥Ÿ.
-// ¿”Ω√∑Œ(-_-;) ≈ı∏Ìªˆ π´Ω√.. §ª§ª - -;
+// `SetTransparency()Î°ú Ìà¨Î™ÖÏÉâÏùÑ ÏßÄÏ†ïÌïúÎã§.
+// `Í∑∏ÎÉ• bltÌïòÎ†§Î©¥ BltNoColorkey()Î•º ÏÇ¨Ïö©ÌïúÎã§.
+// ÏûÑÏãúÎ°ú(-_-;) Ìà¨Î™ÖÏÉâ Î¨¥Ïãú.. „Öã„Öã - -;
 //----------------------------------------------------------------------
 void 
 CDirectDrawSurface::Blt(RECT* pDestRect, CDirectDrawSurface* SourceSurface, RECT* pSourceRect)
@@ -1304,12 +1304,12 @@ CDirectDrawSurface::Blt(RECT* pDestRect, CDirectDrawSurface* SourceSurface, RECT
 
 
 //----------------------------------------------------------------------
-// «ˆ¿Á surface¿« pPointø° PrimarySurface¿« pRect∏¶ blt«—¥Ÿ.
+// ÌòÑÏû¨ surfaceÏùò pPointÏóê PrimarySurfaceÏùò pRectÎ•º bltÌïúÎã§.
 //----------------------------------------------------------------------
 void	
 CDirectDrawSurface::BltPrimarySurface(POINT* pPoint, RECT* pRect)
 {
-	// TargetSurface¿« øµø™¿ª ≥—æÓ∞°¥¬¡ˆø° ¥Î«— √º≈©
+	// TargetSurfaceÏùò ÏòÅÏó≠ÏùÑ ÎÑòÏñ¥Í∞ÄÎäîÏßÄÏóê ÎåÄÌïú Ï≤¥ÌÅ¨
 	if (pPoint->x>=(int)m_ClipRight || pPoint->y>=(int)m_ClipBottom) 
 		return;
 
@@ -1338,7 +1338,7 @@ CDirectDrawSurface::BltPrimarySurface(POINT* pPoint, RECT* pRect)
 	// Blit the current frame to the destination surface
 	HRESULT hRet;
 
-	// √¢∏µÂ¿œ ∞ÊøÏø°..
+	// Ï∞ΩÎ™®ÎìúÏùº Í≤ΩÏö∞Ïóê..
 	if (!m_bFullscreen)
 	{
 		//m_pDDSPrimary->Blt(&m_rcScreen, m_pDDSBack, &m_rcViewport, DDBLT_WAIT, NULL);
@@ -1401,7 +1401,7 @@ CDirectDrawSurface::ShowFPS(int x, int y, COLORREF fcolor, COLORREF bcolor)
 
 //----------------------------------------------------------------------
 // GDI_Text
-// option¿∫ πË∞Ê ≈ı∏Ì ø©∫Œ¿Ã¥Ÿ.
+// optionÏùÄ Î∞∞Í≤Ω Ìà¨Î™Ö Ïó¨Î∂ÄÏù¥Îã§.
 //----------------------------------------------------------------------
 void 
 CDirectDrawSurface::GDI_Text(int x, int y, const char *str, 

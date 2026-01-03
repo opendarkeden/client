@@ -47,6 +47,16 @@ UI_Window* ui_game_main_get_sysmenu(UI_Window* window);
  */
 void ui_game_main_toggle_sysmenu(UI_Window* window);
 
+/**
+ * Get OtherInfo window for registration with window manager
+ */
+UI_Window* ui_game_main_get_other_info(UI_Window* window);
+
+/**
+ * Hide OtherInfo window
+ */
+void ui_game_main_hide_other_info(UI_Window* window);
+
 #ifdef __cplusplus
 }
 #endif

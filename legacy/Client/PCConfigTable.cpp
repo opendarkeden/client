@@ -50,7 +50,7 @@ PlayerConfig::SetLastSlot(int slot)
 		m_LastSlot = slot; 
 	}
 
-	// ÃÖ±Ù¿¡ »ç¿ëµÈ °ÍÀÌ´Ù.
+	// ìµœê·¼ì— ì‚¬ìš©ëœ ê²ƒì´ë‹¤.
 	m_RecentCount = 0;
 }
 
@@ -60,9 +60,9 @@ PlayerConfig::SetLastSlot(int slot)
 void		
 PlayerConfig::SaveToFile(class ofstream& file)
 {
-	// saveÇÒ¶§¸¶´Ù RecentCount¸¦ 1¾¿ Áõ°¡½ÃÅ²´Ù.
-	// SetLastSlot(Á¢¼ÓÇÒ¶§)À» ÇÏÁö ¾Ê°í.. save¸¸ ÇÏ°Ô µÇ¸é
-	// °á±¹ RecentCount°¡ °¡Àå Å« ¾Ö°¡.. Á¦ÀÏ~~ ¿À·¡Àü¿¡ Á¢¼ÓÇÑ¾Ö°¡ µÈ´Ù.
+	// saveí• ë•Œë§ˆë‹¤ RecentCountë¥¼ 1ì”© ì¦ê°€ì‹œí‚¨ë‹¤.
+	// SetLastSlot(ì ‘ì†í• ë•Œ)ì„ í•˜ì§€ ì•Šê³ .. saveë§Œ í•˜ê²Œ ë˜ë©´
+	// ê²°êµ­ RecentCountê°€ ê°€ì¥ í° ì• ê°€.. ì œì¼~~ ì˜¤ë˜ì „ì— ì ‘ì†í•œì• ê°€ ëœë‹¤.
 	m_RecentCount ++;
 
 	file.write((const char*)&m_LastSlot, 1);
@@ -133,7 +133,7 @@ PlayerConfigTable::AddPlayerConfig(PlayerConfig* pConfig)
 
 	iterator iConfig = find( playerID );
 
-	// ÀÌ¹Ì ÀÖÀ¸¸é Áö¿î´Ù.
+	// ì´ë¯¸ ìˆìœ¼ë©´ ì§€ìš´ë‹¤.
 	if (iConfig != end())
 	{
 		PlayerConfig* pConfig = iConfig->second;
@@ -177,20 +177,20 @@ PlayerConfigTable::SaveToFile(class ofstream& file)
 	int num = size();
 
 	//---------------------------------------------------------------
-	// °³¼ö Á¦ÇÑ¿¡ °É¸®´Â °æ¿ì
+	// ê°œìˆ˜ ì œí•œì— ê±¸ë¦¬ëŠ” ê²½ìš°
 	//---------------------------------------------------------------
 	if (num > LIMIT_PLAYER_CONFIG)
 	{
-		int removeNum = num - LIMIT_PLAYER_CONFIG;	// Á¦°ÅÇÒ°Í °³¼ö
+		int removeNum = num - LIMIT_PLAYER_CONFIG;	// ì œê±°í• ê²ƒ ê°œìˆ˜
 		num = LIMIT_PLAYER_CONFIG;
 
-		// °³¼ö
+		// ê°œìˆ˜
 		file.write((const char*)&num, 4);
 
-		// vector·Î ¸¸µé¾î¼­ ÀúÀåÇÒ°Í¸¸ »Ì¾Æ¾ß ÇÑ´Ù.
+		// vectorë¡œ ë§Œë“¤ì–´ì„œ ì €ì¥í• ê²ƒë§Œ ë½‘ì•„ì•¼ í•œë‹¤.
 		std::vector<PlayerConfig*> playerConfigs;
 		
-		playerConfigs.reserve( size() );	// ÀüÃ¼ °³¼ö¸¸Å­
+		playerConfigs.reserve( size() );	// ì „ì²´ ê°œìˆ˜ë§Œí¼
 
 		const_iterator iConfig = begin();
 
@@ -201,12 +201,12 @@ PlayerConfigTable::SaveToFile(class ofstream& file)
 			iConfig ++;
 		}
 
-		// sort. ÃÖ±Ù¿¡°ÍµéÀÌ ¾ÕÀ¸·Î ¿Â´Ù.
+		// sort. ìµœê·¼ì—ê²ƒë“¤ì´ ì•ìœ¼ë¡œ ì˜¨ë‹¤.
 		std::stable_sort( playerConfigs.begin(), playerConfigs.end(), PlayerConfigSort() );
 
 		BYTE len;
 
-		// num°³¸¸ ÀúÀåÇÑ´Ù.
+		// numê°œë§Œ ì €ì¥í•œë‹¤.
 		for (int i=0; i<num; i++)
 		{
 			PlayerConfig* pConfig = playerConfigs[i];
@@ -225,21 +225,21 @@ PlayerConfigTable::SaveToFile(class ofstream& file)
 			}
 			else
 			{
-				// NULLÀÎ °æ¿ì´Â.. PlayerID ±æÀÌ 0À¸·Î.
+				// NULLì¸ ê²½ìš°ëŠ”.. PlayerID ê¸¸ì´ 0ìœ¼ë¡œ.
 				len = 0;
 				file.write((const char*)&len, 1);
 			}
 		}
 	}
 	//---------------------------------------------------------------
-	// ÀüºÎ ÀúÀåÇÏ´Â °æ¿ì
+	// ì „ë¶€ ì €ì¥í•˜ëŠ” ê²½ìš°
 	//---------------------------------------------------------------
 	else
 	{
-		// °³¼ö
+		// ê°œìˆ˜
 		file.write((const char*)&num, 4);
 
-		// ´Ù ÀúÀå..
+		// ë‹¤ ì €ì¥..
 		const_iterator iConfig = begin();
 
 		BYTE len;
@@ -262,7 +262,7 @@ PlayerConfigTable::SaveToFile(class ofstream& file)
 			}
 			else
 			{
-				// NULLÀÎ °æ¿ì´Â.. PlayerID ±æÀÌ 0À¸·Î.
+				// NULLì¸ ê²½ìš°ëŠ”.. PlayerID ê¸¸ì´ 0ìœ¼ë¡œ.
 				len = 0;
 				file.write((const char*)&len, 1);
 			}
@@ -283,7 +283,7 @@ PlayerConfigTable::LoadFromFile(class ifstream& file)
 
 	int num;
 
-	// °³¼ö
+	// ê°œìˆ˜
 	file.read((char*)&num, 4);
 
 	BYTE len;
@@ -291,7 +291,7 @@ PlayerConfigTable::LoadFromFile(class ifstream& file)
 
 	for (int i=0; i<num; i++)
 	{
-		file.read((char*)&len, 1);		// ÀÌ¸§ ±æÀÌ
+		file.read((char*)&len, 1);		// ì´ë¦„ ê¸¸ì´
 
 		if (len != 0)
 		{
@@ -300,7 +300,7 @@ PlayerConfigTable::LoadFromFile(class ifstream& file)
 
 			PlayerConfig* pConfig = new PlayerConfig;
 			pConfig->LoadFromFile( file );
-			pConfig->SetPlayerID( str );		// pConfig ³»ºÎ¿¡¼­µµ ÇÏµµ·Ï ¹Ù²ã¾ßÇÑ´Ù.
+			pConfig->SetPlayerID( str );		// pConfig ë‚´ë¶€ì—ì„œë„ í•˜ë„ë¡ ë°”ê¿”ì•¼í•œë‹¤.
 
 			AddPlayerConfig( pConfig );
 		}
@@ -358,7 +358,7 @@ WorldPlayerConfigTable::AddPlayerConfigTable(int worldID, PlayerConfigTable* pTa
 
 	iterator iTable = find( worldID );
 
-	// ÀÌ¹Ì ÀÖÀ¸¸é Áö¿î´Ù.
+	// ì´ë¯¸ ìˆìœ¼ë©´ ì§€ìš´ë‹¤.
 	if (iTable != end())
 	{
 		PlayerConfigTable* pTable = iTable->second;
@@ -402,10 +402,10 @@ WorldPlayerConfigTable::SaveToFile(const char* pFilename)
 
 		int num = size();
 
-		// °³¼ö
+		// ê°œìˆ˜
 		file.write((const char*)&num, 4);
 
-		// ´Ù ÀúÀå..
+		// ë‹¤ ì €ì¥..
 		const_iterator iConfig = begin();
 
 		while (iConfig != end())
@@ -456,7 +456,7 @@ WorldPlayerConfigTable::LoadFromFile(const char* pFilename)
 		{
 			int num;
 
-			// °³¼ö
+			// ê°œìˆ˜
 			file.read((char*)&num, 4);
 
 			int worldID;

@@ -28,7 +28,7 @@ CD3DObject::CD3DObject()
 	// Object Hierarchy
 	m_pParent	= NULL;	
 
-	// ¸Ş¸ğ¸®°¡ ÀâÇôÀÖ´Â »óÅÂÀÎ°¡?
+	// ë©”ëª¨ë¦¬ê°€ ì¡í˜€ìˆëŠ” ìƒíƒœì¸ê°€?
 	m_bNew = false;
 }
 
@@ -39,7 +39,7 @@ CD3DObject::~CD3DObject()
 		delete m_pMaterial;
 	}
 
-	// array¸¦ ¸Ş¸ğ¸®¿¡¼­ Á¦°ÅÇÑ´Ù.
+	// arrayë¥¼ ë©”ëª¨ë¦¬ì—ì„œ ì œê±°í•œë‹¤.
 	Release();
 }
 
@@ -55,18 +55,18 @@ CD3DObject::~CD3DObject()
 void
 CD3DObject::Init(DWORD nVertices, DWORD nIndices)
 {
-	// °³¼ö°¡ ¾øÀ» °æ¿ì 
+	// ê°œìˆ˜ê°€ ì—†ì„ ê²½ìš° 
 	if (nVertices==0 || nIndices==0) 
 		return;
 
-	// ÀÏ´Ü ÇØÁ¦
+	// ì¼ë‹¨ í•´ì œ
 	Release();
 
-	// ¸Ş¸ğ¸® Àâ±â
+	// ë©”ëª¨ë¦¬ ì¡ê¸°
 	m_nVertices = nVertices;
 	m_pVertices = new D3DVERTEX [m_nVertices];
 
-	// ¸Ş¸ğ¸® Àâ±â
+	// ë©”ëª¨ë¦¬ ì¡ê¸°
 	m_nIndices = nIndices;
 	m_pIndices = new WORD [m_nIndices];
 
@@ -87,7 +87,7 @@ CD3DObject::Release()
 		//-------------------------------------
 		if (m_pVertices != NULL)
 		{
-			// ¸ğµç CVertices¸¦ Áö¿î´Ù.
+			// ëª¨ë“  CVerticesë¥¼ ì§€ìš´ë‹¤.
 			delete [] m_pVertices;
 
 			m_pVertices = NULL;		
@@ -99,7 +99,7 @@ CD3DObject::Release()
 		//-------------------------------------
 		if (m_pIndices != NULL)
 		{
-			// ¸ğµç CIndices¸¦ Áö¿î´Ù.
+			// ëª¨ë“  CIndicesë¥¼ ì§€ìš´ë‹¤.
 			delete [] m_pIndices;
 
 			m_pIndices = NULL;		
@@ -116,17 +116,17 @@ CD3DObject::Release()
 void				
 CD3DObject::AddChild(CD3DObject* pObject)
 {
-	// list¿¡ Ãß°¡
+	// listì— ì¶”ê°€
 	m_listChild.push_back( pObject );
 
-	// Ãß°¡µÈ ÀÚ½ÄÀÇ parent·Î ¼³Á¤
+	// ì¶”ê°€ëœ ìì‹ì˜ parentë¡œ ì„¤ì •
 	m_pParent = this;
 }
 
 //-----------------------------------------------------------------------------
 // Release Child
 //-----------------------------------------------------------------------------
-// Child¿¡ µş¸° ¸ğµç Childµéµµ ¾ø¾Ø´Ù.
+// Childì— ë”¸ë¦° ëª¨ë“  Childë“¤ë„ ì—†ì•¤ë‹¤.
 //-----------------------------------------------------------------------------
 void				
 CD3DObject::ReleaseChild()
@@ -135,16 +135,16 @@ CD3DObject::ReleaseChild()
 
 	while (iObject != m_listChild.end())
 	{
-		// Child¿¡ µş¸° ¸ğµç ChildµéÀ» ¾ø¾Ø´Ù.
+		// Childì— ë”¸ë¦° ëª¨ë“  Childë“¤ì„ ì—†ì•¤ë‹¤.
 		(*iObject)->ReleaseChild();
 
-		// ChildÀÇ Parent¸¦ ¾ø¾Ø´Ù.
+		// Childì˜ Parentë¥¼ ì—†ì•¤ë‹¤.
 		(*iObject)->m_pParent = NULL;
 
-		// Child¸¦ ¾ø¾Ø´Ù.
+		// Childë¥¼ ì—†ì•¤ë‹¤.
 		delete *iObject;
 
-		// ´ÙÀ½..
+		// ë‹¤ìŒ..
 		iObject++;
 	}
 }
@@ -152,12 +152,12 @@ CD3DObject::ReleaseChild()
 //-----------------------------------------------------------------------------
 // Set Origin
 //-----------------------------------------------------------------------------
-// ±âº» ÁÂÇ¥, ±âº» »óÅÂ(È¸Àü), ±âº» Å©±â...µîÀ¸·Î ÃÊ±âÈ­ÇÑ´Ù.
+// ê¸°ë³¸ ì¢Œí‘œ, ê¸°ë³¸ ìƒíƒœ(íšŒì „), ê¸°ë³¸ í¬ê¸°...ë“±ìœ¼ë¡œ ì´ˆê¸°í™”í•œë‹¤.
 //-----------------------------------------------------------------------------
 void
 CD3DObject::SetOrigin()
 {
-	// »óÅÂ Matrix
+	// ìƒíƒœ Matrix
 	CD3DMath::GetIdentityMatrix( m_matStatus );
 
 	// Position
@@ -179,13 +179,13 @@ CD3DObject::SetOrigin()
 //-----------------------------------------------------------------------------
 // Draw (bRestore)
 //-----------------------------------------------------------------------------
-// WorldÁÂÇ¥°è¸¦ Áß½ÉÀ¸·Î
-// LocalÁÂÇ¥°è(matStatus)¸¦ Àß~ ¸ÂÃç¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+// Worldì¢Œí‘œê³„ë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ
+// Localì¢Œí‘œê³„(matStatus)ë¥¼ ì˜~ ë§ì¶°ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 //
-// ObjectÀÇ LocalÁÂÇ¥°è¸¦ WorldÁÂÇ¥°è·Î ¹Ù²ã¼­ Ãâ·ÂÇÑ´Ù.
-// --> »ç½ÇÀº WorldÁÂÇ¥°è¸¦ LocalÁÂÇ¥°è·Î ¹Ù²ã¼­ °°Àº È¿°ú¸¦ º¸°Ô ÇÑ´Ù.
+// Objectì˜ Localì¢Œí‘œê³„ë¥¼ Worldì¢Œí‘œê³„ë¡œ ë°”ê¿”ì„œ ì¶œë ¥í•œë‹¤.
+// --> ì‚¬ì‹¤ì€ Worldì¢Œí‘œê³„ë¥¼ Localì¢Œí‘œê³„ë¡œ ë°”ê¿”ì„œ ê°™ì€ íš¨ê³¼ë¥¼ ë³´ê²Œ í•œë‹¤.
 //-----------------------------------------------------------------------------
-// bRestoreWorld´Â ¿ø·¡ÀÇ WorldÁÂÇ¥°è¸¦ µÇ»ì·Á¾ß ÇÏ´Â°¡?¿¡ ´ëÇÑ °ÍÀÌ´Ù.
+// bRestoreWorldëŠ” ì›ë˜ì˜ Worldì¢Œí‘œê³„ë¥¼ ë˜ì‚´ë ¤ì•¼ í•˜ëŠ”ê°€?ì— ëŒ€í•œ ê²ƒì´ë‹¤.
 //-----------------------------------------------------------------------------
 void
 CD3DObject::Draw(bool bRestoreWorld)
@@ -195,15 +195,15 @@ CD3DObject::Draw(bool bRestoreWorld)
 
 	D3DMATRIX matWorld, matMyWorld;			
 
-	// WorldÁÂÇ¥°è¸¦ ¾ò´Â´Ù.
+	// Worldì¢Œí‘œê³„ë¥¼ ì–»ëŠ”ë‹¤.
 	D3DMATRIX worldTemp;
 	CDirect3D::GetDevice()->GetTransform( D3DTRANSFORMSTATE_WORLD, &matWorld );		
 
-	// ObjectÀÇ LocalÁÂÇ¥°è¸¦ WorldÁÂÇ¥°è·Î ¹Ù²Û´Ù.		
+	// Objectì˜ Localì¢Œí‘œê³„ë¥¼ Worldì¢Œí‘œê³„ë¡œ ë°”ê¾¼ë‹¤.		
 	CD3DMath::MultiplyMatrix(matMyWorld, m_matStatus, matWorld);
 	CDirect3D::GetDevice()->SetTransform( D3DTRANSFORMSTATE_WORLD, &matMyWorld );		
 
-	// Object¸¦ ±×¸°´Ù.
+	// Objectë¥¼ ê·¸ë¦°ë‹¤.
 	if (m_pVertices)
 	{		
 		CDirect3D::GetDevice()->DrawIndexedPrimitive( 
@@ -213,25 +213,25 @@ CD3DObject::Draw(bool bRestoreWorld)
 	}
 
 	//-----------------------------------------------------------
-	// ChildµéÀ» ¸ğµÎ ±×¸°´Ù.
+	// Childë“¤ì„ ëª¨ë‘ ê·¸ë¦°ë‹¤.
 	//-----------------------------------------------------------
 	CD3DOBJECT_LIST::iterator iObject = m_listChild.begin();
 
 	while (iObject != m_listChild.end())
 	{
-		// Child¿¡ µş¸° ¸ğµç ChildµéÀ» ±×¸°´Ù.
+		// Childì— ë”¸ë¦° ëª¨ë“  Childë“¤ì„ ê·¸ë¦°ë‹¤.
 		(*iObject)->Draw(matMyWorld, false);		
 
-		// ´ÙÀ½..
+		// ë‹¤ìŒ..
 		iObject++;
 	}
 
 	//-----------------------------------------------------------
-	// ¿ø·¡ÀÇ ÁÂÇ¥°è¸¦ µÇ»ì·Á¾ß ÇÏ´Â °æ¿ì
+	// ì›ë˜ì˜ ì¢Œí‘œê³„ë¥¼ ë˜ì‚´ë ¤ì•¼ í•˜ëŠ” ê²½ìš°
 	//-----------------------------------------------------------
 	if (bRestoreWorld)		
 	{	
-		// ¿ø·¡ÀÇ WorldÁÂÇ¥·Î µÇµ¹¸°´Ù.
+		// ì›ë˜ì˜ Worldì¢Œí‘œë¡œ ë˜ëŒë¦°ë‹¤.
 		CDirect3D::GetDevice()->SetTransform( D3DTRANSFORMSTATE_WORLD, &matWorld );
 	}
 }
@@ -239,13 +239,13 @@ CD3DObject::Draw(bool bRestoreWorld)
 //-----------------------------------------------------------------------------
 // Draw (ParentWorld, bRestore)
 //-----------------------------------------------------------------------------
-// ºÎ¸ğ ÁÂÇ¥°è(matParentWorld)¸¦ Áß½ÉÀ¸·Î
-// LocalÁÂÇ¥°è(matStatus)¸¦ Àß~ ¸ÂÃç¼­ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+// ë¶€ëª¨ ì¢Œí‘œê³„(matParentWorld)ë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ
+// Localì¢Œí‘œê³„(matStatus)ë¥¼ ì˜~ ë§ì¶°ì„œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 //
-// ObjectÀÇ LocalÁÂÇ¥°è¸¦ matParentWorld¿¡ ¸ÂÃç¼­ Ãâ·ÂÇÑ´Ù.
-// --> »ç½ÇÀº matParentWorld¸¦ LocalÁÂÇ¥°è·Î ¹Ù²ã¼­ °°Àº È¿°ú¸¦ º¸°Ô ÇÑ´Ù.
+// Objectì˜ Localì¢Œí‘œê³„ë¥¼ matParentWorldì— ë§ì¶°ì„œ ì¶œë ¥í•œë‹¤.
+// --> ì‚¬ì‹¤ì€ matParentWorldë¥¼ Localì¢Œí‘œê³„ë¡œ ë°”ê¿”ì„œ ê°™ì€ íš¨ê³¼ë¥¼ ë³´ê²Œ í•œë‹¤.
 //-----------------------------------------------------------------------------
-// bRestoreWorld´Â ¿ø·¡ÀÇ WorldÁÂÇ¥°è¸¦ µÇ»ì·Á¾ß ÇÏ´Â°¡?¿¡ ´ëÇÑ °ÍÀÌ´Ù.
+// bRestoreWorldëŠ” ì›ë˜ì˜ Worldì¢Œí‘œê³„ë¥¼ ë˜ì‚´ë ¤ì•¼ í•˜ëŠ”ê°€?ì— ëŒ€í•œ ê²ƒì´ë‹¤.
 //-----------------------------------------------------------------------------
 void
 CD3DObject::Draw(D3DMATRIX& matParentWorld, bool bRestoreWorld)
@@ -255,11 +255,11 @@ CD3DObject::Draw(D3DMATRIX& matParentWorld, bool bRestoreWorld)
 
 	D3DMATRIX matMyWorld;			
 
-	// ObjectÀÇ LocalÁÂÇ¥°è¸¦ WorldÁÂÇ¥°è·Î ¹Ù²Û´Ù.		
+	// Objectì˜ Localì¢Œí‘œê³„ë¥¼ Worldì¢Œí‘œê³„ë¡œ ë°”ê¾¼ë‹¤.		
 	CD3DMath::MultiplyMatrix(matMyWorld, m_matStatus, matParentWorld);
 	CDirect3D::GetDevice()->SetTransform( D3DTRANSFORMSTATE_WORLD, &matMyWorld );		
 
-	// Object¸¦ ±×¸°´Ù.
+	// Objectë¥¼ ê·¸ë¦°ë‹¤.
 	if (m_pVertices)
 	{
 		CDirect3D::GetDevice()->DrawIndexedPrimitive( 
@@ -269,11 +269,11 @@ CD3DObject::Draw(D3DMATRIX& matParentWorld, bool bRestoreWorld)
 	}
 
 	//-----------------------------------------------------------
-	// ¿ø·¡ÀÇ ÁÂÇ¥°è¸¦ µÇ»ì·Á¾ß ÇÏ´Â °æ¿ì
+	// ì›ë˜ì˜ ì¢Œí‘œê³„ë¥¼ ë˜ì‚´ë ¤ì•¼ í•˜ëŠ” ê²½ìš°
 	//-----------------------------------------------------------
 	if (bRestoreWorld)		
 	{	
-		// ¿ø·¡ÀÇ WorldÁÂÇ¥·Î µÇµ¹¸°´Ù.
+		// ì›ë˜ì˜ Worldì¢Œí‘œë¡œ ë˜ëŒë¦°ë‹¤.
 		CDirect3D::GetDevice()->SetTransform( D3DTRANSFORMSTATE_WORLD, &matParentWorld );
 	}
 }
@@ -285,13 +285,13 @@ void
 CD3DObject::SetPosition(D3DVECTOR& position)		
 { 
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ Å©±â
+	// ì›ë˜ì˜ í¬ê¸°
 	//-------------------------------------------------------
 	//if (m_Scale.x!=1 || m_Scale.y!=1 || m_Scale.z!=1)
 		CD3DMath::GetScaleMatrix( m_matStatus, m_Scale );
 
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ È¸Àü °¢µµ
+	// ì›ë˜ì˜ íšŒì „ ê°ë„
 	//-------------------------------------------------------
 	if (m_Direction.x!=0)
 		CD3DMath::MultiplyRotateXMatrix( m_matStatus, m_Direction.x );
@@ -303,11 +303,11 @@ CD3DObject::SetPosition(D3DVECTOR& position)
 		CD3DMath::MultiplyRotateZMatrix( m_matStatus, m_Direction.z );
 
 	//-------------------------------------------------------
-	// »óÅÂ Matrix¸¦ positionÀ¸·Î ÀÌµ¿ÇÑ´Ù.
+	// ìƒíƒœ Matrixë¥¼ positionìœ¼ë¡œ ì´ë™í•œë‹¤.
 	//-------------------------------------------------------
 	CD3DMath::MultiplyTranslateMatrix( m_matStatus, position );
 
-	// positionÀ¸·Î ÀÌµ¿ÇÑ´Ù.
+	// positionìœ¼ë¡œ ì´ë™í•œë‹¤.
 	m_Position = position; 
 
 }
@@ -319,13 +319,13 @@ void
 CD3DObject::SetPosition(float x, float y, float z)	
 {
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ Å©±â
+	// ì›ë˜ì˜ í¬ê¸°
 	//-------------------------------------------------------
 	//if (m_Scale.x!=1 || m_Scale.y!=1 || m_Scale.z!=1)
 		CD3DMath::GetScaleMatrix( m_matStatus, m_Scale );
 
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ È¸Àü °¢µµ
+	// ì›ë˜ì˜ íšŒì „ ê°ë„
 	//-------------------------------------------------------
 	if (m_Direction.x!=0)
 		CD3DMath::MultiplyRotateXMatrix( m_matStatus, m_Direction.x );
@@ -337,11 +337,11 @@ CD3DObject::SetPosition(float x, float y, float z)
 		CD3DMath::MultiplyRotateZMatrix( m_matStatus, m_Direction.z );
 
 	//-------------------------------------------------------
-	// »óÅÂ Matrix¸¦ positionÀ¸·Î ÀÌµ¿ÇÑ´Ù.
+	// ìƒíƒœ Matrixë¥¼ positionìœ¼ë¡œ ì´ë™í•œë‹¤.
 	//-------------------------------------------------------
 	CD3DMath::MultiplyTranslateMatrix( m_matStatus, x, y, z );
 
-	// positionÀ¸·Î ÀÌµ¿ÇÑ´Ù.
+	// positionìœ¼ë¡œ ì´ë™í•œë‹¤.
 	m_Position.x = x; 
 	m_Position.y = y; 
 	m_Position.z = z; 
@@ -354,23 +354,23 @@ void
 CD3DObject::SetDirection(D3DVECTOR& direction)	
 {	
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ Å©±â
+	// ì›ë˜ì˜ í¬ê¸°
 	//-------------------------------------------------------
 	//if (m_Scale.x!=1 || m_Scale.y!=1 || m_Scale.z!=1)
 		CD3DMath::GetScaleMatrix( m_matStatus, m_Scale );
 
 	//-------------------------------------------------------
-	// »óÅÂ Matrix¸¦ È¸ÀüÇÑ´Ù.
+	// ìƒíƒœ Matrixë¥¼ íšŒì „í•œë‹¤.
 	//-------------------------------------------------------
 	CD3DMath::MultiplyRotateXMatrix( m_matStatus, direction.x );
 	CD3DMath::MultiplyRotateYMatrix( m_matStatus, direction.y );
 	CD3DMath::MultiplyRotateZMatrix( m_matStatus, direction.z );
 
-	// direction¸¸Å­ È¸ÀüÇÑ´Ù.
+	// directionë§Œí¼ íšŒì „í•œë‹¤.
 	m_Direction = direction; 
 
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ À§Ä¡
+	// ì›ë˜ì˜ ìœ„ì¹˜
 	//-------------------------------------------------------
 	if (m_Position.x!=0 || m_Position.y!=0 || m_Position.z!=0)
 		CD3DMath::MultiplyTranslateMatrix( m_matStatus, m_Position );
@@ -383,25 +383,25 @@ void
 CD3DObject::SetDirection(float x, float y, float z)	
 { 
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ Å©±â
+	// ì›ë˜ì˜ í¬ê¸°
 	//-------------------------------------------------------
 //	if (m_Scale.x!=1 || m_Scale.y!=1 || m_Scale.z!=1)
 		CD3DMath::GetScaleMatrix( m_matStatus, m_Scale );
 
 	//-------------------------------------------------------
-	// »óÅÂ Matrix¸¦ positionÀ¸·Î ÀÌµ¿ÇÑ´Ù.
+	// ìƒíƒœ Matrixë¥¼ positionìœ¼ë¡œ ì´ë™í•œë‹¤.
 	//-------------------------------------------------------
 	CD3DMath::MultiplyRotateXMatrix( m_matStatus, x );
 	CD3DMath::MultiplyRotateYMatrix( m_matStatus, y );
 	CD3DMath::MultiplyRotateZMatrix( m_matStatus, z );
 
-	// direction¸¸Å­ È¸ÀüÇÑ´Ù.
+	// directionë§Œí¼ íšŒì „í•œë‹¤.
 	m_Direction.x = x; 
 	m_Direction.y = y; 
 	m_Direction.z = z; 
 	
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ À§Ä¡
+	// ì›ë˜ì˜ ìœ„ì¹˜
 	//-------------------------------------------------------
 	if (m_Position.x!=0 || m_Position.y!=0 || m_Position.z!=0)
 		CD3DMath::MultiplyTranslateMatrix( m_matStatus, m_Position );
@@ -415,15 +415,15 @@ void
 CD3DObject::SetScale(D3DVECTOR& Scale)	
 {	
 	//-------------------------------------------------------
-	// »óÅÂ Matrix¸¦ scaleÇÑ´Ù.
+	// ìƒíƒœ Matrixë¥¼ scaleí•œë‹¤.
 	//-------------------------------------------------------
 	CD3DMath::GetScaleMatrix( m_matStatus, Scale );
 
-	// Scale¸¸Å­ ScaleÇÑ´Ù.
+	// Scaleë§Œí¼ Scaleí•œë‹¤.
 	m_Scale = Scale; 
 
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ È¸Àü °¢µµ
+	// ì›ë˜ì˜ íšŒì „ ê°ë„
 	//-------------------------------------------------------
 	if (m_Direction.x!=0)
 		CD3DMath::MultiplyRotateXMatrix( m_matStatus, m_Direction.x );
@@ -435,7 +435,7 @@ CD3DObject::SetScale(D3DVECTOR& Scale)
 		CD3DMath::MultiplyRotateZMatrix( m_matStatus, m_Direction.z );
 
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ À§Ä¡
+	// ì›ë˜ì˜ ìœ„ì¹˜
 	//-------------------------------------------------------
 	if (m_Position.x!=0 || m_Position.y!=0 || m_Position.z!=0)
 		CD3DMath::MultiplyTranslateMatrix( m_matStatus, m_Position );
@@ -449,17 +449,17 @@ void
 CD3DObject::SetScale(float x, float y, float z)	
 { 
 	//-------------------------------------------------------
-	// »óÅÂ Matrix¸¦ scaleÇÑ´Ù.
+	// ìƒíƒœ Matrixë¥¼ scaleí•œë‹¤.
 	//-------------------------------------------------------
 	CD3DMath::GetScaleMatrix( m_matStatus, x, y, z );
 
-	// Scale¸¸Å­ ScaleÇÑ´Ù.
+	// Scaleë§Œí¼ Scaleí•œë‹¤.
 	m_Scale.x = x; 
 	m_Scale.y = y; 
 	m_Scale.z = z; 
 
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ È¸Àü °¢µµ
+	// ì›ë˜ì˜ íšŒì „ ê°ë„
 	//-------------------------------------------------------
 	if (m_Direction.x!=0)
 		CD3DMath::MultiplyRotateXMatrix( m_matStatus, m_Direction.x );
@@ -471,7 +471,7 @@ CD3DObject::SetScale(float x, float y, float z)
 		CD3DMath::MultiplyRotateZMatrix( m_matStatus, m_Direction.z );
 
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ À§Ä¡
+	// ì›ë˜ì˜ ìœ„ì¹˜
 	//-------------------------------------------------------
 	if (m_Position.x!=0 || m_Position.y!=0 || m_Position.z!=0)
 		CD3DMath::MultiplyTranslateMatrix( m_matStatus, m_Position );
@@ -480,21 +480,21 @@ CD3DObject::SetScale(float x, float y, float z)
 //-----------------------------------------------------------------------------
 // Move
 //-----------------------------------------------------------------------------
-// ÇöÀç À§Ä¡¿¡¼­ (x,y,z)¸¸Å­ ÀÌµ¿ÇÑ´Ù.
-// ¸ğµç VerticesµéÀ» MoveÇÑ´Ù.
-// ¿øÁ¡À¸·Î ÀÌµ¿ --> Move --> ¿ø·¡ ÁÂÇ¥·Î ÀÌµ¿...
+// í˜„ì¬ ìœ„ì¹˜ì—ì„œ (x,y,z)ë§Œí¼ ì´ë™í•œë‹¤.
+// ëª¨ë“  Verticesë“¤ì„ Moveí•œë‹¤.
+// ì›ì ìœ¼ë¡œ ì´ë™ --> Move --> ì›ë˜ ì¢Œí‘œë¡œ ì´ë™...
 //-----------------------------------------------------------------------------
 void
 CD3DObject::Move(float x, float y, float z)
 {
 	//-------------------------------------------------------
-	// »óÅÂ Matrix¸¦ ScaleÇÑ´Ù.
+	// ìƒíƒœ Matrixë¥¼ Scaleí•œë‹¤.
 	//-------------------------------------------------------
 	//if (m_Scale.x!=1 || m_Scale.y!=1 || m_Scale.z!=1)
 		CD3DMath::GetScaleMatrix( m_matStatus, m_Scale );
 
 	//-------------------------------------------------------
-	// »óÅÂ Matrix¸¦ È¸ÀüÇÑ´Ù.		
+	// ìƒíƒœ Matrixë¥¼ íšŒì „í•œë‹¤.		
 	//-------------------------------------------------------
 	if (m_Direction.x!=0)
 		CD3DMath::MultiplyRotateXMatrix( m_matStatus, m_Direction.x );
@@ -504,7 +504,7 @@ CD3DObject::Move(float x, float y, float z)
 		CD3DMath::MultiplyRotateZMatrix( m_matStatus, m_Direction.z );
 
 	//-------------------------------------------------------
-	// »óÅÂ Matrix¸¦ positionÀ¸·Î ÀÌµ¿ÇÑ´Ù.
+	// ìƒíƒœ Matrixë¥¼ positionìœ¼ë¡œ ì´ë™í•œë‹¤.
 	//-------------------------------------------------------
 	m_Position.x += x;
 	m_Position.y += y;
@@ -516,16 +516,16 @@ CD3DObject::Move(float x, float y, float z)
 //-----------------------------------------------------------------------------
 // Scale
 //-----------------------------------------------------------------------------
-// ÇöÀç Å©±â¿¡¼­ (x,y,z)¸¸Å­ °¢ ¹æÇâÀ¸·Î ¸ğµç VerticesµéÀ» ScaleÇÑ´Ù.
-// ¿øÁ¡À¸·Î ÀÌµ¿ --> Scale --> ¿ø·¡ ÁÂÇ¥·Î ÀÌµ¿...
+// í˜„ì¬ í¬ê¸°ì—ì„œ (x,y,z)ë§Œí¼ ê° ë°©í–¥ìœ¼ë¡œ ëª¨ë“  Verticesë“¤ì„ Scaleí•œë‹¤.
+// ì›ì ìœ¼ë¡œ ì´ë™ --> Scale --> ì›ë˜ ì¢Œí‘œë¡œ ì´ë™...
 //-----------------------------------------------------------------------------
 void
 CD3DObject::Scale(float x, float y, float z)
 {
 	//-------------------------------------------------------
-	// »óÅÂ Matrix¸¦ ScaleÇÑ´Ù.
+	// ìƒíƒœ Matrixë¥¼ Scaleí•œë‹¤.
 	//-------------------------------------------------------
-	// Scale¸¸Å­ ScaleÇÑ´Ù.
+	// Scaleë§Œí¼ Scaleí•œë‹¤.
 	m_Scale.x *= x; 
 	m_Scale.y *= y; 
 	m_Scale.z *= z; 	
@@ -538,7 +538,7 @@ CD3DObject::Scale(float x, float y, float z)
 	
 
 	//-------------------------------------------------------
-	// »óÅÂ Matrix¸¦ È¸ÀüÇÑ´Ù.		
+	// ìƒíƒœ Matrixë¥¼ íšŒì „í•œë‹¤.		
 	//-------------------------------------------------------
 	if (m_Direction.x!=0)
 		CD3DMath::MultiplyRotateXMatrix( m_matStatus, m_Direction.x );
@@ -548,7 +548,7 @@ CD3DObject::Scale(float x, float y, float z)
 		CD3DMath::MultiplyRotateZMatrix( m_matStatus, m_Direction.z );
 
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ À§Ä¡
+	// ì›ë˜ì˜ ìœ„ì¹˜
 	//-------------------------------------------------------
 	if (m_Position.x!=0 || m_Position.y!=0 || m_Position.z!=0)
 		CD3DMath::MultiplyTranslateMatrix( m_matStatus, m_Position );
@@ -557,21 +557,21 @@ CD3DObject::Scale(float x, float y, float z)
 //-----------------------------------------------------------------------------
 // Rotate
 //-----------------------------------------------------------------------------
-// ÇöÀç È¸ÀüµÈ °¢µµ¿¡¼­... (x,y,z)¸¸Å­
-// ¸ğµç VerticesµéÀ» RotateÇÑ´Ù.
-// ¿øÁ¡À¸·Î ÀÌµ¿ --> Rotate --> ¿ø·¡ ÁÂÇ¥·Î ÀÌµ¿...
+// í˜„ì¬ íšŒì „ëœ ê°ë„ì—ì„œ... (x,y,z)ë§Œí¼
+// ëª¨ë“  Verticesë“¤ì„ Rotateí•œë‹¤.
+// ì›ì ìœ¼ë¡œ ì´ë™ --> Rotate --> ì›ë˜ ì¢Œí‘œë¡œ ì´ë™...
 //-----------------------------------------------------------------------------
 void
 CD3DObject::Rotate(float x, float y, float z)
 {
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ Å©±â
+	// ì›ë˜ì˜ í¬ê¸°
 	//-------------------------------------------------------
 	//if (m_Scale.x!=1 || m_Scale.y!=1 || m_Scale.z!=1)
 		CD3DMath::GetScaleMatrix( m_matStatus, m_Scale );
 
 	//-------------------------------------------------------
-	// »óÅÂ Matrix¸¦ È¸ÀüÇÑ´Ù.		
+	// ìƒíƒœ Matrixë¥¼ íšŒì „í•œë‹¤.		
 	//-------------------------------------------------------
 	m_Direction.x += x;
 	m_Direction.y += y;
@@ -581,7 +581,7 @@ CD3DObject::Rotate(float x, float y, float z)
 	CD3DMath::MultiplyRotateZMatrix( m_matStatus, m_Direction.z );
 
 	//-------------------------------------------------------
-	// ¿ø·¡ÀÇ À§Ä¡
+	// ì›ë˜ì˜ ìœ„ì¹˜
 	//-------------------------------------------------------
 	if (m_Position.x!=0 || m_Position.y!=0 || m_Position.z!=0)
 		CD3DMath::MultiplyTranslateMatrix( m_matStatus, m_Position );
@@ -604,7 +604,7 @@ CD3DObject::SetMaterial(D3DMATERIAL7& mtrl)
 //-----------------------------------------------------------------------------
 // Create Cube (size)
 //-----------------------------------------------------------------------------
-// Cube(À°¸éÃ¼)¿¡ ´ëÇÑ Vertices¿Í IndicesµéÀ» »ı¼ºÇÑ´Ù.
+// Cube(ìœ¡ë©´ì²´)ì— ëŒ€í•œ Verticesì™€ Indicesë“¤ì„ ìƒì„±í•œë‹¤.
 //-----------------------------------------------------------------------------
 void
 CD3DObject::CreateCube(float sizeX, float sizeY, float sizeZ)
@@ -612,7 +612,7 @@ CD3DObject::CreateCube(float sizeX, float sizeY, float sizeZ)
 	//#define NUM_CUBE_VERTICES (6*4)
 	//#define NUM_CUBE_INDICES  (6*2*3)
 	//---------------------------------------------
-	// memory Àâ±â
+	// memory ì¡ê¸°
 	//---------------------------------------------
 	Init(24, 36);
 
@@ -681,7 +681,7 @@ CD3DObject::CreateCube(float sizeX, float sizeY, float sizeZ)
 //-----------------------------------------------------------------------------
 // Create Plane (size)
 //-----------------------------------------------------------------------------
-// Plane(Æò¸é)¿¡ ´ëÇÑ Vertices¿Í IndicesµéÀ» »ı¼ºÇÑ´Ù.
+// Plane(í‰ë©´)ì— ëŒ€í•œ Verticesì™€ Indicesë“¤ì„ ìƒì„±í•œë‹¤.
 //-----------------------------------------------------------------------------
 void
 CD3DObject::CreatePlane(float size)
@@ -689,7 +689,7 @@ CD3DObject::CreatePlane(float size)
 	//#define NUM_CUBE_VERTICES (2*4)
 	//#define NUM_CUBE_INDICES  (2*2*3)
 	//---------------------------------------------
-	// memory Àâ±â
+	// memory ì¡ê¸°
 	//---------------------------------------------
 	Init(8, 12);
 
@@ -723,22 +723,22 @@ CD3DObject::CreatePlane(float size)
 //-----------------------------------------------------------------------------
 // Create Cylinder (size)
 //-----------------------------------------------------------------------------
-// Cylinder(¿ø~±âµÕ)¿¡ ´ëÇÑ Vertices¿Í IndicesµéÀ» »ı¼ºÇÑ´Ù.
+// Cylinder(ì›~ê¸°ë‘¥)ì— ëŒ€í•œ Verticesì™€ Indicesë“¤ì„ ìƒì„±í•œë‹¤.
 //
-// r : ¹İÁö¸§ 
-// l : ±âµÕÀÇ ±æÀÌ 
-// n : ¿øÀ» ÀÌ·ç´Â »ï°¢Çü °³¼ö
+// r : ë°˜ì§€ë¦„ 
+// l : ê¸°ë‘¥ì˜ ê¸¸ì´ 
+// n : ì›ì„ ì´ë£¨ëŠ” ì‚¼ê°í˜• ê°œìˆ˜
 //-----------------------------------------------------------------------------
 void
 CD3DObject::CreateCylinder(float r, float l, int n)
 {
-	// ÃÖ¼ÒÇÑ »ï°¢ÇüÀº µÇ¾î¾ß ÇÑ´Ù.
+	// ìµœì†Œí•œ ì‚¼ê°í˜•ì€ ë˜ì–´ì•¼ í•œë‹¤.
 	if (n<3) n=3;
 
 	//#define NUM_CUBE_VERTICES (6*4)
 	//#define NUM_CUBE_INDICES  (6*2*3)
 	//---------------------------------------------
-	// memory Àâ±â
+	// memory ì¡ê¸°
 	//---------------------------------------------
 	Init(6*n+2, 12*n);
 	//Init(6*n+2, 6*n);
@@ -843,15 +843,15 @@ CD3DObject::CreateCylinder(float r, float l, int n)
 //-----------------------------------------------------------------------------
 // Create TilePlane (size)
 //-----------------------------------------------------------------------------
-// TilePlane¿¡ ´ëÇÑ Vertices¿Í IndicesµéÀ» »ı¼ºÇÑ´Ù.
-// Texture´Â ÀÏ´Ü... Å×½ºÆ®¿ë..
-// 256*256¿¡ (64*32)TileÀÌ 4*8°³ Ãâ·ÂµÇ¾î ÀÖ´Â°É »ç¿ëÇß´Ù.
+// TilePlaneì— ëŒ€í•œ Verticesì™€ Indicesë“¤ì„ ìƒì„±í•œë‹¤.
+// TextureëŠ” ì¼ë‹¨... í…ŒìŠ¤íŠ¸ìš©..
+// 256*256ì— (64*32)Tileì´ 4*8ê°œ ì¶œë ¥ë˜ì–´ ìˆëŠ”ê±¸ ì‚¬ìš©í–ˆë‹¤.
 //-----------------------------------------------------------------------------
 void
 CD3DObject::CreateTilePlane(int width, int height, float firstX, float firstY, float size)
 {
 	//---------------------------------------------
-	// memory Àâ±â
+	// memory ì¡ê¸°
 	//---------------------------------------------
 	Init(4*width*height, 6*width*height);
 	
@@ -875,7 +875,7 @@ CD3DObject::CreateTilePlane(int width, int height, float firstX, float firstY, f
 		x = firstX * size;
 		for (j=0; j<width; j++)
 		{	
-			// TextureÀÇ ºñÀ²
+			// Textureì˜ ë¹„ìœ¨
 			up = (float)(rand()%8)/8.0f;
 			down = up + lenY;
 			left = (float)(rand()%4)/4.0f;
@@ -906,7 +906,7 @@ CD3DObject::CreateTilePlane(int width, int height, float firstX, float firstY, f
 bool
 CD3DObject::LoadX(char *filename)
 {	
-	// Áö±İ ÀâÇôÀÖ´Â ¸Ş¸ğ¸®¸¦ Á¦°ÅÇÑ´Ù.
+	// ì§€ê¸ˆ ì¡í˜€ìˆëŠ” ë©”ëª¨ë¦¬ë¥¼ ì œê±°í•œë‹¤.
 	Release();	
 
 	m_pFile = new CD3DFile();

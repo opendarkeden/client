@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------
 // MStopZoneRandomEffectGenerator.h
 //----------------------------------------------------------------------
-// Áß½É¿¡¼­ »ç¹æÀ¸·Î Àû´çÇÑ(?) À§Ä¡¿¡
-// 4°³ÀÇ Effect¸¦ Ãâ·Â½ÃÅ²´Ù.
+// ì¤‘ì‹¬ì—ì„œ ì‚¬ë°©ìœ¼ë¡œ ì ë‹¹í•œ(?) ìœ„ì¹˜ì—
+// 4ê°œì˜ Effectë¥¼ ì¶œë ¥ì‹œí‚¨ë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__MSTOPZONERANDOMEFFECTGENERATOR_H__
@@ -17,7 +17,7 @@ class MStopZoneRandomEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_STOP_ZONE_RANDOM; }
 
-		// Effect»ı¼º
+		// Effectìƒì„±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

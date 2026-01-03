@@ -19,8 +19,8 @@
 //
 // Character inputer.
 //
-// Windows IME(Input Method Editor)¸¦ ÅëÇØ ÀÔ·Â¹ŞÀº ¹®ÀÚ¸¦ Ã³¸®ÇÑ´Ù.
-// DBCS(Double-Byte Character Set) ±â¹İÀÌ´Ù.
+// Windows IME(Input Method Editor)ë¥¼ í†µí•´ ì…ë ¥ë°›ì€ ë¬¸ìë¥¼ ì²˜ë¦¬í•œë‹¤.
+// DBCS(Double-Byte Character Set) ê¸°ë°˜ì´ë‹¤.
 //-----------------------------------------------------------------------------
 class CI
 {
@@ -29,7 +29,7 @@ protected :
 	// m_bl_insert_mode
 	//
 	// insert or edit mode
-	// °³º°ÀûÀÎ °´Ã¼¸¶´Ù ´Ù¸£°Ô ÇÏÁö ¾Ê±â À§ÇØ¼­ CI¿¡ Á¤ÀÇÇÑ´Ù.
+	// ê°œë³„ì ì¸ ê°ì²´ë§ˆë‹¤ ë‹¤ë¥´ê²Œ í•˜ì§€ ì•Šê¸° ìœ„í•´ì„œ CIì— ì •ì˜í•œë‹¤.
 	//
 	bool			m_bl_insert_mode; 
 
@@ -59,7 +59,7 @@ public:
 	bool	GetInsertModeState() const { return m_bl_insert_mode; }
 	void	ToggleInsertMode() { m_bl_insert_mode = !m_bl_insert_mode; }
 	bool	GetEndOfIME();
-	bool	ImeRunning() const { return m_bl_ime_running; } // IME°¡ ½ÇÇàÁß?
+	bool	ImeRunning() const { return m_bl_ime_running; } // IMEê°€ ì‹¤í–‰ì¤‘?
 	bool	GetCursorBlink() const;
 	void	ForceShowCursor() const;
 	void	FinishImeRunning();

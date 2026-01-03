@@ -1,53 +1,53 @@
 //-----------------------------------------------------------------------------
 // CIndexSprite.h
 //-----------------------------------------------------------------------------
-// width * height¸¸Å­ÀÇ pixelÀ» ÀúÀåÇØµÐ´Ù.
+// width * heightë§Œí¼ì˜ pixelì„ ì €ìž¥í•´ë‘”ë‹¤.
 //-----------------------------------------------------------------------------
-// ÇÑ pixelÀ» ÀúÀåÇÏ´Â ¹æ¹ýÀº ´ÙÀ½°ú °°´Ù.
+// í•œ pixelì„ ì €ìž¥í•˜ëŠ” ë°©ë²•ì€ ë‹¤ìŒê³¼ ê°™ë‹¤.
 //
 //    [1] 5:5:5 --> 2 bytes
 //    [2] 5:6:5 --> 2 bytes
 //    [3] R,G,B --> 3 bytes
 //
-// [3]Àº ¿ë·®ÀÌ Ä¿¼­ ¾ÈÁÁÀ¸¹Ç·Î [2]¹ø ¹æ¹ýÀ» »ç¿ëÇØ¼­
-// 5:5:5·Î °°Àº ¹æ½ÄÀ¸·Î ÀúÀåµÇµµ·Ï ÇÑ´Ù.
+// [3]ì€ ìš©ëŸ‰ì´ ì»¤ì„œ ì•ˆì¢‹ìœ¼ë¯€ë¡œ [2]ë²ˆ ë°©ë²•ì„ ì‚¬ìš©í•´ì„œ
+// 5:5:5ë¡œ ê°™ì€ ë°©ì‹ìœ¼ë¡œ ì €ìž¥ë˜ë„ë¡ í•œë‹¤.
 //
-// Memory´Â 5:5:5³ª 5:6:5·Î »ç¿ëÇÏÁö¸¸
-// disk¿¡´Â 5:6:5·Î ÀúÀåµÈ´Ù.
+// MemoryëŠ” 5:5:5ë‚˜ 5:6:5ë¡œ ì‚¬ìš©í•˜ì§€ë§Œ
+// diskì—ëŠ” 5:6:5ë¡œ ì €ìž¥ëœë‹¤.
 //
-// Áï, 5:5:5¸¦ »ç¿ëÇÏ´Â system¿¡¼­´Â 
-//    File(5:6:5) ---(5:5:5·Î º¯È¯)--> Memory(5:5:5)
-//    File(5:6:5) <--(5:6:5·Î º¯È¯)--- Memory(5:5:5)  ÀÌ·¸°Ô ÇØ¾ßµÈ´Ù.
+// ì¦‰, 5:5:5ë¥¼ ì‚¬ìš©í•˜ëŠ” systemì—ì„œëŠ” 
+//    File(5:6:5) ---(5:5:5ë¡œ ë³€í™˜)--> Memory(5:5:5)
+//    File(5:6:5) <--(5:6:5ë¡œ ë³€í™˜)--- Memory(5:5:5)  ì´ë ‡ê²Œ í•´ì•¼ëœë‹¤.
 //
 //-----------------------------------------------------------------------------
-// - ³»ºÎÀûÀ¸·Î Åõ¸í»ö ¾ÐÃàÀ» »ç¿ëÇÑ´Ù.
-// - IndexSetÀÇ Gradation»ö±òº°·Î ¾ÐÃà(?)ÇÑ´Ù. (È¿À²Àº ³ôÁö ¾ÊÀ» µí ÇÏ´Ù)
+// - ë‚´ë¶€ì ìœ¼ë¡œ íˆ¬ëª…ìƒ‰ ì••ì¶•ì„ ì‚¬ìš©í•œë‹¤.
+// - IndexSetì˜ Gradationìƒ‰ê¹”ë³„ë¡œ ì••ì¶•(?)í•œë‹¤. (íš¨ìœ¨ì€ ë†’ì§€ ì•Šì„ ë“¯ í•˜ë‹¤)
 //
 //
-// [ ÇÑ ÁÙÀÇ Á¤º¸ ]
+// [ í•œ ì¤„ì˜ ì •ë³´ ]
 //
-// (Åõ¸íPair¹Ýº¹¼ö) 
-//    ( (Åõ¸í»ö¼ö, IndexPair¹Ýº¹¼ö, 
-//                 (index»ö¼ö, indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (index»ö¼ö, indexSet¹øÈ£, gradation¹øÈ£), 
+// (íˆ¬ëª…Pairë°˜ë³µìˆ˜) 
+//    ( (íˆ¬ëª…ìƒ‰ìˆ˜, IndexPairë°˜ë³µìˆ˜, 
+//                 (indexìƒ‰ìˆ˜, indexSetë²ˆí˜¸, gradationë²ˆí˜¸), 
+//                 (indexìƒ‰ìˆ˜, indexSetë²ˆí˜¸, gradationë²ˆí˜¸), 
 //                              .     
 //                              .     
 //                              .     
-//        °íÁ¤µÈ»ö±ò¼ö, °íÁ¤µÈ»ö±òµé)
-//       (Åõ¸í»ö¼ö, IndexPair¹Ýº¹¼ö, 
-//                 (index»ö¼ö, indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (index»ö¼ö, indexSet¹øÈ£, gradation¹øÈ£), 
+//        ê³ ì •ëœìƒ‰ê¹”ìˆ˜, ê³ ì •ëœìƒ‰ê¹”ë“¤)
+//       (íˆ¬ëª…ìƒ‰ìˆ˜, IndexPairë°˜ë³µìˆ˜, 
+//                 (indexìƒ‰ìˆ˜, indexSetë²ˆí˜¸, gradationë²ˆí˜¸), 
+//                 (indexìƒ‰ìˆ˜, indexSetë²ˆí˜¸, gradationë²ˆí˜¸), 
 //                              .     
 //                              .     
 //                              .     
-//        °íÁ¤µÈ»ö±ò¼ö, °íÁ¤µÈ»ö±òµé)
+//        ê³ ì •ëœìƒ‰ê¹”ìˆ˜, ê³ ì •ëœìƒ‰ê¹”ë“¤)
 //    )
 //
 //
-// Åõ¸í»ö°ú Gradation Index°ª°ú »ö±ò°ªÀ» °°ÀÌ ÀúÀåÇÑ´Ù.
+// íˆ¬ëª…ìƒ‰ê³¼ Gradation Indexê°’ê³¼ ìƒ‰ê¹”ê°’ì„ ê°™ì´ ì €ìž¥í•œë‹¤.
 //-----------------------------------------------------------------------------
 //
-// SetColorSet555³ª SetColorSet565¸¦ ²À!! ¿ÜºÎ¿¡¼­ ½ÇÇà½ÃÄÑÁà¾ß ÇÑ´Ù.
+// SetColorSet555ë‚˜ SetColorSet565ë¥¼ ê¼­!! ì™¸ë¶€ì—ì„œ ì‹¤í–‰ì‹œì¼œì¤˜ì•¼ í•œë‹¤.
 //
 //-----------------------------------------------------------------------------
 
@@ -61,19 +61,19 @@ class ifstream;
 //-----------------------------------------------------------------------------
 // Defines
 //-----------------------------------------------------------------------------
-// Maximum value¼³Á¤
-#define	MAX_COLORSET_SEED			33	// ±âº» »ö»óÀÇ °³¼ö
-#define	MAX_COLORSET_SEED_MODIFY	15	// ±âº» »ö»ó¸¶´ÙÀÇ º¯Çü »ö±ò ¼ö
+// Maximum valueì„¤ì •
+#define	MAX_COLORSET_SEED			33	// ê¸°ë³¸ ìƒ‰ìƒì˜ ê°œìˆ˜
+#define	MAX_COLORSET_SEED_MODIFY	15	// ê¸°ë³¸ ìƒ‰ìƒë§ˆë‹¤ì˜ ë³€í˜• ìƒ‰ê¹” ìˆ˜
 #define	MAX_COLORSET				495 // MAX_COLORSET_SEED * MAX_COLORSET_SEED_MODIFY
 #define	MAX_COLORGRADATION			30
 #define	MAX_COLOR_TO_GRADATION		93	// R+G+B
 #define	MAX_COLORGRADATION_HALF		15	// == MAX_COLORSET_SEED_MODIFY
 #define	MAX_DARKBIT					5
 
-// ÇÑ Sprite¿¡¼­ »ç¿ëÇÏ´Â ÃÖ´ëÀÇ ColorSet¼ö
+// í•œ Spriteì—ì„œ ì‚¬ìš©í•˜ëŠ” ìµœëŒ€ì˜ ColorSetìˆ˜
 #define	MAX_COLORSET_USE			256
 
-// index°ª ¼³Á¤
+// indexê°’ ì„¤ì •
 #define	INDEX_NULL					0xFF
 #define	INDEX_SELECT				0xFE
 #define	INDEX_TRANS					0xFD
@@ -90,7 +90,7 @@ class CIndexSprite {
 		void		operator = (const CIndexSprite& Sprite);
 
 		//---------------------------------------------------------
-		// Static ColorSet TableÀ» ÃÊ±âÈ­ ÇØÁØ´Ù.
+		// Static ColorSet Tableì„ ì´ˆê¸°í™” í•´ì¤€ë‹¤.
 		//---------------------------------------------------------
 		static	BOOL	SaveIndexTableToFile(class ofstream& file);
 		static	BOOL	LoadIndexTableFromFile(class ifstream& file);
@@ -103,15 +103,15 @@ class CIndexSprite {
 
 
 		//---------------------------------------------------------
-		// CDirectDrawSurfaceÀÇ ¿µ¿ªÀ» ÀÐ¾î¼­ m_Pixels¿¡ ÀúÀåÇÑ´Ù.
+		// CDirectDrawSurfaceì˜ ì˜ì—­ì„ ì½ì–´ì„œ m_Pixelsì— ì €ìž¥í•œë‹¤.
 		//---------------------------------------------------------
 		void		SetPixel(WORD* pSource, WORD sourcePitch, 
-							 WORD* pIndex1, WORD indexPitch1,	// Ã¹¹øÂ° index
-							 WORD* pIndex2, WORD indexPitch2,	// µÎ¹øÂ° index
+							 WORD* pIndex1, WORD indexPitch1,	// ì²«ë²ˆì§¸ index
+							 WORD* pIndex2, WORD indexPitch2,	// ë‘ë²ˆì§¸ index
 							 WORD width, WORD height);
 
 		//---------------------------------------------------------
-		// color¿¡ ´ëÀÀÇÏ´Â index»ö¹øÈ£¸¦ Ã£´Â´Ù.
+		// colorì— ëŒ€ì‘í•˜ëŠ” indexìƒ‰ë²ˆí˜¸ë¥¼ ì°¾ëŠ”ë‹¤.
 		//---------------------------------------------------------
 		static	BYTE	GetIndexColor(WORD color);
 		static	BYTE	GetColorToGradation(BYTE color);
@@ -123,18 +123,18 @@ class CIndexSprite {
 		void			GetIndexInfo(WORD**& ppIndex);
 
 		//---------------------------------------------------------
-		// m_PixelsÀÇ memory¸¦ ReleaseÇÑ´Ù.		
+		// m_Pixelsì˜ memoryë¥¼ Releaseí•œë‹¤.		
 		//---------------------------------------------------------
 		void		Release();
 
 		//---------------------------------------------------------
-		// Åõ¸í Color 
+		// íˆ¬ëª… Color 
 		//---------------------------------------------------------
 		static void	SetColorkey(WORD color)			{ s_Colorkey = color; }
 		static WORD	GetColorkey() 					{ return s_Colorkey; }
 
 		//---------------------------------------------------------
-		// fstream¿¡¼­ save/load¸¦ ÇÑ´Ù.
+		// fstreamì—ì„œ save/loadë¥¼ í•œë‹¤.
 		//---------------------------------------------------------
 		virtual bool		SaveToFile(class ofstream& file) = 0;
 		virtual bool		LoadFromFile(class ifstream& file) = 0;		
@@ -148,7 +148,7 @@ class CIndexSprite {
 		WORD*		GetPixelLine(WORD y)	const	{ return m_Pixels[y]; }
 		
 		//---------------------------------------------------------
-		// (x,y)´Â »ö±òÀÌ ÀÖ´Â ºÎºÐÀÎ°¡?
+		// (x,y)ëŠ” ìƒ‰ê¹”ì´ ìžˆëŠ” ë¶€ë¶„ì¸ê°€?
 		//---------------------------------------------------------
 		bool		IsColorPixel(short x, short y);
 
@@ -162,7 +162,7 @@ class CIndexSprite {
 		void		BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect);
 
 		//---------------------------------------------------------
-		// ¾îµÓ°Ô ÇÏ±â
+		// ì–´ë‘¡ê²Œ í•˜ê¸°
 		//---------------------------------------------------------
 		void		BltDarkness(WORD *pDest, WORD pitch, BYTE DarkBits);		
 		void		BltDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE DarkBits);
@@ -171,7 +171,7 @@ class CIndexSprite {
 		void		BltDarknessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE DarkBits);
 
 		//---------------------------------------------------------
-		// ¹à°Ô ÇÏ±â
+		// ë°ê²Œ í•˜ê¸°
 		//---------------------------------------------------------
 		void		BltBrightness(WORD *pDest, WORD pitch, BYTE DarkBits);		
 		void		BltBrightnessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE DarkBits);
@@ -189,7 +189,7 @@ class CIndexSprite {
 		void		BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha);
 
 		//---------------------------------------------------------
-		// Æ¯Á¤»ö±ò·Î Âï±â
+		// íŠ¹ì •ìƒ‰ê¹”ë¡œ ì°ê¸°
 		//---------------------------------------------------------
 		void		BltColor(WORD *pDest, WORD pitch, BYTE rgb);		
 
@@ -200,7 +200,7 @@ class CIndexSprite {
 		void		BltColorClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb);
 
 		//---------------------------------------------------------
-		// Æ¯Á¤ColorSetÀ¸·Î Âï±â
+		// íŠ¹ì •ColorSetìœ¼ë¡œ ì°ê¸°
 		//---------------------------------------------------------
 		void		BltColorSet(WORD *pDest, WORD pitch, WORD colorSet);		
 		void		BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD colorSet);
@@ -228,27 +228,27 @@ class CIndexSprite {
 		// ColorSet Table
 		//--------------------------------------------------------
 		// 25 Set ,  13 Gradation
-		static WORD		ColorSet[MAX_COLORSET][MAX_COLORGRADATION];			// ½ÇÁ¦ »ö
-		static WORD		GradationValue[MAX_COLORGRADATION];					// °¢ gradationÀÇ °ª - IndexEditor¿¡¼­ °è»êÀ» À§ÇÑ °ª
-		static WORD		ColorSetDarkness[MAX_DARKBIT][MAX_COLORSET][MAX_COLORGRADATION];	// ¾îµÓ°Ô ÇßÀ» ¶§ÀÇ »ö±ò °ª
-		static BYTE		ColorToGradation[MAX_COLOR_TO_GRADATION];			// R+G+BÀÇ °ªÀ¸·Î Gradation°ªÀ» ¾ò¾î³½´Ù.
+		static WORD		ColorSet[MAX_COLORSET][MAX_COLORGRADATION];			// ì‹¤ì œ ìƒ‰
+		static WORD		GradationValue[MAX_COLORGRADATION];					// ê° gradationì˜ ê°’ - IndexEditorì—ì„œ ê³„ì‚°ì„ ìœ„í•œ ê°’
+		static WORD		ColorSetDarkness[MAX_DARKBIT][MAX_COLORSET][MAX_COLORGRADATION];	// ì–´ë‘¡ê²Œ í–ˆì„ ë•Œì˜ ìƒ‰ê¹” ê°’
+		static BYTE		ColorToGradation[MAX_COLOR_TO_GRADATION];			// R+G+Bì˜ ê°’ìœ¼ë¡œ Gradationê°’ì„ ì–»ì–´ë‚¸ë‹¤.
 
 	protected :
-		WORD			m_Width;		// °¡·Î pixel¼ö
-		WORD			m_Height;		// ¼¼·Î pixel¼ö		
+		WORD			m_Width;		// ê°€ë¡œ pixelìˆ˜
+		WORD			m_Height;		// ì„¸ë¡œ pixelìˆ˜		
 		WORD**			m_Pixels;		// pixels
-		bool			m_bInit;		// data°¡ ÀÖ´Â°¡?
+		bool			m_bInit;		// dataê°€ ìžˆëŠ”ê°€?
 
 		static WORD		s_Colorkey;
 	
-		// Blt Value (parameter ´ë¿ë)
+		// Blt Value (parameter ëŒ€ìš©)
 		static int		s_IndexValue[MAX_COLORSET_USE];
 
 	
 	public :		
 		typedef void (*FUNCTION_MEMCPYEFFECT)(WORD*, WORD*, WORD);
 
-		// memcpyEffectÀÇ Á¾·ù
+		// memcpyEffectì˜ ì¢…ë¥˜
 		enum FUNCTION_EFFECT
 		{
 			EFFECT_DARKER = 0,

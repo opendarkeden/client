@@ -75,11 +75,11 @@ string XMLUtil::WideCharToString(const wchar_t * wstr, int wstrlen)
 	//	For the code pages mentioned in dwFlags, lpUsedDefaultChar must be NULL, 
 	//  otherwise the function fails with ERROR_INVALID_PARAMETER. 
 
-	// ÃÖ¼ÒÇÑÀÇ º¹»ç¸¦ ÁÙÀÌ±â À§ÇØ¼­ ½ºÆ®¸µÀ» ÁØºñ. 	
+	// ìµœì†Œí•œì˜ ë³µì‚¬ë¥¼ ì¤„ì´ê¸° ìœ„í•´ì„œ ìŠ¤íŠ¸ë§ì„ ì¤€ë¹„. 	
 	char szTemp[5120];
 
 	string strBuffer;
-	strBuffer.reserve( wstrlen * 2 + 1 );		// capacity ¸¦ ÃæºĞÇÏ°Ô.. 
+	strBuffer.reserve( wstrlen * 2 + 1 );		// capacity ë¥¼ ì¶©ë¶„í•˜ê²Œ.. 
 	int nCopied = WideCharToMultiByte(
 		CP_OEMCP,
 		WC_COMPOSITECHECK,
@@ -87,10 +87,10 @@ string XMLUtil::WideCharToString(const wchar_t * wstr, int wstrlen)
 		wstrlen,								// length of wide string
 		szTemp, //const_cast<LPSTR>(strBuffer.data()),	// mbcs string (unicode)
 		5120,//(int)strBuffer.capacity(),					// length of mbcs string
-		NULL,									// NULL ÀÌ ºü¸£´Ù´Âµ¥?
+		NULL,									// NULL ì´ ë¹ ë¥´ë‹¤ëŠ”ë°?
 		NULL );
 	szTemp[nCopied] = NULL;
-//	strBuffer._Mysize = nCopied;				// ¼öµ¿À¸·Î ÁöÁ¤ÇØ¾ß ÇÑ´Ù.
+//	strBuffer._Mysize = nCopied;				// ìˆ˜ë™ìœ¼ë¡œ ì§€ì •í•´ì•¼ í•œë‹¤.
 
 	strBuffer = szTemp;
 
@@ -325,7 +325,7 @@ XMLTree::AddChild( IN XMLTree *pChild )
 OUT XMLTree*
 XMLTree::AddChildOnlyVector( IN XMLTree *pChild )
 {
-	// Áßº¹ ÀÌ¸§ÀÌ ÀÖ¾îµµ º¤ÅÍ¿£ ¹«Àú°Ç ³ÖÀ½
+	// ì¤‘ë³µ ì´ë¦„ì´ ìˆì–´ë„ ë²¡í„°ì—” ë¬´ì €ê±´ ë„£ìŒ
 	m_ChildrenVector.push_back( pChild );
 
 	// 
@@ -635,7 +635,7 @@ XMLParser::~XMLParser()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-/// \brief ÁöÁ¤µÈ À§Ä¡¿¡ ÀÖ´Â ÆÄÀÏ ¶Ç´Â À¥ ¹®¼­¸¦ ÆÄ½ÌÇÑ´Ù.
+/// \brief ì§€ì •ëœ ìœ„ì¹˜ì— ìˆëŠ” íŒŒì¼ ë˜ëŠ” ì›¹ ë¬¸ì„œë¥¼ íŒŒì‹±í•œë‹¤.
 /// 
 /// \param pURL 
 //////////////////////////////////////////////////////////////////////////////
@@ -644,8 +644,8 @@ XMLParser::~XMLParser()
 //	assert(pURL != NULL);
 //	assert(m_pHandler != NULL);
 //
-//	// SAX ÆÄ¼­ ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù. ±×¸®°í feature¸¦ ¼³Á¤ÇÑ´Ù.
-//	// SAX2¿¡¼­ Áö¿øµÇ´Â feature´Â ´ÙÀ½°ú °°´Ù.
+//	// SAX íŒŒì„œ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤. ê·¸ë¦¬ê³  featureë¥¼ ì„¤ì •í•œë‹¤.
+//	// SAX2ì—ì„œ ì§€ì›ë˜ëŠ” featureëŠ” ë‹¤ìŒê³¼ ê°™ë‹¤.
 //	//
 //	// validation (default: true) 
 //	// namespaces (default: true) 
@@ -658,7 +658,7 @@ XMLParser::~XMLParser()
 //	// continue-after-fatal-error (default: false) 
 //	// validation-error-as-fatal (default: false) 
 //	//
-//	// ÀÚ¼¼ÇÑ »çÇ×Àº ´ÙÀ½ ÁÖ¼Ò¸¦ Âü°íÇÏ±â ¹Ù¶õ´Ù.
+//	// ìì„¸í•œ ì‚¬í•­ì€ ë‹¤ìŒ ì£¼ì†Œë¥¼ ì°¸ê³ í•˜ê¸° ë°”ë€ë‹¤.
 //	// http://xml.apache.org/xerces-c/program-sax2.html#SAX2Features 
 //	SAX2XMLReader* pParser = XMLReaderFactory::createXMLReader();
 //	pParser->setFeature(XMLUni::fgSAX2CoreNameSpaces, true);
@@ -690,7 +690,7 @@ XMLParser::~XMLParser()
 //}
 
 //////////////////////////////////////////////////////////////////////////////
-/// \brief ÀÎ¼ö·Î ³Ñ°ÜÁö´Â ¹®ÀÚ¿­À» XML ¹®¼­·Î °¡Á¤ÇÏ°í ÆÄ½ÌÇÑ´Ù.
+/// \brief ì¸ìˆ˜ë¡œ ë„˜ê²¨ì§€ëŠ” ë¬¸ìì—´ì„ XML ë¬¸ì„œë¡œ ê°€ì •í•˜ê³  íŒŒì‹±í•œë‹¤.
 /// 
 /// \param buffer 
 //////////////////////////////////////////////////////////////////////////////
@@ -734,10 +734,10 @@ char* XMLParser::parse(char* buffer, XMLTree *pTree, bool IsUseOnlyVector)
 		name[nameLen] = '\0';
 		pXml += nameLen;
 
-		// 2004, 08, 07, ¼®¹Î¾¾ ¼öÁ¤ start - ÁÖ¼®ÀÌ ¼öÁ¤
+		// 2004, 08, 07, ì„ë¯¼ì”¨ ìˆ˜ì • start - ì£¼ì„ì´ ìˆ˜ì •
 		pXml = pXml + strspn( pXml, chXMLTrimToken );
 		//pXml = pXml + strspn( pXml, chXMLAttrToken )+1;
-		// 2004, 08, 07, ¼®¹Î¾¾ ¼öÁ¤ end
+		// 2004, 08, 07, ì„ë¯¼ì”¨ ìˆ˜ì • end
 		size_t nameLen2 = strcspn( pXml, chXMLAttrToken );
 		memcpy( name2, pXml, nameLen2 );
 		name2[nameLen2] = '\0';
@@ -794,8 +794,8 @@ char* XMLParser::parse(char* buffer, XMLTree *pTree, bool IsUseOnlyVector)
 
 	return strchr(pChildTag+1, chXMLTagOpen);
 
-	// SAX ÆÄ¼­ ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù. ±×¸®°í feature¸¦ ¼³Á¤ÇÑ´Ù.
-	// feature¿¡ °üÇÑ »çÇ×Àº XMLParser::parseURL() ÇÔ¼ö¸¦ Âü°íÇÏ±â ¹Ù¶õ´Ù.
+	// SAX íŒŒì„œ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤. ê·¸ë¦¬ê³  featureë¥¼ ì„¤ì •í•œë‹¤.
+	// featureì— ê´€í•œ ì‚¬í•­ì€ XMLParser::parseURL() í•¨ìˆ˜ë¥¼ ì°¸ê³ í•˜ê¸° ë°”ë€ë‹¤.
 //	SAX2XMLReader* pParser = XMLReaderFactory::createXMLReader();
 //	pParser->setFeature(XMLUni::fgSAX2CoreNameSpaces, true);
 //	pParser->setFeature(XMLUni::fgXercesSchema, true);

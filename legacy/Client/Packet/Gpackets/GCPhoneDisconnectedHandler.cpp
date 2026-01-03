@@ -21,14 +21,14 @@ void GCPhoneDisconnectedHandler::execute ( GCPhoneDisconnected * pPacket , Playe
 
 
 	//------------------------------------------------------------------
-	// ¡¢º”¿Ã ≤˜±‰ slot √º≈©«—¥Ÿ.
+	// Ï†ëÏÜçÏù¥ ÎÅäÍ∏¥ slot Ï≤¥ÌÅ¨ÌïúÎã§.
 	//------------------------------------------------------------------
 	int slot = pPacket->getSlotID();
 	g_pUserInformation->OtherPCSNumber[ slot ] = 0;
 	g_pUserInformation->PCSUserName[ slot ].Release();
 
 	//------------------------------------------------------------------
-	// PCS ¡¢º” «ÿ¡¶
+	// PCS Ï†ëÏÜç Ìï¥Ï†ú
 	//------------------------------------------------------------------
 	//UI_AcquireQuitPCSOnlineModeMessage();
 //	UI_DisconnectPCS( slot );

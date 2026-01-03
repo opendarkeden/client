@@ -9,26 +9,26 @@ DWORD	CSpritePal::s_Value3 = 1;
 
 void CSpritePal::SetPixel(BYTE *pSource, WORD pitch, WORD width, WORD height)
 {
-	// memoryÇØÁ¦
+	// memoryí•´ì œ
 	Release();
 
 	m_Width = width;
 	m_Height = height;
 
-	// ÀÏ´Ü memory¸¦ Àû´çÈ÷ Àâ¾ÆµĞ´Ù.	
+	// ì¼ë‹¨ memoryë¥¼ ì ë‹¹íˆ ì¡ì•„ë‘”ë‹¤.	
 	BYTE*	data = new BYTE[m_Width*2+10];
 
-	int		index;				// dataÀÇ index·Î »ç¿ë
-	int		count;				// ¹İº¹¼ö
-	int		trans,				// Åõ¸í»ö °³¼ö
-			color;				// Åõ¸íÀÌ ¾Æ´Ñ»ö °³¼ö
+	int		index;				// dataì˜ indexë¡œ ì‚¬ìš©
+	int		count;				// ë°˜ë³µìˆ˜
+	int		trans,				// íˆ¬ëª…ìƒ‰ ê°œìˆ˜
+			color;				// íˆ¬ëª…ì´ ì•„ë‹Œìƒ‰ ê°œìˆ˜
 
-	BOOL	bCheckTrans;		// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô Åõ¸í»öÀÎ°¡?
+	BOOL	bCheckTrans;		// ìµœê·¼ì— ê²€ì‚¬í•œê²Œ íˆ¬ëª…ìƒ‰ì¸ê°€?
 
 	BYTE	*pSourceTemp;
 
 
-	// heightÁÙ ¸¸Å­ memoryÀâ±â
+	// heightì¤„ ë§Œí¼ memoryì¡ê¸°
 	m_pPixels = new BYTE* [height];
 	BYTE **Pixels = new BYTE* [height];
 	std::vector<int> PixelSize;
@@ -45,16 +45,16 @@ void CSpritePal::SetPixel(BYTE *pSource, WORD pitch, WORD width, WORD height)
 		bCheckTrans = TRUE;
 		pSourceTemp = pSource;
 
-//		// °¢ line¿¡ ´ëÇØ¼­ ¾ĞÃà~
+//		// ê° lineì— ëŒ€í•´ì„œ ì••ì¶•~
 //		for (j=0; j<width; j++)
 //		{
-//			// 0¹ø color¿¡ ´ëÇØ¼­ ¾ĞÃà
+//			// 0ë²ˆ colorì— ëŒ€í•´ì„œ ì••ì¶•
 //			if (*pSourceTemp==s_Colorkey)
 //			{
-//				// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô Åõ¸í»öÀÌ ¾Æ´Ï¾ú´Ù¸é
+//				// ìµœê·¼ì— ê²€ì‚¬í•œê²Œ íˆ¬ëª…ìƒ‰ì´ ì•„ë‹ˆì—ˆë‹¤ë©´
 //				if (!bCheckTrans)
 //				{
-//					// ' (Åõ¸í,»ö±ò¼ö,»ö±òµé) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
+//					// ' (íˆ¬ëª…,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤) 'ì˜ í•œ setê°€ ëë‚¬ìŒì„ ì˜ë¯¸í•˜ë¯€ë¡œ
 //					count++;					
 //					data[lastColorIndex] = color;
 //					color = 0;
@@ -64,15 +64,15 @@ void CSpritePal::SetPixel(BYTE *pSource, WORD pitch, WORD width, WORD height)
 //			}
 //			else
 //			{
-//				// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô Åõ¸í»öÀÌ¾ú´Ù¸é..
+//				// ìµœê·¼ì— ê²€ì‚¬í•œê²Œ íˆ¬ëª…ìƒ‰ì´ì—ˆë‹¤ë©´..
 //				if (bCheckTrans)
 //				{						
-//					data[index++] = trans;		// »óÀ§ byte¿¡ Åõ¸í¼ö¸¦ ³Ö´Â´Ù.
+//					data[index++] = trans;		// ìƒìœ„ byteì— íˆ¬ëª…ìˆ˜ë¥¼ ë„£ëŠ”ë‹¤.
 //					trans = 0;
-//					lastColorIndex=index++;			// »ö±ò¼ö¸¦ ³ÖÀ» À§Ä¡¸¦ ±â¾ï
+//					lastColorIndex=index++;			// ìƒ‰ê¹”ìˆ˜ë¥¼ ë„£ì„ ìœ„ì¹˜ë¥¼ ê¸°ì–µ
 //					bCheckTrans = FALSE;
 //				}
-//				data[index++] = *pSourceTemp;	// ½ÇÁ¦ »ö±òÀ» ÀúÀåÇÑ´Ù.
+//				data[index++] = *pSourceTemp;	// ì‹¤ì œ ìƒ‰ê¹”ì„ ì €ì¥í•œë‹¤.
 //				color++;								
 //			}
 //			pSourceTemp++;
@@ -109,24 +109,24 @@ void CSpritePal::SetPixel(BYTE *pSource, WORD pitch, WORD width, WORD height)
 			}			
 		}
 		
-//		// ÇÑ ÁÙÀÇ ¸¶Áö¸· Á¡ÀÌ Åõ¸í»öÀÎ°¡?
+//		// í•œ ì¤„ì˜ ë§ˆì§€ë§‰ ì ì´ íˆ¬ëª…ìƒ‰ì¸ê°€?
 //		if (bCheckTrans)
 //		{
-//			// Åõ¸í»öÀÌ¸é º°´Ù¸¥ Ã³¸®¸¦ ¾ÈÇØÁàµµ µÉ°Å °°´Ù.
+//			// íˆ¬ëª…ìƒ‰ì´ë©´ ë³„ë‹¤ë¥¸ ì²˜ë¦¬ë¥¼ ì•ˆí•´ì¤˜ë„ ë ê±° ê°™ë‹¤.
 //		}	
-//		// Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì, Á¡ÀÇ °³¼ö¸¦ ÀúÀå½ÃÄÑÁà¾ß ÇÑ´Ù.
+//		// íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°, ì ì˜ ê°œìˆ˜ë¥¼ ì €ì¥ì‹œì¼œì¤˜ì•¼ í•œë‹¤.
 //		else
 //		{			
 //			count++;
 //			data[lastColorIndex] = color;
 //		}
 		
-		// memory¸¦ ´Ù½Ã Àâ´Â´Ù.
+		// memoryë¥¼ ë‹¤ì‹œ ì¡ëŠ”ë‹¤.
 		Pixels[i] = new BYTE [index+1];
 		m_Size += index+1;
 
-		// m_pPixels[i]¸¦ ¾ĞÃàÇßÀ¸¹Ç·Î data·Î ´ëÃ¼ÇÑ´Ù.
-		// m_pPixels[i][0]¿¡´Â count¸¦ ³Ö¾î¾ß ÇÑ´Ù.
+		// m_pPixels[i]ë¥¼ ì••ì¶•í–ˆìœ¼ë¯€ë¡œ dataë¡œ ëŒ€ì²´í•œë‹¤.
+		// m_pPixels[i][0]ì—ëŠ” countë¥¼ ë„£ì–´ì•¼ í•œë‹¤.
 		Pixels[i][0] = count;
 		memcpy(Pixels[i]+1, data, index);
 		PixelSize.push_back(index+1);
@@ -176,17 +176,17 @@ void CSpritePal::Blt(int x, int y, WORD* pDest, int pitch, MPalette &pal)
 			pPixels		= m_pPixels[i];
 			pDestTemp = (WORD*)((BYTE*)pDest + i*pitch);
 			
-			// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+			// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 			count	= *pPixels++;		
-			// ÇÑ ÁÙ Ãâ·Â
+			// í•œ ì¤„ ì¶œë ¥
 			if (count > 0)
 			{	
 				j = count;
 				do {
-					pDestTemp += *pPixels++;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+					pDestTemp += *pPixels++;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 					
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					for(k = 0; k < colorCount; k++)
 					{
 						memcpy((void*)(pDestTemp+k), (void*)(&pal[*(pPixels+k)]), 2);
@@ -204,7 +204,7 @@ void CSpritePal::Blt(int x, int y, WORD* pDest, int pitch, MPalette &pal)
 //----------------------------------------------------------------------
 // BltEffect
 //----------------------------------------------------------------------
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void
 CSpritePal::BltEffect(WORD *pDest, WORD pitch, MPalette &pal)
@@ -229,19 +229,19 @@ CSpritePal::BltEffect(WORD *pDest, WORD pitch, MPalette &pal)
 			pPixels		= m_pPixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+			// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 			count	= *pPixels++;		
 
-			// ÇÑ ÁÙ Ãâ·Â
+			// í•œ ì¤„ ì¶œë ¥
 			if (count > 0)
 			{
 				j = count;
 				do 
 				{
-					pDestTemp += *pPixels++;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+					pDestTemp += *pPixels++;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					CSpriteSurface::memcpyPalEffect(pDestTemp, pPixels, colorCount, pal);
 					
 					pDestTemp	+= colorCount;
@@ -257,8 +257,8 @@ CSpritePal::BltEffect(WORD *pDest, WORD pitch, MPalette &pal)
 //----------------------------------------------------------------------
 // BltEffect ClipLeft
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// pRect->left°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// pRect->leftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CSpritePal::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pal)
@@ -267,7 +267,7 @@ CSpritePal::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pa
 	BYTE	*pPixels;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -279,7 +279,7 @@ CSpritePal::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pa
 	register int j;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
@@ -288,91 +288,91 @@ CSpritePal::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pa
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do 
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += index - rectLeft;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						CSpriteSurface::memcpyPalEffect(pDestTemp, pPixels, colorCount, pal);
 						pDestTemp += colorCount;
 						pPixels += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = rectLeft - index;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						CSpriteSurface::memcpyPalEffect(pDestTemp, pPixels+dist, colorCount-dist, pal);					
 						pDestTemp += colorCount-dist;
 						pPixels += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.		
 			//---------------------------------------------		
 			if (--j > 0)
 			{
 				do 
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					pDestTemp += transCount;			
 					
-					// Åõ¸í»öÀÌ ¾Æ´Ñ¸¸Å­ Ãâ·ÂÇØÁØ´Ù.
+					// íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œë§Œí¼ ì¶œë ¥í•´ì¤€ë‹¤.
 					CSpriteSurface::memcpyPalEffect(pDestTemp, pPixels, colorCount, pal);
 
-					// memory addr Áõ°¡
+					// memory addr ì¦ê°€
 					pDestTemp += colorCount;
 					pPixels += colorCount;			
 				} while (--j);
@@ -387,8 +387,8 @@ CSpritePal::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pa
 //----------------------------------------------------------------------
 // BltEffect ClipRight
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ clipping.  
-// pRect->right°³ ±îÁöÀÇ Á¡¸¸ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì˜¤ë¥¸ìª½ clipping.  
+// pRect->rightê°œ ê¹Œì§€ì˜ ì ë§Œ pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CSpritePal::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pal)
@@ -397,7 +397,7 @@ CSpritePal::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect, MPalette &p
 	WORD	*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -414,59 +414,59 @@ CSpritePal::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect, MPalette &p
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+		// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do 
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+				// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 				//---------------------------------------------
-				// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+				// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 				//---------------------------------------------			
 				if (index+colorCount > rectRight)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 					if (index > rectRight)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 					else
 					{
 						pDestTemp += transCount;
 					
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						CSpriteSurface::memcpyPalEffect(pDestTemp, pPixels, rectRight - index, pal);
 						break;
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 				pDestTemp += transCount;
 
-				// Ãâ·Â
+				// ì¶œë ¥
 				CSpriteSurface::memcpyPalEffect(pDestTemp, pPixels, colorCount, pal);
 				pDestTemp += colorCount;
 				pPixels += colorCount;			
@@ -481,9 +481,9 @@ CSpritePal::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect, MPalette &p
 //----------------------------------------------------------------------
 // BltEffect ClipWidth
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// pRect->left°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
-// rectRight±îÁö..
+// ì™¼ìª½ clipping.  
+// pRect->leftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
+// rectRightê¹Œì§€..
 //----------------------------------------------------------------------
 void
 CSpritePal::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pal)
@@ -492,7 +492,7 @@ CSpritePal::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect, MPalette &p
 	WORD	*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -504,7 +504,7 @@ CSpritePal::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect, MPalette &p
 	register int j;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
@@ -514,48 +514,48 @@ CSpritePal::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect, MPalette &p
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do 
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > rectLeft)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > rectLeft)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += index - rectLeft;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â?
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥?
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > rectRight)
 						{							
-							// Åõ¸í»ö¸¸À¸·Î ¿À¸¥ÂÊ ³¡ ³Ñ¾î°¡´Â °æ¿ì
+							// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ì˜¤ë¥¸ìª½ ë ë„˜ì–´ê°€ëŠ” ê²½ìš°
 							if (index > rectRight)
 							{
 							}
@@ -569,24 +569,24 @@ CSpritePal::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect, MPalette &p
 							break;
 						}
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						CSpriteSurface::memcpyPalEffect(pDestTemp, pPixels, colorCount, pal);
 						pDestTemp += colorCount;
 						pPixels += colorCount;
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = rectLeft - index;
 
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > rectRight)
 						{
 							CSpriteSurface::memcpyPalEffect(pDestTemp, pPixels+dist, rectRight - rectLeft, pal);
@@ -595,68 +595,68 @@ CSpritePal::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect, MPalette &p
 							break;
 						}		
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						CSpriteSurface::memcpyPalEffect(pDestTemp, pPixels+dist, colorCount-dist, pal);					
 						pDestTemp += colorCount-dist;
 						pPixels += colorCount;
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+			// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do 
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+					// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 					//---------------------------------------------
-					// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+					// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 					//---------------------------------------------			
 					if (index+colorCount > rectRight)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 						if (index > rectRight)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 						else
 						{
 							pDestTemp += transCount;
 						
-							// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+							// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 							CSpriteSurface::memcpyPalEffect(pDestTemp, pPixels, rectRight - index, pal);
 							break;
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 					pDestTemp += transCount;
 
-					// Ãâ·Â
+					// ì¶œë ¥
 					CSpriteSurface::memcpyPalEffect(pDestTemp, pPixels, colorCount, pal);
 					pDestTemp += colorCount;
 					pPixels += colorCount;			
@@ -672,7 +672,7 @@ CSpritePal::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect, MPalette &p
 //----------------------------------------------------------------------
 // BltEffect Clip Height
 //----------------------------------------------------------------------
-// pRect->top, pRect->bottom¸¸Å­¸¸ Ãâ·ÂÇÑ´Ù.
+// pRect->top, pRect->bottomë§Œí¼ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CSpritePal::BltEffectClipHeight(WORD *pDest, WORD pitch, RECT* pRect, MPalette &pal)
@@ -693,19 +693,19 @@ CSpritePal::BltEffectClipHeight(WORD *pDest, WORD pitch, RECT* pRect, MPalette &
 		pPixels		= m_pPixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{
 			j = count;
 			do 
 			{				
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+				pDestTemp += *pPixels++;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 				CSpriteSurface::memcpyPalEffect(pDestTemp, pPixels, colorCount, pal);
 				
 				pDestTemp	+= colorCount;
@@ -720,12 +720,12 @@ CSpritePal::BltEffectClipHeight(WORD *pDest, WORD pitch, RECT* pRect, MPalette &
 //----------------------------------------------------------------------
 // Blt1555NotTrans
 //----------------------------------------------------------------------
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void
 CSpritePal::Blt1555NotTrans(WORD *pDest, WORD pitch, MPalette &pal)
 {
-	//s_Value1 = alpha >> 4;	// 1 bitÀÌ¹Ç·Î
+	//s_Value1 = alpha >> 4;	// 1 bitì´ë¯€ë¡œ
 	
 	int		count,	
 		transCount,
@@ -749,23 +749,23 @@ CSpritePal::Blt1555NotTrans(WORD *pDest, WORD pitch, MPalette &pal)
 			pPixels		= m_pPixels[i];
 			pDestTemp	= pDest;
 			
-			// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+			// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 			count	= *pPixels++;		
 			
-			// ÇÑ ÁÙ Ãâ·Â
+			// í•œ ì¤„ ì¶œë ¥
 			if (count > 0)
 			{			
 				j = count;
 				do
 				{		
 					transCount = *pPixels++;					
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 					
-					// 0À» Ãâ·ÂÇÑ´Ù.
+					// 0ì„ ì¶œë ¥í•œë‹¤.
 					memset(pDestTemp, 0, transCount<<1);
-					pDestTemp += transCount;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					pDestTemp += transCount;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					memcpy1555(pDestTemp, pPixels, colorCount, pal);
 					
 					pDestTemp	+= colorCount;
@@ -782,17 +782,17 @@ CSpritePal::Blt1555NotTrans(WORD *pDest, WORD pitch, MPalette &pal)
 //----------------------------------------------------------------------
 // Blt1555SmallNotTrans
 //----------------------------------------------------------------------
-// Ãà¼ÒÇØ¼­ Ãâ·Â.. 
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// ì¶•ì†Œí•´ì„œ ì¶œë ¥.. 
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //
-// alpha°ªÀº 50%(¹İÅõ¸í)À¸·Î ÇÑ´Ù.
+// alphaê°’ì€ 50%(ë°˜íˆ¬ëª…)ìœ¼ë¡œ í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CSpritePal::Blt1555SmallNotTrans(WORD *pDest, WORD pitch, BYTE shift, MPalette &pal)
 {
-	//s_Value1 = alpha >> 4;	// 1 bitÀÌ¹Ç·Î
+	//s_Value1 = alpha >> 4;	// 1 bitì´ë¯€ë¡œ
 	s_Value2 = shift;
-	// memcpy¿¡¼­ °Ç³Ê¶ç´Â °ª
+	// memcpyì—ì„œ ê±´ë„ˆë„ëŠ” ê°’
 	s_Value3 = 1 << shift;
 	
 	
@@ -813,7 +813,7 @@ CSpritePal::Blt1555SmallNotTrans(WORD *pDest, WORD pitch, BYTE shift, MPalette &
 	if (rectBottom > 0)
 	{
 		i = rectBottom-1;
-		int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö
+		int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜
 		pDest = (WORD*)((BYTE*)pDest + (i>>shift)*pitch);
 		
 		do
@@ -821,27 +821,27 @@ CSpritePal::Blt1555SmallNotTrans(WORD *pDest, WORD pitch, BYTE shift, MPalette &
 			pPixels		= m_pPixels[i];
 			pDestTemp	= pDest;
 			
-			// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+			// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 			count	= *pPixels++;		
 			
-			// ÇÑ ÁÙ Ãâ·Â
+			// í•œ ì¤„ ì¶œë ¥
 			if (count > 0)
 			{			
 				j = count;
 				do
 				{		
 					transCount = *pPixels++;					
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö	
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜	
 					
-					// shift¸¸Å­ ÁÙ¿©Áø °ªÀ» °è»êÇÑ´Ù.
+					// shiftë§Œí¼ ì¤„ì—¬ì§„ ê°’ì„ ê³„ì‚°í•œë‹¤.
 					transCountShift = transCount >> shift;
 					colorCountShift = colorCount >> shift;
 					
-					// 0À» Ãâ·ÂÇÑ´Ù.
+					// 0ì„ ì¶œë ¥í•œë‹¤.
 					memset(pDestTemp, 0, transCountShift<<1);
-					pDestTemp += transCountShift;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					pDestTemp += transCountShift;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					memcpy1555Small(pDestTemp, pPixels, colorCount, pal);
 					
 					pDestTemp	+= colorCountShift;
@@ -861,12 +861,12 @@ CSpritePal::Blt1555SmallNotTrans(WORD *pDest, WORD pitch, BYTE shift, MPalette &
 //----------------------------------------------------------------------
 // AlphaChannel Copy  1555
 //----------------------------------------------------------------------
-// Alpha°ª : ÀÇ¹Ì¾ø´Ù.
+// Alphaê°’ : ì˜ë¯¸ì—†ë‹¤.
 //----------------------------------------------------------------------
-// pSourceÀÇ °ÍÀ» pDest¿¡ Ãâ·ÂÀ» ÇØ¾ßÇÑ´Ù.
-// pSourceÀÇ ±¸¼ºÀº (alpha,»ö±ò ÇÏ³ª)ÀÇ pixels¸¸Å­ ¹İº¹ÀÌ´Ù.
+// pSourceì˜ ê²ƒì„ pDestì— ì¶œë ¥ì„ í•´ì•¼í•œë‹¤.
+// pSourceì˜ êµ¬ì„±ì€ (alpha,ìƒ‰ê¹” í•˜ë‚˜)ì˜ pixelsë§Œí¼ ë°˜ë³µì´ë‹¤.
 //
-// A:R:G:B = 1:5:5:5 Texture¸¦ À§ÇÑ °ÍÀÌ´Ù.
+// A:R:G:B = 1:5:5:5 Textureë¥¼ ìœ„í•œ ê²ƒì´ë‹¤.
 //----------------------------------------------------------------------
 void	
 CSpritePal::memcpy1555(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -878,10 +878,10 @@ CSpritePal::memcpy1555(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
 	register int i = pixels;
 	
 	// Alpha Channel Blending
-	// ÇÑÁ¡¾¿ Âï±â
+	// í•œì ì”© ì°ê¸°
 	while (i--)
 	{	
-		// ÇÑÁ¡ Âï±â
+		// í•œì  ì°ê¸°
 		sTemp = pal[*pSource];
 		
 		sr = (sTemp >> CDirectDraw::s_bSHIFT_R);// & 0x0F;
@@ -901,15 +901,15 @@ CSpritePal::memcpy1555(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
 //----------------------------------------------------------------------
 // Alpha Copy  1555 Small
 //----------------------------------------------------------------------
-// Alpha°ª : ÀÇ¹Ì¾ø´Ù - -;
+// Alphaê°’ : ì˜ë¯¸ì—†ë‹¤ - -;
 //----------------------------------------------------------------------
-// pSourceÀÇ °ÍÀ» pDest¿¡ Ãâ·ÂÀ» ÇØ¾ßÇÑ´Ù.
-// pSourceÀÇ ±¸¼ºÀº (alpha,»ö±ò ÇÏ³ª)ÀÇ pixels¸¸Å­ ¹İº¹ÀÌ´Ù.
+// pSourceì˜ ê²ƒì„ pDestì— ì¶œë ¥ì„ í•´ì•¼í•œë‹¤.
+// pSourceì˜ êµ¬ì„±ì€ (alpha,ìƒ‰ê¹” í•˜ë‚˜)ì˜ pixelsë§Œí¼ ë°˜ë³µì´ë‹¤.
 //
-// A:R:G:B = 1:5:5:5 Texture¸¦ À§ÇÑ °ÍÀÌ´Ù.
+// A:R:G:B = 1:5:5:5 Textureë¥¼ ìœ„í•œ ê²ƒì´ë‹¤.
 //
-// s_Value2´Â shift°ª
-// s_Value3Àº °Ç³Ê¶ç´Â °ª(¸Â³ª? ±â¾ïÀÌ °¡¹°°¡¹°. - -;;)
+// s_Value2ëŠ” shiftê°’
+// s_Value3ì€ ê±´ë„ˆë„ëŠ” ê°’(ë§ë‚˜? ê¸°ì–µì´ ê°€ë¬¼ê°€ë¬¼. - -;;)
 //----------------------------------------------------------------------
 void	
 CSpritePal::memcpy1555Small(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal)
@@ -920,10 +920,10 @@ CSpritePal::memcpy1555Small(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &p
 	
 	register int i = pixels >> s_Value2;
 	
-	// ÇÑÁ¡¾¿ Âï±â
+	// í•œì ì”© ì°ê¸°
 	while (i--)
 	{	
-		// ÇÑÁ¡ Âï±â
+		// í•œì  ì°ê¸°
 		sTemp = pal[*pSource];
 		
 		sr = (sTemp >> CDirectDraw::s_bSHIFT_R);// & 0x0F;
@@ -953,14 +953,14 @@ CSpritePal::IsColorPixel( short x, short y )
 	register int j;
 	
 	count	= *pPixels++;		
-	// ÇÑ ÁÙ Ãâ·Â
+	// í•œ ì¤„ ì¶œë ¥
 	if (count > 0)
 	{	
 		j = count;
 		do {
-			offset += *pPixels++;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+			offset += *pPixels++;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 			if( offset > x ) return false;
-			colorCount = *pPixels++;	// Åõ¸í ¾Æ´Ñ »ö ¼ö						
+			colorCount = *pPixels++;	// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜						
 			offset += colorCount;
 			if( offset > x ) return true;
 			pPixels	+= colorCount;
@@ -986,11 +986,11 @@ CSpritePal::GetPixel( short x, short y, MPalette &pal )
 		j = count;
 
 		do {
-			offset += *pPixels++;			// Åõ¸í»öºÎºĞ °Ç³Ê ¶Ü
-			if( offset > x ) return 0;			//  Åõ¸í»ö ºÎºĞÀÌ¸é 0À»..
+			offset += *pPixels++;			// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆ ëœ€
+			if( offset > x ) return 0;			//  íˆ¬ëª…ìƒ‰ ë¶€ë¶„ì´ë©´ 0ì„..
 			colorCount = *pPixels++;
 			offset += colorCount;
-			if( offset > x )		// ÀÌ ¾È¿¡ »öÀÌ ÀÖÀ¸¸é
+			if( offset > x )		// ì´ ì•ˆì— ìƒ‰ì´ ìˆìœ¼ë©´
 			{
 				offset -= colorCount;
 				pPixels += (x - offset);

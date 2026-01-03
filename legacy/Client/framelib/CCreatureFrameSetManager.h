@@ -2,7 +2,7 @@
 // CCreatureFrameSetManager.h
 //----------------------------------------------------------------------
 //
-// CreatureFrameSetÀ» »ı¼ºÇÏ´Â class
+// CreatureFrameSetì„ ìƒì„±í•˜ëŠ” class
 //
 //
 //----------------------------------------------------------------------
@@ -20,8 +20,8 @@ class CCreatureFrameSetManager : public CFrameSetManager {
 
 	protected :
 		//--------------------------------------------------------
-		// CreatureFrameSet°ú °ü·ÃµÈ SpriteID¸¦ ¼±ÅÃÇØ¼­
-		// SpritePack IndexFile·ÎºÎÅÍ SpriteSet IndexFileÀ» »ı¼ºÇÑ´Ù.
+		// CreatureFrameSetê³¼ ê´€ë ¨ëœ SpriteIDë¥¼ ì„ íƒí•´ì„œ
+		// SpritePack IndexFileë¡œë¶€í„° SpriteSet IndexFileì„ ìƒì„±í•œë‹¤.
 		//--------------------------------------------------------
 		bool	SaveSpriteSetIndex(CCreatureFramePack* pCreatureFramePack, class ofstream& setIndex, class ifstream& packIndex);
 };

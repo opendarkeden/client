@@ -1,11 +1,11 @@
 //----------------------------------------------------------------------
 // MItemFinder.h
 //----------------------------------------------------------------------
-// Æ¯º°ÇÑ itemÀ» Ã£±â À§ÇØ ¾²ÀÎ´Ù.
-// MItemFinder¸¦ »ó¼Ó¹Ş¾Æ¼­ ÇÊ¿äÇÑ°É ¸¸µé¸é µÈ´Ù.
+// íŠ¹ë³„í•œ itemì„ ì°¾ê¸° ìœ„í•´ ì“°ì¸ë‹¤.
+// MItemFinderë¥¼ ìƒì†ë°›ì•„ì„œ í•„ìš”í•œê±¸ ë§Œë“¤ë©´ ëœë‹¤.
 //
-// ÀÌÁ¦¼­¾ß ÇÊ¿ä¸¦ ´À²¸ ¸¸µé°Ô µÇ¾ú´ç.. --;
-// ¿¹Àü ÄÚµåµéÀº ±×³É ±×ÄÉ ¾²µµ·Ï µÖ¾ßÁö.. - -;;
+// ì´ì œì„œì•¼ í•„ìš”ë¥¼ ëŠê»´ ë§Œë“¤ê²Œ ë˜ì—ˆë‹¹.. --;
+// ì˜ˆì „ ì½”ë“œë“¤ì€ ê·¸ëƒ¥ ê·¸ì¼€ ì“°ë„ë¡ ë‘¬ì•¼ì§€.. - -;;
 //----------------------------------------------------------------------
 
 #ifndef __MITEMFINDER_H__
@@ -24,7 +24,7 @@ class MItemFinder {
 //----------------------------------------------------------------------
 // MItemClassFinder
 //----------------------------------------------------------------------
-// °°Àº ItemClassÀÇ itemÀ» Ã£´Â´Ù.
+// ê°™ì€ ItemClassì˜ itemì„ ì°¾ëŠ”ë‹¤.
 //----------------------------------------------------------------------
 class MItemClassFinder : public MItemFinder {
 	public :
@@ -38,13 +38,13 @@ class MItemClassFinder : public MItemFinder {
 		}
 
 	protected :
-		ITEM_CLASS	m_ItemClass;	// Ã£À»·Á´Â itemClass
+		ITEM_CLASS	m_ItemClass;	// ì°¾ì„ë ¤ëŠ” itemClass
 };
 
 //----------------------------------------------------------------------
 // MItemClassTypeFinder
 //----------------------------------------------------------------------
-// °°Àº ItemClass, ItemTypeÀÇ itemÀ» Ã£´Â´Ù.
+// ê°™ì€ ItemClass, ItemTypeì˜ itemì„ ì°¾ëŠ”ë‹¤.
 //----------------------------------------------------------------------
 class MItemClassTypeFinder : public MItemClassFinder {
 	public :
@@ -62,13 +62,13 @@ class MItemClassTypeFinder : public MItemClassFinder {
 		}
 
 	protected :
-		TYPE_ITEMTYPE	m_ItemType;	// Ã£À»·Á´Â itemType
+		TYPE_ITEMTYPE	m_ItemType;	// ì°¾ì„ë ¤ëŠ” itemType
 };
 
 //----------------------------------------------------------------------
 // MVampirePortalItemFinder
 //----------------------------------------------------------------------
-// MarkµÇ°Å³ª ¾ÈµÈ VampirePortalÀ» Ã£±â À§ÇØ¼­
+// Markë˜ê±°ë‚˜ ì•ˆëœ VampirePortalì„ ì°¾ê¸° ìœ„í•´ì„œ
 //----------------------------------------------------------------------
 class MVampirePortalItemFinder : public MItemFinder {
 	public :
@@ -90,7 +90,7 @@ class MVampirePortalItemFinder : public MItemFinder {
 //----------------------------------------------------------------------
 // MSlayerPortalItemFinder
 //----------------------------------------------------------------------
-// »ç¿ëÇÒ ¼ö ÀÖ´Â°É Ã£´Â´Ù.
+// ì‚¬ìš©í•  ìˆ˜ ìˆëŠ”ê±¸ ì°¾ëŠ”ë‹¤.
 //----------------------------------------------------------------------
 class MSlayerPortalItemFinder : public MItemFinder {
 	public :
@@ -106,7 +106,7 @@ class MSlayerPortalItemFinder : public MItemFinder {
 //----------------------------------------------------------------------
 // MEventStartItemFinder
 //----------------------------------------------------------------------
-// Æ¯Á¤ÇÑ class, typeÀÇ itemÀÌ ¸î°³³ª ÀÖ´Â°¡..
+// íŠ¹ì •í•œ class, typeì˜ itemì´ ëª‡ê°œë‚˜ ìˆëŠ”ê°€..
 class MItemClassTypeNumberFinder : public MItemClassTypeFinder {
 	public :
 		MItemClassTypeNumberFinder(ITEM_CLASS itemClass, TYPE_ITEMTYPE itemType) 
@@ -117,14 +117,14 @@ class MItemClassTypeNumberFinder : public MItemClassTypeFinder {
 	
 		bool	operator () ( const MItem* pItem )
 		{
-			// °°Àº class, typeÀÌ¸é °³¼ö¸¦ ´õÇÑ´Ù.
+			// ê°™ì€ class, typeì´ë©´ ê°œìˆ˜ë¥¼ ë”í•œë‹¤.
 			if (pItem->GetItemClass()==m_ItemClass
 					&& pItem->GetItemType()==m_ItemType)
 			{
 				m_TotalNumber += pItem->GetNumber();
 			}
 
-			// °è¼Ó Ã£°Ô ÇÒ·Á´Â ¸ñÀûÀÌ´Ù.
+			// ê³„ì† ì°¾ê²Œ í• ë ¤ëŠ” ëª©ì ì´ë‹¤.
 			return false;
 		}
 
@@ -139,7 +139,7 @@ class MItemClassTypeNumberFinder : public MItemClassTypeFinder {
 //----------------------------------------------------------------------
 // MItemClassRangeTypeFinder
 //----------------------------------------------------------------------
-// °°Àº ItemClass, min~max ItemTypeÀÇ itemÀ» Ã£´Â´Ù.
+// ê°™ì€ ItemClass, min~max ItemTypeì˜ itemì„ ì°¾ëŠ”ë‹¤.
 //----------------------------------------------------------------------
 class MItemClassRangeTypeFinder : public MItemClassFinder {
 	public :
@@ -159,8 +159,8 @@ class MItemClassRangeTypeFinder : public MItemClassFinder {
 		}
 
 	protected :
-		TYPE_ITEMTYPE	m_MinItemType;	// Ã£À»·Á´Â min itemType
-		TYPE_ITEMTYPE	m_MaxItemType;	// Ã£À»·Á´Â max itemType
+		TYPE_ITEMTYPE	m_MinItemType;	// ì°¾ì„ë ¤ëŠ” min itemType
+		TYPE_ITEMTYPE	m_MaxItemType;	// ì°¾ì„ë ¤ëŠ” max itemType
 };
 
 //----------------------------------------------------------------------

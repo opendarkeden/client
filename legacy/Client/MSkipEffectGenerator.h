@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MAttachZoneEffectGenerator.h
 //----------------------------------------------------------------------
-// ZoneÀÇ ÇÑ ÁöÁ¡¿¡¼­  »ı¼º
+// Zoneì˜ í•œ ì§€ì ì—ì„œ  ìƒì„±
 //----------------------------------------------------------------------
 
 #ifndef	__MSKIPEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MSkipEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_SKIP_DRAW; }
 
-		// Effect»ı¼º
+		// Effectìƒì„±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

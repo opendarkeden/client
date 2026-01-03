@@ -28,7 +28,7 @@ MBloodyWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	int est = egInfo.effectSpriteType;
 
-	// ÇÏµå ÇÏµå~
+	// í•˜ë“œ í•˜ë“œ~
 	if (est>=EFFECTSPRITETYPE_BLOODY_WALL_1
 		&& est<=EFFECTSPRITETYPE_BLOODY_WALL_3)
 	{
@@ -41,23 +41,23 @@ MBloodyWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	bool			repeatFrame	= (*g_pEffectSpriteTypeTable)[est].RepeatFrame;
 
 	//---------------------------------------------
-	// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+	// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 	//---------------------------------------------
 	int	tx, ty;
 	
 	tx = egInfo.x1;
 	ty = egInfo.y1;
 
-	// (sX0, sY0)¿¡¼­ (sX1, sY1)À» ¹Ù¶óº¸´Â ¹æÇâÀ» ¾ò¾î³½´Ù.
+	// (sX0, sY0)ì—ì„œ (sX1, sY1)ì„ ë°”ë¼ë³´ëŠ” ë°©í–¥ì„ ì–»ì–´ë‚¸ë‹¤.
 	int lookDirection = egInfo.direction;//MTopView::GetDirectionToPosition(sX0, sY0, sX1, sY1);
 
 	//---------------------------------------------
-	// ¹æÇâ¿¡ µû¶ó¼­... { ½ÃÀÛº¸Á¤X, ½ÃÀÛº¸Á¤Y, º¯È­pixelX, º¯È­pixelY }
+	// ë°©í–¥ì— ë”°ë¼ì„œ... { ì‹œìž‘ë³´ì •X, ì‹œìž‘ë³´ì •Y, ë³€í™”pixelX, ë³€í™”pixelY }
 	//---------------------------------------------
-	// 5°³ Ãâ·Â
+	// 5ê°œ ì¶œë ¥
 	/*
 	const int dirValue[8][4] = { 
-		{		0,	-12*2,		0,		12 },		// left¿¡¼­ up
+		{		0,	-12*2,		0,		12 },		// leftì—ì„œ up
 		{	-24*2,	-12*2,		24,		12 },		// leftdown
 		{	-24*2,		0,		24,		0 },		// down
 		{	24*2,	-12*2,		-24,	12 },		// rightdown
@@ -68,7 +68,7 @@ MBloodyWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	};	
 
 	//---------------------------------------------
-	// ½ÃÀÛ °ª
+	// ì‹œìž‘ ê°’
 	//---------------------------------------------
 	int sx = tx + dirValue[lookDirection][0];
 	int sy = ty + dirValue[lookDirection][1];
@@ -102,7 +102,7 @@ MBloodyWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	MEffect*	pEffect;
 	
 	//---------------------------------------------
-	// Effect »ý¼º
+	// Effect ìƒì„±
 	//---------------------------------------------
 	for (int i=0; i<5; i++)
 	{		
@@ -115,24 +115,24 @@ MBloodyWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		
 		pEffect->SetFrameID( frameID, maxFrame );	
 
-		//pEffect->SetPixelPosition(sx, sy, z);		// Sector ÁÂÇ¥		
+		//pEffect->SetPixelPosition(sx, sy, z);		// Sector ì¢Œí‘œ		
 		pEffect->SetPosition( sX, sY );
 		pEffect->SetZ( z );			
-		pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-		pEffect->SetCount( egInfo.count , egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+		pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
+		pEffect->SetCount( egInfo.count , egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
-		// ¹æÇâ ¼³Á¤
+		// ë°©í–¥ ì„¤ì •
 		pEffect->SetDirection( egInfo.direction );
 
-		// À§·Â
+		// ìœ„ë ¥
 		pEffect->SetPower(egInfo.power);
 
-		// Zone¿¡ Ãß°¡ÇÑ´Ù.
+		// Zoneì— ì¶”ê°€í•œë‹¤.
 		bool bAdd = g_pZone->AddEffect( pEffect );
 
 		if (bAdd)
 		{
-			// Ã³À½À¸·Î Ãß°¡µÈ effect¿¡ ´ëÇØ¼­ link¼³Á¤
+			// ì²˜ìŒìœ¼ë¡œ ì¶”ê°€ëœ effectì— ëŒ€í•´ì„œ linkì„¤ì •
 			if (!bOK)
 			{
 				pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
@@ -140,10 +140,10 @@ MBloodyWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 				bOK = true;
 			}
 		
-			// Ã³À½À¸·Î Ãß°¡µÈ°Å´Â ¾Æ´ÏÁö¸¸ Á¦´ë·Î µé¾î°£ °æ¿ì
+			// ì²˜ìŒìœ¼ë¡œ ì¶”ê°€ëœê±°ëŠ” ì•„ë‹ˆì§€ë§Œ ì œëŒ€ë¡œ ë“¤ì–´ê°„ ê²½ìš°
 			else
 			{
-				// ´ÙÀ½ Effect »ý¼º Á¤º¸
+				// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 				if (egInfo.pEffectTarget == NULL)
 				{
 					pEffect->SetLink( egInfo.nActionInfo, NULL );
@@ -158,8 +158,8 @@ MBloodyWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		}
 
 		//---------------------------------------------
-		// ¹Ýº¹µÇ´Â frameÀÌ¸é..
-		// ½ÃÀÛ frameÀ» ´Ù¸£°Ô ÇÑ´Ù.
+		// ë°˜ë³µë˜ëŠ” frameì´ë©´..
+		// ì‹œìž‘ frameì„ ë‹¤ë¥´ê²Œ í•œë‹¤.
 		//---------------------------------------------
 		if (bAdd && repeatFrame)
 		{
@@ -175,7 +175,7 @@ MBloodyWallEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		//sx += cx;
 		//sy += cy;
 
-		// ´ÙÀ½ ±×¸²
+		// ë‹¤ìŒ ê·¸ë¦¼
 		if (est>=EFFECTSPRITETYPE_BLOODY_WALL_1
 			&& est<=EFFECTSPRITETYPE_BLOODY_WALL_3)
 		{

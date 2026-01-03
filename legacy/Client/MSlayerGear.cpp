@@ -27,55 +27,55 @@ MMagazine*		g_pCurrentMagazine = NULL;
 MSlayerGear::FUNCTION_GEARSLOT_CHECK
 MSlayerGear::s_GearSlotCheckTable[MAX_GEAR_SLAYER] =
 {
-	IsGearSlotHelm,				// ¸ðÀÚ
-	IsGearSlotNecklace,			// ¸ñ°ÉÀÌ
-	IsGearSlotCoat,				// »óÀÇ
-	IsGearSlotLeftHand,			// ¿Þ¼Õ
-	IsGearSlotRightHand,		// ¿À¸¥¼Õ
-	IsGearSlotGlove,			// Àå°©
-	IsGearSlotBelt,				// Çõ´ë
-	IsGearSlotTrouser,			// ÇÏÀÇ			
-	IsGearSlotBracelet,			// ÆÈÂî1
-	IsGearSlotBracelet,			// ÆÈÂî2
-	IsGearSlotRing,				// ¹ÝÁö1
-	IsGearSlotRing,				// ¹ÝÁö2
-	IsGearSlotRing,				// ¹ÝÁö3
-	IsGearSlotRing,				// ¹ÝÁö4
-	IsGearSlotShoes,			// ½Å¹ß
-	IsGearSlotCoreZap,			// ÄÚ¾îÀì1
-	IsGearSlotCoreZap,			// ÄÚ¾îÀì2
-	IsGearSlotCoreZap,			// ÄÚ¾îÀì3
-	IsGearSlotCoreZap,			// ÄÚ¾îÀì4
+	IsGearSlotHelm,				// ëª¨ìž
+	IsGearSlotNecklace,			// ëª©ê±¸ì´
+	IsGearSlotCoat,				// ìƒì˜
+	IsGearSlotLeftHand,			// ì™¼ì†
+	IsGearSlotRightHand,		// ì˜¤ë¥¸ì†
+	IsGearSlotGlove,			// ìž¥ê°‘
+	IsGearSlotBelt,				// í˜ëŒ€
+	IsGearSlotTrouser,			// í•˜ì˜			
+	IsGearSlotBracelet,			// íŒ”ì°Œ1
+	IsGearSlotBracelet,			// íŒ”ì°Œ2
+	IsGearSlotRing,				// ë°˜ì§€1
+	IsGearSlotRing,				// ë°˜ì§€2
+	IsGearSlotRing,				// ë°˜ì§€3
+	IsGearSlotRing,				// ë°˜ì§€4
+	IsGearSlotShoes,			// ì‹ ë°œ
+	IsGearSlotCoreZap,			// ì½”ì–´ìž½1
+	IsGearSlotCoreZap,			// ì½”ì–´ìž½2
+	IsGearSlotCoreZap,			// ì½”ì–´ìž½3
+	IsGearSlotCoreZap,			// ì½”ì–´ìž½4
 	IsGearSlotPDA,				// PDA
-	IsGearSlotShoulder,			// ¾î±ú
-	IsGearSlotBloodBible,		// ºí·¯µå ¹ÙÀÌºí 1
-	IsGearSlotBloodBible,		// ºí·¯µå ¹ÙÀÌºí 2
-	IsGearSlotBloodBible,		// ºí·¯µå ¹ÙÀÌºí 3
-	IsGearSlotBloodBible,		// ºí·¯µå ¹ÙÀÌºí 4
-	IsGearSlotBloodBible,		// ºí·¯µå ¹ÙÀÌºí 5
-	IsGearSlotBloodBible,		// ºí·¯µå ¹ÙÀÌºí 6
+	IsGearSlotShoulder,			// ì–´ê¹¨
+	IsGearSlotBloodBible,		// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” 1
+	IsGearSlotBloodBible,		// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” 2
+	IsGearSlotBloodBible,		// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” 3
+	IsGearSlotBloodBible,		// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” 4
+	IsGearSlotBloodBible,		// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” 5
+	IsGearSlotBloodBible,		// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” 6
 
 };
 
 //----------------------------------------------------------------------
-// Æ¯Á¤ ºÎÀ§¿¡ pItemÀ» ÀåÂøÇÒ ¼ö ÀÖ´ÂÁö¸¦ checkÇÑ´Ù.
+// íŠ¹ì • ë¶€ìœ„ì— pItemì„ ìž¥ì°©í•  ìˆ˜ ìžˆëŠ”ì§€ë¥¼ checkí•œë‹¤.
 //----------------------------------------------------------------------
-bool		MSlayerGear::IsGearSlotHelm(MItem* pItem)		{ return pItem->IsGearSlotHelm(); }		// ¸ðÀÚ
-bool		MSlayerGear::IsGearSlotNecklace(MItem* pItem) 	{ return pItem->IsGearSlotNecklace(); }	// ¸ñ°ÉÀÌ
-bool		MSlayerGear::IsGearSlotCoat(MItem* pItem) 		{ return pItem->IsGearSlotCoat(); }		// »óÀÇ
-bool		MSlayerGear::IsGearSlotLeftHand(MItem* pItem)	{ return pItem->IsGearSlotLeftHand(); }	// ¿Þ¼Õ	
-bool		MSlayerGear::IsGearSlotRightHand(MItem* pItem)	{ return pItem->IsGearSlotRightHand(); }	// ¿À¸¥¼Õ
-bool		MSlayerGear::IsGearSlotGlove(MItem* pItem) 		{ return pItem->IsGearSlotGlove(); }	// Àå°©		
-bool		MSlayerGear::IsGearSlotBelt(MItem* pItem) 		{ return pItem->IsGearSlotBelt(); }		// Çõ´ë
-bool		MSlayerGear::IsGearSlotTrouser(MItem* pItem) 	{ return pItem->IsGearSlotTrouser(); }	// ÇÏÀÇ		
-bool		MSlayerGear::IsGearSlotBracelet(MItem* pItem) 	{ return pItem->IsGearSlotBracelet(); }	// ÆÈÂî
-bool		MSlayerGear::IsGearSlotRing(MItem* pItem) 		{ return pItem->IsGearSlotRing(); }		// ¹ÝÁö
-bool		MSlayerGear::IsGearSlotShoes(MItem* pItem)		{ return pItem->IsGearSlotShoes(); }	// ½Å¹ß	
-bool		MSlayerGear::IsGearSlotCoreZap(MItem* pItem)	{ return pItem->IsGearSlotCoreZap(); }	// ÄÚ¾îÀì
+bool		MSlayerGear::IsGearSlotHelm(MItem* pItem)		{ return pItem->IsGearSlotHelm(); }		// ëª¨ìž
+bool		MSlayerGear::IsGearSlotNecklace(MItem* pItem) 	{ return pItem->IsGearSlotNecklace(); }	// ëª©ê±¸ì´
+bool		MSlayerGear::IsGearSlotCoat(MItem* pItem) 		{ return pItem->IsGearSlotCoat(); }		// ìƒì˜
+bool		MSlayerGear::IsGearSlotLeftHand(MItem* pItem)	{ return pItem->IsGearSlotLeftHand(); }	// ì™¼ì†	
+bool		MSlayerGear::IsGearSlotRightHand(MItem* pItem)	{ return pItem->IsGearSlotRightHand(); }	// ì˜¤ë¥¸ì†
+bool		MSlayerGear::IsGearSlotGlove(MItem* pItem) 		{ return pItem->IsGearSlotGlove(); }	// ìž¥ê°‘		
+bool		MSlayerGear::IsGearSlotBelt(MItem* pItem) 		{ return pItem->IsGearSlotBelt(); }		// í˜ëŒ€
+bool		MSlayerGear::IsGearSlotTrouser(MItem* pItem) 	{ return pItem->IsGearSlotTrouser(); }	// í•˜ì˜		
+bool		MSlayerGear::IsGearSlotBracelet(MItem* pItem) 	{ return pItem->IsGearSlotBracelet(); }	// íŒ”ì°Œ
+bool		MSlayerGear::IsGearSlotRing(MItem* pItem) 		{ return pItem->IsGearSlotRing(); }		// ë°˜ì§€
+bool		MSlayerGear::IsGearSlotShoes(MItem* pItem)		{ return pItem->IsGearSlotShoes(); }	// ì‹ ë°œ	
+bool		MSlayerGear::IsGearSlotCoreZap(MItem* pItem)	{ return pItem->IsGearSlotCoreZap(); }	// ì½”ì–´ìž½
 bool		MSlayerGear::IsGearSlotPDA(MItem* pItem)		{ return pItem->IsGearSlotPDA(); }// PDA
 bool		MSlayerGear::IsGearSlotShoulder(MItem* pItem)	{ return pItem->IsGearSlotShoulder(); }// Shoulder
 
-bool		MSlayerGear::IsGearSlotBloodBible(MItem* pItem)	{ return pItem->IsGearSlotBloodBible(); }// ºí·¯µå ¹ÙÀÌºí
+bool		MSlayerGear::IsGearSlotBloodBible(MItem* pItem)	{ return pItem->IsGearSlotBloodBible(); }// ë¸”ëŸ¬ë“œ ë°”ì´ë¸”
 
 
 //----------------------------------------------------------------------
@@ -103,12 +103,12 @@ MSlayerGear::~MSlayerGear()
 //----------------------------------------------------------------------
 // Init 
 //----------------------------------------------------------------------
-// MAX_GEAR_SLAYER¸¸Å­ÀÇ SlotÀ» »ý¼ºÇÑ´Ù.
+// MAX_GEAR_SLAYERë§Œí¼ì˜ Slotì„ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MSlayerGear::Init()
 {
-	// slot »ý¼º
+	// slot ìƒì„±
 	MPlayerGear::Init(MAX_GEAR_SLAYER);
 
 	g_pCurrentMagazine = NULL;
@@ -120,7 +120,7 @@ MSlayerGear::Init()
 //----------------------------------------------------------------------
 // Check AffectStatus
 //----------------------------------------------------------------------
-// Æ¯Á¤ ¾ÆÀÌÅÛÀÇ Âø¿ë °¡´É ¿©ºÎ¸¦ Ã¼Å©ÇÑ´Ù.
+// íŠ¹ì • ì•„ì´í…œì˜ ì°©ìš© ê°€ëŠ¥ ì—¬ë¶€ë¥¼ ì²´í¬í•œë‹¤.
 //----------------------------------------------------------------------
 void			
 MSlayerGear::CheckAffectStatus(MItem* pItem)
@@ -135,14 +135,14 @@ MSlayerGear::CheckAffectStatus(MItem* pItem)
 //----------------------------------------------------------------------
 // Add Item ( pItem )
 //----------------------------------------------------------------------
-// pItemÀ» ÀûÀýÇÑ(?) slot¿¡ Ãß°¡½ÃÅ²´Ù.
+// pItemì„ ì ì ˆí•œ(?) slotì— ì¶”ê°€ì‹œí‚¨ë‹¤.
 //----------------------------------------------------------------------
 bool			
 MSlayerGear::AddItem(MItem* pItem)
 {
 	for (int i=0; i<MAX_GEAR_SLAYER; i++)
 	{
-		// Ãß°¡ÇßÀ¸¸é..
+		// ì¶”ê°€í–ˆìœ¼ë©´..
 		if (AddItem( pItem, (enum GEAR_SLAYER)i ))
 		{
 			return true;
@@ -155,29 +155,29 @@ MSlayerGear::AddItem(MItem* pItem)
 //----------------------------------------------------------------------
 // Can Replace Item
 //----------------------------------------------------------------------
-// ½ÇÁ¦·Î´Â Add or Replace¸¦ ÀÇ¹ÌÇÑ´Ù.
-// (n)¿¡ pItemÀ» ³ÖÀ» ¼ö ÀÖ°Å³ª
-// (n)¿¡ ³õ¾ÒÀ» ¶§, ´Ù¸¥ °Í ÇÏ³ª¿Í ±³Ã¼°¡ µÉ °æ¿ì´Â trueÀÌ´Ù.
-// pOldItem¿¡´Â ±³Ã¼µÉ °ÍÀÌ ÀÖ´Â °æ¿ì¿¡ ±×°Ô µé¾î°£´Ù.
+// ì‹¤ì œë¡œëŠ” Add or Replaceë¥¼ ì˜ë¯¸í•œë‹¤.
+// (n)ì— pItemì„ ë„£ì„ ìˆ˜ ìžˆê±°ë‚˜
+// (n)ì— ë†“ì•˜ì„ ë•Œ, ë‹¤ë¥¸ ê²ƒ í•˜ë‚˜ì™€ êµì²´ê°€ ë  ê²½ìš°ëŠ” trueì´ë‹¤.
+// pOldItemì—ëŠ” êµì²´ë  ê²ƒì´ ìžˆëŠ” ê²½ìš°ì— ê·¸ê²Œ ë“¤ì–´ê°„ë‹¤.
 //----------------------------------------------------------------------
 bool			
 MSlayerGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 {
-	// ¼öÄ¡ Àû¿ëµÇÁö ¾Ê´Â ¾ÆÀÌÅÛÀº Âø¿ëµÇÁö ¾Ê´Â´Ù
+	// ìˆ˜ì¹˜ ì ìš©ë˜ì§€ ì•ŠëŠ” ì•„ì´í…œì€ ì°©ìš©ë˜ì§€ ì•ŠëŠ”ë‹¤
 	if(pItem->IsAffectStatus() == false && !pItem->IsQuestItem() )
 		return false;
 
 	pOldItem = NULL;
 
 	//---------------------------------------------------------
-	// ItemSlot ¹üÀ§¸¦ ³Ñ¾î°¡´Â °æ¿ì..
+	// ItemSlot ë²”ìœ„ë¥¼ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 	//---------------------------------------------------------	
 	if (n>=m_Size || !pItem->IsSlayerItem())
 	{
 		return false;
 	}
 	
-	if(n>=GEAR_SLAYER_BLOOD_BIBLE1 && n<=GEAR_SLAYER_BLOOD_BIBLE6) // ºí·¯µå ¹ÙÀÌºíÀº ÁýÀ»¼ö ¾ø´Ù.
+	if(n>=GEAR_SLAYER_BLOOD_BIBLE1 && n<=GEAR_SLAYER_BLOOD_BIBLE6) // ë¸”ëŸ¬ë“œ ë°”ì´ë¸”ì€ ì§‘ì„ìˆ˜ ì—†ë‹¤.
 		return false;
 	
 	
@@ -213,18 +213,18 @@ MSlayerGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 	}
 	//-------------------------------------------------
 	//
-	// ¼Õ¿¡ ÀåÂøÇÒ·Á´Â °æ¿ì
+	// ì†ì— ìž¥ì°©í• ë ¤ëŠ” ê²½ìš°
 	//
 	//-------------------------------------------------
 	if (n==GEAR_SLAYER_LEFTHAND || n==GEAR_SLAYER_RIGHTHAND)	
 	{
 		//-------------------------------------------------
-		// [ ¾ç¼Õ Item ] ÀÎ °æ¿ì
+		// [ ì–‘ì† Item ] ì¸ ê²½ìš°
 		//-------------------------------------------------
 		if (pItem->IsGearSlotTwoHand())
 		{			
 			//-------------------------------------------------
-			// ¾ç¼ÕÀÇ SlotÀÌ ¸ðµÎ ºñ¾îÀÖ´Â °æ¿ì 
+			// ì–‘ì†ì˜ Slotì´ ëª¨ë‘ ë¹„ì–´ìžˆëŠ” ê²½ìš° 
 			//-------------------------------------------------			
 			if (m_ItemSlot[GEAR_SLAYER_RIGHTHAND]==NULL
 					&& m_ItemSlot[GEAR_SLAYER_LEFTHAND]==NULL)
@@ -233,13 +233,13 @@ MSlayerGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 			
 			//-------------------------------------------------
-			// ¾ç¼Õ¿¡ ´Ù ¹º°¡ ÀÖ´Â °æ¿ì
+			// ì–‘ì†ì— ë‹¤ ë­”ê°€ ìžˆëŠ” ê²½ìš°
 			//-------------------------------------------------
 			if (m_ItemSlot[GEAR_SLAYER_RIGHTHAND]!=NULL 
 				&& m_ItemSlot[GEAR_SLAYER_LEFTHAND]!=NULL)
 			{
 				//-------------------------------------------------
-				// ¾ç¼Õ¿¡ ÀÖ´Â°Ô °°´Ù¸é..
+				// ì–‘ì†ì— ìžˆëŠ”ê²Œ ê°™ë‹¤ë©´..
 				//-------------------------------------------------
 				if (m_ItemSlot[GEAR_SLAYER_RIGHTHAND]==m_ItemSlot[GEAR_SLAYER_LEFTHAND])
 				{
@@ -251,7 +251,7 @@ MSlayerGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 
 			//-------------------------------------------------
-			// ¿À¸¥¼Õ¿¡¸¸ ¹º°¡ ÀÖ´Â °æ¿ì
+			// ì˜¤ë¥¸ì†ì—ë§Œ ë­”ê°€ ìžˆëŠ” ê²½ìš°
 			//-------------------------------------------------
 			else if (m_ItemSlot[GEAR_SLAYER_RIGHTHAND]!=NULL)
 			{
@@ -260,7 +260,7 @@ MSlayerGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 
 			//-------------------------------------------------
-			// ¿Þ¼Õ¿¡¸¸¹º°¡ ÀÖ´Â °æ¿ì
+			// ì™¼ì†ì—ë§Œë­”ê°€ ìžˆëŠ” ê²½ìš°
 			//-------------------------------------------------
 			else if (m_ItemSlot[GEAR_SLAYER_LEFTHAND]!=NULL)
 			{			
@@ -268,22 +268,22 @@ MSlayerGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 				return true;
 			}
 
-			// ÀÌ·± °æ¿ì°¡ ÀÖÀ» ¼ö ÀÖÀ»±î? - -;;
+			// ì´ëŸ° ê²½ìš°ê°€ ìžˆì„ ìˆ˜ ìžˆì„ê¹Œ? - -;;
 			return false;
 		}
 
 		//-------------------------------------------------
-		// [ ¿À¸¥¼Õ Item ] ÀÎ °æ¿ì
+		// [ ì˜¤ë¥¸ì† Item ] ì¸ ê²½ìš°
 		//-------------------------------------------------				
 		else if (pItem->IsGearSlotRightHand())
 		{
-			// NULLÀÌ°Å³ª ¸»°Å³ª ±×³É ³Ö¾îÁÖ¸é µÈ´Ù.
+			// NULLì´ê±°ë‚˜ ë§ê±°ë‚˜ ê·¸ëƒ¥ ë„£ì–´ì£¼ë©´ ëœë‹¤.
 			pOldItem = m_ItemSlot[GEAR_SLAYER_RIGHTHAND];
 			return true;
 		}
 		
 		//-------------------------------------------------				
-		// [ ¿Þ¼Õ Item ] ÀÎ °æ¿ì
+		// [ ì™¼ì† Item ] ì¸ ê²½ìš°
 		//-------------------------------------------------
 		else if (pItem->IsGearSlotLeftHand())
 		{
@@ -291,17 +291,17 @@ MSlayerGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			return true;
 		}
 
-		// ¼Õ¿¡ ÀåÂøÇÏ´Â°Ô ¾Æ´Ñ °æ¿ì
+		// ì†ì— ìž¥ì°©í•˜ëŠ”ê²Œ ì•„ë‹Œ ê²½ìš°
 		return false;
 	}
 	/***********************************************************	
-				ÄÚ¾îÀì °ü·Ã Ã³¸®
+				ì½”ì–´ìž½ ê´€ë ¨ ì²˜ë¦¬
 	***********************************************************/
 	if (n >= GEAR_SLAYER_RING1 && n <= GEAR_SLAYER_RING4)	
 	{
 		if (pItem->IsGearSlotRing())
 		{			
-			if (m_ItemSlot[n+m_Gilles_CoreZap]==NULL) // ÄÚ¾îÀìÀÌ ¾ø¾î¾ß ¸µÀ» ³õÀ» ¼ö ÀÖÀ½
+			if (m_ItemSlot[n+m_Gilles_CoreZap]==NULL) // ì½”ì–´ìž½ì´ ì—†ì–´ì•¼ ë§ì„ ë†“ì„ ìˆ˜ ìžˆìŒ
 			{
 				pOldItem = m_ItemSlot[n];
 				return true;
@@ -310,9 +310,9 @@ MSlayerGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		else
 		if (pItem->IsGearSlotCoreZap())
 		{			
-			if (m_ItemSlot[n]!=NULL) // ÄÚ¾îÀìÀº ¸µÀÌ ÀÖ¾î¾ß ³õÀ» ¼ö ÀÖ´Ù. 
+			if (m_ItemSlot[n]!=NULL) // ì½”ì–´ìž½ì€ ë§ì´ ìžˆì–´ì•¼ ë†“ì„ ìˆ˜ ìžˆë‹¤. 
 			{
-				if (m_ItemSlot[n]!=NULL) // ÄÚ¾îÀìÀº ¸µÀÌ ÀÖ¾î¾ß ³õÀ» ¼ö ÀÖ´Ù. 
+				if (m_ItemSlot[n]!=NULL) // ì½”ì–´ìž½ì€ ë§ì´ ìžˆì–´ì•¼ ë†“ì„ ìˆ˜ ìžˆë‹¤. 
 				{
 					if(m_ItemSlot[n+m_Gilles_CoreZap]!=NULL)
 						pOldItem = m_ItemSlot[n+m_Gilles_CoreZap];
@@ -324,15 +324,15 @@ MSlayerGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		}
 		return false;
 	}
-	else if(n >= GEAR_SLAYER_ZAP1 && n <= GEAR_SLAYER_ZAP4) // ÄÚ¾îÀì ½½·ÔÀº º¸ÀÌÁö ¾Ê´Â´Ù. -_-?? 
+	else if(n >= GEAR_SLAYER_ZAP1 && n <= GEAR_SLAYER_ZAP4) // ì½”ì–´ìž½ ìŠ¬ë¡¯ì€ ë³´ì´ì§€ ì•ŠëŠ”ë‹¤. -_-?? 
 		return false;
 	//----------------------------------------------------
-	// ÀûÀýÇÑ SlotÀÎÁö È®ÀÎÇØ¾ß ÇÑ´Ù.
+	// ì ì ˆí•œ Slotì¸ì§€ í™•ì¸í•´ì•¼ í•œë‹¤.
 	//----------------------------------------------------	
-	if (pItem->IsGearItem()	&&				// pItemÀÌ GearItemÀÎÁö È®ÀÎ..
-		(*s_GearSlotCheckTable[n])(pItem))	// ÀûÀýÇÑ SlotÀÎÁö È®ÀÎ
+	if (pItem->IsGearItem()	&&				// pItemì´ GearItemì¸ì§€ í™•ì¸..
+		(*s_GearSlotCheckTable[n])(pItem))	// ì ì ˆí•œ Slotì¸ì§€ í™•ì¸
 	{
-		// À§Ä¡¸¸ ¸ÂÀ¸¸é ±³È¯µÇ°Å³ª Ãß°¡µÉ ¼ö ÀÖ´Ù.
+		// ìœ„ì¹˜ë§Œ ë§žìœ¼ë©´ êµí™˜ë˜ê±°ë‚˜ ì¶”ê°€ë  ìˆ˜ ìžˆë‹¤.
 		pOldItem = m_ItemSlot[n];
 		return true;
 	}
@@ -343,14 +343,14 @@ MSlayerGear::CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 //----------------------------------------------------------------------
 // Add Item ( pItem, n )
 //----------------------------------------------------------------------
-// slot(n)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
-// Ãß°¡ÇÒ ¼ö ÀÖ´Â slotÀÎÁö È®ÀÎÇØ¾ß ÇÑ´Ù.
+// slot(n)ì— pItemì„ ì¶”ê°€í•œë‹¤.
+// ì¶”ê°€í•  ìˆ˜ ìžˆëŠ” slotì¸ì§€ í™•ì¸í•´ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 bool			
 MSlayerGear::AddItem(MItem* pItem, GEAR_SLAYER n)
 {
 	//---------------------------------------------------------
-	// ItemSlot ¹üÀ§¸¦ ³Ñ¾î°¡´Â °æ¿ì..
+	// ItemSlot ë²”ìœ„ë¥¼ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 	//---------------------------------------------------------	
 	if (n>=m_Size || !pItem->IsSlayerItem())
 	{
@@ -358,23 +358,23 @@ MSlayerGear::AddItem(MItem* pItem, GEAR_SLAYER n)
 	}
 
 	//-------------------------------------------------
-	// ¾ç¼Õ ItemÀÎ °æ¿ì´Â µû·Î Ã¼Å©ÇØÁØ´Ù.
+	// ì–‘ì† Itemì¸ ê²½ìš°ëŠ” ë”°ë¡œ ì²´í¬í•´ì¤€ë‹¤.
 	//-------------------------------------------------
 	if ((n==GEAR_SLAYER_LEFTHAND || n==GEAR_SLAYER_RIGHTHAND) &&
 		pItem->IsGearSlotTwoHand())
 	{
-		// ¾ç¼ÕÀÇ SlotÀÌ ¸ðµÎ ºñ¾îÀÖ´Â »óÅÂ¿¡¸¸ Ãß°¡ °¡´ÉÇÏ´Ù.
+		// ì–‘ì†ì˜ Slotì´ ëª¨ë‘ ë¹„ì–´ìžˆëŠ” ìƒíƒœì—ë§Œ ì¶”ê°€ ê°€ëŠ¥í•˜ë‹¤.
 		if (m_ItemSlot[GEAR_SLAYER_RIGHTHAND]==NULL
 				&& m_ItemSlot[GEAR_SLAYER_LEFTHAND]==NULL)
 		{
-			// ¿À¸¥¼Õ¿¡ Ãß°¡ÇÑ´Ù.			
+			// ì˜¤ë¥¸ì†ì— ì¶”ê°€í•œë‹¤.			
 			if (MPlayerGear::AddItem( pItem, GEAR_SLAYER_RIGHTHAND ))
 			{
-				// ¿Þ¼Õ¿¡µµ Ãß°¡ÇØÁØ´Ù.
+				// ì™¼ì†ì—ë„ ì¶”ê°€í•´ì¤€ë‹¤.
 				m_ItemSlot[GEAR_SLAYER_LEFTHAND] = pItem;
 
 				//-------------------------------------------------
-				// ÃÑÀÌ¸é ÇöÀç ÅºÃ¢ ¼³Á¤
+				// ì´ì´ë©´ í˜„ìž¬ íƒ„ì°½ ì„¤ì •
 				//-------------------------------------------------
 				if (pItem->IsGunItem())
 				{
@@ -383,7 +383,7 @@ MSlayerGear::AddItem(MItem* pItem, GEAR_SLAYER n)
 				}
 
 				//-------------------------------------------------
-				// Á¦´ë·Î Ãß°¡µÈ °æ¿ì --> soundÃâ·Â
+				// ì œëŒ€ë¡œ ì¶”ê°€ëœ ê²½ìš° --> soundì¶œë ¥
 				//-------------------------------------------------
 				#ifdef __GAME_CLIENT__
 					PlaySound( pItem->GetGearSoundID() );
@@ -399,18 +399,18 @@ MSlayerGear::AddItem(MItem* pItem, GEAR_SLAYER n)
 		return false;
 	}
 	/***********************************************************	
-				ÄÚ¾îÀì °ü·Ã Ã³¸®
+				ì½”ì–´ìž½ ê´€ë ¨ ì²˜ë¦¬
 	***********************************************************/
 	if (n >= GEAR_SLAYER_RING1 && n <= GEAR_SLAYER_RING4)	
 	{
 		if (pItem->IsGearSlotRing())
 		{			
-			if (m_ItemSlot[n+m_Gilles_CoreZap]==NULL&&m_ItemSlot[n]==NULL) // ¸µµµ ¾ø°í ÄÚ¾îÀìÀÌ ¾ø¾î¾ß ¸µÀ» ³õÀ» ¼ö ÀÖÀ½
+			if (m_ItemSlot[n+m_Gilles_CoreZap]==NULL&&m_ItemSlot[n]==NULL) // ë§ë„ ì—†ê³  ì½”ì–´ìž½ì´ ì—†ì–´ì•¼ ë§ì„ ë†“ì„ ìˆ˜ ìžˆìŒ
 			{
 				if (MPlayerGear::AddItem( pItem, n ))	
 				{
 					//-------------------------------------------------
-					// Á¦´ë·Î Ãß°¡µÈ °æ¿ì --> soundÃâ·Â
+					// ì œëŒ€ë¡œ ì¶”ê°€ëœ ê²½ìš° --> soundì¶œë ¥
 					//-------------------------------------------------
 					#ifdef __GAME_CLIENT__
 						PlaySound( pItem->GetGearSoundID() );
@@ -424,12 +424,12 @@ MSlayerGear::AddItem(MItem* pItem, GEAR_SLAYER n)
 		else 
 		if (pItem->IsGearSlotCoreZap())
 		{
-			if (m_ItemSlot[n-m_Gilles_CoreZap]!=NULL && m_ItemSlot[n]==NULL) // ÇØ´çÀ§Ä¡¿¡ ¸µÀÌ ÀÖ°í ÄÚ¾îÀìÀÌ ¾øÀ» °æ¿ì¸¸ ÄÚ¾îÀì Ãß°¡
+			if (m_ItemSlot[n-m_Gilles_CoreZap]!=NULL && m_ItemSlot[n]==NULL) // í•´ë‹¹ìœ„ì¹˜ì— ë§ì´ ìžˆê³  ì½”ì–´ìž½ì´ ì—†ì„ ê²½ìš°ë§Œ ì½”ì–´ìž½ ì¶”ê°€
 			{		
-				if (MPlayerGear::AddItem( pItem, n + m_Gilles_CoreZap ))// ÄÚ¾îÀì À§Ä¡¿¡ Ãß°¡
+				if (MPlayerGear::AddItem( pItem, n + m_Gilles_CoreZap ))// ì½”ì–´ìž½ ìœ„ì¹˜ì— ì¶”ê°€
 				{
 					//-------------------------------------------------
-					// Á¦´ë·Î Ãß°¡µÈ °æ¿ì --> soundÃâ·Â
+					// ì œëŒ€ë¡œ ì¶”ê°€ëœ ê²½ìš° --> soundì¶œë ¥
 					//-------------------------------------------------
 					#ifdef __GAME_CLIENT__
 						PlaySound( pItem->GetGearSoundID() );
@@ -444,27 +444,27 @@ MSlayerGear::AddItem(MItem* pItem, GEAR_SLAYER n)
 
 		return false;
 	}
-//	else if(n >= GEAR_SLAYER_ZAP1 && n <= GEAR_SLAYER_ZAP4) // ÄÚ¾îÀì ½½·ÔÀº º¸ÀÌÁö ¾Ê´Â´Ù. -_-?? 
+//	else if(n >= GEAR_SLAYER_ZAP1 && n <= GEAR_SLAYER_ZAP4) // ì½”ì–´ìž½ ìŠ¬ë¡¯ì€ ë³´ì´ì§€ ì•ŠëŠ”ë‹¤. -_-?? 
 //		return false;
 	//----------------------------------------------------
-	// ÀûÀýÇÑ SlotÀÎÁö È®ÀÎÇØ¾ß ÇÑ´Ù.
+	// ì ì ˆí•œ Slotì¸ì§€ í™•ì¸í•´ì•¼ í•œë‹¤.
 	//----------------------------------------------------	
-	if (m_ItemSlot[n]==NULL &&				// n¹øÂ° slotÀÌ ºñ¾îÀÖ´ÂÁö È®ÀÎ
-		pItem->IsGearItem()	&&				// pItemÀÌ GearItemÀÎÁö È®ÀÎ..
-		(*s_GearSlotCheckTable[n])(pItem))	// ÀûÀýÇÑ SlotÀÎÁö È®ÀÎ
+	if (m_ItemSlot[n]==NULL &&				// në²ˆì§¸ slotì´ ë¹„ì–´ìžˆëŠ”ì§€ í™•ì¸
+		pItem->IsGearItem()	&&				// pItemì´ GearItemì¸ì§€ í™•ì¸..
+		(*s_GearSlotCheckTable[n])(pItem))	// ì ì ˆí•œ Slotì¸ì§€ í™•ì¸
 	{
-		// n¹øÂ° slot¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+		// në²ˆì§¸ slotì— pItemì„ ì¶”ê°€í•œë‹¤.
 		bool bAdd = MPlayerGear::AddItem( pItem, n );
 
 		//--------------------------------------------
-		// Á¦´ë·Î ³Ö¾úÀ¸¸é..
+		// ì œëŒ€ë¡œ ë„£ì—ˆìœ¼ë©´..
 		//--------------------------------------------
 		if (bAdd)
 		{
 			//--------------------------------------------
-			// beltÀÎ °æ¿ì
+			// beltì¸ ê²½ìš°
 			//--------------------------------------------
-			// QuickSlotÀÌ »ý±ä °æ¿ìÀÌ´Ù.
+			// QuickSlotì´ ìƒê¸´ ê²½ìš°ì´ë‹¤.
 			//--------------------------------------------
 			if (n==GEAR_SLAYER_BELT)
 			{
@@ -478,13 +478,13 @@ MSlayerGear::AddItem(MItem* pItem, GEAR_SLAYER n)
 				}
 				else
 				{
-					// ÀÌ·± °æ¿ì´Â ÀÖÀ» ¼ö ¾øÁö ½Í´Ù.					
+					// ì´ëŸ° ê²½ìš°ëŠ” ìžˆì„ ìˆ˜ ì—†ì§€ ì‹¶ë‹¤.					
 				}
 			}
 			else
 			{
 				//-------------------------------------------------
-				// ÃÑÀÌ¸é ÇöÀç ÅºÃ¢ ¼³Á¤
+				// ì´ì´ë©´ í˜„ìž¬ íƒ„ì°½ ì„¤ì •
 				//-------------------------------------------------
 				if (pItem->IsGunItem())
 				{
@@ -494,7 +494,7 @@ MSlayerGear::AddItem(MItem* pItem, GEAR_SLAYER n)
 			}
 
 			//-------------------------------------------------
-			// Á¦´ë·Î Ãß°¡µÈ °æ¿ì --> soundÃâ·Â
+			// ì œëŒ€ë¡œ ì¶”ê°€ëœ ê²½ìš° --> soundì¶œë ¥
 			//-------------------------------------------------
 			#ifdef __GAME_CLIENT__
 				PlaySound( pItem->GetGearSoundID() );
@@ -505,7 +505,7 @@ MSlayerGear::AddItem(MItem* pItem, GEAR_SLAYER n)
 		}
 		
 		//--------------------------------------------
-		// ½ÇÆÐÇÑ °æ¿ì..
+		// ì‹¤íŒ¨í•œ ê²½ìš°..
 		//--------------------------------------------
 		return false;		
 	}
@@ -522,7 +522,7 @@ MSlayerGear::RemoveItem(GEAR_SLAYER n)
 	MItem* pItem = m_ItemSlot[n];
 		
 	//-----------------------------------------------------
-	// ¾ø´Â °æ¿ì
+	// ì—†ëŠ” ê²½ìš°
 	//-----------------------------------------------------
 	if (pItem==NULL)
 	{
@@ -530,27 +530,27 @@ MSlayerGear::RemoveItem(GEAR_SLAYER n)
 	}
 
 	//-----------------------------------------------------
-	// ¾ç¼Õ ¹«±âÀÌ¸é ¿À¸¥¼ÕÀ¸·Î ¼³Á¤ÇÑ´Ù.
+	// ì–‘ì† ë¬´ê¸°ì´ë©´ ì˜¤ë¥¸ì†ìœ¼ë¡œ ì„¤ì •í•œë‹¤.
 	//-----------------------------------------------------
 	if (pItem->IsGearSlotTwoHand())
 	{
 		n = GEAR_SLAYER_RIGHTHAND;
 	}
 	/***********************************************************	
-				ÄÚ¾îÀì °ü·Ã Ã³¸®
+				ì½”ì–´ìž½ ê´€ë ¨ ì²˜ë¦¬
 	***********************************************************/
 	if(n>=GEAR_SLAYER_RING1 && n<= GEAR_SLAYER_RING4) 
 	{
-		if(NULL != m_ItemSlot[n+m_Gilles_CoreZap]) // ÄÚ¾îÀìÀÌ ºÙ¾î ÀÖÀ¸¸é ÄÚ¾îÀìÀ» ¶¾´Ù
-			n = (GEAR_SLAYER)(n + m_Gilles_CoreZap); // ÄÚ¾îÀì À§Ä¡
+		if(NULL != m_ItemSlot[n+m_Gilles_CoreZap]) // ì½”ì–´ìž½ì´ ë¶™ì–´ ìžˆìœ¼ë©´ ì½”ì–´ìž½ì„ ë—€ë‹¤
+			n = (GEAR_SLAYER)(n + m_Gilles_CoreZap); // ì½”ì–´ìž½ ìœ„ì¹˜
 	}
-//	else if(n >= GEAR_SLAYER_ZAP1 && n <= GEAR_SLAYER_ZAP4) // ÄÚ¾îÀì ½½·ÔÀº º¸ÀÌÁö ¾Ê´Â´Ù. -_-?? 
+//	else if(n >= GEAR_SLAYER_ZAP1 && n <= GEAR_SLAYER_ZAP4) // ì½”ì–´ìž½ ìŠ¬ë¡¯ì€ ë³´ì´ì§€ ì•ŠëŠ”ë‹¤. -_-?? 
 //		return false;
 
 	pItem = MPlayerGear::RemoveItem( (BYTE)n );
 
 	//-----------------------------------------------------
-	// ¾ø´Â °æ¿ì
+	// ì—†ëŠ” ê²½ìš°
 	//-----------------------------------------------------
 	if (pItem==NULL)
 	{
@@ -558,9 +558,9 @@ MSlayerGear::RemoveItem(GEAR_SLAYER n)
 	}
 
 	//-----------------------------------------------------
-	// BeltÀÎ °æ¿ì
+	// Beltì¸ ê²½ìš°
 	//-----------------------------------------------------
-	// QuickSlotÀÌ Á¦°ÅµÈ °æ¿ìÀÌ´Ù.
+	// QuickSlotì´ ì œê±°ëœ ê²½ìš°ì´ë‹¤.
 	//-----------------------------------------------------
 	if (n==GEAR_SLAYER_BELT)
 	{
@@ -574,7 +574,7 @@ MSlayerGear::RemoveItem(GEAR_SLAYER n)
 	}
 
 	//-----------------------------------------------------
-	// ¾ç¼Õ ItemÀÎ °æ¿ì ¾ç¼ÕÀÇ SlotÀ» ¸ðµÎ Á¦°ÅÇØÁà¾ß ÇÑ´Ù.
+	// ì–‘ì† Itemì¸ ê²½ìš° ì–‘ì†ì˜ Slotì„ ëª¨ë‘ ì œê±°í•´ì¤˜ì•¼ í•œë‹¤.
 	//-----------------------------------------------------
 	if (pItem->IsGearSlotTwoHand())
 	{
@@ -583,7 +583,7 @@ MSlayerGear::RemoveItem(GEAR_SLAYER n)
 	}
 	
 	//-------------------------------------------------
-	// ÃÑÀÌ¸é ÇöÀç ÅºÃ¢ Á¦°Å
+	// ì´ì´ë©´ í˜„ìž¬ íƒ„ì°½ ì œê±°
 	//-------------------------------------------------
 	if (pItem->IsGunItem())
 	{
@@ -598,7 +598,7 @@ MSlayerGear::RemoveItem(GEAR_SLAYER n)
 }
 
 //----------------------------------------------------------------------
-// RemoveItem : id°¡ °°Àº itemÀ» Á¦°ÅÇÑ´Ù.
+// RemoveItem : idê°€ ê°™ì€ itemì„ ì œê±°í•œë‹¤.
 //----------------------------------------------------------------------
 MItem*			
 MSlayerGear::RemoveItem(TYPE_OBJECTID id)
@@ -606,19 +606,19 @@ MSlayerGear::RemoveItem(TYPE_OBJECTID id)
 	MItem* pItem = MPlayerGear::RemoveItem( id ); 
 
 	//-----------------------------------------------------
-	// ¾ø´Â °æ¿ì
+	// ì—†ëŠ” ê²½ìš°
 	//-----------------------------------------------------
 	if (pItem==NULL)
 	{
 		return NULL;
 	}
 
-	// ÀÖÀ¸¸é...
+	// ìžˆìœ¼ë©´...
 
 	//-----------------------------------------------------
-	// BeltÀÎ °æ¿ì
+	// Beltì¸ ê²½ìš°
 	//-----------------------------------------------------
-	// QuickSlotÀÌ Á¦°ÅµÈ °æ¿ìÀÌ´Ù.
+	// QuickSlotì´ ì œê±°ëœ ê²½ìš°ì´ë‹¤.
 	//-----------------------------------------------------
 	if (pItem->GetItemClass()==ITEM_CLASS_BELT)
 	{
@@ -632,7 +632,7 @@ MSlayerGear::RemoveItem(TYPE_OBJECTID id)
 	}
 
 	//-----------------------------------------------------
-	// ¾ç¼Õ ItemÀÎ °æ¿ì ¾ç¼ÕÀÇ SlotÀ» ¸ðµÎ Á¦°ÅÇØÁà¾ß ÇÑ´Ù.
+	// ì–‘ì† Itemì¸ ê²½ìš° ì–‘ì†ì˜ Slotì„ ëª¨ë‘ ì œê±°í•´ì¤˜ì•¼ í•œë‹¤.
 	//-----------------------------------------------------
 	if (pItem->IsGearSlotTwoHand())
 	{
@@ -641,7 +641,7 @@ MSlayerGear::RemoveItem(TYPE_OBJECTID id)
 	}
 
 	//-------------------------------------------------
-	// ÃÑÀÌ¸é ÇöÀç ÅºÃ¢ Á¦°Å
+	// ì´ì´ë©´ í˜„ìž¬ íƒ„ì°½ ì œê±°
 	//-------------------------------------------------
 	if (pItem->IsGunItem())
 	{
@@ -656,13 +656,13 @@ MSlayerGear::RemoveItem(TYPE_OBJECTID id)
 }
 
 //----------------------------------------------------------------------
-// ReplaceItem : pItemÀ» Ãß°¡ÇÏ°í µý°Ô ÀÖ´Ù¸é Item±³È¯
+// ReplaceItem : pItemì„ ì¶”ê°€í•˜ê³  ë”´ê²Œ ìžˆë‹¤ë©´ Itemêµí™˜
 //----------------------------------------------------------------------
 bool			
 MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 {
 	//---------------------------------------------------------
-	// ItemSlot ¹üÀ§¸¦ ³Ñ¾î°¡´Â °æ¿ì..
+	// ItemSlot ë²”ìœ„ë¥¼ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 	//---------------------------------------------------------	
 	if (n>=m_Size || !pItem->IsSlayerItem())
 	{
@@ -701,7 +701,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 	
 	//-------------------------------------------------
 	//
-	// ¼Õ¿¡ ÀåÂøÇÒ·Á´Â °æ¿ì
+	// ì†ì— ìž¥ì°©í• ë ¤ëŠ” ê²½ìš°
 	//
 	//-------------------------------------------------
 	if (n==GEAR_SLAYER_LEFTHAND || n==GEAR_SLAYER_RIGHTHAND)	
@@ -709,24 +709,24 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		bool bAdd = false;
 			
 		//-------------------------------------------------
-		// [ ¾ç¼Õ Item ] ÀÎ °æ¿ì
+		// [ ì–‘ì† Item ] ì¸ ê²½ìš°
 		//-------------------------------------------------
 		if (pItem->IsGearSlotTwoHand())
 		{			
 			//-------------------------------------------------
-			// ¾ç¼ÕÀÇ SlotÀÌ ¸ðµÎ ºñ¾îÀÖ´Â °æ¿ì
+			// ì–‘ì†ì˜ Slotì´ ëª¨ë‘ ë¹„ì–´ìžˆëŠ” ê²½ìš°
 			//-------------------------------------------------
-			// ±×³É Ãß°¡ÇÑ´Ù.
+			// ê·¸ëƒ¥ ì¶”ê°€í•œë‹¤.
 			//-------------------------------------------------
 			if (m_ItemSlot[GEAR_SLAYER_RIGHTHAND]==NULL
 					&& m_ItemSlot[GEAR_SLAYER_LEFTHAND]==NULL)
 			{
-				// ±×³É Ãß°¡ÇÑ´Ù.
+				// ê·¸ëƒ¥ ì¶”ê°€í•œë‹¤.
 				pOldItem = NULL;
 				if (MPlayerGear::AddItem( pItem, GEAR_SLAYER_RIGHTHAND ))
 				{
 					//-------------------------------------------------
-					// itemÀÇ ³»±¸¼º »óÅÂ ¼³Á¤
+					// itemì˜ ë‚´êµ¬ì„± ìƒíƒœ ì„¤ì •
 					//-------------------------------------------------
 					CheckItemStatus( pItem, GEAR_SLAYER_RIGHTHAND );
 
@@ -735,7 +735,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 					m_ItemSlot[GEAR_SLAYER_RIGHTHAND] = pItem;
 
 					//-------------------------------------------------
-					// ÃÑÀÌ¸é ÇöÀç ÅºÃ¢ ¼³Á¤
+					// ì´ì´ë©´ í˜„ìž¬ íƒ„ì°½ ì„¤ì •
 					//-------------------------------------------------
 					if (pItem->IsGunItem())
 					{
@@ -743,16 +743,16 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 						g_pCurrentMagazine = pGunItem->GetMagazine();
 
 						//------------------------------------------
-						// ÃÑ¾ËÀÌ ¾ø´Â °æ¿ì
+						// ì´ì•Œì´ ì—†ëŠ” ê²½ìš°
 						//------------------------------------------
 						if (g_pCurrentMagazine==NULL)
 						{
 							MMagazine* pMagazine = (MMagazine*)MItem::NewItem( (ITEM_CLASS)ITEM_CLASS_MAGAZINE );
 
-							// ÀÇ¹Ì ¾øÀ½ - -;
+							// ì˜ë¯¸ ì—†ìŒ - -;
 							pMagazine->SetID( 0 );
 
-							// ÀÌ°Å´Â ÃÑ¿¡ ¸ÂÃç¼­ ÇØÁà¾ßµÈ´Ù.
+							// ì´ê±°ëŠ” ì´ì— ë§žì¶°ì„œ í•´ì¤˜ì•¼ëœë‹¤.
 							for (int j=0; j<(*g_pItemTable)[ITEM_CLASS_MAGAZINE].GetSize(); j++)			
 							{
 								pMagazine->SetItemType(	j );
@@ -763,19 +763,19 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 								}
 							}
 
-							// ÀÇ¹Ì ¾øÀ½
+							// ì˜ë¯¸ ì—†ìŒ
 							pMagazine->ClearItemOption();
 						
-							// ÅºÃ¢ °³¼ö
+							// íƒ„ì°½ ê°œìˆ˜
 							pMagazine->SetNumber( 0 );
 
-							// ÅºÃ¢ ¼³Á¤
+							// íƒ„ì°½ ì„¤ì •
 							pGunItem->SetMagazine( pMagazine );
 						}
 					}				
 
 					//-------------------------------------------------
-					// Á¦´ë·Î Ãß°¡µÈ °æ¿ì --> soundÃâ·Â
+					// ì œëŒ€ë¡œ ì¶”ê°€ëœ ê²½ìš° --> soundì¶œë ¥
 					//-------------------------------------------------
 					#ifdef __GAME_CLIENT__
 						PlaySound( pItem->GetGearSoundID() );						
@@ -789,23 +789,23 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 			
 			//-------------------------------------------------
-			// ¾ç¼Õ¿¡ ´Ù ¹º°¡ ÀÖ´Â °æ¿ì
+			// ì–‘ì†ì— ë‹¤ ë­”ê°€ ìžˆëŠ” ê²½ìš°
 			//-------------------------------------------------
 			if (m_ItemSlot[GEAR_SLAYER_RIGHTHAND]!=NULL 
 				&& m_ItemSlot[GEAR_SLAYER_LEFTHAND]!=NULL)
 			{
 				//-------------------------------------------------
-				// ¾ç¼Õ¿¡ ÀÖ´Â°Ô °°´Ù¸é..
+				// ì–‘ì†ì— ìžˆëŠ”ê²Œ ê°™ë‹¤ë©´..
 				//-------------------------------------------------
 				if (m_ItemSlot[GEAR_SLAYER_RIGHTHAND]==m_ItemSlot[GEAR_SLAYER_LEFTHAND])
 				{
-					// ¾ç¼Õ ¹«±â¿Í ±³Ã¼ÇÏ´Â °æ¿ìÀÌ´Ù.
+					// ì–‘ì† ë¬´ê¸°ì™€ êµì²´í•˜ëŠ” ê²½ìš°ì´ë‹¤.
 					if (MPlayerGear::ReplaceItem( pItem, 
 													GEAR_SLAYER_RIGHTHAND, 
 													pOldItem ))
 					{
 						//-------------------------------------------------
-						// itemÀÇ ³»±¸¼º »óÅÂ ¼³Á¤
+						// itemì˜ ë‚´êµ¬ì„± ìƒíƒœ ì„¤ì •
 						//-------------------------------------------------
 						CheckItemStatus( pItem, GEAR_SLAYER_RIGHTHAND );
 
@@ -814,7 +814,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 						//m_ItemSlot[GEAR_SLAYER_RIGHTHAND] = pItem;
 
 						//-------------------------------------------------
-						// Á¦°ÅµÈ °ÍÀÌ ÃÑÀÎ °æ¿ì
+						// ì œê±°ëœ ê²ƒì´ ì´ì¸ ê²½ìš°
 						//-------------------------------------------------
 						if (pOldItem!=NULL && pOldItem->IsGunItem())
 						{
@@ -822,7 +822,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 						}
 
 						//-------------------------------------------------
-						// ÃÑÀÌ¸é ÇöÀç ÅºÃ¢ ¼³Á¤
+						// ì´ì´ë©´ í˜„ìž¬ íƒ„ì°½ ì„¤ì •
 						//-------------------------------------------------
 						if (pItem->IsGunItem())
 						{
@@ -831,7 +831,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 						}
 					
 						//-------------------------------------------------
-						// Á¦´ë·Î Ãß°¡µÈ °æ¿ì --> soundÃâ·Â
+						// ì œëŒ€ë¡œ ì¶”ê°€ëœ ê²½ìš° --> soundì¶œë ¥
 						//-------------------------------------------------
 						#ifdef __GAME_CLIENT__
 							PlaySound( pItem->GetGearSoundID() );
@@ -845,7 +845,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 				}
 				
 				//-------------------------------------------------
-				// ¾ç¼Õ¿¡ ÀÖ´Â°Ô ´Ù¸£´Ù¸é..
+				// ì–‘ì†ì— ìžˆëŠ”ê²Œ ë‹¤ë¥´ë‹¤ë©´..
 				//-------------------------------------------------
 				pOldItem = NULL;
 				return false;
@@ -853,9 +853,9 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 
 			//-------------------------------------------------
-			// ¿À¸¥¼Õ¿¡ ¹º°¡ ÀÖ´Â °æ¿ì
+			// ì˜¤ë¥¸ì†ì— ë­”ê°€ ìžˆëŠ” ê²½ìš°
 			//-------------------------------------------------
-			// ¿À¸¥¼ÕÀÇ Item°ú ReplaceÇÑ´Ù.
+			// ì˜¤ë¥¸ì†ì˜ Itemê³¼ Replaceí•œë‹¤.
 			//-------------------------------------------------
 			else if (m_ItemSlot[GEAR_SLAYER_RIGHTHAND]!=NULL)
 			{
@@ -865,9 +865,9 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}		
 
 			//-------------------------------------------------
-			// ¿Þ¼Õ¿¡ ¹º°¡ ÀÖ´Â °æ¿ì
+			// ì™¼ì†ì— ë­”ê°€ ìžˆëŠ” ê²½ìš°
 			//-------------------------------------------------
-			// ¿Þ¼ÕÀÇ Item°ú ReplaceÇÑ´Ù.
+			// ì™¼ì†ì˜ Itemê³¼ Replaceí•œë‹¤.
 			//-------------------------------------------------
 			else if (m_ItemSlot[GEAR_SLAYER_LEFTHAND]!=NULL)
 			{
@@ -877,12 +877,12 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 
 			//-----------------------------------------------------
-			// ¾ç¼ÕÀÇ SlotÀ» ¸ðµÎ ¼³Á¤..
+			// ì–‘ì†ì˜ Slotì„ ëª¨ë‘ ì„¤ì •..
 			//-----------------------------------------------------
 			if (bAdd)
 			{
 				//-------------------------------------------------
-				// itemÀÇ ³»±¸¼º »óÅÂ ¼³Á¤
+				// itemì˜ ë‚´êµ¬ì„± ìƒíƒœ ì„¤ì •
 				//-------------------------------------------------
 				CheckItemStatus( pItem, GEAR_SLAYER_RIGHTHAND );
 				
@@ -891,7 +891,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 				m_ItemSlot[GEAR_SLAYER_RIGHTHAND] = pItem;
 
 				//-------------------------------------------------
-				// Á¦°ÅµÈ °ÍÀÌ ÃÑÀÎ °æ¿ì
+				// ì œê±°ëœ ê²ƒì´ ì´ì¸ ê²½ìš°
 				//-------------------------------------------------
 				if (pOldItem!=NULL && pOldItem->IsGunItem())
 				{
@@ -899,7 +899,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 				}
 
 				//-------------------------------------------------
-				// ÃÑÀÌ¸é ÇöÀç ÅºÃ¢ ¼³Á¤
+				// ì´ì´ë©´ í˜„ìž¬ íƒ„ì°½ ì„¤ì •
 				//-------------------------------------------------
 				if (pItem->IsGunItem())
 				{
@@ -908,7 +908,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 				}				
 		
 				//-------------------------------------------------
-				// Á¦´ë·Î Ãß°¡µÈ °æ¿ì --> soundÃâ·Â
+				// ì œëŒ€ë¡œ ì¶”ê°€ëœ ê²½ìš° --> soundì¶œë ¥
 				//-------------------------------------------------
 				#ifdef __GAME_CLIENT__
 					PlaySound( pItem->GetGearSoundID() );
@@ -921,7 +921,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			return false;
 		}
 		//-------------------------------------------------
-		// [ ¿À¸¥¼Õ Item ] ÀÎ °æ¿ì
+		// [ ì˜¤ë¥¸ì† Item ] ì¸ ê²½ìš°
 		//-------------------------------------------------		
 		else if (pItem->IsGearSlotRightHand())
 		{
@@ -930,18 +930,18 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 													pOldItem );
 
 			//-------------------------------------------------
-			// ±³È¯µÇ¾î ³ª¿Â ItemÀÌ ¾ç¼ÕÀÎ °æ¿ì
+			// êµí™˜ë˜ì–´ ë‚˜ì˜¨ Itemì´ ì–‘ì†ì¸ ê²½ìš°
 			//-------------------------------------------------
 			if (pOldItem!=NULL)
 			{
 				if (pOldItem->IsGearSlotTwoHand())
 				{
-					// ¿Þ¼ÕÀ» ºñ¿öµÐ´Ù.
+					// ì™¼ì†ì„ ë¹„ì›Œë‘”ë‹¤.
 					m_ItemSlot[GEAR_SLAYER_LEFTHAND] = NULL;
 				}
 
 				//-------------------------------------------------
-				// ÃÑÀÌ¸é ÇöÀç ÅºÃ¢ Á¦°Å
+				// ì´ì´ë©´ í˜„ìž¬ íƒ„ì°½ ì œê±°
 				//-------------------------------------------------
 				if (pOldItem->IsGunItem())
 				{
@@ -952,12 +952,12 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			if (bAdd)
 			{
 				//-------------------------------------------------
-				// itemÀÇ ³»±¸¼º »óÅÂ ¼³Á¤
+				// itemì˜ ë‚´êµ¬ì„± ìƒíƒœ ì„¤ì •
 				//-------------------------------------------------
 				CheckItemStatus( pItem, GEAR_SLAYER_RIGHTHAND );
 
 				//-------------------------------------------------
-				// Á¦´ë·Î Ãß°¡µÈ °æ¿ì --> soundÃâ·Â
+				// ì œëŒ€ë¡œ ì¶”ê°€ëœ ê²½ìš° --> soundì¶œë ¥
 				//-------------------------------------------------
 				#ifdef __GAME_CLIENT__
 					PlaySound( pItem->GetGearSoundID() );
@@ -970,7 +970,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			return false;
 		}
 		//-------------------------------------------------
-		// [ ¿Þ¼Õ Item ] ÀÎ °æ¿ì
+		// [ ì™¼ì† Item ] ì¸ ê²½ìš°
 		//-------------------------------------------------
 		else if (pItem->IsGearSlotLeftHand())
 		{
@@ -978,18 +978,18 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 													GEAR_SLAYER_LEFTHAND, 
 													pOldItem );
 			//-------------------------------------------------
-			// ±³È¯µÇ¾î ³ª¿Â ItemÀÌ ¾ç¼ÕÀÎ °æ¿ì
+			// êµí™˜ë˜ì–´ ë‚˜ì˜¨ Itemì´ ì–‘ì†ì¸ ê²½ìš°
 			//-------------------------------------------------
 			if (pOldItem!=NULL)
 			{
 				if (pOldItem->IsGearSlotTwoHand())
 				{
-					// ¿À¸¥¼ÕÀ» ºñ¿öµÐ´Ù.
+					// ì˜¤ë¥¸ì†ì„ ë¹„ì›Œë‘”ë‹¤.
 					m_ItemSlot[GEAR_SLAYER_RIGHTHAND] = NULL;
 				}
 
 				//-------------------------------------------------
-				// ÃÑÀÌ¸é ÇöÀç ÅºÃ¢ Á¦°Å
+				// ì´ì´ë©´ í˜„ìž¬ íƒ„ì°½ ì œê±°
 				//-------------------------------------------------
 				if (pOldItem->IsGunItem())
 				{
@@ -1000,12 +1000,12 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			if (bAdd)
 			{
 				//-------------------------------------------------
-				// item »óÅÂ ¼³Á¤
+				// item ìƒíƒœ ì„¤ì •
 				//-------------------------------------------------
 				CheckItemStatus( pItem, GEAR_SLAYER_LEFTHAND );
 				
 				//-------------------------------------------------
-				// Á¦´ë·Î Ãß°¡µÈ °æ¿ì --> soundÃâ·Â
+				// ì œëŒ€ë¡œ ì¶”ê°€ëœ ê²½ìš° --> soundì¶œë ¥
 				//-------------------------------------------------
 				#ifdef __GAME_CLIENT__
 					PlaySound( pItem->GetGearSoundID() );
@@ -1019,35 +1019,35 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		}
 		
 		//-------------------------------------------------
-		// ¼Õ¿¡ ÀåÂøÇÒ·Á´Âµ¥
-		// ¼Õ¿¡ ÀåÂøÇÒ ¼ö ÀÖ´Â ItemÀÌ ¾Æ´Ñ °æ¿ì
+		// ì†ì— ìž¥ì°©í• ë ¤ëŠ”ë°
+		// ì†ì— ìž¥ì°©í•  ìˆ˜ ìžˆëŠ” Itemì´ ì•„ë‹Œ ê²½ìš°
 		//-------------------------------------------------
 		pOldItem = NULL;
 		return false;
 		
 	}
 	/***********************************************************	
-				ÄÚ¾îÀì °ü·Ã Ã³¸®
+				ì½”ì–´ìž½ ê´€ë ¨ ì²˜ë¦¬
 	***********************************************************/
 	if (n >= GEAR_SLAYER_RING1 && n <= GEAR_SLAYER_RING4)	
 	{
 		if (pItem->IsGearSlotRing())
 		{			
-			if (m_ItemSlot[n+m_Gilles_CoreZap]!=NULL) // ÄÚ¾îÀìÀÌ ÀÖÀ¸¸é ¸ø ³õÀ½
+			if (m_ItemSlot[n+m_Gilles_CoreZap]!=NULL) // ì½”ì–´ìž½ì´ ìžˆìœ¼ë©´ ëª» ë†“ìŒ
 				return false;
 		}
 		else
 		if (pItem->IsGearSlotCoreZap())
 		{			
-			if (m_ItemSlot[n]!=NULL) // ÄÚ¾îÀìÀº ¸µÀÌ ÀÖ¾î¾ß ³õÀ» ¼ö ÀÖ´Ù. 
+			if (m_ItemSlot[n]!=NULL) // ì½”ì–´ìž½ì€ ë§ì´ ìžˆì–´ì•¼ ë†“ì„ ìˆ˜ ìžˆë‹¤. 
 			{
 				bool bAdd = false;
-				if(m_ItemSlot[n+m_Gilles_CoreZap] == NULL)// ±âÁ¸ ÄÚ¾îÀìÀÌ ¾øÀ¸¸é
+				if(m_ItemSlot[n+m_Gilles_CoreZap] == NULL)// ê¸°ì¡´ ì½”ì–´ìž½ì´ ì—†ìœ¼ë©´
 				{
 					pOldItem = NULL;
-					bAdd = MPlayerGear::AddItem( pItem, n+m_Gilles_CoreZap );	// °Á Ãß°¡
+					bAdd = MPlayerGear::AddItem( pItem, n+m_Gilles_CoreZap );	// ê± ì¶”ê°€
 				}
-				else // ±âÁ¸ ÄÚ¾îÀìÀÌ ÀÖÀ¸¸é ±³È¯
+				else // ê¸°ì¡´ ì½”ì–´ìž½ì´ ìžˆìœ¼ë©´ êµí™˜
 				{
 					bAdd = MPlayerGear::ReplaceItem( pItem, n+m_Gilles_CoreZap, pOldItem );	
 					
@@ -1057,7 +1057,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 					}			
 				}
 
-				if (bAdd) // Àß Ãß°¡ µÆÀ¸¸é 
+				if (bAdd) // ìž˜ ì¶”ê°€ ëìœ¼ë©´ 
 				{
 					#ifdef __GAME_CLIENT__
 						PlaySound( pItem->GetGearSoundID() );
@@ -1072,37 +1072,37 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		}
 	
 	}
-//	else if(n >= GEAR_SLAYER_ZAP1 && n <= GEAR_SLAYER_ZAP4) // ÄÚ¾îÀì ½½·ÔÀº º¸ÀÌÁö ¾Ê´Â´Ù. -_-?? 
+//	else if(n >= GEAR_SLAYER_ZAP1 && n <= GEAR_SLAYER_ZAP4) // ì½”ì–´ìž½ ìŠ¬ë¡¯ì€ ë³´ì´ì§€ ì•ŠëŠ”ë‹¤. -_-?? 
 //		return false;
 	
 	//----------------------------------------------------
-	// ÀûÀýÇÑ SlotÀÎÁö È®ÀÎÇØ¾ß ÇÑ´Ù.
+	// ì ì ˆí•œ Slotì¸ì§€ í™•ì¸í•´ì•¼ í•œë‹¤.
 	//----------------------------------------------------	
-	if (pItem->IsGearItem()	&&				// pItemÀÌ GearItemÀÎÁö È®ÀÎ..
-		(*s_GearSlotCheckTable[n])(pItem))	// ÀûÀýÇÑ SlotÀÎÁö È®ÀÎ
+	if (pItem->IsGearItem()	&&				// pItemì´ GearItemì¸ì§€ í™•ì¸..
+		(*s_GearSlotCheckTable[n])(pItem))	// ì ì ˆí•œ Slotì¸ì§€ í™•ì¸
 	{
 		bool bAdd;
 		//----------------------------------------------------
-		// ´Ù¸¥ ItemÀÌ ¾ø´Â °æ¿ì --> ±×³É Ãß°¡
+		// ë‹¤ë¥¸ Itemì´ ì—†ëŠ” ê²½ìš° --> ê·¸ëƒ¥ ì¶”ê°€
 		//----------------------------------------------------	
-		if (m_ItemSlot[n]==NULL)				// n¹øÂ° slotÀÌ ºñ¾îÀÖ´ÂÁö È®ÀÎ
+		if (m_ItemSlot[n]==NULL)				// në²ˆì§¸ slotì´ ë¹„ì–´ìžˆëŠ”ì§€ í™•ì¸
 		{
 			pOldItem = NULL;
-			// n¹øÂ° slot¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+			// në²ˆì§¸ slotì— pItemì„ ì¶”ê°€í•œë‹¤.
 			bAdd = MPlayerGear::AddItem( pItem, n );			
 		}
 		//----------------------------------------------------	
-		// ±³È¯ ÇØ¾ß µÇ´Â °æ¿ì
+		// êµí™˜ í•´ì•¼ ë˜ëŠ” ê²½ìš°
 		//----------------------------------------------------	
 		else
 		{
 			//-----------------------------------------------------
-			// n¹øÂ° slotÀÇ Item°ú ±³È¯ÇÑ´Ù.
+			// në²ˆì§¸ slotì˜ Itemê³¼ êµí™˜í•œë‹¤.
 			//-----------------------------------------------------
 			bAdd = MPlayerGear::ReplaceItem( pItem, n, pOldItem );	
 			
 			//-------------------------------------------------
-			// itemÀÇ ³»±¸¼º »óÅÂ ¼³Á¤
+			// itemì˜ ë‚´êµ¬ì„± ìƒíƒœ ì„¤ì •
 			//-------------------------------------------------
 			if (bAdd)
 			{
@@ -1111,14 +1111,14 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 		}
 
 		//--------------------------------------------
-		// Á¦´ë·Î ³Ö¾úÀ¸¸é..
+		// ì œëŒ€ë¡œ ë„£ì—ˆìœ¼ë©´..
 		//--------------------------------------------
 		if (bAdd)
 		{
 			//--------------------------------------------
-			// beltÀÎ °æ¿ì
+			// beltì¸ ê²½ìš°
 			//--------------------------------------------
-			// QuickSlotÀÌ »ý±ä °æ¿ìÀÌ´Ù.
+			// QuickSlotì´ ìƒê¸´ ê²½ìš°ì´ë‹¤.
 			//--------------------------------------------
 			if (n==GEAR_SLAYER_BELT)
 			{
@@ -1128,15 +1128,15 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 				}
 				else
 				{
-					// ÀÌ·± °æ¿ì´Â ÀÖÀ» ¼ö ¾øÁö ½Í´Ù.					
+					// ì´ëŸ° ê²½ìš°ëŠ” ìžˆì„ ìˆ˜ ì—†ì§€ ì‹¶ë‹¤.					
 				}
 			}
 			else
 			{
 				//-------------------------------------------------
-				// ÃÑÀ» Á¦°ÅÇÑ °æ¿ì
-				// À§¿¡¼­ ¼ÕÀº µû·Î Ã¼Å©ÇÏ¹Ç·Î..
-				// À½.. °¡´É¼ºÀÌ ¾ø´Â ÄÚµå´ç.. - -;;
+				// ì´ì„ ì œê±°í•œ ê²½ìš°
+				// ìœ„ì—ì„œ ì†ì€ ë”°ë¡œ ì²´í¬í•˜ë¯€ë¡œ..
+				// ìŒ.. ê°€ëŠ¥ì„±ì´ ì—†ëŠ” ì½”ë“œë‹¹.. - -;;
 				//-------------------------------------------------
 				if (pOldItem!=NULL && pOldItem->IsGunItem())
 				{
@@ -1144,7 +1144,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 				}
 
 				//-------------------------------------------------
-				// ÃÑÀÌ¸é ÇöÀç ÅºÃ¢ ¼³Á¤
+				// ì´ì´ë©´ í˜„ìž¬ íƒ„ì°½ ì„¤ì •
 				//-------------------------------------------------
 				if (pItem->IsGunItem())
 				{
@@ -1154,7 +1154,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 			}
 
 			//-------------------------------------------------
-			// Á¦´ë·Î Ãß°¡µÈ °æ¿ì --> soundÃâ·Â
+			// ì œëŒ€ë¡œ ì¶”ê°€ëœ ê²½ìš° --> soundì¶œë ¥
 			//-------------------------------------------------
 			#ifdef __GAME_CLIENT__
 				PlaySound( pItem->GetGearSoundID() );
@@ -1171,7 +1171,7 @@ MSlayerGear::ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem)
 MItem*	MSlayerGear::GetGearItem_PickUp(int &n) const	
 {
 	int Slot = n;
-//	if(Slot>=GEAR_SLAYER_BLOOD_BIBLE1 && Slot<=GEAR_SLAYER_BLOOD_BIBLE6) // ºí·¯µå ¹ÙÀÌºíÀº ÁýÀ»¼ö ¾ø´Ù.
+//	if(Slot>=GEAR_SLAYER_BLOOD_BIBLE1 && Slot<=GEAR_SLAYER_BLOOD_BIBLE6) // ë¸”ëŸ¬ë“œ ë°”ì´ë¸”ì€ ì§‘ì„ìˆ˜ ì—†ë‹¤.
 //		return NULL;
 	if(Slot>=GEAR_SLAYER_RING1 && Slot<=GEAR_SLAYER_RING4)
 	{
@@ -1221,7 +1221,7 @@ MItem*	MSlayerGear::GetGearCoreZapedItem(int slot) const
 const bool	MSlayerGear::IsHasAllCoreZap(int CoreZapType) const	
 {
 	BYTE bType[4] = {0,};
-	if(CoreZapType == 0) // Áúµå·¹ ÄÚ¾î Àì ÀÏ °æ¿ì
+	if(CoreZapType == 0) // ì§ˆë“œë ˆ ì½”ì–´ ìž½ ì¼ ê²½ìš°
 	{
 		MItem* pItem;
 		for(int i = 0; i<4; i++)

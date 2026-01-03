@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MParabolaEffect.h
 //----------------------------------------------------------------------
-// Æ÷¹°¼±À» ±×¸®´Â Effect
+// í¬ë¬¼ì„ ì„ ê·¸ë¦¬ëŠ” Effect
 //----------------------------------------------------------------------
 
 #ifndef	__MPARABOLAEFFECT_H__
@@ -21,20 +21,20 @@ class MParabolaEffect : public MLinearEffect {
 		virtual EFFECT_TYPE		GetEffectType()	const	{ return EFFECT_PARABOLA; }
 
 		//--------------------------------------------------------
-		// »õ·Î¿î ¸ñÇ¥ ¼³Á¤
+		// ìƒˆë¡œìš´ ëª©í‘œ ì„¤ì •
 		//--------------------------------------------------------
 		virtual void		SetTarget(int x, int y, int z, WORD stepPixel);
 		
 		//--------------------------------------------------------
-		// ÇÑ ¹øÀÇ Update¿¡ È£ÃâµÉ ÇÔ¼ö..
+		// í•œ ë²ˆì˜ Updateì— í˜¸ì¶œë  í•¨ìˆ˜..
 		//--------------------------------------------------------
 		virtual bool		Update();
 
 		void				MakeCannonadeSmoke();
 		void				SetTargetTile(int x, int y) {	m_TargetTileX = x; m_TargetTileY = y;	}
 	protected :	
-		int			m_RadCurrent;	// ÇöÀç radian°ª
-		int			m_RadStep;		// ¸Å turn¸¶´Ù ´Ş¶óÁö´Â radian°ª
+		int			m_RadCurrent;	// í˜„ì¬ radianê°’
+		int			m_RadStep;		// ë§¤ turnë§ˆë‹¤ ë‹¬ë¼ì§€ëŠ” radianê°’
 		TYPE_SECTORPOSITION m_TargetTileX;
 		TYPE_SECTORPOSITION m_TargetTileY;
 };

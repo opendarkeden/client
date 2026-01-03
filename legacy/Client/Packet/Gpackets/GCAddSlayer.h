@@ -17,13 +17,13 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddSlayer;
-// ·Î±×ÀÎÀÌ³ª Æ÷Å», ÅÚ·¹Æ÷Æ® µîÀ¸·Î ½½·¹ÀÌ¾î°¡ Á¸¿¡ »õ·Î µé¾î°¬À» °æ¿ì, ¶Ç´Â 
-// ½½·¹ÀÌ¾î°¡ Á¸¿¡¼­ ÀÌµ¿ÇÒ °æ¿ì,(1) ÀÌ¹Ì ÀÌ ½½·¹ÀÌ¾î¿¡ ´ëÇÑ Á¤º¸¸¦ °®°í ÀÖ´Â 
-//(Áï ÀÌ ½½·¹ÀÌ¾î¸¦ º¸°í ÀÖ´Â..) ¿µ¿ª¿¡ Á¸ÀçÇÏ´Â PCµé¿¡°Ô´Â GCMove ÆÐÅ¶À» 
-// ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù. ±×·¯³ª,(2) ÀÌ ½½·¹ÀÌ¾î¸¦ Ã³À½ º¸°Ô µÇ´Â ¿µ¿ª¿¡ Á¸ÀçÇÏ´Â 
-// PCµé¿¡°Ô´Â GCAddSlayer ÆÐÅ¶À» ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù. ¶ÇÇÑ,(3) ÀÌ ½½·¹ÀÌ¾î´Â 
-// ÀÚ½ÅÀÌ »õ·Î °³Ã´ÇÑ ½Ã¾ß(?) ¾È¿¡ Á¸ÀçÇÏ´Â ½½·¹ÀÌ¾îµéÀÇ Á¤º¸¸¦ GCAddSlayer¿¡ 
-// ´ã¾Æ¼­ ¹Þ°Ô µÈ´Ù.
+// ë¡œê·¸ì¸ì´ë‚˜ í¬íƒˆ, í…”ë ˆí¬íŠ¸ ë“±ìœ¼ë¡œ ìŠ¬ë ˆì´ì–´ê°€ ì¡´ì— ìƒˆë¡œ ë“¤ì–´ê°”ì„ ê²½ìš°, ë˜ëŠ” 
+// ìŠ¬ë ˆì´ì–´ê°€ ì¡´ì—ì„œ ì´ë™í•  ê²½ìš°,(1) ì´ë¯¸ ì´ ìŠ¬ë ˆì´ì–´ì— ëŒ€í•œ ì •ë³´ë¥¼ ê°–ê³  ìžˆëŠ” 
+//(ì¦‰ ì´ ìŠ¬ë ˆì´ì–´ë¥¼ ë³´ê³  ìžˆëŠ”..) ì˜ì—­ì— ì¡´ìž¬í•˜ëŠ” PCë“¤ì—ê²ŒëŠ” GCMove íŒ¨í‚·ì„ 
+// ë¸Œë¡œë“œìºìŠ¤íŠ¸í•œë‹¤. ê·¸ëŸ¬ë‚˜,(2) ì´ ìŠ¬ë ˆì´ì–´ë¥¼ ì²˜ìŒ ë³´ê²Œ ë˜ëŠ” ì˜ì—­ì— ì¡´ìž¬í•˜ëŠ” 
+// PCë“¤ì—ê²ŒëŠ” GCAddSlayer íŒ¨í‚·ì„ ë¸Œë¡œë“œìºìŠ¤íŠ¸í•œë‹¤. ë˜í•œ,(3) ì´ ìŠ¬ë ˆì´ì–´ëŠ” 
+// ìžì‹ ì´ ìƒˆë¡œ ê°œì²™í•œ ì‹œì•¼(?) ì•ˆì— ì¡´ìž¬í•˜ëŠ” ìŠ¬ë ˆì´ì–´ë“¤ì˜ ì •ë³´ë¥¼ GCAddSlayerì— 
+// ë‹´ì•„ì„œ ë°›ê²Œ ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class GCAddSlayer : public Packet 
@@ -61,11 +61,11 @@ public:
 	void		setStoreInfo(StoreInfo* pInfo) { pInfo->makeStoreOutlook(m_StoreOutlook); }
 
 private:
-	PCSlayerInfo3  m_SlayerInfo;  // ½½·¹ÀÌ¾îÀÇ ¿Ü¸ð Á¤º¸
-	EffectInfo*    m_pEffectInfo; // °É·ÁÀÖ´Â ÀÌÆåÆ® Á¤º¸
-	PetInfo*	   m_pPetInfo;	  // Æê °ü·Ã Á¤º¸
-	NicknameInfo*	   m_pNicknameInfo;	  // Æê °ü·Ã Á¤º¸
-	StoreOutlook		m_StoreOutlook;	// °³ÀÎ»óÁ¡ °ü·Ã Á¤º¸
+	PCSlayerInfo3  m_SlayerInfo;  // ìŠ¬ë ˆì´ì–´ì˜ ì™¸ëª¨ ì •ë³´
+	EffectInfo*    m_pEffectInfo; // ê±¸ë ¤ìžˆëŠ” ì´íŽ™íŠ¸ ì •ë³´
+	PetInfo*	   m_pPetInfo;	  // íŽ« ê´€ë ¨ ì •ë³´
+	NicknameInfo*	   m_pNicknameInfo;	  // íŽ« ê´€ë ¨ ì •ë³´
+	StoreOutlook		m_StoreOutlook;	// ê°œì¸ìƒì  ê´€ë ¨ ì •ë³´
 };
 
 //////////////////////////////////////////////////////////////////////////////

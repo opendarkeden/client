@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MCreatureWear.h
 //----------------------------------------------------------------------
-// ¿ÊÀÔ°í ¿òÁ÷ÀÌ´Â »ı¹°¿¡ ´ëÇÑ class
+// ì˜·ì…ê³  ì›€ì§ì´ëŠ” ìƒë¬¼ì— ëŒ€í•œ class
 //----------------------------------------------------------------------
 
 #ifndef	__MCREATUREWEAR_H__
@@ -19,17 +19,17 @@
 class MCreatureWear : public MCreature {
 	public :
 		//----------------------------------------------------
-		// CreatureÀÇ ±×¸²°ú º¹Àå¿¡ ´ëÇÑ Á¤º¸ 
+		// Creatureì˜ ê·¸ë¦¼ê³¼ ë³µì¥ì— ëŒ€í•œ ì •ë³´ 
 		//----------------------------------------------------
 		struct ADDON_INFO 
 		{
-			BOOL				bAddon;			// Âø¿ëÇß³ª?	
-			TYPE_FRAMEID		FrameID;		// º¹Àå
+			BOOL				bAddon;			// ì°©ìš©í–ˆë‚˜?	
+			TYPE_FRAMEID		FrameID;		// ë³µì¥
 			ITEM_CLASS	ItemClass;		// item class
 			TYPE_ITEMTYPE		ItemType;		// item type
 			WORD				ColorSet1;		// colorset1
 			WORD				ColorSet2;		// colorset2
-			BOOL				bEffectColor;	// EffectColor¸¦ »ç¿ëÇÏ´Â°¡?
+			BOOL				bEffectColor;	// EffectColorë¥¼ ì‚¬ìš©í•˜ëŠ”ê°€?
 			WORD				EffectColorSet;	// EffectColor			
 		};
 
@@ -52,22 +52,22 @@ class MCreatureWear : public MCreature {
 		BOOL		IsWear() const					{ return TRUE; }
 
 		//------------------------------------------------------
-		// type¼³Á¤
+		// typeì„¤ì •
 		//------------------------------------------------------
 		virtual void	SetCreatureType(TYPE_CREATURETYPE type);
 
 
 		//------------------------------------------------------
-		// º¹Àå ¹Ù²Ù±â °ü·Ã
+		// ë³µì¥ ë°”ê¾¸ê¸° ê´€ë ¨
 		//------------------------------------------------------			
-		// ¸Ó¸®Ä«¶ô
+		// ë¨¸ë¦¬ì¹´ë½
 		void			SetAddonHair(TYPE_FRAMEID id, WORD cs1);
 		TYPE_FRAMEID	GetHairFrameID()			{ return m_HairFrameID; }
 		
-		// º¹Àå ¹ş±â±â
+		// ë³µì¥ ë²—ê¸°ê¸°
 		bool			RemoveAddon(int Addon);
 
-		// º¹Àå ÀÖ´Â°¡?
+		// ë³µì¥ ìˆëŠ”ê°€?
 		//BOOL			IsExistAddon(int Addon) const		{ return m_Addon[Addon].bAddon; }
 		//TYPE_FRAMEID	GetAddonFrameID(int Addon) const	{ return m_Addon[Addon].FrameID; }
 		//ITEM_CLASS	GetAddonItemClass(int Addon) const	{ return m_Addon[Addon].ItemClass; }
@@ -76,13 +76,13 @@ class MCreatureWear : public MCreature {
 		const ADDON_INFO&	GetACAddonInfo(int Addon) const;
 
 		//------------------------------------------------------			
-		// ColorSetÀ» ¼³Á¤ÇÑ´Ù.
+		// ColorSetì„ ì„¤ì •í•œë‹¤.
 		//------------------------------------------------------			
 		void			SetAddonColorSet1(int Addon, WORD colorSet);
 		void			SetAddonColorSet2(int Addon, WORD colorSet);	
 		
 		//------------------------------------------------------
-		// AddonItemÀ» Âø¿ë/ÇØÁ¦ÇÑ´Ù.
+		// AddonItemì„ ì°©ìš©/í•´ì œí•œë‹¤.
 		//------------------------------------------------------
 		virtual	bool		SetAddonItem(MItem* pItem);
 		virtual bool		RemoveAddonItem(MItem* pItem);
@@ -103,18 +103,18 @@ class MCreatureWear : public MCreature {
 		MItem*			NewItemFromAddonInfo(int Addon);
 
 	protected :
-		// º¹ÀåÀÇ Á¤º¸	
+		// ë³µì¥ì˜ ì •ë³´	
 		ADDON_INFO			m_Addon[ ADDON_MAX ];
 //		ADDON_INFO			m_ACAddon[ AC_ADDON_MAX ];
 		ADDON_INFO			m_ShoulderAddon;
 
-		// ¸ğÀÚ ½èÀ»¶§ ÂªÀº ¸Ó¸®´Â ¾È º¸¿©ÁÖ°Ô ÇÏ±â À§ÇØ¼­..
-		// ¸Ó¸®Ä«¶ô Á¤º¸¸¸ µû·Î ÀúÀåÇÑ´Ù. -- ÀÓ½Ã.. ±×·¯³ª.. --;;
+		// ëª¨ì ì¼ì„ë•Œ ì§§ì€ ë¨¸ë¦¬ëŠ” ì•ˆ ë³´ì—¬ì£¼ê²Œ í•˜ê¸° ìœ„í•´ì„œ..
+		// ë¨¸ë¦¬ì¹´ë½ ì •ë³´ë§Œ ë”°ë¡œ ì €ì¥í•œë‹¤. -- ì„ì‹œ.. ê·¸ëŸ¬ë‚˜.. --;;
 		TYPE_FRAMEID		m_HairFrameID;
 		WORD				m_HairColorSet;
 
 	public :
-		// 8¹æÇâ¿¡ µû¸¥ ¿ÊÀÇ Ãâ·Â ¼ø¼­
+		// 8ë°©í–¥ì— ë”°ë¥¸ ì˜·ì˜ ì¶œë ¥ ìˆœì„œ
 		static int			s_AddonOrder[DIRECTION_MAX][ADDON_MAX];
 		static int			s_ACAddonOrder[ DIRECTION_MAX ][ AC_ADDON_MAX ];
 };

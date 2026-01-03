@@ -33,8 +33,8 @@ MStopZoneRectEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	BYTE			power = egInfo.power;
 
 	//-----------------------------------------------------------
-	// ´ÙÅ©´Ï½ºÀÇ °æ¿ì ´Ù¾çÇÏ°Ô Âï¾îÁÖ±â...
-	// ÀÓ½Ã ¶«»§ ÄÚµå.. ÄÉÄÉ~
+	// ë‹¤í¬ë‹ˆìŠ¤ì˜ ê²½ìš° ë‹¤ì–‘í•˜ê²Œ ì°ì–´ì£¼ê¸°...
+	// ì„ì‹œ ë•œë¹µ ì½”ë“œ.. ì¼€ì¼€~
 	//-----------------------------------------------------------
 	BOOL bDarkness = FALSE, bGrayDarkness = FALSE, bSharpHail = FALSE;
 	if (frameID>=EFFECTSPRITETYPE_DARKNESS_1_1
@@ -92,7 +92,7 @@ MStopZoneRectEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	}
 
 	//---------------------------------------------
-	// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+	// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 	//---------------------------------------------
 	TYPE_SECTORPOSITION	sX, sY;
 	sX = g_pTopView->PixelToMapX(egInfo.x0);
@@ -102,30 +102,30 @@ MStopZoneRectEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	MEffect*	pEffect;
 	//---------------------------------------------
-	// Effect »ı¼º
+	// Effect ìƒì„±
 	//---------------------------------------------
 	pEffect = new MEffect(bltType);
 
 	pEffect->SetFrameID( frameID, maxFrame );	
 
-	pEffect->SetPosition(sX, sY);		// Sector ÁÂÇ¥		
+	pEffect->SetPosition(sX, sY);		// Sector ì¢Œí‘œ		
 	pEffect->SetZ(egInfo.z0);			
-	pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-	pEffect->SetCount( egInfo.count , egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+	pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ì…í•´ì¤€ë‹¤.
+	pEffect->SetCount( egInfo.count , egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
-	// ¹æÇâ ¼³Á¤
+	// ë°©í–¥ ì„¤ì •
 	pEffect->SetDirection( egInfo.direction );
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(power);
 
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 
-	// Zone¿¡ Ãß°¡ÇÑ´Ù.
+	// Zoneì— ì¶”ê°€í•œë‹¤.
 	bAdd = g_pZone->AddEffect( pEffect );
 
-	// ´ÙÀ½ Effect »ı¼º Á¤º¸
+	// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 	if (bAdd)
 	{
 		pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
@@ -162,7 +162,7 @@ MStopZoneRectEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	int sY2 = sY+power;
 
 	//------------------------------------------------------
-	// ZoneÀÇ ¿µ¿ªÀÌ ¾Æ´Ñ °æ¿ì¿¡ Skip...
+	// Zoneì˜ ì˜ì—­ì´ ì•„ë‹Œ ê²½ìš°ì— Skip...
 	//------------------------------------------------------
 	if (sX1 < 0) 
 	{					
@@ -185,7 +185,7 @@ MStopZoneRectEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	}
 
 
-	// Tile¸¶´Ù ÇÏ³ª¾¿ »ı¼º
+	// Tileë§ˆë‹¤ í•˜ë‚˜ì”© ìƒì„±
 	MEffectTarget*	pEffectTarget2;
 	
 	DWORD TempDelay = 0;
@@ -199,7 +199,7 @@ MStopZoneRectEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 			TempDelay = 0;
 			//--------------------------------------------------------------
-			// DarknessÀÎ °æ¿ì - ÀÓ½Ã ÄÚµå.. - -;;
+			// Darknessì¸ ê²½ìš° - ì„ì‹œ ì½”ë“œ.. - -;;
 			//--------------------------------------------------------------
 			if (bDarkness)
 			{
@@ -218,33 +218,33 @@ MStopZoneRectEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	
 			pEffect->SetFrameID( frameID, maxFrame );	
 
-			pEffect->SetPosition(x, y);		// Sector ÁÂÇ¥	
+			pEffect->SetPosition(x, y);		// Sector ì¢Œí‘œ	
 			pEffect->SetZ(egInfo.z0);			
-			pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.	
-			pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+			pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ì…í•´ì¤€ë‹¤.	
+			pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
-			// ¹æÇâ ¼³Á¤
+			// ë°©í–¥ ì„¤ì •
 			pEffect->SetDirection( egInfo.direction );
 
-			// À§·Â
+			// ìœ„ë ¥
 			pEffect->SetPower(power);
 
-			// ºûÀÇ ¹à±â
+			// ë¹›ì˜ ë°ê¸°
 			//pEffect->SetLight( light );
 
 			 if(egInfo.nActionInfo == SKILL_LAND_MINE_EXPLOSION || bSharpHail )
 			 {
 				TempDelay = rand()%16;
 				pEffect->SetWaitFrame(TempDelay);
-				pEffect->SetCount( egInfo.count + TempDelay, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+				pEffect->SetCount( egInfo.count + TempDelay, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
 			 }
-			// Zone¿¡ Ãß°¡ÇÑ´Ù.
+			// Zoneì— ì¶”ê°€í•œë‹¤.
 			bAdd = g_pZone->AddEffect( pEffect, TempDelay);
 
 			if (bAdd)
 			{
-				// parameter·Î ¹ŞÀº effectTargetÀ» ¼³Á¤ÇØ¾ß ÇÏ´Â °æ¿ì
+				// parameterë¡œ ë°›ì€ effectTargetì„ ì„¤ì •í•´ì•¼ í•˜ëŠ” ê²½ìš°
 				if (!bOK)
 				{
 					pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
@@ -253,7 +253,7 @@ MStopZoneRectEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 				}
 				else
 				{
-					// ´ÙÀ½ Effect »ı¼º Á¤º¸
+					// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 					if (egInfo.pEffectTarget == NULL)
 					{
 						pEffect->SetLink( egInfo.nActionInfo, NULL );

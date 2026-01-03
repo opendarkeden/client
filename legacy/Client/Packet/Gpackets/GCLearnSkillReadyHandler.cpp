@@ -23,21 +23,21 @@ void GCLearnSkillReadyHandler::execute ( GCLearnSkillReady * pPacket , Player * 
 #if __GAME_CLIENT__
 
 
-	// ÀÓ½Ã·Î skill°ü·Ã Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+	// ìž„ì‹œë¡œ skillê´€ë ¨ ì •ë³´ë¥¼ ì €ìž¥í•œë‹¤.
 	//g_TempInformation.Mode		=	TempInformation::MODE_SKILL_LEARN;
 	//g_TempInformation.Value1	=	pPacket->getSkillDomainType();
 
-	// »õ·Î ¹è¿ï SkillÀÌ ÀÖ´Ù°í Ç¥½ÃÇÑ´Ù.
+	// ìƒˆë¡œ ë°°ìš¸ Skillì´ ìžˆë‹¤ê³  í‘œì‹œí•œë‹¤.
 	int domainType = pPacket->getSkillDomainType();
 
 	(*g_pSkillManager)[domainType].SetNewSkill();
 	
-	g_pGameMessage->AddFormat( "%s °è¿­ÀÇ ±â¼úÀ» ¹è¿ï ¼ö ÀÖ½À´Ï´Ù.", SKILLDOMAIN_NAME[domainType]);
+	g_pGameMessage->AddFormat( "%s ê³„ì—´ì˜ ê¸°ìˆ ì„ ë°°ìš¸ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.", SKILLDOMAIN_NAME[domainType]);
 
-	// levelupÇß´Ù°í ¹º°¡ º¸¿©ÁØ´Ù. ¹»±î.... --;
+	// levelupí–ˆë‹¤ê³  ë­”ê°€ ë³´ì—¬ì¤€ë‹¤. ë­˜ê¹Œ.... --;
 	//UI_LevelUp();
 
-	// [µµ¿ò¸»] Skill¹è¿ï ¼ö ÀÖÀ» ¶§
+	// [ë„ì›€ë§] Skillë°°ìš¸ ìˆ˜ ìžˆì„ ë•Œ
 //	__BEGIN_HELP_EVENT
 //		switch ( domainType )
 //		{

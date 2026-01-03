@@ -1,8 +1,8 @@
 //--------------------------------------------------------------------------------
 // 
 // Filename    : GCSearchMotorcycleOK.h 
-// Written By  : ±è¼º¹Î
-// Description : ÇÃ·¹ÀÌ¾î¿¡°Ô ¼­¹ö ÃøÀÇ »óÁ¡ ¹öÀüÀ» ¾Ë·ÁÁÙ ¶§ ¾²ÀÌ´Â ÆĞÅ¶ÀÌ´Ù.
+// Written By  : ê¹€ì„±ë¯¼
+// Description : í”Œë ˆì´ì–´ì—ê²Œ ì„œë²„ ì¸¡ì˜ ìƒì  ë²„ì „ì„ ì•Œë ¤ì¤„ ë•Œ ì“°ì´ëŠ” íŒ¨í‚·ì´ë‹¤.
 // 
 //--------------------------------------------------------------------------------
 
@@ -76,7 +76,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GCSearchMotorcycleOKPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCSearchMotorcycleOKPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketMaxSize () const throw () { return szZoneID + szCoord*2; }
 
 };

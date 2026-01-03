@@ -2,7 +2,7 @@
 
 	VS_UI_mouse_pointer.h
 
-	Mouse pointer °ü·Ã.
+	Mouse pointer ê´€ë ¨.
 
 	2000.3.30. KJTINC
 
@@ -43,7 +43,7 @@ private:
 	bool						Timer();
 
 	//
-	// ÇöÀç ÁıÀº(Mouse pointer¿¡ ºÙÀº) Item.
+	// í˜„ì¬ ì§‘ì€(Mouse pointerì— ë¶™ì€) Item.
 	//
 	MItem *						m_p_current_pickup_item;
 

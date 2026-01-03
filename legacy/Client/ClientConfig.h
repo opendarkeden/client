@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // ClientConfig.h
 //----------------------------------------------------------------------
-// ClientÀÇ Á¤º¸ Áß¿¡¼­ º¯ÇÒ ¼ö ÀÖ´Â °Í
+// Clientì˜ ì •ë³´ ì¤‘ì—ì„œ ë³€í•  ìˆ˜ ìžˆëŠ” ê²ƒ
 //----------------------------------------------------------------------
 
 #ifndef	__CLIENTCONFIG_H__
@@ -14,10 +14,10 @@ class ClientConfig {
 	public :
 		enum NUR_MODE
 		{
-			NUR_CLIENT,				// »õ »ç¿ëÀÚ µî·Ï °¡´É
-			NUR_HOMEPAGE,			// È¨ÆäÀÌÁö¸¦ ¶ç¿öÁÖ¸é¼­ µî·Ï
-			NUR_MESSAGE_HOMEPAGE,	// È¨ÆäÀÌÁö¿¡¼­ µî·ÏÇÏ¶ó´Â message
-			NUR_DENY				// »õ »ç¿ëÀÚ µî·Ï ºÒ°¡			
+			NUR_CLIENT,				// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ ê°€ëŠ¥
+			NUR_HOMEPAGE,			// í™ˆíŽ˜ì´ì§€ë¥¼ ë„ì›Œì£¼ë©´ì„œ ë“±ë¡
+			NUR_MESSAGE_HOMEPAGE,	// í™ˆíŽ˜ì´ì§€ì—ì„œ ë“±ë¡í•˜ë¼ëŠ” message
+			NUR_DENY				// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ ë¶ˆê°€			
 		};
 
 	public :
@@ -32,59 +32,59 @@ class ClientConfig {
 
 	public :
 		//--------------------------------------------------------------
-		// ÃÊ´ç Update Frame ¼ö
+		// ì´ˆë‹¹ Update Frame ìˆ˜
 		//--------------------------------------------------------------
-		int		FPS;						// Àû¿ë ½ÃÅ°Áö´Â ¾Ê´Â´Ù.
+		int		FPS;						// ì ìš© ì‹œí‚¤ì§€ëŠ” ì•ŠëŠ”ë‹¤.
 
-		int		MAX_SCREENSHOT;				// ScreenShotÈ­ÀÏ ÃÖ´ë °³¼ö
-		int		DELAY_PLAYER_DEAD;			// player°¡ Á×°í³ª¼­ÀÇ delay
-		int		DELAY_PLAYER_RESURRECT_TIMEOUT;			// player°¡ Á×°í³ª¼­ÀÇ °­Á¦ ºÎÈ°±îÁöÀÇ ½Ã°£
-		int		MAX_CLIENT_MOVE;			// client¿¡¼­ ¿òÁ÷ÀÏ ¼ö ÀÖ´Â sector¼ö
-		int		MAX_CREATURE_MOVE_BUFFER;	// creatureµé ¿òÁ÷ÀÌ´Â max move buffer 
-		int		MAX_LIGHT_DRAW;				// È­¸é »óÀÇ ÃÖ´ë light°³¼ö
+		int		MAX_SCREENSHOT;				// ScreenShotí™”ì¼ ìµœëŒ€ ê°œìˆ˜
+		int		DELAY_PLAYER_DEAD;			// playerê°€ ì£½ê³ ë‚˜ì„œì˜ delay
+		int		DELAY_PLAYER_RESURRECT_TIMEOUT;			// playerê°€ ì£½ê³ ë‚˜ì„œì˜ ê°•ì œ ë¶€í™œê¹Œì§€ì˜ ì‹œê°„
+		int		MAX_CLIENT_MOVE;			// clientì—ì„œ ì›€ì§ì¼ ìˆ˜ ìžˆëŠ” sectorìˆ˜
+		int		MAX_CREATURE_MOVE_BUFFER;	// creatureë“¤ ì›€ì§ì´ëŠ” max move buffer 
+		int		MAX_LIGHT_DRAW;				// í™”ë©´ ìƒì˜ ìµœëŒ€ lightê°œìˆ˜
 
-		int		MAX_SOUNDPART;				// loadÇÏ´Â wav°³¼ö
+		int		MAX_SOUNDPART;				// loadí•˜ëŠ” wavê°œìˆ˜
 
 		//--------------------------------------------------------------
 		// RequestService
 		//--------------------------------------------------------------
-		int		MAX_REQUEST_SERVICE;		// RequestServerPlayer Á¢¼Ó ¼ö
+		int		MAX_REQUEST_SERVICE;		// RequestServerPlayer ì ‘ì† ìˆ˜
 
 		//--------------------------------------------------------------
-		// packet°ü·Ã
+		// packetê´€ë ¨
 		//--------------------------------------------------------------
-		int		MAX_WAIT_PACKET;			// packet±â´Ù¸®´Â ½Ã°£
-		int		MAX_PROCESS_PACKET;			// ÇÑ¹ø¿¡ Ã³¸®ÇÏ´Â packet°³¼ö
+		int		MAX_WAIT_PACKET;			// packetê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„
+		int		MAX_PROCESS_PACKET;			// í•œë²ˆì— ì²˜ë¦¬í•˜ëŠ” packetê°œìˆ˜
 		
 		//--------------------------------------------------------------
-		// ÃÖ´ë ÇÑ¹ø¿¡ updateµÇ´Â È¸¼ö
+		// ìµœëŒ€ í•œë²ˆì— updateë˜ëŠ” íšŒìˆ˜
 		//--------------------------------------------------------------
 		int		MAX_UPDATE_ONETIME;
-		int		MAX_UPDATE_ONETIME_COUNT;	// onetime_updateÀÇ ÃÖ´ë È¸¼ö(°©ÀÚ±â ´Þ¸®±â? -_-;)
+		int		MAX_UPDATE_ONETIME_COUNT;	// onetime_updateì˜ ìµœëŒ€ íšŒìˆ˜(ê°‘ìžê¸° ë‹¬ë¦¬ê¸°? -_-;)
 
 		//--------------------------------------------------------------
-		// ¿ÜÄ¡±â delay ½Ã°£
+		// ì™¸ì¹˜ê¸° delay ì‹œê°„
 		//--------------------------------------------------------------
 		int		DELAY_GLOBAL_SAY;		
 
 		//--------------------------------------------------------------
-		// titleÈ­¸é À½¾Ç
+		// titleí™”ë©´ ìŒì•…
 		//--------------------------------------------------------------
 		int		MUSIC_THEME;
 
 		//--------------------------------------------------------------
-		// message scroll ½Ã°£
+		// message scroll ì‹œê°„
 		//--------------------------------------------------------------
 		int		DELAY_SYSTEMMESSAGE;
 		int		DELAY_GAMEMESSAGE;
 
 		//--------------------------------------------------------------
-		// È­¸é¿¡ Ãâ·ÂµÇ´Â itemÀÌ¸§ °³¼ö
+		// í™”ë©´ì— ì¶œë ¥ë˜ëŠ” itemì´ë¦„ ê°œìˆ˜
 		//--------------------------------------------------------------
 		int		MAX_DRAWITEMNAME;
 
 		//--------------------------------------------------------------
-		// Ã¤ÆÃ String ÁÙ ¼ö
+		// ì±„íŒ… String ì¤„ ìˆ˜
 		//--------------------------------------------------------------
 		int		MAX_CHATSTRING;
 		int		MAX_CHATSTRING_MINUS_1;
@@ -92,15 +92,15 @@ class ClientConfig {
 		int		MAX_CHATSTRINGLENGTH_PLUS1;
 
 		//--------------------------------------------------------------
-		// Ã¤ÆÃ º¸¿©Áö´Â ½Ã°£..
+		// ì±„íŒ… ë³´ì—¬ì§€ëŠ” ì‹œê°„..
 		//--------------------------------------------------------------
-		int		DELAY_CHATSTRING_KEEP;		// Èò»öÀ¸·Î Ç¥ÇöÇÏ´Â ½Ã°£
-		int		DELAY_CHATSTRING_FADE;		// ¾îµÎ¿öÁö´Â ´Ü°èÀÇ ½Ã°£
-		int		VALUE_CHATSTRING_FADE;		// ¾îµÎ¿öÁö´Â °ª
-		int		MIN_CHATSTRING_COLOR256;	// °¡Àå ¾îµÎ¿î Ã¤ÆÃ String»ö
+		int		DELAY_CHATSTRING_KEEP;		// í°ìƒ‰ìœ¼ë¡œ í‘œí˜„í•˜ëŠ” ì‹œê°„
+		int		DELAY_CHATSTRING_FADE;		// ì–´ë‘ì›Œì§€ëŠ” ë‹¨ê³„ì˜ ì‹œê°„
+		int		VALUE_CHATSTRING_FADE;		// ì–´ë‘ì›Œì§€ëŠ” ê°’
+		int		MIN_CHATSTRING_COLOR256;	// ê°€ìž¥ ì–´ë‘ìš´ ì±„íŒ… Stringìƒ‰
 
 		//--------------------------------------------------------
-		// TexturePart ManagerÀÇ Part °³¼ö
+		// TexturePart Managerì˜ Part ê°œìˆ˜
 		//--------------------------------------------------------
 		int		MAX_TEXTUREPART_EFFECT;
 		int		MAX_TEXTUREPART_SCREENEFFECT;
@@ -111,30 +111,30 @@ class ClientConfig {
 		int		MAX_TEXTUREPART_EFFECTSHADOW;
 
 		//--------------------------------------------------------
-		// Font Å©±â
+		// Font í¬ê¸°
 		//--------------------------------------------------------
 		int		FONT_HEIGHT;
 		int		FONT_ITEM_HEIGHT;
 
 		//--------------------------------------------------------
-		// Ä³¸¯ÅÍ ÀÌ¸§ + HP Ç¥½Ã
+		// ìºë¦­í„° ì´ë¦„ + HP í‘œì‹œ
 		//--------------------------------------------------------
-		int		MAX_HP_BAR_PIXEL;			// hp barÀÇ Å©±â
-		int		POSITION_HP_BAR;		// ÀÌ¸§ÀÇ À§Ä¡(hp bar À§Ä¡)
+		int		MAX_HP_BAR_PIXEL;			// hp barì˜ í¬ê¸°
+		int		POSITION_HP_BAR;		// ì´ë¦„ì˜ ìœ„ì¹˜(hp bar ìœ„ì¹˜)
 
 		//--------------------------------------------------------------
-		// Item ºÎ¼­Áö´Â »óÅÂ Ç¥½Ã
+		// Item ë¶€ì„œì§€ëŠ” ìƒíƒœ í‘œì‹œ
 		//--------------------------------------------------------------
 		int		PERCENTAGE_ITEM_SOMEWHAT_BROKEN;
 		int		PERCENTAGE_ITEM_ALMOST_BROKEN;
 
 		//--------------------------------------------------------------
-		// Ä³¸¯ÅÍ¿¡ ºÙ´Â Effectº¸¿©ÁÙ¶§ °¡²û ¿ø·¡ »ö±ò º¸¿©ÁÖ´Â Frame
+		// ìºë¦­í„°ì— ë¶™ëŠ” Effectë³´ì—¬ì¤„ë•Œ ê°€ë” ì›ëž˜ ìƒ‰ê¹” ë³´ì—¬ì£¼ëŠ” Frame
 		//--------------------------------------------------------------
 		int		FRAME_DRAW_ORIGINAL_SPRITE;
 
 		//--------------------------------------------------------
-		// »ö±ò
+		// ìƒ‰ê¹”
 		//--------------------------------------------------------			
 		WORD	COLOR_OUTLINE_INTERACTIONOBJECT;
 
@@ -144,31 +144,31 @@ class ClientConfig {
 		COLORREF	COLOR_NAME_ITEM_RARE_OPTION;
 		WORD		COLOR_OUTLINE_ITEM;
 
-		// Á¾Á·º°
+		// ì¢…ì¡±ë³„
 		COLORREF	COLOR_NAME_VAMPIRE;
 		COLORREF	COLOR_NAME_SLAYER;
 		COLORREF	COLOR_NAME_NPC;
 
-		// °ø°Ý °¡´É?
+		// ê³µê²© ê°€ëŠ¥?
 		WORD		COLOR_OUTLINE_NPC;
 		WORD		COLOR_OUTLINE_ATTACK_POSSIBLE;
 		WORD		COLOR_OUTLINE_ATTACK_IMPOSSIBLE;
 
-		// HP barÀÇ »ö±ò
+		// HP barì˜ ìƒ‰ê¹”
 		BYTE		COLOR_HP_BAR_R;
 		BYTE		COLOR_HP_BAR_G;
 		BYTE		COLOR_HP_BAR_B;
 
 		//--------------------------------------------------------
-		// »õ »ç¿ëÀÚ µî·Ï mode
+		// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ mode
 		//--------------------------------------------------------
 		NUR_MODE	NEW_USER_REGISTERATION_MODE;
-		MString		URL_HOMEPAGE;				// È¨ÆäÀÌÁö main
-		MString		URL_HOMEPAGE_NEW_USER;		// »õ »ç¿ëÀÚ µî·Ï URL
+		MString		URL_HOMEPAGE;				// í™ˆíŽ˜ì´ì§€ main
+		MString		URL_HOMEPAGE_NEW_USER;		// ìƒˆ ì‚¬ìš©ìž ë“±ë¡ URL
 		MString		URL_HOMEPAGE_BILING;
 
 		//--------------------------------------------------------
-		// ¼ºÇâ¿¡ µû¸¥ »ö±ò - 2001.8.2
+		// ì„±í–¥ì— ë”°ë¥¸ ìƒ‰ê¹” - 2001.8.2
 		//--------------------------------------------------------
 		COLORREF	COLOR_NAME_GOOD_MORE;
 		COLORREF	COLOR_NAME_GOOD;
@@ -177,49 +177,49 @@ class ClientConfig {
 		COLORREF	COLOR_NAME_EVIL_MORE;
 
 		//--------------------------------------------------------
-		// ÇÇ Èê¸®±â
+		// í”¼ í˜ë¦¬ê¸°
 		//--------------------------------------------------------
-		int			BLOOD_DROP_HP_PERCENT;		// ÇÇ Èê¸®±â ½ÃÀÛÇÏ´Â HP %
-		DWORD		BLOOD_DROP_GAP_TIME;		// ´ÙÀ½¿¡ ÇÇ Èê¸®±â ½ÃÀÛÇÏ´Â ½Ã°£ gap
-		DWORD		BLOOD_DROP_RANDOM_TIME;		// ÇÇ Èê¸®´Â ½Ã°£ = GAP + RANDOM
+		int			BLOOD_DROP_HP_PERCENT;		// í”¼ í˜ë¦¬ê¸° ì‹œìž‘í•˜ëŠ” HP %
+		DWORD		BLOOD_DROP_GAP_TIME;		// ë‹¤ìŒì— í”¼ í˜ë¦¬ê¸° ì‹œìž‘í•˜ëŠ” ì‹œê°„ gap
+		DWORD		BLOOD_DROP_RANDOM_TIME;		// í”¼ í˜ë¦¬ëŠ” ì‹œê°„ = GAP + RANDOM
 
 		//--------------------------------------------------------
-		// ½Ã°£
+		// ì‹œê°„
 		//--------------------------------------------------------
-		DWORD		AFTER_TRADE_ITEM_DROP_DELAY;	// tradeÈÄ item¶³¾îÁö´Â°Ô °¡´ÉÇØÁö´Â ½Ã°£
-		DWORD		AFTER_PARTY_KICK_DELAY;			// ÆÄÆ¼ joinÈÄ ´Ù¸¥»ç¶÷ kickÇÒ ¼ö ÀÖ´Â ½Ã°£
-		DWORD		TRACE_CHARACTER_LIMIT_TIME;		// Ä³¸¯ÅÍ µû¶ó°¡±â Á¦ÇÑ ½Ã°£.
+		DWORD		AFTER_TRADE_ITEM_DROP_DELAY;	// tradeí›„ itemë–¨ì–´ì§€ëŠ”ê²Œ ê°€ëŠ¥í•´ì§€ëŠ” ì‹œê°„
+		DWORD		AFTER_PARTY_KICK_DELAY;			// íŒŒí‹° joiní›„ ë‹¤ë¥¸ì‚¬ëžŒ kickí•  ìˆ˜ ìžˆëŠ” ì‹œê°„
+		DWORD		TRACE_CHARACTER_LIMIT_TIME;		// ìºë¦­í„° ë”°ë¼ê°€ê¸° ì œí•œ ì‹œê°„.
 
 		//--------------------------------------------------------
 		// Repeat & Lock
 		//--------------------------------------------------------
-		DWORD		REPEAT_TIME;				// ÀÚµ¿°ø°Ý Á¦ÇÑ½Ã°£
-		DWORD		LOCK_TIME;					// Caps LockÀÚµ¿°ø°Ý Á¦ÇÑ½Ã°£
+		DWORD		REPEAT_TIME;				// ìžë™ê³µê²© ì œí•œì‹œê°„
+		DWORD		LOCK_TIME;					// Caps Lockìžë™ê³µê²© ì œí•œì‹œê°„
 
 		//--------------------------------------------------------------
-		// ClientÅë½Å¿¡ »ç¿ëÇÏ´Â UDP Port
+		// Clientí†µì‹ ì— ì‚¬ìš©í•˜ëŠ” UDP Port
 		//--------------------------------------------------------------
 		DWORD		CLIENT_COMMUNICATION_UDP_PORT;
 
 		//--------------------------------------------------------------
-		// ClientÅë½Å°ú °ü·ÃµÈ delayµé
+		// Clientí†µì‹ ê³¼ ê´€ë ¨ëœ delayë“¤
 		//--------------------------------------------------------------
 		DWORD		CLIENT_COMMUNICATION_STATUS_DELAY;
 
 		//--------------------------------------------------------------
-		// TradeÇÒ ¶§ delay ½Ã°£
+		// Tradeí•  ë•Œ delay ì‹œê°„
 		//--------------------------------------------------------------
 		DWORD		TRADE_ACCEPT_DELAY_TIME;
 
 		//--------------------------------------------------------------
-		// Regen·®
+		// RegenëŸ‰
 		//--------------------------------------------------------------
 		BYTE		REGEN_AMOUNT_BURROW;
 		BYTE		REGEN_AMOUNT_CASKET;
 		BYTE		REGEN_AMOUNT_VAMPIRE;
 
 		//--------------------------------------------------------------
-		// ÃÊ´ç ¼Ò¸®³¾ ¼ö ÀÖ´Â wave °³¼ö Á¦ÇÑ
+		// ì´ˆë‹¹ ì†Œë¦¬ë‚¼ ìˆ˜ ìžˆëŠ” wave ê°œìˆ˜ ì œí•œ
 		//--------------------------------------------------------------
 		BYTE		MAX_SOUND_PER_SECOND;
 
@@ -227,7 +227,7 @@ class ClientConfig {
 		DWORD		QuestItemColorSet;
 
 		//--------------------------------------------------------------
-		// HPModifyList °³¼öÁ¦ÇÑ ¹× ½Ã°£Á¦ÇÑ
+		// HPModifyList ê°œìˆ˜ì œí•œ ë° ì‹œê°„ì œí•œ
 		//--------------------------------------------------------------
 		BYTE		HPModifyListMax;
 		DWORD		HPModifyListTime;

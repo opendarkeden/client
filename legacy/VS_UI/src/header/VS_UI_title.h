@@ -28,7 +28,7 @@
 
 #include <vector>
 
-enum MAIN_SPK_INDEX // C_VS_UI_NEWCHAR ¿¡¼­µµ »ç¿ëÇÏ¹Ç·Î...
+enum MAIN_SPK_INDEX // C_VS_UI_NEWCHAR ì—ì„œë„ ì‚¬ìš©í•˜ë¯€ë¡œ...
 {
 	MAIN,
 	HEART_LEFT,
@@ -52,8 +52,8 @@ enum
 };
 
 //
-// character »ı¼º½Ã character part...
-// CFPK ¼ø¼­
+// character ìƒì„±ì‹œ character part...
+// CFPK ìˆœì„œ
 //
 enum CHAR_MAN
 {
@@ -130,8 +130,8 @@ struct MAN_INFO
 	CHAR_MAN		helmet;
 	CHAR_MAN		coat;
 	CHAR_MAN		trouser;
-	CHAR_MAN		right; // ¹«±â
-	CHAR_MAN		left;  // ¹æ¾î±¸
+	CHAR_MAN		right; // ë¬´ê¸°
+	CHAR_MAN		left;  // ë°©ì–´êµ¬
 };
 
 struct WOMAN_INFO
@@ -141,8 +141,8 @@ struct WOMAN_INFO
 	CHAR_WOMAN		helmet;
 	CHAR_WOMAN		coat;
 	CHAR_WOMAN		trouser;
-	CHAR_WOMAN		right; // ¹«±â
-	CHAR_WOMAN		left;  // ¹æ¾î±¸
+	CHAR_WOMAN		right; // ë¬´ê¸°
+	CHAR_WOMAN		left;  // ë°©ì–´êµ¬
 };
 
 enum ALIGNMENT
@@ -158,10 +158,10 @@ enum ALIGNMENT
 struct S_SLOT
 {
 	S_SLOT() { m_AdvancementLevel = 0; }
-	bool								bl_set; // slotÀÌ ¼³Á¤µÇ¾ú´Â°¡?
+	bool								bl_set; // slotì´ ì„¤ì •ë˜ì—ˆëŠ”ê°€?
 //	bool								bl_vampire;
 	bool								bl_female;
-	bool								bl_drained; //ÈíÇ÷µÈ »óÅÂÀÎ°¡?
+	bool								bl_drained; //í¡í˜ˆëœ ìƒíƒœì¸ê°€?
 	MAN_INFO							man_info;
 	WOMAN_INFO							woman_info;
 	
@@ -186,7 +186,7 @@ struct S_SLOT
 	int									DEX_MAX;	// by larosel
 	int									INT_PURE;	// by larosel
 	int									INT_CUR;	// by larosel
-	int									INT_MAXX;	// by larosel	//INT_MAX ´Â ¸ø¾¸
+	int									INT_MAXX;	// by larosel	//INT_MAX ëŠ” ëª»ì”€
 	int									STR_EXP_REMAIN;
 	int									DEX_EXP_REMAIN;
 	int									INT_EXP_REMAIN;
@@ -195,7 +195,7 @@ struct S_SLOT
 	int									DAM2;			// min
 	int									SILVER_DAM;		//max
 	int									SILVER_DAM2;	//min
-	int									CHANGE_VAMPIRE;	// ¹ìÆÄÀÌ¾î·Î º¯ÇÏ´Â ³²Àº ½Ã°£ ºĞ
+	int									CHANGE_VAMPIRE;	// ë±€íŒŒì´ì–´ë¡œ ë³€í•˜ëŠ” ë‚¨ì€ ì‹œê°„ ë¶„
 //	int									AC;
 	int									DEFENSE;	// by larosel
 	int									PROTECTION;	// by larosel
@@ -227,7 +227,7 @@ struct S_SLOT
 	typedef std::vector<UI_EFFECTSTATUS_STRUCT>			UI_EFFECTSTATUS_TYPE;
 	UI_EFFECTSTATUS_TYPE				STATUS;	
 	
-	// VampireÀÏ °æ¿ì mp´Â ¹«½ÃÇÑ´Ù.
+	// Vampireì¼ ê²½ìš° mpëŠ” ë¬´ì‹œí•œë‹¤.
 //	WORD									hp_cur_line;
 //	WORD									mp_cur_line;	// slayer only
 //	WORD									hp_percent;
@@ -250,7 +250,7 @@ struct S_SLOT
 	
 	int									m_SMS_Charge;
 	int									m_Powerjjang_Point;
-	int									m_AdvancementLevel;	// ÀüÁ÷ ·¹º§ 
+	int									m_AdvancementLevel;	// ì „ì§ ë ˆë²¨ 
 //	BYTE								m_NickNameType;
 //	std::string							m_NickName;
 };	
@@ -273,7 +273,7 @@ private:
 		PUSHED_CANCEL,
 	};
 
-	//enum INPUT_POSITION // ÀÔ·Â À§Ä¡
+	//enum INPUT_POSITION // ì…ë ¥ ìœ„ì¹˜
 	//{
 	//	ID,
 	//	PASSWORD,
@@ -359,7 +359,7 @@ private:
 		ISS_STATE,
 		ISS_SSN,
 		ISS_ADDRESS,
-		ISS_WOO, // ¿ìÆí¹øÈ£
+		ISS_WOO, // ìš°í¸ë²ˆí˜¸
 		ISS_PHONE,
 		ISS_HOMEPAGE,
 		ISS_EMAIL,
@@ -445,7 +445,7 @@ private:
 //	C_SPRITE_PACK *			m_pC_image_spk;
 	ButtonGroup *				m_pC_button_group;
 
-	// ÁÖ¹Îµî·Ï¹øÈ£(SSN) string buffer.
+	// ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸(SSN) string buffer.
 	LineEditorVisual			m_lev_ssn_part1;
 	LineEditorVisual			m_lev_ssn_part2;
 	bool							m_bl_ssn_ip_part1; // input position
@@ -477,7 +477,7 @@ public:
 //-----------------------------------------------------------------------------
 // C_VS_UI_CHAR_APPEARANCE
 //
-// Chacter ¿Ü¸ğ º¯°æ class.
+// Chacter ì™¸ëª¨ ë³€ê²½ class.
 //-----------------------------------------------------------------------------
 /*
 class C_VS_UI_CHAR_APPEARANCE : public Window, public Exec
@@ -525,14 +525,14 @@ private:
 	};
 
 	//
-	// Color Window °ü·Ã
+	// Color Window ê´€ë ¨
 	//
-	BYTE							m_b_hair_colorset; // ¼±ÅÃµÈ color set
-	BYTE							m_b_skin_colorset; // ¼±ÅÃµÈ color set
-	int							m_focused_x; // color ¼±ÅÃ focus
+	BYTE							m_b_hair_colorset; // ì„ íƒëœ color set
+	BYTE							m_b_skin_colorset; // ì„ íƒëœ color set
+	int							m_focused_x; // color ì„ íƒ focus
 	int							m_focused_y;
 	BYTE							m_b_colorset_array[COLORSET_Y][COLORSET_X];
-	bool							m_bl_colorset1; // Appearance Window¿¡¼­ colorset1ÀÌ ¼±ÅÃµÇ¾ú´Â°¡?
+	bool							m_bl_colorset1; // Appearance Windowì—ì„œ colorset1ì´ ì„ íƒë˜ì—ˆëŠ”ê°€?
 	bool							m_bl_push_colorset;
 
 	C_VS_UI_BUTTON *			m_pC_button[MENU_COUNT];
@@ -745,8 +745,8 @@ private:
 	int							m_focused_help;
 
 //	bool							m_bl_skin_color_control;
-	S_SLOT *						m_p_slot; // character managerÀÇ slotÁß ÇÏ³ª¸¦ °¡¸®Å²´Ù.
-	int							m_selected_slot; // ¼±ÅÃµÈ slot: char manager¿¡ ÀÖÁö¸¸, ÇÊ¿äÇÔ.
+	S_SLOT *						m_p_slot; // character managerì˜ slotì¤‘ í•˜ë‚˜ë¥¼ ê°€ë¦¬í‚¨ë‹¤.
+	int							m_selected_slot; // ì„ íƒëœ slot: char managerì— ìˆì§€ë§Œ, í•„ìš”í•¨.
 //	WORD *						m_p_hp_buf;
 //	WORD *						m_p_mp_buf;
 //	int							m_hp_width;
@@ -775,8 +775,8 @@ private:
 	int							m_iSave[3];
 
 	//
-	// face ¼±ÅÃ list.
-	// ÇöÀç ¼±ÅÃµÈ face°¡ ¸Ç ¸ÕÀú ³ª¿À°Ô µÈ´Ù. ´Ù¸¥ °ÍÀ» ¼±ÅÃÇÏ¸é ´Ù¸¥ °ÍÀÌ ¸ÕÀú ³ª¿À°í...
+	// face ì„ íƒ list.
+	// í˜„ì¬ ì„ íƒëœ faceê°€ ë§¨ ë¨¼ì € ë‚˜ì˜¤ê²Œ ëœë‹¤. ë‹¤ë¥¸ ê²ƒì„ ì„ íƒí•˜ë©´ ë‹¤ë¥¸ ê²ƒì´ ë¨¼ì € ë‚˜ì˜¤ê³ ...
 	//
 //	int							m_man_face_list[3]; // 3 = face count
 //	int							m_woman_face_list[3];
@@ -1114,48 +1114,48 @@ public :
 	{
 		//CONTROL
 		CHECK_CONTROL_TAB,
-		CHECK_NORMAL_CHAT = CHECK_CONTROL_TAB,	//¿É¼Ç¸¸
-		CHECK_ENTER_CHAT,						//¿É¼Ç¸¸
-//		CHECK_MOUSE_SPEED,						//¸Ş¼¼Áö??
-		CHECK_IFEEL,							//UIÃ³¸®
+		CHECK_NORMAL_CHAT = CHECK_CONTROL_TAB,	//ì˜µì…˜ë§Œ
+		CHECK_ENTER_CHAT,						//ì˜µì…˜ë§Œ
+//		CHECK_MOUSE_SPEED,						//ë©”ì„¸ì§€??
+		CHECK_IFEEL,							//UIì²˜ë¦¬
 
 		//GRAPHIC
 		CHECK_GRAPHIC_TAB,
-		CHECK_3D = CHECK_GRAPHIC_TAB,			//¿É¼Ç¸¸
-		CHECK_ALPHA_HPBAR,						//¿É¼Ç¸¸
-		CHECK_BLOOD_DROP,						//¿É¼Ç¸¸
-		CHECK_AUTOHIDE_SMOOTH,					//¿É¼Ç¸¸
-		CHECK_GAMMA,							//UIÃ³¸®
-		CHECK_CHATBOX,							//¿É¼Ç¸¸
-		CHECK_FPS,								//¿É¼Ç¸¸
-		CHECK_DEFAULT_ALPHA,					//¿É¼Ç¸¸ ? È¤½Ã ´Ù¸¥ Ã³¸®µµ-.-
-		CHECK_ALPHA_DEPTH,						//¿É¼Ç¸¸
-		CHECK_DO_NOT_SHOW_PERSNALSHOP_MSG,		// °³ÀÎ»óÁ¡ ½ºÆ®¸µ ¾Èº¸±â
+		CHECK_3D = CHECK_GRAPHIC_TAB,			//ì˜µì…˜ë§Œ
+		CHECK_ALPHA_HPBAR,						//ì˜µì…˜ë§Œ
+		CHECK_BLOOD_DROP,						//ì˜µì…˜ë§Œ
+		CHECK_AUTOHIDE_SMOOTH,					//ì˜µì…˜ë§Œ
+		CHECK_GAMMA,							//UIì²˜ë¦¬
+		CHECK_CHATBOX,							//ì˜µì…˜ë§Œ
+		CHECK_FPS,								//ì˜µì…˜ë§Œ
+		CHECK_DEFAULT_ALPHA,					//ì˜µì…˜ë§Œ ? í˜¹ì‹œ ë‹¤ë¥¸ ì²˜ë¦¬ë„-.-
+		CHECK_ALPHA_DEPTH,						//ì˜µì…˜ë§Œ
+		CHECK_DO_NOT_SHOW_PERSNALSHOP_MSG,		// ê°œì¸ìƒì  ìŠ¤íŠ¸ë§ ì•ˆë³´ê¸°
 
 		//SOUND
 		CHECK_SOUND_TAB,
-//		CHECK_YELL = CHECK_SOUND_TAB,			//¿É¼Ç¸¸
-		CHECK_SOUND = CHECK_SOUND_TAB,							//¸Ş¼¼Áö
-		CHECK_MUSIC,							//¸Ş¼¼Áö
-		CHECK_WAV,								//¸Ş¼¼Áö
-		CHECK_MIDI,								//¸Ş¼¼Áö
+//		CHECK_YELL = CHECK_SOUND_TAB,			//ì˜µì…˜ë§Œ
+		CHECK_SOUND = CHECK_SOUND_TAB,							//ë©”ì„¸ì§€
+		CHECK_MUSIC,							//ë©”ì„¸ì§€
+		CHECK_WAV,								//ë©”ì„¸ì§€
+		CHECK_MIDI,								//ë©”ì„¸ì§€
 
 		//GAME
 		CHECK_GAME_TAB,
-		CHECK_HELP = CHECK_GAME_TAB,			//¿É¼Ç¸¸
-		CHECK_FILTERING,						//¿É¼Ç¸¸
+		CHECK_HELP = CHECK_GAME_TAB,			//ì˜µì…˜ë§Œ
+		CHECK_FILTERING,						//ì˜µì…˜ë§Œ
 		CHECK_PRELOAD_MONSTER,
-		CHECK_CHAT_WHITE,						//¿É¼Ç¸¸
+		CHECK_CHAT_WHITE,						//ì˜µì…˜ë§Œ
 		CHECK_TEEN_VERSION,
 		CHECK_POPUPCHAT_BY_WHISPER,
-		CHECK_DO_NOT_SHOW_WAR_MSG,				// ÀüÀï ¸Ş½ÃÁö º¸Áö ¾Ê±â
-		CHECK_DO_NOT_SHOW_LAIR_MSG,				// ·¹¾î¸¶½ºÅÍ ¸Ş½ÃÁö º¸Áö ¾Ê±â
-		CHECK_DO_NOT_SHOW_HOLY_LAND_MSG,		// ¾Æ´ãÀÇ ¼ºÁö ¸Ş½ÃÁö º¸Áö ¾Ê±â
-		CHECK_SHOW_GAMEMONEY_WITH_HANGUL,		// °ÔÀÓ¸Ó´Ï ÇÑ±Û º´Çà Ç¥½Ã
-//		CHECK_NOT_SEND_MY_INFO,			// ¾ÆÁ÷.
-//		CHECK_CHANGE,							//¿É¼Ç¸¸
-//		CHECK_PARTY_INVITE,						//¿É¼Ç¸¸
-//		CHECK_PARTY_REQUEST,					//¿É¼Ç¸¸
+		CHECK_DO_NOT_SHOW_WAR_MSG,				// ì „ìŸ ë©”ì‹œì§€ ë³´ì§€ ì•Šê¸°
+		CHECK_DO_NOT_SHOW_LAIR_MSG,				// ë ˆì–´ë§ˆìŠ¤í„° ë©”ì‹œì§€ ë³´ì§€ ì•Šê¸°
+		CHECK_DO_NOT_SHOW_HOLY_LAND_MSG,		// ì•„ë‹´ì˜ ì„±ì§€ ë©”ì‹œì§€ ë³´ì§€ ì•Šê¸°
+		CHECK_SHOW_GAMEMONEY_WITH_HANGUL,		// ê²Œì„ë¨¸ë‹ˆ í•œê¸€ ë³‘í–‰ í‘œì‹œ
+//		CHECK_NOT_SEND_MY_INFO,			// ì•„ì§.
+//		CHECK_CHANGE,							//ì˜µì…˜ë§Œ
+//		CHECK_PARTY_INVITE,						//ì˜µì…˜ë§Œ
+//		CHECK_PARTY_REQUEST,					//ì˜µì…˜ë§Œ
 
 
 		//VALUE
@@ -1392,7 +1392,7 @@ public:
 	C_VS_UI_TITLE();
 	~C_VS_UI_TITLE();
 
-	// ³İ¸¶ºí¿ë
+	// ë„·ë§ˆë¸”ìš©
 	void	RunConnect()			{ if(m_pC_login) m_pC_login->Start(); }
 
 	void	RunCannotPlayMessage();

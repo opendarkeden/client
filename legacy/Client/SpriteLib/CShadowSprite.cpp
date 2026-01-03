@@ -47,7 +47,7 @@ CShadowSprite::~CShadowSprite()
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// m_PixelsÀÇ memory¸¦ ÇØÁ¦ÇÑ´Ù.
+// m_Pixelsì˜ memoryë¥¼ í•´ì œí•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CShadowSprite::Release()
@@ -73,21 +73,21 @@ CShadowSprite::Release()
 void		
 CShadowSprite::operator = (const CShadowSprite& Sprite)
 {
-	// ¸Ş¸ğ¸® ÇØÁ¦
+	// ë©”ëª¨ë¦¬ í•´ì œ
 	Release();
 
-	// NULLÀÌ¸é ÀúÀåÇÏÁö ¾Ê´Â´Ù.
+	// NULLì´ë©´ ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	if (Sprite.m_Pixels==NULL || Sprite.m_Width==0 || Sprite.m_Height==0)
 		return;
 
-	// Å©±â ¼³Á¤
+	// í¬ê¸° ì„¤ì •
 	m_Width = Sprite.m_Width;
 	m_Height = Sprite.m_Height;	
 
-	// ¾ĞÃà µÈ °Í ÀúÀå
+	// ì••ì¶• ëœ ê²ƒ ì €ì¥
 	WORD index;	
 
-	// ¸Ş¸ğ¸® Àâ±â
+	// ë©”ëª¨ë¦¬ ì¡ê¸°
 	m_Pixels = new WORD* [m_Height];
 
 	//--------------------------------
@@ -95,10 +95,10 @@ CShadowSprite::operator = (const CShadowSprite& Sprite)
 	//--------------------------------
 	for (int i=0; i<m_Height; i++)
 	{
-		// ¹İº¹¼ö + ¹İº¹¼ö*2byte
+		// ë°˜ë³µìˆ˜ + ë°˜ë³µìˆ˜*2byte
 		index	= 1 + m_Pixels[i][0]*2;	
 
-		// ¸Ş¸ğ¸® Àâ±â
+		// ë©”ëª¨ë¦¬ ì¡ê¸°
 		m_Pixels[i] = new WORD [index];
 		memcpy(m_Pixels[i], Sprite.m_Pixels[i], index<<1);
 	}
@@ -106,20 +106,20 @@ CShadowSprite::operator = (const CShadowSprite& Sprite)
 }
 
 //----------------------------------------------------------------------
-// fstream¿¡ save ÇÑ´Ù.    ( file¿¡´Â 5:6:5·Î ÀúÀåÇÑ´Ù. )
+// fstreamì— save í•œë‹¤.    ( fileì—ëŠ” 5:6:5ë¡œ ì €ì¥í•œë‹¤. )
 //----------------------------------------------------------------------
 bool	
 CShadowSprite::SaveToFile(ofstream& file)
 {
-	// width¿Í height¸¦ ÀúÀåÇÑ´Ù.
+	// widthì™€ heightë¥¼ ì €ì¥í•œë‹¤.
 	file.write((const char*)&m_Width , 2);
 	file.write((const char*)&m_Height, 2);
 
-	// NULLÀÌ¸é ÀúÀåÇÏÁö ¾Ê´Â´Ù. ±æÀÌ¸¸ ÀúÀåµÇ´Â °ÍÀÌ´Ù.
+	// NULLì´ë©´ ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤. ê¸¸ì´ë§Œ ì €ì¥ë˜ëŠ” ê²ƒì´ë‹¤.
 	if (m_Pixels==NULL || m_Width==0 || m_Height==0)
 		return false;
 	
-	// ¾ĞÃà µÈ °Í ÀúÀå
+	// ì••ì¶• ëœ ê²ƒ ì €ì¥
 	WORD index;	
 
 	//--------------------------------
@@ -127,10 +127,10 @@ CShadowSprite::SaveToFile(ofstream& file)
 	//--------------------------------
 	for (int i=0; i<m_Height; i++)
 	{
-		// ¹İº¹¼ö + ¹İº¹¼ö*2byte
+		// ë°˜ë³µìˆ˜ + ë°˜ë³µìˆ˜*2byte
 		index	= 1 + m_Pixels[i][0]*2;	
 
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ ÀúÀåÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ ì €ì¥í•œë‹¤.
 		file.write((const char*)&index, 2);
 		file.write((const char*)m_Pixels[i], index<<1);
 	}
@@ -140,19 +140,19 @@ CShadowSprite::SaveToFile(ofstream& file)
 }
 
 //----------------------------------------------------------------------
-// fstream¿¡¼­ loadÇÑ´Ù.
+// fstreamì—ì„œ loadí•œë‹¤.
 //----------------------------------------------------------------------
 bool	
 CShadowSprite::LoadFromFile(ifstream& file)
 {
-	// ÀÌ¹Ì ÀâÇôÀÖ´Â memory¸¦ releaseÇÑ´Ù.
+	// ì´ë¯¸ ì¡í˜€ìˆëŠ” memoryë¥¼ releaseí•œë‹¤.
 	Release();
 
-	// width¿Í height¸¦ LoadÇÑ´Ù.
+	// widthì™€ heightë¥¼ Loadí•œë‹¤.
 	file.read((char*)&m_Width , 2);
 	file.read((char*)&m_Height, 2);	
 
-	// ±æÀÌ°¡ 0ÀÌ¸é ´õ LoadÇÒ°Ô ¾ø°ÚÁö..
+	// ê¸¸ì´ê°€ 0ì´ë©´ ë” Loadí• ê²Œ ì—†ê² ì§€..
 	if (m_Width==0 || m_Height==0) 
 	{	
 		m_bInit = true;
@@ -171,7 +171,7 @@ CShadowSprite::LoadFromFile(ifstream& file)
 	//--------------------------------
 	for (int i=0; i<m_Height; i++)
 	{
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ LoadÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ Loadí•œë‹¤.
 		file.read((char*)&len, 2);
 		
 		m_Pixels[i] = NULL;
@@ -186,41 +186,41 @@ CShadowSprite::LoadFromFile(ifstream& file)
 }
 
 //----------------------------------------------------------------------
-// CDirectDrawSurfaceÀÇ (x,y)+(width, height)¿µ¿ªÀ» ÀĞ¾î¼­ m_Pixels¿¡ ÀúÀåÇÑ´Ù.
+// CDirectDrawSurfaceì˜ (x,y)+(width, height)ì˜ì—­ì„ ì½ì–´ì„œ m_Pixelsì— ì €ì¥í•œë‹¤.
 //----------------------------------------------------------------------
-// m_Pixels¸¦ 0¹ø ¾ĞÃà FormatÀ¸·Î ¹Ù²Û´Ù.
+// m_Pixelsë¥¼ 0ë²ˆ ì••ì¶• Formatìœ¼ë¡œ ë°”ê¾¼ë‹¤.
 //
-// °¢ line¸¶´Ù ´ÙÀ½°ú °°Àº ±¸Á¶¸¦ °¡Áø´Ù.
+// ê° lineë§ˆë‹¤ ë‹¤ìŒê³¼ ê°™ì€ êµ¬ì¡°ë¥¼ ê°€ì§„ë‹¤.
 //
-//    [¹İº¹¼ö] (Åõ¸í¼ö,»ö±ò¼ö)(Åõ¸í¼ö,»ö±ò¼ö)......
+//    [ë°˜ë³µìˆ˜] (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜)(íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜)......
 //
-// ¹İº¹¼ö´Â 2 bytesÀÌ°í
-// Åõ¸í¼ö¿Í »ö±ò¼ö´Â °¢°¢ 2 byte
+// ë°˜ë³µìˆ˜ëŠ” 2 bytesì´ê³ 
+// íˆ¬ëª…ìˆ˜ì™€ ìƒ‰ê¹”ìˆ˜ëŠ” ê°ê° 2 byte
 //
 //----------------------------------------------------------------------
 void
 CShadowSprite::SetPixel(WORD *pSource, WORD pitch, WORD width, WORD height)
 {
-	// memoryÇØÁ¦
+	// memoryí•´ì œ
 	Release();
 
 	m_Width = width;
 	m_Height = height;
 
-	// ÀÏ´Ü memory¸¦ Àû´çÈ÷ Àâ¾ÆµĞ´Ù.	
+	// ì¼ë‹¨ memoryë¥¼ ì ë‹¹íˆ ì¡ì•„ë‘”ë‹¤.	
 	WORD*	data = new WORD[m_Width+2];
 
-	int	index;				// dataÀÇ index·Î »ç¿ë			
-	int	count;				// ¹İº¹¼ö
-	int	trans,				// Åõ¸í»ö °³¼ö
-			color;				// Åõ¸íÀÌ ¾Æ´Ñ»ö °³¼ö
+	int	index;				// dataì˜ indexë¡œ ì‚¬ìš©			
+	int	count;				// ë°˜ë³µìˆ˜
+	int	trans,				// íˆ¬ëª…ìƒ‰ ê°œìˆ˜
+			color;				// íˆ¬ëª…ì´ ì•„ë‹Œìƒ‰ ê°œìˆ˜
 
-	BOOL	bCheckTrans;		// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô Åõ¸í»öÀÎ°¡?
+	BOOL	bCheckTrans;		// ìµœê·¼ì— ê²€ì‚¬í•œê²Œ íˆ¬ëª…ìƒ‰ì¸ê°€?
 
 	WORD	*pSourceTemp;
 
 
-	// heightÁÙ ¸¸Å­ memoryÀâ±â
+	// heightì¤„ ë§Œí¼ memoryì¡ê¸°
 	m_Pixels = new WORD* [height];
 
 	register int i;
@@ -236,16 +236,16 @@ CShadowSprite::SetPixel(WORD *pSource, WORD pitch, WORD width, WORD height)
 
 		pSourceTemp = pSource;
 
-		// °¢ line¿¡ ´ëÇØ¼­ ¾ĞÃà~
+		// ê° lineì— ëŒ€í•´ì„œ ì••ì¶•~
 		for (j=0; j<width; j++)
 		{
-			// 0¹ø color¿¡ ´ëÇØ¼­ ¾ĞÃà
+			// 0ë²ˆ colorì— ëŒ€í•´ì„œ ì••ì¶•
 			if (*pSourceTemp==s_Colorkey)
 			{
-				// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô Åõ¸í»öÀÌ ¾Æ´Ï¾ú´Ù¸é
+				// ìµœê·¼ì— ê²€ì‚¬í•œê²Œ íˆ¬ëª…ìƒ‰ì´ ì•„ë‹ˆì—ˆë‹¤ë©´
 				if (!bCheckTrans)
 				{
-					// ' (Åõ¸í,»ö±ò¼ö) 'ÀÇ ÇÑ set°¡ ³¡³µÀ½À» ÀÇ¹ÌÇÏ¹Ç·Î
+					// ' (íˆ¬ëª…,ìƒ‰ê¹”ìˆ˜) 'ì˜ í•œ setê°€ ëë‚¬ìŒì„ ì˜ë¯¸í•˜ë¯€ë¡œ
 					count++;
 					
 					data[index++] = color;
@@ -258,10 +258,10 @@ CShadowSprite::SetPixel(WORD *pSource, WORD pitch, WORD width, WORD height)
 			}
 			else
 			{
-				// ÃÖ±Ù¿¡ °Ë»çÇÑ°Ô Åõ¸í»öÀÌ¾ú´Ù¸é..
+				// ìµœê·¼ì— ê²€ì‚¬í•œê²Œ íˆ¬ëª…ìƒ‰ì´ì—ˆë‹¤ë©´..
 				if (bCheckTrans)
 				{						
-					data[index++] = trans;		// »óÀ§ byte¿¡ Åõ¸í¼ö¸¦ ³Ö´Â´Ù.
+					data[index++] = trans;		// ìƒìœ„ byteì— íˆ¬ëª…ìˆ˜ë¥¼ ë„£ëŠ”ë‹¤.
 					trans = 0;
 
 					bCheckTrans = FALSE;
@@ -273,23 +273,23 @@ CShadowSprite::SetPixel(WORD *pSource, WORD pitch, WORD width, WORD height)
 			pSourceTemp++;
 		}
 		
-		// ÇÑ ÁÙÀÇ ¸¶Áö¸· Á¡ÀÌ Åõ¸í»öÀÎ°¡?
+		// í•œ ì¤„ì˜ ë§ˆì§€ë§‰ ì ì´ íˆ¬ëª…ìƒ‰ì¸ê°€?
 		if (bCheckTrans)
 		{
-			// Åõ¸í»öÀÌ¸é º°´Ù¸¥ Ã³¸®¸¦ ¾ÈÇØÁàµµ µÉ°Å °°´Ù.
+			// íˆ¬ëª…ìƒ‰ì´ë©´ ë³„ë‹¤ë¥¸ ì²˜ë¦¬ë¥¼ ì•ˆí•´ì¤˜ë„ ë ê±° ê°™ë‹¤.
 		}	
-		// Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì, Á¡ÀÇ °³¼ö¸¦ ÀúÀå½ÃÄÑÁà¾ß ÇÑ´Ù.
+		// íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°, ì ì˜ ê°œìˆ˜ë¥¼ ì €ì¥ì‹œì¼œì¤˜ì•¼ í•œë‹¤.
 		else
 		{			
 			count++;
 			data[index++] = color;
 		}
 		
-		// memory¸¦ ´Ù½Ã Àâ´Â´Ù.
+		// memoryë¥¼ ë‹¤ì‹œ ì¡ëŠ”ë‹¤.
 		m_Pixels[i] = new WORD [index+1];
 
-		// m_Pixels[i]¸¦ ¾ĞÃàÇßÀ¸¹Ç·Î data·Î ´ëÃ¼ÇÑ´Ù.
-		// m_Pixels[i][0]¿¡´Â count¸¦ ³Ö¾î¾ß ÇÑ´Ù.
+		// m_Pixels[i]ë¥¼ ì••ì¶•í–ˆìœ¼ë¯€ë¡œ dataë¡œ ëŒ€ì²´í•œë‹¤.
+		// m_Pixels[i][0]ì—ëŠ” countë¥¼ ë„£ì–´ì•¼ í•œë‹¤.
 		m_Pixels[i][0] = count;
 		memcpy(m_Pixels[i]+1, data, index<<1);
 
@@ -309,7 +309,7 @@ CShadowSprite::SetPixel(WORD *pSource, WORD pitch, WORD width, WORD height)
 void		
 CShadowSprite::SetPixel(CIndexSprite& ispr)
 {
-	// memoryÇØÁ¦
+	// memoryí•´ì œ
 	Release();
 
 	m_Width = ispr.GetWidth();
@@ -325,38 +325,38 @@ CShadowSprite::SetPixel(CIndexSprite& ispr)
 	register int i;
 	register int j;	
 
-	// heightÁÙ ¸¸Å­ memoryÀâ±â
+	// heightì¤„ ë§Œí¼ memoryì¡ê¸°
 	m_Pixels = new WORD* [m_Height];
 
 	for (i=0; i<m_Height; i++)
 	{			
 		pPixels		= ispr.GetPixelLine( i );
 		
-		// (Åõ¸í¼ö,Index»ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,Indexìƒ‰,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		transPair	= *pPixels++;
 
-		// ¹İº¹¼ö + (Åõ¸í¼ö,±×¸²ÀÚ¼ö)*¹İº¹¼ö
+		// ë°˜ë³µìˆ˜ + (íˆ¬ëª…ìˆ˜,ê·¸ë¦¼ììˆ˜)*ë°˜ë³µìˆ˜
 		m_Pixels[i] = new WORD [1 + (transPair<<1)];
 		index = 0;
 		m_Pixels[i][index++] = transPair;
 		
- 		// ÇÑ ÁÙ Ãâ·Â
+ 		// í•œ ì¤„ ì¶œë ¥
 		for (j=0; j<transPair; j++)
 		{			
 			//------------------------------------
-			// Åõ¸í»ö ¼ö
+			// íˆ¬ëª…ìƒ‰ ìˆ˜
 			//------------------------------------
 			m_Pixels[i][index++] = *pPixels;	
 			pPixels++;			
 
-			indexCount = *pPixels++;	// Index¹İº¹ ¼ö			
-			pPixels += indexCount;		// Index»öµé¸¸Å­ Áõ°¡
+			indexCount = *pPixels++;	// Indexë°˜ë³µ ìˆ˜			
+			pPixels += indexCount;		// Indexìƒ‰ë“¤ë§Œí¼ ì¦ê°€
 			
-			colorCount = *pPixels++;	// color »ö±ò ¼ö			
-			pPixels		+= colorCount;	// Color »ö¸¸Å­ Áõ°¡
+			colorCount = *pPixels++;	// color ìƒ‰ê¹” ìˆ˜			
+			pPixels		+= colorCount;	// Color ìƒ‰ë§Œí¼ ì¦ê°€
 
 			//------------------------------------
-			// ±×¸²ÀÚ ¼ö = Index + Color¼ö
+			// ê·¸ë¦¼ì ìˆ˜ = Index + Colorìˆ˜
 			//------------------------------------
 			m_Pixels[i][index++] = indexCount + colorCount;
 		}
@@ -373,7 +373,7 @@ CShadowSprite::SetPixel(CIndexSprite& ispr)
 void		
 CShadowSprite::SetPixel(CSprite& spr)
 {
-	// memoryÇØÁ¦
+	// memoryí•´ì œ
 	Release();
 
 	m_Width = spr.GetWidth();
@@ -388,35 +388,35 @@ CShadowSprite::SetPixel(CSprite& spr)
 	register int i;
 	register int j;	
 
-	// heightÁÙ ¸¸Å­ memoryÀâ±â
+	// heightì¤„ ë§Œí¼ memoryì¡ê¸°
 	m_Pixels = new WORD* [m_Height];
 
 	for (i=0; i<m_Height; i++)
 	{			
 		pPixels		= spr.GetPixelLine( i );
 		
-		// (Åõ¸í¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		transPair	= *pPixels++;
 
-		// ¹İº¹¼ö + (Åõ¸í¼ö,±×¸²ÀÚ¼ö)*¹İº¹¼ö
+		// ë°˜ë³µìˆ˜ + (íˆ¬ëª…ìˆ˜,ê·¸ë¦¼ììˆ˜)*ë°˜ë³µìˆ˜
 		m_Pixels[i] = new WORD [1 + (transPair<<1)];
 		index = 0;
 		m_Pixels[i][index++] = transPair;
 		
- 		// ÇÑ ÁÙ Ãâ·Â
+ 		// í•œ ì¤„ ì¶œë ¥
 		for (j=0; j<transPair; j++)
 		{			
 			//------------------------------------
-			// Åõ¸í»ö ¼ö
+			// íˆ¬ëª…ìƒ‰ ìˆ˜
 			//------------------------------------
 			m_Pixels[i][index++] = *pPixels;	
 			pPixels++;			
 
-			colorCount = *pPixels++;	// color »ö±ò ¼ö			
-			pPixels		+= colorCount;	// Color »ö¸¸Å­ Áõ°¡
+			colorCount = *pPixels++;	// color ìƒ‰ê¹” ìˆ˜			
+			pPixels		+= colorCount;	// Color ìƒ‰ë§Œí¼ ì¦ê°€
 
 			//------------------------------------
-			// ±×¸²ÀÚ ¼ö = Index + Color¼ö
+			// ê·¸ë¦¼ì ìˆ˜ = Index + Colorìˆ˜
 			//------------------------------------
 			m_Pixels[i][index++] = colorCount;
 		}
@@ -436,23 +436,23 @@ CShadowSprite::Uncompress()
 //----------------------------------------------------------------------
 // Is ColorPixel ?
 //----------------------------------------------------------------------
-// Sprite¾È¿¡¼­ (x,y)´Â »ö±òÀÌ ÀÖ´Â°¡?(Åõ¸í»öÀÌ ¾Æ´Ñ °æ¿ì)
+// Spriteì•ˆì—ì„œ (x,y)ëŠ” ìƒ‰ê¹”ì´ ìˆëŠ”ê°€?(íˆ¬ëª…ìƒ‰ì´ ì•„ë‹Œ ê²½ìš°)
 //----------------------------------------------------------------------
 bool		
 CShadowSprite::IsColorPixel(short x, short y)
 {
-	// ¾ÆÁ÷ ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì
+	// ì•„ì§ ì´ˆê¸°í™” ë˜ì§€ ì•Šì€ ê²½ìš°
 	if (m_Pixels==NULL)
 		return false; 
 
-	// SpriteÀÇ ¿µ¿ªÀ» ¹ş¾î³ª¸é false
+	// Spriteì˜ ì˜ì—­ì„ ë²—ì–´ë‚˜ë©´ false
 	if (x<0 || y<0 || x>=m_Width || y>=m_Height)
 		return false;
 
-	// y¹øÂ° ÁÙ
+	// yë²ˆì§¸ ì¤„
 	WORD	*pPixels = m_Pixels[y];
 
-	// y¹øÂ° ÁÙÀÇ ¹İº¹ ¼ö
+	// yë²ˆì§¸ ì¤„ì˜ ë°˜ë³µ ìˆ˜
 	int	count = *pPixels++;
 
 	int	transCount, 
@@ -466,16 +466,16 @@ CShadowSprite::IsColorPixel(short x, short y)
 
 		index += transCount;
 
-		// ÀÌ¹ø loop¾È¿¡ Á¸ÀçÇÏ´Â Á¡
+		// ì´ë²ˆ loopì•ˆì— ì¡´ì¬í•˜ëŠ” ì 
 		if (x < index+colorCount)
 		{
-			// Åõ¸í»ö±îÁöº¸´Ù ÀûÀº °æ¿ì
+			// íˆ¬ëª…ìƒ‰ê¹Œì§€ë³´ë‹¤ ì ì€ ê²½ìš°
 			if (x < index)
 			{
 				return false;
 			}
 
-			// »ö±ò¿¡ ¼ÓÇÑ´Ù.
+			// ìƒ‰ê¹”ì— ì†í•œë‹¤.
 			return true;
 		}
 
@@ -489,7 +489,7 @@ CShadowSprite::IsColorPixel(short x, short y)
 //----------------------------------------------------------------------
 // Blt
 //----------------------------------------------------------------------
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::Blt(WORD *pDest, WORD pitch)
@@ -508,18 +508,18 @@ CShadowSprite::Blt(WORD *pDest, WORD pitch)
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
- 		// ÇÑ ÁÙ Ãâ·Â
+ 		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				pDestTemp += *pPixels++;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+				pDestTemp += *pPixels++;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-				// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+				// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 				memset((void*)pDestTemp, 0, colorCount<<1);
 		
 				pDestTemp	+= colorCount;
@@ -534,8 +534,8 @@ CShadowSprite::Blt(WORD *pDest, WORD pitch)
 //----------------------------------------------------------------------
 // Blt ClipLeft
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// pRect->left°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// pRect->leftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
@@ -544,7 +544,7 @@ CShadowSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -556,104 +556,104 @@ CShadowSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	register int j;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > pRect->left)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > pRect->left)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += index - pRect->left;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						//memcpy(pDestTemp, pPixels, colorCount<<1);
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						memset((void*)pDestTemp, 0, colorCount<<1);
 
 						pDestTemp += colorCount;
 						//pPixels += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = pRect->left - index;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						//memcpy(pDestTemp, pPixels+dist, (colorCount-dist)<<1);					
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						memset((void*)pDestTemp, 0, (colorCount-dist)<<1);
 
 						pDestTemp += colorCount-dist;
 						//pPixels += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				//pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.		
 			//---------------------------------------------		
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					pDestTemp += transCount;			
 					
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					memset((void*)pDestTemp, 0, colorCount<<1);
 
-					// memory addr Áõ°¡
+					// memory addr ì¦ê°€
 					pDestTemp += colorCount;
 					//pPixels += colorCount;			
 				} while (--j);
@@ -668,8 +668,8 @@ CShadowSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt ClipRight
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ clipping.  
-// pRect->right°³ ±îÁöÀÇ Á¡¸¸ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì˜¤ë¥¸ìª½ clipping.  
+// pRect->rightê°œ ê¹Œì§€ì˜ ì ë§Œ pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
@@ -678,7 +678,7 @@ CShadowSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -693,64 +693,64 @@ CShadowSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+		// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 		//---------------------------------------------
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{		
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+				// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 				//---------------------------------------------
-				// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+				// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 				//---------------------------------------------			
 				if (index+colorCount > pRect->right)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 					if (index > pRect->right)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 					else
 					{
 						pDestTemp += transCount;
 					
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						//memcpy(pDestTemp, pPixels, (pRect->right - index)<<1);
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						memset((void*)pDestTemp, 0, (pRect->right - index)<<1);
 
 						break;
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 				pDestTemp += transCount;
 
-				// Ãâ·Â
+				// ì¶œë ¥
 				//memcpy(pDestTemp, pPixels, colorCount<<1);
-				// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+				// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 				memset((void*)pDestTemp, 0, colorCount<<1);
 
 				pDestTemp += colorCount;
@@ -766,9 +766,9 @@ CShadowSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt ClipWidth
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// pRect->left°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÏ´Ù°¡
-// pRect->Right±îÁö¸¸ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// pRect->leftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•˜ë‹¤ê°€
+// pRect->Rightê¹Œì§€ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
@@ -777,7 +777,7 @@ CShadowSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -789,55 +789,55 @@ CShadowSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	register short j;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{		
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > pRect->left)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > pRect->left)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += index - pRect->left;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â?
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥?
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > pRect->right)
 						{							
-							// Åõ¸í»ö¸¸À¸·Î ¿À¸¥ÂÊ ³¡ ³Ñ¾î°¡´Â °æ¿ì
+							// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ì˜¤ë¥¸ìª½ ë ë„˜ì–´ê°€ëŠ” ê²½ìš°
 							if (index > pRect->right)
 							{
 							}
@@ -857,18 +857,18 @@ CShadowSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 						//pPixels += colorCount;
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{		
 						dist = pRect->left - index;
 
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > pRect->right)
 						{						
 							memset((void*)pDestTemp, 0, pRect->right - pRect->left);
@@ -877,76 +877,76 @@ CShadowSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 							break;
 						}
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						//memcpy(pDestTemp, pPixels+dist, (colorCount-dist)<<1);					
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						memset((void*)pDestTemp, 0, (colorCount-dist)<<1);
 
 						pDestTemp += colorCount-dist;
 						//pPixels += colorCount;		
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.					
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.					
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				//pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+			// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+					// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 					//---------------------------------------------
-					// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+					// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 					//---------------------------------------------			
 					if (index+colorCount > pRect->right)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 						if (index > pRect->right)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 						else
 						{
 							pDestTemp += transCount;
 						
-							// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+							// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 							//memcpy(pDestTemp, pPixels, (pRect->right - index)<<1);
-							// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+							// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 							memset((void*)pDestTemp, 0, (pRect->right - index)<<1);
 
 							break;
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 					pDestTemp += transCount;
 
-					// Ãâ·Â
+					// ì¶œë ¥
 					//memcpy(pDestTemp, pPixels, colorCount<<1);
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					memset((void*)pDestTemp, 0, colorCount<<1);
 
 					pDestTemp += colorCount;
@@ -964,7 +964,7 @@ CShadowSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // Blt Clip Height
 //----------------------------------------------------------------------
-// pRect->top, pRect->bottom¸¸Å­¸¸ Ãâ·ÂÇÑ´Ù.
+// pRect->top, pRect->bottomë§Œí¼ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
@@ -984,21 +984,21 @@ CShadowSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+				pDestTemp += *pPixels++;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 				//memcpy((void*)pDestTemp, (void*)pPixels, colorCount<<1);
-				// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+				// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 				memset((void*)pDestTemp, 0, colorCount<<1);
 				
 				pDestTemp	+= colorCount;
@@ -1014,7 +1014,7 @@ CShadowSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 //----------------------------------------------------------------------
 // BltDarkness
 //----------------------------------------------------------------------
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltDarkness(WORD *pDest, WORD pitch, BYTE DarkBits)
@@ -1035,18 +1035,18 @@ CShadowSprite::BltDarkness(WORD *pDest, WORD pitch, BYTE DarkBits)
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
- 		// ÇÑ ÁÙ Ãâ·Â
+ 		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{						
-				pDestTemp += *pPixels++;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+				pDestTemp += *pPixels++;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-				// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+				// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 				//memset((void*)pDestTemp, 0, colorCount<<1);
 				memcpyShadowDarkness(pDestTemp, colorCount);
 		
@@ -1062,8 +1062,8 @@ CShadowSprite::BltDarkness(WORD *pDest, WORD pitch, BYTE DarkBits)
 //----------------------------------------------------------------------
 // BltDarkness ClipLeft
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// pRect->left°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// pRect->leftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltDarknessClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE DarkBits)
@@ -1074,7 +1074,7 @@ CShadowSprite::BltDarknessClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE Da
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -1086,107 +1086,107 @@ CShadowSprite::BltDarknessClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE Da
 	register int j;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > pRect->left)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > pRect->left)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += index - pRect->left;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						//memcpy(pDestTemp, pPixels, colorCount<<1);
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						//memset((void*)pDestTemp, 0, colorCount<<1);
 						memcpyShadowDarkness(pDestTemp, colorCount);
 
 						pDestTemp += colorCount;
 						//pPixels += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = pRect->left - index;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						//memcpy(pDestTemp, pPixels+dist, (colorCount-dist)<<1);					
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						//memset((void*)pDestTemp, 0, (colorCount-dist)<<1);
 						memcpyShadowDarkness(pDestTemp, colorCount-dist);
 
 						pDestTemp += colorCount-dist;
 						//pPixels += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				//pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.		
 			//---------------------------------------------		
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					pDestTemp += transCount;			
 					
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					//memset((void*)pDestTemp, 0, colorCount<<1);
 					memcpyShadowDarkness(pDestTemp, colorCount);
 
-					// memory addr Áõ°¡
+					// memory addr ì¦ê°€
 					pDestTemp += colorCount;
 					//pPixels += colorCount;			
 				} while (--j);
@@ -1201,8 +1201,8 @@ CShadowSprite::BltDarknessClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE Da
 //----------------------------------------------------------------------
 // BltDarkness ClipRight
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ clipping.  
-// pRect->right°³ ±îÁöÀÇ Á¡¸¸ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì˜¤ë¥¸ìª½ clipping.  
+// pRect->rightê°œ ê¹Œì§€ì˜ ì ë§Œ pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltDarknessClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE DarkBits)
@@ -1213,7 +1213,7 @@ CShadowSprite::BltDarknessClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -1228,52 +1228,52 @@ CShadowSprite::BltDarknessClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+		// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 		//---------------------------------------------
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+				// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 				//---------------------------------------------
-				// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+				// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 				//---------------------------------------------			
 				if (index+colorCount > pRect->right)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 					if (index > pRect->right)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 					else
 					{
 						pDestTemp += transCount;
 					
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						//memcpy(pDestTemp, pPixels, (pRect->right - index)<<1);
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						//memset((void*)pDestTemp, 0, (pRect->right - index)<<1);
 						memcpyShadowDarkness(pDestTemp, pRect->right - index);
 
@@ -1281,12 +1281,12 @@ CShadowSprite::BltDarknessClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 				pDestTemp += transCount;
 
-				// Ãâ·Â
+				// ì¶œë ¥
 				//memcpy(pDestTemp, pPixels, colorCount<<1);
-				// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+				// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 				//memset((void*)pDestTemp, 0, colorCount<<1);
 				memcpyShadowDarkness(pDestTemp, colorCount);
 
@@ -1303,9 +1303,9 @@ CShadowSprite::BltDarknessClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 //----------------------------------------------------------------------
 // BltDarkness ClipWidth
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// pRect->left°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÏ´Ù°¡
-// pRect->Right±îÁö¸¸ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// pRect->leftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•˜ë‹¤ê°€
+// pRect->Rightê¹Œì§€ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltDarknessClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE DarkBits)
@@ -1316,7 +1316,7 @@ CShadowSprite::BltDarknessClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -1328,55 +1328,55 @@ CShadowSprite::BltDarknessClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 	register int j;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
 		if (count > 0)
 		{
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > pRect->left)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > pRect->left)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += index - pRect->left;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â?
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥?
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > pRect->right)
 						{							
-							// Åõ¸í»ö¸¸À¸·Î ¿À¸¥ÂÊ ³¡ ³Ñ¾î°¡´Â °æ¿ì
+							// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ì˜¤ë¥¸ìª½ ë ë„˜ì–´ê°€ëŠ” ê²½ìš°
 							if (index > pRect->right)
 							{
 							}
@@ -1391,9 +1391,9 @@ CShadowSprite::BltDarknessClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 							break;
 						}
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						//memcpy(pDestTemp, pPixels, colorCount<<1);
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						//memset((void*)pDestTemp, 0, colorCount<<1);
 						memcpyShadowDarkness(pDestTemp, colorCount);
 
@@ -1401,18 +1401,18 @@ CShadowSprite::BltDarknessClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 						//pPixels += colorCount;
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = pRect->left - index;
 
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > pRect->right)
 						{
 							memcpyShadowDarkness(pDestTemp, pRect->right - pRect->left);
@@ -1421,9 +1421,9 @@ CShadowSprite::BltDarknessClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 							break;
 						}
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						//memcpy(pDestTemp, pPixels+dist, (colorCount-dist)<<1);					
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						//memset((void*)pDestTemp, 0, (colorCount-dist)<<1);
 						memcpyShadowDarkness(pDestTemp, colorCount-dist);
 
@@ -1431,55 +1431,55 @@ CShadowSprite::BltDarknessClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 						//pPixels += colorCount;		
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.					
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.					
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				//pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+			// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+					// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 					//---------------------------------------------
-					// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+					// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 					//---------------------------------------------			
 					if (index+colorCount > pRect->right)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 						if (index > pRect->right)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 						else
 						{
 							pDestTemp += transCount;
 						
-							// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+							// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 							//memcpy(pDestTemp, pPixels, (pRect->right - index)<<1);
-							// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+							// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 							//memset((void*)pDestTemp, 0, (pRect->right - index)<<1);
 							memcpyShadowDarkness(pDestTemp, pRect->right-index);
 
@@ -1487,12 +1487,12 @@ CShadowSprite::BltDarknessClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 					pDestTemp += transCount;
 
-					// Ãâ·Â
+					// ì¶œë ¥
 					//memcpy(pDestTemp, pPixels, colorCount<<1);
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					//memset((void*)pDestTemp, 0, colorCount<<1);
 					memcpyShadowDarkness(pDestTemp, colorCount);
 
@@ -1511,7 +1511,7 @@ CShadowSprite::BltDarknessClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 //----------------------------------------------------------------------
 // BltDarkness Clip Height
 //----------------------------------------------------------------------
-// pRect->top, pRect->bottom¸¸Å­¸¸ Ãâ·ÂÇÑ´Ù.
+// pRect->top, pRect->bottomë§Œí¼ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltDarknessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE DarkBits)
@@ -1533,21 +1533,21 @@ CShadowSprite::BltDarknessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+				pDestTemp += *pPixels++;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 				//memcpy((void*)pDestTemp, (void*)pPixels, colorCount<<1);
-				// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+				// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 				//memset((void*)pDestTemp, 0, colorCount<<1);
 				memcpyShadowDarkness(pDestTemp, colorCount);
 				
@@ -1563,7 +1563,7 @@ CShadowSprite::BltDarknessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 //----------------------------------------------------------------------
 // ShadowDarkness Copy
 //----------------------------------------------------------------------
-// destÀÇ pixels°³¸¦ s_Value1¸¸Å­ ¾îµÓ°Ô Ãâ·ÂÀ» ÇÑ´Ù.
+// destì˜ pixelsê°œë¥¼ s_Value1ë§Œí¼ ì–´ë‘¡ê²Œ ì¶œë ¥ì„ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CShadowSprite::memcpyShadowDarkness(WORD* pDest, WORD pixels)
@@ -1574,14 +1574,14 @@ CShadowSprite::memcpyShadowDarkness(WORD* pDest, WORD pixels)
 
 	BYTE qTimes = pixels >> 2;	// pixels / 4
 
-	// ¹İÅõ¸í
+	// ë°˜íˆ¬ëª…
 	switch ( pixels & 0x03 )	// pixels % 4
 	{
 		//------------------
-		// 4Á¡¾¿
+		// 4ì ì”©
 		//------------------
 		case 0 :			
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			for (j=0; j<qTimes; j++)
 			{
 				*qpDest = ((*qpDest >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1]);				
@@ -1591,16 +1591,16 @@ CShadowSprite::memcpyShadowDarkness(WORD* pDest, WORD pixels)
 		break;
 
 		//------------------
-		// 1Á¡ + 4Á¡¾¿
+		// 1ì  + 4ì ì”©
 		//------------------
 		case 1 :
-			// ÇÑÁ¡ Âï±â
+			// í•œì  ì°ê¸°
 			*(WORD*)qpDest = ((*(WORD*)qpDest >> s_Value1) & CDirectDraw::s_wMASK_SHIFT[s_Value1]);
 			
 				
 			qpDest = (QWORD*)((WORD*)qpDest + 1);			
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			for (j=0; j<qTimes; j++)
 			{
 				*qpDest = ((*qpDest >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1]);
@@ -1611,15 +1611,15 @@ CShadowSprite::memcpyShadowDarkness(WORD* pDest, WORD pixels)
 		break;
 
 		//------------------
-		// 2Á¡ + 4Á¡¾¿
+		// 2ì  + 4ì ì”©
 		//------------------
 		case 2 :
-			// µÎÁ¡ Âï±â
+			// ë‘ì  ì°ê¸°
 			*(DWORD*)qpDest = ((*(DWORD*)qpDest >> s_Value1) & CDirectDraw::s_dwMASK_SHIFT[s_Value1]);			
 				
 			qpDest = (QWORD*)((DWORD*)qpDest + 1);			
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			for (j=0; j<qTimes; j++)
 			{
 				*qpDest = ((*qpDest >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1]);
@@ -1629,18 +1629,18 @@ CShadowSprite::memcpyShadowDarkness(WORD* pDest, WORD pixels)
 		break;
 
 		//------------------
-		// 1Á¡ + 2Á¡ + 4Á¡¾¿
+		// 1ì  + 2ì  + 4ì ì”©
 		//------------------
 		case 3 :
-			// ÇÑÁ¡ Âï±â
+			// í•œì  ì°ê¸°
 			*(WORD*)qpDest = ((*(WORD*)qpDest >> s_Value1) & CDirectDraw::s_wMASK_SHIFT[s_Value1]);	
 
-			// µÎÁ¡ Âï±â
+			// ë‘ì  ì°ê¸°
 			*(DWORD*)qpDest = ((*(DWORD*)qpDest >> s_Value1) & CDirectDraw::s_dwMASK_SHIFT[s_Value1]);
 				
 			qpDest = (QWORD*)((DWORD*)qpDest + 1);			
 
-			// ³×Á¡¾¿ Âï±â
+			// ë„¤ì ì”© ì°ê¸°
 			for (j=0; j<qTimes; j++)
 			{
 				*qpDest = ((*qpDest >> s_Value1) & CDirectDraw::s_qwMASK_SHIFT[s_Value1]);
@@ -1654,7 +1654,7 @@ CShadowSprite::memcpyShadowDarkness(WORD* pDest, WORD pixels)
 //----------------------------------------------------------------------
 // Blt4444
 //----------------------------------------------------------------------
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::Blt4444(WORD *pDest, WORD pitch, WORD pixel)
@@ -1672,15 +1672,15 @@ CShadowSprite::Blt4444(WORD *pDest, WORD pitch, WORD pixel)
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
- 		// ÇÑ ÁÙ Ãâ·Â
+ 		// í•œ ì¤„ ì¶œë ¥
 		for (register int j=0; j<count; j++)
 		{				
-			pDestTemp += *pPixels++;			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-			colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+			pDestTemp += *pPixels++;			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+			colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-			// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+			// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 			//memset((void*)pDestTemp, 0, colorCount<<1);
 			memcpyShadow4444(pDestTemp, colorCount);
 	
@@ -1695,8 +1695,8 @@ CShadowSprite::Blt4444(WORD *pDest, WORD pitch, WORD pixel)
 //----------------------------------------------------------------------
 // Blt4444 ClipLeft
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// pRect->left°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// pRect->leftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::Blt4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel)
@@ -1707,7 +1707,7 @@ CShadowSprite::Blt4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel)
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -1719,102 +1719,102 @@ CShadowSprite::Blt4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel)
 	register int j;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
 		for (j=0; j<count; j++)
 		{
-			transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-			colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+			transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+			colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 					
-			// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 			index += transCount;
 			
 		
 			//---------------------------------------------
-			// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+			// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 			//---------------------------------------------
 			if (index+colorCount > pRect->left)
 			{
 				//---------------------------------------------
-				// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+				// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 				//---------------------------------------------
 				if (index > pRect->left)
 				{	
-					// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+					// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 					pDestTemp += index - pRect->left;
 
-					// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+					// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 					//memcpy(pDestTemp, pPixels, colorCount<<1);
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					//memset((void*)pDestTemp, 0, colorCount<<1);
 					memcpyShadow4444(pDestTemp, colorCount);
 
 					pDestTemp += colorCount;
 					//pPixels += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 					break;
 				}
 				//---------------------------------------------
-				// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				else
 				{
 					dist = pRect->left - index;
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					//memcpy(pDestTemp, pPixels+dist, (colorCount-dist)<<1);					
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					//memset((void*)pDestTemp, 0, (colorCount-dist)<<1);
 					memcpyShadow4444(pDestTemp, colorCount-dist);
 
 					pDestTemp += colorCount-dist;
 					//pPixels += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 					break;
 				}
 			}					
 
-			// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+			// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 			//pPixels += colorCount;
 			index += colorCount;
 		}
 
 		//---------------------------------------------
-		// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+		// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.		
 		//---------------------------------------------		
 		for (j++; j<count; j++)
 		{
-			transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-			colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+			transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+			colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 					
-			// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 			pDestTemp += transCount;			
 			
-			// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+			// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 			//memset((void*)pDestTemp, 0, colorCount<<1);
 			memcpyShadow4444(pDestTemp, colorCount);
 
-			// memory addr Áõ°¡
+			// memory addr ì¦ê°€
 			pDestTemp += colorCount;
 			//pPixels += colorCount;			
 		}
@@ -1827,8 +1827,8 @@ CShadowSprite::Blt4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel)
 //----------------------------------------------------------------------
 // Blt4444 ClipRight
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ clipping.  
-// pRect->right°³ ±îÁöÀÇ Á¡¸¸ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì˜¤ë¥¸ìª½ clipping.  
+// pRect->rightê°œ ê¹Œì§€ì˜ ì ë§Œ pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::Blt4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel)
@@ -1839,7 +1839,7 @@ CShadowSprite::Blt4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -1854,49 +1854,49 @@ CShadowSprite::Blt4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+		// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 		//---------------------------------------------
 		for (j=0; j<count; j++)
 		{
-			transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-			colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+			transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+			colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 					
-			// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 			index += transCount;
 			
-			// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-			// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+			// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+			// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-			// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+			// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 			//---------------------------------------------
-			// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+			// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 			//---------------------------------------------			
 			if (index+colorCount > pRect->right)
 			{
-				// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+				// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 				if (index > pRect->right)
 				{
 					break;
 				}
-				// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+				// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 				else
 				{
 					pDestTemp += transCount;
 				
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					//memcpy(pDestTemp, pPixels, (pRect->right - index)<<1);
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					//memset((void*)pDestTemp, 0, (pRect->right - index)<<1);
 					memcpyShadow4444(pDestTemp, pRect->right - index);
 
@@ -1904,12 +1904,12 @@ CShadowSprite::Blt4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 				}
 			}
 
-			// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 			pDestTemp += transCount;
 
-			// Ãâ·Â
+			// ì¶œë ¥
 			//memcpy(pDestTemp, pPixels, colorCount<<1);
-			// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+			// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 			//memset((void*)pDestTemp, 0, colorCount<<1);
 			memcpyShadow4444(pDestTemp, colorCount);
 
@@ -1925,9 +1925,9 @@ CShadowSprite::Blt4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 //----------------------------------------------------------------------
 // Blt4444 ClipWidth
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// pRect->left°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÏ´Ù°¡
-// pRect->Right±îÁö¸¸ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// pRect->leftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•˜ë‹¤ê°€
+// pRect->Rightê¹Œì§€ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel)
@@ -1938,7 +1938,7 @@ CShadowSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -1950,52 +1950,52 @@ CShadowSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 	register int j;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
 	for (i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
 		for (j=0; j<count; j++)
 		{
-			transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-			colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+			transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+			colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 					
-			// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 			index += transCount;
 			
 		
 			//---------------------------------------------
-			// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+			// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 			//---------------------------------------------
 			if (index+colorCount > pRect->left)
 			{
 				//---------------------------------------------
-				// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+				// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 				//---------------------------------------------
 				if (index > pRect->left)
 				{	
-					// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+					// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 					pDestTemp += index - pRect->left;
 
-					// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â?
-					// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+					// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥?
+					// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 					if (index+colorCount > pRect->right)
 					{							
-						// Åõ¸í»ö¸¸À¸·Î ¿À¸¥ÂÊ ³¡ ³Ñ¾î°¡´Â °æ¿ì
+						// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ì˜¤ë¥¸ìª½ ë ë„˜ì–´ê°€ëŠ” ê²½ìš°
 						if (index > pRect->right)
 						{
 						}
@@ -2010,9 +2010,9 @@ CShadowSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 						break;
 					}
 
-					// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+					// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 					//memcpy(pDestTemp, pPixels, colorCount<<1);
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					//memset((void*)pDestTemp, 0, colorCount<<1);
 					memcpyShadow4444(pDestTemp, colorCount);
 
@@ -2020,18 +2020,18 @@ CShadowSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 					//pPixels += colorCount;
 					index += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+					// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 					break;
 				}
 				//---------------------------------------------
-				// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				else
 				{
 					dist = pRect->left - index;
 
-					// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+					// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 					if (index+colorCount > pRect->right)
 					{
 						memcpyShadow4444(pDestTemp, pRect->right - pRect->left);
@@ -2040,9 +2040,9 @@ CShadowSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 						break;
 					}
 
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					//memcpy(pDestTemp, pPixels+dist, (colorCount-dist)<<1);					
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					//memset((void*)pDestTemp, 0, (colorCount-dist)<<1);
 					memcpyShadow4444(pDestTemp, colorCount-dist);
 
@@ -2050,53 +2050,53 @@ CShadowSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 					//pPixels += colorCount;		
 					index += colorCount;
 
-					// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.					
+					// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.					
 					break;
 				}
 			}					
 
-			// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+			// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 			//pPixels += colorCount;
 			index += colorCount;
 		}
 
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+		// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 		//---------------------------------------------
 		for (j++; j<count; j++)
 		{
-			transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-			colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+			transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+			colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 					
-			// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 			index += transCount;
 			
-			// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-			// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+			// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+			// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-			// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+			// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 			//---------------------------------------------
-			// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+			// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 			//---------------------------------------------			
 			if (index+colorCount > pRect->right)
 			{
-				// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+				// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 				if (index > pRect->right)
 				{
 					break;
 				}
-				// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+				// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 				else
 				{
 					pDestTemp += transCount;
 				
-					// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+					// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 					//memcpy(pDestTemp, pPixels, (pRect->right - index)<<1);
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					//memset((void*)pDestTemp, 0, (pRect->right - index)<<1);
 					memcpyShadow4444(pDestTemp, pRect->right-index);
 
@@ -2104,12 +2104,12 @@ CShadowSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 				}
 			}
 
-			// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+			// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 			pDestTemp += transCount;
 
-			// Ãâ·Â
+			// ì¶œë ¥
 			//memcpy(pDestTemp, pPixels, colorCount<<1);
-			// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+			// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 			//memset((void*)pDestTemp, 0, colorCount<<1);
 			memcpyShadow4444(pDestTemp, colorCount);
 
@@ -2126,7 +2126,7 @@ CShadowSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 //----------------------------------------------------------------------
 // Blt4444 Clip Height
 //----------------------------------------------------------------------
-// pRect->top, pRect->bottom¸¸Å­¸¸ Ãâ·ÂÇÑ´Ù.
+// pRect->top, pRect->bottomë§Œí¼ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::Blt4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD pixel)
@@ -2148,18 +2148,18 @@ CShadowSprite::Blt4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD pixe
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â
+		// í•œ ì¤„ ì¶œë ¥
 		for (j=0; j<count; j++)
 		{				
-			pDestTemp += *pPixels++;		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-			colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö				
+			pDestTemp += *pPixels++;		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+			colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜				
 
-			// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+			// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 			//memcpy((void*)pDestTemp, (void*)pPixels, colorCount<<1);
-			// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+			// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 			//memset((void*)pDestTemp, 0, colorCount<<1);
 			memcpyShadow4444(pDestTemp, colorCount);
 			
@@ -2174,7 +2174,7 @@ CShadowSprite::Blt4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD pixe
 //----------------------------------------------------------------------
 // ShadowDarkness Copy
 //----------------------------------------------------------------------
-// destÀÇ pixels°³¸¦ s_wValue1·Î ÇÑ´Ù.
+// destì˜ pixelsê°œë¥¼ s_wValue1ë¡œ í•œë‹¤.
 //----------------------------------------------------------------------
 void	
 CShadowSprite::memcpyShadow4444(WORD* pDest, WORD pixels)
@@ -2194,19 +2194,19 @@ CShadowSprite::memcpyShadow4444(WORD* pDest, WORD pixels)
 //----------------------------------------------------------------------
 // Blt Small
 //----------------------------------------------------------------------
-// 2^shift byte¼ö´ç ÇÑ Á¡¾¿¸¸ Ãâ·ÂÇÑ´Ù.
+// 2^shift byteìˆ˜ë‹¹ í•œ ì ì”©ë§Œ ì¶œë ¥í•œë‹¤.
 //
-// 100*100 SpriteÀÏ °æ¿ì 
+// 100*100 Spriteì¼ ê²½ìš° 
 // shift = 0 , 100*100
 // shift = 1 , 50*50
 // shift = 2 , 25*25
 // shift = 3 , 12*12
 // shift = 4 , 6*6
 // ...
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
-// ±æÀÌ º¸Á¤ÇØ¾ßµÇ´Âµ¥...
-// clipping ÇÔ¼öµé¿¡¼­´Â ¾ÈÇÑ´Ù. - -; ±ÍÂú¾Æ¼­.. À½ÇÏÇÏ.
+// ê¸¸ì´ ë³´ì •í•´ì•¼ë˜ëŠ”ë°...
+// clipping í•¨ìˆ˜ë“¤ì—ì„œëŠ” ì•ˆí•œë‹¤. - -; ê·€ì°®ì•„ì„œ.. ìŒí•˜í•˜.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltSmall(WORD *pDest, WORD pitch, BYTE shift)
@@ -2230,16 +2230,16 @@ CShadowSprite::BltSmall(WORD *pDest, WORD pitch, BYTE shift)
 	if (m_Height > 0)
 	{
 		i = m_Height-1;
-		int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö
+		int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜
 		pDest = (WORD*)((BYTE*)pDest + (i>>shift)*pitch);
 
 		do {	
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,»ö±ò¼ö)ÀÇ ¹İº¹ ¼ö		
+			// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜)ì˜ ë°˜ë³µ ìˆ˜		
 			count	= *pPixels++;		
- 			// ÇÑ ÁÙ Ãâ·Â
+ 			// í•œ ì¤„ ì¶œë ¥
 			totalCount = 0;
 			totalShiftCount = 0;
 			if (count > 0)
@@ -2248,41 +2248,41 @@ CShadowSprite::BltSmall(WORD *pDest, WORD pitch, BYTE shift)
 				do
 				{
 					transCount = *pPixels++;
-					colorCount = *pPixels++;				// Åõ¸í ¾Æ´Ñ »ö ¼ö
+					colorCount = *pPixels++;				// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜
 					
 					transCountShift = transCount >> shift;
 					colorCountShift = colorCount >> shift;
 
 					//--------------------------------------------------
-					//				Åõ¸í ºÎºĞ ±æÀÌ º¸Á¤
+					//				íˆ¬ëª… ë¶€ë¶„ ê¸¸ì´ ë³´ì •
 					//--------------------------------------------------
-					// ½ÇÁ¦ sizeÀÇ pixel¼ö..
+					// ì‹¤ì œ sizeì˜ pixelìˆ˜..
 					//--------------------------------------------------
 					totalCount += transCount;
 					totalShiftCount += transCountShift;
 
-					// ½ÇÁ¦pixel - shiftÇØ¼­ ´Ã¸° pixel(-_-;)
+					// ì‹¤ì œpixel - shiftí•´ì„œ ëŠ˜ë¦° pixel(-_-;)
 					pixelGap = totalCount - (totalShiftCount << shift);
 
-					// gapÀ» ´Ù½Ã shiftÇØ¼­ ´õÇØÁØ´Ù.
+					// gapì„ ë‹¤ì‹œ shiftí•´ì„œ ë”í•´ì¤€ë‹¤.
 					pixelGapShift = pixelGap >> shift;
 					transCountShift += pixelGapShift;
 					totalShiftCount += pixelGapShift;
 
 					//--------------------------------------------------
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					//--------------------------------------------------
 					pDestTemp += transCountShift;		
 
 					
 					//--------------------------------------------------
-					//				±×¸²ÀÚ ºÎºĞ ±æÀÌ º¸Á¤
+					//				ê·¸ë¦¼ì ë¶€ë¶„ ê¸¸ì´ ë³´ì •
 					//--------------------------------------------------
 					totalCount += colorCount;
 					totalShiftCount += colorCountShift;
 					
 					//--------------------------------------------------
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					//--------------------------------------------------
 					memset((void*)pDestTemp, 0, colorCount);
 			
@@ -2302,8 +2302,8 @@ CShadowSprite::BltSmall(WORD *pDest, WORD pitch, BYTE shift)
 //----------------------------------------------------------------------
 // BltSmall ClipLeft
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// pRect->left°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// pRect->leftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltSmallClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE shift)
@@ -2312,7 +2312,7 @@ CShadowSprite::BltSmallClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE shift
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -2324,115 +2324,115 @@ CShadowSprite::BltSmallClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE shift
 	register int j;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
-	int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö
+	int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜
 	int endY = pRect->bottom << shift;
 	for (i=pRect->top; i<endY; i+=stepY)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > pRect->left)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > pRect->left)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += (index - pRect->left) >> shift;
 
-						// shift¸¸Å­ ÁÙ¿©¹ö¸°´Ù.
+						// shiftë§Œí¼ ì¤„ì—¬ë²„ë¦°ë‹¤.
 						colorCount >>= shift;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						//memcpy(pDestTemp, pPixels, colorCount<<1);
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						memset((void*)pDestTemp, 0, colorCount<<1);
 
 						pDestTemp += colorCount;
 						//pPixels += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = pRect->left - index;
 
-						// shift¸¸Å­ ÁÙ¿©¹ö¸°´Ù.
+						// shiftë§Œí¼ ì¤„ì—¬ë²„ë¦°ë‹¤.
 						colorCount = (colorCount-dist) >> shift;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						//memcpy(pDestTemp, pPixels+dist, (colorCount-dist)<<1);					
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						memset((void*)pDestTemp, 0, colorCount<<1);
 
 						pDestTemp += colorCount;
 						//pPixels += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				//pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.		
 			//---------------------------------------------		
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					pDestTemp += transCount>>shift;			
 
-					// shift¸¸Å­ ÁÙ¿©¹ö¸°´Ù.
+					// shiftë§Œí¼ ì¤„ì—¬ë²„ë¦°ë‹¤.
 					colorCount >>= shift;
 					
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					memset((void*)pDestTemp, 0, colorCount<<1);
 
-					// memory addr Áõ°¡
+					// memory addr ì¦ê°€
 					pDestTemp += colorCount;
 					//pPixels += colorCount;			
 				} while (--j);
@@ -2447,8 +2447,8 @@ CShadowSprite::BltSmallClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE shift
 //----------------------------------------------------------------------
 // BltSmall ClipRight
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ clipping.  
-// pRect->right°³ ±îÁöÀÇ Á¡¸¸ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì˜¤ë¥¸ìª½ clipping.  
+// pRect->rightê°œ ê¹Œì§€ì˜ ì ë§Œ pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltSmallClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE shift)
@@ -2457,7 +2457,7 @@ CShadowSprite::BltSmallClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE shif
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -2467,73 +2467,73 @@ CShadowSprite::BltSmallClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE shif
 	register int	i;
 	register int	j;
 
-	int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö
+	int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜
 	int endY = pRect->bottom << shift;
 	for (i=pRect->top; i<endY; i+=stepY)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+		// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 		//---------------------------------------------
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{		
-				transCount = *pPixels++ >> shift;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++ >> shift;		// Åõ¸í ¾Æ´Ñ »ö ¼ö		
+				transCount = *pPixels++ >> shift;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++ >> shift;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜		
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+				// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 				//---------------------------------------------
-				// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+				// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 				//---------------------------------------------			
 				if (index+colorCount > pRect->right)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 					if (index > pRect->right)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 					else
 					{
 						pDestTemp += transCount;
 					
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						//memcpy(pDestTemp, pPixels, (pRect->right - index)<<1);
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						memset((void*)pDestTemp, 0, (pRect->right - index)<<1);
 
 						break;
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 				pDestTemp += transCount;
 
 				index += colorCount;
 				
-				// Ãâ·Â
+				// ì¶œë ¥
 				//memcpy(pDestTemp, pPixels, colorCount<<1);
-				// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+				// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 				memset((void*)pDestTemp, 0, colorCount<<1);
 
 				pDestTemp += colorCount;
@@ -2548,9 +2548,9 @@ CShadowSprite::BltSmallClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE shif
 //----------------------------------------------------------------------
 // BltSmall ClipWidth
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// pRect->left°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÏ´Ù°¡
-// pRect->Right±îÁö¸¸ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// pRect->leftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•˜ë‹¤ê°€
+// pRect->Rightê¹Œì§€ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltSmallClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE shift)
@@ -2559,7 +2559,7 @@ CShadowSprite::BltSmallClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE shif
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -2571,57 +2571,57 @@ CShadowSprite::BltSmallClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE shif
 	register short j;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
-	int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö
+	int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜
 	int endY = pRect->bottom << shift;
 	for (i=pRect->top; i<endY; i+=stepY)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{		
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > pRect->left)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > pRect->left)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += (index - pRect->left)>>shift;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â?
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥?
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > pRect->right)
 						{							
-							// Åõ¸í»ö¸¸À¸·Î ¿À¸¥ÂÊ ³¡ ³Ñ¾î°¡´Â °æ¿ì
+							// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ì˜¤ë¥¸ìª½ ë ë„˜ì–´ê°€ëŠ” ê²½ìš°
 							if (index > pRect->right)
 							{
 							}
@@ -2635,7 +2635,7 @@ CShadowSprite::BltSmallClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE shif
 							break;
 						}
 
-						// shift¸¸Å­ ÁÙ¿©¹ö¸°´Ù.
+						// shiftë§Œí¼ ì¤„ì—¬ë²„ë¦°ë‹¤.
 						colorCount >>= shift;
 					
 						memset((void*)pDestTemp, 0, colorCount<<1);
@@ -2644,18 +2644,18 @@ CShadowSprite::BltSmallClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE shif
 						//pPixels += colorCount;
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{		
 						dist = pRect->left - index;
 
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > pRect->right)
 						{						
 							memset((void*)pDestTemp, 0, (pRect->right - pRect->left)>>shift);
@@ -2664,85 +2664,85 @@ CShadowSprite::BltSmallClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE shif
 							break;
 						}
 
-						// shift¸¸Å­ ÁÙ¿©¹ö¸°´Ù.
+						// shiftë§Œí¼ ì¤„ì—¬ë²„ë¦°ë‹¤.
 						index += colorCount;
 						colorCount = (colorCount-dist) >> shift;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						//memcpy(pDestTemp, pPixels+dist, (colorCount-dist)<<1);					
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						memset((void*)pDestTemp, 0, colorCount<<1);
 
 						pDestTemp += colorCount;
 						//pPixels += colorCount;		
 						
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.					
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.					
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				//pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+			// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+					// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 					//---------------------------------------------
-					// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+					// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 					//---------------------------------------------			
 					if (index+colorCount > pRect->right)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 						if (index > pRect->right)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 						else
 						{
 							pDestTemp += transCount>>shift;
 						
-							// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+							// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 							//memcpy(pDestTemp, pPixels, (pRect->right - index)<<1);
-							// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+							// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 							memset((void*)pDestTemp, 0, ((pRect->right - index)>>shift)<<1);
 
 							break;
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 					pDestTemp += transCount>>shift;
 
 
 					index += colorCount;
-					// shift¸¸Å­ ÁÙ¿©ÁØ´Ù.
+					// shiftë§Œí¼ ì¤„ì—¬ì¤€ë‹¤.
 					colorCount >>= shift;
 
-					// Ãâ·Â
+					// ì¶œë ¥
 					//memcpy(pDestTemp, pPixels, colorCount<<1);
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					memset((void*)pDestTemp, 0, colorCount<<1);
 
 					pDestTemp += colorCount;
@@ -2759,7 +2759,7 @@ CShadowSprite::BltSmallClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE shif
 //----------------------------------------------------------------------
 // BltSmall Clip Height
 //----------------------------------------------------------------------
-// pRect->top, pRect->bottom¸¸Å­¸¸ Ãâ·ÂÇÑ´Ù.
+// pRect->top, pRect->bottomë§Œí¼ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltSmallClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE shift)
@@ -2774,14 +2774,14 @@ CShadowSprite::BltSmallClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE shi
 	register int i;
 	register int j;
 	
-	int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö
+	int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜
 	int endY = pRect->bottom << shift;
 	for (i=pRect->top; i<endY; i+=stepY)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
 
 		if (count > 0)
@@ -2789,12 +2789,12 @@ CShadowSprite::BltSmallClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE shi
 			j = count;
 			do
 			{
-				pDestTemp += ((*pPixels++)>>shift);		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				colorCount = *pPixels++;				// Åõ¸í ¾Æ´Ñ »ö ¼ö
+				pDestTemp += ((*pPixels++)>>shift);		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				colorCount = *pPixels++;				// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜
 				
 				colorCount >>= shift;
 
-				// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+				// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 				memset((void*)pDestTemp, 0, colorCount<<1);
 		
 				pDestTemp	+= colorCount;
@@ -2810,24 +2810,24 @@ CShadowSprite::BltSmallClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE shi
 //----------------------------------------------------------------------
 // Blt Small4444
 //----------------------------------------------------------------------
-// 2^shift byte¼ö´ç ÇÑ Á¡¾¿¸¸ Ãâ·ÂÇÑ´Ù.
+// 2^shift byteìˆ˜ë‹¹ í•œ ì ì”©ë§Œ ì¶œë ¥í•œë‹¤.
 //
-// 100*100 SpriteÀÏ °æ¿ì 
+// 100*100 Spriteì¼ ê²½ìš° 
 // shift = 0 , 100*100
 // shift = 1 , 50*50
 // shift = 2 , 25*25
 // shift = 3 , 12*12
 // shift = 4 , 6*6
 // ...
-// ClippingÇÏÁö ¾Ê´Â´Ù.
+// Clippingí•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
-// ±æÀÌ º¸Á¤ÇØ¾ßµÇ´Âµ¥...
-// clipping ÇÔ¼öµé¿¡¼­´Â ¾ÈÇÑ´Ù. - -; ±ÍÂú¾Æ¼­.. À½ÇÏÇÏ.
+// ê¸¸ì´ ë³´ì •í•´ì•¼ë˜ëŠ”ë°...
+// clipping í•¨ìˆ˜ë“¤ì—ì„œëŠ” ì•ˆí•œë‹¤. - -; ê·€ì°®ì•„ì„œ.. ìŒí•˜í•˜.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltSmall4444(WORD *pDest, WORD pitch, WORD pixel, BYTE shift)
 {
-	// Shadow»ö±ò ¼³Á¤
+	// Shadowìƒ‰ê¹” ì„¤ì •
 	s_wValue1 = pixel;
 
 	int		count,		
@@ -2848,7 +2848,7 @@ CShadowSprite::BltSmall4444(WORD *pDest, WORD pitch, WORD pixel, BYTE shift)
 	register int j;
 
 	/*
-	int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö		
+	int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜		
 	int m_Height_1 = m_Height - 1;
 
 	if (m_Height > 0)
@@ -2860,9 +2860,9 @@ CShadowSprite::BltSmall4444(WORD *pDest, WORD pitch, WORD pixel, BYTE shift)
 			pPixels		= m_Pixels[i];
 			pDestTemp	= pDest;
 
-			// (Åõ¸í¼ö,»ö±ò¼ö)ÀÇ ¹İº¹ ¼ö		
+			// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜)ì˜ ë°˜ë³µ ìˆ˜		
 			count	= *pPixels++;		
- 			// ÇÑ ÁÙ Ãâ·Â
+ 			// í•œ ì¤„ ì¶œë ¥
 			totalCount = 0;
 			totalShiftCount = 0;
 			if (count > 0)
@@ -2871,41 +2871,41 @@ CShadowSprite::BltSmall4444(WORD *pDest, WORD pitch, WORD pixel, BYTE shift)
 				do
 				{
 					transCount = *pPixels++;
-					colorCount = *pPixels++;				// Åõ¸í ¾Æ´Ñ »ö ¼ö
+					colorCount = *pPixels++;				// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜
 					
 					transCountShift = transCount >> shift;
 					colorCountShift = colorCount >> shift;
 
 					//--------------------------------------------------
-					//				Åõ¸í ºÎºĞ ±æÀÌ º¸Á¤
+					//				íˆ¬ëª… ë¶€ë¶„ ê¸¸ì´ ë³´ì •
 					//--------------------------------------------------
-					// ½ÇÁ¦ sizeÀÇ pixel¼ö..
+					// ì‹¤ì œ sizeì˜ pixelìˆ˜..
 					//--------------------------------------------------
 					totalCount += transCount;
 					totalShiftCount += transCountShift;
 
-					// ½ÇÁ¦pixel - shiftÇØ¼­ ´Ã¸° pixel(-_-;)
+					// ì‹¤ì œpixel - shiftí•´ì„œ ëŠ˜ë¦° pixel(-_-;)
 					pixelGap = totalCount - (totalShiftCount << shift);
 
-					// gapÀ» ´Ù½Ã shiftÇØ¼­ ´õÇØÁØ´Ù.
+					// gapì„ ë‹¤ì‹œ shiftí•´ì„œ ë”í•´ì¤€ë‹¤.
 					pixelGapShift = pixelGap >> shift;
 					transCountShift += pixelGapShift;
 					totalShiftCount += pixelGapShift;
 
 					//--------------------------------------------------
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					//--------------------------------------------------
 					pDestTemp += transCountShift;		
 
 					
 					//--------------------------------------------------
-					//				±×¸²ÀÚ ºÎºĞ ±æÀÌ º¸Á¤
+					//				ê·¸ë¦¼ì ë¶€ë¶„ ê¸¸ì´ ë³´ì •
 					//--------------------------------------------------
 					totalCount += colorCount;
 					totalShiftCount += colorCountShift;
 					
 					//--------------------------------------------------
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					//--------------------------------------------------
 					memcpyShadow4444(pDestTemp, colorCountShift);
 			
@@ -2922,16 +2922,16 @@ CShadowSprite::BltSmall4444(WORD *pDest, WORD pitch, WORD pixel, BYTE shift)
 	}
 	*/
 
-	int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö		
+	int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜		
 	
 	for (i=0; i<m_Height; i+=stepY)
 	{
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
- 		// ÇÑ ÁÙ Ãâ·Â
+ 		// í•œ ì¤„ ì¶œë ¥
 		totalCount = 0;
 		totalShiftCount = 0;
 
@@ -2942,40 +2942,40 @@ CShadowSprite::BltSmall4444(WORD *pDest, WORD pitch, WORD pixel, BYTE shift)
 			do
 			{
 				transCount = *pPixels++;
-				colorCount = *pPixels++;				// Åõ¸í ¾Æ´Ñ »ö ¼ö
+				colorCount = *pPixels++;				// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜
 				
 				transCountShift = transCount >> shift;
 				colorCountShift = colorCount >> shift;
 
 				//--------------------------------------------------
-				//				Åõ¸í ºÎºĞ ±æÀÌ º¸Á¤
+				//				íˆ¬ëª… ë¶€ë¶„ ê¸¸ì´ ë³´ì •
 				//--------------------------------------------------
-				// ½ÇÁ¦ sizeÀÇ pixel¼ö..
+				// ì‹¤ì œ sizeì˜ pixelìˆ˜..
 				//--------------------------------------------------
 				totalCount += transCount;
 				totalShiftCount += transCountShift;
 
-				// ½ÇÁ¦pixel - shiftÇØ¼­ ´Ã¸° pixel(-_-;)
+				// ì‹¤ì œpixel - shiftí•´ì„œ ëŠ˜ë¦° pixel(-_-;)
 				pixelGap = totalCount - (totalShiftCount << shift);
 
-				// gapÀ» ´Ù½Ã shiftÇØ¼­ ´õÇØÁØ´Ù.
+				// gapì„ ë‹¤ì‹œ shiftí•´ì„œ ë”í•´ì¤€ë‹¤.
 				pixelGapShift = pixelGap >> shift;
 				transCountShift += pixelGapShift;
 				totalShiftCount += pixelGapShift;
 
 				//--------------------------------------------------
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 				//--------------------------------------------------
 				pDestTemp += transCountShift;		
 			
 				//--------------------------------------------------
-				//				±×¸²ÀÚ ºÎºĞ ±æÀÌ º¸Á¤
+				//				ê·¸ë¦¼ì ë¶€ë¶„ ê¸¸ì´ ë³´ì •
 				//--------------------------------------------------
 				totalCount += colorCount;
 				totalShiftCount += colorCountShift;
 				
 				//--------------------------------------------------
-				// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+				// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 				//--------------------------------------------------
 				memcpyShadow4444(pDestTemp, colorCountShift);
 
@@ -2993,20 +2993,20 @@ CShadowSprite::BltSmall4444(WORD *pDest, WORD pitch, WORD pixel, BYTE shift)
 //----------------------------------------------------------------------
 // BltSmall4444 ClipLeft
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// pRect->left°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// pRect->leftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltSmall4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel, BYTE shift)
 {
-	// Shadow»ö±ò ¼³Á¤
+	// Shadowìƒ‰ê¹” ì„¤ì •
 	s_wValue1 = pixel;
 
 	WORD	*pPixels,
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -3018,115 +3018,115 @@ CShadowSprite::BltSmall4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect, WORD p
 	register int j;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
-	int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö
+	int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜
 	int endY = pRect->bottom << shift;
 	for (i=pRect->top; i<endY; i+=stepY)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > pRect->left)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > pRect->left)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += (index - pRect->left) >> shift;
 
-						// shift¸¸Å­ ÁÙ¿©¹ö¸°´Ù.
+						// shiftë§Œí¼ ì¤„ì—¬ë²„ë¦°ë‹¤.
 						colorCount >>= shift;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥
 						//memcpy(pDestTemp, pPixels, colorCount<<1);
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						memcpyShadow4444(pDestTemp, colorCount);
 
 						pDestTemp += colorCount;
 						//pPixels += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{
 						dist = pRect->left - index;
 
-						// shift¸¸Å­ ÁÙ¿©¹ö¸°´Ù.
+						// shiftë§Œí¼ ì¤„ì—¬ë²„ë¦°ë‹¤.
 						colorCount = (colorCount-dist) >> shift;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						//memcpy(pDestTemp, pPixels+dist, (colorCount-dist)<<1);					
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						memcpyShadow4444(pDestTemp, colorCount);
 
 						pDestTemp += colorCount;
 						//pPixels += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				//pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.		
+			// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.		
 			//---------------------------------------------		
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
 					pDestTemp += transCount>>shift;			
 
-					// shift¸¸Å­ ÁÙ¿©¹ö¸°´Ù.
+					// shiftë§Œí¼ ì¤„ì—¬ë²„ë¦°ë‹¤.
 					colorCount >>= shift;
 					
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					memcpyShadow4444(pDestTemp, colorCount);
 
-					// memory addr Áõ°¡
+					// memory addr ì¦ê°€
 					pDestTemp += colorCount;
 					//pPixels += colorCount;			
 				} while (--j);
@@ -3141,20 +3141,20 @@ CShadowSprite::BltSmall4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect, WORD p
 //----------------------------------------------------------------------
 // BltSmall4444 ClipRight
 //----------------------------------------------------------------------
-// ¿À¸¥ÂÊ clipping.  
-// pRect->right°³ ±îÁöÀÇ Á¡¸¸ pDest¿¡ Ãâ·ÂÇÑ´Ù.
+// ì˜¤ë¥¸ìª½ clipping.  
+// pRect->rightê°œ ê¹Œì§€ì˜ ì ë§Œ pDestì— ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltSmall4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel, BYTE shift)
 {
-	// Shadow»ö±ò ¼³Á¤
+	// Shadowìƒ‰ê¹” ì„¤ì •
 	s_wValue1 = pixel;
 
 	WORD	*pPixels,
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int	count,
 			transCount, 
@@ -3164,73 +3164,73 @@ CShadowSprite::BltSmall4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect, WORD 
 	register int	i;
 	register int	j;
 
-	int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö
+	int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜
 	int endY = pRect->bottom << shift;
 	for (i=pRect->top; i<endY; i+=stepY)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 			
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-		// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+		// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 		//---------------------------------------------
-		// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+		// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 		//---------------------------------------------
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{		
-				transCount = *pPixels++ >> shift;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++ >> shift;		// Åõ¸í ¾Æ´Ñ »ö ¼ö		
+				transCount = *pPixels++ >> shift;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++ >> shift;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜		
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 				index += transCount;
 				
-				// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-				// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+				// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+				// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-				// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+				// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 				//---------------------------------------------
-				// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+				// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 				//---------------------------------------------			
 				if (index+colorCount > pRect->right)
 				{
-					// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 					if (index > pRect->right)
 					{
 						break;
 					}
-					// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+					// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 					else
 					{
 						pDestTemp += transCount;
 					
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						//memcpy(pDestTemp, pPixels, (pRect->right - index)<<1);
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						memcpyShadow4444(pDestTemp, (pRect->right - index));
 
 						break;
 					}
 				}
 
-				// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 				pDestTemp += transCount;
 
 				index += colorCount;
 				
-				// Ãâ·Â
+				// ì¶œë ¥
 				//memcpy(pDestTemp, pPixels, colorCount<<1);
-				// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+				// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 				memcpyShadow4444(pDestTemp, colorCount);
 
 				pDestTemp += colorCount;
@@ -3245,21 +3245,21 @@ CShadowSprite::BltSmall4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect, WORD 
 //----------------------------------------------------------------------
 // BltSmall4444 ClipWidth
 //----------------------------------------------------------------------
-// ¿ŞÂÊ clipping.  
-// pRect->left°³ÀÇ Á¡À» °Ç³Ê¶è ´ÙÀ½ºÎÅÍ pDest¿¡ Ãâ·ÂÇÏ´Ù°¡
-// pRect->Right±îÁö¸¸ Ãâ·ÂÇÑ´Ù.
+// ì™¼ìª½ clipping.  
+// pRect->leftê°œì˜ ì ì„ ê±´ë„ˆëˆ ë‹¤ìŒë¶€í„° pDestì— ì¶œë ¥í•˜ë‹¤ê°€
+// pRect->Rightê¹Œì§€ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltSmall4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel, BYTE shift)
 {
-	// Shadow»ö±ò ¼³Á¤
+	// Shadowìƒ‰ê¹” ì„¤ì •
 	s_wValue1 = pixel;
 
 	WORD	*pPixels,
 			*pDestTemp;
 
 	//--------------------------------------------
-	// pRect¸¸Å­ÀÇ Á¡À» Ãâ·ÂÇÑ´Ù.
+	// pRectë§Œí¼ì˜ ì ì„ ì¶œë ¥í•œë‹¤.
 	//--------------------------------------------
 	int		count,
 			transCount, 
@@ -3271,57 +3271,57 @@ CShadowSprite::BltSmall4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD 
 	register short j;
 
 	//---------------------------------------------
-	// Ãâ·ÂÇØ¾ßÇÏ´Â ¸ğµç ÁÙ¿¡ ´ëÇØ¼­..
+	// ì¶œë ¥í•´ì•¼í•˜ëŠ” ëª¨ë“  ì¤„ì— ëŒ€í•´ì„œ..
 	//---------------------------------------------
-	int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö
+	int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜
 	int endY = pRect->bottom << shift;
 	for (i=pRect->top; i<endY; i+=stepY)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜
 		count = *pPixels++;		
 
-		// ÇÑ ÁÙ Ãâ·Â		
+		// í•œ ì¤„ ì¶œë ¥		
 		index = 0;
 		
 		//---------------------------------------------
-		// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...
-		// xxxxOOOOOOOOOOOOOOÀÎ °æ¿ìÀÌ¹Ç·Î..
+		// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...
+		// xxxxOOOOOOOOOOOOOOì¸ ê²½ìš°ì´ë¯€ë¡œ..
 		//---------------------------------------------
-		// xxxxºÎºĞ±îÁö checkÇØÁÖ´Â ·çÆ¾
+		// xxxxë¶€ë¶„ê¹Œì§€ checkí•´ì£¼ëŠ” ë£¨í‹´
 		//---------------------------------------------
 		if (count > 0)
 		{			
 			j = count;
 			do
 			{		
-				transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-				colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+				transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+				colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 						
-				// Åõ¸í»ö¸¸Å­ indexÁõ°¡			
+				// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€			
 				index += transCount;
 				
 			
 				//---------------------------------------------
-				// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+				// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 				//---------------------------------------------
 				if (index+colorCount > pRect->left)
 				{
 					//---------------------------------------------
-					// Åõ¸í»ö¸¸À¸·Î xxxx¹üÀ§¸¦ ³Ñ¾î°¬À» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°”ì„ ê²½ìš°
 					//---------------------------------------------
 					if (index > pRect->left)
 					{	
-						// Åõ¸í»öºÎºĞ °Ç³Ê¶ê
+						// íˆ¬ëª…ìƒ‰ë¶€ë¶„ ê±´ë„ˆë”
 						pDestTemp += (index - pRect->left)>>shift;
 
-						// ÀÌ¹ø ´Ü°è´Â ¸ğµÎ Ãâ·Â?
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// ì´ë²ˆ ë‹¨ê³„ëŠ” ëª¨ë‘ ì¶œë ¥?
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > pRect->right)
 						{							
-							// Åõ¸í»ö¸¸À¸·Î ¿À¸¥ÂÊ ³¡ ³Ñ¾î°¡´Â °æ¿ì
+							// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ì˜¤ë¥¸ìª½ ë ë„˜ì–´ê°€ëŠ” ê²½ìš°
 							if (index > pRect->right)
 							{
 							}
@@ -3335,7 +3335,7 @@ CShadowSprite::BltSmall4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD 
 							break;
 						}
 
-						// shift¸¸Å­ ÁÙ¿©¹ö¸°´Ù.
+						// shiftë§Œí¼ ì¤„ì—¬ë²„ë¦°ë‹¤.
 						colorCount >>= shift;
 					
 						memcpyShadow4444(pDestTemp, colorCount);
@@ -3344,18 +3344,18 @@ CShadowSprite::BltSmall4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD 
 						//pPixels += colorCount;
 						index += colorCount;
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.
 						break;
 					}
 					//---------------------------------------------
-					// Åõ¸í»ö+Åõ¸í¾Æ´Ñ»öÀÇ ÀÏºÎ±îÁö Ãâ·ÂÇÏ¸é 
-					// xxxx¹üÀ§¸¦ ³Ñ¾î°¡°Ô µÇ´Â °æ¿ì
+					// íˆ¬ëª…ìƒ‰+íˆ¬ëª…ì•„ë‹Œìƒ‰ì˜ ì¼ë¶€ê¹Œì§€ ì¶œë ¥í•˜ë©´ 
+					// xxxxë²”ìœ„ë¥¼ ë„˜ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 					//---------------------------------------------
 					else
 					{		
 						dist = pRect->left - index;
 
-						// ¿À¸¥ÂÊ ³¡À» ³Ñ¾î°¡´Â °æ¿ì..
+						// ì˜¤ë¥¸ìª½ ëì„ ë„˜ì–´ê°€ëŠ” ê²½ìš°..
 						if (index+colorCount > pRect->right)
 						{						
 							memcpyShadow4444(pDestTemp, (pRect->right - pRect->left)>>shift);
@@ -3364,85 +3364,85 @@ CShadowSprite::BltSmall4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD 
 							break;
 						}
 
-						// shift¸¸Å­ ÁÙ¿©¹ö¸°´Ù.
+						// shiftë§Œí¼ ì¤„ì—¬ë²„ë¦°ë‹¤.
 						index += colorCount;
 						colorCount = (colorCount-dist) >> shift;
 
-						// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+						// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 						//memcpy(pDestTemp, pPixels+dist, (colorCount-dist)<<1);					
-						// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+						// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 						memcpyShadow4444(pDestTemp, colorCount);
 
 						pDestTemp += colorCount;
 						//pPixels += colorCount;		
 						
 
-						// ÀÌÁ¦ºÎÅÍ´Â °è¼Ó Ãâ·ÂÇÑ´Ù.					
+						// ì´ì œë¶€í„°ëŠ” ê³„ì† ì¶œë ¥í•œë‹¤.					
 						break;
 					}
 				}					
 
-				// Åõ¸íÀÌ ¾Æ´Ñ »ö¸¸Å­ indexÁõ°¡				
+				// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë§Œí¼ indexì¦ê°€				
 				//pPixels += colorCount;
 				index += colorCount;
 			} while (--j);
 
 			//---------------------------------------------
-			// °¢ ÁÙ¸¶´Ù ClippingÀ» ÇØÁà¾ß ÇÏ´Âµ¥...		
-			// OOOOOOOOOOOOOOxxxxx ÀÌ·± °æ¿ìÀÌ´Ù.
+			// ê° ì¤„ë§ˆë‹¤ Clippingì„ í•´ì¤˜ì•¼ í•˜ëŠ”ë°...		
+			// OOOOOOOOOOOOOOxxxxx ì´ëŸ° ê²½ìš°ì´ë‹¤.
 			//---------------------------------------------
-			// OOOOOOOOOOOOOO±îÁö¸¸ Ãâ·ÂÇØÁÖ¸é µÈ´Ù.
+			// OOOOOOOOOOOOOOê¹Œì§€ë§Œ ì¶œë ¥í•´ì£¼ë©´ ëœë‹¤.
 			//---------------------------------------------
 			if (--j > 0)
 			{
 				do
 				{
-					transCount = *pPixels++;		// Åõ¸í»ö ¼ö			
-					colorCount = *pPixels++;		// Åõ¸í ¾Æ´Ñ »ö ¼ö			
+					transCount = *pPixels++;		// íˆ¬ëª…ìƒ‰ ìˆ˜			
+					colorCount = *pPixels++;		// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜			
 							
-					// Åõ¸í»ö¸¸Å­ indexÁõ°¡
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ indexì¦ê°€
 					index += transCount;
 					
-					// Ãâ·ÂÇÏ°í ÀÖ´Ù°¡ ¿À¸¥ÂÊºÎºĞºÎÅÍ Ãâ·ÂÇÏÁö ¸»¾Æ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù.
-					// ÇöÀç Ãâ·ÂÇÏ´Â ÁÙÀº ¸ğµÎ Ãâ·ÂÇÑ °ÍÀÌ¹Ç·Î breakÇØ¾ß ÇÑ´Ù.
+					// ì¶œë ¥í•˜ê³  ìˆë‹¤ê°€ ì˜¤ë¥¸ìª½ë¶€ë¶„ë¶€í„° ì¶œë ¥í•˜ì§€ ë§ì•„ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤.
+					// í˜„ì¬ ì¶œë ¥í•˜ëŠ” ì¤„ì€ ëª¨ë‘ ì¶œë ¥í•œ ê²ƒì´ë¯€ë¡œ breakí•´ì•¼ í•œë‹¤.
 
-					// Åõ¸í»ö±îÁö Ãâ·ÂÇÏ´Â°Í¸¸À¸·Î ´õ ÀÌ»ó Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» °æ¿ì
+					// íˆ¬ëª…ìƒ‰ê¹Œì§€ ì¶œë ¥í•˜ëŠ”ê²ƒë§Œìœ¼ë¡œ ë” ì´ìƒ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ê²½ìš°
 
 					//---------------------------------------------
-					// ¿À¸¥ÂÊ ³¡±îÁö µµ´ŞÇßÀ» °æ¿ì
+					// ì˜¤ë¥¸ìª½ ëê¹Œì§€ ë„ë‹¬í–ˆì„ ê²½ìš°
 					//---------------------------------------------			
 					if (index+colorCount > pRect->right)
 					{
-						// Åõ¸í»ö¸¸À¸·Î ´õ Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§
+						// íˆ¬ëª…ìƒ‰ë§Œìœ¼ë¡œ ë” ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì„ ë•Œ
 						if (index > pRect->right)
 						{
 							break;
 						}
-						// Åõ¸í»ö ¾Æ´Ñ °ÍÀ» Á¶±İ Ãâ·ÂÇØ¾ß ÇÒ °æ¿ì
+						// íˆ¬ëª…ìƒ‰ ì•„ë‹Œ ê²ƒì„ ì¡°ê¸ˆ ì¶œë ¥í•´ì•¼ í•  ê²½ìš°
 						else
 						{
 							pDestTemp += transCount>>shift;
 						
-							// Åõ¸íÀÌ ¾Æ´Ñ »öµéÀ» Surface¿¡ Ãâ·ÂÇÑ´Ù.
+							// íˆ¬ëª…ì´ ì•„ë‹Œ ìƒ‰ë“¤ì„ Surfaceì— ì¶œë ¥í•œë‹¤.
 							//memcpy(pDestTemp, pPixels, (pRect->right - index)<<1);
-							// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+							// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 							memcpyShadow4444(pDestTemp, (pRect->right - index)>>shift);
 
 							break;
 						}
 					}
 
-					// Åõ¸í»ö¸¸Å­ °Ç³Ê¶ç°í
+					// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆë„ê³ 
 					pDestTemp += transCount>>shift;
 
 
 					index += colorCount;
-					// shift¸¸Å­ ÁÙ¿©ÁØ´Ù.
+					// shiftë§Œí¼ ì¤„ì—¬ì¤€ë‹¤.
 					colorCount >>= shift;
 
-					// Ãâ·Â
+					// ì¶œë ¥
 					//memcpy(pDestTemp, pPixels, colorCount<<1);
-					// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+					// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 					memcpyShadow4444(pDestTemp, colorCount);
 
 					pDestTemp += colorCount;
@@ -3459,12 +3459,12 @@ CShadowSprite::BltSmall4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD 
 //----------------------------------------------------------------------
 // BltSmall4444 Clip Height
 //----------------------------------------------------------------------
-// pRect->top, pRect->bottom¸¸Å­¸¸ Ãâ·ÂÇÑ´Ù.
+// pRect->top, pRect->bottomë§Œí¼ë§Œ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CShadowSprite::BltSmall4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD pixel, BYTE shift)
 {
-	// Shadow»ö±ò ¼³Á¤
+	// Shadowìƒ‰ê¹” ì„¤ì •
 	s_wValue1 = pixel;
 
 	int		count,			
@@ -3477,14 +3477,14 @@ CShadowSprite::BltSmall4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD
 	register int i;
 	register int j;
 	
-	int stepY = 1 << shift;		// yÁÙ °Ç³Ê¶ç´Â pixel¼ö
+	int stepY = 1 << shift;		// yì¤„ ê±´ë„ˆë„ëŠ” pixelìˆ˜
 	int endY = pRect->bottom << shift;
 	for (i=pRect->top; i<endY; i+=stepY)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
 
-		// (Åõ¸í¼ö,»ö±ò¼ö,»ö±òµé)ÀÇ ¹İº¹ ¼ö		
+		// (íˆ¬ëª…ìˆ˜,ìƒ‰ê¹”ìˆ˜,ìƒ‰ê¹”ë“¤)ì˜ ë°˜ë³µ ìˆ˜		
 		count	= *pPixels++;		
 
 		if (count > 0)
@@ -3492,12 +3492,12 @@ CShadowSprite::BltSmall4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD
 			j = count;
 			do
 			{
-				pDestTemp += ((*pPixels++)>>shift);		// Åõ¸í»ö¸¸Å­ °Ç³Ê ¶Ú´Ù.
-				colorCount = *pPixels++;				// Åõ¸í ¾Æ´Ñ »ö ¼ö
+				pDestTemp += ((*pPixels++)>>shift);		// íˆ¬ëª…ìƒ‰ë§Œí¼ ê±´ë„ˆ ë›´ë‹¤.
+				colorCount = *pPixels++;				// íˆ¬ëª… ì•„ë‹Œ ìƒ‰ ìˆ˜
 				
 				colorCount >>= shift;
 
-				// 0¹ø(°ËÁ¤»ö, 5:5:5³ª 5:6:5³ª ¶È°°´Ù)»öÀ¸·Î Ãâ·Â
+				// 0ë²ˆ(ê²€ì •ìƒ‰, 5:5:5ë‚˜ 5:6:5ë‚˜ ë˜‘ê°™ë‹¤)ìƒ‰ìœ¼ë¡œ ì¶œë ¥
 				memcpyShadow4444(pDestTemp, colorCount);
 		
 				pDestTemp	+= colorCount;

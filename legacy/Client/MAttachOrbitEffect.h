@@ -2,23 +2,23 @@
 // MAttachOrbitEffect.h
 //----------------------------------------------------------------------
 //
-// Ä³¸¯ÅÍ¿¡ ºÙ¾î¼­ ¿øÇü ±Ëµµ·Î ºÙ¾î´Ù´Ñ´Ù.
+// ìºë¦­í„°ì— ë¶™ì–´ì„œ ì›í˜• ê¶¤ë„ë¡œ ë¶™ì–´ë‹¤ë‹Œë‹¤.
 //
-// ÃÊ´ç 16 frameÀ¸·Î ±×·ÁÁÖ´Ï±î..
-// 16 stepÀ¸·Î µ¹¸é... 1ÃÊ¿¡ ÇÑ ¹ÙÄûÀÌ´Ù.
-// 2ÃÊ¿¡ ÇÑ ¹ÙÄû Á¤µµ°¡ ¾î¶³±î?
+// ì´ˆë‹¹ 16 frameìœ¼ë¡œ ê·¸ë ¤ì£¼ë‹ˆê¹Œ..
+// 16 stepìœ¼ë¡œ ëŒë©´... 1ì´ˆì— í•œ ë°”í€´ì´ë‹¤.
+// 2ì´ˆì— í•œ ë°”í€´ ì •ë„ê°€ ì–´ë–¨ê¹Œ?
 //
-// ¼Óµµ Á¶Àıµµ µû·Î ÇÏ¸é ÁÁ°ÚÁö¸¸.. ÀÏ´Ü °£´Ù~
-// ¼Óµµ Á¶Àı ÇÒ·Á¸é.. stepÀ» Á» ¸¹ÀÌ ¸¸µé¾î³õ°í.. 
-// ÇÑ ¹ø¿¡ ¸î stepÀ» ÀÌµ¿ÇÏ´Â°¡?ÀÇ °ªÀ» µÎ°í.. 
-// NextOrbitStep()¿¡¼­ ±×¸¸Å­ Áõ°¡½ÃÅ°¸é µÉ °ÍÀÌ´Ù.
+// ì†ë„ ì¡°ì ˆë„ ë”°ë¡œ í•˜ë©´ ì¢‹ê² ì§€ë§Œ.. ì¼ë‹¨ ê°„ë‹¤~
+// ì†ë„ ì¡°ì ˆ í• ë ¤ë©´.. stepì„ ì¢€ ë§ì´ ë§Œë“¤ì–´ë†“ê³ .. 
+// í•œ ë²ˆì— ëª‡ stepì„ ì´ë™í•˜ëŠ”ê°€?ì˜ ê°’ì„ ë‘ê³ .. 
+// NextOrbitStep()ì—ì„œ ê·¸ë§Œí¼ ì¦ê°€ì‹œí‚¤ë©´ ë  ê²ƒì´ë‹¤.
 //
-// µ¹¾Æ°¡´Â ¹æÇâÀ» ¹Ù²Ü·Á¸é NextOrbitStep()¿¡¼­ + ´ë½Å - ¸¦ ÇØÁÖ¸é µÉ °ÍÀÌ´ç.
+// ëŒì•„ê°€ëŠ” ë°©í–¥ì„ ë°”ê¿€ë ¤ë©´ NextOrbitStep()ì—ì„œ + ëŒ€ì‹  - ë¥¼ í•´ì£¼ë©´ ë  ê²ƒì´ë‹¹.
 //
-// µ¹¾Æ°¡´Â Å©±â¸¦ ¹Ù²Ü·Á¸é InitOrbitPosition()¿¡¼­
-// ...widthHalf/...heightHalf¸¦ ¹Ù²ã¾ßÇÑ´Ù.
-// ½ÇÇàÁß¿¡ °è»êÇÏ¸é ºÎÇÏ°¡ ÀÖÀ¸¹Ç·Î.. ¿©·¯°¡Áö Å©±â¸¦ ¾²°í ½ÍÀ¸¸é
-// ¾Æ¿¹ tableÀ» ¿©·¯°³ µÎ´Â°³ ÁÁÁö ½Í´Ù.
+// ëŒì•„ê°€ëŠ” í¬ê¸°ë¥¼ ë°”ê¿€ë ¤ë©´ InitOrbitPosition()ì—ì„œ
+// ...widthHalf/...heightHalfë¥¼ ë°”ê¿”ì•¼í•œë‹¤.
+// ì‹¤í–‰ì¤‘ì— ê³„ì‚°í•˜ë©´ ë¶€í•˜ê°€ ìˆìœ¼ë¯€ë¡œ.. ì—¬ëŸ¬ê°€ì§€ í¬ê¸°ë¥¼ ì“°ê³  ì‹¶ìœ¼ë©´
+// ì•„ì˜ˆ tableì„ ì—¬ëŸ¬ê°œ ë‘ëŠ”ê°œ ì¢‹ì§€ ì‹¶ë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -27,7 +27,7 @@
 
 #pragma warning(disable:4786)
 
-// ÀÌ °ª ¹Ù²ãÁÙ¶§ NextOrbitStep()µµ °í·ÁÇØ¾ß ÇÑ´Ù.
+// ì´ ê°’ ë°”ê¿”ì¤„ë•Œ NextOrbitStep()ë„ ê³ ë ¤í•´ì•¼ í•œë‹¤.
 #define	MAX_EFFECT_ORBIT_TYPE		3
 #define	MAX_EFFECT_ORBIT_STEP		64
 
@@ -43,7 +43,7 @@ class MAttachOrbitEffect : public MAttachEffect {
 		virtual EFFECT_TYPE		GetEffectType()	const	{ return EFFECT_ATTACH_ORBIT; }
 		
 		//--------------------------------------------------------
-		// ÇÑ ¹øÀÇ Update¿¡ È£ÃâµÉ ÇÔ¼ö..
+		// í•œ ë²ˆì˜ Updateì— í˜¸ì¶œë  í•¨ìˆ˜..
 		//--------------------------------------------------------
 		virtual bool			Update();
 
@@ -51,7 +51,7 @@ class MAttachOrbitEffect : public MAttachEffect {
 		void					NextOrbitStep()		{ m_OrbitStep = ++m_OrbitStep & 0x0000003F; }
 
 		//--------------------------------------------------------
-		// ÁÂÇ¥°ª + Orbitº¸Á¤°ª
+		// ì¢Œí‘œê°’ + Orbitë³´ì •ê°’
 		//--------------------------------------------------------
 		virtual int		GetPixelX() const	{ return (int)m_PixelX + s_OrbitPosition[m_Type][m_OrbitStep].x; }
 		virtual int		GetPixelY() const	{ return (int)m_PixelY + s_OrbitPosition[m_Type][m_OrbitStep].y; }
@@ -68,14 +68,14 @@ class MAttachOrbitEffect : public MAttachEffect {
 	
 	public :
 		bool					m_bRun;
-		int						m_OrbitStep;		// ¸î¹øÂ° ±Ëµµ ÁÂÇ¥ÀÎ°¡?
+		int						m_OrbitStep;		// ëª‡ë²ˆì§¸ ê¶¤ë„ ì¢Œí‘œì¸ê°€?
 		int						m_Type;
 
-		// º¸Á¤ ÁÂÇ¥
+		// ë³´ì • ì¢Œí‘œ
 		static POINT			s_OrbitPosition[MAX_EFFECT_ORBIT_TYPE][MAX_EFFECT_ORBIT_STEP];		
 };
 
-// listÁ¤ÀÇ
+// listì •ì˜
 typedef	std::list<MAttachEffect*>	ATTACHEFFECT_LIST;
 
 #endif

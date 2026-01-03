@@ -1,12 +1,12 @@
 //----------------------------------------------------------------------
 // MEffectStatusTable.h
 //----------------------------------------------------------------------
-// Ä³¸¯ÅÍ¿¡ ºÙ´Â Effect Áß¿¡¼­
-// Æ¯º°ÇÑ »óÅÂ¸¦ ³ªÅ¸³»´Â °Íµé¿¡ ´ëÇÑ EffectSpriteTypeÀÇ table.. 
+// ìºë¦­í„°ì— ë¶™ëŠ” Effect ì¤‘ì—ì„œ
+// íŠ¹ë³„í•œ ìƒíƒœë¥¼ ë‚˜íƒ€ë‚´ëŠ” ê²ƒë“¤ì— ëŒ€í•œ EffectSpriteTypeì˜ table.. 
 //
-// ÇÏ³ªÀÇ »óÅÂ´Â ÇÏ³ªÀÇ EffectSpriteTypeÀ¸·Î ³ªÅ¸³»¾î Áø´Ù..¶ó°í °¡Á¤.
+// í•˜ë‚˜ì˜ ìƒíƒœëŠ” í•˜ë‚˜ì˜ EffectSpriteTypeìœ¼ë¡œ ë‚˜íƒ€ë‚´ì–´ ì§„ë‹¤..ë¼ê³  ê°€ì •.
 //
-// * »óÅÂ --> EffectSpriteType
+// * ìƒíƒœ --> EffectSpriteType
 //
 //----------------------------------------------------------------------
 
@@ -20,7 +20,7 @@
 
 //----------------------------------------------------------------------
 //
-// ÇÑ Á¾·ùÀÇ EffectStatus --> EffectSpriteType¿¡ ´ëÇÑ Á¤º¸
+// í•œ ì¢…ë¥˜ì˜ EffectStatus --> EffectSpriteTypeì— ëŒ€í•œ ì •ë³´
 //
 //----------------------------------------------------------------------
 class EFFECTSTATUS_NODE {
@@ -28,16 +28,16 @@ class EFFECTSTATUS_NODE {
 		EFFECTSTATUS_NODE();
 
 	public :
-		bool						bUseEffectSprite;		// EffectSprite¸¦ »ç¿ëÇÏ³ª?
-		bool						bAttachGround;			// Ä³¸¯ÅÍ ¹Ù´Ú¿¡ ºÙ³ª?
+		bool						bUseEffectSprite;		// EffectSpriteë¥¼ ì‚¬ìš©í•˜ë‚˜?
+		bool						bAttachGround;			// ìºë¦­í„° ë°”ë‹¥ì— ë¶™ë‚˜?
 
-		// unionÀ¸·Î ÇØµµ µÇ´Âµ¥.. - -
-		TYPE_EFFECTSPRITETYPE		EffectSpriteType;		// spriteºÙÀÌ±â
-		WORD						EffectColor;			// »ö±ò ¹Ù²Ù±â
-		ADDON						EffectColorPart;		// »ö±ò ¹Ù²î´Â ºÎÀ§
+		// unionìœ¼ë¡œ í•´ë„ ë˜ëŠ”ë°.. - -
+		TYPE_EFFECTSPRITETYPE		EffectSpriteType;		// spriteë¶™ì´ê¸°
+		WORD						EffectColor;			// ìƒ‰ê¹” ë°”ê¾¸ê¸°
+		ADDON						EffectColorPart;		// ìƒ‰ê¹” ë°”ë€ŒëŠ” ë¶€ìœ„
 		
-		TYPE_ACTIONINFO				ActionInfo;				// actionInfoÀÇ effect»ç¿ë
-		TYPE_ACTIONINFO				OriginalActionInfo;		// EffectStatus¿Í ActionInfo¸¦ ÀÌ¾îÁØ´Ù.
+		TYPE_ACTIONINFO				ActionInfo;				// actionInfoì˜ effectì‚¬ìš©
+		TYPE_ACTIONINFO				OriginalActionInfo;		// EffectStatusì™€ ActionInfoë¥¼ ì´ì–´ì¤€ë‹¤.
 		int							SoundID;				// SoundID
 		
 	public :

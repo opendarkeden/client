@@ -180,7 +180,7 @@ void C_GLOBAL_RESOURCE::FreeAniButton()
 //-----------------------------------------------------------------------------
 // LoadAssembleBox
 //
-// Á¶¸³¹Ú½º load.
+// ì¡°ë¦½ë°•ìŠ¤ load.
 //-----------------------------------------------------------------------------
 /*void C_GLOBAL_RESOURCE::LoadAssembleBox()
 {
@@ -470,7 +470,7 @@ void C_GLOBAL_RESOURCE::DrawDialogLocked2(int x, int y, int w, int h, bool alpha
 	rect.Set(0, 0, m_pC_assemble_box_spk->GetWidth(AB_RIGHT2), h);
 	m_pC_assemble_box_spk->BltLockedClip(x+w-m_pC_assemble_box_spk->GetWidth(AB_RIGHT2), y, rect, AB_RIGHT2);
 
-	// Ousters DescDialog À©µµ¿ìÀÇ ÇÏ´ÜºÎ À§Ä¡ ¼³Á¤
+	// Ousters DescDialog ìœˆë„ìš°ì˜ í•˜ë‹¨ë¶€ ìœ„ì¹˜ ì„¤ì •
 	if( g_eRaceInterface == RACE_OUSTERS )
 	{
 		rect.Set(0, 0, w, m_pC_assemble_box_spk->GetHeight(AB_DOWN2));
@@ -542,7 +542,7 @@ void C_GLOBAL_RESOURCE::DrawDialogLocked2(int x, int y, int w, int h, bool alpha
 //	rect.Set(0, 0, m_pC_assemble_box_spk->GetWidth(AB_RIGHT2), h);
 //	m_pC_assemble_box_spk->BltLockedClip(x+w-m_pC_assemble_box_spk->GetWidth(AB_RIGHT2), y, rect, AB_RIGHT2);
 //
-//	// Ousters DescDialog À©µµ¿ìÀÇ ÇÏ´ÜºÎ À§Ä¡ ¼³Á¤
+//	// Ousters DescDialog ìœˆë„ìš°ì˜ í•˜ë‹¨ë¶€ ìœ„ì¹˜ ì„¤ì •
 //	if( g_eRaceInterface == RACE_OUSTERS )
 //	{
 //		rect.Set(0, 0, w, m_pC_assemble_box_spk->GetHeight(AB_DOWN2));
@@ -655,7 +655,7 @@ void C_GLOBAL_RESOURCE::DrawDialogLocked4(int x, int y, int w, int h, bool alpha
 	rect.Set(0, 0, m_pC_assemble_box_spk->GetWidth(AB_RIGHT2), h);
 	m_pC_assemble_box_spk->BltLockedClip(x+w-m_pC_assemble_box_spk->GetWidth(AB_RIGHT2), y, rect, AB_RIGHT2);
 
-	// Ousters DescDialog À©µµ¿ìÀÇ ÇÏ´ÜºÎ À§Ä¡ ¼³Á¤
+	// Ousters DescDialog ìœˆë„ìš°ì˜ í•˜ë‹¨ë¶€ ìœ„ì¹˜ ì„¤ì •
 	if( g_eRaceInterface == RACE_OUSTERS )
 	{
 		rect.Set(0, 0, w, m_pC_assemble_box_spk->GetHeight(AB_DOWN4));
@@ -708,7 +708,7 @@ void C_GLOBAL_RESOURCE::DrawTempChatBoxLocked(int x, int y, int w, int h, bool a
 	rect.Set(0, 0, m_pC_assemble_box_spk->GetWidth(AB_RIGHT2), h);
 	m_pC_assemble_box_spk->BltLockedClip(x+w-m_pC_assemble_box_spk->GetWidth(AB_RIGHT2), y, rect, AB_RIGHT2);
 //
-//	// Ousters DescDialog À©µµ¿ìÀÇ ÇÏ´ÜºÎ À§Ä¡ ¼³Á¤
+//	// Ousters DescDialog ìœˆë„ìš°ì˜ í•˜ë‹¨ë¶€ ìœ„ì¹˜ ì„¤ì •
 //	if( g_eRaceInterface == RACE_OUSTERS )
 //	{
 //		rect.Set(0, 0, w, m_pC_assemble_box_spk->GetHeight(AB_DOWN2));

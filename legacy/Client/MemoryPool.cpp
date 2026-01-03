@@ -3,16 +3,16 @@
 	created:	5:12:2003   13:40
 	filename: 	MemoryPool.cpp
 	file ext:	cpp
-	author:		sonee	// ¼ÕÈ÷½Â ¹Ùº¸
+	author:		sonee	// ì†ížˆìŠ¹ ë°”ë³´
 	
 	purpose:	memory pool
-				°íÁ¤µÈ Å©±â¸¦ ºó¹øÇÏ°Ô new/delete ÇÏ´Â °æ¿ì ¸Þ¸ð¸® Ç®À» »ç¿ëÇÏ¸é
-				¸Þ¸ð¸® ´ÜÆíÈ­¸¦ ÁÙÀÏ ¼ö ÀÖ´Ù.
+				ê³ ì •ëœ í¬ê¸°ë¥¼ ë¹ˆë²ˆí•˜ê²Œ new/delete í•˜ëŠ” ê²½ìš° ë©”ëª¨ë¦¬ í’€ì„ ì‚¬ìš©í•˜ë©´
+				ë©”ëª¨ë¦¬ ë‹¨íŽ¸í™”ë¥¼ ì¤„ì¼ ìˆ˜ ìžˆë‹¤.
 
-				¸Þ¸ð¸® leak Çö»óÀ» ¸·À» ¼ö ÀÖ´Ù.
+				ë©”ëª¨ë¦¬ leak í˜„ìƒì„ ë§‰ì„ ìˆ˜ ìžˆë‹¤.
 
-				Debug ¸ðµåÀÎ °æ¿ì¿¡´Â ¸Þ¸ð¸®°¡ MEMORY_POOL_GARBAGE °ªÀ¸·Î
-				Ã¤¿öÁø´Ù.
+				Debug ëª¨ë“œì¸ ê²½ìš°ì—ëŠ” ë©”ëª¨ë¦¬ê°€ MEMORY_POOL_GARBAGE ê°’ìœ¼ë¡œ
+				ì±„ì›Œì§„ë‹¤.
 *********************************************************************/
 #include "Client_PCH.h"
 #include <windows.h>
@@ -33,7 +33,7 @@ MemoryPool::MemoryPool( int BlockSize, int BlockCount )
 {
 	if( BlockSize < sizeof( void* ) )
 	{
-		// -_- Æ÷ÀÎÅÍ Å©±âº¸´Ù ÀÛÀ¸¸é ¹®Á¦°¡ »ý±æ °Í°°Àºµ¥-_-;
+		// -_- í¬ì¸í„° í¬ê¸°ë³´ë‹¤ ìž‘ìœ¼ë©´ ë¬¸ì œê°€ ìƒê¸¸ ê²ƒê°™ì€ë°-_-;
 		m_BlockSize = sizeof( void* );
 	}
 }
@@ -53,7 +53,7 @@ void*		MemoryPool::Alloc()
 {
 	void *pMem;
 
-	if( m_pFreeBlockList != NULL )					// FreeList ¿¡ ³²¾ÆÀÖ´Â°ÍÀÌ ÀÖ´Ù¸é, ±× ¸Þ¸ð¸® ÁÖ¼Ò¸¦ ¸®ÅÏ.
+	if( m_pFreeBlockList != NULL )					// FreeList ì— ë‚¨ì•„ìžˆëŠ”ê²ƒì´ ìžˆë‹¤ë©´, ê·¸ ë©”ëª¨ë¦¬ ì£¼ì†Œë¥¼ ë¦¬í„´.
 	{
 		pMem = m_pFreeBlockList;
 
@@ -63,8 +63,8 @@ void*		MemoryPool::Alloc()
 
 	if( m_pCurrentBlock == NULL || m_pCurrentBlock->m_leftBlocks <= 0 )
 	{
-		// ¸Þ¸ð¸® Pool ÀÌ ÇÒ´çµÇ¾î ÀÖÁö ¾Ê°Å³ª, ÇÒ´çÇÑ ¸Þ¸ð¸®¸¦ ´Ù »ç¿ëÇÏ¿´À» °æ¿ì¿¡,
-		// »õ·Î ÇÒ´çÇÏ°í, ±âÁ¸ÀÇ Æ÷ÀÎÅÍ¸¦ ¿¬°áÇØ ³õ´Â´Ù.
+		// ë©”ëª¨ë¦¬ Pool ì´ í• ë‹¹ë˜ì–´ ìžˆì§€ ì•Šê±°ë‚˜, í• ë‹¹í•œ ë©”ëª¨ë¦¬ë¥¼ ë‹¤ ì‚¬ìš©í•˜ì˜€ì„ ê²½ìš°ì—,
+		// ìƒˆë¡œ í• ë‹¹í•˜ê³ , ê¸°ì¡´ì˜ í¬ì¸í„°ë¥¼ ì—°ê²°í•´ ë†“ëŠ”ë‹¤.
 		CBlock *pPool = (CBlock*)( ::operator new( sizeof(CBlock) + ( m_BlockSize * m_BlockCount )) );
 
 		if( pPool == NULL )
@@ -117,7 +117,7 @@ bool		MemoryPool::IsPtrInPool( void *pMem )
 
 //----------------------------------------------------------------------------------
 //
-// ÇÒ´çµÈ ¸Þ¸ð¸®¾È¿¡ ÀÖÀ¸¸é¼­, FreeList ¿¡ ¾øÀ¸¸é -_- À¯È¿ÇÑ ¸Þ¸ð¸®ÀÌ´Ù.
+// í• ë‹¹ëœ ë©”ëª¨ë¦¬ì•ˆì— ìžˆìœ¼ë©´ì„œ, FreeList ì— ì—†ìœ¼ë©´ -_- ìœ íš¨í•œ ë©”ëª¨ë¦¬ì´ë‹¤.
 //
 //----------------------------------------------------------------------------------
 bool		MemoryPool::IsAvailablePtr( void *pMem )

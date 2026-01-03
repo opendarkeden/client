@@ -27,9 +27,9 @@ int CAVI::OpenMPG(HWND hwnd, LPSTR szName, int w, int h)
 	}
 	dwID = MciDgvOpenParms.wDeviceID;
 
-	// À§Ä¡ ¼³Á¤
+	// ìœ„ì¹˜ ì„¤ì •
 	MCI_DGV_RECT_PARMS MciDgvRectParms;
-	// Áß°£À¸·Î
+	// ì¤‘ê°„ìœ¼ë¡œ
 	RECT Rect;
 	GetClientRect(hwnd, &Rect);
 	int x = (Rect.right - w) / 2;
@@ -73,9 +73,9 @@ int CAVI::OpenAVI(HWND hwnd, LPSTR szName, int w, int h)
 	}
 	dwID = MciDgvOpenParms.wDeviceID;
 
-	// À§Ä¡ ¼³Á¤
+	// ìœ„ì¹˜ ì„¤ì •
 	MCI_DGV_RECT_PARMS MciDgvRectParms;
-	// Áß°£À¸·Î
+	// ì¤‘ê°„ìœ¼ë¡œ
 	RECT Rect;
 	GetClientRect(hwnd, &Rect);
 	int x = (Rect.right - w) / 2;

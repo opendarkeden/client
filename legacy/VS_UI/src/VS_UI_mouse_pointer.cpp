@@ -112,7 +112,7 @@ int C_VS_UI_MOUSE_POINTER::GetPointerY()
 //-----------------------------------------------------------------------------
 // PickUpItem
 //
-// item lock ¿©ºÎ¸¦ checkÇÑ´Ù.
+// item lock ì—¬ë¶€ë¥¼ checkí•œë‹¤.
 //-----------------------------------------------------------------------------
 void C_VS_UI_MOUSE_POINTER::PickUpItem(MItem * p_item, int item_x, int item_y)
 {
@@ -128,14 +128,14 @@ void C_VS_UI_MOUSE_POINTER::PickUpItem(MItem * p_item, int item_x, int item_y)
 //-----------------------------------------------------------------------------
 // PickUpItem
 //
-// ItemÀ» Áý¾ú´Ù.
-// `ItemÀ» ÁýÀ¸¸é Mouse pointer°¡ ItemÀ¸·Î º¯ÇÑ´Ù.
+// Itemì„ ì§‘ì—ˆë‹¤.
+// `Itemì„ ì§‘ìœ¼ë©´ Mouse pointerê°€ Itemìœ¼ë¡œ ë³€í•œë‹¤.
 //
-// item_x, item_y´Â itemÀÌ Ãâ·ÂµÇ°í ÀÖ´Â À§Ä¡ÀÌ´Ù. ÀÌ °ªÀÌ -1ÀÌ¸é, Ãâ·ÂµÇ´Â
-// »óÅÂ¸¦ ¹«½ÃÇÑ °Í Áï, Mouse pointer¸¦ item Áß½É¿¡ À§Ä¡½ÃÅ²´Ù. ½ÇÁ¦·Î´Â Mouse
-// pointer´Â °¡¸¸È÷ ÀÖ°í itemÀÌ ¿òÁ÷¿©Áö´Â °ÍÀÌ´Ù. µû¶ó¼­ ÀÌ·¸°Ô ÇÏ¸é °©ÀÚ±â
-// itemÀÌ ÀÌµ¿ÇÏ´Â Çö»óÀÌ ÀÏ¾î³­´Ù. ÀÌ°ÍÀ» ÇØ°áÇÏ±â À§ÇØ¼­ item_x, item_y °ªÀ»
-// ÁØ´Ù. ±×·¯¸é ÀÌ °ªÀ» ÂüÁ¶ÇÏ¿© ±×·¯ÇÑ Çö»óÀÌ ÀÏ¾î³ªÁö ¾Êµµ·Ï ÇÑ´Ù.
+// item_x, item_yëŠ” itemì´ ì¶œë ¥ë˜ê³  ìžˆëŠ” ìœ„ì¹˜ì´ë‹¤. ì´ ê°’ì´ -1ì´ë©´, ì¶œë ¥ë˜ëŠ”
+// ìƒíƒœë¥¼ ë¬´ì‹œí•œ ê²ƒ ì¦‰, Mouse pointerë¥¼ item ì¤‘ì‹¬ì— ìœ„ì¹˜ì‹œí‚¨ë‹¤. ì‹¤ì œë¡œëŠ” Mouse
+// pointerëŠ” ê°€ë§Œížˆ ìžˆê³  itemì´ ì›€ì§ì—¬ì§€ëŠ” ê²ƒì´ë‹¤. ë”°ë¼ì„œ ì´ë ‡ê²Œ í•˜ë©´ ê°‘ìžê¸°
+// itemì´ ì´ë™í•˜ëŠ” í˜„ìƒì´ ì¼ì–´ë‚œë‹¤. ì´ê²ƒì„ í•´ê²°í•˜ê¸° ìœ„í•´ì„œ item_x, item_y ê°’ì„
+// ì¤€ë‹¤. ê·¸ëŸ¬ë©´ ì´ ê°’ì„ ì°¸ì¡°í•˜ì—¬ ê·¸ëŸ¬í•œ í˜„ìƒì´ ì¼ì–´ë‚˜ì§€ ì•Šë„ë¡ í•œë‹¤.
 //-----------------------------------------------------------------------------
 void C_VS_UI_MOUSE_POINTER::PickUpItem(int item_x, int item_y)
 {
@@ -144,8 +144,8 @@ void C_VS_UI_MOUSE_POINTER::PickUpItem(int item_x, int item_y)
 	assert(m_p_current_pickup_item);
 	TYPE_FRAMEID frame_id = m_p_current_pickup_item->GetInventoryFrameID();
 
-	// !Item SPK´Â Áßº¹µÇÁö ¾ÊÀ¸¸ç, ¿ª½Ã ±×°Í¿¡ 1:1 ´ëÀÀÇÏ´Â Inventory FRR ¶ÇÇÑ 
-	// Áßº¹µÇÁö ¾Ê´Â´Ù. µû¶ó¼­ frame id´Â °ð sprite id°¡ µÈ´Ù.
+	// !Item SPKëŠ” ì¤‘ë³µë˜ì§€ ì•Šìœ¼ë©°, ì—­ì‹œ ê·¸ê²ƒì— 1:1 ëŒ€ì‘í•˜ëŠ” Inventory FRR ë˜í•œ 
+	// ì¤‘ë³µë˜ì§€ ì•ŠëŠ”ë‹¤. ë”°ë¼ì„œ frame idëŠ” ê³§ sprite idê°€ ëœë‹¤.
 
 	if (item_x == INT_MIN || item_y == INT_MIN)
 	{
@@ -155,10 +155,10 @@ void C_VS_UI_MOUSE_POINTER::PickUpItem(int item_x, int item_y)
 	else
 	{
 		//
-		// ¿©±â¼­ m_half´Â (item_x, item_y)¿¡¼­ Mouse pointer±îÁöÀÇ °Å¸®ÀÌ´Ù.
+		// ì—¬ê¸°ì„œ m_halfëŠ” (item_x, item_y)ì—ì„œ Mouse pointerê¹Œì§€ì˜ ê±°ë¦¬ì´ë‹¤.
 		//
-		// Mouse pointer´Â grid¿¡ À§Ä¡ÇÏ°í item_x´Â grid ³»ºÎ¿¡ À§Ä¡ÇÏ¹Ç·Î,
-		// À½¼ö°¡ ³ª¿Ã ¼ö ÀÖ´Ù.
+		// Mouse pointerëŠ” gridì— ìœ„ì¹˜í•˜ê³  item_xëŠ” grid ë‚´ë¶€ì— ìœ„ì¹˜í•˜ë¯€ë¡œ,
+		// ìŒìˆ˜ê°€ ë‚˜ì˜¬ ìˆ˜ ìžˆë‹¤.
 		//
 		m_half_x = m_mouse_x - item_x;
 		m_half_y = m_mouse_y - item_y;
@@ -170,7 +170,7 @@ void C_VS_UI_MOUSE_POINTER::PickUpItem(int item_x, int item_y)
 //-----------------------------------------------------------------------------
 // DropItem
 //
-// ItemÀ» ³õ¾Ò´Ù.
+// Itemì„ ë†“ì•˜ë‹¤.
 //-----------------------------------------------------------------------------
 void C_VS_UI_MOUSE_POINTER::DropItem()
 {
@@ -182,9 +182,9 @@ void C_VS_UI_MOUSE_POINTER::DropItem()
 
 /*-----------------------------------------------------------------------------
 - Show
-- Mouse pointer image¸¦ ±×¸°´Ù.
+- Mouse pointer imageë¥¼ ê·¸ë¦°ë‹¤.
 
-  `Mouse pointer ÁÂÇ¥´Â ¼Óµµ¸¦ À§ÇØ ³»ºÎ¿¡¼­ ÀÐ´Â´Ù.
+  `Mouse pointer ì¢Œí‘œëŠ” ì†ë„ë¥¼ ìœ„í•´ ë‚´ë¶€ì—ì„œ ì½ëŠ”ë‹¤.
 -----------------------------------------------------------------------------*/
 void	C_VS_UI_MOUSE_POINTER::DrawTargetArrow(int TargetX, int TargetY)
 {
@@ -204,7 +204,7 @@ void C_VS_UI_MOUSE_POINTER::Show()
 		
 
 	//
-	// ItemÀ» Áý¾úÀ¸¸é, C_VS_UI::m_current_pickup_itemÀ» Mouse Pointer·Î½á Ãâ·ÂÇÑ´Ù.
+	// Itemì„ ì§‘ì—ˆìœ¼ë©´, C_VS_UI::m_current_pickup_itemì„ Mouse Pointerë¡œì¨ ì¶œë ¥í•œë‹¤.
 	//
 	if (m_bl_pickup_item)
 	{
@@ -233,7 +233,7 @@ void C_VS_UI_MOUSE_POINTER::Show()
 					eType == ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH
 					)
 				{
-					// 2004, 3, 9 sobeit - x,y º¯°æ
+					// 2004, 3, 9 sobeit - x,y ë³€ê²½
 					//gpC_global_resource->m_pC_info_spk->BltLocked(m_mouse_x-(m_p_current_pickup_item->GetGridWidth()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_X)/2, m_mouse_y-(m_p_current_pickup_item->GetGridHeight()*C_VS_UI_INVENTORY::GRID_UNIT_PIXEL_Y)/2, C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType);
 					gpC_global_resource->m_pC_info_spk->BltLocked(m_mouse_x-m_half_x-6, m_mouse_y-m_half_y-14, C_GLOBAL_RESOURCE::OUSTERS_ELEMENTAL_MARK_FIRE+eType);
 				}
@@ -278,7 +278,7 @@ void C_VS_UI_MOUSE_POINTER::Show()
 			else
 				m_pC_mouse_pointer_spk->Blt(m_mouse_x + g_mouse_point_fix[temp_cursor].x, m_mouse_y + g_mouse_point_fix[temp_cursor].y, temp_cursor + frame);
 		}
-		//UIÀ§¿¡ ÀÖ°Å³ª ¹Ì´Ï¸Ê À§¿¡ ÀÖÀ¸¸é Ä¿¼­ default·Î
+		//UIìœ„ì— ìžˆê±°ë‚˜ ë¯¸ë‹ˆë§µ ìœ„ì— ìžˆìœ¼ë©´ ì»¤ì„œ defaultë¡œ
 		else if(gpC_window_manager->GetMouseFocusedWindow())
 		{
 			extern Window* g_desc_dialog_window_id;
@@ -345,7 +345,7 @@ void C_VS_UI_MOUSE_POINTER::Show()
 					}
 				}
 				else
-					// ¾ÆÀÌÅÛ ÀÌ¸§
+					// ì•„ì´í…œ ì´ë¦„
 					g_PrintColorStr(rect.left +5, rect.top +4, m_string.c_str(), gpC_base->m_item_pi, m_color);
 				g_FL2_ReleaseDC();
 			}

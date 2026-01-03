@@ -8,13 +8,13 @@
 //
 // *Reiot's Notes*
 //
-// ½Ã½ºÅÛ¿¡¼­ °¡Àå ºó¹øÇÏ°Ô »ç¿ëµÇ´Â Å¬·¡½ºÁßÀÇ ÇÏ³ªÀÌ´Ù.
-// ¼Óµµ¿¡ ¹«Áö¸·ÁöÇÑ ¿µÇâÀ» ¹ÌÄ¡¹Ç·Î, ¸¸ÀÏ Á»´õ ¼Óµµ¸¦ º¸°­ÇÏ°í
-// ½Í´Ù¸é, exceptionÀ» »©°í re-write ÇÏ¶ó. 
+// ì‹œìŠ¤í…œì—ì„œ ê°€ìž¥ ë¹ˆë²ˆí•˜ê²Œ ì‚¬ìš©ë˜ëŠ” í´ëž˜ìŠ¤ì¤‘ì˜ í•˜ë‚˜ì´ë‹¤.
+// ì†ë„ì— ë¬´ì§€ë§‰ì§€í•œ ì˜í–¥ì„ ë¯¸ì¹˜ë¯€ë¡œ, ë§Œì¼ ì¢€ë” ì†ë„ë¥¼ ë³´ê°•í•˜ê³ 
+// ì‹¶ë‹¤ë©´, exceptionì„ ë¹¼ê³  re-write í•˜ë¼. 
 //
-// ÇöÀç nonblocking ÀÌ ±²ÀåÈ÷-¾ï¼ö·Î-Á¹¶ó ¸¹ÀÌ ¹ß»ýÇÑ´Ù°í ÇßÀ»¶§,
-// ÀÌ°ÍÀÌ NonBlockingIOExceptionÀ¸·Î wrappingµÉ¶§ overhead°¡ ¹ß»ýÇÒ
-// È®·üÀÌ ³ô´Ù°í ÃßÃøµÈ´Ù.
+// í˜„ìž¬ nonblocking ì´ êµ‰ìž¥ížˆ-ì–µìˆ˜ë¡œ-ì¡¸ë¼ ë§Žì´ ë°œìƒí•œë‹¤ê³  í–ˆì„ë•Œ,
+// ì´ê²ƒì´ NonBlockingIOExceptionìœ¼ë¡œ wrappingë ë•Œ overheadê°€ ë°œìƒí• 
+// í™•ë¥ ì´ ë†’ë‹¤ê³  ì¶”ì¸¡ëœë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 

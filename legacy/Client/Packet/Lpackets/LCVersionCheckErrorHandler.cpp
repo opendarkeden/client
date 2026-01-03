@@ -28,12 +28,12 @@ void LCVersionCheckErrorHandler::execute ( LCVersionCheckError * pPacket , Playe
 #ifdef __GAME_CLIENT__
 
 	
-	// client¸¦ updateÇØ¾ßÇÑ´Ù.
+	// clientë¥¼ updateí•´ì•¼í•œë‹¤.
 	//g_bNeedUpdate = TRUE;
 	// edit by Coffee
 	//g_ModeNext = MODE_QUIT;
 	g_ModeNext = MODE_LOGIN_WRONG;
-	//PopupErrorMessage((ErrorID)21); // ¼ì²â°æ±¾´íÎó
+	//PopupErrorMessage((ErrorID)21); // ì‡±ê¿Žê²½êµ¶ëŒ„è½Ž
 	g_pUIDialog->PopupFreeMessageDlg((*g_pGameStringTable)[UI_STRING_MESSAGE_CHECK_VERSION_ERROR].GetString(), -1,-1,UI_DIALOG_OK, true);
 	// end
 

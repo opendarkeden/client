@@ -153,7 +153,7 @@ public:
 // Slayer only Personal Data System Interface Object.
 //
 // - no Window property.
-// - slayer main interface¿¡¼­ Á÷Á¢ Á¦¾îÇÑ´Ù.
+// - slayer main interfaceì—ì„œ ì§ì ‘ ì œì–´í•œë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_SLAYER_PDS : public Rect, public Exec, public ButtonVisual
 {
@@ -299,48 +299,48 @@ private:
 	PCS_STATE					m_pcs_state;
 
 	long							m_last_dialing_pcs_num;
-	bool							m_bl_ring; // ÀüÈ­°¡ ¿Ô´Â°¡?
+	bool							m_bl_ring; // ì „í™”ê°€ ì™”ëŠ”ê°€?
 
 	//-----------------------------------------------------------------------------------
-	// PCS ´ë±â roomÀÌ´Ù.
+	// PCS ëŒ€ê¸° roomì´ë‹¤.
 	//
-	// »ó´ë¹æÀº ÀÏ´Ü wait room¿¡ µé¾î¿À±æ Èñ¸ÁÇÑ´Ù. ºñ¾îÀÖ´Â wait room¿¡ µé¾î°¡¸é
-	// phone image°¡ ±ôºýÀÌ¾î wait room¿¡ »ç¶÷ÀÌ ÀÖÀ½À» ¾Ë¸°´Ù. ÀÚ½ÅÀº wait room¿¡
-	// ÀÖ´Â »ç¶÷ÀÌ ´©±ºÁö ¾Ë¾Æº¸°í(mouse pointer¸¦ °¡Á®°¡¸é Á¤º¸°¡ ³ª¿Â´Ù) ¿¬°á¿©ºÎ¸¦
-	// °áÁ¤ÇÑ´Ù.
+	// ìƒëŒ€ë°©ì€ ì¼ë‹¨ wait roomì— ë“¤ì–´ì˜¤ê¸¸ í¬ë§í•œë‹¤. ë¹„ì–´ìžˆëŠ” wait roomì— ë“¤ì–´ê°€ë©´
+	// phone imageê°€ ê¹œë¹¡ì´ì–´ wait roomì— ì‚¬ëžŒì´ ìžˆìŒì„ ì•Œë¦°ë‹¤. ìžì‹ ì€ wait roomì—
+	// ìžˆëŠ” ì‚¬ëžŒì´ ëˆ„êµ°ì§€ ì•Œì•„ë³´ê³ (mouse pointerë¥¼ ê°€ì ¸ê°€ë©´ ì •ë³´ê°€ ë‚˜ì˜¨ë‹¤) ì—°ê²°ì—¬ë¶€ë¥¼
+	// ê²°ì •í•œë‹¤.
 	//
-	// bl_granted°¡ setµÈ »ç¶÷À¸·ÎºÎÅÍ ¸Þ½ÃÁö¸¦ ¹ÞÀ» ¼ö ÀÖ´Ù. ¹ÞÀ» ¼ö¸¸ ÀÖ´Ù´Â°ÍÀÌ´Ù.
-	// ±×·¯´Ï±î µ¿½Ã¿¡ ¸ðµç ´ë±â¹æÀÇ »ç¶÷(3¸í)À¸·ÎºÎÅÍ ¸Þ½ÃÁö¸¦ ¹ÞÀ» ¼ö ÀÖ´Ù.
-	// ¸Þ½ÃÁö¸¦ ¼Û½ÅÇÏ´Â °ÍÀº µ¿½Ã¿¡ ÇÑ ¸í¸¸ °¡´ÉÇÏ´Ù. ±×·¯´Ï±î ³» ¸Þ½ÃÁö¸¦ ¹ÞÀ» »ç¶÷À»
-	// ¼±ÅÃÇØ¾ß ÇÑ´Ù.
+	// bl_grantedê°€ setëœ ì‚¬ëžŒìœ¼ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì„ ìˆ˜ ìžˆë‹¤. ë°›ì„ ìˆ˜ë§Œ ìžˆë‹¤ëŠ”ê²ƒì´ë‹¤.
+	// ê·¸ëŸ¬ë‹ˆê¹Œ ë™ì‹œì— ëª¨ë“  ëŒ€ê¸°ë°©ì˜ ì‚¬ëžŒ(3ëª…)ìœ¼ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì„ ìˆ˜ ìžˆë‹¤.
+	// ë©”ì‹œì§€ë¥¼ ì†¡ì‹ í•˜ëŠ” ê²ƒì€ ë™ì‹œì— í•œ ëª…ë§Œ ê°€ëŠ¥í•˜ë‹¤. ê·¸ëŸ¬ë‹ˆê¹Œ ë‚´ ë©”ì‹œì§€ë¥¼ ë°›ì„ ì‚¬ëžŒì„
+	// ì„ íƒí•´ì•¼ í•œë‹¤.
 	//
 	// < chatting mode >
 	//
-	// ÇÏ³ªÀÇ roomÀº ´ÙÀ½ ³× °¡Áö »óÅÂ¿¡ ÀÖÀ» ¼ö ÀÖ´Ù.
+	// í•˜ë‚˜ì˜ roomì€ ë‹¤ìŒ ë„¤ ê°€ì§€ ìƒíƒœì— ìžˆì„ ìˆ˜ ìžˆë‹¤.
 	//
-	// (1) ºñ¾îÀÖ´Â »óÅÂ(¿¬°á²÷±è)
-	// (2) ´ë±â»óÅÂ
-	// (3) ¼ö½Å°¡´É »óÅÂ
-	// (4) ¼Û¼ö½Å°¡´É »óÅÂ
+	// (1) ë¹„ì–´ìžˆëŠ” ìƒíƒœ(ì—°ê²°ëŠê¹€)
+	// (2) ëŒ€ê¸°ìƒíƒœ
+	// (3) ìˆ˜ì‹ ê°€ëŠ¥ ìƒíƒœ
+	// (4) ì†¡ìˆ˜ì‹ ê°€ëŠ¥ ìƒíƒœ
 	//
-	// ¼Û¼ö½Å°¡´É »óÅÂ¿¡¼­ ¾î¶² Æ¯Á¤ »ó´ë¹æ°ú ¿¬°áÀ» ¿ÏÀüÈ÷ ²÷¾î¹ö¸± ¼ö ÀÖ´Ù.
+	// ì†¡ìˆ˜ì‹ ê°€ëŠ¥ ìƒíƒœì—ì„œ ì–´ë–¤ íŠ¹ì • ìƒëŒ€ë°©ê³¼ ì—°ê²°ì„ ì™„ì „ížˆ ëŠì–´ë²„ë¦´ ìˆ˜ ìžˆë‹¤.
 	//-----------------------------------------------------------------------------------
 	struct S_PCS_WAIT_ROOM
 	{
-		char *	sz_name;		// ¿¬°áµÈ »ç¶÷ÀÇ ÀÌ¸§
-		long		pcs_number;	// ¿¬°áµÈ »ç¶÷ÀÇ pcs ¹øÈ£
-		bool		bl_set;		// ´ë±â¹æ¿¡ µé¾î¿Ô´Â°¡?
-		bool		bl_granted; // ´ë±â¹æ¿¡ µé¾î¿ÍÀÖ´Â »ç¶÷°ú ¿¬°áµÇ¾ú´Ù. (¸Þ½ÃÁö ¼ö½Å¸¸ °¡´É)
+		char *	sz_name;		// ì—°ê²°ëœ ì‚¬ëžŒì˜ ì´ë¦„
+		long		pcs_number;	// ì—°ê²°ëœ ì‚¬ëžŒì˜ pcs ë²ˆí˜¸
+		bool		bl_set;		// ëŒ€ê¸°ë°©ì— ë“¤ì–´ì™”ëŠ”ê°€?
+		bool		bl_granted; // ëŒ€ê¸°ë°©ì— ë“¤ì–´ì™€ìžˆëŠ” ì‚¬ëžŒê³¼ ì—°ê²°ë˜ì—ˆë‹¤. (ë©”ì‹œì§€ ìˆ˜ì‹ ë§Œ ê°€ëŠ¥)
 	};
 
 	S_PCS_WAIT_ROOM			m_pcs_wait_room[PCS_WAIT_ROOM_MAX];
 	S_PCS_WAIT_ROOM			m_backup_room;
-	int							m_pcs_who_connection; // ¼Û¼ö½Å°¡´ÉÇÑ ¿ÀÁ÷ ÇÑ slotÀ» °¡¸®Å²´Ù.
+	int							m_pcs_who_connection; // ì†¡ìˆ˜ì‹ ê°€ëŠ¥í•œ ì˜¤ì§ í•œ slotì„ ê°€ë¦¬í‚¨ë‹¤.
 
 	//
 	// m_pcs_chatting
 	//
-	// PCS·Î ¿¬°áµÈ »ç¶÷°ú ´ëÈ­ÇÏ´Â Àü¿ë chattingÃ¢ÀÌ´Ù.
+	// PCSë¡œ ì—°ê²°ëœ ì‚¬ëžŒê³¼ ëŒ€í™”í•˜ëŠ” ì „ìš© chattingì°½ì´ë‹¤.
 	//
 	C_VS_UI_CHATTING			m_pcs_chatting[PCS_WAIT_ROOM_MAX];
 
@@ -411,20 +411,20 @@ public:
 		SN_LEFTRING2,
 		SN_SHOES,
 		
-		SN_COREZAP1,		// ÄÚ¾îÀì1
-		SN_COREZAP2,		// ÄÚ¾îÀì2
-		SN_COREZAP3,		// ÄÚ¾îÀì3
-		SN_COREZAP4,		// ÄÚ¾îÀì4
+		SN_COREZAP1,		// ì½”ì–´ìž½1
+		SN_COREZAP2,		// ì½”ì–´ìž½2
+		SN_COREZAP3,		// ì½”ì–´ìž½3
+		SN_COREZAP4,		// ì½”ì–´ìž½4
 
-		SN_PDA,		// ½ÂÁ÷¿ë pda
-        SN_SHOULDER,	// ½ÂÁ÷¿ë ¾î±ú
+		SN_PDA,		// ìŠ¹ì§ìš© pda
+        SN_SHOULDER,	// ìŠ¹ì§ìš© ì–´ê¹¨
 	
-		SN_BLOODBIBLE1,		// ºí·¯µð¹ÙÀÌºí1
-		SN_BLOODBIBLE2,		// ºí·¯µð¹ÙÀÌºí2
-		SN_BLOODBIBLE3,		// ºí·¯µð¹ÙÀÌºí3
-		SN_BLOODBIBLE4,		// ºí·¯µð¹ÙÀÌºí4
-		SN_BLOODBIBLE5,		// ºí·¯µð¹ÙÀÌºí5
-		SN_BLOODBIBLE6,		// ºí·¯µð¹ÙÀÌºí6
+		SN_BLOODBIBLE1,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”1
+		SN_BLOODBIBLE2,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”2
+		SN_BLOODBIBLE3,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”3
+		SN_BLOODBIBLE4,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”4
+		SN_BLOODBIBLE5,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”5
+		SN_BLOODBIBLE6,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”6
 
 		SLOT_SIZE,
 		};
@@ -480,20 +480,20 @@ protected:
 //		SN_LEFTRING2,
 //		SN_SHOES,
 //		
-//		SN_COREZAP1,		// ÄÚ¾îÀì1
-//		SN_COREZAP2,		// ÄÚ¾îÀì2
-//		SN_COREZAP3,		// ÄÚ¾îÀì3
-//		SN_COREZAP4,		// ÄÚ¾îÀì4
+//		SN_COREZAP1,		// ì½”ì–´ìž½1
+//		SN_COREZAP2,		// ì½”ì–´ìž½2
+//		SN_COREZAP3,		// ì½”ì–´ìž½3
+//		SN_COREZAP4,		// ì½”ì–´ìž½4
 //		
-//		SN_BLOODBIBLE1,		// ºí·¯µð¹ÙÀÌºí1
-//		SN_BLOODBIBLE2,		// ºí·¯µð¹ÙÀÌºí2
-//		SN_BLOODBIBLE3,		// ºí·¯µð¹ÙÀÌºí3
-//		SN_BLOODBIBLE4,		// ºí·¯µð¹ÙÀÌºí4
-//		SN_BLOODBIBLE5,		// ºí·¯µð¹ÙÀÌºí5
-//		SN_BLOODBIBLE6,		// ºí·¯µð¹ÙÀÌºí6
+//		SN_BLOODBIBLE1,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”1
+//		SN_BLOODBIBLE2,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”2
+//		SN_BLOODBIBLE3,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”3
+//		SN_BLOODBIBLE4,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”4
+//		SN_BLOODBIBLE5,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”5
+//		SN_BLOODBIBLE6,		// ë¸”ëŸ¬ë””ë°”ì´ë¸”6
 //
 //		SN_PDA,				// PDA
-//		SN_SHOULDER,			// ¾î±ú
+//		SN_SHOULDER,			// ì–´ê¹¨
 //
 //
 //		SLOT_SIZE,
@@ -533,7 +533,7 @@ protected:
 // C_VS_UI_SLAYER
 //
 // Slayer Main interface.
-// chattingÃ¢À» Æ÷ÇÔÇÑ ±âº»ÀûÀÎ ºÎºÐÀÌ´Ù. ÀÌ°Íµµ ÇÏ³ªÀÇ WindowÀÌ´Ù.
+// chattingì°½ì„ í¬í•¨í•œ ê¸°ë³¸ì ì¸ ë¶€ë¶„ì´ë‹¤. ì´ê²ƒë„ í•˜ë‚˜ì˜ Windowì´ë‹¤.
 //-----------------------------------------------------------------------------
 class C_VS_UI_SLAYER : public C_VS_UI_TRIBE
 {
@@ -541,7 +541,7 @@ private:
 	// data object
 	C_VS_UI_SLAYER_GEAR *		m_pC_gear;
 //	C_VS_UI_ADVANCEMENTSLAYER_GEAR * m_pC_advence_gear;
-	// È­¸é ³¡¿¡ µü ºÙÀÌ´Â°Ô ÁÁ´Ù°í ¹Ù²Ù·¡¿ä.. by sigi
+	// í™”ë©´ ëì— ë”± ë¶™ì´ëŠ”ê²Œ ì¢‹ë‹¤ê³  ë°”ê¾¸ëž˜ìš”.. by sigi
 
 public:
 	C_VS_UI_SLAYER();

@@ -56,8 +56,8 @@ KeyAccelerator::Init( int max )
 //----------------------------------------------------------------------
 // Set AcceleratorKey ( accel, key )
 //----------------------------------------------------------------------
-// key¸¦ ´©¸£¸é accelÀÌ ½ÇÇàµÈ´Ù..´Â ÀÇ¹Ì.
-// accelÀº key¿Í ¿¬°áµÇ¾îÀÖ´Ù..´Â ÀÇ¹Ìµµ µÇ°í..
+// keyë¥¼ ëˆ„ë¥´ë©´ accelì´ ì‹¤í–‰ëœë‹¤..ëŠ” ì˜ë¯¸.
+// accelì€ keyì™€ ì—°ê²°ë˜ì–´ìžˆë‹¤..ëŠ” ì˜ë¯¸ë„ ë˜ê³ ..
 //----------------------------------------------------------------------
 void				
 KeyAccelerator::SetAcceleratorKey(BYTE accel, WORD key)
@@ -71,7 +71,7 @@ KeyAccelerator::SetAcceleratorKey(BYTE accel, WORD key)
 
 	if (iKey != m_Keys.end())
 	{
-		// ÀÌ¹Ì ¼³Á¤µÈ key°¡ ÀÖ¾ú´Ù¸é Á¦°ÅÇÑ´Ù.
+		// ì´ë¯¸ ì„¤ì •ëœ keyê°€ ìžˆì—ˆë‹¤ë©´ ì œê±°í•œë‹¤.
 		m_Keys.erase( iKey );
 	}
 
@@ -83,7 +83,7 @@ KeyAccelerator::SetAcceleratorKey(BYTE accel, WORD key)
 //----------------------------------------------------------------------
 // Get Accelerator ( key )
 //----------------------------------------------------------------------
-// È®½ÇÈ÷ ±× key¸¸ ÀÔ·ÂµÈ °æ¿ì
+// í™•ì‹¤ížˆ ê·¸ keyë§Œ ìž…ë ¥ëœ ê²½ìš°
 //----------------------------------------------------------------------
 BYTE
 KeyAccelerator::GetAccelerator(WORD key) const
@@ -101,14 +101,14 @@ KeyAccelerator::GetAccelerator(WORD key) const
 //----------------------------------------------------------------------
 // Get AcceleratorSimilar ( key )
 //----------------------------------------------------------------------
-// ctrl+I¸¸ ´­·¯¼­ ½ÇÇàµÇ´Â°Ô
-// ctrl+shift+I¸¦ ´©¸£¸é ½ÇÇàÀÌ ¾ÈµÈ´Ù.
-// ÀÌ·± °æ¿ì¿¡µµ ½ÇÇàµÇ°Ô ÇÒ·Á¸é.. Á¶ÇÕÅ°¸¦ °í·ÁÇØ¼­ Ã¼Å©ÇØ¾ß ÇÑ´Ù.
+// ctrl+Ië§Œ ëˆŒëŸ¬ì„œ ì‹¤í–‰ë˜ëŠ”ê²Œ
+// ctrl+shift+Ië¥¼ ëˆ„ë¥´ë©´ ì‹¤í–‰ì´ ì•ˆëœë‹¤.
+// ì´ëŸ° ê²½ìš°ì—ë„ ì‹¤í–‰ë˜ê²Œ í• ë ¤ë©´.. ì¡°í•©í‚¤ë¥¼ ê³ ë ¤í•´ì„œ ì²´í¬í•´ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 BYTE				
 KeyAccelerator::GetAcceleratorSimilar(WORD key) const
 {
-	// ÀÔ·ÂµÈ key
+	// ìž…ë ¥ëœ key
 	KEY_MAP::const_iterator iKey = m_Keys.find( key );
 
 	if (iKey!=m_Keys.end())
@@ -123,7 +123,7 @@ KeyAccelerator::GetAcceleratorSimilar(WORD key) const
 	int bHasShift	= ACCEL_HAS_SHIFT(key);
 
 	//------------------------------------------------------------
-	// ´­¸° key°¡ ¾ø´Â °æ¿ì
+	// ëˆŒë¦° keyê°€ ì—†ëŠ” ê²½ìš°
 	//------------------------------------------------------------
 //	if (!bHasControl && !bHasAlt && !bHasShift)
 //	{
@@ -131,7 +131,7 @@ KeyAccelerator::GetAcceleratorSimilar(WORD key) const
 //	}
 
 	//------------------------------------------------------------
-	// ctrlÁ¦°Å
+	// ctrlì œê±°
 	//------------------------------------------------------------
 	if (bHasControl)
 	{
@@ -141,7 +141,7 @@ KeyAccelerator::GetAcceleratorSimilar(WORD key) const
 	}
 
 	//------------------------------------------------------------
-	// altÁ¦°Å
+	// altì œê±°
 	//------------------------------------------------------------
 	if (bHasAlt)
 	{
@@ -151,7 +151,7 @@ KeyAccelerator::GetAcceleratorSimilar(WORD key) const
 	}
 
 	//------------------------------------------------------------
-	// shiftÁ¦°Å
+	// shiftì œê±°
 	//------------------------------------------------------------
 	if (bHasShift)
 	{
@@ -163,26 +163,26 @@ KeyAccelerator::GetAcceleratorSimilar(WORD key) const
 	WORD keyOnly = ACCEL_GET_KEY( key );
 
 	//------------------------------------------------------------
-	// ctrl + alt + shift ÀÎ °æ¿ì
+	// ctrl + alt + shift ì¸ ê²½ìš°
 	//------------------------------------------------------------
 	if (bHasControl && bHasAlt && bHasShift)
 	{
 		//------------------------------------------------------------
-		// ctrl¸¸ ³²±ä´Ù.
+		// ctrlë§Œ ë‚¨ê¸´ë‹¤.
 		//------------------------------------------------------------
 		checkKey = ACCEL_ADD_CONTROL( keyOnly );
 		iKey = m_Keys.find( checkKey );
 		if (iKey!=m_Keys.end())	return iKey->second;	
 
 		//------------------------------------------------------------
-		// alt¸¸ ³²±ä´Ù
+		// altë§Œ ë‚¨ê¸´ë‹¤
 		//------------------------------------------------------------
 		checkKey = ACCEL_ADD_ALT( keyOnly );
 		iKey = m_Keys.find( checkKey );
 		if (iKey!=m_Keys.end())	return iKey->second;		
 
 		//------------------------------------------------------------
-		// shift¸¸ ³²±ä´Ù
+		// shiftë§Œ ë‚¨ê¸´ë‹¤
 		//------------------------------------------------------------
 		checkKey = ACCEL_ADD_SHIFT( keyOnly );
 		iKey = m_Keys.find( checkKey );
@@ -190,7 +190,7 @@ KeyAccelerator::GetAcceleratorSimilar(WORD key) const
 	}
 
 	//------------------------------------------------------------
-	// ´Ù Á¦°ÅÇÑ °æ¿ì
+	// ë‹¤ ì œê±°í•œ ê²½ìš°
 	//------------------------------------------------------------
 	iKey = m_Keys.find( keyOnly );
 	if (iKey!=m_Keys.end())	return iKey->second;

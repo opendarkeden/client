@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // RequestUserManager.h
 //----------------------------------------------------------------------
-// ´Ù¸¥ ClientÀÇ Name, IP µîÀÇ Á¤º¸¸¦ °®´Â´Ù.
+// ë‹¤ë¥¸ Clientì˜ Name, IP ë“±ì˜ ì •ë³´ë¥¼ ê°–ëŠ”ë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef __REQUEST_USER_MANAGER_H__
@@ -18,14 +18,14 @@
 //----------------------------------------------------------------------
 // RequestUserInfo
 //----------------------------------------------------------------------
-// ´Ù¸¥ Client¿¡ ´ëÇÑ Á¤º¸
+// ë‹¤ë¥¸ Clientì— ëŒ€í•œ ì •ë³´
 //----------------------------------------------------------------------
 class RequestUserInfo {
 	public :
 		enum USER_STATUS
 		{
-			USER_STATUS_NORMAL,			// Á¤»ó »óÅÂ
-			USER_STATUS_UNABLE			// Á¢¼Ó ºÒ°¡
+			USER_STATUS_NORMAL,			// ì •ìƒ ìƒíƒœ
+			USER_STATUS_UNABLE			// ì ‘ì† ë¶ˆê°€
 		};
 
 	public :
@@ -91,7 +91,7 @@ class RequestUserManager {
 		bool				RemoveRequestingUser(const char* pName);
 
 		//-------------------------------------------------------------
-		// RemoveUser - ´Ù¸¥ thread¿¡¼­.. ³È..
+		// RemoveUser - ë‹¤ë¥¸ threadì—ì„œ.. ëƒ ..
 		//-------------------------------------------------------------
 		void				RemoveRequestUserLater(const char* pName);
 
@@ -116,9 +116,9 @@ class RequestUserManager {
 	private :
 		CRITICAL_SECTION		m_Lock;
 
-		REQUEST_USER_MAP		m_RequestUsers;		// IP¸¦ ¾Ë°í ÀÖ´Â ¾Ö´ú
+		REQUEST_USER_MAP		m_RequestUsers;		// IPë¥¼ ì•Œê³  ìˆëŠ” ì• ëœ
 
-		REQUESTING_USER_MAP		m_RequestingUsers;	// ¼­¹ö¿¡ IP¸¦ ¿äÃ»ÁßÀÎ ¾Ö´ú
+		REQUESTING_USER_MAP		m_RequestingUsers;	// ì„œë²„ì— IPë¥¼ ìš”ì²­ì¤‘ì¸ ì• ëœ
 
 		REMOVE_USER_LIST		m_RemoveUsers;
 };

@@ -2,30 +2,30 @@
 // CFrameSetManager.h
 //----------------------------------------------------------------------
 //
-// FramePack¿¡¼­ Æ¯Á¤ Frame¸¸ LoadÇÒ ¼ö ÀÖµµ·Ï Á¤º¸¸¦ ¸¸µç´Ù.
+// FramePackì—ì„œ íŠ¹ì • Frameë§Œ Loadí•  ìˆ˜ ìˆë„ë¡ ì •ë³´ë¥¼ ë§Œë“ ë‹¤.
 //
-// <FrameID¸¦ ÀúÀåÇÒ List»ç¿ë>
+// <FrameIDë¥¼ ì €ì¥í•  Listì‚¬ìš©>
 //
-// FramePack FileÀÇ ÀÏºÎ Frame ID¸¦ ÀúÀåÇÑ´Ù. 
+// FramePack Fileì˜ ì¼ë¶€ Frame IDë¥¼ ì €ì¥í•œë‹¤. 
 // 
-// * FrameSet¿¡¼­ loadÇÒ¶§ »ç¿ëÇÒ index fileÀ» ¸¸µé¾î¾ß ÇÏ´Âµ¥,
-//   ÀúÀåµÈ Frame ID¿¡ ÇØ´çÇÏ´Â FrameÀÇ File Position¸¦ 
-//   FramePack IndexFile¿¡¼­ Ã£¾Æ¼­ 
-//   FrameSet index file·Î ÀúÀåÇØ¾ß ÇÑ´Ù.
+// * FrameSetì—ì„œ loadí• ë•Œ ì‚¬ìš©í•  index fileì„ ë§Œë“¤ì–´ì•¼ í•˜ëŠ”ë°,
+//   ì €ì¥ëœ Frame IDì— í•´ë‹¹í•˜ëŠ” Frameì˜ File Positionë¥¼ 
+//   FramePack IndexFileì—ì„œ ì°¾ì•„ì„œ 
+//   FrameSet index fileë¡œ ì €ì¥í•´ì•¼ í•œë‹¤.
 //
-// * Á¤ÇØÁø Frame ID¿Í °ü·ÃÀÌ ÀÖ´Â ¸ğµç Sprite ID¸¦ ÃßÃâÇÑ´Ù.
-//   Áßº¹µÇ¸é ¾ÈµÇ¹Ç·Î list¿¡ Ãß°¡ÇÒ¶§ Áßº¹ÀÌ ¾ÈµÇµµ·Ï ÇÑ´Ù.
-//   SpriteSet IndexFileÀ» »ı¼ºÇØ¾ß ÇÏ´Âµ¥, Á¤ÇØÁø SpritePack Index¸¦
-//   ÀÌ¿ëÇØ¼­ ÀúÀåÇÑ´Ù.
+// * ì •í•´ì§„ Frame IDì™€ ê´€ë ¨ì´ ìˆëŠ” ëª¨ë“  Sprite IDë¥¼ ì¶”ì¶œí•œë‹¤.
+//   ì¤‘ë³µë˜ë©´ ì•ˆë˜ë¯€ë¡œ listì— ì¶”ê°€í• ë•Œ ì¤‘ë³µì´ ì•ˆë˜ë„ë¡ í•œë‹¤.
+//   SpriteSet IndexFileì„ ìƒì„±í•´ì•¼ í•˜ëŠ”ë°, ì •í•´ì§„ SpritePack Indexë¥¼
+//   ì´ìš©í•´ì„œ ì €ì¥í•œë‹¤.
 //
 //
-// (!) ThingFrameSetManager¿Í CreatureFramePackManagerÀÇ µÎ°¡Áö¸¦
-//     »ó¼Ó¹Ş¾Æ¼­ »ç¿ëÇØ¾ß ÇÒ °ÍÀÌ´Ù
+// (!) ThingFrameSetManagerì™€ CreatureFramePackManagerì˜ ë‘ê°€ì§€ë¥¼
+//     ìƒì†ë°›ì•„ì„œ ì‚¬ìš©í•´ì•¼ í•  ê²ƒì´ë‹¤
 //----------------------------------------------------------------------
 //
-// Frame ID¸¦ setÇÏ°í
-// FramePackÀÇ File PositionÀ» ÀúÀåÇØ¾ß ÇÑ´Ù.  --> FrameSet Index File
-// SpritePackÀÇ File PositionÀ» ÀúÀåÇØ¾ß ÇÑ´Ù. --> SpriteSet Index File
+// Frame IDë¥¼ setí•˜ê³ 
+// FramePackì˜ File Positionì„ ì €ì¥í•´ì•¼ í•œë‹¤.  --> FrameSet Index File
+// SpritePackì˜ File Positionì„ ì €ì¥í•´ì•¼ í•œë‹¤. --> SpriteSet Index File
 //
 //----------------------------------------------------------------------
 
@@ -43,13 +43,13 @@ class CFrameSetManager : public CSetManager<TYPE_FRAMEID, TYPE_FRAMEID> {
 		virtual ~CFrameSetManager();
 
 		//--------------------------------------------------------
-		// FramePack IndexFile·ÎºÎÅÍ FrameSet IndexFileÀ» »ı¼ºÇÑ´Ù.
+		// FramePack IndexFileë¡œë¶€í„° FrameSet IndexFileì„ ìƒì„±í•œë‹¤.
 		//--------------------------------------------------------
 		bool		SaveFrameSetIndex(class ofstream& setIndex, class ifstream& packIndex);
 
 		//--------------------------------------------------------
-		// FrameSet°ú °ü·ÃµÈ SpriteID¸¦ ¼±ÅÃÇØ¼­
-		// SpritePack IndexFile·ÎºÎÅÍ SpriteSet IndexFileÀ» »ı¼ºÇÑ´Ù.
+		// FrameSetê³¼ ê´€ë ¨ëœ SpriteIDë¥¼ ì„ íƒí•´ì„œ
+		// SpritePack IndexFileë¡œë¶€í„° SpriteSet IndexFileì„ ìƒì„±í•œë‹¤.
 		//--------------------------------------------------------
 		//virtual bool		SaveSpriteSetIndex(class ofstream& setIndex, class ifstream& packIndex) = 0;
 		

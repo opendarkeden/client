@@ -22,9 +22,9 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 		
 #ifdef __GAME_CLIENT__
 
-	// Creature¸¦ »ý¼ºÇØ¼­ MCorpse¿¡ Ãß°¡ÇØ¼­ Zone¿¡ ³Ö´Â´Ù.
+	// Creatureë¥¼ ìƒì„±í•´ì„œ MCorpseì— ì¶”ê°€í•´ì„œ Zoneì— ë„£ëŠ”ë‹¤.
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -32,30 +32,30 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{		
 		const PCSlayerInfo3 & si = pPacket->getSlayerInfo();	
 			
 		//----------------------------------------	
-		// ÀÌ¹Ì ÀÖ´Â CreatureÀÎ°¡?
+		// ì´ë¯¸ ìžˆëŠ” Creatureì¸ê°€?
 		//----------------------------------------	
 		MCreature* pCreature = g_pZone->GetCreatureOnly( si.getObjectID() );
 		
 		//---------------------------------------------------------
 		//
-		//					Zone¿¡ ¾ø´Â °æ¿ì
+		//					Zoneì— ì—†ëŠ” ê²½ìš°
 		//
 		//---------------------------------------------------------
 		if (pCreature==NULL)
 		{
-			// ÀÌ¹Ì ½ÃÃ¼°¡ ÀÖ³ª?
+			// ì´ë¯¸ ì‹œì²´ê°€ ìžˆë‚˜?
 			MItem* pItem = g_pZone->GetItem( si.getObjectID() );
 
 			//---------------------------------------------------------
 			//
-			// »õ·Î¿î ½ÃÃ¼¸¦ »ý¼º
+			// ìƒˆë¡œìš´ ì‹œì²´ë¥¼ ìƒì„±
 			//
 			//---------------------------------------------------------
 			if (pItem==NULL)
@@ -64,7 +64,7 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 				
 				//----------------------------------------	
 				//
-				// Á×Àº Creature¸¦ »ý¼ºÇÑ´Ù.
+				// ì£½ì€ Creatureë¥¼ ìƒì„±í•œë‹¤.
 				//
 				//----------------------------------------	
 				MCreatureWear*	pDeadCreature = new MCreatureWear;
@@ -74,7 +74,7 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 				pDeadCreature->SetZone( g_pZone );
 				
 				//----------------------------------------	
-				// º¹ÀåÀ» Âø¿ëÇÑ´Ù.
+				// ë³µìž¥ì„ ì°©ìš©í•œë‹¤.
 				//----------------------------------------					
 				if (si.getCompetence()==0)
 				{
@@ -89,7 +89,7 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 
 				pDeadCreature->SetGuildNumber( si.getGuildID() );
 
-				// creatureTypeÀÌ Slayer³²ÀÚ¸é 0, Slayer¿©ÀÚ¸é 1 
+				// creatureTypeì´ Slayerë‚¨ìžë©´ 0, Slayerì—¬ìžë©´ 1 
 				pDeadCreature->SetGroundCreature();
 				pDeadCreature->SetID( si.getObjectID() );
 				pDeadCreature->SetPosition( si.getX(), si.getY() );
@@ -97,7 +97,7 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 				pDeadCreature->SetDirection( si.getDir() );
 				pDeadCreature->SetCurrentDirection( si.getDir() );
 
-				// ÇÇºÎ»ö
+				// í”¼ë¶€ìƒ‰
 				pDeadCreature->SetBodyColor1( si.getSkinColor() );
 
 				pDeadCreature->SetStatus( MODIFY_MAX_HP, si.getMaxHP() );
@@ -105,13 +105,13 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 				
 				SetAddonToSlayer( pDeadCreature, &si );	
 
-				// ½ÃÃ¼·Î ¹Ù²Û´Ù.
+				// ì‹œì²´ë¡œ ë°”ê¾¼ë‹¤.
 				pDeadCreature->SetCorpse();
 				pDeadCreature->SetName( si.getName().c_str() );				
 
 				//----------------------------------------	
 				//
-				// ½ÃÃ¼itemÀ» »ý¼ºÇÑ´Ù.
+				// ì‹œì²´itemì„ ìƒì„±í•œë‹¤.
 				//
 				//----------------------------------------	
 				MCorpse* pCorpse = (MCorpse*)MItem::NewItem( ITEM_CLASS_CORPSE );
@@ -123,15 +123,15 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 				pCorpse->SetNumber( pPacket->getTreasureCount() );
 
 				//----------------------------------------
-				// Zone¿¡ ItemÃß°¡
+				// Zoneì— Itemì¶”ê°€
 				//----------------------------------------
 				if (!g_pZone->AddItem( pCorpse ))
 				{
 					DEBUG_ADD("[Error] Can't Add to Zone.");
 					
 					//---------------------------------------------------------
-					// Ãß°¡°¡ ¾ÈµÈ °æ¿ì
-					// ÀÌ¹Ì ÀÖ´Â ItemÀ» Á¦°ÅÇÏ°í ´Ù½Ã Ãß°¡ÇÑ´Ù.
+					// ì¶”ê°€ê°€ ì•ˆëœ ê²½ìš°
+					// ì´ë¯¸ ìžˆëŠ” Itemì„ ì œê±°í•˜ê³  ë‹¤ì‹œ ì¶”ê°€í•œë‹¤.
 					//---------------------------------------------------------
 					TYPE_OBJECTID oldItemID = g_pZone->GetItemID( si.getX(), si.getY() );
 
@@ -139,7 +139,7 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 						
 					if (g_pZone->RemoveItem( oldItemID ))				
 					{
-						// ´Ù½Ã Ãß°¡ÇÑ´Ù.
+						// ë‹¤ì‹œ ì¶”ê°€í•œë‹¤.
 						if (!g_pZone->AddItem( pCorpse ))
 						{
 							DEBUG_ADD_FORMAT("[Error] Can't add Corpse to Zone, too. id=%d, xy=(%d, %d)", si.getObjectID(), si.getX(), si.getY());
@@ -149,7 +149,7 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 					}
 					else
 					{
-						// ÀÌ¹Ì ÀÖ´Â itemÀ» Á¦°ÅÇÒ ¼ö ¾ø´Â °æ¿ì
+						// ì´ë¯¸ ìžˆëŠ” itemì„ ì œê±°í•  ìˆ˜ ì—†ëŠ” ê²½ìš°
 						DEBUG_ADD_FORMAT("[Error] Can't remove old Item. id=%d, xy=(%d, %d)", oldItemID, si.getX(), si.getY());
 						
 						delete pCorpse;
@@ -158,7 +158,7 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 			}
 			//---------------------------------------------------------
 			//
-			// ÀÌ¹Ì ½ÃÃ¼°¡ ÀÖ´Â °æ¿ì 
+			// ì´ë¯¸ ì‹œì²´ê°€ ìžˆëŠ” ê²½ìš° 
 			//
 			//---------------------------------------------------------
 			else
@@ -168,8 +168,8 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 				if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 				{
 					//---------------------------------------------------------					
-					// ½ÃÃ¼°¡ ÀÌ¹Ì ÀÖ´Â °æ¿ì
-					// ½ÃÃ¼¿¡ µé¾îÀÖ´Â Item °³¼ö ¼³Á¤
+					// ì‹œì²´ê°€ ì´ë¯¸ ìžˆëŠ” ê²½ìš°
+					// ì‹œì²´ì— ë“¤ì–´ìžˆëŠ” Item ê°œìˆ˜ ì„¤ì •
 					//---------------------------------------------------------
 					pItem->SetNumber( pPacket->getTreasureCount() );
 				}
@@ -181,7 +181,7 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 		}
 		//---------------------------------------------------------
 		//
-		//				Zone¿¡ ÀÌ¹Ì ÀÖ´Â °æ¿ì
+		//				Zoneì— ì´ë¯¸ ìžˆëŠ” ê²½ìš°
 		//
 		//---------------------------------------------------------		
 		else
@@ -221,7 +221,7 @@ void GCAddSlayerCorpseHandler::execute ( GCAddSlayerCorpse * pPacket , Player * 
 			pCreature->SetStatus( MODIFY_CURRENT_HP, 0 );
 
 			//---------------------------------------------------------
-			// Creature¸¦ Á×¿©¾ß ÇÑ´Ù.
+			// Creatureë¥¼ ì£½ì—¬ì•¼ í•œë‹¤.
 			//---------------------------------------------------------
 			if (!pCreature->IsDead())
 			{

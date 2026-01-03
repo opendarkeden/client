@@ -15,10 +15,10 @@ extern CSoundPartManager*		g_pSoundManager;
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-//iFeel ÀåÄ¡¸¦ ÃÊ±âÈ­ ÇÏ°í ÇÊ¿äÇÑ µ¥ÀÌÅÍ¸¦ ¼¼ÆÃÇÑ´Ù
+//iFeel ì¥ì¹˜ë¥¼ ì´ˆê¸°í™” í•˜ê³  í•„ìš”í•œ ë°ì´í„°ë¥¼ ì„¸íŒ…í•œë‹¤
 CImm::CImm()
 {
-	//Logitech iFeel Mouse Áö¿ø ÄÚµå
+	//Logitech iFeel Mouse ì§€ì› ì½”ë“œ
 	m_bPlay = false;
 	m_pDevice = CImmDevice::CreateDevice(NULL, g_hWnd);
 
@@ -46,14 +46,14 @@ CImm::CImm()
 
 CImm::~CImm()
 {
-	//Logitech iFeel Mouse Áö¿øÄÚµå
+	//Logitech iFeel Mouse ì§€ì›ì½”ë“œ
 
 	Disable();
 	delete m_pDevice; // Release device
 
 }
 
-//Enable µÉ¶§ ÇÊ¿äÇÑ µ¥ÀÌÅÍ¸¦ ºÒ·¯¿À°í, ÇÊ¿äÇÑ ÇÁ·ÎÁ§Æ®µéÀ» ¿­¾îµĞ´Ù
+//Enable ë ë•Œ í•„ìš”í•œ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¤ê³ , í•„ìš”í•œ í”„ë¡œì íŠ¸ë“¤ì„ ì—´ì–´ë‘”ë‹¤
 void CImm::Enable()
 {
 	if(!IsDevice())return;
@@ -62,7 +62,7 @@ void CImm::Enable()
 	
 	BOOL bRes;
 
-	//UI µ¥ÀÌÅÍ ºÒ·¯¿À±â
+	//UI ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸°
 	CImmProject ImmProject;
 	if (ImmProject.OpenFile(IFR_UI, m_pDevice))
 	{
@@ -110,28 +110,28 @@ void CImm::Enable()
 	}
 
 	m_ProjectAction = new CImmProject;
-	if(!m_ProjectAction->OpenFile(IFR_ACTION, m_pDevice))	//½ÇÆĞÇÏ¸é deleteÇÏÀğ
+	if(!m_ProjectAction->OpenFile(IFR_ACTION, m_pDevice))	//ì‹¤íŒ¨í•˜ë©´ deleteí•˜ìŸˆ
 	{
 		delete m_ProjectAction;
 		m_ProjectAction = NULL;
 	}
 	
 	m_ProjectSkill = new CImmProject;
-	if(!m_ProjectSkill->OpenFile(IFR_SKILL, m_pDevice))	//½ÇÆĞÇÏ¸é deleteÇÏÀğ
+	if(!m_ProjectSkill->OpenFile(IFR_SKILL, m_pDevice))	//ì‹¤íŒ¨í•˜ë©´ deleteí•˜ìŸˆ
 	{
 		delete m_ProjectSkill;
 		m_ProjectSkill = NULL;
 	}
 	
 	m_ProjectInventory = new CImmProject;
-	if(!m_ProjectInventory->OpenFile(IFR_INVENTORY, m_pDevice))	//½ÇÆĞÇÏ¸é deleteÇÏÀğ
+	if(!m_ProjectInventory->OpenFile(IFR_INVENTORY, m_pDevice))	//ì‹¤íŒ¨í•˜ë©´ deleteí•˜ìŸˆ
 	{
 		delete m_ProjectInventory;
 		m_ProjectInventory = NULL;
 	}
 	
 	m_ProjectUseItem = new CImmProject;
-	if(!m_ProjectUseItem->OpenFile(IFR_USE_ITEM, m_pDevice))	//½ÇÆĞÇÏ¸é deleteÇÏÀğ
+	if(!m_ProjectUseItem->OpenFile(IFR_USE_ITEM, m_pDevice))	//ì‹¤íŒ¨í•˜ë©´ deleteí•˜ìŸˆ
 	{
 		delete m_ProjectUseItem;
 		m_ProjectUseItem = NULL;
@@ -144,7 +144,7 @@ void CImm::Disable()
 	if(!IsDevice())return;
 	m_bPlay = false; 
 
-	//UI µ¥ÀÌÅÍ »èÁ¦
+	//UI ë°ì´í„° ì‚­ì œ
 	for(unsigned int i = 0; i < m_vUI.size(); i++)
 	{
 		if(m_vUI[i] != NULL)
@@ -190,7 +190,7 @@ void CImm::ForceUI(const unsigned int ID) const
 			m_vUI[ID]->Start();
 }
 
-//Æ¯Á¤±â¼ú¾µ¶§
+//íŠ¹ì •ê¸°ìˆ ì“¸ë•Œ
 void CImm::ForceAction(const int sound_id) const
 {
 	if(m_bPlay && m_pDevice && m_ProjectAction && g_pSoundTable && sound_id < g_pSoundTable->GetSize())
@@ -203,7 +203,7 @@ void CImm::ForceAction(const int sound_id) const
 	}
 }
 
-//½ºÅ³¾µ¶§
+//ìŠ¤í‚¬ì“¸ë•Œ
 void CImm::ForceSkill(const int sound_id) const
 {
 	if(m_bPlay && m_pDevice && m_ProjectSkill && g_pSoundTable && sound_id < g_pSoundTable->GetSize())
@@ -216,7 +216,7 @@ void CImm::ForceSkill(const int sound_id) const
 	}
 }
 
-//¾ÆÀÌÅÛ »ç¿ëÇÒ¶§
+//ì•„ì´í…œ ì‚¬ìš©í• ë•Œ
 void CImm::ForceUseItem(const int sound_id) const
 {
 	if(m_bPlay && m_pDevice && m_ProjectUseItem && g_pSoundTable && sound_id < g_pSoundTable->GetSize())
@@ -229,7 +229,7 @@ void CImm::ForceUseItem(const int sound_id) const
 	}
 }
 
-//¾ÆÀÌÅÛÁıÀ»¶§
+//ì•„ì´í…œì§‘ì„ë•Œ
 void CImm::ForceInventory(const int sound_id) const
 {
 	if(m_bPlay && m_pDevice && m_ProjectInventory && g_pSoundTable && sound_id < g_pSoundTable->GetSize())

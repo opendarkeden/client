@@ -15,7 +15,7 @@ ITEMCLASS_TABLE::InitItem3()
 {
 InitClass( ITEM_CLASS_EFFECT_ITEM,13 );
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].HName = "∂‘Ω≤ª˙1";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].HName = "ÂØπËÆ≤Êú∫1";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].EName = "Megaphone 1";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].Description = "??? ?? ???? ???? ? ????.";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -45,7 +45,7 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,13 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].HName = "∂‘Ω≤ª˙2";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].HName = "ÂØπËÆ≤Êú∫2";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].EName = "Megaphone 2";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].Description = "??? ?? ???? ???? ? ????.";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -75,7 +75,7 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,13 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].HName = "∂‘Ω≤ª˙3";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].HName = "ÂØπËÆ≤Êú∫3";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].EName = "Megaphone 3";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].Description = "??? ?? ???? ???? ? ????.";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -105,9 +105,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,13 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].HName = "”Ô—‘∑≠“Î∆˜";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].HName = "ËØ≠Ë®ÄÁøªËØëÂô®";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].EName = "Translator";
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].Description = "ø…“‘ π”√”“±ﬂµƒ∞¥º¸°£";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].Description = "ÂèØ‰ª•‰ΩøÁî®Âè≥ËæπÁöÑÊåâÈîÆ„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_C4,SOUND_ITEM_MOVE_C4,SOUNDID_NULL,SOUND_ITEM_USE_C4 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].SetFrameID( 579, 593, 0 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].SetDropFrameID( 579 );
@@ -135,9 +135,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,13 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].HName = "…≥¬©";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].HName = "Ê≤ôÊºè";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].EName = "L-grade Hourglass";
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].Description = "∏–∂˜Ω⁄Ω±¿¯µ¿æﬂ";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].Description = "ÊÑüÊÅ©ËäÇÂ•ñÂä±ÈÅìÂÖ∑";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_C4,SOUND_ITEM_MOVE_C4,SOUNDID_NULL,SOUND_ITEM_USE_C4 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].SetFrameID( 972, 1006, 0 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].SetDropFrameID( 972 );
@@ -165,9 +165,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,13 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].HName = "…≥¬©";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].HName = "Ê≤ôÊºè";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].EName = "M-grade Hourglass";
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].Description = "∏–∂˜Ω⁄Ω±¿¯µ¿æﬂ";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].Description = "ÊÑüÊÅ©ËäÇÂ•ñÂä±ÈÅìÂÖ∑";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_C4,SOUND_ITEM_MOVE_C4,SOUNDID_NULL,SOUND_ITEM_USE_C4 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].SetFrameID( 971, 1005, 0 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].SetDropFrameID( 971 );
@@ -195,9 +195,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,13 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].HName = "…≥¬©";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].HName = "Ê≤ôÊºè";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].EName = "S-grade Hourglass";
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].Description = "∏–∂˜Ω⁄Ω±¿¯µ¿æﬂ";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].Description = "ÊÑüÊÅ©ËäÇÂ•ñÂä±ÈÅìÂÖ∑";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].SetSoundID( SOUND_ITEM_MOVE_C4,SOUND_ITEM_MOVE_C4,SOUNDID_NULL,SOUND_ITEM_USE_C4 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].SetFrameID( 970, 1004, 0 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][6].SetDropFrameID( 970 );
@@ -315,9 +315,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,13 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][10].HName = "¬Ã…´∏ﬂº∂∂‘Ω≤ª˙";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][10].HName = "ÁªøËâ≤È´òÁ∫ßÂØπËÆ≤Êú∫";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][10].EName = "Top Megaphone Green";
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][10].Description = "ø…œÚ»´ ¿ΩÁ∑¢ÀÕ–≈œ¢";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][10].Description = "ÂèØÂêëÂÖ®‰∏ñÁïåÂèëÈÄÅ‰ø°ÊÅØ";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][10].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][10].SetFrameID( 710, 724, 0 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][10].SetDropFrameID( 710 );
@@ -345,9 +345,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,13 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][11].HName = "¿∂…´∏ﬂº∂∂‘Ω≤ª˙";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][11].HName = "ËìùËâ≤È´òÁ∫ßÂØπËÆ≤Êú∫";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][11].EName = "Top Megaphone Blue";
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][11].Description = "ø…œÚ»´ ¿ΩÁ∑¢ÀÕ–≈œ¢";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][11].Description = "ÂèØÂêëÂÖ®‰∏ñÁïåÂèëÈÄÅ‰ø°ÊÅØ";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][11].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][11].SetFrameID( 710, 724, 0 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][11].SetDropFrameID( 710 );
@@ -375,9 +375,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,13 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][12].HName = "ª∆…´∏ﬂº∂∂‘Ω≤ª˙";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][12].HName = "ÈªÑËâ≤È´òÁ∫ßÂØπËÆ≤Êú∫";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][12].EName = "Top Megaphone Yellow";
- m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][12].Description = "ø…œÚ»´ ¿ΩÁ∑¢ÀÕ–≈œ¢";
+ m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][12].Description = "ÂèØÂêëÂÖ®‰∏ñÁïåÂèëÈÄÅ‰ø°ÊÅØ";
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][12].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][12].SetFrameID( 710, 724, 0 );
  m_pTypeInfo[ITEM_CLASS_EFFECT_ITEM][12].SetDropFrameID( 710 );
@@ -407,9 +407,9 @@ InitClass( ITEM_CLASS_EFFECT_ITEM,13 );
  
 InitClass( ITEM_CLASS_CODE_SHEET,2 );
 
- m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].HName = "√‹¬Î±Ì";
+ m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].HName = "ÂØÜÁ†ÅË°®";
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].EName = "Code Sheet";
- m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].Description = "”√”“±ﬂµƒ∞¥º¸ø…“‘¥Úø™√‹¬Î±Ì°£";
+ m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].Description = "Áî®Âè≥ËæπÁöÑÊåâÈîÆÂèØ‰ª•ÊâìÂºÄÂØÜÁ†ÅË°®„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].SetFrameID( 491, 505, 0 );
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].SetDropFrameID( 491 );
@@ -437,9 +437,9 @@ InitClass( ITEM_CLASS_CODE_SHEET,2 );
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].HName = "√‹¬Î±Ì";
+ m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].HName = "ÂØÜÁ†ÅË°®";
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].EName = "Code Sheet";
- m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].Description = "”√”“±ﬂµƒ∞¥º¸ø…“‘¥Úø™√‹¬Î±Ì°£";
+ m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].Description = "Áî®Âè≥ËæπÁöÑÊåâÈîÆÂèØ‰ª•ÊâìÂºÄÂØÜÁ†ÅË°®„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].SetFrameID( 491, 505, 0 );
  m_pTypeInfo[ITEM_CLASS_CODE_SHEET][1].SetDropFrameID( 491 );
@@ -470,9 +470,9 @@ InitClass( ITEM_CLASS_CODE_SHEET,2 );
 
 InitClass( ITEM_CLASS_MOON_CARD,8 );
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].HName = "∞Î‘¬ø®";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].HName = "ÂçäÊúàÂç°";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].EName = "The Half Moon Card";
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].Description = "ƒ„“™ ’ºØµƒ∂‡“ª–©°£";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].Description = "‰Ω†Ë¶ÅÊî∂ÈõÜÁöÑÂ§ö‰∏Ä‰∫õ„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].SetFrameID( 770, 784, 0 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].SetDropFrameID( 770 );
@@ -500,7 +500,7 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][1].HName = "‘¬—¿ø®";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][1].HName = "ÊúàÁâôÂç°";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][1].EName = "The New Moon Card";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -532,7 +532,7 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
 
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].HName = "Netmarble card";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].EName = "The Netmarble Card";
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].Description = "ƒ„“™ ’ºØµƒ∂‡“ª–©°£";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].Description = "‰Ω†Ë¶ÅÊî∂ÈõÜÁöÑÂ§ö‰∏Ä‰∫õ„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].SetFrameID( 838, 861, 0 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].SetDropFrameID( 838 );
@@ -560,9 +560,9 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].HName = " √≈∆± ";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].HName = " Èó®Á•® ";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].EName = "Ticket";
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].Description = "Ω¯»Î¥Ú±¶µÿÕº√≈∆±°£";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].Description = "ËøõÂÖ•ÊâìÂÆùÂú∞ÂõæÈó®Á•®„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].SetFrameID( 117, 37, 0 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].SetDropFrameID( 117 );
@@ -590,7 +590,7 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].HName = "¿Õ¿◊∂˚µƒª π⁄";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].HName = "Âä≥Èõ∑Â∞îÁöÑÁöáÂÜ†";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].EName = "Son's Laurel Crown";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -620,7 +620,7 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].HName = "ººƒ‹ π”√ø® »À¿‡";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].HName = "ÊäÄËÉΩ‰ΩøÁî®Âç° ‰∫∫Á±ª";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].EName = "Skill Card For Slayer";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -650,7 +650,7 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].HName = "ººƒ‹ π”√ø® Œ¸—™πÌ";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].HName = "ÊäÄËÉΩ‰ΩøÁî®Âç° Âê∏Ë°ÄÈ¨º";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].EName = "SkillCard For Vampire";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -680,7 +680,7 @@ InitClass( ITEM_CLASS_MOON_CARD,8 );
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MOON_CARD][7].HName = "ººƒ‹ π”√ø® ƒß¡È";
+ m_pTypeInfo[ITEM_CLASS_MOON_CARD][7].HName = "ÊäÄËÉΩ‰ΩøÁî®Âç° È≠îÁÅµ";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][7].EName = "SkillCard For Ousters";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_MOON_CARD][7].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -1075,9 +1075,9 @@ InitClass( ITEM_CLASS_SWEEPER,12 );
 
 InitClass( ITEM_CLASS_PET_ITEM,6 );
 
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].HName = "ºŸµƒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].HName = "ÂÅáÁöÑ";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].EName = "Gara Bezz";
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].Description = "≤º¿≠µ¬∏¯Œ“πˆ∞…£°πˆ£°";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].Description = "Â∏ÉÊãâÂæ∑ÁªôÊàëÊªöÂêßÔºÅÊªöÔºÅ";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].SetFrameID( 797, 820, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].SetDropFrameID( 797 );
@@ -1105,9 +1105,9 @@ InitClass( ITEM_CLASS_PET_ITEM,6 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].HName = "–°π∑œÓ»¶";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].HName = "Â∞èÁãóÈ°πÂúà";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].EName = "Wolfdog Leash";
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].Description = "’ŸªΩ–°π∑ ± π”√µƒπ∑¡¥";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].Description = "Âè¨Âî§Â∞èÁãóÊó∂‰ΩøÁî®ÁöÑÁãóÈìæ";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].SetFrameID( 797, 820, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].SetDropFrameID( 797 );
@@ -1135,9 +1135,9 @@ InitClass( ITEM_CLASS_PET_ITEM,6 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].HName = "¿«π∑œÓ»¶";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].HName = "ÁãºÁãóÈ°πÂúà";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].EName = "Wolverine Leash";
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].Description = "’ŸªΩ¿«π∑ ± π”√µƒπ∑¡¥";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].Description = "Âè¨Âî§ÁãºÁãóÊó∂‰ΩøÁî®ÁöÑÁãóÈìæ";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].SetFrameID( 803, 826, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].SetDropFrameID( 803 );
@@ -1165,9 +1165,9 @@ InitClass( ITEM_CLASS_PET_ITEM,6 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].HName = "Œﬁœﬂµ˜’˚∆˜";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].HName = "Êó†Á∫øË∞ÉÊï¥Âô®";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].EName = "Radio Controller";
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].Description = "’ŸªΩÃπøÀ ± π”√µƒµ¿æﬂ";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].Description = "Âè¨Âî§Âù¶ÂÖãÊó∂‰ΩøÁî®ÁöÑÈÅìÂÖ∑";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].SetFrameID( 839, 862, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].SetDropFrameID( 839 );
@@ -1195,9 +1195,9 @@ InitClass( ITEM_CLASS_PET_ITEM,6 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].HName = "Ú˘Ú∆§∞¸";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].HName = "ËùôËù†ÁöÆÂåÖ";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].EName = "Stirge Bag";
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].Description = "’ŸªΩ∂ÒƒßÚ˘Ú ± π”√µƒµ¿æﬂ";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].Description = "Âè¨Âî§ÊÅ∂È≠îËùôËù†Êó∂‰ΩøÁî®ÁöÑÈÅìÂÖ∑";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].SetFrameID( 840, 863, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].SetDropFrameID( 840 );
@@ -1225,9 +1225,9 @@ InitClass( ITEM_CLASS_PET_ITEM,6 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].HName = "’ŸªΩ Ø";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].HName = "Âè¨Âî§Áü≥";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].EName = "Summon Pixie";
- m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].Description = "Ωªªª–°æ´¡È ± π”√µƒµ¿æﬂ°£";
+ m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].Description = "‰∫§Êç¢Â∞èÁ≤æÁÅµÊó∂‰ΩøÁî®ÁöÑÈÅìÂÖ∑„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].SetFrameID( 845, 868, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ITEM][5].SetDropFrameID( 845 );
@@ -1258,9 +1258,9 @@ InitClass( ITEM_CLASS_PET_ITEM,6 );
 
 InitClass( ITEM_CLASS_PET_FOOD,18 );
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].HName = "ÀÈ»‚";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].HName = "Á¢éËÇâ";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].EName = "Mini Meat";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].Description = "6–° ±µƒ–°π∑/¿«π∑µƒ ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].Description = "6Â∞èÊó∂ÁöÑÂ∞èÁãó/ÁãºÁãóÁöÑÈ£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].SetFrameID( 792, 815, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].SetDropFrameID( 792 );
@@ -1288,9 +1288,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].HName = "–°øÈµƒ»‚";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].HName = "Â∞èÂùóÁöÑËÇâ";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].EName = "Light Meat";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].Description = "22–° ±µƒ–°π∑/¿«π∑ ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].Description = "22Â∞èÊó∂ÁöÑÂ∞èÁãó/ÁãºÁãóÈ£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].SetFrameID( 793, 816, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].SetDropFrameID( 793 );
@@ -1318,9 +1318,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].HName = "÷–µ»¥Û–°µƒ»‚";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].HName = "‰∏≠Á≠âÂ§ßÂ∞èÁöÑËÇâ";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].EName = "Half Meat";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].Description = "36–° ±µƒ–°π∑/¿«π∑ ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].Description = "36Â∞èÊó∂ÁöÑÂ∞èÁãó/ÁãºÁãóÈ£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].SetFrameID( 794, 817, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].SetDropFrameID( 794 );
@@ -1348,9 +1348,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].HName = "¥ÛøÈµƒ»‚";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].HName = "Â§ßÂùóÁöÑËÇâ";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].EName = "Large Meat";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].Description = "50–° ±µƒ–°π∑/¿«π∑ ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].Description = "50Â∞èÊó∂ÁöÑÂ∞èÁãó/ÁãºÁãóÈ£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].SetFrameID( 795, 818, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].SetDropFrameID( 795 );
@@ -1378,9 +1378,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].HName = "º”«øÀ«¡œ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].HName = "Âä†Âº∫È•≤Êñô";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].EName = "Fodder";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].Description = "7ÃÏµƒ–°π∑/¿«π∑ ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].Description = "7Â§©ÁöÑÂ∞èÁãó/ÁãºÁãóÈ£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].SetFrameID( 804, 827, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].SetDropFrameID( 804 );
@@ -1408,9 +1408,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].HName = "º”«øÀ«¡œ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].HName = "Âä†Âº∫È•≤Êñô";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].EName = "Ultra Fodder";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].Description = "15ÃÏµƒ–°π∑/¿«π∑ ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].Description = "15Â§©ÁöÑÂ∞èÁãó/ÁãºÁãóÈ£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].SetFrameID( 796, 819, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].SetDropFrameID( 796 );
@@ -1438,9 +1438,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].HName = "÷––Õ¡¶¡ø∞¸";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].HName = "‰∏≠ÂûãÂäõÈáèÂåÖ";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].EName = "Half Power Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].Description = "22–° ±ÃπøÀ”√µƒµÁ≥ÿ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].Description = "22Â∞èÊó∂Âù¶ÂÖãÁî®ÁöÑÁîµÊ±†";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].SetFrameID( 846, 869, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].SetDropFrameID( 846 );
@@ -1468,9 +1468,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].HName = "æﬁ–Õ¡¶¡ø∞¸";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].HName = "Â∑®ÂûãÂäõÈáèÂåÖ";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].EName = "Large Power Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].Description = "36–° ±ÃπøÀ”√µƒµÁ≥ÿ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].Description = "36Â∞èÊó∂Âù¶ÂÖãÁî®ÁöÑÁîµÊ±†";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].SetFrameID( 847, 870, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].SetDropFrameID( 847 );
@@ -1498,9 +1498,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].HName = "÷––Õ≥¨º∂¡¶¡ø∞¸";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].HName = "‰∏≠ÂûãË∂ÖÁ∫ßÂäõÈáèÂåÖ";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].EName = "Half Super Power Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].Description = "50–° ±ÃπøÀ”√µƒµÁ≥ÿ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].Description = "50Â∞èÊó∂Âù¶ÂÖãÁî®ÁöÑÁîµÊ±†";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].SetFrameID( 848, 871, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].SetDropFrameID( 848 );
@@ -1528,9 +1528,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].HName = "æﬁ–Õ≥¨º∂¡¶¡ø∞¸";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].HName = "Â∑®ÂûãË∂ÖÁ∫ßÂäõÈáèÂåÖ";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].EName = "Large Super Power Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].Description = "7ÃÏµƒÃπøÀµƒµÁ≥ÿ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].Description = "7Â§©ÁöÑÂù¶ÂÖãÁöÑÁîµÊ±†";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].SetFrameID( 849, 872, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].SetDropFrameID( 849 );
@@ -1558,9 +1558,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].HName = "—™∞¸";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].HName = "Ë°ÄÂåÖ";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].EName = "Blood Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].Description = "22–° ±µƒ∂ÒƒßÚ˘Ú ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].Description = "22Â∞èÊó∂ÁöÑÊÅ∂È≠îËùôËù†È£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].SetFrameID( 841, 864, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].SetDropFrameID( 841 );
@@ -1588,9 +1588,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].HName = "≈®Àı—™∞¸";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].HName = "ÊµìÁº©Ë°ÄÂåÖ";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].EName = "Enriched Blood Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].Description = "36–° ±µƒ∂ÒƒßÚ˘Ú ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].Description = "36Â∞èÊó∂ÁöÑÊÅ∂È≠îËùôËù†È£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].SetFrameID( 842, 865, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].SetDropFrameID( 842 );
@@ -1618,9 +1618,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].HName = "∏ﬂ≈®Àı—™∞¸";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].HName = "È´òÊµìÁº©Ë°ÄÂåÖ";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].EName = "Super Enriched Blood Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].Description = "50–° ±µƒ∂ÒƒßÚ˘Ú ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].Description = "50Â∞èÊó∂ÁöÑÊÅ∂È≠îËùôËù†È£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].SetFrameID( 843, 866, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].SetDropFrameID( 843 );
@@ -1648,9 +1648,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].HName = "≥¨≈®Àı—™∞¸";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].HName = "Ë∂ÖÊµìÁº©Ë°ÄÂåÖ";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].EName = "Ultra Enriched Blood Pack";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].Description = "7ÃÏµƒ∂ÒƒßÚ˘Úµƒ ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].Description = "7Â§©ÁöÑÊÅ∂È≠îËùôËù†ÁöÑÈ£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].SetFrameID( 844, 867, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].SetDropFrameID( 844 );
@@ -1678,9 +1678,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].HName = "Œ¢–Õ¬∂ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].HName = "ÂæÆÂûãÈú≤Ê∞¥";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].EName = "Mini Dew";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].Description = "22–° ±µƒ–°æ´¡È ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].Description = "22Â∞èÊó∂ÁöÑÂ∞èÁ≤æÁÅµÈ£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].SetFrameID( 850, 873, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].SetDropFrameID( 850 );
@@ -1708,9 +1708,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].HName = "–°¬∂ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].HName = "Â∞èÈú≤Ê∞¥";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].EName = "Light Dew";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].Description = "36–° ±µƒ–°æ´¡È ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].Description = "36Â∞èÊó∂ÁöÑÂ∞èÁ≤æÁÅµÈ£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].SetFrameID( 851, 874, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].SetDropFrameID( 851 );
@@ -1738,9 +1738,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][15].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].HName = "÷––Õ¬∂ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].HName = "‰∏≠ÂûãÈú≤Ê∞¥";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].EName = "Half Dew";
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].Description = "50–° ±µƒ–°æ´¡È ≥ŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].Description = "50Â∞èÊó∂ÁöÑÂ∞èÁ≤æÁÅµÈ£üÁâ©";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].SetFrameID( 852, 875, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].SetDropFrameID( 852 );
@@ -1768,7 +1768,7 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][16].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_FOOD][17].HName = "¥Û¬∂ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_PET_FOOD][17].HName = "Â§ßÈú≤Ê∞¥";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][17].EName = "Large Dew";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][17].Description = "7? ?? ??? ?????.";
  m_pTypeInfo[ITEM_CLASS_PET_FOOD][17].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -1801,9 +1801,9 @@ InitClass( ITEM_CLASS_PET_FOOD,18 );
 
 InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].HName = "∫Ï…´ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].HName = "Á∫¢Ëâ≤Ê∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].EName = "Red Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].SetFrameID( 798, 821, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].SetDropFrameID( 798 );
@@ -1831,9 +1831,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].HName = "ª∆…´¡¶¡øÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].HName = "ÈªÑËâ≤ÂäõÈáèÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].EName = "STR Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].SetDropFrameID( 802 );
@@ -1861,9 +1861,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].HName = "ª∆…´√ÙΩ›ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].HName = "ÈªÑËâ≤ÊïèÊç∑Ê∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].EName = "DEX Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].SetDropFrameID( 802 );
@@ -1891,9 +1891,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].HName = "ª∆…´÷«¡¶ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].HName = "ÈªÑËâ≤Êô∫ÂäõÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].EName = "INT Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].SetDropFrameID( 802 );
@@ -1921,9 +1921,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].HName = "ª∆…´ªÿ±‹ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].HName = "ÈªÑËâ≤ÂõûÈÅøÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].EName = "Defense Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].SetDropFrameID( 802 );
@@ -1951,9 +1951,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].HName = "ª∆…´∑¿”˘ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].HName = "ÈªÑËâ≤Èò≤Âæ°Ê∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].EName = "Protection Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].SetDropFrameID( 802 );
@@ -1981,9 +1981,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].HName = "ª∆…´–“‘ÀÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].HName = "ÈªÑËâ≤Âπ∏ËøêÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].EName = "Luck Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].SetDropFrameID( 802 );
@@ -2011,9 +2011,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].HName = "ª∆…´ ”“∞ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].HName = "ÈªÑËâ≤ËßÜÈáéÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].EName = "Vision Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].SetDropFrameID( 802 );
@@ -2041,9 +2041,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].HName = "ª∆…´À∫¶ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].HName = "ÈªÑËâ≤ÊçüÂÆ≥Ê∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].EName = "Damage Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].SetDropFrameID( 802 );
@@ -2071,9 +2071,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].HName = "ª∆…´ƒß∑®π•ª˜¡¶ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].HName = "ÈªÑËâ≤È≠îÊ≥ïÊîªÂáªÂäõÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].EName = "Magic Damage Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].SetDropFrameID( 802 );
@@ -2101,9 +2101,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].HName = "ª∆…´…˙√¸¡¶‘Ÿ…˙ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].HName = "ÈªÑËâ≤ÁîüÂëΩÂäõÂÜçÁîüÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].EName = "HP Regen Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].SetDropFrameID( 802 );
@@ -2131,9 +2131,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].HName = "ª∆…´…˙√¸¡¶ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].HName = "ÈªÑËâ≤ÁîüÂëΩÂäõÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].EName = "HP Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].SetDropFrameID( 802 );
@@ -2161,9 +2161,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].HName = "ª∆…´√¸÷–¬ ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].HName = "ÈªÑËâ≤ÂëΩ‰∏≠ÁéáÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].EName = "ToHit Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].SetDropFrameID( 802 );
@@ -2191,9 +2191,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].HName = "ª÷∏¥…Ë÷√";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].HName = "ÊÅ¢Â§çËÆæÁΩÆ";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].EName = "Revival Set";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].Description = "ø…“‘∞—À¿»•µƒ≥ËŒÔæ»ªÓ£¨µ´ «”–“ª∂®µƒº∏¬  ß∞‹°£";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].Description = "ÂèØ‰ª•ÊääÊ≠ªÂéªÁöÑÂÆ†Áâ©ÊïëÊ¥ªÔºå‰ΩÜÊòØÊúâ‰∏ÄÂÆöÁöÑÂá†ÁéáÂ§±Ë¥•„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].SetFrameID( 800, 823, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].SetDropFrameID( 800 );
@@ -2221,9 +2221,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].HName = "µ˜’˚∏¥ªÓ∑—”√";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].HName = "Ë∞ÉÊï¥Â§çÊ¥ªË¥πÁî®";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].EName = "Premium Revival Set";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].Description = "ø…“‘∞—À¿»•µƒ≥ËŒÔæ»ªÓ£¨µ´ «”–“ª∂®µƒº∏¬  ß∞‹°£";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].Description = "ÂèØ‰ª•ÊääÊ≠ªÂéªÁöÑÂÆ†Áâ©ÊïëÊ¥ªÔºå‰ΩÜÊòØÊúâ‰∏ÄÂÆöÁöÑÂá†ÁéáÂ§±Ë¥•„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].SetFrameID( 801, 824, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].SetDropFrameID( 801 );
@@ -2251,9 +2251,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].HName = "∫ÏƒÒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].HName = "Á∫¢È∏ü";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].EName = "Red Bird";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].SetFrameID( 799, 822, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].SetDropFrameID( 799 );
@@ -2281,9 +2281,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][15].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].HName = "ª∆…´»´≤øƒ‹¡¶÷µÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].HName = "ÈªÑËâ≤ÂÖ®ÈÉ®ËÉΩÂäõÂÄºÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].EName = "All Attribute Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].SetDropFrameID( 802 );
@@ -2311,9 +2311,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][16].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].HName = "ª∆…´ƒß¡¶ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].HName = "ÈªÑËâ≤È≠îÂäõÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].EName = "MP Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].SetDropFrameID( 802 );
@@ -2341,9 +2341,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][17].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].HName = "ª∆…´”––ß¥Úª˜ÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].HName = "ÈªÑËâ≤ÊúâÊïàÊâìÂáªÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].EName = "Critical Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].SetDropFrameID( 802 );
@@ -2371,9 +2371,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][18].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].HName = "ª∆…´π•ÀŸÀÆµŒ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].HName = "ÈªÑËâ≤ÊîªÈÄüÊ∞¥Êª¥";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].EName = "Attack Speed Yellow Drop";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].Description = "ø…“‘—µ¡∑≥ËŒÔ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].Description = "ÂèØ‰ª•ËÆ≠ÁªÉÂÆ†Áâ©";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].SetFrameID( 802, 825, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].SetDropFrameID( 802 );
@@ -2401,9 +2401,9 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][19].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].HName = "±‰“Ï◊¢…‰“∫";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].HName = "ÂèòÂºÇÊ≥®Â∞ÑÊ∂≤";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].EName = "Mutant Injection";
- m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].Description = "»Áπ˚ π”√µƒª∞ª·”¿æ√–‘µƒ±‰…ÌŒ™¿«π∑£¨≤ªø…∑µªÿ";
+ m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].Description = "Â¶ÇÊûú‰ΩøÁî®ÁöÑËØù‰ºöÊ∞∏‰πÖÊÄßÁöÑÂèòË∫´‰∏∫ÁãºÁãóÔºå‰∏çÂèØËøîÂõû";
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].SetFrameID( 857, 880, 0 );
  m_pTypeInfo[ITEM_CLASS_PET_ENCHANT_ITEM][20].SetDropFrameID( 857 );
@@ -2434,7 +2434,7 @@ InitClass( ITEM_CLASS_PET_ENCHANT_ITEM,21 );
 
 InitClass( ITEM_CLASS_LUCKY_BAG,4 );
 
- m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].HName = "¬Ã…´±¶¥¸";
+ m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].HName = "ÁªøËâ≤ÂÆùË¢ã";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].EName = "The Green Lucky Bag";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -2464,7 +2464,7 @@ InitClass( ITEM_CLASS_LUCKY_BAG,4 );
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].HName = "¿∂…´±¶¥¸";
+ m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].HName = "ËìùËâ≤ÂÆùË¢ã";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].EName = "The Blue Lucky Bag";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -2494,7 +2494,7 @@ InitClass( ITEM_CLASS_LUCKY_BAG,4 );
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].HName = "Ω…´±¶¥¸";
+ m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].HName = "ÈáëËâ≤ÂÆùË¢ã";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].EName = "The Gold Lucky Bag";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -2524,9 +2524,9 @@ InitClass( ITEM_CLASS_LUCKY_BAG,4 );
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].HName = "”≈ª›∑—”√";
+ m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].HName = "‰ºòÊÉ†Ë¥πÁî®";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].EName = "Premium Coupon";
- m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].Description = "50’≈»Î ÷∫Ûø…“‘¥Úø™“ª∏ˆ–¬µƒ ¿ΩÁ";
+ m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].Description = "50Âº†ÂÖ•ÊâãÂêéÂèØ‰ª•ÊâìÂºÄ‰∏Ä‰∏™Êñ∞ÁöÑ‰∏ñÁïå";
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].SetFrameID( 855, 878, 0 );
  m_pTypeInfo[ITEM_CLASS_LUCKY_BAG][3].SetDropFrameID( 855 );
@@ -2557,7 +2557,7 @@ InitClass( ITEM_CLASS_LUCKY_BAG,4 );
 
 InitClass( ITEM_CLASS_SMS_ITEM,9 );
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].HName = "U2A ŒﬁœﬂµÁ (SMS) 12";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].HName = "U2A Êó†Á∫øÁîµ (SMS) 12";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].EName = "U2A Wireless Set (SMS) 12";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -2587,7 +2587,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].HName = "¥¯—™Ú˘Ú (SMS) 12";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].HName = "Â∏¶Ë°ÄËùôËù† (SMS) 12";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].EName = "Blood Carrier Bat (SMS) 12";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -2617,7 +2617,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].HName = "∞¢∂˚»˚µ¬Àπ ˜“∂(SMS) 12";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].HName = "ÈòøÂ∞îÂ°ûÂæ∑ÊñØÊ†ëÂè∂(SMS) 12";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].EName = "Alseides Leef (SMS) 12";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -2647,7 +2647,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].HName = "U2A ŒﬁœﬂµÁ (SMS) 25";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].HName = "U2A Êó†Á∫øÁîµ (SMS) 25";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].EName = "U2A Wireless Set (SMS) 25";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -2677,7 +2677,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].HName = "¥¯—™Ú˘Ú (SMS) 25";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].HName = "Â∏¶Ë°ÄËùôËù† (SMS) 25";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].EName = "Blood Carrier Bat (SMS) 25";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -2707,7 +2707,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].HName = "∞¢∂˚»˚µ¬Àπ ˜“∂(SMS) 25";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].HName = "ÈòøÂ∞îÂ°ûÂæ∑ÊñØÊ†ëÂè∂(SMS) 25";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].EName = "Alseides Leef (SMS) 25";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -2737,7 +2737,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].HName = "U2A ŒﬁœﬂµÁ (SMS) 60";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].HName = "U2A Êó†Á∫øÁîµ (SMS) 60";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].EName = "U2A Wireless Set (SMS) 60";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -2767,7 +2767,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].HName = "¥¯—™Ú˘Ú (SMS) 60";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].HName = "Â∏¶Ë°ÄËùôËù† (SMS) 60";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].EName = "Blood Carrier Bat (SMS) 60";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -2797,7 +2797,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SMS_ITEM][8].HName = "∞¢∂˚»˚µ¬Àπ ˜“∂(SMS) 60";
+ m_pTypeInfo[ITEM_CLASS_SMS_ITEM][8].HName = "ÈòøÂ∞îÂ°ûÂæ∑ÊñØÊ†ëÂè∂(SMS) 60";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][8].EName = "Alseides Leef (SMS) 60";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_SMS_ITEM][8].SetSoundID( SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUND_ITEM_MOVE_BOMB,SOUNDID_NULL );
@@ -2830,7 +2830,7 @@ InitClass( ITEM_CLASS_SMS_ITEM,9 );
 
 InitClass( ITEM_CLASS_CORE_ZAP,4 );
 
- m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].HName = "Gilles de Rais Core Zap∫⁄";
+ m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].HName = "Gilles de Rais Core ZapÈªë";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].EName = "Gilles de Rais Core Zap Black";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUNDID_NULL );
@@ -2860,7 +2860,7 @@ InitClass( ITEM_CLASS_CORE_ZAP,4 );
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].HName = "Gilles de Rais Core Zap∫Ï";
+ m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].HName = "Gilles de Rais Core ZapÁ∫¢";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].EName = "Gilles de Rais Core Zap Red";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUNDID_NULL );
@@ -2890,7 +2890,7 @@ InitClass( ITEM_CLASS_CORE_ZAP,4 );
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].HName = "Gilles de Rais Core Zap¿∂";
+ m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].HName = "Gilles de Rais Core ZapËìù";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].EName = "Gilles de Rais Core Zap Blue";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUNDID_NULL );
@@ -2920,7 +2920,7 @@ InitClass( ITEM_CLASS_CORE_ZAP,4 );
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_CORE_ZAP][3].HName = "Gilles de Rais Core Zap¬Ã";
+ m_pTypeInfo[ITEM_CLASS_CORE_ZAP][3].HName = "Gilles de Rais Core ZapÁªø";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][3].EName = "Gilles de Rais Core Zap Green";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_CORE_ZAP][3].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUNDID_NULL );
@@ -2953,7 +2953,7 @@ InitClass( ITEM_CLASS_CORE_ZAP,4 );
 
 InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].HName = "≤º¿Ôø∆¿≠ø®Àπµƒ–≈";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].HName = "Â∏ÉÈáåÁßëÊãâÂç°ÊñØÁöÑ‰ø°";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].EName = "Bricolakas's Letter";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -2983,7 +2983,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].HName = "¿≠¿Ô∞Õµƒ–≈";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].HName = "ÊãâÈáåÂ∑¥ÁöÑ‰ø°";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].EName = "Larva's Letter";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3013,7 +3013,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].HName = "≤π∏¯»Ø";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].HName = "Ë°•ÁªôÂà∏";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].EName = "Supply Ticket";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL );
@@ -3043,7 +3043,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].HName = " ˝æ›¥≈≈Ã";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].HName = "Êï∞ÊçÆÁ£ÅÁõò";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].EName = "Data Disk";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -3073,7 +3073,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].HName = "œ —™÷Æ Ø1";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].HName = "È≤úË°Ä‰πãÁü≥1";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].EName = "Bloody Stone 1";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -3103,7 +3103,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].HName = "œ —™÷Æ Ø2";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].HName = "È≤úË°Ä‰πãÁü≥2";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].EName = "Bloody Stone 2";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -3133,7 +3133,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].HName = "œ —™÷Æ Ø3";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].HName = "È≤úË°Ä‰πãÁü≥3";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].EName = "Bloody Stone 3";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -3163,7 +3163,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].HName = "ΩÃ ⁄÷§1";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].HName = "ÊïôÊéàËØÅ1";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].EName = "Professor License 1";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -3193,7 +3193,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].HName = "ΩÃ ⁄÷§2";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].HName = "ÊïôÊéàËØÅ2";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].EName = "Professor License 2";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -3223,7 +3223,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].HName = "ΩÃ ⁄÷§3";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].HName = "ÊïôÊéàËØÅ3";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].EName = "Professor License 3";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -3253,7 +3253,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].HName = "œÚµº÷Æ“Ì1";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].HName = "ÂêëÂØº‰πãÁøº1";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].EName = "Guide Wing 1";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -3283,7 +3283,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].HName = "œÚµº÷Æ“Ì2";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].HName = "ÂêëÂØº‰πãÁøº2";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].EName = "Guide Wing 2";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -3313,7 +3313,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].HName = "œÚµº÷Æ“Ì3";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].HName = "ÂêëÂØº‰πãÁøº3";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].EName = "Guide Wing 3";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -3343,7 +3343,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].HName = "∫Ï…´¿Ò∆∑∫–";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].HName = "Á∫¢Ëâ≤Á§ºÂìÅÁõí";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].EName = "Red Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].Description = "?? 5??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -3373,7 +3373,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].HName = "≥»…´¿Ò∆∑∫–";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].HName = "Ê©ôËâ≤Á§ºÂìÅÁõí";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].EName = "Orange Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].Description = "?? 10??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -3403,7 +3403,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].HName = "ª∆…´¿Ò∆∑∫–";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].HName = "ÈªÑËâ≤Á§ºÂìÅÁõí";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].EName = "Yellow Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].Description = "?? 15??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -3433,7 +3433,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][15].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].HName = "¬Ã…´¿Ò∆∑∫–";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].HName = "ÁªøËâ≤Á§ºÂìÅÁõí";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].EName = "Green Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].Description = "?? 20??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -3463,7 +3463,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][16].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].HName = "¿∂…´¿Ò∆∑∫–";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].HName = "ËìùËâ≤Á§ºÂìÅÁõí";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].EName = "Blue Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].Description = "?? 25??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -3493,7 +3493,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][17].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].HName = "…Ó¿∂…´¿Ò∆∑∫–";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].HName = "Ê∑±ËìùËâ≤Á§ºÂìÅÁõí";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].EName = "Deep Blue Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].Description = "?? 30??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -3523,7 +3523,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][18].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].HName = "◊œ…´¿Ò∆∑∫–";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].HName = "Á¥´Ëâ≤Á§ºÂìÅÁõí";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].EName = "Violet Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].Description = "?? 35??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -3553,7 +3553,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][19].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].HName = "∫⁄…´¿Ò∆∑∫–";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].HName = "ÈªëËâ≤Á§ºÂìÅÁõí";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].EName = "Black Present Box";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].Description = "?? 40??? ? ? ????.";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].SetSoundID( SOUND_XMAS_GIFTBOX,SOUND_XMAS_GIFTBOX,SOUNDID_NULL,SOUND_XMAS_GIFTBOX );
@@ -3583,7 +3583,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][20].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].HName = "¿¥◊‘EVEµƒ◊Ó∏ﬂª˙√‹–≈º˛";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].HName = "Êù•Ëá™EVEÁöÑÊúÄÈ´òÊú∫ÂØÜ‰ø°‰ª∂";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].EName = "Top Secret Letter from EVE";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3613,7 +3613,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][21].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].HName = "Œ¸—™πÌµƒªÿ∏¥";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].HName = "Âê∏Ë°ÄÈ¨ºÁöÑÂõûÂ§ç";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].EName = "Reply from Vampire";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3643,7 +3643,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][22].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].HName = "¿¥◊‘Œ¸—™πÌµƒ◊Ó∏ﬂª˙√‹–≈º˛";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].HName = "Êù•Ëá™Âê∏Ë°ÄÈ¨ºÁöÑÊúÄÈ´òÊú∫ÂØÜ‰ø°‰ª∂";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].EName = "Top Secret Letter from Vampire";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3673,7 +3673,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][23].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].HName = "EVEµƒªÿ∏¥";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].HName = "EVEÁöÑÂõûÂ§ç";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].EName = "Reply from EVE";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3703,7 +3703,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][24].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].HName = "¿≠Œ¨—«µƒ∆æ÷§";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].HName = "ÊãâÁª¥‰∫öÁöÑÂá≠ËØÅ";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].EName = "Labinia's Voucher";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3733,7 +3733,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][25].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][26].HName = "¿≠¿Ô∞Õµƒ–≈";
+ m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][26].HName = "ÊãâÈáåÂ∑¥ÁöÑ‰ø°";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][26].EName = "Larba's Letter";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][26].Description = "";
  m_pTypeInfo[ITEM_CLASS_GQUEST_ITEM][26].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3766,7 +3766,7 @@ InitClass( ITEM_CLASS_GQUEST_ITEM,27 );
 
 InitClass( ITEM_CLASS_TRAP_ITEM,10 );
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].HName = "µÿ¿◊";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].HName = "Âú∞Èõ∑";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].EName = "Land Mine";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3796,7 +3796,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].HName = "√‘ªÛ≈⁄µØ";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].HName = "Ëø∑ÊÉëÁÇÆÂºπ";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].EName = "Pleasure Station";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3826,7 +3826,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].HName = "∆∆∆¨œ›⁄Â";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].HName = "Á†¥ÁâáÈô∑Èò±";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].EName = "Claymore Trap";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3856,7 +3856,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].HName = "◊‘∂Ø≈⁄Ã®";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].HName = "Ëá™Âä®ÁÇÆÂè∞";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].EName = "Auto Turret";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3886,7 +3886,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].HName = "πƒ";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].HName = "Èºì";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].EName = "Drum";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3916,7 +3916,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].HName = "»˝Ω≈º‹A";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].HName = "‰∏âËÑöÊû∂A";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].EName = "Tripod A";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3946,7 +3946,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].HName = "»˝Ω≈º‹B";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].HName = "‰∏âËÑöÊû∂B";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].EName = "Tripod B";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -3976,7 +3976,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].HName = "»˝Ω≈º‹C";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].HName = "‰∏âËÑöÊû∂C";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].EName = "Tripod C";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -4006,7 +4006,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].HName = "¬∑’œA";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].HName = "Ë∑ØÈöúA";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].EName = "Obstacle A";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -4036,7 +4036,7 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][9].HName = "¬∑’œB";
+ m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][9].HName = "Ë∑ØÈöúB";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][9].EName = "Obstacle B";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_TRAP_ITEM][9].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL );
@@ -4069,9 +4069,9 @@ InitClass( ITEM_CLASS_TRAP_ITEM,10 );
 
 InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].HName = "—«¬Ûº”";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].HName = "‰∫öÈ∫¶Âä†";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].EName = "Armega";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].Description = "—™÷Æ • È";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].Description = "Ë°Ä‰πãÂú£‰π¶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].SetFrameID( 419, 963, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].SetDropFrameID( 419 );
@@ -4099,9 +4099,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].HName = "√◊ªÙ∂˚";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].HName = "Á±≥ÈúçÂ∞î";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].EName = "Mihole";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].Description = "—™÷Æ • È";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].Description = "Ë°Ä‰πãÂú£‰π¶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].SetFrameID( 420, 964, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].SetDropFrameID( 420 );
@@ -4129,9 +4129,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].HName = "ª˘¬ﬁ";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].HName = "Âü∫ÁΩó";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].EName = "Kiro";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].Description = "—™÷Æ • È";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].Description = "Ë°Ä‰πãÂú£‰π¶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].SetFrameID( 421, 965, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].SetDropFrameID( 421 );
@@ -4159,9 +4159,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].HName = "∞¢“¡ƒ·";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].HName = "Èòø‰ºäÂ∞º";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].EName = "Ini";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].Description = "—™÷Æ • È";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].Description = "Ë°Ä‰πãÂú£‰π¶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].SetFrameID( 416, 966, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].SetDropFrameID( 416 );
@@ -4189,9 +4189,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].HName = "∏Ò¿˚∏ﬂ¿Ô";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].HName = "Ê†ºÂà©È´òÈáå";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].EName = "Gregori";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].Description = "—™÷Æ • È";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].Description = "Ë°Ä‰πãÂú£‰π¶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].SetFrameID( 418, 967, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].SetDropFrameID( 418 );
@@ -4219,9 +4219,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].HName = "ø◊«–¿Ô—«";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].HName = "Â≠îÂàáÈáå‰∫ö";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].EName = "Concilia";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].Description = "—™÷Æ • È";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].Description = "Ë°Ä‰πãÂú£‰π¶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].SetFrameID( 417, 968, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].SetDropFrameID( 417 );
@@ -4249,9 +4249,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].HName = "¿◊º™Àπ";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].HName = "Èõ∑ÂêâÊñØ";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].EName = "Legios";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].Description = "—™÷Æ • È";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].Description = "Ë°Ä‰πãÂú£‰π¶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].SetFrameID( 410, 969, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].SetDropFrameID( 410 );
@@ -4279,9 +4279,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].HName = "œ£∂¯¿Ô";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].HName = "Â∏åËÄåÈáå";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].EName = "Hillel";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].Description = "—™÷Æ • È";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].Description = "Ë°Ä‰πãÂú£‰π¶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].SetFrameID( 412, 970, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].SetDropFrameID( 412 );
@@ -4309,9 +4309,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].HName = "‘˙∑Ú";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].HName = "ÊâéÂ§´";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].EName = "Jave";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].Description = "—™÷Æ • È";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].Description = "Ë°Ä‰πãÂú£‰π¶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].SetFrameID( 411, 971, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].SetDropFrameID( 411 );
@@ -4339,9 +4339,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].HName = "ƒ⁄¬Í";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].HName = "ÂÜÖÁéõ";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].EName = "Nema";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].Description = "—™÷Æ • È";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].Description = "Ë°Ä‰πãÂú£‰π¶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].SetFrameID( 414, 972, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].SetDropFrameID( 414 );
@@ -4369,9 +4369,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].HName = "∞¢¬ﬁ»¯";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].HName = "ÈòøÁΩóËê®";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].EName = "Arosa";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].Description = "—™÷Æ • È";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].Description = "Ë°Ä‰πãÂú£‰π¶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].SetFrameID( 415, 973, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].SetDropFrameID( 415 );
@@ -4399,9 +4399,9 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].HName = "≤ÏÀπ∑®";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].HName = "ÂØüÊñØÊ≥ï";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].EName = "Chaspa";
- m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].Description = "—™÷Æ • È";
+ m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].Description = "Ë°Ä‰πãÂú£‰π¶";
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].SetFrameID( 413, 974, 0 );
  m_pTypeInfo[ITEM_CLASS_BLOOD_BIBLE_SIGN][11].SetDropFrameID( 413 );
@@ -4432,7 +4432,7 @@ InitClass( ITEM_CLASS_BLOOD_BIBLE_SIGN,12 );
 
 InitClass( ITEM_CLASS_WAR_ITEM,1 );
 
- m_pTypeInfo[ITEM_CLASS_WAR_ITEM][0].HName = "¡˙÷Æ—€";
+ m_pTypeInfo[ITEM_CLASS_WAR_ITEM][0].HName = "Èæô‰πãÁúº";
  m_pTypeInfo[ITEM_CLASS_WAR_ITEM][0].EName = "Dragon Eye";
  m_pTypeInfo[ITEM_CLASS_WAR_ITEM][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_WAR_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4465,7 +4465,7 @@ InitClass( ITEM_CLASS_WAR_ITEM,1 );
 
 InitClass( ITEM_CLASS_CARRYING_RECEIVER,2 );
 
- m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][0].HName = "–≈œ¢ÀÈ∆¨";
+ m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][0].HName = "‰ø°ÊÅØÁ¢éÁâá";
  m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][0].EName = "Info Scrap";
  m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4495,7 +4495,7 @@ InitClass( ITEM_CLASS_CARRYING_RECEIVER,2 );
  m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][1].HName = "øÌ∆µÕ®—∂∆˜";
+ m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][1].HName = "ÂÆΩÈ¢ëÈÄöËÆØÂô®";
  m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][1].EName = "Wide Inquiere";
  m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_CARRYING_RECEIVER][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4527,7 +4527,7 @@ InitClass( ITEM_CLASS_CARRYING_RECEIVER,2 );
 
 InitClass( ITEM_CLASS_SHOULDER_ARMOR,2 );
 
- m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][0].HName = "∏ÚÛ°±≥";
+ m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][0].HName = "Ëõ§ËüÜËÉå";
  m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][0].EName = "Toad Back";
  m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4557,7 +4557,7 @@ InitClass( ITEM_CLASS_SHOULDER_ARMOR,2 );
  m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][1].HName = "–±ºÁª§º◊";
+ m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][1].HName = "ÊñúËÇ©Êä§Áî≤";
  m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][1].EName = "Slant Guard";
  m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_SHOULDER_ARMOR][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4589,7 +4589,7 @@ InitClass( ITEM_CLASS_SHOULDER_ARMOR,2 );
 
 InitClass( ITEM_CLASS_DERMIS,2 );
 
- m_pTypeInfo[ITEM_CLASS_DERMIS][0].HName = "æı–—÷Æπ⁄";
+ m_pTypeInfo[ITEM_CLASS_DERMIS][0].HName = "ËßâÈÜí‰πãÂÜ†";
  m_pTypeInfo[ITEM_CLASS_DERMIS][0].EName = "Arouse Crest";
  m_pTypeInfo[ITEM_CLASS_DERMIS][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_DERMIS][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4619,7 +4619,7 @@ InitClass( ITEM_CLASS_DERMIS,2 );
  m_pTypeInfo[ITEM_CLASS_DERMIS][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DERMIS][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DERMIS][1].HName = "≤ª–‡÷Æ¡¶";
+ m_pTypeInfo[ITEM_CLASS_DERMIS][1].HName = "‰∏çÊúΩ‰πãÂäõ";
  m_pTypeInfo[ITEM_CLASS_DERMIS][1].EName = "Immortal Creast";
  m_pTypeInfo[ITEM_CLASS_DERMIS][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_DERMIS][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4652,7 +4652,7 @@ InitClass( ITEM_CLASS_DERMIS,2 );
 
 InitClass( ITEM_CLASS_PERSONA,2 );
 
- m_pTypeInfo[ITEM_CLASS_PERSONA][0].HName = "‘π¡È√Êæﬂ";
+ m_pTypeInfo[ITEM_CLASS_PERSONA][0].HName = "ÊÄ®ÁÅµÈù¢ÂÖ∑";
  m_pTypeInfo[ITEM_CLASS_PERSONA][0].EName = "Crafty Veil";
  m_pTypeInfo[ITEM_CLASS_PERSONA][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_PERSONA][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4682,7 +4682,7 @@ InitClass( ITEM_CLASS_PERSONA,2 );
  m_pTypeInfo[ITEM_CLASS_PERSONA][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PERSONA][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PERSONA][1].HName = "ªÏ¡È√Êæﬂ";
+ m_pTypeInfo[ITEM_CLASS_PERSONA][1].HName = "Ê∑∑ÁÅµÈù¢ÂÖ∑";
  m_pTypeInfo[ITEM_CLASS_PERSONA][1].EName = "Chaotic Moral";
  m_pTypeInfo[ITEM_CLASS_PERSONA][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_PERSONA][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4715,7 +4715,7 @@ InitClass( ITEM_CLASS_PERSONA,2 );
 
 InitClass( ITEM_CLASS_FASCIA,2 );
 
- m_pTypeInfo[ITEM_CLASS_FASCIA][0].HName = "≈¡∂˚¬Í—¸¥¯";
+ m_pTypeInfo[ITEM_CLASS_FASCIA][0].HName = "Â∏ïÂ∞îÁéõËÖ∞Â∏¶";
  m_pTypeInfo[ITEM_CLASS_FASCIA][0].EName = "Palma Fascia";
  m_pTypeInfo[ITEM_CLASS_FASCIA][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_FASCIA][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4745,7 +4745,7 @@ InitClass( ITEM_CLASS_FASCIA,2 );
  m_pTypeInfo[ITEM_CLASS_FASCIA][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_FASCIA][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_FASCIA][1].HName = "≈´ÕºÀπ—¸¥¯";
+ m_pTypeInfo[ITEM_CLASS_FASCIA][1].HName = "Â•¥ÂõæÊñØËÖ∞Â∏¶";
  m_pTypeInfo[ITEM_CLASS_FASCIA][1].EName = "Nutus Fascia";
  m_pTypeInfo[ITEM_CLASS_FASCIA][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_FASCIA][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4778,7 +4778,7 @@ InitClass( ITEM_CLASS_FASCIA,2 );
 
 InitClass( ITEM_CLASS_MITTEN,2 );
 
- m_pTypeInfo[ITEM_CLASS_MITTEN][0].HName = "◊œ—… ÷Ã◊";
+ m_pTypeInfo[ITEM_CLASS_MITTEN][0].HName = "Á¥´ÁÑâÊâãÂ•ó";
  m_pTypeInfo[ITEM_CLASS_MITTEN][0].EName = "Praelium Gloves";
  m_pTypeInfo[ITEM_CLASS_MITTEN][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_MITTEN][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4808,7 +4808,7 @@ InitClass( ITEM_CLASS_MITTEN,2 );
  m_pTypeInfo[ITEM_CLASS_MITTEN][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MITTEN][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MITTEN][1].HName = "Õ≥¡Ï ÷Ã◊";
+ m_pTypeInfo[ITEM_CLASS_MITTEN][1].HName = "ÁªüÈ¢ÜÊâãÂ•ó";
  m_pTypeInfo[ITEM_CLASS_MITTEN][1].EName = "Imperium Gloves";
  m_pTypeInfo[ITEM_CLASS_MITTEN][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_MITTEN][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4841,7 +4841,7 @@ InitClass( ITEM_CLASS_MITTEN,2 );
 
 InitClass( ITEM_CLASS_SUB_INVENTORY,2 );
 
- m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][0].HName = "2x4±≥∞¸";
+ m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][0].HName = "2x4ËÉåÂåÖ";
  m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][0].EName = "2x4 Pack";
  m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][0].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4871,7 +4871,7 @@ InitClass( ITEM_CLASS_SUB_INVENTORY,2 );
  m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][1].HName = "4x6±≥∞¸";
+ m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][1].HName = "4x6ËÉåÂåÖ";
  m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][1].EName = "4x6 Pack";
  m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_SUB_INVENTORY][1].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );

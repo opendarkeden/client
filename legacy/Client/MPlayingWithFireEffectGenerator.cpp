@@ -1,7 +1,7 @@
  //----------------------------------------------------------------------
 // MSkipEffectGenerator.cpp
 //----------------------------------------------------------------------
-// Tile°ú ¸ÂºÙÀº ±ôºýÀÌ´Â EffectµéÀ» »ý¼ºÇÑ´Ù.
+// Tileê³¼ ë§žë¶™ì€ ê¹œë¹¡ì´ëŠ” Effectë“¤ì„ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "MPlayingWithFireEffectGenerator.h"
@@ -239,13 +239,13 @@ MPlayingWithFireEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 
 	//---------------------------------------------
-	// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+	// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 	//---------------------------------------------
 	TYPE_SECTORPOSITION	sX, sY;
 	sX = g_pTopView->PixelToMapX(egInfo.x0);
 	sY = g_pTopView->PixelToMapY(egInfo.y0);
 
-	// Zone¿¡ Ãß°¡ÇÑ´Ù.
+	// Zoneì— ì¶”ê°€í•œë‹¤.
 
 	bool bAdd = false;
 	MEffectTarget*	pEffectTarget2;
@@ -260,7 +260,7 @@ MPlayingWithFireEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		
 		MEffect*	pEffect;
 		//---------------------------------------------
-		// Effect »ý¼º
+		// Effect ìƒì„±
 		//---------------------------------------------
 		pEffect = new MEffect(bltType);
 		
@@ -268,21 +268,21 @@ MPlayingWithFireEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		pEffect->SetFrameID( frameID, maxFrame );	
 		pEffect->SetPixelPosition( x, y, egInfo.z0 );
 //		pEffect->SetZ(egInfo.z0);			
-		pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-		pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+		pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
+		pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 		
 //		pEffect->SetDelayFrame( i*8 );
 		
-		// ¹æÇâ ¼³Á¤
+		// ë°©í–¥ ì„¤ì •
 		pEffect->SetDirection( direction );
 		
-		// À§·Â
+		// ìœ„ë ¥
 		pEffect->SetPower(egInfo.power);
 		
-		// ºûÀÇ ¹à±â
+		// ë¹›ì˜ ë°ê¸°
 		//pEffect->SetLight( light );
 		
-		// Áßº¹ °¡´ÉÇÑ°¡
+		// ì¤‘ë³µ ê°€ëŠ¥í•œê°€
 		pEffect->SetMulti(true);
 
 		if(g_pZone->AddEffect( pEffect))
@@ -294,7 +294,7 @@ MPlayingWithFireEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			}
 			else
 			{
-				// ´ÙÀ½ Effect »ý¼º Á¤º¸
+				// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 				if (egInfo.pEffectTarget == NULL)
 				{
 					pEffect->SetLink( egInfo.nActionInfo, NULL );
@@ -309,7 +309,7 @@ MPlayingWithFireEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		}
 //		if (bAdd)
 //		{
-//			// ´ÙÀ½ Effect »ý¼º Á¤º¸
+//			// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 //			pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
 //		
 //		}

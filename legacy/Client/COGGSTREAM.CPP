@@ -2,7 +2,7 @@
 
 	stream.c
 
-	½ºÆ®¸² °ü¸® (sound classÀÇ friend class)
+	ìŠ¤íŠ¸ë¦¼ ê´€ë¦¬ (sound classì˜ friend class)
 
 
 
@@ -104,7 +104,7 @@ HRESULT CDirectSoundBuffer::createBuffer (IDirectSoundBuffer **buf, DSBUFFERDESC
 	
 	if (FAILED(temp_buf->QueryInterface(IID_IDirectSoundBuffer, (void**)buf)))
 	{	deleteBuffer (*buf); return SOUND_ERR_CANNOT_GET_INTERFACE;}
-	//	À§ ÇÔ¼ö¸¦ ¾²±â À§ÇØ¼­´Â dxguid.lib¸¦ ¸µÅ©ÇÏ°í WIN32_DCOMÀ» ¼±¾ðÇÑ´Ù.
+	//	ìœ„ í•¨ìˆ˜ë¥¼ ì“°ê¸° ìœ„í•´ì„œëŠ” dxguid.libë¥¼ ë§í¬í•˜ê³  WIN32_DCOMì„ ì„ ì–¸í•œë‹¤.
 
 	deleteBuffer (temp_buf);
 
@@ -1025,14 +1025,14 @@ EnterCriticalSection (&str->cs);
 						str->play_size = 0;
 
 						if (str->next_pos != NULL && (str->pos.option == STREAM_PERMIT_NEXT_ON || str->pos.option == STREAM_PERMIT_NEXT_NOW))
-							// »õ Æ÷Áö¼Ç Á¤º¸¸¦ °»½ÅÇÑ´Ù.
+							// ìƒˆ í¬ì§€ì…˜ ì •ë³´ë¥¼ ê°±ì‹ í•œë‹¤.
 						{
 							
 							str->streamSetCurrentPosition (str->next_pos);
 
 						} 
 						else 
-							// ÇöÀç Æ÷Áö¼Ç Á¤º¸¸¦ ¼öÁ¤ÇØ¼­ loop
+							// í˜„ìž¬ í¬ì§€ì…˜ ì •ë³´ë¥¼ ìˆ˜ì •í•´ì„œ loop
 						{
 							
 							str->pos.start_pos = str->pos.loop_start_pos;

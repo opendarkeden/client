@@ -6,7 +6,7 @@
 #define __IFC_H__
 
 
-//Logitech iFeel Mouse Áö¿øÄÚµå
+//Logitech iFeel Mouse ì§€ì›ì½”ë“œ
 #include "ifc.h"
 #include <vector>
 
@@ -45,12 +45,12 @@ private:
 	bool						m_bPlay;
 	CImmDevice					*m_pDevice;
 
-	//UI´Â ¸î°³ ¾ÈµÇ°í ÀÚÁÖ »ç¿ëµÇ¹Ç·Î ¹Ì¸® ·ÎµùÇØ ³õ´Â´Ù.
-	//³ª¸ÓÁö´Â ÆÄÀÏ¿¡¼­ Á÷Á¢ »ç¿ë
-	CImmProject					*m_ProjectAction;		//Æ¯Á¤µ¿ÀÛ ÇÒ¶§
-	CImmProject					*m_ProjectSkill;		//½ºÅ³¾µ¶§
-	CImmProject					*m_ProjectInventory;	//¾ÆÀÌÅÛ ÁıÀ»¶§
-	CImmProject					*m_ProjectUseItem;		//¾ÆÀÌÅÛ »ç¿ëÇÒ¶§
+	//UIëŠ” ëª‡ê°œ ì•ˆë˜ê³  ìì£¼ ì‚¬ìš©ë˜ë¯€ë¡œ ë¯¸ë¦¬ ë¡œë”©í•´ ë†“ëŠ”ë‹¤.
+	//ë‚˜ë¨¸ì§€ëŠ” íŒŒì¼ì—ì„œ ì§ì ‘ ì‚¬ìš©
+	CImmProject					*m_ProjectAction;		//íŠ¹ì •ë™ì‘ í• ë•Œ
+	CImmProject					*m_ProjectSkill;		//ìŠ¤í‚¬ì“¸ë•Œ
+	CImmProject					*m_ProjectInventory;	//ì•„ì´í…œ ì§‘ì„ë•Œ
+	CImmProject					*m_ProjectUseItem;		//ì•„ì´í…œ ì‚¬ìš©í• ë•Œ
 
 	std::vector<CImmPeriodic*>	m_vUI;
 //	std::string					m_strAction[FORCE_ACTION_MAX];
@@ -63,12 +63,12 @@ public:
 	void	Disable();
 	bool	IsDevice()	{ return m_pDevice != NULL; }
 
-	//ForceÇÔ¼öµé
+	//Forceí•¨ìˆ˜ë“¤
 	void	ForceUI(const unsigned int ID) const;						//UI
-	void	ForceAction(const int sound_id) const;					//Æ¯Á¤µ¿ÀÛÇÒ¶§
-	void	ForceSkill(const int sound_id) const;			//½ºÅ³¾µ¶§ wavÆÄÀÏÀÌ¸§ ³Ö¾îÁÙ°Í
-	void	ForceInventory(const int sound_id) const;		//¾ÆÀÌÅÛ ÁıÀ»¶§
-	void	ForceUseItem(const int sound_id) const;		//¾ÆÀÌÅÛ »ç¿ëÇÒ¶§
+	void	ForceAction(const int sound_id) const;					//íŠ¹ì •ë™ì‘í• ë•Œ
+	void	ForceSkill(const int sound_id) const;			//ìŠ¤í‚¬ì“¸ë•Œ wavíŒŒì¼ì´ë¦„ ë„£ì–´ì¤„ê²ƒ
+	void	ForceInventory(const int sound_id) const;		//ì•„ì´í…œ ì§‘ì„ë•Œ
+	void	ForceUseItem(const int sound_id) const;		//ì•„ì´í…œ ì‚¬ìš©í• ë•Œ
 
 
 };

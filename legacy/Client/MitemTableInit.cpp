@@ -16,9 +16,9 @@ ITEMCLASS_TABLE::InitItem2()
 
 InitClass( ITEM_CLASS_DYE_POTION,63 );
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].HName = "»æ∑¢º¡ 1";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].HName = "ÊüìÂèëÂâÇ 1";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].EName = "Hair-Dye 1";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].SetFrameID( 523, 537, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].SetDropFrameID( 523 );
@@ -46,9 +46,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].HName = "»æ∑¢º¡ 2";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].HName = "ÊüìÂèëÂâÇ 2";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].EName = "Hair-Dye 2";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].SetFrameID( 524, 538, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].SetDropFrameID( 524 );
@@ -76,9 +76,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].HName = "»æ∑¢º¡ 3";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].HName = "ÊüìÂèëÂâÇ 3";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].EName = "Hair-Dye 3";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].SetFrameID( 525, 539, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].SetDropFrameID( 525 );
@@ -106,9 +106,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].HName = "»æ∑¢º¡ 4";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].HName = "ÊüìÂèëÂâÇ 4";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].EName = "Hair-Dye 4";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].SetFrameID( 526, 540, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].SetDropFrameID( 526 );
@@ -136,9 +136,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].HName = "»æ∑¢º¡ 5";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].HName = "ÊüìÂèëÂâÇ 5";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].EName = "Hair-Dye 5";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].SetFrameID( 527, 541, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].SetDropFrameID( 527 );
@@ -166,9 +166,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].HName = "»æ∑¢º¡ 6";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].HName = "ÊüìÂèëÂâÇ 6";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].EName = "Hair-Dye 6";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].SetFrameID( 528, 542, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].SetDropFrameID( 528 );
@@ -196,9 +196,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].HName = "»æ∑¢º¡ 7";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].HName = "ÊüìÂèëÂâÇ 7";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].EName = "Hair-Dye 7";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].SetFrameID( 529, 543, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].SetDropFrameID( 529 );
@@ -226,9 +226,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].HName = "»æ∑¢º¡ 8";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].HName = "ÊüìÂèëÂâÇ 8";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].EName = "Hair-Dye 8";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].SetFrameID( 530, 544, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].SetDropFrameID( 530 );
@@ -256,9 +256,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].HName = "»æ∑¢º¡ 9";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].HName = "ÊüìÂèëÂâÇ 9";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].EName = "Hair-Dye 9";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].SetFrameID( 531, 545, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].SetDropFrameID( 531 );
@@ -286,9 +286,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].HName = "»æ∑¢º¡ 10";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].HName = "ÊüìÂèëÂâÇ 10";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].EName = "Hair-Dye 10";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].SetFrameID( 532, 546, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].SetDropFrameID( 532 );
@@ -316,9 +316,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].HName = "»æ∑¢º¡ 11";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].HName = "ÊüìÂèëÂâÇ 11";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].EName = "Hair-Dye 11";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].SetFrameID( 533, 547, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].SetDropFrameID( 533 );
@@ -346,9 +346,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].HName = "»æ∑¢º¡ 12";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].HName = "ÊüìÂèëÂâÇ 12";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].EName = "Hair-Dye 12";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].SetFrameID( 534, 548, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].SetDropFrameID( 534 );
@@ -376,9 +376,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].HName = "»æ∑¢º¡ 13";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].HName = "ÊüìÂèëÂâÇ 13";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].EName = "Hair-Dye 13";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].SetFrameID( 535, 549, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].SetDropFrameID( 535 );
@@ -406,9 +406,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].HName = "»æ∑¢º¡ 14";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].HName = "ÊüìÂèëÂâÇ 14";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].EName = "Hair-Dye 14";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].SetFrameID( 536, 550, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].SetDropFrameID( 536 );
@@ -436,9 +436,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].HName = "»æ∑¢º¡ 15";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].HName = "ÊüìÂèëÂâÇ 15";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].EName = "Hair-Dye 15";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].SetFrameID( 537, 551, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].SetDropFrameID( 537 );
@@ -466,9 +466,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].HName = "»æ∑¢º¡ 16";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].HName = "ÊüìÂèëÂâÇ 16";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].EName = "Hair-Dye 16";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].SetFrameID( 538, 552, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].SetDropFrameID( 538 );
@@ -496,9 +496,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][15].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].HName = "»æ∑¢º¡ 17";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].HName = "ÊüìÂèëÂâÇ 17";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].EName = "Hair-Dye 17";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].SetFrameID( 539, 553, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].SetDropFrameID( 539 );
@@ -526,9 +526,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][16].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].HName = "»æ∑¢º¡ 18";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].HName = "ÊüìÂèëÂâÇ 18";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].EName = "Hair-Dye 18";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].SetFrameID( 540, 554, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].SetDropFrameID( 540 );
@@ -556,9 +556,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][17].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].HName = "»æ∑¢º¡ 19";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].HName = "ÊüìÂèëÂâÇ 19";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].EName = "Hair-Dye 19";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].SetFrameID( 541, 555, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].SetDropFrameID( 541 );
@@ -586,9 +586,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][18].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].HName = "»æ∑¢º¡ 20";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].HName = "ÊüìÂèëÂâÇ 20";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].EName = "Hair-Dye 20";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].SetFrameID( 542, 556, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].SetDropFrameID( 542 );
@@ -616,9 +616,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][19].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].HName = "»æ∑¢º¡ 21";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].HName = "ÊüìÂèëÂâÇ 21";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].EName = "Hair-Dye 21";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].SetFrameID( 543, 557, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].SetDropFrameID( 543 );
@@ -646,9 +646,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][20].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].HName = "»æ∑¢º¡ 22";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].HName = "ÊüìÂèëÂâÇ 22";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].EName = "Hair-Dye 22";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].SetFrameID( 544, 558, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].SetDropFrameID( 544 );
@@ -676,9 +676,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][21].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].HName = "»æ∑¢º¡ 23";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].HName = "ÊüìÂèëÂâÇ 23";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].EName = "Hair-Dye 23";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].SetFrameID( 545, 559, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].SetDropFrameID( 545 );
@@ -706,9 +706,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][22].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].HName = "»æ∑¢º¡ 24";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].HName = "ÊüìÂèëÂâÇ 24";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].EName = "Hair-Dye 24";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].Description = "»æ∑¢£®Œ¸—™πÌ≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].Description = "ÊüìÂèëÔºàÂê∏Ë°ÄÈ¨º‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].SetFrameID( 546, 560, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].SetDropFrameID( 546 );
@@ -736,9 +736,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][23].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].HName = "∑Ù…´◊™ªªº¡1";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ1";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].EName = "Skin-Dye 1";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].SetFrameID( 547, 561, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].SetDropFrameID( 547 );
@@ -766,9 +766,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][24].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].HName = "∑Ù…´◊™ªªº¡2";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ2";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].EName = "Skin-Dye 2";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].SetFrameID( 548, 562, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].SetDropFrameID( 548 );
@@ -796,9 +796,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][25].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].HName = "∑Ù…´◊™ªªº¡3";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ3";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].EName = "Skin-Dye 3";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].SetFrameID( 549, 563, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].SetDropFrameID( 549 );
@@ -826,9 +826,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][26].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].HName = "∑Ù…´◊™ªªº¡4";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ4";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].EName = "Skin-Dye 4";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].SetFrameID( 550, 564, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].SetDropFrameID( 550 );
@@ -856,9 +856,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][27].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].HName = "∑Ù…´◊™ªªº¡5";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ5";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].EName = "Skin-Dye 5";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].SetFrameID( 551, 565, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].SetDropFrameID( 551 );
@@ -886,9 +886,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][28].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].HName = "∑Ù…´◊™ªªº¡6";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ6";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].EName = "Skin-Dye 6";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].SetFrameID( 552, 566, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].SetDropFrameID( 552 );
@@ -916,9 +916,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][29].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].HName = "∑Ù…´◊™ªªº¡7";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ7";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].EName = "Skin-Dye 7";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].SetFrameID( 553, 567, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].SetDropFrameID( 553 );
@@ -946,9 +946,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][30].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].HName = "∑Ù…´◊™ªªº¡8";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ8";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].EName = "Skin-Dye 8";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].SetFrameID( 554, 568, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].SetDropFrameID( 554 );
@@ -976,9 +976,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][31].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].HName = "∑Ù…´◊™ªªº¡9";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ9";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].EName = "Skin-Dye 9";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].SetFrameID( 555, 569, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].SetDropFrameID( 555 );
@@ -1006,9 +1006,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][32].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].HName = "∑Ù…´◊™ªªº¡10";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ10";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].EName = "Skin-Dye 10";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].SetFrameID( 556, 570, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].SetDropFrameID( 556 );
@@ -1036,9 +1036,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][33].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].HName = "∑Ù…´◊™ªªº¡11";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ11";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].EName = "Skin-Dye 11";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].SetFrameID( 557, 571, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].SetDropFrameID( 557 );
@@ -1066,9 +1066,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][34].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].HName = "∑Ù…´◊™ªªº¡12";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ12";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].EName = "Skin-Dye 12";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].SetFrameID( 558, 572, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].SetDropFrameID( 558 );
@@ -1096,9 +1096,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][35].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].HName = "∑Ù…´◊™ªªº¡13";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ13";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].EName = "Skin-Dye 13";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].SetFrameID( 559, 573, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].SetDropFrameID( 559 );
@@ -1126,9 +1126,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][36].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].HName = "∑Ù…´◊™ªªº¡14";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ14";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].EName = "Skin-Dye 14";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].SetFrameID( 560, 574, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].SetDropFrameID( 560 );
@@ -1156,9 +1156,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][37].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].HName = "∑Ù…´◊™ªªº¡15";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ15";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].EName = "Skin-Dye 15";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].SetFrameID( 561, 575, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].SetDropFrameID( 561 );
@@ -1186,9 +1186,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][38].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].HName = "∑Ù…´◊™ªªº¡16";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ16";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].EName = "Skin-Dye 16";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].SetFrameID( 562, 576, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].SetDropFrameID( 562 );
@@ -1216,9 +1216,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][39].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].HName = "∑Ù…´◊™ªªº¡17";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ17";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].EName = "Skin-Dye 17";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].SetFrameID( 563, 577, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].SetDropFrameID( 563 );
@@ -1246,9 +1246,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][40].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].HName = "∑Ù…´◊™ªªº¡18";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ18";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].EName = "Skin-Dye 18";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].SetFrameID( 564, 578, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].SetDropFrameID( 564 );
@@ -1276,9 +1276,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][41].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].HName = "∑Ù…´◊™ªªº¡19";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ19";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].EName = "Skin-Dye 19";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].SetFrameID( 565, 579, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].SetDropFrameID( 565 );
@@ -1306,9 +1306,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][42].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].HName = "∑Ù…´◊™ªªº¡20";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ20";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].EName = "Skin-Dye 20";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].SetFrameID( 566, 580, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].SetDropFrameID( 566 );
@@ -1336,9 +1336,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][43].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].HName = "∑Ù…´◊™ªªº¡21";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ21";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].EName = "Skin-Dye 21";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].SetFrameID( 567, 581, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].SetDropFrameID( 567 );
@@ -1366,9 +1366,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][44].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].HName = "∑Ù…´◊™ªªº¡22";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ22";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].EName = "Skin-Dye 22";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].SetFrameID( 568, 582, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].SetDropFrameID( 568 );
@@ -1396,9 +1396,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][45].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].HName = "∑Ù…´◊™ªªº¡23";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ23";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].EName = "Skin-Dye 23";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].SetFrameID( 569, 583, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].SetDropFrameID( 569 );
@@ -1426,9 +1426,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][46].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].HName = "∑Ù…´◊™ªªº¡24";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].HName = "ËÇ§Ëâ≤ËΩ¨Êç¢ÂâÇ24";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].EName = "Skin-Dye 24";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].Description = "∏ƒ±‰∆§∑Ù—’…´£®ƒß¡È≤ªƒ‹ π”√£©";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].Description = "ÊîπÂèòÁöÆËÇ§È¢úËâ≤ÔºàÈ≠îÁÅµ‰∏çËÉΩ‰ΩøÁî®Ôºâ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].SetFrameID( 570, 584, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].SetDropFrameID( 570 );
@@ -1456,9 +1456,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][47].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].HName = "±‰–‘“©ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].HName = "ÂèòÊÄßËçØÊ∞¥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].EName = "SEX Conversion Potion";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].Description = "±‰–‘";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].Description = "ÂèòÊÄß";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].SetFrameID( 711, 725, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].SetDropFrameID( 711 );
@@ -1486,7 +1486,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][48].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].HName = "¬Ã…´±‰…´“©ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].HName = "ÁªøËâ≤ÂèòËâ≤ËçØÊ∞¥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].EName = "Green Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1516,7 +1516,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][49].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].HName = "¿∂…´±‰…´“©ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].HName = "ËìùËâ≤ÂèòËâ≤ËçØÊ∞¥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].EName = "Blue Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1546,7 +1546,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][50].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].HName = "∫Ï…´±‰…´“©ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].HName = "Á∫¢Ëâ≤ÂèòËâ≤ËçØÊ∞¥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].EName = "Red Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1576,7 +1576,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][51].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].HName = "ª∆…´±‰…´“©ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].HName = "ÈªÑËâ≤ÂèòËâ≤ËçØÊ∞¥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].EName = "Yellow Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1606,7 +1606,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][52].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].HName = "∞◊…´±‰…´“©ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].HName = "ÁôΩËâ≤ÂèòËâ≤ËçØÊ∞¥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].EName = "White Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1636,7 +1636,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][53].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].HName = "ÃÏ«‡…´±‰…´“©ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].HName = "Â§©ÈùíËâ≤ÂèòËâ≤ËçØÊ∞¥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].EName = "Sky Blue Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1666,7 +1666,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][54].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].HName = "◊œ…´±‰…´“©ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].HName = "Á¥´Ëâ≤ÂèòËâ≤ËçØÊ∞¥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].EName = "Lilac Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1696,7 +1696,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][55].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].HName = "∫⁄…´±‰…´“©ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].HName = "ÈªëËâ≤ÂèòËâ≤ËçØÊ∞¥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].EName = "Black Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1726,7 +1726,7 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][56].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].HName = "◊‘»ª±‰…´“©ÀÆ";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].HName = "Ëá™ÁÑ∂ÂèòËâ≤ËçØÊ∞¥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].EName = "Natural Chameleon Potion";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].Description = "";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -1756,9 +1756,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][57].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].HName = "ø÷æÂπ‚ª∑ Ø";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].HName = "ÊÅêÊÉßÂÖâÁéØÁü≥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].EName = "Fear Aura Stone";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].Description = "¥ÔµΩ¥Û ¶ÀÆ◊ºµƒ»À£¨¿˚”√◊‘…Ì…¢∑¢µƒ¡¶∆¯±Ìœ÷‘⁄Õ‚≤ø°£¥À ± π”√ ˝∞ŸƒÍ«∞¡˜¥´œ¬¿¥Ã·¡∂≥ˆµƒƒß∑® ØæÕƒ‹±‰ªØ◊‘º∫µƒ¡¶∆¯»√π‚ª∑∑¥”≥≥ˆÃÿ”–µƒ—’…´°£";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].Description = "ËææÂà∞Â§ßÂ∏àÊ∞¥ÂáÜÁöÑ‰∫∫ÔºåÂà©Áî®Ëá™Ë∫´Êï£ÂèëÁöÑÂäõÊ∞îË°®Áé∞Âú®Â§ñÈÉ®„ÄÇÊ≠§Êó∂‰ΩøÁî®Êï∞ÁôæÂπ¥ÂâçÊµÅ‰º†‰∏ãÊù•ÊèêÁÇºÂá∫ÁöÑÈ≠îÊ≥ïÁü≥Â∞±ËÉΩÂèòÂåñËá™Â∑±ÁöÑÂäõÊ∞îËÆ©ÂÖâÁéØÂèçÊò†Âá∫ÁâπÊúâÁöÑÈ¢úËâ≤„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].SetFrameID( 982, 1016, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].SetDropFrameID( 982 );
@@ -1786,9 +1786,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][58].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].HName = "≤–ø·π‚ª∑ Ø";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].HName = "ÊÆãÈÖ∑ÂÖâÁéØÁü≥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].EName = "Cruel Aura Stone";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].Description = "¥ÔµΩ¥Û ¶ÀÆ◊ºµƒ»À£¨¿˚”√◊‘…Ì…¢∑¢µƒ¡¶∆¯±Ìœ÷‘⁄Õ‚≤ø°£¥À ± π”√ ˝∞ŸƒÍ«∞¡˜¥´œ¬¿¥Ã·¡∂≥ˆµƒƒß∑® ØæÕƒ‹±‰ªØ◊‘º∫µƒ¡¶∆¯»√π‚ª∑∑¥”≥≥ˆÃÿ”–µƒ—’…´°£";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].Description = "ËææÂà∞Â§ßÂ∏àÊ∞¥ÂáÜÁöÑ‰∫∫ÔºåÂà©Áî®Ëá™Ë∫´Êï£ÂèëÁöÑÂäõÊ∞îË°®Áé∞Âú®Â§ñÈÉ®„ÄÇÊ≠§Êó∂‰ΩøÁî®Êï∞ÁôæÂπ¥ÂâçÊµÅ‰º†‰∏ãÊù•ÊèêÁÇºÂá∫ÁöÑÈ≠îÊ≥ïÁü≥Â∞±ËÉΩÂèòÂåñËá™Â∑±ÁöÑÂäõÊ∞îËÆ©ÂÖâÁéØÂèçÊò†Âá∫ÁâπÊúâÁöÑÈ¢úËâ≤„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].SetFrameID( 983, 1017, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].SetDropFrameID( 983 );
@@ -1816,9 +1816,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][59].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].HName = "œ£Õ˚π‚ª∑ Ø";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].HName = "Â∏åÊúõÂÖâÁéØÁü≥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].EName = "Hope Aura Stone";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].Description = "¥ÔµΩ¥Û ¶ÀÆ◊ºµƒ»À£¨¿˚”√◊‘…Ì…¢∑¢µƒ¡¶∆¯±Ìœ÷‘⁄Õ‚≤ø°£¥À ± π”√ ˝∞ŸƒÍ«∞¡˜¥´œ¬¿¥Ã·¡∂≥ˆµƒƒß∑® ØæÕƒ‹±‰ªØ◊‘º∫µƒ¡¶∆¯»√π‚ª∑∑¥”≥≥ˆÃÿ”–µƒ—’…´°£";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].Description = "ËææÂà∞Â§ßÂ∏àÊ∞¥ÂáÜÁöÑ‰∫∫ÔºåÂà©Áî®Ëá™Ë∫´Êï£ÂèëÁöÑÂäõÊ∞îË°®Áé∞Âú®Â§ñÈÉ®„ÄÇÊ≠§Êó∂‰ΩøÁî®Êï∞ÁôæÂπ¥ÂâçÊµÅ‰º†‰∏ãÊù•ÊèêÁÇºÂá∫ÁöÑÈ≠îÊ≥ïÁü≥Â∞±ËÉΩÂèòÂåñËá™Â∑±ÁöÑÂäõÊ∞îËÆ©ÂÖâÁéØÂèçÊò†Âá∫ÁâπÊúâÁöÑÈ¢úËâ≤„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].SetFrameID( 984, 1018, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].SetDropFrameID( 984 );
@@ -1846,9 +1846,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][60].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].HName = "◊‘»ªπ‚ª∑ Ø";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].HName = "Ëá™ÁÑ∂ÂÖâÁéØÁü≥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].EName = "Natural Aura Stone";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].Description = "¥ÔµΩ¥Û ¶ÀÆ◊ºµƒ»À£¨¿˚”√◊‘…Ì…¢∑¢µƒ¡¶∆¯±Ìœ÷‘⁄Õ‚≤ø°£¥À ± π”√ ˝∞ŸƒÍ«∞¡˜¥´œ¬¿¥Ã·¡∂≥ˆµƒƒß∑® ØæÕƒ‹±‰ªØ◊‘º∫µƒ¡¶∆¯»√π‚ª∑∑¥”≥≥ˆÃÿ”–µƒ—’…´°£";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].Description = "ËææÂà∞Â§ßÂ∏àÊ∞¥ÂáÜÁöÑ‰∫∫ÔºåÂà©Áî®Ëá™Ë∫´Êï£ÂèëÁöÑÂäõÊ∞îË°®Áé∞Âú®Â§ñÈÉ®„ÄÇÊ≠§Êó∂‰ΩøÁî®Êï∞ÁôæÂπ¥ÂâçÊµÅ‰º†‰∏ãÊù•ÊèêÁÇºÂá∫ÁöÑÈ≠îÊ≥ïÁü≥Â∞±ËÉΩÂèòÂåñËá™Â∑±ÁöÑÂäõÊ∞îËÆ©ÂÖâÁéØÂèçÊò†Âá∫ÁâπÊúâÁöÑÈ¢úËâ≤„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].SetFrameID( 981, 1015, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].SetDropFrameID( 981 );
@@ -1876,9 +1876,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][61].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].HName = "Õª±‰π‚ª∑ Ø";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].HName = "Á™ÅÂèòÂÖâÁéØÁü≥";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].EName = "Aura Stone";
- m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].Description = "¥ÔµΩ¥Û ¶ÀÆ◊ºµƒ»À£¨¿˚”√◊‘…Ì…¢∑¢µƒ¡¶∆¯±Ìœ÷‘⁄Õ‚≤ø°£¥À ± π”√ ˝∞ŸƒÍ«∞¡˜¥´œ¬¿¥Ã·¡∂≥ˆµƒƒß∑® ØæÕƒ‹±‰ªØ◊‘º∫µƒ¡¶∆¯»√π‚ª∑∑¥”≥≥ˆÃÿ”–µƒ—’…´°£";
+ m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].Description = "ËææÂà∞Â§ßÂ∏àÊ∞¥ÂáÜÁöÑ‰∫∫ÔºåÂà©Áî®Ëá™Ë∫´Êï£ÂèëÁöÑÂäõÊ∞îË°®Áé∞Âú®Â§ñÈÉ®„ÄÇÊ≠§Êó∂‰ΩøÁî®Êï∞ÁôæÂπ¥ÂâçÊµÅ‰º†‰∏ãÊù•ÊèêÁÇºÂá∫ÁöÑÈ≠îÊ≥ïÁü≥Â∞±ËÉΩÂèòÂåñËá™Â∑±ÁöÑÂäõÊ∞îËÆ©ÂÖâÁéØÂèçÊò†Âá∫ÁâπÊúâÁöÑÈ¢úËâ≤„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].SetFrameID( 981, 1015, 0 );
  m_pTypeInfo[ITEM_CLASS_DYE_POTION][62].SetDropFrameID( 981 );
@@ -1909,9 +1909,9 @@ InitClass( ITEM_CLASS_DYE_POTION,63 );
 
 InitClass( ITEM_CLASS_RESURRECT_ITEM,2 );
 
- m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].HName = "∏¥ªÓæÌ÷·";
+ m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].HName = "Â§çÊ¥ªÂç∑ËΩ¥";
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].EName = "Resurrection Scroll";
- m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].Description = "±Ù¡ŸÀ¿Õˆ ±≤≈ π”√µƒµ¿æﬂ°£";
+ m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].Description = "Êøí‰∏¥Ê≠ª‰∫°Êó∂Êâç‰ΩøÁî®ÁöÑÈÅìÂÖ∑„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].SetFrameID( 589, 603, 0 );
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].SetDropFrameID( 589 );
@@ -1939,9 +1939,9 @@ InitClass( ITEM_CLASS_RESURRECT_ITEM,2 );
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].HName = "¡∂ΩæÌ÷·";
+ m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].HName = "ÁÇºÈáëÂç∑ËΩ¥";
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].EName = "Elixir Scroll";
- m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].Description = "±Ù¡ŸÀ¿Õˆ ±∏¥ªÓ£¨ªÚ’ﬂΩ‚≥˝“ª«–“Ï≥£◊¥Ã¨ ± π”√µƒµ¿æﬂ°£";
+ m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].Description = "Êøí‰∏¥Ê≠ª‰∫°Êó∂Â§çÊ¥ªÔºåÊàñËÄÖËß£Èô§‰∏ÄÂàáÂºÇÂ∏∏Áä∂ÊÄÅÊó∂‰ΩøÁî®ÁöÑÈÅìÂÖ∑„ÄÇ";
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].SetFrameID( 588, 602, 0 );
  m_pTypeInfo[ITEM_CLASS_RESURRECT_ITEM][1].SetDropFrameID( 588 );
@@ -1972,9 +1972,9 @@ InitClass( ITEM_CLASS_RESURRECT_ITEM,2 );
 
 InitClass( ITEM_CLASS_MIXING_ITEM,25 );
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].HName = "Œ‰∆˜∫œ≥…A–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].HName = "Ê≠¶Âô®ÂêàÊàêAÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].EName = "Weapon Mixing Forge Type A";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].Description = "Ω´≤ªÕ¨ Ù–‘µƒµ¿æﬂ∫œ≥…‘⁄“ª∆";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].Description = "Â∞Ü‰∏çÂêåÂ±ûÊÄßÁöÑÈÅìÂÖ∑ÂêàÊàêÂú®‰∏ÄËµ∑";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].SetFrameID( 582, 596, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].SetDropFrameID( 582 );
@@ -2002,9 +2002,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].HName = "Œ‰∆˜∫œ≥…B–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].HName = "Ê≠¶Âô®ÂêàÊàêBÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].EName = "Weapon Mixing Forge Type B";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].Description = "Ω´≤ªÕ¨ Ù–‘µƒµ¿æﬂ∫œ≥…‘⁄“ª∆";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].Description = "Â∞Ü‰∏çÂêåÂ±ûÊÄßÁöÑÈÅìÂÖ∑ÂêàÊàêÂú®‰∏ÄËµ∑";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].SetFrameID( 582, 596, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].SetDropFrameID( 582 );
@@ -2032,9 +2032,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].HName = "Œ‰∆˜∫œ≥…C–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].HName = "Ê≠¶Âô®ÂêàÊàêCÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].EName = "Weapon Mixing Forge Type C";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].Description = "Ω´≤ªÕ¨ Ù–‘µƒµ¿æﬂ∫œ≥…‘⁄“ª∆";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].Description = "Â∞Ü‰∏çÂêåÂ±ûÊÄßÁöÑÈÅìÂÖ∑ÂêàÊàêÂú®‰∏ÄËµ∑";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].SetFrameID( 582, 596, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].SetDropFrameID( 582 );
@@ -2062,9 +2062,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].HName = "∑¿æﬂ∫œ≥…A–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].HName = "Èò≤ÂÖ∑ÂêàÊàêAÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].EName = "Armor Mixing Forge Type A";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].Description = "Ω´≤ªÕ¨ Ù–‘µƒµ¿æﬂ∫œ≥…‘⁄“ª∆";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].Description = "Â∞Ü‰∏çÂêåÂ±ûÊÄßÁöÑÈÅìÂÖ∑ÂêàÊàêÂú®‰∏ÄËµ∑";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].SetFrameID( 584, 598, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].SetDropFrameID( 584 );
@@ -2092,9 +2092,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].HName = "∑¿æﬂ∫œ≥…B–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].HName = "Èò≤ÂÖ∑ÂêàÊàêBÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].EName = "Armor Mixing Forge Type B";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].Description = "Ω´≤ªÕ¨ Ù–‘µƒµ¿æﬂ∫œ≥…‘⁄“ª∆";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].Description = "Â∞Ü‰∏çÂêåÂ±ûÊÄßÁöÑÈÅìÂÖ∑ÂêàÊàêÂú®‰∏ÄËµ∑";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].SetFrameID( 584, 598, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].SetDropFrameID( 584 );
@@ -2122,9 +2122,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].HName = "∑¿æﬂ∫œ≥…C–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].HName = "Èò≤ÂÖ∑ÂêàÊàêCÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].EName = "Armor Mixing Forge Type C";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].Description = "Ω´≤ªÕ¨ Ù–‘µƒµ¿æﬂ∫œ≥…‘⁄“ª∆";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].Description = "Â∞Ü‰∏çÂêåÂ±ûÊÄßÁöÑÈÅìÂÖ∑ÂêàÊàêÂú®‰∏ÄËµ∑";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].SetFrameID( 584, 598, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].SetDropFrameID( 584 );
@@ -2152,9 +2152,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].HName = " Œ∆∑∫œ≥…A–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].HName = "È•∞ÂìÅÂêàÊàêAÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].EName = "Accessory Mixing Forge Type A";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].Description = "Ω´≤ªÕ¨ Ù–‘µƒµ¿æﬂ∫œ≥…‘⁄“ª∆";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].Description = "Â∞Ü‰∏çÂêåÂ±ûÊÄßÁöÑÈÅìÂÖ∑ÂêàÊàêÂú®‰∏ÄËµ∑";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].SetFrameID( 583, 597, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].SetDropFrameID( 583 );
@@ -2182,9 +2182,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].HName = " Œ∆∑∫œ≥…B–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].HName = "È•∞ÂìÅÂêàÊàêBÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].EName = "Accessory Mixing Forge Type B";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].Description = "Ω´≤ªÕ¨ Ù–‘µƒµ¿æﬂ∫œ≥…‘⁄“ª∆";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].Description = "Â∞Ü‰∏çÂêåÂ±ûÊÄßÁöÑÈÅìÂÖ∑ÂêàÊàêÂú®‰∏ÄËµ∑";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].SetFrameID( 583, 597, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].SetDropFrameID( 583 );
@@ -2212,9 +2212,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].HName = " Œ∆∑∫œ≥…C–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].HName = "È•∞ÂìÅÂêàÊàêCÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].EName = "Accessory Mixing Forge Type C";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].Description = "Ω´≤ªÕ¨ Ù–‘µƒµ¿æﬂ∫œ≥…‘⁄“ª∆";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].Description = "Â∞Ü‰∏çÂêåÂ±ûÊÄßÁöÑÈÅìÂÖ∑ÂêàÊàêÂú®‰∏ÄËµ∑";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].SetFrameID( 583, 597, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].SetDropFrameID( 583 );
@@ -2242,9 +2242,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].HName = "Œ‰∆˜∑÷Ω‚A–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].HName = "Ê≠¶Âô®ÂàÜËß£AÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].EName = "Weapon Puritas Type A";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].Description = "ø…“‘…æ≥˝’‰πÛŒÔ∆∑µƒ≤ª±ÿ“™ Ù–‘";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].Description = "ÂèØ‰ª•Âà†Èô§ÁèçË¥µÁâ©ÂìÅÁöÑ‰∏çÂøÖË¶ÅÂ±ûÊÄß";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].SetFrameID( 594, 608, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].SetDropFrameID( 594 );
@@ -2272,9 +2272,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].HName = "Œ‰∆˜∑÷Ω‚B–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].HName = "Ê≠¶Âô®ÂàÜËß£BÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].EName = "Weapon Puritas Type B";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].Description = "ø…“‘…æ≥˝’‰πÛŒÔ∆∑µƒ≤ª±ÿ“™ Ù–‘";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].Description = "ÂèØ‰ª•Âà†Èô§ÁèçË¥µÁâ©ÂìÅÁöÑ‰∏çÂøÖË¶ÅÂ±ûÊÄß";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].SetFrameID( 594, 608, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].SetDropFrameID( 594 );
@@ -2302,9 +2302,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].HName = "Œ‰∆˜∑÷Ω‚C–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].HName = "Ê≠¶Âô®ÂàÜËß£CÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].EName = "Weapon Puritas Type C";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].Description = "ø…“‘…æ≥˝’‰πÛŒÔ∆∑µƒ≤ª±ÿ“™ Ù–‘";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].Description = "ÂèØ‰ª•Âà†Èô§ÁèçË¥µÁâ©ÂìÅÁöÑ‰∏çÂøÖË¶ÅÂ±ûÊÄß";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].SetFrameID( 594, 608, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].SetDropFrameID( 594 );
@@ -2332,9 +2332,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].HName = "ø¯º◊∑÷Ω‚A–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].HName = "ÁõîÁî≤ÂàÜËß£AÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].EName = "Armor Puritas Type A";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].Description = "ø…“‘…æ≥˝’‰πÛŒÔ∆∑µƒ≤ª±ÿ“™ Ù–‘";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].Description = "ÂèØ‰ª•Âà†Èô§ÁèçË¥µÁâ©ÂìÅÁöÑ‰∏çÂøÖË¶ÅÂ±ûÊÄß";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].SetFrameID( 595, 609, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].SetDropFrameID( 595 );
@@ -2362,9 +2362,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].HName = "ø¯º◊∑÷Ω‚B–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].HName = "ÁõîÁî≤ÂàÜËß£BÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].EName = "Armor Puritas Type B";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].Description = "ø…“‘…æ≥˝’‰πÛŒÔ∆∑µƒ≤ª±ÿ“™ Ù–‘";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].Description = "ÂèØ‰ª•Âà†Èô§ÁèçË¥µÁâ©ÂìÅÁöÑ‰∏çÂøÖË¶ÅÂ±ûÊÄß";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].SetFrameID( 595, 609, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].SetDropFrameID( 595 );
@@ -2392,9 +2392,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].HName = "ø¯º◊∑÷Ω‚C–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].HName = "ÁõîÁî≤ÂàÜËß£CÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].EName = "Armor Puritas Type C";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].Description = "ø…“‘…æ≥˝’‰πÛŒÔ∆∑µƒ≤ª±ÿ“™ Ù–‘";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].Description = "ÂèØ‰ª•Âà†Èô§ÁèçË¥µÁâ©ÂìÅÁöÑ‰∏çÂøÖË¶ÅÂ±ûÊÄß";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].SetFrameID( 595, 609, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].SetDropFrameID( 595 );
@@ -2422,9 +2422,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].HName = " Œ∆∑∑÷Ω‚A–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].HName = "È•∞ÂìÅÂàÜËß£AÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].EName = "Accessory Puritas Type A";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].Description = "ø…“‘…æ≥˝’‰πÛŒÔ∆∑µƒ≤ª±ÿ“™ Ù–‘";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].Description = "ÂèØ‰ª•Âà†Èô§ÁèçË¥µÁâ©ÂìÅÁöÑ‰∏çÂøÖË¶ÅÂ±ûÊÄß";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].SetFrameID( 596, 610, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].SetDropFrameID( 596 );
@@ -2452,9 +2452,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][15].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].HName = " Œ∆∑∑÷Ω‚B–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].HName = "È•∞ÂìÅÂàÜËß£BÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].EName = "Accessory Puritas Type B";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].Description = "ø…“‘…æ≥˝’‰πÛŒÔ∆∑µƒ≤ª±ÿ“™ Ù–‘";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].Description = "ÂèØ‰ª•Âà†Èô§ÁèçË¥µÁâ©ÂìÅÁöÑ‰∏çÂøÖË¶ÅÂ±ûÊÄß";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].SetFrameID( 596, 610, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].SetDropFrameID( 596 );
@@ -2482,9 +2482,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][16].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].HName = " Œ∆∑∑÷Ω‚C–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].HName = "È•∞ÂìÅÂàÜËß£CÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].EName = "Accessory Puritas Type C";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].Description = "ø…“‘…æ≥˝’‰πÛŒÔ∆∑µƒ≤ª±ÿ“™ Ù–‘";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].Description = "ÂèØ‰ª•Âà†Èô§ÁèçË¥µÁâ©ÂìÅÁöÑ‰∏çÂøÖË¶ÅÂ±ûÊÄß";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].SetFrameID( 596, 610, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].SetDropFrameID( 596 );
@@ -2512,7 +2512,7 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][17].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].HName = "∏£…◊";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].HName = "Á¶èÂã∫";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].EName = "Bokjory";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].Description = "?? ?? ???? ??? ????? ???? ???";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
@@ -2542,9 +2542,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][18].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].HName = "Œ‰∆˜∫œ≥…D–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].HName = "Ê≠¶Âô®ÂêàÊàêDÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].EName = "Weapon Mixing Forge Type D";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].Description = "Ω´≤ªÕ¨ Ù–‘µƒµ¿æﬂ∫œ≥…‘⁄“ª∆";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].Description = "Â∞Ü‰∏çÂêåÂ±ûÊÄßÁöÑÈÅìÂÖ∑ÂêàÊàêÂú®‰∏ÄËµ∑";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].SetFrameID( 582, 596, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].SetDropFrameID( 582 );
@@ -2572,9 +2572,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][19].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].HName = "∑¿æﬂ∫œ≥…D–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].HName = "Èò≤ÂÖ∑ÂêàÊàêDÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].EName = "Armor Mixing Forge Type D";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].Description = "Ω´≤ªÕ¨ Ù–‘µƒµ¿æﬂ∫œ≥…‘⁄“ª∆";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].Description = "Â∞Ü‰∏çÂêåÂ±ûÊÄßÁöÑÈÅìÂÖ∑ÂêàÊàêÂú®‰∏ÄËµ∑";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].SetFrameID( 584, 598, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].SetDropFrameID( 584 );
@@ -2602,9 +2602,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][20].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].HName = " Œ∆∑∫œ≥…D–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].HName = "È•∞ÂìÅÂêàÊàêDÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].EName = "Accessory Mixing Forge Type D";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].Description = "Ω´≤ªÕ¨ Ù–‘µƒµ¿æﬂ∫œ≥…‘⁄“ª∆";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].Description = "Â∞Ü‰∏çÂêåÂ±ûÊÄßÁöÑÈÅìÂÖ∑ÂêàÊàêÂú®‰∏ÄËµ∑";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].SetFrameID( 583, 597, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].SetDropFrameID( 583 );
@@ -2632,9 +2632,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][21].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].HName = "Œ‰∆˜∑÷Ω‚D–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].HName = "Ê≠¶Âô®ÂàÜËß£DÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].EName = "Weapon Puritas Type D";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].Description = "ø…“‘…æ≥˝’‰πÛŒÔ∆∑µƒ≤ª±ÿ“™ Ù–‘";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].Description = "ÂèØ‰ª•Âà†Èô§ÁèçË¥µÁâ©ÂìÅÁöÑ‰∏çÂøÖË¶ÅÂ±ûÊÄß";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].SetFrameID( 594, 608, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].SetDropFrameID( 594 );
@@ -2662,9 +2662,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][22].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].HName = "ø¯º◊∑÷Ω‚D–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].HName = "ÁõîÁî≤ÂàÜËß£DÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].EName = "Armor Puritas Type D";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].Description = "ø…“‘…æ≥˝’‰πÛŒÔ∆∑µƒ≤ª±ÿ“™ Ù–‘";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].Description = "ÂèØ‰ª•Âà†Èô§ÁèçË¥µÁâ©ÂìÅÁöÑ‰∏çÂøÖË¶ÅÂ±ûÊÄß";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].SetFrameID( 595, 609, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].SetDropFrameID( 595 );
@@ -2692,9 +2692,9 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][23].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].HName = " Œ∆∑∑÷Ω‚D–Õ";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].HName = "È•∞ÂìÅÂàÜËß£DÂûã";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].EName = "Accessory Puritas Type D";
- m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].Description = "ø…“‘…æ≥˝’‰πÛŒÔ∆∑µƒ≤ª±ÿ“™ Ù–‘";
+ m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].Description = "ÂèØ‰ª•Âà†Èô§ÁèçË¥µÁâ©ÂìÅÁöÑ‰∏çÂøÖË¶ÅÂ±ûÊÄß";
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].SetSoundID( SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING,SOUND_ITEM_MOVE_RING );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].SetFrameID( 596, 610, 0 );
  m_pTypeInfo[ITEM_CLASS_MIXING_ITEM][24].SetDropFrameID( 596 );
@@ -2725,7 +2725,7 @@ InitClass( ITEM_CLASS_MIXING_ITEM,25 );
 
 InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].HName = "ƒæ÷∆±€ª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].HName = "Êú®Âà∂ËáÇÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].EName = "Wood Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2755,7 +2755,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].HName = "±¶ Ø±€ª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].HName = "ÂÆùÁü≥ËáÇÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].EName = "Ayurvedic Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2785,7 +2785,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].HName = "ÀÆ∫Á±€ª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].HName = "Ê∞¥ËôπËáÇÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].EName = "Rainbow Wave Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2815,7 +2815,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].HName = "π≈¥˙±€ª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].HName = "Âè§‰ª£ËáÇÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].EName = "Guduen's Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2845,7 +2845,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].HName = "Ωıª®±€ª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].HName = "Èî¶Ëä±ËáÇÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].EName = "Blossom Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2875,7 +2875,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].HName = "Àπ¿≠∏Ò±€ª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].HName = "ÊñØÊãâÊ†ºËáÇÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].EName = "Selge Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2905,7 +2905,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].HName = "±Ø√ı±€ª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].HName = "ÊÇ≤ÊÇØËáÇÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].EName = "Priest Herihor Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2935,7 +2935,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].HName = "≤‘‘¬±€ª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].HName = "ËãçÊúàËáÇÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].EName = "Zaret Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2965,7 +2965,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].HName = " •“ÌÃÏ π±€ª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].HName = "Âú£ÁøºÂ§©‰ΩøËáÇÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].EName = "Gurgan Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -2995,7 +2995,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].HName = "÷Ó…Òª∆ªË";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].HName = "ËØ∏Á•ûÈªÑÊòè";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].EName = "Kugnas Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -3025,7 +3025,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].HName = "ƒß“ÌÃÏ≤ı";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].HName = "È≠îÁøºÂ§©Ëùâ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].EName = "Cicada Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -3055,7 +3055,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].HName = "º≤∑Á—◊—Ù";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].HName = "ÁñæÈ£éÁÇéÈò≥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].EName = "Muladhara Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -3085,7 +3085,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].HName = "–˝ª®±€ª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].HName = "ÊóãËä±ËáÇÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].EName = "Bindrune Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -3118,7 +3118,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][13].HName = " ˜—˝±€ª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][13].HName = "Ê†ëÂ¶ñËáÇÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][13].EName = "Dryadric Armsband";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_ARMSBAND][13].SetSoundID( SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND,SOUND_OUSTERS_ARMSBAND );
@@ -3151,7 +3151,7 @@ InitClass( ITEM_CLASS_OUSTERS_ARMSBAND,14 );
 
 InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].HName = " ˜—˝÷Æ—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].HName = "Ê†ëÂ¶ñ‰πãÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].EName = "Dryad's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3181,7 +3181,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].HName = "…Ω—˝÷Æ—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].HName = "Â±±Â¶ñ‰πãÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].EName = "Oread's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3211,7 +3211,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].HName = "æ´¡È÷Æ—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].HName = "Á≤æÁÅµ‰πãÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].EName = "Sprite's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3241,7 +3241,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].HName = " •º◊’Ω—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].HName = "Âú£Áî≤ÊàòÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].EName = "Fisthrom's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3271,7 +3271,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].HName = "√˜Õı÷Æ—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].HName = "ÊòéÁéã‰πãÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].EName = "Leprekaun's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3301,7 +3301,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].HName = "ÃÏ¿«÷Æ—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].HName = "Â§©Áãº‰πãÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].EName = "Desirish's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3331,7 +3331,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].HName = "…Ò”˜’Ω—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].HName = "Á•ûÂñªÊàòÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].EName = "Will O' the Wisp's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3361,7 +3361,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].HName = "∞µ”∞’Ω—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].HName = "ÊöóÂΩ±ÊàòÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].EName = "Shade's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3391,7 +3391,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].HName = " •’ﬂ’Ω—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].HName = "Âú£ËÄÖÊàòÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].EName = "Fateris's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3421,7 +3421,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].HName = "ª√ƒß—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].HName = "ÂπªÈ≠îÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].EName = "Epereal's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3451,7 +3451,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].HName = "∆‡ªÃ÷Æ—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].HName = "ÂáÑÊÉ∂‰πãÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].EName = "Amaterasu's Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3484,7 +3484,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].HName = "æ´¡È÷Æ—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].HName = "Á≤æÁÅµ‰πãÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].EName = "Naphne Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3514,7 +3514,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][12].HName = "◊œ—…÷Æ—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][12].HName = "Á¥´ÁÑâ‰πãÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][12].EName = "Praelium Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][12].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3544,7 +3544,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][13].HName = "Õ≥¡Ï÷Æ—•";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][13].HName = "ÁªüÈ¢Ü‰πãÈù¥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][13].EName = "Imperium Boots";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_BOOTS][13].SetSoundID( SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS,SOUND_OUSTERS_BOOTS );
@@ -3576,7 +3576,7 @@ InitClass( ITEM_CLASS_OUSTERS_BOOTS,14 );
  
 InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].HName = "‘¬ª∑¬÷";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].HName = "ÊúàÁéØËΩÆ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].EName = "Tou Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3606,7 +3606,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].HName = "»’ª∑¬÷";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].HName = "Êó•ÁéØËΩÆ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].EName = "Perv Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3636,7 +3636,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].HName = "∑…“Ì÷Æ¬÷";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].HName = "È£ûÁøº‰πãËΩÆ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].EName = "Aves Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3666,7 +3666,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].HName = "“Ú∞ÕÀπ÷Æ¬÷";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].HName = "Âõ†Â∑¥ÊñØ‰πãËΩÆ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].EName = "Nuevo Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3696,7 +3696,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].HName = "…˙√¸÷Æ¬÷";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].HName = "ÁîüÂëΩ‰πãËΩÆ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].EName = "Anima Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3726,7 +3726,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].HName = "”ƒ⁄§÷Æ¬÷";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].HName = "ÂπΩÂÜ•‰πãËΩÆ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].EName = "Raetra Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3756,7 +3756,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].HName = "∆∆‘¬";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].HName = "Á†¥Êúà";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].EName = "Pesuy's Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3786,7 +3786,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].HName = "√»’";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].HName = "ÁÅ≠Êó•";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].EName = "Brabus Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3816,7 +3816,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].HName = "∑…ª®¡˜‘∆";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].HName = "È£ûËä±ÊµÅ‰∫ë";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].EName = "Meduh Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3846,7 +3846,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].HName = "‘¬ª™ŒﬁÀ´";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].HName = "ÊúàÂçéÊó†Âèå";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].EName = "Cruor Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3876,7 +3876,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].HName = "≤‘∑Á≥‡‘¬";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].HName = "ËãçÈ£éËµ§Êúà";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].EName = "Moon of Haisa Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3906,7 +3906,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].HName = "–˛Œ‰÷Æ¿Ω";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].HName = "ÁéÑÊ≠¶‰πãÊæú";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].EName = "Ajna Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3936,7 +3936,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].HName = "±Ø√˘÷Æ∑Á";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].HName = "ÊÇ≤È∏£‰πãÈ£é";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].EName = "Wind God Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3968,7 +3968,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].HName = "±ØÕ¥÷Æª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].HName = "ÊÇ≤Áóõ‰πãÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].EName = "Rudra Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].SetSoundID( SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM,SOUND_OUSTERS_CHAKRAM );
@@ -3998,7 +3998,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][13].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][14].HName = "√∑¿˚Àπ÷Æª∑";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][14].HName = "Ê¢ÖÂà©ÊñØ‰πãÁéØ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][14].EName = "Melis Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][14].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][14].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4028,7 +4028,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][14].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][15].HName = "»À˛¥©‘∆¬÷";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][15].HName = "ÁëûÂ°îÁ©ø‰∫ëËΩÆ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][15].EName = "Rantea Chakram";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][15].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CHAKRAM][15].SetSoundID( SOUND_ITEM_MOVE_SCROLL,SOUND_ITEM_MOVE_SCROLL,SOUNDID_NULL,SOUND_ITEM_MOVE_SCROLL );
@@ -4060,7 +4060,7 @@ InitClass( ITEM_CLASS_OUSTERS_CHAKRAM,16 );
  
 InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].HName = "“¯÷∆∑¢»¶";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].HName = "Èì∂Âà∂ÂèëÂúà";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].EName = "Silver Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4090,7 +4090,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].HName = "‘≤‘¬∑¢»¶";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].HName = "ÂúÜÊúàÂèëÂúà";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].EName = "Circlet of Full Moon";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4120,7 +4120,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].HName = "ŒÂ–«∑¢»¶";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].HName = "‰∫îÊòüÂèëÂúà";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].EName = "Pentacle Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4150,7 +4150,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].HName = " ˜…≠÷Æπ⁄";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].HName = "Ê†ëÊ£Æ‰πãÂÜ†";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].EName = "Sylvana Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4180,7 +4180,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].HName = "ÀÆ≤‘÷Æπ⁄";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].HName = "Ê∞¥Ëãç‰πãÂÜ†";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].EName = "Column of Water Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4210,7 +4210,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].HName = "÷»–Ú÷Æπ⁄";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].HName = "Áß©Â∫è‰πãÂÜ†";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].EName = "Lothar Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4240,7 +4240,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].HName = "‘¬…Ò÷Æπ⁄";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].HName = "ÊúàÁ•û‰πãÂÜ†";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].EName = "Cretra Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4270,7 +4270,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].HName = " ◊¡Ï÷Æπ⁄";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].HName = "È¶ñÈ¢Ü‰πãÂÜ†";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].EName = "Hunz Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4300,7 +4300,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].HName = "Ã´—Ù…Ò∑¢»¶";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].HName = "Â§™Èò≥Á•ûÂèëÂúà";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].EName = "Prominence Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4330,7 +4330,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].HName = "Õı»®÷Æπ⁄";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].HName = "ÁéãÊùÉ‰πãÂÜ†";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].EName = "Diadem Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4360,7 +4360,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].HName = "Ω≈£÷Æπ⁄";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].HName = "ÈáëÁâõ‰πãÂÜ†";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].EName = "Alcyone Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4390,7 +4390,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].HName = "∂ÈÃÏ π÷Æ≈≠";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].HName = "Â†ïÂ§©‰Ωø‰πãÊÄí";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].EName = "Mastema Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4420,7 +4420,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].HName = "∆‡ªÃ÷Æπ⁄";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].HName = "ÂáÑÊÉ∂‰πãÂÜ†";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].EName = "Taira Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4452,7 +4452,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][13].HName = "º™¿◊≈∑÷Æπ⁄";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][13].HName = "ÂêâÈõ∑Ê¨ß‰πãÂÜ†";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][13].EName = "Gilleot Circlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_CIRCLET][13].SetSoundID( SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET,SOUND_OUSTERS_CIRCLET );
@@ -4485,7 +4485,7 @@ InitClass( ITEM_CLASS_OUSTERS_CIRCLET,14 );
 
 InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].HName = " ˜—˝÷Æ“¬";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].HName = "Ê†ëÂ¶ñ‰πãË°£";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].EName = "Dryad's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4515,7 +4515,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].HName = "…Ω—˝÷Æ“¬";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].HName = "Â±±Â¶ñ‰πãË°£";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].EName = "Oread's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4545,7 +4545,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].HName = "æ´¡È÷Æ“¬";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].HName = "Á≤æÁÅµ‰πãË°£";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].EName = "Sprite's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4575,7 +4575,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].HName = " •º◊’Ω“¬";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].HName = "Âú£Áî≤ÊàòË°£";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].EName = "Fisthrom's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4605,7 +4605,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].HName = "√˜Õı÷ÆÓ¯";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].HName = "ÊòéÁéã‰πãÈì†";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].EName = "Leprekaun's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4635,7 +4635,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].HName = "ÃÏ¿«÷ÆÓ¯";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].HName = "Â§©Áãº‰πãÈì†";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].EName = "Desirish's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4665,7 +4665,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].HName = "…Ò”˜’Ω“¬";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].HName = "Á•ûÂñªÊàòË°£";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].EName = "Will o' the wisp's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4695,7 +4695,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].HName = "∞µ”∞’Ω“¬";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].HName = "ÊöóÂΩ±ÊàòË°£";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].EName = "Shade's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4725,7 +4725,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].HName = " •’ﬂ’Ω“¬";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].HName = "Âú£ËÄÖÊàòË°£";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].EName = "Fateris's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4755,7 +4755,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].HName = "ª√ƒßº◊";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].HName = "ÂπªÈ≠îÁî≤";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].EName = "Epereal's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4785,7 +4785,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].HName = "∆‡ªÃ÷ÆÓ¯";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].HName = "ÂáÑÊÉ∂‰πãÈì†";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].EName = "Amaterasu's Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4818,7 +4818,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].HName = "æ´¡ÈÕ‚Ã◊";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].HName = "Á≤æÁÅµÂ§ñÂ•ó";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].EName = "Naphne Coat";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4848,7 +4848,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][12].HName = "◊œ—…±≥–ƒ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][12].HName = "Á¥´ÁÑâËÉåÂøÉ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][12].EName = "Praelium Vestio";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][12].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4878,7 +4878,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][13].HName = "Õ≥¡Ï±≥–ƒ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][13].HName = "ÁªüÈ¢ÜËÉåÂøÉ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][13].EName = "Imperium Vestio";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_COAT][13].SetSoundID( SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT,SOUND_OUSTERS_COAT );
@@ -4910,7 +4910,7 @@ InitClass( ITEM_CLASS_OUSTERS_COAT,14 );
 
 InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].HName = "–°‘≤π“ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].HName = "Â∞èÂúÜÊåÇÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].EName = "Revers Dot Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -4940,7 +4940,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].HName = "∞¬¿Ô»¯π“ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].HName = "Â••ÈáåËê®ÊåÇÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].EName = "Orissa Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -4970,7 +4970,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].HName = "…Ò√ÿπ“ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].HName = "Á•ûÁßòÊåÇÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].EName = "Mystic Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5000,7 +5000,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].HName = "ÃÏµÿπ“ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].HName = "Â§©Âú∞ÊåÇÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].EName = "Yggdrasil Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5030,7 +5030,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].HName = " •ÀÆπ“ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].HName = "Âú£Ê∞¥ÊåÇÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].EName = "Sinui's Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5060,7 +5060,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].HName = "∫Œ¬∂Àπ÷Æ—€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].HName = "‰ΩïÈú≤ÊñØ‰πãÁúº";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].EName = "Eyes of Horus Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5090,7 +5090,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].HName = "»À√Êπ“ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].HName = "‰∫∫Èù¢ÊåÇÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].EName = "Ent Face Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5120,7 +5120,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].HName = "ƒßÕı÷Æ±Ø";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].HName = "È≠îÁéã‰πãÊÇ≤";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].EName = "Fibula Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5150,7 +5150,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].HName = "∑∆¿≠∂˚π“ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].HName = "Ëè≤ÊãâÂ∞îÊåÇÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].EName = "Fairie Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5180,7 +5180,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].HName = "≤‘”•÷Æ¡¥";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].HName = "ËãçÈπ∞‰πãÈìæ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].EName = "Egyptian Falcon Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5210,7 +5210,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].HName = "≤–‘¬π“ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].HName = "ÊÆãÊúàÊåÇÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].EName = "Fig Tree Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5240,7 +5240,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].HName = "„˝√÷Æ–ƒ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].HName = "Ê≥ØÁÅ≠‰πãÂøÉ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].EName = "Opalus Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5270,7 +5270,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].HName = "æ´¡Èπ“ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].HName = "Á≤æÁÅµÊåÇÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].EName = "Kabbala Tree Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5303,7 +5303,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][13].HName = "¿≥Œ˜ª§…Ì∑˚";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][13].HName = "Ëé±Ë•øÊä§Ë∫´Á¨¶";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][13].EName = "Leshy Pendent";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_PENDENT][13].SetSoundID( SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT,SOUND_OUSTERS_PENDANT );
@@ -5336,7 +5336,7 @@ InitClass( ITEM_CLASS_OUSTERS_PENDENT,14 );
 
 InitClass( ITEM_CLASS_OUSTERS_RING,14 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].HName = "◊ÿÈµΩ‰÷∏";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].HName = "Ê£ïÊ¶àÊàíÊåá";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].EName = "Hemp's Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5366,7 +5366,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].HName = "÷”√˘Ω‰÷∏";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].HName = "ÈíüÈ∏£ÊàíÊåá";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].EName = "Celesta Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5396,7 +5396,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].HName = "±£ª§÷ÆΩ‰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].HName = "‰øùÊä§‰πãÊàí";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].EName = "Safeguard Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5426,7 +5426,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].HName = "æ´¡È√‹”Ô";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].HName = "Á≤æÁÅµÂØÜËØ≠";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].EName = "Whisper of Elf Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5456,7 +5456,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].HName = "‘∂π≈Ω‰÷∏";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].HName = "ËøúÂè§ÊàíÊåá";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].EName = "Mpos Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5486,7 +5486,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].HName = "ÂÁ–«÷ÆΩ‰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].HName = "ÂΩóÊòü‰πãÊàí";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].EName = "Tails of Shine Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5516,7 +5516,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].HName = "÷Î—€÷ÆΩ‰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].HName = "ËõõÁúº‰πãÊàí";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].EName = "Spider Eyes Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5546,7 +5546,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].HName = "π¬–«÷ÆΩ‰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].HName = "Â≠§Êòü‰πãÊàí";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].EName = "Solitary Star Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5576,7 +5576,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].HName = "ª√ƒßΩ‰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].HName = "ÂπªÈ≠îÊàí";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].EName = "Macsan's Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5606,7 +5606,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].HName = "”¿∫„÷ÆΩ‰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].HName = "Ê∞∏ÊÅí‰πãÊàí";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].EName = "Immortality Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5636,7 +5636,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].HName = "∞≤¥Ô¬≥Œ˜—«Ω‰÷∏";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].HName = "ÂÆâËææÈ≤ÅË•ø‰∫öÊàíÊåá";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].EName = "Andalusia Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5666,7 +5666,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][10].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].HName = "Ã´—Ù…ÒΩ‰÷∏";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].HName = "Â§™Èò≥Á•ûÊàíÊåá";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].EName = "Marduk Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5696,7 +5696,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][11].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].HName = "ø◊»∏ ØΩ‰÷∏";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].HName = "Â≠îÈõÄÁü≥ÊàíÊåá";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].EName = "Malachite Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5729,7 +5729,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][12].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][13].HName = "»˚»…÷ÆΩ‰";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][13].HName = "Â°ûÂ£¨‰πãÊàí";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][13].EName = "Siren Ring";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_RING][13].SetSoundID( SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING,SOUND_OUSTERS_RING );
@@ -5762,7 +5762,7 @@ InitClass( ITEM_CLASS_OUSTERS_RING,14 );
 
 InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].HName = "ª¡È Ø1";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].HName = "ÁÅ´ÁÅµÁü≥1";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].EName = "Fire ElementalStone 1";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5792,7 +5792,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][0].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].HName = "ª¡È Ø2";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].HName = "ÁÅ´ÁÅµÁü≥2";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].EName = "Fire ElementalStone 2";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5822,7 +5822,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][1].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].HName = "ª¡È Ø3";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].HName = "ÁÅ´ÁÅµÁü≥3";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].EName = "Fire ElementalStone 3";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5852,7 +5852,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][2].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].HName = "ª¡È Ø4";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].HName = "ÁÅ´ÁÅµÁü≥4";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].EName = "Fire ElementalStone 4";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5882,7 +5882,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][3].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].HName = "ª¡È Ø5";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].HName = "ÁÅ´ÁÅµÁü≥5";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].EName = "Fire ElementalStone 5";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5912,7 +5912,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][4].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].HName = "ÀÆ¡È Ø1";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].HName = "Ê∞¥ÁÅµÁü≥1";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].EName = "Water ElementalStone 1";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5942,7 +5942,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][5].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].HName = "ÀÆ¡È Ø2";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].HName = "Ê∞¥ÁÅµÁü≥2";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].EName = "Water ElementalStone 2";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -5972,7 +5972,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][6].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].HName = "ÀÆ¡È Ø3";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].HName = "Ê∞¥ÁÅµÁü≥3";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].EName = "Water ElementalStone 3";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6002,7 +6002,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][7].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].HName = "ÀÆ¡È Ø4";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].HName = "Ê∞¥ÁÅµÁü≥4";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].EName = "Water ElementalStone 4";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6032,7 +6032,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][8].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].HName = "ÀÆ¡È Ø5";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].HName = "Ê∞¥ÁÅµÁü≥5";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].EName = "Water ElementalStone 5";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6062,7 +6062,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][9].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].HName = "Õ¡‘™Àÿ Ø1";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].HName = "ÂúüÂÖÉÁ¥†Áü≥1";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].EName = "Earth ElementalStone 1";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6092,7 +6092,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][10].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].HName = "Õ¡‘™Àÿ Ø2";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].HName = "ÂúüÂÖÉÁ¥†Áü≥2";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].EName = "Earth ElementalStone 2";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6122,7 +6122,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][11].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].HName = "Õ¡‘™Àÿ Ø3";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].HName = "ÂúüÂÖÉÁ¥†Áü≥3";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].EName = "Earth ElementalStone 3";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6152,7 +6152,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][12].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].HName = "Õ¡‘™Àÿ Ø4";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].HName = "ÂúüÂÖÉÁ¥†Áü≥4";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].EName = "Earth ElementalStone 4";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6182,7 +6182,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][13].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][14].HName = "Õ¡‘™Àÿ Ø5";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][14].HName = "ÂúüÂÖÉÁ¥†Áü≥5";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][14].EName = "Earth ElementalStone 5";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][14].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_STONE][14].SetSoundID( SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE,SOUND_OUSTERS_ELEMENTAL_STONE );
@@ -6215,7 +6215,7 @@ InitClass( ITEM_CLASS_OUSTERS_STONE,15 );
 
 InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].HName = "◊‘»ªÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].HName = "Ëá™ÁÑ∂ËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].EName = "Natural Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6245,7 +6245,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][0].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].HName = "ÃŸ¬˚ÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].HName = "Ëó§ËîìËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].EName = "Vine Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6275,7 +6275,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][1].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].HName = "ª∆Õ≠÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].HName = "ÈªÑÈìú‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].EName = "Lardun Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6305,7 +6305,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][2].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].HName = "∫Èªƒ÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].HName = "Ê¥™Ëçí‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].EName = "Yohwen's Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6335,7 +6335,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][3].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].HName = "ÀÆæß÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].HName = "Ê∞¥Êô∂‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].EName = "Nixflos Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6365,7 +6365,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][4].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].HName = "¿·÷ÆÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].HName = "Ê≥™‰πãËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].EName = "Lacrima Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6395,7 +6395,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][5].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].HName = "∞◊“¯÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].HName = "ÁôΩÈì∂‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].EName = "Sempitrnus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6425,7 +6425,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][6].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].HName = "√¢∂≈ÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].HName = "ËäíÊùúËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].EName = "Mundus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6455,7 +6455,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][7].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].HName = "÷⁄…ÒÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].HName = "‰ºóÁ•ûËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].EName = "Sanctus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6485,7 +6485,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][8].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].HName = "÷À—◊ÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].HName = "ÁÇôÁÇéËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].EName = "Torrid Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6515,7 +6515,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][9].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].HName = "◊‘»ªÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].HName = "Ëá™ÁÑ∂ËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].EName = "Natural Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6545,7 +6545,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][10].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].HName = "ÃŸ¬˚ÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].HName = "Ëó§ËîìËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].EName = "Vine Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6575,7 +6575,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][11].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].HName = "ª∆Õ≠÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].HName = "ÈªÑÈìú‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].EName = "Lardun Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6605,7 +6605,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][12].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].HName = "∫Èªƒ÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].HName = "Ê¥™Ëçí‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].EName = "Yohwen's Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6635,7 +6635,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][13].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].HName = "ÀÆæß÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].HName = "Ê∞¥Êô∂‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].EName = "Nixflos Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6665,7 +6665,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][14].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].HName = "¿·÷ÆÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].HName = "Ê≥™‰πãËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].EName = "Lacrima Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6695,7 +6695,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][15].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].HName = "∞◊“¯÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].HName = "ÁôΩÈì∂‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].EName = "Sempitrnus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6725,7 +6725,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][16].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].HName = "√¢∂≈ÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].HName = "ËäíÊùúËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].EName = "Mundus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6755,7 +6755,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][17].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].HName = "÷⁄…ÒÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].HName = "‰ºóÁ•ûËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].EName = "Sanctus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6785,7 +6785,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][18].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].HName = "÷À—◊ÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].HName = "ÁÇôÁÇéËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].EName = "Torrid Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6815,7 +6815,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][19].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].HName = "◊‘»ªÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].HName = "Ëá™ÁÑ∂ËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].EName = "Natural Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6845,7 +6845,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][20].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].HName = "ÃŸ¬˚ÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].HName = "Ëó§ËîìËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].EName = "Vine Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6875,7 +6875,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][21].Elemental = 1;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].HName = "ª∆Õ≠÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].HName = "ÈªÑÈìú‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].EName = "Lardun Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6905,7 +6905,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][22].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].HName = "∫Èªƒ÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].HName = "Ê¥™Ëçí‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].EName = "Yohwen's Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6935,7 +6935,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][23].Elemental = 2;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].HName = "ÀÆæß÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].HName = "Ê∞¥Êô∂‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].EName = "Nixflos Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6965,7 +6965,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][24].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].HName = "¿·÷ÆÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].HName = "Ê≥™‰πãËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].EName = "Lacrima Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -6995,7 +6995,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][25].Elemental = 3;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].HName = "∞◊“¯÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].HName = "ÁôΩÈì∂‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].EName = "Sempitrnus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7025,7 +7025,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][26].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].HName = "√¢∂≈ÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].HName = "ËäíÊùúËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].EName = "Mundus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7055,7 +7055,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][27].Elemental = 4;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].HName = "÷⁄…ÒÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].HName = "‰ºóÁ•ûËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].EName = "Sanctus Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7085,7 +7085,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][28].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].HName = "÷À—◊ÕÛ Œ";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].HName = "ÁÇôÁÇéËÖïÈ•∞";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].EName = "Torrid Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7115,7 +7115,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][29].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].HName = "øÒ »";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].HName = "ÁãÇÂóú";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].EName = "Damballah Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7145,7 +7145,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][30].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].HName = "ªŸ√";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].HName = "ÊØÅÁÅ≠";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].EName = "Nekhbet Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7175,7 +7175,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][31].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].HName = "øÒ »";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].HName = "ÁãÇÂóú";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].EName = "Damballah Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7205,7 +7205,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][32].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].HName = "ªŸ√";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].HName = "ÊØÅÁÅ≠";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].EName = "Nekhbet Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7235,7 +7235,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][33].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].HName = "øÒ »";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].HName = "ÁãÇÂóú";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].EName = "Damballah Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7265,7 +7265,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][34].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].HName = "ªŸ√";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].HName = "ÊØÅÁÅ≠";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].EName = "Nekhbet Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7295,7 +7295,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][35].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].HName = "≤√æˆ÷Æ—◊";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].HName = "Ë£ÅÂÜ≥‰πãÁÇé";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].EName = "Cosmic Egg Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7328,7 +7328,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][36].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].HName = "≤√æˆ÷Æ—◊";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].HName = "Ë£ÅÂÜ≥‰πãÁÇé";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].EName = "Cosmic Egg Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7361,7 +7361,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][37].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].HName = "≤√æˆ÷Æ—◊";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].HName = "Ë£ÅÂÜ≥‰πãÁÇé";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].EName = "Cosmic Egg Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7394,7 +7394,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][38].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].HName = "≈¡∂˚ÕﬂµŸ÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].HName = "Â∏ïÂ∞îÁì¶ËíÇ‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].EName = "Palvati Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7424,7 +7424,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][39].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].HName = "≈¡∂˚ÕﬂµŸ÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].HName = "Â∏ïÂ∞îÁì¶ËíÇ‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].EName = "Palvati Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7454,7 +7454,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][40].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].HName = "≈¡∂˚ÕﬂµŸ÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].HName = "Â∏ïÂ∞îÁì¶ËíÇ‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].EName = "Palvati Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7484,7 +7484,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][41].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].HName = "∂È¬‰æ´¡È÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].HName = "Â†ïËêΩÁ≤æÁÅµ‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].EName = "Nepirim Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7514,7 +7514,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][42].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].HName = "∂È¬‰æ´¡È÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].HName = "Â†ïËêΩÁ≤æÁÅµ‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].EName = "Nepirim Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7544,7 +7544,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][43].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][44].HName = "∂È¬‰æ´¡È÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][44].HName = "Â†ïËêΩÁ≤æÁÅµ‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][44].EName = "Nepirim Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][44].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][44].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7574,7 +7574,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][44].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_EARTH;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][44].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][45].HName = "∞¬Ãÿƒ»÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][45].HName = "Â••ÁâπÂ®ú‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][45].EName = "Altena Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][45].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][45].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7604,7 +7604,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][45].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_FIRE;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][45].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][46].HName = "∞¬Ãÿƒ»÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][46].HName = "Â••ÁâπÂ®ú‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][46].EName = "Altena Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][46].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][46].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7634,7 +7634,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][46].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_WATER;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][46].Elemental = 5;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][47].HName = "∞¬Ãÿƒ»÷Æ±€";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][47].HName = "Â••ÁâπÂ®ú‰πãËáÇ";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][47].EName = "Altena Wristlet";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][47].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_WRISTLET][47].SetSoundID( SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET,SOUND_OUSTERS_WRISTLET );
@@ -7666,7 +7666,7 @@ InitClass( ITEM_CLASS_OUSTERS_WRISTLET,48 );
 
 InitClass( ITEM_CLASS_LARVA,5 );
 
- m_pTypeInfo[ITEM_CLASS_LARVA][0].HName = "¬Ã…´”◊≥Ê";
+ m_pTypeInfo[ITEM_CLASS_LARVA][0].HName = "ÁªøËâ≤ÂπºËô´";
  m_pTypeInfo[ITEM_CLASS_LARVA][0].EName = "Green Larva";
  m_pTypeInfo[ITEM_CLASS_LARVA][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_LARVA][0].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -7696,7 +7696,7 @@ InitClass( ITEM_CLASS_LARVA,5 );
  m_pTypeInfo[ITEM_CLASS_LARVA][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LARVA][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LARVA][1].HName = "–¬œ ”◊≥Ê";
+ m_pTypeInfo[ITEM_CLASS_LARVA][1].HName = "Êñ∞È≤úÂπºËô´";
  m_pTypeInfo[ITEM_CLASS_LARVA][1].EName = "Fresh Larva";
  m_pTypeInfo[ITEM_CLASS_LARVA][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_LARVA][1].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -7726,7 +7726,7 @@ InitClass( ITEM_CLASS_LARVA,5 );
  m_pTypeInfo[ITEM_CLASS_LARVA][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LARVA][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LARVA][2].HName = "÷–µ»”◊≥Ê";
+ m_pTypeInfo[ITEM_CLASS_LARVA][2].HName = "‰∏≠Á≠âÂπºËô´";
  m_pTypeInfo[ITEM_CLASS_LARVA][2].EName = "Adequate Larva";
  m_pTypeInfo[ITEM_CLASS_LARVA][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_LARVA][2].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -7756,7 +7756,7 @@ InitClass( ITEM_CLASS_LARVA,5 );
  m_pTypeInfo[ITEM_CLASS_LARVA][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LARVA][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LARVA][3].HName = "±•¬˙”◊≥Ê";
+ m_pTypeInfo[ITEM_CLASS_LARVA][3].HName = "È•±Êª°ÂπºËô´";
  m_pTypeInfo[ITEM_CLASS_LARVA][3].EName = "Ample Larva";
  m_pTypeInfo[ITEM_CLASS_LARVA][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_LARVA][3].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -7786,7 +7786,7 @@ InitClass( ITEM_CLASS_LARVA,5 );
  m_pTypeInfo[ITEM_CLASS_LARVA][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_LARVA][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_LARVA][4].HName = "∑ ¥Û”◊≥Ê";
+ m_pTypeInfo[ITEM_CLASS_LARVA][4].HName = "ËÇ•Â§ßÂπºËô´";
  m_pTypeInfo[ITEM_CLASS_LARVA][4].EName = "Swell Larva";
  m_pTypeInfo[ITEM_CLASS_LARVA][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_LARVA][4].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -7819,7 +7819,7 @@ InitClass( ITEM_CLASS_LARVA,5 );
 
 InitClass( ITEM_CLASS_PUPA,6 );
 
- m_pTypeInfo[ITEM_CLASS_PUPA][0].HName = "¬Ã…´µƒ”º";
+ m_pTypeInfo[ITEM_CLASS_PUPA][0].HName = "ÁªøËâ≤ÁöÑËõπ";
  m_pTypeInfo[ITEM_CLASS_PUPA][0].EName = "Green Pupa";
  m_pTypeInfo[ITEM_CLASS_PUPA][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_PUPA][0].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_PUPA );
@@ -7849,7 +7849,7 @@ InitClass( ITEM_CLASS_PUPA,6 );
  m_pTypeInfo[ITEM_CLASS_PUPA][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PUPA][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PUPA][1].HName = "–¬œ µƒ”º";
+ m_pTypeInfo[ITEM_CLASS_PUPA][1].HName = "Êñ∞È≤úÁöÑËõπ";
  m_pTypeInfo[ITEM_CLASS_PUPA][1].EName = "Fresh Pupa";
  m_pTypeInfo[ITEM_CLASS_PUPA][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_PUPA][1].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_PUPA );
@@ -7879,7 +7879,7 @@ InitClass( ITEM_CLASS_PUPA,6 );
  m_pTypeInfo[ITEM_CLASS_PUPA][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PUPA][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PUPA][2].HName = "÷–µ»µƒ”º";
+ m_pTypeInfo[ITEM_CLASS_PUPA][2].HName = "‰∏≠Á≠âÁöÑËõπ";
  m_pTypeInfo[ITEM_CLASS_PUPA][2].EName = "Adequate Pupa";
  m_pTypeInfo[ITEM_CLASS_PUPA][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_PUPA][2].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_PUPA );
@@ -7909,7 +7909,7 @@ InitClass( ITEM_CLASS_PUPA,6 );
  m_pTypeInfo[ITEM_CLASS_PUPA][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PUPA][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PUPA][3].HName = "±•¬˙µƒ”º";
+ m_pTypeInfo[ITEM_CLASS_PUPA][3].HName = "È•±Êª°ÁöÑËõπ";
  m_pTypeInfo[ITEM_CLASS_PUPA][3].EName = "Ample Pupa";
  m_pTypeInfo[ITEM_CLASS_PUPA][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_PUPA][3].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_PUPA );
@@ -7939,7 +7939,7 @@ InitClass( ITEM_CLASS_PUPA,6 );
  m_pTypeInfo[ITEM_CLASS_PUPA][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PUPA][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PUPA][4].HName = "∑ ¥Ûµƒ”º";
+ m_pTypeInfo[ITEM_CLASS_PUPA][4].HName = "ËÇ•Â§ßÁöÑËõπ";
  m_pTypeInfo[ITEM_CLASS_PUPA][4].EName = "Swell Pupa";
  m_pTypeInfo[ITEM_CLASS_PUPA][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_PUPA][4].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_PUPA );
@@ -7969,7 +7969,7 @@ InitClass( ITEM_CLASS_PUPA,6 );
  m_pTypeInfo[ITEM_CLASS_PUPA][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_PUPA][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_PUPA][5].HName = "√ÿµ§";
+ m_pTypeInfo[ITEM_CLASS_PUPA][5].HName = "Áßò‰∏π";
  m_pTypeInfo[ITEM_CLASS_PUPA][5].EName = "Green Candy";
  m_pTypeInfo[ITEM_CLASS_PUPA][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_PUPA][5].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_PUPA );
@@ -8002,7 +8002,7 @@ InitClass( ITEM_CLASS_PUPA,6 );
 
 InitClass( ITEM_CLASS_COMPOS_MEI,5 );
 
- m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].HName = "¬Ã…´π˚ µ";
+ m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].HName = "ÁªøËâ≤ÊûúÂÆû";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].EName = "Green Mei";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_MEI );
@@ -8032,7 +8032,7 @@ InitClass( ITEM_CLASS_COMPOS_MEI,5 );
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].HName = "–¬œ π˚ µ";
+ m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].HName = "Êñ∞È≤úÊûúÂÆû";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].EName = "Fresh Mei";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_MEI );
@@ -8062,7 +8062,7 @@ InitClass( ITEM_CLASS_COMPOS_MEI,5 );
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].HName = "÷–µ»π˚ µ";
+ m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].HName = "‰∏≠Á≠âÊûúÂÆû";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].EName = "Adequate Mei";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_MEI );
@@ -8092,7 +8092,7 @@ InitClass( ITEM_CLASS_COMPOS_MEI,5 );
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].HName = "±•¬˙π˚ µ";
+ m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].HName = "È•±Êª°ÊûúÂÆû";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].EName = "Ample Mei";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_MEI );
@@ -8122,7 +8122,7 @@ InitClass( ITEM_CLASS_COMPOS_MEI,5 );
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][4].HName = "À∂¥Ûπ˚ µ";
+ m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][4].HName = "Á°ïÂ§ßÊûúÂÆû";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][4].EName = "Swell Mei";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_COMPOS_MEI][4].SetSoundID( SOUND_ITEM_MOVE_POTION,SOUND_ITEM_MOVE_POTION,SOUNDID_NULL,SOUND_OUSTERS_MEI );
@@ -8155,7 +8155,7 @@ InitClass( ITEM_CLASS_COMPOS_MEI,5 );
 
 InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].HName = "≥ıº∂∑Áæ´¡È’ŸªΩ Ø";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].HName = "ÂàùÁ∫ßÈ£éÁ≤æÁÅµÂè¨Âî§Áü≥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].EName = "Sylph Summon Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8185,7 +8185,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][0].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].HName = "÷–º∂∑Áæ´¡È’ŸªΩ Ø";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].HName = "‰∏≠Á∫ßÈ£éÁ≤æÁÅµÂè¨Âî§Áü≥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].EName = "Sylaphe Summon Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8215,7 +8215,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][1].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].HName = "∏ﬂº∂∑Áæ´¡È’ŸªΩ Ø";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].HName = "È´òÁ∫ßÈ£éÁ≤æÁÅµÂè¨Âî§Áü≥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].EName = "Sylairon Summon Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8245,7 +8245,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][2].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].HName = "¬Ã…´æ´¡È±¶ Ø";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].HName = "ÁªøËâ≤Á≤æÁÅµÂÆùÁü≥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].EName = "Green Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8275,7 +8275,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][3].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].HName = "≥»…´æ´¡È Ø";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].HName = "Ê©ôËâ≤Á≤æÁÅµÁü≥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].EName = "Orange Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8305,7 +8305,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][4].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].HName = "∫Ï…´æ´¡È Ø";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].HName = "Á∫¢Ëâ≤Á≤æÁÅµÁü≥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].EName = "Red Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8335,7 +8335,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][5].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].HName = "ª∆…´æ´¡È Ø";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].HName = "ÈªÑËâ≤Á≤æÁÅµÁü≥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].EName = "Yellow Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8365,7 +8365,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][6].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].HName = "∞◊…´æ´¡È Ø";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].HName = "ÁôΩËâ≤Á≤æÁÅµÁü≥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].EName = "White Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8395,7 +8395,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][7].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].HName = "∫÷…´æ´¡È Ø";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].HName = "Ë§êËâ≤Á≤æÁÅµÁü≥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].EName = "Brown Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8425,7 +8425,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][8].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].HName = "◊œ…´æ´¡È Ø";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].HName = "Á¥´Ëâ≤Á≤æÁÅµÁü≥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].EName = "Lilac Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );
@@ -8455,7 +8455,7 @@ InitClass( ITEM_CLASS_OUSTERS_SUMMON_ITEM,11 );
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].ElementalType = ITEMTABLE_INFO::ELEMENTAL_TYPE_ANY;
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][9].Elemental = 0;
 
- m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][10].HName = "∫⁄…´æ´¡È Ø";
+ m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][10].HName = "ÈªëËâ≤Á≤æÁÅµÁü≥";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][10].EName = "Black Summon Imp Gem";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][10].Description = "";
  m_pTypeInfo[ITEM_CLASS_OUSTERS_SUMMON_ITEM][10].SetSoundID( SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL,SOUNDID_NULL );

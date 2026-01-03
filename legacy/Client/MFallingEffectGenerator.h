@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MFallingEffectGenerator.h
 //----------------------------------------------------------------------
-// °øÁßÀ¸·Î ¼Ú¾Æ¿À¸£´Â Effect
+// ê³µì¤‘ìœ¼ë¡œ ì†Ÿì•„ì˜¤ë¥´ëŠ” Effect
 //----------------------------------------------------------------------
 
 #ifndef	__MFALLINGEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MFallingEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_FALLING; }
 
-		// Effect»ı¼º
+		// Effectìƒì„±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

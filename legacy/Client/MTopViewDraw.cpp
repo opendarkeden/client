@@ -3,8 +3,8 @@
 // MTopViewDraw.cpp
 //----------------------------------------------------------------------
 //
-// º¹ÀâÇÑ Draw ÇÔ¼ö ºÎºĞ¸¸ µû·Î »©³õ´Â´Ù.
-// ÀÛ¾÷ÇÏ±â°¡ ¿µ ºÒÆíÇØ¼­ 
+// ë³µì¡í•œ Draw í•¨ìˆ˜ ë¶€ë¶„ë§Œ ë”°ë¡œ ë¹¼ë†“ëŠ”ë‹¤.
+// ì‘ì—…í•˜ê¸°ê°€ ì˜ ë¶ˆí¸í•´ì„œ 
 //----------------------------------------------------------------------
 #pragma warning(disable:4786)
 #include "Client_PCH.h"
@@ -86,20 +86,20 @@ namespace {
 
 int AdvancementOustersActionConvTable[ ACTION_MAX_SLAYER ] =
 {
-	ACTION_STAND,		// µû·Î Á¶°Ç º¯È¯ ÇÊ¿ä
-	ACTION_MOVE,		// µû·Î Á¶°Ç º¯È¯ ÇÊ¿ä
+	ACTION_STAND,		// ë”°ë¡œ ì¡°ê±´ ë³€í™˜ í•„ìš”
+	ACTION_MOVE,		// ë”°ë¡œ ì¡°ê±´ ë³€í™˜ í•„ìš”
 	ACTION_ADVANCEMENT_OUSTERS_ATTACK_NORMAL,
 	ACTION_ADVANCEMENT_OUSTERS_MAGIC,
 	ACTION_ADVANCEMENT_OUSTERS_DAMAGED,
 	ACTION_ADVANCEMENT_OUSTERS_DRAINED,
 	ACTION_ADVANCEMENT_OUSTERS_DIE,
-	ACTION_STAND,		// µû·Î Á¶°Ç º¯È¯ ÇÊ¿ä	(¼­ÀÖ±â)
-	ACTION_MOVE,		// µû·Î Á¶°Ç º¯È¯ ÇÊ¿ä	(°È±â)
+	ACTION_STAND,		// ë”°ë¡œ ì¡°ê±´ ë³€í™˜ í•„ìš”	(ì„œìˆê¸°)
+	ACTION_MOVE,		// ë”°ë¡œ ì¡°ê±´ ë³€í™˜ í•„ìš”	(ê±·ê¸°)
 	ACTION_ADVANCEMENT_OUSTERS_SKILL_NORMAL,
 	ACTION_ADVANCEMENT_OUSTERS_MAGIC_ATTACK,
 	ACTION_ADVANCEMENT_OUSTERS_ABSORB_SOUL,
-	ACTION_ADVANCEMENT_OUSTERS_FAST_MOVE_STOP,		// µû·Î Á¶°Ç º¯È¯ ÇÊ¿ä	(°øÁßÁ¤Áö)
-	ACTION_ADVANCEMENT_OUSTERS_FAST_MOVE,		// µû·Î Á¶°Ç º¯È¯ ÇÊ¿ä  (°øÁßÀÌµ¿)
+	ACTION_ADVANCEMENT_OUSTERS_FAST_MOVE_STOP,		// ë”°ë¡œ ì¡°ê±´ ë³€í™˜ í•„ìš”	(ê³µì¤‘ì •ì§€)
+	ACTION_ADVANCEMENT_OUSTERS_FAST_MOVE,		// ë”°ë¡œ ì¡°ê±´ ë³€í™˜ í•„ìš”  (ê³µì¤‘ì´ë™)
 	ACTION_ADVANCEMENT_OUSTERS_ATTACK_SLOW,
 	ACTION_ADVANCEMENT_OUSTERS_ATTACK_FAST,
 	ACTION_ADVANCEMENT_OUSTERS_SKILL_SLOW,
@@ -109,9 +109,9 @@ int AdvancementOustersActionConvTable[ ACTION_MAX_SLAYER ] =
 // by viva
 int AdvancementSlayerActionConvTable[ ACTION_MAX_SLAYER ] = 
 {
-	ACTION_STAND,	// µû·Î Á¶°Ç º¯È¯ ÇÊ¿ä
-	ACTION_MOVE,	// µû·Î Á¶°Ç º¯È¯ ÇÊ¿ä
-	-1,	// µû·Î Á¶°Ç º¯È¯ ÇÊ¿ä
+	ACTION_STAND,	// ë”°ë¡œ ì¡°ê±´ ë³€í™˜ í•„ìš”
+	ACTION_MOVE,	// ë”°ë¡œ ì¡°ê±´ ë³€í™˜ í•„ìš”
+	-1,	// ë”°ë¡œ ì¡°ê±´ ë³€í™˜ í•„ìš”
 	ACTION_ADVANCEMENT_SLAYER_MAGIC,
 	ACTION_DAMAGED,
 	ACTION_ADVANCEMENT_SLAYER_DRAINED,
@@ -120,13 +120,13 @@ int AdvancementSlayerActionConvTable[ ACTION_MAX_SLAYER ] =
 	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_NORMAL,	// AR
 	ACTION_ADVANCEMENT_SLAYER_ATTACK_SWORD_NORMAL,
 	ACTION_ADVANCEMENT_SLAYER_ATTACK_BLADE_NORMAL,
-	-1,												// ÆøÅº ´øÁö±â
+	-1,												// í­íƒ„ ë˜ì§€ê¸°
 	ACTION_ADVANCEMENT_SLAYER_BIKE_MOVE,
 	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_NORMAL,	// SG
 	ACTION_ADVANCEMENT_SLAYER_ATTACK_AR_GUN_NORMAL,	// SMG
 	ACTION_ADVANCEMENT_SLAYER_SKILL_SWORD_NORMAL,
 	ACTION_ADVANCEMENT_SLAYER_SKILL_BLADE_NORMAL,
-	-1,												// ¼º¼ö ´øÁö±â
+	-1,												// ì„±ìˆ˜ ë˜ì§€ê¸°
 	ACTION_ADVANCEMENT_SLAYER_BIKE_STOP,			// 18
 	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_SLOW,		//SR
 	ACTION_ADVANCEMENT_SLAYER_ATTACK_SR_GUN_FAST,		//SR
@@ -206,7 +206,7 @@ int GetNewVampireActionFromVampireAction( int CurAction )
 }
 int GetAdvancementPartFromItemClass( ITEM_CLASS itemClass , TYPE_FRAMEID frameID)
 {
-//	assert(false && "´ÔÇÏ Áñµå333");
+//	assert(false && "ë‹˜í•˜ ì¦ë“œ333");
 
 	switch( itemClass )
 	{
@@ -402,7 +402,7 @@ int ConvNewSlayerActionFromSlayerAction(int CurAction, MCreatureWear* pCreatureW
 		Action=ACTION_NEW_SLAYER_BLADE_2_SLOW;
 	else if(CurAction==ACTION_SLAYER_BLADE_2_FAST)	//32
 		Action=ACTION_NEW_SLAYER_BLADE_2_FAST;
-	else if(CurAction==130)//ÆğÔ´Ê¥Ó¡
+	else if(CurAction==130)//í…éƒ½åŠ ä¸¹
 		Action=37;
 	return Action;
 }
@@ -472,7 +472,7 @@ bool IsEscapeDrawCreatureFunction( MCreature* pCreature )
 		|| pCreature->IsGhost(1) && pCreature->IsGhost(2) && pCreature->IsGhost(4);
 
 		
-	// 2004, 6, 7 sobeit add start - ÆêÀÏ °æ¿ì ÁÖÀÎÀÎ ´ÙÅ©´Ï½º ¾È¿¡ ÀÖÀ¸¸é ¾Èº¸ÀÌ°Ô..
+	// 2004, 6, 7 sobeit add start - í«ì¼ ê²½ìš° ì£¼ì¸ì¸ ë‹¤í¬ë‹ˆìŠ¤ ì•ˆì— ìˆìœ¼ë©´ ì•ˆë³´ì´ê²Œ..
 	bool bPet1 = false;
 	if(pCreature->IsFakeCreature())
 	{
@@ -492,7 +492,7 @@ bool IsEscapeDrawCreatureFunction( MCreature* pCreature )
 		&& pCreature != g_pPlayer 
 		)
 	{
-		// °Å¸®¿¡ µû¶ó¼­ Ãâ·Â ¿©ºÎ¸¦ °áÁ¤ÇÑ´Ù.
+		// ê±°ë¦¬ì— ë”°ë¼ì„œ ì¶œë ¥ ì—¬ë¶€ë¥¼ ê²°ì •í•œë‹¤.
 		int sx,sy,ex,ey;
 
 		sx = g_pPlayer->GetX() - 1;
@@ -511,14 +511,14 @@ bool IsEscapeDrawCreatureFunction( MCreature* pCreature )
 }
 
 //----------------------------------------------------------------------
-// Draw Creature : character Ãâ·ÂÇÏ±â	
+// Draw Creature : character ì¶œë ¥í•˜ê¸°	
 //----------------------------------------------------------------------
-// pSurfaceÀÇ pPoint¿¡ pCreature¸¦ Ãâ·ÂÇÑ´Ù.
+// pSurfaceì˜ pPointì— pCreatureë¥¼ ì¶œë ¥í•œë‹¤.
 //----------------------------------------------------------------
 void	
 MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 {	
-	// EFFECTSTATUS_GHOST ¿¡ °É·ÁÀÖÀ¸¸é ³²µµ ¸øº¸°í ³ªµµ ¸øº»´Ù
+	// EFFECTSTATUS_GHOST ì— ê±¸ë ¤ìˆìœ¼ë©´ ë‚¨ë„ ëª»ë³´ê³  ë‚˜ë„ ëª»ë³¸ë‹¤
 	//DEBUG_ADD_FORMAT("[DrawCreature] Start %s %s %s", pCreature->IsGhost(1)?"true":"false", pCreature->IsGhost(2)?"true":"false", pCreature->IsGhost(4)?"true":"false");
 	if( IsEscapeDrawCreatureFunction( pCreature ) )
 		return;
@@ -541,13 +541,13 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 	//	if(action>ACTION_OUSTERS_MAGIC_ATTACK)
 	//		int i = 0;
 		//----------------------------------------------------------
-		// Charm¿¡ °É·Á ÀÖ´Â Ä³¸¯ÅÍ..
-		// ÈíÇ÷´çÇÏ´Â µ¿ÀÛÀ¸·Î Ç¥Çö..
+		// Charmì— ê±¸ë ¤ ìˆëŠ” ìºë¦­í„°..
+		// í¡í˜ˆë‹¹í•˜ëŠ” ë™ì‘ìœ¼ë¡œ í‘œí˜„..
 		//----------------------------------------------------------
 		if (pCreature->HasEffectStatus(EFFECTSTATUS_CHARM))
 		{
 			action = ACTION_DRAINED;
-			frame = 6 + (frame & 0x07);		// ÈíÇ÷ µ¿ÀÛ¿¡¼­ ¹İº¹ frameÀÇ ½ÃÀÛÀÌ 6ÀÌ´Ù.		
+			frame = 6 + (frame & 0x07);		// í¡í˜ˆ ë™ì‘ì—ì„œ ë°˜ë³µ frameì˜ ì‹œì‘ì´ 6ì´ë‹¤.		
 		}
 		if(pCreature->HasEffectStatus(EFFECTSTATUS_BIKE_CRASH))
 			frame = 0;
@@ -559,8 +559,8 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 								&&	creature_type != 717 && creature_type != 721 && creature_type != 723);
 							
 		
-		// ÇÒ·ç°¡ °É·ÈÀ¸¸é ¾×¼Ç ÇÁ·¹ÀÓµîÀ» ¹Ù²Ù´Âµ¥... ´Ü ´Á´ë »óÅÂ³ª ¹ÚÁã »óÅÂ¿¡¼­´Â 
-		// ¹Ù²ÙÁö ¾Êµµ·Ï ÇÑ´Ù. ÀÏ´Ü ±âÈ¹ÆÀ¿¡ ÀÇÇØ¼­ ÁÖ¼®Ã³¸®ÇØ³õ¾Ò´Ù.
+		// í• ë£¨ê°€ ê±¸ë ¸ìœ¼ë©´ ì•¡ì…˜ í”„ë ˆì„ë“±ì„ ë°”ê¾¸ëŠ”ë°... ë‹¨ ëŠ‘ëŒ€ ìƒíƒœë‚˜ ë°•ì¥ ìƒíƒœì—ì„œëŠ” 
+		// ë°”ê¾¸ì§€ ì•Šë„ë¡ í•œë‹¤. ì¼ë‹¨ ê¸°íšíŒ€ì— ì˜í•´ì„œ ì£¼ì„ì²˜ë¦¬í•´ë†“ì•˜ë‹¤.
 		if (pCreature->IsHallu()
 	//		&& !pCreature->HasEffectStatus( EFFECTSTATUS_TRANSFORM_TO_BAT )
 	//		&& !pCreature->HasEffectStatus( EFFECTSTATUS_TRANSFORM_TO_WOLF )
@@ -606,7 +606,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			if( action == ACTION_STAND || action == ACTION_MOVE )
 				bSlayerPet_ShowTurret = true;
 			break;
-		case 726: // ¼º¹® 4Á¾
+		case 726: // ì„±ë¬¸ 4ì¢…
 		case 727:
 		case 728:
 		case 729:
@@ -637,7 +637,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			}
 			break;
 
-		case 767:// ·ÎÄÏ ·±ÃÄ
+		case 767:// ë¡œì¼“ ëŸ°ì³
 			{
 				if(direction == 0 || direction == 4)
 				{
@@ -662,7 +662,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 		}
 		// 2004, 7, 23 sobeit modify end
 		
-		// 2004, 11, 22, sobeit add start - set afire °ü·Ã
+		// 2004, 11, 22, sobeit add start - set afire ê´€ë ¨
 		if(pCreature->GetID() != g_pPlayer->GetID())
 		{
 			if(pCreature->GetSpecialActionInfo() == SKILL_SET_AFIRE)
@@ -685,8 +685,8 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				}
 			}
 		}
-		// 2004, 11, 22, sobeit add end - set afire °ü·Ã
-		// ¼º¹°Àº ¹«Á¶°Ç ¾Æ·¡, Å©¸®½º¸¶½ºÆ®¸®
+		// 2004, 11, 22, sobeit add end - set afire ê´€ë ¨
+		// ì„±ë¬¼ì€ ë¬´ì¡°ê±´ ì•„ë˜, í¬ë¦¬ìŠ¤ë§ˆìŠ¤íŠ¸ë¦¬
 
 
 		if(pCreature->IsFakeDie())
@@ -712,13 +712,13 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 					creature_type == 670 || 
 					creature_type == 672 ||
 					creature_type == 673 ||
-					creature_type == 730 || // ¿şÀÌ Æ÷ÀÎÆ®1
-					creature_type == 731 || // ¿şÀÌ Æ÷ÀÎÆ®2
-					creature_type == 732 || // ¿şÀÌ Æ÷ÀÎÆ®3
-					creature_type == 636 // »ı¼± °¡°Ô ¾ÆÀú¾¾
+					creature_type == 730 || // ì›¨ì´ í¬ì¸íŠ¸1
+					creature_type == 731 || // ì›¨ì´ í¬ì¸íŠ¸2
+					creature_type == 732 || // ì›¨ì´ í¬ì¸íŠ¸3
+					creature_type == 636 // ìƒì„  ê°€ê²Œ ì•„ì €ì”¨
 
-					)	// ¼º¹° // Å©¸®½º ¸¶½º Æ®¸®
-					|| creature_type >= 377 && creature_type <= 386	// ´ÙÅ© °¡µğ¾ğÀº ¸ÕÁö·Î Ç¥½Ã
+					)	// ì„±ë¬¼ // í¬ë¦¬ìŠ¤ ë§ˆìŠ¤ íŠ¸ë¦¬
+					|| creature_type >= 377 && creature_type <= 386	// ë‹¤í¬ ê°€ë””ì–¸ì€ ë¨¼ì§€ë¡œ í‘œì‹œ
 					|| creature_type == 480 
 				)
 				&&
@@ -728,15 +728,15 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				)
 				&&
 				(
-					creature_type < 431		// ¹ÙÅä¸®
-					|| creature_type > 436	// Å×ÆäÁî
+					creature_type < 431		// ë°”í† ë¦¬
+					|| creature_type > 436	// í…Œí˜ì¦ˆ
 				);
 
 		//---------------------------------------------------------
-		// PC VampireÀÎ °æ¿ì Á×À¸¸é '¸ÕÁö'·Î Ç¥ÇöÇÑ´Ù.
+		// PC Vampireì¸ ê²½ìš° ì£½ìœ¼ë©´ 'ë¨¼ì§€'ë¡œ í‘œí˜„í•œë‹¤.
 		//
-		// player´Â Á×¾îµµ ¾ÆÀÌÅÛÀ¸·Î º¯ÇÏÁö ¾Ê±â ¶§¹®¿¡..
-		// Æ¾¹öÀü¿¡¼± ¸ğµç ½ÃÃ¼¸¦ '¸ÕÁö'·Î Ç¥ÇöÇÑ´Ù.
+		// playerëŠ” ì£½ì–´ë„ ì•„ì´í…œìœ¼ë¡œ ë³€í•˜ì§€ ì•Šê¸° ë•Œë¬¸ì—..
+		// í‹´ë²„ì „ì—ì„  ëª¨ë“  ì‹œì²´ë¥¼ 'ë¨¼ì§€'ë¡œ í‘œí˜„í•œë‹¤.
 		//---------------------------------------------------------	
 		if (bPlayerVampire || bTeenVersion || bGildreDead )
 		{
@@ -746,7 +746,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				if(pCreature->IsSlayer())
 				{
 					pSprite = &m_EtcSPK[ SPRITEID_SLAYER_CROSS ];
-					// ÁÂÇ¥ º¸Á¤
+					// ì¢Œí‘œ ë³´ì •
 					pointTemp.x = pPoint->x - 5+20;
 					pointTemp.y = pPoint->y - 30;				
 				}
@@ -754,20 +754,20 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				else if((*g_pCreatureSpriteTable)[(*g_pCreatureTable)[creature_type].SpriteTypes[0]].IsPlayerVampireOnlySprite())
 				{
 					pSprite = &m_EtcSPK[ SPRITEID_VAMPIRE_DUST ];
-					// ÁÂÇ¥ º¸Á¤
+					// ì¢Œí‘œ ë³´ì •
 					pointTemp.x = pPoint->x - 5;
 					pointTemp.y = pPoint->y;				
 				}
 				else
 				{
 					pSprite = &m_EtcSPK[ SPRITEID_MONSTER_DUST ];
-					// ÁÂÇ¥ º¸Á¤
+					// ì¢Œí‘œ ë³´ì •
 					pointTemp.x = pPoint->x - 5;
 					pointTemp.y = pPoint->y;				
 				}
 
 
-				// ¼±ÅÃµÈ °ÍÀÎ °æ¿ì
+				// ì„ íƒëœ ê²ƒì¸ ê²½ìš°
 				if (m_SelectItemID == creatureID
 					|| m_SelectCreatureID == creatureID)
 				{
@@ -780,7 +780,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 					m_pSurface->BltSpriteOutline( &m_SOM, m_SOMOutlineColor );
 					
 					//---------------------------------------- 	
-					// ÀÌ¸§ Ãâ·ÂÇÒ ÁÂÇ¥ ÁöÁ¤
+					// ì´ë¦„ ì¶œë ¥í•  ì¢Œí‘œ ì§€ì •
 					//---------------------------------------- 	
 					const int FontHeight = g_pClientConfig->FONT_HEIGHT;
 					const int FontHeight2 = FontHeight << 1;
@@ -789,7 +789,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 					if (pointTemp.x<0) pointTemp.x=0;
 					
 					//---------------------------------------- 	
-					// Level Name ÂïÀ» À§Ä¡µµ °è»ê
+					// Level Name ì°ì„ ìœ„ì¹˜ë„ ê³„ì‚°
 					//---------------------------------------- 	
 					if (pCreature->HasLevelName())
 					{
@@ -801,7 +801,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 						}
 					}
 					//---------------------------------------- 	
-					// ±×³É ÀÌ¸§¸¸ ÂïÀ» ¶§
+					// ê·¸ëƒ¥ ì´ë¦„ë§Œ ì°ì„ ë•Œ
 					//---------------------------------------- 	
 					else
 					{
@@ -822,8 +822,8 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				}			
 
 				//------------------------------------------------
-				// Á×Àº Ä³¸¯ÅÍÀÌ¸é ¼±ÅÃ »ç°¢ÇüÀ»
-				// ÇÑ Tile Å©±â·Î Á¦ÇÑÇÑ´Ù.
+				// ì£½ì€ ìºë¦­í„°ì´ë©´ ì„ íƒ ì‚¬ê°í˜•ì„
+				// í•œ Tile í¬ê¸°ë¡œ ì œí•œí•œë‹¤.
 				//------------------------------------------------
 				RECT rect;
 				rect.left	= pPoint->x;
@@ -854,7 +854,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 							pCreature->GetAttachEffectIterator(), 
 							pCreature->GetAttachEffectSize(),
 							pCreature,
-							1);	// foregroundÃâ·Â
+							1);	// foregroundì¶œë ¥
 						
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 						DEBUG_ADD("DAE ok");
@@ -871,7 +871,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 		}
 
 		//------------------------------------------------
-		// SlayerÀÎ °æ¿ì Darkness ¾ÈÀ» º¼ ¼ö ¾ø´Ù.
+		// Slayerì¸ ê²½ìš° Darkness ì•ˆì„ ë³¼ ìˆ˜ ì—†ë‹¤.
 		//------------------------------------------------
 		if (
 			!( creature_type >= 526 && creature_type <= 549 || 
@@ -899,10 +899,10 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 
 		//------------------------------------------------
 		//
-		// ¶¥ ¼Ó¿¡ ÆÄ¹¯Èù ¾ÖµéÀº °íÁ¤µÈ ±×¸²..
+		// ë•… ì†ì— íŒŒë¬»íŒ ì• ë“¤ì€ ê³ ì •ëœ ê·¸ë¦¼..
 		//
 		//------------------------------------------------
-		// 2004, 04, 24 sobeit modify - Áúµå·¹ ·¹¾î ghost´Â ¶¥¼Ó Å©¸®ÃÄÁö¸¸ °íÁ¤µÈ ±×¸²ÀÌ ¾Æ´Ô..^^;
+		// 2004, 04, 24 sobeit modify - ì§ˆë“œë ˆ ë ˆì–´ ghostëŠ” ë•…ì† í¬ë¦¬ì³ì§€ë§Œ ê³ ì •ëœ ê·¸ë¦¼ì´ ì•„ë‹˜..^^;
 		if (pCreature->IsUndergroundCreature() && pCreature->GetCreatureType() != CREATURETYPE_GHOST)
 		{
 			DrawUndergroundCreature(pPoint, pCreature );
@@ -914,7 +914,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 		}
 
 		//----------------------------------------------------------
-		// ¸Ó¸®°¡ ¾ø´Â °æ¿ì
+		// ë¨¸ë¦¬ê°€ ì—†ëŠ” ê²½ìš°
 		//----------------------------------------------------------
 		if (!pCreature->HasHead()
 			&& pCreature->GetActionCount()==pCreature->GetActionCountMax()
@@ -922,25 +922,25 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 		{
 			if (action==ACTION_DIE)
 			{
-				// ½ÇÁ¦·Î´Â..¸¶Áö¸· frame + 1ÀÌ´Ù.
+				// ì‹¤ì œë¡œëŠ”..ë§ˆì§€ë§‰ frame + 1ì´ë‹¤.
 				//frame	= (*g_pCreatureTable)[creature_type].GetActionCount( action );
 				frame	= GetCreatureActionCountMax( pCreature, action);
 			}
 		}
 
-		// Teen¹öÀüÀÎ °æ¿ì Á×´Â µ¿ÀÛ ¾Ö´Ï¸ŞÀÌ¼Ç ¾ÈÇÔ
-		// Ã³À½¿£ ¸¶Áö¸·ÇÁ·¹ÀÓÀü±îÁöÀÇ µ¿ÀÛ¸¸ 0À¸·Î ¼¼ÆÃÇß´Âµ¥ Àú À§ÂÊ¿¡¼­ Àç·Î ÂïÀ» °æ¿ì returnÇØ¹ö·Á¼­ ÀÇ¹Ì¾øÀ½
+		// Teenë²„ì „ì¸ ê²½ìš° ì£½ëŠ” ë™ì‘ ì• ë‹ˆë©”ì´ì…˜ ì•ˆí•¨
+		// ì²˜ìŒì—” ë§ˆì§€ë§‰í”„ë ˆì„ì „ê¹Œì§€ì˜ ë™ì‘ë§Œ 0ìœ¼ë¡œ ì„¸íŒ…í–ˆëŠ”ë° ì € ìœ„ìª½ì—ì„œ ì¬ë¡œ ì°ì„ ê²½ìš° returní•´ë²„ë ¤ì„œ ì˜ë¯¸ì—†ìŒ
 		if(g_pUserInformation->GoreLevel == false && action == ACTION_DIE
 			&&	(
-					creature_type < 431		// ¹ÙÅä¸®
-					|| creature_type > 436	// Å×ÆäÁî
+					creature_type < 431		// ë°”í† ë¦¬
+					|| creature_type > 436	// í…Œí˜ì¦ˆ
 				)
 			)
 		{
 			frame = 0;
 		}
 		
-		// Creature°¡ Á¸ÀçÇÏ´Â ³ôÀÌ¸¸Å­ »©ÁØ´Ù.
+		// Creatureê°€ ì¡´ì¬í•˜ëŠ” ë†’ì´ë§Œí¼ ë¹¼ì¤€ë‹¤.
 		pPoint->y -= pCreature->GetZ();
 
 		if(!pCreature->IsNPC() &&  pCreature->HasEffectStatus(EFFECTSTATUS_DIVINE_GUIDANCE))
@@ -969,7 +969,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 		}
 
 		//----------------------------------------
-		// ¹Ù´Ú¿¡ ºÙÀº Effect Ãâ·Â
+		// ë°”ë‹¥ì— ë¶™ì€ Effect ì¶œë ¥
 		//----------------------------------------
 		if (pCreature->IsExistGroundAttachEffect())
 		{				
@@ -982,7 +982,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 
 		//---------------------------------------------------------------
 		//
-		//                  Background AttachEffectNode Ãâ·Â
+		//                  Background AttachEffectNode ì¶œë ¥
 		//
 		//---------------------------------------------------------------
 		if (pCreature->IsExistAttachEffect())
@@ -997,19 +997,19 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 								pCreature->GetAttachEffectIterator(), 
 								pCreature->GetAttachEffectSize(),
 								pCreature,
-								2);	// backgroundÃâ·Â
+								2);	// backgroundì¶œë ¥
 
 	//		DEBUG_ADD("BAE ok");
 		}
 
 		//---------------------------------------------------------------
 		//
-		//                  Mouse·Î ¼±ÅÃ --> ¿Ü°û¼±
+		//                  Mouseë¡œ ì„ íƒ --> ì™¸ê³½ì„ 
 		//
 		//---------------------------------------------------------------
 
 		//------------------------------------------------
-		// Mouse°¡ °¡¸®Å°°í ÀÖ´Â Creature
+		// Mouseê°€ ê°€ë¦¬í‚¤ê³  ìˆëŠ” Creature
 		//------------------------------------------------
 		
 		if (m_SelectCreatureID == creatureID || OutLineOption)
@@ -1018,16 +1018,16 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				DEBUG_ADD("Sel Creature");
 			#endif
 
-			// SpriteOutlineManager¿¡ Ãß°¡
-			if (pCreature->IsNPC()							// NPCÀÎ °æ¿ì
-				// ¹ÙÅä¸®ÀÎ °æ¿ì´Â ¾ÈµÈ´Ù. ÇÏµåÄÚµù - -;;
+			// SpriteOutlineManagerì— ì¶”ê°€
+			if (pCreature->IsNPC()							// NPCì¸ ê²½ìš°
+				// ë°”í† ë¦¬ì¸ ê²½ìš°ëŠ” ì•ˆëœë‹¤. í•˜ë“œì½”ë”© - -;;
 				&& !(creature_type==217)
-				|| IsRequestMode()								// trade modeÀÎ °æ¿ì
-					// player¸¸ µÈ´Ù.
+				|| IsRequestMode()								// trade modeì¸ ê²½ìš°
+					// playerë§Œ ëœë‹¤.
 					//pCreature->GetCreatureType()<=CREATURETYPE_VAMPIRE_FEMALE				
 				//	&& (*g_pCreatureSpriteTable)[(*g_pCreatureTable)[creature_type].SpriteType].IsPlayerOnlySprite()
 				&& (*g_pCreatureSpriteTable)[(*g_pCreatureTable)[creature_type].SpriteTypes[0]].IsPlayerOnlySprite()
-				|| !IsRequestMode()							// tradeÇÒ·Á°í ÃßÀûÁßÀÎ creatureÀÎ °æ¿ì
+				|| !IsRequestMode()							// tradeí• ë ¤ê³  ì¶”ì ì¤‘ì¸ creatureì¸ ê²½ìš°
 					&& g_pPlayer->IsRequestMode() 
 					&& g_pPlayer->IsTraceCreature() 
 					&& g_pPlayer->GetTraceID()==creatureID)	
@@ -1035,7 +1035,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				m_SOMOutlineColor = m_ColorOutlineNPC;
 			}
 			else if (g_pObjectSelector->CanAttack( pCreature )
-				|| creature_type==217)		// ¹ÙÅä¸®ÀÎ °æ¿ì. ÇÏµåÄÚµù - -;;
+				|| creature_type==217)		// ë°”í† ë¦¬ì¸ ê²½ìš°. í•˜ë“œì½”ë”© - -;;
 			{
 				m_SOMOutlineColor = m_ColorOutlineAttackPossible;
 			}
@@ -1050,12 +1050,12 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			
 			//----------------------------------------
 			//
-			//         ¸öÀÌ ÀÖ´Â °æ¿ì¿¡ Ãâ·Â
+			//         ëª¸ì´ ìˆëŠ” ê²½ìš°ì— ì¶œë ¥
 			//
 			//---------------------------------------- 		
 			if (body!=FRAMEID_NULL)
 			{
-				// body ¼öÁ¤ ÇÊ¿ä     
+				// body ìˆ˜ì • í•„ìš”     
 				if( pCreature->IsAdvancementClass() 
 					)		//by viva Selected Vampire
 					DrawSelectedAdvancementVampireCreature( pPoint, pCreature, action, direction, frame, 0, FrameIndex );
@@ -1065,7 +1065,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			else
 			{
 				//----------------------------------------------------
-				// Ä³¸¯ÅÍÀÇ ¼±ÅÃ »ç°¢Çü ¿µ¿ªÀ» Áö¿öÁØ´Ù.
+				// ìºë¦­í„°ì˜ ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ì„ ì§€ì›Œì¤€ë‹¤.
 				//----------------------------------------------------
 				pCreature->ClearScreenRect();
 			}
@@ -1076,11 +1076,11 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 
 			//----------------------------------------
 			//
-			//            º¹Àå Ãâ·Â
+			//            ë³µì¥ ì¶œë ¥
 			//
 			//----------------------------------------
-			// ¸ğµç ÀÔÀ» ¼ö ÀÖ´Â Á¾·ùÀÇ ¿Ê Áß¿¡¼­ 
-			// ÀÔ°í ÀÖ´Â ¿ÊÀ» È®ÀÎÇØ¼­ Ãâ·ÂÇØÁà¾ß ÇÑ´Ù.		
+			// ëª¨ë“  ì…ì„ ìˆ˜ ìˆëŠ” ì¢…ë¥˜ì˜ ì˜· ì¤‘ì—ì„œ 
+			// ì…ê³  ìˆëŠ” ì˜·ì„ í™•ì¸í•´ì„œ ì¶œë ¥í•´ì¤˜ì•¼ í•œë‹¤.		
 			if (isSlayerCharacter)
 			{		
 				// 2004, 9, 15, sobeit add start  - install turret
@@ -1102,20 +1102,20 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 					DrawSelectedOustersCreature( pPoint, pCreature, action, direction, frame );
 			}
 			
-			// ½½·¹ ÆêÀÎ °æ¿ì´Â ÅÍ·¿ Âï¾îÁà¾ß µÈ´Ù-¤µ-;;;; ÇÏµåÇÏµå..¾Æ¾Æ-_-/~
+			// ìŠ¬ë ˆ í«ì¸ ê²½ìš°ëŠ” í„°ë › ì°ì–´ì¤˜ì•¼ ëœë‹¤-ã……-;;;; í•˜ë“œí•˜ë“œ..ì•„ì•„-_-/~
 			if( bSlayerPet_ShowTurret )
 			{
 				DrawCentauroTurret( pPoint, pCreature, action, direction, frame , body);				
 			}
 			m_SOM.Generate(OutLineOption);
 			
-	//			// 2004, 8, 18 sobeit add start - °ø¼ºÀü ¼º¹® Å¸°ÙÆÃ¶§¹®¿¡ ¿©Â÷¿©Â÷ Ãß°¡..
+	//			// 2004, 8, 18 sobeit add start - ê³µì„±ì „ ì„±ë¬¸ íƒ€ê²ŸíŒ…ë•Œë¬¸ì— ì—¬ì°¨ì—¬ì°¨ ì¶”ê°€..
 	//		enum GENERATE_OPTION{
 	//			GENERATE_ALL = 0,
-	//			GENERATE_EXCEPT_LEFT,	// ¿ŞÂÊ ¾Æ¿ô¶óÀÎÀº Á¦¿Ü
-	//			GENERATE_EXCEPT_RIGHT,  // ¿À¸¥ÂÊ ¾Æ¿ô¶óÀÎÀº Á¦¿Ü
-	//			GENERATE_EXCEPT_SIDE,	// ¾ç »çÀÌµå ¾Æ¿ô¶óÀÎÀº Á¦¿Ü
-	//			// -_- À§,¾Æ·¡µµ ¸¸µé¾î ³ö¾ß ÇÏ³ª..-_-;
+	//			GENERATE_EXCEPT_LEFT,	// ì™¼ìª½ ì•„ì›ƒë¼ì¸ì€ ì œì™¸
+	//			GENERATE_EXCEPT_RIGHT,  // ì˜¤ë¥¸ìª½ ì•„ì›ƒë¼ì¸ì€ ì œì™¸
+	//			GENERATE_EXCEPT_SIDE,	// ì–‘ ì‚¬ì´ë“œ ì•„ì›ƒë¼ì¸ì€ ì œì™¸
+	//			// -_- ìœ„,ì•„ë˜ë„ ë§Œë“¤ì–´ ë†”ì•¼ í•˜ë‚˜..-_-;
 	//		};
 	//		// 2004, 8, 18 sobeit add start
 			//if (CDirect3D::IsHAL() || 
@@ -1129,7 +1129,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 	//				#endif
 					)
 				{
-					// slayerÀÇ invisibleÀÎ snipping
+					// slayerì˜ invisibleì¸ snipping
 					if (pCreature->HasEffectStatus(EFFECTSTATUS_SNIPPING_MODE))
 					{
 						m_pSurface->BltSpriteOutlineDarkness( &m_SOM,  m_SOMOutlineColor, SHIFT_SNIPPING );
@@ -1138,7 +1138,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				}
 				else
 				{
-					// ¾îµÓ°Ô Âï±â
+					// ì–´ë‘¡ê²Œ ì°ê¸°
 					if (pCreature->IsFade())
 					{
 						m_pSurface->BltSpriteOutlineDarkness( &m_SOM,  m_SOMOutlineColor, 1 );
@@ -1161,7 +1161,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 		}
 		//------------------------------------------------
 		//
-		//       ÀÏ¹İÀûÀÎ Creature Ãâ·Â
+		//       ì¼ë°˜ì ì¸ Creature ì¶œë ¥
 		//
 		//------------------------------------------------
 		else
@@ -1169,7 +1169,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			
 			//------------------------------------------------
 			//
-			//         BodyÃâ·Â
+			//         Bodyì¶œë ¥
 			//
 			//------------------------------------------------
 			if (body!=FRAMEID_NULL)
@@ -1188,18 +1188,18 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			else
 			{
 				//----------------------------------------------------
-				// Ä³¸¯ÅÍÀÇ ¼±ÅÃ »ç°¢Çü ¿µ¿ªÀ» Áö¿öÁØ´Ù.
+				// ìºë¦­í„°ì˜ ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ì„ ì§€ì›Œì¤€ë‹¤.
 				//----------------------------------------------------
 				pCreature->ClearScreenRect();		
 			}
 			
 			//----------------------------------------
 			//
-			//            º¹Àå Ãâ·Â
+			//            ë³µì¥ ì¶œë ¥
 			//
 			//----------------------------------------
-			// ¸ğµç ÀÔÀ» ¼ö ÀÖ´Â Á¾·ùÀÇ ¿Ê Áß¿¡¼­ 
-			// ÀÔ°í ÀÖ´Â ¿ÊÀ» È®ÀÎÇØ¼­ Ãâ·ÂÇØÁà¾ß ÇÑ´Ù.
+			// ëª¨ë“  ì…ì„ ìˆ˜ ìˆëŠ” ì¢…ë¥˜ì˜ ì˜· ì¤‘ì—ì„œ 
+			// ì…ê³  ìˆëŠ” ì˜·ì„ í™•ì¸í•´ì„œ ì¶œë ¥í•´ì¤˜ì•¼ í•œë‹¤.
 			//WORD colorSet = pCreature->GetAttachEffectColor();
 							
 			//if (pCreature->IsWear())
@@ -1218,7 +1218,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 					DrawOustersCharacter( pPoint, pCreature, action, direction, frame );
 			}
 
-			// ½½·¹ ÆêÀÎ °æ¿ì´Â ÅÍ·¿ Âï¾îÁà¾ß µÈ´Ù-¤µ-;;;; ÇÏµåÇÏµå..¾Æ¾Æ-_-/~
+			// ìŠ¬ë ˆ í«ì¸ ê²½ìš°ëŠ” í„°ë › ì°ì–´ì¤˜ì•¼ ëœë‹¤-ã……-;;;; í•˜ë“œí•˜ë“œ..ì•„ì•„-_-/~
 			if( bSlayerPet_ShowTurret )
 			{
 				DrawCentauroTurret( pPoint, pCreature, action, direction, frame , body);				
@@ -1228,7 +1228,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 
 		//---------------------------------------------------------------
 		//
-		//                  AttachEffectNode Ãâ·Â
+		//                  AttachEffectNode ì¶œë ¥
 		//
 		//---------------------------------------------------------------
 		if (pCreature->IsExistAttachEffect())
@@ -1245,7 +1245,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 								pCreature->GetAttachEffectIterator(), 
 								pCreature->GetAttachEffectSize(),
 								pCreature,
-								1);	// foregroundÃâ·Â
+								1);	// foregroundì¶œë ¥
 
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 				DEBUG_ADD("DAE ok");
@@ -1258,13 +1258,13 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 		//pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 		bool bPlayerParty = (pCreature->IsPlayerParty() 
 								&& pCreature!=g_pPlayer
-								// ÇÒ·ç °É¸®¸é ÆÄÆ¼¿øÀ» ¸ø ¾Ë¾Æº»´Ù.
+								// í• ë£¨ ê±¸ë¦¬ë©´ íŒŒí‹°ì›ì„ ëª» ì•Œì•„ë³¸ë‹¤.
 								&& !g_pPlayer->HasEffectStatus(EFFECTSTATUS_HALLUCINATION));	
 
 		//------------------------------------------------
-		// Chat String Ãâ·Â
+		// Chat String ì¶œë ¥
 		//------------------------------------------------
-		// Mouse·Î ¼±ÅÃµÈ Ä³¸¯ÅÍÀÌ¸é..
+		// Mouseë¡œ ì„ íƒëœ ìºë¦­í„°ì´ë©´..
 		if (m_SelectCreatureID == creatureID)
 		{
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
@@ -1272,7 +1272,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			#endif
 
 			//---------------------------------------- 	
-			// ÀÌ¸§ Ãâ·ÂÇÒ ÁÂÇ¥ ÁöÁ¤
+			// ì´ë¦„ ì¶œë ¥í•  ì¢Œí‘œ ì§€ì •
 			//---------------------------------------- 	
 			const int FontHeight = g_pClientConfig->FONT_HEIGHT;
 			const int FontHeight2 = FontHeight << 1;
@@ -1283,7 +1283,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			pointTemp.y = pPoint->y - pCreature->GetHeight();
 				
 			//---------------------------------------- 	
-			// Level Name ÂïÀ» À§Ä¡µµ °è»ê
+			// Level Name ì°ì„ ìœ„ì¹˜ë„ ê³„ì‚°
 			//---------------------------------------- 	
 			if (pCreature->HasLevelName())
 			{
@@ -1293,7 +1293,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				}
 			}
 			//---------------------------------------- 	
-			// ±×³É ÀÌ¸§¸¸ ÂïÀ» ¶§
+			// ê·¸ëƒ¥ ì´ë¦„ë§Œ ì°ì„ ë•Œ
 			//---------------------------------------- 	
 			else
 			{
@@ -1317,7 +1317,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			pointTemp.y = pPoint->y - pCreature->GetHeight();
 				
 			//------------------------------------------------
-			// ÆÄÆ¼¿øÀÎ °æ¿ì HP Ãâ·ÂÇØÁØ´Ù.
+			// íŒŒí‹°ì›ì¸ ê²½ìš° HP ì¶œë ¥í•´ì¤€ë‹¤.
 			//------------------------------------------------
 			if (bPlayerParty)
 			{			
@@ -1333,7 +1333,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			pointTemp.x = pPoint->x;			
 
 			//
-			// ÀÌ°Å ºÎÇÏ°¡ ²Ï °É¸°´Ù... ÂÁ~~
+			// ì´ê±° ë¶€í•˜ê°€ ê½¤ ê±¸ë¦°ë‹¤... ì©~~
 			//
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 				DEBUG_ADD("DrawChat");
@@ -1345,13 +1345,13 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			DrawCreatureHPModify(&pointTemp, pCreature);
 			m_pSurface->Lock();	
 
-			// 2004, 8, 18, sobeit add start - °ø¼ºÀü ±æµå¸¶Å© Ç¥½Ã
+			// 2004, 8, 18, sobeit add start - ê³µì„±ì „ ê¸¸ë“œë§ˆí¬ í‘œì‹œ
 			DrawGuildMarkInSiegeWar(pCreature,pointTemp.y);
 			// 2004, 8, 18, sobeit add end
 		}	
 
 		//------------------------------------------------
-		// ÆÄÆ¼¿øÀÇ ½Ã¾ß¸¦ º¸¿©ÁØ´Ù.
+		// íŒŒí‹°ì›ì˜ ì‹œì•¼ë¥¼ ë³´ì—¬ì¤€ë‹¤.
 		//------------------------------------------------
 		if (bPlayerParty)
 		{
@@ -1364,7 +1364,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 
 			//int addLight = (pCreature->GetCreatureType()==CREATURETYPE_BAT ? 3 : 0);
 	//		int addLight = (pCreature->IsFlyingCreature() ? 3 : 0);
-			// player¸¸Å­ÀÇ ½Ã¾ß¶ó°í »ı°¢ÇÑ´Ù. - -;
+			// playerë§Œí¼ì˜ ì‹œì•¼ë¼ê³  ìƒê°í•œë‹¤. - -;
 			int creatureLight = g_pPlayer->GetLightSight();// + addLight);
 			
 			if (CDirect3D::IsHAL())
@@ -1372,10 +1372,10 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				AddLightFilter3D( pX, 
 									pY - (pCreature->IsFlyingCreature()? 72:0 ),	//g_pPlayer->GetZ(), 
 									creatureLight, 
-									false,	// screenPixelÁÂÇ¥			
-									true);	// ¹«Á¶°Ç Ãâ·ÂÇØ¾ßÇÏ´Â ºû	
+									false,	// screenPixelì¢Œí‘œ			
+									true);	// ë¬´ì¡°ê±´ ì¶œë ¥í•´ì•¼í•˜ëŠ” ë¹›	
 
-				// ¿ÀÅä¹ÙÀÌ ºÒºû
+				// ì˜¤í† ë°”ì´ ë¶ˆë¹›
 				ADD_MOTORCYCLE_LIGHT_XY_3D( pCreature, pX, pY, true );
 			}
 			else
@@ -1383,15 +1383,15 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				AddLightFilter2D( pX, 
 									pY - pCreature->GetZ(), 
 									creatureLight,  
-									false,	// screenPixelÁÂÇ¥			
-									true);	// ¹«Á¶°Ç Ãâ·ÂÇØ¾ßÇÏ´Â ºû
+									false,	// screenPixelì¢Œí‘œ			
+									true);	// ë¬´ì¡°ê±´ ì¶œë ¥í•´ì•¼í•˜ëŠ” ë¹›
 
-				// ¿ÀÅä¹ÙÀÌ ºÒºû
+				// ì˜¤í† ë°”ì´ ë¶ˆë¹›
 				ADD_MOTORCYCLE_LIGHT_XY_2D( pCreature, pX, pY, true );
 			}
 		}
 		//------------------------------------------------
-		// ÆÄÆ¼¿ø ¾Æ´Ñ °æ¿ì¿¡...
+		// íŒŒí‹°ì› ì•„ë‹Œ ê²½ìš°ì—...
 		//------------------------------------------------
 		else
 		{
@@ -1399,7 +1399,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				DEBUG_ADD("noPParty?");
 			#endif
 
-			// ¿ÀÅä¹ÙÀÌ ºÒºû
+			// ì˜¤í† ë°”ì´ ë¶ˆë¹›
 			if (CDirect3D::IsHAL())
 			{		
 				ADD_MOTORCYCLE_LIGHT_3D( pCreature, false );
@@ -1432,18 +1432,18 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 void	MTopView::DrawSelectedSlayerCreature( POINT* pPoint, MCreature* pCreature, int action, int direction, int frame )
 {
 	MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
-	// CreatureÀÇ Action¿¡ ¸Â´Â add-onÀ» Ãâ·ÂÇÑ´Ù.
+	// Creatureì˜ Actionì— ë§ëŠ” add-onì„ ì¶œë ¥í•œë‹¤.
 	//action = pCreature->GetAction();	
 	WORD clothes;
 	BYTE clothesType;
 	
 	for (int i=0; i<ADDON_MAX; i++)
 	{
-		// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-		// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+		// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+		// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 		clothesType = MCreatureWear::s_AddonOrder[pCreature->GetDirection()][i];
 		
-		// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+		// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ì…ê³  ìˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 		const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(clothesType);
 		
 		if (addonInfo.bAddon)
@@ -1452,7 +1452,7 @@ void	MTopView::DrawSelectedSlayerCreature( POINT* pPoint, MCreature* pCreature, 
 			
 			FRAME_ARRAY &FA = m_AddonFPK[clothes][action][direction];
 			
-			// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+			// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 			if (FA.GetSize() > frame)
 			{
 				CFrame &Frame = FA[frame];					
@@ -1465,7 +1465,7 @@ void	MTopView::DrawSelectedSlayerCreature( POINT* pPoint, MCreature* pCreature, 
 				
 				CIndexSprite* pSprite = &m_AddonSPK[ sprite ];
 				
-				// º¹ÀåSprite°¡ ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì
+				// ë³µì¥Spriteê°€ ì´ˆê¸°í™” ë˜ì§€ ì•Šì€ ê²½ìš°
 				//						if (pSprite->IsNotInit())
 				//						{
 				//							LoadFromFileAddonSPK( clothes, action );
@@ -1473,7 +1473,7 @@ void	MTopView::DrawSelectedSlayerCreature( POINT* pPoint, MCreature* pCreature, 
 				//						}
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 				//---------------------------------------- 	
 				rect.left	= pointTemp.x;
 				rect.top	= pointTemp.y;
@@ -1481,18 +1481,18 @@ void	MTopView::DrawSelectedSlayerCreature( POINT* pPoint, MCreature* pCreature, 
 				rect.bottom = rect.top + pSprite->GetHeight();
 				pCreature->AddScreenRect( &rect );
 				
-				// SpriteOutlineManager¿¡ Ãß°¡
+				// SpriteOutlineManagerì— ì¶”ê°€
 				//CIndexSprite::SetUsingColorSet((pCreature->GetID()+3*(clothesType,1),7)%MAX_COLORSET, ((pCreature->GetID()*pCreature->GetID(),7*(clothesType+2)))%MAX_COLORSET);
 				//CIndexSprite::SetUsingColorSet((c1+3*(clothesType+1)+7)%MAX_COLORSET, ((c2*c2+7*(clothesType+2)))%MAX_COLORSET);
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+				// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 				//---------------------------------------- 
 				if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 				{
 					m_SOM.Add( pointTemp.x, pointTemp.y, pSprite, addonInfo.EffectColorSet );
 				}
 				//---------------------------------------- 
-				// ¿ø·¡»ö´ë·Î..
+				// ì›ë˜ìƒ‰ëŒ€ë¡œ..
 				//---------------------------------------- 
 				else
 				{
@@ -1518,7 +1518,7 @@ void	MTopView::DrawSelectedSlayerCreature( POINT* pPoint, MCreature* pCreature, 
 
 void	MTopView::DrawSelectedOustersCreature( POINT* pPoint, MCreature* pCreature, int action, int direction, int frame )
 {
-	//  Ã­Å©¶÷ÀÌ ÀÖ´Ù
+	//  ì± í¬ëŒì´ ìˆë‹¤
 	MCreatureWear *pCreatureWear = (MCreatureWear *)pCreature;
 	
 	const MCreatureWear::ADDON_INFO& addonInfoChakram = pCreatureWear->GetAddonInfo(ADDON_RIGHTHAND);
@@ -1539,7 +1539,7 @@ void	MTopView::DrawSelectedOustersCreature( POINT* pPoint, MCreature* pCreature,
 		}
 	}
 	
-	// ¸öÀ» Âï°í Ã­Å©¶÷À» Âï´Â´Ù
+	// ëª¸ì„ ì°ê³  ì± í¬ëŒì„ ì°ëŠ”ë‹¤
 	const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(ADDON_COAT);
 	const MCreatureWear::ADDON_INFO& bootsAddonInfo = pCreatureWear->GetAddonInfo(ADDON_TROUSER);
 	
@@ -1550,7 +1550,7 @@ void	MTopView::DrawSelectedOustersCreature( POINT* pPoint, MCreature* pCreature,
 		
 		FRAME_ARRAY &FA = m_OustersFPK[clothes][tempAction][direction];
 		
-		// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+		// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 		if (FA.GetSize() > frame)
 		{
 			CFrame &Frame = FA[frame];					
@@ -1564,7 +1564,7 @@ void	MTopView::DrawSelectedOustersCreature( POINT* pPoint, MCreature* pCreature,
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+			// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 			//---------------------------------------- 	
 			rect.left	= pointTemp.x;
 			rect.top	= pointTemp.y;
@@ -1573,31 +1573,31 @@ void	MTopView::DrawSelectedOustersCreature( POINT* pPoint, MCreature* pCreature,
 			pCreature->AddScreenRect( &rect );
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+			// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 			//---------------------------------------- 
 			if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 			{
 				m_SOM.Add( pointTemp.x, pointTemp.y, pSprite, addonInfo.EffectColorSet );
 			}
 			//---------------------------------------- 
-			// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+			// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 			//---------------------------------------- 
 			else
 			{
-				CIndexSprite::SetUsingColorSetOnly( 0, pCreature->GetBodyColor1() );	// ¸Ó¸®»ö
+				CIndexSprite::SetUsingColorSetOnly( 0, pCreature->GetBodyColor1() );	// ë¨¸ë¦¬ìƒ‰
 				
 				int coatColor = addonInfo.ColorSet2, Colorset;
 				if( coatColor == QUEST_ITEM_COLOR || coatColor == UNIQUE_ITEM_COLOR )
 					coatColor = MItem::GetSpecialColorItemColorset( coatColor );						
-				CIndexSprite::SetUsingColorSetOnly( 1, coatColor );	// ¿Ê»ö
-				if(bChakram == false)	// ¸®½ºÆ²¸´À» Â÷°í ÀÖÀ¸¸é
+				CIndexSprite::SetUsingColorSetOnly( 1, coatColor );	// ì˜·ìƒ‰
+				if(bChakram == false)	// ë¦¬ìŠ¤í‹€ë¦¿ì„ ì°¨ê³  ìˆìœ¼ë©´
 				{
 					if(addonInfoChakram.bAddon)
 					{
 						Colorset = addonInfoChakram.ColorSet2;
 						if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 							Colorset = MItem::GetSpecialColorItemColorset( Colorset );
-						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ								
+						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”								
 					}
 					else
 					{
@@ -1605,7 +1605,7 @@ void	MTopView::DrawSelectedOustersCreature( POINT* pPoint, MCreature* pCreature,
 						if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 							Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 						
-						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					}
 				}
 				else
@@ -1615,7 +1615,7 @@ void	MTopView::DrawSelectedOustersCreature( POINT* pPoint, MCreature* pCreature,
 						Colorset = addonInfoChakram.ColorSet2;
 					if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
-					CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+					CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 				}
 				
 				if(bootsAddonInfo.bAddon)
@@ -1623,7 +1623,7 @@ void	MTopView::DrawSelectedOustersCreature( POINT* pPoint, MCreature* pCreature,
 					Colorset = bootsAddonInfo.ColorSet2;
 					if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
-					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ºÎÃ÷»ö
+					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ë¶€ì¸ ìƒ‰
 				}
 				else
 				{
@@ -1631,7 +1631,7 @@ void	MTopView::DrawSelectedOustersCreature( POINT* pPoint, MCreature* pCreature,
 					
 					if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
-					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ÆÈ
+					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// íŒ”
 				}
 				
 				m_SOM.Add( pointTemp.x, pointTemp.y, pSprite );
@@ -1646,7 +1646,7 @@ void	MTopView::DrawSelectedOustersCreature( POINT* pPoint, MCreature* pCreature,
 		
 		FRAME_ARRAY &FA = m_OustersFPK[clothes][tempAction][direction];
 		
-		// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+		// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 		if (FA.GetSize() > frame)
 		{
 			CFrame &Frame = FA[frame];					
@@ -1660,14 +1660,14 @@ void	MTopView::DrawSelectedOustersCreature( POINT* pPoint, MCreature* pCreature,
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+			// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 			//---------------------------------------- 
 			if (addonInfoChakram.bEffectColor)	//colorSet < MAX_COLORSET)
 			{
 				m_SOM.Add( pointTemp.x, pointTemp.y, pSprite, addonInfo.EffectColorSet );
 			}
 			//---------------------------------------- 
-			// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+			// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 			//---------------------------------------- 
 			else
 			{
@@ -1692,7 +1692,7 @@ void	MTopView::DrawSelectedOustersCreature( POINT* pPoint, MCreature* pCreature,
 void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int action, int direction, int frame, int body, int frameindex )
 {
 	//------------------------------------------------
-	// °ü Ãâ·ÂÁ¤º¸
+	// ê´€ ì¶œë ¥ì •ë³´
 	//------------------------------------------------
 	int casketValue = pCreature->GetCasketCount();
 	int creature_type = pCreature->GetCreatureType();  //add by viva
@@ -1701,7 +1701,7 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 	bool bCasketOnly = (bInCasket && casketValue==0);
 	
 	//----------------------------------------------------
-	// ¿ÏÀüÈ÷ °ü¸¸ Ãâ·ÂÇÏ´Â °æ¿ì´Â ¸ö Ãâ·ÂÀ» ¾ÈÇÑ´Ù.
+	// ì™„ì „íˆ ê´€ë§Œ ì¶œë ¥í•˜ëŠ” ê²½ìš°ëŠ” ëª¸ ì¶œë ¥ì„ ì•ˆí•œë‹¤.
 	//----------------------------------------------------
 	if (!bCasketOnly)
 	{
@@ -1714,14 +1714,14 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 				cx		= Frame.GetCX(),	//m_CreatureFPK[body][action][direction][frame].GetCX(),
 				cy		= Frame.GetCY();	//m_CreatureFPK[body][action][direction][frame].GetCY();
 			
-			// ÁÂÇ¥ º¸Á¤
+			// ì¢Œí‘œ ë³´ì •
 			pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			
 			CIndexSprite* pSprite = &m_CreatureSPK[ sprite ];
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+			// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 			//---------------------------------------- 	
 			rect.left	= pointTemp.x;
 			rect.top	= pointTemp.y;
@@ -1730,7 +1730,7 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 			if(frameindex==0 )
 				pCreature->SetScreenRect( &rect );
 			
-			// Player°¡ ÃßÀûÁßÀÎ Character Ç¥½Ã
+			// Playerê°€ ì¶”ì ì¤‘ì¸ Character í‘œì‹œ
 			//if (g_pPlayer->GetTraceCreatureID()==pCreature->GetID())			
 			
 			//CIndexSprite::SetUsingColorSet(c1%MAX_COLORSET, c2%MAX_COLORSET);
@@ -1749,7 +1749,7 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 			}
 			
 			//-----------------------------------------------------------
-			// Åõ¸í »óÅÂ Ãâ·Â 			
+			// íˆ¬ëª… ìƒíƒœ ì¶œë ¥ 			
 			//-----------------------------------------------------------
 			// vampire
 			if (pCreature->IsFakeDie())
@@ -1760,12 +1760,12 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 					colorSet = pCreature->GetBatColor();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â °æ¿ì					
+				// ìºë¦­í„° ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°					
 				//---------------------------------------- 
 				if (colorSet < MAX_COLORSET)
 				{
-					// IndexSprite¿¡µµ EFFECT...³Ö°í...
-					// ½º¸£¸¤~ ´Ü°èÀûÀ¸·Î ³ªÅ¸³ª°Ô/¾ø¾îÁö°Ô ÇØ¾ßµÊ.. - -;
+					// IndexSpriteì—ë„ EFFECT...ë„£ê³ ...
+					// ìŠ¤ë¥´ë¥µ~ ë‹¨ê³„ì ìœ¼ë¡œ ë‚˜íƒ€ë‚˜ê²Œ/ì—†ì–´ì§€ê²Œ í•´ì•¼ë¨.. - -;
 					m_pSurface->BltIndexSpriteColorSet(&pointTemp, pSprite, colorSet);
 				}
 				else
@@ -1800,12 +1800,12 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 					colorSet = pCreature->GetBatColor();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â °æ¿ì					
+				// ìºë¦­í„° ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°					
 				//---------------------------------------- 
 				if (colorSet < MAX_COLORSET)
 				{
-					// IndexSprite¿¡µµ EFFECT...³Ö°í...
-					// ½º¸£¸¤~ ´Ü°èÀûÀ¸·Î ³ªÅ¸³ª°Ô/¾ø¾îÁö°Ô ÇØ¾ßµÊ.. - -;
+					// IndexSpriteì—ë„ EFFECT...ë„£ê³ ...
+					// ìŠ¤ë¥´ë¥µ~ ë‹¨ê³„ì ìœ¼ë¡œ ë‚˜íƒ€ë‚˜ê²Œ/ì—†ì–´ì§€ê²Œ í•´ì•¼ë¨.. - -;
 					m_pSurface->BltIndexSpriteColorSet(&pointTemp, pSprite, colorSet);
 				}
 				else
@@ -1855,7 +1855,7 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 			else
 			{	
 				//-----------------------------------------------------------
-				// ºü¸£°Ô ¿òÁ÷ÀÌ´Â Áß
+				// ë¹ ë¥´ê²Œ ì›€ì§ì´ëŠ” ì¤‘
 				//-----------------------------------------------------------
 				if (pCreature->IsFastMove() || pCreature->IsBloodyZenith())
 				{
@@ -1912,14 +1912,14 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 					colorSet = pCreature->GetBatColor();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â °æ¿ì					
+				// ìºë¦­í„° ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°					
 				//---------------------------------------- 
 				if (colorSet < MAX_COLORSET)
 				{
 					m_pSurface->BltIndexSpriteColorSet(&pointTemp, pSprite, colorSet);
 				}
 				//---------------------------------------- 
-				// Á¤»óÀûÀÎ »ö±ò Ãâ·Â
+				// ì •ìƒì ì¸ ìƒ‰ê¹” ì¶œë ¥
 				//---------------------------------------- 					
 				else
 				{				
@@ -1937,7 +1937,7 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 					int shadowCount = pCreature->GetShadowCount();
 					
 					//----------------------------------------
-					// ShadowÃâ·Â
+					// Shadowì¶œë ¥
 					//----------------------------------------
 					if (shadowCount)
 					{
@@ -1962,7 +1962,7 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 						
 						POINT pointTemp2;
 						
-						// ÀÌµ¿ÀÌ¸é ÁÂÇ¥µµ ¹Ù²ï´Ù
+						// ì´ë™ì´ë©´ ì¢Œí‘œë„ ë°”ë€ë‹¤
 						int cxStep = 0, cyStep = 0, cxInc =0 , cyInc = 0;
 						if (action==ACTION_MOVE)
 						{
@@ -1977,7 +1977,7 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 							int frame_f = frame-f;
 							
 							//---------------------------------------- 
-							// f frame Àü
+							// f frame ì „
 							//---------------------------------------- 
 							if (frame_f < 0)
 							{
@@ -2018,11 +2018,11 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 						}
 					}
 					//----------------------------------------
-					// ¸ö¸¸ Âï±â
+					// ëª¸ë§Œ ì°ê¸°
 					//----------------------------------------
 					else
 					{
-						// ¾îµÓ°Ô Âï±â
+						// ì–´ë‘¡ê²Œ ì°ê¸°
 						if (pCreature->IsFade())
 						{
 							m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -2041,7 +2041,7 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 				m_pSurface->SetClipBottom( previousClipBottom );
 			}
 
-			// 2004, 10, 28, sobeit add start  - ¸ó½ºÅÍ Å³ Äù½ºÆ® ÇØ´ç ¸ó½ºÅÍ¿¡ Ç¥½Ã.
+			// 2004, 10, 28, sobeit add start  - ëª¬ìŠ¤í„° í‚¬ í€˜ìŠ¤íŠ¸ í•´ë‹¹ ëª¬ìŠ¤í„°ì— í‘œì‹œ.
 			if(pCreature->IsAlive() && (g_CurrentFrame&0x04)&&UI_IsMonsterKillQuest_Monster((*g_pCreatureTable)[pCreature->GetCreatureType()].SpriteTypes[0]))
 			//if(pCreature->IsAlive() && (g_CurrentFrame&0x04))
 			{
@@ -2055,11 +2055,11 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 	}
 		
 	//----------------------------------------------------
-	// °ü Ãâ·Â
+	// ê´€ ì¶œë ¥
 	//----------------------------------------------------
 	if (bInCasket)
 	{
-		// ±×¸²ÀÚ ¶§¹®¿¡ *2ÇØ¾ßÇÑ´Ù.
+		// ê·¸ë¦¼ì ë•Œë¬¸ì— *2í•´ì•¼í•œë‹¤.
 		int casketID = SPRITEID_CASKET_1 + pCreature->GetCasketType()*2;
 		
 		if (casketID < m_EtcSPK.GetSize())
@@ -2068,12 +2068,12 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 			
 			if (pSprite!=NULL)
 			{
-				// tileÀÇ Áß½É¿¡¼­ ¼¼¿î´Ù.
+				// tileì˜ ì¤‘ì‹¬ì—ì„œ ì„¸ìš´ë‹¤.
 				pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSprite->GetWidth()>>1);
 				pointTemp.y = pPoint->y + TILE_Y - pSprite->GetHeight();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 				//---------------------------------------- 	
 				rect.left	= pointTemp.x;
 				rect.top	= pointTemp.y;
@@ -2107,7 +2107,7 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 
 void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int action, int direction, int frame )
 {
-	//  Ã­Å©¶÷ÀÌ ÀÖ´Ù
+	//  ì± í¬ëŒì´ ìˆë‹¤
 	MCreatureWear *pCreatureWear = (MCreatureWear *)pCreature;
 	
 	const MCreatureWear::ADDON_INFO& addonInfoChakram = pCreatureWear->GetAddonInfo(ADDON_RIGHTHAND);
@@ -2128,7 +2128,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 		}
 	}
 	
-	// ¸öÀ» Âï°í Ã­Å©¶÷À» Âï´Â´Ù
+	// ëª¸ì„ ì°ê³  ì± í¬ëŒì„ ì°ëŠ”ë‹¤
 	const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(ADDON_COAT);
 	const MCreatureWear::ADDON_INFO& bootsAddonInfo = pCreatureWear->GetAddonInfo(ADDON_TROUSER);
 	
@@ -2140,7 +2140,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 		
 		FRAME_ARRAY &FA = m_OustersFPK[clothes][tempAction][direction];
 		
-		// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+		// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 		if (FA.GetSize() > frame)
 		{
 			CFrame &Frame = FA[frame];					
@@ -2154,7 +2154,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+			// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 			//---------------------------------------- 	
 			rect.left	= pointTemp.x;
 			rect.top	= pointTemp.y;
@@ -2163,7 +2163,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 			pCreature->AddScreenRect( &rect );
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+			// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 			//---------------------------------------- 
 			if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 			{
@@ -2171,11 +2171,11 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 					addonInfo.EffectColorSet);
 			}
 			//---------------------------------------- 
-			// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+			// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 			//---------------------------------------- 
 			else
 			{
-				CIndexSprite::SetUsingColorSetOnly( 0, pCreature->GetBodyColor1() );	// ¸Ó¸®»ö
+				CIndexSprite::SetUsingColorSetOnly( 0, pCreature->GetBodyColor1() );	// ë¨¸ë¦¬ìƒ‰
 				
 				int Colorset;
 				
@@ -2183,9 +2183,9 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 				
 				if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 					Colorset = MItem::GetSpecialColorItemColorset( Colorset );
-				CIndexSprite::SetUsingColorSetOnly( 1, Colorset );	// ¿Ê»ö
+				CIndexSprite::SetUsingColorSetOnly( 1, Colorset );	// ì˜·ìƒ‰
 				
-				if(bChakram == false)	// ¸®½ºÆ²¸´À» Â÷°í ÀÖÀ¸¸é
+				if(bChakram == false)	// ë¦¬ìŠ¤í‹€ë¦¿ì„ ì°¨ê³  ìˆìœ¼ë©´
 				{
 					if(addonInfoChakram.bAddon)
 					{
@@ -2193,7 +2193,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 						if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 							Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 						
-						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					}
 					else
 					{
@@ -2201,7 +2201,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 						if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 							Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 						
-						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					}
 				}
 				else
@@ -2212,7 +2212,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 					if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 					
-					CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+					CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					
 				}
 				
@@ -2222,7 +2222,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 					if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 					
-					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ºÎÃ÷»ö
+					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ë¶€ì¸ ìƒ‰
 				}
 				else
 				{
@@ -2230,10 +2230,10 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 					if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 					
-					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ÆÈ
+					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// íŒ”
 				}
 				
-				// ¾îµÓ°Ô Âï±â
+				// ì–´ë‘¡ê²Œ ì°ê¸°
 				if (pCreature->IsFade())
 				{
 					m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -2253,7 +2253,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 		
 		FRAME_ARRAY &FA = m_OustersFPK[clothes][tempAction][direction];
 		
-		// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+		// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 		if (FA.GetSize() > frame)
 		{
 			//					DEBUG_ADD_FORMAT("[DrawCreature] FA.GetSize() > frame %d %d", FA.GetSize(), frame);
@@ -2268,7 +2268,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+			// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 			//---------------------------------------- 
 			if (addonInfoChakram.bEffectColor)	//colorSet < MAX_COLORSET)
 			{
@@ -2276,7 +2276,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 					addonInfoChakram.EffectColorSet);
 			}
 			//---------------------------------------- 
-			// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+			// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 			//---------------------------------------- 
 			else
 			{
@@ -2289,7 +2289,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 				if( colorset2 == QUEST_ITEM_COLOR || colorset2 == UNIQUE_ITEM_COLOR )
 					colorset2 = MItem::GetSpecialColorItemColorset( colorset2 );
 				CIndexSprite::SetUsingColorSet( colorset1, colorset2 );
-				// ¾îµÓ°Ô Âï±â
+				// ì–´ë‘¡ê²Œ ì°ê¸°
 				if (pCreature->IsFade())
 				{
 					m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -2316,7 +2316,7 @@ void	MTopView::DrawOustersCharacter( POINT* pPoint, MCreature* pCreature, int ac
 void	MTopView::DrawAdvancementClassOustersCharacter( 
 				POINT* pPoint, MCreature* pCreature, int action, int direction, int frame )
 {
-	//  Ã­Å©¶÷ÀÌ ÀÖ´Ù
+	//  ì± í¬ëŒì´ ìˆë‹¤
 	MCreatureWear *pCreatureWear = (MCreatureWear *)pCreature;
 	
 	const MCreatureWear::ADDON_INFO& addonInfoChakram = pCreatureWear->GetAddonInfo(ADDON_RIGHTHAND);
@@ -2329,7 +2329,7 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 	else
 		tempAction -= ADVANCEMENT_ACTION_START;
 	
-	// ¸öÀ» Âï°í Ã­Å©¶÷À» Âï´Â´Ù
+	// ëª¸ì„ ì°ê³  ì± í¬ëŒì„ ì°ëŠ”ë‹¤
 	const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(ADDON_COAT);
 	const MCreatureWear::ADDON_INFO& bootsAddonInfo = pCreatureWear->GetAddonInfo(ADDON_TROUSER);
 	
@@ -2342,7 +2342,7 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 		//FRAME_ARRAY &FA = m_OustersFPK[clothes][tempAction][direction];
 		FRAME_ARRAY &FA = m_AdvancementOustersFPK[ 1 ][ tempAction ][ direction ];
 		
-		// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+		// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 		if (FA.GetSize() > frame)
 		{
 			CFrame &Frame = FA[frame];					
@@ -2357,7 +2357,7 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+			// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 			//---------------------------------------- 	
 			rect.left	= pointTemp.x;
 			rect.top	= pointTemp.y;
@@ -2366,7 +2366,7 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 			pCreature->AddScreenRect( &rect );
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+			// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 			//---------------------------------------- 
 			if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 			{
@@ -2374,11 +2374,11 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 					addonInfo.EffectColorSet);
 			}
 			//---------------------------------------- 
-			// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+			// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 			//---------------------------------------- 
 			else
 			{
-				CIndexSprite::SetUsingColorSetOnly( 0, pCreature->GetBodyColor1() );	// ¸Ó¸®»ö
+				CIndexSprite::SetUsingColorSetOnly( 0, pCreature->GetBodyColor1() );	// ë¨¸ë¦¬ìƒ‰
 				
 				int Colorset;
 				
@@ -2386,9 +2386,9 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 				
 				if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 					Colorset = MItem::GetSpecialColorItemColorset( Colorset );
-				CIndexSprite::SetUsingColorSetOnly( 1, Colorset );	// ¿Ê»ö
+				CIndexSprite::SetUsingColorSetOnly( 1, Colorset );	// ì˜·ìƒ‰
 				
-				if(bChakram == false)	// ¸®½ºÆ²¸´À» Â÷°í ÀÖÀ¸¸é
+				if(bChakram == false)	// ë¦¬ìŠ¤í‹€ë¦¿ì„ ì°¨ê³  ìˆìœ¼ë©´
 				{
 					if(addonInfoChakram.bAddon)
 					{
@@ -2396,7 +2396,7 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 						if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 							Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 						
-						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					}
 					else
 					{
@@ -2404,7 +2404,7 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 						if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 							Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 						
-						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					}
 				}
 				else
@@ -2415,7 +2415,7 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 					if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 					
-					CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+					CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					
 				}
 				
@@ -2425,7 +2425,7 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 					if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 					
-					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ºÎÃ÷»ö
+					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ë¶€ì¸ ìƒ‰
 				}
 				else
 				{
@@ -2433,10 +2433,10 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 					if (Colorset == QUEST_ITEM_COLOR||Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 					
-					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ÆÈ
+					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// íŒ”
 				}
 				
-				// ¾îµÓ°Ô Âï±â
+				// ì–´ë‘¡ê²Œ ì°ê¸°
 				if (pCreature->IsFade())
 				{
 					m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -2457,7 +2457,7 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 		//FRAME_ARRAY &FA = m_OustersFPK[clothes][tempAction][direction];
 		FRAME_ARRAY &FA = m_AdvancementOustersFPK[ 0 ][ tempAction ][ direction ];
 		
-		// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+		// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 		if (FA.GetSize() > frame)
 		{
 			//					DEBUG_ADD_FORMAT("[DrawCreature] FA.GetSize() > frame %d %d", FA.GetSize(), frame);
@@ -2473,7 +2473,7 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+			// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 			//---------------------------------------- 
 			if (addonInfoChakram.bEffectColor)	//colorSet < MAX_COLORSET)
 			{
@@ -2481,7 +2481,7 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 					addonInfoChakram.EffectColorSet);
 			}
 			//---------------------------------------- 
-			// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+			// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 			//---------------------------------------- 
 			else
 			{
@@ -2494,7 +2494,7 @@ void	MTopView::DrawAdvancementClassOustersCharacter(
 				if( colorset2 == QUEST_ITEM_COLOR || colorset2 == UNIQUE_ITEM_COLOR )
 					colorset2 = MItem::GetSpecialColorItemColorset( colorset2 );
 				CIndexSprite::SetUsingColorSet( colorset1, colorset2 );
-				// ¾îµÓ°Ô Âï±â
+				// ì–´ë‘¡ê²Œ ì°ê¸°
 				if (pCreature->IsFade())
 				{
 					m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -2527,14 +2527,14 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 	{
 		MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
 		
-		// CreatureÀÇ Action¿¡ ¸Â´Â add-onÀ» Ãâ·ÂÇÑ´Ù.
+		// Creatureì˜ Actionì— ë§ëŠ” add-onì„ ì¶œë ¥í•œë‹¤.
 		//action = pCreature->GetAction();
 		
 		WORD clothes;
 		BYTE clothesType;
 		
 		//------------------------------------------------------------
-		// Fade Out Ãâ·Â
+		// Fade Out ì¶œë ¥
 		//------------------------------------------------------------
 		if (pCreature->HasEffectStatus( EFFECTSTATUS_FADE_OUT ))
 		{
@@ -2542,21 +2542,21 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 		}
 		
 		//------------------------------------------------------------
-		// Fast Move Ãâ·Â
+		// Fast Move ì¶œë ¥
 		//------------------------------------------------------------
 		if (pCreature->IsFastMove())
 		{
 			DrawFastMove( pPoint, pCreature, action, direction, frame );						
 		}
 		//------------------------------------------------------------
-		// Invisible  - Slayer´Â snipping mode¿¡¼­ Åõ¸íÀÌ´Ù.
+		// Invisible  - SlayerëŠ” snipping modeì—ì„œ íˆ¬ëª…ì´ë‹¤.
 		//------------------------------------------------------------
 		else if (pCreature->IsInvisible())
 		{
 			DrawInvisible( pPoint, pCreature, action, direction, frame );
 		}
 		//------------------------------------------------------------
-		// ¹«±â ÀÜ»ó ±â¼ú
+		// ë¬´ê¸° ì”ìƒ ê¸°ìˆ 
 		//------------------------------------------------------------
 		else if (
 			(pCreature->HasEffectStatus( EFFECTSTATUS_DANCING_SWORD )
@@ -2568,17 +2568,17 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 			DrawWeaponFadeOut( pPoint, pCreature, action, direction, frame );			
 		}
 		//------------------------------------------------------------
-		// ÀÏ¹İÀûÀÎ Ãâ·Â
+		// ì¼ë°˜ì ì¸ ì¶œë ¥
 		//------------------------------------------------------------
 		else
 		{
 			for (int i=0; i<ADDON_MAX; i++)
 			{
-				// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-				// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
+				// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+				// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
 				clothesType = MCreatureWear::s_AddonOrder[pCreature->GetDirection()][i];
 				
-				// i¹øÂ° Á¾·ùÀÇ ¿ÊÀ» ÀÔ°í ÀÖ´Ù¸é Ãâ·ÂÇØ ÁØ´Ù.
+				// ië²ˆì§¸ ì¢…ë¥˜ì˜ ì˜·ì„ ì…ê³  ìˆë‹¤ë©´ ì¶œë ¥í•´ ì¤€ë‹¤.
 				const MCreatureWear::ADDON_INFO& addonInfo = pCreatureWear->GetAddonInfo(clothesType);
 				//by viva NewSlayer
 				if (addonInfo.bAddon)
@@ -2587,7 +2587,7 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 
 					FRAME_ARRAY &FA = m_AddonFPK[clothes][action][direction];
 					
-					// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+					// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 					if (FA.GetSize() > frame)
 					{
 						CFrame &Frame = FA[frame];					
@@ -2601,7 +2601,7 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 						pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 						
 						//---------------------------------------- 
-						// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+						// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 						//---------------------------------------- 	
 						rect.left	= pointTemp.x;
 						rect.top	= pointTemp.y;
@@ -2610,7 +2610,7 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 						pCreature->AddScreenRect( &rect );
 						
 						//---------------------------------------- 
-						// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+						// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 						//---------------------------------------- 
 						if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 						{
@@ -2618,14 +2618,14 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 								addonInfo.EffectColorSet);
 						}
 						//---------------------------------------- 
-						// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+						// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 						//---------------------------------------- 
 						else
 						{
 							int colorSet1 = addonInfo.ColorSet1, colorSet2 = addonInfo.ColorSet2;
 							if(colorSet2 == UNIQUE_ITEM_COLOR || colorSet2 == QUEST_ITEM_COLOR)
 							{
-								// À¯´ÏÅ© ¾ÆÀÌÅÛÀÌ¸é
+								// ìœ ë‹ˆí¬ ì•„ì´í…œì´ë©´
 								//									if(colorSet2 == QUEST_ITEM_COLOR)
 								//										colorSet2 = MItem::GetQuestItemColorset();
 								//									else
@@ -2638,7 +2638,7 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 							
 							CIndexSprite::SetUsingColorSet( colorSet1, colorSet2 );
 							
-							// ¾îµÓ°Ô Âï±â
+							// ì–´ë‘¡ê²Œ ì°ê¸°
 							if (pCreature->IsFade())
 							{
 								m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -2649,7 +2649,7 @@ void	MTopView::DrawSlayerCharacter( POINT *pPoint, MCreature* pCreature, int act
 							}
 						}						
 						
-						// Á¤»óÀûÀÎ Ãâ·Â
+						// ì •ìƒì ì¸ ì¶œë ¥
 						//CIndexSprite::SetUsingColorSet( addonInfo.ColorSet1, addonInfo.ColorSet2 );
 						//m_pSurface->BltIndexSprite(&pointTemp, pSprite);
 						
@@ -2671,7 +2671,7 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 		DrawInstallTurret( pPoint, pCreature, action, direction, frame, FrameIndex );
 	else
 	{
-		// ToT ½Ã°£¾ø´Ù.. ÇÏµå ÄÚµù.. by sonee
+		// ToT ì‹œê°„ì—†ë‹¤.. í•˜ë“œ ì½”ë”©.. by sonee
 		action = ConvAdvancementSlayerActionFromSlayerAction( action, dynamic_cast< MCreatureWear* >(pCreature) );
 		
 		if( action == -1 )
@@ -2682,14 +2682,14 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 		
 		MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
 		
-		// CreatureÀÇ Action¿¡ ¸Â´Â add-onÀ» Ãâ·ÂÇÑ´Ù.
+		// Creatureì˜ Actionì— ë§ëŠ” add-onì„ ì¶œë ¥í•œë‹¤.
 		//action = pCreature->GetAction();
 		
 		int clothes;
 		BYTE clothesType;
 		
 		//------------------------------------------------------------
-		// Fade Out Ãâ·Â
+		// Fade Out ì¶œë ¥
 		//------------------------------------------------------------
 		if (pCreature->HasEffectStatus( EFFECTSTATUS_FADE_OUT ))
 		{
@@ -2697,21 +2697,21 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 		}
 		
 		//------------------------------------------------------------
-		// Fast Move Ãâ·Â
+		// Fast Move ì¶œë ¥
 		//------------------------------------------------------------
 		if (pCreature->IsFastMove())
 		{
 			DrawFastMoveForACSlayer( pPoint, pCreature, action_viva, direction, frame );	//by viva	modifyed try		
 		}
 		//------------------------------------------------------------
-		// Invisible  - Slayer´Â snipping mode¿¡¼­ Åõ¸íÀÌ´Ù.
+		// Invisible  - SlayerëŠ” snipping modeì—ì„œ íˆ¬ëª…ì´ë‹¤.
 		//------------------------------------------------------------
 		else if (pCreature->IsInvisible())
 		{
 			DrawInvisibleForACSlayer( pPoint, pCreature, action_viva, direction, frame );		//by viva	modifyed try
 		}
 		//------------------------------------------------------------
-		// ¹«±â ÀÜ»ó ±â¼ú
+		// ë¬´ê¸° ì”ìƒ ê¸°ìˆ 
 		//------------------------------------------------------------
 		else if (
 			(pCreature->HasEffectStatus( EFFECTSTATUS_DANCING_SWORD )
@@ -2723,7 +2723,7 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 			DrawWeaponFadeOutForACSlayer( pPoint, pCreature, action_viva, direction, frame );	//by viva	modifyed try
 		}
 		//------------------------------------------------------------
-		// ÀÏ¹İÀûÀÎ Ãâ·Â
+		// ì¼ë°˜ì ì¸ ì¶œë ¥
 		//------------------------------------------------------------
 		else
 		{
@@ -2783,7 +2783,7 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 								pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 								
 								//---------------------------------------- 
-								// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+								// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 								//---------------------------------------- 	
 								rect.left	= pointTemp.x;
 								rect.top	= pointTemp.y;
@@ -2792,7 +2792,7 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 								pCreature->AddScreenRect( &rect );
 								
 								//---------------------------------------- 
-								// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+								// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 								//---------------------------------------- 
 								if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 								{
@@ -2800,7 +2800,7 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 										addonInfo.EffectColorSet);
 								}
 								//---------------------------------------- 
-								// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+								// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 								//---------------------------------------- 
 								else
 								{
@@ -2818,7 +2818,7 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 									else
 										CIndexSprite::SetUsingColorSet( 375, 375 );
 									
-									// ¾îµÓ°Ô Âï±â
+									// ì–´ë‘¡ê²Œ ì°ê¸°
 									if (pCreature->IsFade())
 									{
 										m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -2835,8 +2835,8 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 					else
 					{
 						
-						// Áö±İÀº ÆÄÆ® ±×´ë·Î¸¦ »ç¿ëÇÑ´Ù. ÃßÈÄ¿¡ ¿ÊÀÌ Ãß°¡ µÇ¾úÀ»¶§ ´ÙÀ½ º¯¼ö¸¦ ¼¼ÆÃ ÇØ¼­ ¾´´Ù.
-						// addonInfo.FrameID ¿¡ ¿Ê Á¤º¸¸¦ ³Ö°í ¼¼ÆÃÇÏ¿© ¾²¸éµÈ´Ù.
+						// ì§€ê¸ˆì€ íŒŒíŠ¸ ê·¸ëŒ€ë¡œë¥¼ ì‚¬ìš©í•œë‹¤. ì¶”í›„ì— ì˜·ì´ ì¶”ê°€ ë˜ì—ˆì„ë•Œ ë‹¤ìŒ ë³€ìˆ˜ë¥¼ ì„¸íŒ… í•´ì„œ ì“´ë‹¤.
+						// addonInfo.FrameID ì— ì˜· ì •ë³´ë¥¼ ë„£ê³  ì„¸íŒ…í•˜ì—¬ ì“°ë©´ëœë‹¤.
 						
 						clothes = GetAdvancementPartFromItemClass( addonInfo.ItemClass, addonInfo.FrameID );
 						
@@ -2858,7 +2858,7 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 							pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 							
 							//---------------------------------------- 
-							// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+							// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 							//---------------------------------------- 	
 							rect.left	= pointTemp.x;
 							rect.top	= pointTemp.y;
@@ -2867,7 +2867,7 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 							pCreature->AddScreenRect( &rect );
 							
 							//---------------------------------------- 
-							// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+							// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 							//---------------------------------------- 
 							if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 							{
@@ -2875,7 +2875,7 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 									addonInfo.EffectColorSet);
 							}
 							//---------------------------------------- 
-							// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+							// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 							//---------------------------------------- 
 							else
 							{
@@ -2893,7 +2893,7 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 								else
 									CIndexSprite::SetUsingColorSet( 375, 375 );
 								
-								// ¾îµÓ°Ô Âï±â
+								// ì–´ë‘¡ê²Œ ì°ê¸°
 								if (pCreature->IsFade())
 								{
 									m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -2915,7 +2915,7 @@ void	MTopView::DrawAdvancementClassSlayerCharacter( POINT *pPoint, MCreature* pC
 void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* pCreature, int action, int direction, int frame, int body, int frameindex )
 {
 	//------------------------------------------------
-	// °ü Ãâ·ÂÁ¤º¸
+	// ê´€ ì¶œë ¥ì •ë³´
 	//------------------------------------------------
 	int casketValue = pCreature->GetCasketCount();
 	int creature_type = pCreature->GetCreatureType();
@@ -2940,7 +2940,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 	if(creature_type>=807&&creature_type<=812)
 		action = GetNewVampireActionFromVampireAction(action);
 	//----------------------------------------------------
-	// ¿ÏÀüÈ÷ °ü¸¸ Ãâ·ÂÇÏ´Â °æ¿ì´Â ¸ö Ãâ·ÂÀ» ¾ÈÇÑ´Ù.
+	// ì™„ì „íˆ ê´€ë§Œ ì¶œë ¥í•˜ëŠ” ê²½ìš°ëŠ” ëª¸ ì¶œë ¥ì„ ì•ˆí•œë‹¤.
 	//----------------------------------------------------
 	if (!bCasketOnly)
 	{
@@ -2973,14 +2973,14 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 				cx		= Frame.GetCX(),	//m_CreatureFPK[body][action][direction][frame].GetCX(),
 				cy		= Frame.GetCY();	//m_CreatureFPK[body][action][direction][frame].GetCY();
 			
-			// ÁÂÇ¥ º¸Á¤
+			// ì¢Œí‘œ ë³´ì •
 			pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			
 			CIndexSprite* pSprite = &advanceVampireSPK[ sprite ];
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+			// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 			//---------------------------------------- 	
 			rect.left	= pointTemp.x;
 			rect.top	= pointTemp.y;
@@ -3002,7 +3002,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 			}
 			
 			//-----------------------------------------------------------
-			// Åõ¸í »óÅÂ Ãâ·Â 			
+			// íˆ¬ëª… ìƒíƒœ ì¶œë ¥ 			
 			//-----------------------------------------------------------
 			// vampire
 			if (pCreature->IsFakeDie())
@@ -3013,7 +3013,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 					colorSet = pCreature->GetBatColor();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â °æ¿ì					
+				// ìºë¦­í„° ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°					
 				//---------------------------------------- 
 				if (colorSet < MAX_COLORSET)
 				{
@@ -3051,12 +3051,12 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 					colorSet = pCreature->GetBatColor();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â °æ¿ì					
+				// ìºë¦­í„° ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°					
 				//---------------------------------------- 
 				if (colorSet < MAX_COLORSET)
 				{
-					// IndexSprite¿¡µµ EFFECT...³Ö°í...
-					// ½º¸£¸¤~ ´Ü°èÀûÀ¸·Î ³ªÅ¸³ª°Ô/¾ø¾îÁö°Ô ÇØ¾ßµÊ.. - -;
+					// IndexSpriteì—ë„ EFFECT...ë„£ê³ ...
+					// ìŠ¤ë¥´ë¥µ~ ë‹¨ê³„ì ìœ¼ë¡œ ë‚˜íƒ€ë‚˜ê²Œ/ì—†ì–´ì§€ê²Œ í•´ì•¼ë¨.. - -;
 					m_pSurface->BltIndexSpriteColorSet(&pointTemp, pSprite, colorSet);
 				}
 				else
@@ -3099,7 +3099,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 			else
 			{	
 				//-----------------------------------------------------------
-				// ºü¸£°Ô ¿òÁ÷ÀÌ´Â Áß
+				// ë¹ ë¥´ê²Œ ì›€ì§ì´ëŠ” ì¤‘
 				//-----------------------------------------------------------
 				if (pCreature->IsFastMove() || pCreature->IsBloodyZenith())
 				{
@@ -3148,14 +3148,14 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 					colorSet = pCreature->GetBatColor();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â °æ¿ì					
+				// ìºë¦­í„° ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°					
 				//---------------------------------------- 
 				if (colorSet < MAX_COLORSET)
 				{
 					m_pSurface->BltIndexSpriteColorSet(&pointTemp, pSprite, colorSet);
 				}
 				//---------------------------------------- 
-				// Á¤»óÀûÀÎ »ö±ò Ãâ·Â
+				// ì •ìƒì ì¸ ìƒ‰ê¹” ì¶œë ¥
 				//---------------------------------------- 					
 				else
 				{				
@@ -3173,7 +3173,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 					int shadowCount = pCreature->GetShadowCount();
 					
 					//----------------------------------------
-					// ShadowÃâ·Â
+					// Shadowì¶œë ¥
 					//----------------------------------------
 					if (shadowCount)
 					{
@@ -3198,7 +3198,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 						
 						POINT pointTemp2;
 						
-						// ÀÌµ¿ÀÌ¸é ÁÂÇ¥µµ ¹Ù²ï´Ù
+						// ì´ë™ì´ë©´ ì¢Œí‘œë„ ë°”ë€ë‹¤
 						int cxStep = 0, cyStep = 0, cxInc =0 , cyInc = 0;
 						if (action==ACTION_MOVE)
 						{
@@ -3213,7 +3213,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 							int frame_f = frame-f;
 							
 							//---------------------------------------- 
-							// f frame Àü
+							// f frame ì „
 							//---------------------------------------- 
 							if (frame_f < 0)
 							{
@@ -3249,11 +3249,11 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 						}
 					}
 					//----------------------------------------
-					// ¸ö¸¸ Âï±â
+					// ëª¸ë§Œ ì°ê¸°
 					//----------------------------------------
 					else
 					{
-						// ¾îµÓ°Ô Âï±â
+						// ì–´ë‘¡ê²Œ ì°ê¸°
 						if (pCreature->IsFade())
 						{
 							m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -3272,7 +3272,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 				m_pSurface->SetClipBottom( previousClipBottom );
 			}
 
-			// 2004, 10, 28, sobeit add start  - ¸ó½ºÅÍ Å³ Äù½ºÆ® ÇØ´ç ¸ó½ºÅÍ¿¡ Ç¥½Ã.
+			// 2004, 10, 28, sobeit add start  - ëª¬ìŠ¤í„° í‚¬ í€˜ìŠ¤íŠ¸ í•´ë‹¹ ëª¬ìŠ¤í„°ì— í‘œì‹œ.
 			if(pCreature->IsAlive() && (g_CurrentFrame&0x04)&&UI_IsMonsterKillQuest_Monster((*g_pCreatureTable)[pCreature->GetCreatureType()].SpriteTypes[0]))
 			//if(pCreature->IsAlive() && (g_CurrentFrame&0x04))
 			{
@@ -3298,14 +3298,14 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 					cx		= Frame.GetCX(),	//m_CreatureFPK[body][action][direction][frame].GetCX(),
 					cy		= Frame.GetCY();	//m_CreatureFPK[body][action][direction][frame].GetCY();
 				
-				// ÁÂÇ¥ º¸Á¤
+				// ì¢Œí‘œ ë³´ì •
 				pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 				pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 				
 				CIndexSprite* pSprite = &advanceVampireSPK[ sprite ];
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 				//---------------------------------------- 	
 				rect.left	= pointTemp.x;
 				rect.top	= pointTemp.y;
@@ -3327,7 +3327,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 				}
 				
 				//-----------------------------------------------------------
-				// Åõ¸í »óÅÂ Ãâ·Â 			
+				// íˆ¬ëª… ìƒíƒœ ì¶œë ¥ 			
 				//-----------------------------------------------------------
 				// vampire
 				if (pCreature->IsFakeDie())
@@ -3335,7 +3335,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 					WORD colorSet = pCreature->GetAttachEffectColor();
 					
 					//---------------------------------------- 
-					// Ä³¸¯ÅÍ ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â °æ¿ì					
+					// ìºë¦­í„° ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°					
 					//---------------------------------------- 
 					if (colorSet < MAX_COLORSET)
 					{
@@ -3362,12 +3362,12 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 						colorSet = pCreature->GetBatColor();
 					
 					//---------------------------------------- 
-					// Ä³¸¯ÅÍ ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â °æ¿ì					
+					// ìºë¦­í„° ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°					
 					//---------------------------------------- 
 					if (colorSet < MAX_COLORSET)
 					{
-						// IndexSprite¿¡µµ EFFECT...³Ö°í...
-						// ½º¸£¸¤~ ´Ü°èÀûÀ¸·Î ³ªÅ¸³ª°Ô/¾ø¾îÁö°Ô ÇØ¾ßµÊ.. - -;
+						// IndexSpriteì—ë„ EFFECT...ë„£ê³ ...
+						// ìŠ¤ë¥´ë¥µ~ ë‹¨ê³„ì ìœ¼ë¡œ ë‚˜íƒ€ë‚˜ê²Œ/ì—†ì–´ì§€ê²Œ í•´ì•¼ë¨.. - -;
 						m_pSurface->BltIndexSpriteColorSet(&pointTemp, pSprite, colorSet);
 					}
 					else
@@ -3399,7 +3399,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 				else
 				{	
 					//-----------------------------------------------------------
-					// ºü¸£°Ô ¿òÁ÷ÀÌ´Â Áß
+					// ë¹ ë¥´ê²Œ ì›€ì§ì´ëŠ” ì¤‘
 					//-----------------------------------------------------------
 					if (pCreature->IsFastMove() || pCreature->IsBloodyZenith())
 					{
@@ -3433,21 +3433,21 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 					WORD colorSet = pCreature->GetAttachEffectColor();
 					
 					//---------------------------------------- 
-					// Ä³¸¯ÅÍ ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â °æ¿ì					
+					// ìºë¦­í„° ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°					
 					//---------------------------------------- 
 					if (colorSet < MAX_COLORSET)
 					{
 						m_pSurface->BltIndexSpriteColorSet(&pointTemp, pSprite, colorSet);
 					}
 					//---------------------------------------- 
-					// Á¤»óÀûÀÎ »ö±ò Ãâ·Â
+					// ì •ìƒì ì¸ ìƒ‰ê¹” ì¶œë ¥
 					//---------------------------------------- 					
 					else
 					{				
 						int shadowCount = pCreature->GetShadowCount();
 						
 						//----------------------------------------
-						// ShadowÃâ·Â
+						// Shadowì¶œë ¥
 						//----------------------------------------
 						if (shadowCount)
 						{
@@ -3472,7 +3472,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 							
 							POINT pointTemp2;
 							
-							// ÀÌµ¿ÀÌ¸é ÁÂÇ¥µµ ¹Ù²ï´Ù
+							// ì´ë™ì´ë©´ ì¢Œí‘œë„ ë°”ë€ë‹¤
 							int cxStep = 0, cyStep = 0, cxInc =0 , cyInc = 0;
 							if (action==ACTION_MOVE)
 							{
@@ -3487,7 +3487,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 								int frame_f = frame-f;
 								
 								//---------------------------------------- 
-								// f frame Àü
+								// f frame ì „
 								//---------------------------------------- 
 								if (frame_f < 0)
 								{
@@ -3523,11 +3523,11 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 							}
 						}
 						//----------------------------------------
-						// ¸ö¸¸ Âï±â
+						// ëª¸ë§Œ ì°ê¸°
 						//----------------------------------------
 						else
 						{
-							// ¾îµÓ°Ô Âï±â
+							// ì–´ë‘¡ê²Œ ì°ê¸°
 							if (pCreature->IsFade())
 							{
 								m_pSurface->BltIndexSpriteDarkness(&pointTemp, pSprite, 1);
@@ -3545,11 +3545,11 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 	}
 		
 	//----------------------------------------------------
-	// °ü Ãâ·Â
+	// ê´€ ì¶œë ¥
 	//----------------------------------------------------
 	if (bInCasket)
 	{
-		// ±×¸²ÀÚ ¶§¹®¿¡ *2ÇØ¾ßÇÑ´Ù.
+		// ê·¸ë¦¼ì ë•Œë¬¸ì— *2í•´ì•¼í•œë‹¤.
 		int casketID = SPRITEID_CASKET_1 + pCreature->GetCasketType()*2;
 		
 		if (casketID < m_EtcSPK.GetSize())
@@ -3558,12 +3558,12 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 			
 			if (pSprite!=NULL)
 			{
-				// tileÀÇ Áß½É¿¡¼­ ¼¼¿î´Ù.
+				// tileì˜ ì¤‘ì‹¬ì—ì„œ ì„¸ìš´ë‹¤.
 				pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSprite->GetWidth()>>1);
 				pointTemp.y = pPoint->y + TILE_Y - pSprite->GetHeight();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 				//---------------------------------------- 	
 				rect.left	= pointTemp.x;
 				rect.top	= pointTemp.y;
@@ -3599,7 +3599,7 @@ void
 MTopView::DrawSelectedVampireCreature( POINT* pPoint, MCreature* pCreature, int action, int direction, int frame, int body, int frameindex )
 {
 	//------------------------------------------------
-	// °ü Ãâ·ÂÁ¤º¸
+	// ê´€ ì¶œë ¥ì •ë³´
 	//------------------------------------------------
 	int casketValue = pCreature->GetCasketCount();
 	bool bInCasket = pCreature->IsInCasket();
@@ -3624,12 +3624,12 @@ MTopView::DrawSelectedVampireCreature( POINT* pPoint, MCreature* pCreature, int 
 			//						LoadFromFileCreatureActionSPK( body, action );
 			//					}
 			
-			// ÁÂÇ¥ º¸Á¤
+			// ì¢Œí‘œ ë³´ì •
 			pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();			
 			
 			//---------------------------------------- 		
-			// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+			// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 			//---------------------------------------- 	
 			rect.left	= pointTemp.x;
 			rect.top	= pointTemp.y;
@@ -3644,14 +3644,14 @@ MTopView::DrawSelectedVampireCreature( POINT* pPoint, MCreature* pCreature, int 
 				colorSet = pCreature->GetBatColor();
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+			// ìºë¦­í„° ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 			//---------------------------------------- 
 			if (colorSet < MAX_COLORSET)
 			{
 				m_SOM.Add( pointTemp.x, pointTemp.y, pSprite, colorSet );
 			}					
 			//---------------------------------------- 
-			// Á¤»óÀûÀÎ Ãâ·Â
+			// ì •ìƒì ì¸ ì¶œë ¥
 			//---------------------------------------- 										
 			else
 			{					
@@ -3672,7 +3672,7 @@ MTopView::DrawSelectedVampireCreature( POINT* pPoint, MCreature* pCreature, int 
 			int shadowCount = pCreature->GetShadowCount();
 			
 			//----------------------------------------
-			// ShadowÃâ·Â
+			// Shadowì¶œë ¥
 			//----------------------------------------
 			if (shadowCount)
 			{
@@ -3684,7 +3684,7 @@ MTopView::DrawSelectedVampireCreature( POINT* pPoint, MCreature* pCreature, int 
 				
 				POINT pointTemp2;
 				
-				// ÀÌµ¿ÀÌ¸é ÁÂÇ¥µµ ¹Ù²ï´Ù
+				// ì´ë™ì´ë©´ ì¢Œí‘œë„ ë°”ë€ë‹¤
 				int cxStep = 0, cyStep = 0, cxInc =0 , cyInc = 0;
 				if (action==ACTION_MOVE)
 				{
@@ -3699,7 +3699,7 @@ MTopView::DrawSelectedVampireCreature( POINT* pPoint, MCreature* pCreature, int 
 					int frame_f = frame-f;
 					
 					//---------------------------------------- 
-					// f frame Àü
+					// f frame ì „
 					//---------------------------------------- 
 					if (frame_f < 0)
 					{
@@ -3731,11 +3731,11 @@ MTopView::DrawSelectedVampireCreature( POINT* pPoint, MCreature* pCreature, int 
 	}
 
 	//----------------------------------------------------
-	// °ü Ãâ·Â
+	// ê´€ ì¶œë ¥
 	//----------------------------------------------------
 	if (bInCasket)
 	{
-		// ±×¸²ÀÚ ¶§¹®¿¡ *2ÇÑ´Ù.
+		// ê·¸ë¦¼ì ë•Œë¬¸ì— *2í•œë‹¤.
 		int casketID = SPRITEID_CASKET_1 + pCreature->GetCasketType()*2;
 		
 		if (casketID < m_EtcSPK.GetSize())
@@ -3744,12 +3744,12 @@ MTopView::DrawSelectedVampireCreature( POINT* pPoint, MCreature* pCreature, int 
 			
 			if (pSprite!=NULL)
 			{
-				// tileÀÇ Áß½É¿¡¼­ ¼¼¿î´Ù.
+				// tileì˜ ì¤‘ì‹¬ì—ì„œ ì„¸ìš´ë‹¤.
 				pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSprite->GetWidth()>>1);
 				pointTemp.y = pPoint->y + TILE_Y - pSprite->GetHeight();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 				//---------------------------------------- 	
 				rect.left	= pointTemp.x;
 				rect.top	= pointTemp.y;
@@ -3759,7 +3759,7 @@ MTopView::DrawSelectedVampireCreature( POINT* pPoint, MCreature* pCreature, int 
 					pCreature->SetScreenRect( &rect );
 				
 				//---------------------------------------- 	
-				// ¹«Á¶°Ç ´Ù Ãâ·Â
+				// ë¬´ì¡°ê±´ ë‹¤ ì¶œë ¥
 				//---------------------------------------- 	
 				m_SOM.Add( pointTemp.x, pointTemp.y, pSprite );						
 			}
@@ -3770,7 +3770,7 @@ MTopView::DrawSelectedVampireCreature( POINT* pPoint, MCreature* pCreature, int 
 void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature* pCreature, int action, int direction, int frame, int body, int frameindex )
 {
 		//------------------------------------------------
-	// °ü Ãâ·ÂÁ¤º¸
+	// ê´€ ì¶œë ¥ì •ë³´
 	//------------------------------------------------
 	int casketValue = pCreature->GetCasketCount();
 	bool bInCasket = pCreature->IsInCasket();
@@ -3792,14 +3792,14 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 //end
 
 	//----------------------------------------------------
-	// ¿ÏÀüÈ÷ °ü¸¸ Ãâ·ÂÇÏ´Â °æ¿ì´Â ¸ö Ãâ·ÂÀ» ¾ÈÇÑ´Ù.
+	// ì™„ì „íˆ ê´€ë§Œ ì¶œë ¥í•˜ëŠ” ê²½ìš°ëŠ” ëª¸ ì¶œë ¥ì„ ì•ˆí•œë‹¤.
 	//----------------------------------------------------
 
 	if (!bCasketOnly)
 	{	
 		for( int i = body; i <= body+1; ++i )
 		{
-			// 0:body 1: ¹«±â ÂøÅ»¿¡ µû¶ó ³ªÁß¿¡ ¼öÁ¤ 
+			// 0:body 1: ë¬´ê¸° ì°©íƒˆì— ë”°ë¼ ë‚˜ì¤‘ì— ìˆ˜ì • 
 
 			//add by viva	select vampire
 			int viva_body=i;
@@ -3836,12 +3836,12 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 				//						LoadFromFileCreatureActionSPK( body, action );
 				//					}
 				
-				// ÁÂÇ¥ º¸Á¤
+				// ì¢Œí‘œ ë³´ì •
 				pointTemp.x = pPoint->x + cx;// + pCreature->GetSX();
 				pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();			
 				
 				//---------------------------------------- 		
-				// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 				//---------------------------------------- 	
 				rect.left	= pointTemp.x;
 				rect.top	= pointTemp.y;
@@ -3856,14 +3856,14 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 					colorSet = pCreature->GetBatColor();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+				// ìºë¦­í„° ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 				//---------------------------------------- 
 				if (colorSet < MAX_COLORSET)
 				{
 					m_SOM.Add( pointTemp.x, pointTemp.y, pSprite, colorSet );
 				}					
 				//---------------------------------------- 
-				// Á¤»óÀûÀÎ Ãâ·Â
+				// ì •ìƒì ì¸ ì¶œë ¥
 				//---------------------------------------- 										
 				else
 				{					
@@ -3884,7 +3884,7 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 				int shadowCount = pCreature->GetShadowCount();
 				
 				//----------------------------------------
-				// ShadowÃâ·Â
+				// Shadowì¶œë ¥
 				//----------------------------------------
 				if (shadowCount)
 				{
@@ -3896,7 +3896,7 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 					
 					POINT pointTemp2;
 					
-					// ÀÌµ¿ÀÌ¸é ÁÂÇ¥µµ ¹Ù²ï´Ù
+					// ì´ë™ì´ë©´ ì¢Œí‘œë„ ë°”ë€ë‹¤
 					int cxStep = 0, cyStep = 0, cxInc =0 , cyInc = 0;
 					if (action==ACTION_MOVE)
 					{
@@ -3911,7 +3911,7 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 						int frame_f = frame-f;
 						
 						//---------------------------------------- 
-						// f frame Àü
+						// f frame ì „
 						//---------------------------------------- 
 						if (frame_f < 0)
 						{
@@ -3944,11 +3944,11 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 	}
 
 	//----------------------------------------------------
-	// °ü Ãâ·Â
+	// ê´€ ì¶œë ¥
 	//----------------------------------------------------
 	if (bInCasket)
 	{
-		// ±×¸²ÀÚ ¶§¹®¿¡ *2ÇÑ´Ù.
+		// ê·¸ë¦¼ì ë•Œë¬¸ì— *2í•œë‹¤.
 		int casketID = SPRITEID_CASKET_1 + pCreature->GetCasketType()*2;
 		
 		if (casketID < m_EtcSPK.GetSize())
@@ -3957,12 +3957,12 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 			
 			if (pSprite!=NULL)
 			{
-				// tileÀÇ Áß½É¿¡¼­ ¼¼¿î´Ù.
+				// tileì˜ ì¤‘ì‹¬ì—ì„œ ì„¸ìš´ë‹¤.
 				pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSprite->GetWidth()>>1);
 				pointTemp.y = pPoint->y + TILE_Y - pSprite->GetHeight();
 				
 				//---------------------------------------- 
-				// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+				// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 				//---------------------------------------- 	
 				rect.left	= pointTemp.x;
 				rect.top	= pointTemp.y;
@@ -3972,7 +3972,7 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 					pCreature->SetScreenRect( &rect );
 				
 				//---------------------------------------- 	
-				// ¹«Á¶°Ç ´Ù Ãâ·Â
+				// ë¬´ì¡°ê±´ ë‹¤ ì¶œë ¥
 				//---------------------------------------- 	
 				m_SOM.Add( pointTemp.x, pointTemp.y, pSprite );						
 			}
@@ -3991,7 +3991,7 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 		action -= ADVANCEMENT_ACTION_START;
 	
 	MCreatureWear*	pCreatureWear = (MCreatureWear*)pCreature;
-	// CreatureÀÇ Action¿¡ ¸Â´Â add-onÀ» Ãâ·ÂÇÑ´Ù.
+	// Creatureì˜ Actionì— ë§ëŠ” add-onì„ ì¶œë ¥í•œë‹¤.
 	//action = pCreature->GetAction();	
 	int clothes;
 	BYTE clothesType;
@@ -4034,7 +4034,7 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 					if(action_viva > newslayerFPK[clothes].GetSize() -1) continue;
 					
 					FRAME_ARRAY& FA = newslayerFPK[ clothes ][ action_viva ][ direction ];
-					// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+					// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 					if (FA.GetSize() > frame)
 					{
 						CFrame &Frame = FA[frame];					
@@ -4047,7 +4047,7 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 						
 						CIndexSprite* pSprite = &newaddonISPK[ sprite ];
 						
-						// º¹ÀåSprite°¡ ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì
+						// ë³µì¥Spriteê°€ ì´ˆê¸°í™” ë˜ì§€ ì•Šì€ ê²½ìš°
 						//						if (pSprite->IsNotInit())
 						//						{
 						//							LoadFromFileAddonSPK( clothes, action );
@@ -4055,7 +4055,7 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 						//						}
 						
 						//---------------------------------------- 
-						// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+						// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 						//---------------------------------------- 	
 						rect.left	= pointTemp.x;
 						rect.top	= pointTemp.y;
@@ -4063,18 +4063,18 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 						rect.bottom = rect.top + pSprite->GetHeight();
 						pCreature->AddScreenRect( &rect );
 						
-						// SpriteOutlineManager¿¡ Ãß°¡
+						// SpriteOutlineManagerì— ì¶”ê°€
 						//CIndexSprite::SetUsingColorSet((pCreature->GetID()+3*(clothesType,1),7)%MAX_COLORSET, ((pCreature->GetID()*pCreature->GetID(),7*(clothesType+2)))%MAX_COLORSET);
 						//CIndexSprite::SetUsingColorSet((c1+3*(clothesType+1)+7)%MAX_COLORSET, ((c2*c2+7*(clothesType+2)))%MAX_COLORSET);
 						//---------------------------------------- 
-						// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+						// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 						//---------------------------------------- 
 						if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 						{
 							m_SOM.Add( pointTemp.x, pointTemp.y, pSprite, addonInfo.EffectColorSet );
 						}
 						//---------------------------------------- 
-						// ¿ø·¡»ö´ë·Î..
+						// ì›ë˜ìƒ‰ëŒ€ë¡œ..
 						//---------------------------------------- 
 						else
 						{
@@ -4097,8 +4097,8 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 			}
 			else
 			{		
-				// Áö±İÀº ÆÄÆ® ±×´ë·Î¸¦ »ç¿ëÇÑ´Ù. ÃßÈÄ¿¡ ¿ÊÀÌ Ãß°¡ µÇ¾úÀ»¶§ ´ÙÀ½ º¯¼ö¸¦ ¼¼ÆÃ ÇØ¼­ ¾´´Ù.
-				// addonInfo.FrameID ¿¡ ¿Ê Á¤º¸¸¦ ³Ö°í ¼¼ÆÃÇÏ¿© ¾²¸éµÈ´Ù.
+				// ì§€ê¸ˆì€ íŒŒíŠ¸ ê·¸ëŒ€ë¡œë¥¼ ì‚¬ìš©í•œë‹¤. ì¶”í›„ì— ì˜·ì´ ì¶”ê°€ ë˜ì—ˆì„ë•Œ ë‹¤ìŒ ë³€ìˆ˜ë¥¼ ì„¸íŒ… í•´ì„œ ì“´ë‹¤.
+				// addonInfo.FrameID ì— ì˜· ì •ë³´ë¥¼ ë„£ê³  ì„¸íŒ…í•˜ì—¬ ì“°ë©´ëœë‹¤.
 				
 				clothes = GetAdvancementPartFromItemClass( addonInfo.ItemClass , addonInfo.FrameID);
 				
@@ -4107,7 +4107,7 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 				
 				FRAME_ARRAY &FA = slayerFPK[clothes][action][direction];
 				
-				// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+				// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 				if (FA.GetSize() > frame)
 				{
 					CFrame &Frame = FA[frame];					
@@ -4120,7 +4120,7 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 					
 					CIndexSprite* pSprite = &addonISPK[ sprite ];
 					
-					// º¹ÀåSprite°¡ ÃÊ±âÈ­ µÇÁö ¾ÊÀº °æ¿ì
+					// ë³µì¥Spriteê°€ ì´ˆê¸°í™” ë˜ì§€ ì•Šì€ ê²½ìš°
 					//						if (pSprite->IsNotInit())
 					//						{
 					//							LoadFromFileAddonSPK( clothes, action );
@@ -4128,7 +4128,7 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 					//						}
 					
 					//---------------------------------------- 
-					// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+					// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 					//---------------------------------------- 	
 					rect.left	= pointTemp.x;
 					rect.top	= pointTemp.y;
@@ -4136,18 +4136,18 @@ void	MTopView::DrawSelectedAdvancementSlayerCreature( POINT* pPoint, MCreature* 
 					rect.bottom = rect.top + pSprite->GetHeight();
 					pCreature->AddScreenRect( &rect );
 					
-					// SpriteOutlineManager¿¡ Ãß°¡
+					// SpriteOutlineManagerì— ì¶”ê°€
 					//CIndexSprite::SetUsingColorSet((pCreature->GetID()+3*(clothesType,1),7)%MAX_COLORSET, ((pCreature->GetID()*pCreature->GetID(),7*(clothesType+2)))%MAX_COLORSET);
 					//CIndexSprite::SetUsingColorSet((c1+3*(clothesType+1)+7)%MAX_COLORSET, ((c2*c2+7*(clothesType+2)))%MAX_COLORSET);
 					//---------------------------------------- 
-					// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+					// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 					//---------------------------------------- 
 					if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 					{
 						m_SOM.Add( pointTemp.x, pointTemp.y, pSprite, addonInfo.EffectColorSet );
 					}
 					//---------------------------------------- 
-					// ¿ø·¡»ö´ë·Î..
+					// ì›ë˜ìƒ‰ëŒ€ë¡œ..
 					//---------------------------------------- 
 					else
 					{
@@ -4193,7 +4193,7 @@ void	MTopView::DrawSelectedAdvancementOustersCreature( POINT* pPoint, MCreature*
 		
 		FRAME_ARRAY &FA = m_AdvancementOustersFPK[clothes][tempAction][direction];
 		
-		// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+		// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 		if (FA.GetSize() > frame)
 		{
 			CFrame &Frame = FA[frame];					
@@ -4207,7 +4207,7 @@ void	MTopView::DrawSelectedAdvancementOustersCreature( POINT* pPoint, MCreature*
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ¼±ÅÃ »ç°¢Çü ¿µ¿ª ¼³Á¤
+			// ìºë¦­í„° ì„ íƒ ì‚¬ê°í˜• ì˜ì—­ ì„¤ì •
 			//---------------------------------------- 	
 			rect.left	= pointTemp.x;
 			rect.top	= pointTemp.y;
@@ -4216,31 +4216,31 @@ void	MTopView::DrawSelectedAdvancementOustersCreature( POINT* pPoint, MCreature*
 			pCreature->AddScreenRect( &rect );
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+			// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 			//---------------------------------------- 
 			if (addonInfo.bEffectColor)	//colorSet < MAX_COLORSET)
 			{
 				m_SOM.Add( pointTemp.x, pointTemp.y, pSprite, addonInfo.EffectColorSet );
 			}
 			//---------------------------------------- 
-			// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+			// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 			//---------------------------------------- 
 			else
 			{
-				CIndexSprite::SetUsingColorSetOnly( 0, pCreature->GetBodyColor1() );	// ¸Ó¸®»ö
+				CIndexSprite::SetUsingColorSetOnly( 0, pCreature->GetBodyColor1() );	// ë¨¸ë¦¬ìƒ‰
 				
 				int coatColor = addonInfo.ColorSet2, Colorset;
 				if( coatColor == QUEST_ITEM_COLOR || coatColor == UNIQUE_ITEM_COLOR )
 					coatColor = MItem::GetSpecialColorItemColorset( coatColor );						
-				CIndexSprite::SetUsingColorSetOnly( 1, coatColor );	// ¿Ê»ö
-				if(bChakram == false)	// ¸®½ºÆ²¸´À» Â÷°í ÀÖÀ¸¸é
+				CIndexSprite::SetUsingColorSetOnly( 1, coatColor );	// ì˜·ìƒ‰
+				if(bChakram == false)	// ë¦¬ìŠ¤í‹€ë¦¿ì„ ì°¨ê³  ìˆìœ¼ë©´
 				{
 					if(addonInfoChakram.bAddon)
 					{
 						Colorset = addonInfoChakram.ColorSet2;
 						if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 							Colorset = MItem::GetSpecialColorItemColorset( Colorset );
-						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ								
+						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”								
 					}
 					else
 					{
@@ -4248,7 +4248,7 @@ void	MTopView::DrawSelectedAdvancementOustersCreature( POINT* pPoint, MCreature*
 						if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 							Colorset = MItem::GetSpecialColorItemColorset( Colorset );
 						
-						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+						CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 					}
 				}
 				else
@@ -4258,7 +4258,7 @@ void	MTopView::DrawSelectedAdvancementOustersCreature( POINT* pPoint, MCreature*
 						Colorset = addonInfoChakram.ColorSet2;
 					if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
-					CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// ÆÈ
+					CIndexSprite::SetUsingColorSetOnly( 2, Colorset );	// íŒ”
 				}
 				
 				if(bootsAddonInfo.bAddon)
@@ -4266,7 +4266,7 @@ void	MTopView::DrawSelectedAdvancementOustersCreature( POINT* pPoint, MCreature*
 					Colorset = bootsAddonInfo.ColorSet2;
 					if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
-					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ºÎÃ÷»ö
+					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ë¶€ì¸ ìƒ‰
 				}
 				else
 				{
@@ -4274,7 +4274,7 @@ void	MTopView::DrawSelectedAdvancementOustersCreature( POINT* pPoint, MCreature*
 					
 					if( Colorset == QUEST_ITEM_COLOR || Colorset == UNIQUE_ITEM_COLOR )
 						Colorset = MItem::GetSpecialColorItemColorset( Colorset );
-					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// ÆÈ
+					CIndexSprite::SetUsingColorSetOnly( 3, Colorset );	// íŒ”
 				}
 				
 				m_SOM.Add( pointTemp.x, pointTemp.y, pSprite );
@@ -4289,7 +4289,7 @@ void	MTopView::DrawSelectedAdvancementOustersCreature( POINT* pPoint, MCreature*
 		
 		FRAME_ARRAY &FA = m_AdvancementOustersFPK[clothes][tempAction][direction];
 		
-		// ÀÖ´Â µ¿ÀÛÀÎ °æ¿ì
+		// ìˆëŠ” ë™ì‘ì¸ ê²½ìš°
 		if (FA.GetSize() > frame)
 		{
 			CFrame &Frame = FA[frame];					
@@ -4303,14 +4303,14 @@ void	MTopView::DrawSelectedAdvancementOustersCreature( POINT* pPoint, MCreature*
 			pointTemp.y = pPoint->y + cy;// + pCreature->GetSY();
 			
 			//---------------------------------------- 
-			// Ä³¸¯ÅÍ ºÎºĞ »ö±òÀÌ ¹Ù²î´Â °æ¿ì
+			// ìºë¦­í„° ë¶€ë¶„ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°
 			//---------------------------------------- 
 			if (addonInfoChakram.bEffectColor)	//colorSet < MAX_COLORSET)
 			{
 				m_SOM.Add( pointTemp.x, pointTemp.y, pSprite, addonInfo.EffectColorSet );
 			}
 			//---------------------------------------- 
-			// Á¤»óÀûÀÎ Ä³¸¯ÅÍ Ãâ·Â
+			// ì •ìƒì ì¸ ìºë¦­í„° ì¶œë ¥
 			//---------------------------------------- 
 			else
 			{

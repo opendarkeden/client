@@ -10,11 +10,11 @@
 #define ADD_CLOSE_BUTTON	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(Right()-94, Down()-66, gpC_global_resource->m_pC_assemble_box_button_spk->GetWidth(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE), gpC_global_resource->m_pC_assemble_box_button_spk->GetHeight(C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE), SKILLTREE_CLOSE_ID, this, C_GLOBAL_RESOURCE::AB_BUTTON_CLOSE));
 
 //
-// ! SkillTree¿¡ skill À§Ä¡¸¦ ÁöÁ¤ÇÏ´Â ¹æ¹ıÀº ´ÙÀ½°ú °°´Ù.
-//   skillÀ» ¹è¿ì´Â ¼ø¼­¸¦ µû¶ó°¡µÇ skill tree°¡ ³ª¿À¸é ÁÂ¿¡¼­ ¿ì·Î ¹øÈ£¸¦
-//   ¸Å±ä´Ù.
+// ! SkillTreeì— skill ìœ„ì¹˜ë¥¼ ì§€ì •í•˜ëŠ” ë°©ë²•ì€ ë‹¤ìŒê³¼ ê°™ë‹¤.
+//   skillì„ ë°°ìš°ëŠ” ìˆœì„œë¥¼ ë”°ë¼ê°€ë˜ skill treeê°€ ë‚˜ì˜¤ë©´ ì¢Œì—ì„œ ìš°ë¡œ ë²ˆí˜¸ë¥¼
+//   ë§¤ê¸´ë‹¤.
 //
-// ! ¾ÆÁ÷¾ø´Â °ÍÀº ³ªÁß¿¡ Sprite Pack µÚ¿¡ Ãß°¡µÈ´Ù. (Áß°£¿¡ ÀÖ´Â°Íµéµµ)
+// ! ì•„ì§ì—†ëŠ” ê²ƒì€ ë‚˜ì¤‘ì— Sprite Pack ë’¤ì— ì¶”ê°€ëœë‹¤. (ì¤‘ê°„ì— ìˆëŠ”ê²ƒë“¤ë„)
 //
 SKILLTREE_SKILL C_VS_UI_SKILL_TREE_ENCHANT::m_skill_icon_tab[ENCHANT_SKILL_COUNT] = {
 	MAGIC_CREATE_HOLY_WATER,
@@ -173,7 +173,7 @@ void C_VS_UI_SKILL_TREE::Show()
 //-----------------------------------------------------------------------------
 // C_VS_UI_SKILL_TREE::Run
 //
-// id´Â ACTIONINFOÀÌ´Ù.
+// idëŠ” ACTIONINFOì´ë‹¤.
 //-----------------------------------------------------------------------------
 void C_VS_UI_SKILL_TREE::Run(id_t id)
 {
@@ -185,11 +185,11 @@ void C_VS_UI_SKILL_TREE::Run(id_t id)
 
 		default:
 			//
-			// ¹è¿ï ¼ö ÀÖ´Â °Í¸¸ ¼±ÅÃÇØ¼­ Client·Î º¸³»ÁØ´Ù.
+			// ë°°ìš¸ ìˆ˜ ìˆëŠ” ê²ƒë§Œ ì„ íƒí•´ì„œ Clientë¡œ ë³´ë‚´ì¤€ë‹¤.
 			//
 			assert(m_skill_domain != MAX_SKILLDOMAIN);
 
-			// »õ·Î¿î skillÀ» ¹è¿ï ¼ö ÀÖ´Â »óÅÂÀÎÁö Ã¼Å©.. by sigi
+			// ìƒˆë¡œìš´ skillì„ ë°°ìš¸ ìˆ˜ ìˆëŠ” ìƒíƒœì¸ì§€ ì²´í¬.. by sigi
 			if ((*g_pSkillManager)[m_skill_domain].HasNewSkill())
 			{
 				MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[m_skill_domain].GetSkillStatus((ACTIONINFO)id);
@@ -252,7 +252,7 @@ void	C_VS_UI_SKILL_TREE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 	else if(p_button->m_image_index != -1)
 	{
 		//*
-		assert(m_skill_domain != MAX_SKILLDOMAIN); // ¼³Á¤µÇ¾ú´Â°¡?
+		assert(m_skill_domain != MAX_SKILLDOMAIN); // ì„¤ì •ë˜ì—ˆëŠ”ê°€?
 
 		MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[m_skill_domain].GetSkillStatus((ACTIONINFO)p_button->GetID());
 
@@ -260,18 +260,18 @@ void	C_VS_UI_SKILL_TREE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 
 		if (status == MSkillDomain::SKILLSTATUS_LEARNED)
 		{
-			// ÀÌ¹Ì ¹è¿î skillÀº highlightµÈ iconÀ¸·Î Ãâ·ÂÇÑ´Ù.
+			// ì´ë¯¸ ë°°ìš´ skillì€ highlightëœ iconìœ¼ë¡œ ì¶œë ¥í•œë‹¤.
 			m_skill_icon_bright_image_spk.Blt(p_button->x+m_extra_offset_x, p_button->y+m_extra_offset_y, p_button->m_image_index);
 			m_p_etc_image_spk->BltColor(p_button->x, p_button->y, ICON_GUARD, rgb_BLUE);
 		}
 		else if (status == MSkillDomain::SKILLSTATUS_NEXT
-					// »õ·Î¿î skillÀ» ¹è¿ï ¼ö ÀÖ´Â »óÅÂÀÎÁö Ã¼Å©.. by sigi
+					// ìƒˆë¡œìš´ skillì„ ë°°ìš¸ ìˆ˜ ìˆëŠ” ìƒíƒœì¸ì§€ ì²´í¬.. by sigi
 					&& (*g_pSkillManager)[m_skill_domain].HasNewSkill() )
 		{
-			// ¹è¿ï ¼ö ÀÖ´Â skillÀº guard»öÀ¸·Î ±¸º°½ÃÅ²´Ù.
+			// ë°°ìš¸ ìˆ˜ ìˆëŠ” skillì€ guardìƒ‰ìœ¼ë¡œ êµ¬ë³„ì‹œí‚¨ë‹¤.
 			m_p_etc_image_spk->BltColor(p_button->x, p_button->y, ICON_GUARD, rgb_GREEN);
 
-			// ¹è¿ì±â À§ÇØ clickÇÏ´Â°¡?
+			// ë°°ìš°ê¸° ìœ„í•´ clickí•˜ëŠ”ê°€?
 			if (p_button->GetFocusState() && p_button->GetPressState())
 			{
 				m_skill_icon_bright_image_spk.Blt(p_button->x+m_extra_offset_x, p_button->y+m_extra_offset_y, p_button->m_image_index);
@@ -294,21 +294,21 @@ void	C_VS_UI_SKILL_TREE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 		domain.SetBegin();
 		while (domain.IsNotEnd())
 		{
-			// skillÀÇ id¿Í status
+			// skillì˜ idì™€ status
 			ACTIONINFO						id			= domain.GetSkillID();
 			MSkillDomain::SKILLSTATUS	status	= domain.GetSkillStatus();
 
 			//---------------------------------------
-			// status´Â ´ÙÀ½°ú °°´Ù. 
+			// statusëŠ” ë‹¤ìŒê³¼ ê°™ë‹¤. 
 			//---------------------------------------
-			//	MSkillDomain::SKILLSTATUS_LEARNED		// ¹è¿ü´Ù.
-			//	MSkillDomain::SKILLSTATUS_NEXT			// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-			//	MSkillDomain::SKILLSTATUS_OTHER			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù.	
+			//	MSkillDomain::SKILLSTATUS_LEARNED		// ë°°ì› ë‹¤.
+			//	MSkillDomain::SKILLSTATUS_NEXT			// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆë‹¤.
+			//	MSkillDomain::SKILLSTATUS_OTHER			// ì•„ì§ì€ ë°°ìš¸ ìˆ˜ ì—†ë‹¤.	
 			//---------------------------------------
 			
 			//---------------------------------------
-			// id¸¦ ¾Ë¸é g_SkillInfoTable¿¡¼­ 
-			// ±× idÀÇ skill¿¡ ´ëÇÑ Á¤º¸¸¦ ¾òÀ» ¼ö ÀÖ´Ù.
+			// idë¥¼ ì•Œë©´ g_SkillInfoTableì—ì„œ 
+			// ê·¸ idì˜ skillì— ëŒ€í•œ ì •ë³´ë¥¼ ì–»ì„ ìˆ˜ ìˆë‹¤.
 			//---------------------------------------
 			//logFile << "[" << id << "] " << g_SkillInfoTable[id].GetName()
 			//		<< " = " << (int)status << endl;
@@ -320,7 +320,7 @@ void	C_VS_UI_SKILL_TREE::ShowButtonWidget(C_VS_UI_EVENT_BUTTON * p_button)
 			m_p_etc_image_spk->Blt(p_button->x, p_button->y, ICON_GUARD);
 			}
 
-			// ´ÙÀ½
+			// ë‹¤ìŒ
 			domain.Next();
 		}*//*
 	}
@@ -427,14 +427,14 @@ C_VS_UI_SKILL_TREE_ENCHANT::C_VS_UI_SKILL_TREE_ENCHANT()
 #ifndef _LIB 
 	//---------------------------------------------------------------------
 	//
-	// (*g_pSkillManager)¿¡¼­
-	// Sword DomainÀÇ SkillµéÀ» °¡Áö°í ÀÛ¾÷ÇÑ´Ù.
+	// (*g_pSkillManager)ì—ì„œ
+	// Sword Domainì˜ Skillë“¤ì„ ê°€ì§€ê³  ì‘ì—…í•œë‹¤.
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& enchantDomain = (*g_pSkillManager)[SKILLDOMAIN_ENCHANT];
 
 	//---------------------------------------------------------------------
-	// ¸î°¡Áö skillÀ» ¹è¿ü´Ù°í Ç¥½ÃÇÑ´Ù.
+	// ëª‡ê°€ì§€ skillì„ ë°°ì› ë‹¤ê³  í‘œì‹œí•œë‹¤.
 	//---------------------------------------------------------------------
 	enchantDomain.SetNewSkill();
 	enchantDomain.LearnSkill( MAGIC_CREATE_HOLY_WATER );
@@ -515,14 +515,14 @@ C_VS_UI_SKILL_TREE_SWORD::C_VS_UI_SKILL_TREE_SWORD()
 #ifndef _LIB 
 	//---------------------------------------------------------------------
 	//
-	// (*g_pSkillManager)¿¡¼­
-	// Sword DomainÀÇ SkillµéÀ» °¡Áö°í ÀÛ¾÷ÇÑ´Ù.
+	// (*g_pSkillManager)ì—ì„œ
+	// Sword Domainì˜ Skillë“¤ì„ ê°€ì§€ê³  ì‘ì—…í•œë‹¤.
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& swordDomain = (*g_pSkillManager)[SKILLDOMAIN_SWORD];
 
 	//---------------------------------------------------------------------
-	// ¸î°¡Áö skillÀ» ¹è¿ü´Ù°í Ç¥½ÃÇÑ´Ù.
+	// ëª‡ê°€ì§€ skillì„ ë°°ì› ë‹¤ê³  í‘œì‹œí•œë‹¤.
 	//---------------------------------------------------------------------
 	swordDomain.SetNewSkill();
 	swordDomain.LearnSkill( SKILL_DOUBLE_IMPACT );
@@ -605,7 +605,7 @@ C_VS_UI_SKILL_TREE_VAMPIRE::C_VS_UI_SKILL_TREE_VAMPIRE()
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+163, y+270, SKILL_GUARD_X, SKILL_GUARD_Y, m_skill_icon_tab[14].id, this, 14));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+104, y+270, SKILL_GUARD_X, SKILL_GUARD_Y, m_skill_icon_tab[15].id, this, 15));
 
-	// ¿ä»çÀÌ¿¡ µÎ°³°¡ ¾ÕÀ¸·Î Ãß°¡µÉ °ÍÀÓ.
+	// ìš”ì‚¬ì´ì— ë‘ê°œê°€ ì•ìœ¼ë¡œ ì¶”ê°€ë  ê²ƒì„.
 	//m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+104, y+328, SKILL_GUARD_X, SKILL_GUARD_Y, m_skill_icon_tab[16].id, this, 16));
 	//m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+163, y+328, SKILL_GUARD_X, SKILL_GUARD_Y, m_skill_icon_tab[17].id, this, 17));
 	m_pC_button_group->Add(new C_VS_UI_EVENT_BUTTON(x+223, y+328, SKILL_GUARD_X, SKILL_GUARD_Y, m_skill_icon_tab[16].id, this, 16));
@@ -619,14 +619,14 @@ C_VS_UI_SKILL_TREE_VAMPIRE::C_VS_UI_SKILL_TREE_VAMPIRE()
 #ifndef _LIB 
 	//---------------------------------------------------------------------
 	//
-	// (*g_pSkillManager)¿¡¼­
-	// Sword DomainÀÇ SkillµéÀ» °¡Áö°í ÀÛ¾÷ÇÑ´Ù.
+	// (*g_pSkillManager)ì—ì„œ
+	// Sword Domainì˜ Skillë“¤ì„ ê°€ì§€ê³  ì‘ì—…í•œë‹¤.
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& vampireDomain = (*g_pSkillManager)[SKILLDOMAIN_VAMPIRE];
 
 	//---------------------------------------------------------------------
-	// ¸î°¡Áö skillÀ» ¹è¿ü´Ù°í Ç¥½ÃÇÑ´Ù.
+	// ëª‡ê°€ì§€ skillì„ ë°°ì› ë‹¤ê³  í‘œì‹œí•œë‹¤.
 	//---------------------------------------------------------------------
 	vampireDomain.SetNewSkill();
 	vampireDomain.LearnSkill( MAGIC_HIDE );
@@ -684,14 +684,14 @@ C_VS_UI_SKILL_TREE_BLADE::C_VS_UI_SKILL_TREE_BLADE()
 #ifndef _LIB 
 	//---------------------------------------------------------------------
 	//
-	// (*g_pSkillManager)¿¡¼­
-	// blade DomainÀÇ SkillµéÀ» °¡Áö°í ÀÛ¾÷ÇÑ´Ù.
+	// (*g_pSkillManager)ì—ì„œ
+	// blade Domainì˜ Skillë“¤ì„ ê°€ì§€ê³  ì‘ì—…í•œë‹¤.
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& bladeDomain = (*g_pSkillManager)[SKILLDOMAIN_BLADE];
 
 	//---------------------------------------------------------------------
-	// ¸î°¡Áö skillÀ» ¹è¿ü´Ù°í Ç¥½ÃÇÑ´Ù.
+	// ëª‡ê°€ì§€ skillì„ ë°°ì› ë‹¤ê³  í‘œì‹œí•œë‹¤.
 	//---------------------------------------------------------------------
 	bladeDomain.SetNewSkill();
 	bladeDomain.LearnSkill( SKILL_SINGLE_BLOW );
@@ -771,14 +771,14 @@ C_VS_UI_SKILL_TREE_HEAL::C_VS_UI_SKILL_TREE_HEAL()
 #ifndef _LIB 
 	//---------------------------------------------------------------------
 	//
-	// (*g_pSkillManager)¿¡¼­
-	// Sword DomainÀÇ SkillµéÀ» °¡Áö°í ÀÛ¾÷ÇÑ´Ù.
+	// (*g_pSkillManager)ì—ì„œ
+	// Sword Domainì˜ Skillë“¤ì„ ê°€ì§€ê³  ì‘ì—…í•œë‹¤.
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& healDomain = (*g_pSkillManager)[SKILLDOMAIN_HEAL];
 
 	//---------------------------------------------------------------------
-	// ¸î°¡Áö skillÀ» ¹è¿ü´Ù°í Ç¥½ÃÇÑ´Ù.
+	// ëª‡ê°€ì§€ skillì„ ë°°ì› ë‹¤ê³  í‘œì‹œí•œë‹¤.
 	//---------------------------------------------------------------------
 	healDomain.SetNewSkill();
 	healDomain.LearnSkill( MAGIC_PROTECTION_FROM_POISON );
@@ -870,14 +870,14 @@ C_VS_UI_SKILL_TREE_GUN::C_VS_UI_SKILL_TREE_GUN()
 #ifndef _LIB 
 	//---------------------------------------------------------------------
 	//
-	// (*g_pSkillManager)¿¡¼­
-	// Sword DomainÀÇ SkillµéÀ» °¡Áö°í ÀÛ¾÷ÇÑ´Ù.
+	// (*g_pSkillManager)ì—ì„œ
+	// Sword Domainì˜ Skillë“¤ì„ ê°€ì§€ê³  ì‘ì—…í•œë‹¤.
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& gunDomain = (*g_pSkillManager)[SKILLDOMAIN_GUN];
 
 	//---------------------------------------------------------------------
-	// ¸î°¡Áö skillÀ» ¹è¿ü´Ù°í Ç¥½ÃÇÑ´Ù.
+	// ëª‡ê°€ì§€ skillì„ ë°°ì› ë‹¤ê³  í‘œì‹œí•œë‹¤.
 	//---------------------------------------------------------------------
 	gunDomain.SetNewSkill();
 	gunDomain.LearnSkill( SKILL_SHARP_SHOOTING );

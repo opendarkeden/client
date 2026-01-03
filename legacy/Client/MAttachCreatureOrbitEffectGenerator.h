@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MAttachCreatureOrbitEffectGenerator.h
 //----------------------------------------------------------------------
-// Creature√ﬂ¿˚
+// CreatureÏ∂îÏ†Å
 //----------------------------------------------------------------------
 
 #ifndef	__MATTACHCREATUREORBITEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MAttachCreatureOrbitEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_ATTACH_CREATURE_ORBIT; }
 
-		// Effectª˝º∫
+		// EffectÏÉùÏÑ±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

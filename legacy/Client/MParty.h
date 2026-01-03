@@ -1,15 +1,15 @@
 //----------------------------------------------------------------------
 // MParty.h
 //----------------------------------------------------------------------
-// creatureID³ª creatureNameÀÌ µÑ ´Ù key°¡ µÉ ¼ö ÀÖ´Ù.
-// ÆÄÆ¼¿øÀº ÃÖ´ë¼ö´Â 6.. ¾ğÁ¨°¡ ´Ã¾î³¯ ¼öµµ ÀÖ°ÚÁö¸¸..
-// key°ª µÎ°³ÀÎ°Åµµ ¾Ö¸ÅÇÏ°í max°¡ 6ÀÌ¹Ç·Î mapÀº ¾È¾²±â·Î.. ¤»¤»..
+// creatureIDë‚˜ creatureNameì´ ë‘˜ ë‹¤ keyê°€ ë  ìˆ˜ ìˆë‹¤.
+// íŒŒí‹°ì›ì€ ìµœëŒ€ìˆ˜ëŠ” 6.. ì–¸ì  ê°€ ëŠ˜ì–´ë‚  ìˆ˜ë„ ìˆê² ì§€ë§Œ..
+// keyê°’ ë‘ê°œì¸ê±°ë„ ì• ë§¤í•˜ê³  maxê°€ 6ì´ë¯€ë¡œ mapì€ ì•ˆì“°ê¸°ë¡œ.. ã…‹ã…‹..
 //
-// ´©°¡ party¿¡ ÀÖ´Ù´Â°Å¸¸ ¾Ë¸é µÈ´Ù.
-// ±×¸®°í.. ±ÙÃ³¿¡ ÀÖ´Â °æ¿ì(g_pZone¿¡ ÀÖ´Â °æ¿ì) m_ID¸¦ ÅëÇØ¼­ 
-// HP³ª ±âÅ¸ Á¤º¸µéÀ» Ãâ·ÂÇØÁÖ¸é µÇ°ÚÁö.
+// ëˆ„ê°€ partyì— ìˆë‹¤ëŠ”ê±°ë§Œ ì•Œë©´ ëœë‹¤.
+// ê·¸ë¦¬ê³ .. ê·¼ì²˜ì— ìˆëŠ” ê²½ìš°(g_pZoneì— ìˆëŠ” ê²½ìš°) m_IDë¥¼ í†µí•´ì„œ 
+// HPë‚˜ ê¸°íƒ€ ì •ë³´ë“¤ì„ ì¶œë ¥í•´ì£¼ë©´ ë˜ê² ì§€.
 //
-// GetMemberXXX( n )ÀÇ nÀº arrayÀÇ indexÀÌ´Ù.
+// GetMemberXXX( n )ì˜ nì€ arrayì˜ indexì´ë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef __MParty_H__
@@ -23,7 +23,7 @@
 class PARTY_INFO
 {
 public :
-	MString			Name;		// ÀÌ¸§
+	MString			Name;		// ì´ë¦„
 	TYPE_OBJECTID	ID;			// object ID
 	bool			bMale;
 	BYTE			hairStyle;
@@ -32,12 +32,12 @@ public :
 	MString			guildName;
 	WORD			guildID;
 	
-	// ÇöÀç ÀÖ´Â °÷ÀÇ Á¤º¸
+	// í˜„ì¬ ìˆëŠ” ê³³ì˜ ì •ë³´
 	int				zoneID;
 	BYTE			zoneX;
 	BYTE			zoneY;
 
-	// ¿¡³ëÁö..
+	// ì—ë…¸ì§€..
 	WORD			MaxHP;
 	WORD			HP;
 	
@@ -68,7 +68,7 @@ class MParty {
 		bool		IsKickAvailableTime() const;
 
 		//--------------------------------------------------------
-		// Get Size - ÇöÀç ÆÄÆ¼¿øÀÇ ¼ö (³ª¸¦ Á¦¿ÜÇÑ)
+		// Get Size - í˜„ì¬ íŒŒí‹°ì›ì˜ ìˆ˜ (ë‚˜ë¥¼ ì œì™¸í•œ)
 		//--------------------------------------------------------
 		int			GetSize() const		{ return m_pInfo.size(); }
 
@@ -97,10 +97,10 @@ class MParty {
 		bool		HasMember(const char* pName) const;
 
 	protected :
-		int							m_Size;			// ÆÄÆ¼¿ø ¼ö
-		PARTY_VECTOR				m_pInfo;		// party Á¤º¸
+		int							m_Size;			// íŒŒí‹°ì› ìˆ˜
+		PARTY_VECTOR				m_pInfo;		// party ì •ë³´
 
-		bool						m_bAccept;		// ÃÊ´ë¸¦ ¹Ş¾ÆµéÀÌ´Â°¡?
+		bool						m_bAccept;		// ì´ˆëŒ€ë¥¼ ë°›ì•„ë“¤ì´ëŠ”ê°€?
 
 		DWORD						m_JoinTime;
 };
