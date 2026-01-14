@@ -1,79 +1,88 @@
 //-----------------------------------------------------------------------------
 // CIndexSprite.h
 //-----------------------------------------------------------------------------
-// width * height¸¸Å­ÀÇ pixelÀ» ÀúÀåÇØµÐ´Ù.
+// width * heightï¿½ï¿½Å­ï¿½ï¿½ pixelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÐ´ï¿½.
 //-----------------------------------------------------------------------------
-// ÇÑ pixelÀ» ÀúÀåÇÏ´Â ¹æ¹ýÀº ´ÙÀ½°ú °°´Ù.
+// ï¿½ï¿½ pixelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 //
 //    [1] 5:5:5 --> 2 bytes
 //    [2] 5:6:5 --> 2 bytes
 //    [3] R,G,B --> 3 bytes
 //
-// [3]Àº ¿ë·®ÀÌ Ä¿¼­ ¾ÈÁÁÀ¸¹Ç·Î [2]¹ø ¹æ¹ýÀ» »ç¿ëÇØ¼­
-// 5:5:5·Î °°Àº ¹æ½ÄÀ¸·Î ÀúÀåµÇµµ·Ï ÇÑ´Ù.
+// [3]ï¿½ï¿½ ï¿½ë·®ï¿½ï¿½ Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ [2]ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½
+// 5:5:5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 //
-// Memory´Â 5:5:5³ª 5:6:5·Î »ç¿ëÇÏÁö¸¸
-// disk¿¡´Â 5:6:5·Î ÀúÀåµÈ´Ù.
+// Memoryï¿½ï¿½ 5:5:5ï¿½ï¿½ 5:6:5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// diskï¿½ï¿½ï¿½ï¿½ 5:6:5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´ï¿½.
 //
-// Áï, 5:5:5¸¦ »ç¿ëÇÏ´Â system¿¡¼­´Â 
-//    File(5:6:5) ---(5:5:5·Î º¯È¯)--> Memory(5:5:5)
-//    File(5:6:5) <--(5:6:5·Î º¯È¯)--- Memory(5:5:5)  ÀÌ·¸°Ô ÇØ¾ßµÈ´Ù.
+// ï¿½ï¿½, 5:5:5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ systemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+//    File(5:6:5) ---(5:5:5ï¿½ï¿½ ï¿½ï¿½È¯)--> Memory(5:5:5)
+//    File(5:6:5) <--(5:6:5ï¿½ï¿½ ï¿½ï¿½È¯)--- Memory(5:5:5)  ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½Ø¾ßµÈ´ï¿½.
 //
 //-----------------------------------------------------------------------------
-// - ³»ºÎÀûÀ¸·Î Åõ¸í»ö ¾ÐÃàÀ» »ç¿ëÇÑ´Ù.
-// - IndexSetÀÇ Gradation»ö±òº°·Î ¾ÐÃà(?)ÇÑ´Ù. (È¿À²Àº ³ôÁö ¾ÊÀ» µí ÇÏ´Ù)
+// - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// - IndexSetï¿½ï¿½ Gradationï¿½ï¿½ï¿½òº°·ï¿½ ï¿½ï¿½ï¿½ï¿½(?)ï¿½Ñ´ï¿½. (È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ï´ï¿½)
 //
 //
-// [ ÇÑ ÁÙÀÇ Á¤º¸ ]
+// [ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ]
 //
-// (Åõ¸íPair¹Ýº¹¼ö) 
-//    ( (Åõ¸í»ö¼ö, IndexPair¹Ýº¹¼ö, 
-//                 (index»ö¼ö, indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (index»ö¼ö, indexSet¹øÈ£, gradation¹øÈ£), 
+// (ï¿½ï¿½ï¿½ï¿½Pairï¿½Ýºï¿½ï¿½ï¿½) 
+//    ( (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, IndexPairï¿½Ýºï¿½ï¿½ï¿½, 
+//                 (indexï¿½ï¿½ï¿½ï¿½, indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+//                 (indexï¿½ï¿½ï¿½ï¿½, indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 //                              .     
 //                              .     
 //                              .     
-//        °íÁ¤µÈ»ö±ò¼ö, °íÁ¤µÈ»ö±òµé)
-//       (Åõ¸í»ö¼ö, IndexPair¹Ýº¹¼ö, 
-//                 (index»ö¼ö, indexSet¹øÈ£, gradation¹øÈ£), 
-//                 (index»ö¼ö, indexSet¹øÈ£, gradation¹øÈ£), 
+//        ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½)
+//       (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, IndexPairï¿½Ýºï¿½ï¿½ï¿½, 
+//                 (indexï¿½ï¿½ï¿½ï¿½, indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
+//                 (indexï¿½ï¿½ï¿½ï¿½, indexSetï¿½ï¿½È£, gradationï¿½ï¿½È£), 
 //                              .     
 //                              .     
 //                              .     
-//        °íÁ¤µÈ»ö±ò¼ö, °íÁ¤µÈ»ö±òµé)
+//        ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½)
 //    )
 //
 //
-// Åõ¸í»ö°ú Gradation Index°ª°ú »ö±ò°ªÀ» °°ÀÌ ÀúÀåÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Gradation Indexï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 //
-// SetColorSet555³ª SetColorSet565¸¦ ²À!! ¿ÜºÎ¿¡¼­ ½ÇÇà½ÃÄÑÁà¾ß ÇÑ´Ù.
+// SetColorSet555ï¿½ï¿½ SetColorSet565ï¿½ï¿½ ï¿½ï¿½!! ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 //
 //-----------------------------------------------------------------------------
 
 #ifndef	__CINDEXSPRITE_H__
 #define	__CINDEXSPRITE_H__
 
-#include <Windows.h>
-class ofstream;
-class ifstream;
+#ifdef PLATFORM_WINDOWS
+	#include <Windows.h>
+#else
+	#include "../basic/Platform.h"
+#endif
+
+#ifdef SPRITELIB_BACKEND_SDL
+#include "SpriteLibBackend.h"
+#endif
+
+std::ofstream;
+std::ifstream;
 
 //-----------------------------------------------------------------------------
 // Defines
 //-----------------------------------------------------------------------------
-// Maximum value¼³Á¤
-#define	MAX_COLORSET_SEED			33	// ±âº» »ö»óÀÇ °³¼ö
-#define	MAX_COLORSET_SEED_MODIFY	15	// ±âº» »ö»ó¸¶´ÙÀÇ º¯Çü »ö±ò ¼ö
+// Maximum valueï¿½ï¿½ï¿½ï¿½
+#define	MAX_COLORSET_SEED			33	// ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+#define	MAX_COLORSET_SEED_MODIFY	15	// ï¿½âº» ï¿½ï¿½ï¿½ó¸¶´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 #define	MAX_COLORSET				495 // MAX_COLORSET_SEED * MAX_COLORSET_SEED_MODIFY
 #define	MAX_COLORGRADATION			30
 #define	MAX_COLOR_TO_GRADATION		93	// R+G+B
 #define	MAX_COLORGRADATION_HALF		15	// == MAX_COLORSET_SEED_MODIFY
 #define	MAX_DARKBIT					5
 
-// ÇÑ Sprite¿¡¼­ »ç¿ëÇÏ´Â ÃÖ´ëÀÇ ColorSet¼ö
+// ï¿½ï¿½ Spriteï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ColorSetï¿½ï¿½
 #define	MAX_COLORSET_USE			256
 
-// index°ª ¼³Á¤
+// indexï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #define	INDEX_NULL					0xFF
 #define	INDEX_SELECT				0xFE
 #define	INDEX_TRANS					0xFD
@@ -90,10 +99,10 @@ class CIndexSprite {
 		void		operator = (const CIndexSprite& Sprite);
 
 		//---------------------------------------------------------
-		// Static ColorSet TableÀ» ÃÊ±âÈ­ ÇØÁØ´Ù.
+		// Static ColorSet Tableï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½Ø´ï¿½.
 		//---------------------------------------------------------
-		static	BOOL	SaveIndexTableToFile(class ofstream& file);
-		static	BOOL	LoadIndexTableFromFile(class ifstream& file);
+		static	BOOL	SaveIndexTableToFile(std::ofstream& file);
+		static	BOOL	LoadIndexTableFromFile(std::ifstream& file);
 		static	void	SetColorSet();
 		static	void	SetUsingColorSet(int set1, int set2);
 		static	void	SetUsingColorSetOnly(BYTE setNumber, int colorSet);
@@ -103,15 +112,15 @@ class CIndexSprite {
 
 
 		//---------------------------------------------------------
-		// CDirectDrawSurfaceÀÇ ¿µ¿ªÀ» ÀÐ¾î¼­ m_Pixels¿¡ ÀúÀåÇÑ´Ù.
+		// CDirectDrawSurfaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾î¼­ m_Pixelsï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		//---------------------------------------------------------
 		void		SetPixel(WORD* pSource, WORD sourcePitch, 
-							 WORD* pIndex1, WORD indexPitch1,	// Ã¹¹øÂ° index
-							 WORD* pIndex2, WORD indexPitch2,	// µÎ¹øÂ° index
+							 WORD* pIndex1, WORD indexPitch1,	// Ã¹ï¿½ï¿½Â° index
+							 WORD* pIndex2, WORD indexPitch2,	// ï¿½Î¹ï¿½Â° index
 							 WORD width, WORD height);
 
 		//---------------------------------------------------------
-		// color¿¡ ´ëÀÀÇÏ´Â index»ö¹øÈ£¸¦ Ã£´Â´Ù.
+		// colorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ indexï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ Ã£ï¿½Â´ï¿½.
 		//---------------------------------------------------------
 		static	BYTE	GetIndexColor(WORD color);
 		static	BYTE	GetColorToGradation(BYTE color);
@@ -123,21 +132,21 @@ class CIndexSprite {
 		void			GetIndexInfo(WORD**& ppIndex);
 
 		//---------------------------------------------------------
-		// m_PixelsÀÇ memory¸¦ ReleaseÇÑ´Ù.		
+		// m_Pixelsï¿½ï¿½ memoryï¿½ï¿½ Releaseï¿½Ñ´ï¿½.		
 		//---------------------------------------------------------
 		void		Release();
 
 		//---------------------------------------------------------
-		// Åõ¸í Color 
+		// ï¿½ï¿½ï¿½ï¿½ Color 
 		//---------------------------------------------------------
 		static void	SetColorkey(WORD color)			{ s_Colorkey = color; }
 		static WORD	GetColorkey() 					{ return s_Colorkey; }
 
 		//---------------------------------------------------------
-		// fstream¿¡¼­ save/load¸¦ ÇÑ´Ù.
+		// fstreamï¿½ï¿½ï¿½ï¿½ save/loadï¿½ï¿½ ï¿½Ñ´ï¿½.
 		//---------------------------------------------------------
-		virtual bool		SaveToFile(class ofstream& file) = 0;
-		virtual bool		LoadFromFile(class ifstream& file) = 0;		
+		virtual bool		SaveToFile(std::ofstream& file) = 0;
+		virtual bool		LoadFromFile(std::ifstream& file) = 0;		
 
 		//---------------------------------------------------------
 		// get functions		
@@ -146,9 +155,17 @@ class CIndexSprite {
 		WORD		GetHeight()		const			{ return m_Height; }
 		WORD		GetPixel(int x, int y) const;
 		WORD*		GetPixelLine(WORD y)	const	{ return m_Pixels[y]; }
-		
+
+#ifdef SPRITELIB_BACKEND_SDL
+		/* Backend sprite management */
+		spritectl_sprite_t GetBackendSprite() const	{ return m_backend_sprite; }
+		bool IsBackendDirty() const			{ return m_backend_dirty; }
+		void SetBackendSprite(spritectl_sprite_t sprite)	{ m_backend_sprite = sprite; }
+		void SetBackendDirty(bool dirty)		{ m_backend_dirty = dirty; }
+#endif
+
 		//---------------------------------------------------------
-		// (x,y)´Â »ö±òÀÌ ÀÖ´Â ºÎºÐÀÎ°¡?
+		// (x,y)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Îºï¿½ï¿½Î°ï¿½?
 		//---------------------------------------------------------
 		bool		IsColorPixel(short x, short y);
 
@@ -162,7 +179,7 @@ class CIndexSprite {
 		void		BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect);
 
 		//---------------------------------------------------------
-		// ¾îµÓ°Ô ÇÏ±â
+		// ï¿½ï¿½Ó°ï¿½ ï¿½Ï±ï¿½
 		//---------------------------------------------------------
 		void		BltDarkness(WORD *pDest, WORD pitch, BYTE DarkBits);		
 		void		BltDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE DarkBits);
@@ -171,7 +188,7 @@ class CIndexSprite {
 		void		BltDarknessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE DarkBits);
 
 		//---------------------------------------------------------
-		// ¹à°Ô ÇÏ±â
+		// ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½
 		//---------------------------------------------------------
 		void		BltBrightness(WORD *pDest, WORD pitch, BYTE DarkBits);		
 		void		BltBrightnessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE DarkBits);
@@ -189,7 +206,7 @@ class CIndexSprite {
 		void		BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha);
 
 		//---------------------------------------------------------
-		// Æ¯Á¤»ö±ò·Î Âï±â
+		// Æ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		//---------------------------------------------------------
 		void		BltColor(WORD *pDest, WORD pitch, BYTE rgb);		
 
@@ -200,7 +217,7 @@ class CIndexSprite {
 		void		BltColorClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb);
 
 		//---------------------------------------------------------
-		// Æ¯Á¤ColorSetÀ¸·Î Âï±â
+		// Æ¯ï¿½ï¿½ColorSetï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		//---------------------------------------------------------
 		void		BltColorSet(WORD *pDest, WORD pitch, WORD colorSet);		
 		void		BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD colorSet);
@@ -228,27 +245,32 @@ class CIndexSprite {
 		// ColorSet Table
 		//--------------------------------------------------------
 		// 25 Set ,  13 Gradation
-		static WORD		ColorSet[MAX_COLORSET][MAX_COLORGRADATION];			// ½ÇÁ¦ »ö
-		static WORD		GradationValue[MAX_COLORGRADATION];					// °¢ gradationÀÇ °ª - IndexEditor¿¡¼­ °è»êÀ» À§ÇÑ °ª
-		static WORD		ColorSetDarkness[MAX_DARKBIT][MAX_COLORSET][MAX_COLORGRADATION];	// ¾îµÓ°Ô ÇßÀ» ¶§ÀÇ »ö±ò °ª
-		static BYTE		ColorToGradation[MAX_COLOR_TO_GRADATION];			// R+G+BÀÇ °ªÀ¸·Î Gradation°ªÀ» ¾ò¾î³½´Ù.
+		static WORD		ColorSet[MAX_COLORSET][MAX_COLORGRADATION];			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+		static WORD		GradationValue[MAX_COLORGRADATION];					// ï¿½ï¿½ gradationï¿½ï¿½ ï¿½ï¿½ - IndexEditorï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+		static WORD		ColorSetDarkness[MAX_DARKBIT][MAX_COLORSET][MAX_COLORGRADATION];	// ï¿½ï¿½Ó°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+		static BYTE		ColorToGradation[MAX_COLOR_TO_GRADATION];			// R+G+Bï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Gradationï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³½ï¿½ï¿½.
 
 	protected :
-		WORD			m_Width;		// °¡·Î pixel¼ö
-		WORD			m_Height;		// ¼¼·Î pixel¼ö		
+		WORD			m_Width;		// ï¿½ï¿½ï¿½ï¿½ pixelï¿½ï¿½
+		WORD			m_Height;		// ï¿½ï¿½ï¿½ï¿½ pixelï¿½ï¿½
 		WORD**			m_Pixels;		// pixels
-		bool			m_bInit;		// data°¡ ÀÖ´Â°¡?
+		bool			m_bInit;		// dataï¿½ï¿½ ï¿½Ö´Â°ï¿½?
+
+#ifdef SPRITELIB_BACKEND_SDL
+		spritectl_sprite_t	m_backend_sprite;	// Backend sprite handle
+		bool			m_backend_dirty;	// True if m_Pixels changed but not synced to backend
+#endif
 
 		static WORD		s_Colorkey;
 	
-		// Blt Value (parameter ´ë¿ë)
+		// Blt Value (parameter ï¿½ï¿½ï¿½)
 		static int		s_IndexValue[MAX_COLORSET_USE];
 
 	
 	public :		
 		typedef void (*FUNCTION_MEMCPYEFFECT)(WORD*, WORD*, WORD);
 
-		// memcpyEffectÀÇ Á¾·ù
+		// memcpyEffectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		enum FUNCTION_EFFECT
 		{
 			EFFECT_DARKER = 0,

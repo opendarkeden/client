@@ -9,7 +9,11 @@
 #ifndef	__CFILEINDEXTABLE_H__
 #define	__CFILEINDEXTABLE_H__
 
-#include <Windows.h>
+#ifdef PLATFORM_WINDOWS
+	#include <Windows.h>
+#else
+	#include "../basic/Platform.h"
+#endif
 
 class CFileIndexTable {
 	public :
@@ -19,7 +23,7 @@ class CFileIndexTable {
 		//--------------------------------------------------------
 		// file I/O		
 		//--------------------------------------------------------		
-		bool			LoadFromFile(class ifstream& indexFile);		
+		bool			LoadFromFile(std::ifstream& indexFile);		
 
 		WORD				GetSize()					{ return m_Size; }
 

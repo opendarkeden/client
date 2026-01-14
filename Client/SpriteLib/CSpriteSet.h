@@ -36,7 +36,7 @@ class CSpriteSet {
 		//--------------------------------------------------------
 		// SpritePack File에서 Sprite를 Load한다.
 		// spkFile = SpritePack File, indexFile = FilePointer File
-		bool		LoadFromFile(class ifstream& indexFile, class ifstream& packFile);
+		bool		LoadFromFile(std::ifstream& indexFile, std::ifstream& packFile);
 		
 
 		//--------------------------------------------------------

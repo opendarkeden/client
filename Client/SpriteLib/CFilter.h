@@ -11,10 +11,14 @@
 #ifndef	__CFILTER_H__
 #define	__CFILTER_H__
 
-#include <Windows.h>
+#ifdef PLATFORM_WINDOWS
+	#include <Windows.h>
+#else
+	#include "../basic/Platform.h"
+#endif
 #include "CTypePack.h"
-class ifstream;
-class ofstream;
+std::ifstream;
+std::ofstream;
 
 class CFilter {
 	public :
@@ -57,8 +61,8 @@ class CFilter {
 		//---------------------------------------------------------
 		// File I/O
 		//---------------------------------------------------------
-		bool		SaveToFile(class ofstream& file);
-		bool		LoadFromFile(class ifstream& file);
+		bool		SaveToFile(std::ofstream& file);
+		bool		LoadFromFile(std::ifstream& file);
 
 		//---------------------------------------------------------
 		// Get

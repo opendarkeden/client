@@ -2,7 +2,11 @@
 #define __CSPRITEPALBASE_H__
 
 #include "MPalette.h"
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+	#include <windows.h>
+#else
+	#include "../basic/Platform.h"
+#endif
 
 class CSpritePalBase
 {
@@ -21,15 +25,15 @@ public:
 	bool		IsLoading() const	{ return m_bLoading; }
 	
 	//---------------------------------------------------------
-	// m_pDataÀÇ memory¸¦ ReleaseÇÑ´Ù.		
+	// m_pDataï¿½ï¿½ memoryï¿½ï¿½ Releaseï¿½Ñ´ï¿½.		
 	//---------------------------------------------------------
 	void		Release();
 	
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(std::ifstream &file);
+	bool SaveToFile(std::ofstream &file);
 	
 	//--------------------------------------------------------
 	// Get Functions
@@ -57,15 +61,15 @@ public:
 	virtual WORD	GetPixel(short x, short y, MPalette &pal) = 0;
 	
 protected:
-	WORD			m_Width;		// °¡·Î pixel¼ö
-	WORD			m_Height;		// ¼¼·Î pixel¼ö		
-	DWORD			m_Size;			// ½ºÇÁ¶óÀÌÆ®ÀÇ size
+	WORD			m_Width;		// ï¿½ï¿½ï¿½ï¿½ pixelï¿½ï¿½
+	WORD			m_Height;		// ï¿½ï¿½ï¿½ï¿½ pixelï¿½ï¿½		
+	DWORD			m_Size;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ size
 	
 	BYTE**			m_pPixels;		// pixels point array
 	BYTE*			m_pData;			// data
 	
-	bool			m_bInit;		// data°¡ ÀÖ´Â°¡?
-	bool			m_bLoading;		// LoadingÁßÀÎ°¡?
+	bool			m_bInit;		// dataï¿½ï¿½ ï¿½Ö´Â°ï¿½?
+	bool			m_bLoading;		// Loadingï¿½ï¿½ï¿½Î°ï¿½?
 	
 	static BYTE		s_Colorkey;
 	

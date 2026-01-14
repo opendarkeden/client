@@ -19,7 +19,7 @@ class CAlphaSpritePackList555 : public CAlphaSpritePackList {
 		//---------------------------------------------------
 		// file I/O		
 		//---------------------------------------------------
-		void		LoadFromFile(class ifstream& file);
+		void		LoadFromFile(std::ifstream& file);
 };
 
 #endif

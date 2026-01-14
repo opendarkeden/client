@@ -7,9 +7,13 @@
 #ifndef	__CINDEXSPRITE565_H__
 #define	__CINDEXSPRITE565_H__
 
-#include <Windows.h>
-class ofstream;
-class ifstream;
+#ifdef PLATFORM_WINDOWS
+	#include <Windows.h>
+#else
+	#include "../basic/Platform.h"
+#endif
+std::ofstream;
+std::ifstream;
 
 
 #include "CIndexSprite.h"
@@ -20,8 +24,8 @@ class CIndexSprite565 : public CIndexSprite {
 		//---------------------------------------------------------
 		// fstream에서 save/load를 한다.
 		//---------------------------------------------------------
-		bool		SaveToFile(class ofstream& file);
-		bool		LoadFromFile(class ifstream& file);		
+		bool		SaveToFile(std::ofstream& file);
+		bool		LoadFromFile(std::ifstream& file);		
 
 };
 

@@ -54,8 +54,8 @@ class CSpritePackList {
 		//---------------------------------------------------
 		// file I/O
 		//---------------------------------------------------
-		bool				SaveToFile(class ofstream& spkFile, class ofstream& indexFile);
-		virtual void		LoadFromFile(class ifstream& file) = 0;
+		bool				SaveToFile(std::ofstream& spkFile, std::ofstream& indexFile);
+		virtual void		LoadFromFile(std::ifstream& file) = 0;
 
 	protected :		
 		SPRITE_LIST		m_listSprite;		// CSprite들을 저장해둔다.
@@ -98,8 +98,8 @@ class CSpritePalPackList {
 		//---------------------------------------------------
 		// file I/O
 		//---------------------------------------------------
-		bool				SaveToFile(class ofstream& spkFile, class ofstream& indexFile);
-		void		LoadFromFile(class ifstream& file);
+		bool				SaveToFile(std::ofstream& spkFile, std::ofstream& indexFile);
+		void		LoadFromFile(std::ifstream& file);
 
 	protected :		
 		SPRITEPAL_LIST		m_listSprite;		// CSprite들을 저장해둔다.

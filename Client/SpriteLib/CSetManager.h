@@ -2,11 +2,11 @@
 // CSetManager.h
 //----------------------------------------------------------------------
 // Template Sorted List
-// ³»ºÎÀûÀ¸·Î stlÀÇ list¸¦ »ç¿ëÇß´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ stlï¿½ï¿½ listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß´ï¿½.
 //----------------------------------------------------------------------
 //
-// ´ÜÁö DataType°ª¸¸ ÀúÀåÇÑ´Ù.
-// Ascending SortÀÌ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ DataTypeï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// Ascending Sortï¿½Ì´ï¿½.
 //
 //----------------------------------------------------------------------
 
@@ -16,8 +16,13 @@
 
 #pragma warning(disable:4786)
 
-#include <Windows.h>
+#ifdef PLATFORM_WINDOWS
+	#include <Windows.h>
+#else
+	#include "../basic/Platform.h"
+#endif
 #include <list>
+#include <fstream>
 #include "DrawTypeDef.h"
 
 template <class DataType, class SizeType>
@@ -41,23 +46,23 @@ class CSetManager {
 		bool		Remove(const DataType data);
 
 		//--------------------------------------------------------
-		// file I/O		
-		//--------------------------------------------------------		
-		bool		SaveToFile(class ofstream& file);
-		bool		LoadFromFile(class ifstream& file);
+		// file I/O
+		//--------------------------------------------------------
+		bool		SaveToFile(std::ofstream& file);
+		bool		LoadFromFile(std::ifstream& file);
 
 		//--------------------------------------------------------
 		// Get functions
 		//--------------------------------------------------------
 		SizeType	GetSize() const	{ return m_List.size(); }
-		
-		// Ã¹¹øÂ° À§Ä¡ÀÇ List Iterater¸¦ ³Ñ°ÜÁØ´Ù.
-		DATA_LIST::const_iterator	GetIterator() const	{ return m_List.begin(); }
+
+		// Ã¹ï¿½ï¿½Â° ï¿½ï¿½Ä¡ï¿½ï¿½ List Iteraterï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½Ø´ï¿½.
+		typename DATA_LIST::const_iterator	GetIterator() const	{ return m_List.begin(); }
 
 	protected :			
-		DATA_LIST			m_List;		// Data pointerµéÀ» ÀúÀåÇØµÐ´Ù.
+		DATA_LIST			m_List;		// Data pointerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÐ´ï¿½.
 
-		// sizeof(SizeType) ÀÇ °ª
+		// sizeof(SizeType) ï¿½ï¿½ ï¿½ï¿½
 		static BYTE			s_SIZEOF_SizeType;
 };
 
@@ -108,29 +113,29 @@ CSetManager<DataType, SizeType>::Release()
 //----------------------------------------------------------------------
 // Add
 //----------------------------------------------------------------------
-// list¿¡ data¸¦ Ãß°¡ÇÑ´Ù.
-// SortµÇ¾î Ãß°¡µÇ°í Áßº¹À» Çã¿ëÇÏÁö ¾Ê´Â´Ù.
+// listï¿½ï¿½ dataï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
+// Sortï¿½Ç¾ï¿½ ï¿½ß°ï¿½ï¿½Ç°ï¿½ ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 // 
-// ÀÌ¹Ì Á¸ÀçÇÏ´Â °ªÀÌ¸é false¸¦ returnÇÑ´Ù.
+// ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ falseï¿½ï¿½ returnï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------
 template <class DataType, class SizeType>
 bool	
 CSetManager<DataType, SizeType>::Add(const DataType data)
 {
-	DATA_LIST::iterator iData = m_List.begin();
+	typename DATA_LIST::iterator iData = m_List.begin();
 
 	while (iData != m_List.end())
 	{		
-		// ÇöÀç µé¾îÀÖ´Â°Ô Ãß°¡ÇÒ·Á´Â°Íº¸´Ù Å¬ °æ¿ì,
-		// ÇöÀç À§Ä¡¿¡ Ãß°¡ÇÏ¸é µÈ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Â°ï¿½ ï¿½ß°ï¿½ï¿½Ò·ï¿½ï¿½Â°Íºï¿½ï¿½ï¿½ Å¬ ï¿½ï¿½ï¿½,
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ï¸ï¿½ ï¿½È´ï¿½.
 		if (*iData > data)
 		{
 			m_List.insert(iData, data);
 			return true;
 		}
 
-		// ÀÌ¹Ì ÀÖ´Â °ªÀÌ¸é
-		// Ãß°¡ÇÏÁö ¾Ê´Â´Ù.
+		// ï¿½Ì¹ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½
+		// ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 		if (*iData==data)
 		{
 			return false;
@@ -139,8 +144,8 @@ CSetManager<DataType, SizeType>::Add(const DataType data)
 		iData++;
 	}	
 
-	// listÀÇ ¸ðµç ¿ø¼Òµéº¸´Ù Å©¹Ç·Î 
-	// listÀÇ ³¡¿¡ Ãß°¡ÇÑ´Ù.
+	// listï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Òµéº¸ï¿½ï¿½ Å©ï¿½Ç·ï¿½ 
+	// listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 	m_List.push_back( data );
 
 	return true;
@@ -149,27 +154,27 @@ CSetManager<DataType, SizeType>::Add(const DataType data)
 //----------------------------------------------------------------------
 // Remove
 //----------------------------------------------------------------------
-// list¿¡¼­ data¸¦ Áö¿î´Ù.
+// listï¿½ï¿½ï¿½ï¿½ dataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 //
-// ¾ø´Â °ªÀÌ¸é return false
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ return false
 //----------------------------------------------------------------------
 template <class DataType, class SizeType>
 bool
 CSetManager<DataType, SizeType>::Remove(const DataType data)
 {
-	DATA_LIST::iterator iData = m_List.begin();
+	typename DATA_LIST::iterator iData = m_List.begin();
 
 	while (iData != m_List.end())
 	{		
-		// °°Àº °ªÀÌ¸é Áö¿î´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 		if (*iData==data)
 		{
 			m_List.erase(iData);
 			return true;
 		}
 		
-		// ÇöÀç À§Ä¡¿¡ ÀÖ´Â °ªÀÌ dataº¸´Ù Å©´Ù¸é
-		// °è¼Ó Å« °ª¸¸ ÀÖÀ¸¹Ç·Î data°ªÀÌ ¾ø´Â °ÍÀÌ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ dataï¿½ï¿½ï¿½ï¿½ Å©ï¿½Ù¸ï¿½
+		// ï¿½ï¿½ï¿½ Å« ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ dataï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 		if (*iData > data)
 		{			
 			return false;
@@ -178,7 +183,7 @@ CSetManager<DataType, SizeType>::Remove(const DataType data)
 		iData++;
 	}	
 
-	// ¾ø´Â °æ¿ì
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	return false;
 }
 
@@ -187,21 +192,21 @@ CSetManager<DataType, SizeType>::Remove(const DataType data)
 // Save To File
 //----------------------------------------------------------------------
 //
-// size¸¦ ÀúÀåÇÏ°í
-// ¸ðµç listÀÇ nodeµéÀ» ÀúÀåÇÑ´Ù.
+// sizeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+// ï¿½ï¿½ï¿½ listï¿½ï¿½ nodeï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //
 //----------------------------------------------------------------------
 template <class DataType, class SizeType>
 bool
-CSetManager<DataType, SizeType>::SaveToFile(class ofstream& file)
+CSetManager<DataType, SizeType>::SaveToFile(std::ofstream& file)
 {
 	// size
 	SizeType size = m_List.size();
 
-	// sizeÀúÀå
+	// sizeï¿½ï¿½ï¿½ï¿½
 	file.write((const char *)&size, s_SIZEOF_SizeType);
 
-	// ¾Æ¹« °Íµµ ¾øÀ¸¸é
+	// ï¿½Æ¹ï¿½ ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (size==0)
 	{
 		return false;
@@ -209,8 +214,8 @@ CSetManager<DataType, SizeType>::SaveToFile(class ofstream& file)
 
 	DataType data;
 
-	// ¸ðµç DataµéÀ» saveÇÑ´Ù.
-	DATA_LIST::iterator iData = m_List.begin();
+	// ï¿½ï¿½ï¿½ Dataï¿½ï¿½ï¿½ï¿½ saveï¿½Ñ´ï¿½.
+	typename DATA_LIST::iterator iData = m_List.begin();
 
 	int dataSize = sizeof(DataType);
 
@@ -218,7 +223,7 @@ CSetManager<DataType, SizeType>::SaveToFile(class ofstream& file)
 	{
 		data = *iData;
 
-		// file¿¡ ÀúÀå
+		// fileï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		file.write((const char *)&data, dataSize);		
 
 		iData++;
@@ -232,17 +237,17 @@ CSetManager<DataType, SizeType>::SaveToFile(class ofstream& file)
 //----------------------------------------------------------------------
 template <class DataType, class SizeType>
 bool
-CSetManager<DataType, SizeType>::LoadFromFile(class ifstream& file)
+CSetManager<DataType, SizeType>::LoadFromFile(std::ifstream& file)
 {
-	// ÀÌÀü¿¡ ÀÖ´ø list¸¦ Áö¿î´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 	Release();
 
 	SizeType size;
 
-	// file¿¡¼­ size¸¦ ÀÐ¾î¿Â´Ù.
+	// fileï¿½ï¿½ï¿½ï¿½ sizeï¿½ï¿½ ï¿½Ð¾ï¿½Â´ï¿½.
 	file.read((char*)&size, s_SIZEOF_SizeType);
 
-	// ¾Æ¹«°Íµµ ÀúÀåµÈ°Ô ¾øÀ» °æ¿ì
+	// ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½È°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	if (size==0)
 	{
 		return false;
@@ -252,13 +257,13 @@ CSetManager<DataType, SizeType>::LoadFromFile(class ifstream& file)
 
 	int dataSize = sizeof(DataType);
 
-	// size°³ ¸¸Å­À» loadÇÑ´Ù.
+	// sizeï¿½ï¿½ ï¿½ï¿½Å­ï¿½ï¿½ loadï¿½Ñ´ï¿½.
 	for (SizeType i=0; i<size; i++)
 	{
-		// file¿¡¼­ loadÇÑ´Ù.
+		// fileï¿½ï¿½ï¿½ï¿½ loadï¿½Ñ´ï¿½.
 		file.read((char*)&data, dataSize);
 
-		// list¿¡ Ãß°¡ÇÑ´Ù.
+		// listï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 		Add( data );
 	}
 	

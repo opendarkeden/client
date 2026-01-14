@@ -8,7 +8,7 @@
 
 -----------------------------------------------------------------------------
 
- [ DirectInput¿¡ Á¤ÀÇµÈ Keyboard °ª ]
+ [ DirectInputï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½ Keyboard ï¿½ï¿½ ]
 
 #define DIK_ESCAPE          0x01
 #define DIK_1               0x02
@@ -135,10 +135,19 @@
 
 -----------------------------------------------------------------------------*/
 
+/* Include Platform.h first for type definitions (outside header guard) */
+#include "../basic/Platform.h"
+
 #ifndef __CDIRECTINPUT_H__
 #define __CDIRECTINPUT_H__
 
-#include <dinput.h>
+#ifdef PLATFORM_WINDOWS
+	#include <dinput.h>
+#else
+	/* Forward declarations for non-Windows platforms */
+	struct IDirectInput;
+	struct IDirectInputDevice;
+#endif
 
 #define BUFFER_SIZE           32
 
@@ -152,9 +161,9 @@ private:
 	IDirectInputDevice *    m_pMouse;
 	IDirectInputDevice *		m_pKeyboard;
 	BOOL                    m_bSwapMouseButtons;
-	int							m_mouse_info[3]; // Mouse Á¤º¸¸¦ ¾ò±â À§ÇÑ integer array.
+	int							m_mouse_info[3]; // Mouse ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ integer array.
 
-	BOOL					m_key[256];				// Å°°¡ ´­·ÁÀÖ´Â°¡?
+	BOOL					m_key[256];				// Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´Â°ï¿½?
 	static const char*		s_KeyName[256];
 
 public:
@@ -168,13 +177,13 @@ public:
 	BOOL						m_rb_up;	// right button - up
 	BOOL						m_cb_up;	// center button - up
 
-	enum E_EXCLUSIVE // debugging ÇÒ ¶§¸¦ À§ÇØ¼­...
+	enum E_EXCLUSIVE // debugging ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½...
 	{
 		EXCLUSIVE,
 		NONEXCLUSIVE,
 	};
 
-	enum E_MOUSE_EVENT // MOUSE_EVENT´Â wincon.h¿¡ Á¤ÀÇ µÇ¾î ÀÖÀ½! ~.~
+	enum E_MOUSE_EVENT // MOUSE_EVENTï¿½ï¿½ wincon.hï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½! ~.~
 	{
 		MOVE = 0,
 		LEFTDOWN,
@@ -201,8 +210,8 @@ private:
 		ACCEL_LEVEL,
 	};
 
-	int							m_limit_x; // mouse ÀÌµ¿ Á¦ÇÑ
-	int							m_limit_y; // mouse ÀÌµ¿ Á¦ÇÑ
+	int							m_limit_x; // mouse ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
+	int							m_limit_y; // mouse ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	HRESULT	InitDI(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex);
 	void		FreeDirectInput();
@@ -227,7 +236,7 @@ public:
 	void		SetMousePosition(int x, int y);
 	void		UpdateInput();
 
-	// dik key°¡ ´­·ÁÁ³´Â°¡?
+	// dik keyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½?
 	BOOL		KeyDown(DWORD dik)		{ return m_key[dik]; }
 
 	//int 		GetMouseInfo1() const { return m_mouse_info[0]; }

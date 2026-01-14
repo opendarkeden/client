@@ -25,7 +25,7 @@ class CSpritePackList555 : public CSpritePackList {
 		//---------------------------------------------------
 		// file I/O		
 		//---------------------------------------------------
-		void		LoadFromFile(class ifstream& file);
+		void		LoadFromFile(std::ifstream& file);
 };
 
 #endif

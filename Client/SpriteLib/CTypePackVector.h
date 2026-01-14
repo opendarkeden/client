@@ -1,8 +1,15 @@
 #ifndef __CTYPEPACKVECTOR_H__
 #define __CTYPEPACKVECTOR_H__
 
-#include <windows.h>
-#include <fstream.h>
+#ifdef PLATFORM_WINDOWS
+	#include <windows.h>
+	#include <fstream.h>
+#else
+	#include "../basic/Platform.h"
+	#include <fstream>
+	#include <cstring>
+	using namespace std;
+#endif
 #include <vector>
 
 template <class Type>
@@ -37,8 +44,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file);
-	bool SaveToFile(class ofstream &dataFile, class ofstream &indexFile);
+	bool LoadFromFile(std::ifstream &file);
+	bool SaveToFile(std::ofstream &dataFile, std::ofstream &indexFile);
 	
 	bool LoadFromFile(LPCTSTR lpszFilename);
 	bool SaveToFile(LPCTSTR lpszFilename);
@@ -50,7 +57,7 @@ protected:
 template <class Type>
 bool CTypePackVector<Type>::LoadFromFile(LPCTSTR lpszFilename)
 {
-	class ifstream file(lpszFilename, ios::binary);
+	std::ifstream file(lpszFilename, ios::binary);
 	bool re = LoadFromFile(file);
 	file.close();
 
@@ -76,7 +83,7 @@ bool CTypePackVector<Type>::SaveToFile(LPCTSTR lpszFilename)
 
 
 template <class Type>
-bool CTypePackVector<Type>::LoadFromFile(class ifstream &file)
+bool CTypePackVector<Type>::LoadFromFile(std::ifstream &file)
 {
 	Release();
 
@@ -96,16 +103,16 @@ bool CTypePackVector<Type>::LoadFromFile(class ifstream &file)
 }
 
 template <class Type>
-bool CTypePackVector<Type>::SaveToFile(class ofstream &dataFile, class ofstream &indexFile)
+bool CTypePackVector<Type>::SaveToFile(std::ofstream &dataFile, std::ofstream &indexFile)
 {
 	//--------------------------------------------------
-	// index fileÀ» »ý¼ºÇÏ±â À§ÇÑ Á¤º¸
+	// index fileï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	//--------------------------------------------------
 //	long*	pIndex = new long [m_Size];
 	std::vector<DWORD> vIndex;
 
 	//--------------------------------------------------
-	// Size ÀúÀå
+	// Size ï¿½ï¿½ï¿½ï¿½
 	//--------------------------------------------------
 	WORD m_Size = GetSize();
 	dataFile.write((const char *)&m_Size, 2); 
@@ -139,7 +146,7 @@ bool CTypePackVector<Type>::SaveToFile(class ofstream &dataFile, class ofstream 
 	}
 
 	//--------------------------------------------------
-	// index ÀúÀå
+	// index ï¿½ï¿½ï¿½ï¿½
 	//--------------------------------------------------
 	for (i=0; i<vIndex.size(); i++)
 	{

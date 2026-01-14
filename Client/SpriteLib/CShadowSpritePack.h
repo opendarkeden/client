@@ -43,8 +43,8 @@
 #include "CShadowSprite.h"
 #include "CIndexSpritePack.h"
 #include <list>
-class ofstream;
-class ifstream;
+std::ofstream;
+std::ifstream;
 
 class CShadowSpritePack {
 	public :
@@ -62,12 +62,12 @@ class CShadowSpritePack {
 		//--------------------------------------------------------
 		// file I/O
 		//--------------------------------------------------------
-		bool			SaveToFile(class ofstream& spkFile, class ofstream& indexFile);
-		bool			SaveToFileSpriteOnly(class ofstream& spkFile, long &filePosition);
-		void			LoadFromFile(class ifstream& file);		
-		void			LoadFromFilePart(class ifstream& file, long filePosition,
+		bool			SaveToFile(std::ofstream& spkFile, std::ofstream& indexFile);
+		bool			SaveToFileSpriteOnly(std::ofstream& spkFile, long &filePosition);
+		void			LoadFromFile(std::ifstream& file);		
+		void			LoadFromFilePart(std::ifstream& file, long filePosition,
 										 TYPE_SPRITEID firstShadowSpriteID, TYPE_SPRITEID lastShadowSpriteID);
-		void			LoadFromFilePart(class ifstream& spkFile, const CSpriteFilePositionArray& fpArray);
+		void			LoadFromFilePart(std::ifstream& spkFile, const CSpriteFilePositionArray& fpArray);
 
 		//--------------------------------------------------------
 		// Convert

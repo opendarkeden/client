@@ -1,7 +1,12 @@
 #ifndef __CSPRITE_PAL__
 #define __CSPRITE_PAL__
 
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+	#include <windows.h>
+#else
+	#include "../basic/Platform.h"
+#endif
+
 #include "CTypePack.h"
 #include "CSpritePalBase.h"
 

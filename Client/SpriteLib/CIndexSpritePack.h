@@ -27,7 +27,7 @@ typedef CTypePack2<CIndexSprite, CIndexSprite555, CIndexSprite565> CIndexSpriteP
 //	//--------------------------------------------------------
 //	// file I/O
 //	//--------------------------------------------------------
-//	bool LoadFromFile(class ifstream &file, bool b565 = true);
+//	bool LoadFromFile(std::ifstream &file, bool b565 = true);
 //	bool LoadFromFile(LPCTSTR lpszFilename, bool b565 = true);
 //	bool LoadFromFileRunning(LPCTSTR lpszFilename, bool b565 = true);
 //	

@@ -77,7 +77,11 @@
 // 외곽선을 출력할때 겹쳐지는 Sprite들의 최대 개수
 #define	MAX_SPRITE_MERGE	20
 
-#include <Windows.h>
+#ifdef PLATFORM_WINDOWS
+	#include <Windows.h>
+#else
+	#include "../basic/Platform.h"
+#endif
 class CSprite;
 class CAlphaSprite;
 class CIndexSprite;
