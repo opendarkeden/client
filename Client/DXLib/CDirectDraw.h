@@ -42,8 +42,9 @@
 	typedef struct IDirectDrawGammaControl* LPDIRECTDRAWGAMMACONTROL;
 
 	/* DDPIXELFORMAT structure - must be defined before DDSURFACEDESC2 */
-	/* Only define if not already defined by CDirect3D.h */
-#ifndef __CDIRECT3D_H__
+	/* Only define if not already defined */
+#ifndef TAGPIXELFORMAT_DEFINED
+#define TAGPIXELFORMAT_DEFINED
 	typedef struct tagPIXELFORMAT {
 		DWORD dwSize;
 		DWORD dwFlags;
@@ -54,7 +55,8 @@
 		DWORD dwBBitMask;
 		DWORD dwRGBAlphaBitMask;
 	} DDPIXELFORMAT, *LPDDPIXELFORMAT;
-#endif // __CDIRECT3D_H__
+	#define DDPIXELFORMAT_DEFINED
+#endif // TAGPIXELFORMAT_DEFINED
 
 	/* DDSCAPS2 structure */
 	typedef struct {

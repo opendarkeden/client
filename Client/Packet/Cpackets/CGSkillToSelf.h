@@ -58,6 +58,14 @@ public :
 	CEffectID_t getCEffectID() const throw() { return m_CEffectID; }
 	void setCEffectID( CEffectID_t CEffectID ) throw() { m_CEffectID = CEffectID; }
 
+	#ifndef __GAME_CLIENT__
+		// get packet name (required when not GAME_CLIENT)
+		std::string getPacketName () const throw () { return "CGSkillToSelf"; }
+
+		// get packet's debug string (required when not GAME_CLIENT)
+		std::string toString () const throw () { return "CGSkillToSelf"; }
+	#endif
+
 	#ifdef __DEBUG_OUTPUT__
 		// get packet name
 		std::string getPacketName () const throw () { return "CGSkillToSelf"; }

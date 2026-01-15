@@ -313,6 +313,9 @@ typedef WORD			char_t;
 	#define SM_CXSCREEN 0
 	#define SM_CYSCREEN 1
 	#define SM_CYVSCROLL 20
+	#define SM_CYSIZEFRAME 33
+	#define SM_CYMENU 15
+	#define SM_CXSIZEFRAME 32
 
 	/* GetSystemMetrics stub - returns default values on non-Windows */
 	static inline int GetSystemMetrics(int nIndex) {
@@ -326,7 +329,14 @@ typedef WORD			char_t;
 
 	/* Window style constants */
 	#define WS_EX_TOPMOST 0x00000008
+	#define WS_EX_APPWINDOW 0x00040000
 	#define WS_VISIBLE 0x10000000
+	#define WS_POPUP 0x80000000L
+	#define WS_OVERLAPPED 0x00000000L
+	#define WS_CLIPCHILDREN 0x02000000L
+	#define WS_THICKFRAME 0x00040000L
+	#define WS_MINIMIZEBOX 0x00020000L
+	#define WS_SYSMENU 0x00080000L
 	#define SW_HIDE 0
 
 	/* Progress bar constants */
@@ -359,6 +369,46 @@ typedef WORD			char_t;
 	/* Message macros */
 	#define MAKELPARAM(l, h) ((LPARAM)(((DWORD_PTR)(l) & 0xFFFF) | ((DWORD_PTR)(h) << 16)))
 	#define WM_USER 0x0400
+	#define WM_TIMER 0x0113
+	#define WM_CHAR 0x0102
+	#define WM_KEYUP 0x0101
+	#define WM_IME_COMPOSITION 0x010F
+	#define WM_IME_STARTCOMPOSITION 0x010D
+	#define WM_IME_ENDCOMPOSITION 0x010E
+
+	/* Window messages */
+	#define WM_DESTROY 0x0002
+	#define WM_SYSCOMMAND 0x0112
+	#define WM_MOVE 0x0003
+	#define WM_KEYDOWN 0x0100
+	#define WM_GETMINMAXINFO 0x0024
+	#define WM_ACTIVATEAPP 0x001C
+
+	/* Virtual key codes */
+	#define VK_SPACE 0x20
+	#define VK_RETURN 0x0D
+	#define VK_ESCAPE 0x1B
+	#define VK_SCROLL 0x91
+
+	/* System command values */
+	#define SC_HOTKEY 0xF150
+	#define SC_KEYMENU 0xF100
+	#define SC_TASKLIST 0xF140
+	#define SC_PREVWINDOW 0xF050
+	#define SC_NEXTWINDOW 0xF040
+	#define SC_CLOSE 0xF060
+	#define SC_MOVE 0xF010
+	#define SC_SIZE 0xF000
+	#define SC_SCREENSAVE 0xF140  // Note: Same value as SC_TASKLIST
+	#define SC_MONITORPOWER 0xF170
+	#define SC_MAXIMIZE 0xF030
+
+	/* MCI messages */
+	#define MM_MCINOTIFY 0x3D9
+	#define MCI_NOTIFY_SUCCESSFUL 0x0001
+	#define MCI_NOTIFY_SUPERCEDED 0x0002
+	#define MCI_NOTIFY_ABORTED 0x0004
+	#define MCI_NOTIFY_FAILURE 0x0008
 
 	/* SendMessage stub - no-op on non-Windows */
 	static inline LRESULT SendMessage(void* hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
@@ -395,8 +445,92 @@ typedef WORD			char_t;
 		return 0;
 	}
 
+	/* Stock object constants */
+	#define BLACK_BRUSH 4
+	#define WHITE_BRUSH 0
+	#define DC_BRUSH 18
+
+	/* GetStockObject stub - returns NULL on non-Windows */
+	static inline void* GetStockObject(int nIndex) {
+		(void)nIndex;
+		return NULL;
+	}
+
+	/* LoadIcon stub - returns NULL on non-Windows */
+	static inline void* LoadIcon(void* hInstance, const char* lpIconName) {
+		(void)hInstance; (void)lpIconName;
+		return NULL;
+	}
+
+	/* LoadCursor stub - returns NULL on non-Windows */
+	static inline void* LoadCursor(void* hInstance, const char* lpCursorName) {
+		(void)hInstance; (void)lpCursorName;
+		return NULL;
+	}
+
+	/* SetCursor stub - returns NULL on non-Windows */
+	static inline void* SetCursor(void* hCursor) {
+		(void)hCursor;
+		return NULL;
+	}
+
+	/* UpdateWindow stub - does nothing on non-Windows */
+	static inline BOOL UpdateWindow(void* hWnd) {
+		(void)hWnd;
+		return TRUE;
+	}
+
+	/* SetFocus stub - returns NULL on non-Windows */
+	static inline void* SetFocus(void* hWnd) {
+		(void)hWnd;
+		return NULL;
+	}
+
+	/* DefWindowProc stub - default window procedure */
+	static inline LRESULT DefWindowProc(void* hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
+		(void)hWnd; (void)Msg; (void)wParam; (void)lParam;
+		return 0;
+	}
+
+	/* PostQuitMessage stub - no-op on non-Windows */
+	static inline void PostQuitMessage(int nExitCode) {
+		(void)nExitCode;
+	}
+
+	/* GetDoubleClickTime stub - returns default 500ms on non-Windows */
+	static inline int GetDoubleClickTime() {
+		return 500; // Default double-click time in milliseconds
+	}
+
 	/* HMENU typedef */
 	typedef void* HMENU;
+	typedef void* HBRUSH;
+	typedef void* HICON;
+	typedef void* HCURSOR;
+
+	/* Resource management macros */
+	#define MAKEINTRESOURCE(i) (LPCTSTR)((DWORD_PTR)((WORD)(i)))
+
+	/* Standard cursor */
+	#define IDC_ARROW ((LPCTSTR)"MAKEINTRESOURCE(32512)")
+
+	/* FAR PASCAL macros for Windows callback conventions */
+	#ifndef FAR
+		#define FAR
+	#endif
+
+	#ifndef PASCAL
+		#define PASCAL
+	#endif
+
+	/* Callback function type */
+	typedef long (__cdecl *WNDPROC)(void*, unsigned int, unsigned long, long long);
+
+	/* IWebBrowser2 stub - COM interface for web browser control */
+	#ifndef IWebBrowser2_DEFINED
+	#define IWebBrowser2_DEFINED
+	typedef void* IWebBrowser2;
+	#endif
 
 	/* Windows timing functions */
 	#define GetTickCount()		platform_get_ticks()
@@ -727,6 +861,18 @@ void platform_shutdown(void);
 #define RECT_DEFINED
 
 /**
+ * Point structure (equivalent to Windows POINT)
+ * Used for defining 2D coordinates
+ */
+#ifndef POINT_DEFINED
+#define POINT_DEFINED
+typedef struct tagPOINT {
+    LONG x;
+    LONG y;
+} POINT, *PPOINT, *LPPOINT;
+#endif
+
+/**
  * Rectangle structure (equivalent to Windows RECT)
  * Used for defining rectangular areas
  */
@@ -736,6 +882,59 @@ typedef struct tagRECT {
     LONG right;
     LONG bottom;
 } RECT, *PRECT, *LPRECT;
+
+/**
+ * MINMAXINFO structure (used in WM_GETMINMAXINFO)
+ * Contains information about a window's maximized size and position
+ */
+typedef struct tagMINMAXINFO {
+    POINT ptReserved;
+    POINT ptMaxSize;
+    POINT ptMaxPosition;
+    POINT ptMinTrackSize;
+    POINT ptMaxTrackSize;
+} MINMAXINFO, *PMINMAXINFO, *LPMINMAXINFO;
+
+/* DEVMODE structure (display mode settings) */
+#define ENUM_CURRENT_SETTINGS ((DWORD)-1)
+#define DM_BITSPERPEL 0x00040000
+#define DM_PELSWIDTH 0x00080000
+#define DM_PELSHEIGHT 0x00100000
+#define DM_DISPLAYFREQUENCY 0x00400000
+
+typedef struct _devicemode {
+    char   dmDeviceName[32];
+    WORD   dmSpecVersion;
+    WORD   dmDriverVersion;
+    WORD   dmSize;
+    WORD   dmDriverExtra;
+    DWORD  dmFields;
+    union {
+        struct {
+            short dmOrientation;
+            short dmPaperSize;
+            short dmPaperLength;
+            short dmPaperWidth;
+            short dmScale;
+            short dmCopies;
+            short dmDefaultSource;
+            short dmPrintQuality;
+        };
+        POINT dmPosition;
+    };
+    short  dmColor;
+    short  dmDuplex;
+    short  dmYResolution;
+    short  dmTTOption;
+    short  dmCollate;
+    char   dmFormName[32];
+    WORD   dmLogPixels;
+    DWORD  dmBitsPerPel;
+    DWORD  dmPelsWidth;
+    DWORD  dmPelsHeight;
+    DWORD  dmDisplayFlags;
+    DWORD  dmDisplayFrequency;
+} DEVMODE, *PDEVMODE, *LPDEVMODE;
 
 #endif /* RECT_DEFINED */
 

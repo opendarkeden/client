@@ -54,6 +54,14 @@ public :
 	ObjectID_t getObjectID() const throw()  { return m_ObjectID; }
 	void setObjectID( ObjectID_t ObjectID ) throw() { m_ObjectID = ObjectID; }
 
+	#ifndef __GAME_CLIENT__
+		// get packet name (required when not GAME_CLIENT)
+		std::string getPacketName () const throw () { return "CGGetOffMotorCycle"; }
+
+		// get packet's debug string (required when not GAME_CLIENT)
+		std::string toString () const throw () { return "CGGetOffMotorCycle"; }
+	#endif
+
 	#ifdef __DEBUG_OUTPUT__
 		// get packet name
 		std::string getPacketName () const throw () { return "CGGetOffMotorCycle"; }

@@ -49,6 +49,14 @@ public :
 	// get packet's body size
 	PacketSize_t getPacketSize () const throw () { return 0; }
 
+	#ifndef __GAME_CLIENT__
+		// get packet name (required when not GAME_CLIENT)
+		std::string getPacketName () const throw () { return "CGVerifyTime"; }
+
+		// get packet's debug string (required when not GAME_CLIENT)
+		std::string toString () const throw () { return "CGVerifyTime"; }
+	#endif
+
 	#ifdef __DEBUG_OUTPUT__
 		// get packet name
 		std::string getPacketName () const throw () { return "CGVerifyTime"; }

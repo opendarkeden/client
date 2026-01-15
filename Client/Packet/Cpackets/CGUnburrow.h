@@ -41,6 +41,14 @@ public :
 	// const static CGUnburrowPacketSize 를 정의해서 리턴하라.
 	PacketSize_t getPacketSize () const throw () { return szCoord + szCoord + szDir; }
 
+	#ifndef __GAME_CLIENT__
+		// get packet name (required when not GAME_CLIENT)
+		std::string getPacketName () const throw () { return "CGUnburrow"; }
+
+		// get packet's debug string (required when not GAME_CLIENT)
+		std::string toString () const throw () { return "CGUnburrow"; }
+	#endif
+
 	#ifdef __DEBUG_OUTPUT__
 		// get packet name
 		std::string getPacketName () const throw () { return "CGUnburrow"; }

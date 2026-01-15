@@ -296,10 +296,10 @@ void get_rand_str(char s[],int number)
 bool
 GetFutecAddress(const char* pStr)
 {
-	char * pFutecStr = strstr(pStr, "Futec");
-	char * pLeftParen = strchr(pStr, '(');
-	char * pSeperator = strchr(pStr, ':');
-	char * pRightParen = strchr(pStr, ')');
+	const char * pFutecStr = strstr(pStr, "Futec");
+	const char * pLeftParen = strchr(pStr, '(');
+	const char * pSeperator = strchr(pStr, ':');
+	const char * pRightParen = strchr(pStr, ')');
 
 	if (pFutecStr==NULL
 		|| pLeftParen==NULL
@@ -597,8 +597,7 @@ HWND		g_hPatchLogWnd = NULL;
 HWND		g_hPatchLogEdit = NULL;
 char*		g_pPatchLogBuffer = NULL;	// ¾ó¸¶³ª Å¬Áö ¸ô¶ó¼­¸® global¿¡ µ×´Ù.
 
-long FAR PASCAL 
-PatchLogWindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+long FAR PASCAL PatchLogWindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
     {
@@ -614,7 +613,7 @@ ReadPatchLogFromFile()
 {
 	char strBuffer[256];
 
-	class ifstream file("PatchLog.txt", ios::nocreate);	// text fileÀÌ´Ù.
+	ifstream file("PatchLog.txt");	// text fileÀÌ´Ù.
 
 	if (!file.is_open())
 	{
@@ -817,8 +816,7 @@ CheckDXVersion()
 // Name: WindowProc()
 // Desc: The Main Window Procedure
 //-----------------------------------------------------------------------------
-long FAR PASCAL 
-WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+long FAR PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	//MINMAXINFO      *pMinMax;
 
@@ -3536,7 +3534,7 @@ WinMain(HINSTANCE hInstance,
 		{
 			RegQueryValueEx( newKey, "RunFileName", NULL, NULL, (unsigned char*)filepath, &dwSize);
 
-			char *pFilename = strstr(filepath, "DarkEden.exe");
+			char *pFilename = const_cast<char*>(strstr(filepath, "DarkEden.exe"));
 			if(pFilename != NULL)
 			{
 				//MessageBox(0,"Error:[pFilename != NULL]","Error",MB_OK);
