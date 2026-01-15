@@ -29,7 +29,7 @@
 	//#include "d3dtextr.h"
 	//#include "d3dutil.h"
 
-	#include "CDirectDraw.h"
+	// #include "CDirectDraw.h"  // Removed - not needed for stub compilation
 
 
 
@@ -159,27 +159,10 @@ class CDirect3D : public CDirectDraw {
 		typedef void* LPDIRECT3D7;
 	#endif
 
-	// DDPIXELFORMAT structure - define inline for non-Windows platforms
-	// This matches CDirectDraw.h's definition to avoid conflicts
-	// Use same guard as CDirectDraw.h to prevent redefinition
-	#ifndef TAGPIXELFORMAT_DEFINED
-	#define TAGPIXELFORMAT_DEFINED
-	typedef struct tagPIXELFORMAT {  // Use same struct tag name as CDirectDraw.h
-		DWORD dwSize;
-		DWORD dwFlags;
-		DWORD dwFourCC;
-		DWORD dwRGBBitCount;
-		DWORD dwRBitMask;
-		DWORD dwGBitMask;
-		DWORD dwBBitMask;
-		DWORD dwRGBAlphaBitMask;
-	} DDPIXELFORMAT, *LPDDPIXELFORMAT;
-	#define DDPIXELFORMAT_DEFINED
-	#else
-	// If already defined by CDirectDraw.h, just forward declare
-	typedef struct tagPIXELFORMAT DDPIXELFORMAT;
-	typedef struct tagPIXELFORMAT *LPDDPIXELFORMAT;
-	#endif
+	// DDPIXELFORMAT structure - get it from CDirectDraw.h
+	// We must include CDirectDraw.h to get the proper definition that's
+	// consistent with the dxlib library compilation
+	#include "../DXLib/CDirectDraw.h"
 
 	// D3DPRIMITIVETYPE - use DWORD instead of enum for implicit int conversion
 	#ifndef D3DPRIMITIVETYPE

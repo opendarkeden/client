@@ -2,6 +2,10 @@
 // CDirect3D.cpp
 //----------------------------------------------------------------------
 
+// Only compile Direct3D implementation on Windows platforms
+// On non-Windows platforms (macOS/Linux with SDL2), we only use the stub class from CDirect3D.h
+#ifdef PLATFORM_WINDOWS
+
 #include <math.h>
 #include "CDirect3D.h"
 #include "D3DUtil.h"
@@ -11,7 +15,6 @@
 //----------------------------------------------------------------------
 //
 //                    Static members
-//
 //----------------------------------------------------------------------
 bool					CDirect3D::m_bHAL		= false;
 
@@ -20,7 +23,7 @@ LPDIRECT3DDEVICE7		CDirect3D::m_pD3DD		= NULL;
 LPDIRECTDRAWSURFACE7	CDirect3D::m_pDDZBuffer	= NULL;
 
 // Stores pixel formats
-DDPIXELFORMAT			CDirect3D::m_PixelFormats[100]; 
+DDPIXELFORMAT			CDirect3D::m_PixelFormats[100];
 DWORD					CDirect3D::m_dwNumPixelFormats = 0;
 
 //----------------------------------------------------------------------
@@ -28,7 +31,7 @@ DWORD					CDirect3D::m_dwNumPixelFormats = 0;
 //----------------------------------------------------------------------
 int						CDirect3D::m_TextureWidthMax	= 256;
 int						CDirect3D::m_TextureHeightMax	= 256;
-bool					CDirect3D::m_bTexturePow2		= true;			// 2^n만 되는가?		
+bool					CDirect3D::m_bTexturePow2		= true;			// 2^n만 되는가?
 bool					CDirect3D::m_bTextureSquareOnly	= true;	// 정사각형만 되는가?
 
 // PixelFormat
@@ -39,7 +42,7 @@ DDPIXELFORMAT			CDirect3D::m_PixelFormat1555;
 //----------------------------------------------------------------------
 // Callback Function
 //----------------------------------------------------------------------
-HRESULT WINAPI 
+HRESULT WINAPI
 CDirect3D::EnumZBufferCallback(DDPIXELFORMAT* DDP_Format ,VOID* DDP_Desired)
 {
 	if(DDP_Format->dwFlags == DDPF_ZBUFFER)
@@ -54,7 +57,7 @@ CDirect3D::EnumZBufferCallback(DDPIXELFORMAT* DDP_Format ,VOID* DDP_Desired)
 // Name: EnumTextureFormats()
 // Desc: Stores enumerates texture formats in a global array.
 //-----------------------------------------------------------------------------
-HRESULT WINAPI 
+HRESULT WINAPI
 CDirect3D::EnumTextureCallback( DDPIXELFORMAT* pddpf,
                                                       VOID* )
 {
@@ -67,11 +70,11 @@ CDirect3D::EnumTextureCallback( DDPIXELFORMAT* pddpf,
 // Name: GetNumberOfBits()
 // Desc: Returns the number of bits set in a DWORD mask
 //-----------------------------------------------------------------------------
-WORD 
+WORD
 CDirect3D::GetNumberOfBits( DWORD dwMask )
 {
     for( WORD wBits = 0; dwMask; wBits++ )
-        dwMask = dwMask & ( dwMask - 1 );  
+        dwMask = dwMask & ( dwMask - 1 );
 
     return wBits;
 }
@@ -91,7 +94,7 @@ CDirect3D::CheckHAL()
 	// Query D3D Interface
 	//--------------------------------------------------------
 	if(m_pDD->QueryInterface (IID_IDirect3D7, (void **)&pD3D)==DD_OK)
-	{		
+	{
 		//--------------------------------------------------------
 		// Create Device
 		//--------------------------------------------------------
@@ -102,7 +105,7 @@ CDirect3D::CheckHAL()
 	}
 
 	// Release
-	if (pD3D) 
+	if (pD3D)
 	{
 		pD3D->Release();
 	}
@@ -113,7 +116,7 @@ CDirect3D::CheckHAL()
 	}
 
 	pD3D	= NULL;
-	pD3DD	= NULL;	
+	pD3DD	= NULL;
 
 	return m_bHAL;
 }
@@ -161,7 +164,7 @@ CDirect3D::Init()
 	if (!CheckDeviceForTexture())
 	{
 		Release();
-		return false; 
+		return false;
 	}
 
 	return true;
@@ -170,15 +173,15 @@ CDirect3D::Init()
 //----------------------------------------------------------------------
 // Release
 //----------------------------------------------------------------------
-void 
+void
 CDirect3D::Release()
 {
 	m_bHAL		= false;
 
-	if (m_pDDZBuffer) 
+	if (m_pDDZBuffer)
 	{
 		m_pDDZBuffer->Restore();	// --;;
-		
+
 		m_pDDSBack->DeleteAttachedSurface(0, m_pDDZBuffer);
 
 		m_pDDZBuffer->Release();
@@ -191,7 +194,7 @@ CDirect3D::Release()
 		m_pD3DD = NULL;
 	}
 
-	if (m_pD3D) 
+	if (m_pD3D)
 	{
 		m_pD3D->Release();
 		m_pD3D = NULL;
@@ -243,7 +246,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	//--------------------------------------------------------
 	ZeroMemory(&ddsd, sizeof(DDSURFACEDESC2));
     ddsd.dwSize = sizeof(DDSURFACEDESC2);
- 
+
 	ddsd.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT | DDSD_PIXELFORMAT;
 	ddsd.ddsCaps.dwCaps = DDSCAPS_ZBUFFER;
 	ddsd.dwWidth = m_ScreenWidth;
@@ -253,12 +256,12 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	//--------------------------------------------------------
 	// Hardware가속이 되는가? --> 되면 VideoMemory를 잡는다.
 	//--------------------------------------------------------
-	//if(IsEqualIID(*pDeviceGUID, IID_IDirect3DHALDevice)) 
+	//if(IsEqualIID(*pDeviceGUID, IID_IDirect3DHALDevice))
 	if (m_bHAL)
 	{
 		ddsd.ddsCaps.dwCaps |= DDSCAPS_VIDEOMEMORY;
 	}
-	else 
+	else
 	{
 		ddsd.ddsCaps.dwCaps |= DDSCAPS_SYSTEMMEMORY;
 	}
@@ -295,7 +298,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 
 	//--------------------------------------------------------
 	// TextureFormat찾기
-	//--------------------------------------------------------	
+	//--------------------------------------------------------
     if(m_pD3DD->EnumTextureFormats( EnumTextureCallback, NULL )!=D3D_OK)
 	{
 		//DirectDrawFailed("Couldn't Enum Texture PixelFormats");
@@ -339,7 +342,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	mat._12 = mat._13 = mat._14 = mat._41 = 0.0f;
 	mat._21 = mat._23 = mat._24 = mat._42 = 0.0f;
 	mat._31 = mat._32 = mat._34 = mat._43 = 0.0f;
-			
+
 	//--------------------------------------------------------
 	// World
 	//--------------------------------------------------------
@@ -368,7 +371,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	m_pD3DD->SetTransform( D3DTRANSFORMSTATE_PROJECTION, &matProj );
 
 
-	//--------------------------------------------------------	
+	//--------------------------------------------------------
 	// Material 설정
 	//--------------------------------------------------------
 	D3DMATERIAL7 mtrl;
@@ -380,8 +383,8 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	//--------------------------------------------------------
     D3DLIGHT7 light;
     D3DUtil_InitLight( light, D3DLIGHT_POINT, 0.0f, 0.0f, -10.0f );
-	//D3DUtil_InitLight( light, D3DLIGHT_POINT, 3.0f, 3.0f, 0.0f );	
-	
+	//D3DUtil_InitLight( light, D3DLIGHT_POINT, 3.0f, 3.0f, 0.0f );
+
 	/*
 	light.dltType      = D3DLIGHT_SPOT;
 	light.dcvDiffuse.r   = 1.0f;
@@ -391,7 +394,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	light.dvPosition.x = 0.0f;
 	light.dvPosition.y = 0.0f;
 	light.dvPosition.z = -10.0f;
-	light.dvDirection.x = 0.0f;	
+	light.dvDirection.x = 0.0f;
 	light.dvDirection.y = 0.0f;
 	light.dvDirection.z = 1.0f;
 	light.dvTheta =       0.5f; //원뿔의 중앙 크기
@@ -422,21 +425,21 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	//m_pD3DD->SetTextureStageState( 0, D3DTSS_ALPHAOP, D3DTOP_BLENDCURRENTALPHA);
 	m_pD3DD->SetTextureStageState( 0, D3DTSS_MINFILTER, D3DTFN_LINEAR );
     m_pD3DD->SetTextureStageState( 0, D3DTSS_MAGFILTER, D3DTFG_LINEAR );
-	
+
 	m_pD3DD->SetRenderState( D3DRENDERSTATE_ANTIALIAS, D3DANTIALIAS_NONE);
 	m_pD3DD->SetRenderState( D3DRENDERSTATE_EDGEANTIALIAS, FALSE);
 	m_pD3DD->SetRenderState( D3DRENDERSTATE_SHADEMODE, D3DSHADE_GOURAUD);
 	//m_pD3DD->SetRenderState( D3DRENDERSTATE_SRCBLEND, D3DBLEND_ONE );
 	//m_pD3DD->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_ONE );
 	m_pD3DD->SetRenderState( D3DRENDERSTATE_SRCBLEND,  D3DBLEND_SRCALPHA );
-	m_pD3DD->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );   
+	m_pD3DD->SetRenderState( D3DRENDERSTATE_DESTBLEND, D3DBLEND_INVSRCALPHA );
 	m_pD3DD->SetRenderState( D3DRENDERSTATE_ALPHABLENDENABLE, TRUE);
 	//m_pD3DD->SetRenderState( D3DRENDERSTATE_ALPHAREF, 0x0F );
 	m_pD3DD->SetRenderState( D3DRENDERSTATE_ALPHAREF, 0 );
 	//m_pD3DD->SetRenderState( D3DRENDERSTATE_ALPHAFUNC, D3DCMP_GREATEREQUAL );
-	m_pD3DD->SetRenderState(D3DRENDERSTATE_ALPHAFUNC, D3DCMP_NOTEQUAL );   
+	m_pD3DD->SetRenderState(D3DRENDERSTATE_ALPHAFUNC, D3DCMP_NOTEQUAL );
 	m_pD3DD->SetRenderState( D3DRENDERSTATE_ALPHATESTENABLE, TRUE );
-	//m_pD3DD->SetRenderState( D3DRENDERSTATE_COLORKEYENABLE, TRUE );	     
+	//m_pD3DD->SetRenderState( D3DRENDERSTATE_COLORKEYENABLE, TRUE );
 	//m_pD3DD->SetRenderState( D3DRENDERSTATE_COLORKEYBLENDENABLE, TRUE );
 
 //	DEBUG_ADD("CDirect3D::Init HAL OK");
@@ -447,7 +450,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 //----------------------------------------------------------------------
 // Is Lost
 //----------------------------------------------------------------------
-BOOL				
+BOOL
 CDirect3D::IsLost()
 {
 	if (m_pDDZBuffer!=NULL)
@@ -461,7 +464,7 @@ CDirect3D::IsLost()
 //----------------------------------------------------------------------
 // Restore
 //----------------------------------------------------------------------
-void				
+void
 CDirect3D::Restore()
 {
 	RestoreAllSurfaces();
@@ -489,7 +492,7 @@ CDirect3D::Restore()
 // A:R:G:B의 bit수가 같은걸 찾는다.
 //----------------------------------------------------------------------
 bool
-CDirect3D::FindBestPixelFormat(int bitsA, int bitsR, int bitsG, int bitsB, 
+CDirect3D::FindBestPixelFormat(int bitsA, int bitsR, int bitsG, int bitsB,
 								LPDDPIXELFORMAT pddpfBestMatch)
 {
 	for( DWORD i=0; i<m_dwNumPixelFormats; i++ )
@@ -505,7 +508,7 @@ CDirect3D::FindBestPixelFormat(int bitsA, int bitsR, int bitsG, int bitsB,
             nFormatABits == bitsA &&
             nFormatRBits == bitsR &&
             nFormatGBits == bitsG &&
-            nFormatBBits == bitsB ) 
+            nFormatBBits == bitsB )
         {
             // This is an exact pixel format match, so it works
             (*pddpfBestMatch) = (*pddpf);
@@ -533,11 +536,11 @@ CDirect3D::CheckDeviceForTexture()
 
 	// Limit max texture sizes, if the driver can't handle large textures
     m_TextureWidthMax  = (ddDesc.dwMaxTextureWidth)? ddDesc.dwMaxTextureWidth : 256;
-    m_TextureHeightMax = (ddDesc.dwMaxTextureHeight)? ddDesc.dwMaxTextureHeight : 256;  
+    m_TextureHeightMax = (ddDesc.dwMaxTextureHeight)? ddDesc.dwMaxTextureHeight : 256;
 
 	// 2^n만 되는가?
 	m_bTexturePow2 = (ddDesc.dpcTriCaps.dwTextureCaps & D3DPTEXTURECAPS_POW2)!=0;
-		
+
 	// 정사각형만 되는가?
 	m_bTextureSquareOnly = (ddDesc.dpcTriCaps.dwTextureCaps & D3DPTEXTURECAPS_SQUAREONLY)!=0;
 
@@ -556,7 +559,7 @@ CDirect3D::GetTextureSize(int& width, int& height)
 	//---------------------------------------------------------------
 	// 하드웨어가 지원하는 TextureSurface의 크기를 결정한다.
 	//---------------------------------------------------------------
-	// Adjust width and height to be powers of 2, if the device requires it	
+	// Adjust width and height to be powers of 2, if the device requires it
 	if( m_bTexturePow2 )
 	{
 		int w, h;
@@ -571,14 +574,16 @@ CDirect3D::GetTextureSize(int& width, int& height)
 	{
 		width  = min( width,  m_TextureWidthMax );
 		height = min( height, m_TextureHeightMax );
-	}	
+	}
 
 	// Make the texture square, if the driver requires it
 	if( m_bTextureSquareOnly )
 	{
-		if( width > height ) 
+		if( width > height )
 			height = width;
-		else	
+		else
 			width  = height;
 	}
 }
+
+#endif /* PLATFORM_WINDOWS */

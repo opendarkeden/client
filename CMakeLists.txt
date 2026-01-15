@@ -62,6 +62,9 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	# Exclude Windows-specific Immersion tactile feedback library on non-Windows platforms
 	if(NOT WIN32)
 		list(FILTER CLIENT_SOURCES EXCLUDE REGEX ".*Imm.*")
+		# Exclude Direct3D files on non-Windows platforms (SDL2 backend used instead)
+		list(FILTER CLIENT_SOURCES EXCLUDE REGEX ".*D3D.*")
+		list(FILTER CLIENT_SOURCES EXCLUDE REGEX ".*Direct3.*")
 	endif()
 
 	# Add DarkEden executable
@@ -85,6 +88,9 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_SOURCE_DIR}/basic
 		${CMAKE_CURRENT_SOURCE_DIR}/Client
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/Packet
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
 		${CMAKE_CURRENT_SOURCE_DIR}/engine/sprite/include
