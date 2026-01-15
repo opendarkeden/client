@@ -176,7 +176,7 @@ CPositionList<Type>::Add(Type x, Type y)
 	node.X = x;
 	node.Y = y;
 
-	POSITION_LIST::iterator iPosition = m_listPosition.begin();
+	typename POSITION_LIST::iterator iPosition = m_listPosition.begin();
 
 	// 이미 list에 들어있는 모든 position과 비교해보고
 	// 같은게 없을 때 추가한다.
@@ -221,7 +221,7 @@ CPositionList<Type>::Remove(Type x, Type y)
 	node.X = x;
 	node.Y = y;
 
-	POSITION_LIST::iterator iPosition = m_listPosition.begin();
+	typename POSITION_LIST::iterator iPosition = m_listPosition.begin();
 
 	// list의 POSITION_NODE에서 같은게 있으면 지운다.
 	while (iPosition != m_listPosition.end())
@@ -268,7 +268,7 @@ CPositionList<Type>::SaveToFile(class ofstream& file)
 		return;
 
 
-	POSITION_LIST::iterator iPosition = m_listPosition.begin();
+	typename POSITION_LIST::iterator iPosition = m_listPosition.begin();
 
 	POSITION_NODE<Type>	node;
 
@@ -333,7 +333,7 @@ void
 CPositionList<Type>::Print()
 {
 
-	POSITION_LIST::iterator iPosition = m_listPosition.begin();
+	typename POSITION_LIST::iterator iPosition = m_listPosition.begin();
 
 	POSITION_NODE<Type> node;
 

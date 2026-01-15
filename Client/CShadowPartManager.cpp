@@ -4,17 +4,20 @@
 #include "Client_PCH.h"
 #ifdef PLATFORM_WINDOWS
 #include "DX3D.h"
+#else
+#include "CDirect3D.h"
 #endif
 #include "CFileIndexTable.h"
 #include "CShadowPartManager.h"
 #include "MGameTime.h"
 #include "MWeather.h"
+#include <fstream>
 
 #include "DebugInfo.h"
 //#define	new			DEBUG_NEW
 //#define	delete		DEBUG_DELETE
 
-extern bool FileOpenBinary(const char* filename, class ifstream& fil);
+extern bool FileOpenBinary(const char* filename, ifstream& fil);
 
 extern bool		g_bZonePlayerInLarge;
 
@@ -73,7 +76,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 	Release();
 	///*
 	// Index File을 Load한다.
-	class ifstream indexFile;//(indexFilename, ios::binary);
+	ifstream indexFile;//(indexFilename, ios::binary);
 //	if (!FileOpenBinary(indexFilename, indexFile))
 //		return;
 //

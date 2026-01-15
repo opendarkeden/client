@@ -13683,3 +13683,95 @@ CSpriteSurface::BltIndexSpriteBrightness(POINT* pPoint, CIndexSprite* pSprite, B
 
 	//Unlock();
 }
+
+//----------------------------------------------------------------------
+// DirectX Compatibility Methods (SDL Backend Stubs)
+//----------------------------------------------------------------------
+
+bool CSpriteSurface::Restore()
+{
+#ifdef SPRITELIB_BACKEND_SDL
+	// SDL backend: Surface doesn't need restoration
+	return true;
+#else
+	return false;
+#endif
+}
+
+void* CSpriteSurface::Lock(RECT* rect, DWORD* pitch)
+{
+#ifdef SPRITELIB_BACKEND_SDL
+	(void)rect;
+	if (pitch) {
+		*pitch = m_width * 2; // 16-bit color
+	}
+	return spritectl_surface_lock(m_backend_surface);
+#else
+	(void)rect; (void)pitch;
+	return NULL;
+#endif
+}
+
+void CSpriteSurface::Unlock()
+{
+#ifdef SPRITELIB_BACKEND_SDL
+	spritectl_surface_unlock(m_backend_surface);
+#endif
+}
+
+int CSpriteSurface::GetSurfacePitch() const
+{
+#ifdef SPRITELIB_BACKEND_SDL
+	return m_width * 2; // 16-bit color
+#else
+	return 0;
+#endif
+}
+
+void* CSpriteSurface::GetSurfacePointer()
+{
+#ifdef SPRITELIB_BACKEND_SDL
+	return spritectl_surface_lock(m_backend_surface);
+#else
+	return NULL;
+#endif
+}
+
+int CSpriteSurface::GetWidth() const
+{
+#ifdef SPRITELIB_BACKEND_SDL
+	return m_width;
+#else
+	return 0;
+#endif
+}
+
+int CSpriteSurface::GetHeight() const
+{
+#ifdef SPRITELIB_BACKEND_SDL
+	return m_height;
+#else
+	return 0;
+#endif
+}
+
+bool CSpriteSurface::InitTextureSurface(int width, int height, void* pixels)
+{
+#ifdef SPRITELIB_BACKEND_SDL
+	(void)pixels;
+	// Create or resize the surface
+	if (m_backend_surface) {
+		spritectl_surface_release(m_backend_surface);
+	}
+	m_backend_surface = spritectl_surface_create(width, height);
+	if (!m_backend_surface) {
+		return false;
+	}
+	m_width = width;
+	m_height = height;
+	return true;
+#else
+	(void)width; (void)height; (void)pixels;
+	return false;
+#endif
+}

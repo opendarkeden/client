@@ -12,8 +12,8 @@
 #endif
 #include "MTypeDef.h"
 //#include "SkillDef.h"
-#include "Packet\Types\PacketItemDef.h"
-//#include "Packet\Types\ItemTypes.h"
+#include "Packet/Types/PacketItemDef.h"
+//#include "Packet/Types/ItemTypes.h"
 class MActionResult;
 class MCreature;
 class MCreatureWear;

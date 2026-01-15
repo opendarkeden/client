@@ -36,15 +36,14 @@
 	typedef void* LPVOID;
 	#endif
 
-	/* Forward declarations */
-	typedef struct tagPIXELFORMAT* LPDDPIXELFORMAT;
-
 	/* Forward declarations for DirectDraw types */
 	typedef struct IDirectDraw* LPDIRECTDRAW7;
 	typedef struct IDirectDrawSurface* LPDIRECTDRAWSURFACE7;
 	typedef struct IDirectDrawGammaControl* LPDIRECTDRAWGAMMACONTROL;
 
 	/* DDPIXELFORMAT structure - must be defined before DDSURFACEDESC2 */
+	/* Only define if not already defined by CDirect3D.h */
+#ifndef __CDIRECT3D_H__
 	typedef struct tagPIXELFORMAT {
 		DWORD dwSize;
 		DWORD dwFlags;
@@ -55,6 +54,7 @@
 		DWORD dwBBitMask;
 		DWORD dwRGBAlphaBitMask;
 	} DDPIXELFORMAT, *LPDDPIXELFORMAT;
+#endif // __CDIRECT3D_H__
 
 	/* DDSCAPS2 structure */
 	typedef struct {

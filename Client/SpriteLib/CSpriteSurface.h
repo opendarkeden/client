@@ -202,6 +202,18 @@ class CSpriteSurface {
 		static WORD		s_EffectScreenTableG[32][32];
 		static WORD		s_EffectScreenTableB[32][32];
 
+		//------------------------------------------------------------
+		// DirectX Compatibility Methods (Stubs for SDL backend)
+		//------------------------------------------------------------
+		bool				Restore();
+		void*				Lock(RECT* rect = NULL, DWORD* pitch = NULL);
+		void				Unlock();
+		int					GetSurfacePitch() const;
+		void*				GetSurfacePointer();
+		int					GetWidth() const;
+		int					GetHeight() const;
+		bool				InitTextureSurface(int width, int height, void* pixels = NULL);
+
 	protected:
 		bool	ClippingRectToPoint(RECT*& pRect, POINT*& pPoint);
 

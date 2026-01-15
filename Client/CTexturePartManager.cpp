@@ -4,6 +4,8 @@
 #include "Client_PCH.h"
 #ifdef PLATFORM_WINDOWS
 #include "DX3D.h"
+#else
+#include "CDirect3D.h"
 #endif
 #include "CFileIndexTable.h"
 #include "CTexturePartManager.h"
