@@ -12,11 +12,12 @@
 #ifndef __SPRITELIBBACKEND_H__
 #define __SPRITELIBBACKEND_H__
 
-#include "../basic/Platform.h"
-
+/* Close Platform.h's extern "C" block to manage our own */
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include "../basic/Platform.h"
 
 /* ============================================================================
  * Rectangle Types (for non-Windows platforms)

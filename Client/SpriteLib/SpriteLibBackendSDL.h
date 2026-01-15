@@ -17,9 +17,6 @@
 #ifdef SPRITELIB_BACKEND_SDL
 
 #include <SDL.h>
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /* ============================================================================
  * Internal Surface Structure

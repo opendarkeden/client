@@ -2,7 +2,11 @@
 
 #include "client_PCH.h"
 #include "VS_UI_Base.h"
+#ifdef PLATFORM_WINDOWS
 #include <windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 extern RECT g_GameRect;
 //----------------------------------------------------------------------------
 // Globals
@@ -72,8 +76,9 @@ Base::~Base()
 //-----------------------------------------------------------------------------
 // SetFont
 //
-// 
+//
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 void Base::SetFont(PrintInfo &pi, LOGFONT &lf, COLORREF textcolor, COLORREF backcolor, int bk_mode, int align)
 {
 	HFONT hfont = CreateFontIndirect(&lf);
@@ -90,16 +95,16 @@ void Base::SetFont(PrintInfo &pi, LOGFONT &lf, COLORREF textcolor, COLORREF back
 //-----------------------------------------------------------------------------
 // SetDefaultLogfont
 //
-// 
+//
 //-----------------------------------------------------------------------------
 void Base::SetDefaultLogfont(LOGFONT &lf) const
 {
 	lf.lfHeight = 0; // 0 = default
-	lf.lfWidth = 0; // 0 = ³ôÀÌ¿¡ ±âÁØÇÏ¿© ÀÚµ¿À¸·Î ¼³Á¤µÊ.
-	lf.lfEscapement = 0; // ¹æÇâ¼³Á¤ (900, 2700)
+	lf.lfWidth = 0; // 0 = ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+	lf.lfEscapement = 0; // ï¿½ï¿½ï¿½â¼³ï¿½ï¿½ (900, 2700)
 	lf.lfOrientation = 0;
 	lf.lfWeight = FW_NORMAL; // FW_BOLD
-	lf.lfItalic = 0; // 0 ¾Æ´Ñ °ªÀÌ¸é italicÀÌ´Ù.
+	lf.lfItalic = 0; // 0 ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ italicï¿½Ì´ï¿½.
 	lf.lfUnderline = 0;
 	lf.lfStrikeOut = 0;
 	if(gC_ci->IsChinese())
@@ -110,8 +115,38 @@ void Base::SetDefaultLogfont(LOGFONT &lf) const
 	lf.lfClipPrecision = CLIP_DEFAULT_PRECIS;
 	lf.lfQuality = DEFAULT_QUALITY;
 	lf.lfPitchAndFamily = DEFAULT_PITCH|FF_DONTCARE;
-	strcpy(lf.lfFaceName, "±¼¸²Ã¼");//"Times New Roman");
+	strcpy(lf.lfFaceName, "ï¿½ï¿½ï¿½ï¿½Ã¼");//"Times New Roman");
 }
+#else
+// Stub implementations for non-Windows platforms
+void Base::SetFont(PrintInfo &pi, LOGFONT &lf, COLORREF textcolor, COLORREF backcolor, int bk_mode, int align)
+{
+	(void)lf;
+	pi.hfont = (void*)1; // Stub font handle
+	pi.text_color = textcolor;
+	pi.back_color = backcolor;
+	pi.bk_mode = bk_mode;
+	pi.text_align = align;
+}
+
+void Base::SetDefaultLogfont(LOGFONT &lf) const
+{
+	lf.lfHeight = 0;
+	lf.lfWidth = 0;
+	lf.lfEscapement = 0;
+	lf.lfOrientation = 0;
+	lf.lfWeight = FW_NORMAL;
+	lf.lfItalic = 0;
+	lf.lfUnderline = 0;
+	lf.lfStrikeOut = 0;
+	lf.lfCharSet = DEFAULT_CHARSET;
+	lf.lfOutPrecision = OUT_DEFAULT_PRECIS;
+	lf.lfClipPrecision = CLIP_DEFAULT_PRECIS;
+	lf.lfQuality = DEFAULT_QUALITY;
+	lf.lfPitchAndFamily = DEFAULT_PITCH|FF_DONTCARE;
+	strcpy(lf.lfFaceName, "Arial");
+}
+#endif
 
 //-----------------------------------------------------------------------------
 // SelectFont
@@ -178,18 +213,18 @@ void Base::InitFont()
 	LOGFONT lf;
 
 	// 
-	// ±¦ÂúÀº style
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ style
 	//
-	// - ¹ÙÅÁ, 13
+	// - ï¿½ï¿½ï¿½ï¿½, 13
 	//
-	// !Times New Romans·Î ÇÏÁö ¸»°Í. OS°£ À§Ä¡ ¾È¸Â´Â ¹®Á¦ ¹ß»ýÇÔ.
+	// !Times New Romansï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. OSï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½È¸Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½.
 	//
 	const char szFontName[4][2][20] = {
 		// Hangul Font      Chinese Font
-		{ "±¼¸²Ã¼",			"ËÎÌå" },
+		{ "ï¿½ï¿½ï¿½ï¿½Ã¼",			"ï¿½ï¿½ï¿½ï¿½" },
 		{ "MS Sans Serif",	"MS Sans Serif" },
-		{ "µ¸¿òÃ¼",			"ÐÂËÎÌå" },
-		{ "±¼¸²",			"ËÎÌå" }
+		{ "ï¿½ï¿½ï¿½ï¿½Ã¼",			"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" },
+		{ "ï¿½ï¿½ï¿½ï¿½",			"ï¿½ï¿½ï¿½ï¿½" }
 	};
 
 	char Language;
@@ -284,11 +319,11 @@ void Base::InitFont()
 	SetFont(m_char_value_pi, lf, RGB(255, 255, 255));
 
 	//
-	//font used by Client by larosel ¹ÛÀÇ ÆùÆ®º¸´Ù 2¾¿ Å©°Ô ÇØÁà¾ßÇÔ.
+	//font used by Client by larosel ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	//
 	//SetDefaultLogfont(lf);
 	//lf.lfHeight = 12;
-	//strcpy(lf.lfFaceName, "±¼¸²");
+	//strcpy(lf.lfFaceName, "ï¿½ï¿½ï¿½ï¿½");
 	//SetFont(m_chat_dialog_pi, lf, RGB(255, 255, 255));
 
 	SetDefaultLogfont(lf);
@@ -353,20 +388,25 @@ void Base::InitSurface(CSpriteSurface *surface)
 	assert(surface);
 	m_p_DDSurface_back = surface;
 
-	bool ret = m_DDSurface_offscreen.InitOffsurface(g_GameRect.right, g_GameRect.bottom, DDSCAPS_SYSTEMMEMORY);
+	bool ret = m_DDSurface_offscreen.InitOffsurface(g_GameRect.right, g_GameRect.bottom);
 	if (!ret)
 		_Error(FAILED_JOB);
 
 	//
-	// offscreenÀÇ colorkey¸¦ ¼³Á¤ÇÑ´Ù. »óÈ²¿¡ µû¶ó¼­ Image¿¡¼­ ¾È ¾²´Â »öÀ» 
-	// °áÁ¤ÇØ¾ß ÇÑ´Ù.
+	// offscreenï¿½ï¿½ colorkeyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½ï¿½È²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Imageï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 	//
 	m_colorkey_red = RED;
 
 	m_DDSurface_offscreen.SetTransparency(m_colorkey_red); // default colorkey = red
 
 	// set Unicorn edit widget surface
+	#ifdef PLATFORM_WINDOWS
 	g_SetFL2Surface(m_p_DDSurface_back->GetSurface());
+	#else
+	// SDL backend: use GetSurfacePointer() instead of GetSurface()
+	g_SetFL2Surface(m_p_DDSurface_back->GetSurfacePointer());
+	#endif
 }
 
 //-----------------------------------------------------------------------------

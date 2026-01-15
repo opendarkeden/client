@@ -2,7 +2,7 @@
 // DebugInfo.cpp
 //-----------------------------------------------------------------------------
 #include "Client_PCH.h"
-#include <New.h>
+#include <new>
 #include "DebugInfo.h"
 #include <stdarg.h>
 //#include <io.h>

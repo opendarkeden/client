@@ -1,3 +1,11 @@
+//----------------------------------------------------------------------
+// soundbuf.cpp
+//----------------------------------------------------------------------
+
+// Only compile sound buffer implementation on Windows platforms
+// On non-Windows platforms, DirectSound support is not available
+#ifdef PLATFORM_WINDOWS
+
 #include <wtypes.h>
 #include <memory.h>
 #include "soundbuf.h"
@@ -5,7 +13,7 @@
 //#include "dslib.h"
 #include <stdio.h>
 //#include "debug.h"
-#include "DXLib\CDirectSound.h"
+#include "CDirectSound.h"
 
 const UINT frequencies[3] = { 44100, 48000, 32000 };
 
@@ -134,3 +142,5 @@ int WriteTo ( LPSOUNDBUF lpsb , BYTE* arr)
 	return 0 ;
 }
 
+
+#endif /* PLATFORM_WINDOWS */

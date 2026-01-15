@@ -47,6 +47,7 @@
 	#include "SpriteLibBackend.h"
 	/* SDL backend: Independent class, not inheriting from CDirectDrawSurface */
 	#define SPRITESURFACE_STANDALONE
+	#include "../../basic/2d.h"  // For S_SURFACEINFO
 #endif
 
 #include "CSpritePal.h"
@@ -214,6 +215,14 @@ class CSpriteSurface {
 		void*				GetSurfacePointer();
 		int					GetWidth() const;
 		int					GetHeight() const;
+
+#ifdef SPRITELIB_BACKEND_SDL
+		// Lock/Unlock methods for SDL backend compatibility (different signatures from Windows)
+		bool				LockSDL();  // Renamed to avoid conflict with Lock()
+		void				UnlockSDL();
+		bool				IsLock();
+		void				GetSurfaceInfo(S_SURFACEINFO* info);
+#endif
 		bool				InitTextureSurface(int width, int height, void* pixels = NULL, void* pixelFormat = NULL);
 
 		// Off-screen surface initialization (compatibility with CDirectDrawSurface)

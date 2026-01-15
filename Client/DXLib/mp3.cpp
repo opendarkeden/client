@@ -1,3 +1,11 @@
+//----------------------------------------------------------------------
+// mp3.cpp
+//----------------------------------------------------------------------
+
+// Only compile MP3 implementation on Windows platforms
+// On non-Windows platforms, MP3 support is not available
+#ifdef PLATFORM_WINDOWS
+
 #include <memory.h>
 #include "mp3.h"
 #include "reader.h"
@@ -767,3 +775,5 @@ void inv_mdct(MP3 *mp3, float *in, float *out, int block_type)
    }
 }
 
+
+#endif /* PLATFORM_WINDOWS */

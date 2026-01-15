@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------
 // Set Default
 //----------------------------------------------------------------------
-// default fileÀ» »ý¼ºÇØµÎ°í loadÇÏ´Â °Íµµ ±¦ÂúÀ»°Å °°´Ù.
+// default fileï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÎ°ï¿½ loadï¿½Ï´ï¿½ ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 //----------------------------------------------------------------------
 /*
 void				
@@ -28,8 +28,13 @@ SetDefault()
 #ifndef __KEYACCELERATOR_H__
 #define __KEYACCELERATOR_H__
 
-#pragma warning(disable:4786)
+#ifdef PLATFORM_WINDOWS
+	#pragma warning(disable:4786)
+#endif
 
+#include <map>
+#include <vector>
+#include "DIK_Defines.h"
 #include "AcceleratorDef.h"
 
 //----------------------------------------------------------------------
@@ -58,7 +63,7 @@ SetDefault()
 //----------------------------------------------------------------------
 // KeyAccelerator
 //----------------------------------------------------------------------
-// key´Â WORD, accelÀº BYTE.. ÄÉÄÉ.. 
+// keyï¿½ï¿½ WORD, accelï¿½ï¿½ BYTE.. ï¿½ï¿½ï¿½ï¿½.. 
 //----------------------------------------------------------------------
 class KeyAccelerator {
 	public :
@@ -82,9 +87,9 @@ class KeyAccelerator {
 		//------------------------------------------------------------
 		// Get Accelerator / Key
 		//------------------------------------------------------------
-		BYTE				GetAccelerator(WORD key) const;			// key¿Í ¿¬°áµÈ accelerator¸¦ Ã£´Â´Ù.
-		BYTE				GetAcceleratorSimilar(WORD key) const;	// key¿Í ¿¬°áµÈ accelerator¸¦ Ã£´Â´Ù. keyÁ¶ÇÕÀ» Á¦°ÅÇÑ °æ¿ìµµ Ã¼Å©ÇÑ´Ù.
-		WORD				GetKey(BYTE accel) const;				// accelerator¿Í ¿¬°áµÈ key¸¦ Ã£´Â´Ù.
+		BYTE				GetAccelerator(WORD key) const;			// keyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ acceleratorï¿½ï¿½ Ã£ï¿½Â´ï¿½.
+		BYTE				GetAcceleratorSimilar(WORD key) const;	// keyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ acceleratorï¿½ï¿½ Ã£ï¿½Â´ï¿½. keyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ìµµ Ã¼Å©ï¿½Ñ´ï¿½.
+		WORD				GetKey(BYTE accel) const;				// acceleratorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ keyï¿½ï¿½ Ã£ï¿½Â´ï¿½.
 		const char *		GetName(BYTE accel) const
 		{
 			if(accel >= MAX_ACCELERATOR)
@@ -100,8 +105,8 @@ class KeyAccelerator {
 
 
 	protected :
-		KEY_MAP				m_Keys;					// key¸¦ accelerator¿Í ¿¬°á
-		ACCELERATOR_VECTOR	m_Accelerators;			// accelerator¸¦ key¿Í ¿¬°á			
+		KEY_MAP				m_Keys;					// keyï¿½ï¿½ acceleratorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		ACCELERATOR_VECTOR	m_Accelerators;			// acceleratorï¿½ï¿½ keyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½			
 };
 
 extern KeyAccelerator*	g_pKeyAccelerator;

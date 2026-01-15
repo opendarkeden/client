@@ -285,3 +285,58 @@ bool CSpriteSurface::ClippingRectToPoint(RECT*& pRect, POINT*& pPoint)
 #include "CSpriteSurface_Adapter.cpp"
 
 #endif /* SPRITELIB_BACKEND_SDL */
+
+/* ============================================================================
+ * Lock/Unlock Methods (Stub implementations for compatibility)
+ * ============================================================================ */
+
+bool CSpriteSurface::LockSDL()
+{
+	/* Stub: For SDL backend, we don't need explicit locking
+	 * The spritectl_lock_surface is called internally when needed
+	 */
+	return true;
+}
+
+void CSpriteSurface::UnlockSDL()
+{
+	/* Stub: No explicit unlocking needed for SDL backend */
+}
+
+bool CSpriteSurface::IsLock()
+{
+	/* Stub: Surface is never in locked state in SDL backend */
+	return false;
+}
+
+/* ============================================================================
+ * Get Surface Info (for compatibility with Windows code)
+ * ============================================================================ */
+
+void CSpriteSurface::GetSurfaceInfo(S_SURFACEINFO* info)
+{
+	/* Fill surface info structure for SDL backend */
+	if (m_backend_surface == SPRITECTL_INVALID_SURFACE) {
+		info->p_surface = nullptr;
+		info->width = 0;
+		info->height = 0;
+		info->pitch = 0;
+		return;
+	}
+	
+	/* Lock surface to get info */
+	spritectl_surface_info_t sdl_info;
+	if (spritectl_lock_surface(m_backend_surface, &sdl_info) == 0) {
+		info->p_surface = sdl_info.pixels;
+		info->width = sdl_info.width;
+		info->height = sdl_info.height;
+		info->pitch = sdl_info.pitch;
+		spritectl_unlock_surface(m_backend_surface);
+	} else {
+		info->p_surface = nullptr;
+		info->width = m_width;
+		info->height = m_height;
+		info->pitch = m_width * 2; /* RGB565 = 2 bytes per pixel */
+	}
+}
+

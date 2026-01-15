@@ -31,6 +31,130 @@ if(BUILD_ENGINE)
 	add_subdirectory(engine/ui)
 endif()
 
+# ============================================================
+# VS_UI Library - UI System (按需编译必要的 Client 文件)
+# ============================================================
+if(USE_SDL_BACKEND OR NOT WIN32)
+	# VS_UI source files
+	file(GLOB_RECURSE VS_UI_SRC_SOURCES
+		VS_UI/src/*.cpp
+	)
+
+	# Exclude Windows-specific files
+	if(NOT WIN32)
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*Imm.*")
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*WinMain.*")
+	endif()
+
+	# Client files that VS_UI depends on (按需编译)
+	set(VS_UI_CLIENT_SOURCES
+		# Core
+		Client/Client.cpp
+		Client/ClientFunction.cpp
+
+		# Item System
+		Client/MItem.cpp
+		Client/MItemManager.cpp
+		Client/MItemOptionTable.cpp
+		Client/MMoneyManager.cpp
+
+		# Skill System
+		Client/MSkillManager.cpp
+		Client/SkillDef.cpp
+
+		# Gear System
+		Client/MSlayerGear.cpp
+		Client/MVampireGear.cpp
+		Client/MOustersGear.cpp
+		Client/MQuickSlot.cpp
+
+		# Inventory System
+		Client/MInventory.cpp
+		Client/MStorage.cpp
+		Client/MShopShelf.cpp
+
+		# Zone System
+		Client/MZone.cpp
+		Client/MZoneTable.cpp
+
+		# Player System
+		Client/MPlayer.cpp
+		Client/MCreatureTable.cpp
+		Client/MFakeCreature.cpp
+		Client/MNpcTable.cpp
+		Client/MNPCTable.cpp
+
+		# Social System
+		Client/MParty.cpp
+		Client/MGuildMarkManager.cpp
+		Client/MGuildInfoMapper.cpp
+
+		# Trade System
+		Client/MTradeManager.cpp
+		Client/MPriceManager.cpp
+		Client/MShop.cpp
+
+		# Game Data
+		Client/MGameStringTable.cpp
+		Client/ExperienceTable.cpp
+		Client/UserInformation.cpp
+		Client/SystemAvailabilities.cpp
+		Client/FameInfo.cpp
+		Client/DebugInfo.cpp
+		Client/ClientConfig.cpp
+		Client/UtilityFunction.cpp
+
+		# Events & Time
+		Client/MEventManager.cpp
+		Client/MGameTime.cpp
+		Client/MTimeItemManager.cpp
+
+		# UI Support
+		Client/MHelpMessageManager.cpp
+		Client/MSoundTable.cpp
+		Client/MMonsterKillQuestInfo.cpp
+
+		# Stubs
+		Client/Timer2.cpp
+	)
+
+	# Combine all sources
+	set(VS_UI_ALL_SOURCES ${VS_UI_SRC_SOURCES} ${VS_UI_CLIENT_SOURCES})
+
+	# Create VS_UI static library
+	add_library(VS_UI STATIC ${VS_UI_ALL_SOURCES})
+
+	# Include directories
+	target_include_directories(VS_UI PUBLIC
+		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI
+		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/header
+		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/widget
+		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/hangul
+		${CMAKE_CURRENT_SOURCE_DIR}/Client
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/SpriteLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
+		${CMAKE_CURRENT_SOURCE_DIR}
+	)
+
+	# Link libraries
+	target_link_libraries(VS_UI PUBLIC
+		basic
+		dxlib
+		SpriteLib
+		SDL2::SDL2
+		SDL2::SDL2main
+	)
+
+	# Platform-specific definitions
+	if(NOT WIN32)
+		target_compile_definitions(VS_UI PRIVATE PLATFORM_MACOS)
+	endif()
+
+	message(STATUS "VS_UI library will be built from ${VS_UI_SRC_SOURCES} VS_UI files + ${VS_UI_CLIENT_SOURCES} Client files")
+endif()
+
 if(BUILD_TESTS)
 	enable_testing()
 	add_subdirectory(tests)
@@ -43,44 +167,40 @@ endif()
 
 # Dark Eden Client Executable
 if(USE_SDL_BACKEND OR NOT WIN32)
-	# Collect all Client source files
-	file(GLOB_RECURSE CLIENT_SOURCES
+	# Collect remaining Client source files (excluding those already in VS_UI)
+	file(GLOB CLIENT_MAIN_SOURCES
 		Client/*.cpp
-		Client/*.h
 	)
 
-	# Collect VS_UI source files separately
-	file(GLOB VS_UI_SOURCES VS_UI/src/*.cpp)
+	# Remove files that are already compiled in VS_UI library
+	list(REMOVE_ITEM CLIENT_MAIN_SOURCES
+		${VS_UI_CLIENT_SOURCES}
+	)
 
-	# Combine source lists
-	list(APPEND CLIENT_SOURCES ${VS_UI_SOURCES})
-
-	# Exclude WinMain.cpp (standalone VS_UI program entry point)
-	# Build the full path that GLOB would have created
-	list(FILTER CLIENT_SOURCES EXCLUDE REGEX ".*WinMain\\.cpp")
-
-	# Exclude Windows-specific Immersion tactile feedback library on non-Windows platforms
+	# Exclude Windows-specific files
 	if(NOT WIN32)
-		list(FILTER CLIENT_SOURCES EXCLUDE REGEX ".*Imm.*")
-		# Exclude Direct3D files on non-Windows platforms (SDL2 backend used instead)
-		list(FILTER CLIENT_SOURCES EXCLUDE REGEX ".*D3D.*")
-		list(FILTER CLIENT_SOURCES EXCLUDE REGEX ".*Direct3.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*Imm.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*D3D.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*Direct3.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*GameMain.*")
 	endif()
 
 	# Add DarkEden executable
-	add_executable(DarkEden ${CLIENT_SOURCES})
+	add_executable(DarkEden ${CLIENT_MAIN_SOURCES})
 
 	# Set output directory
 	set_target_properties(DarkEden PROPERTIES
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 	)
 
-	# Link libraries
+	# Link libraries (now includes VS_UI)
 	target_link_libraries(DarkEden PRIVATE
 		SpriteLib
 		dxlib
 		basic
-		${SDL2_LIBRARIES}
+		VS_UI
+		SDL2::SDL2
+		SDL2::SDL2main
 	)
 
 	# Include directories
@@ -99,7 +219,6 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/widget
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/hangul
 		${CMAKE_CURRENT_SOURCE_DIR}/game/vs_ui
-		${SDL2_INCLUDE_DIRS}
 	)
 
 	# Add Immersion library include path only on Windows
@@ -115,7 +234,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		SPRITELIB_BACKEND_SDL
 	)
 
-	message(STATUS "DarkEden executable will be built from ${CLIENT_SOURCES_COUNT} source files")
+	message(STATUS "DarkEden executable will be built from remaining Client files (VS_UI compiled separately)")
 endif()
 
 # Print configuration summary

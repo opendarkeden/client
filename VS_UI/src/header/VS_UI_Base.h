@@ -302,10 +302,9 @@ private:
 
 	void	InitFont();
 	void	InitSurface(CSpriteSurface *surface);
-#ifdef PLATFORM_WINDOWS
+	// Font management methods - available on all platforms
 	void	SetDefaultLogfont(LOGFONT &lf) const;
 	void	SetFont(PrintInfo &pi, LOGFONT &lf, COLORREF textcolor, COLORREF backcolor=0, int bk_mode=TRANSPARENT, int align=TA_LEFT);
-#endif
 
 public:
 	Base();

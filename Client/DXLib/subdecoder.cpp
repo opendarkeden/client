@@ -1,5 +1,17 @@
+//----------------------------------------------------------------------
+// subdecoder.cpp
+//----------------------------------------------------------------------
+
+// Only compile MP3 decoder implementation on Windows platforms
+// On non-Windows platforms, MP3 support is not available
+#ifdef PLATFORM_WINDOWS
+
 #include "mp3.h"
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "huffman.h"
 #include <math.h>
 

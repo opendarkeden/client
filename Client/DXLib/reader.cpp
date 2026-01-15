@@ -1,3 +1,11 @@
+//----------------------------------------------------------------------
+// reader.cpp
+//----------------------------------------------------------------------
+
+// Only compile MP3 reader implementation on Windows platforms
+// On non-Windows platforms, MP3 support is not available
+#ifdef PLATFORM_WINDOWS
+
 #include "reader.h"
 #include "common.h"
 #ifdef PLATFORM_WINDOWS
@@ -281,3 +289,4 @@ int SetOffset(int offset)
 	fseek ( MP3File, offset, SEEK_SET ) ;
 	return 0 ;
 }
+#endif /* PLATFORM_WINDOWS */
