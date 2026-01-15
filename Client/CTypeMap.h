@@ -10,7 +10,7 @@
 #pragma warning(disable:4786)
 
 #include <map>
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 // CTypeMap (id, DataType*)의 map
@@ -39,8 +39,8 @@ class CTypeMap : public std::map<unsigned int, DataType*> {
 		//-----------------------------------------------------
 		// File I/O
 		//-----------------------------------------------------
-		virtual void		SaveToFile(class ofstream& file);
-		virtual void		LoadFromFile(class ifstream& file);
+		virtual void		SaveToFile(std::ofstream& file);
+		virtual void		LoadFromFile(std::ifstream& file);
 
 	protected :
 };
@@ -70,9 +70,9 @@ template <class DataType>
 void
 CTypeMap<DataType>::Release()
 {
-	TYPE_MAP::iterator iData = begin();
+	typename TYPE_MAP::iterator iData = this->begin();
 
-	while (iData != end())
+	while (iData != this->end())
 	{
 		DataType*	pData	= (*iData).second;		
 
@@ -81,7 +81,7 @@ CTypeMap<DataType>::Release()
 		iData ++;
 	}
 
-	clear();
+	this->clear();
 }
 
 //----------------------------------------------------------------------
@@ -91,9 +91,9 @@ template <class DataType>
 bool				
 CTypeMap<DataType>::AddData( unsigned int id, DataType* pData )
 {
-	TYPE_MAP::iterator	iData = find( id );
+	typename TYPE_MAP::iterator iData = this->find(id);
 
-	if (iData != end())
+	if (iData != this->end())
 	{
 		// 이미 있는 경우
 		// pData는 외부에서 지워줘야한다.
@@ -115,9 +115,9 @@ template <class DataType>
 DataType*	
 CTypeMap<DataType>::GetData( unsigned int id )
 {
-	TYPE_MAP::iterator	iData = find( id );
+	typename TYPE_MAP::iterator iData = this->find(id);
 
-	if (iData == end())
+	if (iData == this->end())
 	{
 		// 없는 경우 
 		return NULL;
@@ -134,9 +134,9 @@ template <class DataType>
 bool				
 CTypeMap<DataType>::RemoveData( unsigned int id )
 {
-	TYPE_MAP::iterator	iData = find( id );
+	typename TYPE_MAP::iterator iData = this->find(id);
 
-	if (iData == end())
+	if (iData == this->end())
 	{
 		// 없는 경우 
 		return false;
@@ -155,20 +155,20 @@ CTypeMap<DataType>::RemoveData( unsigned int id )
 //----------------------------------------------------------------------
 template <class DataType>
 void		
-CTypeMap<DataType>::SaveToFile(class ofstream& file)
+CTypeMap<DataType>::SaveToFile(ofstream& file)
 {
-	TYPE_MAP::iterator iData = begin();
+	typename TYPE_MAP::iterator iData = this->begin();
 
 	//-----------------------------------------------------
 	// 개수 저장
 	//-----------------------------------------------------
-	int infoSize = size();
+	int infoSize = this->size();
 	file.write((const char*)&infoSize, 4);
 
 	//-----------------------------------------------------
 	// 각 info 저장
 	//-----------------------------------------------------
-	while (iData != end())
+	while (iData != this->end())
 	{
 		unsigned int	id		= (*iData).first;
 		DataType*		pData	= (*iData).second;		
@@ -185,7 +185,7 @@ CTypeMap<DataType>::SaveToFile(class ofstream& file)
 //----------------------------------------------------------------------
 template <class DataType>
 void		
-CTypeMap<DataType>::LoadFromFile(class ifstream& file)
+CTypeMap<DataType>::LoadFromFile(ifstream& file)
 {
 	//-----------------------------------------------------
 	// 기존에 있던것 제거

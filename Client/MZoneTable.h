@@ -73,8 +73,8 @@ class ZONETABLE_INFO {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(class ofstream& file);		
-		void			LoadFromFile(class ifstream& file);		
+		void			SaveToFile(ofstream& file);		
+		void			LoadFromFile(ifstream& file);		
 };
 
 //----------------------------------------------------------------------
@@ -106,8 +106,8 @@ class CZoneTable {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void				SaveToFile(class ofstream& file);
-		void				LoadFromFile(class ifstream& file);
+		void				SaveToFile(ofstream& file);
+		void				LoadFromFile(ifstream& file);
 	
 	protected :
 		ZONEINFO_MAP		m_mapZoneInfo;		// zone정보 map

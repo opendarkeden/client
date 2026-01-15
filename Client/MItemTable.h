@@ -188,8 +188,8 @@ class ITEMTABLE_INFO {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(class ofstream& file);		
-		void			LoadFromFile(class ifstream& file);		
+		void			SaveToFile(ofstream& file);		
+		void			LoadFromFile(ifstream& file);		
 };
 
 
@@ -199,7 +199,7 @@ class ITEMTABLE_INFO {
 class ITEMTYPE_TABLE : public CTypeTable<ITEMTABLE_INFO>
 {
 public :
-	void	LoadFromFile(class ifstream& file);
+	void	LoadFromFile(ifstream& file);
 
 	int		GetAveragePrice() const	{ return m_AveragePrice; }
 

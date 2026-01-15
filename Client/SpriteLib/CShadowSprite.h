@@ -18,8 +18,6 @@
 #include "CSpriteDef.h"
 #include "CIndexSprite.h"
 #include "CSprite.h"
-std::ofstream;
-std::ifstream;
 
 
 //----------------------------------------------------------------------

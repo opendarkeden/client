@@ -14,10 +14,11 @@
 #ifndef	__MINTERACTIONOBJECT_H__
 #define	__MINTERACTIONOBJECT_H__
 
-class ofstream;
-class ifstream;
 #include "MTypeDef.h"
 #include "MAnimationObject.h"
+
+#include <fstream>
+using namespace std;
 
 
 //----------------------------------------------------------------------
@@ -50,8 +51,8 @@ class MInteractionObject : public MAnimationObject {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		virtual void	SaveToFile(class ofstream& file);
-		virtual void	LoadFromFile(class ifstream& file);
+		virtual void	SaveToFile(ofstream& file);
+		virtual void	LoadFromFile(ifstream& file);
 
 	public :
 		enum INTERACTIONOBJECT_TYPE 

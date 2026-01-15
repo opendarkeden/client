@@ -49,8 +49,6 @@
 #include <map>
 #include <vector>
 #include "MTypeDef.h"
-class ofstream;
-class ifstream;
 #include "MSector.h"
 class MObstacle;
 class MItem;
@@ -63,6 +61,9 @@ class CSpriteSetManager;
 #include "CPositionList.h"
 #include "ZoneFileHeader.h"
 #include "SoundNode.h"
+
+#include <fstream>
+using namespace std;
 
 struct UI_PORTAL_FLAG
 {
@@ -134,10 +135,10 @@ class MZone {
 		//--------------------------------------------------------------
 		// file I/O
 		//--------------------------------------------------------------		
-		bool		LoadFromFile(class ifstream& file);
+		bool		LoadFromFile(ifstream& file);
 
-		bool		SaveToFileSectorSound(class ofstream& file);
-		bool		LoadFromFileSectorSound(class ifstream& file);
+		bool		SaveToFileSectorSound(ofstream& file);
+		bool		LoadFromFileSectorSound(ifstream& file);
 
 		//--------------------------------------------------------------		
 		// Zone File Header 부분

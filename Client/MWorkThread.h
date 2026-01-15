@@ -86,8 +86,9 @@ static inline void DeleteCriticalSection(platform_mutex_t* mutex) {
 }
 
 // Stub for WaitForSingleObject - maps to event wait
-static inline DWORD WaitForSingleObject(platform_event_t event, DWORD timeout) {
-    if (platform_event_wait(event, timeout) == 0) {
+static inline DWORD WaitForSingleObject(HANDLE event, DWORD timeout) {
+    platform_event_t evt = (platform_event_t)event;
+    if (platform_event_wait(evt, timeout) == 0) {
         return WAIT_OBJECT_0;
     }
     return WAIT_TIMEOUT;

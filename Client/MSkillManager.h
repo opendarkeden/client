@@ -121,8 +121,9 @@
 #include "ExpInfo.h"
 #include "RaceType.h"
 
-class ifstream;
-class ofstream;
+#include <fstream>
+using namespace std;
+
 
 
 //----------------------------------------------------------------------
@@ -261,13 +262,13 @@ class SKILLINFO_NODE {
 		//------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(ofstream& file);
+		void		LoadFromFile(ifstream& file);
 
 		//------------------------------------------------------
 		// Load / Save SERVER_SKILLINFO
 		//------------------------------------------------------
-		void		LoadFromFileServerSkillInfo(class ifstream& file);
+		void		LoadFromFileServerSkillInfo(ifstream& file);
 		void        SaveFromFileServerSkillInfo(ofstream& file);
 
 	protected :
@@ -528,13 +529,13 @@ class MSkillDomain {
 		//------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(ofstream& file);
+		void		LoadFromFile(ifstream& file);
 
 		//------------------------------------------------------
 		// Load SERVER_SKILLINFO
 		//------------------------------------------------------
-		void		LoadFromFileServerDomainInfo(class ifstream& file);
+		void		LoadFromFileServerDomainInfo(ifstream& file);
 
 		//------------------------------------------------------
 		// Exp
@@ -601,8 +602,8 @@ class MSkillInfoTable : public CTypeTable<SKILLINFO_NODE> {
 		// 바뀌는 정보만 초기화
 		void			Init();
 
-		void			LoadFromFileServerSkillInfo(class ifstream& file);
-		void			SaveFromFileServerSkillInfo(class ofstream& file);
+		void			LoadFromFileServerSkillInfo(ifstream& file);
+		void			SaveFromFileServerSkillInfo(ofstream& file);
 };
 
 extern MSkillInfoTable*		g_pSkillInfoTable;
@@ -625,7 +626,7 @@ class MSkillManager : public CTypeTable<MSkillDomain>
 		//------------------------------------------------------
 		// Load SERVER_SKILLINFO
 		//------------------------------------------------------
-		void		LoadFromFileServerDomainInfo(class ifstream& file);
+		void		LoadFromFileServerDomainInfo(ifstream& file);
 };
 
 //----------------------------------------------------------------------

@@ -9,9 +9,10 @@
 #include <Windows.h>
 #else
 #include "../../basic/Platform.h"
+
+#include <fstream>
+using namespace std;
 #endif
-class ofstream;
-class ifstream;
 
 class ShowTimeChecker {
 	public :
@@ -26,8 +27,8 @@ class ShowTimeChecker {
 		//---------------------------------------------------------------
 		// File I/O
 		//---------------------------------------------------------------
-		void			SaveToFile(class ofstream& file);
-		void			LoadFromFile(class ifstream& file);
+		void			SaveToFile(ofstream& file);
+		void			LoadFromFile(ifstream& file);
 
 	public :
 		// 반복적인가?

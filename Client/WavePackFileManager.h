@@ -28,8 +28,8 @@ class WavePackFileInfo : public PackFileInfo {
 		WavePackFileInfo() {}
 		virtual ~WavePackFileInfo() {}
 
-		virtual bool			SaveToFileData(class ofstream& file);
-		LPDIRECTSOUNDBUFFER		LoadFromFileData(class ifstream& file);
+		virtual bool			SaveToFileData(ofstream& file);
+		LPDIRECTSOUNDBUFFER		LoadFromFileData(ifstream& file);
 };
 
 //--------------------------------------------------------------------------

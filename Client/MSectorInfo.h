@@ -11,8 +11,6 @@
 
 #pragma warning(disable:4786)
 
-class ofstream;
-class ifstream;
 
 #ifndef __GAME_CLIENT__
 	#include <vector>
@@ -48,8 +46,8 @@ class MSectorInfo {
 		//                  File I/O
 		//
 		//------------------------------------------------
-		void	SaveToFile(class ofstream& file);
-		void	LoadFromFile(class ifstream& file);
+		void	SaveToFile(ofstream& file);
+		void	LoadFromFile(ifstream& file);
 
 		//------------------------------------------------
 		// Safety

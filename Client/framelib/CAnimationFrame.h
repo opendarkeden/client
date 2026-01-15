@@ -28,8 +28,8 @@
 #include "../../basic/Platform.h"
 #endif
 #include "DrawTypeDef.h"
-class ofstream;
-class ifstream;
+#include <fstream>
+using namespace std;
 
 
 class CAnimationFrame {
@@ -51,8 +51,8 @@ class CAnimationFrame {
 		//--------------------------------------------------------
 		// file I/O
 		//--------------------------------------------------------
-		void	SaveToFile(class ofstream& file);
-		void	LoadFromFile(class ifstream& file);
+		void	SaveToFile(ofstream& file);
+		void	LoadFromFile(ifstream& file);
 
 		//-------------------------------------------------------
 		// 출력 방식

@@ -48,8 +48,8 @@ class TArray {
 		//--------------------------------------------------------
 		// File I/O
 		//--------------------------------------------------------
-		bool		SaveToFile(class ofstream& file);
-		bool		LoadFromFile(class ifstream& file);
+		bool		SaveToFile(ofstream& file);
+		bool		LoadFromFile(ifstream& file);
 
 		//--------------------------------------------------------
 		// Operator overloading
@@ -196,7 +196,7 @@ TArray<DataType, SizeType>::operator += (const TArray<DataType, SizeType>& array
 //----------------------------------------------------------------------
 template <class DataType, class SizeType> 
 bool
-TArray<DataType, SizeType>::SaveToFile(class ofstream& file)
+TArray<DataType, SizeType>::SaveToFile(ofstream& file)
 {
 	// 0이라도 개수는 저장한다.
 	file.write((const char*)&m_Size, s_SIZEOF_SizeType);
@@ -216,7 +216,7 @@ TArray<DataType, SizeType>::SaveToFile(class ofstream& file)
 //----------------------------------------------------------------------
 template <class DataType, class SizeType> 
 bool
-TArray<DataType, SizeType>::LoadFromFile(class ifstream& file)
+TArray<DataType, SizeType>::LoadFromFile(ifstream& file)
 {
 	// frame 개수
 	file.read((char*)&m_Size, s_SIZEOF_SizeType);

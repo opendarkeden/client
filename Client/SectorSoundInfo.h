@@ -9,8 +9,9 @@
 
 #include "MTypeDef.h"
 #include <list>
-class ofstream;
-class ifstream;
+
+#include <fstream>
+using namespace std;
 
 
 //----------------------------------------------------------------------
@@ -53,8 +54,8 @@ class SECTORSOUND_INFO
 					||	Y!=info.Y;
 		}
 
-		void	SaveToFile(class ofstream& file) const;
-		void	LoadFromFile(class ifstream& file);
+		void	SaveToFile(ofstream& file) const;
+		void	LoadFromFile(ifstream& file);
 };
 
 

@@ -88,7 +88,7 @@ class CREATURESPRITETABLE_INFO {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void				SaveToFile(class ofstream& file);
+		void				SaveToFile(ofstream& file);
 		void				LoadFromFile(ifstream& file);	
 };
 

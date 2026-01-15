@@ -62,8 +62,9 @@
 #include "MObject.h"
 #include "MEffectTarget.h"
 
-class ofstream;
-class ifstream;
+#include <fstream>
+using namespace std;
+
 
 
 extern DWORD	g_CurrentFrame;

@@ -6,7 +6,7 @@
 	file base:	CSystemInfo
 	file ext:	cpp
 	author:		sonee
-	
+
 	purpose:	시스템 정보를 알아낸다.
 				2003-10-17		CPU Clock 얻어오기
 								MMX,SSE2 테크놀러지 Enable 여부
@@ -16,19 +16,21 @@
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
 #else
-#include "../../basic/Platform.h"
+#include "../basic/Platform.h"
 #endif
 #include "CSystemInfo.h"
+
+#ifdef PLATFORM_WINDOWS
 
 #pragma warning( disable : 4035 )		// disable 시켜버리자-_-;
 #pragma warning( disable: 4800 ) //'int' : forcing value to bool 'true' or 'false' (performance warning)
 
 inline unsigned __int64 theCycleCount(void)
 {
-    
+
     _asm    _emit 0x0F
     _asm    _emit 0x31
-    
+
     // -_- return 은 없지만 _emits 는 __int64를 리턴합니다-_-;
 }
 
@@ -365,3 +367,50 @@ bool CSystemInfo::CheckHyperThreadTechnology()
 
 	return false;  // This is not a genuine Intel processor.
 }
+#else
+// Non-Windows platforms (macOS/Linux) - Stub implementations
+
+inline uint64_t theCycleCount(void)
+{
+    // Stub implementation - return 0
+    return 0;
+}
+
+static bool cpuid(unsigned long function, unsigned long& out_eax, unsigned long& out_ebx, unsigned long& out_ecx, unsigned long& out_edx)
+{
+    // Stub implementation - assume no special CPU features
+    out_eax = out_ebx = out_ecx = out_edx = 0;
+    return false;
+}
+
+long CSystemInfo::GetCpuClock()
+{
+    // Stub implementation - return a reasonable default
+    return 2000; // Assume 2 GHz
+}
+
+bool CSystemInfo::CheckMMXTechnology()
+{
+    // Stub implementation - assume MMX is available on modern systems
+    return true;
+}
+
+bool CSystemInfo::CheckSSETechnology()
+{
+    // Stub implementation - assume SSE is available on modern systems
+    return true;
+}
+
+bool CSystemInfo::CheckSSE2Technology()
+{
+    // Stub implementation - assume SSE2 is available on modern systems
+    return true;
+}
+
+bool CSystemInfo::CheckHyperThreadTechnology()
+{
+    // Stub implementation - assume no hyperthreading
+    return false;
+}
+
+#endif // PLATFORM_WINDOWS

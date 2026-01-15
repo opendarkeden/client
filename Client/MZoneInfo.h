@@ -38,8 +38,8 @@ class MZoneInfo {
 		//                  File I/O
 		//
 		//------------------------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(ofstream& file);
+		void		LoadFromFile(ifstream& file);
 
 		//------------------------------------------------------------------
 		// Safety

@@ -64,8 +64,8 @@
 #include "SpriteLibBackend.h"
 #endif
 
-std::ofstream;
-std::ifstream;
+#include <fstream>
+using namespace std;
 
 //-----------------------------------------------------------------------------
 // Defines

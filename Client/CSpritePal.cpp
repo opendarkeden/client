@@ -5,8 +5,6 @@
 #include <vector>
 #include <fstream>
 
-using namespace std;
-
 MPalette::MPalette()
 {
 	m_Size = 0;
@@ -51,7 +49,7 @@ void MPalette::operator = (const MPalette& pal)
 
 
 // file save는 565를 기준으로 한다.
-bool MPalette555::LoadFromFile(ifstream &file)
+bool MPalette555::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
@@ -69,7 +67,7 @@ bool MPalette555::LoadFromFile(ifstream &file)
 }
 
 // file save는 565를 기준으로 한다.
-bool MPalette555::SaveToFile(ofstream &file)
+bool MPalette555::SaveToFile(std::ofstream &file)
 {
 	file.write((const char *)&m_Size, 1);
 	
@@ -85,7 +83,7 @@ bool MPalette555::SaveToFile(ofstream &file)
 	return true;
 }
 
-bool MPalette565::LoadFromFile(ifstream &file)
+bool MPalette565::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
@@ -101,7 +99,7 @@ bool MPalette565::LoadFromFile(ifstream &file)
 	return true;
 }
 
-bool MPalette565::SaveToFile(ofstream &file)
+bool MPalette565::SaveToFile(std::ofstream &file)
 {
 	file.write((const char *)&m_Size, 1);
 	
@@ -152,7 +150,7 @@ void MPalettePack::Init(WORD size, bool b565)
 
 bool MPalettePack::LoadFromFile(LPCTSTR lpszFilename, bool b565)
 {
-	ifstream file(lpszFilename, ios::binary);
+	std::ifstream file(lpszFilename, std::ios::binary);
 	bool re = LoadFromFile(file, b565);
 	file.close();
 	
@@ -161,14 +159,14 @@ bool MPalettePack::LoadFromFile(LPCTSTR lpszFilename, bool b565)
 
 bool MPalettePack::SaveToFile(LPCTSTR lpszFilename)
 {
-	ofstream file(lpszFilename, ios::binary);
+	std::ofstream file(lpszFilename, std::ios::binary);
 	bool re = SaveToFile(file);
 	file.close();
 	
 	return re;
 }
 
-bool MPalettePack::LoadFromFile(ifstream &file, bool b565)
+bool MPalettePack::LoadFromFile(std::ifstream &file, bool b565)
 {
 	Release();
 	
@@ -184,7 +182,7 @@ bool MPalettePack::LoadFromFile(ifstream &file, bool b565)
 	return true;
 }
 
-bool MPalettePack::SaveToFile(ofstream &file)
+bool MPalettePack::SaveToFile(std::ofstream &file)
 {
 	DWORD flag = 0;
 	
@@ -415,7 +413,7 @@ void CSpritePal::Blt(int x, int y, WORD* pDest, int pitch, MPalette &pal)
 	}
 }
 
-bool CSpritePal::LoadFromFile(ifstream &file)
+bool CSpritePal::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
@@ -454,7 +452,7 @@ bool CSpritePal::LoadFromFile(ifstream &file)
 	return true;
 }
 
-bool CSpritePal::SaveToFile(ofstream &file)
+bool CSpritePal::SaveToFile(std::ofstream &file)
 {
 	if(IsNotInit())
 	{
@@ -553,7 +551,7 @@ void CSpritePalPack::Init(WORD size)
 
 bool CSpritePalPack::LoadFromFile(LPCTSTR lpszFilename)
 {
-	ifstream file(lpszFilename, ios::binary);
+	std::ifstream file(lpszFilename, std::ios::binary);
 	bool re = LoadFromFile(file);
 	file.close();
 
@@ -562,7 +560,7 @@ bool CSpritePalPack::LoadFromFile(LPCTSTR lpszFilename)
 
 bool CSpritePalPack::SaveToFile(LPCTSTR lpszFilename)
 {
-	ofstream file(lpszFilename, ios::binary);
+	std::ofstream file(lpszFilename, std::ios::binary);
 	bool re = SaveToFile(file);
 	file.close();
 
@@ -570,7 +568,7 @@ bool CSpritePalPack::SaveToFile(LPCTSTR lpszFilename)
 }
 
 
-bool CSpritePalPack::LoadFromFile(ifstream &file)
+bool CSpritePalPack::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
@@ -588,7 +586,7 @@ bool CSpritePalPack::LoadFromFile(ifstream &file)
 	return true;
 }
 
-bool CSpritePalPack::SaveToFile(ofstream &file)
+bool CSpritePalPack::SaveToFile(std::ofstream &file)
 {
 	file.write((const char *)&m_Size, 2);
 	WORD realSize = m_Size;

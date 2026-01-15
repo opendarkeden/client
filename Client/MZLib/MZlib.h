@@ -14,8 +14,9 @@
 #endif
 #include <list>
 #include "MString.h"
-class ifstream;
-class ofstream;
+
+#include <fstream>
+using namespace std;
 
 #define MZLIB_HEADER_SIZE	10
 
@@ -35,8 +36,8 @@ class MFileInfo {
 		long			GetStartBuffer() const	{ return m_StartBuffer; }
 		long			GetCompressSize() const	{ return m_CompressSize; }
 
-		void			SaveToFile(class ofstream& file);
-		void			LoadFromFile(class ifstream& file);
+		void			SaveToFile(ofstream& file);
+		void			LoadFromFile(ifstream& file);
 
 	protected :
 		MString			m_Filename;
@@ -67,13 +68,13 @@ class MZLib {
 		static void			ReleasePackBuffer();
 		static void			ReleaseFileBuffer();
 		static bool			ReadBufferFromFile(const char* filename);
-		static void			WriteBufferToFile(class ofstream& packFile, long bytes);
-		static void			ReadBufferFromFile(class ifstream& packFile, long bytes);
+		static void			WriteBufferToFile(ofstream& packFile, long bytes);
+		static void			ReadBufferFromFile(ifstream& packFile, long bytes);
 
 		void				ReleaseFileInfo();
 		void				AddFileInfo(MFileInfo* pInfo);
-		void				WriteFileInfoToFile(class ofstream& packFile);
-		bool				ReadFileInfoFromFile(class ifstream& packFile);
+		void				WriteFileInfoToFile(ofstream& packFile);
+		bool				ReadFileInfoFromFile(ifstream& packFile);
 
 	protected :
 		FILEINFO_LIST		m_listFileInfo;

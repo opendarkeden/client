@@ -9,10 +9,10 @@
 
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#include <MMSystem.h>
 #else
 #include "../../basic/Platform.h"
 #endif
-#include <MMSystem.h>
 
 class CWinUpdate {
 	public :

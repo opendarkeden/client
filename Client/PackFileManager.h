@@ -50,9 +50,9 @@ class PackFileInfo {
 		//-------------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------------
-		virtual void		SaveToFile(class ofstream& file);
-		virtual void		LoadFromFile(class ifstream& file);
-		virtual bool		SaveToFileData(class ofstream& file);
+		virtual void		SaveToFile(ofstream& file);
+		virtual void		LoadFromFile(ifstream& file);
+		virtual bool		SaveToFileData(ofstream& file);
 
 	protected :
 		DWORD				m_ID;			// ID
@@ -92,8 +92,8 @@ class PackFileManager {
 		// Load Data
 		//---------------------------------------------------------------
 		void				SetDataFilename(const char* pFilename)	{ m_DataFilename = pFilename; }
-		bool				GetInputFileStream(const char* pFilename, class ifstream& file) const;
-		bool				GetInputFileStream(DWORD id, class ifstream& file) const;
+		bool				GetInputFileStream(const char* pFilename, ifstream& file) const;
+		bool				GetInputFileStream(DWORD id, ifstream& file) const;
 
 		//---------------------------------------------------------------
 		// Merge
@@ -450,7 +450,7 @@ PackFileManager<FileInfoType>::SaveToFileData(const char* pFilename)
 //--------------------------------------------------------------------------
 template <class FileInfoType>
 bool
-PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, class ifstream& file) const
+PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, ifstream& file) const
 {
 	if (m_DataFilename.c_str()==NULL 
 		|| pFilename==NULL)
@@ -479,7 +479,7 @@ PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, class i
 //--------------------------------------------------------------------------
 template <class FileInfoType>
 bool
-PackFileManager<FileInfoType>::GetInputFileStream(DWORD id, class ifstream& file) const
+PackFileManager<FileInfoType>::GetInputFileStream(DWORD id, ifstream& file) const
 {
 	if (m_DataFilename.c_str()==NULL)
 	{

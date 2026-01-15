@@ -21,7 +21,7 @@ public :
 	//------------------------------------------------------------------
 	long			GetCpuClock();
 	bool			CheckMMXTechnology();
-//	bool			CheckSSETechnology();				// VC7 부터 지원.
+	bool			CheckSSETechnology();
 	bool			CheckSSE2Technology();
 	bool			Check3DNowTechnology();
 	bool			CheckHyperThreadTechnology();

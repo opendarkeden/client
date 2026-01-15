@@ -10,8 +10,9 @@
 #include "CTypeTable.h"
 #include "MTypeDef.h"
 #include "MString.h"
-class ofstream;
-class ifstream;
+
+#include <fstream>
+using namespace std;
 
 //#define	MAX_PARTNAME_LENGTH		48
 #define UNIQUE_ITEM_COLOR		0xffff
@@ -50,8 +51,8 @@ class ITEMOPTION_INFO {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(class ofstream& file);		
-		void			LoadFromFile(class ifstream& file);		
+		void			SaveToFile(ofstream& file);		
+		void			LoadFromFile(ifstream& file);		
 };
 
 
@@ -117,7 +118,7 @@ public:
 	MString ITEMOPTION_PARTENAME[MAX_PART];
 		
 
-	void	LoadFromFile(class ifstream& file);
+	void	LoadFromFile(ifstream& file);
 };
 
 extern	ITEMOPTION_TABLE*		g_pItemOptionTable;

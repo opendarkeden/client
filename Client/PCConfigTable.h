@@ -31,8 +31,9 @@
 #endif
 #include <map>
 #include <string>
-class ofstream;
-class ifstream;
+
+#include <fstream>
+using namespace std;
 
 /*
 class CharacterConfig {
@@ -67,8 +68,8 @@ class PlayerConfig {
 		//--------------------------------------------------------
 		// File I/O
 		//--------------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(ofstream& file);
+		void		LoadFromFile(ifstream& file);
 
 	protected :
 		std::string	m_PlayerID;
@@ -103,8 +104,8 @@ class PlayerConfigTable : public std::map<std::string, PlayerConfig*> {
 		//--------------------------------------------------------
 		// File I/O
 		//--------------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(ofstream& file);
+		void		LoadFromFile(ifstream& file);
 
 };
 

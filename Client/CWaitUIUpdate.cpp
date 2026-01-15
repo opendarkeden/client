@@ -11,10 +11,10 @@
 //-----------------------------------------------------------------------------
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#include <MMSystem.h>
 #else
 #include "../../basic/Platform.h"
 #endif
-#include <MMSystem.h>
 #include <string>
 #include "Client.h"
 #include "GameObject.h"

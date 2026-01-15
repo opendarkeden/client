@@ -748,8 +748,10 @@ class MTopView : public MRequestMode {
 		//CTexturePack				m_EffectTPK;
 		//CTexturePack				m_CreatureTPK;
 		//CTexturePack				m_ShadowTPK;	// for test
-	
+
+#ifdef PLATFORM_WINDOWS
 		CD3DTextureEffect			m_TextureEffect;
+#endif
 		
 		//------------------------------------------------------
 		// 출력할 String을 기억..

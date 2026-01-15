@@ -7,7 +7,7 @@
 #ifndef	__CWAITPACKETUPDATE_H__
 #define	__CWAITPACKETUPDATE_H__
 
-#include "CWinUpdate.h"
+#include "WinLib/CWinUpdate.h"
 
 class CWaitPacketUpdate : public CWinUpdate {
 	public :

@@ -7,6 +7,8 @@
 #include "../../basic/Platform.h"
 #endif
 #include "CTypeTable.h"
+#include <fstream>
+using namespace std;
 
 class MPalette
 {
@@ -35,8 +37,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	virtual bool	SaveToFile(class ofstream& file) = 0;
-	virtual bool	LoadFromFile(class ifstream& file) = 0;		
+	virtual bool	SaveToFile(ofstream& file) = 0;
+	virtual bool	LoadFromFile(ifstream& file) = 0;		
 
 protected:
 	WORD *		m_pColor;
@@ -49,8 +51,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(ifstream &file);
+	bool SaveToFile(ofstream &file);
 };
 
 class MPalette565 : public MPalette
@@ -59,8 +61,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(ifstream &file);
+	bool SaveToFile(ofstream &file);
 };
 
 class MPalettePack
@@ -89,8 +91,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file, bool b565 = true);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(ifstream &file, bool b565 = true);
+	bool SaveToFile(ofstream &file);
 
 	bool LoadFromFile(LPCTSTR lpszFilename, bool b565 = true);
 	bool SaveToFile(LPCTSTR lpszFilename);
@@ -125,8 +127,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(ifstream &file);
+	bool SaveToFile(ofstream &file);
 
 	//--------------------------------------------------------
 	// Get Functions
@@ -189,8 +191,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(class ifstream &file);
-	bool SaveToFile(class ofstream &file);
+	bool LoadFromFile(ifstream &file);
+	bool SaveToFile(ofstream &file);
 	
 	bool LoadFromFile(LPCTSTR lpszFilename);
 	bool SaveToFile(LPCTSTR lpszFilename);

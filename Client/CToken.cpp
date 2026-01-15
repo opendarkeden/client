@@ -114,7 +114,7 @@ CToken::GetEnd()
 void
 CToken::SkipSpace()
 {
-	while (m_pCurrent!=NULL && m_pCurrent!='\0' && *m_pCurrent == ' ')
+	while (m_pCurrent!=NULL && *m_pCurrent!='\0' && *m_pCurrent == ' ')
     {
         m_pCurrent += 1;
     }

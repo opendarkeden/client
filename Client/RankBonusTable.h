@@ -12,8 +12,9 @@
 #include "MString.h"
 #include "RaceType.h"
 
-class ifstream;
-class ofstream;
+#include <fstream>
+using namespace std;
+
 
 //---------------------------------------------------------------------------------
 // RankBonus Info
@@ -50,10 +51,10 @@ class RankBonusInfo {
 
 	public :
 		RankBonusInfo();
-		void		LoadFromFile(class ifstream& file);		
+		void		LoadFromFile(ifstream& file);		
 
 #ifndef __GAME_CLIEMT__
-		void		SaveToFile(class ofstream& file);
+		void		SaveToFile(ofstream& file);
 #endif
 
 	private:

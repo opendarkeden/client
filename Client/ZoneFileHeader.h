@@ -12,8 +12,9 @@
 #endif
 #include "MString.h"
 #include "MZoneDef.h"
-class ifstream;
-class ofstream;
+
+#include <fstream>
+using namespace std;
 
 //----------------------------------------------------------------------
 // FILEINFO_ZONE_HEADER
@@ -49,8 +50,8 @@ public :
 		ZoneVersion = MAP_VERSION_2000_05_10;
 	}
 
-	void		SaveToFile(class ofstream& file);
-	void		LoadFromFile(class ifstream& file);
+	void		SaveToFile(ofstream& file);
+	void		LoadFromFile(ifstream& file);
 
 };
 

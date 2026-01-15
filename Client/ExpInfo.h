@@ -9,7 +9,9 @@
 #define __EXPINFO_H__
 
 #include "CTypeTable.h"
-class ifstream;
+
+#include <fstream>
+using namespace std;
 
 //---------------------------------------------------------------------------------
 // Exp Info
@@ -21,7 +23,7 @@ class ExpInfo {
 		unsigned int		AccumExp;		// 그 레벨에서 다음레벨로 가기위한 총 경험치.
 
 	public :
-		void				LoadFromFile(class ifstream& file);		
+		void				LoadFromFile(ifstream& file);		
 };
 
 //---------------------------------------------------------------------------------

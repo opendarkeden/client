@@ -25,11 +25,12 @@
 
 #pragma warning(disable:4786)
 
-#include "CtypeMap.h"
+#include "CTypeMap.h"
 #include <list>
-class ofstream;
-class ifstream;
 #include "MString.h"
+
+#include <fstream>
+using namespace std;
 
 //----------------------------------------------------------------------
 // NPC_INFO
@@ -53,8 +54,8 @@ class NPC_INFO {
 		//-----------------------------------------------------
 		// File I/O
 		//-----------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(ofstream& file);
+		void		LoadFromFile(ifstream& file);
 };
 
 //----------------------------------------------------------------------
@@ -86,8 +87,8 @@ class	SERVERNPC_INFO {
 		//-----------------------------------------------------
 		// File I/O
 		//-----------------------------------------------------
-		void		SaveToFile(class ofstream& file);
-		void		LoadFromFile(class ifstream& file);
+		void		SaveToFile(ofstream& file);
+		void		LoadFromFile(ifstream& file);
 };
 
 
