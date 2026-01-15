@@ -12,7 +12,9 @@
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
 #else
-#include "../../basic/Platform.h"
+#include "../basic/Platform.h"
+#include <fstream>
+using namespace std;
 #endif
 #include "DebugInfo.h"
 
@@ -220,7 +222,9 @@ extern int				g_MaxNPC;
 extern bool				g_bHAL;
 extern bool				g_bMusicSW;
 
+#ifdef PLATFORM_WINDOWS
 extern CWinUpdate*				g_pUpdate;
+#endif
 
 
 
@@ -300,7 +304,7 @@ void		SetWeather(int weather, int level);
 void		SetLightning(DWORD delay);
 
 // file열기
-bool		FileOpenBinary(const char* filename, class ifstream& file);
+bool		FileOpenBinary(const char* filename, ifstream& file);
 
 // 2004, 3, 29 sobeit add start
 void		Add_GDR_Ghost(int ZoneID);

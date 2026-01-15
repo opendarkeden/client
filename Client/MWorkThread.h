@@ -55,14 +55,50 @@
 #include <Windows.h>
 #else
 #include "../basic/Platform.h"
+
 // Type definitions for thread function pointer
 typedef DWORD (*LPTHREAD_START_ROUTINE)(void* lpParameter);
+
+// Thread priority constants
+#define THREAD_PRIORITY_NORMAL          0
+#define THREAD_PRIORITY_ABOVE_NORMAL    1
+#define THREAD_PRIORITY_BELOW_NORMAL   -1
+#define THREAD_PRIORITY_HIGHEST          2
+#define THREAD_PRIORITY_LOWEST          -2
+
+// Wait constants
+#define WAIT_OBJECT_0                   0
+#define WAIT_TIMEOUT                    258
 
 // CRITICAL_SECTION mapping to platform mutex
 #define CRITICAL_SECTION platform_mutex_t
 #define EnterCriticalSection(mutex) platform_mutex_lock(*(mutex))
 #define LeaveCriticalSection(mutex) platform_mutex_unlock(*(mutex))
-// InitializeCriticalSection and DeleteCriticalSection will need to be handled in implementation
+
+// Stub for InitializeCriticalSection
+static inline void InitializeCriticalSection(platform_mutex_t* mutex) {
+    *mutex = platform_mutex_create(0);
+}
+
+// Stub for DeleteCriticalSection
+static inline void DeleteCriticalSection(platform_mutex_t* mutex) {
+    platform_mutex_close(*mutex);
+}
+
+// Stub for WaitForSingleObject - maps to event wait
+static inline DWORD WaitForSingleObject(platform_event_t event, DWORD timeout) {
+    if (platform_event_wait(event, timeout) == 0) {
+        return WAIT_OBJECT_0;
+    }
+    return WAIT_TIMEOUT;
+}
+
+// Stub for SetThreadPriority (not implemented on non-Windows)
+static inline BOOL SetThreadPriority(platform_thread_t thread, int priority) {
+    (void)thread; (void)priority;
+    return TRUE;
+}
+
 #endif
 
 #include <deque>

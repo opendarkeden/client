@@ -17,7 +17,7 @@
 //#define	new			DEBUG_NEW
 //#define	delete		DEBUG_DELETE
 
-extern bool FileOpenBinary(const char* filename, std::ifstream& fil);
+extern bool FileOpenBinary(const char* filename, ifstream& fil);
 
 extern bool		g_bZonePlayerInLarge;
 

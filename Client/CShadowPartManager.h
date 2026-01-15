@@ -18,9 +18,11 @@
 #include "CSpriteSurface.h"
 #include "DrawTypeDef.h"
 #include <list>
+#include <fstream>
 #include "CShadowSprite.h"
-class ifstream;
 class CFileIndexTable;
+
+using namespace std;
 
 // <전체개수, 사용개수, 사용Data>
 class CShadowPartManager : public CPartManager<WORD, WORD, CSpriteSurface*>
