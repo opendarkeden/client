@@ -9,7 +9,40 @@
 #define	D3D_OVERLOADS
 #endif
 
-#include <D3D.h>
+#ifdef PLATFORM_WINDOWS
+	#include <D3D.h>
+#else
+	// For non-Windows platforms, provide basic type definitions
+	// Basic types
+	typedef float FLOAT;
+	typedef float D3DVALUE;
+	typedef int BOOL;
+	// DWORD is already defined in Platform.h
+
+	// Basic D3D types
+	typedef struct _D3DVECTOR { D3DVALUE x; D3DVALUE y; D3DVALUE z; } D3DVECTOR, *LPD3DVECTOR;
+
+	// D3D Matrix (4x4)
+	typedef struct _D3DMATRIX {
+		D3DVALUE _11, _12, _13, _14;
+		D3DVALUE _21, _22, _23, _24;
+		D3DVALUE _31, _32, _33, _34;
+		D3DVALUE _41, _42, _43, _44;
+	} D3DMATRIX, *LPD3DMATRIX;
+
+	// D3D Vertex types
+	typedef struct _D3DVERTEX {
+		D3DVECTOR x, y, z;
+		D3DVECTOR nx, ny, nz;
+		D3DVALUE tu, tv;
+	} D3DVERTEX, *LPD3DVERTEX;
+
+	typedef struct _D3DTLVERTEX {
+		D3DVALUE sx, sy, sz, rhw;
+		D3DVALUE color, specular;
+		D3DVALUE tu, tv;
+	} D3DTLVERTEX, *LPD3DTLVERTEX;
+#endif
 
 //-----------------------------------------------------------------------------
 // Useful Math constants

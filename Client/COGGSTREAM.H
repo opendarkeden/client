@@ -14,7 +14,7 @@
 #ifdef PLATFORM_WINDOWS
 #include <dsound.h>
 #else
-#include "../../basic/Platform.h"
+#include "../basic/Platform.h"
 #include <string.h>
 
 /* Forward declarations */
@@ -23,13 +23,16 @@ struct IDirectSoundBuffer;
 struct IDirectSoundNotify;
 typedef struct IDirectSound* LPDIRECTSOUND;
 
-/* GUID type */
+/* GUID type - only define if not already defined */
+#ifndef GUID_DEFINED
+#define GUID_DEFINED
 typedef struct _GUID {
     DWORD Data1;
     WORD  Data2;
     WORD  Data3;
     BYTE  Data4[8];
 } GUID;
+#endif
 
 /* IID type (same as GUID) */
 typedef GUID IID;
@@ -39,7 +42,9 @@ typedef GUID IID;
 #define SIZE_T size_t
 #endif
 
-/* WAVE format structure */
+/* WAVE format structure - only define if not already defined */
+#ifndef WAVEFORMATEX_DEFINED
+#define WAVEFORMATEX_DEFINED
 typedef struct _WAVEFORMATEX {
     WORD    wFormatTag;
     WORD    nChannels;
@@ -49,6 +54,7 @@ typedef struct _WAVEFORMATEX {
     WORD    wBitsPerSample;
     WORD    cbSize;
 } WAVEFORMATEX, *LPWAVEFORMATEX;
+#endif
 
 /* DSBUFFERDESC structure */
 typedef struct _DSBUFFERDESC {
@@ -77,7 +83,7 @@ extern const IID IID_IDirectSound;
 /* COM initialization functions (stubs for non-Windows) */
 static inline HRESULT CoInitialize(void* pvReserved) { (void)pvReserved; return 0; }
 static inline void CoUninitialize() {}
-static inline void ZeroMemory(void* ptr, SIZE_T size) { memset(ptr, 0, size); }
+/* ZeroMemory is defined as a macro in CDirectDraw.h, don't redefine here */
 
 #endif
 

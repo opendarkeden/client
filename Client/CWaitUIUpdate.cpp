@@ -131,7 +131,7 @@ CWaitUIUpdate::DXMouseEvent(CDirectInput::E_MOUSE_EVENT event, int x, int y, int
 	{
 		case CDirectInput::LEFTDOWN:
 			//  double-click interval?
-			if ((DWORD)abs(GetTickCount() - last_click_time) <= g_double_click_time)
+			if ((DWORD)labs((long)(GetTickCount() - last_click_time)) <= g_double_click_time)
 			{
 				if (g_x>= double_click_x-1 && g_x <= double_click_x+1 &&
 					 g_y>= double_click_y-1 && g_y <= double_click_y+1)
@@ -701,7 +701,7 @@ CWaitUIUpdate::UpdateDraw()
 
 		if(g_TitleSpriteAlpha > 0)
 		{
-			g_TitleSpriteAlpha = max(0, 31-(timeGetTime()-oldTime)*16/1000);
+			g_TitleSpriteAlpha = std::max(0, (int)(31-(timeGetTime()-oldTime)*16/1000));
 			DrawTitleLoading();
 
 			if(g_TitleSpriteAlpha <= 0)

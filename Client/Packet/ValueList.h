@@ -90,7 +90,7 @@ void ValueList<T>::write ( SocketOutputStream & oStream )
 	BYTE numValue = m_Values.size();
 	oStream.write( numValue );
 
-	std::list<T>::const_iterator itr = m_Values.begin();
+	typename std::list<T>::const_iterator itr = m_Values.begin();
     for (; itr!= m_Values.end(); itr++) 
 	{
 		oStream.write( *itr );

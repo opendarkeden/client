@@ -68,7 +68,9 @@ APICheck _APICheck;
 #include "UIDialog.h"
 #include "Updater/UpdateManager.h"
 #include "MZLib/MZlib.h"
+#ifdef PLATFORM_WINDOWS
 #include <Commctrl.h>
+#endif
 #include "AppendPatchInfo.h"
 #include "EffectSpriteTypeDef.h"
 //#include "MFileDef.h"
@@ -384,7 +386,9 @@ HRESULT InitFail(LPCTSTR szError,...)
 	DEBUG_ADD( szBuff );
 //add by sonic 2006.4.11
     //MessageBox(g_hWnd, szBuff, PROGRAM_TITLE, MB_OK);
+#ifdef PLATFORM_WINDOWS
     DestroyWindow(g_hWnd);
+#endif
     va_end(vl);
 //end 
 
@@ -407,7 +411,9 @@ RemoveProgressBar()
 {
 	if (g_hWndProgress!=NULL)
 	{
-		DestroyWindow(g_hWndProgress); 
+#ifdef PLATFORM_WINDOWS
+		DestroyWindow(g_hWndProgress);
+#endif
 		g_hWndProgress = NULL;
 	}
 }

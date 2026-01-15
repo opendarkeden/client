@@ -166,22 +166,28 @@ void CSpriteSurface::Line(int x1, int y1, int x2, int y2, WORD color)
  * Stub Implementations (TODO)
  * ============================================================================ */
 
-void CSpriteSurface::BltHalf(POINT* pPoint, class CDirectDrawSurface* SourceSurface, RECT* pRect)
+void CSpriteSurface::BltHalf(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect)
 {
 	/* TODO: Implement */
 }
 
-void CSpriteSurface::BltDarkness(POINT* pPoint, class CDirectDrawSurface* SourceSurface, RECT* pRect, BYTE DarkBits)
+void CSpriteSurface::BltNoColorkey(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect)
+{
+	/* TODO: Implement BltNoColorkey for SDL backend */
+	// Stub: Currently not implemented for SDL backend
+}
+
+void CSpriteSurface::BltDarkness(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect, BYTE DarkBits)
 {
 	/* TODO: Implement */
 }
 
-void CSpriteSurface::BltBrightness(POINT* pPoint, class CDirectDrawSurface* SourceSurface, RECT* pRect, BYTE BrightBits)
+void CSpriteSurface::BltBrightness(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect, BYTE BrightBits)
 {
 	/* TODO: Implement */
 }
 
-void CSpriteSurface::BltDarknessFilter(POINT* pPoint, class CDirectDrawSurface* SourceSurface, RECT* pRect, WORD TransColor)
+void CSpriteSurface::BltDarknessFilter(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect, WORD TransColor)
 {
 	/* TODO: Implement */
 }

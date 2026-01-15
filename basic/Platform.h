@@ -74,6 +74,11 @@ typedef unsigned long long DWORD64;
 typedef void*			PVOID;
 typedef void*			ADDRESS_MODE;
 
+/* Windows path constants */
+#ifndef _MAX_PATH
+	#define _MAX_PATH	260
+#endif
+
 /* Color type definitions */
 typedef DWORD			COLORREF;
 #define RGB(r,g,b)		((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
@@ -143,6 +148,17 @@ typedef WORD			char_t;
 	/* MessageBox constants */
 	#define MB_OK			0x00000000L
 
+	/* Windows parameter annotation macros (for callback function signatures) */
+	#ifndef IN
+		#define IN
+	#endif
+	#ifndef OUT
+		#define OUT
+	#endif
+	#ifndef OPTIONAL
+		#define OPTIONAL
+	#endif
+
 	/* Character type macros */
 	#ifndef _T
 		#define _T(x)		x
@@ -198,6 +214,30 @@ typedef WORD			char_t;
 		(void)uiAction; (void)uiParam; (void)pvParam; (void)fWinIni;
 		// Non-Windows platforms don't have mouse acceleration settings in the same way
 		return FALSE;
+	}
+
+	/* Note: GetCursorPos and ScreenToClient are defined as inline functions below,
+	   but they require POINT to be fully defined first (included from Client_PCH.h) */
+
+	/* Stub for GetCursorPos - gets mouse position in SDL */
+	static inline BOOL GetCursorPos(void* lpPoint) {
+		if (lpPoint) {
+			typedef struct { LONG x; LONG y; } POINT;
+			POINT* p = (POINT*)lpPoint;
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+			p->x = x;
+			p->y = y;
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	/* Stub for ScreenToClient - no-op for SDL (coordinates are already relative to window) */
+	static inline BOOL ScreenToClient(void* hWnd, void* lpPoint) {
+		(void)hWnd;
+		// SDL already gives us window-relative coordinates
+		return lpPoint ? TRUE : FALSE;
 	}
 
 	/* Windows timing functions */

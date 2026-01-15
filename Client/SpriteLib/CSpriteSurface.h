@@ -91,11 +91,13 @@ class CSpriteSurface {
 
 		//------------------------------------------------------------
 		// BltFast methods (stubs for compatibility)
+		// Note: In SDL backend, use CSpriteSurface* instead of CDirectDrawSurface*
 		//------------------------------------------------------------
-		void	BltHalf(POINT* pPoint, class CDirectDrawSurface* SourceSurface, RECT* pRect);
-		void	BltDarkness(POINT* pPoint, class CDirectDrawSurface* SourceSurface, RECT* pRect, BYTE DarkBits);
-		void	BltBrightness(POINT* pPoint, class CDirectDrawSurface* SourceSurface, RECT* pRect, BYTE BrightBits);
-		void	BltDarknessFilter(POINT* pPoint, class CDirectDrawSurface* SourceSurface, RECT* pRect, WORD TransColor=0);
+		void	BltHalf(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect);
+		void	BltNoColorkey(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect);
+		void	BltDarkness(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect, BYTE DarkBits);
+		void	BltBrightness(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect, BYTE BrightBits);
+		void	BltDarknessFilter(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect, WORD TransColor=0);
 
 		// Change brightness
 		void	ChangeBrightnessBit(RECT* pRect, BYTE DarkBits);

@@ -108,7 +108,7 @@ CTypeMap2<DataType>::AddData( unsigned int id, DataType* pData )
 	//------------------------------------------------------
 	// 없는 경우 --> 추가
 	//------------------------------------------------------
-	insert(TYPE_MAP::value_type(id, pData));
+	insert(typename TYPE_MAP::value_type(id, pData));
 
 	return true;
 }
@@ -169,7 +169,7 @@ CTypeMap2<DataType>::RemoveData( unsigned int id )
 	// 있으면 지워줘야 한다.
 	delete (*iData).second;
 
-	erase( iData );
+	TYPE_MAP::erase( iData );
 
 	return true;
 }

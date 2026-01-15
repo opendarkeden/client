@@ -33,10 +33,28 @@
 #include "MObjectSelector.h"
 #include "ClientFunction.h"
 #include "MMusic.h"
+#include "CDirectInput.h"  // For DIK_* key code definitions
 #include "MZoneSoundManager.h"
 #include "TempInformation.h"
 #include "MFakeCreature.h"
 #include "MParty.h"
+
+/* Ensure DIK_* constants are defined (in case CDirectInput.h has issues) */
+#ifndef DIK_RCONTROL
+#define DIK_RCONTROL        0x9D
+#endif
+#ifndef DIK_F
+#define DIK_F               0x21
+#endif
+#ifndef DIK_LMENU
+#define DIK_LMENU           0x38
+#endif
+#ifndef DIK_RMENU
+#define DIK_RMENU           0xB8
+#endif
+#ifndef DIK_CAPITAL
+#define DIK_CAPITAL         0x3A
+#endif
 #include "Profiler.h"
 #include "MTestDef.h"
 #include "MEventManager.h"
@@ -47,18 +65,18 @@
 #include "MWarManager.H"
 //#include "EXECryptor.h"
 //#include "ThemidaSDK.h"
-#include "packet\Cpackets\CGVerifyTime.h"
+#include "packet/Cpackets/CGVerifyTime.h"
 
 #ifdef OUTPUT_DEBUG
-	#include "packet\Gpackets\GCSkillFailed2.h"
-	#include "packet\Gpackets\GCSkillToObjectOK5.h"
-	#include "packet\Gpackets\GCSkillToSelfOK2.h"
-	#include "packet\Gpackets\GCSkillToTileOK2.h"
-	#include "packet\Cpackets\CGTypeStringList.h"
+	#include "packet/Gpackets/GCSkillFailed2.h"
+	#include "packet/Gpackets/GCSkillToObjectOK5.h"
+	#include "packet/Gpackets/GCSkillToSelfOK2.h"
+	#include "packet/Gpackets/GCSkillToTileOK2.h"
+	#include "packet/Cpackets/CGTypeStringList.h"
 #endif
-	
+
 //add by viva
-#include "packet\Gpackets\GCFriendChatting.h"
+#include "packet/Gpackets/GCFriendChatting.h"
 
 #ifdef OUTPUT_DEBUG
 	bool g_bSlideScreenShot = false;
@@ -103,10 +121,16 @@ extern BOOL g_MyFull;
 extern RECT g_GameRect;
 //add by sonic 2006.7.30
 //¼ì²âÏµÍ³µÇÂ½µÄÓÃ»§
-#include <tlhelp32.h>
-#pragma comment(lib, "th32")
-extern int GetCurrentUserNumber();
-extern int g_CheckTimeNum=0;
+#ifdef PLATFORM_WINDOWS
+	#include <tlhelp32.h>
+	#pragma comment(lib, "th32")
+	extern int GetCurrentUserNumber();
+	extern int g_CheckTimeNum=0;
+#else
+	// Non-Windows platforms don't have tlhelp32.h
+	extern int GetCurrentUserNumber() { return 1; }
+	extern int g_CheckTimeNum=0;
+#endif
 //end
 //extern bool CheckInvalidProcess();
 extern void	KeepConnection();

@@ -15,7 +15,9 @@
 
 #include "MZoneSound.h"
 #include "CTypeMap.h"
+#ifdef PLATFORM_WINDOWS
 #include <DSound.h>
+#endif
 #include <map>
 
 #include <fstream>
