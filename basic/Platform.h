@@ -1677,6 +1677,63 @@ static inline int wsprintf(char* buf, const char* fmt, ...) {
 /* Windows API stubs for file operations */
 #define FILE_ATTRIBUTE_DIRECTORY (0x00000010)
 
+/* Windows Virtual Key Codes for keyboard input */
+#ifndef VK_UP
+#define VK_UP    0x26
+#endif
+#ifndef VK_DOWN
+#define VK_DOWN  0x28
+#endif
+#ifndef VK_LEFT
+#define VK_LEFT  0x25
+#endif
+#ifndef VK_RIGHT
+#define VK_RIGHT 0x27
+#endif
+#ifndef VK_RETURN
+#define VK_RETURN 0x0D
+#endif
+#ifndef VK_ESCAPE
+#define VK_ESCAPE 0x1B
+#endif
+#ifndef VK_SPACE
+#define VK_SPACE  0x20
+#endif
+#ifndef VK_SHIFT
+#define VK_SHIFT  0x10
+#endif
+#ifndef VK_CONTROL
+#define VK_CONTROL 0x11
+#endif
+
+/* DirectInput Key Codes */
+#ifndef DIK_LCONTROL
+#define DIK_LCONTROL 0x1D
+#endif
+#ifndef DIK_RCONTROL
+#define DIK_RCONTROL 0x9D
+#endif
+#ifndef DIK_LSHIFT
+#define DIK_LSHIFT 0x2A
+#endif
+#ifndef DIK_RSHIFT
+#define DIK_RSHIFT 0x36
+#endif
+
+/* Windows macros for word manipulation */
+#ifndef LOWORD
+#define LOWORD(l) ((WORD)(((DWORD_PTR)(l)) & 0xffff))
+#endif
+#ifndef HIWORD
+#define HIWORD(l) ((WORD)((((DWORD_PTR)(l)) >> 16) & 0xffff))
+#endif
+#ifndef LOBYTE
+#define LOBYTE(w) ((BYTE)(((DWORD_PTR)(w)) & 0xff))
+#endif
+#ifndef HIBYTE
+#define HIBYTE(w) ((BYTE)((((DWORD_PTR)(w)) >> 8) & 0xff))
+#endif
+
 static inline DWORD GetLogicalDrives() {
     /* macOS stub - return no drives */
     return 0;

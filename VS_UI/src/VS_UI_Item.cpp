@@ -7,6 +7,7 @@
 #ifndef _LIB
 #include "MItemManager.h"
 #include "MItemOptionTable.h"
+#include "../SpriteLib/CSpriteOutlineManager.h"
 #endif
 
 #ifndef _LIB
@@ -23,8 +24,8 @@ int				g_item_list_size = 0;
 //
 // gpC_item
 //
-// C_VS_UI_ITEM::C_VS_UI_ITEM()¿¡¼­ Àü¿ª object¸¦
-// »ç¿ëÇÏ¹Ç·Î C_VS_UI_ITEMÀº C_VS_UI::Init()¿¡¼­ ÇÒ´çÇÑ´Ù.
+// C_VS_UI_ITEM::C_VS_UI_ITEM()ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ objectï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½ C_VS_UI_ITEMï¿½ï¿½ C_VS_UI::Init()ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½Ñ´ï¿½.
 //
 C_VS_UI_ITEM *	gpC_item;
 
@@ -48,13 +49,13 @@ C_VS_UI_ITEM *	gpC_item;
 
 /*-----------------------------------------------------------------------------
 - Blt
-- ItemÀ» Ãâ·ÂÇÑ´Ù.
+- Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 -----------------------------------------------------------------------------*/
 void C_VS_UI_ITEM::Blt(POINT &point, SPRITE_ID id)
 {
 //	if (p_sprite == NULL)
 //	{
-//		// ItemÀÌ "¾øÀ½"À» Ç¥½ÃÇÏ±â À§ÇØ¼­ ÀÌ Sprite¸¦ Ãâ·ÂÇÑ´Ù.
+//		// Itemï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //		m_pC_axs_spk->Blt(point);
 //		return;
 //	}
@@ -98,17 +99,17 @@ void C_VS_UI_ITEM::BltOutline(int x, int y, int color, SPRITE_ID id)
 //#endif
 	//if (p_sprite == NULL)
 	//{
-	//	// ItemÀÌ "¾øÀ½"À» Ç¥½ÃÇÏ±â À§ÇØ¼­ ÀÌ Sprite¸¦ Ãâ·ÂÇÑ´Ù.
+	//	// Itemï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//	m_pC_axs_spk->BltOutline(x, y, color);
 	//	return;
 	//}
 	if(id >= m_item_ispk.GetSize() || id < 0)
 		return;
 
-	// focusµÈ °ÍÀº ¿Ü°û¼±À» ±×¸°´Ù.
-	CSpriteOutlineManager	outline_o; // ¿Ü°û¼±Ãâ·Â °´Ã¼.
+	// focusï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+	CSpriteOutlineManager	outline_o; // ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼.
 
-	// ¿Ü°û¼±Ãâ·Â °´Ã¼ Ãß°¡.
+	// ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ß°ï¿½.
 	outline_o.Add(x, y, &m_item_ispk[id]);
 	outline_o.Generate();
 
@@ -135,7 +136,7 @@ void C_VS_UI_ITEM::BltOutlineOnly(int x, int y, int color, SPRITE_ID id)
 //#endif
 	//if (p_sprite == NULL)
 	//{
-	//	// ItemÀÌ "¾øÀ½"À» Ç¥½ÃÇÏ±â À§ÇØ¼­ ÀÌ Sprite¸¦ Ãâ·ÂÇÑ´Ù.
+	//	// Itemï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//	m_pC_axs_spk->BltOutline(x, y, color);
 	//	return;
 	//}
@@ -143,10 +144,10 @@ void C_VS_UI_ITEM::BltOutlineOnly(int x, int y, int color, SPRITE_ID id)
 	if(id >= m_item_ispk.GetSize() || id < 0)
 		return;
 
-	// focusµÈ °ÍÀº ¿Ü°û¼±À» ±×¸°´Ù.
-	CSpriteOutlineManager	outline_o; // ¿Ü°û¼±Ãâ·Â °´Ã¼.
+	// focusï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+	CSpriteOutlineManager	outline_o; // ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼.
 
-	// ¿Ü°û¼±Ãâ·Â °´Ã¼ Ãß°¡.
+	// ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ß°ï¿½.
 	outline_o.Add(x, y, &m_item_ispk[id]);
 	outline_o.Generate();
 
@@ -225,14 +226,14 @@ C_VS_UI_ITEM::C_VS_UI_ITEM()
 	g_pItemOptionTable->LoadFromFile( file );
 	file.close();
 
-	// À¸¾Æ¾Ç ³ªÁß¿¡ ¼­¹ö¿¡ earringµé°¡¸é ¹Ø¿¡ ÀÖ´Â -1 »¬°Í
+	// ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ earringï¿½é°¡ï¿½ï¿½ ï¿½Ø¿ï¿½ ï¿½Ö´ï¿½ -1 ï¿½ï¿½ï¿½ï¿½
 	int i = 0;// MAX_ITEM_CLASS;
 	for (i=0; i<MAX_ITEM_CLASS; i++)
 		g_item_list_size += (*g_pItemTable)[i].GetSize();
 
 //	int n = 0;
 	extern int g_ui_item_max;
-	// edit by Coffee 2007-6-15 13:41  ÐÞÕýUI²âÊÔ³ÌÐò¶ÁÁËÎïÆ·´íÎó
+	// edit by Coffee 2007-6-15 13:41  ï¿½ï¿½ï¿½ï¿½UIï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
 	//for (i=0; i<MAX_ITEM_CLASS; i++)
 	for (i=0; i<MAX_ITEM_CLASS; i++)
 	// edit end by Coffee 2007-6-15 13:42
@@ -315,7 +316,7 @@ C_VS_UI_ITEM::~C_VS_UI_ITEM()
 //-----------------------------------------------------------------------------
 // BltColor
 //
-// rgb Áß ÇÏ³ª¸¸À¸·Î bltÇÑ´Ù.
+// rgb ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ bltï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_ITEM::BltColor(int x, int y, SPRITE_ID id, int rgb)
 {
@@ -330,7 +331,7 @@ void C_VS_UI_ITEM::BltColor(int x, int y, SPRITE_ID id, int rgb)
 
 //	if (p_sprite == NULL)
 //	{
-//		// ItemÀÌ "¾øÀ½"À» Ç¥½ÃÇÏ±â À§ÇØ¼­ ÀÌ Sprite¸¦ Ãâ·ÂÇÑ´Ù.
+//		// Itemï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //		m_pC_axs_spk->Blt(point);
 //		return;
 //	}
@@ -349,7 +350,7 @@ void C_VS_UI_ITEM::BltColor(int x, int y, SPRITE_ID id, int rgb)
 //-----------------------------------------------------------------------------
 // BltDarkness
 //
-// rgb Áß ÇÏ³ª¸¸À¸·Î bltÇÑ´Ù.
+// rgb ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ bltï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_ITEM::BltDarkness(int x, int y, SPRITE_ID id, int dark)
 {
@@ -364,7 +365,7 @@ void C_VS_UI_ITEM::BltDarkness(int x, int y, SPRITE_ID id, int dark)
 
 //	if (p_sprite == NULL)
 //	{
-//		// ItemÀÌ "¾øÀ½"À» Ç¥½ÃÇÏ±â À§ÇØ¼­ ÀÌ Sprite¸¦ Ãâ·ÂÇÑ´Ù.
+//		// Itemï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //		m_pC_axs_spk->Blt(point);
 //		return;
 //	}
@@ -383,7 +384,7 @@ void C_VS_UI_ITEM::BltDarkness(int x, int y, SPRITE_ID id, int dark)
 //-----------------------------------------------------------------------------
 // BltColorSet
 //
-// ColorSetÀ» Àû¿ëÇÏ¿© Ãâ·Â
+// ColorSetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_ITEM::BltColorSet(int x, int y, SPRITE_ID id, int color_set)
 {
@@ -410,13 +411,13 @@ void C_VS_UI_ITEM::BltColorSet(int x, int y, SPRITE_ID id, int color_set)
 
 /*-----------------------------------------------------------------------------
 - BltLocked
-- ItemÀ» Ãâ·ÂÇÑ´Ù.
+- Itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 -----------------------------------------------------------------------------*/
 void C_VS_UI_ITEM::BltLocked(POINT &point, SPRITE_ID id)
 {
 //	if (p_sprite == NULL)
 //	{
-//		// ItemÀÌ "¾øÀ½"À» Ç¥½ÃÇÏ±â À§ÇØ¼­ ÀÌ Sprite¸¦ Ãâ·ÂÇÑ´Ù.
+//		// Itemï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //		m_pC_axs_spk->Blt(point);
 //		return;
 //	}
@@ -456,7 +457,7 @@ void C_VS_UI_ITEM::BltLockedOutline(int x, int y, int color, SPRITE_ID id)
 //#endif
 	//if (p_sprite == NULL)
 	//{
-	//	// ItemÀÌ "¾øÀ½"À» Ç¥½ÃÇÏ±â À§ÇØ¼­ ÀÌ Sprite¸¦ Ãâ·ÂÇÑ´Ù.
+	//	// Itemï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//	m_pC_axs_spk->BltLockedOutline(x, y, color);
 	//	return;
 	//}
@@ -464,10 +465,10 @@ void C_VS_UI_ITEM::BltLockedOutline(int x, int y, int color, SPRITE_ID id)
 	if(id >= m_item_ispk.GetSize() || id < 0)
 		return;
 
-	// focusµÈ °ÍÀº ¿Ü°û¼±À» ±×¸°´Ù.
-	CSpriteOutlineManager	outline_o; // ¿Ü°û¼±Ãâ·Â °´Ã¼.
+	// focusï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+	CSpriteOutlineManager	outline_o; // ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼.
 
-	// ¿Ü°û¼±Ãâ·Â °´Ã¼ Ãß°¡.
+	// ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ß°ï¿½.
 	outline_o.Add(x, y, &m_item_ispk[id]);
 	outline_o.Generate();
 
@@ -489,7 +490,7 @@ void C_VS_UI_ITEM::BltLockedOutlineOnly(int x, int y, int color, SPRITE_ID id)
 //#endif
 	//if (p_sprite == NULL)
 	//{
-	//	// ItemÀÌ "¾øÀ½"À» Ç¥½ÃÇÏ±â À§ÇØ¼­ ÀÌ Sprite¸¦ Ãâ·ÂÇÑ´Ù.
+	//	// Itemï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//	m_pC_axs_spk->BltOutline(x, y, color);
 	//	return;
 	//}
@@ -497,10 +498,10 @@ void C_VS_UI_ITEM::BltLockedOutlineOnly(int x, int y, int color, SPRITE_ID id)
 	if(id >= m_item_ispk.GetSize() || id < 0)
 		return;
 
-	// focusµÈ °ÍÀº ¿Ü°û¼±À» ±×¸°´Ù.
-	CSpriteOutlineManager	outline_o; // ¿Ü°û¼±Ãâ·Â °´Ã¼.
+	// focusï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
+	CSpriteOutlineManager	outline_o; // ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼.
 
-	// ¿Ü°û¼±Ãâ·Â °´Ã¼ Ãß°¡.
+	// ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ß°ï¿½.
 	outline_o.Add(x, y, &m_item_ispk[id]);
 	outline_o.Generate();
 
@@ -512,7 +513,7 @@ void C_VS_UI_ITEM::BltLockedOutlineOnly(int x, int y, int color, SPRITE_ID id)
 //-----------------------------------------------------------------------------
 // BltLockedColor
 //
-// rgb Áß ÇÏ³ª¸¸À¸·Î bltÇÑ´Ù.
+// rgb ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ bltï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_ITEM::BltLockedColor(int x, int y, SPRITE_ID id, int rgb)
 {
@@ -530,7 +531,7 @@ void C_VS_UI_ITEM::BltLockedColor(int x, int y, SPRITE_ID id, int rgb)
 
 //	if (p_sprite == NULL)
 //	{
-//		// ItemÀÌ "¾øÀ½"À» Ç¥½ÃÇÏ±â À§ÇØ¼­ ÀÌ Sprite¸¦ Ãâ·ÂÇÑ´Ù.
+//		// Itemï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //		m_pC_axs_spk->Blt(point);
 //		return;
 //	}
@@ -541,7 +542,7 @@ void C_VS_UI_ITEM::BltLockedColor(int x, int y, SPRITE_ID id, int rgb)
 //-----------------------------------------------------------------------------
 // BltLockedDarkness
 //
-// rgb Áß ÇÏ³ª¸¸À¸·Î bltÇÑ´Ù.
+// rgb ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ bltï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_ITEM::BltLockedDarkness(int x, int y, SPRITE_ID id, int dark)
 {
@@ -559,7 +560,7 @@ void C_VS_UI_ITEM::BltLockedDarkness(int x, int y, SPRITE_ID id, int dark)
 
 //	if (p_sprite == NULL)
 //	{
-//		// ItemÀÌ "¾øÀ½"À» Ç¥½ÃÇÏ±â À§ÇØ¼­ ÀÌ Sprite¸¦ Ãâ·ÂÇÑ´Ù.
+//		// Itemï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ Spriteï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //		m_pC_axs_spk->Blt(point);
 //		return;
 //	}
@@ -570,7 +571,7 @@ void C_VS_UI_ITEM::BltLockedDarkness(int x, int y, SPRITE_ID id, int dark)
 //-----------------------------------------------------------------------------
 // BltColorSet
 //
-// ColorSetÀ» Àû¿ëÇÏ¿© Ãâ·Â
+// ColorSetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_ITEM::BltLockedColorSet(int x, int y, SPRITE_ID id, int color_set)
 {

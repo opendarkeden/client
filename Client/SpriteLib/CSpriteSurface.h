@@ -186,6 +186,8 @@ class CSpriteSurface {
 		enum FUNCTION_EFFECT
 		{
 			EFFECT_DARKER = 0,
+			EFFECT_GRAY_SCALE,
+			EFFECT_GRAY_SCALE_VARIOUS,
 			MAX_EFFECT
 		};
 

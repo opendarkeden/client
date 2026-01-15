@@ -2816,7 +2816,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	// ������ �κ� ���		
 	if(gpC_base->m_p_DDSurface_back->Lock())
 	{
-		for(i = 0; i < m_scroll_max && i+m_pC_scroll_bar->GetScrollPos() < m_vs_file_list.size(); i++){
+		for(int i = 0; i < m_scroll_max && i+m_pC_scroll_bar->GetScrollPos() < m_vs_file_list.size(); i++){
 			const char *get=m_vs_file_list[i+m_pC_scroll_bar->GetScrollPos()].c_str();
 			if(get[0]=='\\') if(!strcmp(get,"\\.."))	m_p_icon_spk->BltLocked(x+m_string_x-19,y+m_string_y+i*m_string_gap,UPFOLDER_ID);
 			else m_p_icon_spk->BltLocked(x+m_string_x-19,y+m_string_y+i*m_string_gap,FOLDER_ID);					
@@ -2854,7 +2854,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	}
 	g_PrintColorStr(titleX, titleY, name,gpC_base->m_desc_menu_pi, RGB_WHITE);
 
-	for(i = 0; i < m_scroll_max && i+m_pC_scroll_bar->GetScrollPos() < m_vs_file_list.size(); i++) {		
+	for(int i = 0; i < m_scroll_max && i+m_pC_scroll_bar->GetScrollPos() < m_vs_file_list.size(); i++) {		
 		// �̸��� ���
 		// �����̸��� �ʹ� ��� ������ �ڸ���. 
 		strcpy(name, m_vs_file_list[i+m_pC_scroll_bar->GetScrollPos()].c_str());
@@ -2878,7 +2878,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 
 		if(gpC_base->m_p_DDSurface_back->Lock())
 		{
-			for(i = 0; i < mi_open_drive_count; i++)	{
+			for(int i = 0; i < mi_open_drive_count; i++)	{
 				char ch=*mp_open_current_directory[i];
 				if(ch=='a'||ch=='A'||i==mi_open_drive_count-1) 	m_p_icon_spk->BltLocked(x+m_string_x,y+37+(i+1)*m_string_gap,CDDRIVE_ID);
 				else m_p_icon_spk->BltLocked(x+m_string_x,y+37+(i+1)*m_string_gap,HDDRIVE_ID);
@@ -2886,7 +2886,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 			gpC_base->m_p_DDSurface_back->Unlock();
 		}
 		g_FL2_GetDC();
-		for(i = 0; i < mi_open_drive_count; i++)	{
+		for(int i = 0; i < mi_open_drive_count; i++)	{
 			std::string filename;filename+=mp_open_current_directory[i];
 			filename.erase(filename.size()-2,2);
 			for(j=0;j<m_filter.size();j++){filename+=m_filter[j].c_str();filename+=";";}
@@ -3222,7 +3222,8 @@ void C_VS_UI_FILE_DIALOG::RefreshFileList(char *sz_dirname)
 			sz_filename = "\\";
 			sz_filename += fd.cFileName;
 
-			for(int i = 0; i < m_vs_file_list.size(); i++)
+			int i;
+			for(i = 0; i < m_vs_file_list.size(); i++)
 			{
 				if(m_vs_file_list[i] > sz_filename || m_vs_file_list[i][0] != '\\')
 				{
@@ -3263,7 +3264,7 @@ void C_VS_UI_FILE_DIALOG::RefreshFileList(char *sz_dirname)
 //			m_vs_file_list.push_back(sz_filename);
 //			m_vs_file_list_attr.push_back(fd.dwFileAttributes);
 
-			for(i = 0; i < m_vs_file_list.size(); i++)
+			for(int i = 0; i < m_vs_file_list.size(); i++)
 			{
 				if(m_vs_file_list[i] > sz_filename && m_vs_file_list[i][0] != '\\')
 				{

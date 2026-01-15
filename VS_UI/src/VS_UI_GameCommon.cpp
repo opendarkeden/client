@@ -2899,9 +2899,9 @@ bool C_VS_UI_GEAR::MouseControl(UINT message, int _x, int _y)
 		
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
-		if (gpC_mouse_pointer->GetPickUpItem() == false 
-			&& re 
-			&& gC_vs_ui.GetGearItem(m_focus_slot) == false 
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL
+			&& re
+			&& gC_vs_ui.GetGearItem(m_focus_slot) == NULL
 			&& gC_vs_ui.GetGearCoreZapItem(m_focus_slot) == NULL)
 			//				 TestSlotRect(_x, _y) == false && re)
 		{
@@ -4187,7 +4187,7 @@ bool C_VS_UI_CHATTING::MouseControl(UINT message, int _x, int _y)
 				break;
 			}
 		}
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 		{
 			if(m_resize != RESIZE_NOT)
 			{
@@ -4449,7 +4449,7 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 				{
 					if(m_history.size() == 20)
 					{
-						m_history.erase(&m_history[0]);
+						m_history.erase(m_history.begin());
 					}
 					
 					PAPERING_HISTORY temp_history;
@@ -4474,13 +4474,13 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 						}
 						else
 						{
-							temp_history.m_timer.erase(&temp_history.m_timer[0]);
+							temp_history.m_timer.erase(temp_history.m_timer.begin());
 						}
 					}
 
 
 					
-					m_history.erase(&m_history[m_history_line]);
+					m_history.erase(m_history.begin() + m_history_line);
 					temp_history.m_string = sz_chat_str;
 					temp_history.m_timer.push_back(GetTickCount());
 					m_history.push_back(temp_history);
@@ -4489,7 +4489,7 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 				// ���Ӷ�ʹ�ø߼��Խ�����Ʒ��ʱ������֧��
 // 				if(0 == strncmp(sz_chat_str, (*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetString(),(*g_pGameStringTable)[UI_STRING_MESSAGE_PLAYER_SAY].GetLength()))
 // 				{
-// 					temp_history.m_timer.erase(&temp_history.m_timer[0]);
+// 					temp_history.m_timer.erase(temp_history.m_timer.begin());
 // 				}
 				// �ɷ��ִ� ��ų�߿� ��Ʈ ��ų�� ������ ���� �� ����
 				bool bFoundMute = false;
@@ -4520,7 +4520,7 @@ void C_VS_UI_CHATTING::KeyboardControl(UINT message, UINT key, long extra)
 				
 				if(m_dw_rep_tickcount.size() == 5)
 				{
-					m_dw_rep_tickcount.erase(&m_dw_rep_tickcount[0]);
+					m_dw_rep_tickcount.erase(m_dw_rep_tickcount.begin());
 				}
 				m_dw_rep_tickcount.push_back(GetTickCount());
 				
@@ -5089,24 +5089,27 @@ void C_VS_UI_CHATTING::Show()
 				
 				int len = m_sz_whisper_backup.size();
 				int len2 = m_lev_chatting.ReachSizeOfBox()+1;
-				
+
+#ifdef PLATFORM_WINDOWS
 				HDC hdc;
 				gpC_fl2_surface->GetDC(&hdc);
 				DeleteObject( SelectObject(hdc, gpC_base->m_chatting_pi.hfont) );
-				
-				
+
+
 				//
 				// set format
 				//
 				SetBkMode(hdc, gpC_base->m_chatting_pi.bk_mode);
 				SetTextColor(hdc, m_color_tab[CLD_NORMAL]);
 				SetBkColor(hdc, gpC_base->m_chatting_pi.back_color);
-				
+
 				TextOut(hdc, CHAT_LINE_START_X +105, CHAT_LINE_START_Y, m_sz_whisper_backup.c_str(), min(len, len2));
-				
+
 				gpC_fl2_surface->ReleaseDC(hdc);
-				
-				//				g_PrintColorStr(CHAT_LINE_START_X +100, CHAT_LINE_START_Y, m_sz_whisper_backup.c_str(), gpC_base->m_chatting_pi, m_color_tab[CLD_NORMAL]);
+#else
+				// SDL backend: use print function instead of GDI
+				g_PrintColorStr(CHAT_LINE_START_X +100, CHAT_LINE_START_Y, m_sz_whisper_backup.c_str(), gpC_base->m_chatting_pi, m_color_tab[CLD_NORMAL]);
+#endif
 			}
 		}
 		else
@@ -6642,17 +6645,17 @@ bool C_VS_UI_CHATTING::AddWhisperID(const char *sz_ID)
 	
 	strcpy(szTemp, sz_ID);
 	
-	for(i = 0; i < 11 && szTemp[i] != ' ' && szTemp[i] != '\0'; i++);
+	for(int i = 0; i < 11 && szTemp[i] != ' ' && szTemp[i] != '\0'; i++);
 	szTemp[i] = '\0';
 	
 	
 	std::string temp = szTemp;
 	
-	for(i = 0; i < GetWhisperSize(); i++)
+	for(int i = 0; i < GetWhisperSize(); i++)
 	{
 		if(m_sz_whisper_id[i] == temp)
 		{
-			m_sz_whisper_id.erase(&m_sz_whisper_id[i]);
+			m_sz_whisper_id.erase(m_sz_whisper_id.begin() + i);
 			break;
 		}
 	}
@@ -6877,7 +6880,7 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 			
 			if(p_item->IsPileItem())
 			{
-				for(i = 0; i < storage_max; i++)
+				for(int i = 0; i < storage_max; i++)
 				{
 					const MItem *p_slot_item = g_pStorage->GetItem(i);
 					
@@ -6926,7 +6929,7 @@ void C_VS_UI_INVENTORY::AutoMove( int grid_x, int grid_y )
 			//g_pStorage->SetCurrent(j);
 			g_pStorage->SetCurrent(current_storage);
 			
-			for(i = 0; i < storage_max; i++)
+			for(int i = 0; i < storage_max; i++)
 			{
 				const MItem *p_slot_item = g_pStorage->GetItem(i);
 				
@@ -8172,9 +8175,10 @@ void C_VS_UI_INVENTORY::Show()
 			RECT rt;
 			
 			rt.right = x+GetFocusedItemGridX(p_item) + p_item->GetGridWidth()*GRID_UNIT_PIXEL_X-1;
-			
-			for(int depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
-			
+
+			int depth, number;
+			for(depth = 0, number = p_item->GetNumber(); number > 0; number/=10, depth++);
+
 			if(depth == 0) depth = 1;
 			rt.left = rt.right - 7*depth;
 			
@@ -9244,7 +9248,7 @@ C_VS_UI_SKILL::C_VS_UI_SKILL()
 	(*g_pSkillInfoTable)[MAGIC_CONTINUAL_LIGHT].SetPassive();
 	
 	g_pSkillAvailable->AddSkill(MAGIC_HIDE);
-	for(i = 200; i< 270;i++)
+	for(int i = 200; i< 270;i++)
 		g_pSkillAvailable->AddSkill((ACTIONINFO) i );
 	//	g_pSkillAvailable->DisableSkill(MAGIC_HIDE);
 	//	g_pSkillAvailable->AddSkill(MAGIC_DARKNESS);
@@ -9463,7 +9467,7 @@ void	C_VS_UI_SKILL::SetHotkey(HOTKEY hotkey, ACTIONINFO id)
 	}
 	if(j == GRADE_MAX)
 	{
-		for(i = 0; i < GRADE_MAX-1; i++)
+		for(int i = 0; i < GRADE_MAX-1; i++)
 		{
 			m_skill_hotkey_buf[hotkey][i] = m_skill_hotkey_buf[hotkey][i+1];
 		}
@@ -11664,7 +11668,7 @@ bool	C_VS_UI_PARTY_MANAGER::MouseControl(UINT message, int _x, int _y)
 				m_away_pushed = true;
 			}
 			else
-			if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+			if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 			{
 				MoveReady();
 				SetOrigin(_x, _y);
@@ -12173,7 +12177,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 						Button_ID+i, this, i));
 				}
 
-				for(i=0 ;i<3;i++)
+				for(int i=0;i<3;i++)
 				{
 					int eeg = button_x+10+C_VS_UI_SKILL::m_C_spk[0].GetWidth()+(C_VS_UI_SKILL::m_C_spk[0].GetWidth()*(i/4))+gap_x*(i/4);
 					m_pC_grade3_button_group->Add(new C_VS_UI_EVENT_BUTTON(
@@ -12184,7 +12188,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 
 				}
 
-//				for(i=0 ;i<10;i++)
+//				for(int i=0;i<10;i++)
 //				{
 //						m_pC_grade3_button_group->Add(new C_VS_UI_EVENT_BUTTON(
 //						button_x+(i*25),
@@ -12271,7 +12275,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 						Button_ID+i, this, i));			
 				}
 				
-				for(i=0 ;i<3;i++)
+				for(int i=0;i<3;i++)
 				{
 					m_pC_grade3_button_group->Add(new C_VS_UI_EVENT_BUTTON(
 						button_x+10+C_VS_UI_SKILL::m_C_spk[0].GetWidth()+(C_VS_UI_SKILL::m_C_spk[0].GetWidth()*(i/4))+gap_x*(i/4),
@@ -12313,7 +12317,7 @@ C_VS_UI_INFO::C_VS_UI_INFO()
 						Button_ID+i, this, i));
 				}
 
-				for(i=0 ;i<3;i++)
+				for(int i=0;i<3;i++)
 				{
 					m_pC_grade3_button_group->Add(new C_VS_UI_EVENT_BUTTON(
 						button_x+10+C_VS_UI_SKILL::m_C_spk[0].GetWidth()+(C_VS_UI_SKILL::m_C_spk[0].GetWidth()*(i/4))+gap_x*(i/4),
@@ -15865,7 +15869,7 @@ void	C_VS_UI_INFO::_Show1()
 							
 							const int level_plus = 127;
 							DWORD shadow_color = RGB_BLACK;
-							for(i = 0; i < min( 8, list.size() - max(0,m_pC_skill_scroll_bar->GetScrollPos()) ); i++)
+							for(int i = 0; i < min( 8, list.size() - max(0,m_pC_skill_scroll_bar->GetScrollPos()) ); i++)
 							{
 								const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 								MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[m_skill_domain].GetSkillStatus(SkillID);
@@ -17074,7 +17078,7 @@ void	C_VS_UI_INFO::_Show2()
 				rect.left = x +field2_x2;
 				rect.right = rect.left + bar_width;
 				
-				for(i = 8; i > 2; i--)
+				for(int i = 8; i > 2; i--)
 				{
 					rect.top = y+field2_y+field2_gap*i;
 					rect.bottom = rect.top+bar_height;
@@ -17082,7 +17086,7 @@ void	C_VS_UI_INFO::_Show2()
 				}
 				
 				bar_height = gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::SMALL_BAR);
-				for(i = 2; i >= 0; i--)
+				for(int i = 2; i >= 0; i--)
 				{
 					rect.top = y+field2_y+field2_gap*i;
 					rect.bottom = rect.top+bar_height;
@@ -17194,7 +17198,7 @@ void	C_VS_UI_INFO::_Show2()
 				gpC_global_resource->m_pC_info_spk->BltLocked(AddPosition.x + pSkin->GetPoint( slayerpos+ 4 + 3 ).x,   
 					AddPosition.y+field2_gap*4+ pSkin->GetPoint( slayerpos+ 4 + 3 ).y, C_GLOBAL_RESOURCE::TITLE_MP);
 
-				for(i = 5; i <= 8; i++ )
+				for(int i = 5; i <= 8; i++ )
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked(AddPosition.x + pSkin->GetPoint( slayerpos + i + 3 ).x,
 						AddPosition.y + pSkin->GetPoint( slayerpos + i + 3 ).y + field2_gap * i, C_GLOBAL_RESOURCE::TITLE_TOHIT + i - 5 );
@@ -17447,7 +17451,7 @@ void	C_VS_UI_INFO::_Show2()
 				
 				rect.left = x +field1_x2;
 				rect.right = rect.left + 65;
-				for(i = 0; i < 2; i++)
+				for(int i = 0; i < 2; i++)
 				{
 					rect.top = y+field1_y+field1_gap*i;
 					rect.bottom = rect.top+bar_height;
@@ -17499,7 +17503,7 @@ void	C_VS_UI_INFO::_Show2()
 				rect.left = x +field2_x2;
 				rect.right = rect.left + bar_width;
 				
-				for(i = 7; i >= 0; i--)
+				for(int i = 7; i >= 0; i--)
 				{
 					rect.top = y+field2_y+field2_gap*i;
 					rect.bottom = rect.top+bar_height;
@@ -17820,7 +17824,7 @@ void	C_VS_UI_INFO::_Show2()
 				
 				rect.left = x +field1_x2;
 				rect.right = rect.left + 65;
-				for(i = 0; i < 2; i++)
+				for(int i = 0; i < 2; i++)
 				{
 					rect.top = y+field1_y+field1_gap*i;
 					rect.bottom = rect.top+bar_height;
@@ -17872,7 +17876,7 @@ void	C_VS_UI_INFO::_Show2()
 				rect.left = x +field2_x2;
 				rect.right = rect.left + bar_width;
 				
-				for(i = 8; i >= 0; i--)
+				for(int i = 8; i >= 0; i--)
 				{
 					rect.top = y+field2_y+field2_gap*i;
 					rect.bottom = rect.top+bar_height;
@@ -17993,7 +17997,7 @@ void	C_VS_UI_INFO::_Show2()
 						AddPosition.y + pSkin->GetPoint( ousterspos + 10 + i ).y + field2_gap * i, C_GLOBAL_RESOURCE::TITLE_TOHIT+i-5);
 				}
 				
-				for(i=0;i<9;i++)
+				for(int i=0;i<9;i++)
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field2_x2, y+field2_y+field2_gap*i, C_GLOBAL_RESOURCE::SMALL_BAR2);
 //				
 //				//EXP BAR
@@ -18774,7 +18778,7 @@ void	C_VS_UI_INFO::_Show5()
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
 					m_advance_skill_count = list.size();
-					for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+					for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 					{
 						const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 						MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[m_skill_domain].GetSkillStatus(SkillID);
@@ -18969,7 +18973,7 @@ void	C_VS_UI_INFO::_Show5()
 					
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
-					for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+					for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 					{
 						const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 						
@@ -19075,7 +19079,7 @@ void	C_VS_UI_INFO::_Show5()
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
 					m_advance_skill_count = list.size();
-					for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+					for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 					{
 
 						const ACTIONINFO SkillID = (ACTIONINFO)*ss;
@@ -19266,7 +19270,7 @@ void	C_VS_UI_INFO::_Show5()
 					int aa = list.size();
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
-					for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+					for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 					{
 						const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 						
@@ -19360,7 +19364,7 @@ void	C_VS_UI_INFO::_Show5()
 			// By Csm // 
 			SKILL_STEP step;
 
-			for(i = 0; i < 4 ; i++)
+			for(int i = 0; i < 4 ; i++)
 			{
 				step = (SKILL_STEP)(SKILL_STEP_OUSTERS_COMBAT_ADVANCEMENT+i);
 				if((*g_pSkillManager)[SKILLDOMAIN_OUSTERS].IsExistSkillStep(step))
@@ -19380,7 +19384,7 @@ void	C_VS_UI_INFO::_Show5()
 			}
 			if(m_ousters_Magic == -1)
 			{
-				for(i = 0; i < min( 3, 4 - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+				for(int i = 0; i < min( 3, 4 - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 				{
 					step = (SKILL_STEP)(SKILL_STEP_OUSTERS_COMBAT_ADVANCEMENT+i);
 					if((*g_pSkillManager)[SKILLDOMAIN_OUSTERS].IsExistSkillStep(step))
@@ -19399,7 +19403,7 @@ void	C_VS_UI_INFO::_Show5()
 								const int level_plus = 127;
 								DWORD shadow_color = RGB_BLACK;
 								m_advance_skill_count = 4;
-								//							for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+								//							for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 								{
 									const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 									MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[SKILLDOMAIN_OUSTERS].GetSkillStatus(SkillID);
@@ -19687,7 +19691,7 @@ void	C_VS_UI_INFO::_Show5()
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
 					
-					for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+					for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 					{
 						const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 						MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[SKILLDOMAIN_OUSTERS].GetSkillStatus(SkillID);
@@ -19882,7 +19886,7 @@ void	C_VS_UI_INFO::_Show5()
 
 					const int level_plus = 127;
 					DWORD shadow_color = RGB_BLACK;
-					for(i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
+					for(int i = 0; i < min( 3, list.size() - max(0,m_pC_grade3_scroll_bar->GetScrollPos()) ); i++)
 					{
 						const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 						
@@ -20795,7 +20799,7 @@ bool C_VS_UI_HPBAR::MouseControl(UINT message, int _x, int _y)
 		
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 		{
 			MoveReady();
 			SetOrigin(_x, _y);
@@ -21746,7 +21750,7 @@ bool C_VS_UI_EFFECT_STATUS::MouseControl(UINT message, int _x, int _y)
 	case M_LB_DOUBLECLICK:
 		if(skill_id != -1)
 			gC_vs_ui.RunDescDialog(DID_SKILL, (void *)skill_id);
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 		{
 			MoveReady();
 			SetOrigin(_x, _y);
@@ -21813,7 +21817,7 @@ void C_VS_UI_EFFECT_STATUS::Show()
 			{
 				DWORD CurrentFrame = timeGetTime();
 
-				for(i = 0; i < min(10, g_char_slot_ingame.STATUS.size()); i++)
+				for(int i = 0; i < min(10, g_char_slot_ingame.STATUS.size()); i++)
 				{
 					const int skill_id = g_char_slot_ingame.STATUS[i+m_scroll].actionInfo;
 					if(skill_id == ACTIONINFO_NULL || skill_id < 0 || skill_id >= g_pSkillInfoTable->GetSize())
@@ -22514,7 +22518,7 @@ bool C_VS_UI_MINIMAP::MouseControl(UINT message, int _x, int _y)
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
 		// ������ ���¿��� �� Ŭ���ϸ� �̵��ǰ�
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 		{
 			MoveReady();
 			SetOrigin(_x, _y);
@@ -22579,7 +22583,7 @@ void C_VS_UI_MINIMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 			
-			for(i = 0; i < m_npc.size(); i++)
+			for(int i = 0; i < m_npc.size(); i++)
 			{
 				int x = m_map_start_point.x + m_npc[i].x*map_w/m_map_w;
 				int y = m_map_start_point.y + m_npc[i].y*map_h/m_map_h;
@@ -22610,7 +22614,7 @@ void C_VS_UI_MINIMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 			
-			for(i = 0; i < m_shrine.size(); i++)
+			for(int i = 0; i < m_shrine.size(); i++)
 			{
 				int x = m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
 				int y = m_map_start_point.y + m_shrine[i].y*map_h/m_map_h;
@@ -22622,7 +22626,7 @@ void C_VS_UI_MINIMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 
-			for(i = 0; i < g_pParty->GetSize(); i++)
+			for(int i = 0; i < g_pParty->GetSize(); i++)
 			{
 				PARTY_INFO *info = g_pParty->GetMemberInfo(i);
 				if(info != NULL && info->zoneID == GetZoneID())
@@ -22650,7 +22654,7 @@ void C_VS_UI_MINIMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 			
-			for(i = 0; i < m_Flag.size(); i++)
+			for(int i = 0; i < m_Flag.size(); i++)
 			{
 				int x = m_map_start_point.x + m_Flag[i].x*map_w/m_map_w;
 				int y = m_map_start_point.y + m_Flag[i].y*map_h/m_map_h;
@@ -22804,7 +22808,7 @@ void C_VS_UI_MINIMAP::Show()
 		_color = CDirectDraw::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_portal.size(); i++)
+		for(int i = 0; i < m_portal.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
 			_y = y+m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
@@ -22838,7 +22842,7 @@ void C_VS_UI_MINIMAP::Show()
 		_color = CDirectDraw::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_Block.size(); i++)
+		for(int i = 0; i < m_Block.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_Block[i].x)*map_w/m_map_w;
 			_y = y+m_map_start_point.y + (m_Block[i].y)*map_h/m_map_h;
@@ -22863,7 +22867,7 @@ void C_VS_UI_MINIMAP::Show()
 		// npc��ġ ǥ�� ��
 		r = color-10, g = color, b = color-10;
 		_color = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_npc.size(); i++)
+		for(int i = 0; i < m_npc.size(); i++)
 		{
 			_x = x+m_map_start_point.x + m_npc[i].x*map_w/m_map_w;
 			_y = y+m_map_start_point.y + m_npc[i].y*map_h/m_map_h;
@@ -22902,7 +22906,7 @@ void C_VS_UI_MINIMAP::Show()
 		_color = CDirectDraw::Color(r, g, b);
 		r = (color-10)*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_shrine.size(); i++)
+		for(int i = 0; i < m_shrine.size(); i++)
 		{
 			_x = x+m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
 			_y = y+m_map_start_point.y + m_shrine[i].y*map_h/m_map_h;
@@ -22942,7 +22946,7 @@ void C_VS_UI_MINIMAP::Show()
 		{
 		r = color, g = color-5, b = color-5;
 		_color = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < g_pParty->GetSize(); i++)
+		for(int i = 0; i < g_pParty->GetSize(); i++)
 		{
 		if(g_pParty->GetMemberInfo(i) != NULL && g_pParty->GetMemberInfo(i)->zoneID == m_zone_id)
 		{
@@ -23001,7 +23005,7 @@ void C_VS_UI_MINIMAP::Show()
 				  }
 		*/
 		// ��Ƽ ��ġ ǥ��
-		for(i = 0; i < g_pParty->GetSize(); i++)
+		for(int i = 0; i < g_pParty->GetSize(); i++)
 		{
 			if(g_pParty->GetMemberInfo(i) != NULL && g_pParty->GetMemberInfo(i)->zoneID == m_zone_id)
 			{
@@ -23439,7 +23443,7 @@ void C_VS_UI_WINDOW_MANAGER::SetDefault()
 		for(j=0; j < C_VS_UI_SKILL::GRADE_MAX; j++)
 			m_skill_hotkey_buf[i][j] = NOT_SELECTED;
 		
-	for(i = 0; i < CLD_TOTAL; i++)
+	for(int i = 0; i < CLD_TOTAL; i++)
 		SetFilter((CHAT_LINE_CONDITION)i, true);
 		
 	for( i = 0; i < WINDOW_TOTAL; i++)
@@ -23502,7 +23506,7 @@ void C_VS_UI_WINDOW_MANAGER::SaveToFile(ofstream &file)
 	BYTE hotkey_num = C_VS_UI_SKILL::HOTKEY_MAX, grade_num = C_VS_UI_SKILL::GRADE_MAX;
 	file.write((const char *)&hotkey_num, sizeof(BYTE));
 	file.write((const char *)&grade_num, sizeof(BYTE));
-	for(i = 0; i < hotkey_num; i++)
+	for(int i = 0; i < hotkey_num; i++)
 	{
 		for(j = 0; j < grade_num; j++)
 		{
@@ -23512,14 +23516,14 @@ void C_VS_UI_WINDOW_MANAGER::SaveToFile(ofstream &file)
 	
 	BYTE filter_num = CLD_TOTAL;
 	file.write((const char *)&filter_num, sizeof(BYTE));
-	for(i = 0; i < filter_num; i++)
+	for(int i = 0; i < filter_num; i++)
 	{
 		file.write((const char *)&m_filter[i], sizeof(bool));
 	}
 	
 	int window_num = QUEST_STATUS_WINDOW;
 	file.write((const char *)&window_num, sizeof(int));
-	for(i = 0; i < window_num; i++)
+	for(int i = 0; i < window_num; i++)
 	{
 		file.write((const char *)&m_alpha[i], sizeof(bool));
 		file.write((const char *)&m_autohide[i], sizeof(Window::ATTRIBUTES_HIDE));
@@ -23554,7 +23558,7 @@ void C_VS_UI_WINDOW_MANAGER::LoadFromFile(ifstream &file)
 	BYTE hotkey_num = C_VS_UI_SKILL::HOTKEY_MAX, grade_num = C_VS_UI_SKILL::GRADE_MAX;
 	file.read((char *)&hotkey_num, sizeof(BYTE));
 	file.read((char *)&grade_num, sizeof(BYTE));
-	for(i = 0; i < hotkey_num; i++)
+	for(int i = 0; i < hotkey_num; i++)
 	{
 		for(j = 0; j < grade_num; j++)
 		{
@@ -23564,14 +23568,14 @@ void C_VS_UI_WINDOW_MANAGER::LoadFromFile(ifstream &file)
 	
 	BYTE filter_num = CLD_TOTAL;
 	file.read((char *)&filter_num, sizeof(BYTE));
-	for(i = 0; i < filter_num; i++)
+	for(int i = 0; i < filter_num; i++)
 	{
 		file.read((char *)&m_filter[i], sizeof(bool));
 	}
 	
 	int window_num = QUEST_STATUS_WINDOW;
 	file.read((char *)&window_num, sizeof(int));
-	for(i = 0; i < window_num; i++)
+	for(int i = 0; i < window_num; i++)
 	{
 		file.read((char *)&m_alpha[i], sizeof(bool));
 		file.read((char *)&m_autohide[i], sizeof(Window::ATTRIBUTES_HIDE));
@@ -24449,7 +24453,7 @@ void C_VS_UI_TEAM_MEMBER_LIST::Show()
 	
 	
 	// ���߱�
-	for(i = 1; i < 12; i++)
+	for(int i = 1; i < 12; i++)
 	{
 		gpC_base->m_p_DDSurface_back->HLine(x+10, y+m_print_y+m_print_gap*i, w-40, 0);
 	}	
@@ -24500,7 +24504,7 @@ void C_VS_UI_TEAM_MEMBER_LIST::Show()
 //	g_PrintColorStr(x+m_print_x[0], y+m_print_y+8, menu_string[0], gpC_base->m_chatting_pi, RGB_YELLOW);
 //	g_PrintColorStr(x+m_print_x[1]-150, y+m_print_y+8, menu_string[1], gpC_base->m_chatting_pi, RGB_YELLOW);
 
-	for(i = 0; i<3; i++)
+	for(int i = 0; i<3; i++)
 	{
 		int TempValue = 30;
 		if(i == 2)
@@ -24516,7 +24520,7 @@ void C_VS_UI_TEAM_MEMBER_LIST::Show()
 	int ScrollPos = m_pC_scroll_bar->GetScrollPos();
 //	if(ScrollPos < 0)
 //		ScrollPos = -1;
-	for(i = 0; i < min(m_v_member_list.size()-ScrollPos, 11); i++)
+	for(int i = 0; i < min(m_v_member_list.size()-ScrollPos, 11); i++)
 	{
 		// ���� 1 2 0 3
 		// 0 : normal
@@ -26643,7 +26647,7 @@ void C_VS_UI_TEAM_INFO::Show()
 		bool b_member_num = false;
 		
 		gpC_base->m_p_DDSurface_back->HLine(print_x, py+line_gap, w - (print_x - x) -30, 0);
-		for(i = 0; i < m_ready_info.MEMBERS_NAME.size(); i++)
+		for(int i = 0; i < m_ready_info.MEMBERS_NAME.size(); i++)
 		{
 			if(g_GetStringWidth(m_ready_info.MEMBERS_NAME[i].c_str(), gpC_base->m_chatting_pi.hfont)+vx > x+w-30)
 			{
@@ -29061,7 +29065,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 			field_rect.right=field_rect.left+bar_width;
 			field_rect.top=y+field_y-3;		
 			
-			for(i=0; i < 4; i++)
+			for(int i=0; i < 4; i++)
 			{			
 				field_rect.bottom=field_rect.top+bar_height;
 				gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);			
@@ -29073,7 +29077,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 			bar_width = gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::SMALL_BAR2);
 			field_rect.right=field_rect.left+bar_width-19;
 			
-			for(i=0; i < 3; i++)
+			for(int i=0; i < 3; i++)
 			{	
 				field_rect.bottom=field_rect.top+bar_height;
 				gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);			
@@ -29178,7 +29182,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 				
 				clip_name.Set(0,0,bar_width-22,bar_height);
 				
-				for(i=0; i < 3; i++)
+				for(int i=0; i < 3; i++)
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x, y+field_y+2, C_GLOBAL_RESOURCE::TITLE_STR+i);				
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(x +field_x+x_gap_from_image, y+field_y-3, clip_name,C_GLOBAL_RESOURCE::LARGE_BAR);				
@@ -29321,7 +29325,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 			field_rect.right=field_rect.left+bar_width;
 			field_rect.top=y+field_y-3;
 			
-			for(i=0;i<2;i++)
+			for(int i=0;i<2;i++)
 			{			
 				field_rect.bottom=field_rect.top+bar_height;
 				gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);			
@@ -29331,7 +29335,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 			bar_height = gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::SMALL_BAR2);	
 			bar_width = gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::SMALL_BAR2);
 			field_rect.right=field_rect.left+bar_width-19;		
-			for(i=0;i<4;i++)
+			for(int i=0;i<4;i++)
 			{	
 				field_rect.bottom=field_rect.top+bar_height;
 				gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);			
@@ -29427,7 +29431,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x+x_gap_from_image+bar_width-22, y+field_y-3, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				field_y+=field_gap;
 				
-				for(i=0;i<3;i++)
+				for(int i=0;i<3;i++)
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x, y+field_y+2, C_GLOBAL_RESOURCE::TITLE_STR+i);				
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(x +field_x+x_gap_from_image, y+field_y-3, clip_name,C_GLOBAL_RESOURCE::LARGE_BAR);
@@ -29536,7 +29540,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 			field_rect.right=field_rect.left+bar_width-3;
 			field_rect.top=y+field_y-3;
 			
-			for(i=0;i<2;i++)
+			for(int i=0;i<2;i++)
 			{			
 				field_rect.bottom=field_rect.top+bar_height;
 				gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);			
@@ -29547,7 +29551,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 			bar_width = gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::SMALL_BAR2);
 			field_rect.right=field_rect.left+bar_width-19;		
 
-			for(i=0;i<4;i++)
+			for(int i=0;i<4;i++)
 			{	
 				field_rect.bottom=field_rect.top+bar_height;
 				gpC_base->m_p_DDSurface_back->FillRect(&field_rect, 0);			
@@ -29635,7 +29639,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 					gpC_global_resource->m_pC_info_spk->GetWidth(C_GLOBAL_RESOURCE::LARGE_BAR)-3, 
 					gpC_global_resource->m_pC_info_spk->GetHeight(C_GLOBAL_RESOURCE::LARGE_BAR));
 				
-				for(i=0;i<2;i++)
+				for(int i=0;i<2;i++)
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x-2, y+field_y+2, C_GLOBAL_RESOURCE::OUSTERS_TITLE_GRADE2+i);
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(x +field_x+x_gap_from_image+3, y+field_y-3,clip_name, C_GLOBAL_RESOURCE::LARGE_BAR);
@@ -29649,7 +29653,7 @@ void	C_VS_UI_OTHER_INFO::Show()
 				gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x+x_gap_from_image+bar_width-19, y+field_y-3, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				field_y+=field_gap;			
 				
-				for(i=0;i<3;i++)
+				for(int i=0;i<3;i++)
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field_x, y+field_y+2, C_GLOBAL_RESOURCE::TITLE_STR+i);				
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(field_rect.left, y+field_y-3, clip_name,C_GLOBAL_RESOURCE::LARGE_BAR);
@@ -31783,7 +31787,7 @@ bool	C_VS_UI_BLOOD_BIBLE_STATUS::MouseControl(UINT message, int _x, int _y)
 		break;
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 		{
 			MoveReady();
 			SetOrigin(_x, _y);
@@ -31831,7 +31835,7 @@ void	C_VS_UI_BLOOD_BIBLE_STATUS::Show()
 		m_pC_button_group->Show();
 
 		int i;
-		for(i = 0; i < 12; i++)
+		for(int i = 0; i < 12; i++)
 		{			
 			POINT point = {start_x,start_y + i*20 };
 			if(C_VS_UI_SKILL::m_C_spk_mini.GetSize() > skill_id + i)
@@ -31841,7 +31845,7 @@ void	C_VS_UI_BLOOD_BIBLE_STATUS::Show()
 		}
 		gpC_base->m_p_DDSurface_back->Unlock();
 
-		for(i = 0; i < 12; i++)
+		for(int i = 0; i < 12; i++)
 		{			
 			POINT point = {start_x,start_y + i*20 };
 
@@ -34191,7 +34195,7 @@ void	C_VS_UI_LOTTERY_CARD::Show()
 			wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_SELECT_EVENT_GIFT].GetString(), m_step);
 			g_PrintColorStrOut( x+14, y+83, sz_temp, gpC_base->m_chatting_pi, RGB_WHITE, RGB_BLACK);			
 			
-			for(i=0;i<m_GiftList.size();i++)
+			for(int i=0;i<m_GiftList.size();i++)
 			{		
 				if( m_Type == LOTTERY_TYPE_WAIT_CLIENT )
 				{
@@ -34906,7 +34910,7 @@ bool C_VS_UI_WORLDMAP::MouseControl(UINT message, int _x, int _y)
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
 		// ������ ���¿��� �� Ŭ���ϸ� �̵��ǰ�
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 		{
 			MoveReady();
 			SetOrigin(_x, _y);
@@ -34971,7 +34975,7 @@ void C_VS_UI_WORLDMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 			
-			for(i = 0; i < m_npc.size(); i++)
+			for(int i = 0; i < m_npc.size(); i++)
 			{
 				int x = m_map_start_point.x + m_npc[i].x*map_w/m_map_w;
 				int y = m_map_start_point.y + m_npc[i].y*map_h/m_map_h;
@@ -35002,7 +35006,7 @@ void C_VS_UI_WORLDMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 			
-			for(i = 0; i < m_shrine.size(); i++)
+			for(int i = 0; i < m_shrine.size(); i++)
 			{
 				int x = m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
 				int y = m_map_start_point.y + m_shrine[i].y*map_h/m_map_h;
@@ -35014,7 +35018,7 @@ void C_VS_UI_WORLDMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 
-			for(i = 0; i < g_pParty->GetSize(); i++)
+			for(int i = 0; i < g_pParty->GetSize(); i++)
 			{
 				PARTY_INFO *info = g_pParty->GetMemberInfo(i);
 				if(info != NULL && info->zoneID == GetZoneID())
@@ -35042,7 +35046,7 @@ void C_VS_UI_WORLDMAP::MouseControlExtra(UINT message, int _x, int _y)
 				}
 			}
 			
-			for(i = 0; i < m_Flag.size(); i++)
+			for(int i = 0; i < m_Flag.size(); i++)
 			{
 				int x = m_map_start_point.x + m_Flag[i].x*map_w/m_map_w;
 				int y = m_map_start_point.y + m_Flag[i].y*map_h/m_map_h;
@@ -35196,7 +35200,7 @@ void C_VS_UI_WORLDMAP::Show()
 		_color = CDirectDraw::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_portal.size(); i++)
+		for(int i = 0; i < m_portal.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
 			_y = y+m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
@@ -35230,7 +35234,7 @@ void C_VS_UI_WORLDMAP::Show()
 		_color = CDirectDraw::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_Block.size(); i++)
+		for(int i = 0; i < m_Block.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_Block[i].x)*map_w/m_map_w;
 			_y = y+m_map_start_point.y + (m_Block[i].y)*map_h/m_map_h;
@@ -35255,7 +35259,7 @@ void C_VS_UI_WORLDMAP::Show()
 		// npc��ġ ǥ�� ��
 		r = color-10, g = color, b = color-10;
 		_color = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_npc.size(); i++)
+		for(int i = 0; i < m_npc.size(); i++)
 		{
 			_x = x+m_map_start_point.x + m_npc[i].x*map_w/m_map_w;
 			_y = y+m_map_start_point.y + m_npc[i].y*map_h/m_map_h;
@@ -35294,7 +35298,7 @@ void C_VS_UI_WORLDMAP::Show()
 		_color = CDirectDraw::Color(r, g, b);
 		r = (color-10)*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < m_shrine.size(); i++)
+		for(int i = 0; i < m_shrine.size(); i++)
 		{
 			_x = x+m_map_start_point.x + m_shrine[i].x*map_w/m_map_w;
 			_y = y+m_map_start_point.y + m_shrine[i].y*map_h/m_map_h;
@@ -35334,7 +35338,7 @@ void C_VS_UI_WORLDMAP::Show()
 		{
 		r = color, g = color-5, b = color-5;
 		_color = CDirectDraw::Color(r, g, b);
-		for(i = 0; i < g_pParty->GetSize(); i++)
+		for(int i = 0; i < g_pParty->GetSize(); i++)
 		{
 		if(g_pParty->GetMemberInfo(i) != NULL && g_pParty->GetMemberInfo(i)->zoneID == m_zone_id)
 		{
@@ -35393,7 +35397,7 @@ void C_VS_UI_WORLDMAP::Show()
 				  }
 		*/
 		// ��Ƽ ��ġ ǥ��
-		for(i = 0; i < g_pParty->GetSize(); i++)
+		for(int i = 0; i < g_pParty->GetSize(); i++)
 		{
 			if(g_pParty->GetMemberInfo(i) != NULL && g_pParty->GetMemberInfo(i)->zoneID == m_zone_id)
 			{
