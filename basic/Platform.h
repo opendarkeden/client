@@ -73,10 +73,17 @@ typedef unsigned long   DWORD;
 typedef unsigned long long DWORD64;
 typedef void*			PVOID;
 typedef void*			ADDRESS_MODE;
+typedef uintptr_t		ULONG_PTR;
+typedef intptr_t		LONG_PTR;
 
 /* Windows path constants */
 #ifndef _MAX_PATH
 	#define _MAX_PATH	260
+#endif
+
+/* Define MAX_PATH without underscore for compatibility */
+#ifndef MAX_PATH
+	#define MAX_PATH _MAX_PATH
 #endif
 
 /* Color type definitions */
@@ -239,6 +246,102 @@ typedef WORD			char_t;
 		// SDL already gives us window-relative coordinates
 		return lpPoint ? TRUE : FALSE;
 	}
+
+	/* String comparison (case-insensitive) - Windows stricmp equivalent */
+	#define stricmp strcasecmp
+
+	/* Process and thread stubs for tlhelp32.h functions */
+	#define INVALID_HANDLE_VALUE ((HANDLE)-1)
+	#define TH32CS_SNAPPROCESS 0x00000002
+	#define CloseHandle(handle) /* No-op on non-Windows */
+
+	typedef struct {
+		DWORD dwSize;              // Length of structure in bytes
+		DWORD cntUsage;
+		DWORD th32ProcessID;
+		ULONG_PTR th32DefaultHeapID;
+		DWORD th32ModuleID;
+		DWORD cntThreads;
+		DWORD th32ParentProcessID;
+		LONG pcPriClassBase;
+		DWORD dwFlags;
+		char szExeFile[MAX_PATH];
+	} PROCESSENTRY32;
+
+	/* CreateToolhelp32Snapshot stub - returns invalid handle on non-Windows */
+	static inline void* CreateToolhelp32Snapshot(DWORD dwFlags, DWORD th32ProcessID) {
+		(void)dwFlags;
+		(void)th32ProcessID;
+		return INVALID_HANDLE_VALUE;
+	}
+
+	/* Process32First stub - always fails on non-Windows */
+	static inline BOOL Process32First(void* hSnapshot, PROCESSENTRY32* lppe) {
+		(void)hSnapshot;
+		(void)lppe;
+		return FALSE;
+	}
+
+	/* Process32Next stub - always fails on non-Windows */
+	static inline BOOL Process32Next(void* hSnapshot, PROCESSENTRY32* lppe) {
+		(void)hSnapshot;
+		(void)lppe;
+		return FALSE;
+	}
+
+	/* FindWindow stub - not implemented on non-Windows */
+	static inline void* FindWindow(const char* lpClassName, const char* lpWindowName) {
+		(void)lpClassName;
+		(void)lpWindowName;
+		return NULL; // No window finding on non-Windows platforms
+	}
+
+	/* ShowCursor stub - always returns 0 (cursor hidden) on non-Windows */
+	static inline int ShowCursor(BOOL bShow) {
+		(void)bShow;
+		return 0;
+	}
+
+	/* InitCommonControls stub - no-op on non-Windows */
+	#define InitCommonControls()
+
+	/* GetSystemMetrics constants */
+	#define SM_CXSCREEN 0
+	#define SM_CYSCREEN 1
+	#define SM_CYVSCROLL 20
+
+	/* GetSystemMetrics stub - returns default values on non-Windows */
+	static inline int GetSystemMetrics(int nIndex) {
+		switch(nIndex) {
+			case SM_CXSCREEN: return 1024;
+			case SM_CYSCREEN: return 768;
+			case SM_CYVSCROLL: return 16;
+			default: return 0;
+		}
+	}
+
+	/* Window style constants */
+	#define WS_EX_TOPMOST 0x00000008
+	#define WS_VISIBLE 0x10000000
+	#define SW_HIDE 0
+
+	/* Progress bar constants */
+	#define PROGRESS_CLASS "PROGRESS_CLASS"
+	#define PBS_SMOOTH 0x01
+	#define PBM_SETRANGE (WM_USER+1)
+	#define PBM_SETSTEP (WM_USER+4)
+
+	/* Message macros */
+	#define MAKELPARAM(l, h) ((LPARAM)(((DWORD_PTR)(l) & 0xFFFF) | ((DWORD_PTR)(h) << 16)))
+
+	/* SendMessage stub - no-op on non-Windows */
+	static inline LRESULT SendMessage(void* hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
+		(void)hWnd; (void)Msg; (void)wParam; (void)lParam;
+		return 0;
+	}
+
+	/* HMENU typedef */
+	typedef void* HMENU;
 
 	/* Windows timing functions */
 	#define GetTickCount()		platform_get_ticks()

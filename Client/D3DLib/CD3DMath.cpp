@@ -4,6 +4,13 @@
 
 #include "CD3DMath.h"
 #include <math.h>
+#include <string.h>
+
+// Platform-specific memory operations
+#ifndef PLATFORM_WINDOWS
+	// ZeroMemory is Windows-specific, use memset on other platforms
+	#define ZeroMemory(ptr, size) memset((ptr), 0, (size))
+#endif
 
 //------------------------------------------------------------------------------------
 // Static members

@@ -34,6 +34,7 @@
 #include "ClientFunction.h"
 #include "MMusic.h"
 #include "CDirectInput.h"  // For DIK_* key code definitions
+#include "D3DLib/CDirect3D.h"  // For CDirect3D::IsHAL()
 #include "MZoneSoundManager.h"
 #include "TempInformation.h"
 #include "MFakeCreature.h"
@@ -128,7 +129,8 @@ extern RECT g_GameRect;
 	extern int g_CheckTimeNum=0;
 #else
 	// Non-Windows platforms don't have tlhelp32.h
-	extern int GetCurrentUserNumber() { return 1; }
+	// Forward declaration only - implementation is below
+	extern int GetCurrentUserNumber();
 	extern int g_CheckTimeNum=0;
 #endif
 //end

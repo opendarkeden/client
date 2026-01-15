@@ -44,7 +44,9 @@ typedef struct {
     DWORD   dwSize;
 } MMCKINFO;
 
-/* WAVE format structure */
+/* WAVE format structure - only define if not already defined */
+#ifndef WAVEFORMATEX_DEFINED
+#define WAVEFORMATEX_DEFINED
 typedef struct _WAVEFORMATEX {
     WORD    wFormatTag;
     WORD    nChannels;
@@ -54,6 +56,7 @@ typedef struct _WAVEFORMATEX {
     WORD    wBitsPerSample;
     WORD    cbSize;
 } WAVEFORMATEX, *LPWAVEFORMATEX;
+#endif
 
 /* Multimedia constants */
 #define MMIO_READ      0

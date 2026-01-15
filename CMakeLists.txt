@@ -49,6 +49,21 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		Client/*.h
 	)
 
+	# Collect VS_UI source files separately
+	file(GLOB VS_UI_SOURCES VS_UI/src/*.cpp)
+
+	# Combine source lists
+	list(APPEND CLIENT_SOURCES ${VS_UI_SOURCES})
+
+	# Exclude WinMain.cpp (standalone VS_UI program entry point)
+	# Build the full path that GLOB would have created
+	list(FILTER CLIENT_SOURCES EXCLUDE REGEX ".*WinMain\\.cpp")
+
+	# Exclude Windows-specific Immersion tactile feedback library on non-Windows platforms
+	if(NOT WIN32)
+		list(FILTER CLIENT_SOURCES EXCLUDE REGEX ".*Imm.*")
+	endif()
+
 	# Add DarkEden executable
 	add_executable(DarkEden ${CLIENT_SOURCES})
 
