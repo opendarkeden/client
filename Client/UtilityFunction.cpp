@@ -949,3 +949,80 @@ GetDiskFreeSpace(const char* pDrive)
 
 	return freeBytes;
 }
+// SDL backend implementation of LoadImageToSurface
+#ifndef PLATFORM_WINDOWS
+#include "../SpriteLib/CSpriteSurface.h"
+#include <SDL2/SDL_image.h>
+
+bool LoadImageToSurface(const char* pFilename, CSpriteSurface& surface)
+{
+	if (pFilename == NULL) {
+		return false;
+	}
+
+	int fileLen = strlen(pFilename);
+
+	if (fileLen < 8) {
+		return false;
+	}
+
+	// Check file extension
+	char checkStr[10];
+	strcpy(checkStr, (pFilename + fileLen - 4));
+	for (int i = 0; i < strlen(checkStr); i++) {
+		if (checkStr[i] >= 'A' && checkStr[i] <= 'Z') {
+			checkStr[i] += 'a' - 'A';
+		}
+	}
+
+	// Only support .bmp files for now
+	if (strncmp(".bmp", checkStr, 4) != 0) {
+		return false;
+	}
+
+	// Load image using SDL_image
+	SDL_Surface* loaded = SDL_LoadBMP(pFilename);
+	if (loaded == NULL) {
+		return false;
+	}
+
+	// Convert to RGB565 format
+	SDL_Surface* converted = SDL_ConvertSurfaceFormat(loaded, SDL_PIXELFORMAT_RGB565);
+	if (converted == NULL) {
+		SDL_FreeSurface(loaded);
+		return false;
+	}
+
+	// Get surface info
+	S_SURFACEINFO info;
+	surface.GetSurfaceInfo(&info);
+
+	if (info.p_surface == NULL) {
+		SDL_FreeSurface(converted);
+		SDL_FreeSurface(loaded);
+		return false;
+	}
+
+	// Copy pixel data
+	WORD* dest = (WORD*)info.p_surface;
+	int width = min(converted->w, info.width);
+	int height = min(converted->h, info.height);
+
+	for (int y = 0; y < height; y++) {
+		for (int x = 0; x < width; x++) {
+			Uint8 r, g, b;
+			Uint32 pixel = ((Uint32*)converted->pixels)[y * converted->w + x];
+			SDL_GetRGB(pixel, converted->format, &r, &g, &b);
+
+			// Convert RGB888 to RGB565
+			WORD rgb565 = ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
+			dest[y * (info.pitch / 2) + x] = rgb565;
+		}
+	}
+
+	SDL_FreeSurface(converted);
+	SDL_FreeSurface(loaded);
+
+	return true;
+}
+#endif

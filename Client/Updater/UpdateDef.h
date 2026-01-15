@@ -8,7 +8,7 @@
 #ifndef __UPDATE_DEF_H__
 #define __UPDATE_DEF_H__
 
-#include "Types.h"
+#include "../Packet/Types.h"
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
 #else

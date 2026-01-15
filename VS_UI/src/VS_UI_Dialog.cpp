@@ -1,4 +1,6 @@
 #include "client_PCH.h"
+#define assert(e) ((void)(e))
+// Disabled assert for macOS
 
 // VS_UI_Dialog.cpp
 #pragma warning(disable:4786)

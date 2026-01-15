@@ -7,6 +7,10 @@
 
 class CDirectDrawSurface;
 
+#ifndef PLATFORM_WINDOWS
+class CSpriteSurface;
+#endif
+
 //-----------------------------------------------------------------------------
 // 문자열 앞 뒤의 공백 제거하기
 //-----------------------------------------------------------------------------
@@ -43,5 +47,10 @@ bool	SaveSurfaceToImage(const char* pFilename, CDirectDrawSurface& surface);
 // Drive가 NULL이면 지정을 안하면 현재 드라이브다.
 //-----------------------------------------------------------------------------
 unsigned long	GetDiskFreeSpace(const char* pDrive=NULL);
+
+// SDL backend overloads
+#ifndef PLATFORM_WINDOWS
+bool	LoadImageToSurface(const char* pFilename, CSpriteSurface& surface);
+#endif
 
 #endif

@@ -74,7 +74,7 @@ APICheck _APICheck;
 #include "AppendPatchInfo.h"
 #include "EffectSpriteTypeDef.h"
 //#include "MFileDef.h"
-#include "Properties.h"
+#include "Packet/Properties.h"
 #include "ServerInfo.h"
 #include "MTestDef.h"
 #include "Resource.h"

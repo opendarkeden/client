@@ -36,6 +36,7 @@ public:
     void ForceUI(unsigned int ID) {}
     bool IsDevice() { return false; }  // Stub: no device on non-Windows platforms
     void Enable(bool enable) {}  // Stub: enable/disable device
+    void Disable() {}  // Stub: disable device
 };
 
 // Stub for global Immersion device pointer

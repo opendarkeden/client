@@ -29,6 +29,17 @@
 #define _P_NOWAIT 1
 #endif
 
+// Helper function to compare char_t* with wchar_t* string
+static inline int char_t_wcscmp(const char_t* s1, const wchar_t* s2) {
+    if (!s1 || !s2) return (s1 ? 1 : (s2 ? -1 : 0));
+    while (*s1 && *s2) {
+        if (*s1 != *s2) return (*s1 < *s2) ? -1 : 1;
+        s1++;
+        s2++;
+    }
+    return (*s2) ? -1 : (*s1 ? 1 : 0);
+}
+
 #define LOGIN_ID_X 59 // ��밪
 #define LOGIN_ID_Y 49
 #define LOGIN_PASSWORD_X 59
@@ -784,7 +795,7 @@ void C_VS_UI_CHAR_DELETE::Run(id_t id)
 				if (
 					 ( ( gC_ci->IsKorean()&& (	m_lev_ssn_part1.Size() == SSN_PART1_CHAR_COUNT &&
 					 m_lev_ssn_part2.Size() == SSN_PART2_CHAR_COUNT ) ) ||
-					 ( !gC_ci->IsKorean() && ( wcscmp( m_lev_ssn_part1.GetString(), _L("DeletePc")) == 0 ) )
+					 ( !gC_ci->IsKorean() && ( char_t_wcscmp(m_lev_ssn_part1.GetString(), L"DeletePc") == 0 ) )
 					 )
 					 || g_pUserInformation->IsNetmarble)
 				{
@@ -1233,13 +1244,13 @@ C_VS_UI_NEWCHAR::C_VS_UI_NEWCHAR()
 	file_ac_vampire2.close();
 
 
-	ifstream file_ac_slayerman( CFPK_ADVANCEMENT_SLAYER_MAN,ios::binary|ios::nocreate );
+	ifstream file_ac_slayerman( CFPK_ADVANCEMENT_SLAYER_MAN,ios::binary );
 	if( !file_ac_slayerman )
 		_Error( FILE_OPEN );
 	m_AdvancementSlayerManCfpk.LoadFromFile( file_ac_slayerman );
 	file_ac_slayerman.close();
 
-	ifstream file_ac_slayerwoman( CFPK_ADVANCEMENT_SLAYER_WOMAN,ios::binary|ios::nocreate );
+	ifstream file_ac_slayerwoman( CFPK_ADVANCEMENT_SLAYER_WOMAN,ios::binary );
 	if( !file_ac_slayerwoman )
 		_Error( FILE_OPEN );
 	m_AdvancementSlayerWomanCfpk.LoadFromFile( file_ac_slayerwoman );
@@ -6072,7 +6083,7 @@ void C_VS_UI_OPTION::Run(id_t id)
 		{
 			m_check[CHECK_IFEEL] = (m_check[CHECK_IFEEL] == CHECK_CHECK)?CHECK_NOT:CHECK_CHECK;
 			g_pUserOption->UseForceFeel = m_check[CHECK_IFEEL] == CHECK_CHECK;
-			if(gpC_Imm && g_pUserOption->UseForceFeel)gpC_Imm->Enable();
+			if(gpC_Imm && g_pUserOption->UseForceFeel)gpC_Imm->Enable(true);
 			else if(gpC_Imm)gpC_Imm->Disable();
 		}
 		break;
@@ -6450,7 +6461,7 @@ bool C_VS_UI_OPTION::MouseControl(UINT message, int _x, int _y)
 			}
 			else
 
-			if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+			if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 			{
 				MoveReady();
 				SetOrigin(_x, _y);

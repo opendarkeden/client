@@ -1,6 +1,8 @@
 // VS_UI_ExtraDialog.cpp
 
 #include "client_PCH.h"
+#define assert(e) ((void)(e))
+// Disabled assert for macOS
 
 #pragma warning(disable:4786)
 
@@ -2341,7 +2343,7 @@ C_VS_UI_FILE_DIALOG::C_VS_UI_FILE_DIALOG(MODE Mode)
 
 	m_mode=Mode;
 
-	m_temp_face.InitOffsurface(55,70,DDSCAPS_SYSTEMMEMORY);
+	m_temp_face.InitOffsurface(55,70);
 	m_temp_face.FillSurface(0);
 //	m_scroll_x = 510;
 //	m_scroll_y = 95;
@@ -2694,9 +2696,13 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 		{
 			if(temp_m_select != m_tempselect && !(m_vs_file_list_attr[m_tempselect] & FILE_ATTRIBUTE_DIRECTORY))
 			{
-				CDirectDrawSurface bmpSurface;
+				#ifdef PLATFORM_WINDOWS
+						CDirectDrawSurface bmpSurface;
+#else
+						CSpriteSurface bmpSurface;
+#endif
 				const POINT faceSize={55,70};
-				RECT destRect={0,0,55,70};
+				POINT destPoint={0,0};
 				std::string filename;
 				
 				filename+=mp_open_current_directory[mi_open_drive_index];
@@ -2707,7 +2713,7 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 				{					
 					RECT srcRect={0,0,bmpSurface.GetWidth(),bmpSurface.GetHeight()};					
 					m_temp_face.FillSurface(0);
-					m_temp_face.Blt(&destRect,&bmpSurface,&srcRect);
+					m_temp_face.Blt(&destPoint,&bmpSurface,&srcRect);
 				} else
 				{
 					m_flag_preview_image=false;

@@ -44,6 +44,12 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	if(NOT WIN32)
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*Imm.*")
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*WinMain.*")
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*WebBrowser.*")
+		# Exclude Windows-specific Korean input method files
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/src/hangul/.*")
+		# Exclude Windows-specific edit widget (uses IMM/GDI)
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*U_edit.*")
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*u_window.*")
 	endif()
 
 	# Client files that VS_UI depends on (按需编译)
@@ -135,6 +141,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/DXLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/D3DLib
 		${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/Packet
 		${CMAKE_CURRENT_SOURCE_DIR}
 	)
 

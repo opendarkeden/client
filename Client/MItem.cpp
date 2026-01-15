@@ -37,7 +37,7 @@
 	#include "UIDialog.h"
 #endif
 
-#include <fstream.h>
+#include <fstream>
 #include <algorithm>
 
 #ifdef __GAME_CLIENT__

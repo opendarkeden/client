@@ -160,6 +160,9 @@
 	#define DIK_LWIN            0xDB
 	#define DIK_RWIN            0xDC
 	#define DIK_APPS            0xDD
+	/* ALT key aliases (DirectInput uses LMENU/RMENU) */
+	#define DIK_LALT            DIK_LMENU
+	#define DIK_RALT            DIK_RMENU
 #endif
 
 /* ============================================================================

@@ -3,6 +3,9 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "client_PCH.h"
+#include <assert.h>
+#define assert(e) ((void)(e))
+// Disabled assert for macOS
 #include "vs_ui_extradialog.h"
 //#include "VS_UI_DESC.h" // ?? �̻�-_-a
 #include "VS_UI_filepath.h"

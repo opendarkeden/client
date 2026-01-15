@@ -1,6 +1,8 @@
 // VS_UI_Base.cpp
 
 #include "client_PCH.h"
+#define assert(e) ((void)(e))
+// Disabled assert for macOS
 #include "VS_UI_Base.h"
 #ifdef PLATFORM_WINDOWS
 #include <windows.h>

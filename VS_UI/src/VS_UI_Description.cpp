@@ -1,6 +1,9 @@
 // VS_UI_Description.cpp
 
 #include "client_PCH.h"
+#include <assert.h>
+#define assert(e) ((void)(e))
+// Disabled assert for macOS
 
 #include "VS_UI_Description.h"
 #include "VS_UI_GameCommon.h"

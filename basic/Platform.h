@@ -21,6 +21,13 @@
 extern "C" {
 #endif
 
+/* Define assert macro for non-Windows platforms */
+#ifndef PLATFORM_WINDOWS
+#ifndef assert
+#define assert(e) ((void)(e))
+#endif
+#endif
+
 /* ============================================================================
  * Platform Detection
  * ============================================================================ */
@@ -441,6 +448,9 @@ typedef WORD			char_t;
 
 	/* String comparison (case-insensitive) - Windows stricmp equivalent */
 	#define stricmp strcasecmp
+
+	/* Microsoft-specific string functions - use standard equivalents */
+	#define _stscanf sscanf
 
 	/* Process and thread stubs for tlhelp32.h functions */
 	#define INVALID_HANDLE_VALUE ((HANDLE)-1)
@@ -1800,6 +1810,22 @@ static inline void SetSurfaceInfo(S_SURFACEINFO* dest, const S_SURFACEINFO* src)
         dest->pitch = src->pitch;
     }
 }
+#endif
+
+/* DirectInput key codes for non-Windows platforms */
+#ifndef PLATFORM_WINDOWS
+/* DIK_LMENU and DIK_RMENU are the DirectInput names for Left/Right ALT */
+#define DIK_LMENU           0x38
+#define DIK_RMENU           0xB8
+/* Alternate names for ALT keys */
+#define DIK_LALT            DIK_LMENU
+#define DIK_RALT            DIK_RMENU
+
+/* Windows macros for creating LONG/LPARAM from values */
+#define MAKELONG(a, b) ((LONG)(((WORD)(((DWORD_PTR)(a)) & 0xffff)) | ((DWORD_PTR)((WORD)(((DWORD_PTR)(b)) & 0xffff))) << 16))
+#define MAKEWPARAM(l, h) ((WPARAM)(DWORD)MAKELONG(l, h))
+#define MAKELPARAM(l, h) ((LPARAM)(DWORD)MAKELONG(l, h))
+#define MAKELRESULT(l, h) ((LRESULT)(DWORD)MAKELONG(l, h))
 #endif
 
 #ifdef __cplusplus

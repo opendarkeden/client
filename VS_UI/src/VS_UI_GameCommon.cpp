@@ -28301,7 +28301,7 @@ void	C_VS_UI_TEAM_REGIST::Run(id_t id)
 				m_introduction = sz_intro;
 				m_team_name = sz_team_name;
 				
-				gpC_base->SendMessage(UI_REGIST_GUILD_TEAM, (int)(intptr_t)m_team_name.c_str()), 0, (void *)m_introduction.c_str());
+				gpC_base->SendMessage(UI_REGIST_GUILD_TEAM, (int)(intptr_t)m_team_name.c_str(), 0, (void *)m_introduction.c_str());
 				
 				DeleteNew(sz_intro);
 				DeleteNew(sz_team_name);
