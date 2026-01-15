@@ -12,7 +12,12 @@
 
 #pragma once
 
+#ifdef PLATFORM_WINDOWS
 extern LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp );
+#else
+// Stub for non-Windows platforms
+inline LONG RecordExceptionInfo(void* pExp) { return 0; }
+#endif
 
 // 로그 파일명을 바꾸고 싶으면 여길 바꾸셈
 #define OLD_CRASH_LOG_FILENAME	"CrashReport.log"

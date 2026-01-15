@@ -496,6 +496,46 @@ int platform_init(void);
  */
 void platform_shutdown(void);
 
+/* ============================================================================
+ * Windows Compatibility Macros
+ * ============================================================================ */
+
+// Define DLLIFC as empty on non-Windows platforms (for Immersion library compatibility)
+#ifndef PLATFORM_WINDOWS
+#ifndef DLLIFC
+#define DLLIFC
+#endif
+#endif
+
+// Windows constants that may be needed
+#ifndef MAXLONG
+#define MAXLONG 2147483647L  // 0x7FFFFFFF
+#endif
+
+#ifndef MAXDWORD
+#define MAXDWORD 0xFFFFFFFF
+#endif
+
+/* ============================================================================
+ * Rectangle Structure (Windows RECT equivalent)
+ * ============================================================================ */
+
+#ifndef RECT_DEFINED
+#define RECT_DEFINED
+
+/**
+ * Rectangle structure (equivalent to Windows RECT)
+ * Used for defining rectangular areas
+ */
+typedef struct tagRECT {
+    LONG left;
+    LONG top;
+    LONG right;
+    LONG bottom;
+} RECT, *PRECT, *LPRECT;
+
+#endif /* RECT_DEFINED */
+
 #ifdef __cplusplus
 }
 #endif

@@ -7,7 +7,7 @@
 #ifndef	__COPENINGUPDATE_H__
 #define	__COPENINGUPDATE_H__
 
-#include "CWinUpdate.h"
+#include "WinLib/CWinUpdate.h"
 
 class COpeningUpdate : public CWinUpdate {
 	public :

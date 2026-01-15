@@ -51,6 +51,7 @@ using namespace std;
 #include "MWorkThread.h"
 #include "MLoadingSPKWorkNode.h"
 #include "MItem.h"
+#include "CStorageSurface.h"
 
 class CMessageArray;
 class Player;

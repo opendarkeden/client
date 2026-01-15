@@ -50,12 +50,16 @@ APICheck _APICheck;
 #endif
 #include <stdio.h>
 #include <stdarg.h>
+#ifdef PLATFORM_WINDOWS
 #include <io.h>
 #include <direct.h>
-#include <time.h>
 #include <crtdbg.h>
-#include <string>
 #include <process.h>
+#else
+#include <unistd.h>
+#endif
+#include <time.h>
+#include <string>
 #include <sys/stat.h>
 #include "Client.h"
 #include "GameObject.h"

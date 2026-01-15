@@ -95,7 +95,7 @@ static inline DWORD WaitForSingleObject(HANDLE event, DWORD timeout) {
 }
 
 // Stub for SetThreadPriority (not implemented on non-Windows)
-static inline BOOL SetThreadPriority(platform_thread_t thread, int priority) {
+static inline BOOL SetThreadPriority(HANDLE thread, int priority) {
     (void)thread; (void)priority;
     return TRUE;
 }

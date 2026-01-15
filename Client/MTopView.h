@@ -89,6 +89,10 @@ class MEffect;
 #include "DrawItemNameNode.h"
 #include "COrderedList.h"
 #include "MRequestMode.h"
+#include "CIndexSpritePack.h"
+#include "CFilter.h"
+#include "CFilterPack.h"
+#include "CSpriteOutlineManager.h"
 
 
 //class MZoneInfo;

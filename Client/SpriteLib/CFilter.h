@@ -80,7 +80,9 @@ class CFilter {
 		BYTE**		m_ppFilter;
 };
 
+#ifdef PLATFORM_WINDOWS
 typedef CTypePack<CFilter>			CFilterPack;
+#endif
 
 #endif
 

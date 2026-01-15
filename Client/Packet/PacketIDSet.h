@@ -13,10 +13,10 @@
 #include "Packet.h"
 #include "PlayerStatus.h"
 
-#if __LINUX__
-	#include <hash_set>
-	typedef hash_set<PacketID_t> PACKET_ID_SET;
-#elif __WINDOWS__
+#ifdef PLATFORM_WINDOWS
+	#include <set>
+	typedef std::set<PacketID_t> PACKET_ID_SET;
+#else
 	#include <set>
 	typedef std::set<PacketID_t> PACKET_ID_SET;
 #endif

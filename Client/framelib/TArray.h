@@ -23,9 +23,8 @@
 #else
 #include "../../basic/Platform.h"
 #endif
-#include <fstream.h>
-//class ofstream;
-//class ifstream;
+#include <fstream>
+using namespace std;
 
 template <class DataType, class SizeType>
 class TArray {
@@ -171,10 +170,10 @@ TArray<DataType, SizeType>::operator += (const TArray<DataType, SizeType>& array
 	//------------------------------------------------
 	// temp에 FramePack을 copy
 	//------------------------------------------------
-	for (i=0; i<array.m_Size; i++)
+	for (SizeType i=0; i<array.m_Size; i++)
 	{
 		pTempData[k] = array.m_pData[i];
-		
+
 		k++;
 	}
 

@@ -52,6 +52,7 @@ extern "C" {
 #include <objbase.h>
 #endif
 
+#ifdef PLATFORM_WINDOWS
 /****************************************************************************
  *
  *      Class IDs
@@ -140,6 +141,7 @@ DEFINE_GUID(GUID_Feelit_Ellipse,	    0x5959df82,0x2911,0x11d1,0xb0,0x49,0x00,0x2
 
 /* Custom Force */
 DEFINE_GUID(GUID_Feelit_CustomForce, 0x5959df7e,0x2911,0x11d1,0xb0,0x49,0x00,0x20,0xaf,0x30,0x26,0x9a);
+#endif
 
 /****************************************************************************
  *
