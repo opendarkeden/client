@@ -22,7 +22,7 @@
 #include "ClientPlayer.h"
 #include "packet\Cpackets\CGAddMouseToQuickSlot.h"
 
-// MItem.cpp¿¡ ÀÖ´Ù.
+// MItem.cppì— ìˆë‹¤.
 bool	IsBombMaterial(const MItem* pItem);
 
 //////////////////////////////////////////////////////////////////////
@@ -36,22 +36,22 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 
 
 	//---------------------------------------------
-	// ItemCheckBufferÀÇ item±â¾ï
+	// ItemCheckBufferì˜ itemê¸°ì–µ
 	//---------------------------------------------
 	MItem* pItem = g_pPlayer->GetItemCheckBuffer();
 
 	//---------------------------------------------
-	// bufferÀÇ »óÅÂ
+	// bufferì˜ ìƒíƒœ
 	//---------------------------------------------
 	MPlayer::ITEM_CHECK_BUFFER	status = g_pPlayer->GetItemCheckBufferStatus();
 
 	//---------------------------------------------
-	// item check buffer¸¦ ¾ø¾ÖÁØ´Ù.
+	// item check bufferë¥¼ ì—†ì• ì¤€ë‹¤.
 	//---------------------------------------------
 	g_pPlayer->ClearItemCheckBuffer();
 
 	//---------------------------------------------
-	// ÁÖ¿ï itemÀÌ ¾ø´Ù? ¹¹Áö..
+	// ì£¼ìš¸ itemì´ ì—†ë‹¤? ë­ì§€..
 	//---------------------------------------------
 	if (pItem==NULL)
 	{
@@ -65,13 +65,13 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 	BOOL bRemoveZoneItem = FALSE;
 
 	//------------------------------------------------------------------------
-	// id°¡ °°Àº °æ¿ì..
+	// idê°€ ê°™ì€ ê²½ìš°..
 	//------------------------------------------------------------------------
 	if (pItem->GetID() == pPacket->getObjectID())
 	{		
 		BOOL bSkillCheck = FALSE;
 
-		// ¿ì¸®Æí ¼º¹°ÀÎ°æ¿ì ¹Ù·Î Á¦°Å
+		// ìš°ë¦¬í¸ ì„±ë¬¼ì¸ê²½ìš° ë°”ë¡œ ì œê±°
 //		if (pItem->GetItemClass()==ITEM_CLASS_RELIC// && 
 //				(
 //					(pItem->GetItemType() == 0 || pItem->GetItemType() == 1 ) && g_pPlayer->IsSlayer() ||
@@ -82,14 +82,14 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 //			// sound
 //			PlaySound( pItem->GetTileSoundID() );
 //
-//			// zone¿¡¼­ Á¦°Å
+//			// zoneì—ì„œ ì œê±°
 //			bRemoveZoneItem = TRUE;
 //			//g_pZone->RemoveItem( pItem->GetID() );
 //			
 //		}
 
 		//------------------------------------------------------------------------
-		// ÀÌº¥Æ®¿ë ¾ÆÀÌÅÛÀÎ °æ¿ì... Á¦°ÅÇÑ´Ù.
+		// ì´ë²¤íŠ¸ìš© ì•„ì´í…œì¸ ê²½ìš°... ì œê±°í•œë‹¤.
 		//------------------------------------------------------------------------
 //		else 
 		if (pItem->GetItemClass()==ITEM_CLASS_SKULL
@@ -98,12 +98,12 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 			// sound
 			PlaySound( pItem->GetInventorySoundID() );
 
-			// zone¿¡¼­ Á¦°Å
+			// zoneì—ì„œ ì œê±°
 			bRemoveZoneItem = TRUE;
 			//g_pZone->RemoveItem( pItem->GetID() );
 		}
 		//------------------------------------------------------------------------
-		// µ·À» Áİ´Â °æ¿ì
+		// ëˆì„ ì¤ëŠ” ê²½ìš°
 		//------------------------------------------------------------------------
 		else if (status == MPlayer::ITEM_CHECK_BUFFER_PICKUP_MONEY)
 		{
@@ -111,46 +111,46 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 			int highWord = pItem->GetSilver();
 			int money = (highWord << 16) | lowWord;
 
-			// µ·Á¦ÇÑ limit³ÑÁö ¾Ê°Ô
+			// ëˆì œí•œ limitë„˜ì§€ ì•Šê²Œ
 			money = min(money, g_pMoneyManager->GetMaxAddMoney());
 			
-			// µ· Áõ°¡
+			// ëˆ ì¦ê°€
 			g_pMoneyManager->AddMoney( money );
 
 			// sound
 			PlaySound( pItem->GetTileSoundID() );
 
-			// zone¿¡¼­ Á¦°Å
+			// zoneì—ì„œ ì œê±°
 			bRemoveZoneItem = TRUE;
 			//g_pZone->RemoveItem( pItem->GetID() );
 		}		
 		//------------------------------------------------------------------------
-		// ItemÀ» Inventory¿¡ ³Ö´Â °æ¿ì
+		// Itemì„ Inventoryì— ë„£ëŠ” ê²½ìš°
 		//------------------------------------------------------------------------
 		else if (status == MPlayer::ITEM_CHECK_BUFFER_PICKUP_TO_INVENTORY)
 		{
 			const MItem* pOldItem = g_pInventory->GetItem( pItem->GetGridX(), pItem->GetGridY() );
 
 			//------------------------------------------------------------------------
-			// ºó °ø°£¿¡ Ãß°¡µÇ´Â °æ¿ì
+			// ë¹ˆ ê³µê°„ì— ì¶”ê°€ë˜ëŠ” ê²½ìš°
 			//------------------------------------------------------------------------
 			if (pOldItem==NULL)
 			{
 				//---------------------------------------------
-				// itemÀ» inventory¿¡ ³Ö´Â´Ù.
+				// itemì„ inventoryì— ë„£ëŠ”ë‹¤.
 				//---------------------------------------------
 				if (g_pInventory->AddItem( pItem, pItem->GetGridX(), pItem->GetGridY() ))
 				{		
 					bSkillCheck = TRUE;
 
-					// inventory¿¡ Ãß°¡µÆÀ» °æ¿ì¸¸ zone¿¡¼­ Áö¿öÁØ´Ù.
+					// inventoryì— ì¶”ê°€ëì„ ê²½ìš°ë§Œ zoneì—ì„œ ì§€ì›Œì¤€ë‹¤.
 					if (g_pZone==NULL)
 					{					
 						DEBUG_ADD("[Error] Zone is not Init!");
 					}
 					else
 					{
-						// Áİ´Â ¼Ò¸®¸¦ ³½´Ù.
+						// ì¤ëŠ” ì†Œë¦¬ë¥¼ ë‚¸ë‹¤.
 						//PlaySound( pItem->GetTileSoundID(),
 						//			false,
 						//			g_pPlayer->GetX(), g_pPlayer->GetY());
@@ -159,21 +159,21 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 					}
 				}
 				//---------------------------------------------
-				// ¾Æ´Ï¸é ¹¹Áö?? item
+				// ì•„ë‹ˆë©´ ë­ì§€?? item
 				//---------------------------------------------
 				else
 				{
-					// µé¾î°¥ ÀÚ¸®°¡ ÀÖ¾ú´Âµ¥ ¾ø¾îÁø °æ¿ì..
+					// ë“¤ì–´ê°ˆ ìë¦¬ê°€ ìˆì—ˆëŠ”ë° ì—†ì–´ì§„ ê²½ìš°..
 					DEBUG_ADD_FORMAT("[Error] Pickup Item ID no fit position! ID=%d, xy=(%d, %d)", pItem->GetID(), pItem->GetGridX(), pItem->GetGridY());
 				}
 			}
 			//------------------------------------------------------------------------
-			// ±âÁ¸¿¡ ÀÖ´ø Item¿¡ ½×ÀÌ´Â °æ¿ì
+			// ê¸°ì¡´ì— ìˆë˜ Itemì— ìŒ“ì´ëŠ” ê²½ìš°
 			//------------------------------------------------------------------------
 			else
 			{
 				//--------------------------------------------------------
-				// ½×ÀÏ ¼ö ÀÖ´Â itemÀÎÁö ÇÑ¹ø ´õ °ËÁõÇØ ÁØ´Ù.
+				// ìŒ“ì¼ ìˆ˜ ìˆëŠ” itemì¸ì§€ í•œë²ˆ ë” ê²€ì¦í•´ ì¤€ë‹¤.
 				//--------------------------------------------------------
 				if (pOldItem->IsPileItem() && pItem->IsPileItem()
 					&& pOldItem->GetItemClass()==itemClass
@@ -182,30 +182,30 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 					bSkillCheck = TRUE;
 
 					//----------------------------------------------------
-					// pItemÀ» pOldItem¿¡ ½×´Â´Ù.
+					// pItemì„ pOldItemì— ìŒ“ëŠ”ë‹¤.
 					//----------------------------------------------------
 					int total = pOldItem->GetNumber() + pItem->GetNumber();
 					if ( total > pOldItem->GetMaxNumber() )
 					{
 						DEBUG_ADD_FORMAT("[Error] Exceed Item Pile Limit : %d/%d", total, pOldItem->GetMaxNumber());
 						
-						// max±îÁö¸¸ Ãß°¡ÇÑ´Ù°í °¡Á¤ÇÑ´Ù.
+						// maxê¹Œì§€ë§Œ ì¶”ê°€í•œë‹¤ê³  ê°€ì •í•œë‹¤.
 						total = pItem->GetMaxNumber();
 					}
 					
 					//---------------------------------------------
-					// OldItemÀÇ °³¼ö¸¦ ¹Ù²ã¼­ ´Ù½Ã Ãß°¡ÇÑ´Ù.
+					// OldItemì˜ ê°œìˆ˜ë¥¼ ë°”ê¿”ì„œ ë‹¤ì‹œ ì¶”ê°€í•œë‹¤.
 					//---------------------------------------------
 					MItem* pNewItem = g_pInventory->RemoveItem( pOldItem->GetID() );
 					pNewItem->SetNumber( total );
 					g_pInventory->AddItem( pNewItem, pItem->GetGridX(), pItem->GetGridY() );
 
-					// itemÀ» ¿ÏÀüÈ÷ Á¦°ÅÇÑ´Ù.
+					// itemì„ ì™„ì „íˆ ì œê±°í•œë‹¤.
 					bRemoveZoneItem = TRUE;
 					//g_pZone->RemoveItem( pItem->GetID() );
 				}
 				//--------------------------------------------------------
-				// ½×ÀÏ ¼ö ¾ø´Â itemÀÎ °æ¿ì
+				// ìŒ“ì¼ ìˆ˜ ì—†ëŠ” itemì¸ ê²½ìš°
 				//--------------------------------------------------------
 				else
 				{
@@ -214,7 +214,7 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 			}
 		}
 		//---------------------------------------------
-		// ItemÀ» Mouse¿¡ ºÙÀÌ´Â °æ¿ì
+		// Itemì„ Mouseì— ë¶™ì´ëŠ” ê²½ìš°
 		//---------------------------------------------
 		else if (status == MPlayer::ITEM_CHECK_BUFFER_PICKUP_TO_MOUSE)
 		{
@@ -228,7 +228,7 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 			}
 			else
 			{				
-				// Áİ´Â ¼Ò¸®¸¦ ³½´Ù.
+				// ì¤ëŠ” ì†Œë¦¬ë¥¼ ë‚¸ë‹¤.
 				//PlaySound( pItem->GetTileSoundID(),
 				//			false,
 				//			g_pPlayer->GetX(), g_pPlayer->GetY());
@@ -238,7 +238,7 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 			}
 		}
 		//------------------------------------------------------------------------
-		// ItemÀ» Quickslot¿¡ ³Ö´Â °æ¿ì
+		// Itemì„ Quickslotì— ë„£ëŠ” ê²½ìš°
 		//------------------------------------------------------------------------
 		else if (status == MPlayer::ITEM_CHECK_BUFFER_PICKUP_TO_QUICKSLOT)
 		{
@@ -249,22 +249,22 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 
 				int itemID = pItem->GetID();
 
-				// ³È..
+				// ëƒ ..
 				bSkillCheck = TRUE;	
 				
-				if (g_pZone==NULL)		// °Á ÆûÀÌ´Ù - -;
+				if (g_pZone==NULL)		// ê± í¼ì´ë‹¤ - -;
 				{
-					DEBUG_ADD("[Error] Zone is not Init!");	// Äá°¡·ç~
+					DEBUG_ADD("[Error] Zone is not Init!");	// ì½©ê°€ë£¨~
 				}
 				else 
 				{	
 					UI_PickUpItem( pItem );
 
-					// zone¿¡¼­ Áİ´Â´Ù.
+					// zoneì—ì„œ ì¤ëŠ”ë‹¤.
 					g_pZone->PickupItem( pItem->GetID() );
 
 					//------------------------------------------
-					// ´Ù½Ã Quickslot¿¡ ³Ö´Â´Ù.
+					// ë‹¤ì‹œ Quickslotì— ë„£ëŠ”ë‹¤.
 					//------------------------------------------
 					if (g_pQuickSlot!=NULL&&g_pPlayer->IsSlayer() || g_pPlayer->IsOusters() &&(
 						g_pArmsBand1 != NULL || g_pArmsBand2 != NULL ))
@@ -286,7 +286,7 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 						bool bSendPacket = false;
 
 						//--------------------------------------------------------
-						// ¾Æ¹«°Íµµ ¾ø´Ù¸é ±×³É ³ÖÀ¸¸é µÈ´Ù.
+						// ì•„ë¬´ê²ƒë„ ì—†ë‹¤ë©´ ê·¸ëƒ¥ ë„£ìœ¼ë©´ ëœë‹¤.
 						//--------------------------------------------------------
 						if (pQuickItem==NULL)
 						{
@@ -308,8 +308,8 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 							bSendPacket = true;
 						}
 						//--------------------------------------------------------
-						// ¹º°¡ ÀÖ´Â °æ¿ì¸é ½×ÀÏ ¼ö ÀÖ´Â °æ¿ìÀÏ °ÍÀÌ´Ù.
-						// ´Ù½Ã ÇÑ¹ø °ËÁõÇØÁØ´Ù.
+						// ë­”ê°€ ìˆëŠ” ê²½ìš°ë©´ ìŒ“ì¼ ìˆ˜ ìˆëŠ” ê²½ìš°ì¼ ê²ƒì´ë‹¤.
+						// ë‹¤ì‹œ í•œë²ˆ ê²€ì¦í•´ì¤€ë‹¤.
 						//--------------------------------------------------------
 						else
 						{
@@ -317,16 +317,16 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 								&& pQuickItem->GetItemType()==pItem->GetItemType())
 							{
 								//----------------------------------------------------
-								// ´õÇÑ °³¼ö°¡ max¸¦ ³ÑÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+								// ë”í•œ ê°œìˆ˜ê°€ maxë¥¼ ë„˜ì§€ ì•Šì•„ì•¼ í•œë‹¤.
 								//----------------------------------------------------
 								int addTotal = pQuickItem->GetNumber() + pItem->GetNumber();
 								if ( addTotal <= pQuickItem->GetMaxNumber() )
 								{
 									UI_DropItem();
 
-									delete pItem;	// ÇÕÃÄÁö¹Ç·Î Á¦°ÅÇÑ´Ù.
+									delete pItem;	// í•©ì³ì§€ë¯€ë¡œ ì œê±°í•œë‹¤.
 
-									pItem = pQuickItem;	// ¾Æ·¡¿¡¼­ pItemÀ» ÂüÁ¶ÇÏ±â ¶§¹®¿¡..
+									pItem = pQuickItem;	// ì•„ë˜ì—ì„œ pItemì„ ì°¸ì¡°í•˜ê¸° ë•Œë¬¸ì—..
 									
 									pQuickItem->SetNumber( addTotal );
 
@@ -338,7 +338,7 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 						if (bSendPacket)
 						{
 							//------------------------------------------
-							// ÀÌ°Å´Â °ËÁõ¹ŞÁö ¾Ê¾Æµµ µÈ´Ù.
+							// ì´ê±°ëŠ” ê²€ì¦ë°›ì§€ ì•Šì•„ë„ ëœë‹¤.
 							//------------------------------------------
 							CGAddMouseToQuickSlot _CGAddMouseToQuickSlot;
 							_CGAddMouseToQuickSlot.setObjectID( itemID );
@@ -353,16 +353,16 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 			}		 
 		}
 		//---------------------------------------------
-		// ´Ù¸¥ °æ¿ì?
+		// ë‹¤ë¥¸ ê²½ìš°?
 		//---------------------------------------------		
 		else
 		{
-			// ¹¹Áö??
+			// ë­ì§€??
 			DEBUG_ADD_FORMAT("[Error] ItemCheckBuffer is not Pickup Status [ID=%d]", pItem->GetID());
 		}
 
 		//------------------------------------------------------------------
-		// Á¦´ë·Î °¡Á³À» °æ¿ìÀÇ Ã³¸®..
+		// ì œëŒ€ë¡œ ê°€ì¡Œì„ ê²½ìš°ì˜ ì²˜ë¦¬..
 		//------------------------------------------------------------------
 		if (bSkillCheck)
 		{
@@ -370,7 +370,7 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 
 			//------------------------------------------------------------------------
 			//
-			//							SlayerÀÎ °æ¿ì
+			//							Slayerì¸ ê²½ìš°
 			//
 			//------------------------------------------------------------------------
 			if (g_pPlayer->IsSlayer())
@@ -378,26 +378,26 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 				switch (itemClass)
 				{
 					//----------------------------------------------------------
-					// ¼º¼ö
+					// ì„±ìˆ˜
 					//----------------------------------------------------------
 					case ITEM_CLASS_HOLYWATER :
 						g_pSkillAvailable->AddSkill( MAGIC_THROW_HOLY_WATER );
 					break;
 
 					//----------------------------------------------------------
-					// ½½·¹ÀÌ¾î Æ÷Å»
+					// ìŠ¬ë ˆì´ì–´ í¬íƒˆ
 					//----------------------------------------------------------
 					case ITEM_CLASS_SLAYER_PORTAL_ITEM :
 						g_pSkillAvailable->AddSkill( SUMMON_HELICOPTER );
 					break;
 
 					//----------------------------------------------------------
-					// ÆøÅº/Áö·Ú Àç·á
+					// í­íƒ„/ì§€ë¢° ì¬ë£Œ
 					//----------------------------------------------------------
 					case ITEM_CLASS_BOMB_MATERIAL :
 					{
-						// 0~4´Â bomb
-						// 5~9´Â mine -_-;
+						// 0~4ëŠ” bomb
+						// 5~9ëŠ” mine -_-;
 						/*
 						int itemType = pItem->GetItemType();
 						if (IsBombMaterial(pItem))
@@ -405,14 +405,14 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 						else 
 							g_pSkillAvailable->AddSkill( SKILL_MAKE_MINE );
 						*/
-						// SKILL_INSTALL_MINE¿¡ ´ëÇÑ Ã¼Å©¸¦ ÇØ¾ßÇÑ´Ù. -_-;
-						// g_pSkillAvailable¿¡ °¢ ±â¼ú¿¡ ´ëÇÑ Ã¼Å©¸¦ ³Ö¾îµÎ´Â°Ô ÁÁ°Ú´Ù.
+						// SKILL_INSTALL_MINEì— ëŒ€í•œ ì²´í¬ë¥¼ í•´ì•¼í•œë‹¤. -_-;
+						// g_pSkillAvailableì— ê° ê¸°ìˆ ì— ëŒ€í•œ ì²´í¬ë¥¼ ë„£ì–´ë‘ëŠ”ê²Œ ì¢‹ê² ë‹¤.
 						g_pSkillAvailable->SetAvailableSkills();
 					}
 					break;
 
 					//----------------------------------------------------------
-					// ÆøÅº / Áö·Ú
+					// í­íƒ„ / ì§€ë¢°
 					//----------------------------------------------------------
 					case ITEM_CLASS_BOMB :
 						g_pSkillAvailable->SetAvailableSkills();
@@ -429,7 +429,7 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 			}
 			//----------------------------------------------------------
 			//
-			//					VampireÀÎ °æ¿ì
+			//					Vampireì¸ ê²½ìš°
 			//
 			//----------------------------------------------------------
 			else if (g_pPlayer->IsVampire())
@@ -457,7 +457,7 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 					break;
 
 					//----------------------------------------------------------
-					// Vampire ETC (º¯½Å ¾ÆÀÌÅÛ)
+					// Vampire ETC (ë³€ì‹  ì•„ì´í…œ)
 					//----------------------------------------------------------
 					case ITEM_CLASS_VAMPIRE_ETC :
 						if (pItem->GetItemType()==0)
@@ -480,7 +480,7 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 		}
 
 		//---------------------------------------------
-		// Zone¿¡¼­ ItemÀ» Á¦°ÅÇØ¾ßÇÏ´Â °æ¿ì
+		// Zoneì—ì„œ Itemì„ ì œê±°í•´ì•¼í•˜ëŠ” ê²½ìš°
 		//---------------------------------------------
 		if (bRemoveZoneItem)
 		{
@@ -488,7 +488,7 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 		}
 	}
 	//---------------------------------------------
-	// id°¡ ´Ù¸¥ °æ¿ì.. ¹¹Áö?? - -;;
+	// idê°€ ë‹¤ë¥¸ ê²½ìš°.. ë­ì§€?? - -;;
 	//---------------------------------------------
 	else
 	{
@@ -505,12 +505,12 @@ void GCDeleteandPickUpOKHandler::execute ( GCDeleteandPickUpOK * pPacket, Player
 //	__BEGIN_HELP_EVENT
 //		if (status == MPlayer::ITEM_CHECK_BUFFER_PICKUP_MONEY)
 //		{
-//			// [µµ¿ò¸»] ¾ÆÀÌÅÛ ÁÖ¿ï ¶§
+//			// [ë„ì›€ë§] ì•„ì´í…œ ì£¼ìš¸ ë•Œ
 //			ExecuteHelpEvent( HE_ITEM_PICKUP_MONEY );	
 //		}
 //		else
 //		{
-//			// [µµ¿ò¸»] ¾ÆÀÌÅÛ ÁÖ¿ï ¶§
+//			// [ë„ì›€ë§] ì•„ì´í…œ ì£¼ìš¸ ë•Œ
 //			ExecuteHelpEvent( HE_ITEM_PICKUP );	
 //		}
 //	__END_HELP_EVENT

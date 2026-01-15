@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MBloodyWallEffectGenerator.h
 //----------------------------------------------------------------------
-// ZoneÀÇ ÇÑ ÁöÁ¡¿¡¼­  »ı¼º
+// Zoneì˜ í•œ ì§€ì ì—ì„œ  ìƒì„±
 //----------------------------------------------------------------------
 
 #ifndef	__MBLOODYWALLEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MBloodyWallEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_BLOODY_WALL; }
 
-		// Effect»ı¼º
+		// Effectìƒì„±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

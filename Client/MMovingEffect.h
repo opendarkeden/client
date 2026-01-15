@@ -2,10 +2,10 @@
 // MMovingEffect.h
 //----------------------------------------------------------------------
 //
-// EffectÁß¿¡¼­ ¿òÁ÷ÀÌ´Â Effect¸¦ ÀÇ¹ÌÇÑ´Ù.
+// Effectì¤‘ì—ì„œ ì›€ì§ì´ëŠ” Effectë¥¼ ì˜ë¯¸í•œë‹¤.
 //
-// - ÇöÀçÀÇ PixelÁÂÇ¥¸¦ Ãß°¡·Î °¡Áø´Ù.
-// - ÀÌ PixelÁÂÇ¥ÀÇ °ªÀÌ º¯ÇÒ ¶§, ÀûÀýÇÑ SectorÁÂÇ¥°ªÀ» SettingÇØÁà¾ß ÇÑ´Ù.
+// - í˜„ìž¬ì˜ Pixelì¢Œí‘œë¥¼ ì¶”ê°€ë¡œ ê°€ì§„ë‹¤.
+// - ì´ Pixelì¢Œí‘œì˜ ê°’ì´ ë³€í•  ë•Œ, ì ì ˆí•œ Sectorì¢Œí‘œê°’ì„ Settingí•´ì¤˜ì•¼ í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -22,7 +22,7 @@ class MMovingEffect : public MEffect {
 		virtual EFFECT_TYPE		GetEffectType()	const	{ return EFFECT_MOVING; }
 
 		//--------------------------------------------------------
-		// ÇÑ ¹øÀÇ Update¿¡ È£ÃâµÉ ÇÔ¼ö..
+		// í•œ ë²ˆì˜ Updateì— í˜¸ì¶œë  í•¨ìˆ˜..
 		//--------------------------------------------------------
 		virtual bool	Update();
 };

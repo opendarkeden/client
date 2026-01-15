@@ -33,7 +33,7 @@ void GCDownSkillOKHandler::execute ( GCDownSkillOK * pGCDownSkillOK , Player * p
 	}
 
 	(*g_pSkillInfoTable)[skillID].SetExpLevel( curLevel );
-	// 2004, 11, 9, sobeit add start - ·¹º§ÀÌ 0±îÁö ´Ù¿îµÇ¸é ´Ù½Ã ¹è¿ï¼ö ÀÖ´Ù°í ¼¼ÆÃÇØ¾ßÇÔ 
+	// 2004, 11, 9, sobeit add start - ë ˆë²¨ì´ 0ê¹Œì§€ ë‹¤ìš´ë˜ë©´ ë‹¤ì‹œ ë°°ìš¸ìˆ˜ ìˆë‹¤ê³  ì„¸íŒ…í•´ì•¼í•¨ 
 	if(0 == curLevel)
 	{
 		(*g_pSkillManager)[SKILLDOMAIN_OUSTERS].AddNextSkillForce((ACTIONINFO)skillID); 

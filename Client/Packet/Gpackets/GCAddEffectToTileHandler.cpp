@@ -24,7 +24,7 @@ void GCAddEffectToTileHandler::execute ( GCAddEffectToTile * pPacket , Player * 
 		
 #ifdef __GAME_CLIENT__
 		
-	// ¿¹¿Ü Ã³¸®
+	// ì˜ˆì™¸ ì²˜ë¦¬
 	if( pPacket->getEffectID() == EFFECTSTATUS_TRAP_INSTALLED && !g_pPlayer->IsSlayer() )
 		return;
 
@@ -32,7 +32,7 @@ void GCAddEffectToTileHandler::execute ( GCAddEffectToTile * pPacket , Player * 
 	int skillType	= (*g_pEffectStatusTable)[ EffectStatusType ].ActionInfo;
 	
 	// 2004, 9, 3, sobeit add start
-	if(EffectStatusType == EFFECTSTATUS_TURRET_LASER && g_pPlayer) // °ø¼ºÀü Æ®·¦Áß..°ø°İÃø¿¡ ¾Èº¸ÀÌ´Â ±¤¼±
+	if(EffectStatusType == EFFECTSTATUS_TURRET_LASER && g_pPlayer) // ê³µì„±ì „ íŠ¸ë©ì¤‘..ê³µê²©ì¸¡ì— ì•ˆë³´ì´ëŠ” ê´‘ì„ 
 	{
 		if(g_pPlayer->HasEffectStatus(EFFECTSTATUS_SIEGE_ATTACKER_1) || 
 			g_pPlayer->HasEffectStatus(EFFECTSTATUS_SIEGE_ATTACKER_2) || 
@@ -41,7 +41,7 @@ void GCAddEffectToTileHandler::execute ( GCAddEffectToTile * pPacket , Player * 
 			g_pPlayer->HasEffectStatus(EFFECTSTATUS_SIEGE_ATTACKER_5) )
 			return;
 	}
-	// 2006.10.29  sonic add ĞŞÕıµ¶¶ş×ª¼¼ÄÜÎŞĞ§¹û
+	// 2006.10.29  sonic add éŒ¦æ”£ë…ë—ç˜»ì„¸ì½˜è½Ÿæ§»ë²
 	if(EffectStatusType == EFFECTSTATUS_DRAGON_TORNADO || EffectStatusType == EFFECTSTATUS_DRAGON_TORNADO_CHILD)
 	{
 		SetDragonTorando(EffectStatusType, pPacket->getObjectID(), pPacket->getX(), pPacket->getY());
@@ -49,7 +49,7 @@ void GCAddEffectToTileHandler::execute ( GCAddEffectToTile * pPacket , Player * 
 	}
 	// 2004, 9, 3, sobeit add end
 	//------------------------------------------------------------
-	// Effect¿Í °ü·ÃµÈ ±â¼úÀÌ ÀÖÀ»¶§..
+	// Effectì™€ ê´€ë ¨ëœ ê¸°ìˆ ì´ ìˆì„ë•Œ..
 	//------------------------------------------------------------
 	if (skillType!=ACTIONINFO_NULL)
 	{
@@ -70,7 +70,7 @@ void GCAddEffectToTileHandler::execute ( GCAddEffectToTile * pPacket , Player * 
 //			break;
 //		}
 		ExecuteActionInfoFromMainNode(
-				skillType,		// °ª ÀÚÃ¼°¡ RESULT_ACTIONINFOÀÌ´Ù.
+				skillType,		// ê°’ ìì²´ê°€ RESULT_ACTIONINFOì´ë‹¤.
 			
 				x, y, 0,
 				DIRECTION_DOWN,

@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------
 // MSlotItemManager.h
 //----------------------------------------------------------------------
-// Æ¯Á¤ÇÑ Slot ¿©·¯°³~~¿¡ MItemÀ» ÀåÂø~ÇØ¼­ »ç¿ëÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// íŠ¹ì •í•œ Slot ì—¬ëŸ¬ê°œ~~ì— MItemì„ ì¥ì°©~í•´ì„œ ì‚¬ìš©í•  ìˆ˜ ìˆê²Œ í•œë‹¤.
 //
-// ÇÑ Slot¿¡´Â ÇÏ³ªÀÇ ItemÀÌ µé¾î°¥ ¼ö ÀÖ´Ù.
+// í•œ Slotì—ëŠ” í•˜ë‚˜ì˜ Itemì´ ë“¤ì–´ê°ˆ ìˆ˜ ìˆë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__MSLOTITEMMANAGER_H__
@@ -32,14 +32,14 @@ class MSlotItemManager : public MItemManager {
 		//------------------------------------------------------
 		// Add / Get / Remove
 		//------------------------------------------------------		
-		bool			AddItem(MItem* pItem, BYTE n);		// slot(n)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+		bool			AddItem(MItem* pItem, BYTE n);		// slot(n)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 
-		MItem*			GetItem(BYTE n) const;				// slot(n)ÀÇ itemÀ» ÀĞ¾î¿Â´Ù.
+		MItem*			GetItem(BYTE n) const;				// slot(n)ì˜ itemì„ ì½ì–´ì˜¨ë‹¤.
 		
-		MItem*			RemoveItem(BYTE n);					// slot(n)ÀÇ itemÀ» Á¦°ÅÇÑ´Ù.
-		MItem*			RemoveItem(TYPE_OBJECTID id);		// id°¡ °°Àº itemÀ» Á¦°ÅÇÑ´Ù.
+		MItem*			RemoveItem(BYTE n);					// slot(n)ì˜ itemì„ ì œê±°í•œë‹¤.
+		MItem*			RemoveItem(TYPE_OBJECTID id);		// idê°€ ê°™ì€ itemì„ ì œê±°í•œë‹¤.
 
-		bool			ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);	// (n)À§Ä¡ÀÇ Item±³È¯
+		bool			ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);	// (n)ìœ„ì¹˜ì˜ Itemêµí™˜
 
 		bool			CanReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);
 

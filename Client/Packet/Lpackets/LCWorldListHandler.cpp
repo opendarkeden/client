@@ -15,9 +15,9 @@
 #include "UIFunction.h"
 
 //----------------------------------------------------------------------
-// ¼­¹ö·ÎºÎÅÍ Ä³¸¯ÅÍ ¸®½ºÆ®¸¦ ¹Þ¾Ò´Ù. 
-// ÀÌÁ¦ Ä³¸¯ÅÍ °ü¸® ÀÎÅÍÆäÀÌ½ºÀÇ ÀûÀýÇÑ °÷¿¡ Àü¼Û¹ÞÀº °ªÀ» Áý¾î ³Ö¾î¼­
-// Ãâ·ÂÇÏÀÚ.
+// ì„œë²„ë¡œë¶€í„° ìºë¦­í„° ë¦¬ìŠ¤íŠ¸ë¥¼ ë°›ì•˜ë‹¤. 
+// ì´ì œ ìºë¦­í„° ê´€ë¦¬ ì¸í„°íŽ˜ì´ìŠ¤ì˜ ì ì ˆí•œ ê³³ì— ì „ì†¡ë°›ì€ ê°’ì„ ì§‘ì–´ ë„£ì–´ì„œ
+// ì¶œë ¥í•˜ìž.
 //----------------------------------------------------------------------
 void LCWorldListHandler::execute ( LCWorldList * pPacket , Player * pPlayer )
 	 throw ( ProtocolException , Error )
@@ -27,7 +27,7 @@ void LCWorldListHandler::execute ( LCWorldList * pPacket , Player * pPlayer )
 #ifdef __GAME_CLIENT__
 
 	//-----------------------------------------------------------
-	// Server Information ÃÊ±âÈ­
+	// Server Information ì´ˆê¸°í™”
 	//-----------------------------------------------------------
 	if (g_pServerInformation==NULL)
 	{
@@ -43,7 +43,7 @@ void LCWorldListHandler::execute ( LCWorldList * pPacket , Player * pPlayer )
 	bool bExistDefault = false;
 
 	//-----------------------------------------------------------
-	// ServerÁ¤º¸ »ý¼º
+	// Serverì •ë³´ ìƒì„±
 	//-----------------------------------------------------------
 	int groupNum = pPacket->getListNum();
 	int firstID = 0;
@@ -65,7 +65,7 @@ void LCWorldListHandler::execute ( LCWorldList * pPacket , Player * pPlayer )
 			}
 
 			//--------------------------------------------------------------
-			// »õ·Î¿î ServerGroupÀÇ Á¤º¸ »ý¼º
+			// ìƒˆë¡œìš´ ServerGroupì˜ ì •ë³´ ìƒì„±
 			//--------------------------------------------------------------
 			ServerGroup* pNewGroup = g_pServerInformation->GetData( pWorldInfo->getID() );
 			
@@ -75,12 +75,12 @@ void LCWorldListHandler::execute ( LCWorldList * pPacket , Player * pPlayer )
 				g_pServerInformation->AddData( pWorldInfo->getID(), pNewGroup );
 			}
 
-			// GroupÀÇ Á¤º¸ ¼³Á¤			
+			// Groupì˜ ì •ë³´ ì„¤ì •			
 			pNewGroup->SetGroupName( pWorldInfo->getName().c_str() );
 			pNewGroup->SetGroupStatus( (int)pWorldInfo->getStat() );
 			
 			//--------------------------------------------------------------
-			// °¢°¢ÀÇ Server¿¡ ´ëÇÑ Á¤º¸ »ý¼º
+			// ê°ê°ì˜ Serverì— ëŒ€í•œ ì •ë³´ ìƒì„±
 			//--------------------------------------------------------------
 			/*
 			int serverNum = pWorldInfo->getListNum();
@@ -92,7 +92,7 @@ void LCWorldListHandler::execute ( LCWorldList * pPacket , Player * pPlayer )
 				if (pServerInfo!=NULL)
 				{
 					//--------------------------------------------------------------
-					// ServerGroup¿¡ Server Ãß°¡
+					// ServerGroupì— Server ì¶”ê°€
 					//--------------------------------------------------------------
 					SERVER_INFO* pNewServer = new SERVER_INFO;
 
@@ -118,7 +118,7 @@ void LCWorldListHandler::execute ( LCWorldList * pPacket , Player * pPlayer )
 		}	
 	}
 
-	// default ¼±ÅÃ
+	// default ì„ íƒ
 	if (currentID==0 || !bExistDefault)
 	{
 		g_pServerInformation->SetServerGroupID( firstID );

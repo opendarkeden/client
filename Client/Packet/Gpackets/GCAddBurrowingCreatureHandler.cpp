@@ -22,7 +22,7 @@ void GCAddBurrowingCreatureHandler::execute ( GCAddBurrowingCreature * pPacket ,
 
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -31,14 +31,14 @@ void GCAddBurrowingCreatureHandler::execute ( GCAddBurrowingCreature * pPacket ,
 		
 	}	
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature(pPacket->getObjectID());
 
 		//--------------------------------------------------
-		// »õ·Î¿î CreatureÀÌ¸é Ãß°¡
+		// ìƒˆë¡œìš´ Creatureì´ë©´ ì¶”ê°€
 		//--------------------------------------------------
 		if (pCreature==NULL)
 		{
@@ -46,7 +46,7 @@ void GCAddBurrowingCreatureHandler::execute ( GCAddBurrowingCreature * pPacket ,
 
 			pCreature->SetZone( g_pZone );
 
-			// ¾îÂ÷ÇÇ ¾È ¿òÁ÷ÀÏ°Å´Ï±î °ü°è¾ø´Ù.
+			// ì–´ì°¨í”¼ ì•ˆ ì›€ì§ì¼ê±°ë‹ˆê¹Œ ê´€ê³„ì—†ë‹¤.
 			pCreature->SetCreatureType( CREATURETYPE_VAMPIRE_MALE1 );	
 
 
@@ -68,7 +68,7 @@ void GCAddBurrowingCreatureHandler::execute ( GCAddBurrowingCreature * pPacket ,
 			pCreature->SetStatus( MODIFY_CURRENT_HP, 100 );
 
 			//si.getName()
-			// »ö»ó Á¤º¸
+			// ìƒ‰ìƒ ì •ë³´
 
 			
 
@@ -79,13 +79,13 @@ void GCAddBurrowingCreatureHandler::execute ( GCAddBurrowingCreature * pPacket ,
 		}
 		else
 		{
-			// ÀÌ¹Ì ÀÖ´Ù¸é.. Underground Creature·Î ¸¸µç´Ù.
+			// ì´ë¯¸ ìžˆë‹¤ë©´.. Underground Creatureë¡œ ë§Œë“ ë‹¤.
 			pCreature->SetUndergroundCreature();
 
-			// ÀÌ¸§ ´Ù½Ã ¼³Á¤ - -;
+			// ì´ë¦„ ë‹¤ì‹œ ì„¤ì • - -;
 			pCreature->SetName( pPacket->getName().c_str() );
 
-			// ÁÂÇ¥ ¼³Á¤
+			// ì¢Œí‘œ ì„¤ì •
 			pCreature->MovePosition( pPacket->getX(), pPacket->getY() );
 			pCreature->SetServerPosition( pPacket->getX(), pPacket->getY() );
 

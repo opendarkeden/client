@@ -41,7 +41,7 @@ void GCModifyNicknameHandler::execute ( GCModifyNickname * pPacket , Player * pP
 			{
 				szNickName = (TempNick.getNickname()).c_str();
 			}
-			else // ´Ð³×ÀÓ ÀÎµ¦½º°¡ ÀÖÀ» ¶§
+			else // ë‹‰ë„¤ìž„ ì¸ë±ìŠ¤ê°€ ìžˆì„ ë•Œ
 			{
 				DWORD TempIndex = TempNick.getNicknameIndex();
 				if(TempIndex >= g_pNickNameStringTable->GetSize())

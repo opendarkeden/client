@@ -14,21 +14,21 @@ enum
 {
     ADD_ITEM_TO_ITEM_VERIFY_ERROR ,                  // error
 
-    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE,     // enchant ¿ÏÀü ºÒ°¡
-    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_CRASH,     // enchant ½ÇÆÐ ¾ÆÀÌÅÛ ±úÁü
-    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_DECREASE,  // enchant ½ÇÆÐ ¿É¼Ç ÇÑ´Ü°è ³»·Á°¨
-    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK,             // enchant ¼º°ø
-	ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE_NO_PREMIUM	,// ÇÁ¸®¹Ì¾ö»ç¿ëÀÚ°¡ ¾Æ´Ï¶ó ¹«È¿
-	ADD_ITEM_TO_ITEM_VERIFY_TRANS_OK,				// ¼ºÀüÈ¯ ¼º°ø
-	ADD_ITEM_TO_ITEM_VERIFY_TRANS_IMPOSSIBLE,		// ¼ºÀüÈ¯ ½ÇÆÐ
-	ADD_ITEM_TO_ITEM_VERIFY_MIXING_OK,				// ¹Í½ÌÆ÷Áö ¼º°ø
-	ADD_ITEM_TO_ITEM_VERIFY_DETACHING_OK,			// ¾ÆÀÌÅÛ ¿É¼Ç »èÁ¦ ¼º°ø
-	ADD_ITEM_TO_ITEM_VERIFY_MIXING_FAILED_SAME_OPTION_GROUP,    // ¾ÆÀÌÅÛÀÇ ¿É¼Ç ±×·ìÀÌ °°¾Æ¼­ ¼¯À» ¼ö ¾ø½À´Ï´Ù.
-	ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL,			// ÀÎÃ¾Æ® °Á ½ÇÆÐ
-    ADD_ITEM_TO_ITEM_VERIFY_REVIVAL_OK,                 // Æê ºÎÈ° ¼º°ø
+    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE,     // enchant ì™„ì „ ë¶ˆê°€
+    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_CRASH,     // enchant ì‹¤íŒ¨ ì•„ì´í…œ ê¹¨ì§
+    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_DECREASE,  // enchant ì‹¤íŒ¨ ì˜µì…˜ í•œë‹¨ê³„ ë‚´ë ¤ê°
+    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK,             // enchant ì„±ê³µ
+	ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE_NO_PREMIUM	,// í”„ë¦¬ë¯¸ì—„ì‚¬ìš©ìžê°€ ì•„ë‹ˆë¼ ë¬´íš¨
+	ADD_ITEM_TO_ITEM_VERIFY_TRANS_OK,				// ì„±ì „í™˜ ì„±ê³µ
+	ADD_ITEM_TO_ITEM_VERIFY_TRANS_IMPOSSIBLE,		// ì„±ì „í™˜ ì‹¤íŒ¨
+	ADD_ITEM_TO_ITEM_VERIFY_MIXING_OK,				// ë¯¹ì‹±í¬ì§€ ì„±ê³µ
+	ADD_ITEM_TO_ITEM_VERIFY_DETACHING_OK,			// ì•„ì´í…œ ì˜µì…˜ ì‚­ì œ ì„±ê³µ
+	ADD_ITEM_TO_ITEM_VERIFY_MIXING_FAILED_SAME_OPTION_GROUP,    // ì•„ì´í…œì˜ ì˜µì…˜ ê·¸ë£¹ì´ ê°™ì•„ì„œ ì„žì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
+	ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL,			// ì¸ì²¸íŠ¸ ê± ì‹¤íŒ¨
+    ADD_ITEM_TO_ITEM_VERIFY_REVIVAL_OK,                 // íŽ« ë¶€í™œ ì„±ê³µ
 
-	ADD_ITEM_TO_ITEM_VERIFY_CLEAR_OPTION_OK,            // option Á¦°Å ¼º°ø
-	ADD_ITEM_TO_ITEM_VERIFY_UP_GRADE_OK,                // grade¿Ã¸®±â ¼º°ø
+	ADD_ITEM_TO_ITEM_VERIFY_CLEAR_OPTION_OK,            // option ì œê±° ì„±ê³µ
+	ADD_ITEM_TO_ITEM_VERIFY_UP_GRADE_OK,                // gradeì˜¬ë¦¬ê¸° ì„±ê³µ
 
 	//add by Coffee 2006.11.3  
 	ADD_ITEM_TO_ITEM_VERIFY_THREE_ENCHANT_OK,
@@ -78,7 +78,7 @@ public:
 private: 
 	BYTE m_Code;
 	uint m_Parameter;
-	// add by Coffee 2006.11.3 ÈýÊôÐÔ
+	// add by Coffee 2006.11.3 íž›æ©„æ˜‘
 	uint m_Parameter2;
 
 };

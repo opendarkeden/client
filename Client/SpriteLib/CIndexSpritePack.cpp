@@ -48,11 +48,11 @@
 ////----------------------------------------------------------------------
 //// Load From File Running
 ////----------------------------------------------------------------------
-//// ½Ç½Ã°£ ·Îµù
+//// ì‹¤ì‹œê°„ ë¡œë”©
 ////----------------------------------------------------------------------
 //bool CIndexSpritePack::LoadFromFileRunning(LPCTSTR lpszFilename, bool b565)
 //{
-//	//ÀÎµ¦½º ÆÄÀÏ ·Îµù
+//	//ì¸ë±ìŠ¤ íŒŒì¼ ë¡œë”©
 //	std::string filename = lpszFilename;
 //	filename += 'i';
 //	class ifstream indexFile(filename.c_str(), ios::binary);
@@ -71,7 +71,7 @@
 //	}
 //	indexFile.close();
 //	
-//	// file¿¡¼­ sprite °³¼ö¸¦ ÀÐ¾î¿Â´Ù.	
+//	// fileì—ì„œ sprite ê°œìˆ˜ë¥¼ ì½ì–´ì˜¨ë‹¤.	
 //	m_file->open(lpszFilename, ios::binary);
 //	
 //	m_file->read((char*)&m_Size, 2);

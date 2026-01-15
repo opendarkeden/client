@@ -18,7 +18,7 @@
 //
 // class CLCreatePC;
 //
-// ½½·¹ÀÌ¾î Ä³¸¯ÅÍ¸¦ »õ·Î ¸¸µé °æ¿ì, ÀÌ ÆĞÅ¶¿¡ Á¤º¸¸¦ ´ã¾Æ¼­ ¼­¹ö·Î Àü¼ÛÇÑ´Ù.
+// ìŠ¬ë ˆì´ì–´ ìºë¦­í„°ë¥¼ ìƒˆë¡œ ë§Œë“¤ ê²½ìš°, ì´ íŒ¨í‚·ì— ì •ë³´ë¥¼ ë‹´ì•„ì„œ ì„œë²„ë¡œ ì „ì†¡í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -46,10 +46,10 @@ public:
 
 public:
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream & iStream) throw(ProtocolException, Error);
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
 
 	// execute packet's handler
@@ -60,15 +60,15 @@ public:
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static CLCreatePCPacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static CLCreatePCPacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketSize() const throw() 
 	{ 
-		return szBYTE + m_Name.size() 	// ÀÌ¸§
-			+ szSlot					// ½½¶ù
-			+ szBYTE					// ½½·¹ÀÌ¾î ÇÃ·¡±×(3 bit)
+		return szBYTE + m_Name.size() 	// ì´ë¦„
+			+ szSlot					// ìŠ¬ë
+			+ szBYTE					// ìŠ¬ë ˆì´ì–´ í”Œë˜ê·¸(3 bit)
 			+ szAttr* 3
-			+ szColor* SLAYER_COLOR_MAX // »ö±ò Á¤º¸
-			+ szRace;					// Á¾Á·
+			+ szColor* SLAYER_COLOR_MAX // ìƒ‰ê¹” ì •ë³´
+			+ szRace;					// ì¢…ì¡±
 	}
 
 #ifdef __DEBUG_OUTPUT__
@@ -134,16 +134,16 @@ public:
 
 private :
 
-    // PCÀÇ ÀÌ¸§
+    // PCì˜ ì´ë¦„
     std::string m_Name;
 
-	// ½½¶ù
+	// ìŠ¬ë
 	Slot m_Slot;
 
-	// ½½·¹ÀÌ¾î ÇÃ·¡±× 
+	// ìŠ¬ë ˆì´ì–´ í”Œë˜ê·¸ 
 	std::bitset<SLAYER_BIT_MAX> m_BitSet; 
 
-	// ½½·¹ÀÌ¾î »ö±ò Á¤º¸
+	// ìŠ¬ë ˆì´ì–´ ìƒ‰ê¹” ì •ë³´
 	Color_t m_Colors[SLAYER_COLOR_MAX ];
 
 	// STR, DEX, INTE
@@ -151,7 +151,7 @@ private :
 	Attr_t m_DEX;
 	Attr_t m_INT;
 
-	// Á¾Á·
+	// ì¢…ì¡±
 	Race_t m_Race;
 
 };
@@ -180,15 +180,15 @@ public:
 
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static CLCreatePCPacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static CLCreatePCPacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketMaxSize() const throw()
 	{ 
-		return szBYTE + 20 								// ÀÌ¸§
-			+ szSlot									// ½½¶ù
-			+ szBYTE									// ½½·¹ÀÌ¾î ÇÃ·¡±×(3 bit)
+		return szBYTE + 20 								// ì´ë¦„
+			+ szSlot									// ìŠ¬ë
+			+ szBYTE									// ìŠ¬ë ˆì´ì–´ í”Œë˜ê·¸(3 bit)
 			+ szAttr* 3
-			+ szColor* CLCreatePC::SLAYER_COLOR_MAX 	// »ö±ò Á¤º¸
-			+ szRace;									// Á¾Á·
+			+ szColor* CLCreatePC::SLAYER_COLOR_MAX 	// ìƒ‰ê¹” ì •ë³´
+			+ szRace;									// ì¢…ì¡±
 	}
 
 };

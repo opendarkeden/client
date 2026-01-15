@@ -1,24 +1,24 @@
 //----------------------------------------------------------------------
 // MWorkNode.h
 //----------------------------------------------------------------------
-// ÀÏ.. - -;
+// ì¼.. - -;
 //
-// MWorkThread¿¡¼­ Ã³¸®ÇÒ·Á´Â ÇÑ Á¾·ùÀÇ ÀÏÀÌ´Ù.
-// Á¾·ù¿¡ µû¶ó¼­ »ó¼Ó¹Þ¾Æ¼­ ¸¸µé¸é µÈ´Ù...
+// MWorkThreadì—ì„œ ì²˜ë¦¬í• ë ¤ëŠ” í•œ ì¢…ë¥˜ì˜ ì¼ì´ë‹¤.
+// ì¢…ë¥˜ì— ë”°ë¼ì„œ ìƒì†ë°›ì•„ì„œ ë§Œë“¤ë©´ ëœë‹¤...
 // 
 // [Execute]
-//   ½ÇÁ¦·Î ÀÏÀ» Ã³¸®ÇÏ´Â ºÎºÐÀÎµ¥..
-//   Stop()ÀÌ È£ÃâµÇ¾úÀ» °æ¿ì¿¡ ¸ØÃâ ¼ö ÀÖµµ·Ï ¸¸µé¾î¾ß ÇÑ´Ù.
-//   Áï, 'ÇöÀç ÀÏ'¿¡¼­ ¾î¶² Æ¯Á¤ÇÑ ´ÜÀ§¸¸Å­¸¶´Ù 
-//   stopÀÌ µÇ¾ú´ÂÁö checkÇØ¾ß ÇÑ´Ù.
+//   ì‹¤ì œë¡œ ì¼ì„ ì²˜ë¦¬í•˜ëŠ” ë¶€ë¶„ì¸ë°..
+//   Stop()ì´ í˜¸ì¶œë˜ì—ˆì„ ê²½ìš°ì— ë©ˆì¶œ ìˆ˜ ìžˆë„ë¡ ë§Œë“¤ì–´ì•¼ í•œë‹¤.
+//   ì¦‰, 'í˜„ìž¬ ì¼'ì—ì„œ ì–´ë–¤ íŠ¹ì •í•œ ë‹¨ìœ„ë§Œí¼ë§ˆë‹¤ 
+//   stopì´ ë˜ì—ˆëŠ”ì§€ checkí•´ì•¼ í•œë‹¤.
 //
-//   StopµÈ °æ¿ì.. 
-//	 ÇöÀç Ã³¸® ÁßÀÌ´ø ÀÏ¿¡¼­ ³²Àº ÀÏÀ» »ý¼ºÇØ¼­ ³Ñ°ÜÁØ´Ù.
-//   MWorkNode¸¦ »ý¼º(new)ÇØ¼­ ³Ñ°ÜÁØ´Ù.
+//   Stopëœ ê²½ìš°.. 
+//	 í˜„ìž¬ ì²˜ë¦¬ ì¤‘ì´ë˜ ì¼ì—ì„œ ë‚¨ì€ ì¼ì„ ìƒì„±í•´ì„œ ë„˜ê²¨ì¤€ë‹¤.
+//   MWorkNodeë¥¼ ìƒì„±(new)í•´ì„œ ë„˜ê²¨ì¤€ë‹¤.
 //
-//   return°ªÀÌ TRUEÀÌ¸é ÀÏÀÌ ¸ðµÎ ³¡³µ´Ù´Â °ÍÀÌ°í,
-//              FALSEÀÌ¸é ¹®Á¦°¡ ÀÖ¾î¼­ ¼öÇàÀÌ ¾ÈµÆ°Å³ª StopµÆ´Ù´Â ÀÇ¹ÌÀÌ´Ù.
-//   StopµÆÀ»¶§´Â pRemainNode¸¦ »ý¼ºÇØ¼­ ³Ñ°ÜÁà¾ß ÇÑ´Ù.
+//   returnê°’ì´ TRUEì´ë©´ ì¼ì´ ëª¨ë‘ ëë‚¬ë‹¤ëŠ” ê²ƒì´ê³ ,
+//              FALSEì´ë©´ ë¬¸ì œê°€ ìžˆì–´ì„œ ìˆ˜í–‰ì´ ì•ˆëê±°ë‚˜ Stopëë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
+//   Stopëì„ë•ŒëŠ” pRemainNodeë¥¼ ìƒì„±í•´ì„œ ë„˜ê²¨ì¤˜ì•¼ í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -40,7 +40,7 @@ class MWorkNode {
 		virtual ~MWorkNode();
 
 		//--------------------------------------------------------
-		// Type - Æ¯Á¤ÇÑ typeÀ» ±¸ºÐÇØ³»±â À§ÇØ¼­..
+		// Type - íŠ¹ì •í•œ typeì„ êµ¬ë¶„í•´ë‚´ê¸° ìœ„í•´ì„œ..
 		//--------------------------------------------------------
 		void				SetType(int type)	{ m_Type = type; }
 		BOOL				IsTypeOf(int type)	{ return m_Type==type; }
@@ -59,13 +59,13 @@ class MWorkNode {
 		virtual BOOL		Execute(MWorkNode*& pNode) = 0;
 
 	protected :
-		// Á¾·ù
+		// ì¢…ë¥˜
 		int					m_Type;
 
-		// ÇöÀç ½ÇÇà ÁßÀÎ°¡??
+		// í˜„ìž¬ ì‹¤í–‰ ì¤‘ì¸ê°€??
 		BOOL				m_bExecute;
 
-		// ÀÛ¾÷ÀÌ ÁßÁö µÆ´Ù´Â Event
+		// ìž‘ì—…ì´ ì¤‘ì§€ ëë‹¤ëŠ” Event
 		HANDLE				m_hStopEvent;
 };
 

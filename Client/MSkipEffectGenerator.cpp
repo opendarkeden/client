@@ -1,7 +1,7 @@
  //----------------------------------------------------------------------
 // MSkipEffectGenerator.cpp
 //----------------------------------------------------------------------
-// Tile°ú ¸ÂºÙÀº ±ôºýÀÌ´Â EffectµéÀ» »ý¼ºÇÑ´Ù.
+// Tileê³¼ ë§žë¶™ì€ ê¹œë¹¡ì´ëŠ” Effectë“¤ì„ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "MSkipEffectGenerator.h"
@@ -32,50 +32,50 @@ MSkipEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	TYPE_FRAMEID	frameID	= (*g_pEffectSpriteTypeTable)[est].FrameID;
 	
 	//---------------------------------------------
-	// MaxFrameÀÇ °ªÀ» ¾Ë¾Æ¿Â´Ù.
+	// MaxFrameì˜ ê°’ì„ ì•Œì•„ì˜¨ë‹¤.
 	//---------------------------------------------
 	int maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);
 	int currentPhase = egInfo.pEffectTarget != NULL ?egInfo.pEffectTarget->GetCurrentPhase() : -1;
 	
-	// À¸ÈæÈæ..¤Ñ.¤Ì
+	// ìœ¼í‘í‘..ã…¡.ã…œ
 	if( egInfo.temp1 == 0 )				// UseActionGrade
 	{
 		MEffect*	pEffect;
 		//---------------------------------------------
-		// Effect »ý¼º
+		// Effect ìƒì„±
 		//---------------------------------------------
 		pEffect = new MSkipEffect(bltType);
 		
 		pEffect->SetFrameID( frameID, maxFrame );	
 		
-		pEffect->SetPixelPosition(pixelPoint.x, pixelPoint.y, egInfo.z0);		// pixelÁÂÇ¥		
+		pEffect->SetPixelPosition(pixelPoint.x, pixelPoint.y, egInfo.z0);		// pixelì¢Œí‘œ		
 		
-		pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
+		pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
 		
-		pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+		pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 		
-		// ¹æÇâ ¼³Á¤
+		// ë°©í–¥ ì„¤ì •
 		pEffect->SetDirection( egInfo.direction );
 		
-		// À§·Â
+		// ìœ„ë ¥
 		pEffect->SetPower(egInfo.power);
 		
-		// ºûÀÇ ¹à±â
+		// ë¹›ì˜ ë°ê¸°
 		//pEffect->SetLight( light );
 		
 		
-		// Ground Effect·Î..
-		// Zone¿¡ Ãß°¡ÇÑ´Ù.
+		// Ground Effectë¡œ..
+		// Zoneì— ì¶”ê°€í•œë‹¤.
 		if (g_pZone->AddGroundEffect( pEffect ))
 		{
-			// ´ÙÀ½ Effect »ý¼º Á¤º¸
+			// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 			pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
 			
 			return true;
 		}
 	} else
 	{
-		// ActionGrade ¸¦ »ç¿ëÇÑ´Ù.
+		// ActionGrade ë¥¼ ì‚¬ìš©í•œë‹¤.
 		std::vector<POINT> effectlist;
 		POINT pt = g_pTopView->PixelToMap( pixelPoint.x, pixelPoint.y );
 		
@@ -122,9 +122,9 @@ MSkipEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			pEffect = new MSkipEffect(bltType);
 			
 			pEffect->SetFrameID( frameID, maxFrame );				
-			pEffect->SetPixelPosition(g_pTopView->MapToPixelX( effectlist[i].x), g_pTopView->MapToPixelY(effectlist[i].y), egInfo.z0);		// pixelÁÂÇ¥
-			pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-			pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+			pEffect->SetPixelPosition(g_pTopView->MapToPixelX( effectlist[i].x), g_pTopView->MapToPixelY(effectlist[i].y), egInfo.z0);		// pixelì¢Œí‘œ
+			pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
+			pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 			pEffect->SetDirection( egInfo.direction );			
 			pEffect->SetPower(egInfo.power);			
 			if (g_pZone->AddGroundEffect( pEffect ) && i == 0)

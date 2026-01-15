@@ -21,7 +21,7 @@ FILEINFO_ZONE_HEADER::SaveToFile(class ofstream& file)
 	Description.SaveToFile(file);
 }
 void		
-FILEINFO_ZONE_HEADER::LoadFromFile(class ifstream& file)//╤ах║╣ьм╪
+FILEINFO_ZONE_HEADER::LoadFromFile(class ifstream& file)//К≈█М≤╓К▓┬Ф ═
 {
 	ZoneVersion.LoadFromFile(file);
 	file.read((char*)&ZoneID, 2);

@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MAttackZoneBombEffectGenerator.h
 //----------------------------------------------------------------------
-// ZoneÀÇ ÇÑ ÁöÁ¡±îÁö ÀÌµ¿ÇÏ´Â Effect»ı¼º
+// Zoneì˜ í•œ ì§€ì ê¹Œì§€ ì´ë™í•˜ëŠ” Effectìƒì„±
 //----------------------------------------------------------------------
 
 #ifndef	__MATTACKZONEBOMBEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MAttackZoneBombEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_ATTACK_ZONE_BOMB; }
 
-		// Effect»ı¼º
+		// Effectìƒì„±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // MMoneyManager.h
 //-----------------------------------------------------------------------------
-// Money´Â MoneyLimit¸¦ ³ÑÀ¸¸é ¾ÈµÈ´Ù.
+// MoneyëŠ” MoneyLimitë¥¼ ë„˜ìœ¼ë©´ ì•ˆëœë‹¤.
 //-----------------------------------------------------------------------------
 
 #ifndef __MMONEYMANAGER_H__
@@ -23,7 +23,7 @@ class MMoneyManager {
 		bool		AddMoney(int money);
 		bool		UseMoney(int money);
 
-		// money¸¸Å­ µ·À» add/useÇÒ ¼ö ÀÖ³ª?
+		// moneyë§Œí¼ ëˆì„ add/useí•  ìˆ˜ ìˆë‚˜?
 		bool		CanAddMoney(int money);
 		bool		CanUseMoney(int money);
 
@@ -35,8 +35,8 @@ class MMoneyManager {
 		int			GetMaxAddMoney() const		{ return m_MoneyLimit - m_Money; }
 
 	protected :
-		int			m_MoneyLimit;	// °¡Áú ¼ö ÀÖ´Â µ·ÀÇ ÇÑ°è
-		int			m_Money;		// µ· - -;
+		int			m_MoneyLimit;	// ê°€ì§ˆ ìˆ˜ ìˆëŠ” ëˆì˜ í•œê³„
+		int			m_Money;		// ëˆ - -;
 };
 
 extern MMoneyManager*		g_pMoneyManager;

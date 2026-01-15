@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCRequestFailedHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -39,13 +39,13 @@ void GCRequestFailedHandler::execute ( GCRequestFailed * pPacket , Player * pPla
 					//--------------------------------------------------------
 					// REQUESTING_FOR_WHISPER
 					//--------------------------------------------------------
-					// ±Ó¼Ó¸»À» º¸³»±â À§ÇØ IP¸¦ ¿äÃ»ÇÑ °æ¿ì
+					// ê·“ì†ë§ì„ ë³´ë‚´ê¸° ìœ„í•´ IPë¥¼ ìš”ì²­í•œ ê²½ìš°
 					//--------------------------------------------------------
 					case RequestUserManager::REQUESTING_FOR_WHISPER :
-						// ±Ó¼Ó¸» ¸ø º¸³Â´Ù°í Ãâ·Â
+						// ê·“ì†ë§ ëª» ë³´ëƒˆë‹¤ê³  ì¶œë ¥
 						UI_AddChatToHistory( (*g_pGameStringTable)[STRING_MESSAGE_WHISPER_FAILED].GetString(), NULL, 5, RGB(255, 255, 255) );
 
-						// º¸³¾·Á´ø ±Ó¼Ó¸» Á¦°Å
+						// ë³´ë‚¼ë ¤ë˜ ê·“ì†ë§ ì œê±°
 						g_pWhisperManager->RemoveWhisperMessage( pPacket->getName().c_str() );
 					break;
 				}
@@ -53,7 +53,7 @@ void GCRequestFailedHandler::execute ( GCRequestFailed * pPacket , Player * pPla
 			break;
 		}
 
-		// ¾îÂ¶µç .. ¿äÃ»ÁßÀÌ´ø Á¤º¸´Â Á¦°ÅÇÑ´Ù.
+		// ì–´ì¨‹ë“  .. ìš”ì²­ì¤‘ì´ë˜ ì •ë³´ëŠ” ì œê±°í•œë‹¤.
 		g_pRequestUserManager->RemoveRequestingUser( pPacket->getName().c_str() );
 	}
 

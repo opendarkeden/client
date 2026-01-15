@@ -2,7 +2,7 @@
 // CFileIndexTable.h
 //----------------------------------------------------------------------
 //
-// Index FileÀ» LoadÇÑ´Ù.
+// Index Fileì„ Loadí•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -46,7 +46,7 @@ class CFileIndexTable {
 		
 
 	protected :
-		WORD			m_Size;				// °³¼ö
+		WORD			m_Size;				// ê°œìˆ˜
 		long*			m_pIndex;			// File position
 };
 

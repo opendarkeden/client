@@ -43,7 +43,7 @@ void GCWarListHandler::execute ( GCWarList * pPacket , Player * pPlayer )
 		
 	}	
 	
-	// ÇöÀç Á¸µµ ÀÖ´ÂÁö °Ë»öÇØ¾ß ÇÑ´Ù.		
+	// í˜„ìž¬ ì¡´ë„ ìžˆëŠ”ì§€ ê²€ìƒ‰í•´ì•¼ í•œë‹¤.		
 	WarInfo *pInfo = g_pWarManager->GetWarInfo(g_pZone->GetID());
 	if(pInfo != NULL && pInfo->getWarType() == WAR_RACE)
 	{

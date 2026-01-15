@@ -17,20 +17,20 @@
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// fstream¿¡ save ÇÑ´Ù.    ( file¿¡´Â 5:6:5·Î ÀúÀåÇÑ´Ù. )
+// fstreamì— save í•œë‹¤.    ( fileì—ëŠ” 5:6:5ë¡œ ì €ì¥í•œë‹¤. )
 //----------------------------------------------------------------------
 bool
 CSprite555::SaveToFile(ofstream& file)
 {
-	// width¿Í height¸¦ ÀúÀåÇÑ´Ù.
+	// widthì™€ heightë¥¼ ì €ì¥í•œë‹¤.
 	file.write((const char*)&m_Width , 2);
 	file.write((const char*)&m_Height, 2);
 
-	// NULLÀÌ¸é ÀúÀåÇÏÁö ¾Ê´Â´Ù. ±æÀÌ¸¸ ÀúÀåµÇ´Â °ÍÀÌ´Ù.
+	// NULLì´ë©´ ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤. ê¸¸ì´ë§Œ ì €ì¥ë˜ëŠ” ê²ƒì´ë‹¤.
 	if (m_Pixels==NULL || m_Width==0 || m_Height==0)
 		return false;
 	
-	// ¾ĞÃà µÈ °Í ÀúÀå
+	// ì••ì¶• ëœ ê²ƒ ì €ì¥
 	WORD index;	
 
 	register int i;
@@ -42,36 +42,36 @@ CSprite555::SaveToFile(ofstream& file)
 	//--------------------------------
 	for (i=0; i<m_Height; i++)
 	{
-		// ¹İº¹ È¸¼öÀÇ 2 byte
+		// ë°˜ë³µ íšŒìˆ˜ì˜ 2 byte
 		int	count = m_Pixels[i][0], 
 				colorCount;
 		index	= 1;
 
-		// °¢ line¸¶´Ù byte¼ö¸¦ ¼¼¾î¼­ ÀúÀåÇØ¾ßÇÑ´Ù.
+		// ê° lineë§ˆë‹¤ byteìˆ˜ë¥¼ ì„¸ì–´ì„œ ì €ì¥í•´ì•¼í•œë‹¤.
 		for (j=0; j<count; j++)
 		{
 			//transCount = m_Pixels[i][index];
 			colorCount = m_Pixels[i][index+1];				
 
-			index+=2;	// µÎ count ¸¸Å­
+			index+=2;	// ë‘ count ë§Œí¼
 
 			// m_Pixels[i][index] ~ m_Pixels[i][index+colorCount-1]
-			// 5:5:5¸¦ 5:6:5·Î ¹Ù²ã¼­ ÀúÀåÇÏ°í ´Ù½Ã 5:5:5·Î ¹Ù²ãÁØ´Ù.
+			// 5:5:5ë¥¼ 5:6:5ë¡œ ë°”ê¿”ì„œ ì €ì¥í•˜ê³  ë‹¤ì‹œ 5:5:5ë¡œ ë°”ê¿”ì¤€ë‹¤.
 			for (k=0; k<colorCount; k++)								
 			{
 				m_Pixels[i][index] = CDirectDraw::Convert555to565(m_Pixels[i][index]);
 				index++;
 			}
 
-			//index += colorCount;	// Åõ¸í»ö ¾Æ´Ñ°Í¸¸Å­ +				
+			//index += colorCount;	// íˆ¬ëª…ìƒ‰ ì•„ë‹Œê²ƒë§Œí¼ +				
 		}
 
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ ÀúÀåÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ ì €ì¥í•œë‹¤.
 		file.write((const char*)&index, 2);			
 		file.write((const char*)m_Pixels[i], index<<1);			
 
 
-		// ´Ù½Ã 5:5:5·Î ¹Ù²ãÁØ´Ù.						
+		// ë‹¤ì‹œ 5:5:5ë¡œ ë°”ê¿”ì¤€ë‹¤.						
 		index	= 1;
 			
 		for (j=0; j<count; j++)
@@ -79,17 +79,17 @@ CSprite555::SaveToFile(ofstream& file)
 			//transCount = m_Pixels[i][index];
 			colorCount = m_Pixels[i][index+1];				
 
-			index+=2;	// µÎ count ¸¸Å­
+			index+=2;	// ë‘ count ë§Œí¼
 
 			// m_Pixels[i][index] ~ m_Pixels[i][index+colorCount-1]
-			// 5:5:5¸¦ 5:6:5·Î ¹Ù²ã¼­ ÀúÀåÇÏ°í ´Ù½Ã 5:5:5·Î ¹Ù²ãÁØ´Ù.
+			// 5:5:5ë¥¼ 5:6:5ë¡œ ë°”ê¿”ì„œ ì €ì¥í•˜ê³  ë‹¤ì‹œ 5:5:5ë¡œ ë°”ê¿”ì¤€ë‹¤.
 			for (k=0; k<colorCount; k++)								
 			{					
 				m_Pixels[i][index] = CDirectDraw::Convert565to555(m_Pixels[i][index]);
 				index++;
 			}
 
-			//index += colorCount;	// Åõ¸í»ö ¾Æ´Ñ°Í¸¸Å­ +				
+			//index += colorCount;	// íˆ¬ëª…ìƒ‰ ì•„ë‹Œê²ƒë§Œí¼ +				
 		}
 	}
 
@@ -97,12 +97,12 @@ CSprite555::SaveToFile(ofstream& file)
 }
 
 //----------------------------------------------------------------------
-// fstream¿¡¼­ loadÇÑ´Ù.
+// fstreamì—ì„œ loadí•œë‹¤.
 //----------------------------------------------------------------------
 bool	
 CSprite555::LoadFromFile(ifstream& file)
 {
-	// ÀÌ°Å¸¦ ÇÏ³ª·Î ¹­¾î¾ß ÇÏ´Âµ¥..
+	// ì´ê±°ë¥¼ í•˜ë‚˜ë¡œ ë¬¶ì–´ì•¼ í•˜ëŠ”ë°..
 	if (m_bLoading) 
 	{	
 		return false;
@@ -114,15 +114,15 @@ CSprite555::LoadFromFile(ifstream& file)
 	static BYTE LoadingStatus = LOADING_STATUS_NONE;
 	BYTE*	pCheck = &LoadingStatus;
 	
-	// LoadingÇÏ°í ÀÖÁö ¾ÊÀº »óÅÂÀÎ °æ¿ì
-	// LoadingÇÒ·Á´Â »óÅÂ·Î ¸¸µç´Ù.
+	// Loadingí•˜ê³  ìˆì§€ ì•Šì€ ìƒíƒœì¸ ê²½ìš°
+	// Loadingí• ë ¤ëŠ” ìƒíƒœë¡œ ë§Œë“ ë‹¤.
 	InterlockedCompareExchange( 
 		(PVOID *)&pCheck,  // pointer to the destination pointer
 		(PVOID)&LOADING_STATUS_NOW,      // the exchange value
 		(PVOID)&LOADING_STATUS_NONE		// the value to compare
 	);
  
-	// Áö±İ loadingÇÒ°ÍÀÌ ¾Æ´Ï¸é return
+	// ì§€ê¸ˆ loadingí• ê²ƒì´ ì•„ë‹ˆë©´ return
 	if (LoadingStatus!=LOADING_STATUS_NOW)
 	{
 		return false;
@@ -130,20 +130,20 @@ CSprite555::LoadFromFile(ifstream& file)
 
 	LoadingStatus = LOADING_STATUS_LOADING;
 	*/
-	// loadindÁßÀÌ¶ó°í Ç¥½Ã
+	// loadindì¤‘ì´ë¼ê³  í‘œì‹œ
 	m_bLoading = true;
 	
 
 	
 
-	// ÀÌ¹Ì ÀâÇôÀÖ´Â memory¸¦ releaseÇÑ´Ù.
+	// ì´ë¯¸ ì¡í˜€ìˆëŠ” memoryë¥¼ releaseí•œë‹¤.
 	Release();
 
-	// width¿Í height¸¦ ÀúÀåÇÑ´Ù.
+	// widthì™€ heightë¥¼ ì €ì¥í•œë‹¤.
 	file.read((char*)&m_Width , 2);
 	file.read((char*)&m_Height, 2);	
 
-	// ±æÀÌ°¡ 0ÀÌ¸é ´õ LoadÇÒ°Ô ¾ø°ÚÁö..
+	// ê¸¸ì´ê°€ 0ì´ë©´ ë” Loadí• ê²Œ ì—†ê² ì§€..
 	if (m_Width==0 || m_Height==0) 
 	{	
 		m_bInit = true;
@@ -167,7 +167,7 @@ CSprite555::LoadFromFile(ifstream& file)
 	//--------------------------------
 	// 5:5:5
 	//--------------------------------
-	// 5:6:5·Î ÀúÀåµÈ°É ÀĞ¾ú±â ¶§¹®¿¡ 5:6:5¸¦ 5:5:5·Î ¹Ù²ãÁà¾ß ÇÑ´Ù.	
+	// 5:6:5ë¡œ ì €ì¥ëœê±¸ ì½ì—ˆê¸° ë•Œë¬¸ì— 5:6:5ë¥¼ 5:5:5ë¡œ ë°”ê¿”ì¤˜ì•¼ í•œë‹¤.	
 	WORD index;
 	int	count, colorCount;
 
@@ -177,7 +177,7 @@ CSprite555::LoadFromFile(ifstream& file)
 
 	for (i=0; i<m_Height; i++)
 	{			
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ LoadÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ Loadí•œë‹¤.
 		file.read((char*)&len, 2);
 		m_Pixels[i] = new WORD [len];
 		file.read((char*)m_Pixels[i], len<<1);
@@ -190,17 +190,17 @@ CSprite555::LoadFromFile(ifstream& file)
 			//transCount = m_Pixels[i][index];
 			colorCount = m_Pixels[i][index+1];				
 
-			index+=2;	// µÎ count ¸¸Å­
+			index+=2;	// ë‘ count ë§Œí¼
 
 			// m_Pixels[i][index] ~ m_Pixels[i][index+colorCount-1]
-			// 5:5:5¸¦ 5:6:5·Î ¹Ù²ã¼­ ÀúÀåÇÏ°í ´Ù½Ã 5:5:5·Î ¹Ù²ãÁØ´Ù.
+			// 5:5:5ë¥¼ 5:6:5ë¡œ ë°”ê¿”ì„œ ì €ì¥í•˜ê³  ë‹¤ì‹œ 5:5:5ë¡œ ë°”ê¿”ì¤€ë‹¤.
 			for (k=0; k<colorCount; k++)								
 			{					
 				m_Pixels[i][index] = CDirectDraw::Convert565to555(m_Pixels[i][index]);
 				index++;
 			}
 
-			//index += colorCount;	// Åõ¸í»ö ¾Æ´Ñ°Í¸¸Å­ +				
+			//index += colorCount;	// íˆ¬ëª…ìƒ‰ ì•„ë‹Œê²ƒë§Œí¼ +				
 		}
 	}
 
@@ -214,17 +214,17 @@ CSprite555::LoadFromFile(ifstream& file)
 
 
 //----------------------------------------------------------------------
-// fstream¿¡¼­ loadÇÑ´Ù.
+// fstreamì—ì„œ loadí•œë‹¤.
 //----------------------------------------------------------------------
 /*
 bool	
 CSprite555::LoadFromFileToBuffer(ifstream& file)
 {
-	// width¿Í height¸¦ ÀúÀåÇÑ´Ù.
+	// widthì™€ heightë¥¼ ì €ì¥í•œë‹¤.
 	file.read((char*)&s_Width , 2);
 	file.read((char*)&s_Height, 2);	
 
-	// ±æÀÌ°¡ 0ÀÌ¸é ´õ LoadÇÒ°Ô ¾ø°ÚÁö..
+	// ê¸¸ì´ê°€ 0ì´ë©´ ë” Loadí• ê²Œ ì—†ê² ì§€..
 	if (s_Width==0 || s_Height==0) 
 		return false;
 
@@ -238,12 +238,12 @@ CSprite555::LoadFromFileToBuffer(ifstream& file)
 	//--------------------------------
 	// 5:5:5
 	//--------------------------------
-	// 5:6:5·Î ÀúÀåµÈ°É ÀĞ¾ú±â ¶§¹®¿¡ 5:6:5¸¦ 5:5:5·Î ¹Ù²ãÁà¾ß ÇÑ´Ù.	
+	// 5:6:5ë¡œ ì €ì¥ëœê±¸ ì½ì—ˆê¸° ë•Œë¬¸ì— 5:6:5ë¥¼ 5:5:5ë¡œ ë°”ê¿”ì¤˜ì•¼ í•œë‹¤.	
 	WORD	count, index, colorCount;
 
 	for (int i=0; i<s_Height; i++)
 	{			
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ LoadÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ Loadí•œë‹¤.
 		file.read((char*)&s_BufferLen[i], 2);
 		
 		file.read((char*)s_Buffer[i], s_BufferLen[i]<<1);
@@ -257,17 +257,17 @@ CSprite555::LoadFromFileToBuffer(ifstream& file)
 			//transCount = s_Buffer[i][index];
 			colorCount = s_Buffer[i][index+1];				
 
-			index+=2;	// µÎ count ¸¸Å­
+			index+=2;	// ë‘ count ë§Œí¼
 
 			// s_Buffer[i][index] ~ s_Buffer[i][index+colorCount-1]
-			// 5:5:5¸¦ 5:6:5·Î ¹Ù²ã¼­ ÀúÀåÇÏ°í ´Ù½Ã 5:5:5·Î ¹Ù²ãÁØ´Ù.
+			// 5:5:5ë¥¼ 5:6:5ë¡œ ë°”ê¿”ì„œ ì €ì¥í•˜ê³  ë‹¤ì‹œ 5:5:5ë¡œ ë°”ê¿”ì¤€ë‹¤.
 			for (int j=0; j<colorCount; j++)								
 			{					
 				s_Buffer[i][index] = CDirectDraw::Convert565to555(s_Buffer[i][index]);
 				index++;
 			}
 
-			//index += colorCount;	// Åõ¸í»ö ¾Æ´Ñ°Í¸¸Å­ +				
+			//index += colorCount;	// íˆ¬ëª…ìƒ‰ ì•„ë‹Œê²ƒë§Œí¼ +				
 		}
 	}
 

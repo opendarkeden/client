@@ -93,7 +93,7 @@ MEffectGeneratorTable::~MEffectGeneratorTable()
 //
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-// Init - ÇÑ ¹ø¸¸ ºÒ·Á¾ß ÇÑ´Ù.
+// Init - í•œ ë²ˆë§Œ ë¶ˆë ¤ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MEffectGeneratorTable::Init()
@@ -166,17 +166,17 @@ MEffectGeneratorTable::Release()
 }
 
 //----------------------------------------------------------------------
-// m_pEffectGenerator¿¡ MEffectGenerator*¸¦ Ãß°¡ÇÑ´Ù.
+// m_pEffectGeneratorì— MEffectGenerator*ë¥¼ ì¶”ê°€í•œë‹¤.
 //----------------------------------------------------------------------
 void
 MEffectGeneratorTable::AddEffectGenerator(MEffectGenerator* pEffectGenerator)
 {
-	// ¾ø´Â °æ¿ì¿¡ Ãß°¡ÇÏ°í..
+	// ì—†ëŠ” ê²½ìš°ì— ì¶”ê°€í•˜ê³ ..
 	if (m_pEffectGenerator[ pEffectGenerator->GetID() ] == NULL)
 	{
 		m_pEffectGenerator[ pEffectGenerator->GetID() ] = pEffectGenerator;
 	}
-	// ÀÌ¹Ì ´Ù¸¥°Ô ÀÖ´Ù¸é... Ãß°¡ÇÏÁö ¾Ê´Â´Ù.
+	// ì´ë¯¸ ë‹¤ë¥¸ê²Œ ìžˆë‹¤ë©´... ì¶”ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	else
 	{
 		delete pEffectGenerator;
@@ -187,7 +187,7 @@ MEffectGeneratorTable::AddEffectGenerator(MEffectGenerator* pEffectGenerator)
 //----------------------------------------------------------------------
 // Generate
 //----------------------------------------------------------------------
-// ÃÖÃÊ Effect»ý¼º 
+// ìµœì´ˆ Effectìƒì„± 
 //----------------------------------------------------------------------
 void
 MEffectGeneratorTable::Generate(	
@@ -212,9 +212,9 @@ MEffectGeneratorTable::Generate(
 	}
 	
 	//------------------------------------------------------------
-	// EffectTargetÀÌ ¾ø°Å³ª..
-	// Á¤º¸ÀÇ °³¼ö°¡ ´Ù¸£¸é...
-	// ¹º°¡(?) Àß¸øµÆ´Ù´Â ¾ê±â´Ù..	
+	// EffectTargetì´ ì—†ê±°ë‚˜..
+	// ì •ë³´ì˜ ê°œìˆ˜ê°€ ë‹¤ë¥´ë©´...
+	// ë­”ê°€(?) ìž˜ëª»ëë‹¤ëŠ” ì–˜ê¸°ë‹¤..	
 	//------------------------------------------------------------
 	if (pEffectTarget==NULL)
 	{
@@ -226,14 +226,14 @@ MEffectGeneratorTable::Generate(
 	}
 	else if ((*g_pActionInfoTable)[ nActionInfo ].GetSize()!=pEffectTarget->GetMaxPhase())
 	{
-		// ¸ñÇ¥ ¿Ï·á½ÃÅ²´Ù.
+		// ëª©í‘œ ì™„ë£Œì‹œí‚¨ë‹¤.
 		//while (!pEffectTarget->IsEnd())
 		//{
 		//	pEffectTarget->NextPhase();
 		//}
 
 		//------------------------------------------------------------
-		// ¸ñÇ¥°¡ ¾ø´Â TargetÀÌ´Ù.. Áö¿î´Ù.
+		// ëª©í‘œê°€ ì—†ëŠ” Targetì´ë‹¤.. ì§€ìš´ë‹¤.
 		//------------------------------------------------------------
 		if (pEffectTarget->IsExistResult())
 		{
@@ -254,22 +254,22 @@ MEffectGeneratorTable::Generate(
 	#endif
 	
 	//------------------------------------------------------------
-	// Effect»ý¼º Á¤º¸°¡ ¾øÀ¸¸é...
-	// »ý¼ºµÉ Effect°¡ ¾øÀ¸´Ï.. °á°ú¸¦ ¹Ù·Î Ã³¸®ÇÏ¸é µÈ´Ù.
+	// Effectìƒì„± ì •ë³´ê°€ ì—†ìœ¼ë©´...
+	// ìƒì„±ë  Effectê°€ ì—†ìœ¼ë‹ˆ.. ê²°ê³¼ë¥¼ ë°”ë¡œ ì²˜ë¦¬í•˜ë©´ ëœë‹¤.
 	//------------------------------------------------------------
 	bool bGenerated = false;
 	if ((*g_pActionInfoTable)[ nActionInfo ].GetSize()==0)
 	{
-		// °á°ú ¹Ù·Î Ã³¸®
+		// ê²°ê³¼ ë°”ë¡œ ì²˜ë¦¬
 		pEffectTarget->SetResultTime();
 	}	
 	else
 	{
 		//------------------------------------------------------------
-		// ÇöÀç EFFECT_INFO_NODE 
+		// í˜„ìž¬ EFFECT_INFO_NODE 
 		//------------------------------------------------------------
-		// ´ëÃ¼·Î 0ÀÌÁö¸¸.. main nodeºÎÅÍ ½ÃÀÛÇÏ´Â °æ¿ìµµ ÀÖ´Ù.
-		// ±×·¯¹Ç·Î --> pEffectTarget->GetCurrentPhase()
+		// ëŒ€ì²´ë¡œ 0ì´ì§€ë§Œ.. main nodeë¶€í„° ì‹œìž‘í•˜ëŠ” ê²½ìš°ë„ ìžˆë‹¤.
+		// ê·¸ëŸ¬ë¯€ë¡œ --> pEffectTarget->GetCurrentPhase()
 		//------------------------------------------------------------
 		ACTION_INFO_NODE&			info	= (*g_pActionInfoTable)[ nActionInfo ][pEffectTarget->GetCurrentPhase()];
 		TYPE_EFFECTSPRITETYPE		EffectSpriteType = info.EffectSpriteType;
@@ -290,7 +290,7 @@ MEffectGeneratorTable::Generate(
 		}
 
 		//------------------------------------------------------------
-		// Ã¹¹øÂ° ¸ñÇ¥
+		// ì²«ë²ˆì§¸ ëª©í‘œ
 		//------------------------------------------------------------
 		int targetX = pEffectTarget->GetX();
 		int targetY = pEffectTarget->GetY();
@@ -301,10 +301,10 @@ MEffectGeneratorTable::Generate(
 		DWORD count;
 		
 		//------------------------------------------------------------
-		// EffectÀÇ ÀÌ¹ø nodeÀÇ Áö¼Ó ½Ã°£ °áÁ¤
+		// Effectì˜ ì´ë²ˆ nodeì˜ ì§€ì† ì‹œê°„ ê²°ì •
 		//------------------------------------------------------------
-		// bDelayNodeÀÌ°í ¼³Á¤µÈ delay°¡ ÀÖ´Â °æ¿ì
-		//		//main nodeÀÌ°í pEffectTargetÀÇ DelayFrameÀÌ 0ÀÌ ¾Æ´Ñ °æ¿ì
+		// bDelayNodeì´ê³  ì„¤ì •ëœ delayê°€ ìžˆëŠ” ê²½ìš°
+		//		//main nodeì´ê³  pEffectTargetì˜ DelayFrameì´ 0ì´ ì•„ë‹Œ ê²½ìš°
 		//------------------------------------------------------------
 		if (info.bDelayNode
 			//(*g_pActionInfoTable)[ nActionInfo ].HasMainNode()
@@ -320,24 +320,24 @@ MEffectGeneratorTable::Generate(
 
 
 		//------------------------------------------------------------
-		// ´ÙÀ½ ¸ñÇ¥
+		// ë‹¤ìŒ ëª©í‘œ
 		//------------------------------------------------------------
 		pEffectTarget->NextPhase();
 
 		
 		//------------------------------------------------------------
-		// EffectGenerator°¡ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+		// EffectGeneratorê°€ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 		//------------------------------------------------------------
 		if (info.EffectGeneratorID >= MAX_EFFECTGENERATORID
 			|| m_pEffectGenerator[ info.EffectGeneratorID ]==NULL)
 		{
-			// ¸ñÇ¥ ¿Ï·á½ÃÅ²´Ù.
+			// ëª©í‘œ ì™„ë£Œì‹œí‚¨ë‹¤.
 			//while (!pEffectTarget->IsEnd())
 			//{
 				//pEffectTarget->NextPhase();
 			//}
 			//------------------------------------------------------------
-			// ¸ñÇ¥°¡ ¾ø´Â TargetÀÌ´Ù.. Áö¿î´Ù.
+			// ëª©í‘œê°€ ì—†ëŠ” Targetì´ë‹¤.. ì§€ìš´ë‹¤.
 			//------------------------------------------------------------
 			if (pEffectTarget->IsExistResult())
 			{
@@ -355,7 +355,7 @@ MEffectGeneratorTable::Generate(
 
 		//------------------------------------------------------------
 		//
-		// EffectGenerator¿¡¼­ Effect¸¦ »ý¼ºÇÏ°Ô ÇÑ´Ù.
+		// EffectGeneratorì—ì„œ Effectë¥¼ ìƒì„±í•˜ê²Œ í•œë‹¤.
 		//
 		//------------------------------------------------------------
 		EFFECTGENERATOR_INFO egInfo;
@@ -384,8 +384,8 @@ MEffectGeneratorTable::Generate(
 		#endif
 
 		//------------------------------------------------------------
-		// GenerateÀÇ return°ªÀº egInfo.pEffectTargetÀÌ 
-		// ³»ºÎ¿¡¼­ ´Ù¸¥ effect·Î linkµÇ¾ú´Â°¡¸¦ ÀÇ¹ÌÇÑ´Ù.
+		// Generateì˜ returnê°’ì€ egInfo.pEffectTargetì´ 
+		// ë‚´ë¶€ì—ì„œ ë‹¤ë¥¸ effectë¡œ linkë˜ì—ˆëŠ”ê°€ë¥¼ ì˜ë¯¸í•œë‹¤.
 		//------------------------------------------------------------
 		#ifdef OUTPUT_DEBUG_EFFECT_GENERATOR
 			DEBUG_ADD_FORMAT("Generate before. id=%d", info.EffectGeneratorID);
@@ -398,7 +398,7 @@ MEffectGeneratorTable::Generate(
 			#endif
 
 			//------------------------------------------------------------
-			// ±â¼úÀÇ ´Ü°è¿¡ ¸Â´Â sound¸¦ Ãâ·ÂÇØÁØ´Ù.
+			// ê¸°ìˆ ì˜ ë‹¨ê³„ì— ë§žëŠ” soundë¥¼ ì¶œë ¥í•´ì¤€ë‹¤.
 			//------------------------------------------------------------
 			if (info.SoundID != SOUNDID_NULL)
 			{
@@ -408,12 +408,12 @@ MEffectGeneratorTable::Generate(
 			}
 
 			//------------------------------------------------------------
-			// °á°ú¸¦ Ã³¸®ÇØ¾ßÇÏ´Â ½ÃÁ¡ÀÎ°¡? 
+			// ê²°ê³¼ë¥¼ ì²˜ë¦¬í•´ì•¼í•˜ëŠ” ì‹œì ì¸ê°€? 
 			//------------------------------------------------------------
 			if (info.bResultTime)
 			{
-				// °á°ú Ã³¸® ½Ã°£ÀÌ Áö³µ´Ù°í Ã¼Å©ÇÑ´Ù.
-				// ³ªÁß¿¡ °á°ú°¡ »ý±â¸é ¹Ù·Î Ã³¸®ÇÏ°Ô µÈ´Ù.
+				// ê²°ê³¼ ì²˜ë¦¬ ì‹œê°„ì´ ì§€ë‚¬ë‹¤ê³  ì²´í¬í•œë‹¤.
+				// ë‚˜ì¤‘ì— ê²°ê³¼ê°€ ìƒê¸°ë©´ ë°”ë¡œ ì²˜ë¦¬í•˜ê²Œ ëœë‹¤.
 				pEffectTarget->SetResultTime();
 			}
 
@@ -434,7 +434,7 @@ MEffectGeneratorTable::Generate(
 	}
 
 	//------------------------------------------------------------
-	// °á°ú Ã³¸®
+	// ê²°ê³¼ ì²˜ë¦¬
 	//------------------------------------------------------------
 	if (pEffectTarget->IsResultTime() || pEffectTarget->IsEnd())
 	{	
@@ -442,7 +442,7 @@ MEffectGeneratorTable::Generate(
 			DEBUG_ADD("Check Result");
 		#endif
 
-		// °á°ú°¡ ÀÖÀ¸¸é Ã³¸®ÇØ¾ß ÇÑ´Ù.
+		// ê²°ê³¼ê°€ ìžˆìœ¼ë©´ ì²˜ë¦¬í•´ì•¼ í•œë‹¤.
 		if (pEffectTarget->IsExistResult())
 		{
 			MActionResult* pResult = pEffectTarget->GetResult();
@@ -452,10 +452,10 @@ MEffectGeneratorTable::Generate(
 				DEBUG_ADD_FORMAT("ExecuteResult. et=0x%X, targetID=%d, targetPhase4=%d", pEffectTarget, (int)pEffectTarget->GetEffectID(), pEffectTarget->GetMaxPhase());
 			#endif
 
-			// °á°ú ½ÇÇà
+			// ê²°ê³¼ ì‹¤í–‰
 			pResult->Execute();
 			
-			// ¸Þ¸ð¸® Á¦°Å
+			// ë©”ëª¨ë¦¬ ì œê±°
 			delete pResult;			
 		}
 
@@ -469,9 +469,9 @@ MEffectGeneratorTable::Generate(
 		//------------------------------
 		// [ TEST CODE ]
 		//------------------------------
-		// PlayerÀÇ ÁøÇàÁßÀÌ´ø EffectTargetÀº ³¡³µ´Ù°í ¼³Á¤ÇÑ´Ù.
-		// ¿Ö ÇÏÇÊ PlayerÀÎ°¡?
-		// ´Ù¸¥ Ä³¸¯ÅÍµµ ÀÌ ÇÔ¼ö(Generate)¸¦ ¾´´Ù.
+		// Playerì˜ ì§„í–‰ì¤‘ì´ë˜ EffectTargetì€ ëë‚¬ë‹¤ê³  ì„¤ì •í•œë‹¤.
+		// ì™œ í•˜í•„ Playerì¸ê°€?
+		// ë‹¤ë¥¸ ìºë¦­í„°ë„ ì´ í•¨ìˆ˜(Generate)ë¥¼ ì“´ë‹¤.
 		g_pPlayer->RemoveEffectTarget( pEffectTarget->GetEffectID() );
 
 		//if (!bGenerated)
@@ -481,8 +481,8 @@ MEffectGeneratorTable::Generate(
 	}
 	
 	//------------------------------------------------------------
-	// ´õ ÀÌ»ó ¸ñÇ¥°¡ ÇÊ¿ä¾ø´Â ¸¶Áö¸· ´Ü°èÀÎ °æ¿ì..
-	// effect°¡ »ç¶óÁú¶§ Áö¿öÁö°Ô ÇÑ´Ù.
+	// ë” ì´ìƒ ëª©í‘œê°€ í•„ìš”ì—†ëŠ” ë§ˆì§€ë§‰ ë‹¨ê³„ì¸ ê²½ìš°..
+	// effectê°€ ì‚¬ë¼ì§ˆë•Œ ì§€ì›Œì§€ê²Œ í•œë‹¤.
 	//------------------------------------------------------------
 	if (//pEffectTarget->IsEnd() && 
 		!bGenerated || pEffectTarget->IsEnd() )
@@ -500,10 +500,10 @@ MEffectGeneratorTable::Generate(
 				DEBUG_ADD_FORMAT("ExecuteResult. et=0x%X, targetID=%d, targetPhase4=%d", pEffectTarget, (int)pEffectTarget->GetEffectID(), pEffectTarget->GetMaxPhase());
 #endif
 				
-				// °á°ú ½ÇÇà
+				// ê²°ê³¼ ì‹¤í–‰
 				pResult->Execute();
 				
-				// ¸Þ¸ð¸® Á¦°Å
+				// ë©”ëª¨ë¦¬ ì œê±°
 				delete pResult;			
 			}
 
@@ -519,7 +519,7 @@ MEffectGeneratorTable::Generate(
 //----------------------------------------------------------------------
 // GenerateNext
 //----------------------------------------------------------------------
-// ¿¬°áµÈ ´ÙÀ½ Effect »ý¼º
+// ì—°ê²°ëœ ë‹¤ìŒ Effect ìƒì„±
 //----------------------------------------------------------------------
 void	 
 MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
@@ -534,21 +534,21 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 	}
 
 	//------------------------------------------------------------
-	// pEffectÀÇ Á¤º¸¸¦ Âü°íÇØ¼­ GenerateÇÑ´Ù.
+	// pEffectì˜ ì •ë³´ë¥¼ ì°¸ê³ í•´ì„œ Generateí•œë‹¤.
 	//------------------------------------------------------------
 	MEffectTarget* pEffectTarget = pEffect->GetEffectTarget();
 	
 	//------------------------------------------------------------
-	// [ ÇÊ»ì!~ ] ´ÙÀ½ Effect·Î Link°¡ µÈ EffectÀÇ 
-	//						EffectTargetÀ» Á¦°ÅÇÑ´Ù.
+	// [ í•„ì‚´!~ ] ë‹¤ìŒ Effectë¡œ Linkê°€ ëœ Effectì˜ 
+	//						EffectTargetì„ ì œê±°í•œë‹¤.
 	//
-	// pEffectTarget´Â Generate()¿¡¼­ ´ÙÀ½ Effect·Î Àü´ÞµÇ°Å³ª
-	//							ÀÌ¹ø loop¿¡¼­ deleteµÇ¾î¾ß ÇÑ´Ù.
+	// pEffectTargetëŠ” Generate()ì—ì„œ ë‹¤ìŒ Effectë¡œ ì „ë‹¬ë˜ê±°ë‚˜
+	//							ì´ë²ˆ loopì—ì„œ deleteë˜ì–´ì•¼ í•œë‹¤.
 	//------------------------------------------------------------
 	pEffect->SetEffectTargetNULL();
 
 	//------------------------------------------------------------
-	// ¸ñÇ¥°¡ ¾øÀ¸¸é..
+	// ëª©í‘œê°€ ì—†ìœ¼ë©´..
 	//------------------------------------------------------------
 	if (pEffectTarget==NULL)
 	{
@@ -560,15 +560,15 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 	}
 
 	///*
-	// À¸Èì - -;
-	// ¿ÏÀüÈ÷ ³¡³­°É ÀÇ¹ÌÇÑ´Ù.
+	// ìœ¼í  - -;
+	// ì™„ì „ížˆ ëë‚œê±¸ ì˜ë¯¸í•œë‹¤.
 	if (pEffectTarget->IsEnd())
 	{
 		#ifdef OUTPUT_DEBUG_EFFECT_GENERATOR
 			DEBUG_ADD("EffectTarget End - Check Result0");
 		#endif
 
-		// °á°ú°¡ ÀÖÀ¸¸é Ã³¸®ÇØ¾ß ÇÑ´Ù.
+		// ê²°ê³¼ê°€ ìžˆìœ¼ë©´ ì²˜ë¦¬í•´ì•¼ í•œë‹¤.
  		if (pEffectTarget->IsExistResult())
 		{
 			MActionResult* pResult = pEffectTarget->GetResult();
@@ -579,10 +579,10 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 				DEBUG_ADD("Execute Result0");
 			#endif
 
-			// °á°ú ½ÇÇà
+			// ê²°ê³¼ ì‹¤í–‰
 			pResult->Execute();
 			
-			// ¸Þ¸ð¸® Á¦°Å
+			// ë©”ëª¨ë¦¬ ì œê±°
 			delete pResult;			
 		}
 		#ifdef OUTPUT_DEBUG_EFFECT_GENERATOR
@@ -592,14 +592,14 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 			}
 		#endif
 		
-		// PlayerÀÇ ÁøÇàÁßÀÌ´ø EffectTargetÀº ³¡³µ´Ù°í ¼³Á¤ÇÑ´Ù.
+		// Playerì˜ ì§„í–‰ì¤‘ì´ë˜ EffectTargetì€ ëë‚¬ë‹¤ê³  ì„¤ì •í•œë‹¤.
 		g_pPlayer->RemoveEffectTarget( pEffectTarget->GetEffectID() );
 
 		#ifdef OUTPUT_DEBUG_EFFECT_GENERATOR
 			DEBUG_ADD("delete EffectTarget0");
 		#endif
 
-		delete pEffectTarget;	// À½(!) ÀÌ°Ô ¸Â³ª??
+		delete pEffectTarget;	// ìŒ(!) ì´ê²Œ ë§žë‚˜??
 		//pEffect->SetEffectTargetNULL();
 
 		#ifdef OUTPUT_DEBUG_EFFECT_GENERATOR
@@ -611,7 +611,7 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 	//*/
 
 
-	// ¸î¹øÂ° Info³Ä ÇÏ¸é...
+	// ëª‡ë²ˆì§¸ Infoëƒ í•˜ë©´...
 	int nActionInfoNode = pEffectTarget->GetCurrentPhase();		
 
 	
@@ -625,10 +625,10 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 	DWORD count;
 	
 	//------------------------------------------------------------
-	// EffectÀÇ ÀÌ¹ø nodeÀÇ Áö¼Ó ½Ã°£ °áÁ¤
+	// Effectì˜ ì´ë²ˆ nodeì˜ ì§€ì† ì‹œê°„ ê²°ì •
 	//------------------------------------------------------------
-	// bDelayNodeÀÌ°í ¼³Á¤µÈ delay°¡ ÀÖ´Â °æ¿ì
-	//		//main nodeÀÌ°í pEffectTargetÀÇ DelayFrameÀÌ 0ÀÌ ¾Æ´Ñ °æ¿ì
+	// bDelayNodeì´ê³  ì„¤ì •ëœ delayê°€ ìžˆëŠ” ê²½ìš°
+	//		//main nodeì´ê³  pEffectTargetì˜ DelayFrameì´ 0ì´ ì•„ë‹Œ ê²½ìš°
 	//------------------------------------------------------------
 	if (info.bDelayNode
 		//(*g_pActionInfoTable)[ nActionInfo ].HasMainNode()
@@ -643,12 +643,12 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 	}
 
 	//------------------------------------------------------------
-	// ´ÙÀ½ ¸ñÇ¥
+	// ë‹¤ìŒ ëª©í‘œ
 	//------------------------------------------------------------
 	pEffectTarget->NextPhase();
 
 	//------------------------------------------------------------
-	// EffectGenerator°¡ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// EffectGeneratorê°€ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------------
 	if (info.EffectGeneratorID >= MAX_EFFECTGENERATORID
 		|| m_pEffectGenerator[ info.EffectGeneratorID ]==NULL)
@@ -657,7 +657,7 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 			DEBUG_ADD_FORMAT("[Error] EGT-Generate id=%d, target=0x%X", info.EffectGeneratorID, pEffectTarget);
 		#endif	
 
-		// ¸ñÇ¥ ¿Ï·á½ÃÅ²´Ù.
+		// ëª©í‘œ ì™„ë£Œì‹œí‚¨ë‹¤.
 		//while (!pEffectTarget->IsEnd())
 		//{
 		//	pEffectTarget->NextPhase();
@@ -669,21 +669,21 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 		}
 
 		delete pEffectTarget;
-		//pEffect->SetEffectTargetNULL();	// ÀÌ°Å ÁÖ¼® µÇ¾ú´ø ÀÌÀ¯°¡ ¹»±î.. -> À§¿¡¼­ ÇØÁÖ³× - -;
+		//pEffect->SetEffectTargetNULL();	// ì´ê±° ì£¼ì„ ë˜ì—ˆë˜ ì´ìœ ê°€ ë­˜ê¹Œ.. -> ìœ„ì—ì„œ í•´ì£¼ë„¤ - -;
 
 		return;
 	}
 
 	//------------------------------------------------------------
 	//
-	// EffectGenerator¿¡¼­ Effect¸¦ »ý¼ºÇÏ°Ô ÇÑ´Ù.
+	// EffectGeneratorì—ì„œ Effectë¥¼ ìƒì„±í•˜ê²Œ í•œë‹¤.
 	//
 	//------------------------------------------------------------
 	EFFECTGENERATOR_INFO egInfo;
 
 	egInfo.nActionInfo			= pEffect->GetActionInfo();
 	
-	// ¸¶Áö¸·²¨¸é targetÀ» ³Ñ°ÜÁÖÁö ¾Ê´Â´Ù.
+	// ë§ˆì§€ë§‰êº¼ë©´ targetì„ ë„˜ê²¨ì£¼ì§€ ì•ŠëŠ”ë‹¤.
 	egInfo.pEffectTarget		= pEffectTarget->IsEnd()? NULL : pEffectTarget;
 
 	egInfo.effectSpriteType		= info.EffectSpriteType;
@@ -707,8 +707,8 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 	bool bGenerated = false;
 
 	//------------------------------------------------------------
-	// GenerateÀÇ return°ªÀº egInfo.pEffectTargetÀÌ 
-	// ³»ºÎ¿¡¼­ ´Ù¸¥ effect·Î linkµÇ¾ú´Â°¡¸¦ ÀÇ¹ÌÇÑ´Ù.
+	// Generateì˜ returnê°’ì€ egInfo.pEffectTargetì´ 
+	// ë‚´ë¶€ì—ì„œ ë‹¤ë¥¸ effectë¡œ linkë˜ì—ˆëŠ”ê°€ë¥¼ ì˜ë¯¸í•œë‹¤.
 	//------------------------------------------------------------
 	#ifdef OUTPUT_DEBUG_EFFECT_GENERATOR
 		DEBUG_ADD_FORMAT("Generate before. id=%d", info.EffectGeneratorID);
@@ -721,7 +721,7 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 		#endif	
 
 		//------------------------------------------------------------
-		// ±â¼úÀÇ ´Ü°è¿¡ ¸Â´Â sound¸¦ Ãâ·ÂÇØÁØ´Ù.
+		// ê¸°ìˆ ì˜ ë‹¨ê³„ì— ë§žëŠ” soundë¥¼ ì¶œë ¥í•´ì¤€ë‹¤.
 		//------------------------------------------------------------
 		if (info.SoundID != SOUNDID_NULL)
 		{
@@ -731,12 +731,12 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 		}
 
 		//------------------------------------------------------------
-		// °á°ú¸¦ Ã³¸®ÇØ¾ßÇÏ´Â ½ÃÁ¡ÀÎ°¡? 
+		// ê²°ê³¼ë¥¼ ì²˜ë¦¬í•´ì•¼í•˜ëŠ” ì‹œì ì¸ê°€? 
 		//------------------------------------------------------------
 		if (info.bResultTime)
 		{
-			// °á°ú Ã³¸® ½Ã°£ÀÌ Áö³µ´Ù°í Ã¼Å©ÇÑ´Ù.
-			// ³ªÁß¿¡ °á°ú°¡ »ý±â¸é ¹Ù·Î Ã³¸®ÇÏ°Ô µÈ´Ù.
+			// ê²°ê³¼ ì²˜ë¦¬ ì‹œê°„ì´ ì§€ë‚¬ë‹¤ê³  ì²´í¬í•œë‹¤.
+			// ë‚˜ì¤‘ì— ê²°ê³¼ê°€ ìƒê¸°ë©´ ë°”ë¡œ ì²˜ë¦¬í•˜ê²Œ ëœë‹¤.
 			pEffectTarget->SetResultTime();
 		}
 
@@ -752,7 +752,7 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 	}
 
 	//------------------------------------------------------------
-	// °á°ú Ã³¸®
+	// ê²°ê³¼ ì²˜ë¦¬
 	//------------------------------------------------------------
 	if (pEffectTarget->IsResultTime() 
 		|| pEffectTarget->IsEnd()
@@ -762,7 +762,7 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 			DEBUG_ADD("Check Result");
 		#endif
 
-		// °á°ú°¡ ÀÖÀ¸¸é Ã³¸®ÇØ¾ß ÇÑ´Ù.
+		// ê²°ê³¼ê°€ ìžˆìœ¼ë©´ ì²˜ë¦¬í•´ì•¼ í•œë‹¤.
  		if (pEffectTarget->IsExistResult())
 		{
 			MActionResult* pResult = pEffectTarget->GetResult();
@@ -773,10 +773,10 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 				DEBUG_ADD("Execute Result");
 			#endif
 
-			// °á°ú ½ÇÇà
+			// ê²°ê³¼ ì‹¤í–‰
 			pResult->Execute();
 			
-			// ¸Þ¸ð¸® Á¦°Å
+			// ë©”ëª¨ë¦¬ ì œê±°
 			delete pResult;
 			
 			//pEffectTarget
@@ -788,7 +788,7 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 			}
 		#endif
 		
-		// PlayerÀÇ ÁøÇàÁßÀÌ´ø EffectTargetÀº ³¡³µ´Ù°í ¼³Á¤ÇÑ´Ù.
+		// Playerì˜ ì§„í–‰ì¤‘ì´ë˜ EffectTargetì€ ëë‚¬ë‹¤ê³  ì„¤ì •í•œë‹¤.
 		g_pPlayer->RemoveEffectTarget( pEffectTarget->GetEffectID() );
 
 		//delete pEffectTarget;
@@ -796,10 +796,10 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 	}
 
 	//------------------------------------------------------------
-	// ´õ ÀÌ»ó ¸ñÇ¥°¡ ÇÊ¿ä¾ø´Â ¸¶Áö¸· ´Ü°èÀÎ °æ¿ì..
+	// ë” ì´ìƒ ëª©í‘œê°€ í•„ìš”ì—†ëŠ” ë§ˆì§€ë§‰ ë‹¨ê³„ì¸ ê²½ìš°..
 	//------------------------------------------------------------
-	// endÀÌ¸é Generate()¿¡¼­ pEffectTargetÀ» ³Ñ°ÜÁÖÁö ¾ÊÀ¸¹Ç·Î
-	// ¿©±â¼­ Áö¿ö¾ß ÇÑ´Ù.
+	// endì´ë©´ Generate()ì—ì„œ pEffectTargetì„ ë„˜ê²¨ì£¼ì§€ ì•Šìœ¼ë¯€ë¡œ
+	// ì—¬ê¸°ì„œ ì§€ì›Œì•¼ í•œë‹¤.
 	if (pEffectTarget->IsEnd() || !bGenerated)
 	{
 		#ifdef OUTPUT_DEBUG_EFFECT_GENERATOR
@@ -816,10 +816,10 @@ MEffectGeneratorTable::GenerateNext( MEffect* pEffect )
 			DEBUG_ADD("Execute Result");
 #endif
 			
-			// °á°ú ½ÇÇà
+			// ê²°ê³¼ ì‹¤í–‰
 			pResult->Execute();
 			
-			// ¸Þ¸ð¸® Á¦°Å
+			// ë©”ëª¨ë¦¬ ì œê±°
 			delete pResult;
 		}
 

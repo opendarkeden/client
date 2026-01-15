@@ -31,5 +31,5 @@ public :
 private :
 };
 
-// Singleton pattern ÀÎÅÍÆäÀÌ½º´Â ¾îµğÀÖ´Â°Å¾ß~~
+// Singleton pattern ì¸í„°í˜ì´ìŠ¤ëŠ” ì–´ë””ìˆëŠ”ê±°ì•¼~~
 extern RegenTowerInfoManager *g_pRegenTowerInfoManager;

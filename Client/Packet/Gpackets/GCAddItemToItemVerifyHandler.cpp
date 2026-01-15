@@ -68,13 +68,13 @@ void GCAddItemToItemVerifyHandler::execute ( GCAddItemToItemVerify * pPacket , P
 
 		case ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_CRASH:
 			//----------------------------------------------------
-			// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+			// Â±Ã¢Â¼Ãº Â»Ã§Â¿Ã« Â½ÃƒÂµÂµ ÂµÂ¿Ã€Ã›
 			//----------------------------------------------------
 			AddNewInventoryEffect( pInventoryItem->GetID(),
 				MAGIC_ENCHANT_REMOVE_ITEM,
 				0
 				);
-			// »ç¿îµå??
+			// Â»Ã§Â¿Ã®ÂµÃ¥??
 			PlaySound(SOUND_XMAS_STAR);
 			UI_DropItem();
 			break;
@@ -84,14 +84,14 @@ void GCAddItemToItemVerifyHandler::execute ( GCAddItemToItemVerify * pPacket , P
 				DWORD OptionType = pPacket->getParameter();
 				
 				//----------------------------------------------------
-				// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+				// Â±Ã¢Â¼Ãº Â»Ã§Â¿Ã« Â½ÃƒÂµÂµ ÂµÂ¿Ã€Ã›
 				//----------------------------------------------------
 				AddNewInventoryEffect( pInventoryItem->GetID(),
 					MAGIC_ENCHANT_OPTION_NULL,
 					0, OptionType
 					);
 				
-				// »ç¿îµå??
+				// Â»Ã§Â¿Ã®ÂµÃ¥??
 				PlaySound(SOUND_XMAS_STAR);
 				UI_DropItem();
 			}
@@ -101,7 +101,7 @@ void GCAddItemToItemVerifyHandler::execute ( GCAddItemToItemVerify * pPacket , P
 			{
 				DWORD OptionType = pPacket->getParameter();
 				//----------------------------------------------------
-				// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+				// Â±Ã¢Â¼Ãº Â»Ã§Â¿Ã« Â½ÃƒÂµÂµ ÂµÂ¿Ã€Ã›
 				//----------------------------------------------------
 				AddNewInventoryEffect( pInventoryItem->GetID(),
 					MAGIC_ENCHANT_OPTION_PLUS,
@@ -114,13 +114,13 @@ void GCAddItemToItemVerifyHandler::execute ( GCAddItemToItemVerify * pPacket , P
 
 			}
 			break;
-			// add  by sonic 2006.11.3  ÈıÊôĞÔ
+			// add  by sonic 2006.11.3  ÃˆÃ½ÃŠÃ´ÃÃ”
 		case ADD_ITEM_TO_ITEM_VERIFY_THREE_ENCHANT_OK:
 			{
 				DWORD OptionType = pPacket->getParameter();
 				DWORD OptionType2= pPacket->getParameter2();
 				//----------------------------------------------------
-				// ±â¼ú »ç¿ë ½Ãµµ µ¿ÀÛ
+				// Â±Ã¢Â¼Ãº Â»Ã§Â¿Ã« Â½ÃƒÂµÂµ ÂµÂ¿Ã€Ã›
 				//----------------------------------------------------
 				TYPE_ITEM_OPTION Option1;
 				TYPE_ITEM_OPTION Option2;
@@ -162,7 +162,7 @@ void GCAddItemToItemVerifyHandler::execute ( GCAddItemToItemVerify * pPacket , P
 			UI_UnlockItem();
 			g_pPlayer->ClearItemCheckBuffer();
 			break;
-		case ADD_ITEM_TO_ITEM_VERIFY_TRANS_OK :				// ¼ºÀüÈ¯ ¼º°ø
+		case ADD_ITEM_TO_ITEM_VERIFY_TRANS_OK :				// Â¼ÂºÃ€Ã¼ÃˆÂ¯ Â¼ÂºÂ°Ã¸
 			{
 				AddNewInventoryEffect( pInventoryItem->GetID() ,
 					MAGIC_TRANS_ITEM_OK,
@@ -170,7 +170,7 @@ void GCAddItemToItemVerifyHandler::execute ( GCAddItemToItemVerify * pPacket , P
 				UI_DropItem();
 			}
 			break;
-		case ADD_ITEM_TO_ITEM_VERIFY_TRANS_IMPOSSIBLE :		// ¼ºÀüÈ¯ ½ÇÆĞ
+		case ADD_ITEM_TO_ITEM_VERIFY_TRANS_IMPOSSIBLE :		// Â¼ÂºÃ€Ã¼ÃˆÂ¯ Â½Ã‡Ã†Ã
 			{
 			}
 			break;
@@ -243,7 +243,7 @@ void GCAddItemToItemVerifyHandler::execute ( GCAddItemToItemVerify * pPacket , P
 			}
 			break;
 
-		// add by svi 2009-06-24 Ôö¼ÓÉı¼¶³É¹¦È·ÈÏ
+		// add by svi 2009-06-24 Ã”Ã¶Â¼Ã“Ã‰Ã½Â¼Â¶Â³Ã‰Â¹Â¦ÃˆÂ·ÃˆÃ
 		
 		case ADD_ITEM_TO_ITEM_VERIFY_UP_GRADE_OK:
 			{
@@ -265,7 +265,7 @@ void GCAddItemToItemVerifyHandler::execute ( GCAddItemToItemVerify * pPacket , P
 			}
 			break;
 
-		// add by svi 2009-07-15 Ôö¼ÓÉ¾³ıÊôĞÔÈ·ÈÏ
+		// add by svi 2009-07-15 Ã”Ã¶Â¼Ã“Ã‰Â¾Â³Ã½ÃŠÃ´ÃÃ”ÃˆÂ·ÃˆÃ
 		
 		case ADD_ITEM_TO_ITEM_REMOVE_OPTION_OK:
 			{

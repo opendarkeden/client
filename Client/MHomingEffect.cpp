@@ -18,9 +18,9 @@
 MHomingEffect::MHomingEffect(BYTE bltType, int currentAngle, int turnAngle)
 : MGuidanceEffect(bltType)
 {		
-	m_RadCurrent = MathTable::GetAngle360( currentAngle );		// ÇöÀç ÀÌµ¿ÇÏ´Â ¹æÇâ°¢µµ
+	m_RadCurrent = MathTable::GetAngle360( currentAngle );		// í˜„ì¬ ì´ë™í•˜ëŠ” ë°©í–¥ê°ë„
 
-	m_RadStep = MathTable::GetAngle360( turnAngle );			// ¸Å turn¸¶´Ù ´Ş¶óÁö´Â radian°ª
+	m_RadStep = MathTable::GetAngle360( turnAngle );			// ë§¤ turnë§ˆë‹¤ ë‹¬ë¼ì§€ëŠ” radianê°’
 }
 
 MHomingEffect::~MHomingEffect()
@@ -38,14 +38,14 @@ MHomingEffect::~MHomingEffect()
 void		
 MHomingEffect::SetTarget(int x, int y, int z, WORD speed)
 {
-	// ¸ñÇ¥ ¼³Á¤..
+	// ëª©í‘œ ì„¤ì •..
 	//MLinearEffect::SetTarget(x, y, z, speed);
 	m_TargetX = x;
 	m_TargetY = y;
 	m_TargetZ = z;
 	m_StepPixel = speed;
 
-	// ÀÓ½Ã·Î - -;	
+	// ì„ì‹œë¡œ - -;	
 	m_StepZ = (m_TargetZ - m_PixelZ) / 16.0f;
 	
 	CalculateAngle();
@@ -59,7 +59,7 @@ MHomingEffect::TraceCreature()
 {
 	MCreature* pCreature = g_pZone->GetCreature( m_CreatureID );
 
-	// Creature°¡ »ç¶óÁ³À» °æ¿ì..
+	// Creatureê°€ ì‚¬ë¼ì¡Œì„ ê²½ìš°..
 	if (pCreature == NULL)
 	{
 		m_CreatureID = OBJECTID_NULL;
@@ -67,7 +67,7 @@ MHomingEffect::TraceCreature()
 		return false;
 	}
 
-	// ÇöÀçÀÇ ÁÂÇ¥¸¦ ÀĞ¾î¿Â´Ù.
+	// í˜„ì¬ì˜ ì¢Œí‘œë¥¼ ì½ì–´ì˜¨ë‹¤.
 	m_TargetX = pCreature->GetPixelX();
 	m_TargetY = pCreature->GetPixelY();
 	
@@ -81,8 +81,8 @@ void
 MHomingEffect::CalculateAngle()
 {
 	//--------------------------------------------------
-	// ÇöÀç ¹æÇâ¿¡¼­ ¸ñÇ¥ÀÇ ¹æÇâÀ» ÇâÇÑ 
-	// °¢µµ º¯È¯°ª(m_RadStep)À» ¾Ë¾Æ³½´Ù.
+	// í˜„ì¬ ë°©í–¥ì—ì„œ ëª©í‘œì˜ ë°©í–¥ì„ í–¥í•œ 
+	// ê°ë„ ë³€í™˜ê°’(m_RadStep)ì„ ì•Œì•„ë‚¸ë‹¤.
 	//--------------------------------------------------
 	int targetAngle = MathTable::GetAngleToTarget(m_PixelX, m_PixelY, m_TargetX, m_TargetY);
 
@@ -184,9 +184,9 @@ MHomingEffect::Update()
 		
 
 		//--------------------------------
-		// Pixel ÁÂÇ¥¸¦ ¹Ù²Û´Ù.
+		// Pixel ì¢Œí‘œë¥¼ ë°”ê¾¼ë‹¤.
 		//--------------------------------
-		// °¢°¢ÀÇ ¹æÇâ¿¡ ´ëÇØ¼­ Step¸¸Å­ ÀÌµ¿ÇØÁØ´Ù.
+		// ê°ê°ì˜ ë°©í–¥ì— ëŒ€í•´ì„œ Stepë§Œí¼ ì´ë™í•´ì¤€ë‹¤.
 		m_RadCurrent += m_RadStep;
 		m_RadCurrent &= MathTable::MAX_ANGLE_1;		
 		
@@ -201,12 +201,12 @@ MHomingEffect::Update()
 		}
 
 		//------------------------------------------
-		// ´Ù ¿òÁ÷ÀÎ °æ¿ì¸¦ »ı°¢ÇØºÁ¾ß ÇÑ´Ù.
+		// ë‹¤ ì›€ì§ì¸ ê²½ìš°ë¥¼ ìƒê°í•´ë´ì•¼ í•œë‹¤.
 		//------------------------------------------
 		if (fabs(m_PixelX-m_TargetX)<m_StepPixel &&
 			fabs(m_PixelY-m_TargetY)<m_StepPixel &&
 			GetActionInfo() != SKILL_CLIENT_HALO_ATTACK 
-			)		// z´Â ¹«½Ã - -;
+			)		// zëŠ” ë¬´ì‹œ - -;
 		{
 			m_PixelX = (float)m_TargetX;
 			m_PixelY = (float)m_TargetY;
@@ -219,7 +219,7 @@ MHomingEffect::Update()
 			m_RadStep = 0;
 
 			//------------------------------------------
-			// ´õ ¿òÁ÷ÀÏ ÇÊ¿ä°¡ ¾ø´Â °æ¿ìÀÌ´Ù.			
+			// ë” ì›€ì§ì¼ í•„ìš”ê°€ ì—†ëŠ” ê²½ìš°ì´ë‹¤.			
 			//------------------------------------------
 			m_EndFrame = 0;
 
@@ -228,18 +228,18 @@ MHomingEffect::Update()
 		else
 		{
 			//--------------------------------
-			// ¹æÇâÀ» ´Ù½Ã ¼³Á¤ÇØÁØ´Ù.
+			// ë°©í–¥ì„ ë‹¤ì‹œ ì„¤ì •í•´ì¤€ë‹¤.
 			//--------------------------------
 		//	SetDirectionByAngle();
 		}
 
 		//--------------------------------
-		// Sector ÁÂÇ¥¸¦ ¸ÂÃá´Ù.
+		// Sector ì¢Œí‘œë¥¼ ë§ì¶˜ë‹¤.
 		//--------------------------------
 		AffectPosition();
 
 		//--------------------------------
-		// FrameÀ» ¹Ù²ãÁØ´Ù.
+		// Frameì„ ë°”ê¿”ì¤€ë‹¤.
 		//--------------------------------
 		NextFrame();
 
@@ -249,14 +249,14 @@ MHomingEffect::Update()
 		}
 
 		//--------------------------------
-		// Counter¸¦ ÇÏ³ª ÁÙÀÎ´Ù.
+		// Counterë¥¼ í•˜ë‚˜ ì¤„ì¸ë‹¤.
 		//--------------------------------
 		//m_Count--;
 
 		return true;
 	}
 
-	// ³¡~
+	// ë~
 
 	return false;
 }

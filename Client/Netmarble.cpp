@@ -26,23 +26,23 @@ struct NETMARBLE_INFO
 // 2004, 7, 14, sobeit add start
 struct REALSERVER_INFO
 {
-	bool bMode;		// 0: ¼öµ¿Á¢¼Ó, 1:Á¤»óÁ¢¼Ó
-	int WorldID;	// 0: ºê¶õ, 1: Æç·¹½º
+	bool bMode;		// 0: ìˆ˜ë™ì ‘ì†, 1:ì •ìƒì ‘ì†
+	int WorldID;	// 0: ë¸Œë€, 1: í ë ˆìŠ¤
 	MString ID;		// id
 	MString Key;	// Key
 };
 // 2004, 7, 14, sobeit add end
-std::string g_ServIP;//     = arg[0];					// ¼­¹ö IP
-DWORD g_ServPort;//   = (UINT)::atoi(arg[1]);	// ¼­¹ö Port
-std::string g_AuthCookie;// = arg[2];					// ÀÎÁõ ÄíÅ°	- ¹öÆÛ Å©±â¸¦1024*2 Á¤µµ·Î Àâ¾Æ¾ß ÇÑ´Ù
-std::string g_DataCookie;// = arg[3];					// µ¥ÀÌÅÍ ÄíÅ°	- ¹öÆÛ Å©±â¸¦1024*2 Á¤µµ·Î Àâ¾Æ¾ß ÇÑ´Ù
-std::string g_CpCookie;//   = arg[4];					// CPÄíÅ°		- ¹öÆÛ Å©±â¸¦1024*2 Á¤µµ·Î Àâ¾Æ¾ß ÇÑ´Ù
-std::string g_SpareParam;///*= arg[5];					// ¿©ºĞÀÇ ÀÎÀÚ(CP°ÔÀÓµî¿¡¼­ »ç¿ë)*/
+std::string g_ServIP;//     = arg[0];					// ì„œë²„ IP
+DWORD g_ServPort;//   = (UINT)::atoi(arg[1]);	// ì„œë²„ Port
+std::string g_AuthCookie;// = arg[2];					// ì¸ì¦ ì¿ í‚¤	- ë²„í¼ í¬ê¸°ë¥¼1024*2 ì •ë„ë¡œ ì¡ì•„ì•¼ í•œë‹¤
+std::string g_DataCookie;// = arg[3];					// ë°ì´í„° ì¿ í‚¤	- ë²„í¼ í¬ê¸°ë¥¼1024*2 ì •ë„ë¡œ ì¡ì•„ì•¼ í•œë‹¤
+std::string g_CpCookie;//   = arg[4];					// CPì¿ í‚¤		- ë²„í¼ í¬ê¸°ë¥¼1024*2 ì •ë„ë¡œ ì¡ì•„ì•¼ í•œë‹¤
+std::string g_SpareParam;///*= arg[5];					// ì—¬ë¶„ì˜ ì¸ì(CPê²Œì„ë“±ì—ì„œ ì‚¬ìš©)*/
 
 char* _StrTok(const char* str, const char sep)
 {
-	// strtok()¿Í °°Àº ±â´ÉÀÇ ÇÔ¼öÀÌÁö¸¸ separator¸¦ 1°³¸¸ ¹Ş°í
-	// ÀÎÀÚ°¡ ºñ¾îÀÖ´Â °æ¿ìµµ ÀÎÀÚ·Î ÀÎÁ¤ÇÔ
+	// strtok()ì™€ ê°™ì€ ê¸°ëŠ¥ì˜ í•¨ìˆ˜ì´ì§€ë§Œ separatorë¥¼ 1ê°œë§Œ ë°›ê³ 
+	// ì¸ìê°€ ë¹„ì–´ìˆëŠ” ê²½ìš°ë„ ì¸ìë¡œ ì¸ì •í•¨
 
 	static const int TOK_BUFSIZE = 1024*40;
 
@@ -87,16 +87,16 @@ char* _StrTok(const char* str, const char sep)
 BOOL AnalyzeArgument(char *key)
 {
 	//
-	// Å¬¸³º¸µå ÀÎÀÚ Àü´Ş ±ÔÄ¢(°¢°¢ÀÇ ÀÎÀÚ´Â ÄÄ¸¶(,)·Î ±¸ºĞµÇ¸ç ÀÎÀÚ »çÀÌÀÇ °ø¹éÀº ¾ø´Ù)
-	// Àü´Ş ÀÎÀÚÀÇ ¼ø¼­ : ServerIP,Port,AuthCookie,DataCookie,CpCookie,SpareParam (ÀÎÀÚ´Â ¾ÏÈ£È­µÇ¾î ÀÖ´Ù)
-	// - ³İ¸¶ºí °ÔÀÓ¿¡¼­´Â CpCookie¸¦ Àü´ŞÇÏÁö ¾Ê´Â´Ù
-	// - CP °ÔÀÓ¿¡¼­´Â AuthCookie, DataCookie¸¦ Àü´ŞÇÏÁö ¾Ê´Â´Ù(¸î¸î CP°ÔÀÓÀº ¿¹¿Ü)
-	// - Extra ÀÎÀÚ´Â »ı·«µÇ±âµµ ÇÑ´Ù
+	// í´ë¦½ë³´ë“œ ì¸ì ì „ë‹¬ ê·œì¹™(ê°ê°ì˜ ì¸ìëŠ” ì»´ë§ˆ(,)ë¡œ êµ¬ë¶„ë˜ë©° ì¸ì ì‚¬ì´ì˜ ê³µë°±ì€ ì—†ë‹¤)
+	// ì „ë‹¬ ì¸ìì˜ ìˆœì„œ : ServerIP,Port,AuthCookie,DataCookie,CpCookie,SpareParam (ì¸ìëŠ” ì•”í˜¸í™”ë˜ì–´ ìˆë‹¤)
+	// - ë„·ë§ˆë¸” ê²Œì„ì—ì„œëŠ” CpCookieë¥¼ ì „ë‹¬í•˜ì§€ ì•ŠëŠ”ë‹¤
+	// - CP ê²Œì„ì—ì„œëŠ” AuthCookie, DataCookieë¥¼ ì „ë‹¬í•˜ì§€ ì•ŠëŠ”ë‹¤(ëª‡ëª‡ CPê²Œì„ì€ ì˜ˆì™¸)
+	// - Extra ì¸ìëŠ” ìƒëµë˜ê¸°ë„ í•œë‹¤
 	//
 
-	char buf[1024*20] = {0,};	// ¹öÆÛ´Â ÃæºĞÈ÷ Å©°Ô Àâ´Â´Ù
+	char buf[1024*20] = {0,};	// ë²„í¼ëŠ” ì¶©ë¶„íˆ í¬ê²Œ ì¡ëŠ”ë‹¤
 
-	// Å¬¸³º¸µå¿¡¼­ ÀÎÀÚ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¿Â´Ù(ÇÑ¹ø ¾ò¾î¿À¸é »èÁ¦µÊ)
+	// í´ë¦½ë³´ë“œì—ì„œ ì¸ì ë°ì´í„°ë¥¼ ì½ì–´ì˜¨ë‹¤(í•œë²ˆ ì–»ì–´ì˜¤ë©´ ì‚­ì œë¨)
 	if(!GetNMClipData(buf, sizeof(buf)-1, key, true))
 		return FALSE;
 
@@ -114,21 +114,21 @@ BOOL AnalyzeArgument(char *key)
 		token = _StrTok(NULL, ',');
 	}
 
-	// ÀÎÀÚ°¡ ÃÖ¼ÒÇÑ 5°³´Â µÇ¾î¾ß ÇÑ´Ù
+	// ì¸ìê°€ ìµœì†Œí•œ 5ê°œëŠ” ë˜ì–´ì•¼ í•œë‹¤
 	if(argcnt < 5)
 		return FALSE;
 
-	// IPÁÖ¼Ò°¡ ¿Ã¹Ù¸¥Áö °Ë»ç
+	// IPì£¼ì†Œê°€ ì˜¬ë°”ë¥¸ì§€ ê²€ì‚¬
 	if(strlen(arg[0]) > 16)
 		return FALSE;
 
-	// CP °ÔÀÓÀº ¾Æ·¡ºÎºĞÀ» °íÃÄ ¾µ°Í
-	g_ServIP     = arg[0];					// ¼­¹ö IP
-	g_ServPort   = (UINT)::atoi(arg[1]);	// ¼­¹ö Port
-	g_AuthCookie = arg[2];					// ÀÎÁõ ÄíÅ°	- ¹öÆÛ Å©±â¸¦1024*2 Á¤µµ·Î Àâ¾Æ¾ß ÇÑ´Ù
-	g_DataCookie = arg[3];					// µ¥ÀÌÅÍ ÄíÅ°	- ¹öÆÛ Å©±â¸¦1024*2 Á¤µµ·Î Àâ¾Æ¾ß ÇÑ´Ù
-	g_CpCookie   = arg[4];					// CPÄíÅ°		- ¹öÆÛ Å©±â¸¦1024*2 Á¤µµ·Î Àâ¾Æ¾ß ÇÑ´Ù
-	g_SpareParam = arg[5];					// ¿©ºĞÀÇ ÀÎÀÚ(CP°ÔÀÓµî¿¡¼­ »ç¿ë)
+	// CP ê²Œì„ì€ ì•„ë˜ë¶€ë¶„ì„ ê³ ì³ ì“¸ê²ƒ
+	g_ServIP     = arg[0];					// ì„œë²„ IP
+	g_ServPort   = (UINT)::atoi(arg[1]);	// ì„œë²„ Port
+	g_AuthCookie = arg[2];					// ì¸ì¦ ì¿ í‚¤	- ë²„í¼ í¬ê¸°ë¥¼1024*2 ì •ë„ë¡œ ì¡ì•„ì•¼ í•œë‹¤
+	g_DataCookie = arg[3];					// ë°ì´í„° ì¿ í‚¤	- ë²„í¼ í¬ê¸°ë¥¼1024*2 ì •ë„ë¡œ ì¡ì•„ì•¼ í•œë‹¤
+	g_CpCookie   = arg[4];					// CPì¿ í‚¤		- ë²„í¼ í¬ê¸°ë¥¼1024*2 ì •ë„ë¡œ ì¡ì•„ì•¼ í•œë‹¤
+	g_SpareParam = arg[5];					// ì—¬ë¶„ì˜ ì¸ì(CPê²Œì„ë“±ì—ì„œ ì‚¬ìš©)
 	
 	return TRUE;
 }
@@ -154,7 +154,7 @@ int HexStringToDec(char *str)
 	return dec;
 }
 
-// ³İ¸¶ºí¿ë
+// ë„·ë§ˆë¸”ìš©
 //-----------------------------------------------------------------------
 // ParsingNetmarble
 //-----------------------------------------------------------------------
@@ -180,7 +180,7 @@ ParsingNetmarble(const char* pCommandLine, NETMARBLE_INFO &info)
 
 	if( bResult == FALSE )
 	{
-		MessageBox( NULL, "³İ¸¶ºí È¨ÆäÀÌÁö¸¦ ÅëÇØ¼­ ´Ù½Ã ½ÇÇàÇØÁÖ¼¼¿ä.","NetmarbleDarkEden",MB_OK);
+		MessageBox( NULL, "ë„·ë§ˆë¸” í™ˆí˜ì´ì§€ë¥¼ í†µí•´ì„œ ë‹¤ì‹œ ì‹¤í–‰í•´ì£¼ì„¸ìš”.","NetmarbleDarkEden",MB_OK);
 		exit(0);
 		Assert( bResult );
 	}
@@ -203,12 +203,12 @@ ParsingNetmarble(const char* pCommandLine, NETMARBLE_INFO &info)
 //	pszTemp = szTemp;
 //
 //	//-------------------------------------------------
-//	// Teen ÃàÃâ
+//	// Teen ì¶•ì¶œ
 //	//-------------------------------------------------
 ////	pszTemp = pszTemp2+1;
 //	pszTemp2 = strchr(pszTemp, ',');
 //
-//	// ÆÄ½Ì¿ë &¸¦ Ã£Áö ¸øÇÏ¸é ¿¡·¯!
+//	// íŒŒì‹±ìš© &ë¥¼ ì°¾ì§€ ëª»í•˜ë©´ ì—ëŸ¬!
 //	if(pszTemp2 == NULL)
 //		return false;
 //
@@ -232,12 +232,12 @@ ParsingNetmarble(const char* pCommandLine, NETMARBLE_INFO &info)
 //	}
 //
 //	//-------------------------------------------------
-//	// WorldID ÃàÃâ
+//	// WorldID ì¶•ì¶œ
 //	//-------------------------------------------------
 //	pszTemp = pszTemp2+1;
 //	pszTemp2 = strchr(pszTemp, ',');
 //
-//	// ÆÄ½Ì¿ë &¸¦ Ã£Áö ¸øÇÏ¸é ¿¡·¯!
+//	// íŒŒì‹±ìš© &ë¥¼ ì°¾ì§€ ëª»í•˜ë©´ ì—ëŸ¬!
 //	if(pszTemp2 == NULL)
 //	{
 //		return false;
@@ -257,20 +257,20 @@ ParsingNetmarble(const char* pCommandLine, NETMARBLE_INFO &info)
 //	info.ServerID = num%10;
 //
 //	//-------------------------------------------------
-//	// ID ÃàÃâ
+//	// ID ì¶•ì¶œ
 //	//-------------------------------------------------
 //	// 2,10,larosellarosel,larosellaroselNM000076B17852
 //	pszTemp = pszTemp2+1;
 //	pszTemp2 = strchr(pszTemp, ',');
 //
-//	// ÆÄ½Ì¿ë &¸¦ Ã£Áö ¸øÇÏ¸é ¿¡·¯!
+//	// íŒŒì‹±ìš© &ë¥¼ ì°¾ì§€ ëª»í•˜ë©´ ì—ëŸ¬!
 //	if(pszTemp2 == NULL)
 //	{
 //		return false;
 //	}
 //
 //	*pszTemp2 = '\0';
-//	// ID°¡ 12byte ÀÌ»óÀÌ¸é ¿¡·¯!
+//	// IDê°€ 12byte ì´ìƒì´ë©´ ì—ëŸ¬!
 //	if(strlen(pszTemp) > 24)
 //	{
 //		return false;
@@ -281,23 +281,23 @@ ParsingNetmarble(const char* pCommandLine, NETMARBLE_INFO &info)
 //	g_pUserInformation->NetmarbleID = g_CpCookie.c_str();
 //	
 //	//-------------------------------------------------
-//	// Password ÃàÃâ
+//	// Password ì¶•ì¶œ
 //	//-------------------------------------------------
 //	pszTemp = pszTemp2+1;
 //	pszTemp2 = pszTemp+strlen(pszTemp);
 //
-//	// ID¸¸Å­ Á¦³¤´Ù.
+//	// IDë§Œí¼ ì œë‚€ë‹¤.
 //	pszTemp += info.ID.GetLength();
 //
 ////	pszTemp2 = strchr(pszTemp, ',');
 //
-//	// ÆÄ½Ì¿ë &¸¦ Ã£Áö ¸øÇÏ¸é ¿¡·¯!
+//	// íŒŒì‹±ìš© &ë¥¼ ì°¾ì§€ ëª»í•˜ë©´ ì—ëŸ¬!
 ////	if(pszTemp2 == NULL)
 ////		return false;
 //
 //	*pszTemp2 = '\0';
 //
-//	// ID°¡ 5byte ÀÌÇÏÀÌ¸é ¿¡·¯!
+//	// IDê°€ 5byte ì´í•˜ì´ë©´ ì—ëŸ¬!
 //	if(strlen(pszTemp) != 14)
 //	{
 //		return false;
@@ -349,8 +349,8 @@ ParsingNetmarble(const char* pCommandLine, NETMARBLE_INFO &info)
 /* old version
 char* _StrTok(const char* str, const char sep)
 {
-	// strtok()¿Í °°Àº ±â´ÉÀÇ ÇÔ¼öÀÌÁö¸¸ separator¸¦ 1°³¸¸ ¹Ş°í
-	// ÀÎÀÚ°¡ ºñ¾îÀÖ´Â °æ¿ìµµ ÀÎÀÚ·Î ÀÎÁ¤ÇÔ
+	// strtok()ì™€ ê°™ì€ ê¸°ëŠ¥ì˜ í•¨ìˆ˜ì´ì§€ë§Œ separatorë¥¼ 1ê°œë§Œ ë°›ê³ 
+	// ì¸ìê°€ ë¹„ì–´ìˆëŠ” ê²½ìš°ë„ ì¸ìë¡œ ì¸ì •í•¨
 
 	static const int TOK_BUFSIZE = 4096;
 
@@ -401,34 +401,34 @@ BOOL AnalizeArgument(const char *strarg)
 	MessageBox(NULL,strarg,strarg,MB_OK);
 #endif
 	//
-	// ÀÎÀÚ Àü´Ş ±ÔÄ¢(°¢°¢ÀÇ ÀÎÀÚ´Â ÄÄ¸¶(,)·Î ±¸ºĞµÇ¸ç ÀÎÀÚ »çÀÌÀÇ °ø¹éÀº ¾ø´Ù)
-	// Àü´Ş ÀÎÀÚÀÇ ¼ø¼­ : ServerIP,Port,UserID,Pass,Extra (ÀÎÀÚ´Â ¾ÏÈ£È­µÇ¾î ÀÖ´Ù)
-	// - Extra ÀÎÀÚ´Â »ı·«µÇ±âµµ ÇÑ´Ù
+	// ì¸ì ì „ë‹¬ ê·œì¹™(ê°ê°ì˜ ì¸ìëŠ” ì»´ë§ˆ(,)ë¡œ êµ¬ë¶„ë˜ë©° ì¸ì ì‚¬ì´ì˜ ê³µë°±ì€ ì—†ë‹¤)
+	// ì „ë‹¬ ì¸ìì˜ ìˆœì„œ : ServerIP,Port,UserID,Pass,Extra (ì¸ìëŠ” ì•”í˜¸í™”ë˜ì–´ ìˆë‹¤)
+	// - Extra ì¸ìëŠ” ìƒëµë˜ê¸°ë„ í•œë‹¤
 	//
 
 	// arg[0],arg[1],arg[2],arg[2]arg[3]arg[4]
 	// 2,10,larosellarosel,larosellaroselNM000076B17852
 
-	// ÀÎÀÚ°¡ ³Ê¹« ±æ¸é ¾ÈµÈ´Ù
+	// ì¸ìê°€ ë„ˆë¬´ ê¸¸ë©´ ì•ˆëœë‹¤
 	if(strlen(strarg) >= 4096)
 		return FALSE;
 
 	char key[1024] = {0,};
 	char buf[4096] = {0,};
 
-	// ¾ÏÈ£ ÇØµ¶ Å°¸¦ ¾ò¾î¿Â´Ù(ÇÑ¹ø ¾ò¾î¿À¸é »èÁ¦µÊ)
+	// ì•”í˜¸ í•´ë… í‚¤ë¥¼ ì–»ì–´ì˜¨ë‹¤(í•œë²ˆ ì–»ì–´ì˜¤ë©´ ì‚­ì œë¨)
 	if(!GetCryptKey(key, 1024-1, false)) 
 	{
 		return FALSE;
 	}
 
-	// º¹È£È­ ¼º°ø¿©ºÎ °Ë»ç
+	// ë³µí˜¸í™” ì„±ê³µì—¬ë¶€ ê²€ì‚¬
 	if(CRYPT_SUCCESS != DecryptString(strarg, key, buf))
 	{
 		return FALSE;
 	}
 
-	// -_- netmarble ¿¡¼­ º¸³»ÁÖ´Â extra ÄÚµå´Â ¾È¾´´Ù.
+	// -_- netmarble ì—ì„œ ë³´ë‚´ì£¼ëŠ” extra ì½”ë“œëŠ” ì•ˆì“´ë‹¤.
 	char *endchar = strstr(buf,",NM");
 
 	if( endchar != NULL )
@@ -449,20 +449,20 @@ BOOL AnalizeArgument(const char *strarg)
 //		token = _StrTok(NULL, ',');
 //	}
 
-	// ÀÎÀÚ°¡ ÃÖ¼ÒÇÑ 4°³´Â µÇ¾î¾ß ÇÑ´Ù
+	// ì¸ìê°€ ìµœì†Œí•œ 4ê°œëŠ” ë˜ì–´ì•¼ í•œë‹¤
 //	if(argcnt < 4)
 //		return FALSE;
 
-	// IPÁÖ¼Ò°¡ ¿Ã¹Ù¸¥Áö °Ë»ç
+	// IPì£¼ì†Œê°€ ì˜¬ë°”ë¥¸ì§€ ê²€ì‚¬
 //	if(strlen(arg[0]) > 16)
 //		return FALSE;
 
-	// CP °ÔÀÓÀº ¾Æ·¡ºÎºĞÀ» °íÃÄ ¾µ°Í
-//	g_ServIP    = arg[0];		// ¼­¹ö IP
-//	g_ServPort  = (UINT)::atoi(arg[1]);	// ¼­¹ö Port
-//	g_LoginID   = arg[2];		// ·Î±×ÀÎ ID
-//	g_LoginPass = arg[3];		// ·Î±×ÀÎ ÆĞ½º¿öµå(CP°ÔÀÓÀÌ¶ó¸é À¯´ÏÅ© ³Ñ¹ö)
-//	g_Extra     = arg[4];		// ¿©ºĞÀÇ ÀÎÀÚ(CP°ÔÀÓµî¿¡¼­ »ç¿ë)
+	// CP ê²Œì„ì€ ì•„ë˜ë¶€ë¶„ì„ ê³ ì³ ì“¸ê²ƒ
+//	g_ServIP    = arg[0];		// ì„œë²„ IP
+//	g_ServPort  = (UINT)::atoi(arg[1]);	// ì„œë²„ Port
+//	g_LoginID   = arg[2];		// ë¡œê·¸ì¸ ID
+//	g_LoginPass = arg[3];		// ë¡œê·¸ì¸ íŒ¨ìŠ¤ì›Œë“œ(CPê²Œì„ì´ë¼ë©´ ìœ ë‹ˆí¬ ë„˜ë²„)
+//	g_Extra     = arg[4];		// ì—¬ë¶„ì˜ ì¸ì(CPê²Œì„ë“±ì—ì„œ ì‚¬ìš©)
 	
 	return TRUE;
 }

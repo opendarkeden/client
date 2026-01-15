@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // CAlphaSprite565.h
 //----------------------------------------------------------------------
-// 5:6:5 video card¿¡ ´ëÇÑ sprite class
+// 5:6:5 video cardì— ëŒ€í•œ sprite class
 //----------------------------------------------------------------------
 
 #ifndef	__CALPHASPRITE565_H__
@@ -22,7 +22,7 @@ std::ifstream;
 class CAlphaSprite565 : public CAlphaSprite {
 	public :
 		//---------------------------------------------------------
-		// fstream¿¡¼­ save/load¸¦ ÇÑ´Ù.
+		// fstreamì—ì„œ save/loadë¥¼ í•œë‹¤.
 		//---------------------------------------------------------
 		bool		SaveToFile(std::ofstream& file);
 		bool		LoadFromFile(std::ifstream& file);

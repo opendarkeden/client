@@ -27,18 +27,18 @@ bool
 MRippleZonePixelEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 {
 	//------------------------------------------------------------
-	// ÀÌ¹ø¿¡´Â ½ÃÀÛÁÂÇ¥(sx,sy)¿¡ Effect¸¦ Ãâ·ÂÇÏ°í
-	// ´ÙÀ½¿¡´Â (tx,ty)¿¡ Effect¸¦ Ãâ·ÂÇÏ°Ô µÈ´Ù.
-	// MEffectTargetÀ» ¼öÁ¤ÇÏ¸é °¡´ÉÇÏ´Ù.
+	// ì´ë²ˆì—ëŠ” ì‹œìž‘ì¢Œí‘œ(sx,sy)ì— Effectë¥¼ ì¶œë ¥í•˜ê³ 
+	// ë‹¤ìŒì—ëŠ” (tx,ty)ì— Effectë¥¼ ì¶œë ¥í•˜ê²Œ ëœë‹¤.
+	// MEffectTargetì„ ìˆ˜ì •í•˜ë©´ ê°€ëŠ¥í•˜ë‹¤.
 	//------------------------------------------------------------
 	MEffectTarget* pTarget = egInfo.pEffectTarget;
 
-	// ½ÃÀÛ ÁÂÇ¥
+	// ì‹œìž‘ ì¢Œí‘œ
 	int sx = egInfo.x0;
 	int sy = egInfo.y0;
 	int sz = 0;//egInfo.z0;
 
-	// ¸ñÇ¥ ÁÂÇ¥
+	// ëª©í‘œ ì¢Œí‘œ
 	int tx = egInfo.x1; 
 	int ty = egInfo.y1;
 	int tz = 0;//egInfo.z1;
@@ -49,7 +49,7 @@ MRippleZonePixelEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	int est = egInfo.effectSpriteType;
 
 	//------------------------------------------------------------
-	// ÇÏµåÄÚµù.. ¤»¤»
+	// í•˜ë“œì½”ë”©.. ã…‹ã…‹
 	//------------------------------------------------------------
 	bool bPixelStepMove = false;
 	bool bGroundEffect = false;
@@ -61,7 +61,7 @@ MRippleZonePixelEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	//------------------------------------------------------------
 	if (est==EFFECTSPRITETYPE_POWER_OF_LAND_STONE_1)
 	{
-		// 1~3»çÀÌ¿¡ ÇÏ³ª¸¦ ¼±ÅÃÇÑ´Ù.
+		// 1~3ì‚¬ì´ì— í•˜ë‚˜ë¥¼ ì„ íƒí•œë‹¤.
 		est = EFFECTSPRITETYPE_POWER_OF_LAND_STONE_2 + rand()%3;
 		
 		bGroundEffect = true;
@@ -74,7 +74,7 @@ MRippleZonePixelEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	//------------------------------------------------------------
 	else if (est==EFFECTSPRITETYPE_EARTHQUAKE_1)
 	{
-		// 1~3»çÀÌ¿¡ ÇÏ³ª¸¦ ¼±ÅÃÇÑ´Ù.
+		// 1~3ì‚¬ì´ì— í•˜ë‚˜ë¥¼ ì„ íƒí•œë‹¤.
 		est = EFFECTSPRITETYPE_EARTHQUAKE_1 + rand()%3;
 		
 		bGroundEffect = true;
@@ -90,9 +90,9 @@ MRippleZonePixelEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 		int targetX, targetY;
 
-		// ÀÌÆåÆ®(egInfo.xy0 + size)°¡  
-		// Ä³¸¯ÅÍ(pt + size)¿Í Ãæµ¹ÇÏ¸é
-		// ÀÌÆåÆ® ±×¸¸ ±×¸°´Ù..
+		// ì´íŽ™íŠ¸(egInfo.xy0 + size)ê°€  
+		// ìºë¦­í„°(pt + size)ì™€ ì¶©ëŒí•˜ë©´
+		// ì´íŽ™íŠ¸ ê·¸ë§Œ ê·¸ë¦°ë‹¤..
 		POINT pt;
 
  		if (pCreature==NULL)
@@ -135,7 +135,7 @@ MRippleZonePixelEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			return false;
 		}
 
-		// 1~3»çÀÌ¿¡ ÇÏ³ª¸¦ ¼±ÅÃÇÑ´Ù.
+		// 1~3ì‚¬ì´ì— í•˜ë‚˜ë¥¼ ì„ íƒí•œë‹¤.
 		if(g_pUserInformation->GoreLevel == false)
 			est = EFFECTSPRITETYPE_GREEN_TRANSFUSION_1 + rand()%3;
 		else
@@ -148,8 +148,8 @@ MRippleZonePixelEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	if (bPixelStepMove)
 	{
-		// ¸ñÇ¥±îÁö°¡´Â°Ô ¾Æ´Ï¶ó.. ÀÏÁ¤ÇÑ pixel¼ö ¸¸Å­ °¡¾ßÇÑ´Ù?
-		// ÇÑ ´Ü°è ÀÌµ¿..
+		// ëª©í‘œê¹Œì§€ê°€ëŠ”ê²Œ ì•„ë‹ˆë¼.. ì¼ì •í•œ pixelìˆ˜ ë§Œí¼ ê°€ì•¼í•œë‹¤?
+		// í•œ ë‹¨ê³„ ì´ë™..
 		int movePixel = egInfo.step;// * egInfo.count;
 
 		int cx = sx-tx;
@@ -158,25 +158,25 @@ MRippleZonePixelEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		if (bResetTarget && (cx==0 || cy==0))
 		{
 			//---------------------------------------------
-			// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+			// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 			//---------------------------------------------
 			TYPE_SECTORPOSITION	sX, sY;
 			sX = g_pTopView->PixelToMapX( sx );
 			sY = g_pTopView->PixelToMapY( sy );
 
 			//---------------------------------------------
-			// ³ª°¡´Â ¹æÇâÀ¸·Î ´ÙÀ½ ÁÂÇ¥¸¦ Á¤ÇÑ´Ù.	
+			// ë‚˜ê°€ëŠ” ë°©í–¥ìœ¼ë¡œ ë‹¤ìŒ ì¢Œí‘œë¥¼ ì •í•œë‹¤.	
 			//---------------------------------------------
 			TYPE_SECTORPOSITION x=sX, y=sY;
 			MCreature::GetPositionToDirection(x,y, egInfo.direction);
 
 			//---------------------------------------------
-			// (x,y)¸¦ ´Ù½Ã pixelÁÂÇ¥·Î ¹Ù²Û´Ù.
+			// (x,y)ë¥¼ ë‹¤ì‹œ pixelì¢Œí‘œë¡œ ë°”ê¾¼ë‹¤.
 			//---------------------------------------------
 			tx = g_pTopView->MapToPixelX( x );
 			ty = g_pTopView->MapToPixelY( y );
 
-			// ´Ù½Ã °è»ê..
+			// ë‹¤ì‹œ ê³„ì‚°..
 			cx = sx - tx;
 			cy = sy - ty;
 		}
@@ -208,7 +208,7 @@ MRippleZonePixelEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	}
 
 	//-----------------------------------------------------
-	// MEffectTarget¿¡ ¸ñÇ¥ À§Ä¡¸¦ ´Ù½Ã ¼³Á¤ÇØ¾ßÇÑ´Ù.
+	// MEffectTargetì— ëª©í‘œ ìœ„ì¹˜ë¥¼ ë‹¤ì‹œ ì„¤ì •í•´ì•¼í•œë‹¤.
 	//-----------------------------------------------------	
 	if (pTarget!=NULL && bResetTarget)
 	{
@@ -223,31 +223,31 @@ MRippleZonePixelEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	MEffect*	pEffect;
 	//---------------------------------------------
-	// Effect »ý¼º
+	// Effect ìƒì„±
 	//---------------------------------------------
 	pEffect = new MEffect(bltType);
 
 	pEffect->SetFrameID( frameID, maxFrame );	
 
-	//pEffect->SetPosition(x, y);		// Sector ÁÂÇ¥(ÀÇ¹Ì ¾øÀ» µí)
+	//pEffect->SetPosition(x, y);		// Sector ì¢Œí‘œ(ì˜ë¯¸ ì—†ì„ ë“¯)
 
-	pEffect->SetPixelPosition(tx, ty, tz);		// pixel ÁÂÇ¥		
+	pEffect->SetPixelPosition(tx, ty, tz);		// pixel ì¢Œí‘œ		
 	
-	// ¹æÇâ ¼³Á¤
+	// ë°©í–¥ ì„¤ì •
 	pEffect->SetDirection( egInfo.direction );
 
 	//pEffect->SetZ( sz );			
-	pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-	pEffect->SetCount( egInfo.count, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+	pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
+	pEffect->SetCount( egInfo.count, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
 
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 
 	bool bAdd = false;
-	// Zone¿¡ Ãß°¡ÇÑ´Ù.		
+	// Zoneì— ì¶”ê°€í•œë‹¤.		
 	if (bGroundEffect)
 	{
 		bAdd = g_pZone->AddGroundEffect( pEffect );
@@ -259,7 +259,7 @@ MRippleZonePixelEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	if (bAdd)
 	{
-		// ´ÙÀ½ Effect »ý¼º Á¤º¸
+		// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 		pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );	
 	}
 

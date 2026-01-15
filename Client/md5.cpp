@@ -21,12 +21,12 @@ const ULONG CMd5::Context[4]=  {0X01234567,
 								};*/
 const LPSTR CMd5::ErrInfo[5][2]={
 								{"",""},
-								{"The Memory is not enough !","内存分配失败!"},
-								{"Have not assign a file !","未指定文件!"},
-								{"Have not assign the text !","未指定文本!"},
-								{"Have something wrong with MD5!","有错误发生!"},
+								{"The Memory is not enough !","脛脷麓忙路脰脜盲脢搂掳脺!"},
+								{"Have not assign a file !","脦麓脰赂露篓脦脛录镁!"},
+								{"Have not assign the text !","脦麓脰赂露篓脦脛卤戮!"},
+								{"Have something wrong with MD5!","脫脨麓铆脦贸路垄脡煤!"},
 								};
-//==========================<内联函数实现>=========================================
+//==========================<脛脷脕陋潞炉脢媒脢碌脧脰>=========================================
 
 ULONG CMd5::LRotate(ULONG Sdata,int nBit)
 {
@@ -72,7 +72,7 @@ void CMd5::II(ULONG &a,ULONG b,ULONG c,ULONG d,ULONG Msg,int nBit,ULONG Cnt)
 	a=LRotate(a,nBit);
 	a+=b;
 }
-//==========================<成员函数实现>======================================
+//==========================<鲁脡脭卤潞炉脢媒脢碌脧脰>======================================
 
 CMd5::CMd5()
 {
@@ -175,7 +175,7 @@ while(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
 	  DispatchMessage(&msg);
   }
   ULONG a=T[0],b=T[1],c=T[2],d=T[3];
- //第一轮-------------------------------->
+ //碌脷脪禄脗脰-------------------------------->
   FF (a, b, c, d, pM[ 0], S11, 0xd76aa478); //- 1 -
   FF (d, a, b, c, pM[ 1], S12, 0xe8c7b756); //- 2 -
   FF (c, d, a, b, pM[ 2], S13, 0x242070db); //- 3 -
@@ -193,7 +193,7 @@ while(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
   FF (c, d, a, b, pM[14], S13, 0xa679438e); //- 15 -
   FF (b, c, d, a, pM[15], S14, 0x49b40821); //- 16 -
 
- //第二轮--------------------------------->
+ //碌脷露镁脗脰--------------------------------->
   GG (a, b, c, d, pM[ 1], S21, 0xf61e2562); //- 17 -
   GG (d, a, b, c, pM[ 6], S22, 0xc040b340); //- 18 -
   GG (c, d, a, b, pM[11], S23, 0x265e5a51); //- 19 -
@@ -211,7 +211,7 @@ while(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
   GG (c, d, a, b, pM[ 7], S23, 0x676f02d9); //- 31 -
   GG (b, c, d, a, pM[12], S24, 0x8d2a4c8a); //- 32 -
 
- //第三轮--------------------------------->
+ //碌脷脠媒脗脰--------------------------------->
   HH (a, b, c, d, pM[ 5], S31, 0xfffa3942); //- 33 -
   HH (d, a, b, c, pM[ 8], S32, 0x8771f681); //- 34 -
   HH (c, d, a, b, pM[11], S33, 0x6d9d6122); //- 35 -
@@ -229,7 +229,7 @@ while(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
   HH (c, d, a, b, pM[15], S33, 0x1fa27cf8); //- 47 -
   HH (b, c, d, a, pM[ 2], S34, 0xc4ac5665); //- 48 -
 
-  //第四轮-------------------------------->
+  //碌脷脣脛脗脰-------------------------------->
   II (a, b, c, d, pM[ 0], S41, 0xf4292244); //- 49 -
   II (d, a, b, c, pM[ 7], S42, 0x432aff97); //- 50 -
   II (c, d, a, b, pM[14], S43, 0xab9423a7); //- 51 -
@@ -302,7 +302,7 @@ IsSuc=false;
 if(nErr==0)
 {
 #ifndef ENGLISH
-	sprintf(strErr,"打不开文件 [ %s ] !\n请确认文件是否存在 !",fname);
+	sprintf(strErr,"麓貌虏禄驴陋脦脛录镁 [ %s ] !\n脟毛脠路脠脧脦脛录镁脢脟路帽麓忙脭脷 !",fname);
 #else
 	sprintf(strErr,"Can not open the file [ %s ] !",fname);
 #endif
@@ -321,7 +321,7 @@ LPCSTR CMd5::GetErr()
 	if(!*strErr)
 	{
 #ifndef ENGLISH
-		return "未发生错误 !";
+		return "脦麓路垄脡煤麓铆脦贸 !";
 #else 
 		return "No error !";
 #endif

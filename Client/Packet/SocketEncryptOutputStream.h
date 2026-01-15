@@ -41,10 +41,10 @@ public :
 	
 	// write data to stream (output buffer)
 	// *CAUTION*
-	// std::string À» ¹öÆÛ¿¡ writing ÇÒ ¶§, ÀÚµ¿À¸·Î size ¸¦ ¾Õ¿¡ ºÙÀÏ ¼öµµ ÀÖ´Ù.
-	// ±×·¯³ª, std::string ÀÇ Å©±â¸¦ BYTE/WORD Áß ¾î´À °ÍÀ¸·Î ÇÒ °ÇÁö´Â ÀÇ¹®ÀÌ´Ù.
-	// ÆĞÅ¶ÀÇ Å©±â´Â ÀÛÀ» ¼ö·Ï ÁÁ´Ù´Â Á¤Ã¥ÇÏ¿¡¼­ ÇÊ¿ä¿¡ µû¶ó¼­ std::string size °ªÀ»
-	// BYTE ¶Ç´Â WORD ¸¦ ¼öµ¿À¸·Î »ç¿ëÇÏµµ·Ï ÇÑ´Ù.
+	// std::string ì„ ë²„í¼ì— writing í•  ë•Œ, ìë™ìœ¼ë¡œ size ë¥¼ ì•ì— ë¶™ì¼ ìˆ˜ë„ ìˆë‹¤.
+	// ê·¸ëŸ¬ë‚˜, std::string ì˜ í¬ê¸°ë¥¼ BYTE/WORD ì¤‘ ì–´ëŠ ê²ƒìœ¼ë¡œ í•  ê±´ì§€ëŠ” ì˜ë¬¸ì´ë‹¤.
+	// íŒ¨í‚·ì˜ í¬ê¸°ëŠ” ì‘ì„ ìˆ˜ë¡ ì¢‹ë‹¤ëŠ” ì •ì±…í•˜ì—ì„œ í•„ìš”ì— ë”°ë¼ì„œ std::string size ê°’ì„
+	// BYTE ë˜ëŠ” WORD ë¥¼ ìˆ˜ë™ìœ¼ë¡œ ì‚¬ìš©í•˜ë„ë¡ í•œë‹¤.
     uint writeEncrypt (bool   buf) throw (ProtocolException, Error) { buf = m_Encrypter.convert(buf); return write((const char*)&buf, szbool  ); }
     uint writeEncrypt (char   buf) throw (ProtocolException, Error) { buf = m_Encrypter.convert(buf); return write((const char*)&buf, szchar  ); }
     uint writeEncrypt (uchar  buf) throw (ProtocolException, Error) { buf = m_Encrypter.convert(buf); return write((const char*)&buf, szuchar ); }

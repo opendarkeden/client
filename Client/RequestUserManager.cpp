@@ -67,8 +67,8 @@ RequestUserManager::HasRequestUser(const char* pName) const
 //----------------------------------------------------------------------
 // Add RequestUser
 //----------------------------------------------------------------------
-// ÀÌ¹Ì ÀÖ´Ù¸é.. ip¸¦ ¹Ù²ãÁØ´Ù.. 
-// ÀÌ¹Ì Á¢¼ÓÁßÀÌ¶ó¸é Á¢¼ÓÇØÁ¦..
+// ì´ë¯¸ ìžˆë‹¤ë©´.. ipë¥¼ ë°”ê¿”ì¤€ë‹¤.. 
+// ì´ë¯¸ ì ‘ì†ì¤‘ì´ë¼ë©´ ì ‘ì†í•´ì œ..
 //----------------------------------------------------------------------
 void
 RequestUserManager::AddRequestUser(const char* pName, const char* pIP, int UDPPort)
@@ -77,7 +77,7 @@ RequestUserManager::AddRequestUser(const char* pName, const char* pIP, int UDPPo
 
 	if (pUser==NULL)
 	{		
-		// ¾ø´Ù¸é Á¤º¸ »ý¼º.
+		// ì—†ë‹¤ë©´ ì •ë³´ ìƒì„±.
 		pUser = new RequestUserInfo;
 
 		pUser->Name = pName;
@@ -88,14 +88,14 @@ RequestUserManager::AddRequestUser(const char* pName, const char* pIP, int UDPPo
 	}
 	else
 	{
-		// IP°¡ ´Þ¶óÁø °æ¿ì..
+		// IPê°€ ë‹¬ë¼ì§„ ê²½ìš°..
 		if (pUser->IP != pIP)
 		{
 			pUser->IP = pIP;
 			pUser->UDPPort = UDPPort;
 
-			// ¿¬°áµÇ¾î ÀÖ´Â »óÅÂ¶ó¸é..
-			// IP°¡ ¹Ù²¼À¸¹Ç·Î ¿¬°áÀ» ²÷¾îÁØ´Ù.
+			// ì—°ê²°ë˜ì–´ ìžˆëŠ” ìƒíƒœë¼ë©´..
+			// IPê°€ ë°”ê¼ˆìœ¼ë¯€ë¡œ ì—°ê²°ì„ ëŠì–´ì¤€ë‹¤.
 			/*
 			if (pUser->Connected)
 			{

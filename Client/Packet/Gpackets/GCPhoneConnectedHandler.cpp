@@ -23,11 +23,11 @@ void GCPhoneConnectedHandler::execute ( GCPhoneConnected * pPacket , Player * pP
 	int pcsNumber = pPacket->getPhoneNumber();
 	int slot = pPacket->getSlotID();
 
-	// ¹øÈ£¸¦ ÀúÀåÇØ µÐ´Ù.
+	// ë²ˆí˜¸ë¥¼ ì €ìž¥í•´ ë‘”ë‹¤.
 	g_pUserInformation->OtherPCSNumber[ slot ] = pcsNumber;
 	g_pUserInformation->PCSUserName[ slot ] = pPacket->getName().c_str();
 
-	// PCS¸¦ ¶ç¿î´Ù.
+	// PCSë¥¼ ë„ìš´ë‹¤.
 	char pName[128];
 	strcpy(pName, pPacket->getName().c_str());
 

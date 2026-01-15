@@ -28,7 +28,7 @@ MBloodyWaveEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	int est = egInfo.effectSpriteType;
 
-	// ÇÏµå ÇÏµå~
+	// í•˜ë“œ í•˜ë“œ~
 	if (est>=EFFECTSPRITETYPE_BLOODY_WALL_1
 		&& est<=EFFECTSPRITETYPE_BLOODY_WALL_3)
 	{
@@ -46,14 +46,14 @@ MBloodyWaveEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	lastPhase = currentPhase;
 	
 	//---------------------------------------------
-	// ÁÂÇ¥ º¯°æ°ª
+	// ì¢Œí‘œ ë³€ê²½ê°’
 	//---------------------------------------------
 	std::vector<POINT> v_cp;
 	POINT p;
 
 	switch (currentPhase)
 	{
-		// »ó, ÇÏ, ÁÂ, ¿ì
+		// ìƒ, í•˜, ì¢Œ, ìš°
 		case 1 :
 		{
 			p.x = 0; p.y = -1;
@@ -67,7 +67,7 @@ MBloodyWaveEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		}
 		break;
 
-		// ´ë°¢¼± ¹æÇâ 4°³
+		// ëŒ€ê°ì„  ë°©í–¥ 4ê°œ
 		case 2 :
 		{
 			p.x = 1; p.y = -1;
@@ -81,7 +81,7 @@ MBloodyWaveEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		}
 		break;
 
-		// »óÇÏ ÁÂ¿ì.. ÇÑÄ­¾¿ °Ç³Ê¼­ 4°³
+		// ìƒí•˜ ì¢Œìš°.. í•œì¹¸ì”© ê±´ë„ˆì„œ 4ê°œ
 		case 3 :
 		{
 			p.x = 0; p.y = -2;
@@ -95,7 +95,7 @@ MBloodyWaveEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		}
 		break;
 
-		// ´ë°¢¼± 4¹æÇâ 2°³¾¿
+		// ëŒ€ê°ì„  4ë°©í–¥ 2ê°œì”©
 		case 4 :
 		{
 			p.x = 1; p.y = -2;
@@ -117,7 +117,7 @@ MBloodyWaveEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		}
 		break;
 
-		// »óÇÏ ÁÂ¿ì.. µÎÄ­¾¿ °Ç³Ê¼­ 4°³
+		// ìƒí•˜ ì¢Œìš°.. ë‘ì¹¸ì”© ê±´ë„ˆì„œ 4ê°œ
 		default:
 		{
 			p.x = 0; p.y = -3;
@@ -144,7 +144,7 @@ MBloodyWaveEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	MEffect*	pEffect;
 	
 	//---------------------------------------------
-	// Effect »ı¼º
+	// Effect ìƒì„±
 	//---------------------------------------------
 	for (int i=0; i<v_cp.size(); i++)
 	{		
@@ -155,42 +155,42 @@ MBloodyWaveEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		
 		pEffect->SetFrameID( frameID, maxFrame );	
 
-		//pEffect->SetPixelPosition(sx, sy, z);		// Sector ÁÂÇ¥		
+		//pEffect->SetPixelPosition(sx, sy, z);		// Sector ì¢Œí‘œ		
 		pEffect->SetPosition( sX, sY );
 		pEffect->SetZ( z );			
-		pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
-		pEffect->SetCount( egInfo.count , egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+		pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ì…í•´ì¤€ë‹¤.
+		pEffect->SetCount( egInfo.count , egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
-		// ¹æÇâ ¼³Á¤
+		// ë°©í–¥ ì„¤ì •
 		pEffect->SetDirection( egInfo.direction );
 
-		// À§·Â
+		// ìœ„ë ¥
 		pEffect->SetPower(egInfo.power);
 
-		// Zone¿¡ Ãß°¡ÇÑ´Ù.
+		// Zoneì— ì¶”ê°€í•œë‹¤.
 		bool bAdd = g_pZone->AddEffect( pEffect );
 
 		if (bAdd)
 		{
-			// Ã³À½À¸·Î Ãß°¡µÈ effect¿¡ ´ëÇØ¼­ link¼³Á¤
+			// ì²˜ìŒìœ¼ë¡œ ì¶”ê°€ëœ effectì— ëŒ€í•´ì„œ linkì„¤ì •
 			if (!bOK)
 			{
 				pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
 
 				bOK = true;
 			}		
-			// Ã³À½À¸·Î Ãß°¡µÈ°Å´Â ¾Æ´ÏÁö¸¸ Á¦´ë·Î µé¾î°£ °æ¿ì
+			// ì²˜ìŒìœ¼ë¡œ ì¶”ê°€ëœê±°ëŠ” ì•„ë‹ˆì§€ë§Œ ì œëŒ€ë¡œ ë“¤ì–´ê°„ ê²½ìš°
 			else
 			{
-				// 1°³ ÀÌ¿Ü¿¡´Â ´ÙÀ½ Effect »ı¼º Á¤º¸´Â ¾ø´Ù..
-				// ÆÛÁö´Â effect 4°³¸¶´Ù ´Ù ´ÙÀ½ effect¸¦ »ı¼ºÇÏ¸é ¾ÈµÇ±â ¶§¹®ÀÌ´Ù.
+				// 1ê°œ ì´ì™¸ì—ëŠ” ë‹¤ìŒ Effect ìƒì„± ì •ë³´ëŠ” ì—†ë‹¤..
+				// í¼ì§€ëŠ” effect 4ê°œë§ˆë‹¤ ë‹¤ ë‹¤ìŒ effectë¥¼ ìƒì„±í•˜ë©´ ì•ˆë˜ê¸° ë•Œë¬¸ì´ë‹¤.
 				pEffect->SetLink( egInfo.nActionInfo, NULL );
 			}
 		}
 
 		//---------------------------------------------
-		// ¹İº¹µÇ´Â frameÀÌ¸é..
-		// ½ÃÀÛ frameÀ» ´Ù¸£°Ô ÇÑ´Ù.
+		// ë°˜ë³µë˜ëŠ” frameì´ë©´..
+		// ì‹œì‘ frameì„ ë‹¤ë¥´ê²Œ í•œë‹¤.
 		//---------------------------------------------
 		if (bAdd && repeatFrame)
 		{
@@ -206,7 +206,7 @@ MBloodyWaveEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		//sx += cx;
 		//sy += cy;
 
-		// ´ÙÀ½ ±×¸²
+		// ë‹¤ìŒ ê·¸ë¦¼
 		if (est>=EFFECTSPRITETYPE_BLOODY_WALL_1
 			&& est<=EFFECTSPRITETYPE_BLOODY_WALL_3)
 		{

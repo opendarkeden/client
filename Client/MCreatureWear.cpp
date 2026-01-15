@@ -28,9 +28,9 @@ int defaultTrouserColor	= 377;//489;
 //----------------------------------------------------------------------
 // static member
 //----------------------------------------------------------------------
-// CreatureÀÇ ÇöÀç ¹æÇâ¿¡ µû¶ó¼­...
-// ¿ÊÀ» Ãâ·ÂÇØÁÖ´Â ¼ø¼­°¡ ´Ù¸¦ ¼ö ÀÖ´Ù.
-// °¢ ¹æÇâº°·Î ¿Ê Ãâ·ÂÇØÁÖ´Â ¼ø¼­¸¦ Á¤ÇÏ´Â ºÎºĞÀÌ´Ù.
+// Creatureì˜ í˜„ì¬ ë°©í–¥ì— ë”°ë¼ì„œ...
+// ì˜·ì„ ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œê°€ ë‹¤ë¥¼ ìˆ˜ ìˆë‹¤.
+// ê° ë°©í–¥ë³„ë¡œ ì˜· ì¶œë ¥í•´ì£¼ëŠ” ìˆœì„œë¥¼ ì •í•˜ëŠ” ë¶€ë¶„ì´ë‹¤.
 int			MCreatureWear::s_AddonOrder[DIRECTION_MAX][ADDON_MAX] = 
 {
 	{ ADDON_MOTOR, ADDON_TROUSER, ADDON_COAT, ADDON_HAIR, ADDON_HELM, ADDON_RIGHTHAND, ADDON_LEFTHAND },	// LEFT
@@ -72,13 +72,13 @@ MCreatureWear::MCreatureWear()
 	m_HairColorSet = 0;
 
 	m_ShoulderAddon.bAddon = FALSE;
-	m_ShoulderAddon.FrameID	= FRAMEID_NULL;		// º¹Àå
+	m_ShoulderAddon.FrameID	= FRAMEID_NULL;		// ë³µì¥
 
 	m_ShoulderAddon.ItemClass	= ITEM_CLASS_NULL;	// item class
 	m_ShoulderAddon.ItemType	= ITEMTYPE_NULL;			// item type
 	m_ShoulderAddon.ColorSet1	= 0;						// colorset1
 	m_ShoulderAddon.ColorSet2	= 0;						// colorset2
-	m_ShoulderAddon.bEffectColor = FALSE;					// effect color·Î º¸¿©Áö´Â ºÎÀ§ÀÎ°¡?
+	m_ShoulderAddon.bEffectColor = FALSE;					// effect colorë¡œ ë³´ì—¬ì§€ëŠ” ë¶€ìœ„ì¸ê°€?
 	m_ShoulderAddon.EffectColorSet	= 0;				// effectcolorset
 }
 
@@ -99,15 +99,15 @@ MCreatureWear::ClearAddonInfo(int Addon)
 {
 	ADDON_INFO& addon = m_Addon[Addon];
 
-	// ÃÊ±âÈ­
-	addon.bAddon	= FALSE;			// Âø¿ëÇß³ª?	
-	addon.FrameID	= FRAMEID_NULL;		// º¹Àå
+	// ì´ˆê¸°í™”
+	addon.bAddon	= FALSE;			// ì°©ìš©í–ˆë‚˜?	
+	addon.FrameID	= FRAMEID_NULL;		// ë³µì¥
 
 	addon.ItemClass	= ITEM_CLASS_NULL;	// item class
 	addon.ItemType	= ITEMTYPE_NULL;			// item type
 	addon.ColorSet1	= 0;						// colorset1
 	addon.ColorSet2	= 0;						// colorset2
-	addon.bEffectColor = FALSE;					// effect color·Î º¸¿©Áö´Â ºÎÀ§ÀÎ°¡?
+	addon.bEffectColor = FALSE;					// effect colorë¡œ ë³´ì—¬ì§€ëŠ” ë¶€ìœ„ì¸ê°€?
 	addon.EffectColorSet	= 0;				// effectcolorset
 }
 
@@ -117,7 +117,7 @@ MCreatureWear::ClearAddonInfo(int Addon)
 void				
 MCreatureWear::SetSameWear(const MCreatureWear* pCreature)
 {
-	// º¹ÀåÀÇ Á¤º¸	
+	// ë³µì¥ì˜ ì •ë³´	
 	for (int i=0; i<ADDON_MAX; i++)
 	{
 		m_Addon[i] = pCreature->m_Addon[i];
@@ -138,7 +138,7 @@ MCreatureWear::SetAddonColorSet1(int Addon, WORD colorSet)
 		return;
 	}
 	
-	// 2004, 5, 4 sobeit add start - ´Ù¸¥ Ä³¸¯ÀÇ ¾Æ¿ì½ºÅÍÁî ºÎÃ÷´Â ¼¼ÆÃÇÏ´Â ÄÚµå°¡ ¾ø¾î¼­ °£´ÜÈ÷ Ãß°¡
+	// 2004, 5, 4 sobeit add start - ë‹¤ë¥¸ ìºë¦­ì˜ ì•„ìš°ìŠ¤í„°ì¦ˆ ë¶€ì¸ ëŠ” ì„¸íŒ…í•˜ëŠ” ì½”ë“œê°€ ì—†ì–´ì„œ ê°„ë‹¨íˆ ì¶”ê°€
 	if(Addon == ADDON_TROUSER)
 		m_Addon[Addon].bAddon = true;
 	// 2004, 5, 4 sobeit add end
@@ -164,14 +164,14 @@ MCreatureWear::SetAddonColorSet2(int Addon, WORD colorSet)
 		return;
 	}
 
-	// 2004, 5, 4 sobeit add start - ´Ù¸¥ Ä³¸¯ÀÇ ¾Æ¿ì½ºÅÍÁî ºÎÃ÷´Â ¼¼ÆÃÇÏ´Â ÄÚµå°¡ ¾ø¾î¼­ °£´ÜÈ÷ Ãß°¡
+	// 2004, 5, 4 sobeit add start - ë‹¤ë¥¸ ìºë¦­ì˜ ì•„ìš°ìŠ¤í„°ì¦ˆ ë¶€ì¸ ëŠ” ì„¸íŒ…í•˜ëŠ” ì½”ë“œê°€ ì—†ì–´ì„œ ê°„ë‹¨íˆ ì¶”ê°€
 	if(Addon == ADDON_TROUSER)
 		m_Addon[Addon].bAddon = true;
 	// 2004, 5, 4 sobeit add end
 	
 	if (colorSet < MAX_COLORSET || colorSet == UNIQUE_ITEM_COLOR || colorSet == QUEST_ITEM_COLOR)
 	{	
-		// ¿î¿µÀÚ´Â set1ÀÌ´Ù. T_T;;
+		// ìš´ì˜ìëŠ” set1ì´ë‹¤. T_T;;
 		if (m_CreatureType==CREATURETYPE_SLAYER_OPERATOR
 			&& Addon==ADDON_COAT)
 		{
@@ -189,8 +189,8 @@ MCreatureWear::SetAddonColorSet2(int Addon, WORD colorSet)
 //----------------------------------------------------------------------
 // New Item From AddonInfo
 //----------------------------------------------------------------------
-// Addon¹øÂ° Á¤º¸·Î ItemÀ» »ı¼ºÇÑ´Ù.
-// ¿ÜºÎ¿¡¼­ deleteÇØÁà¾ß ÇÑ´Ù.
+// Addonë²ˆì§¸ ì •ë³´ë¡œ Itemì„ ìƒì„±í•œë‹¤.
+// ì™¸ë¶€ì—ì„œ deleteí•´ì¤˜ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 MItem*
 MCreatureWear::NewItemFromAddonInfo(int Addon)
@@ -203,7 +203,7 @@ MCreatureWear::NewItemFromAddonInfo(int Addon)
 	ADDON_INFO& addon = m_Addon[Addon];
 
 	//--------------------------------------------------
-	// itemÀ» Âø¿ëÇÑ °æ¿ì
+	// itemì„ ì°©ìš©í•œ ê²½ìš°
 	//--------------------------------------------------
 	if (!addon.bAddon || addon.ItemClass==ITEM_CLASS_NULL)
 	{
@@ -211,7 +211,7 @@ MCreatureWear::NewItemFromAddonInfo(int Addon)
 	}
 	
 	//--------------------------------------------------
-	// itemÀÇ Á¤º¸¸¦ ¾Ë±âÀ§ÇØ¼­ »ı¼ºÇØ¼­ Á¦°ÅÇÑ´Ù.
+	// itemì˜ ì •ë³´ë¥¼ ì•Œê¸°ìœ„í•´ì„œ ìƒì„±í•´ì„œ ì œê±°í•œë‹¤.
 	//--------------------------------------------------
 	MItem* pItem = MItem::NewItem( addon.ItemClass );
 	pItem->SetItemType( addon.ItemType );
@@ -222,7 +222,7 @@ MCreatureWear::NewItemFromAddonInfo(int Addon)
 //----------------------------------------------------------------------
 // Remove Addon
 //----------------------------------------------------------------------
-// AddonÀÇ À§Ä¡ÀÇ º¹ÀåÀ» ¾ø¾Ø´Ù.
+// Addonì˜ ìœ„ì¹˜ì˜ ë³µì¥ì„ ì—†ì•¤ë‹¤.
 //----------------------------------------------------------------------
 bool		
 MCreatureWear::RemoveAddon(int Addon)
@@ -237,7 +237,7 @@ MCreatureWear::RemoveAddon(int Addon)
 	ADDON_INFO& addon = m_Addon[Addon];
 
 	//--------------------------------------------------
-	// ÀåÂøÇÑ°Ô ÀÖÀ» °æ¿ì¿¡¸¸ ¹ş±ä´Ù. - -;
+	// ì¥ì°©í•œê²Œ ìˆì„ ê²½ìš°ì—ë§Œ ë²—ê¸´ë‹¤. - -;
 	//--------------------------------------------------
 	if (addon.bAddon)
 	{
@@ -246,7 +246,7 @@ MCreatureWear::RemoveAddon(int Addon)
 		if (pItem!=NULL)
 		{
 			//--------------------------------------------------
-			// addon ItemÀ» º¹Àå¿¡¼­ Á¦°ÅÇÑ´Ù.
+			// addon Itemì„ ë³µì¥ì—ì„œ ì œê±°í•œë‹¤.
 			//--------------------------------------------------
 			bool bRemove = RemoveAddonItem( pItem );
 
@@ -256,7 +256,7 @@ MCreatureWear::RemoveAddon(int Addon)
 		}
 
 		//--------------------------------------------------
-		// Á¤º¸ Á¦°Å..
+		// ì •ë³´ ì œê±°..
 		//--------------------------------------------------
 		ClearAddonInfo( Addon );
 
@@ -269,16 +269,16 @@ MCreatureWear::RemoveAddon(int Addon)
 //---------------------------------------------------------------------------
 // Set AddonItem
 //---------------------------------------------------------------------------
-// ¸Ó¸®Ä«¶ôÀ» ¼³Á¤ÇÑ´Ù.
+// ë¨¸ë¦¬ì¹´ë½ì„ ì„¤ì •í•œë‹¤.
 //---------------------------------------------------------------------------
 void			
 MCreatureWear::SetAddonHair(TYPE_FRAMEID id, WORD cs1)
 {
 	ADDON_INFO& addon = m_Addon[ADDON_HAIR];
 
-	// ÃÊ±âÈ­
-	addon.bAddon	= TRUE;			// Âø¿ëÇß³ª?	
-	addon.FrameID	= id;		// º¹Àå
+	// ì´ˆê¸°í™”
+	addon.bAddon	= TRUE;			// ì°©ìš©í–ˆë‚˜?	
+	addon.FrameID	= id;		// ë³µì¥
 
 	addon.ItemClass	= ITEM_CLASS_NULL;	// item class
 
@@ -288,7 +288,7 @@ MCreatureWear::SetAddonHair(TYPE_FRAMEID id, WORD cs1)
 	addon.bEffectColor = FALSE;
 	addon.EffectColorSet = 0;
 
-	// ÀúÀåÇØ µĞ´Ù.
+	// ì €ì¥í•´ ë‘”ë‹¤.
 	m_HairFrameID = id;
 	m_HairColorSet = cs1;
 }
@@ -296,8 +296,8 @@ MCreatureWear::SetAddonHair(TYPE_FRAMEID id, WORD cs1)
 //---------------------------------------------------------------------------
 // Set AddonItem
 //---------------------------------------------------------------------------
-// ÀåÂøÇØ¼­ ¸ğ¾çÀÌ ¹Ù²î´Â item(AddonItem)ÀÎ °æ¿ì
-// Creature¿¡ ÀåÂøÇÏ°í »óÅÂ¸¦ ¹Ù²Û´Ù.
+// ì¥ì°©í•´ì„œ ëª¨ì–‘ì´ ë°”ë€ŒëŠ” item(AddonItem)ì¸ ê²½ìš°
+// Creatureì— ì¥ì°©í•˜ê³  ìƒíƒœë¥¼ ë°”ê¾¼ë‹¤.
 //---------------------------------------------------------------------------
 bool
 MCreatureWear::SetAddonItem(MItem* pItem)
@@ -313,12 +313,12 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 
 	//-------------------------------------------------
 	//
-	// Á¤ÁöÇÑ »óÅÂÀÎ °æ¿ì¸¸ º¹ÀåÀ» ¹Ù²Ü ¼ö ÀÖ´Ù.
+	// ì •ì§€í•œ ìƒíƒœì¸ ê²½ìš°ë§Œ ë³µì¥ì„ ë°”ê¿€ ìˆ˜ ìˆë‹¤.
 	//
 	//-------------------------------------------------
-	// player°¡ ¾Æ´Ñ °æ¿ì³ª..
-	// ¿ÀÅä¹ÙÀÌ¸¦ Å¸´Â °æ¿ì´Â..
-	// ±×³É Á¤ÁöÇÏ°Ô ÇØ ¹ö¸°´Ù. - -;
+	// playerê°€ ì•„ë‹Œ ê²½ìš°ë‚˜..
+	// ì˜¤í† ë°”ì´ë¥¼ íƒ€ëŠ” ê²½ìš°ëŠ”..
+	// ê·¸ëƒ¥ ì •ì§€í•˜ê²Œ í•´ ë²„ë¦°ë‹¤. - -;
 	if (GetClassType()!=MCreature::CLASS_PLAYER
 		|| pItem->GetItemClass()==ITEM_CLASS_MOTORCYCLE)
 	{
@@ -330,7 +330,7 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 		|| IsOusters() && m_Action==ACTION_OUSTERS_FAST_MOVE_STAND )
 	{
 		//-------------------------------------------------
-		// ÀåÂøÇØ¼­ ¸ğ¾çÀÌ ¹Ù²î´Â ItemÀÎ °æ¿ì¿¡¸¸ Ã³¸®ÇÑ´Ù.
+		// ì¥ì°©í•´ì„œ ëª¨ì–‘ì´ ë°”ë€ŒëŠ” Itemì¸ ê²½ìš°ì—ë§Œ ì²˜ë¦¬í•œë‹¤.
 		//-------------------------------------------------
 		if (pItem->IsAddonItem() && pItem->IsAffectStatus())
 		{
@@ -338,7 +338,7 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 			ADDON			Addon = pItem->GetAddonSlot();
 
 			//-------------------------------------------------
-			// º¹ÀåÀÌ ¹Ù²î´Â À§Ä¡°¡ ÀÖ´Â °æ¿ì
+			// ë³µì¥ì´ ë°”ë€ŒëŠ” ìœ„ì¹˜ê°€ ìˆëŠ” ê²½ìš°
 			//-------------------------------------------------
 			if (pItem->GetAddonSlot()==ADDON_NULL)
 			{			
@@ -350,36 +350,36 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 			{	
 				//-------------------------------------------------
 				//
-				//			ÀåÂøÇÏ´Â À§Ä¡¿¡ µû¶ó¼­ Ã³¸®..
+				//			ì¥ì°©í•˜ëŠ” ìœ„ì¹˜ì— ë”°ë¼ì„œ ì²˜ë¦¬..
 				//
 				//-------------------------------------------------
 				switch (Addon)
 				{
 					//-------------------------------------------------
-					// ¿ÀÅä¹ÙÀÌ¸¦ ÀåÂøÇÑ °æ¿ì
+					// ì˜¤í† ë°”ì´ë¥¼ ì¥ì°©í•œ ê²½ìš°
 					//-------------------------------------------------
 					case ADDON_MOTOR :
 						//------------------------------------------
-						// ¿òÁ÷ÀÌ´Â ¹æ¹ı ¹Ù²Ş
+						// ì›€ì§ì´ëŠ” ë°©ë²• ë°”ê¿ˆ
 						//------------------------------------------					
 						SetMoveDevice( MCreature::MOVE_DEVICE_RIDE );
 					break;
 
 					//-------------------------------------------------
-					// ÀåÂøÇÒ·Á´Â°Ô ¿Ş¼Õ¹«±â?ÀÎ °æ¿ì
+					// ì¥ì°©í• ë ¤ëŠ”ê²Œ ì™¼ì†ë¬´ê¸°?ì¸ ê²½ìš°
 					//-------------------------------------------------
 					case ADDON_LEFTHAND :
 					{
-						// ¹æÆĞ¹Û¿¡ ¾ø´Ù. - -;
-						// ÇÊ»ì ÇÏµåÄÚµù.. - -;;;;
+						// ë°©íŒ¨ë°–ì— ì—†ë‹¤. - -;
+						// í•„ì‚´ í•˜ë“œì½”ë”©.. - -;;;;
 
 						//-------------------------------------------------
-						// ±âÁ¸¿¡ ÀÖ´ø ¿À¸¥¼Õ¹«±â°¡ ¾ç¼Õ¹«±âÀÌ¸é 
-						// ¿À¸¥¼ÕAddonÀ» Á¦°ÅÇÑ´Ù.
+						// ê¸°ì¡´ì— ìˆë˜ ì˜¤ë¥¸ì†ë¬´ê¸°ê°€ ì–‘ì†ë¬´ê¸°ì´ë©´ 
+						// ì˜¤ë¥¸ì†Addonì„ ì œê±°í•œë‹¤.
 						//-------------------------------------------------
 						MItem* pOldItem = NewItemFromAddonInfo( ADDON_RIGHTHAND );
 
-						// ¿À¸¥¼Õ itemÀÌ ÀÖ´Â °æ¿ì Á¦°ÅÇÑ´Ù.
+						// ì˜¤ë¥¸ì† itemì´ ìˆëŠ” ê²½ìš° ì œê±°í•œë‹¤.
 						if (pOldItem!=NULL)
 						{	
 							if (pOldItem->IsGearSlotTwoHand())
@@ -393,11 +393,11 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 					break;
 
 					//-------------------------------------------------
-					// ÀåÂøÇÒ·Á´Â°Ô ¿À¸¥¼Õ¹«±â?ÀÎ °æ¿ì
+					// ì¥ì°©í• ë ¤ëŠ”ê²Œ ì˜¤ë¥¸ì†ë¬´ê¸°?ì¸ ê²½ìš°
 					//-------------------------------------------------
 					case ADDON_RIGHTHAND :
 					{
-						// ¾ç¼Õ¹«±âÀÌ¸é ¿Ş¼ÕÀ» ¾ø¾Ø´Ù.
+						// ì–‘ì†ë¬´ê¸°ì´ë©´ ì™¼ì†ì„ ì—†ì•¤ë‹¤.
 						if (pItem->IsGearSlotTwoHand())
 						{
 							RemoveAddon( ADDON_LEFTHAND );
@@ -406,11 +406,11 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 					break;
 
 					//-------------------------------------------------
-					// ¸ğÀÚ
+					// ëª¨ì
 					//-------------------------------------------------
-					// ¸ğÀÚÀÎ °æ¿ì´Â
-					// ÂªÀº ¸Ó¸®Ä«¶ôÀÌ¶ó¸é ¾ø¾Ø´Ù.
-					// ÂªÀº ¸Ó¸® : ¿©1, ³²123
+					// ëª¨ìì¸ ê²½ìš°ëŠ”
+					// ì§§ì€ ë¨¸ë¦¬ì¹´ë½ì´ë¼ë©´ ì—†ì•¤ë‹¤.
+					// ì§§ì€ ë¨¸ë¦¬ : ì—¬1, ë‚¨123
 					//-------------------------------------------------
 					case ADDON_HELM :
 						if (m_HairFrameID==ADDONID_HAIR1_FEMALE
@@ -423,7 +423,7 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 					break;
 
 					//-------------------------------------------------
-					// ¿î¿µÀÚÀÎ °æ¿ì.. ¿Ê ¹Ù²Ù¸é ¸ö »ö±ò ¹Ù²ï´Ù.
+					// ìš´ì˜ìì¸ ê²½ìš°.. ì˜· ë°”ê¾¸ë©´ ëª¸ ìƒ‰ê¹” ë°”ë€ë‹¤.
 					//-------------------------------------------------
 					case ADDON_COAT :
 						if (m_CreatureType==CREATURETYPE_SLAYER_OPERATOR
@@ -440,7 +440,7 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 					
 				//-------------------------------------------------
 				//
-				//			¼ºº°¿¡ µû¸¥ FrameID
+				//			ì„±ë³„ì— ë”°ë¥¸ FrameID
 				//
 				//-------------------------------------------------	
 				if (IsMale())
@@ -453,7 +453,7 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 				}
 			
 				//-------------------------------------------------	
-				// SlayerÀÌ¸é¼­ fid°¡ ¾ø´Â °æ¿ì..
+				// Slayerì´ë©´ì„œ fidê°€ ì—†ëŠ” ê²½ìš°..
 				//-------------------------------------------------					
 				if (fid == FRAMEID_NULL && IsSlayer())
 				{					
@@ -461,23 +461,23 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 										pItem->GetID(), (int)pItem->GetItemClass(), (int)pItem->GetItemType());					
 				}
 				//-------------------------------------------------					
-				// Á¤»óÀûÀÌ°Å³ª.. VampireÀÎ °æ¿ì
+				// ì •ìƒì ì´ê±°ë‚˜.. Vampireì¸ ê²½ìš°
 				//-------------------------------------------------					
 				else
 				{	
 					//-------------------------------------------------
-					// ÀåÂøÇÑ´Ù.
+					// ì¥ì°©í•œë‹¤.
 					//-------------------------------------------------
 					ADDON_INFO& addon = m_Addon[Addon];
 
-					// ÃÊ±âÈ­
+					// ì´ˆê¸°í™”
 					addon.bAddon	= TRUE;
 					addon.FrameID	= fid;
 
 					addon.ItemClass	= pItem->GetItemClass();
 					addon.ItemType	= pItem->GetItemType();
 
-					// ¹ìÆÄ ¿ÊÃß°¡
+					// ë±€íŒŒ ì˜·ì¶”ê°€
 					if(pItem->GetItemClass() == ITEM_CLASS_VAMPIRE_COAT)
 					{
 						unsigned short nSpecialActionInfo = GetSpecialActionInfo();
@@ -503,7 +503,7 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 									}
 								}
 							}
-							addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ÇÇºÎ
+							addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// í”¼ë¶€
 //							if(pItem->IsUniqueItem())
 //								m_ColorBody2 = UNIQUE_ITEM_COLOR;
 //							else
@@ -524,7 +524,7 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 					if (Addon==ADDON_COAT || Addon==ADDON_TROUSER)
 					{
 						{
-							addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ÇÇºÎ
+							addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// í”¼ë¶€
 							//						if(pItem->IsUniqueItem())
 							//							addon.ColorSet2	= UNIQUE_ITEM_COLOR;			// option
 							//						else
@@ -532,11 +532,11 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 							addon.bEffectColor = FALSE;
 							addon.EffectColorSet = 0;
 							
-							// »óÀÇÀÎ °æ¿ì¸¸ ¿ÊÀÌ ¹Ù²ï´Ù.
+							// ìƒì˜ì¸ ê²½ìš°ë§Œ ì˜·ì´ ë°”ë€ë‹¤.
 							//if (Addon==ADDON_COAT)
 							{
 								//-------------------------------------------------
-								// Vampire¸¸ Àû¿ëµÈ´Ù.
+								// Vampireë§Œ ì ìš©ëœë‹¤.
 								//-------------------------------------------------
 								if (m_CreatureType==CREATURETYPE_VAMPIRE_OPERATOR)
 								{
@@ -580,30 +580,30 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 		}
 
 		//-------------------------------------------------
-		// ÀåÂøÇÑ ItemÀÌ 
-		// ±âº»°ø°İ¿ë ¾ÆÀÌÅÛÀÌ¶ó¸é...
-		// ±âº»°ø°İActionInfo°¡ ¹Ù²î¾î¾ß ÇÑ´Ù.
+		// ì¥ì°©í•œ Itemì´ 
+		// ê¸°ë³¸ê³µê²©ìš© ì•„ì´í…œì´ë¼ë©´...
+		// ê¸°ë³¸ê³µê²©ActionInfoê°€ ë°”ë€Œì–´ì•¼ í•œë‹¤.
 		//-------------------------------------------------
 		if (pItem->IsBasicWeapon() && pItem->IsAffectStatus())
 		{
 			TYPE_ACTIONINFO ai = pItem->GetUseActionInfo();
 
 			//-------------------------------------------------
-			// ¼³Á¤µÈ actionInfo°¡ ¾ø´Â °æ¿ì
+			// ì„¤ì •ëœ actionInfoê°€ ì—†ëŠ” ê²½ìš°
 			//-------------------------------------------------
 			if (ai==ACTIONINFO_NULL)
 			{
-				// ±âº» ¸Ç¼Õ °ø°İ µ¿ÀÛÀ¸·Î ÀüÈ¯ÇÑ´Ù.
+				// ê¸°ë³¸ ë§¨ì† ê³µê²© ë™ì‘ìœ¼ë¡œ ì „í™˜í•œë‹¤.
 				SetBasicActionInfo( SKILL_ATTACK_MELEE );
 				
 				DEBUG_ADD("[Empty ActionInfo]This Creature's basic attack is Melee");				
 			}
 			//-------------------------------------------------
-			// ¼³Á¤µÈ actionInfo°¡ ÀÖ´Ù¸é..
+			// ì„¤ì •ëœ actionInfoê°€ ìˆë‹¤ë©´..
 			//-------------------------------------------------
 			else
 			{
-				// ±âº» °ø°İ µ¿ÀÛÀ¸·Î ¼³Á¤ÇÑ´Ù.
+				// ê¸°ë³¸ ê³µê²© ë™ì‘ìœ¼ë¡œ ì„¤ì •í•œë‹¤.
 				SetBasicActionInfo( ai );
 				
 				DEBUG_ADD_FORMAT("[Set BasicActionInfo] %d", ai);
@@ -611,15 +611,15 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 		}
 
 		//-------------------------------------------------
-		// ¿À¸¥¼ÕÀÌ ºñ¾îÀÖÀ¸¸é..
-		// °ø°İÀº ¸Ç¼ÕÀÌ¶ó°í º¸¸é µÈ´Ù..
-		// ÇÏµå ÄÚµù.. - -;;
+		// ì˜¤ë¥¸ì†ì´ ë¹„ì–´ìˆìœ¼ë©´..
+		// ê³µê²©ì€ ë§¨ì†ì´ë¼ê³  ë³´ë©´ ëœë‹¤..
+		// í•˜ë“œ ì½”ë”©.. - -;;
 		//-------------------------------------------------
 		if (!m_Addon[ADDON_RIGHTHAND].bAddon)
 		{
 			DEBUG_ADD("[Empty RightHand]This Creature's basic attack is Melee");
 			
-			// ±âº» ¸Ç¼Õ °ø°İ µ¿ÀÛÀ¸·Î ÀüÈ¯ÇÑ´Ù.
+			// ê¸°ë³¸ ë§¨ì† ê³µê²© ë™ì‘ìœ¼ë¡œ ì „í™˜í•œë‹¤.
 			SetBasicActionInfo( SKILL_ATTACK_MELEE );			
 		}
 
@@ -629,13 +629,13 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 
 	//-------------------------------------------------
 	//
-	// Á¤ÁöÇÑ »óÅÂ°¡ ¾Æ´Ñ °æ¿ì
+	// ì •ì§€í•œ ìƒíƒœê°€ ì•„ë‹Œ ê²½ìš°
 	//
 	//-------------------------------------------------
 	DEBUG_ADD_FORMAT("[Error] Not STAND action. id=%d, action=%d", m_ID, m_Action);
 	
-	// ´ÙÀ½¿¡ Á¤ÁöÇÒ ¶§, º¹ÀåÀ» ¹Ù²Ùµµ·Ï ÇÑ´Ù..
-	// ±×·¡¾ß µÇ´Âµ¥.. ±ÍÂú´Ù. - -;;
+	// ë‹¤ìŒì— ì •ì§€í•  ë•Œ, ë³µì¥ì„ ë°”ê¾¸ë„ë¡ í•œë‹¤..
+	// ê·¸ë˜ì•¼ ë˜ëŠ”ë°.. ê·€ì°®ë‹¤. - -;;
 
 	return false;	
 }
@@ -643,7 +643,7 @@ MCreatureWear::SetAddonItem(MItem* pItem)
 //---------------------------------------------------------------------------
 // Remove AddonItem
 //---------------------------------------------------------------------------
-// AddonItemÀ» ÀåÂøÇØÁ¦ ÇÑ´Ù.
+// AddonItemì„ ì¥ì°©í•´ì œ í•œë‹¤.
 //---------------------------------------------------------------------------
 bool
 MCreatureWear::RemoveAddonItem( MItem* pItem )
@@ -659,12 +659,12 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 
 	//-------------------------------------------------
 	//
-	// Á¤ÁöÇÑ »óÅÂÀÎ °æ¿ì¸¸ º¹ÀåÀ» ¹Ù²Ü ¼ö ÀÖ´Ù.
+	// ì •ì§€í•œ ìƒíƒœì¸ ê²½ìš°ë§Œ ë³µì¥ì„ ë°”ê¿€ ìˆ˜ ìˆë‹¤.
 	//
 	//-------------------------------------------------
-	// player°¡ ¾Æ´Ñ °æ¿ì³ª..
-	// ¿ÀÅä¹ÙÀÌ¸¦ Å¸´Â °æ¿ì´Â..
-	// ±×³É Á¤ÁöÇÏ°Ô ÇØ ¹ö¸°´Ù. - -;
+	// playerê°€ ì•„ë‹Œ ê²½ìš°ë‚˜..
+	// ì˜¤í† ë°”ì´ë¥¼ íƒ€ëŠ” ê²½ìš°ëŠ”..
+	// ê·¸ëƒ¥ ì •ì§€í•˜ê²Œ í•´ ë²„ë¦°ë‹¤. - -;
 	if (GetClassType()!=MCreature::CLASS_PLAYER
 		|| pItem->GetItemClass()==ITEM_CLASS_MOTORCYCLE)
 	{
@@ -676,7 +676,7 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 		|| IsSlayer() && m_Action==ACTION_SLAYER_MOTOR_STAND
 		|| IsOusters() && m_Action==ACTION_OUSTERS_FAST_MOVE_STAND )
 	{
-		// ¹ìÆÄ ¿ÊÃß°¡
+		// ë±€íŒŒ ì˜·ì¶”ê°€
 		if(pItem->GetItemClass() == ITEM_CLASS_VAMPIRE_COAT)
 		{
 			if(m_CreatureType != CREATURETYPE_VAMPIRE_OPERATOR)
@@ -689,7 +689,7 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 						m_ColorBody1 = defaultCoatColor;
 					} else
 					{
-						if (IsMale())	// ¾Æ¾¾ ÇÏµå ÄÚµù ÇÏ¸é ¾È´ë´Âµ¥-¤µ-
+						if (IsMale())	// ì•„ì”¨ í•˜ë“œ ì½”ë”© í•˜ë©´ ì•ˆëŒ€ëŠ”ë°-ã……-
 						{
 							SetCreatureType(2);
 						}			
@@ -699,7 +699,7 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 						}
 					}
 				}
-				//						addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ÇÇºÎ
+				//						addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// í”¼ë¶€
 
 				m_ColorBody2	= defaultCoatColor;
 			}
@@ -710,10 +710,10 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 		}
 
 		//-------------------------------------------------
-		// Âø¿ëÇØ¼­ ¸ğ¾çÀÌ ¹Ù²î´Â ItemÀÎ°¡?
+		// ì°©ìš©í•´ì„œ ëª¨ì–‘ì´ ë°”ë€ŒëŠ” Itemì¸ê°€?
 		//-------------------------------------------------
-		// --> ÀåÂø ºÎÀ§¸¦ ¾Ë¾Æ³»¼­ 
-		//    ±× ºÎÀ§ÀÇ AddonÀ» ¾ø¾Ö¾ß ÇÑ´Ù.
+		// --> ì¥ì°© ë¶€ìœ„ë¥¼ ì•Œì•„ë‚´ì„œ 
+		//    ê·¸ ë¶€ìœ„ì˜ Addonì„ ì—†ì• ì•¼ í•œë‹¤.
 		//-------------------------------------------------
 //		else
 		if (pItem->IsAddonItem())
@@ -721,7 +721,7 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 			enum ADDON add = pItem->GetAddonSlot();
 
 			//-------------------------------------------------
-			// ÀåÂø ºÎÀ§ÀÇ AddonÀ» ¾ø¾Ø´Ù.
+			// ì¥ì°© ë¶€ìœ„ì˜ Addonì„ ì—†ì•¤ë‹¤.
 			//-------------------------------------------------
 			if (add == ADDON_NULL)
 			{				
@@ -731,19 +731,19 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 			else
 			{
 				//--------------------------------------------------
-				// Á¤º¸¸¦ Á¦°Å ÇÑ´Ù.
+				// ì •ë³´ë¥¼ ì œê±° í•œë‹¤.
 				//--------------------------------------------------
 				ClearAddonInfo( add );
 
 				//-------------------------------------------------
 				//
-				//			ÀåÂøÇÏ´Â ºÎÀ§¿¡ µû¶ó¼­
+				//			ì¥ì°©í•˜ëŠ” ë¶€ìœ„ì— ë”°ë¼ì„œ
 				//
 				//-------------------------------------------------	
 				switch (add)
 				{
 					//-------------------------------------------------
-					// »óÀÇ : ¸Ç¸öÀÏ °æ¿ì¿¡´Â ±âº»¸öÀ¸·Î..
+					// ìƒì˜ : ë§¨ëª¸ì¼ ê²½ìš°ì—ëŠ” ê¸°ë³¸ëª¸ìœ¼ë¡œ..
 					//-------------------------------------------------
 					case ADDON_COAT :
 					{
@@ -754,11 +754,11 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 
 						//delete pItem;
 						//-------------------------------------------------
-						// ÀåÂøÇÑ´Ù.
+						// ì¥ì°©í•œë‹¤.
 						//-------------------------------------------------						
 						ADDON_INFO& addon = m_Addon[ADDON_COAT];
 
-						// ÃÊ±âÈ­
+						// ì´ˆê¸°í™”
 						addon.bAddon	= TRUE;
 						if(GetRace() == RACE_OUSTERS)
 						{
@@ -768,7 +768,7 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 						else
 						{
 							addon.FrameID	= IsMale()? ADDONID_COAT0_MALE : ADDONID_COAT0_FEMALE; 
-							addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ±âº» ÇÇºÎ»ö
+							addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ê¸°ë³¸ í”¼ë¶€ìƒ‰
 						}
 
 						addon.ItemClass	= ITEM_CLASS_COAT;
@@ -778,8 +778,8 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 						addon.EffectColorSet = 0;
 						
 						//-------------------------------------------------	
-						// Vampire¸¸ Àû¿ëµÈ´Ù.
-						// ¿î¿µÀÚµµ Àû¿ëµÇ°ÚÁö..
+						// Vampireë§Œ ì ìš©ëœë‹¤.
+						// ìš´ì˜ìë„ ì ìš©ë˜ê² ì§€..
 						//-------------------------------------------------													
 						if (m_CreatureType==CREATURETYPE_VAMPIRE_OPERATOR
 							|| m_CreatureType==CREATURETYPE_SLAYER_OPERATOR
@@ -797,7 +797,7 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 					break;
 
 					//-------------------------------------------------
-					// ÇÏÀÇ : ¸Ç¸öÀÏ °æ¿ì¿¡´Â ±âº»¸öÀ¸·Î..
+					// í•˜ì˜ : ë§¨ëª¸ì¼ ê²½ìš°ì—ëŠ” ê¸°ë³¸ëª¸ìœ¼ë¡œ..
 					//-------------------------------------------------
 					case ADDON_TROUSER :
 					{
@@ -808,17 +808,17 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 
 						//delete pItem;
 						//-------------------------------------------------
-						// ÀåÂøÇÑ´Ù.
+						// ì¥ì°©í•œë‹¤.
 						//-------------------------------------------------
 						ADDON_INFO& addon = m_Addon[ADDON_TROUSER];
 
-						// ÃÊ±âÈ­
+						// ì´ˆê¸°í™”
 						addon.bAddon	= TRUE;
 						addon.FrameID	= IsMale()? ADDONID_TROUSER0_MALE : ADDONID_TROUSER0_FEMALE;
 
 						addon.ItemClass	= ITEM_CLASS_TROUSER;
 						addon.ItemType	= 0;
-						addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ±âº» ÇÇºÎ»ö
+						addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ê¸°ë³¸ í”¼ë¶€ìƒ‰
 						addon.ColorSet2	= defaultTrouserColor;
 						addon.bEffectColor = FALSE;
 						addon.EffectColorSet = 0;
@@ -826,17 +826,17 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 					break;
 
 					//-------------------------------------------------
-					// ¿À¸¥¼ÕÀº ¹«±â..ÀÌ¹Ç·Î..
+					// ì˜¤ë¥¸ì†ì€ ë¬´ê¸°..ì´ë¯€ë¡œ..
 					//-------------------------------------------------				
 					case ADDON_RIGHTHAND :
-						// ±âº» ¸Ç¼Õ °ø°İ µ¿ÀÛÀ¸·Î ÀüÈ¯ÇÑ´Ù.
+						// ê¸°ë³¸ ë§¨ì† ê³µê²© ë™ì‘ìœ¼ë¡œ ì „í™˜í•œë‹¤.
 						SetBasicActionInfo( SKILL_ATTACK_MELEE );
 
-						// Æ¯Á¤ ¹«±â¿¡¸¸ °É¸®´Â Effect
+						// íŠ¹ì • ë¬´ê¸°ì—ë§Œ ê±¸ë¦¬ëŠ” Effect
 						switch (pItem->GetItemClass())
 						{
 							//-------------------------------------------------	
-							// µµ
+							// ë„
 							//-------------------------------------------------	
 							case ITEM_CLASS_BLADE :
 								if (HasEffectStatus(EFFECTSTATUS_BERSERKER))
@@ -846,7 +846,7 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 							break;
 
 							//-------------------------------------------------	
-							// ½ÊÀÚ°¡
+							// ì‹­ìê°€
 							//-------------------------------------------------	
 							case ITEM_CLASS_CROSS :
 							case ITEM_CLASS_MACE :
@@ -859,20 +859,20 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 					break;
 
 					//-------------------------------------------------
-					// ¿ÀÅä¹ÙÀÌ ÀåÂø ÇØÁ¦
+					// ì˜¤í† ë°”ì´ ì¥ì°© í•´ì œ
 					//-------------------------------------------------
 					case ADDON_MOTOR :
 						//------------------------------------------
-						// ¿òÁ÷ÀÌ´Â ¹æ¹ı ¹Ù²Ş
+						// ì›€ì§ì´ëŠ” ë°©ë²• ë°”ê¿ˆ
 						//------------------------------------------					
 						SetMoveDevice( MCreature::MOVE_DEVICE_WALK );
 					break;
 
 					//-------------------------------------------------
-					// ¸ğÀÚ
+					// ëª¨ì
 					//-------------------------------------------------
-					// ¸ğÀÚ¸¦ Á¦°ÅÇÑ °æ¿ì´Â 
-					// ÂªÀº ¸Ó¸®Ä«¶ôÀ» ´Ù½Ã ºÙ¿©ÁØ´Ù.
+					// ëª¨ìë¥¼ ì œê±°í•œ ê²½ìš°ëŠ” 
+					// ì§§ì€ ë¨¸ë¦¬ì¹´ë½ì„ ë‹¤ì‹œ ë¶™ì—¬ì¤€ë‹¤.
 					//-------------------------------------------------
 					case ADDON_HELM :
 						if (m_HairFrameID==ADDONID_HAIR1_FEMALE
@@ -890,19 +890,19 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 			return true;
 		}
 
-		// addon itemÀÌ ¾Æ´Ñ °æ¿ì
+		// addon itemì´ ì•„ë‹Œ ê²½ìš°
 		return true;
 	}
 
 	//-------------------------------------------------
 	//
-	// Á¤ÁöÇÑ »óÅÂ°¡ ¾Æ´Ñ °æ¿ì
+	// ì •ì§€í•œ ìƒíƒœê°€ ì•„ë‹Œ ê²½ìš°
 	//
 	//-------------------------------------------------
 	DEBUG_ADD_FORMAT("[Error] Not STAND action. id=%d, action=%d", m_ID, m_Action);
 	
-	// ´ÙÀ½¿¡ Á¤ÁöÇÒ ¶§, º¹ÀåÀ» ¹Ù²Ùµµ·Ï ÇÑ´Ù..
-	// ±×·¡¾ß µÇ´Âµ¥.. ±ÍÂú´Ù. - -;;
+	// ë‹¤ìŒì— ì •ì§€í•  ë•Œ, ë³µì¥ì„ ë°”ê¾¸ë„ë¡ í•œë‹¤..
+	// ê·¸ë˜ì•¼ ë˜ëŠ”ë°.. ê·€ì°®ë‹¤. - -;;
 
 
 	return false;
@@ -911,18 +911,18 @@ MCreatureWear::RemoveAddonItem( MItem* pItem )
 //---------------------------------------------------------------------------
 // Set Creature Type
 //---------------------------------------------------------------------------
-// ±âº» º¹ÀåÀ» ÀÔÈù´Ù.
+// ê¸°ë³¸ ë³µì¥ì„ ì…íŒë‹¤.
 //---------------------------------------------------------------------------
 void
 MCreatureWear::SetCreatureType(TYPE_CREATURETYPE type)
 {
 	//-------------------------------------------------
-	// type¼³Á¤
+	// typeì„¤ì •
 	//-------------------------------------------------
 	MCreature::SetCreatureType( type );
 
 	//-------------------------------------------------
-	// ´Ù ¹ş±ä´Ù.
+	// ë‹¤ ë²—ê¸´ë‹¤.
 	//-------------------------------------------------
 	for (int i=0; i<ADDON_MAX; i++)
 	{
@@ -932,17 +932,17 @@ MCreatureWear::SetCreatureType(TYPE_CREATURETYPE type)
 	if(IsVampire())
 	{
 		//-------------------------------------------------
-		// »óÀÇ : ¸Ç¸öÀÏ °æ¿ì¿¡´Â ±âº»¸öÀ¸·Î..
+		// ìƒì˜ : ë§¨ëª¸ì¼ ê²½ìš°ì—ëŠ” ê¸°ë³¸ëª¸ìœ¼ë¡œ..
 		//-------------------------------------------------
 		ADDON_INFO& addon = m_Addon[ADDON_COAT];
 
-		// ÃÊ±âÈ­
+		// ì´ˆê¸°í™”
 		addon.bAddon	= TRUE;
 //		addon.FrameID	= IsMale()? ADDONID_COAT0_MALE : ADDONID_COAT0_FEMALE;
 		
 		addon.ItemClass	= ITEM_CLASS_VAMPIRE_COAT;
 		addon.ItemType	= 0;
-		addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ±âº» ÇÇºÎ»ö
+		addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ê¸°ë³¸ í”¼ë¶€ìƒ‰
 		addon.ColorSet2	= defaultCoatColor;	
 		addon.bEffectColor = FALSE;
 		addon.EffectColorSet = 0;
@@ -951,18 +951,18 @@ MCreatureWear::SetCreatureType(TYPE_CREATURETYPE type)
 	if(IsOusters())
 	{
 		//-------------------------------------------------
-		// »óÀÇ : ¸Ç¸öÀÏ °æ¿ì¿¡´Â ±âº»¸öÀ¸·Î..
+		// ìƒì˜ : ë§¨ëª¸ì¼ ê²½ìš°ì—ëŠ” ê¸°ë³¸ëª¸ìœ¼ë¡œ..
 		//-------------------------------------------------
 		ADDON_INFO& addon = m_Addon[ADDON_COAT];
 		
-		// ÃÊ±âÈ­
+		// ì´ˆê¸°í™”
 		addon.bAddon	= TRUE;
 		addon.FrameID	= 1;
 		//		addon.FrameID	= IsMale()? ADDONID_COAT0_MALE : ADDONID_COAT0_FEMALE;
 		
 		addon.ItemClass	= ITEM_CLASS_OUSTERS_COAT;
 		addon.ItemType	= 0;
-		addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ±âº» ÇÇºÎ»ö
+		addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ê¸°ë³¸ í”¼ë¶€ìƒ‰
 		addon.ColorSet2	= defaultCoatColor;	
 		addon.bEffectColor = FALSE;
 		addon.EffectColorSet = 0;
@@ -970,33 +970,33 @@ MCreatureWear::SetCreatureType(TYPE_CREATURETYPE type)
 	else
 	{
 		//-------------------------------------------------
-		// »óÀÇ : ¸Ç¸öÀÏ °æ¿ì¿¡´Â ±âº»¸öÀ¸·Î..
+		// ìƒì˜ : ë§¨ëª¸ì¼ ê²½ìš°ì—ëŠ” ê¸°ë³¸ëª¸ìœ¼ë¡œ..
 		//-------------------------------------------------
 		ADDON_INFO& addon = m_Addon[ADDON_COAT];
 
-		// ÃÊ±âÈ­
+		// ì´ˆê¸°í™”
 		addon.bAddon	= TRUE;
 		addon.FrameID	= IsMale()? ADDONID_COAT0_MALE : ADDONID_COAT0_FEMALE;
 		
 		addon.ItemClass	= ITEM_CLASS_COAT;
 		addon.ItemType	= 0;
-		addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ±âº» ÇÇºÎ»ö
+		addon.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ê¸°ë³¸ í”¼ë¶€ìƒ‰
 		addon.ColorSet2	= defaultCoatColor;	
 		addon.bEffectColor = FALSE;
 		addon.EffectColorSet = 0;
 		
 		//-------------------------------------------------
-		// ÇÏÀÇ : ¸Ç¸öÀÏ °æ¿ì¿¡´Â ±âº»¸öÀ¸·Î..
+		// í•˜ì˜ : ë§¨ëª¸ì¼ ê²½ìš°ì—ëŠ” ê¸°ë³¸ëª¸ìœ¼ë¡œ..
 		//-------------------------------------------------
 		ADDON_INFO& addon2 = m_Addon[ADDON_TROUSER];
 		
-		// ÃÊ±âÈ­
+		// ì´ˆê¸°í™”
 		addon2.bAddon	= TRUE;
 		addon2.FrameID	= IsMale()? ADDONID_TROUSER0_MALE : ADDONID_TROUSER0_FEMALE;
 		
 		addon2.ItemClass	= ITEM_CLASS_TROUSER;
 		addon2.ItemType	= 0;
-		addon2.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ±âº» ÇÇºÎ»ö
+		addon2.ColorSet1	= m_ColorBody1;//defaultSkinColor;	// ê¸°ë³¸ í”¼ë¶€ìƒ‰
 		addon2.ColorSet2	= defaultTrouserColor;
 		addon2.bEffectColor = FALSE;
 		addon2.EffectColorSet = 0;
@@ -1006,7 +1006,7 @@ MCreatureWear::SetCreatureType(TYPE_CREATURETYPE type)
 //----------------------------------------------------------------------
 // Remove EffectStatus
 //----------------------------------------------------------------------
-// Æ¯Á¤ÇÑ EffectSpriteTypeÀ» Á¦°ÅÇÑ´Ù.
+// íŠ¹ì •í•œ EffectSpriteTypeì„ ì œê±°í•œë‹¤.
 //----------------------------------------------------------------------
 bool
 MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
@@ -1030,7 +1030,7 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 	bool bUseEffectSprite = (*g_pEffectStatusTable)[status].bUseEffectSprite;
 	TYPE_EFFECTSPRITETYPE type = (*g_pEffectStatusTable)[status].EffectSpriteType;
 	//------------------------------------------------------------
-	// effectStatus¿¡ µû¶ó¼­.
+	// effectStatusì— ë”°ë¼ì„œ.
 	//------------------------------------------------------------
 	switch (status)
 	{
@@ -1055,7 +1055,7 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 			SetMoveDevice(MOVE_DEVICE_WALK);
 			break;
 		//------------------------------------------------------------
-		// ¸¶ºñ Ç®¸± ¶§
+		// ë§ˆë¹„ í’€ë¦´ ë•Œ
 		//------------------------------------------------------------
 		// add by Coffee 2007-3-21
 		case EFFECTSTATUS_SATELLITE_BOMB_AIM :
@@ -1072,7 +1072,7 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 		break;
 
 		//------------------------------------------------------------
-		// ¸¶ºñ Ç®¸± ¶§
+		// ë§ˆë¹„ í’€ë¦´ ë•Œ
 		//------------------------------------------------------------
 		case EFFECTSTATUS_CAUSE_CRITICAL_WOUNDS :
 		case EFFECTSTATUS_EXPLOSION_WATER :
@@ -1095,19 +1095,19 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 		break;
 
 		//------------------------------------------------------------
-		// EFFECTSTATUS_SUMMON_CASKET [»õ±â¼ú]
+		// EFFECTSTATUS_SUMMON_CASKET [ìƒˆê¸°ìˆ ]
 		//------------------------------------------------------------
 		case EFFECTSTATUS_CASKET :
-			// ¹Ù·Î invisible·Î ¸¸µç´Ù.
+			// ë°”ë¡œ invisibleë¡œ ë§Œë“ ë‹¤.
 			RemoveCasket();
 		break;
 
 		//------------------------------------------------------------
-		// invisible Á¦°Å
+		// invisible ì œê±°
 		//------------------------------------------------------------
 		case EFFECTSTATUS_INVISIBILITY :
 		case EFFECTSTATUS_SNIPPING_MODE :
-			// invisibleÀ» Á¦°ÅÇÑ´Ù.
+			// invisibleì„ ì œê±°í•œë‹¤.
 			SetVisible();
 		break;
 
@@ -1119,12 +1119,12 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 			if(IsVampire())
 			{
 				ExecuteActionInfoFromMainNode(
-							BLOOD_RESURRECT,										// »ç¿ë ±â¼ú ¹øÈ£
+							BLOOD_RESURRECT,										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 						
 							m_X, m_Y, 0,
-							(int)m_Direction,														// »ç¿ë ¹æÇâ
+							(int)m_Direction,														// ì‚¬ìš© ë°©í–¥
 							
-							m_ID,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+							m_ID,												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 							m_X, m_Y, 0,
 							
 							2*16, //5*16, 
@@ -1137,7 +1137,7 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 			}
 
 		case EFFECTSTATUS_GHOST:
-			if (!(*g_pCreatureTable)[m_CreatureType].bFlyingCreature)	// ¹ÚÁãÀÎ °æ¿ì
+			if (!(*g_pCreatureTable)[m_CreatureType].bFlyingCreature)	// ë°•ì¥ì¸ ê²½ìš°
 				SetGroundCreature();
 			break;
 		break;
@@ -1156,7 +1156,7 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 
 	//------------------------------------------------------------
 	//
-	//			EffectSprite·Î Ç¥ÇöÇÏ´Â °æ¿ì
+	//			EffectSpriteë¡œ í‘œí˜„í•˜ëŠ” ê²½ìš°
 	//
 	//------------------------------------------------------------
 	if (bUseEffectSprite)
@@ -1170,8 +1170,8 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 		_MinTrace("remove effectsprite\n");
 
 		//-------------------------------------------------------
-		// Creature¿¡ ºÙ¾î ÀÖ´Â EffectÁß¿¡¼­
-		// EffectSpriteTypeÀÌ typeÀÎ °ÍÀ» Á¦°ÅÇÑ´Ù.
+		// Creatureì— ë¶™ì–´ ìˆëŠ” Effectì¤‘ì—ì„œ
+		// EffectSpriteTypeì´ typeì¸ ê²ƒì„ ì œê±°í•œë‹¤.
 		//-------------------------------------------------------
 		if (type < g_pEffectSpriteTypeTable->GetSize())
 		{
@@ -1185,7 +1185,7 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 			if (m_bAttachEffect[type])
 			{
 				//-------------------------------------------------------
-				// ¸ö¿¡ ºÙÀº °æ¿ì
+				// ëª¸ì— ë¶™ì€ ê²½ìš°
 				//-------------------------------------------------------			
 				ATTACHEFFECT_LIST::iterator iEffect = m_listEffect.begin();
 
@@ -1196,20 +1196,20 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 					MAttachEffect* pEffect = *iEffect;
 					
 					//-------------------------------------------------------
-					// °°Àº typeÀ» Ã£´Â´Ù.
+					// ê°™ì€ typeì„ ì°¾ëŠ”ë‹¤.
 					//-------------------------------------------------------
 					if (pEffect->IsEffectSprite() 
 						&& (pEffect->GetEffectSpriteType() == type ||
 						type2 != EFFECTSPRITETYPE_NULL && pEffect->GetEffectSpriteType() == type2 ) )
 					{						
-						// ¸Ş¸ğ¸® Á¦°Å
+						// ë©”ëª¨ë¦¬ ì œê±°
 						delete pEffect;
 						pEffect = NULL;
 						
 						ATTACHEFFECT_LIST::iterator dEffect = iEffect;
 						iEffect--;
 
-						// list¿¡¼­ Á¦°Å
+						// listì—ì„œ ì œê±°
 						m_listEffect.erase( dEffect );
 
 						m_bAttachEffect[type] = false;
@@ -1224,7 +1224,7 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 					return true;
 
 				//-------------------------------------------------------
-				// ¹Ù´Ú¿¡ ºÙÀº °æ¿ì
+				// ë°”ë‹¥ì— ë¶™ì€ ê²½ìš°
 				//-------------------------------------------------------
 				iEffect = m_listGroundEffect.begin();
 
@@ -1233,16 +1233,16 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 					MAttachEffect* pEffect = *iEffect;
 					
 					//-------------------------------------------------------
-					// °°Àº typeÀ» Ã£´Â´Ù.
+					// ê°™ì€ typeì„ ì°¾ëŠ”ë‹¤.
 					//-------------------------------------------------------
 					if (pEffect->IsEffectSprite() && 
 						( pEffect->GetEffectSpriteType() == type || type2 != EFFECTSPRITETYPE_NULL && 
 						type2 == pEffect->GetEffectSpriteType()) )
 					{
-						// ¸Ş¸ğ¸® Á¦°Å
+						// ë©”ëª¨ë¦¬ ì œê±°
 						delete pEffect;
 
-						// list¿¡¼­ Á¦°Å
+						// listì—ì„œ ì œê±°
 						m_listGroundEffect.erase( iEffect );
 
 						m_bAttachEffect[type] = false;
@@ -1256,7 +1256,7 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 	}
 	//------------------------------------------------------------
 	//
-	//			EffectColor·Î Ç¥ÇöÇÏ´Â °æ¿ì
+	//			EffectColorë¡œ í‘œí˜„í•˜ëŠ” ê²½ìš°
 	//
 	//------------------------------------------------------------
 	else
@@ -1264,8 +1264,8 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 		WORD colorSet = (*g_pEffectStatusTable)[status].EffectColor;
 
 		//-------------------------------------------------------
-		// Creature¿¡ ºÙ¾î ÀÖ´Â EffectÁß¿¡¼­
-		// EffectColor°¡ colorÀÎ °ÍÀ» Á¦°ÅÇÑ´Ù.
+		// Creatureì— ë¶™ì–´ ìˆëŠ” Effectì¤‘ì—ì„œ
+		// EffectColorê°€ colorì¸ ê²ƒì„ ì œê±°í•œë‹¤.
 		//-------------------------------------------------------
 		ATTACHEFFECT_LIST::iterator iEffect = m_listEffect.begin();
 
@@ -1274,21 +1274,21 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 			MAttachEffect* pEffect = *iEffect;
 			
 			//-------------------------------------------------------
-			// °°Àº typeÀ» Ã£´Â´Ù.
+			// ê°™ì€ typeì„ ì°¾ëŠ”ë‹¤.
 			//-------------------------------------------------------
 			if (pEffect->IsEffectColor() && pEffect->GetEffectColor() == colorSet)
 			{
 				ADDON	part = pEffect->GetEffectColorPart();
 
 				//------------------------------------------------------------
-				// Æ¯Á¤ÇÑ ºÎÀ§¸¸ »ö±òÀÌ ¹Ù²î´Â °æ¿ìµµ ÀÖ´Ù.
+				// íŠ¹ì •í•œ ë¶€ìœ„ë§Œ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°ë„ ìˆë‹¤.
 				//------------------------------------------------------------
 				if (part < ADDON_MAX)
 				{
 					m_Addon[part].bEffectColor = FALSE;
 				}
 				//------------------------------------------------------------
-				// ¸ğµç ºÎÀ§¸¦ ¿ø·¡´ë·Î...
+				// ëª¨ë“  ë¶€ìœ„ë¥¼ ì›ë˜ëŒ€ë¡œ...
 				//------------------------------------------------------------
 				else
 				{
@@ -1298,10 +1298,10 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 					}
 				}
 
-				// ¸Ş¸ğ¸® Á¦°Å
+				// ë©”ëª¨ë¦¬ ì œê±°
 				delete pEffect;
 
-				// list¿¡¼­ Á¦°Å
+				// listì—ì„œ ì œê±°
 				m_listEffect.erase( iEffect );
 
 				return true;
@@ -1317,8 +1317,8 @@ MCreatureWear::RemoveEffectStatus(EFFECTSTATUS status)
 //----------------------------------------------------------------------
 // Update Effect
 //----------------------------------------------------------------------
-// Creature¿¡ ºÙÀº ¸ğµç EffectÀÇ FrameÀ» ¹Ù²ãÁÖ°í..
-// ³¡³ª´Â°Ô ÀÖÀ¸¸é list¿Í memory¿¡¼­ »èÁ¦ÇÑ´Ù.
+// Creatureì— ë¶™ì€ ëª¨ë“  Effectì˜ Frameì„ ë°”ê¿”ì£¼ê³ ..
+// ëë‚˜ëŠ”ê²Œ ìˆìœ¼ë©´ listì™€ memoryì—ì„œ ì‚­ì œí•œë‹¤.
 //----------------------------------------------------------------------
 void		
 MCreatureWear::UpdateAttachEffect()
@@ -1326,18 +1326,18 @@ MCreatureWear::UpdateAttachEffect()
 	ATTACHEFFECT_LIST::iterator iEffect = m_listEffect.begin();
 	ATTACHEFFECT_LIST::iterator iEffectTemp;
 
-	// ¹à±â´Â 0
+	// ë°ê¸°ëŠ” 0
 	//m_MaxEffectLight = 0;
 
 	//---------------------------------------------------------------------
-	// Ä³¸¯ÅÍ »ö±ò ¹Ù²Ù´Â »ö..
+	// ìºë¦­í„° ìƒ‰ê¹” ë°”ê¾¸ëŠ” ìƒ‰..
 	//---------------------------------------------------------------------
-	// NULL°ªÀÌ´ç.. ¿ÜºÎ¿¡¼­ Ã¼Å©ÇØ¾ßÇÔ..
+	// NULLê°’ì´ë‹¹.. ì™¸ë¶€ì—ì„œ ì²´í¬í•´ì•¼í•¨..
 	m_AttachEffectColor = m_ChangeColorSet;	//ATTACHEFFECTCOLOR_NULL;
 	int bShowColor = (HasEffectStatus(EFFECTSTATUS_CURSE_PARALYSIS) 
-						|| g_CurrentFrame % g_pClientConfig->FRAME_DRAW_ORIGINAL_SPRITE);	// ¸î frame¸¶´Ù ÇÑ¹ø¾¿Àº ¿ø·¡ »ö±òÀ» º¸¿©ÁØ´Ù.
+						|| g_CurrentFrame % g_pClientConfig->FRAME_DRAW_ORIGINAL_SPRITE);	// ëª‡ frameë§ˆë‹¤ í•œë²ˆì”©ì€ ì›ë˜ ìƒ‰ê¹”ì„ ë³´ì—¬ì¤€ë‹¤.
 
-	int bShowColorPart = (g_CurrentFrame & 0x00000004);	// 4 frame¾¿ ¹ø°¥¾Æ°¡¸ç »ö Ãâ·Â
+	int bShowColorPart = (g_CurrentFrame & 0x00000004);	// 4 frameì”© ë²ˆê°ˆì•„ê°€ë©° ìƒ‰ ì¶œë ¥
 	int numColors = 0;
 	BOOL bChangeColor = FALSE;
 
@@ -1345,7 +1345,7 @@ MCreatureWear::UpdateAttachEffect()
 	WORD	addonColor[ADDON_MAX] = { m_ChangeColorSet, };
 
 	//---------------------------------------------------------------------
-	// ¸ğµç Effect¸¦ UpdateÇÑ´Ù.
+	// ëª¨ë“  Effectë¥¼ Updateí•œë‹¤.
 	//---------------------------------------------------------------------
 	while (iEffect != m_listEffect.end())
 	{
@@ -1444,26 +1444,26 @@ MCreatureWear::UpdateAttachEffect()
 
 		if (bErase == false && pEffect->Update())
 		{
-			// -_- Èí¿µÀº ¹æÇâ ¾È¹Ù²Û´Ù..
+			// -_- í¡ì˜ì€ ë°©í–¥ ì•ˆë°”ê¾¼ë‹¤..
 			if( pEffect->GetEffectSpriteType() != EFFECTSPRITETYPE_ABSORB_SOUL )
 				pEffect->SetDirection( m_CurrentDirection );
-			// ÃÖ°í ¹à±â¸¦ °¡Áø EffectÀÇ ¹à±â¸¦ ÀúÀåÇÑ´Ù.
+			// ìµœê³  ë°ê¸°ë¥¼ ê°€ì§„ Effectì˜ ë°ê¸°ë¥¼ ì €ì¥í•œë‹¤.
 //			if (m_MaxEffectLight < pEffect->GetLight())
 //			{
 //				m_MaxEffectLight = pEffect->GetLight();
 //			}
 
-			// À§Ä¡ ¼³Á¤
+			// ìœ„ì¹˜ ì„¤ì •
 			pEffect->SetPosition(m_X, m_Y);
 
 			//---------------------------------------------------------------------
-			// À§Ä¡°¡ ¹Ù²î¾ú°Å³ª
-			// ºûÀÇ Å©±â(½Ã¾ß)°¡ ¹Ù²ï °æ¿ì
+			// ìœ„ì¹˜ê°€ ë°”ë€Œì—ˆê±°ë‚˜
+			// ë¹›ì˜ í¬ê¸°(ì‹œì•¼)ê°€ ë°”ë€ ê²½ìš°
 			//---------------------------------------------------------------------
 			if (x!=pEffect->GetX() || y!=pEffect->GetY()
 				|| light != pEffect->GetLight())
 			{				
-				// ½Ã¾ß ¹Ù²Ù±â
+				// ì‹œì•¼ ë°”ê¾¸ê¸°
 //				g_pZone->UnSetLight(x, y, light);
 //				g_pZone->SetLight(pEffect->GetX(), pEffect->GetY(), pEffect->GetLight());
 
@@ -1483,15 +1483,15 @@ MCreatureWear::UpdateAttachEffect()
 			}
 
 			//---------------------------------------------------------------------
-			// Ä³¸¯ÅÍ »ö±ò ¹Ù²Ù´Â EffectÀÌ¸é
-			// ÇÏ³ª¸¦ ¼±ÅÃÇØ¾ß ÇÑ´Ù.
+			// ìºë¦­í„° ìƒ‰ê¹” ë°”ê¾¸ëŠ” Effectì´ë©´
+			// í•˜ë‚˜ë¥¼ ì„ íƒí•´ì•¼ í•œë‹¤.
 			//---------------------------------------------------------------------
 			if (pEffect->IsEffectColor())
 			{
 				ADDON	part = pEffect->GetEffectColorPart();
 
 				//--------------------------------------------------------
-				// ºÎºĞÀûÀ¸·Î »ö±ò ¹Ù²î´Â effect
+				// ë¶€ë¶„ì ìœ¼ë¡œ ìƒ‰ê¹” ë°”ë€ŒëŠ” effect
 				//--------------------------------------------------------
 				if (part < ADDON_MAX)
 				{
@@ -1504,7 +1504,7 @@ MCreatureWear::UpdateAttachEffect()
 					}
 				}
 				//--------------------------------------------------------
-				// ÀüÃ¼ »ö±ò ¹Ù²î´Â effect
+				// ì „ì²´ ìƒ‰ê¹” ë°”ë€ŒëŠ” effect
 				//--------------------------------------------------------
 				else if (bShowColor)
 				{
@@ -1521,51 +1521,51 @@ MCreatureWear::UpdateAttachEffect()
 
 			//-----------------------------------------------
 			//
-			// ÀÌ Effect°¡ ³¡³ª±â Àü¿¡ LinkCount¿¡ ÀÇÇØ¼­
-			// ´ÙÀ½ ¿¬°áµÇ´Â Effect°¡ ÀÖÀ¸¸é »ı¼ºÇØ¾ß ÇÑ´Ù.
+			// ì´ Effectê°€ ëë‚˜ê¸° ì „ì— LinkCountì— ì˜í•´ì„œ
+			// ë‹¤ìŒ ì—°ê²°ë˜ëŠ” Effectê°€ ìˆìœ¼ë©´ ìƒì„±í•´ì•¼ í•œë‹¤.
 			//
-			// ÇöÀçFrameÀÌ EndLinkFrameÀ» ³Ñ¾î°£ °æ¿ì
+			// í˜„ì¬Frameì´ EndLinkFrameì„ ë„˜ì–´ê°„ ê²½ìš°
 			//
 			//-----------------------------------------------
 			if (g_CurrentFrame >= pEffect->GetEndLinkFrame()
 				&& pEffect->GetLinkSize() != 0)
 			{
-				// GenerateNext¿¡¼­ 
-				// pEffectÀÇ EffectTargetÀ» NULL·Î ¸¸µé¾îÁÖ±â ¶§¹®¿¡
-				// ¿©±â¼­ Áö¿ï ÇÊ¿ä ¾ø´Ù.
+				// GenerateNextì—ì„œ 
+				// pEffectì˜ EffectTargetì„ NULLë¡œ ë§Œë“¤ì–´ì£¼ê¸° ë•Œë¬¸ì—
+				// ì—¬ê¸°ì„œ ì§€ìš¸ í•„ìš” ì—†ë‹¤.
 				g_pEffectGeneratorTable->GenerateNext( pEffect );
 
-				// pEffect´Â ¿©ÀüÈ÷ Á¸ÀçÇØ¾ß ÇÏ¹Ç·Î Áö¿ì¸é ¾ÈµÈ´Ù.
+				// pEffectëŠ” ì—¬ì „íˆ ì¡´ì¬í•´ì•¼ í•˜ë¯€ë¡œ ì§€ìš°ë©´ ì•ˆëœë‹¤.
 			}
 
-			// Á¦´ë·Î µÈ °æ¿ì
+			// ì œëŒ€ë¡œ ëœ ê²½ìš°
 			iEffect++;
 		}
 		//---------------------------------------------------------------------
-		// ½Ã°£ÀÌ ´Ù µÅ¼­ ³¡³ª´Â °æ¿ì
+		// ì‹œê°„ì´ ë‹¤ ë¼ì„œ ëë‚˜ëŠ” ê²½ìš°
 		//---------------------------------------------------------------------
 		else
 		{
 			bool bUseEffectSprite = pEffect->IsEffectSprite();
 
-			// flagÁ¦°Å
+			// flagì œê±°
 			if (bUseEffectSprite)
 			{
-				m_bAttachEffect[pEffect->GetEffectSpriteType()] = false;	// flagÁ¦°Å
+				m_bAttachEffect[pEffect->GetEffectSpriteType()] = false;	// flagì œê±°
 			}
 
 
 			ADDON	part = pEffect->GetEffectColorPart();
 
 			//------------------------------------------------------------
-			// Æ¯Á¤ÇÑ ºÎÀ§¸¸ »ö±òÀÌ ¹Ù²î´Â °æ¿ìµµ ÀÖ´Ù.
+			// íŠ¹ì •í•œ ë¶€ìœ„ë§Œ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” ê²½ìš°ë„ ìˆë‹¤.
 			//------------------------------------------------------------
 			if (part < ADDON_MAX)
 			{
 				m_Addon[part].bEffectColor = FALSE;
 			}
 			//------------------------------------------------------------
-			// ¿ø·¡´ë·Î ¸ğµÎ µ¹¸°´Ù.
+			// ì›ë˜ëŒ€ë¡œ ëª¨ë‘ ëŒë¦°ë‹¤.
 			//------------------------------------------------------------
 			else
 			{
@@ -1577,7 +1577,7 @@ MCreatureWear::UpdateAttachEffect()
 		
 			//---------------------------------------------------------------------
 			//
-			// ´ÙÀ½ ¿¬°áµÇ´Â Effect°¡ ÀÖÀ¸¸é »ı¼ºÇØ¾ß ÇÑ´Ù.
+			// ë‹¤ìŒ ì—°ê²°ë˜ëŠ” Effectê°€ ìˆìœ¼ë©´ ìƒì„±í•´ì•¼ í•œë‹¤.
 			//
 			//---------------------------------------------------------------------
 			if (pEffect->GetLinkSize() != 0)
@@ -1585,12 +1585,12 @@ MCreatureWear::UpdateAttachEffect()
 				g_pEffectGeneratorTable->GenerateNext( pEffect );
 			}
 
-			// ºû³ª´Â Effect¸é ½Ã¾ß¸¦ »ç¶óÁö°Ô ÇØ¾ßÇÑ´Ù.
+			// ë¹›ë‚˜ëŠ” Effectë©´ ì‹œì•¼ë¥¼ ì‚¬ë¼ì§€ê²Œ í•´ì•¼í•œë‹¤.
 			//if (pEffect->GetBltType()==BLT_EFFECT)
 			{
 				//m_nAlphaEffect --;
 
-				// ¸ğµç ºû³ª´ÂEffect°¡ »ç¶óÁ³À¸¸é ½Ã¾ß¸¦ Á¦°Å½ÃÅ²´Ù.
+				// ëª¨ë“  ë¹›ë‚˜ëŠ”Effectê°€ ì‚¬ë¼ì¡Œìœ¼ë©´ ì‹œì•¼ë¥¼ ì œê±°ì‹œí‚¨ë‹¤.
 				//if (m_nAlphaEffect==0)
 				{
 //					g_pZone->UnSetLight(x, y, light);
@@ -1607,23 +1607,23 @@ MCreatureWear::UpdateAttachEffect()
 
 			DEBUG_ADD_FORMAT("[DeleteAttachEffect] id=%d, esType=%d", m_ID, pEffect->GetEffectSpriteType());
 			
-			// memory»èÁ¦, list»èÁ¦						
-			delete pEffect;						// memoryÁ¦°Å
+			// memoryì‚­ì œ, listì‚­ì œ						
+			delete pEffect;						// memoryì œê±°
 			
 			DEBUG_ADD("[DeleteAttachEffect] OK");
 			
-			// list¿¡¼­ »èÁ¦ÇÏ±â À§ÇØ¼­.. ÀÓ½Ã·Î ÀúÀå
+			// listì—ì„œ ì‚­ì œí•˜ê¸° ìœ„í•´ì„œ.. ì„ì‹œë¡œ ì €ì¥
 			iEffectTemp = iEffect;
 
 			iEffect++;
-			m_listEffect.erase( iEffectTemp );	// list¿¡¼­ Á¦°Å
+			m_listEffect.erase( iEffectTemp );	// listì—ì„œ ì œê±°
 		}		
 	}
 
 	//---------------------------------------------------------------------
-	// ¸ö¿¡ ºÙ´Â effect
+	// ëª¸ì— ë¶™ëŠ” effect
 	//---------------------------------------------------------------------
-	// ¸ğµç Effect¸¦ UpdateÇÑ´Ù.
+	// ëª¨ë“  Effectë¥¼ Updateí•œë‹¤.
 	//---------------------------------------------------------------------
 	iEffect = m_listGroundEffect.begin();
 	
@@ -1646,23 +1646,23 @@ MCreatureWear::UpdateAttachEffect()
 
 		if (pEffect->Update())
 		{
-			// ÃÖ°í ¹à±â¸¦ °¡Áø EffectÀÇ ¹à±â¸¦ ÀúÀåÇÑ´Ù.
+			// ìµœê³  ë°ê¸°ë¥¼ ê°€ì§„ Effectì˜ ë°ê¸°ë¥¼ ì €ì¥í•œë‹¤.
 //			if (m_MaxEffectLight < pEffect->GetLight())
 //			{
 //				m_MaxEffectLight = pEffect->GetLight();
 //			}
 
-			// À§Ä¡ ¼³Á¤
+			// ìœ„ì¹˜ ì„¤ì •
 			pEffect->SetPosition(m_X, m_Y);
 
 			//---------------------------------------------------------------------
-			// À§Ä¡°¡ ¹Ù²î¾ú°Å³ª
-			// ºûÀÇ Å©±â(½Ã¾ß)°¡ ¹Ù²ï °æ¿ì
+			// ìœ„ì¹˜ê°€ ë°”ë€Œì—ˆê±°ë‚˜
+			// ë¹›ì˜ í¬ê¸°(ì‹œì•¼)ê°€ ë°”ë€ ê²½ìš°
 			//---------------------------------------------------------------------
 			if (x!=pEffect->GetX() || y!=pEffect->GetY()
 				|| light != pEffect->GetLight())
 			{				
-				// ½Ã¾ß ¹Ù²Ù±â
+				// ì‹œì•¼ ë°”ê¾¸ê¸°
 //				g_pZone->UnSetLight(x, y, light);
 //				g_pZone->SetLight(pEffect->GetX(), pEffect->GetY(), pEffect->GetLight());
 
@@ -1683,42 +1683,42 @@ MCreatureWear::UpdateAttachEffect()
 
 			//-----------------------------------------------
 			//
-			// ÀÌ Effect°¡ ³¡³ª±â Àü¿¡ LinkCount¿¡ ÀÇÇØ¼­
-			// ´ÙÀ½ ¿¬°áµÇ´Â Effect°¡ ÀÖÀ¸¸é »ı¼ºÇØ¾ß ÇÑ´Ù.
+			// ì´ Effectê°€ ëë‚˜ê¸° ì „ì— LinkCountì— ì˜í•´ì„œ
+			// ë‹¤ìŒ ì—°ê²°ë˜ëŠ” Effectê°€ ìˆìœ¼ë©´ ìƒì„±í•´ì•¼ í•œë‹¤.
 			//
-			// ÇöÀçFrameÀÌ EndLinkFrameÀ» ³Ñ¾î°£ °æ¿ì
+			// í˜„ì¬Frameì´ EndLinkFrameì„ ë„˜ì–´ê°„ ê²½ìš°
 			//
 			//-----------------------------------------------
 			if (g_CurrentFrame >= pEffect->GetEndLinkFrame()
 				&& pEffect->GetLinkSize() != 0)
 			{
-				// GenerateNext¿¡¼­ 
-				// pEffectÀÇ EffectTargetÀ» NULL·Î ¸¸µé¾îÁÖ±â ¶§¹®¿¡
-				// ¿©±â¼­ Áö¿ï ÇÊ¿ä ¾ø´Ù.
+				// GenerateNextì—ì„œ 
+				// pEffectì˜ EffectTargetì„ NULLë¡œ ë§Œë“¤ì–´ì£¼ê¸° ë•Œë¬¸ì—
+				// ì—¬ê¸°ì„œ ì§€ìš¸ í•„ìš” ì—†ë‹¤.
 				g_pEffectGeneratorTable->GenerateNext( pEffect );
 
-				// pEffect´Â ¿©ÀüÈ÷ Á¸ÀçÇØ¾ß ÇÏ¹Ç·Î Áö¿ì¸é ¾ÈµÈ´Ù.
+				// pEffectëŠ” ì—¬ì „íˆ ì¡´ì¬í•´ì•¼ í•˜ë¯€ë¡œ ì§€ìš°ë©´ ì•ˆëœë‹¤.
 			}
 
-			// Á¦´ë·Î µÈ °æ¿ì
+			// ì œëŒ€ë¡œ ëœ ê²½ìš°
 			iEffect++;
 		}
 		//---------------------------------------------------------------------
-		// ½Ã°£ÀÌ ´Ù µÅ¼­ ³¡³ª´Â °æ¿ì
+		// ì‹œê°„ì´ ë‹¤ ë¼ì„œ ëë‚˜ëŠ” ê²½ìš°
 		//---------------------------------------------------------------------
 		else
 		{
 			bool bUseEffectSprite = pEffect->IsEffectSprite();
 
-			// flagÁ¦°Å
+			// flagì œê±°
 			if (bUseEffectSprite)
 			{
-				m_bAttachEffect[pEffect->GetEffectSpriteType()] = false;	// flagÁ¦°Å
+				m_bAttachEffect[pEffect->GetEffectSpriteType()] = false;	// flagì œê±°
 			}
 
 			//---------------------------------------------------------------------
 			//
-			// ´ÙÀ½ ¿¬°áµÇ´Â Effect°¡ ÀÖÀ¸¸é »ı¼ºÇØ¾ß ÇÑ´Ù.
+			// ë‹¤ìŒ ì—°ê²°ë˜ëŠ” Effectê°€ ìˆìœ¼ë©´ ìƒì„±í•´ì•¼ í•œë‹¤.
 			//
 			//---------------------------------------------------------------------
 			if (pEffect->GetLinkSize() != 0)
@@ -1726,12 +1726,12 @@ MCreatureWear::UpdateAttachEffect()
 				g_pEffectGeneratorTable->GenerateNext( pEffect );
 			}
 
-			// ºû³ª´Â Effect¸é ½Ã¾ß¸¦ »ç¶óÁö°Ô ÇØ¾ßÇÑ´Ù.
+			// ë¹›ë‚˜ëŠ” Effectë©´ ì‹œì•¼ë¥¼ ì‚¬ë¼ì§€ê²Œ í•´ì•¼í•œë‹¤.
 			//if (pEffect->GetBltType()==BLT_EFFECT)
 			{
 				//m_nAlphaEffect --;
 
-				// ¸ğµç ºû³ª´ÂEffect°¡ »ç¶óÁ³À¸¸é ½Ã¾ß¸¦ Á¦°Å½ÃÅ²´Ù.
+				// ëª¨ë“  ë¹›ë‚˜ëŠ”Effectê°€ ì‚¬ë¼ì¡Œìœ¼ë©´ ì‹œì•¼ë¥¼ ì œê±°ì‹œí‚¨ë‹¤.
 				//if (m_nAlphaEffect==0)
 				{
 //					g_pZone->UnSetLight(x, y, light);
@@ -1749,28 +1749,28 @@ MCreatureWear::UpdateAttachEffect()
 			DEBUG_ADD_FORMAT("[DeleteAttachEffect] id=%d, esType=%d", m_ID, pEffect->GetEffectSpriteType());
 			
 
-			// memory»èÁ¦, list»èÁ¦						
-			delete pEffect;						// memoryÁ¦°Å
+			// memoryì‚­ì œ, listì‚­ì œ						
+			delete pEffect;						// memoryì œê±°
 			
 			
 			DEBUG_ADD("[DeleteAttachEffect] OK");
 			
 
-			// list¿¡¼­ »èÁ¦ÇÏ±â À§ÇØ¼­.. ÀÓ½Ã·Î ÀúÀå
+			// listì—ì„œ ì‚­ì œí•˜ê¸° ìœ„í•´ì„œ.. ì„ì‹œë¡œ ì €ì¥
 			iEffectTemp = iEffect;
 
 			iEffect++;
-			m_listGroundEffect.erase( iEffectTemp );	// list¿¡¼­ Á¦°Å
+			m_listGroundEffect.erase( iEffectTemp );	// listì—ì„œ ì œê±°
 		}		
 	}
 
 	//---------------------------------------------------------------------
-	// »ö±ò ¹Ù²î´Â °Å º¸¿©ÁÖ´Â ½ÃÁ¡ÀÌ¸é..
+	// ìƒ‰ê¹” ë°”ë€ŒëŠ” ê±° ë³´ì—¬ì£¼ëŠ” ì‹œì ì´ë©´..
 	//---------------------------------------------------------------------
 	if (bChangeColor)
 	{
 		//---------------------------------------------------------------------
-		// ÀüÃ¼ »ö±ò ¹Ù²î´Â Effect°¡ ¾ø´Â °æ¿ì
+		// ì „ì²´ ìƒ‰ê¹” ë°”ë€ŒëŠ” Effectê°€ ì—†ëŠ” ê²½ìš°
 		//---------------------------------------------------------------------	
 		if (m_AttachEffectColor == m_ChangeColorSet)//ATTACHEFFECTCOLOR_NULL)
 		{
@@ -1778,19 +1778,19 @@ MCreatureWear::UpdateAttachEffect()
 			{
 				if (bAddonColorPart[p])
 				{
-					// ±× ºÎºĞ¸¸ ¹Ù²î´Â »ö±ò·Î..
+					// ê·¸ ë¶€ë¶„ë§Œ ë°”ë€ŒëŠ” ìƒ‰ê¹”ë¡œ..
 					m_Addon[p].bEffectColor		= TRUE;
 					m_Addon[p].EffectColorSet	= addonColor[p];
 				}		
 				else
 				{
-					// ¿ø·¡ »ö±ò·Î..
+					// ì›ë˜ ìƒ‰ê¹”ë¡œ..
 					m_Addon[p].bEffectColor		= FALSE;
 				}
 			}
 		}
 		//---------------------------------------------------------------------
-		// ÀüÃ¼ »ö±ò ¹Ù²î´Â Effect°¡ ÀÖ´Â °æ¿ì
+		// ì „ì²´ ìƒ‰ê¹” ë°”ë€ŒëŠ” Effectê°€ ìˆëŠ” ê²½ìš°
 		//---------------------------------------------------------------------
 		else
 		{
@@ -1800,19 +1800,19 @@ MCreatureWear::UpdateAttachEffect()
 
 				if (bAddonColorPart[p])
 				{
-					// ±× ºÎºĞ¸¸ ¹Ù²î´Â »ö±ò·Î..			
+					// ê·¸ ë¶€ë¶„ë§Œ ë°”ë€ŒëŠ” ìƒ‰ê¹”ë¡œ..			
 					m_Addon[p].EffectColorSet	= addonColor[p];
 				}		
 				else
 				{
-					// ÀüÃ¼ ¹Ù²î´Â »ö±ò·Î..				
+					// ì „ì²´ ë°”ë€ŒëŠ” ìƒ‰ê¹”ë¡œ..				
 					m_Addon[p].EffectColorSet	= m_AttachEffectColor;
 				}
 			}
 		}
 	}
 	//---------------------------------------------------------------------
-	// »ö±ò ¹Ù²î´Â°Å ¾È º¸¿©ÁÖ´Â ½ÃÁ¡...
+	// ìƒ‰ê¹” ë°”ë€ŒëŠ”ê±° ì•ˆ ë³´ì—¬ì£¼ëŠ” ì‹œì ...
 	//---------------------------------------------------------------------
 	else
 	{

@@ -16,7 +16,7 @@
 //
 // __assert__
 //
-// ÀÌ ÇÔ¼ö¿¡¼­´Â __BEGIN_TRY , __END_CATCH·Î wrappingÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+// ì´ í•¨ìˆ˜ì—ì„œëŠ” __BEGIN_TRY , __END_CATCHë¡œ wrappingí•  í•„ìš”ê°€ ì—†ë‹¤.
 //
 //--------------------------------------------------------------------------------
 void __assert__ ( const char * file , uint line , const char * func , const char * expr )

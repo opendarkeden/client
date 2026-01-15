@@ -27,7 +27,7 @@ void GCUntransformOKHandler::execute ( GCUntransformOK * pPacket , Player * pPla
 
 
 	//------------------------------------------------------------------
-	// Player°¡ ±â´Ù¸®´ø skillÀÇ ¼º°øÀ¯¹«¸¦ °ËÁõ¹Þ¾Ò´Ù.
+	// Playerê°€ ê¸°ë‹¤ë¦¬ë˜ skillì˜ ì„±ê³µìœ ë¬´ë¥¼ ê²€ì¦ë°›ì•˜ë‹¤.
 	//------------------------------------------------------------------
 	if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_SKILL_SUCCESS)
 	{		
@@ -69,22 +69,22 @@ void GCUntransformOKHandler::execute ( GCUntransformOK * pPacket , Player * pPla
 	pResult->Add( new MActionResultNodeChangeCreatureType( g_pPlayer->GetID(), creatureType ) );
 
 	//--------------------------------------------------
-	// ¹ìÆÄ·Î µ¹¾Æ°£´Ù.
+	// ë±€íŒŒë¡œ ëŒì•„ê°„ë‹¤.
 	//--------------------------------------------------								
 	ExecuteActionInfoFromMainNode(
-		RESULT_MAGIC_UN_TRANSFORM,										// »ç¿ë ±â¼ú ¹øÈ£
+		RESULT_MAGIC_UN_TRANSFORM,										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 	
 		x, y, 0,
 		dir,
 		
-		OBJECTID_NULL,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+		OBJECTID_NULL,												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 		x, y, 0, 
 		
-		0,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+		0,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 		
 		pResult, //NULL,
 		
-		false);			// ±â¼ú Ã·ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+		false);			// ê¸°ìˆ  ì²¨ë¶€í„° ì‹œìž‘í•œë‹¤.
 
 	g_pPlayer->SetDelay( 1000 );
 

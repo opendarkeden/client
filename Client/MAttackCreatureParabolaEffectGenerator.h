@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MAttackCreatureParabolaEffectGenerator.h
 //----------------------------------------------------------------------
-// ∆˜π∞º±¿∏∑Œ Creature √ﬂ¿˚
+// Ìè¨Î¨ºÏÑ†ÏúºÎ°ú Creature Ï∂îÏ†Å
 //----------------------------------------------------------------------
 
 #ifndef	__MATTACKCREATUREPARABOLAEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MAttackCreatureParabolaEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_ATTACK_CREATURE_PARABOLA; }
 
-		// Effectª˝º∫
+		// EffectÏÉùÏÑ±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

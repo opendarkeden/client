@@ -13,7 +13,7 @@ class MSkipEffect : public MEffect {
 		int  GetSkipValue() { return m_nSkipValue; }
 		
 		//--------------------------------------------------------
-		// ÇÑ ¹øÀÇ Update¿¡ È£ÃâµÉ ÇÔ¼ö..
+		// í•œ ë²ˆì˜ Updateì— í˜¸ì¶œë  í•¨ìˆ˜..
 		//--------------------------------------------------------
 		virtual bool	Update();
 		

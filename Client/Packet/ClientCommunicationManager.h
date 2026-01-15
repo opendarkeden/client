@@ -1,7 +1,7 @@
 //--------------------------------------------------------------------------------
 // ClientCommunicationManager.h
 //--------------------------------------------------------------------------------
-// ´Ù¸¥ Å¬¶óÀÌ¾ğÆ®·ÎºÎÅÍÀÇ Á¤º¸¸¦ ¹Ş¾Æµé¾î 
+// ë‹¤ë¥¸ í´ë¼ì´ì–¸íŠ¸ë¡œë¶€í„°ì˜ ì •ë³´ë¥¼ ë°›ì•„ë“¤ì–´ 
 //--------------------------------------------------------------------------------
 
 #ifndef __CLIENT_COMMUNICATION_MANAGER_H__
@@ -36,7 +36,7 @@ class ClientCommunicationManager {
 		void	sendPacket ( const std::string& host , uint port , DatagramPacket * pPacket ) throw ( ConnectException , Error );
 
 	private :
-		// UDP ¼­¹ö ¼ÒÄÏ
+		// UDP ì„œë²„ ì†Œì¼“
 		DatagramSocket *	m_pDatagramSocket;
 };
 

@@ -1,7 +1,7 @@
 #include "Client_PCH.h"
 #define __NPROTECT__
 //#include "EXECryptor.h"
-/* add by sonic 2006.9.14 start Ôö¼Ó¶ÔWPEÆÁ±Î*/
+/* add by sonic 2006.9.14 start Ã”Ã¶Â¼Ã“Â¶Ã”WPEÃ†ÃÂ±Ã*/
 #include "APICheck.h"
 APICheck _APICheck;
 /* ***************************************** */
@@ -136,8 +136,8 @@ int					g_Dimension = 0;
 DWORD				g_TimerNPMON = 0;
 
 // FPS
-DWORD				g_CurrentTime		= 0;		// ½Ã°£
-DWORD				g_CurrentFrame		= 0;		// frame¼ö
+DWORD				g_CurrentTime		= 0;		// Â½ÃƒÂ°Â£
+DWORD				g_CurrentFrame		= 0;		// frameÂ¼Ã¶
 
 int					g_FrameCount		= 0;
 int					g_StartFrameCount	= 0;
@@ -151,7 +151,7 @@ const int			g_FrameGood			= 15;
 // minimize | anotherWnd click--> !ActiveGame
 BOOL				g_bActiveApp			= FALSE; // Is application active?
 BOOL				g_bActiveGame			= FALSE; // Is Game Active?
-BOOL				g_bNeedUpdate			= FALSE; // updateÇØ¾ßµÇ³ª?
+BOOL				g_bNeedUpdate			= FALSE; // updateÃ‡Ã˜Â¾ÃŸÂµÃ‡Â³Âª?
 
 DWORD				g_double_click_time = 0;
 
@@ -177,7 +177,7 @@ WORD g_wAuthKeyMap = 0x5154;
 //void SizeOfObjects();
 //#define				__WEB_BROWSER__
 IWebBrowser2*			g_pWebBrowser = NULL; 
-// [Futec¼öÁ¤]
+// [FutecÂ¼Ã¶ÃÂ¤]
 char g_FutecIP[20] = { 0, };
 unsigned int g_FutecPort = 0;
 BYTE g_AdvanceVampireActionMaxCount[ ACTION_ADVANCEMENT_MAX - ACTION_ADVANCEMENT_STOP ];
@@ -208,8 +208,8 @@ struct NETMARBLE_INFO
 struct REALSERVER_INFO
 {
 	REALSERVER_INFO() { bMode = false;WorldID = 0;}
-	bool bMode;		// 0: ¼öµ¿Á¢¼Ó, 1:Á¤»óÁ¢¼Ó
-	int WorldID;	// 0: ºê¶õ, 1: Æç·¹½º
+	bool bMode;		// 0: Â¼Ã¶ÂµÂ¿ÃÂ¢Â¼Ã“, 1:ÃÂ¤Â»Ã³ÃÂ¢Â¼Ã“
+	int WorldID;	// 0: ÂºÃªÂ¶Ãµ, 1: Ã†Ã§Â·Â¹Â½Âº
 	MString ID;		// id
 	MString Key;	// Key
 };
@@ -219,7 +219,7 @@ BYTE g_macAddress[6];
 extern void CheckMacScreenMode();
 extern BOOL GetMacAddressFromSock();
 extern BOOL InitDebugInfo();
-// add by Sonic 2006.9.26 ¼ì²â1024 * 768°æ±¾È«¾Ö±äÁ¿
+// add by Sonic 2006.9.26 Â¼Ã¬Â²Ã¢1024 * 768Â°Ã¦Â±Â¾ÃˆÂ«Â¾Ã–Â±Ã¤ÃÂ¿
 BOOL g_MyFull=TRUE;
 RECT g_GameRect={799,599,800,600};
 LONG	g_SECTOR_WIDTH           =16 ;
@@ -244,7 +244,7 @@ LONG		g_TILE_Y_HALF=12;
 // define function
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
-// addFileÀ» ÀĞ¾î¼­ originalFileÀÇ ³¡¿¡ ºÙÀÎ´Ù.
+// addFileÃ€Â» Ã€ÃÂ¾Ã®Â¼Â­ originalFileÃ€Ã‡ Â³Â¡Â¿Â¡ ÂºÃ™Ã€ÃÂ´Ã™.
 //-----------------------------------------------------------------------------			
 #define WRITE_FROM_FILE(originalFile, patchFile)		\
 		{												\
@@ -266,7 +266,7 @@ LONG		g_TILE_Y_HALF=12;
 				}										\
 			}											\
 		}
-//Ëæ»ú×Ö·û´®
+//Ã‹Ã¦Â»ÃºÃ—Ã–Â·Ã»Â´Â®
 void get_rand_str(char s[],int number);
 void get_rand_str(char s[],int number)
 {
@@ -282,7 +282,7 @@ void get_rand_str(char s[],int number)
         }
 }
 //-----------------------------------------------------------------------
-// Get Futec Address [Futec¼öÁ¤]
+// Get Futec Address [FutecÂ¼Ã¶ÃÂ¤]
 //-----------------------------------------------------------------------
 // DarkEden.exe Futec(IP:Port)
 //              01234567890123
@@ -364,7 +364,7 @@ ParsingRealServer(const char* pCommandLine, int Dimention, REALSERVER_INFO &info
 //-----------------------------------------------------------------------------
 HRESULT InitFail(LPCTSTR szError,...)
 {
-	// ÇÁ·Î±×·¥ Áß´Ü..
+	// Ã‡ÃÂ·ÃÂ±Ã—Â·Â¥ ÃÃŸÂ´Ãœ..
 	g_bActiveApp = FALSE;
 
 	ShowCursor( TRUE );
@@ -394,7 +394,7 @@ bool g_bUseProgressBar = true;
 HWND g_hWndProgress = NULL;
 const int progressBarWidth = 300;
 const int progressBarHeight = 40;
-const int g_numAppendFiles = 16;		// AppendPatch.infÀÇ fileµé °³¼ö
+const int g_numAppendFiles = 16;		// AppendPatch.infÃ€Ã‡ fileÂµÃ© Â°Â³Â¼Ã¶
 
 std::map<DWORD,std::string> g_nProtectMessage;
 
@@ -585,7 +585,7 @@ UpdateProgressBar()
 //-----------------------------------------------------------------------------
 HWND		g_hPatchLogWnd = NULL;
 HWND		g_hPatchLogEdit = NULL;
-char*		g_pPatchLogBuffer = NULL;	// ¾ó¸¶³ª Å¬Áö ¸ô¶ó¼­¸® global¿¡ µ×´Ù.
+char*		g_pPatchLogBuffer = NULL;	// Â¾Ã³Â¸Â¶Â³Âª Ã…Â¬ÃÃ¶ Â¸Ã´Â¶Ã³Â¼Â­Â¸Â® globalÂ¿Â¡ ÂµÃ—Â´Ã™.
 
 long FAR PASCAL 
 PatchLogWindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -604,7 +604,7 @@ ReadPatchLogFromFile()
 {
 	char strBuffer[256];
 
-	class ifstream file("PatchLog.txt", ios::nocreate);	// text fileÀÌ´Ù.
+	class ifstream file("PatchLog.txt", ios::nocreate);	// text fileÃ€ÃŒÂ´Ã™.
 
 	if (!file.is_open())
 	{
@@ -639,7 +639,7 @@ ReadPatchLogFromFile()
 			n -= 1;
 		}
 
-		// \r\nÀ» ºÙ¿©Áà¾ß ´ÙÀ½ÁÙÀÌ µÈ´Ù.		
+		// \r\nÃ€Â» ÂºÃ™Â¿Â©ÃÃ Â¾ÃŸ Â´Ã™Ã€Â½ÃÃ™Ã€ÃŒ ÂµÃˆÂ´Ã™.		
 		strBuffer[n] = '\r';
 		strBuffer[n+1] = '\n';
 		
@@ -689,7 +689,7 @@ ShowPatchLogWindow()
 	style &= ~WS_MINIMIZEBOX;
 	style &= ~WS_MAXIMIZEBOX;
 	style &= ~WS_THICKFRAME;
-	g_hPatchLogWnd = CreateWindow("PatchLog", "´ÙÅ©¿¡µ§ ÆĞÄ¡³»¿ë", 
+	g_hPatchLogWnd = CreateWindow("PatchLog", "Â´Ã™Ã…Â©Â¿Â¡ÂµÂ§ Ã†ÃÃ„Â¡Â³Â»Â¿Ã«", 
 							style,
 							GetSystemMetrics(SM_CXSCREEN)/2 - width/2, 
 							GetSystemMetrics(SM_CYSCREEN)/2 - height/2, 
@@ -715,7 +715,7 @@ ES_AUTOHSCROLL | ES_AUTOVSCROLL | ES_READONLY,
 	{
 		DestroyWindow( g_hPatchLogWnd );		
 		
-		// ¹Ù·Î returnÇÏ¸é main window°¡ Á×´Â´Ù. - -;		
+		// Â¹Ã™Â·Ã returnÃ‡ÃÂ¸Ã© main windowÂ°Â¡ ÃÃ—Â´Ã‚Â´Ã™. - -;		
 	}
 	else
 	{
@@ -746,7 +746,7 @@ ES_AUTOHSCROLL | ES_AUTOVSCROLL | ES_READONLY,
 //-----------------------------------------------------------------------------
 // Check DX Version
 //-----------------------------------------------------------------------------
-// DirectX VersionÀ» checkÇÑ´Ù.
+// DirectX VersionÃ€Â» checkÃ‡Ã‘Â´Ã™.
 //-----------------------------------------------------------------------------
 /*
 bool
@@ -775,7 +775,7 @@ CheckDXVersion()
 	//------------------------------------------------------
 	// DirectX Version check
 	//------------------------------------------------------
-	// DX 7.0 ÀÌ»ó
+	// DX 7.0 Ã€ÃŒÂ»Ã³
     if (dwVer==DXVER_DX_7)
 	{			
 		return true;
@@ -783,20 +783,20 @@ CheckDXVersion()
 	
 	//InitFail("You need to install DirectX 7.0 or later version...");
 
-	// ¾È ±ò·ÈÀ¸¸é ¾Æ¿¹ ±ò¾Æ¹ö¸®ÀÚ..
+	// Â¾Ãˆ Â±Ã²Â·ÃˆÃ€Â¸Â¸Ã© Â¾Ã†Â¿Â¹ Â±Ã²Â¾Ã†Â¹Ã¶Â¸Â®Ã€Ãš..
 	char directory[_MAX_PATH];
 
-	// ÇöÀç µğ·ºÅä¸®¸¦ ¾ò¾î¼­ 
+	// Ã‡Ã¶Ã€Ã§ ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â®Â¸Â¦ Â¾Ã²Â¾Ã®Â¼Â­ 
 	GetCurrentDirectory( _MAX_PATH, directory );
 
-	// ½ÇÇàÈ­ÀÏ ÀÌ¸§À» ºÙÀÎ´Ù.
+	// Â½Ã‡Ã‡Ã ÃˆÂ­Ã€Ã Ã€ÃŒÂ¸Â§Ã€Â» ÂºÃ™Ã€ÃÂ´Ã™.
 	sprintf(directory, "%s\\%s", directory, PROGRAM_FILENAME);
 
 	CDirectSetup::SetRestartProgram(directory);
 	CDirectSetup::DirectXInstall(g_hWnd, g_hInstance, "DirectX7", true);
 	
-	// »õ·Î ±ò°í ³ª¼­ ¹Ù·Î ½ÇÇàÇØµµ µÇ´Â°É±î?
-	// rebooting ÇØ¾ßÇÏÁö ¾ÊÀ»±î??
+	// Â»ÃµÂ·Ã Â±Ã²Â°Ã­ Â³ÂªÂ¼Â­ Â¹Ã™Â·Ã Â½Ã‡Ã‡Ã Ã‡Ã˜ÂµÂµ ÂµÃ‡Â´Ã‚Â°Ã‰Â±Ã®?
+	// rebooting Ã‡Ã˜Â¾ÃŸÃ‡ÃÃÃ¶ Â¾ÃŠÃ€Â»Â±Ã®??
 
 	return true;    
 	//return false;    
@@ -849,24 +849,24 @@ WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		//---------------------------------------------------------------
 		case MM_MCINOTIFY :
 		{
-			// Mid°¡ ´Ù ¿¬ÁÖµÇ¾ú´Ù´Â ¸»ÀÌ´Ù.
+			// MidÂ°Â¡ Â´Ã™ Â¿Â¬ÃÃ–ÂµÃ‡Â¾ÃºÂ´Ã™Â´Ã‚ Â¸Â»Ã€ÃŒÂ´Ã™.
 			if (wParam==MCI_NOTIFY_SUCCESSFUL)
 			{
-				// Opening µ¿¿µ»óÀÌ ³¡³­ °æ¿ì
+				// Opening ÂµÂ¿Â¿ÂµÂ»Ã³Ã€ÃŒ Â³Â¡Â³Â­ Â°Ã¦Â¿Ã¬
 				if (g_pAvi!=NULL && (DWORD)lParam==g_pAvi->dwID) 
 				{ 
 					g_pAvi->bEndFlag=true; 
 					g_pAvi->Close(); 
 
-					// Login È­¸éÀ¸·Î...
+					// Login ÃˆÂ­Â¸Ã©Ã€Â¸Â·Ã...
 					SetMode( MODE_MAINMENU );
 				}				
-				// À½¾Ç ¿¬ÁÖ°¡ ³¡³­ °æ¿ì
+				// Ã€Â½Â¾Ã‡ Â¿Â¬ÃÃ–Â°Â¡ Â³Â¡Â³Â­ Â°Ã¦Â¿Ã¬
 				else
 				{
 					/*
-					// ¹İº¹ ¿¬ÁÖ ¾ÈÇÑ´Ù.
-					if (g_pUserOption->PlayMusic)//g_Music.IsPause())	// °ú¿¬ ÇÊ¿äÇÒ±î.. - -;
+					// Â¹ÃÂºÂ¹ Â¿Â¬ÃÃ– Â¾ÃˆÃ‡Ã‘Â´Ã™.
+					if (g_pUserOption->PlayMusic)//g_Music.IsPause())	// Â°ÃºÂ¿Â¬ Ã‡ÃŠÂ¿Ã¤Ã‡Ã’Â±Ã®.. - -;
 					{
 						if (g_pUserOption->PlayWaveMusic)
 						{
@@ -880,7 +880,7 @@ WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					*/
 					//else
 					//{
-						// ¹İº¹ÇØ¼­ ¿¬ÁÖÇÑ´Ù.
+						// Â¹ÃÂºÂ¹Ã‡Ã˜Â¼Â­ Â¿Â¬ÃÃ–Ã‡Ã‘Â´Ã™.
 					//	g_Music.RePlay();
 					//}
 //					if(g_pMP3->IsLoop())
@@ -937,7 +937,7 @@ WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			//WORD fActive = LOWORD(wParam);           // activation flag 
 			//BOOL fMinimized = (BOOL) HIWORD(wParam); // minimized flag 
 
-			// activeµÆ°í minimized°¡ ¾Æ´Ñ »óÅÂ°¡ ActiveGameÀÌ´ç..
+			// activeÂµÃ†Â°Ã­ minimizedÂ°Â¡ Â¾Ã†Â´Ã‘ Â»Ã³Ã…Ã‚Â°Â¡ ActiveGameÃ€ÃŒÂ´Ã§..
 			//BOOL bActive = (fActive==WA_ACTIVE) || (fActive==WA_CLICKACTIVE);
 			//				//&& !fMinimized;
 
@@ -957,7 +957,7 @@ WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				// acquire
 				g_pDXInput->SetAcquire(bActive);
 				
-				// ÀÔ·ÂÀ» ÃÊ±âÈ­ÇÑ´Ù.
+				// Ã€Ã”Â·Ã‚Ã€Â» ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘Â´Ã™.
 				g_pDXInput->Clear();
 			}
 		}
@@ -1105,7 +1105,7 @@ WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			if (g_Mode==MODE_OPENING)
 			{
-				// OpeningÀ» ³¡³½´Ù.
+				// OpeningÃ€Â» Â³Â¡Â³Â½Â´Ã™.
 				if (wParam==VK_ESCAPE || wParam==VK_RETURN || wParam==VK_SPACE)
 				{	
 					if (g_pAvi!=NULL)
@@ -1160,7 +1160,7 @@ WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				*/
 
 				//-----------------------------------------------
-				// Volume Á¶Àı
+				// Volume ÃÂ¶Ã€Ã½
 				//-----------------------------------------------
 				/*
 				case VK_F5 :
@@ -1191,7 +1191,7 @@ WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 				//-----------------------------------------------
 				//
-				//				Debug Mode ¿ë
+				//				Debug Mode Â¿Ã«
 				//
 				//-----------------------------------------------
 				#if defined(OUTPUT_DEBUG)
@@ -1208,14 +1208,14 @@ WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					//	return 0L;	
 
 					//-----------------------------------------------
-					// ¿òÁ÷ÀÌ´Â ¹æ¹ı ¼³Á¤
+					// Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ Â¹Ã¦Â¹Ã½ Â¼Â³ÃÂ¤
 					//-----------------------------------------------
 					/*
 					case VK_F2 :
 					{					
 						if (g_pPlayer->IsStop())
 						{
-							// ¿òÁ÷ÀÌ´Â ÇüÅÂ ¹Ù²Ù±â
+							// Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ Ã‡Ã¼Ã…Ã‚ Â¹Ã™Â²Ã™Â±Ã¢
 							//if (g_pPlayer->GetMoveDevice()==MCreature::MOVE_DEVICE_NULL)
 							//{
 							//	g_pPlayer->SetMoveDevice( MCreature::MOVE_DEVICE_MOTOR1 );
@@ -1240,7 +1240,7 @@ WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 								g_pPlayer->SetCreatureType( type );
 							}
 
-							// ³²ÀÚ Slayer
+							// Â³Â²Ã€Ãš Slayer
 							if (g_pPlayer->GetCreatureType()==0)
 							{
 								g_pPlayer->RemoveAddon( ADDON_COAT );	
@@ -1280,7 +1280,7 @@ color
 							}
 							
 
-							// ¹øÂ½~~
+							// Â¹Ã¸Ã‚Â½~~
 							g_pTopView->SetFadeStart(1, 31, 10,  31,0,0);
 						}							
 					}		
@@ -1299,7 +1299,7 @@ color
 							//g_pPlayer->SetAddonNULL(MCreatureWear::ADDON_SHOES); 
 						//else g_pPlayer->SetAddon(MCreatureWear::ADDON_SHOES, 2);					
 						
-						// °ø°İ ¸ğµå ÀüÈ¯
+						// Â°Ã¸Â°Ã Â¸Ã°ÂµÃ¥ Ã€Ã¼ÃˆÂ¯
 						if (g_pPlayer->IsAttackModeAggress())
 						{
 							g_pPlayer->SetAttackModePeace();
@@ -1351,7 +1351,7 @@ color
 						#if defined(_DEBUG)
 							if (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))
 							{
-								//eidt by sonic 2006.7.27   ĞŞ¸Ä¼ÓËÙµØÖ·
+								//eidt by sonic 2006.7.27   ÃÃÂ¸Ã„Â¼Ã“Ã‹Ã™ÂµÃ˜Ã–Â·
 								//g_UpdateDelay = (g_UpdateDelay==1)? DELAY_UPDATE_GAME : 1;
 								g_UpdateDelay = (g_UpdateDelay==1)? (54 ^ 8) : 1;
 							}
@@ -1359,14 +1359,14 @@ color
 						return 0L;
 
 					//-----------------------------------------------
-					// debug ¸Ş¼¼Áö
+					// debug Â¸ÃÂ¼Â¼ÃÃ¶
 					//-----------------------------------------------
 					case VK_F12 : 
 						g_bPutMessage = !g_bPutMessage;
 						return 0L;				
 					
 					//-----------------------------------------------
-					// Debug Message Ã»¼Ò~ÇÏ±â
+					// Debug Message ÃƒÂ»Â¼Ã’~Ã‡ÃÂ±Ã¢
 					//-----------------------------------------------
 					case VK_DELETE :
 						{
@@ -1463,7 +1463,7 @@ color
 							}
 							else
 							{
-								// Á×Àº °æ¿ì..
+								// ÃÃ—Ã€Âº Â°Ã¦Â¿Ã¬..
 								g_pPlayer->SetDead();						
 							}
 						}
@@ -1474,7 +1474,7 @@ color
 					// [ TEST CODE ]
 					case '/' :
 					{
-						// »óÅÂ º¯°æ
+						// Â»Ã³Ã…Ã‚ ÂºÂ¯Â°Ã¦
 						/*
 						int newHP = g_pPlayer->GetHP() - 5;
 						int newMP = g_pPlayer->GetMP() - 3;
@@ -1486,19 +1486,19 @@ color
 						pStatus->SetStatus(MODIFY_HP, newHP);
 						pStatus->SetStatus(MODIFY_MP, newMP);
 						
-						// UIº¯°æ					
+						// UIÂºÂ¯Â°Ã¦					
 						gC_vs_ui.SetHP(newHP, 100);
 						gC_vs_ui.SetMP(newMP, 100);
 
-						// °á°ú¿¡ HP°¡ º¯ÇÏµµ·Ï ¼³Á¤
+						// Â°Ã¡Â°ÃºÂ¿Â¡ HPÂ°Â¡ ÂºÂ¯Ã‡ÃÂµÂµÂ·Ã Â¼Â³ÃÂ¤
 						MActionResult *pResult = new MActionResult;					
 						pResult->Add( new MActionResultNodeChangeStatus(g_pPlayer->GetID(), pStatus) );
 
-						// °á°ú Action µî·Ï
+						// Â°Ã¡Â°Ãº Action ÂµÃ®Â·Ã
 						//g_pPlayer->PacketSpecialActionResult( SKILL_ATTACK_MELEE );
 						g_pPlayer->PacketSpecialActionResult( RESULT_VAMPIRE_DIE );
 
-						// °á°ú ³»¿ë µî·Ï(effectID°¡ ÀÖ¾î¾ß µÇ´Âµ¥..)
+						// Â°Ã¡Â°Ãº Â³Â»Â¿Ã« ÂµÃ®Â·Ã(effectIDÂ°Â¡ Ã€Ã–Â¾Ã®Â¾ÃŸ ÂµÃ‡Â´Ã‚ÂµÂ¥..)
 						g_pPlayer->PacketAddActionResult(0, pResult);					
 						
 						
@@ -1516,14 +1516,14 @@ color
 					return 0L;
 					//*/
 
-					// »ìÂ¦ ºÓ°Ô º¯ÇÏ±â
+					// Â»Ã¬Ã‚Â¦ ÂºÃ“Â°Ã” ÂºÂ¯Ã‡ÃÂ±Ã¢
 					case '6' :
 					{
 						g_pTopView->SetFadeStart(25, 31, 2, 31,0,0);					
 					}
 					break;
 
-					// ¹ø°³
+					// Â¹Ã¸Â°Â³
 					case '7' :
 					{
 						SetLightning(rand()%4*500+500);					
@@ -1553,7 +1553,7 @@ color
 							
 							g_pPlayer->SetSpecialActionInfo( newActionInfo );
 
-							// player¿¡ ÀÖ´Â actionÀÎ °æ¿ì..
+							// playerÂ¿Â¡ Ã€Ã–Â´Ã‚ actionÃ€Ã Â°Ã¦Â¿Ã¬..
 							if (newActionInfoAction <= maxPlayerAction)
 								break;
 						} while (1);					
@@ -1582,7 +1582,7 @@ color
 							
 							g_pPlayer->SetSpecialActionInfo( newActionInfo );
 
-							// player¿¡ ÀÖ´Â actionÀÎ °æ¿ì..
+							// playerÂ¿Â¡ Ã€Ã–Â´Ã‚ actionÃ€Ã Â°Ã¦Â¿Ã¬..
 							if (newActionInfoAction <= maxPlayerAction)
 								break;
 						} while (1);
@@ -1618,7 +1618,7 @@ color
 			}
             return TRUE;
 		*/		
-		// `ÇÑ±ÛÀÔ·Â½Ã IMEÇ¥½Ã°¡ ³ª¿ÀÁö ¸øÇÏµµ·Ï ÇÑ´Ù.
+		// `Ã‡Ã‘Â±Ã›Ã€Ã”Â·Ã‚Â½Ãƒ IMEÃ‡Â¥Â½ÃƒÂ°Â¡ Â³ÂªÂ¿Ã€ÃÃ¶ Â¸Ã¸Ã‡ÃÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 		//
 
 		//---------------------------------------------------------------
@@ -1685,7 +1685,7 @@ BOOL
 InitApp(int nCmdShow)
 {
 	WNDCLASS                    wc;
-	//Éú³ÉËæ»úÀàÃû,´°¿Ú±êÌâ
+	//Ã‰ÃºÂ³Ã‰Ã‹Ã¦Â»ÃºÃ€Ã ÃƒÃ»,Â´Â°Â¿ÃšÂ±ÃªÃŒÃ¢
 	//char rnd_PROGRAM_NAME[50];
 	//char rnd_PROGRAM_TITLE[50];
 	//get_rand_str(rnd_PROGRAM_NAME,5);
@@ -1718,7 +1718,7 @@ InitApp(int nCmdShow)
 			return FALSE;
 		}
 #endif
-// 2004, 8, 27, sobeit add start - mac address Ã¼Å© ¹×, mac screen mode Ã¼Å©
+// 2004, 8, 27, sobeit add start - mac address ÃƒÂ¼Ã…Â© Â¹Ã—, mac screen mode ÃƒÂ¼Ã…Â©
 	memset( g_macAddress, 0, 6*sizeof(BYTE) );
 	//if(GetMacAddressFromSock())
 	if(GetMacAddressFromNetBIOS(g_macAddress))
@@ -1728,7 +1728,7 @@ InitApp(int nCmdShow)
 #endif
 	}
 
-// 2004, 8, 27, sobeit add end - mac address Ã¼Å© ¹×, mac screen mode Ã¼Å©
+// 2004, 8, 27, sobeit add end - mac address ÃƒÂ¼Ã…Â© Â¹Ã—, mac screen mode ÃƒÂ¼Ã…Â©
 	if (g_bFullScreen)
 	{
 		exStyle = WS_EX_TOPMOST;// | WS_EX_APPWINDOW;
@@ -1766,7 +1766,7 @@ InitApp(int nCmdShow)
 			cy = g_GameRect.bottom + GetSystemMetrics(SM_CYSIZEFRAME)*2+GetSystemMetrics(SM_CYMENU);
 		//}
 	}
-	//Ôö¼ÓËæ»úÀàÃû´°¿ÚÃû±êÌâ
+	//Ã”Ã¶Â¼Ã“Ã‹Ã¦Â»ÃºÃ€Ã ÃƒÃ»Â´Â°Â¿ÃšÃƒÃ»Â±ÃªÃŒÃ¢
 	// Create a window
 	/*
     g_hWnd = CreateWindowEx(exStyle,//0,
@@ -1802,7 +1802,7 @@ InitApp(int nCmdShow)
 	{
 		char szTemp[256];
 		//add by sonic 2006.4.11
-		//wsprintf(szTemp,"nProtect°¡ ½ÇÇàµÇÁö ¾Ê¾Ò½À´Ï´Ù.\n¸ÅÅ©·Î ÇÁ·Î±×·¥ÀÌ³ª ÇØÅ· ÇÁ·Î±×·¥À» »ç¿ëÇÑ °æ¿ì°¡ ¾Æ´Ï¶ó¸é \n bug@darkeden.com À¸·Î ¸ŞÀÏÀ» º¸³»ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.[ErrorCode:%d]",nProtectResult);
+		//wsprintf(szTemp,"nProtectÂ°Â¡ Â½Ã‡Ã‡Ã ÂµÃ‡ÃÃ¶ Â¾ÃŠÂ¾Ã’Â½Ã€Â´ÃÂ´Ã™.\nÂ¸Ã…Ã…Â©Â·Ã Ã‡ÃÂ·ÃÂ±Ã—Â·Â¥Ã€ÃŒÂ³Âª Ã‡Ã˜Ã…Â· Ã‡ÃÂ·ÃÂ±Ã—Â·Â¥Ã€Â» Â»Ã§Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬Â°Â¡ Â¾Ã†Â´ÃÂ¶Ã³Â¸Ã© \n bug@darkeden.com Ã€Â¸Â·Ã Â¸ÃÃ€ÃÃ€Â» ÂºÂ¸Â³Â»ÃÃ–Â½ÃƒÂ±Ã¢ Â¹Ã™Â¶Ã¸Â´ÃÂ´Ã™.[ErrorCode:%d]",nProtectResult);
 		//MessageBox(NULL, szTemp,"nProtect Error", MB_OK);
 		//end 
 		CloseNPROTECT();
@@ -1851,11 +1851,11 @@ InitApp(int nCmdShow)
 	//	return 0;
 	//}
 
-	// cursor¸¦ ¾ø¾ÖÁØ´Ù.
+	// cursorÂ¸Â¦ Â¾Ã¸Â¾Ã–ÃÃ˜Â´Ã™.
 	SetCursor(NULL);
 	ShowCursor( FALSE );
 
-	// window¸¦ º¸¿©ÁØ´Ù.
+	// windowÂ¸Â¦ ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™.
 	ShowWindow(g_hWnd, nCmdShow);
     UpdateWindow(g_hWnd);
     SetFocus(g_hWnd);	
@@ -1929,7 +1929,7 @@ CheckTerriblePatch()
 	
 
 	//-----------------------------------------------------------------------------
-	// Append ÆĞÄ¡¸¦ ÇÑ´Ù.
+	// Append Ã†ÃÃ„Â¡Â¸Â¦ Ã‡Ã‘Â´Ã™.
 	//-----------------------------------------------------------------------------
 	errorCode = 0;
 	for (int i=0; i<apt.GetSize(); i++)
@@ -1954,13 +1954,13 @@ CheckTerriblePatch()
 	}
 	
 	//-----------------------------------------------------------------------
-	// ½É°¢ÇÑ »óÈ²ÀÎ°¡? - -; 
+	// Â½Ã‰Â°Â¢Ã‡Ã‘ Â»Ã³ÃˆÂ²Ã€ÃÂ°Â¡? - -; 
 	//-----------------------------------------------------------------------
 	if (bCrash)
 	{
 		//char str[256];
 		//add by sonic 2006.4.11
-		//sprintf(str, "È­ÀÏÀÌ ¼Õ»óµÇ¾ú½À´Ï´Ù. ´ÙÅ©¿¡µ§ ¿î¿µÆÀÀ¸·Î ¿¬¶ôÁÖ¼¼¿ä [¿¡·¯ÄÚµå:%d]", errorCode);
+		//sprintf(str, "ÃˆÂ­Ã€ÃÃ€ÃŒ Â¼Ã•Â»Ã³ÂµÃ‡Â¾ÃºÂ½Ã€Â´ÃÂ´Ã™. Â´Ã™Ã…Â©Â¿Â¡ÂµÂ§ Â¿Ã®Â¿ÂµÃ†Ã€Ã€Â¸Â·Ã Â¿Â¬Â¶Ã´ÃÃ–Â¼Â¼Â¿Ã¤ [Â¿Â¡Â·Â¯Ã„ÃšÂµÃ¥:%d]", errorCode);
 		//MessageBox(NULL, str, PROGRAM_TITLE, MB_OK);
 		//end 
 		return false;
@@ -1972,9 +1972,9 @@ CheckTerriblePatch()
 //-----------------------------------------------------------------------------
 // Check TerriblePatch
 //-----------------------------------------------------------------------------
-// auto-patchÀÇ ½Ç¼ö·Î ÀÎÇÏ¿©
-// ¾îÂ¿ ¼ö ¾øÀÌ ½ÇÇàÈ­ÀÏ¿¡¼­ Ã¼Å©ÇØ¼­ ÆĞÄ¡ÇØ¾ßÇÏ´Â °æ¿ìÀÌ´Ù.
-// ±×¸®ÇÏ¿©.. ÇÔ¼ö ÀÌ¸§ÀÌ ÀÌ·¸°Ô µÇ¾ú´Ù.  --;;
+// auto-patchÃ€Ã‡ Â½Ã‡Â¼Ã¶Â·Ã Ã€ÃÃ‡ÃÂ¿Â©
+// Â¾Ã®Ã‚Â¿ Â¼Ã¶ Â¾Ã¸Ã€ÃŒ Â½Ã‡Ã‡Ã ÃˆÂ­Ã€ÃÂ¿Â¡Â¼Â­ ÃƒÂ¼Ã…Â©Ã‡Ã˜Â¼Â­ Ã†ÃÃ„Â¡Ã‡Ã˜Â¾ÃŸÃ‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬Ã€ÃŒÂ´Ã™.
+// Â±Ã—Â¸Â®Ã‡ÃÂ¿Â©.. Ã‡Ã”Â¼Ã¶ Ã€ÃŒÂ¸Â§Ã€ÃŒ Ã€ÃŒÂ·Â¸Â°Ã” ÂµÃ‡Â¾ÃºÂ´Ã™.  --;;
 //-----------------------------------------------------------------------------
 /*
 bool
@@ -1988,19 +1988,19 @@ CheckTerriblePatchOLD()
 	// Update SpritePack
 	//
 	//-----------------------------------------------------------------------
-	// Data\\Image\\¿¡ New18ImageObjectSPK.spk°¡ ÀÖÀ¸¸é..
-	// ImageObjectÀÇ °³¼ö´Â ÀüÃ¼°³¼ö¿Í °°Àºµ¥.. ¿ë·®ÀÌ ´Ù¸£´Ù¸é
-	// "ÆĞÄ¡ ÀÛ¾÷À» ÇÏ´Âµ¥ ½Ã°£ÀÌ Á» °É¸³´Ï´Ù."¶ó°í ¸Ş½ÃÁö¸¦ ¶ç¿öÁØ´Ù.
-	// ÀüÃ¼°³¼ö¸¸Å­ SPK Å©±â¸¦ Àâ°í 
-	// ImageObjectSPK¸¦ SPK·Î LoadÇÑ´Ù.
-	// New18ImageObjectSPK¸¦ SPK·Î LoadÇÑ´Ù.
-	// SPK¸¦ ImageObjectSPK¿¡ writeÇÑ´Ù.
-	// New18ImageObjectSPK.spk¸¦ Áö¿î´Ù.
+	// Data\\Image\\Â¿Â¡ New18ImageObjectSPK.spkÂ°Â¡ Ã€Ã–Ã€Â¸Â¸Ã©..
+	// ImageObjectÃ€Ã‡ Â°Â³Â¼Ã¶Â´Ã‚ Ã€Ã¼ÃƒÂ¼Â°Â³Â¼Ã¶Â¿Ã Â°Â°Ã€ÂºÂµÂ¥.. Â¿Ã«Â·Â®Ã€ÃŒ Â´Ã™Â¸Â£Â´Ã™Â¸Ã©
+	// "Ã†ÃÃ„Â¡ Ã€Ã›Â¾Ã·Ã€Â» Ã‡ÃÂ´Ã‚ÂµÂ¥ Â½ÃƒÂ°Â£Ã€ÃŒ ÃÂ» Â°Ã‰Â¸Â³Â´ÃÂ´Ã™."Â¶Ã³Â°Ã­ Â¸ÃÂ½ÃƒÃÃ¶Â¸Â¦ Â¶Ã§Â¿Ã¶ÃÃ˜Â´Ã™.
+	// Ã€Ã¼ÃƒÂ¼Â°Â³Â¼Ã¶Â¸Â¸Ã…Â­ SPK Ã…Â©Â±Ã¢Â¸Â¦ Ã€Ã¢Â°Ã­ 
+	// ImageObjectSPKÂ¸Â¦ SPKÂ·Ã LoadÃ‡Ã‘Â´Ã™.
+	// New18ImageObjectSPKÂ¸Â¦ SPKÂ·Ã LoadÃ‡Ã‘Â´Ã™.
+	// SPKÂ¸Â¦ ImageObjectSPKÂ¿Â¡ writeÃ‡Ã‘Â´Ã™.
+	// New18ImageObjectSPK.spkÂ¸Â¦ ÃÃ¶Â¿Ã®Â´Ã™.
 	//
-	// [22¹ø ÆĞÄ¡ÇÒ¶§ºÎÅÍ´Â..]
-	// ±âÁ¸¿¡ Àß¸øµÈ ºÎºĞÀÌ ´Ù µ¤Çô¹ö¸±Á¤µµÀÇ ÆĞÄ¡È­ÀÏÀÌ ÁØºñµÇ¾î ÀÖÀ¸¹Ç·Î
-	// 18ÆĞÄ¡È­ÀÏÀÌ ÀÖÀ¸¸é 18¹ø ÆĞÄ¡À§Ä¡ºÎÅÍ ¾²°í
-	// 22ÆĞÄ¡È­ÀÏÀÌ ÀÖÀ¸¸é 22¹ø ÆĞÄ¡À§Ä¡ºÎÅÍ ¾²¸é... µÈ´Ù.
+	// [22Â¹Ã¸ Ã†ÃÃ„Â¡Ã‡Ã’Â¶Â§ÂºÃÃ…ÃÂ´Ã‚..]
+	// Â±Ã¢ÃÂ¸Â¿Â¡ Ã€ÃŸÂ¸Ã¸ÂµÃˆ ÂºÃÂºÃÃ€ÃŒ Â´Ã™ ÂµÂ¤Ã‡Ã´Â¹Ã¶Â¸Â±ÃÂ¤ÂµÂµÃ€Ã‡ Ã†ÃÃ„Â¡ÃˆÂ­Ã€ÃÃ€ÃŒ ÃÃ˜ÂºÃ±ÂµÃ‡Â¾Ã® Ã€Ã–Ã€Â¸Â¹Ã‡Â·Ã
+	// 18Ã†ÃÃ„Â¡ÃˆÂ­Ã€ÃÃ€ÃŒ Ã€Ã–Ã€Â¸Â¸Ã© 18Â¹Ã¸ Ã†ÃÃ„Â¡Ã€Â§Ã„Â¡ÂºÃÃ…Ã Â¾Â²Â°Ã­
+	// 22Ã†ÃÃ„Â¡ÃˆÂ­Ã€ÃÃ€ÃŒ Ã€Ã–Ã€Â¸Â¸Ã© 22Â¹Ã¸ Ã†ÃÃ„Â¡Ã€Â§Ã„Â¡ÂºÃÃ…Ã Â¾Â²Â¸Ã©... ÂµÃˆÂ´Ã™.
 	const int numWrite = 2;
 	char newSpkFilename[numWrite][80] = 
 	{ 
@@ -2009,29 +2009,29 @@ CheckTerriblePatchOLD()
 	};
 	const long writePosition[numWrite] = 
 	{
-		47564158,	// 18¹ø ÆĞÄ¡ Àû¿ëÇÒ file position
-		49532618	// 22¹ø ÆĞÄ¡ Àû¿ëÈÄ file position
+		47564158,	// 18Â¹Ã¸ Ã†ÃÃ„Â¡ Ã€Ã»Â¿Ã«Ã‡Ã’ file position
+		49532618	// 22Â¹Ã¸ Ã†ÃÃ„Â¡ Ã€Ã»Â¿Ã«ÃˆÃ„ file position
 	};
 	const WORD orgSpkSize[numWrite] = 
 	{
-		0x054C,		// 18¹ø ÆĞÄ¡ Àû¿ëÈÄ °³¼ö
-		0x05D6		// 22¹ø ÆĞÄ¡ Àû¿ëÈÄ °³¼ö
+		0x054C,		// 18Â¹Ã¸ Ã†ÃÃ„Â¡ Ã€Ã»Â¿Ã«ÃˆÃ„ Â°Â³Â¼Ã¶
+		0x05D6		// 22Â¹Ã¸ Ã†ÃÃ„Â¡ Ã€Ã»Â¿Ã«ÃˆÃ„ Â°Â³Â¼Ã¶
 	};
 	const long orgFileSize[numWrite] = 
 	{
-		49532618,	// 18¹ø ÆĞÄ¡ Àû¿ëÈÄ È­ÀÏ»çÀÌÁî
-		55239016	// 22¹ø ÆĞÄ¡ Àû¿ëÈÄ È­ÀÏ»çÀÌÁî
+		49532618,	// 18Â¹Ã¸ Ã†ÃÃ„Â¡ Ã€Ã»Â¿Ã«ÃˆÃ„ ÃˆÂ­Ã€ÃÂ»Ã§Ã€ÃŒÃÃ®
+		55239016	// 22Â¹Ã¸ Ã†ÃÃ„Â¡ Ã€Ã»Â¿Ã«ÃˆÃ„ ÃˆÂ­Ã€ÃÂ»Ã§Ã€ÃŒÃÃ®
 	};
 
 	WORD spkSize;
 	class ifstream imageObjectFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, imageObjectFile))
 		return false;
-	imageObjectFile.read((char*)&spkSize, 2);	// SpriteÀÇ °³¼ö
+	imageObjectFile.read((char*)&spkSize, 2);	// SpriteÃ€Ã‡ Â°Â³Â¼Ã¶
 	imageObjectFile.close();
 	
 	//-----------------------------------------------------------------------
-	// ¿ë·® ´Ù¸£¸é ÆĞÄ¡
+	// Â¿Ã«Â·Â® Â´Ã™Â¸Â£Â¸Ã© Ã†ÃÃ„Â¡
 	//-----------------------------------------------------------------------
 	bool bImageObjectPatch;
 	if (spkSize==orgSpkSize[numWrite-1])
@@ -2044,20 +2044,20 @@ CheckTerriblePatchOLD()
 	}
 
 	//-----------------------------------------------------------------------
-	// ÆĞÄ¡¸¦ Àû¿ë½ÃÄÑ¾ß ÇÏ´Â °æ¿ì
+	// Ã†ÃÃ„Â¡Â¸Â¦ Ã€Ã»Â¿Ã«Â½ÃƒÃ„Ã‘Â¾ÃŸ Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//-----------------------------------------------------------------------
 	if (bImageObjectPatch)
 	{
-		//MessageBox(NULL, "´ÙÅ©¿¡µ§ µ¥ÀÌÅ¸¸¦ Á¤¸®ÇÏ°í ½ÇÇàÇÒ ¿¹Á¤ÀÔ´Ï´Ù.\n OK¸¦ ´©¸£°í ¹İÀÀÀÌ ¾ø´õ¶óµµ ÀÚµ¿À¸·Î ½ÇÇàµÇ´Ï Àá½Ã¸¸ ±â
+		//MessageBox(NULL, "Â´Ã™Ã…Â©Â¿Â¡ÂµÂ§ ÂµÂ¥Ã€ÃŒÃ…Â¸Â¸Â¦ ÃÂ¤Â¸Â®Ã‡ÃÂ°Ã­ Â½Ã‡Ã‡Ã Ã‡Ã’ Â¿Â¹ÃÂ¤Ã€Ã”Â´ÃÂ´Ã™.\n OKÂ¸Â¦ Â´Â©Â¸Â£Â°Ã­ Â¹ÃÃ€Ã€Ã€ÃŒ Â¾Ã¸Â´ÃµÂ¶Ã³ÂµÂµ Ã€ÃšÂµÂ¿Ã€Â¸Â·Ã Â½Ã‡Ã‡Ã ÂµÃ‡Â´Ã Ã€Ã¡Â½ÃƒÂ¸Â¸ Â±Ã¢
 
-´Ù·ÁÁÖ¼¼¿ä.", PROGRAM_TITLE, MB_OK);
+Â´Ã™Â·ÃÃÃ–Â¼Â¼Â¿Ã¤.", PROGRAM_TITLE, MB_OK);
 
 		for (int i=0; i<numWrite; i++)
 		{
 			class ifstream newfile(newSpkFilename[i], ios::binary | ios::nocreate);				
 			
 			//-------------------------------------------------------------
-			// ÆĞÄ¡ È­ÀÏÀÌ ¾ø´Â °æ¿ì.. ´ÙÀ½²¨ Ã¼Å©
+			// Ã†ÃÃ„Â¡ ÃˆÂ­Ã€ÃÃ€ÃŒ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬.. Â´Ã™Ã€Â½Â²Â¨ ÃƒÂ¼Ã…Â©
 			//-------------------------------------------------------------
 			if (!newfile.is_open())
 			{
@@ -2065,25 +2065,25 @@ CheckTerriblePatchOLD()
 			}
 			else
 			{
-				SetProgressBarText("ÆĞÄ¡ È­ÀÏÀ» Àû¿ë½ÃÅ°°í ÀÖ½À´Ï´Ù.");
+				SetProgressBarText("Ã†ÃÃ„Â¡ ÃˆÂ­Ã€ÃÃ€Â» Ã€Ã»Â¿Ã«Â½ÃƒÃ…Â°Â°Ã­ Ã€Ã–Â½Ã€Â´ÃÂ´Ã™.");
 				UpdateProgressBar();
 
 				class ofstream imageObjectFile(FILE_SPRITE_IMAGEOBJECT, ios::binary | ios::ate);
 
-				newfile.seekg( 2 );	// sizeºÎºĞ Á¦¿Ü
+				newfile.seekg( 2 );	// sizeÂºÃÂºÃ ÃÂ¦Â¿Ãœ
 				imageObjectFile.seekp( writePosition[i] );
 
 				WRITE_FROM_FILE( imageObjectFile, newfile );
 
 				newfile.close();
 				
-				// °³¼ö º¯°æ
+				// Â°Â³Â¼Ã¶ ÂºÂ¯Â°Ã¦
 				spkSize = orgSpkSize[i];
 				imageObjectFile.seekp( 0, ios::beg );
 				imageObjectFile.write((const char*)&spkSize, 2);
 				imageObjectFile.close();
 
-				// ÆĞÄ¡È­ÀÏÀ» Áö¿î´Ù.
+				// Ã†ÃÃ„Â¡ÃˆÂ­Ã€ÃÃ€Â» ÃÃ¶Â¿Ã®Â´Ã™.
 				remove( newSpkFilename[i] );
 			}
 		}
@@ -2098,8 +2098,8 @@ CheckTerriblePatchOLD()
 	// 
 	//-----------------------------------------------------------------------
 	// Data\\Image\\New18Creature.ispk - 2001.9.26
-	// ¿ø·¡ÀÖ´øÈ­ÀÏ, Ãß°¡µÇ´ÂÈ­ÀÏ, ÇÕÇÑÈÄ°³¼ö
-	// ÀÌ ¹æ½Ä¿¡¼­´Â spki´Â µû·Î µ¤¾î¾ß ÇÑ´Ù.
+	// Â¿Ã¸Â·Â¡Ã€Ã–Â´Ã¸ÃˆÂ­Ã€Ã, ÃƒÃŸÂ°Â¡ÂµÃ‡Â´Ã‚ÃˆÂ­Ã€Ã, Ã‡Ã•Ã‡Ã‘ÃˆÃ„Â°Â³Â¼Ã¶
+	// Ã€ÃŒ Â¹Ã¦Â½Ã„Â¿Â¡Â¼Â­Â´Ã‚ spkiÂ´Ã‚ ÂµÃ»Â·Ã ÂµÂ¤Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	if (!bCrash)
 	{
 		const int numAppend = 2;
@@ -2120,7 +2120,7 @@ CheckTerriblePatchOLD()
 			0x35FE 
 		};
 
-		// ¿©·¯¹ø appendÇØ¼­ total¿¡ µµ´ŞÇÏ°Ô µÇ´Â °æ¿ì°¡ ÀÖ´Ù.
+		// Â¿Â©Â·Â¯Â¹Ã¸ appendÃ‡Ã˜Â¼Â­ totalÂ¿Â¡ ÂµÂµÂ´ÃÃ‡ÃÂ°Ã” ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Â°Â¡ Ã€Ã–Â´Ã™.
 
 		WORD orgNum, appNum;
 			
@@ -2131,7 +2131,7 @@ CheckTerriblePatchOLD()
 			class ifstream appFile(appFilename[i], ios::binary | ios::nocreate);		
 		
 			//-------------------------------------------------------------
-			// ¿ø·¡ È­ÀÏÀÌ ¾ø´Â °æ¿ì - -;
+			// Â¿Ã¸Â·Â¡ ÃˆÂ­Ã€ÃÃ€ÃŒ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬ - -;
 			//-------------------------------------------------------------
 			if (!orgFile.is_open())
 			{
@@ -2141,44 +2141,44 @@ CheckTerriblePatchOLD()
 			}			
 			
 			orgFile.seekg( 0, ios::beg );
-			orgFile.read((char*)&orgNum, 2);	// SpriteÀÇ °³¼ö
+			orgFile.read((char*)&orgNum, 2);	// SpriteÃ€Ã‡ Â°Â³Â¼Ã¶
 			
 			if (orgNum>=total[i])
 			{
-				// ÀÌ¹Ì ÆĞÄ¡µÈ »óÈ²ÀÌ´Ù. ´ÙÀ½²¨ Ã¼Å©.
+				// Ã€ÃŒÂ¹ÃŒ Ã†ÃÃ„Â¡ÂµÃˆ Â»Ã³ÃˆÂ²Ã€ÃŒÂ´Ã™. Â´Ã™Ã€Â½Â²Â¨ ÃƒÂ¼Ã…Â©.
 				orgFile.close();
 				appFile.close();
 				continue;
 			}
 				
 			//-------------------------------------------------------------
-			// appÇÒ²² ¾ø´Â °æ¿ì
+			// appÃ‡Ã’Â²Â² Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 			//-------------------------------------------------------------
 			if (!appFile.is_open())
 			{
-				// °³¼ö´Â ´Ù¸¥µ¥ appÇÒ°ÍÀÌ ¾ø´Â °æ¿ì
+				// Â°Â³Â¼Ã¶Â´Ã‚ Â´Ã™Â¸Â¥ÂµÂ¥ appÃ‡Ã’Â°ÃÃ€ÃŒ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬
 				bCrash = true;
 				errorCode = 2;
 				break;
 			}
 
-			// total size¸¦ Ã¼Å©ÇØ¼­ appendÇÒ ÇÊ¿ä°¡ ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
-			appFile.read((char*)&appNum, 2);	// SpriteÀÇ °³¼ö
+			// total sizeÂ¸Â¦ ÃƒÂ¼Ã…Â©Ã‡Ã˜Â¼Â­ appendÃ‡Ã’ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Ã€Ã–Â´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
+			appFile.read((char*)&appNum, 2);	// SpriteÃ€Ã‡ Â°Â³Â¼Ã¶
 
 			//-------------------------------------------------------------
-			// µÎ°³ ÇÕÃÄ¼­ totalÀÌ µÈ´Ù¸é..		
+			// ÂµÃÂ°Â³ Ã‡Ã•ÃƒÃ„Â¼Â­ totalÃ€ÃŒ ÂµÃˆÂ´Ã™Â¸Ã©..		
 			//-------------------------------------------------------------
 			if (orgNum+appNum == total[i])
 			{				
-				SetProgressBarText("ÆĞÄ¡ È­ÀÏÀ» Àû¿ë½ÃÅ°°í ÀÖ½À´Ï´Ù.");
+				SetProgressBarText("Ã†ÃÃ„Â¡ ÃˆÂ­Ã€ÃÃ€Â» Ã€Ã»Â¿Ã«Â½ÃƒÃ…Â°Â°Ã­ Ã€Ã–Â½Ã€Â´ÃÂ´Ã™.");
 				UpdateProgressBar();
 
-				// orgFileÀÇ ³¡À¸·Î..
+				// orgFileÃ€Ã‡ Â³Â¡Ã€Â¸Â·Ã..
 				orgFile.seekp(0, ios::end);
 
 				WRITE_FROM_FILE( orgFile, appFile );
 
-				// ¿ø·¡ È­ÀÏÀÇ °³¼ö¸¦ ¹Ù²ãÁØ´Ù.
+				// Â¿Ã¸Â·Â¡ ÃˆÂ­Ã€ÃÃ€Ã‡ Â°Â³Â¼Ã¶Â¸Â¦ Â¹Ã™Â²Ã£ÃÃ˜Â´Ã™.
 				orgFile.seekp(0, ios::beg);
 				orgFile.write((const char*)&total[i], 2);
 
@@ -2186,17 +2186,17 @@ CheckTerriblePatchOLD()
 				appFile.close();
 
 				//---------------------------------------------------------------
-				// AppÈ­ÀÏÀº Áö¿î´Ù.
+				// AppÃˆÂ­Ã€ÃÃ€Âº ÃÃ¶Â¿Ã®Â´Ã™.
 				//---------------------------------------------------------------
 				remove( appFilename[i] );
 			}
 			//-------------------------------------------------------------
-			// size Äá°¡·ç.. - -;
+			// size Ã„Ã¡Â°Â¡Â·Ã§.. - -;
 			//-------------------------------------------------------------
 			else
 			{
-				// µÎ °³ ÇÕÃÄµµ Á¦´ë·ÎµÈ ¼ıÀÚ°¡ ³ª¿ÀÁö ¾Ê´Â °æ¿ì
-				// ½É°¢ÇÑ »óÈ²ÀÌ´Ù.
+				// ÂµÃ Â°Â³ Ã‡Ã•ÃƒÃ„ÂµÂµ ÃÂ¦Â´Ã«Â·ÃÂµÃˆ Â¼Ã½Ã€ÃšÂ°Â¡ Â³ÂªÂ¿Ã€ÃÃ¶ Â¾ÃŠÂ´Ã‚ Â°Ã¦Â¿Ã¬
+				// Â½Ã‰Â°Â¢Ã‡Ã‘ Â»Ã³ÃˆÂ²Ã€ÃŒÂ´Ã™.
 				bCrash = true;
 				errorCode = 3;
 				break;
@@ -2205,12 +2205,12 @@ CheckTerriblePatchOLD()
 	}
 	
 	//-----------------------------------------------------------------------
-	// ½É°¢ÇÑ »óÈ²ÀÌ´Ù.
+	// Â½Ã‰Â°Â¢Ã‡Ã‘ Â»Ã³ÃˆÂ²Ã€ÃŒÂ´Ã™.
 	//-----------------------------------------------------------------------
 	if (bCrash)
 	{
 		char str[256];
-		sprintf(str, "È­ÀÏÀÌ ¼Õ»óµÇ¾ú½À´Ï´Ù. ´ÙÅ©¿¡µ§ ¿î¿µÆÀÀ¸·Î ¿¬¶ôÁÖ¼¼¿ä [¿¡·¯ÄÚµå:%d]", errorCode);
+		sprintf(str, "ÃˆÂ­Ã€ÃÃ€ÃŒ Â¼Ã•Â»Ã³ÂµÃ‡Â¾ÃºÂ½Ã€Â´ÃÂ´Ã™. Â´Ã™Ã…Â©Â¿Â¡ÂµÂ§ Â¿Ã®Â¿ÂµÃ†Ã€Ã€Â¸Â·Ã Â¿Â¬Â¶Ã´ÃÃ–Â¼Â¼Â¿Ã¤ [Â¿Â¡Â·Â¯Ã„ÃšÂµÃ¥:%d]", errorCode);
 		MessageBox(NULL, str, PROGRAM_TITLE, MB_OK);
 
 		return false;
@@ -2223,14 +2223,14 @@ CheckTerriblePatchOLD()
 //-----------------------------------------------------------------------------
 // ConvertScreenEffect
 //-----------------------------------------------------------------------------
-// ±âÁ¸ÀÇ AlphaEffect¸¦ ScreenEffect¿¡ ¸Â°Ô ¹Ù²Û´Ù.
+// Â±Ã¢ÃÂ¸Ã€Ã‡ AlphaEffectÂ¸Â¦ ScreenEffectÂ¿Â¡ Â¸Ã‚Â°Ã” Â¹Ã™Â²Ã›Â´Ã™.
 //-----------------------------------------------------------------------------
 /*
 bool
 ConvertScreenEffect()
 {
 	//------------------------------------------------------------	
-	// Screen SpritePack È®ÀÎ
+	// Screen SpritePack ÃˆÂ®Ã€Ã
 	//------------------------------------------------------------	
 	
 //	class ifstream fileSPK2(FILE_SPRITE_SCREENEFFECT, ios::binary | ios::nocreate);
@@ -2239,7 +2239,7 @@ ConvertScreenEffect()
 //		TYPE_SPRITEID num;
 //		fileSPK2.read((char*)&num, SIZE_SPRITEID);
 //
-//		// Å©±â°¡ °°À¸¸é.. convertÇÒ ÇÊ¿ä ¾ø´Ù.
+//		// Ã…Â©Â±Ã¢Â°Â¡ Â°Â°Ã€Â¸Â¸Ã©.. convertÃ‡Ã’ Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Â´Ã™.
 //		if (num >= 0x06BE)
 //		{			
 //			return false;
@@ -2259,30 +2259,30 @@ ConvertScreenEffect()
 	const int MAX_EST = 135;
 	const int est[MAX_EST] =
 	{
-		SCR_EFFECTSPRITETYPE_ACID_BALL_1,		// ³¯¾Æ°¡±â
-		SCR_EFFECTSPRITETYPE_ACID_BALL_2,		// ÅÍÁö±â
-		SCR_EFFECTSPRITETYPE_ACID_BOLT_1,		// ³¯¾Æ°¡±â
-		SCR_EFFECTSPRITETYPE_ACID_BOLT_2,		// ÅÍÁö±â	
+		SCR_EFFECTSPRITETYPE_ACID_BALL_1,		// Â³Â¯Â¾Ã†Â°Â¡Â±Ã¢
+		SCR_EFFECTSPRITETYPE_ACID_BALL_2,		// Ã…ÃÃÃ¶Â±Ã¢
+		SCR_EFFECTSPRITETYPE_ACID_BOLT_1,		// Â³Â¯Â¾Ã†Â°Â¡Â±Ã¢
+		SCR_EFFECTSPRITETYPE_ACID_BOLT_2,		// Ã…ÃÃÃ¶Â±Ã¢	
 		SCR_EFFECTSPRITETYPE_ACID_TOUCH,	
-		SCR_EFFECTSPRITETYPE_AURA_PRISM_SHIELD,	// ¹æ¾î¸·
-		SCR_EFFECTSPRITETYPE_AURA_BALL_1,	// Ä³½ºÆÃ
-		SCR_EFFECTSPRITETYPE_AURA_BALL_2,	// ³¯¾Æ°¡±â
-		SCR_EFFECTSPRITETYPE_AURA_BALL_3,	// ÅÍÁö±â
-		SCR_EFFECTSPRITETYPE_AURA_PRISM_1,	// Ä³½ºÆÃ - ¹Ù´Ú¿¡ ºÙ´Â 
-		SCR_EFFECTSPRITETYPE_AURA_PRISM_2,	// Ä³½ºÆÃ - ¹Ù´Ú¿¡¼­ À§·Î ¿Ã¶ó°¡±â
-		SCR_EFFECTSPRITETYPE_AURA_PRISM_3,	// ºÙ¾î¼­ ½ÃÀÛ
-		SCR_EFFECTSPRITETYPE_AURA_PRISM_4,	// ºÙ¾î¼­ ¹İº¹
-		SCR_EFFECTSPRITETYPE_AURA_PRISM_5,	// ºÙ¾î¼­ ³¡
-		SCR_EFFECTSPRITETYPE_AURA_SHIELD_1,	// Ä³½ºÆÃ
-		SCR_EFFECTSPRITETYPE_AURA_SHIELD_2,	// Áö¼Ó
-		SCR_EFFECTSPRITETYPE_AURA_SHIELD_3,	// ¸ÂÀ» ¶§ ¹øÂ½~
+		SCR_EFFECTSPRITETYPE_AURA_PRISM_SHIELD,	// Â¹Ã¦Â¾Ã®Â¸Â·
+		SCR_EFFECTSPRITETYPE_AURA_BALL_1,	// Ã„Â³Â½ÂºÃ†Ãƒ
+		SCR_EFFECTSPRITETYPE_AURA_BALL_2,	// Â³Â¯Â¾Ã†Â°Â¡Â±Ã¢
+		SCR_EFFECTSPRITETYPE_AURA_BALL_3,	// Ã…ÃÃÃ¶Â±Ã¢
+		SCR_EFFECTSPRITETYPE_AURA_PRISM_1,	// Ã„Â³Â½ÂºÃ†Ãƒ - Â¹Ã™Â´ÃšÂ¿Â¡ ÂºÃ™Â´Ã‚ 
+		SCR_EFFECTSPRITETYPE_AURA_PRISM_2,	// Ã„Â³Â½ÂºÃ†Ãƒ - Â¹Ã™Â´ÃšÂ¿Â¡Â¼Â­ Ã€Â§Â·Ã Â¿ÃƒÂ¶Ã³Â°Â¡Â±Ã¢
+		SCR_EFFECTSPRITETYPE_AURA_PRISM_3,	// ÂºÃ™Â¾Ã®Â¼Â­ Â½ÃƒÃ€Ã›
+		SCR_EFFECTSPRITETYPE_AURA_PRISM_4,	// ÂºÃ™Â¾Ã®Â¼Â­ Â¹ÃÂºÂ¹
+		SCR_EFFECTSPRITETYPE_AURA_PRISM_5,	// ÂºÃ™Â¾Ã®Â¼Â­ Â³Â¡
+		SCR_EFFECTSPRITETYPE_AURA_SHIELD_1,	// Ã„Â³Â½ÂºÃ†Ãƒ
+		SCR_EFFECTSPRITETYPE_AURA_SHIELD_2,	// ÃÃ¶Â¼Ã“
+		SCR_EFFECTSPRITETYPE_AURA_SHIELD_3,	// Â¸Ã‚Ã€Â» Â¶Â§ Â¹Ã¸Ã‚Â½~
 		SCR_EFFECTSPRITETYPE_AURA_RING,
 		SCR_EFFECTSPRITETYPE_BLESS_GROUND_1,
 		SCR_EFFECTSPRITETYPE_BLESS_GROUND_2,
 		SCR_EFFECTSPRITETYPE_BLESS_GROUND_3,
 		SCR_EFFECTSPRITETYPE_BLESS_GROUND_4,
-		SCR_EFFECTSPRITETYPE_BLESS_ING,		// ¹İº¹ 
-		SCR_EFFECTSPRITETYPE_BLESS,			// ÇÏ³ª ¹İº¹À¸·Î ¹Ù²ñ //½ÃÀÛ	
+		SCR_EFFECTSPRITETYPE_BLESS_ING,		// Â¹ÃÂºÂ¹ 
+		SCR_EFFECTSPRITETYPE_BLESS,			// Ã‡ÃÂ³Âª Â¹ÃÂºÂ¹Ã€Â¸Â·Ã Â¹Ã™Â²Ã± //Â½ÃƒÃ€Ã›	
 		SCR_EFFECTSPRITETYPE_CHAOS_COMBO,	
 		SCR_EFFECTSPRITETYPE_CONTINUAL_LIGHT_1,
 		SCR_EFFECTSPRITETYPE_CONTINUAL_LIGHT_2,
@@ -2322,8 +2322,8 @@ ConvertScreenEffect()
 		SCR_EFFECTSPRITETYPE_HOLY_SHOOTING_TR_FEMALE,
 		SCR_EFFECTSPRITETYPE_HOLY_SHOOTING_SG_FEMALE,
 		SCR_EFFECTSPRITETYPE_HOLY_SHOOTING_HIT,
-		SCR_EFFECTSPRITETYPE_HOLY_WATER_1,	// ±úÁö´Â°Å
-		SCR_EFFECTSPRITETYPE_HOLY_WATER_2,	// ½ÇÆĞ? - -;	
+		SCR_EFFECTSPRITETYPE_HOLY_WATER_1,	// Â±ÃºÃÃ¶Â´Ã‚Â°Ã…
+		SCR_EFFECTSPRITETYPE_HOLY_WATER_2,	// Â½Ã‡Ã†Ã? - -;	
 		SCR_EFFECTSPRITETYPE_HURRICANE_COMBO,	
 		SCR_EFFECTSPRITETYPE_LIGHT_1,
 		SCR_EFFECTSPRITETYPE_LIGHT_2,
@@ -2373,30 +2373,30 @@ ConvertScreenEffect()
 		SCR_EFFECTSPRITETYPE_IDENTIFY_2x2,
 		SCR_EFFECTSPRITETYPE_IDENTIFY_2x3,
 		SCR_EFFECTSPRITETYPE_SACRIFICE_1,			// casting
-		SCR_EFFECTSPRITETYPE_SACRIFICE_2,			// Áö¼Ó
+		SCR_EFFECTSPRITETYPE_SACRIFICE_2,			// ÃÃ¶Â¼Ã“
 		SCR_EFFECTSPRITETYPE_SNAKE_COMBO,
-		SCR_EFFECTSPRITETYPE_SWORD_WAVE_1,			// frameÀº µû·Î ¾ø´Ù.
-		SCR_EFFECTSPRITETYPE_SWORD_WAVE_2,			// frameÀº µû·Î ¾ø´Ù.
-		SCR_EFFECTSPRITETYPE_SWORD_WAVE_3,			// frameÀº µû·Î ¾ø´Ù.
-		SCR_EFFECTSPRITETYPE_TORNADO_SEVER_1,		// ¹Ù´Ú¿¡ ÂïÈ÷´Â°Å (5ÇÁ·¹ÀÓ ÈÄ¿¡ Ãâ·Â)
-		SCR_EFFECTSPRITETYPE_TORNADO_SEVER_2,		// ¸ö¿¡ ºÙ´Â°Å
+		SCR_EFFECTSPRITETYPE_SWORD_WAVE_1,			// frameÃ€Âº ÂµÃ»Â·Ã Â¾Ã¸Â´Ã™.
+		SCR_EFFECTSPRITETYPE_SWORD_WAVE_2,			// frameÃ€Âº ÂµÃ»Â·Ã Â¾Ã¸Â´Ã™.
+		SCR_EFFECTSPRITETYPE_SWORD_WAVE_3,			// frameÃ€Âº ÂµÃ»Â·Ã Â¾Ã¸Â´Ã™.
+		SCR_EFFECTSPRITETYPE_TORNADO_SEVER_1,		// Â¹Ã™Â´ÃšÂ¿Â¡ Ã‚Ã¯ÃˆÃ·Â´Ã‚Â°Ã… (5Ã‡ÃÂ·Â¹Ã€Ã“ ÃˆÃ„Â¿Â¡ ÃƒÃ¢Â·Ã‚)
+		SCR_EFFECTSPRITETYPE_TORNADO_SEVER_2,		// Â¸Ã¶Â¿Â¡ ÂºÃ™Â´Ã‚Â°Ã…
 
 		SCR_EFFECTSPRITETYPE_EXPLOSION,
 
 		// 2001.9.3
 		SCR_EFFECTSPRITETYPE_LIGHTNING_HANDS_1,
-		SCR_EFFECTSPRITETYPE_LIGHTNING_HANDS_2,		// ¹İº¹
+		SCR_EFFECTSPRITETYPE_LIGHTNING_HANDS_2,		// Â¹ÃÂºÂ¹
 		SCR_EFFECTSPRITETYPE_LIGHTNING_HANDS_3,	
 		
 		// 2001.9.6
-		SCR_EFFECTSPRITETYPE_PROTECTION_FROM_ACID_1,		// ½ÃÀÛ
-		SCR_EFFECTSPRITETYPE_PROTECTION_FROM_ACID_2,		// Áö¼Ó
+		SCR_EFFECTSPRITETYPE_PROTECTION_FROM_ACID_1,		// Â½ÃƒÃ€Ã›
+		SCR_EFFECTSPRITETYPE_PROTECTION_FROM_ACID_2,		// ÃÃ¶Â¼Ã“
 		
 		// 2001.10.8
 		SCR_EFFECTSPRITETYPE_EXPLOSION_2,
 		SCR_EFFECTSPRITETYPE_EXPLOSION_3,
-		SCR_EFFECTSPRITETYPE_CURE_ALL_1,				// ½ÃÀÛ
-		SCR_EFFECTSPRITETYPE_CURE_ALL_2,				// bless »Ñ·ÁÁÖ±â
+		SCR_EFFECTSPRITETYPE_CURE_ALL_1,				// Â½ÃƒÃ€Ã›
+		SCR_EFFECTSPRITETYPE_CURE_ALL_2,				// bless Â»Ã‘Â·ÃÃÃ–Â±Ã¢
 		SCR_EFFECTSPRITETYPE_ENCHANT_1x1,
 		SCR_EFFECTSPRITETYPE_ENCHANT_1x3,
 		SCR_EFFECTSPRITETYPE_ENCHANT_2x2,
@@ -2404,9 +2404,9 @@ ConvertScreenEffect()
 	};
 
 	//------------------------------------------------------------	
-	// convertÇÒ¶§.. progress.. ³È..
+	// convertÃ‡Ã’Â¶Â§.. progress.. Â³Ãˆ..
 	//------------------------------------------------------------	
-	SetProgressBarText("µ¥ÀÌÅ¸ È­ÀÏÀ» Ã¼Å©ÁßÀÔ´Ï´Ù.");
+	SetProgressBarText("ÂµÂ¥Ã€ÃŒÃ…Â¸ ÃˆÂ­Ã€ÃÃ€Â» ÃƒÂ¼Ã…Â©ÃÃŸÃ€Ã”Â´ÃÂ´Ã™.");
 	SetProgressBarCount( MAX_EST );	
 	
 	int cx = GetSystemMetrics(SM_CXSCREEN);
@@ -2424,14 +2424,14 @@ ConvertScreenEffect()
 	ShowWindow(g_hWndProgress, SW_SHOW);
 	
 
-	// 16 bit ¸ğµå·Î ¹Ù²ã¾ß ÇÑ´Ù.
+	// 16 bit Â¸Ã°ÂµÃ¥Â·Ã Â¹Ã™Â²Ã£Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	//DDSURFACEDESC2 ddsd;
 	//CDirectDraw::GetDD()->GetDisplayMode( &ddsd );
 	//CDirectDraw::GetDD()->SetDisplayMode(800, 600, 16, 0, 0);
 	
 	
 	//------------------------------------------------------------	
-	// ÇÊ¿äÇÑ Frame »Ì±â
+	// Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ Frame Â»ÃŒÂ±Ã¢
 	//------------------------------------------------------------	
 	COrderedList<int> intList;
 
@@ -2444,7 +2444,7 @@ ConvertScreenEffect()
 	NewEFPK.Init( MAX_EST );
 	
 	//------------------------------------------------------------	
-	// ÇÊ¿äÇÑ EFPK¸¦ »ı¼ºÇÏ¸é¼­ »ç¿ëµÈ SpriteIDµµ ±¸ÇÑ´Ù.
+	// Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ EFPKÂ¸Â¦ Â»Ã½Â¼ÂºÃ‡ÃÂ¸Ã©Â¼Â­ Â»Ã§Â¿Ã«ÂµÃˆ SpriteIDÂµÂµ Â±Â¸Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------------	
 	for (int e=0; e<MAX_EST; e++)
 	{
@@ -2474,7 +2474,7 @@ ConvertScreenEffect()
 	EFPK.Release();
 
 	//------------------------------------------------------------	
-	// Alpha --> Normal ÁØºñ..
+	// Alpha --> Normal ÃÃ˜ÂºÃ±..
 	//------------------------------------------------------------	
 	CSpriteSurface	surface;
 	surface.InitOffsurface( 640, 480, DDSCAPS_SYSTEMMEMORY );	
@@ -2501,9 +2501,9 @@ ConvertScreenEffect()
 	WORD *lpSurface, lPitch;
 
 	//------------------------------------------------------------	
-	// convertÇÒ¶§.. progress.. ³È..
+	// convertÃ‡Ã’Â¶Â§.. progress.. Â³Ãˆ..
 	//------------------------------------------------------------	
-	SetProgressBarText("µ¥ÀÌÅ¸ È­ÀÏÀ» º¯°æÁßÀÔ´Ï´Ù.");
+	SetProgressBarText("ÂµÂ¥Ã€ÃŒÃ…Â¸ ÃˆÂ­Ã€ÃÃ€Â» ÂºÂ¯Â°Ã¦ÃÃŸÃ€Ã”Â´ÃÂ´Ã™.");
 	SetProgressBarCount( spriteNum/8 );	
 	
 
@@ -2518,7 +2518,7 @@ ConvertScreenEffect()
 		aspkiFile.seekg( 0 );		
 		
 		//--------------------------------------------------------
-		// LoadÇÒ FilePointer¸¦ ÀĞ¾î¿Â´Ù.
+		// LoadÃ‡Ã’ FilePointerÂ¸Â¦ Ã€ÃÂ¾Ã®Â¿Ã‚Â´Ã™.
 		//--------------------------------------------------------
 		long fp;	
 		aspkiFile.seekg( 2 + spriteID*4 );		// 2(num) + spriteID * (4 bytes)
@@ -2531,14 +2531,14 @@ ConvertScreenEffect()
 		ASPR.LoadFromFile( aspkFile );
 
 		//--------------------------------------------------------
-		// Å©±â °è»ê.. °Á - -
+		// Ã…Â©Â±Ã¢ Â°Ã¨Â»Ãª.. Â°Ã - -
 		//--------------------------------------------------------
 		int width = ASPR.GetWidth();
 		int height = ASPR.GetHeight();
 		
 		//--------------------------------------------------------
-		// AlphaSprite¸¦ Ãâ·ÂÇÑ ÈÄ¿¡ 
-		// Sprite¸¦ »ı¼ºÇÑ´Ù.
+		// AlphaSpriteÂ¸Â¦ ÃƒÃ¢Â·Ã‚Ã‡Ã‘ ÃˆÃ„Â¿Â¡ 
+		// SpriteÂ¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
 		//--------------------------------------------------------
 		surface.FillSurface( 0 );
 
@@ -2548,7 +2548,7 @@ ConvertScreenEffect()
 
 		surface.Unlock();
 	
-		// ¿ø·¡´Â ID°¡ spriteID¿´´ø°Ô sid·Î ¹Ù²î°Ô µÈ´Ù.
+		// Â¿Ã¸Â·Â¡Â´Ã‚ IDÂ°Â¡ spriteIDÂ¿Â´Â´Ã¸Â°Ã” sidÂ·Ã Â¹Ã™Â²Ã®Â°Ã” ÂµÃˆÂ´Ã™.
 		pNewID[ spriteID ] = sid;
 
 		if ((sid & 0x00000007)==0x00000007)
@@ -2562,11 +2562,11 @@ ConvertScreenEffect()
 	aspkiFile.close();
 	aspkFile.close();
 
-	// ¿ø·¡´ë·Î
+	// Â¿Ã¸Â·Â¡Â´Ã«Â·Ã
 	//CDirectDraw::GetDD()->RestoreDisplayMode();
 
 	//------------------------------------------------------------	
-	// SpriteID¸¦ ¼öÁ¤ÇÑ´Ù.
+	// SpriteIDÂ¸Â¦ Â¼Ã¶ÃÂ¤Ã‡Ã‘Â´Ã™.
 	//------------------------------------------------------------	
 	int numFPK = NewEFPK.GetSize();
 	for (e=0; e<numFPK; e++)
@@ -2594,7 +2594,7 @@ ConvertScreenEffect()
 	delete [] pNewID;
 
 	//------------------------------------------------------------	
-	// FramePackÀúÀå
+	// FramePackÃ€ÃºÃ€Ã¥
 	//------------------------------------------------------------	
 	class ofstream fileFPK(FILE_EFRAME_SCREENEFFECT, ios::binary);
 	class ofstream fileFPKI(FILE_EFRAMEINDEX_SCREENEFFECT, ios::binary);
@@ -2603,7 +2603,7 @@ ConvertScreenEffect()
 	fileFPKI.close();
 	
 	//------------------------------------------------------------	
-	// SpritePack ÀúÀå
+	// SpritePack Ã€ÃºÃ€Ã¥
 	//------------------------------------------------------------	
 	class ofstream fileSPK(FILE_SPRITE_SCREENEFFECT, ios::binary);
 	class ofstream fileSPKI(FILE_SPRITEINDEX_SCREENEFFECT, ios::binary);
@@ -2625,7 +2625,7 @@ ConvertScreenEffect()
 	ShowWindow(g_hWndProgress, SW_SHOW);
 
 	//------------------------------------------------------------	
-	// º¯È¯ Ã¼Å©
+	// ÂºÂ¯ÃˆÂ¯ ÃƒÂ¼Ã…Â©
 	//------------------------------------------------------------	
 	class ofstream fileCheck("Data\\Info\\EffectScreenConvert.inf", ios::binary);	
 	int a = 1;
@@ -2638,13 +2638,13 @@ ConvertScreenEffect()
 //------------------------------------------------------------------------
 // ApplyPatch 
 //------------------------------------------------------------------------
-// °©ÀÚ±â ¾ĞÃàÀ» ÇÏ°Ô µÇ´Â ¹Ù¶÷¿¡... - -;
+// Â°Â©Ã€ÃšÂ±Ã¢ Â¾ÃÃƒÃ Ã€Â» Ã‡ÃÂ°Ã” ÂµÃ‡Â´Ã‚ Â¹Ã™Â¶Ã·Â¿Â¡... - -;
 //------------------------------------------------------------------------
 bool
 ApplyPatch()
 {	
 	//-----------------------------------------------------------------
-	// ÇöÀç version
+	// Ã‡Ã¶Ã€Ã§ version
 	//-----------------------------------------------------------------
 //	class ifstream versionFile(FILE_INFO_VERSION, ios::binary);
 //	int version;
@@ -2652,7 +2652,7 @@ ApplyPatch()
 //	versionFile.close();
 
 	//-----------------------------------------------------------------
-	// ÆĞÄ¡¾ĞÃàÈ­ÀÏÀÌ ÀÖ³ª È®ÀÎ
+	// Ã†ÃÃ„Â¡Â¾ÃÃƒÃ ÃˆÂ­Ã€ÃÃ€ÃŒ Ã€Ã–Â³Âª ÃˆÂ®Ã€Ã
 	//-----------------------------------------------------------------
 //	char packFilename[256];
 //	char infoFilename[256];
@@ -2661,7 +2661,7 @@ ApplyPatch()
 //	long				hFile;
 
 	//-----------------------------------------------------------------
-	// *.mpk fileÀ» Ã£´Â´Ù.
+	// *.mpk fileÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 	//-----------------------------------------------------------------
 //	if ( (hFile = _findfirst( "*.mpk", &FileData )) != -1L )
 //	{		
@@ -2676,30 +2676,30 @@ ApplyPatch()
 //		_findclose( hFile );			
 
 		//-----------------------------------------------------------------
-		// ÆĞÄ¡¾ĞÃàÈ­ÀÏÀÇ ¾ĞÃà ÇØÁ¦ 
+		// Ã†ÃÃ„Â¡Â¾ÃÃƒÃ ÃˆÂ­Ã€ÃÃ€Ã‡ Â¾ÃÃƒÃ  Ã‡Ã˜ÃÂ¦ 
 		//-----------------------------------------------------------------
 //		_mkdir( "Update" );
 //
-//		SetProgressBarText("ÆĞÄ¡ È­ÀÏÀÇ ¾ĞÃàÀ» ÇØÁ¦ÇÏ°í ÀÖ½À´Ï´Ù.");
+//		SetProgressBarText("Ã†ÃÃ„Â¡ ÃˆÂ­Ã€ÃÃ€Ã‡ Â¾ÃÃƒÃ Ã€Â» Ã‡Ã˜ÃÂ¦Ã‡ÃÂ°Ã­ Ã€Ã–Â½Ã€Â´ÃÂ´Ã™.");
 //
 //		MZLib mzlib;
 //
-//		// ¾ĞÃàÇÒ¶§ Updater°æ·Î¸¦ °°ÀÌ ÀúÀåÇßÀ¸¹Ç·Î °°ÀÌ Ç®¸°´Ù.
+//		// Â¾ÃÃƒÃ Ã‡Ã’Â¶Â§ UpdaterÂ°Ã¦Â·ÃÂ¸Â¦ Â°Â°Ã€ÃŒ Ã€ÃºÃ€Ã¥Ã‡ÃŸÃ€Â¸Â¹Ã‡Â·Ã Â°Â°Ã€ÃŒ Ã‡Â®Â¸Â°Â´Ã™.
 //		mzlib.Uncompress( packFilename );	
 //
 //		//-----------------------------------------------------------------
-//		// infofileÀÌ¸§ °áÁ¤ - packFilename¿¡ µû¶ó¼­..
+//		// infofileÃ€ÃŒÂ¸Â§ Â°Ã¡ÃÂ¤ - packFilenameÂ¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­..
 //		//-----------------------------------------------------------------
 //		int len = strlen(packFilename);
 //		char str[256];
-//		strncpy(str, packFilename, len-4);	// °Á .±îÁö »©ÁØ´Ù.
+//		strncpy(str, packFilename, len-4);	// Â°Ã .Â±Ã®ÃÃ¶ Â»Â©ÃÃ˜Â´Ã™.
 //		str[len-4] = '\0';
 //		sprintf(infoFilename, "Update\\%s.inf", str);
 //
 //	}
 	//-----------------------------------------------------------------
-	// mpkÈ­ÀÏÀÌ ¾ø´Â °æ¿ì´Â ¼öµ¿ÆĞÄ¡ÀÎ °æ¿ì¸¦ Ã¼Å©ÇØºÁ¾ßÇÑ´Ù.
-	// packFilenameÀÌ ¸î¹ø version¿¡ Àû¿ëµÇ´Â°ÇÁö ¾Ë¾Æ³½´Ù.
+	// mpkÃˆÂ­Ã€ÃÃ€ÃŒ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚ Â¼Ã¶ÂµÂ¿Ã†ÃÃ„Â¡Ã€Ã Â°Ã¦Â¿Ã¬Â¸Â¦ ÃƒÂ¼Ã…Â©Ã‡Ã˜ÂºÃÂ¾ÃŸÃ‡Ã‘Â´Ã™.
+	// packFilenameÃ€ÃŒ Â¸Ã®Â¹Ã¸ versionÂ¿Â¡ Ã€Ã»Â¿Ã«ÂµÃ‡Â´Ã‚Â°Ã‡ÃÃ¶ Â¾Ã‹Â¾Ã†Â³Â½Â´Ã™.
 	//-----------------------------------------------------------------
 //	else
 //	{
@@ -2713,7 +2713,7 @@ ApplyPatch()
 //		}
 //		*/
 //		
-//		// ÇöÀç ¹öÀü¿¡ ¸Â´Â ÆĞÄ¡È­ÀÏÀ» Ã£´Â´Ù.
+//		// Ã‡Ã¶Ã€Ã§ Â¹Ã¶Ã€Ã¼Â¿Â¡ Â¸Ã‚Â´Ã‚ Ã†ÃÃ„Â¡ÃˆÂ­Ã€ÃÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 //		sprintf(infoFilename, "Update\\Patch%d_*.inf", version);
 //
 //		if ( (hFile = _findfirst( infoFilename, &FileData )) != -1L )
@@ -2730,25 +2730,25 @@ ApplyPatch()
 //		}
 //		else
 //		{
-//			// ¼öµ¿ÆĞÄ¡µµ ¾ø´Â °æ¿ì == ÇöÀç ¹öÀü
+//			// Â¼Ã¶ÂµÂ¿Ã†ÃÃ„Â¡ÂµÂµ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬ == Ã‡Ã¶Ã€Ã§ Â¹Ã¶Ã€Ã¼
 //			return false;
 //		}
 //	}
 //
 //	//-----------------------------------------------------------------
-//	// info ÀĞ±â
+//	// info Ã€ÃÂ±Ã¢
 //	//-----------------------------------------------------------------	
-//	CreateProgressBar("ÆĞÄ¡ Á¤º¸¸¦ Ã¼Å© ÁßÀÔ´Ï´Ù.");
+//	CreateProgressBar("Ã†ÃÃ„Â¡ ÃÂ¤ÂºÂ¸Â¸Â¦ ÃƒÂ¼Ã…Â© ÃÃŸÃ€Ã”Â´ÃÂ´Ã™.");
 //	
 //	UpdateManager	UM;
 //	UM.load( infoFilename );
 //
 //	SetProgressBarCount( UM.getNum()+g_numAppendFiles );	
 //
-//	SetProgressBarText("ÆĞÄ¡ È­ÀÏÀ» Àû¿ë½ÃÅ°°í ÀÖ½À´Ï´Ù.");
+//	SetProgressBarText("Ã†ÃÃ„Â¡ ÃˆÂ­Ã€ÃÃ€Â» Ã€Ã»Â¿Ã«Â½ÃƒÃ…Â°Â°Ã­ Ã€Ã–Â½Ã€Â´ÃÂ´Ã™.");
 //	
 //	//-----------------------------------------------------------------
-//	// ÆĞÄ¡È­ÀÏ Àû¿ë
+//	// Ã†ÃÃ„Â¡ÃˆÂ­Ã€Ã Ã€Ã»Â¿Ã«
 //	//-----------------------------------------------------------------
 //	int newVersion = 0;
 //	while (!UM.empty())
@@ -2761,7 +2761,7 @@ ApplyPatch()
 //			// -_-;;
 //		}	
 //
-//		// version upÀÎ°¡?
+//		// version upÃ€ÃÂ°Â¡?
 //		if (pUpdate->getVersion() > newVersion)
 //		{
 //			newVersion = pUpdate->getVersion();
@@ -2771,19 +2771,19 @@ ApplyPatch()
 //	}
 //
 //	//-----------------------------------------------------------------
-//	// »õ versionÀúÀå
+//	// Â»Ãµ versionÃ€ÃºÃ€Ã¥
 //	//-----------------------------------------------------------------
 //	class ofstream versionFile2(FILE_INFO_VERSION, ios::binary);
 //	versionFile2.write((const char*)&newVersion, 4);
 //	versionFile2.close();
 //	
 //	//-----------------------------------------------------------------
-//	// ÆĞÄ¡¾ĞÃàÈ­ÀÏ Á¦°Å
+//	// Ã†ÃÃ„Â¡Â¾ÃÃƒÃ ÃˆÂ­Ã€Ã ÃÂ¦Â°Ã…
 //	//-----------------------------------------------------------------
 //	remove( packFilename );
 //
 //	//-----------------------------------------------------------------
-//	// ÆĞÄ¡È­ÀÏ Á¦°Å - Updater µğ·ºÅä¸® Áö¿ì¸é¼­ µÇ¹Ç·Î .. ½Å°æ ¾È ½áµµ µÈ´Ù.
+//	// Ã†ÃÃ„Â¡ÃˆÂ­Ã€Ã ÃÂ¦Â°Ã… - Updater ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â® ÃÃ¶Â¿Ã¬Â¸Ã©Â¼Â­ ÂµÃ‡Â¹Ã‡Â·Ã .. Â½Ã…Â°Ã¦ Â¾Ãˆ Â½Ã¡ÂµÂµ ÂµÃˆÂ´Ã™.
 //	//-----------------------------------------------------------------
 //
 	return true;
@@ -2807,7 +2807,7 @@ ApplyPatch()
 //		long				hFile;
 //
 //		//-----------------------------------------------------------------
-//		// *.spk fileÀ» Ã£´Â´Ù.
+//		// *.spk fileÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 //		//-----------------------------------------------------------------
 //		if ( (hFile = _findfirst( "Data\\UI\\txt\\Log*.txt", &FileData )) != -1L )
 //		{
@@ -2835,7 +2835,7 @@ ApplyPatch()
 //						GetComputerName( computerName,  &numSize );
 //					}
 //					
-//					sprintf(buffer, "\\\\¾¦°«\\Log\\%s-%s", computerName, FileData.name);
+//					sprintf(buffer, "\\\\Â¾Â¦Â°Â«\\Log\\%s-%s", computerName, FileData.name);
 //					
 //					_chmod( filename, _S_IREAD | _S_IWRITE );
 //					rename(filename, buffer);						
@@ -2865,7 +2865,7 @@ ApplyPatch()
 		_mkdir( "Log" );
 		
 		//-----------------------------------------------------------------
-		// *.spk fileÀ» Ã£´Â´Ù.
+		// *.spk fileÃ€Â» ÃƒÂ£Â´Ã‚Â´Ã™.
 		//-----------------------------------------------------------------
 		if ( (hFile = _findfirst( "Log\\Log*.txt", &FileData )) != -1L )
 		{
@@ -2904,7 +2904,7 @@ ApplyPatch()
 //							GetComputerName( computerName,  &numSize );
 //						}
 //						
-//						sprintf(buffer, "\\\\¾¦°«\\Log\\%s-%s", computerName, FileData.name);
+//						sprintf(buffer, "\\\\Â¾Â¦Â°Â«\\Log\\%s-%s", computerName, FileData.name);
 //						
 //						_chmod( filename, _S_IREAD | _S_IWRITE );
 //						rename(filename, buffer);						
@@ -2952,7 +2952,7 @@ ApplyPatch()
 					DEBUG_ADD_FORMAT("[Time = %d]", g_CurrentTime);
 				}
 
-				// 3ºĞ ÈÄ
+				// 3ÂºÃ ÃˆÃ„
 				flushTime = g_CurrentTime + flushDelay;
 			}
 		//#endif
@@ -2970,7 +2970,7 @@ ApplyPatch()
 //    {
 //        KBDLLHOOKSTRUCT* kbhook = (KBDLLHOOKSTRUCT*)lParam;
 //
-//// ¾ËÆ®Å°°¡ ´­¸°°ÍÀÎÁö....
+//// Â¾Ã‹Ã†Â®Ã…Â°Â°Â¡ Â´Â­Â¸Â°Â°ÃÃ€ÃÃÃ¶....
 //        if(kbhook->flags & LLKHF_ALTDOWN)
 //        {
 //            switch(kbhook->vkCode)
@@ -2982,7 +2982,7 @@ ApplyPatch()
 //                break;
 //            }
 //        }
-//// Control + ESCµµ ¸·Àğ
+//// Control + ESCÂµÂµ Â¸Â·Ã€Ã°
 //		else if(((GetAsyncKeyState( VK_CONTROL ) & 0x8000) || g_pDXInput != NULL && (g_pDXInput->KeyDown(DIK_LCONTROL) || g_pDXInput->KeyDown(DIK_RCONTROL))) && kbhook->vkCode == VK_ESCAPE)
 //		{
 //			SHORT control = GetAsyncKeyState( VK_CONTROL );
@@ -3131,9 +3131,9 @@ WinMain(HINSTANCE hInstance,
 
 	
 	//----------------------------------------------------------
-	// ÇÏ³ªÀÇ application¸¸ ½ÇÇà½ÃÅ²´Ù.
+	// Ã‡ÃÂ³ÂªÃ€Ã‡ applicationÂ¸Â¸ Â½Ã‡Ã‡Ã Â½ÃƒÃ…Â²Â´Ã™.
 	//----------------------------------------------------------
-	// °ª ´ëÃæ ³Ö±â.. --;
+	// Â°Âª Â´Ã«ÃƒÃ¦ Â³Ã–Â±Ã¢.. --;
 	SECURITY_ATTRIBUTES sa;
 	sa.nLength = sizeof(sa);
     sa.lpSecurityDescriptor = NULL;
@@ -3141,7 +3141,7 @@ WinMain(HINSTANCE hInstance,
 
 
 #ifndef OUTPUT_DEBUG
-	// 2006.11.07 edit Coffee  ĞŞÕıÎª³ÌĞò¿ÉÒÔË«¿ª
+	// 2006.11.07 edit Coffee  ÃÃÃ•Ã½ÃÂªÂ³ÃŒÃÃ²Â¿Ã‰Ã’Ã”Ã‹Â«Â¿Âª
 	HANDLE hMutex = CreateMutex(&sa, FALSE, "<<<DarkEden>>>");  
 	/*
 	HANDLE hMutex = CreateMutex(&sa, FALSE, "<<<DarkEden>>>");   
@@ -3191,7 +3191,7 @@ WinMain(HINSTANCE hInstance,
 
 #endif
 	
-		// ÇöÀç directory¸¦ ÀúÀåÇØµĞ´Ù.
+		// Ã‡Ã¶Ã€Ã§ directoryÂ¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã˜ÂµÃÂ´Ã™.
 //	strcpy(g_CWD, __argv[0]);
  	GetModuleFileName(NULL, g_CWD, _MAX_PATH);
 	char *tempCut = strrchr(g_CWD, '\\');
@@ -3205,21 +3205,21 @@ WinMain(HINSTANCE hInstance,
 	
 	SetCurrentDirectory(g_CWD);
 	
-// 	//	// »õ·Î¿î updater½ÇÇàÈ­ÀÏÀÌ Á¸ÀçÇÏ¸é..
+// 	//	// Â»ÃµÂ·ÃÂ¿Ã® updaterÂ½Ã‡Ã‡Ã ÃˆÂ­Ã€ÃÃ€ÃŒ ÃÂ¸Ã€Ã§Ã‡ÃÂ¸Ã©..
 //	if (_access(UPDATER_NEW_FILENAME, 0) == 0/* && _access(UPDATER_FILENAME, 0)*/)//updaterNewFile)
 //	{	
-//		// ¿¹Àü Patcher¸¦ Áö¿ì°í..
+//		// Â¿Â¹Ã€Ã¼ PatcherÂ¸Â¦ ÃÃ¶Â¿Ã¬Â°Ã­..
 //		if (remove( UPDATER_FILENAME )==0)
 //		{
-//			// »õ°ÍÀ» ¿¹Àü°É·Î rename
+//			// Â»ÃµÂ°ÃÃ€Â» Â¿Â¹Ã€Ã¼Â°Ã‰Â·Ã rename
 //			if (rename( UPDATER_NEW_FILENAME, UPDATER_FILENAME )==0)
 //			{
 //				DEBUG_ADD("Update Updater.exe OK"); 
 //			}
 //		}
-////		// ¿¹Àü updater¸¦ Áö¿ì°í..
+////		// Â¿Â¹Ã€Ã¼ updaterÂ¸Â¦ ÃÃ¶Â¿Ã¬Â°Ã­..
 ////		//remove( UPDATER_FILENAME );
-////		// »õ°ÍÀ» ¿¹Àü°É·Î rename
+////		// Â»ÃµÂ°ÃÃ€Â» Â¿Â¹Ã€Ã¼Â°Ã‰Â·Ã rename
 ////		if (rename( UPDATER_NEW_FILENAME, UPDATER_FILENAME )==0)
 ////		{
 ////			DEBUG_ADD("Update Updater.exe OK"); 
@@ -3339,12 +3339,12 @@ WinMain(HINSTANCE hInstance,
 	/*
 #include "packet\ServerSocket.h"
 
-	// ÇÑ Client´Â µ¿½Ã¿¡ ´Ù¸¥ ÇÑ Client¿Í Åë½ÅÇÑ´Ù.
-	// ¿©·¯±ºµ¥ÀÇ resource(±æµå¸¶Å©, profile...)°¡ ÇÊ¿äÇÑ °æ¿ì 
-	//		ResourceQueue¿¡ ÀúÀåÇß´Ù°¡ Æ´Æ´È÷ ¹Şµµ·Ï ÇÑ´Ù.
-	// while(1)ºÎºĞÀº ´Ù¸¥ thread·Î »©¾ßµÈ´Ù.
-	// RequestManager Á¢±ÙÇÒ¶§´Â mutex¾²µçÁö ÇØ¾ßµÈ´Ù.
-	// RequestManagerÀÇ Update()´Â main thread¿¡¼­ ÇÑ´Ù.
+	// Ã‡Ã‘ ClientÂ´Ã‚ ÂµÂ¿Â½ÃƒÂ¿Â¡ Â´Ã™Â¸Â¥ Ã‡Ã‘ ClientÂ¿Ã Ã…Ã«Â½Ã…Ã‡Ã‘Â´Ã™.
+	// Â¿Â©Â·Â¯Â±ÂºÂµÂ¥Ã€Ã‡ resource(Â±Ã¦ÂµÃ¥Â¸Â¶Ã…Â©, profile...)Â°Â¡ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ Â°Ã¦Â¿Ã¬ 
+	//		ResourceQueueÂ¿Â¡ Ã€ÃºÃ€Ã¥Ã‡ÃŸÂ´Ã™Â°Â¡ Ã†Â´Ã†Â´ÃˆÃ· Â¹ÃÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
+	// while(1)ÂºÃÂºÃÃ€Âº Â´Ã™Â¸Â¥ threadÂ·Ã Â»Â©Â¾ÃŸÂµÃˆÂ´Ã™.
+	// RequestManager ÃÂ¢Â±Ã™Ã‡Ã’Â¶Â§Â´Ã‚ mutexÂ¾Â²ÂµÃ§ÃÃ¶ Ã‡Ã˜Â¾ÃŸÂµÃˆÂ´Ã™.
+	// RequestManagerÃ€Ã‡ Update()Â´Ã‚ main threadÂ¿Â¡Â¼Â­ Ã‡Ã‘Â´Ã™.
 	//
 	ServerSocket* pServerSocket = new ServerSocket( 9650 );
 
@@ -3355,11 +3355,11 @@ WinMain(HINSTANCE hInstance,
 	{
 		Socket* pSocket = pServerSocket->accept();
 
-		// request¿¡ µî·Ï
+		// requestÂ¿Â¡ ÂµÃ®Â·Ã
 		RequestServerPlayer* pRequestServerPlayer = new RequestServerPlayer( pSocket );
 		g_pRequestManager->AddPlayer( pRequestServerPlayer );
 
-		// g_pRequestManager´Â µî·ÏµÈ RequestServerPlayer¿¡ ´ëÇØ¼­ processInput/Command/Output Ã³¸®
+		// g_pRequestManagerÂ´Ã‚ ÂµÃ®Â·ÃÂµÃˆ RequestServerPlayerÂ¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­ processInput/Command/Output ÃƒÂ³Â¸Â®
 
 		strcpy(strClient, pSocket->getHost().c_str());
 		port = pSocket->getPort();
@@ -3427,7 +3427,7 @@ WinMain(HINSTANCE hInstance,
 	*/
 	
 	//-----------------------------------------------------------------------
-	// Client ½ÃÀÛ..
+	// Client Â½ÃƒÃ€Ã›..
 	//-----------------------------------------------------------------------
 	g_bNeedUpdate = FALSE;
 //	OutPutClassSize();
@@ -3505,7 +3505,7 @@ WinMain(HINSTANCE hInstance,
 	g_pFileDef = new Properties;
 	g_pFileDef->load(FILE_INFO_FILEDEF);			
 	
-	// ³İ¸¶ºí¿ë
+	// Â³ÃÂ¸Â¶ÂºÃ­Â¿Ã«
 	bool bNetmarble = false;
 	Properties NetmarbleConfig;
 		
@@ -3546,7 +3546,7 @@ WinMain(HINSTANCE hInstance,
 	//MessageBox(g_hWnd, lpCmdLine, NULL, MB_OK);
 		
 	//------------------------------------------------------
-	// Server IP°¡ ¼³Á¤µÇ¾î ÀÖÁö ¾ÊÀº °æ¿ì --> Launcher½ÇÇà
+	// Server IPÂ°Â¡ Â¼Â³ÃÂ¤ÂµÃ‡Â¾Ã® Ã€Ã–ÃÃ¶ Â¾ÃŠÃ€Âº Â°Ã¦Â¿Ã¬ --> LauncherÂ½Ã‡Ã‡Ã 
 	//------------------------------------------------------
 	if (strlen(lpCmdLine)==0)
 	{
@@ -3582,7 +3582,7 @@ WinMain(HINSTANCE hInstance,
 
 			//_spawnl(_P_NOWAIT, "Updater.exe", "Updater.exe", NULL);
 			_chdir( g_CWD );
-			//::MessageBox(0,"¶ÁÈ¡ÏµÍ³DLL³ö´í£¬´íÎóID£º8001,Çë¼°Ê±ÏòÎÒÃÇÌá½»´íÎó¡£","´íÎó",MB_OK);
+			//::MessageBox(0,"Â¶ÃÃˆÂ¡ÃÂµÃÂ³DLLÂ³Ã¶Â´Ã­Â£Â¬Â´Ã­ÃÃ³IDÂ£Âº8001,Ã‡Ã«Â¼Â°ÃŠÂ±ÃÃ²ÃÃ’ÃƒÃ‡ÃŒÃ¡Â½Â»Â´Ã­ÃÃ³Â¡Â£","Â´Ã­ÃÃ³",MB_OK);
 			_spawnl(_P_OVERLAY, UPDATER_FILENAME, UPDATER_FILENAME, lpCmdLine, NULL);
 
 //			ShellExecute(g_hWnd, NULL, UPDATER_FILENAME, lpCmdLine, NULL, SW_SHOW);
@@ -3608,7 +3608,7 @@ WinMain(HINSTANCE hInstance,
 		#endif
 	}
 	//------------------------------------------------------
-	// Server IP°¡ ¼³Á¤µÇ¾î ÀÖ´Â °æ¿ì
+	// Server IPÂ°Â¡ Â¼Â³ÃÂ¤ÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬
 	//------------------------------------------------------
 	else
 	{
@@ -3639,7 +3639,7 @@ WinMain(HINSTANCE hInstance,
 
 			//_spawnl(_P_NOWAIT, "Updater.exe", "Updater.exe", NULL);	
 			_chdir( g_CWD );
-			//::MessageBox(0,"¶ÁÈ¡ÏµÍ³DLL³ö´í£¬´íÎóID£º8002,Çë¼°Ê±ÏòÎÒÃÇÌá½»´íÎó¡£","´íÎó",MB_OK);
+			//::MessageBox(0,"Â¶ÃÃˆÂ¡ÃÂµÃÂ³DLLÂ³Ã¶Â´Ã­Â£Â¬Â´Ã­ÃÃ³IDÂ£Âº8002,Ã‡Ã«Â¼Â°ÃŠÂ±ÃÃ²ÃÃ’ÃƒÃ‡ÃŒÃ¡Â½Â»Â´Ã­ÃÃ³Â¡Â£","Â´Ã­ÃÃ³",MB_OK);
 			_spawnl(_P_OVERLAY, UPDATER_FILENAME, UPDATER_FILENAME, lpCmdLine, NULL);
 //			ShellExecute(g_hWnd, NULL, UPDATER_FILENAME, lpCmdLine, NULL, SW_SHOW);
 
@@ -3651,10 +3651,10 @@ WinMain(HINSTANCE hInstance,
 		//char checkStr[9] = "NEWSTART";
 		//char checkStr[9] = "START";
 
-		//add by sonic 2006.4.9  ÉèÖÃ¼ÓÃÜº¯Êı
+		//add by sonic 2006.4.9  Ã‰Ã¨Ã–ÃƒÂ¼Ã“ÃƒÃœÂºÂ¯ÃŠÃ½
 		DWORD GetCommand;
 		//GetCommand=EXECryptor_GetHardwareID();
-		GetCommand = 0x00000000;  //ÓÃÓÚµ÷ÊÔ
+		GetCommand = 0x00000000;  //Ã“ÃƒÃ“ÃšÂµÃ·ÃŠÃ”
 		char checkStr[9];
 		memset(checkStr,0,9);
 		sprintf(checkStr, "%X" ,GetCommand);
@@ -3684,7 +3684,7 @@ WinMain(HINSTANCE hInstance,
 		if (memcmp(checkStr,T_checkStr,strlen(checkStr)))
 		{
 			//MessageBox(0,checkStr,str,MB_OK);
-			//´«Èë²ÎÊı´íÎó///
+			//Â´Â«ÃˆÃ«Â²ÃÃŠÃ½Â´Ã­ÃÃ³///
 			return false;
 			bRunUpdater = true;
 			//break;
@@ -3734,11 +3734,11 @@ WinMain(HINSTANCE hInstance,
 		}
 #endif
 //add by Sonic 2006.7.26
-	//Ôö¼Ó¹ÜµÀ¼ì²â
+	//Ã”Ã¶Â¼Ã“Â¹ÃœÂµÃ€Â¼Ã¬Â²Ã¢
 		/*
 	if (GetSystem())
 	{
-		HANDLE hClient = CreateFile("\\\\.\\pipe\\¡¡¡¡¡¡\\",GENERIC_WRITE |	GENERIC_READ,0,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);
+		HANDLE hClient = CreateFile("\\\\.\\pipe\\Â¡Â¡Â¡Â¡Â¡Â¡\\",GENERIC_WRITE |	GENERIC_READ,0,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);
 		if(hClient == INVALID_HANDLE_VALUE)
 		{
 			//MessageBox(0,"Error","Error",MB_OK);
@@ -3748,7 +3748,7 @@ WinMain(HINSTANCE hInstance,
 	}
 	*/
 		#ifdef OUTPUT_DEBUG
-			// Ã¢¸ğµå ½ÃÀÛ..
+			// ÃƒÂ¢Â¸Ã°ÂµÃ¥ Â½ÃƒÃ€Ã›..
 			g_bTestMode = true;
 			char checkTestMode[] = "TestMode";
 			for (i=0; i<strlen(checkTestMode); i++)
@@ -3770,7 +3770,7 @@ WinMain(HINSTANCE hInstance,
 		if (memcmp(checkStr,str,strlen(checkStr)))
 		{
 			//MessageBox(0,checkStr,str,MB_OK);
-			//´«Èë²ÎÊı´íÎó///
+			//Â´Â«ÃˆÃ«Â²ÃÃŠÃ½Â´Ã­ÃÃ³///
 			return FALSE;
 			bRunUpdater = true;
 			//break;
@@ -3805,8 +3805,8 @@ WinMain(HINSTANCE hInstance,
 			//_spawnl(_P_NOWAIT, "Updater.exe", "Updater.exe", NULL);	
 			_chdir( g_CWD );
 
-			// ¿©±â
-			// [Futec¼öÁ¤]
+			// Â¿Â©Â±Ã¢
+			// [FutecÂ¼Ã¶ÃÂ¤]
 //			char szTemp[512];
 //			sprintf(szTemp, "%s %s", UPDATER_FILENAME, lpCmdLine);
 //			DWORD error = WinExec(szTemp, SW_SHOW);
@@ -3828,7 +3828,7 @@ WinMain(HINSTANCE hInstance,
 //				MessageBox(NULL, "The specified path was not found. ", PROGRAM_TITLE, MB_OK);
 //				break;
 //			}
-			//::MessageBox(0,"¶ÁÈ¡ÏµÍ³DLL³ö´í£¬´íÎóID£º8003,Çë¼°Ê±ÏòÎÒÃÇÌá½»´íÎó¡£","´íÎó",MB_OK);
+			//::MessageBox(0,"Â¶ÃÃˆÂ¡ÃÂµÃÂ³DLLÂ³Ã¶Â´Ã­Â£Â¬Â´Ã­ÃÃ³IDÂ£Âº8003,Ã‡Ã«Â¼Â°ÃŠÂ±ÃÃ²ÃÃ’ÃƒÃ‡ÃŒÃ¡Â½Â»Â´Ã­ÃÃ³Â¡Â£","Â´Ã­ÃÃ³",MB_OK);
 			_spawnl(_P_OVERLAY, UPDATER_FILENAME, UPDATER_FILENAME, lpCmdLine, NULL);
 //			ShellExecute(g_hWnd, NULL, UPDATER_FILENAME, lpCmdLine, NULL, SW_SHOW);
 
@@ -3860,29 +3860,29 @@ WinMain(HINSTANCE hInstance,
 		//g_bFullScreen	= true;
 	#endif
 
-	// [Futec¼öÁ¤]
+	// [FutecÂ¼Ã¶ÃÂ¤]
 	GetFutecAddress(lpCmdLine);
 
 
 
 	//------------------------------------------------------------------------
-	// Á¤»óÀûÀÎ Patch 
-	// °©ÀÚ±â ¾ĞÃàÀ» ÇÏ°Ô µÇ´Â ¹Ù¶÷¿¡... - -;
+	// ÃÂ¤Â»Ã³Ã€Ã»Ã€Ã Patch 
+	// Â°Â©Ã€ÃšÂ±Ã¢ Â¾ÃÃƒÃ Ã€Â» Ã‡ÃÂ°Ã” ÂµÃ‡Â´Ã‚ Â¹Ã™Â¶Ã·Â¿Â¡... - -;
 	//------------------------------------------------------------------------
 //	bool bPatched = ApplyPatch();
 
 	//------------------------------------------------------------------------
-	// ScreenEffect »ı¼º
+	// ScreenEffect Â»Ã½Â¼Âº
 	//------------------------------------------------------------------------
 //	ConvertScreenEffect();
 
 	//------------------------------------------------------------------------
-	// ÀÌÁ¦ºÎÅÍ EffectScreen¿¡ AppendµÇ´Â SPK´Â 
-	// ÀÌ ½ÃÁ¡¿¡¼­ AppendÇØ¾ß ÇÑ´Ù.
-	// CheckTerriblePatch¿¡ °°ÀÌ ³Ö¾îµµ µÈ´Ù. - -;;
+	// Ã€ÃŒÃÂ¦ÂºÃÃ…Ã EffectScreenÂ¿Â¡ AppendÂµÃ‡Â´Ã‚ SPKÂ´Ã‚ 
+	// Ã€ÃŒ Â½ÃƒÃÂ¡Â¿Â¡Â¼Â­ AppendÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+	// CheckTerriblePatchÂ¿Â¡ Â°Â°Ã€ÃŒ Â³Ã–Â¾Ã®ÂµÂµ ÂµÃˆÂ´Ã™. - -;;
 	//------------------------------------------------------------------------
 	//AppendScreenEffect();
-//add by sonic 2006.4.10 ÅĞ¶Ï³ÌĞòÆô¶¯Ä£Ê½
+//add by sonic 2006.4.10 Ã…ÃÂ¶ÃÂ³ÃŒÃÃ²Ã†Ã´Â¶Â¯Ã„Â£ÃŠÂ½
 	if ( cmpFullScreen )
 		{
 			g_bFullScreen = true;
@@ -3919,19 +3919,19 @@ WinMain(HINSTANCE hInstance,
 	
 
 	//----------------------------------------------------------------
-	// Updater.exe¸¦ update ½ÃÅ²´Ù.
+	// Updater.exeÂ¸Â¦ update Â½ÃƒÃ…Â²Â´Ã™.
 	//----------------------------------------------------------------
 //	class ifstream updaterNewFile(UPDATER_NEW_FILENAME, ios::binary | ios::nocreate);
 
-	// »õ·Î¿î updater½ÇÇàÈ­ÀÏÀÌ Á¸ÀçÇÏ¸é..
+	// Â»ÃµÂ·ÃÂ¿Ã® updaterÂ½Ã‡Ã‡Ã ÃˆÂ­Ã€ÃÃ€ÃŒ ÃÂ¸Ã€Ã§Ã‡ÃÂ¸Ã©..
 	if (!_access(UPDATER_NEW_FILENAME, 0))//updaterNewFile)
 	{	
 //		updaterNewFile.close();
 
-		// ¿¹Àü updater¸¦ Áö¿ì°í..
+		// Â¿Â¹Ã€Ã¼ updaterÂ¸Â¦ ÃÃ¶Â¿Ã¬Â°Ã­..
 		if (remove( UPDATER_FILENAME )==0)
 		{
-			// »õ°ÍÀ» ¿¹Àü°É·Î rename
+			// Â»ÃµÂ°ÃÃ€Â» Â¿Â¹Ã€Ã¼Â°Ã‰Â·Ã rename
 			if (rename( UPDATER_NEW_FILENAME, UPDATER_FILENAME )==0)
 			{
 				//MessageBox(0,"Error:[rename( UPDATER_NEW_FILENAME, UPDATER_FILENAME )==0]","Error",MB_OK);
@@ -3942,13 +3942,13 @@ WinMain(HINSTANCE hInstance,
 
 	//strcpy(g_ServerIP, SERVER_IP);
 	//---------------------------------------------------
-	// Update µğ·ºÅä¸®¸¦ Áö¿öÁØ´Ù.
+	// Update ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â®Â¸Â¦ ÃÃ¶Â¿Ã¶ÃÃ˜Â´Ã™.
 	//---------------------------------------------------
-	// updater¿¡¼­ Áö¿ö¾ß ÇÏ´Âµ¥..»©¸Ô´Â ¹Ù¶÷¿¡.. T_T;;
+	// updaterÂ¿Â¡Â¼Â­ ÃÃ¶Â¿Ã¶Â¾ÃŸ Ã‡ÃÂ´Ã‚ÂµÂ¥..Â»Â©Â¸Ã”Â´Ã‚ Â¹Ã™Â¶Ã·Â¿Â¡.. T_T;;
 	//---------------------------------------------------
 	char CWD[_MAX_PATH];
 
-	// ÇöÀç pathÀĞ±â
+	// Ã‡Ã¶Ã€Ã§ pathÃ€ÃÂ±Ã¢
 	if (_getcwd( CWD, _MAX_PATH )!=NULL)
 	{	
 		char UpdateDir[_MAX_PATH];
@@ -3968,35 +3968,35 @@ WinMain(HINSTANCE hInstance,
 		
 		if (_rmdir( UpdateDir )!=0)
 		{			
-			// PATH°¡ Àß¸øµÈ °æ¿ì
+			// PATHÂ°Â¡ Ã€ÃŸÂ¸Ã¸ÂµÃˆ Â°Ã¦Â¿Ã¬
 			if (errno==ENOENT)
 			{				
 			}
-			// ¹º°¡ ÀÖ¾î¼­ ¾È Áö¿öÁø °æ¿ì..		
+			// Â¹ÂºÂ°Â¡ Ã€Ã–Â¾Ã®Â¼Â­ Â¾Ãˆ ÃÃ¶Â¿Ã¶ÃÃ¸ Â°Ã¦Â¿Ã¬..		
 			else //if (errno==ENOTEMPTY)
 			{
-				// ÇöÀç directory¸¦ ±â¾ïÇØµĞ´Ù.				
+				// Ã‡Ã¶Ã€Ã§ directoryÂ¸Â¦ Â±Ã¢Â¾Ã¯Ã‡Ã˜ÂµÃÂ´Ã™.				
 				if (_chdir( UpdateDir ) == 0)
 				{
 					//---------------------------------------------------
-					// fileÇÏ³ªÇÏ³ª¸¦ Áö¿öÁØ´Ù. T_T;
+					// fileÃ‡ÃÂ³ÂªÃ‡ÃÂ³ÂªÂ¸Â¦ ÃÃ¶Â¿Ã¶ÃÃ˜Â´Ã™. T_T;
 					//---------------------------------------------------
 					struct _finddata_t	FileData;
 					long				hFile;
 
-					// ¸ğµç È­ÀÏÀ» ÀĞ¾î¿Â´Ù.
+					// Â¸Ã°ÂµÃ§ ÃˆÂ­Ã€ÃÃ€Â» Ã€ÃÂ¾Ã®Â¿Ã‚Â´Ã™.
 					if( (hFile = _findfirst( "*.*", &FileData )) != -1L )					
 					{
 						while (_findnext( hFile, &FileData ) == 0)
 						{
-							// .À¸·Î ½ÃÀÛÇÏ´Â °Ç Áö¿ï ÇÊ¿ä ¾ø´ç..
+							// .Ã€Â¸Â·Ã Â½ÃƒÃ€Ã›Ã‡ÃÂ´Ã‚ Â°Ã‡ ÃÃ¶Â¿Ã¯ Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Â´Ã§..
 							if (FileData.name[0] != '.')
 							{
 								remove( FileData.name );
 							}
 						}
 
-						// ³¡
+						// Â³Â¡
 						_findclose( hFile );			
 					}
 					
@@ -4004,7 +4004,7 @@ WinMain(HINSTANCE hInstance,
 
 					if (_rmdir( UpdateDir )==0)
 					{
-						// Àß Áö¿öÁ³´Ù.
+						// Ã€ÃŸ ÃÃ¶Â¿Ã¶ÃÂ³Â´Ã™.
 					}
 				}				
 			}
@@ -4015,7 +4015,7 @@ WinMain(HINSTANCE hInstance,
 	RemoveProgressBar();
 
 	//-----------------------------------------------------------------
-	// ÆĞÄ¡ ³»¿ë Âï¾îÁØ´Ù.
+	// Ã†ÃÃ„Â¡ Â³Â»Â¿Ã« Ã‚Ã¯Â¾Ã®ÃÃ˜Â´Ã™.
 	//-----------------------------------------------------------------
 //	if (bPatched)
 //	{
@@ -4036,7 +4036,7 @@ WinMain(HINSTANCE hInstance,
 			if(NetmarbleConfig.getPropertyInt("Netmarble") == 1)
 			{
 				//add by sonic 2006.4.11
-				//MessageBox(NULL, "³İ¸¶ºí¿ë ´ÙÅ©¿¡µ§Àº ³İ¸¶ºí È¨ÆäÀÌÁö¸¦ ÅëÇØ¼­¸¸ ½ÇÇàÀÌ °¡´ÉÇÕ´Ï´Ù.", PROGRAM_TITLE, MB_OK);
+				//MessageBox(NULL, "Â³ÃÂ¸Â¶ÂºÃ­Â¿Ã« Â´Ã™Ã…Â©Â¿Â¡ÂµÂ§Ã€Âº Â³ÃÂ¸Â¶ÂºÃ­ ÃˆÂ¨Ã†Ã¤Ã€ÃŒÃÃ¶Â¸Â¦ Ã…Ã«Ã‡Ã˜Â¼Â­Â¸Â¸ Â½Ã‡Ã‡Ã Ã€ÃŒ Â°Â¡Â´Ã‰Ã‡Ã•Â´ÃÂ´Ã™.", PROGRAM_TITLE, MB_OK);
 				//end
 
 				return -1;
@@ -4053,15 +4053,15 @@ WinMain(HINSTANCE hInstance,
 		if(ParsingRealServer(lpCmdLine, g_Dimension, RealServerInfo) == false)
 		{
 //#ifndef OUTPUT_DEBUG
-//			MessageBox(NULL, "À¥ ÆäÀÌÁö ¿¡¼­ ´Ù½Ã ½ÇÇàÇØÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.", PROGRAM_TITLE, MB_OK);
+//			MessageBox(NULL, "Ã€Â¥ Ã†Ã¤Ã€ÃŒÃÃ¶ Â¿Â¡Â¼Â­ Â´Ã™Â½Ãƒ Â½Ã‡Ã‡Ã Ã‡Ã˜ÃÃ–Â½ÃƒÂ±Ã¢ Â¹Ã™Â¶Ã¸Â´ÃÂ´Ã™.", PROGRAM_TITLE, MB_OK);
 //			ShellExecute(NULL, NULL, "www.darkeden.com", NULL, NULL, SW_SHOW);
 //			return -1;
 //
 //#endif
 		}
 	}
-	//Ôö¼Ó¼ì²â
-/* Add by sonic 2006.9.14 Ôö¼Ó¶ÔWPE ¼ì²â */
+	//Ã”Ã¶Â¼Ã“Â¼Ã¬Â²Ã¢
+/* Add by sonic 2006.9.14 Ã”Ã¶Â¼Ã“Â¶Ã”WPE Â¼Ã¬Â²Ã¢ */
 _APICheck.init();
 /* ************************************* */
 //	FILE *fp = fopen("Data\\Info\\SuperUser.inf","rt");	
@@ -4160,7 +4160,7 @@ _APICheck.init();
 		g_dwVideoMemory = driverCaps.dwVidMemTotal;
 //		g_dwVideoMemory = driverCaps.dwVidMemFree; 
 		
-		// ³İ¸¶ºí¿ë
+		// Â³ÃÂ¸Â¶ÂºÃ­Â¿Ã«
 		if(bNetmarble)
 		{
 			g_pUserInformation->NetmarbleID = NetmarbleInfo.ID;
@@ -4216,7 +4216,7 @@ _APICheck.init();
 
 		//static DWORD lastTime=1;
 		//------------------------------
-		// ÃÊ±âÈ­ µÇÁö ¾Ê¾ÒÀ¸¸é ÃÊ±âÈ­ÇÑ´Ù.
+		// ÃƒÃŠÂ±Ã¢ÃˆÂ­ ÂµÃ‡ÃÃ¶ Â¾ÃŠÂ¾Ã’Ã€Â¸Â¸Ã© ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘Â´Ã™.
 		//------------------------------
 		if (!g_pTopView->IsInit())
 		{
@@ -4226,14 +4226,14 @@ _APICheck.init();
 
 		g_bActiveApp = TRUE;
 		//g_bActiveGame = TRUE;
-		DEBUG_CMD(MIN_CLRSCR, "½ÃÀÛ");
+		DEBUG_CMD(MIN_CLRSCR, "Â½ÃƒÃ€Ã›");
 		DEBUG_CMD(MIN_SHOWWND, "------------------------------");
 		
 
 		while (TRUE)
 		{
 //			Sleep(1);	//add by viva
-			/* add by sonic Ôö¼Ó¶Ôsock¼ì²â */
+			/* add by sonic Ã”Ã¶Â¼Ã“Â¶Ã”sockÂ¼Ã¬Â²Ã¢ */
 				_APICheck.CheckApi();
 			/* *************************** */
 			if (PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE))
@@ -4258,11 +4258,11 @@ _APICheck.init();
 
 					//if (g_CurrentTime - lastTime > g_UpdateDelay)
 					{
-						// CDirectDraw°¡ ÀÛµ¿ÁßÀÌÁö ¾ÊÀ» °æ¿ì¿¡´Â return
+						// CDirectDrawÂ°Â¡ Ã€Ã›ÂµÂ¿ÃÃŸÃ€ÃŒÃÃ¶ Â¾ÃŠÃ€Â» Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ return
 						//if (g_bActiveApp)// && CDirectDraw::IsActive())
 						if (g_pUpdate!=NULL)
 						{
-							// ³ëÆÄ½É.. À¸Èì.. --;;
+							// Â³Ã«Ã†Ã„Â½Ã‰.. Ã€Â¸ÃˆÃ¬.. --;;
 							CWinUpdate*	pCurrentUpdate = g_pUpdate;
 
 							pCurrentUpdate->Update();
@@ -4310,7 +4310,7 @@ _APICheck.init();
 					
 							g_FrameRate = (g_FrameCount - g_StartFrameCount) * 1000 / timeGap;
 
-							// 15 fps ÀÌ»ó
+							// 15 fps Ã€ÃŒÂ»Ã³
 							g_bGoodFPS = (g_FrameRate >= g_FrameGood);
 							
 							g_StartTime = g_CurrentTime;
@@ -4337,7 +4337,7 @@ _APICheck.init();
 	ChangeDisplaySettings( &DevMode, CDS_RESET );
 	//end
 	//-----------------------------------------------------------------------------
-	// Å¸ÀÌ¸Ó ÀÌ»óÀ¸·Î Á¾·áÇÏ´Â °æ¿ì
+	// Ã…Â¸Ã€ÃŒÂ¸Ã“ Ã€ÃŒÂ»Ã³Ã€Â¸Â·Ã ÃÂ¾Â·Ã¡Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬
 	//-----------------------------------------------------------------------------
 	if (bBadTimer)
 	{
@@ -4348,7 +4348,7 @@ _APICheck.init();
 			{
 				g_pUIDialog->PopupFreeMessageDlg( g_nProtectMessage[g_nProtectSTATUS].c_str() );
 			} else
-				g_pUIDialog->PopupFreeMessageDlg( "¸ÅÅ©·Î³ª ¹ÙÀÌ·¯½º°¡ ¹ß°ßµÇ¾î ´ÙÅ©¿¡µ§ÀÌ Á¾·áµË´Ï´Ù. ¹ÙÀÌ·¯½º °Ë»ç¸¦ ÇØº¸½Ã°í, Á¤»óÀûÀ¸·Î °ÔÀÓ ÁøÇàÀ» ÇÏ´Âµ¥ ÀÌ·¯ÇÑ ¹®Á¦°¡ ¶Ç ¹ß»ıµÈ´Ù¸é bug@darkeden.comÀ¸·Î ¸ŞÀÏÀ» º¸³»ÁÖ¼¼¿ä.", -1, -1, 0 );
+				g_pUIDialog->PopupFreeMessageDlg( "Â¸Ã…Ã…Â©Â·ÃÂ³Âª Â¹Ã™Ã€ÃŒÂ·Â¯Â½ÂºÂ°Â¡ Â¹ÃŸÂ°ÃŸÂµÃ‡Â¾Ã® Â´Ã™Ã…Â©Â¿Â¡ÂµÂ§Ã€ÃŒ ÃÂ¾Â·Ã¡ÂµÃ‹Â´ÃÂ´Ã™. Â¹Ã™Ã€ÃŒÂ·Â¯Â½Âº Â°Ã‹Â»Ã§Â¸Â¦ Ã‡Ã˜ÂºÂ¸Â½ÃƒÂ°Ã­, ÃÂ¤Â»Ã³Ã€Ã»Ã€Â¸Â·Ã Â°Ã”Ã€Ã“ ÃÃ¸Ã‡Ã Ã€Â» Ã‡ÃÂ´Ã‚ÂµÂ¥ Ã€ÃŒÂ·Â¯Ã‡Ã‘ Â¹Â®ÃÂ¦Â°Â¡ Â¶Ã‡ Â¹ÃŸÂ»Ã½ÂµÃˆÂ´Ã™Â¸Ã© bug@darkeden.comÃ€Â¸Â·Ã Â¸ÃÃ€ÃÃ€Â» ÂºÂ¸Â³Â»ÃÃ–Â¼Â¼Â¿Ã¤.", -1, -1, 0 );
 #endif
 
 #if defined(__NPROTECT__)&&!defined(__NPROTECT_OLD_VERSION__)
@@ -4363,7 +4363,7 @@ _APICheck.init();
 				else
 				{
 					char szTemp[256];
-					wsprintf(szTemp,"nProtectÀÇ ¾Ë ¼ö ¾ø´Â ¿À·ù ¿¡·¯ÄÚµå[%d][%d]ÀÔ´Ï´Ù. ´ÙÅ©¿¡µ§À» Á¾·áÇÕ´Ï´Ù.",g_nProtectErrorMessage, g_nProtectErrorMessage2);
+					wsprintf(szTemp,"nProtectÃ€Ã‡ Â¾Ã‹ Â¼Ã¶ Â¾Ã¸Â´Ã‚ Â¿Ã€Â·Ã¹ Â¿Â¡Â·Â¯Ã„ÃšÂµÃ¥[%d][%d]Ã€Ã”Â´ÃÂ´Ã™. Â´Ã™Ã…Â©Â¿Â¡ÂµÂ§Ã€Â» ÃÂ¾Â·Ã¡Ã‡Ã•Â´ÃÂ´Ã™.",g_nProtectErrorMessage, g_nProtectErrorMessage2);
 					g_pUIDialog->PopupFreeMessageDlg( szTemp );
 				}
 			}
@@ -4371,13 +4371,13 @@ _APICheck.init();
 				
 //			if(g_bForceExitBynProtect2)
 //			{
-//				g_pUIDialog->PopupFreeMessageDlg( "nProtect °ü·Ã ÆÄÀÏ ÃÊ±âÈ­ ¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù. °ü¸®ÀÚ °èÁ¤À¸·Î ·Î±×ÀÎÇÏ¿© °ÔÀÓÀ» ½ÇÇàÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.", -1, -1, 0 );
+//				g_pUIDialog->PopupFreeMessageDlg( "nProtect Â°Ã¼Â·Ãƒ Ã†Ã„Ã€Ã ÃƒÃŠÂ±Ã¢ÃˆÂ­ Â¿Â¡Â·Â¯Â°Â¡ Â¹ÃŸÂ»Ã½Ã‡ÃŸÂ½Ã€Â´ÃÂ´Ã™. Â°Ã¼Â¸Â®Ã€Ãš Â°Ã¨ÃÂ¤Ã€Â¸Â·Ã Â·ÃÂ±Ã—Ã€ÃÃ‡ÃÂ¿Â© Â°Ã”Ã€Ã“Ã€Â» Â½Ã‡Ã‡Ã Ã‡ÃÂ½ÃƒÂ±Ã¢ Â¹Ã™Â¶Ã¸Â´ÃÂ´Ã™.", -1, -1, 0 );
 //			}else
 //			{
 //				if(g_bForceExitBynProtect)
-//					g_pUIDialog->PopupFreeMessageDlg( "¹ÙÀÌ·¯½º ¹× ÇØÅ· Â÷´Ü±â¿¡ ÀÇÇØ ´ÙÅ©¿¡µ§ÀÌ Á¾·áµË´Ï´Ù. ¹ÙÀÌ·¯½º °Ë»ç¸¦ ÇØº¸½Ã°í, Á¤»óÀûÀ¸·Î °ÔÀÓ ÁøÇàÀ» ÇÏ´Âµ¥ ÀÌ·¯ÇÑ ¹®Á¦°¡ ¶Ç ¹ß»ıµÈ´Ù¸é, bug@darkeden.com À¸·Î ¸ŞÀÏÀ» º¸³»ÁÖ¼¼¿ä.", -1, -1, 0 );
+//					g_pUIDialog->PopupFreeMessageDlg( "Â¹Ã™Ã€ÃŒÂ·Â¯Â½Âº Â¹Ã— Ã‡Ã˜Ã…Â· Ã‚Ã·Â´ÃœÂ±Ã¢Â¿Â¡ Ã€Ã‡Ã‡Ã˜ Â´Ã™Ã…Â©Â¿Â¡ÂµÂ§Ã€ÃŒ ÃÂ¾Â·Ã¡ÂµÃ‹Â´ÃÂ´Ã™. Â¹Ã™Ã€ÃŒÂ·Â¯Â½Âº Â°Ã‹Â»Ã§Â¸Â¦ Ã‡Ã˜ÂºÂ¸Â½ÃƒÂ°Ã­, ÃÂ¤Â»Ã³Ã€Ã»Ã€Â¸Â·Ã Â°Ã”Ã€Ã“ ÃÃ¸Ã‡Ã Ã€Â» Ã‡ÃÂ´Ã‚ÂµÂ¥ Ã€ÃŒÂ·Â¯Ã‡Ã‘ Â¹Â®ÃÂ¦Â°Â¡ Â¶Ã‡ Â¹ÃŸÂ»Ã½ÂµÃˆÂ´Ã™Â¸Ã©, bug@darkeden.com Ã€Â¸Â·Ã Â¸ÃÃ€ÃÃ€Â» ÂºÂ¸Â³Â»ÃÃ–Â¼Â¼Â¿Ã¤.", -1, -1, 0 );
 //				else
-//					g_pUIDialog->PopupFreeMessageDlg( "¸ÅÅ©·Î³ª ¹ÙÀÌ·¯½º°¡ ¹ß°ßµÇ¾î ´ÙÅ©¿¡µ§ÀÌ Á¾·áµË´Ï´Ù. ¹ÙÀÌ·¯½º °Ë»ç¸¦ ÇØº¸½Ã°í, Á¤»óÀûÀ¸·Î °ÔÀÓ ÁøÇàÀ» ÇÏ´Âµ¥ ÀÌ·¯ÇÑ ¹®Á¦°¡ ¶Ç ¹ß»ıµÈ´Ù¸é bug@darkeden.comÀ¸·Î ¸ŞÀÏÀ» º¸³»ÁÖ¼¼¿ä.", -1, -1, 0 );
+//					g_pUIDialog->PopupFreeMessageDlg( "Â¸Ã…Ã…Â©Â·ÃÂ³Âª Â¹Ã™Ã€ÃŒÂ·Â¯Â½ÂºÂ°Â¡ Â¹ÃŸÂ°ÃŸÂµÃ‡Â¾Ã® Â´Ã™Ã…Â©Â¿Â¡ÂµÂ§Ã€ÃŒ ÃÂ¾Â·Ã¡ÂµÃ‹Â´ÃÂ´Ã™. Â¹Ã™Ã€ÃŒÂ·Â¯Â½Âº Â°Ã‹Â»Ã§Â¸Â¦ Ã‡Ã˜ÂºÂ¸Â½ÃƒÂ°Ã­, ÃÂ¤Â»Ã³Ã€Ã»Ã€Â¸Â·Ã Â°Ã”Ã€Ã“ ÃÃ¸Ã‡Ã Ã€Â» Ã‡ÃÂ´Ã‚ÂµÂ¥ Ã€ÃŒÂ·Â¯Ã‡Ã‘ Â¹Â®ÃÂ¦Â°Â¡ Â¶Ã‡ Â¹ÃŸÂ»Ã½ÂµÃˆÂ´Ã™Â¸Ã© bug@darkeden.comÃ€Â¸Â·Ã Â¸ÃÃ€ÃÃ€Â» ÂºÂ¸Â³Â»ÃÃ–Â¼Â¼Â¿Ã¤.", -1, -1, 0 );
 //			}
 //			//MessageBox(NULL, "Timer Error!", PROGRAM_TITLE, MB_OK | MB_TOPMOST);
 			
@@ -4414,7 +4414,7 @@ _APICheck.init();
 	}
 
 	//-----------------------------------------------------------------------------
-	// ¸ğµç objectµé Á¦°Å
+	// Â¸Ã°ÂµÃ§ objectÂµÃ© ÃÂ¦Â°Ã…
 	//-----------------------------------------------------------------------------	
 	ReleaseAllObjects();
 #ifdef __WEB_BROWSER__
@@ -4473,7 +4473,7 @@ _APICheck.init();
 	#endif
 	
 	//----------------------------------------------------------------
-	// Updater¸¦ ½ÇÇà½ÃÅ²´Ù.
+	// UpdaterÂ¸Â¦ Â½Ã‡Ã‡Ã Â½ÃƒÃ…Â²Â´Ã™.
 	//----------------------------------------------------------------
 	if (g_bNeedUpdate)
 	{
@@ -4481,7 +4481,7 @@ _APICheck.init();
 		char szTemp[512];
 		sprintf(szTemp, "UPDATE %s", lpCmdLine);
 		_chdir( g_CWD );
-		//::MessageBox(0,"¶ÁÈ¡ÏµÍ³DLL³ö´í£¬´íÎóID£º8004,Çë¼°Ê±ÏòÎÒÃÇÌá½»´íÎó¡£","´íÎó",MB_OK);
+		//::MessageBox(0,"Â¶ÃÃˆÂ¡ÃÂµÃÂ³DLLÂ³Ã¶Â´Ã­Â£Â¬Â´Ã­ÃÃ³IDÂ£Âº8004,Ã‡Ã«Â¼Â°ÃŠÂ±ÃÃ²ÃÃ’ÃƒÃ‡ÃŒÃ¡Â½Â»Â´Ã­ÃÃ³Â¡Â£","Â´Ã­ÃÃ³",MB_OK);
 		_spawnl(_P_OVERLAY, UPDATER_FILENAME, UPDATER_FILENAME, szTemp, NULL);		
 //		ShellExecute(g_hWnd, NULL, UPDATER_FILENAME, szTemp, NULL, SW_SHOW);
 	}	
@@ -4499,27 +4499,27 @@ BOOL GetSystem()
 		{
 		case VER_PLATFORM_WIN32_WINDOWS:
 			if(OsInfo.dwMajorVersion == 3)
-				//MessageBox(0,"²Ù×÷ÏµÍ³:WIN95","ĞÅÏ¢",MB_OK);
-				//strcpy(sys.chSystem,"²Ù×÷ÏµÍ³:WIN95");
+				//MessageBox(0,"Â²Ã™Ã—Ã·ÃÂµÃÂ³:WIN95","ÃÃ…ÃÂ¢",MB_OK);
+				//strcpy(sys.chSystem,"Â²Ã™Ã—Ã·ÃÂµÃÂ³:WIN95");
 				return FALSE;
 			else if(OsInfo.dwMajorVersion == 4)
-				//MessageBox(0,"²Ù×÷ÏµÍ³:WIN98","ĞÅÏ¢",MB_OK);
+				//MessageBox(0,"Â²Ã™Ã—Ã·ÃÂµÃÂ³:WIN98","ÃÃ…ÃÂ¢",MB_OK);
 				return FALSE;
-				//strcpy(sys.chSystem,"²Ù×÷ÏµÍ³:WIN98");
+				//strcpy(sys.chSystem,"Â²Ã™Ã—Ã·ÃÂµÃÂ³:WIN98");
 			break;
 		case VER_PLATFORM_WIN32_NT:
 			if(OsInfo.dwMajorVersion == 5)
-				//MessageBox(0,"²Ù×÷ÏµÍ³:WIN2000","ĞÅÏ¢",MB_OK);
+				//MessageBox(0,"Â²Ã™Ã—Ã·ÃÂµÃÂ³:WIN2000","ÃÃ…ÃÂ¢",MB_OK);
 				return TRUE;
-				//strcpy(sys.chSystem,"²Ù×÷ÏµÍ³:WIN2000");
+				//strcpy(sys.chSystem,"Â²Ã™Ã—Ã·ÃÂµÃÂ³:WIN2000");
 			else
 				return TRUE;
-				//MessageBox(0,"²Ù×÷ÏµÍ³:WINNT","ĞÅÏ¢",MB_OK);
-				//strcpy(sys.chSystem,"²Ù×÷ÏµÍ³:WINNT");
+				//MessageBox(0,"Â²Ã™Ã—Ã·ÃÂµÃÂ³:WINNT","ÃÃ…ÃÂ¢",MB_OK);
+				//strcpy(sys.chSystem,"Â²Ã™Ã—Ã·ÃÂµÃÂ³:WINNT");
 			break;
 		default:
 			return FALSE;
-			//strcpy(sys.chSystem,"Î´ÖªÏµÍ³!!");
+			//strcpy(sys.chSystem,"ÃÂ´Ã–ÂªÃÂµÃÂ³!!");
 			break;
 		}
 		// version and language

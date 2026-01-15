@@ -24,10 +24,10 @@ class CGMove : public Packet {
 
 public :
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -38,7 +38,7 @@ public :
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static CGMovePacketSize ¸¦ Á¤ÀÇÇØ¼­ ¸®ÅÏÇÏ¶ó.
+	// const static CGMovePacketSize ë¥¼ ì •ì˜í•´ì„œ ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketSize () const throw () { return szCoord + szCoord + szDir; }
 
 	#ifdef __DEBUG_OUTPUT__
@@ -65,9 +65,9 @@ public :
 	
 private :
 	
-	Coord_t m_X;			// X ÁÂÇ¥
-	Coord_t m_Y;			// Y ÁÂÇ¥
-	Dir_t m_Dir;			// ¹æÇâ
+	Coord_t m_X;			// X ì¢Œí‘œ
+	Coord_t m_Y;			// Y ì¢Œí‘œ
+	Dir_t m_Dir;			// ë°©í–¥
 
 };
 
@@ -97,7 +97,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static CGMovePacketSize ¸¦ Á¤ÀÇÇØ¼­ ¸®ÅÏÇÏ¶ó.
+	// const static CGMovePacketSize ë¥¼ ì •ì˜í•´ì„œ ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketMaxSize () const throw () { return szCoord + szCoord + szDir; }
 
 };

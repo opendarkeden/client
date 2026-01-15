@@ -143,21 +143,21 @@ MNPCScriptTable::SaveToFile(class ofstream& file)
 	TYPE_MAP::iterator iData = begin();
 
 	//-----------------------------------------------------
-	// ∞≥ºˆ ¿˙¿Â
+	// Í∞úÏàò Ï†ÄÏû•
 	//-----------------------------------------------------
 	int infoSize = size();
 	file.write((const char*)&infoSize, 4);
 
 	//-----------------------------------------------------
-	// ∞¢ info ¿˙¿Â
+	// Í∞Å info Ï†ÄÏû•
 	//-----------------------------------------------------
 	while (iData != end())
 	{
 		unsigned int	id		= (*iData).first;
 		NPC_SCRIPT*		pData	= (*iData).second;		
 
-		file.write((const char*)&id, 4);	// id ¿˙¿Â
-		pData->SaveToFile( file );			// NPC info ¿˙¿Â
+		file.write((const char*)&id, 4);	// id Ï†ÄÏû•
+		pData->SaveToFile( file );			// NPC info Ï†ÄÏû•
 
 		iData ++;
 	}
@@ -170,7 +170,7 @@ void
 MNPCScriptTable::LoadFromFile(class ifstream& file)
 {
 	//-----------------------------------------------------
-	// ±‚¡∏ø° ¿÷¥¯∞Õ ¡¶∞≈
+	// Í∏∞Ï°¥Ïóê ÏûàÎçòÍ≤É Ï†úÍ±∞
 	//-----------------------------------------------------
 	Release();
 
@@ -181,7 +181,7 @@ MNPCScriptTable::LoadFromFile(class ifstream& file)
 	file.read((char*)&infoSize, 4);
 
 	//-----------------------------------------------------
-	// ∞¢ info
+	// Í∞Å info
 	//-----------------------------------------------------
 	unsigned int id;
 	for (int i=0; i<infoSize; i++)
@@ -192,7 +192,7 @@ MNPCScriptTable::LoadFromFile(class ifstream& file)
 		pData->LoadFromFile( file );
 
 		//-----------------------------------------------------
-		// mapø° √ﬂ∞°«—¥Ÿ.
+		// mapÏóê Ï∂îÍ∞ÄÌïúÎã§.
 		//-----------------------------------------------------
 		if (!AddData( id, pData ))
 		{
@@ -210,7 +210,7 @@ MNPCScriptTable::GetContentParameter(int scriptID, int contentID,HashMapScriptPa
 		return;
 	
 	
-/*	-_- ¡ﬂ∫π ∞Àªˆ æ»µ«µµ∑œ ∏«µÁ∞«µ•..§—.§Ã
+/*	-_- Ï§ëÎ≥µ Í≤ÄÏÉâ ÏïàÎêòÎèÑÎ°ù Îß®Îì†Í±¥Îç∞..„Ö°.„Öú
 	while(1)
 	{
 		str_s = str.find(SCRIPT_MARK_START,str_s);
@@ -226,7 +226,7 @@ MNPCScriptTable::GetContentParameter(int scriptID, int contentID,HashMapScriptPa
 		memcpy(temp,str.c_str()+str_s+2,str_e-(str_s+2));
 		scriptName = temp;
 
-		// ScriptName ∞˙ Parameter øÕ ∫Ò±≥«—¥Ÿ.
+		// ScriptName Í≥º Parameter ÏôÄ ÎπÑÍµêÌïúÎã§.
 
 		if(para.find(scriptName) != para.end())
 		{
@@ -258,7 +258,7 @@ MNPCScriptTable::GetSubjectParameter(int scriptID, int subjectID,HashMapScriptPa
 	if(str.empty())
 		return;
 	
-	/* ¡ﬂ∫π∞Àªˆ æ»µ«µµ∑œ ∏«µÁ∞«µ•..§—.§Ã
+	/* Ï§ëÎ≥µÍ≤ÄÏÉâ ÏïàÎêòÎèÑÎ°ù Îß®Îì†Í±¥Îç∞..„Ö°.„Öú
 	int str_s = 0;
 	int str_e = 0;
 	char temp[512];
@@ -278,7 +278,7 @@ MNPCScriptTable::GetSubjectParameter(int scriptID, int subjectID,HashMapScriptPa
 		memcpy(temp,str.c_str()+str_s+2,str_e-(str_s+2));
 		scriptName = temp;
 
-		// ScriptName ∞˙ Parameter øÕ ∫Ò±≥«—¥Ÿ.
+		// ScriptName Í≥º Parameter ÏôÄ ÎπÑÍµêÌïúÎã§.
 
 //		if(scriptName == para->getName())
 		if(para.find(scriptName) != para.end())

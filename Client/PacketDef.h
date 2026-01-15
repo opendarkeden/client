@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // PacketDef.h
 //----------------------------------------------------------------------
-// Client¿¡¼­ »ç¿ëÇÏ´Â Packet¿¡ ´ëÇÑ Á¤ÀÇ
+// Clientì—ì„œ ì‚¬ìš©í•˜ëŠ” Packetì— ëŒ€í•œ ì •ì˜
 //----------------------------------------------------------------------
 #ifndef	__PACKETDEF_H__
 #define	__PACKETDEF_H__
@@ -45,14 +45,14 @@
 #include "Packet\Cpackets\CGWhisper.h"
 
 //-----------------------------------------------------------------------------
-// Ã¤ÆÃ
+// ì±„íŒ…
 //-----------------------------------------------------------------------------
 #include "Packet\Cpackets\CGSay.h"
 #include "Packet\Cpackets\CGGlobalChat.h"
 
 
 //-----------------------------------------------------------------------------
-// ±â¼ú »ç¿ë
+// ê¸°ìˆ  ì‚¬ìš©
 //-----------------------------------------------------------------------------
 #include "Packet\Cpackets\CGAttack.h"
 #include "Packet\Cpackets\CGCastingSkill.h"
@@ -62,14 +62,14 @@
 #include "Packet\Cpackets\CGSkillToObject.h"
 #include "Packet\Cpackets\CGUnburrow.h"
 #include "Packet\Cpackets\CGBloodDrain.h"
-// 2001.4.23¿¡ Ãß°¡
+// 2001.4.23ì— ì¶”ê°€
 #include "Packet\Cpackets\CGThrowBomb.h"
 #include "Packet\Cpackets\CGUntransform.h"
 #include "Packet\Cpackets\CGVisible.h"
 #include "Packet\Cpackets\CGAbsorbSoul.h"
 
 //-----------------------------------------------------------------------------
-// skill ¹è¿ò / skill ´ÜÃàÅ°
+// skill ë°°ì›€ / skill ë‹¨ì¶•í‚¤
 //-----------------------------------------------------------------------------
 #include "Packet\Cpackets\CGLearnSkill.h"
 #include "Packet\Cpackets\CGUseBonusPoint.h"		// for vampire lev up
@@ -95,19 +95,19 @@
 #include "Packet\Cpackets\CGMakeItem.h"
 
 //-----------------------------------------------------------------------------
-// ½ÃÃ¼ click
+// ì‹œì²´ click
 //-----------------------------------------------------------------------------
 #include "Packet\Cpackets\CGDissectionCorpse.h"
 
-// ÅºÃ¢
+// íƒ„ì°½
 #include "Packet\Cpackets\CGReloadFromInventory.h"
 #include "Packet\Cpackets\CGReloadFromQuickSlot.h"
 
-// ¿ÀÅä¹ÙÀÌ
+// ì˜¤í† ë°”ì´
 #include "Packet\Cpackets\CGGetOffMotorCycle.h"
 #include "Packet\Cpackets\CGRideMotorCycle.h"
 
-// ´øÁö±â
+// ë˜ì§€ê¸°
 #include "Packet\Cpackets\CGThrowItem.h"
 
 // potion
@@ -123,14 +123,14 @@
 #include "Packet\Cpackets\CGNPCAskAnswer.h"
 
 //-----------------------------------------------------------------------------
-// »óÁ¡
+// ìƒì 
 //-----------------------------------------------------------------------------
 #include "Packet\Cpackets\CGShopRequestList.h"
 #include "Packet\Cpackets\CGShopRequestBuy.h"
 #include "Packet\Cpackets\CGShopRequestSell.h"
 
 //-----------------------------------------------------------------------------
-// º¸°ü
+// ë³´ê´€
 //-----------------------------------------------------------------------------
 #include "Packet\Cpackets\CGStashRequestBuy.h"
 #include "Packet\Cpackets\CGStashList.h"
@@ -140,7 +140,7 @@
 #include "Packet\Cpackets\CGStashWithdraw.h"
 
 //-----------------------------------------------------------------------------
-// ±³È¯
+// êµí™˜
 //-----------------------------------------------------------------------------
 #include "Packet\Cpackets\CGTradePrepare.h"
 #include "Packet\Cpackets\CGTradeAddItem.h"

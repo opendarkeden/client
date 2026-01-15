@@ -2,28 +2,28 @@
 // MStorage.h
 //----------------------------------------------------------------------
 // 
-// º¸°üÇÔÀÌ´Ù.
+// ë³´ê´€í•¨ì´ë‹¤.
 //
-// current¸¦ ¼³Á¤ÇØ¼­ ÇöÀç¿¡ »ç¿ëÁßÀÎ ÇÔ~À» ¼³Á¤ÇÒ ¼ö ÀÖ´Ù.
+// currentë¥¼ ì„¤ì •í•´ì„œ í˜„ì¬ì— ì‚¬ìš©ì¤‘ì¸ í•¨~ì„ ì„¤ì •í•  ìˆ˜ ìˆë‹¤.
 //----------------------------------------------------------------------
 /*
 
-	= º¸°üÇÔÀÌ 3°³°¡ ÀÖ´Ù°í °¡Á¤ÇÏ°í... 
+	= ë³´ê´€í•¨ì´ 3ê°œê°€ ìˆë‹¤ê³  ê°€ì •í•˜ê³ ... 
 
 	MStorage*	pStorage = ....;
 
 
-	[ º¸°üÇÔ ¹Ù²Ü ¶§ ]
+	[ ë³´ê´€í•¨ ë°”ê¿€ ë•Œ ]
 
-		pStorage->SetCurrent( n );		// n¹øÂ° º¸°üÇÔ¿¡ Á¢±ÙÇÑ´Ù.
+		pStorage->SetCurrent( n );		// në²ˆì§¸ ë³´ê´€í•¨ì— ì ‘ê·¼í•œë‹¤.
 
 
-	[ ÇöÀç Á¢±ÙÁßÀÎ º¸°üÇÔ¹øÈ£ ¾Ë¾Æ³»±â ]
+	[ í˜„ì¬ ì ‘ê·¼ì¤‘ì¸ ë³´ê´€í•¨ë²ˆí˜¸ ì•Œì•„ë‚´ê¸° ]
 
 		int n = pStorage->GetCurrent();
 
 
-	[ Á¢±ÙÁßÀÎ º¸°üÇÔÀÇ slot¿¡ ÀÖ´Â item ÀĞ¾î¿À±â ]
+	[ ì ‘ê·¼ì¤‘ì¸ ë³´ê´€í•¨ì˜ slotì— ìˆëŠ” item ì½ì–´ì˜¤ê¸° ]
 	
 		const MItem* pItem = pStorage->GetItem( slot );
 
@@ -49,7 +49,7 @@ class MStorage {
 		void				Release();
 
 		//-------------------------------------------------------		
-		// Active - º¸°üÇÔÀÌ ¶°ÀÖ´Â »óÅÂÀÎ°¡?
+		// Active - ë³´ê´€í•¨ì´ ë– ìˆëŠ” ìƒíƒœì¸ê°€?
 		//-------------------------------------------------------		
 		bool				IsActive() const	{ return m_bActive; }
 		void				SetActive()			{ m_bActive = true; }
@@ -68,7 +68,7 @@ class MStorage {
 		const MItem*		GetItem(unsigned int slot) const;
 
 		//-------------------------------------------------------		
-		// ÇöÀç Á¢±Ù ÁßÀÎ shelf
+		// í˜„ì¬ ì ‘ê·¼ ì¤‘ì¸ shelf
 		//-------------------------------------------------------		
 		void				SetCurrent(unsigned int n);
 		unsigned int		GetCurrent() const			{ return m_CurrentStorage; }		
@@ -86,16 +86,16 @@ class MStorage {
 		MMoneyManager*		GetMoneyManager() const		{ return m_pMoneyManager; }
 
 	protected :
-		bool				m_bActive;		// º¸°üÇÔ ÀÛµ¿ÁßÀÎ°¡?
+		bool				m_bActive;		// ë³´ê´€í•¨ ì‘ë™ì¤‘ì¸ê°€?
 
-		unsigned int		m_Size;			// ÀüÃ¼ º¸°üÇÔ °³¼ö
+		unsigned int		m_Size;			// ì „ì²´ ë³´ê´€í•¨ ê°œìˆ˜
 
-		MItem***			m_pStorage;		// itemº¸°üÇÔ
+		MItem***			m_pStorage;		// itemë³´ê´€í•¨
 
-		// ÇöÀç »ç¿ëÁßÀÎ storage
+		// í˜„ì¬ ì‚¬ìš©ì¤‘ì¸ storage
 		unsigned int		m_CurrentStorage;
 
-		// µ·
+		// ëˆ
 		MMoneyManager*		m_pMoneyManager;
 		char		*	    m_pPersnalMsg;
 		DWORD				m_curopenid;

@@ -24,9 +24,9 @@ void GCRemoveCorpseHeadHandler::execute ( GCRemoveCorpseHead * pPacket , Player 
 
 	int objectID = pPacket->getObjectID();
 
-	// Creature¸¦ »ý¼ºÇØ¼­ MCorpse¿¡ Ãß°¡ÇØ¼­ Zone¿¡ ³Ö´Â´Ù.
+	// Creatureë¥¼ ìƒì„±í•´ì„œ MCorpseì— ì¶”ê°€í•´ì„œ Zoneì— ë„£ëŠ”ë‹¤.
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -34,35 +34,35 @@ void GCRemoveCorpseHeadHandler::execute ( GCRemoveCorpseHead * pPacket , Player 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{	
 		//----------------------------------------	
-		// ÀÌ¹Ì ÀÖ´Â CreatureÀÎ°¡?
+		// ì´ë¯¸ ìžˆëŠ” Creatureì¸ê°€?
 		//----------------------------------------	
 		MCreature* pCreature = g_pZone->GetCreature( objectID );
 		
 		//---------------------------------------------------------
 		//
-		//					Zone¿¡ ¾ø´Â °æ¿ì
+		//					Zoneì— ì—†ëŠ” ê²½ìš°
 		//
 		//---------------------------------------------------------
 		if (pCreature==NULL)
 		{
-			// ÀÌ¹Ì ½ÃÃ¼°¡ ÀÖ³ª?
+			// ì´ë¯¸ ì‹œì²´ê°€ ìžˆë‚˜?
 			MItem* pItem = g_pZone->GetItem( objectID );
 
 			//---------------------------------------------------------
-			// ½ÃÃ¼µµ ¾øÀ¸¸é ¿¡·¯´ç
+			// ì‹œì²´ë„ ì—†ìœ¼ë©´ ì—ëŸ¬ë‹¹
 			//---------------------------------------------------------
 			if (pItem==NULL)
 			{
-				// ±×·± ¾ÆÀÌÅÛÀº ¾ø´Ù.
+				// ê·¸ëŸ° ì•„ì´í…œì€ ì—†ë‹¤.
 				DEBUG_ADD("[Error] There is no such Item ID");
 			}
 			//---------------------------------------------------------
-			// ½ÃÃ¼°¡ ÀÖÀ¸¸é ¸Ó¸®¸¦ ¾ø¾Ø´Ù.
+			// ì‹œì²´ê°€ ìžˆìœ¼ë©´ ë¨¸ë¦¬ë¥¼ ì—†ì•¤ë‹¤.
 			//---------------------------------------------------------
 			else if (pItem->GetItemClass()==ITEM_CLASS_CORPSE)
 			{
@@ -72,12 +72,12 @@ void GCRemoveCorpseHeadHandler::execute ( GCRemoveCorpseHead * pPacket , Player 
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛÀº ÀÖ´Âµ¥ ½ÃÃ¼°¡ ¾Æ´Ñ °æ¿ì
+				// ì•„ì´í…œì€ ìžˆëŠ”ë° ì‹œì²´ê°€ ì•„ë‹Œ ê²½ìš°
 				DEBUG_ADD_FORMAT("[Error] It's not Corpse. id=%d", objectID);
 			}
 		}
 		//---------------------------------------------------------
-		// ¾ÆÁ÷ ¸÷ÀÎ »óÅÂÀÎ °æ¿ì.. ¸Ó¸® ¾ø¾Ö±â
+		// ì•„ì§ ëª¹ì¸ ìƒíƒœì¸ ê²½ìš°.. ë¨¸ë¦¬ ì—†ì• ê¸°
 		//---------------------------------------------------------
 		else
 		{

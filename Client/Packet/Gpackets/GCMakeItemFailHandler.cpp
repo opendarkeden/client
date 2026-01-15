@@ -24,7 +24,7 @@ void GCMakeItemFailHandler::execute ( GCMakeItemFail * pPacket , Player * pPlaye
 
 
 	//------------------------------------------------------------------
-	// Temp Mode Ã¼Å©
+	// Temp Mode ì²´í¬
 	//------------------------------------------------------------------
 	if (g_pTempInformation->GetMode() == TempInformation::MODE_SKILL_MAKE_ITEM)
 	{
@@ -32,7 +32,7 @@ void GCMakeItemFailHandler::execute ( GCMakeItemFail * pPacket , Player * pPlaye
 		//g_pTempInformation->Value1 = itemClass;
 		//g_pTempInformation->Value2 = itemType;
 
-		// ¸ø ¿òÁ÷ÀÌ°Ô Çß´ø°Å Ç®±â
+		// ëª» ì›€ì§ì´ê²Œ í–ˆë˜ê±° í’€ê¸°
 		UI_UnlockItem();
 	}
 	else

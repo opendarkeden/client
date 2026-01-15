@@ -23,7 +23,7 @@ void GCCannotAddHandler::execute ( GCCannotAdd * pPacket , Player * pPlayer )
 
 
 	//-----------------------------------------------------------------
-	// Ã³¸®ÇÒ·Á´Â item bufferÀÇ »óÅÂ¿¡ µû¶ó¼­..
+	// ì²˜ë¦¬í• ë ¤ëŠ” item bufferì˜ ìƒíƒœì— ë”°ë¼ì„œ..
 	//-----------------------------------------------------------------
 
 	//-----------------------------------------------------------------
@@ -33,8 +33,8 @@ void GCCannotAddHandler::execute ( GCCannotAdd * pPacket , Player * pPlayer )
 	{
 		DEBUG_ADD("Can't Drop Item to Inventory");
 		
-		// inventory¿¡ ¸ø ³Ö´Â °æ¿ì..
-		// buffer¸¸ Á¦°Å½ÃÅ°¸é µÈ´Ù.
+		// inventoryì— ëª» ë„£ëŠ” ê²½ìš°..
+		// bufferë§Œ ì œê±°ì‹œí‚¤ë©´ ëœë‹¤.
 		g_pPlayer->ClearItemCheckBuffer();
 	}
 	//-----------------------------------------------------------------
@@ -44,7 +44,7 @@ void GCCannotAddHandler::execute ( GCCannotAdd * pPacket , Player * pPlayer )
 	{
 		DEBUG_ADD("Can't Pickup Item to Mouse");
 		
-		// buffer¸¸ Á¦°Å½ÃÅ°¸é µÈ´Ù.
+		// bufferë§Œ ì œê±°ì‹œí‚¤ë©´ ëœë‹¤.
 		g_pPlayer->ClearItemCheckBuffer();
 	}
 	//-----------------------------------------------------------------
@@ -54,16 +54,16 @@ void GCCannotAddHandler::execute ( GCCannotAdd * pPacket , Player * pPlayer )
 	{
 		DEBUG_ADD("Can't Drop Item to Zone");
 		
-		// ´Ù½Ã itemÀ» mouse¿¡ ºÙÀÎ´Ù.
+		// ë‹¤ì‹œ itemì„ mouseì— ë¶™ì¸ë‹¤.
 		MItem* pItem = g_pPlayer->GetItemCheckBuffer();
 
 		UI_PickUpItem( pItem );
 
-		// buffer Á¦°Å		
+		// buffer ì œê±°		
 		g_pPlayer->ClearItemCheckBuffer();
 	}
 	//-----------------------------------------------------------------
-	// inventory¿¡¼­ ¾ÆÀÌÅÛÀ» ¸ø ºÐ¸®ÇÑ´Ù°í °ËÁõ.
+	// inventoryì—ì„œ ì•„ì´í…œì„ ëª» ë¶„ë¦¬í•œë‹¤ê³  ê²€ì¦.
 	//-----------------------------------------------------------------
 	else if (g_pPlayer->IsItemCheckBufferPickupSomeFromInventory())
 	{
@@ -90,7 +90,7 @@ void GCCannotAddHandler::execute ( GCCannotAdd * pPacket , Player * pPlayer )
 		g_pPlayer->ClearItemCheckBuffer();		
 	}
 	//-----------------------------------------------------------------
-	// ´Ù¸¥ °æ¿ì..
+	// ë‹¤ë¥¸ ê²½ìš°..
 	//-----------------------------------------------------------------
 	else
 	{

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCShopVersionHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ void GCShopVersionHandler::execute ( GCShopVersion * pPacket , Player * pPlayer 
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -31,62 +31,62 @@ void GCShopVersionHandler::execute ( GCShopVersion * pPacket , Player * pPlayer 
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
 		//------------------------------------------------------
-		// ±×·± creature°¡ ¾ø´Â °æ¿ì
+		// ê·¸ëŸ° creatureê°€ ì—†ëŠ” ê²½ìš°
 		//------------------------------------------------------
 		if (pCreature==NULL)
 		{
 			DEBUG_ADD_FORMAT("[Error] There is no such Creature id=%d", pPacket->getObjectID());
 		}
 		//------------------------------------------------------
-		// NPCÀÎ °æ¿ì
+		// NPCì¸ ê²½ìš°
 		//------------------------------------------------------
 		else if (pCreature->GetClassType()==MCreature::CLASS_NPC)
 		{
 			MNPC* pNPC = (MNPC*)pCreature;
 
 			//------------------------------------------------------
-			// NPCÀÇ »óÁ¡À» ¾ò´Â´Ù.
+			// NPCì˜ ìƒì ì„ ì–»ëŠ”ë‹¤.
 			//------------------------------------------------------
 			MShop* pShop = pNPC->GetShop();
 
 			if (pShop==NULL)
 			{
-				// »óÁ¡ÀÌ ¾ø´Â °æ¿ì --> »ı¼º.
+				// ìƒì ì´ ì—†ëŠ” ê²½ìš° --> ìƒì„±.
 				pShop = new MShop;
 				pShop->Init( MShopShelf::MAX_SHELF );
 				
-				// NPC¿¡ »óÁ¡ ¼³Á¤..
+				// NPCì— ìƒì  ì„¤ì •..
 				pNPC->SetShop( pShop );				
 			}
 
 			//------------------------------------------------------
-			// default·Î normal »óÁ¡¿¡ Á¢±ÙÇÏ°Ô ÇÑ´Ù.
+			// defaultë¡œ normal ìƒì ì— ì ‘ê·¼í•˜ê²Œ í•œë‹¤.
 			//------------------------------------------------------
 			pShop->SetCurrent( 0 );
 
 			//------------------------------------------------------
-			// normal item ¼±¹İÀ» »ı¼ºÇÑ´Ù.
+			// normal item ì„ ë°˜ì„ ìƒì„±í•œë‹¤.
 			//------------------------------------------------------
 			pNPC->CreateFixedShelf();
 			pNPC->CreateFixedShelf(true);	// mysterious -_-;
 
 
 			//------------------------------------------------------
-			// °¢ shelfÀÇ version ºñ±³..
+			// ê° shelfì˜ version ë¹„êµ..
 			//------------------------------------------------------
 			BOOL bSameAll = TRUE;
 			for (ShopRackType_t i=0; i<SHOP_RACK_TYPE_MAX; i++)
 			{
 				//------------------------------------------------------
-				// normal itemÀÎ °æ¿ì´Â Ã¼Å©ÇÒ ÇÊ¿ä¾ø´Ù. 
-				// --> client¿¡ ÀÌ¹Ì Á¤º¸°¡ ÀÖÀ¸¹Ç·Î
+				// normal itemì¸ ê²½ìš°ëŠ” ì²´í¬í•  í•„ìš”ì—†ë‹¤. 
+				// --> clientì— ì´ë¯¸ ì •ë³´ê°€ ìˆìœ¼ë¯€ë¡œ
 				//------------------------------------------------------
 				if (i!=SHOP_RACK_SPECIAL)
 				{
@@ -96,7 +96,7 @@ void GCShopVersionHandler::execute ( GCShopVersion * pPacket , Player * pPlayer 
 				MShopShelf* pShopShelf = pShop->GetShelf( i );
 
 				//------------------------------------------------------
-				// ¼±¹İÀÌ ¾ø´Â °æ¿ì --> »ı¼º
+				// ì„ ë°˜ì´ ì—†ëŠ” ê²½ìš° --> ìƒì„±
 				//------------------------------------------------------
 				if (pShopShelf==NULL)
 				{
@@ -109,14 +109,14 @@ void GCShopVersionHandler::execute ( GCShopVersion * pPacket , Player * pPlayer 
 				unsigned int clientVersion = pShopShelf->GetVersion();
 
 				//------------------------------------------------------
-				// versionÀÌ ´Ù¸£¸é item std::list¸¦ ¿äÃ»ÇÑ´Ù.
+				// versionì´ ë‹¤ë¥´ë©´ item std::listë¥¼ ìš”ì²­í•œë‹¤.
 				//------------------------------------------------------
 				if (serverVersion!=clientVersion)
 				{
-					// versionÀÌ ´Ù¸¥ °ÍÀÌ ÀÖ´Ù°í Ã¼Å©
+					// versionì´ ë‹¤ë¥¸ ê²ƒì´ ìˆë‹¤ê³  ì²´í¬
 					bSameAll = FALSE;
 
-						// item std::list ¿äÃ» packet
+						// item std::list ìš”ì²­ packet
 						CGShopRequestList	_CGShopRequestList;
 						_CGShopRequestList.setObjectID( pNPC->GetID() );
 						_CGShopRequestList.setRackType( i );
@@ -125,27 +125,27 @@ void GCShopVersionHandler::execute ( GCShopVersion * pPacket , Player * pPlayer 
 				}
 			}
 
-			// 2004, 10, 25, sobeit add start - ¼¼À² Á¶Àı
+			// 2004, 10, 25, sobeit add start - ì„¸ìœ¨ ì¡°ì ˆ
 			g_pPriceManager->SetMarketCondSell( pPacket->getMarketCondSell() );
 			// 2004, 10, 25, sobeit add end
 			
 			//------------------------------------------------------
-			// ¸ğµç shelfÀÇ versionÀÌ °°À¸¸é..
-			// ¹Ù·Î »óÁ¡À» ¶ç¿î´Ù.
+			// ëª¨ë“  shelfì˜ versionì´ ê°™ìœ¼ë©´..
+			// ë°”ë¡œ ìƒì ì„ ë„ìš´ë‹¤.
 			//------------------------------------------------------
 			if (bSameAll)
 			{
 				//------------------------------------------------------
-				// Á¤»óÀûÀ¸·Î µÈ °æ¿ì
-				// --> »óÁ¡À» ½ÇÇàÇÑ´Ù.
+				// ì •ìƒì ìœ¼ë¡œ ëœ ê²½ìš°
+				// --> ìƒì ì„ ì‹¤í–‰í•œë‹¤.
 				//------------------------------------------------------
 				UI_RunShop();
-				UI_SetShop( pShop );		// shop ¼³Á¤				
+				UI_SetShop( pShop );		// shop ì„¤ì •				
 			}
 			
 		}
 		//------------------------------------------------------
-		// NPC°¡ ¾Æ´Ñ °æ¿ì
+		// NPCê°€ ì•„ë‹Œ ê²½ìš°
 		//------------------------------------------------------
 		else
 		{

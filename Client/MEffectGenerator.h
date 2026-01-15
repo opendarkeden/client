@@ -2,22 +2,22 @@
 // MEffectGenerator.h
 //----------------------------------------------------------------------
 //
-// = ÀÓÀÇÀÇ ¼ø°£¿¡ µ¿½Ã¿¡ ¹ß»ıÇÏ´Â EffectµéÀ» »ı¼ºÇØ¼­ Zone¿¡ µî·ÏÇÏ´Â ÀÏÀ» ÇÑ´Ù.
+// = ì„ì˜ì˜ ìˆœê°„ì— ë™ì‹œì— ë°œìƒí•˜ëŠ” Effectë“¤ì„ ìƒì„±í•´ì„œ Zoneì— ë“±ë¡í•˜ëŠ” ì¼ì„ í•œë‹¤.
 //
-// = ¿©·¯°³ÀÇ EffectµéÀ» »ı¼ºÇÏ°í Player¿¡°Ô ¿µÇâÀ» ÁÙ ¼öµµ ÀÖ´Ù.
+// = ì—¬ëŸ¬ê°œì˜ Effectë“¤ì„ ìƒì„±í•˜ê³  Playerì—ê²Œ ì˜í–¥ì„ ì¤„ ìˆ˜ë„ ìˆë‹¤.
 //
-// = ´ÜÁö, »ı¼ºÇØ¼­ Zone¿¡ µî·ÏÇÏ´Â ¿ªÇÒ¸¸ ÇÑ´Ù. 
+// = ë‹¨ì§€, ìƒì„±í•´ì„œ Zoneì— ë“±ë¡í•˜ëŠ” ì—­í• ë§Œ í•œë‹¤. 
 //
-// = ÇÏ³ªÀÇ Effect¸¦ »ı¼ºÇÏ´Âµ¥ ÇÊ¿äÇÑ Á¤º¸µé
-//    - Ãâ·ÂÇü½Ä(BltType)
-//    - ±×¸²(FrameID)
-//    - ½ÃÀÛ(pX,pY,pZ)
-//    - ¸ñÇ¥(pX,pY,pZ)
-//    - ¸ñÇ¥Creature(CreatureID)
-//    - ¹æÇâ(Direction)
-//    - ¼Óµµ(Step)
-//    - Áö¼Ó½Ã°£(Count)
-//    - À§·Â(Power)
+// = í•˜ë‚˜ì˜ Effectë¥¼ ìƒì„±í•˜ëŠ”ë° í•„ìš”í•œ ì •ë³´ë“¤
+//    - ì¶œë ¥í˜•ì‹(BltType)
+//    - ê·¸ë¦¼(FrameID)
+//    - ì‹œì‘(pX,pY,pZ)
+//    - ëª©í‘œ(pX,pY,pZ)
+//    - ëª©í‘œCreature(CreatureID)
+//    - ë°©í–¥(Direction)
+//    - ì†ë„(Step)
+//    - ì§€ì†ì‹œê°„(Count)
+//    - ìœ„ë ¥(Power)
 //
 //----------------------------------------------------------------------
 
@@ -31,24 +31,24 @@
 class MEffect;
 
 //----------------------------------------------------------------------
-// effect¸¦ »ı¼ºÇÏ´Âµ¥ ÇÊ¿äÇÑ Á¤º¸µé
+// effectë¥¼ ìƒì„±í•˜ëŠ”ë° í•„ìš”í•œ ì •ë³´ë“¤
 //----------------------------------------------------------------------
 class EFFECTGENERATOR_INFO
 {
 	public :
-		TYPE_ACTIONINFO			nActionInfo;				// ÇØ´çÇÏ´Â ¾×¼Ç ÀÎÆ÷
-		MEffectTarget*			pEffectTarget;				// ÀÌÆåÆ®ÀÇ ¸ñÇ¥
-		TYPE_EFFECTSPRITETYPE	effectSpriteType;			// ½ºÇÁ¶óÀÌÆ® Å¸ÀÔ
-		int						x0, y0, z0;					// ½ÃÀÛÁ¡
-		int						x1, y1, z1;					// ¸ñÇ¥ÁöÁ¡		
-		TYPE_OBJECTID			creatureID;					// ´ë»ó CreatureID
-		BYTE					direction;					// ¹æÇâ
-		BYTE					step;						// ÁøÇà ¼Óµµ
-		WORD					count;						// Áö¼Ó½Ã°£
-		WORD					linkCount;					// ´ÙÀ½ ÀÌÆåÆ®·Î ¿¬°áµÉ ½Ã°£
-		BYTE					power;						// À§·Â
-		MEffect*				pPreviousEffect;			// ÀÌÀü ÀÌÆåÆ®
-		BYTE					temp1,temp2;				// ±âÅ¸
+		TYPE_ACTIONINFO			nActionInfo;				// í•´ë‹¹í•˜ëŠ” ì•¡ì…˜ ì¸í¬
+		MEffectTarget*			pEffectTarget;				// ì´í™íŠ¸ì˜ ëª©í‘œ
+		TYPE_EFFECTSPRITETYPE	effectSpriteType;			// ìŠ¤í”„ë¼ì´íŠ¸ íƒ€ì…
+		int						x0, y0, z0;					// ì‹œì‘ì 
+		int						x1, y1, z1;					// ëª©í‘œì§€ì 		
+		TYPE_OBJECTID			creatureID;					// ëŒ€ìƒ CreatureID
+		BYTE					direction;					// ë°©í–¥
+		BYTE					step;						// ì§„í–‰ ì†ë„
+		WORD					count;						// ì§€ì†ì‹œê°„
+		WORD					linkCount;					// ë‹¤ìŒ ì´í™íŠ¸ë¡œ ì—°ê²°ë  ì‹œê°„
+		BYTE					power;						// ìœ„ë ¥
+		MEffect*				pPreviousEffect;			// ì´ì „ ì´í™íŠ¸
+		BYTE					temp1,temp2;				// ê¸°íƒ€
 };
 
 //----------------------------------------------------------------------

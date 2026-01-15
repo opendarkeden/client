@@ -28,14 +28,14 @@ class MonsterNameTable {
 		int			GetMiddleNameSize() const	{ return m_MiddleNames.GetSize(); }
 		int			GetLastNameSize() const		{ return m_LastNames.GetSize(); }
 
-		const char*	GetFirstName(int n) const	{ return ( n<m_FirstNames.GetSize()? m_FirstNames[n].GetString() : NULL ); }	// À½¼ö´Â ¾ø´Ù°í º¸°í. - -;
+		const char*	GetFirstName(int n) const	{ return ( n<m_FirstNames.GetSize()? m_FirstNames[n].GetString() : NULL ); }	// ìŒìˆ˜ëŠ” ì—†ë‹¤ê³  ë³´ê³ . - -;
 		const char*	GetMiddleName(int n) const	{ return ( n<m_MiddleNames.GetSize()? m_MiddleNames[n].GetString() : NULL ); }
 		const char*	GetLastName(int n) const	{ return ( n<m_LastNames.GetSize()? m_LastNames[n].GetString() : NULL ); }
 
 		//------------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------------
-		//void		SaveToFile(class ofstream& file);	// ¼­¹ö¿¡¼­ ÀÐ¾î¿Â°É ¾´´Ù´Â °¡Á¤ÇÏ¿¡.. 
+		//void		SaveToFile(class ofstream& file);	// ì„œë²„ì—ì„œ ì½ì–´ì˜¨ê±¸ ì“´ë‹¤ëŠ” ê°€ì •í•˜ì—.. 
 		void		LoadFromFile(class ifstream& file);
 
 	public :

@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MFollowPathEffectGenerator.h
 //----------------------------------------------------------------------
-// ZoneÀÇ ÇÑ ÁöÁ¡¿¡¼­  »ı¼º
+// Zoneì˜ í•œ ì§€ì ì—ì„œ  ìƒì„±
 //----------------------------------------------------------------------
 
 #ifndef	__MFOLLOWPATHEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MFollowPathEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_FOLLOW_PATH; }
 
-		// Effect»ı¼º
+		// Effectìƒì„±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

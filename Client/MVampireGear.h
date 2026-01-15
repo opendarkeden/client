@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MVampireGear.h
 //----------------------------------------------------------------------
-// VampireÀÇ Gear¿¡ ´ëÇÑ class
+// Vampireì˜ Gearì— ëŒ€í•œ class
 //----------------------------------------------------------------------
 
 #ifndef	__MVAMPIREGEAR_H__
@@ -12,50 +12,50 @@
 class MVampireGear : public MPlayerGear	{
 	public :
 		//----------------------------------------------------
-		// QuickItem SlotÀÇ Slot ID
+		// QuickItem Slotì˜ Slot ID
 		//----------------------------------------------------
-		// (!) ID¸¦ ¹Ù²Ù¸é s_GearSlotCheckTableÀÇ ¼ø¼­µµ ¹Ù²ãÁà¾ß ÇÑ´Ù.
+		// (!) IDë¥¼ ë°”ê¾¸ë©´ s_GearSlotCheckTableì˜ ìˆœì„œë„ ë°”ê¿”ì¤˜ì•¼ í•œë‹¤.
 		//----------------------------------------------------
 		enum GEAR_VAMPIRE 
 		{
-			GEAR_VAMPIRE_NECKLACE,			// ¸ñ°ÉÀÌ
-			GEAR_VAMPIRE_COAT,				// »óÀÇ
-			GEAR_VAMPIRE_BRACELET1,			// ÆÈÂî1
-			GEAR_VAMPIRE_BRACELET2,			// ÆÈÂî2
-			GEAR_VAMPIRE_RING1,				// ¹ÝÁö1
-			GEAR_VAMPIRE_RING2,				// ¹ÝÁö2
-			GEAR_VAMPIRE_RING3,				// ¹ÝÁö3
-			GEAR_VAMPIRE_RING4,				// ¹ÝÁö4
-			GEAR_VAMPIRE_EARRING1,			// ±Í°ÉÀÌ1
-			GEAR_VAMPIRE_EARRING2,			// ±Í°ÉÀÌ2
-			GEAR_VAMPIRE_LEFTHAND,			// ¿Þ¼Õ
-			GEAR_VAMPIRE_RIGHTHAND,			// ¿À¸¥¼Õ
-			GEAR_VAMPIRE_AMULET1,			// ¾Æ¹Ä·¿1
-			GEAR_VAMPIRE_AMULET2,			// ¾Æ¹Ä·¿2
-			GEAR_VAMPIRE_AMULET3,			// ¾Æ¹Ä·¿3
-			GEAR_VAMPIRE_AMULET4,			// ¾Æ¹Ä·¿4
+			GEAR_VAMPIRE_NECKLACE,			// ëª©ê±¸ì´
+			GEAR_VAMPIRE_COAT,				// ìƒì˜
+			GEAR_VAMPIRE_BRACELET1,			// íŒ”ì°Œ1
+			GEAR_VAMPIRE_BRACELET2,			// íŒ”ì°Œ2
+			GEAR_VAMPIRE_RING1,				// ë°˜ì§€1
+			GEAR_VAMPIRE_RING2,				// ë°˜ì§€2
+			GEAR_VAMPIRE_RING3,				// ë°˜ì§€3
+			GEAR_VAMPIRE_RING4,				// ë°˜ì§€4
+			GEAR_VAMPIRE_EARRING1,			// ê·€ê±¸ì´1
+			GEAR_VAMPIRE_EARRING2,			// ê·€ê±¸ì´2
+			GEAR_VAMPIRE_LEFTHAND,			// ì™¼ì†
+			GEAR_VAMPIRE_RIGHTHAND,			// ì˜¤ë¥¸ì†
+			GEAR_VAMPIRE_AMULET1,			// ì•„ë®¬ë ›1
+			GEAR_VAMPIRE_AMULET2,			// ì•„ë®¬ë ›2
+			GEAR_VAMPIRE_AMULET3,			// ì•„ë®¬ë ›3
+			GEAR_VAMPIRE_AMULET4,			// ì•„ë®¬ë ›4
 			
-			GEAR_VAMPIRE_ZAP1,				// Àì1 - ¹ÝÁö¿¡ ´ùºÙÀÌ´Â ¾ÆÀÌÅÛ
-			GEAR_VAMPIRE_ZAP2,				// Àì2
-			GEAR_VAMPIRE_ZAP3,				// Àì3
-			GEAR_VAMPIRE_ZAP4,				// Àì4
+			GEAR_VAMPIRE_ZAP1,				// ìž½1 - ë°˜ì§€ì— ë›ë¶™ì´ëŠ” ì•„ì´í…œ
+			GEAR_VAMPIRE_ZAP2,				// ìž½2
+			GEAR_VAMPIRE_ZAP3,				// ìž½3
+			GEAR_VAMPIRE_ZAP4,				// ìž½4
 
-			GEAR_VAMPIRE_PERSONA,		// ½ÂÁ÷¿ë Æä¸£¼Ò³ª
-			GEAR_VAMPIRE_DERMIS,		// ½ÂÁ÷¿ë ¹®½Å?
+			GEAR_VAMPIRE_PERSONA,		// ìŠ¹ì§ìš© íŽ˜ë¥´ì†Œë‚˜
+			GEAR_VAMPIRE_DERMIS,		// ìŠ¹ì§ìš© ë¬¸ì‹ ?
 			
  			
-			GEAR_VAMPIRE_BLOOD_BIBLE1,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 1
-			GEAR_VAMPIRE_BLOOD_BIBLE2,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 2
-			GEAR_VAMPIRE_BLOOD_BIBLE3,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 3
-			GEAR_VAMPIRE_BLOOD_BIBLE4,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 4
-			GEAR_VAMPIRE_BLOOD_BIBLE5,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 5
-			GEAR_VAMPIRE_BLOOD_BIBLE6,				// ºí·¯µå ¹ÙÀÌºí ½½·Ô 6
+			GEAR_VAMPIRE_BLOOD_BIBLE1,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 1
+			GEAR_VAMPIRE_BLOOD_BIBLE2,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 2
+			GEAR_VAMPIRE_BLOOD_BIBLE3,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 3
+			GEAR_VAMPIRE_BLOOD_BIBLE4,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 4
+			GEAR_VAMPIRE_BLOOD_BIBLE5,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 5
+			GEAR_VAMPIRE_BLOOD_BIBLE6,				// ë¸”ëŸ¬ë“œ ë°”ì´ë¸” ìŠ¬ë¡¯ 6
 			
 			MAX_GEAR_VAMPIRE
 		};
 
 		//----------------------------------------------------
-		// Æ¯Á¤ÇÑ ºÎÀ§¿¡ ÀåÂøÇÒ ¼ö ÀÖ´Â ItemÀÎÁö È®ÀÎ
+		// íŠ¹ì •í•œ ë¶€ìœ„ì— ìž¥ì°©í•  ìˆ˜ ìžˆëŠ” Itemì¸ì§€ í™•ì¸
 		//----------------------------------------------------
 		inline static bool		IsGearSlotNecklace(MItem* pItem);
 		inline static bool		IsGearSlotCoat(MItem* pItem);
@@ -77,65 +77,65 @@ class MVampireGear : public MPlayerGear	{
 		~MVampireGear();
 
 		//------------------------------------------------
-		// ±ú²ýÇÏ°Ô~ ÃÊ±âÈ­ ½ÃÄÑ ÁØ´Ù.
+		// ê¹¨ë—í•˜ê²Œ~ ì´ˆê¸°í™” ì‹œì¼œ ì¤€ë‹¤.
 		//------------------------------------------------
 		void			Init();
 
 		//------------------------------------------------
-		// AddItem : slot(n)¿¡ pItemÀ» Ãß°¡ÇÑ´Ù.
+		// AddItem : slot(n)ì— pItemì„ ì¶”ê°€í•œë‹¤.
 		//------------------------------------------------
 		bool			AddItem(MItem* pItem);
 		bool			AddItem(MItem* pItem, GEAR_VAMPIRE n);
 
 		//------------------------------------------------
-		// GetItem : slot(n)ÀÇ itemÀ» ÀÐ¾î¿Â´Ù.
+		// GetItem : slot(n)ì˜ itemì„ ì½ì–´ì˜¨ë‹¤.
 		//------------------------------------------------
 		MItem*			GetItem(GEAR_VAMPIRE n ) const	{ return MSlotItemManager::GetItem( (BYTE)n ); }
 		
 		//------------------------------------------------
-		// RemoveItem : slot(n)ÀÇ itemÀ» Á¦°ÅÇÑ´Ù.
+		// RemoveItem : slot(n)ì˜ itemì„ ì œê±°í•œë‹¤.
 		//------------------------------------------------
 		MItem*			RemoveItem(GEAR_VAMPIRE n);
 
 		//------------------------------------------------
-		// RemoveItem : id°¡ °°Àº itemÀ» Á¦°ÅÇÑ´Ù.
+		// RemoveItem : idê°€ ê°™ì€ itemì„ ì œê±°í•œë‹¤.
 		//------------------------------------------------
 		MItem*			RemoveItem(TYPE_OBJECTID id);
 
 		//------------------------------------------------
-		// ReplaceItem : pItemÀ» Ãß°¡ÇÏ°í µý°Ô ÀÖ´Ù¸é Item±³È¯
+		// ReplaceItem : pItemì„ ì¶”ê°€í•˜ê³  ë”´ê²Œ ìžˆë‹¤ë©´ Itemêµí™˜
 		//------------------------------------------------
 		bool			ReplaceItem(MItem* pItem, BYTE n, MItem*& pOldItem);
 
 		//------------------------------------------------
-		// Can ReplaceItem : (n) slot¿¡ pItemÀ» Ãß°¡ÇÏ°Å³ª 
-		//						¿ø·¡ ÀÖ´ø Item°ú ±³Ã¼°¡ °¡´ÉÇÑ°¡?
+		// Can ReplaceItem : (n) slotì— pItemì„ ì¶”ê°€í•˜ê±°ë‚˜ 
+		//						ì›ëž˜ ìžˆë˜ Itemê³¼ êµì²´ê°€ ê°€ëŠ¥í•œê°€?
 		//------------------------------------------------
 		bool			CanReplaceItem(MItem* pItem, GEAR_VAMPIRE n, MItem*& pOldItem);
 
 		//------------------------------------------------------
-		// ÇöÀç »ç¿ë°¡´ÉÇÑ°Ç°¡?
+		// í˜„ìž¬ ì‚¬ìš©ê°€ëŠ¥í•œê±´ê°€?
 		//------------------------------------------------------
-		void			CheckAffectStatus(MItem* pItem);	// Æ¯Á¤ ¾ÆÀÌÅÛ
+		void			CheckAffectStatus(MItem* pItem);	// íŠ¹ì • ì•„ì´í…œ
 
 		//------------------------------------------------
-		// GetItem : ±â¾î Ã¢¿¡¼­ pick ÇÒ¶§¸¸ »ç¿ë slot(n)ÀÇ itemÀ» ÀÐ¾î¿Â´Ù.
+		// GetItem : ê¸°ì–´ ì°½ì—ì„œ pick í• ë•Œë§Œ ì‚¬ìš© slot(n)ì˜ itemì„ ì½ì–´ì˜¨ë‹¤.
 		//------------------------------------------------
 		MItem*			GetGearItem_PickUp(int &n) const ;
 		//------------------------------------------------
-		// GetItem : ÄÚ¾îÀì ¾ÆÀÌÅÛÀÌ ´ùºÙ¿©Á® ÀÖ´ÂÁö °Ë»ç
+		// GetItem : ì½”ì–´ìž½ ì•„ì´í…œì´ ë›ë¶™ì—¬ì ¸ ìžˆëŠ”ì§€ ê²€ì‚¬
 		//------------------------------------------------
 		MItem*			GetGearCoreZapItem(int slot) const	;
 		//------------------------------------------------
-		// GetItem : ÄÚ¾îÀì ¾ÆÀÌÅÛ ¹ØÀÇ ¾ÆÀÌÅÛÀ» °Ë»ç
+		// GetItem : ì½”ì–´ìž½ ì•„ì´í…œ ë°‘ì˜ ì•„ì´í…œì„ ê²€ì‚¬
 		//------------------------------------------------
 		MItem*			GetGearCoreZapedItem(int slot) const	;
 		//------------------------------------------------
-		// GetItem : ÄÚ¾îÀìÀ» ´Ù ¸ð¾Ò´ÂÁö..
+		// GetItem : ì½”ì–´ìž½ì„ ë‹¤ ëª¨ì•˜ëŠ”ì§€..
 		//------------------------------------------------
 		const bool			IsHasAllCoreZap(int CoreZapType) const	;
 		//------------------------------------------------
-		// bool : ºí·¯µå ±â¾îÃ¢ÀÌ ¿­·È´ÂÁö.
+		// bool : ë¸”ëŸ¬ë“œ ê¸°ì–´ì°½ì´ ì—´ë ¸ëŠ”ì§€.
 		//------------------------------------------------
 		void			SetBloodBibleOpenSlot(int Num) { m_bBloodBibleOpenCount = Num;	}
 		BYTE			GetBloodBibleOpenSlot() { return m_bBloodBibleOpenCount;	}
@@ -144,12 +144,12 @@ class MVampireGear : public MPlayerGear	{
 
 	protected :
 		//------------------------------------------------
-		// IsGearSlot...()¿¡ ´ëÇÑ function pointer
+		// IsGearSlot...()ì— ëŒ€í•œ function pointer
 		//------------------------------------------------
 		typedef bool (*FUNCTION_GEARSLOT_CHECK)(MItem*);
 
 		//------------------------------------------------
-		// °¢ ºÎÀ§º°·Î IsGearSlot...()¿¡ ´ëÇÑ function pointer
+		// ê° ë¶€ìœ„ë³„ë¡œ IsGearSlot...()ì— ëŒ€í•œ function pointer
 		//------------------------------------------------
 		static FUNCTION_GEARSLOT_CHECK		s_GearSlotCheckTable[MAX_GEAR_VAMPIRE];
 

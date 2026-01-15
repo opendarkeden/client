@@ -2,19 +2,19 @@
 // MAnimationObject.h
 //----------------------------------------------------------------------
 //
-// ÇÏ³ªÀÇ ±×¸²+¾Ö´ÏFrame¿¡ ´ëÇÑ Á¤º¸
+// í•˜ë‚˜ì˜ ê·¸ë¦¼+ì• ë‹ˆFrameì— ëŒ€í•œ ì •ë³´
 // 
 //----------------------------------------------------------------------
 //
-// MImageObject´Â ´Ü¼øÈ÷ ÇÏ³ªÀÇ Sprite·Î¸¸ Ç¥ÇöµÈ´Ù.
-// ¶§·Î´Â AnimationÀÌ µÇ´Â ImageObjectµµ ÀÖÀ¸¸é ÁÁÁö ½Í¾î¼­.. *_*;
+// MImageObjectëŠ” ë‹¨ìˆœíˆ í•˜ë‚˜ì˜ Spriteë¡œë§Œ í‘œí˜„ëœë‹¤.
+// ë•Œë¡œëŠ” Animationì´ ë˜ëŠ” ImageObjectë„ ìˆìœ¼ë©´ ì¢‹ì§€ ì‹¶ì–´ì„œ.. *_*;
 //
-//    SpriteID + FrameID ·Î½á AnimationµÇ´Â Object¸¦ Ç¥ÇöÇÑ´Ù.
-//    ¿©±â¼­.. SpriteID´Â ±âº» FrameÀÌ µÇ°í.. 
-//             FrameID´Â ¾Ö´Ï FrameÀÌ µÈ´Ù.
+//    SpriteID + FrameID ë¡œì¨ Animationë˜ëŠ” Objectë¥¼ í‘œí˜„í•œë‹¤.
+//    ì—¬ê¸°ì„œ.. SpriteIDëŠ” ê¸°ë³¸ Frameì´ ë˜ê³ .. 
+//             FrameIDëŠ” ì• ë‹ˆ Frameì´ ëœë‹¤.
 //    
-//  Áï, Ãâ·ÂÇÒ¶§.. ´Ã SpriteID´Â Ãâ·ÂµÇ°í.. 
-//                 FrameIDÀÇ ÇöÀç SpriteID°¡ ÇÏ³ª Ãâ·ÂµÈ´Ù´Â °ÍÀÌ´Ù.
+//  ì¦‰, ì¶œë ¥í• ë•Œ.. ëŠ˜ SpriteIDëŠ” ì¶œë ¥ë˜ê³ .. 
+//                 FrameIDì˜ í˜„ì¬ SpriteIDê°€ í•˜ë‚˜ ì¶œë ¥ëœë‹¤ëŠ” ê²ƒì´ë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -72,7 +72,7 @@ class MAnimationObject : public MImageObject, public CAnimationFrame, public Sho
 		static DWORD	LoopFrameCount;
 		BYTE			m_Direction;
 
-		BYTE			m_SoundFrame;	// ¼Ò¸®°¡ Ãâ·ÂµÇ´Â frame
+		BYTE			m_SoundFrame;	// ì†Œë¦¬ê°€ ì¶œë ¥ë˜ëŠ” frame
 		TYPE_SOUNDID	m_SoundID;
 };
 

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCTradeAddItemHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@ void GCTradeAddItemHandler::execute ( GCTradeAddItem * pPacket , Player * pPlaye
 	
 #ifdef __GAME_CLIENT__
 	//------------------------------------------------------------------------
-	// TradeManager°¡ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì --> -_-;;
+	// TradeManagerê°€ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš° --> -_-;;
 	//------------------------------------------------------------------------
 	if (g_pTradeManager==NULL)
 	{
@@ -30,7 +30,7 @@ void GCTradeAddItemHandler::execute ( GCTradeAddItem * pPacket , Player * pPlaye
 	}
 
 	//------------------------------------------------------------------------
-	// Ãß°¡µÇ´Â ¾ÆÀÌÅÛ »ý¼º
+	// ì¶”ê°€ë˜ëŠ” ì•„ì´í…œ ìƒì„±
 	//------------------------------------------------------------------------
 	MItem* pItem = MItem::NewItem( (ITEM_CLASS)pPacket->getItemClass() );
 
@@ -45,18 +45,18 @@ void GCTradeAddItemHandler::execute ( GCTradeAddItem * pPacket , Player * pPlaye
 	//ObjectID_t getTargetObjectID() const throw() { return m_TargetObjectID; }
 
 	//------------------------------------------------------------------------
-	// °³¼ö
+	// ê°œìˆ˜
 	//------------------------------------------------------------------------
-	// ÃÑÀÎ °æ¿ì
+	// ì´ì¸ ê²½ìš°
 	//------------------------------------------------------------------------
 	if (pItem->IsGunItem())
 	{
 		MMagazine* pMagazine = (MMagazine*)MItem::NewItem( (ITEM_CLASS)ITEM_CLASS_MAGAZINE );
 
-		// ÀÇ¹Ì ¾øÀ½ - -;
+		// ì˜ë¯¸ ì—†ìŒ - -;
 		pMagazine->SetID( 0 );
 
-		// ÀÌ°Å´Â ÃÑ¿¡ ¸ÂÃç¼­ ÇØÁà¾ßµÈ´Ù.
+		// ì´ê±°ëŠ” ì´ì— ë§žì¶°ì„œ í•´ì¤˜ì•¼ëœë‹¤.
 		for (int j=0; j<(*g_pItemTable)[ITEM_CLASS_MAGAZINE].GetSize(); j++)			
 		{
 			pMagazine->SetItemType(	j );
@@ -67,20 +67,20 @@ void GCTradeAddItemHandler::execute ( GCTradeAddItem * pPacket , Player * pPlaye
 			}
 		}
 
-		// ÀÇ¹Ì ¾øÀ½
+		// ì˜ë¯¸ ì—†ìŒ
 		pMagazine->ClearItemOption();
 	
-		// ÅºÃ¢ °³¼ö
+		// íƒ„ì°½ ê°œìˆ˜
 		pMagazine->SetNumber( pPacket->getItemNum() );
 
 		//------------------------------------
-		// ÅºÃ¢ ¼³Á¤
+		// íƒ„ì°½ ì„¤ì •
 		//------------------------------------
 		MGunItem* pGunItem = (MGunItem*)pItem;
 		pGunItem->SetMagazine( pMagazine );
 	}		
 	//------------------------------------------------------------------------
-	// ÃÑÀÌ ¾Æ´Ñ °æ¿ì
+	// ì´ì´ ì•„ë‹Œ ê²½ìš°
 	//------------------------------------------------------------------------
 	else
 	{
@@ -91,7 +91,7 @@ void GCTradeAddItemHandler::execute ( GCTradeAddItem * pPacket , Player * pPlaye
 
 	//------------------------------------------------------------------------
 	//
-	// Item¿¡ ´Ù¸¥ itemµéÀÌ µé¾îÀÖ´Â °æ¿ì
+	// Itemì— ë‹¤ë¥¸ itemë“¤ì´ ë“¤ì–´ìžˆëŠ” ê²½ìš°
 	//
 	//------------------------------------------------------------------------
 	if (pPacket->getListNum()!=0)
@@ -99,7 +99,7 @@ void GCTradeAddItemHandler::execute ( GCTradeAddItem * pPacket , Player * pPlaye
 		DEBUG_ADD_FORMAT("This Item has Sub item(s) : size=%d", pPacket->getListNum());
 		
 		//------------------------------------------
-		// BeltÀÎ °æ¿ì
+		// Beltì¸ ê²½ìš°
 		//------------------------------------------
 		if (pItem->GetItemClass()==ITEM_CLASS_BELT)
 		{
@@ -118,7 +118,7 @@ void GCTradeAddItemHandler::execute ( GCTradeAddItem * pPacket , Player * pPlaye
 				else
 				{
 					//------------------------------------------
-					// Sub ItemÀÇ Á¤º¸¸¦ ¼³Á¤ÇÑ´Ù.
+					// Sub Itemì˜ ì •ë³´ë¥¼ ì„¤ì •í•œë‹¤.
 					//------------------------------------------
 					MItem* pSubItem = MItem::NewItem( (enum ITEM_CLASS)pSubItemInfo->getItemClass() );
 					pSubItem->SetItemType( pSubItemInfo->getItemType() );
@@ -129,7 +129,7 @@ void GCTradeAddItemHandler::execute ( GCTradeAddItem * pPacket , Player * pPlaye
 					pSubItem->SetNumber( pSubItemInfo->getItemNum() );			
 
 					//------------------------------------------
-					// BeltÀÇ Á¤ÇØÁø slot¿¡ itemÀ» Ãß°¡½ÃÅ²´Ù.
+					// Beltì˜ ì •í•´ì§„ slotì— itemì„ ì¶”ê°€ì‹œí‚¨ë‹¤.
 					//------------------------------------------
 					pBelt->AddItem( pSubItem, pSubItemInfo->getSlotID() );
 
@@ -153,7 +153,7 @@ void GCTradeAddItemHandler::execute ( GCTradeAddItem * pPacket , Player * pPlaye
 				else
 				{
 					//------------------------------------------
-					// Sub ItemÀÇ Á¤º¸¸¦ ¼³Á¤ÇÑ´Ù.
+					// Sub Itemì˜ ì •ë³´ë¥¼ ì„¤ì •í•œë‹¤.
 					//------------------------------------------
 					MItem* pSubItem = MItem::NewItem( (enum ITEM_CLASS)pSubItemInfo->getItemClass() );
 					pSubItem->SetItemType( pSubItemInfo->getItemType() );
@@ -164,7 +164,7 @@ void GCTradeAddItemHandler::execute ( GCTradeAddItem * pPacket , Player * pPlaye
 					pSubItem->SetNumber( pSubItemInfo->getItemNum() );			
 					
 					//------------------------------------------
-					// BeltÀÇ Á¤ÇØÁø slot¿¡ itemÀ» Ãß°¡½ÃÅ²´Ù.
+					// Beltì˜ ì •í•´ì§„ slotì— itemì„ ì¶”ê°€ì‹œí‚¨ë‹¤.
 					//------------------------------------------
 					pBelt->AddItem( pSubItem, pSubItemInfo->getSlotID() );
 					
@@ -183,8 +183,8 @@ void GCTradeAddItemHandler::execute ( GCTradeAddItem * pPacket , Player * pPlaye
 	int gridY = pPacket->getY();
 
 	//------------------------------------------------------------------------
-	// other Inventory¿¡ Ãß°¡ÇÑ´Ù..
-	// Ãß°¡ ¾ÈµÇ¸é.. Äá°¡·ç.. - -;
+	// other Inventoryì— ì¶”ê°€í•œë‹¤..
+	// ì¶”ê°€ ì•ˆë˜ë©´.. ì½©ê°€ë£¨.. - -;
 	//------------------------------------------------------------------------
 	if (!g_pTradeManager->GetOtherInventory()->AddItem( pItem, gridX, gridY ))
 	{
@@ -194,7 +194,7 @@ void GCTradeAddItemHandler::execute ( GCTradeAddItem * pPacket , Player * pPlaye
 	}
 
 	//-----------------------------------------------------------
-	// ¹º°¡ ¹Ù²ï´Ù¸é... OKÃë¼Ò
+	// ë­”ê°€ ë°”ë€ë‹¤ë©´... OKì·¨ì†Œ
 	//-----------------------------------------------------------
 	g_pTradeManager->RefuseOtherTrade();
 	g_pTradeManager->RefuseMyTrade();

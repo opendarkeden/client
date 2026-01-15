@@ -6,11 +6,11 @@
 //
 //   = Init(LPTHREAD_START_ROUTINE FileThreadProc, int priority);
 //
-//     FileThreadProcºÎºĞÀ» MWorkThread.Execute·Î ÇØ¾ßµÈ´Ù. -_-; 
-//     (callback functionÀÎ °ü°è·Î staticÀ¸·Î ÇØ¾ßÇÏ´Âµ¥.. ¹®Á¦°¡ ¸¹¾Æ¼­ - -;)
+//     FileThreadProcë¶€ë¶„ì„ MWorkThread.Executeë¡œ í•´ì•¼ëœë‹¤. -_-; 
+//     (callback functionì¸ ê´€ê³„ë¡œ staticìœ¼ë¡œ í•´ì•¼í•˜ëŠ”ë°.. ë¬¸ì œê°€ ë§ì•„ì„œ - -;)
 //
-//		- ¿ÜºÎ¿¡ ÀÌ·¸°Ô ÇÔ¼ö¸¦ ÇÏ³ª ¸¸µé¾î¼­ 
-//      - MWorkThread.Init( LoadingThreadProc ); ·Î ÇØ¾ßÇÑ´Ù.
+//		- ì™¸ë¶€ì— ì´ë ‡ê²Œ í•¨ìˆ˜ë¥¼ í•˜ë‚˜ ë§Œë“¤ì–´ì„œ 
+//      - MWorkThread.Init( LoadingThreadProc ); ë¡œ í•´ì•¼í•œë‹¤.
 //
 //		long
 //		LoadingThreadProc(void* pParam)
@@ -23,23 +23,23 @@
 //
 // [ Remove ]
 //
-//   = Æ¯Á¤ typeÀÇ MWorkNodeµéÀ» 'ÀÏ'¿¡¼­ Á¦¿Ü½ÃÅ²´Ù.
-//     Ã³¸®ÇÒ ÇÊ¿ä°¡ ¾ø¾îÁø °æ¿ì... Á¦°Å½ÃÅ°¸é µÈ´Ù.
+//   = íŠ¹ì • typeì˜ MWorkNodeë“¤ì„ 'ì¼'ì—ì„œ ì œì™¸ì‹œí‚¨ë‹¤.
+//     ì²˜ë¦¬í•  í•„ìš”ê°€ ì—†ì–´ì§„ ê²½ìš°... ì œê±°ì‹œí‚¤ë©´ ëœë‹¤.
 //
 //
 // [ AddFirst / AddLast ]
 //
-//	  MWorkNode¸¦ Ã³¸®ÇØ¾ßÇÒ 'ÀÏ'¿¡ Ãß°¡½ÃÅ²´Ù.
-//	  Ãß°¡½ÃÅ´°ú µ¿½Ã¿¡ 'Execute'¿¡¼­ ¹Ù·Î ÀÏÀÌ Ã³¸®µÈ´Ù.
-//    (Init¿¡¼­ MWorkThread.Execute¸¦ Àß~ ¼³Á¤ÇØ µĞ °æ¿ì.. *_*;)
-//    AddFirst()´Â Ãß°¡½ÃÅ² ÀÏÀÌ ¹Ù·Î(!!) Ã³¸®µÈ´Ù.
-//    AddLast()´Â Á© ³ªÁß¿¡~ Ã³¸®µÈ´Ù.
+//	  MWorkNodeë¥¼ ì²˜ë¦¬í•´ì•¼í•  'ì¼'ì— ì¶”ê°€ì‹œí‚¨ë‹¤.
+//	  ì¶”ê°€ì‹œí‚´ê³¼ ë™ì‹œì— 'Execute'ì—ì„œ ë°”ë¡œ ì¼ì´ ì²˜ë¦¬ëœë‹¤.
+//    (Initì—ì„œ MWorkThread.Executeë¥¼ ì˜~ ì„¤ì •í•´ ë‘” ê²½ìš°.. *_*;)
+//    AddFirst()ëŠ” ì¶”ê°€ì‹œí‚¨ ì¼ì´ ë°”ë¡œ(!!) ì²˜ë¦¬ëœë‹¤.
+//    AddLast()ëŠ” ì ¤ ë‚˜ì¤‘ì—~ ì²˜ë¦¬ëœë‹¤.
 //
 //
 // [ SetPriority ]
 //
-//	  Priority¸¦ Á¶Á¤ÇØ¼­ ThreadÀÇ Ã³¸® ¼Óµµ?¸¦ ¹Ù²Ü ¼ö ÀÖ´Ù.
-//	  À½. InitÇÒ¶§µµ ÀÌ°É ¼³Á¤ÇØ¾ß µÈ´Ù. 
+//	  Priorityë¥¼ ì¡°ì •í•´ì„œ Threadì˜ ì²˜ë¦¬ ì†ë„?ë¥¼ ë°”ê¿€ ìˆ˜ ìˆë‹¤.
+//	  ìŒ. Inití• ë•Œë„ ì´ê±¸ ì„¤ì •í•´ì•¼ ëœë‹¤. 
 //
 //		THREAD_PRIORITY_HIGHEST
 //		THREAD_PRIORITY_ABOVE_NORMAL
@@ -120,12 +120,12 @@ class MWorkThread {
 		void				LockDeque()					{ SetEvent( m_hDequeLock ); }
 		void				UnlockDeque()				{ ResetEvent( m_hDequeLock ); }
 
-		HANDLE				m_hDequeLock;		// dequeÁ¢±Ù¿¡ ´ëÇÑ Lock
+		HANDLE				m_hDequeLock;		// dequeì ‘ê·¼ì— ëŒ€í•œ Lock
 		*/
 		void				LockDeque()					{ EnterCriticalSection(&m_csDeque); }
 		void				UnlockDeque()				{ LeaveCriticalSection(&m_csDeque); }
 
-		CRITICAL_SECTION	m_csDeque;					// dequeÁ¢±Ù¿¡ ´ëÇÑ Lock
+		CRITICAL_SECTION	m_csDeque;					// dequeì ‘ê·¼ì— ëŒ€í•œ Lock
 
 
 		//---------------------------------------------------
@@ -137,22 +137,22 @@ class MWorkThread {
 		void				LockCurrent()					{ SetEvent( m_hCurrentLock ); }
 		void				UnlockCurrent()				{ ResetEvent( m_hCurrentLock ); }
 
-		HANDLE				m_hCurrentLock;		// m_pCurrentÁ¢±Ù¿¡ ´ëÇÑ Lock
+		HANDLE				m_hCurrentLock;		// m_pCurrentì ‘ê·¼ì— ëŒ€í•œ Lock
 		*/
 		void				LockCurrent()					{ EnterCriticalSection(&m_csCurrent); }
 		void				UnlockCurrent()					{ LeaveCriticalSection(&m_csCurrent); }
 
-		CRITICAL_SECTION	m_csCurrent;					// currentÁ¢±Ù¿¡ ´ëÇÑ Lock
+		CRITICAL_SECTION	m_csCurrent;					// currentì ‘ê·¼ì— ëŒ€í•œ Lock
 
 	protected :
 		HANDLE				m_hWorkThread;
-		HANDLE				m_hHasWorkEvent;	// ÇÒ ÀÏÀÌ ÀÖ´Ù´Â event
-		HANDLE				m_hEndWorkEvent;	// ÇÒ ÀÏÀ» ³¡³Â´Ù´Â event
-		HANDLE				m_hStopWorkEvent;	// ÇÒ ÀÏÀ» ÁßÁöÇÏ¶ó´Â event
+		HANDLE				m_hHasWorkEvent;	// í•  ì¼ì´ ìˆë‹¤ëŠ” event
+		HANDLE				m_hEndWorkEvent;	// í•  ì¼ì„ ëëƒˆë‹¤ëŠ” event
+		HANDLE				m_hStopWorkEvent;	// í•  ì¼ì„ ì¤‘ì§€í•˜ë¼ëŠ” event
 		
 		WORKNODE_DEQUE		m_dequeWorkNode;
 
-		// ÇöÀç Ã³¸®ÇÏ°í ÀÖ´Â WorkNode
+		// í˜„ì¬ ì²˜ë¦¬í•˜ê³  ìˆëŠ” WorkNode
 		MWorkNode*			m_pCurrentWork;
 };
 

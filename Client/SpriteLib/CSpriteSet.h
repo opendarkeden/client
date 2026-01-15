@@ -2,13 +2,13 @@
 // CSpriteSet.h
 //----------------------------------------------------------------------
 //
-// SpritePack¿¡¼­ Æ¯Á¤ Sprite¸¸ LoadÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// SpritePackì—ì„œ íŠ¹ì • Spriteë§Œ Loadí•  ìˆ˜ ìˆê²Œ í•œë‹¤.
 //
-// SpriteSet file(index¿ë)¿¡¼­ Á¤º¸¸¦ ÀĞ¾î¼­ 
-// SpritePack¿¡¼­ Æ¯Á¤ÇÑ Sprite¸¸ ÀĞ¾îµéÀÎ´Ù.
+// SpriteSet file(indexìš©)ì—ì„œ ì •ë³´ë¥¼ ì½ì–´ì„œ 
+// SpritePackì—ì„œ íŠ¹ì •í•œ Spriteë§Œ ì½ì–´ë“¤ì¸ë‹¤.
 //
-// SpriteSet IndexFileÀÇ Á¤º¸¸¦ ÀÌ¿ëÇØ¼­ SpritePack¿¡¼­ 
-// Æ¯Á¤ À§Ä¡(File Position)ÀÇ Sprite¸¦ LoadÇÑ´Ù.
+// SpriteSet IndexFileì˜ ì •ë³´ë¥¼ ì´ìš©í•´ì„œ SpritePackì—ì„œ 
+// íŠ¹ì • ìœ„ì¹˜(File Position)ì˜ Spriteë¥¼ Loadí•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ class CSpriteSet {
 		//--------------------------------------------------------
 		// file I/O		
 		//--------------------------------------------------------
-		// SpritePack File¿¡¼­ Sprite¸¦ LoadÇÑ´Ù.
+		// SpritePack Fileì—ì„œ Spriteë¥¼ Loadí•œë‹¤.
 		// spkFile = SpritePack File, indexFile = FilePointer File
 		bool		LoadFromFile(std::ifstream& indexFile, std::ifstream& packFile);
 		
@@ -46,8 +46,8 @@ class CSpriteSet {
 
 
 	protected :
-		TYPE_SPRITEID		m_nSprites;			// Sprite IDÀÇ °³¼ö
-		CSprite*			m_pSprites;			// MSpritePackÀÇ CSpriteµéÀ» LoadÇÑ´Ù.
+		TYPE_SPRITEID		m_nSprites;			// Sprite IDì˜ ê°œìˆ˜
+		CSprite*			m_pSprites;			// MSpritePackì˜ CSpriteë“¤ì„ Loadí•œë‹¤.
 };
 
 #endif

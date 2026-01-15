@@ -2,71 +2,71 @@
 // CSpriteOutlineManager.h
 //----------------------------------------------------------------------
 /*
-                    <<<   ¿Ü°û¼± Ãâ·ÂÇÏ±â   >>>
+                    <<<   ì™¸ê³½ì„  ì¶œë ¥í•˜ê¸°   >>>
 
 
 
-	¿©·¯°³ÀÇ Sprite°¡ °ãÃÄ¼­ Ãâ·ÂµÉ °æ¿ì... 
-	SpriteµéÀÌ ´Ù Ãâ·ÂµÈ ÈÄÀÇ ¿Ü°û¼±À» ÃßÃâÇØ¾ß ÇÑ´Ù.
-	(Ä³¸¯ÅÍ ¸ö + º¹Àåµé + ¹«±â...)
-	SpriteOutlineManager class¸¦ ¸¸µé¾î¼­ ÀÌ¿ëÇÑ´Ù.
+	ì—¬ëŸ¬ê°œì˜ Spriteê°€ ê²¹ì³ì„œ ì¶œë ¥ë  ê²½ìš°... 
+	Spriteë“¤ì´ ë‹¤ ì¶œë ¥ëœ í›„ì˜ ì™¸ê³½ì„ ì„ ì¶”ì¶œí•´ì•¼ í•œë‹¤.
+	(ìºë¦­í„° ëª¸ + ë³µìž¥ë“¤ + ë¬´ê¸°...)
+	SpriteOutlineManager classë¥¼ ë§Œë“¤ì–´ì„œ ì´ìš©í•œë‹¤.
 
 
-	(½ÇÇà ¿¹Á¦)
+	(ì‹¤í–‰ ì˜ˆì œ)
 
 	  SpriteOutlineManager SOM;
 
-	  // Ãâ·ÂÇÒ·Á´Â Sprite¸¦ SpriteOutlineManager¿¡ µî·ÏÇÑ´Ù.
-	  SOM.Add( x0,y0, Ä³¸¯ÅÍ¸ö );
-	  SOM.Add( x1,y1, Ä³¸¯ÅÍº¹Àå1 );
-	  SOM.Add( x2,y2, Ä³¸¯ÅÍº¹Àå2 );
-	  SOM.Add( x3,y3, Ä³¸¯ÅÍ¹«±â );
+	  // ì¶œë ¥í• ë ¤ëŠ” Spriteë¥¼ SpriteOutlineManagerì— ë“±ë¡í•œë‹¤.
+	  SOM.Add( x0,y0, ìºë¦­í„°ëª¸ );
+	  SOM.Add( x1,y1, ìºë¦­í„°ë³µìž¥1 );
+	  SOM.Add( x2,y2, ìºë¦­í„°ë³µìž¥2 );
+	  SOM.Add( x3,y3, ìºë¦­í„°ë¬´ê¸° );
 
-	  // Ãâ·ÂÇÑ´Ù.
+	  // ì¶œë ¥í•œë‹¤.
 	  SOM.BltOutline( CDirectDrawSurface* );
 
 
 
-	(³»ºÎ ±¸Çö)
+	(ë‚´ë¶€ êµ¬í˜„)
 
 	Add( Sprite* )
-	  - Sprite¸¦ °ãÃÄ¼­ Ãâ·ÂÇßÀ» °æ¿ìÀÇ ÃÖÁ¾ »óÅÂ¿¡¼­ÀÇ 
-		Sprite°¡ Ãâ·ÂµÈ ¿µ¿ªÀÇ Å©±â¸¦ ±¸ÇØ¾ß ÇÏ¹Ç·Î
-		Sprite Size¸¦ ÀÐ¾î¼­ MaximumRect¸¦ °è»êÇØµÐ´Ù.
-		ÀÌ ¶§, Sprite°¡ Ãâ·ÂµÇ´Â À§Ä¡¸¦ Àß µûÁ®ºÁ¾ß ÇÑ´Ù. (À½¼ö ÁÖÀÇ)
-	  - Sprite List¿¡ Sprite¸¦ Ãß°¡ÇÑ´Ù.
+	  - Spriteë¥¼ ê²¹ì³ì„œ ì¶œë ¥í–ˆì„ ê²½ìš°ì˜ ìµœì¢… ìƒíƒœì—ì„œì˜ 
+		Spriteê°€ ì¶œë ¥ëœ ì˜ì—­ì˜ í¬ê¸°ë¥¼ êµ¬í•´ì•¼ í•˜ë¯€ë¡œ
+		Sprite Sizeë¥¼ ì½ì–´ì„œ MaximumRectë¥¼ ê³„ì‚°í•´ë‘”ë‹¤.
+		ì´ ë•Œ, Spriteê°€ ì¶œë ¥ë˜ëŠ” ìœ„ì¹˜ë¥¼ ìž˜ ë”°ì ¸ë´ì•¼ í•œë‹¤. (ìŒìˆ˜ ì£¼ì˜)
+	  - Sprite Listì— Spriteë¥¼ ì¶”ê°€í•œë‹¤.
 
 
 	BltOutline( CDirectDrawSurface* )
-	  - MaximumRect´Â ¿Ü°û¼± ¶§¹®¿¡
-		½ÇÁ¦Å©±âº¸´Ù »ç¹æÀ¸·Î 1 Pixel¾¿ Ä¿Á®¾ß ÇÑ´Ù.
+	  - MaximumRectëŠ” ì™¸ê³½ì„  ë•Œë¬¸ì—
+		ì‹¤ì œí¬ê¸°ë³´ë‹¤ ì‚¬ë°©ìœ¼ë¡œ 1 Pixelì”© ì»¤ì ¸ì•¼ í•œë‹¤.
  
-	  - ¿Ü°û¼±À» ÃßÃâÇÏ±â À§ÇØ¼­´Â.. 
-		Åõ¸í»ö°ú ½ÇÁ¦»öÀÌ ÀÖ´Â ºÎºÐÀ» ±¸ºÐÇØ¾ß ÇÏ¹Ç·Î
-		°¢ SpriteÀÇ GetPixelInfo( PixelInfo*, ColorInfo* )¸¦ ÀÌ¿ëÇØ¼­
-		SpriteOutlineManager ³»ºÎÀÇ PixelInfo¿¡ SpriteÀÇ Åõ¸í»ö+»ö±òÀÇ
-		Á¤º¸¸¦ ÀúÀåÇÏ°í ColorInfo¿¡´Â °¢ SpriteÀÇ »ö±ò °ªÀ» ÀúÀåÇÑ´Ù.
-		PixelInfo°ªÀº 0(Åõ¸í»ö)°ú 1(»ö±ò)·Î ±¸ºÐµÇ°í ColorInfo°ªÀº
-		½ÇÁ¦ »ö±ò °ªÀ» ÀÇ¹ÌÇÑ´Ù.
-		PixelInfo´Â SpriteOutlineManager°¡ »ý¼ºµÉ ¶§ 0À¸·Î 
-		ÃÊ±âÈ­ÇØ¾ß µÇ¸ç, SpriteÀÇ GetPixelInfo¿¡¼­´Â »ö±òºÎºÐ¸¸ 1·Î
-		¸¸µé¾îÁà¾ß ÇÑ´Ù.
+	  - ì™¸ê³½ì„ ì„ ì¶”ì¶œí•˜ê¸° ìœ„í•´ì„œëŠ”.. 
+		íˆ¬ëª…ìƒ‰ê³¼ ì‹¤ì œìƒ‰ì´ ìžˆëŠ” ë¶€ë¶„ì„ êµ¬ë¶„í•´ì•¼ í•˜ë¯€ë¡œ
+		ê° Spriteì˜ GetPixelInfo( PixelInfo*, ColorInfo* )ë¥¼ ì´ìš©í•´ì„œ
+		SpriteOutlineManager ë‚´ë¶€ì˜ PixelInfoì— Spriteì˜ íˆ¬ëª…ìƒ‰+ìƒ‰ê¹”ì˜
+		ì •ë³´ë¥¼ ì €ìž¥í•˜ê³  ColorInfoì—ëŠ” ê° Spriteì˜ ìƒ‰ê¹” ê°’ì„ ì €ìž¥í•œë‹¤.
+		PixelInfoê°’ì€ 0(íˆ¬ëª…ìƒ‰)ê³¼ 1(ìƒ‰ê¹”)ë¡œ êµ¬ë¶„ë˜ê³  ColorInfoê°’ì€
+		ì‹¤ì œ ìƒ‰ê¹” ê°’ì„ ì˜ë¯¸í•œë‹¤.
+		PixelInfoëŠ” SpriteOutlineManagerê°€ ìƒì„±ë  ë•Œ 0ìœ¼ë¡œ 
+		ì´ˆê¸°í™”í•´ì•¼ ë˜ë©°, Spriteì˜ GetPixelInfoì—ì„œëŠ” ìƒ‰ê¹”ë¶€ë¶„ë§Œ 1ë¡œ
+		ë§Œë“¤ì–´ì¤˜ì•¼ í•œë‹¤.
 
-	  - »ý¼ºµÈ PixelInfo¿Í ColorInfoÀÇ Á¤º¸¸¦ ÀÌ¿ëÇØ¼­
-		Surface¿¡ ¿Ü°û¼±°ú ÇÔ²², ½ÇÁ¦ »ö±òÀ» Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+	  - ìƒì„±ëœ PixelInfoì™€ ColorInfoì˜ ì •ë³´ë¥¼ ì´ìš©í•´ì„œ
+		Surfaceì— ì™¸ê³½ì„ ê³¼ í•¨ê»˜, ì‹¤ì œ ìƒ‰ê¹”ì„ ì¶œë ¥í•´ì•¼ í•œë‹¤.
 
-	  - ÀÏ´Ü PixelInfoÀÇ 0(Åõ¸í)°ú 1(»ö±ò)À» °Ë»öÇÏ¸é¼­ 
-		¿Ü°û¼± ºÎºÐ¿¡´Â 2(¿Ü°û)¸¦ ´ëÀÔÇØÁØ´Ù.
-		¼¼·Î ¿Ü°û °Ë»öÀº ÇØÁà¾ß ÇÏ°í,
-		°¡·Î ¿Ü°û °Ë»öÀº Add¿¡¼­ ÇØÁÙ ¼öµµ ÀÖ´Ù.
-		ÇÏÁö¸¸, °¡·Î ¿Ü°û °Ë»öÀ» Add¿¡¼­ ÇÏÁö ¾Ê´Â ´Ù¸é, 
-		ÀÌ ´Ü°è¿¡¼­ °¡·Î·Î °Ë»öÇÏ¸é¼­ Åõ¸í»öºÎºÐ ¾ÐÃàÀ» ÇØ¼­
-		Àá½Ã ÈÄÀÇ Ãâ·Â¿¡¼­ ±× Á¤º¸¸¦ È°¿ëÇÒ ¼ö ÀÖ´Ù.
+	  - ì¼ë‹¨ PixelInfoì˜ 0(íˆ¬ëª…)ê³¼ 1(ìƒ‰ê¹”)ì„ ê²€ìƒ‰í•˜ë©´ì„œ 
+		ì™¸ê³½ì„  ë¶€ë¶„ì—ëŠ” 2(ì™¸ê³½)ë¥¼ ëŒ€ìž…í•´ì¤€ë‹¤.
+		ì„¸ë¡œ ì™¸ê³½ ê²€ìƒ‰ì€ í•´ì¤˜ì•¼ í•˜ê³ ,
+		ê°€ë¡œ ì™¸ê³½ ê²€ìƒ‰ì€ Addì—ì„œ í•´ì¤„ ìˆ˜ë„ ìžˆë‹¤.
+		í•˜ì§€ë§Œ, ê°€ë¡œ ì™¸ê³½ ê²€ìƒ‰ì„ Addì—ì„œ í•˜ì§€ ì•ŠëŠ” ë‹¤ë©´, 
+		ì´ ë‹¨ê³„ì—ì„œ ê°€ë¡œë¡œ ê²€ìƒ‰í•˜ë©´ì„œ íˆ¬ëª…ìƒ‰ë¶€ë¶„ ì••ì¶•ì„ í•´ì„œ
+		ìž ì‹œ í›„ì˜ ì¶œë ¥ì—ì„œ ê·¸ ì •ë³´ë¥¼ í™œìš©í•  ìˆ˜ ìžˆë‹¤.
          
-	  - Ãâ·Â ÇÒ¶§´Â PixelInfoÀÇ °ª¿¡ µû¶ó¼­
-		Åõ¸í ºÎºÐÀº °Ç³Ê¶ç°í,
-		¿Ü°û¼± ºÎºÐÀº ¿Ü°û¼± »öÀ» Ãâ·ÂÇÏ°í,
-		»ö±òºÎºÐÀº Á¤ÇØÁø »ö±òÀ» Ãâ·ÂÇÑ´Ù.
+	  - ì¶œë ¥ í• ë•ŒëŠ” PixelInfoì˜ ê°’ì— ë”°ë¼ì„œ
+		íˆ¬ëª… ë¶€ë¶„ì€ ê±´ë„ˆë„ê³ ,
+		ì™¸ê³½ì„  ë¶€ë¶„ì€ ì™¸ê³½ì„  ìƒ‰ì„ ì¶œë ¥í•˜ê³ ,
+		ìƒ‰ê¹”ë¶€ë¶„ì€ ì •í•´ì§„ ìƒ‰ê¹”ì„ ì¶œë ¥í•œë‹¤.
 */
 //----------------------------------------------------------------------
 
@@ -74,7 +74,7 @@
 #ifndef	__CSPRITEOUTLINEMANAGER_H__
 #define	__CSPRITEOUTLINEMANAGER_H__
 
-// ¿Ü°û¼±À» Ãâ·ÂÇÒ¶§ °ãÃÄÁö´Â SpriteµéÀÇ ÃÖ´ë °³¼ö
+// ì™¸ê³½ì„ ì„ ì¶œë ¥í• ë•Œ ê²¹ì³ì§€ëŠ” Spriteë“¤ì˜ ìµœëŒ€ ê°œìˆ˜
 #define	MAX_SPRITE_MERGE	20
 
 #ifdef PLATFORM_WINDOWS
@@ -106,21 +106,21 @@ class CSpriteOutlineManager {
 		void		Add(int x, int y, CAlphaSprite* pSprite);
 
 		//--------------------------------------------------------------
-		// Generate  : ¿Ü°û¼± Á¤º¸¸¦ »ý¼ºÇÑ´Ù.
+		// Generate  : ì™¸ê³½ì„  ì •ë³´ë¥¼ ìƒì„±í•œë‹¤.
 		//--------------------------------------------------------------
 		void		Generate(int opt = 0);
 
 		//--------------------------------------------------------------
 		// Get
 		//--------------------------------------------------------------
-		// Ãâ·Â À§Ä¡
+		// ì¶œë ¥ ìœ„ì¹˜
 		POINT		GetPosition() const		{ return m_pointOutput; }
-		// ¿Ü°û¼± Á¤º¸ÀÇ Å©±â
+		// ì™¸ê³½ì„  ì •ë³´ì˜ í¬ê¸°
 		int			GetWidth() const		{ return m_Width; }
 		int			GetHeight() const		{ return m_Height; }
 
 		//--------------------------------------------------------------
-		// Blt  : È­¸é¿¡ Ãâ·ÂÇÑ´Ù.
+		// Blt  : í™”ë©´ì— ì¶œë ¥í•œë‹¤.
 		//--------------------------------------------------------------
 		void		Blt(WORD* pSurface, WORD Pitch, WORD color);
 		void		BltClip(WORD* pSurface, WORD Pitch, WORD color, RECT* pRect);
@@ -130,7 +130,7 @@ class CSpriteOutlineManager {
 		void		BltDarknessClip(WORD* pSurface, WORD Pitch, WORD color, BYTE DarkBits, RECT* pRect);
 
 	public :
-		// SpriteÀÇ Á¾·ù
+		// Spriteì˜ ì¢…ë¥˜
 		enum SPRITETYPE 
 		{
 			SPRITETYPE_NULL = 0,
@@ -139,7 +139,7 @@ class CSpriteOutlineManager {
 			SPRITETYPE_INDEX
 		};
 
-		// ÇÑ Á¡ÀÇ Á¾·ù(m_ppPixelInfo¿¡¼­ »ç¿ë)
+		// í•œ ì ì˜ ì¢…ë¥˜(m_ppPixelInfoì—ì„œ ì‚¬ìš©)
 		enum PIXELTYPE
 		{			
 			PIXELTYPE_MAXCOUNT = 0xF0,
@@ -148,13 +148,13 @@ class CSpriteOutlineManager {
 			PIXELTYPE_OUTLINE = 0xFE,
 			PIXELTYPE_TRANSEND = 0xFF
 		};
-		// 2004, 8, 18 sobeit add start - °ø¼ºÀü ¼º¹® Å¸°ÙÆÃ¶§¹®¿¡ ¿©Â÷¿©Â÷ Ãß°¡..
+		// 2004, 8, 18 sobeit add start - ê³µì„±ì „ ì„±ë¬¸ íƒ€ê²ŸíŒ…ë•Œë¬¸ì— ì—¬ì°¨ì—¬ì°¨ ì¶”ê°€..
 		enum GENERATE_OPTION{
 			GENERATE_ALL = 0,
-			GENERATE_EXCEPT_LEFT,	// ¿ÞÂÊ ¾Æ¿ô¶óÀÎÀº Á¦¿Ü
-			GENERATE_EXCEPT_RIGHT,  // ¿À¸¥ÂÊ ¾Æ¿ô¶óÀÎÀº Á¦¿Ü
-			GENERATE_EXCEPT_SIDE,	// ¾ç »çÀÌµå ¾Æ¿ô¶óÀÎÀº Á¦¿Ü
-			// -_- À§,¾Æ·¡µµ ¸¸µé¾î ³ö¾ß ÇÏ³ª..-_-;
+			GENERATE_EXCEPT_LEFT,	// ì™¼ìª½ ì•„ì›ƒë¼ì¸ì€ ì œì™¸
+			GENERATE_EXCEPT_RIGHT,  // ì˜¤ë¥¸ìª½ ì•„ì›ƒë¼ì¸ì€ ì œì™¸
+			GENERATE_EXCEPT_SIDE,	// ì–‘ ì‚¬ì´ë“œ ì•„ì›ƒë¼ì¸ì€ ì œì™¸
+			// -_- ìœ„,ì•„ëž˜ë„ ë§Œë“¤ì–´ ë†”ì•¼ í•˜ë‚˜..-_-;
 		};
 		// 2004, 8, 18 sobeit add start
 	
@@ -166,30 +166,30 @@ class CSpriteOutlineManager {
 		void		ReleaseInfo();
 
 		//--------------------------------------------------------------
-		// SpriteÀÇ PixelÁ¤º¸¸¦ ¿Ü°û¼± Á¤º¸¿¡ Ãß°¡
+		// Spriteì˜ Pixelì •ë³´ë¥¼ ì™¸ê³½ì„  ì •ë³´ì— ì¶”ê°€
 		//--------------------------------------------------------------
 		void		MergeNormalSprite( int n );
 		void		MergeAlphaSprite( int n );
 		void		MergeIndexSprite( int n );
-		void		MergeIndexSpriteColorSet( int n );	// ÀüÃ¼ »ö±òÀÌ ¹Ù²î´Â IndexSprite
+		void		MergeIndexSpriteColorSet( int n );	// ì „ì²´ ìƒ‰ê¹”ì´ ë°”ë€ŒëŠ” IndexSprite
 
 
 	protected :
-		int			m_nSprite;						// °ãÃÄÂï´Â Sprite°³¼ö
-		int			m_Type[MAX_SPRITE_MERGE];		// SpriteÀÇ Á¾·ù		
-		POINT		m_Position[MAX_SPRITE_MERGE];	// Sprite¸¦ Ãâ·ÂÇÒ À§Ä¡
-		WORD		m_ChangeColorSet[MAX_SPRITE_MERGE];	// IndexSpriteÀÇ ÀüÃ¼»ö±òÀÌ ¹Ù²ð¶§ÀÇ Set°ª
-		WORD		m_Value[MAX_SPRITE_MERGE][256];		// IndexSpriteÀÇ Set°ª
-		void*		m_pSprite[MAX_SPRITE_MERGE];	// Sprite¿¡ ´ëÇÑ pointer
+		int			m_nSprite;						// ê²¹ì³ì°ëŠ” Spriteê°œìˆ˜
+		int			m_Type[MAX_SPRITE_MERGE];		// Spriteì˜ ì¢…ë¥˜		
+		POINT		m_Position[MAX_SPRITE_MERGE];	// Spriteë¥¼ ì¶œë ¥í•  ìœ„ì¹˜
+		WORD		m_ChangeColorSet[MAX_SPRITE_MERGE];	// IndexSpriteì˜ ì „ì²´ìƒ‰ê¹”ì´ ë°”ë€”ë•Œì˜ Setê°’
+		WORD		m_Value[MAX_SPRITE_MERGE][256];		// IndexSpriteì˜ Setê°’
+		void*		m_pSprite[MAX_SPRITE_MERGE];	// Spriteì— ëŒ€í•œ pointer
 
-		RECT		m_rectOutline;					// ÀüÃ¼ ¿µ¿ª
-		POINT		m_pointOutput;					// Ãâ·ÂµÇ´Â À§Ä¡
+		RECT		m_rectOutline;					// ì „ì²´ ì˜ì—­
+		POINT		m_pointOutput;					// ì¶œë ¥ë˜ëŠ” ìœ„ì¹˜
 
-		// ¿Ü°û¼± Á¤º¸
-		int			m_Width;						// °¡·Î ±æÀÌ
-		int			m_Height;						// ¼¼·Î ±æÀÌ
-		BYTE**		m_ppPixelInfo;					// pixelÀÇ Á¾·ù
-		WORD**		m_ppColorInfo;					// pixelÀÇ »ö±ò
+		// ì™¸ê³½ì„  ì •ë³´
+		int			m_Width;						// ê°€ë¡œ ê¸¸ì´
+		int			m_Height;						// ì„¸ë¡œ ê¸¸ì´
+		BYTE**		m_ppPixelInfo;					// pixelì˜ ì¢…ë¥˜
+		WORD**		m_ppColorInfo;					// pixelì˜ ìƒ‰ê¹”
 };
 
 #endif

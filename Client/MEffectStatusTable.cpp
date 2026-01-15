@@ -22,7 +22,7 @@ EFFECTSTATUS_NODE::EFFECTSTATUS_NODE()
 
 	EffectSpriteType	= EFFECTSPRITETYPE_NULL;
 	EffectColor			= 0xFFFF;
-	EffectColorPart		= ADDON_NULL;	// ¾ø°Å³ª.. ÀüÃ¼ --;
+	EffectColorPart		= ADDON_NULL;	// ì—†ê±°ë‚˜.. ì „ì²´ --;
 	
 	ActionInfo			= ACTIONINFO_NULL;
 	OriginalActionInfo	= ACTIONINFO_NULL;

@@ -10,50 +10,50 @@
 #include "ctypetable.h"
 #include "CDirectDrawSurface.h"
 
-#define	EVENTFLAG_SHOW_STRING				0x00000001		// È­¸é¿¡ string¸¦ Ç¥½ÃÇÑ´Ù
-#define EVENTFLAG_SHOW_DELAY				0x00000002		// DelayÅ¸ÀÓÀ» È­¸é¿¡ Ç¥½ÃÇÑ´Ù
-#define	EVENTFLAG_SHOW_DELAY_STRING			0x00000003		// DelayÅ¸ÀÓÀ» ³Ö´Â string¸¦ Ç¥½ÃÇÑ´Ù
-#define	EVENTFLAG_SHAKE_SCREEN				0x00000004		// eventµ¿¾È È­¸éÀ» Èçµç´Ù. parameter3À» »ç¿ëÇÑ´Ù
-#define	EVENTFLAG_FADE_SCREEN				0x00000008		// eventµ¿¾È È­¸é»öÀ» ¹Ù²Û´Ù. parameter2¸¦ »ç¿ëÇÑ´Ù
-#define	EVENTFLAG_NOT_DRAW_BACKGROUND		0x00000010		// eventµ¿¾È ¹è°æÀ» ÂïÁö ¾Ê´Â´Ù
-#define	EVENTFLAG_EVENT_BACKGROUND			0x00000020		// eventµ¿¾È ÀÌº¥Æ®¿ë µŞ¹è°æÀ» Ãâ·ÂÇÑ´Ù
-#define	EVENTFLAG_ONLY_EVENT_BACKGROUND		0x00000030		// eventµ¿¾È ¹è°æÀ» ÂïÁö ¾Ê°í µŞ¹è°æÀ» Ãâ·ÂÇÑ´Ù
-#define EVENTFLAG_QUEST_INFO				0x00000040		// ½ÉÇÃ Äù½ºÆ® °ü·Ã
-#define EVENTFLAG_NOT_DRAW_UI				0x00000080		// ÀÎÅÍÆäÀÌ½º ¾ÈÂïÀ½
-#define EVENTFLAG_NOT_DRAW_CREATURE			0x00000100		// Å©¸®ÃÄ ¾ÈÂïÀ½
-#define EVENTFLAG_NOT_DRAW_INFORMATION		0x00000200		// È­¸é Á¤º¸ ¾ÈÂïÀ½
-#define EVENTFLAG_NOT_DRAW_CREATURE_SHADOW	0x00000400		// Å©¸®ÃÄ ±×¸²ÀÚ ¾ÈÂïÀ½
-#define EVENTFLAG_NOT_DRAW_ITEM				0x00000800		// ¾ÆÀÌÅÛ ¾ÈÂïÀ½
-#define EVENTFLAG_NOT_DRAW_EFFECT			0x00001000		// ÀÌÆåÆ® ¾ÈÂïÀ½
-#define EVENTFLAG_NOT_DRAW_MOUSE_POINTER	0x00002000		// ¸¶¿ì½º Æ÷ÀÎÅÍ ¾ÈÂïÀ½
-#define EVENTFLAG_DENY_INPUT_MOUSE			0x00004000		// ¸¶¿ì½º ÀÔ·Â ¾È¹ŞÀ½ À§Çè!
-#define EVENTFLAG_DENY_INPUT_KEYBOARD		0x00008000		// Å°º¸µå ÀÔ·Â ¾È¹ŞÀ½ À§Çè!
-#define EVENTFLAG_DENY_INPUT				0x0000c000		// ÀÔ·Â ¾È¹ŞÀ½ À§Çè!
-#define EVENTFLAG_NOT_FADE_SCREEN			0x00010000		// DrawFade¾ÈÇÔ
-#define EVENTFLAG_NOT_PLAY_SOUND			0x00020000		// SoundPlay¾ÈÇÔ
-#define EVENTFLAG_CLOUD_BACKGROUND			0x00040000		// Å¸ÀÏ µÚÂÊ¿¡ ±¸¸§ ÀÌ¹ÌÁö¸¦ »Ñ·ÁÁØ´Ù..
+#define	EVENTFLAG_SHOW_STRING				0x00000001		// í™”ë©´ì— stringë¥¼ í‘œì‹œí•œë‹¤
+#define EVENTFLAG_SHOW_DELAY				0x00000002		// Delayíƒ€ì„ì„ í™”ë©´ì— í‘œì‹œí•œë‹¤
+#define	EVENTFLAG_SHOW_DELAY_STRING			0x00000003		// Delayíƒ€ì„ì„ ë„£ëŠ” stringë¥¼ í‘œì‹œí•œë‹¤
+#define	EVENTFLAG_SHAKE_SCREEN				0x00000004		// eventë™ì•ˆ í™”ë©´ì„ í”ë“ ë‹¤. parameter3ì„ ì‚¬ìš©í•œë‹¤
+#define	EVENTFLAG_FADE_SCREEN				0x00000008		// eventë™ì•ˆ í™”ë©´ìƒ‰ì„ ë°”ê¾¼ë‹¤. parameter2ë¥¼ ì‚¬ìš©í•œë‹¤
+#define	EVENTFLAG_NOT_DRAW_BACKGROUND		0x00000010		// eventë™ì•ˆ ë°°ê²½ì„ ì°ì§€ ì•ŠëŠ”ë‹¤
+#define	EVENTFLAG_EVENT_BACKGROUND			0x00000020		// eventë™ì•ˆ ì´ë²¤íŠ¸ìš© ë’·ë°°ê²½ì„ ì¶œë ¥í•œë‹¤
+#define	EVENTFLAG_ONLY_EVENT_BACKGROUND		0x00000030		// eventë™ì•ˆ ë°°ê²½ì„ ì°ì§€ ì•Šê³  ë’·ë°°ê²½ì„ ì¶œë ¥í•œë‹¤
+#define EVENTFLAG_QUEST_INFO				0x00000040		// ì‹¬í”Œ í€˜ìŠ¤íŠ¸ ê´€ë ¨
+#define EVENTFLAG_NOT_DRAW_UI				0x00000080		// ì¸í„°í˜ì´ìŠ¤ ì•ˆì°ìŒ
+#define EVENTFLAG_NOT_DRAW_CREATURE			0x00000100		// í¬ë¦¬ì³ ì•ˆì°ìŒ
+#define EVENTFLAG_NOT_DRAW_INFORMATION		0x00000200		// í™”ë©´ ì •ë³´ ì•ˆì°ìŒ
+#define EVENTFLAG_NOT_DRAW_CREATURE_SHADOW	0x00000400		// í¬ë¦¬ì³ ê·¸ë¦¼ì ì•ˆì°ìŒ
+#define EVENTFLAG_NOT_DRAW_ITEM				0x00000800		// ì•„ì´í…œ ì•ˆì°ìŒ
+#define EVENTFLAG_NOT_DRAW_EFFECT			0x00001000		// ì´í™íŠ¸ ì•ˆì°ìŒ
+#define EVENTFLAG_NOT_DRAW_MOUSE_POINTER	0x00002000		// ë§ˆìš°ìŠ¤ í¬ì¸í„° ì•ˆì°ìŒ
+#define EVENTFLAG_DENY_INPUT_MOUSE			0x00004000		// ë§ˆìš°ìŠ¤ ì…ë ¥ ì•ˆë°›ìŒ ìœ„í—˜!
+#define EVENTFLAG_DENY_INPUT_KEYBOARD		0x00008000		// í‚¤ë³´ë“œ ì…ë ¥ ì•ˆë°›ìŒ ìœ„í—˜!
+#define EVENTFLAG_DENY_INPUT				0x0000c000		// ì…ë ¥ ì•ˆë°›ìŒ ìœ„í—˜!
+#define EVENTFLAG_NOT_FADE_SCREEN			0x00010000		// DrawFadeì•ˆí•¨
+#define EVENTFLAG_NOT_PLAY_SOUND			0x00020000		// SoundPlayì•ˆí•¨
+#define EVENTFLAG_CLOUD_BACKGROUND			0x00040000		// íƒ€ì¼ ë’¤ìª½ì— êµ¬ë¦„ ì´ë¯¸ì§€ë¥¼ ë¿Œë ¤ì¤€ë‹¤..
 
 enum EVENT_ID
 {
 	EVENTID_NULL,
-	EVENTID_HALLUCINATION,			// Hallu°¡ °É·È´Ù
-	EVENTID_KICK_OUT_FROM_ZONE,		// Á¸¿¡¼­ Ãß¹æÇÏ´Â ½Ã°£(ÃÊ)
-	EVENTID_CONTINUAL_GROUND_ATTACK,	// Á¸¿¡¼­ Áö¼ÓÀûÀÎ °ø°İÀÌ ÀÏ¾î³ª´Â °æ¿ì(ÃÊ)
-	EVENTID_COMBAT_MASTER,				// ¸¶½ºÅÍ¿Í ½Î¿î´Ù
-	EVENTID_METEOR,						// ¸ŞÅ×¿À ½ÃÀÛÇÒ¶§ »ö, ¹è°æ ¹Ù²Ù±â
-	EVENTID_METEOR_SHAKE,				// ¸ŞÅ×¿À ¶¥¿¡ ¶³¾îÁú¶§ Èçµé±â
-	EVENTID_PREMIUM_HALF,				// ÇÁ¸®¹Ì¾ö »ç¿ëÀÚ´Â Æ÷¼Ç/Ç÷Ã» ¹İ°ª
-	EVENTID_TAX_CHANGE,					// »óÁ¡ ¼¼±İ ¹Ù²ñ
-	EVENTID_LOGOUT,						// ?ÃÊ ÈÄ¿¡ ·Î±×¾Æ¿ô ÇÕ´Ï´Ù.
-	EVENTID_LOVECHAIN,					// ?ÃÊ ÈÄ¿¡ ÀÌµ¿ ÇÕ´Ï´Ù.
-	EVENTID_FORCE_LOGOUT_BY_PREMIUM,	// À¯·á »ç¿ëÀÚ°¡ ¾Æ´Ï¶ó¼­ ¸îÃÊÈÄ¿¡ ·Î±×¾Æ¿ôµÊ 
-	EVENTID_MONSTER_KILL_QUEST,			// ¸ó½ºÅÍ Á×ÀÌ±â ½ÉÇÃ Äù½ºÆ® °ü·Ã
+	EVENTID_HALLUCINATION,			// Halluê°€ ê±¸ë ¸ë‹¤
+	EVENTID_KICK_OUT_FROM_ZONE,		// ì¡´ì—ì„œ ì¶”ë°©í•˜ëŠ” ì‹œê°„(ì´ˆ)
+	EVENTID_CONTINUAL_GROUND_ATTACK,	// ì¡´ì—ì„œ ì§€ì†ì ì¸ ê³µê²©ì´ ì¼ì–´ë‚˜ëŠ” ê²½ìš°(ì´ˆ)
+	EVENTID_COMBAT_MASTER,				// ë§ˆìŠ¤í„°ì™€ ì‹¸ìš´ë‹¤
+	EVENTID_METEOR,						// ë©”í…Œì˜¤ ì‹œì‘í• ë•Œ ìƒ‰, ë°°ê²½ ë°”ê¾¸ê¸°
+	EVENTID_METEOR_SHAKE,				// ë©”í…Œì˜¤ ë•…ì— ë–¨ì–´ì§ˆë•Œ í”ë“¤ê¸°
+	EVENTID_PREMIUM_HALF,				// í”„ë¦¬ë¯¸ì—„ ì‚¬ìš©ìëŠ” í¬ì…˜/í˜ˆì²­ ë°˜ê°’
+	EVENTID_TAX_CHANGE,					// ìƒì  ì„¸ê¸ˆ ë°”ë€œ
+	EVENTID_LOGOUT,						// ?ì´ˆ í›„ì— ë¡œê·¸ì•„ì›ƒ í•©ë‹ˆë‹¤.
+	EVENTID_LOVECHAIN,					// ?ì´ˆ í›„ì— ì´ë™ í•©ë‹ˆë‹¤.
+	EVENTID_FORCE_LOGOUT_BY_PREMIUM,	// ìœ ë£Œ ì‚¬ìš©ìê°€ ì•„ë‹ˆë¼ì„œ ëª‡ì´ˆí›„ì— ë¡œê·¸ì•„ì›ƒë¨ 
+	EVENTID_MONSTER_KILL_QUEST,			// ëª¬ìŠ¤í„° ì£½ì´ê¸° ì‹¬í”Œ í€˜ìŠ¤íŠ¸ ê´€ë ¨
 	EVENTID_OUSTERS_FIN,
-	EVENTID_QUEST_FIN,					// Äù½ºÆ® ³¡³µÀ»¶§
-	EVENTID_POUR_ITEM,					// %d ÃÊ ÈÄ¿¡ ±ê¹ßÁö¿ª¿¡¼­ ¾ÆÀÌÅÛÀÌ ÅÍÁı´Ï´Ù.
-	EVENTID_RESURRECT,					// %d ÃÊ ÈÄ¿¡ ºÎÈ°ÇÕ´Ï´Ù.
-	EVENTID_GDR_PRESENT,				// Áúµå·¹ ¿¬Ãâ 10ÃÊ°£ Èçµé¸²->10ÃÊ°£ ¾îµÎ¿öÁü
-	EVENTID_BG_CLOUD,					// ¹é±×¶ó¿îµå¿¡ ±¸¸§..-_-Å¸ÀÏ µŞÂÊ¿¡..
+	EVENTID_QUEST_FIN,					// í€˜ìŠ¤íŠ¸ ëë‚¬ì„ë•Œ
+	EVENTID_POUR_ITEM,					// %d ì´ˆ í›„ì— ê¹ƒë°œì§€ì—­ì—ì„œ ì•„ì´í…œì´ í„°ì§‘ë‹ˆë‹¤.
+	EVENTID_RESURRECT,					// %d ì´ˆ í›„ì— ë¶€í™œí•©ë‹ˆë‹¤.
+	EVENTID_GDR_PRESENT,				// ì§ˆë“œë ˆ ì—°ì¶œ 10ì´ˆê°„ í”ë“¤ë¦¼->10ì´ˆê°„ ì–´ë‘ì›Œì§
+	EVENTID_BG_CLOUD,					// ë°±ê·¸ë¼ìš´ë“œì— êµ¬ë¦„..-_-íƒ€ì¼ ë’·ìª½ì—..
 	EVENTID_WAR_EFFECT,
 	//add by zdj
 	EVENTID_ADVANCEMENT_QUEST_ENDING,
@@ -63,8 +63,8 @@ enum EVENT_ID
 enum EVENT_TYPE
 {
 	EVENTTYPE_NULL,		// 
-	EVENTTYPE_ZONE,		// Zone¿¡ Á¾¼Ó µÇ¸ç Á¸ÀÌ ¹Ù²î¸é »ç¶óÁø´Ù.
-	EVENTTYPE_EFFECT,	// Effect¿¡ Á¾¼Ó µÇ¸ç Effect°¡ »ç¶óÁö¸é »ç¶óÁø´Ù. parameter1À» »ç¿ëÇÑ´Ù
+	EVENTTYPE_ZONE,		// Zoneì— ì¢…ì† ë˜ë©° ì¡´ì´ ë°”ë€Œë©´ ì‚¬ë¼ì§„ë‹¤.
+	EVENTTYPE_EFFECT,	// Effectì— ì¢…ì† ë˜ë©° Effectê°€ ì‚¬ë¼ì§€ë©´ ì‚¬ë¼ì§„ë‹¤. parameter1ì„ ì‚¬ìš©í•œë‹¤
 
 	EVENTTYPE_MAX
 };	
@@ -90,15 +90,15 @@ class MEvent
 		EVENT_ID				eventID;
 		EVENT_TYPE				eventType;
 		DWORD					eventStartTickCount;
-		int						eventDelay;			// ´ÜÀ§ : 1/1000ÃÊ, eventÀÇ Áö¼Ó½Ã°£ÀÌ¸ç 0ÀÌ µÇ¸é ÀÌº¥Æ®°¡ Á¾·áµÈ´Ù. -1 : delay¾øÀ½
+		int						eventDelay;			// ë‹¨ìœ„ : 1/1000ì´ˆ, eventì˜ ì§€ì†ì‹œê°„ì´ë©° 0ì´ ë˜ë©´ ì´ë²¤íŠ¸ê°€ ì¢…ë£Œëœë‹¤. -1 : delayì—†ìŒ
 		int						showTime;
 		int						totalTime;
-		DWORD					eventFlag;			// eventÀÇ Flag
-		DWORD					parameter1;			// EVENT_TYPE¿¡ Á¾¼Ó(effect id)
-		DWORD					parameter2;			// FADE_SCREEN¿¡ Á¾¼Ó
-		DWORD					parameter3;			// SHAKE_SCREEN¿¡ Á¾¼Ó
-		DWORD					parameter4;			// EVENT_BACKGROUND¿¡ Á¾¼Ó
-		std::vector<int>		m_StringsID;		// GameStringÀÇ StringID°¡ µé¾î°£´Ù.
+		DWORD					eventFlag;			// eventì˜ Flag
+		DWORD					parameter1;			// EVENT_TYPEì— ì¢…ì†(effect id)
+		DWORD					parameter2;			// FADE_SCREENì— ì¢…ì†
+		DWORD					parameter3;			// SHAKE_SCREENì— ì¢…ì†
+		DWORD					parameter4;			// EVENT_BACKGROUNDì— ì¢…ì†
+		std::vector<int>		m_StringsID;		// GameStringì˜ StringIDê°€ ë“¤ì–´ê°„ë‹¤.
 
 		const bool IsShowTime() const;
 };
@@ -134,7 +134,7 @@ class MEventManager
 		
 	protected :
 		EVENT_MAP		m_Events;
-		CTypeTable<CDirectDrawSurface>	m_EventBackGround;	// ÀÌº¥Æ® ¹è°æ±×¸²...
+		CTypeTable<CDirectDrawSurface>	m_EventBackGround;	// ì´ë²¤íŠ¸ ë°°ê²½ê·¸ë¦¼...
 		
 };
 

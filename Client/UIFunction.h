@@ -1,8 +1,8 @@
  //-----------------------------------------------------------------------------
 // UI Function.h
 //-----------------------------------------------------------------------------
-// packetºÎºĞ¿¡ includeÇÏ¸é warningÀÌ ÁÃ~~³­´Ù.. 
-// ¾îÂ¿ ¼ö ¾øÀÌ... 
+// packetë¶€ë¶„ì— includeí•˜ë©´ warningì´ ì¢~~ë‚œë‹¤.. 
+// ì–´ì©” ìˆ˜ ì—†ì´... 
 //-----------------------------------------------------------------------------
 
 #include "RaceType.h"
@@ -65,7 +65,7 @@ extern void		UI_SetWorldList();
 extern void		UI_SetCurrentServerName(const char *name, int status);
 
 //-----------------------------------------------------------------------------
-// Interface º¯°æ
+// Interface ë³€ê²½
 //-----------------------------------------------------------------------------
 extern Race		UI_GetInterfaceRace();
 extern void		UI_ChangeInterfaceRace(Race race);
@@ -113,7 +113,7 @@ extern void		UI_SetCharInfoFAME(int value);
 //extern void		UI_SetCharInfoNOTERITY(int value);
 
 //-----------------------------------------------------------------------------
-// ÁÂÇ¥ 
+// ì¢Œí‘œ 
 //-----------------------------------------------------------------------------
 extern POINT	UI_GetInventoryGridPosition(int x, int y);
 extern POINT	UI_GetInventoryPosition();
@@ -160,7 +160,7 @@ extern void		UI_CloseTutorialExit();
 
 
 //-----------------------------------------------------------------------------
-// Shop, º¸°ü, ±³È¯
+// Shop, ë³´ê´€, êµí™˜
 //-----------------------------------------------------------------------------
 extern BOOL		UI_IsRunningStorage();
 extern BOOL		UI_IsRunningExchange();
@@ -203,7 +203,7 @@ extern void		UI_RunPetStorage();
 extern void		UI_SetPetStorage(MStorage* pStorage);
 
 //-----------------------------------------------------------------------------
-// Æ÷Å» °ü·Ã
+// í¬íƒˆ ê´€ë ¨
 //-----------------------------------------------------------------------------
 extern bool		UI_IsRunningSelectWayPoint();
 extern void		UI_RunSelectWayPoint();
@@ -244,7 +244,7 @@ extern void		UI_SetHotKey(int hotkey, int id);
 extern int		UI_GetHotKey(int hotkey);
 
 //-----------------------------------------------------------------------------
-// ID±â¾ï
+// IDê¸°ì–µ
 //-----------------------------------------------------------------------------
 extern void		UI_BackupLoginID(char *);
 
@@ -259,7 +259,7 @@ extern MItem*	UI_GetMouseItem();
 extern void		UI_RemoveDescriptor(void* pPtr=NULL);
 
 //-----------------------------------------------------------------------------
-// ¿Ï¼ºÇü <--> Á¶ÇÕÇü
+// ì™„ì„±í˜• <--> ì¡°í•©í˜•
 //-----------------------------------------------------------------------------
 //extern void		UI_WansungToJohap(const char* wansung, char* johap);
 //extern void		UI_JohapToWansung(const char* johap, char* wansung);
@@ -301,7 +301,7 @@ extern void		UI_SetGuild(WORD guild_id, BYTE guild_rank, std::string guild_name)
 extern void		UI_RunOtherInfo(MCreature *pCreature = NULL);
 extern const char *UI_GetOtherInfoName();
 
-// ³İ¸¶ºí¿ë
+// ë„·ë§ˆë¸”ìš©
 extern void		UI_RunConnect();
 
 extern void		UI_SetCharInfoSilverDamage(int min_damage, int max_damage);
@@ -390,7 +390,7 @@ extern int		UI_GetMouseCursorInfo_WebBrowser();
 extern void		UI_Close_WebBrowser();
 extern void		UI_ShowWindowCursor();
 extern void		UI_HiddenWindowCursor();
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		extern void		UI_RunSubInventory(MItem* pItem);
 		extern void		UI_CloseSubInventory();
 		extern bool		UI_AddItemToSubInventory(MItem *pItem, int X, int Y);

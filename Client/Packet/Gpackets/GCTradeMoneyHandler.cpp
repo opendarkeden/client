@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCTradeMoneyHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@ void GCTradeMoneyHandler::execute ( GCTradeMoney * pPacket , Player * pPlayer )
 #ifdef __GAME_CLIENT__
 	
 	//------------------------------------------------------------------------
-	// TradeManager°¡ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì --> -_-;;
+	// TradeManagerê°€ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš° --> -_-;;
 	//------------------------------------------------------------------------
 	if (g_pTradeManager==NULL)
 	{
@@ -39,7 +39,7 @@ void GCTradeMoneyHandler::execute ( GCTradeMoney * pPacket , Player * pPlayer )
 	switch (pPacket->getCode())
 	{
 		//---------------------------------------------------------------
-		// »ó´ë¹æÀÌ ±³È¯ÇÒ µ·ÀÇ ¾×¼ö¸¦ ´Ã·È´Ù.
+		// ìƒëŒ€ë°©ì´ êµí™˜í•  ëˆì˜ ì•¡ìˆ˜ë¥¼ ëŠ˜ë ¸ë‹¤.
 		//---------------------------------------------------------------
 		case GC_TRADE_MONEY_INCREASE :
 			g_pTradeManager->GetOtherMoneyManager()->AddMoney( money );
@@ -48,7 +48,7 @@ void GCTradeMoneyHandler::execute ( GCTradeMoney * pPacket , Player * pPlayer )
 		break;
 
 		//---------------------------------------------------------------
-		// »ó´ë¹æÀÌ ±³È¯ÇÒ µ·ÀÇ ¾×¼ö¸¦ ÁÙ¿´´Ù.
+		// ìƒëŒ€ë°©ì´ êµí™˜í•  ëˆì˜ ì•¡ìˆ˜ë¥¼ ì¤„ì˜€ë‹¤.
 		//---------------------------------------------------------------
 		case GC_TRADE_MONEY_DECREASE :
 			g_pTradeManager->GetOtherMoneyManager()->UseMoney( money );
@@ -58,7 +58,7 @@ void GCTradeMoneyHandler::execute ( GCTradeMoney * pPacket , Player * pPlayer )
 		break;
 		
 		//---------------------------------------------------------------
-		// [°ËÁõ] ±³È¯ÇÒ ¶§ Ãß°¡µÉ µ· 
+		// [ê²€ì¦] êµí™˜í•  ë•Œ ì¶”ê°€ë  ëˆ 
 		//---------------------------------------------------------------
 		case GC_TRADE_MONEY_INCREASE_RESULT :			
 			g_pMoneyManager->UseMoney( money );
@@ -68,7 +68,7 @@ void GCTradeMoneyHandler::execute ( GCTradeMoney * pPacket , Player * pPlayer )
 		break;
 
 		//---------------------------------------------------------------
-		// [°ËÁõ] ±³È¯¿¡¼­ »©³¾ µ·
+		// [ê²€ì¦] êµí™˜ì—ì„œ ë¹¼ë‚¼ ëˆ
 		//---------------------------------------------------------------
 		case GC_TRADE_MONEY_DECREASE_RESULT :			
 			g_pTradeManager->GetMyMoneyManager()->UseMoney( money );
@@ -79,7 +79,7 @@ void GCTradeMoneyHandler::execute ( GCTradeMoney * pPacket , Player * pPlayer )
 	}
 
 	//-----------------------------------------------------------
-	// ¹º°¡ ¹Ù²ï´Ù¸é... OKÃë¼Ò
+	// ë­”ê°€ ë°”ë€ë‹¤ë©´... OKì·¨ì†Œ
 	//-----------------------------------------------------------
 	if (bRefuseAccept)
 	{

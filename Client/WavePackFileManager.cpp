@@ -70,7 +70,7 @@ WavePackFileInfo::SaveToFileData(class ofstream& file)
 	mmioClose(wavefile, 0);
 
 	//--------------------------------------------------------------
-	// file¿¡ ÀúÀåÇÑ´Ù.
+	// fileì— ì €ì¥í•œë‹¤.
 	//--------------------------------------------------------------
 	file.write((const char*)&cksize, 4);
 	file.write((const char*)&wavefmt, wavefmtSize);
@@ -101,7 +101,7 @@ WavePackFileInfo::LoadFromFileData(class ifstream& file)
 	bufdesc.dwSize			= sizeof(DSBUFFERDESC);
 	bufdesc.dwFlags			= DSBCAPS_CTRLPAN 
 							| DSBCAPS_CTRLVOLUME ;
-							//| DSBCAPS_LOCDEFER;	// ÀÌ°Ç ¿Ö ³Ö¾îµĞ°Å¿´À»±î. - -;
+							//| DSBCAPS_LOCDEFER;	// ì´ê±´ ì™œ ë„£ì–´ë‘”ê±°ì˜€ì„ê¹Œ. - -;
 	bufdesc.dwBufferBytes	= cksize;
 	bufdesc.lpwfxFormat		= &wavefmt;
 

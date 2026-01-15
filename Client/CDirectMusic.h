@@ -49,7 +49,7 @@ class CDirectMusic {
 		//void		SubVolume(long hdec);
 
 		//-----------------------------------------------------------
-		// »óÅÂ
+		// ìƒíƒœ
 		//-----------------------------------------------------------
 		bool		IsInit() const		{ return m_bInit; }
 		bool		IsLoad() const		{ return m_bInit && m_bLoad; }
@@ -83,12 +83,12 @@ class CDirectMusic {
 
 		bool						m_bSoftwareSynth;
 
-		bool						m_bInit;	// ÃÊ±âÈ­ µÇ¾ú´Â°¡?
-		bool						m_bLoad;	// È­ÀÏÀÌ LoadµÇ¾ú´Â°¡?
-		bool						m_bPlay;	// ¿¬ÁÖ ÁßÀÎ°¡?
+		bool						m_bInit;	// ì´ˆê¸°í™” ë˜ì—ˆëŠ”ê°€?
+		bool						m_bLoad;	// í™”ì¼ì´ Loadë˜ì—ˆëŠ”ê°€?
+		bool						m_bPlay;	// ì—°ì£¼ ì¤‘ì¸ê°€?
 	
-		int							m_OriginalTempo;	// original ÅÛÆ÷
-		int							m_CurrentTempo;		// ÇöÀç ÅÛÆ÷
+		int							m_OriginalTempo;	// original í…œí¬
+		int							m_CurrentTempo;		// í˜„ì¬ í…œí¬
 		//long						m_MasterVolume;
 };
 

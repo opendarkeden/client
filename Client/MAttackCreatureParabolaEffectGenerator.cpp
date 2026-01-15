@@ -25,10 +25,10 @@ MAttackCreatureParabolaEffectGenerator::Generate( const EFFECTGENERATOR_INFO& eg
 	BLT_TYPE		bltType = (*g_pEffectSpriteTypeTable)[egInfo.effectSpriteType].BltType;
 	TYPE_FRAMEID	frameID	= (*g_pEffectSpriteTypeTable)[egInfo.effectSpriteType].FrameID;
 
-	// creatureÀÇ ÁÂÇ¥
+	// creatureì˜ ì¢Œí‘œ
 	int cx, cy, cz;	
 
-	// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+	// ëª©í‘œ ìœ„ì¹˜ Pixelì¢Œí‘œ
 	MCreature* pCreature = g_pZone->GetCreature( egInfo.creatureID );
 
 	if (pCreature == NULL)
@@ -36,34 +36,34 @@ MAttackCreatureParabolaEffectGenerator::Generate( const EFFECTGENERATOR_INFO& eg
 		return false;
 	}
 	
-	// CretureÀÇ ÁÂÇ¥·Î ¸ñÇ¥ÁÂÇ¥¸¦ ¼³Á¤ÇÑ´Ù.
+	// Cretureì˜ ì¢Œí‘œë¡œ ëª©í‘œì¢Œí‘œë¥¼ ì„¤ì •í•œë‹¤.
 	cx = g_pTopView->MapToPixelX( pCreature->GetX() );
 	cy = g_pTopView->MapToPixelY( pCreature->GetY() );
-	cz = pCreature->GetZ() + TILE_Y;	// ÇÑ Å¸ÀÏÁ¤µµ À§·Î »©ÁØ´Ù.
+	cz = pCreature->GetZ() + TILE_Y;	// í•œ íƒ€ì¼ì •ë„ ìœ„ë¡œ ë¹¼ì¤€ë‹¤.
 
-	// Æ÷¹°¼± Effect»ý¼º
+	// í¬ë¬¼ì„  Effectìƒì„±
 	MParabolaEffect* pEffect = new MParabolaEffect(bltType);	
 	
 	int maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);
 	
 	pEffect->SetFrameID( frameID, maxFrame );
 
-	// ¹ß»ç À§Ä¡ PixelÁÂÇ¥	- ÇÑ Å¸ÀÏÁ¤µµ À§·Î »©ÁØ´Ù.
+	// ë°œì‚¬ ìœ„ì¹˜ Pixelì¢Œí‘œ	- í•œ íƒ€ì¼ì •ë„ ìœ„ë¡œ ë¹¼ì¤€ë‹¤.
 	pEffect->SetPixelPosition( egInfo.x0, egInfo.y0, egInfo.z0+TILE_Y );	
 					
-	// ¹æÇâ ¼³Á¤
+	// ë°©í–¥ ì„¤ì •
 	pEffect->SetDirection( egInfo.direction );
 
-	// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+	// ëª©í‘œ ìœ„ì¹˜ Pixelì¢Œí‘œ
 	pEffect->SetTarget( cx,cy,cz, egInfo.step );
 
-	// Áö¼ÓµÇ´Â Frame (¸ñÇ¥°¡ ÀÖ´Ù¸é º°·Î °ü°è ¾øÀ½ - -;)
+	// ì§€ì†ë˜ëŠ” Frame (ëª©í‘œê°€ ìžˆë‹¤ë©´ ë³„ë¡œ ê´€ê³„ ì—†ìŒ - -;)
 	pEffect->SetCount( egInfo.count, egInfo.linkCount );
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
 	
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 
 	if (g_pZone->AddEffect( pEffect ))

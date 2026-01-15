@@ -30,9 +30,9 @@ public  :
 	void			SetType(QUEST_INFO_TYPE type) { m_Type = type; }
 	
 protected :
-	DWORD			m_ID;						// Äù½ºÆ® ¾ÆÀÌµğ
-	QUEST_INFO_TYPE	m_Type;						// Äù½ºÆ® Å¸ÀÔ
-	DWORD			m_TimeLimit;				// ½Ã°£ Á¦ÇÑ
+	DWORD			m_ID;						// í€˜ìŠ¤íŠ¸ ì•„ì´ë””
+	QUEST_INFO_TYPE	m_Type;						// í€˜ìŠ¤íŠ¸ íƒ€ì…
+	DWORD			m_TimeLimit;				// ì‹œê°„ ì œí•œ
 };
 
 #endif

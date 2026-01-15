@@ -26,7 +26,7 @@ MEffectTarget::MEffectTarget(const MEffectTarget& target)
 		*this = target; 
 	}
 
-	// °´Ã¼ ID¸¦ ÇÒ´çÇÑ´Ù.
+	// ê°ì²´ IDë¥¼ í• ë‹¹í•œë‹¤.
 	//m_InstanceID = s_InstanceID++;
 	m_EffectID = target.m_EffectID;
 	
@@ -40,11 +40,11 @@ MEffectTarget::MEffectTarget(BYTE max)
 	m_MaxPhase		= max;
 	m_CurrentPhase	= 0;
 
-	// °á°ú
+	// ê²°ê³¼
 	//m_nResultActionInfo = ACTIONINFO_NULL;
 	m_pResult		= NULL;
 
-	// °´Ã¼ ID¸¦ ÇÒ´çÇÑ´Ù.
+	// ê°ì²´ IDë¥¼ í• ë‹¹í•œë‹¤.
 	//m_InstanceID = s_InstanceID++;
 	m_EffectID = 0;
 
@@ -65,7 +65,7 @@ MEffectTarget::~MEffectTarget()
 
 	DEBUG_ADD("del res");
 
-	// Á×À½ÀÇ ÄÚµå - -;
+	// ì£½ìŒì˜ ì½”ë“œ - -;
 	if (g_pPlayer!=NULL)
 	{
 		g_pPlayer->RemoveEffectTarget( m_EffectID );

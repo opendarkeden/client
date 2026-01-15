@@ -2,11 +2,11 @@
 // MAttachEffect.h
 //----------------------------------------------------------------------
 //
-// EffectÁß¿¡¼­ Object¿¡ ºÙ¾î ÀÖ´Â Effect¸¦ ÀÇ¹ÌÇÑ´Ù.
+// Effectì¤‘ì—ì„œ Objectì— ë¶™ì–´ ìˆëŠ” Effectë¥¼ ì˜ë¯¸í•œë‹¤.
 //
-// ¸Å Update¸¶´Ù ObjectÀÇ ÁÂÇ¥¸¦ Ã¼Å©ÇØ¼­ ºÙ¾î¾ß~ ÇÑ´Ù.
+// ë§¤ Updateë§ˆë‹¤ Objectì˜ ì¢Œí‘œë¥¼ ì²´í¬í•´ì„œ ë¶™ì–´ì•¼~ í•œë‹¤.
 //
-// Object¶ó°í´Â ÇÏÁö¸¸ ¾Æ¸¶.. Creature¹Û¿¡ ¾øÁö ¾ÊÀ»±î.
+// Objectë¼ê³ ëŠ” í•˜ì§€ë§Œ ì•„ë§ˆ.. Creatureë°–ì— ì—†ì§€ ì•Šì„ê¹Œ.
 //
 //----------------------------------------------------------------------
 
@@ -29,14 +29,14 @@ class MAttachEffect : public MMovingEffect {
 		virtual EFFECT_TYPE		GetEffectType()	const	{ return EFFECT_ATTACH; }
 
 		//--------------------------------------------------------
-		// ¸ñÇ¥ ¼³Á¤
+		// ëª©í‘œ ì„¤ì •
 		//--------------------------------------------------------
-		void					SetAttachCreatureID(TYPE_OBJECTID id);	// zone¿¡¼­ Ã£´Â´Ù.
-		bool					SetAttachCreature(MCreature* pCreature);		// Ä³¸¯ÅÍÀÇ ÁÂÇ¥·Î ÀÌµ¿
+		void					SetAttachCreatureID(TYPE_OBJECTID id);	// zoneì—ì„œ ì°¾ëŠ”ë‹¤.
+		bool					SetAttachCreature(MCreature* pCreature);		// ìºë¦­í„°ì˜ ì¢Œí‘œë¡œ ì´ë™
 		TYPE_OBJECTID			GetAttachCreatureID()					{ return m_CreatureID; }
 
 		//--------------------------------------------------------
-		// Á¾·ù
+		// ì¢…ë¥˜
 		//--------------------------------------------------------
 		bool					IsEffectSprite() const	{ return m_bEffectSprite; }
 		bool					IsEffectColor() const	{ return !m_bEffectSprite; }
@@ -50,7 +50,7 @@ class MAttachEffect : public MMovingEffect {
 		WORD					GetEffectColor() const		{ return m_EffectColor; }		
 		
 		//--------------------------------------------------------
-		// ÇÑ ¹øÀÇ Update¿¡ È£ÃâµÉ ÇÔ¼ö..
+		// í•œ ë²ˆì˜ Updateì— í˜¸ì¶œë  í•¨ìˆ˜..
 		//--------------------------------------------------------
 		virtual bool			Update();
 
@@ -58,17 +58,17 @@ class MAttachEffect : public MMovingEffect {
 	protected :
 		TYPE_OBJECTID				m_CreatureID;
 
-		bool						m_bEffectSprite;		// ±×¸² Á¾·ù¸¦ »ç¿ëÇÏ³ª?
+		bool						m_bEffectSprite;		// ê·¸ë¦¼ ì¢…ë¥˜ë¥¼ ì‚¬ìš©í•˜ë‚˜?
 
 		union {
-			TYPE_EFFECTSPRITETYPE	m_EffectSpriteType;		// ±×¸² Á¾·ù
-			WORD					m_EffectColor;			// Effect »ö±ò
+			TYPE_EFFECTSPRITETYPE	m_EffectSpriteType;		// ê·¸ë¦¼ ì¢…ë¥˜
+			WORD					m_EffectColor;			// Effect ìƒ‰ê¹”
 		};
 
-		ADDON						m_bEffectColorPart;		// »ö±ò ¹Ù²î´Â À§Ä¡
+		ADDON						m_bEffectColorPart;		// ìƒ‰ê¹” ë°”ë€ŒëŠ” ìœ„ì¹˜
 };
 
-// listÁ¤ÀÇ
+// listì •ì˜
 typedef	std::list<MAttachEffect*>	ATTACHEFFECT_LIST;
 
 #endif

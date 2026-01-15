@@ -1,15 +1,15 @@
 //----------------------------------------------------------------------
 // MCreatureTable.h
 //----------------------------------------------------------------------
-// CreatureÀÇ Á¾·ù¿¡ µû¸¥ Á¤º¸¸¦ ÀúÀåÇÏ´Â class
+// Creatureì˜ ì¢…ë¥˜ì— ë”°ë¥¸ ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” class
 //----------------------------------------------------------------------
 //
-// [ Á¾·ùº°·Î ÀÖ´Â Á¤º¸ ] 
+// [ ì¢…ë¥˜ë³„ë¡œ ìˆëŠ” ì •ë³´ ] 
 //
-// - µ¿ÀÛ FrameID
+// - ë™ì‘ FrameID
 // - Sprite FilePosition
 // - First SpriteID
-// - ÀÌ¸§... µîµî...
+// - ì´ë¦„... ë“±ë“±...
 // 
 //----------------------------------------------------------------------
 
@@ -28,16 +28,16 @@ class ifstream;
 class ofstream;
 
 //----------------------------------------------------------------------
-// CreatureÀÇ Á¾Á·
+// Creatureì˜ ì¢…ì¡±
 //----------------------------------------------------------------------
 enum CREATURETRIBE
 {	
-	CREATURETRIBE_SLAYER,			// ½½·¹ÀÌ¾î
-	CREATURETRIBE_VAMPIRE,			// ¹ìÆÄÀÌ¾î
+	CREATURETRIBE_SLAYER,			// ìŠ¬ë ˆì´ì–´
+	CREATURETRIBE_VAMPIRE,			// ë±€íŒŒì´ì–´
 	CREATURETRIBE_NPC,				// NPC
-	CREATURETRIBE_SLAYER_NPC,		// ½½·¹ÀÌ¾î ½ºÇÁ¶óÀÌÆ®¸¦ »ç¿ëÇÏ´Â NPC
+	CREATURETRIBE_SLAYER_NPC,		// ìŠ¬ë ˆì´ì–´ ìŠ¤í”„ë¼ì´íŠ¸ë¥¼ ì‚¬ìš©í•˜ëŠ” NPC
 	CREATURETRIBE_OUSTERS,
-	CREATURETRIBE_OUSTERS_NPC,		// ¾Æ¿ì½ºÅÍÁî ½ºÇÁ¶óÀÌÆ®¸¦ »ç¿ëÇÏ´Â NPC
+	CREATURETRIBE_OUSTERS_NPC,		// ì•„ìš°ìŠ¤í„°ì¦ˆ ìŠ¤í”„ë¼ì´íŠ¸ë¥¼ ì‚¬ìš©í•˜ëŠ” NPC
 	MAX_CREATURETRIBE
 };
 
@@ -55,7 +55,7 @@ enum CREATURETRIBE
 
 #define	CREATURETYPE_VAMPIRE_MALE3		558
 #define	CREATURETYPE_VAMPIRE_FEMALE3	559
-// add by Coffee 2006.11.24  Ôö¼Ó¹í×åÑÇÂéĞÎÏó
+// add by Coffee 2006.11.24  è—¤ì†ë±ç—¢é¥‘ì®¸è¿‘è¹¶
 #define	CREATURETYPE_VAMPIRE_MALE4		807
 #define	CREATURETYPE_VAMPIRE_FEMALE4	808
 //add by viva  195
@@ -79,7 +79,7 @@ enum CREATURETRIBE
 #define CREATURETYPE_ROCKET_LUNCHER		767
 #define CREATURETYPE_WILD_WOLF			787
 //----------------------------------------------------------------------
-// ½½·¹ÀÌ¾î NPCÀÇ º¹Àå¿¡ ´ëÇÑ Á¤º¸
+// ìŠ¬ë ˆì´ì–´ NPCì˜ ë³µì¥ì— ëŒ€í•œ ì •ë³´
 //----------------------------------------------------------------------
 class ITEM_WEARINFO
 {
@@ -112,31 +112,31 @@ class ITEM_WEARINFO
 
 //----------------------------------------------------------------------
 //
-// ÇÑ Á¾·ùÀÇ Creature¿¡ ´ëÇÑ Á¤º¸
+// í•œ ì¢…ë¥˜ì˜ Creatureì— ëŒ€í•œ ì •ë³´
 //
 //----------------------------------------------------------------------
 class CREATURETABLE_INFO {
 	public :		
-		MString					Name;					// Ä³¸¯ÅÍ ÀÌ¸§
-		CTypeTable<int>			SpriteTypes;			// SpriteTable¿¡¼­ÀÇ ID
-		bool					bMale;					// ³²ÀÚÀÎ°¡?		
-		BYTE					MoveTimes;				// ÀÌµ¿ È¸¼ö
-		BYTE					MoveRatio;				// Frame¼ö/ÀÌµ¿ È¸¼ö... ±×¸²Àº 12frameÀÌ¶óµµ 6¹ø¸¸ ÀÌµ¿ÇÒ ¼öµµ ÀÖ´Ù.
-		BYTE					MoveTimesMotor;			// ¿ÀÅä¹ÙÀÌ ÅÀÀ» ¶§ ÀÌµ¿ È¸¼ö
-		int						Height;					// Å° (Ã¤ÆÃ Ãâ·Â À§Ä¡¸¦ À§ÇØ¼­)
-		int						DeadHeight;				// Á×¾úÀ»¶§ÀÇ Å°
-		TYPE_ACTIONINFO			DeadActionInfo;			// Á×À»¶§ÀÇ actionInfo
-		int						ColorSet;				// ¹Ù²î´Â »ö±ò ¹øÈ£
-		bool					bFlyingCreature;		// ³¯¾Æ´Ù´Ï´Â Ä³¸¯ÀÎ°¡?
-		int						FlyingHeight;			// ³¯¾Æ´Ù´Ï´Â ³ôÀÌ
-		bool					bHeadCut;				// ¸Ó¸® Àß¸®´Â°¡? -_-;
-		int						HPBarWidth;				// HP bar Å©±â
-		ITEM_WEARINFO*			pItemWearInfo;			// ½½·¹ÀÌ¾î NPCÀÎ °æ¿ì
-		WORD					ChangeColorSet;			// Ä³¸¯ÅÍ ÀüÃ¼°¡ ¹Ù²î´Â °æ¿ì
-		int						ShadowCount;			// ´Ã µû¶ó´Ù´Ï´Â ¸öÀÇ ÀÜ»ó °³¼ö
+		MString					Name;					// ìºë¦­í„° ì´ë¦„
+		CTypeTable<int>			SpriteTypes;			// SpriteTableì—ì„œì˜ ID
+		bool					bMale;					// ë‚¨ìì¸ê°€?		
+		BYTE					MoveTimes;				// ì´ë™ íšŒìˆ˜
+		BYTE					MoveRatio;				// Frameìˆ˜/ì´ë™ íšŒìˆ˜... ê·¸ë¦¼ì€ 12frameì´ë¼ë„ 6ë²ˆë§Œ ì´ë™í•  ìˆ˜ë„ ìˆë‹¤.
+		BYTE					MoveTimesMotor;			// ì˜¤í† ë°”ì´ íƒ”ì„ ë•Œ ì´ë™ íšŒìˆ˜
+		int						Height;					// í‚¤ (ì±„íŒ… ì¶œë ¥ ìœ„ì¹˜ë¥¼ ìœ„í•´ì„œ)
+		int						DeadHeight;				// ì£½ì—ˆì„ë•Œì˜ í‚¤
+		TYPE_ACTIONINFO			DeadActionInfo;			// ì£½ì„ë•Œì˜ actionInfo
+		int						ColorSet;				// ë°”ë€ŒëŠ” ìƒ‰ê¹” ë²ˆí˜¸
+		bool					bFlyingCreature;		// ë‚ ì•„ë‹¤ë‹ˆëŠ” ìºë¦­ì¸ê°€?
+		int						FlyingHeight;			// ë‚ ì•„ë‹¤ë‹ˆëŠ” ë†’ì´
+		bool					bHeadCut;				// ë¨¸ë¦¬ ì˜ë¦¬ëŠ”ê°€? -_-;
+		int						HPBarWidth;				// HP bar í¬ê¸°
+		ITEM_WEARINFO*			pItemWearInfo;			// ìŠ¬ë ˆì´ì–´ NPCì¸ ê²½ìš°
+		WORD					ChangeColorSet;			// ìºë¦­í„° ì „ì²´ê°€ ë°”ë€ŒëŠ” ê²½ìš°
+		int						ShadowCount;			// ëŠ˜ ë”°ë¼ë‹¤ë‹ˆëŠ” ëª¸ì˜ ì”ìƒ ê°œìˆ˜
 
 	protected :
-		CREATURETRIBE			m_CreatureTribe;		// Á¾Á·
+		CREATURETRIBE			m_CreatureTribe;		// ì¢…ì¡±
 		TYPE_SOUNDID*			m_pActionSound;			// Sound ID
 		int*					m_pActionCount;			// Action Count
 		
@@ -181,11 +181,11 @@ class CREATURETABLE_INFO {
 //----------------------------------------------------------------------
 // CreatureSpriteTypeMapper
 //----------------------------------------------------------------------
-// SpriteID·Î CreatureTypeÀ» Ã£´Â °æ¿ì¿¡ »ç¿ë
+// SpriteIDë¡œ CreatureTypeì„ ì°¾ëŠ” ê²½ìš°ì— ì‚¬ìš©
 //----------------------------------------------------------------------
 class CreatureSpriteTypeMapper {
 	public :
-		typedef std::vector<WORD>				CREATURE_TYPES;		// WORD.. ±ÍÂ÷³ª..
+		typedef std::vector<WORD>				CREATURE_TYPES;		// WORD.. ê·€ì°¨ë‚˜..
 		typedef std::vector<CREATURE_TYPES*>	CREATURE_SPRITE_TYPES;
 
 	public :

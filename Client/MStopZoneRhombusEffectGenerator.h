@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MStopZoneRhombusEffectGenerator.h
 //----------------------------------------------------------------------
-// ¸¶¸§¸ğ ¸ğ¾çÀ¸·Î »ı¼º = ½ÊÀÚ°¡ - °¡¿îµ¥ ÇÏ³ª
+// ë§ˆë¦„ëª¨ ëª¨ì–‘ìœ¼ë¡œ ìƒì„± = ì‹­ìê°€ - ê°€ìš´ë° í•˜ë‚˜
 //----------------------------------------------------------------------
 
 #ifndef	__MSTOPZONERHOMBUSEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MStopZoneRhombusEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_STOP_ZONE_RHOMBUS; }
 
-		// Effect»ı¼º
+		// Effectìƒì„±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

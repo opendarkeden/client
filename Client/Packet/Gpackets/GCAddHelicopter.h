@@ -2,7 +2,7 @@
 // Filename    : GCAddHelicopter.h 
 // Written By  : excel96
 // Description :
-// ½½·¹ÀÌ¾î°¡ ¹«Àü±â¸¦ »ç¿ëÇØ, Çï±â¸¦ È£ÃâÇßÀ» °æ¿ì¿¡ ³¯¾Æ°¡´Â ÆÐÅ¶
+// ìŠ¬ë ˆì´ì–´ê°€ ë¬´ì „ê¸°ë¥¼ ì‚¬ìš©í•´, í—¬ê¸°ë¥¼ í˜¸ì¶œí–ˆì„ ê²½ìš°ì— ë‚ ì•„ê°€ëŠ” íŒ¨í‚·
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_ADD_HELICOPTER_H__
@@ -39,8 +39,8 @@ public:
 	void setCode(BYTE code) { m_Code = code; }
 	
 private:
-	ObjectID_t  m_ObjectID; // Çï±â¸¦ È£ÃâÇÑ ½½·¹ÀÌ¾îÀÇ ¿ÀºêÁ§Æ® ID
-	BYTE        m_Code;     // 0ÀÌ È£Ãâ, 1ÀÌ Á¦°Å
+	ObjectID_t  m_ObjectID; // í—¬ê¸°ë¥¼ í˜¸ì¶œí•œ ìŠ¬ë ˆì´ì–´ì˜ ì˜¤ë¸Œì íŠ¸ ID
+	BYTE        m_Code;     // 0ì´ í˜¸ì¶œ, 1ì´ ì œê±°
 };
 
 //////////////////////////////////////////////////////////////////////////////

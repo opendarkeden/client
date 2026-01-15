@@ -64,7 +64,7 @@ void	CloseNPROTECT();
 void	ReleaseGameHack();
 void	EnterGameHack();
 bool	LoadLibraryNPFGM();
-bool	TimerCheckNPMON(int CurTime = 0);					// ÀÏÁ¤ ½Ã°£ÀÌ Áö³­ ÈÄºÎÅÍ Ã¼Å©ÇÑ´Ù.
+bool	TimerCheckNPMON(int CurTime = 0);					// ì¼ì • ì‹œê°„ì´ ì§€ë‚œ í›„ë¶€í„° ì²´í¬í•œë‹¤.
 void	Set_Auth(DWORD dwVal);
 
 extern	DWORD		g_TimerNPMON;

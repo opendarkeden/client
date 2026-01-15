@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // AddonDef.h
 //----------------------------------------------------------------------
-// Addon.cfpk¿¡ µé¾î ÀÖ´Â ¼ø¼­¸¦ ÀÇ¹ÌÇÑ´Ù.
+// Addon.cfpkì— ë“¤ì–´ ìžˆëŠ” ìˆœì„œë¥¼ ì˜ë¯¸í•œë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__ADDONDEF_H__
@@ -9,29 +9,29 @@
 
 
 //----------------------------------------------------------------------
-// AddonÁ¾·ù
+// Addonì¢…ë¥˜
 //----------------------------------------------------------------------
 /*
 enum ADDONID
 {
-	ADDONID_HAIR1,		// ¸Ó¸®1
-	ADDONID_HAIR2,		// ¸Ó¸®2
-	ADDONID_HAIR3,		// ¸Ó¸®3
-	ADDONID_HELM1,		// ¸ðÀÚ1
-	ADDONID_HELM2,		// ¸ðÀÚ2	
-	ADDONID_COAT1,		// »óÀÇ1
-	ADDONID_COAT2,		// »óÀÇ2		
-	ADDONID_TROUSER1,	// ÇÏÀÇ1
-	ADDONID_TROUSER2,	// ÇÏÀÇ2	
-	ADDONID_SWORD,		// °Ë	
-	ADDONID_BLADE,		// µµ	
-	ADDONID_GUN_TR,		// ÃÑ1 - Àú°Ý¿ëÃÑ(TR)
-	ADDONID_GUN_SG,		// ÃÑ2 - ¼¦°Ç(SG)	
-	ADDONID_GUN_AR,		// ÃÑ3 - ¼ÒÃÑ(AR)
-	ADDONID_GUN_SMG,		// ÃÑ4 - ÀÚµ¿¼ÒÃÑ(SMG)	
-	ADDONID_SHIELD,		// ¹æÆÐ	
-	ADDONID_CROSS,		// ½ÊÀÚ°¡
-	ADDONID_MOTORCYCLE,	// ¿ÀÅä¹ÙÀÌ	
+	ADDONID_HAIR1,		// ë¨¸ë¦¬1
+	ADDONID_HAIR2,		// ë¨¸ë¦¬2
+	ADDONID_HAIR3,		// ë¨¸ë¦¬3
+	ADDONID_HELM1,		// ëª¨ìž1
+	ADDONID_HELM2,		// ëª¨ìž2	
+	ADDONID_COAT1,		// ìƒì˜1
+	ADDONID_COAT2,		// ìƒì˜2		
+	ADDONID_TROUSER1,	// í•˜ì˜1
+	ADDONID_TROUSER2,	// í•˜ì˜2	
+	ADDONID_SWORD,		// ê²€	
+	ADDONID_BLADE,		// ë„	
+	ADDONID_GUN_TR,		// ì´1 - ì €ê²©ìš©ì´(TR)
+	ADDONID_GUN_SG,		// ì´2 - ìƒ·ê±´(SG)	
+	ADDONID_GUN_AR,		// ì´3 - ì†Œì´(AR)
+	ADDONID_GUN_SMG,		// ì´4 - ìžë™ì†Œì´(SMG)	
+	ADDONID_SHIELD,		// ë°©íŒ¨	
+	ADDONID_CROSS,		// ì‹­ìžê°€
+	ADDONID_MOTORCYCLE,	// ì˜¤í† ë°”ì´	
 	MAX_ADDONID
 };
 */
@@ -39,74 +39,74 @@ enum ADDONID
 
 #ifdef __EXPO_CLIENT__
 	//----------------------------------------------------------------------
-	// ³²ÀÚ Slayer
+	// ë‚¨ìž Slayer
 	//----------------------------------------------------------------------
 	enum ADDONID_MALE
 	{
-		ADDONID_HELM1_MALE,			// ¸ðÀÚ1
-		ADDONID_COAT1_MALE,			// »óÀÇ1
-		ADDONID_TROUSER1_MALE,		// ÇÏÀÇ1
-		ADDONID_GUN_SMG_MALE,			// ÃÑ4 - ÀÚµ¿¼ÒÃÑ(SMG)	
-		ADDONID_BLADE_MALE,		// µµ
-		ADDONID_SHIELD1_MALE,		// ¹æÆÐ
-		ADDONID_GUN_SG_MALE,			// ÃÑ2 - ¼¦°Ç(SG)
-		ADDONID_SWORD_MALE,		// °Ë	
-		ADDONID_GUN_AR_MALE,			// ÃÑ3 - ¼ÒÃÑ(AR)
-		ADDONID_HAIR1_MALE,			// ¸Ó¸®1
-		ADDONID_HAIR2_MALE,			// ¸Ó¸®2
-		ADDONID_HAIR3_MALE,			// ¸Ó¸®3
-		ADDONID_HELM2_MALE,			// ¸ðÀÚ2
-		ADDONID_COAT2_MALE,			// »óÀÇ2
-		ADDONID_TROUSER2_MALE,		// ÇÏÀÇ2
-		ADDONID_CROSS_MALE,			// ½ÊÀÚ°¡
-		ADDONID_GUN_TR_MALE,			// ÃÑ1 - Àú°Ý¿ëÃÑ(TR)		
-		ADDONID_MOTORCYCLE_MALE,	// ¿ÀÅä¹ÙÀÌ
+		ADDONID_HELM1_MALE,			// ëª¨ìž1
+		ADDONID_COAT1_MALE,			// ìƒì˜1
+		ADDONID_TROUSER1_MALE,		// í•˜ì˜1
+		ADDONID_GUN_SMG_MALE,			// ì´4 - ìžë™ì†Œì´(SMG)	
+		ADDONID_BLADE_MALE,		// ë„
+		ADDONID_SHIELD1_MALE,		// ë°©íŒ¨
+		ADDONID_GUN_SG_MALE,			// ì´2 - ìƒ·ê±´(SG)
+		ADDONID_SWORD_MALE,		// ê²€	
+		ADDONID_GUN_AR_MALE,			// ì´3 - ì†Œì´(AR)
+		ADDONID_HAIR1_MALE,			// ë¨¸ë¦¬1
+		ADDONID_HAIR2_MALE,			// ë¨¸ë¦¬2
+		ADDONID_HAIR3_MALE,			// ë¨¸ë¦¬3
+		ADDONID_HELM2_MALE,			// ëª¨ìž2
+		ADDONID_COAT2_MALE,			// ìƒì˜2
+		ADDONID_TROUSER2_MALE,		// í•˜ì˜2
+		ADDONID_CROSS_MALE,			// ì‹­ìžê°€
+		ADDONID_GUN_TR_MALE,			// ì´1 - ì €ê²©ìš©ì´(TR)		
+		ADDONID_MOTORCYCLE_MALE,	// ì˜¤í† ë°”ì´
 		MAX_ADDONID_MALE
 	};
 
 	//----------------------------------------------------------------------
-	// ¿©ÀÚ Slayer
+	// ì—¬ìž Slayer
 	//----------------------------------------------------------------------
 	enum ADDONID_FEMALE
 	{
-		ADDONID_HELM1_FEMALE,			// ¸ðÀÚ1
-		ADDONID_COAT1_FEMALE,			// »óÀÇ1
-		ADDONID_TROUSER1_FEMALE,		// ÇÏÀÇ1
-		ADDONID_GUN_SMG_FEMALE,			// ÃÑ4 - ÀÚµ¿¼ÒÃÑ(SMG)	
-		ADDONID_BLADE_FEMALE,		// µµ
-		ADDONID_SHIELD_FEMALE,		// ¹æÆÐ
-		ADDONID_GUN_SG_FEMALE,			// ÃÑ2 - ¼¦°Ç(SG)
-		ADDONID_SWORD_FEMALE,		// °Ë	
-		ADDONID_GUN_AR_FEMALE,			// ÃÑ3 - ¼ÒÃÑ(AR)
-		ADDONID_HAIR1_FEMALE,			// ¸Ó¸®1
-		ADDONID_HAIR2_FEMALE,			// ¸Ó¸®2
-		ADDONID_HAIR3_FEMALE,			// ¸Ó¸®3
-		ADDONID_HELM2_FEMALE,			// ¸ðÀÚ2
-		ADDONID_COAT2_FEMALE,			// »óÀÇ2
-		ADDONID_TROUSER2_FEMALE,		// ÇÏÀÇ2
-		ADDONID_CROSS_FEMALE,			// ½ÊÀÚ°¡
-		ADDONID_GUN_TR_FEMALE,			// ÃÑ1 - Àú°Ý¿ëÃÑ(TR)		
-		ADDONID_MOTORCYCLE_FEMALE,	// ¿ÀÅä¹ÙÀÌ
+		ADDONID_HELM1_FEMALE,			// ëª¨ìž1
+		ADDONID_COAT1_FEMALE,			// ìƒì˜1
+		ADDONID_TROUSER1_FEMALE,		// í•˜ì˜1
+		ADDONID_GUN_SMG_FEMALE,			// ì´4 - ìžë™ì†Œì´(SMG)	
+		ADDONID_BLADE_FEMALE,		// ë„
+		ADDONID_SHIELD_FEMALE,		// ë°©íŒ¨
+		ADDONID_GUN_SG_FEMALE,			// ì´2 - ìƒ·ê±´(SG)
+		ADDONID_SWORD_FEMALE,		// ê²€	
+		ADDONID_GUN_AR_FEMALE,			// ì´3 - ì†Œì´(AR)
+		ADDONID_HAIR1_FEMALE,			// ë¨¸ë¦¬1
+		ADDONID_HAIR2_FEMALE,			// ë¨¸ë¦¬2
+		ADDONID_HAIR3_FEMALE,			// ë¨¸ë¦¬3
+		ADDONID_HELM2_FEMALE,			// ëª¨ìž2
+		ADDONID_COAT2_FEMALE,			// ìƒì˜2
+		ADDONID_TROUSER2_FEMALE,		// í•˜ì˜2
+		ADDONID_CROSS_FEMALE,			// ì‹­ìžê°€
+		ADDONID_GUN_TR_FEMALE,			// ì´1 - ì €ê²©ìš©ì´(TR)		
+		ADDONID_MOTORCYCLE_FEMALE,	// ì˜¤í† ë°”ì´
 		MAX_ADDONID_FEMALE
 	};
 
 #else
 
 	//----------------------------------------------------------------------
-	// ³²ÀÚ Slayer
+	// ë‚¨ìž Slayer
 	//----------------------------------------------------------------------
 	enum ADDONID_MALE
 	{
 		ADDONID_HELM1_MALE = 0,
 		ADDONID_COAT1_MALE,
 		ADDONID_TROUSER1_MALE,
-		ADDONID_GUN_SMG_MALE,		// ÀÚµ¿¼ÒÃÑ(SMG)
-		ADDONID_BLADE_MALE,			// µµ
+		ADDONID_GUN_SMG_MALE,		// ìžë™ì†Œì´(SMG)
+		ADDONID_BLADE_MALE,			// ë„
 		ADDONID_SHIELD1_MALE,
-		ADDONID_SHIELD2_MALE,		// µå·¡°ï¹æÆÐ
-		ADDONID_SHIELD3_MALE,		// ºê·ÐÁî¹æÆÐ
+		ADDONID_SHIELD2_MALE,		// ë“œëž˜ê³¤ë°©íŒ¨
+		ADDONID_SHIELD3_MALE,		// ë¸Œë¡ ì¦ˆë°©íŒ¨
 		ADDONID_GUN_SG_MALE,
-		ADDONID_SWORD_MALE,	// °Ë
+		ADDONID_SWORD_MALE,	// ê²€
 		ADDONID_GUN_AR_MALE, 
 		ADDONID_HAIR1_MALE,
 		ADDONID_HAIR2_MALE,
@@ -124,18 +124,18 @@ enum ADDONID
 		ADDONID_MACE_MALE,
 	
 		//----------------------------------------------------------------------
-		// ¿©ÀÚ Slayer
+		// ì—¬ìž Slayer
 		//----------------------------------------------------------------------
 		ADDONID_HELM1_FEMALE,
 		ADDONID_COAT1_FEMALE,
 		ADDONID_TROUSER1_FEMALE,
-		ADDONID_GUN_SMG_FEMALE,		// ÀÚµ¿¼ÒÃÑ(SMG)
-		ADDONID_BLADE_FEMALE,			// µµ
+		ADDONID_GUN_SMG_FEMALE,		// ìžë™ì†Œì´(SMG)
+		ADDONID_BLADE_FEMALE,			// ë„
 		ADDONID_SHIELD1_FEMALE,
-		ADDONID_SHIELD2_FEMALE,		// µå·¡°ï¹æÆÐ
-		ADDONID_SHIELD3_FEMALE,		// ºê·ÐÁî¹æÆÐ
+		ADDONID_SHIELD2_FEMALE,		// ë“œëž˜ê³¤ë°©íŒ¨
+		ADDONID_SHIELD3_FEMALE,		// ë¸Œë¡ ì¦ˆë°©íŒ¨
 		ADDONID_GUN_SG_FEMALE,
-		ADDONID_SWORD_FEMALE,	// °Ë
+		ADDONID_SWORD_FEMALE,	// ê²€
 		ADDONID_GUN_AR_FEMALE, 
 		ADDONID_HAIR1_FEMALE,
 		ADDONID_HAIR2_FEMALE,

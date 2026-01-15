@@ -24,12 +24,12 @@ DDPIXELFORMAT			CDirect3D::m_PixelFormats[100];
 DWORD					CDirect3D::m_dwNumPixelFormats = 0;
 
 //----------------------------------------------------------------------
-// Texture »ı¼º °ü·Ã Á¤º¸
+// Texture ìƒì„± ê´€ë ¨ ì •ë³´
 //----------------------------------------------------------------------
 int						CDirect3D::m_TextureWidthMax	= 256;
 int						CDirect3D::m_TextureHeightMax	= 256;
-bool					CDirect3D::m_bTexturePow2		= true;			// 2^n¸¸ µÇ´Â°¡?		
-bool					CDirect3D::m_bTextureSquareOnly	= true;	// Á¤»ç°¢Çü¸¸ µÇ´Â°¡?
+bool					CDirect3D::m_bTexturePow2		= true;			// 2^në§Œ ë˜ëŠ”ê°€?		
+bool					CDirect3D::m_bTextureSquareOnly	= true;	// ì •ì‚¬ê°í˜•ë§Œ ë˜ëŠ”ê°€?
 
 // PixelFormat
 DDPIXELFORMAT			CDirect3D::m_PixelFormat4444;
@@ -126,10 +126,10 @@ CDirect3D::Init()
 {
 	Release();
 
-	// Hardware°¡¼ÓÀÌ µÇ´Â°¡?
+	// Hardwareê°€ì†ì´ ë˜ëŠ”ê°€?
 	//m_Mode = MODE_HARDWARE;
 
-	// ¿©±â¼­ ²À trueÇØÁà¾ßÁö Init()¾È¿¡¼­ Á¦´ë·Î ÀÛµ¿ÇÑ´Ù.
+	// ì—¬ê¸°ì„œ ê¼­ trueí•´ì¤˜ì•¼ì§€ Init()ì•ˆì—ì„œ ì œëŒ€ë¡œ ì‘ë™í•œë‹¤.
 	m_bHAL		= true;
 
 	if(!Init(NULL, &IID_IDirect3DHALDevice))
@@ -141,13 +141,13 @@ CDirect3D::Init()
 		return false;
 
 		/*
-		// MMX°¡¼ÓÀÌ µÇ´Â°¡?
+		// MMXê°€ì†ì´ ë˜ëŠ”ê°€?
 		if(!Init(NULL, &IID_IDirect3DMMXDevice))
 		{
 			//m_Mode = MODE_SOFTWARE;
 			Release();
 
-			// Software°¡¼Ó(?)Àº µÇ´Â°¡?
+			// Softwareê°€ì†(?)ì€ ë˜ëŠ”ê°€?
 			if(!Init(NULL, &IID_IDirect3DRGBDevice))
 			{
 				//DirectDrawFailed("Couldn't initialize D3D");
@@ -157,7 +157,7 @@ CDirect3D::Init()
 		*/
 	}
 
-	// Texture »ı¼º¿¡ °ü·ÃµÈ Á¤º¸¸¦ ÀĞ¾î¿Â´Ù.
+	// Texture ìƒì„±ì— ê´€ë ¨ëœ ì •ë³´ë¥¼ ì½ì–´ì˜¨ë‹¤.
 	if (!CheckDeviceForTexture())
 	{
 		Release();
@@ -239,7 +239,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	}
 
 	//--------------------------------------------------------
-	// Z-Buffer °ü·Ã Á¤º¸¸¦ ¼³Á¤ÇÑ´Ù.
+	// Z-Buffer ê´€ë ¨ ì •ë³´ë¥¼ ì„¤ì •í•œë‹¤.
 	//--------------------------------------------------------
 	ZeroMemory(&ddsd, sizeof(DDSURFACEDESC2));
     ddsd.dwSize = sizeof(DDSURFACEDESC2);
@@ -251,7 +251,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	memcpy(&ddsd.ddpfPixelFormat, &DDPF_ZBuffer, sizeof(DDPIXELFORMAT));
 
 	//--------------------------------------------------------
-	// Hardware°¡¼ÓÀÌ µÇ´Â°¡? --> µÇ¸é VideoMemory¸¦ Àâ´Â´Ù.
+	// Hardwareê°€ì†ì´ ë˜ëŠ”ê°€? --> ë˜ë©´ VideoMemoryë¥¼ ì¡ëŠ”ë‹¤.
 	//--------------------------------------------------------
 	//if(IsEqualIID(*pDeviceGUID, IID_IDirect3DHALDevice)) 
 	if (m_bHAL)
@@ -264,7 +264,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	}
 
 	//--------------------------------------------------------
-	// Z-Buffer Surface¸¦ »ı¼ºÇÑ´Ù.
+	// Z-Buffer Surfaceë¥¼ ìƒì„±í•œë‹¤.
 	//--------------------------------------------------------
 	if(m_pDD->CreateSurface(&ddsd, &m_pDDZBuffer, NULL)!=DD_OK)
 	{
@@ -275,7 +275,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	m_pDDZBuffer->Restore();
 
 	//--------------------------------------------------------
-	// Z-Buffer Surface¸¦ BackSurface¿¡ ºÙÀÎ´Ù.
+	// Z-Buffer Surfaceë¥¼ BackSurfaceì— ë¶™ì¸ë‹¤.
 	//--------------------------------------------------------
 	if(m_pDDSBack->AddAttachedSurface(m_pDDZBuffer)!=DD_OK)
 	{
@@ -284,7 +284,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	}
 
 	//--------------------------------------------------------
-	// BackSurface¸¦ RenderTargetÀ¸·Î ¼³Á¤
+	// BackSurfaceë¥¼ RenderTargetìœ¼ë¡œ ì„¤ì •
 	//--------------------------------------------------------
 	if(m_pD3DD->SetRenderTarget(m_pDDSBack, 0)!=D3D_OK)
 	{
@@ -294,7 +294,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 
 
 	//--------------------------------------------------------
-	// TextureFormatÃ£±â
+	// TextureFormatì°¾ê¸°
 	//--------------------------------------------------------	
     if(m_pD3DD->EnumTextureFormats( EnumTextureCallback, NULL )!=D3D_OK)
 	{
@@ -303,7 +303,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	}
 
 	//--------------------------------------------
-	// PixelFormatÃ£±â
+	// PixelFormatì°¾ê¸°
 	//--------------------------------------------
 	if (!FindBestPixelFormat(4,4,4,4, &m_PixelFormat4444))
 	{
@@ -320,7 +320,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	}
 
 	//--------------------------------------------------------
-	// Viewport¸¦ ÁöÁ¤ÇÑ´Ù.
+	// Viewportë¥¼ ì§€ì •í•œë‹¤.
 	//--------------------------------------------------------
 	D3DVIEWPORT7 vp = { 0, 0, m_ScreenWidth, m_ScreenHeight, 0.0f, 1.0f };
 
@@ -344,7 +344,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	// World
 	//--------------------------------------------------------
 	D3DMATRIX matWorld = mat;
-	//matWorld._41 = x;	// ÁÂÇ¥
+	//matWorld._41 = x;	// ì¢Œí‘œ
 	//matWorld._42 = y;
 	//matWorld._43 = z;
 	m_pD3DD->SetTransform( D3DTRANSFORMSTATE_WORLD, &matWorld );
@@ -360,8 +360,8 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	// Projection
 	//--------------------------------------------------------
 	D3DMATRIX matProj = mat;
-	matProj._11 =  2.0f;		// ÆøÀÇ ºñÀ²
-	matProj._22 =  2.0f;		// ³ôÀÌÀÇ ºñÀ²
+	matProj._11 =  2.0f;		// í­ì˜ ë¹„ìœ¨
+	matProj._22 =  2.0f;		// ë†’ì´ì˜ ë¹„ìœ¨
 	matProj._34 =  1.0f;
 	matProj._43 = -1.0f;
 	matProj._44 =  0.0f;
@@ -369,14 +369,14 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 
 
 	//--------------------------------------------------------	
-	// Material ¼³Á¤
+	// Material ì„¤ì •
 	//--------------------------------------------------------
 	D3DMATERIAL7 mtrl;
     D3DUtil_InitMaterial( mtrl, 1.0f, 1.0f, 1.0f );
 	m_pD3DD->SetMaterial( &mtrl );
 
 	//--------------------------------------------------------
-	// Light ¼³Á¤
+	// Light ì„¤ì •
 	//--------------------------------------------------------
     D3DLIGHT7 light;
     D3DUtil_InitLight( light, D3DLIGHT_POINT, 0.0f, 0.0f, -10.0f );
@@ -394,8 +394,8 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 	light.dvDirection.x = 0.0f;	
 	light.dvDirection.y = 0.0f;
 	light.dvDirection.z = 1.0f;
-	light.dvTheta =       0.5f; //¿ø»ÔÀÇ Áß¾Ó Å©±â
-	light.dvPhi =         0.8f; //¿ø»ÔÀÇ ¿Ü°û Å©±â
+	light.dvTheta =       0.5f; //ì›ë¿”ì˜ ì¤‘ì•™ í¬ê¸°
+	light.dvPhi =         0.8f; //ì›ë¿”ì˜ ì™¸ê³½ í¬ê¸°
 	light.dvAttenuation0 = 1.0f;
 	light.dvFalloff		= 1.0f;
 	*/
@@ -406,7 +406,7 @@ CDirect3D::Init(GUID* pDriverGUID, const GUID* pDeviceGUID)
 
 
 	//--------------------------------------------------------
-	// Rendering»óÅÂ ¼³Á¤ÇÏ±â..
+	// Renderingìƒíƒœ ì„¤ì •í•˜ê¸°..
 	//--------------------------------------------------------
 	m_pD3DD->SetRenderState( D3DRENDERSTATE_AMBIENT, 0x04040404 );
 	m_pD3DD->SetRenderState( D3DRENDERSTATE_ZENABLE, TRUE );
@@ -485,8 +485,8 @@ CDirect3D::Restore()
 //----------------------------------------------------------------------
 // Find Best PixelFormat
 //----------------------------------------------------------------------
-// Video Card°¡ Áö¿øÇÏ´Â PixelFormatÁß¿¡¼­
-// A:R:G:BÀÇ bit¼ö°¡ °°Àº°É Ã£´Â´Ù.
+// Video Cardê°€ ì§€ì›í•˜ëŠ” PixelFormatì¤‘ì—ì„œ
+// A:R:G:Bì˜ bitìˆ˜ê°€ ê°™ì€ê±¸ ì°¾ëŠ”ë‹¤.
 //----------------------------------------------------------------------
 bool
 CDirect3D::FindBestPixelFormat(int bitsA, int bitsR, int bitsG, int bitsB, 
@@ -524,7 +524,7 @@ bool
 CDirect3D::CheckDeviceForTexture()
 {
 	//--------------------------------------------
-	// TextureSurfaceÀÇ MaxÅ©±â¿¡ ´ëÇÑ Á¤º¸
+	// TextureSurfaceì˜ Maxí¬ê¸°ì— ëŒ€í•œ ì •ë³´
 	//--------------------------------------------
 	// Get the device caps
     D3DDEVICEDESC7 ddDesc;
@@ -535,10 +535,10 @@ CDirect3D::CheckDeviceForTexture()
     m_TextureWidthMax  = (ddDesc.dwMaxTextureWidth)? ddDesc.dwMaxTextureWidth : 256;
     m_TextureHeightMax = (ddDesc.dwMaxTextureHeight)? ddDesc.dwMaxTextureHeight : 256;  
 
-	// 2^n¸¸ µÇ´Â°¡?
+	// 2^në§Œ ë˜ëŠ”ê°€?
 	m_bTexturePow2 = (ddDesc.dpcTriCaps.dwTextureCaps & D3DPTEXTURECAPS_POW2)!=0;
 		
-	// Á¤»ç°¢Çü¸¸ µÇ´Â°¡?
+	// ì •ì‚¬ê°í˜•ë§Œ ë˜ëŠ”ê°€?
 	m_bTextureSquareOnly = (ddDesc.dpcTriCaps.dwTextureCaps & D3DPTEXTURECAPS_SQUAREONLY)!=0;
 
 	return true;
@@ -547,14 +547,14 @@ CDirect3D::CheckDeviceForTexture()
 //----------------------------------------------------------------------
 // Get Texture Size
 //----------------------------------------------------------------------
-// ÇÏµå¿ş¾î°¡ Áö¿øÇÏ´Â ¹üÀ§³»¿¡¼­..
-// ÀûÀıÇÑ TextureÀÇ Å©±â¸¦ °áÁ¤ÇÑ´Ù.
+// í•˜ë“œì›¨ì–´ê°€ ì§€ì›í•˜ëŠ” ë²”ìœ„ë‚´ì—ì„œ..
+// ì ì ˆí•œ Textureì˜ í¬ê¸°ë¥¼ ê²°ì •í•œë‹¤.
 //----------------------------------------------------------------------
 void
 CDirect3D::GetTextureSize(int& width, int& height)
 {
 	//---------------------------------------------------------------
-	// ÇÏµå¿ş¾î°¡ Áö¿øÇÏ´Â TextureSurfaceÀÇ Å©±â¸¦ °áÁ¤ÇÑ´Ù.
+	// í•˜ë“œì›¨ì–´ê°€ ì§€ì›í•˜ëŠ” TextureSurfaceì˜ í¬ê¸°ë¥¼ ê²°ì •í•œë‹¤.
 	//---------------------------------------------------------------
 	// Adjust width and height to be powers of 2, if the device requires it	
 	if( m_bTexturePow2 )

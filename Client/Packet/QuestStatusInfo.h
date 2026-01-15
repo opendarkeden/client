@@ -11,15 +11,15 @@
 #include <VECTOR>
 #define MAX_MISSION_NUM	100
 
-// ui¿¡¼­ »ç¿ëµÉ ±¸Á¶Ã¼ - stringÀÌ Ãß°¡µÇ¾î ÀÖ´Ù.
+// uiì—ì„œ ì‚¬ìš©ë  êµ¬ì¡°ì²´ - stringì´ ì¶”ê°€ë˜ì–´ ìˆë‹¤.
 struct UI_GMissionInfo{
 	std::string		szMissionTitle;
 	std::string		m_StrArg;
 	DWORD			m_NumArg;
 	BYTE			bStatus;
-	BYTE			bCondition;	// ¾î´À Á¶°Ç¿¡ ÀÖ´Â°¡ 0 : Happen, 1 : Complete, 2 : Fail, 3 : Reward
-	WORD			bIndex;		// ÇØ´ç Á¶°ÇÀÇ ¸î¹øÂ° elementÀÎ°¡
-	DWORD			dwTimeLimit;// ½Ã°£ Á¦ÇÑ Äù½ºÆ®ÀÏ °æ¿ì Ã³À½ ³²À½ ½Ã°£ ¼¼ÆÃ 
+	BYTE			bCondition;	// ì–´ëŠ ì¡°ê±´ì— ìˆëŠ”ê°€ 0 : Happen, 1 : Complete, 2 : Fail, 3 : Reward
+	WORD			bIndex;		// í•´ë‹¹ ì¡°ê±´ì˜ ëª‡ë²ˆì§¸ elementì¸ê°€
+	DWORD			dwTimeLimit;// ì‹œê°„ ì œí•œ í€˜ìŠ¤íŠ¸ì¼ ê²½ìš° ì²˜ìŒ ë‚¨ìŒ ì‹œê°„ ì„¸íŒ… 
 };
 struct UI_GQuestInfo{
 	DWORD			dwQuestID;
@@ -28,23 +28,23 @@ struct UI_GQuestInfo{
 	std::string		szQuestDescription;
 	std::vector<UI_GMissionInfo*> vMissionList;
 };
-// ui¿¡¼­ »ç¿ëµÉ ±¸Á¶Ã¼
+// uiì—ì„œ ì‚¬ìš©ë  êµ¬ì¡°ì²´
 struct MissionInfo
 {
 	enum Status
 	{
-		HIDE = 0,			// º¸¿©ÁÖÁö ¾ÊÀ½
-		CURRENT,			// Áö±İ ÇØ¾ß µÇ´Â ¹Ì¼Ç (¼öÇàÁß)
-		SUCCESS,			// ÀÌ¹Ì ¼º°øÇÑ ¹Ì¼Ç
-		FAIL,				// ½ÇÆĞ
+		HIDE = 0,			// ë³´ì—¬ì£¼ì§€ ì•ŠìŒ
+		CURRENT,			// ì§€ê¸ˆ í•´ì•¼ ë˜ëŠ” ë¯¸ì…˜ (ìˆ˜í–‰ì¤‘)
+		SUCCESS,			// ì´ë¯¸ ì„±ê³µí•œ ë¯¸ì…˜
+		FAIL,				// ì‹¤íŒ¨
 	};
 
-	BYTE	m_Condition;	// ¾î´À Á¶°Ç¿¡ ÀÖ´Â°¡ 0 : Happen, 1 : Complete, 2 : Fail, 3 : Reward
-	WORD	m_Index;		// ÇØ´ç Á¶°ÇÀÇ ¸î¹øÂ° elementÀÎ°¡
-	BYTE	m_Status;		// ÇöÀç »óÅÂ
+	BYTE	m_Condition;	// ì–´ëŠ ì¡°ê±´ì— ìˆëŠ”ê°€ 0 : Happen, 1 : Complete, 2 : Fail, 3 : Reward
+	WORD	m_Index;		// í•´ë‹¹ ì¡°ê±´ì˜ ëª‡ë²ˆì§¸ elementì¸ê°€
+	BYTE	m_Status;		// í˜„ì¬ ìƒíƒœ
 
-	string	m_StrArg;		// Âï¾îÁÙ ¹®ÀÚ¿­
-	DWORD	m_NumArg;		// Âï¾îÁÙ ¼ıÀÚ
+	string	m_StrArg;		// ì°ì–´ì¤„ ë¬¸ìì—´
+	DWORD	m_NumArg;		// ì°ì–´ì¤„ ìˆ«ì
 
 	void read(SocketInputStream& iStream) throw(ProtocolException, Error)
 	{
@@ -81,13 +81,13 @@ class QuestStatusInfo
 public:
 	enum Status
 	{
-		CANNOT = 0,		// ¾ÆÁ÷ ºÒ°¡´É
-		CAN_ACCEPT,		// ¼öÇà°¡´É
-		DOING,			// ¼öÇàÁß
-		SUCCESS,		// ¼º°ø (¾ÆÁ÷ º¸»ó¹ŞÁö ¾ÊÀ½)
-		COMPLETE,		// ¿Ï·á (º¸»ó¹ŞÀ½, Àç¼öÇà ºÒ°¡´É)
-		FAIL,			// ½ÇÆĞ (Àç¼öÇà ºÒ°¡´É)
-		CAN_REPLAY,		// Àç¼öÇà °¡´É
+		CANNOT = 0,		// ì•„ì§ ë¶ˆê°€ëŠ¥
+		CAN_ACCEPT,		// ìˆ˜í–‰ê°€ëŠ¥
+		DOING,			// ìˆ˜í–‰ì¤‘
+		SUCCESS,		// ì„±ê³µ (ì•„ì§ ë³´ìƒë°›ì§€ ì•ŠìŒ)
+		COMPLETE,		// ì™„ë£Œ (ë³´ìƒë°›ìŒ, ì¬ìˆ˜í–‰ ë¶ˆê°€ëŠ¥)
+		FAIL,			// ì‹¤íŒ¨ (ì¬ìˆ˜í–‰ ë¶ˆê°€ëŠ¥)
+		CAN_REPLAY,		// ì¬ìˆ˜í–‰ ê°€ëŠ¥
 	};
 
 	void read(SocketInputStream& iStream) throw(ProtocolException, Error);
@@ -99,7 +99,7 @@ public:
 	const std::list<MissionInfo>& GetMission() const {return m_Missions;}
 private:
 	DWORD	m_QuestID;
-	BYTE	m_Status;	// À§ÀÇ enum ÂüÁ¶
+	BYTE	m_Status;	// ìœ„ì˜ enum ì°¸ì¡°
 	std::list<MissionInfo>	m_Missions;
 };
 

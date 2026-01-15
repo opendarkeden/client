@@ -105,7 +105,7 @@ void GCNoticeEventHandler::execute ( GCNoticeEvent * pPacket , Player * pPlayer 
 		g_pEventManager->RemoveEvent(EVENTID_CONTINUAL_GROUND_ATTACK);
 		break;
 		
-	case NOTICE_EVENT_PREMIUM_HALF_START:			// ÇÁ¸®¹Ì¾ö »ç¿ëÀÚ´Â Æ÷¼Ç/Ç÷Ã» ¹Ý°ª
+	case NOTICE_EVENT_PREMIUM_HALF_START:			// í”„ë¦¬ë¯¸ì—„ ì‚¬ìš©ìžëŠ” í¬ì…˜/í˜ˆì²­ ë°˜ê°’
 		event.eventID = EVENTID_PREMIUM_HALF;
 		event.eventType = EVENTTYPE_ZONE;
 		event.eventDelay = -1;
@@ -117,7 +117,7 @@ void GCNoticeEventHandler::execute ( GCNoticeEvent * pPacket , Player * pPlayer 
 		//			g_pPlayer->AddEffectStatus(EFFECTSTATUS_SHARP_SHIELD_1, 0xffff);
 		break;
 		
-	case NOTICE_EVENT_PREMIUM_HALF_END:				// ÀÌº¥Æ® ³¡
+	case NOTICE_EVENT_PREMIUM_HALF_END:				// ì´ë²¤íŠ¸ ë
 		g_pEventManager->RemoveEvent(EVENTID_PREMIUM_HALF);
 		if(g_pPlayer->IsSlayer())
 			g_pSystemMessage->Add( (*g_pGameStringTable)[STRING_MESSAGE_EVENT_PREMIUM_HALF_SLAYER_END].GetString() );
@@ -126,10 +126,10 @@ void GCNoticeEventHandler::execute ( GCNoticeEvent * pPacket , Player * pPlayer 
 		//			g_pPlayer->RemoveEffectStatus(EFFECTSTATUS_SHARP_SHIELD_1);
 		break;
 
-	case NOTICE_EVENT_WAR_OVER :					// ÀüÀï³¡		
+	case NOTICE_EVENT_WAR_OVER :					// ì „ìŸë		
 		if( g_pWarManager->IsExist( g_pZone->GetID()) )
 		{
-			// Áö±ÝÁ¸ÀÌ ÀüÀï ¸®½ºÆ®¿¡ ¾øÀ¸¸é ¾ÈÀüÁö´ë ´Ù½Ã ¼¼ÆÃ.
+			// ì§€ê¸ˆì¡´ì´ ì „ìŸ ë¦¬ìŠ¤íŠ¸ì— ì—†ìœ¼ë©´ ì•ˆì „ì§€ëŒ€ ë‹¤ì‹œ ì„¸íŒ….
 			g_bZoneSafe = g_pZoneTable->Get(g_pZone->GetID())->Safety;
 		}
 		g_pWarManager->RemoveWar(pPacket->getParameter());
@@ -147,13 +147,13 @@ void GCNoticeEventHandler::execute ( GCNoticeEvent * pPacket , Player * pPlayer 
 		UI_RunWelcomeMessage();		
 		break;
 		
-	case NOTICE_EVENT_MEET_GRANDMA :					// ÇÒ¸Ó´Ï ´ëÈ­
+	case NOTICE_EVENT_MEET_GRANDMA :					// í• ë¨¸ë‹ˆ ëŒ€í™”
 		break;
 
-	case NOTICE_EVENT_MEET_FISHSHOP_MASTER :			// »ý¼±¾ÆÀú¾¾ ´ëÈ­
+	case NOTICE_EVENT_MEET_FISHSHOP_MASTER :			// ìƒì„ ì•„ì €ì”¨ ëŒ€í™”
 		break;			
 
-	case NOTICE_EVENT_START_QUEST_ENDING :			// Äù½ºÆ® ¿£µù ½ÃÀÛ
+	case NOTICE_EVENT_START_QUEST_ENDING :			// í€˜ìŠ¤íŠ¸ ì—”ë”© ì‹œìž‘
 		{
 			g_bEventQuestEnding = true;
 		}
@@ -170,15 +170,15 @@ void GCNoticeEventHandler::execute ( GCNoticeEvent * pPacket , Player * pPlayer 
 	case NOTICE_EVENT_MASTER_LAIR_OPEN :
 	case NOTICE_EVENT_MASTER_LAIR_CLOSED :
 	case NOTICE_EVENT_MASTER_LAIR_COUNT :
-		// »óÀ§ ¿¡´Â ½Ã°£, ÇÏÀ§¿¡´Â ZoneID
+		// ìƒìœ„ ì—ëŠ” ì‹œê°„, í•˜ìœ„ì—ëŠ” ZoneID
 		UI_MasterLairMessage(BYTE(pPacket->getCode() - NOTICE_EVENT_MASTER_LAIR_OPEN), HIWORD(pPacket->getParameter()), LOWORD( pPacket->getParameter() ) );
 		break;
 	
-	case NOTICE_EVENT_CONTRACT_GNOMES_HORN :          // ½Ã¿À¶÷¿¡°Ô °¡¼­ °è¾àÀ» ¸ÎÀ¸¼Å¾ß »ç¿ëÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.
+	case NOTICE_EVENT_CONTRACT_GNOMES_HORN :          // ì‹œì˜¤ëžŒì—ê²Œ ê°€ì„œ ê³„ì•½ì„ ë§ºìœ¼ì…”ì•¼ ì‚¬ìš©í•˜ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
 		UI_PopupMessage( STRING_MESSAGE_CONTRACT_GNOMES_HORN );
 		break;
     
-	case NOTICE_EVENT_NOT_ENOUGH_MONEY :              // µ·ÀÌ ¸ðÀÚ¶ø´Ï´Ù.
+	case NOTICE_EVENT_NOT_ENOUGH_MONEY :              // ëˆì´ ëª¨ìžëžë‹ˆë‹¤.
 		UI_PopupMessage( STRING_MESSAGE_WAR_NOT_ENOUGH_MONEY );
 		break;		
 	
@@ -186,24 +186,24 @@ void GCNoticeEventHandler::execute ( GCNoticeEvent * pPacket , Player * pPlayer 
 		UI_RunMinigame(pPacket->getParameter());
 		break;
 	
-	case NOTICE_EVENT_GET_RIFINIUM :					// ¸®ÇÇ´Ï¿òÀ» È¹µæÇÏ¿´½À´Ï´Ù.
+	case NOTICE_EVENT_GET_RIFINIUM :					// ë¦¬í”¼ë‹ˆì›€ì„ íšë“í•˜ì˜€ìŠµë‹ˆë‹¤.
 		UI_PopupMessage(STRING_MESSAGE_GET_RIFINIUM);
 		break;
 	
-	case NOTICE_EVENT_INVENTORY_FULL :				// ÀÎº¥Åä¸® ³»ÀÇ ¿©À¯ °ø°£ÀÌ ºÎÁ·ÇÕ´Ï´Ù.
+	case NOTICE_EVENT_INVENTORY_FULL :				// ì¸ë²¤í† ë¦¬ ë‚´ì˜ ì—¬ìœ  ê³µê°„ì´ ë¶€ì¡±í•©ë‹ˆë‹¤.
 		UI_PopupMessage(UI_STRING_MESSAGE_INVENTORY_FULL_MONSTER_KILL_QUEST);
 		break;
 		
-	case NOTICE_EVENT_FLAG_WAR_READY :                // 5ºÐµÚ¿¡ Capture the Flag! ÀÌº¥Æ®¸¦ ½Ç½ÃÇÕ´Ï´Ù.
+	case NOTICE_EVENT_FLAG_WAR_READY :                // 5ë¶„ë’¤ì— Capture the Flag! ì´ë²¤íŠ¸ë¥¼ ì‹¤ì‹œí•©ë‹ˆë‹¤.
 		g_pNoticeMessage->Add( (*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WAR_READY].GetString() );
 		UI_RunNotice(2, pPacket->getParameter());
 		break;
 
-    case NOTICE_EVENT_FLAG_WAR_START :                // Capture the Flag! ÀÌº¥Æ®°¡ ½ÃÀÛµÇ¾ú½À´Ï´Ù.
+    case NOTICE_EVENT_FLAG_WAR_START :                // Capture the Flag! ì´ë²¤íŠ¸ê°€ ì‹œìž‘ë˜ì—ˆìŠµë‹ˆë‹¤.
 		g_pNoticeMessage->Add( (*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WAR_START].GetString() );		
 		break;
 
-	case NOTICE_EVENT_FLAG_WAR_FINISH:               // Capture the Flag! ÀÌº¥Æ®°¡ %sÀÇ ½Â¸®·Î ³¡³µ½À´Ï´Ù. 3ºÐ µÚ ¾ÆÀÌÅÛÀÌ ÅÍÁý´Ï´Ù.
+	case NOTICE_EVENT_FLAG_WAR_FINISH:               // Capture the Flag! ì´ë²¤íŠ¸ê°€ %sì˜ ìŠ¹ë¦¬ë¡œ ëë‚¬ìŠµë‹ˆë‹¤. 3ë¶„ ë’¤ ì•„ì´í…œì´ í„°ì§‘ë‹ˆë‹¤.
 		{
 			int raceString[3] = {STRING_MESSAGE_SLAYER, STRING_MESSAGE_VAMPIRE, STRING_MESSAGE_OUSTERS};
 			g_pNoticeMessage->Add( (*g_pGameStringTable)[STRING_MESSAGE_EVENT_FLAG_WAR_FINISH].GetString() );
@@ -238,17 +238,17 @@ void GCNoticeEventHandler::execute ( GCNoticeEvent * pPacket , Player * pPlayer 
 			g_pNoticeMessage->Add( (*g_pGameStringTable)[STRING_MESSAGE_EXPIRE_PREMIUM_SERVICE_MESSAGE_2].GetString() );
 			g_pNoticeMessage->Add( (*g_pGameStringTable)[STRING_MESSAGE_EXPIRE_PREMIUM_SERVICE_MESSAGE_3].GetString() );
 		}
-		// ¸Ó¸®°¡°ÝÀÇ ¹èÀ²À» ¼¼ÆÃÇÑ´Ù
+		// ë¨¸ë¦¬ê°€ê²©ì˜ ë°°ìœ¨ì„ ì„¸íŒ…í•œë‹¤
 		g_pUserInformation->HeadPrice = (int)pPacket->getParameter();
 		SendCrashReport();
 		break;
 
-	case NOTICE_EVENT_LEVEL_WAR_ARRANGED :            // °ð ·¹º§º° ÀüÀïÀÌ ½ÃÀÛµË´Ï´Ù.
+	case NOTICE_EVENT_LEVEL_WAR_ARRANGED :            // ê³§ ë ˆë²¨ë³„ ì „ìŸì´ ì‹œìž‘ë©ë‹ˆë‹¤.
 //		UI_RunLevelWarArranged( pPacket->getParameter() );
 		UI_RunNotice(3, pPacket->getParameter());
 		break;
 
-	case NOTICE_EVENT_LEVEL_WAR_STARTED :             // ·¹º§º° ÀüÀïÀÌ ½ÃÀÛµÇ¾ú½À´Ï´Ù.
+	case NOTICE_EVENT_LEVEL_WAR_STARTED :             // ë ˆë²¨ë³„ ì „ìŸì´ ì‹œìž‘ë˜ì—ˆìŠµë‹ˆë‹¤.
 //		UI_RunLevelWarStarted( pPacket->getParameter() );
 		UI_RunNotice(4, pPacket->getParameter());
 		UI_DeleteNotice(3);
@@ -279,12 +279,12 @@ void GCNoticeEventHandler::execute ( GCNoticeEvent * pPacket , Player * pPlayer 
 	case  NOTICE_EVENT_SEND_SMS:
 		UI_RunNotice(8, 0);
 		break;
-	case NOTICE_EVENT_GDR_LAIR_ENDING_1: // Áúµå·¹¿Í 1Â÷ ¿£µù - 5ÃÊ°£ È­¸é ¶³¸² ÈÄ 10ÃÊ°£ ¾îµÎ¿öÁü
+	case NOTICE_EVENT_GDR_LAIR_ENDING_1: // ì§ˆë“œë ˆì™€ 1ì°¨ ì—”ë”© - 5ì´ˆê°„ í™”ë©´ ë–¨ë¦¼ í›„ 10ì´ˆê°„ ì–´ë‘ì›Œì§
 		event.eventID = EVENTID_GDR_PRESENT;
 		event.eventType = EVENTTYPE_ZONE;
 		event.eventFlag = EVENTFLAG_SHAKE_SCREEN;
 		event.parameter3 = 2;
-		event.eventDelay =5000; // 5 ÃÊ
+		event.eventDelay =5000; // 5 ì´ˆ
 		g_pEventManager->AddEvent(event);
 		//SetFadeStart(31, -1, 1, 0,0,0, 4);
 		break;
@@ -305,12 +305,12 @@ void GCNoticeEventHandler::execute ( GCNoticeEvent * pPacket , Player * pPlayer 
 			g_pSystemMessage->Add( szBuf );
 		}
 		break;
-	case NOTICE_EVENT_GIVE_PRESENT_1:                // ·¹º§ 1 ¼±¹°»óÀÚ Áá½À´Ï´Ù.
+	case NOTICE_EVENT_GIVE_PRESENT_1:                // ë ˆë²¨ 1 ì„ ë¬¼ìƒìž ì¤¬ìŠµë‹ˆë‹¤.
 			//g_pUIDialog->PopupFreeMessageDlg((*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_1].GetString());
 			gC_vs_ui.RunPopupMessage((*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_1].GetString(),C_VS_UI_POPUP_MESSAGE::POPUP_LARGE);
 			//UI_PopupMessage(STRING_MESSAGE_DAUM_EVENT_1); 
 		break;
-    case NOTICE_EVENT_GIVE_PRESENT_2:                // ·¹º§ 2 ¼±¹°»óÀÚ Áá½À´Ï´Ù.
+    case NOTICE_EVENT_GIVE_PRESENT_2:                // ë ˆë²¨ 2 ì„ ë¬¼ìƒìž ì¤¬ìŠµë‹ˆë‹¤.
 		{
 			char szBuf[1024];
 			sprintf(szBuf, (*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_2].GetString(), 5,(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX2].GetString());
@@ -318,49 +318,49 @@ void GCNoticeEventHandler::execute ( GCNoticeEvent * pPacket , Player * pPlayer 
 			gC_vs_ui.RunPopupMessage(szBuf,C_VS_UI_POPUP_MESSAGE::POPUP_LARGE);
 		}
 		break;
-    case NOTICE_EVENT_GIVE_PRESENT_3:                // ·¹º§ 3 ¼±¹°»óÀÚ Áá½À´Ï´Ù.
+    case NOTICE_EVENT_GIVE_PRESENT_3:                // ë ˆë²¨ 3 ì„ ë¬¼ìƒìž ì¤¬ìŠµë‹ˆë‹¤.
 		{
 			char szBuf[1024];
 			sprintf(szBuf, (*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_2].GetString(), 10,(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX3].GetString());
 			gC_vs_ui.RunPopupMessage(szBuf,C_VS_UI_POPUP_MESSAGE::POPUP_LARGE);
 		}
 		break;
-    case NOTICE_EVENT_GIVE_PRESENT_4:                // ·¹º§ 4 ¼±¹°»óÀÚ Áá½À´Ï´Ù.
+    case NOTICE_EVENT_GIVE_PRESENT_4:                // ë ˆë²¨ 4 ì„ ë¬¼ìƒìž ì¤¬ìŠµë‹ˆë‹¤.
 		{
 			char szBuf[1024];
 			sprintf(szBuf, (*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_2].GetString(), 15,(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX4].GetString());
 			gC_vs_ui.RunPopupMessage(szBuf,C_VS_UI_POPUP_MESSAGE::POPUP_LARGE);
 		}
 		break;
-    case NOTICE_EVENT_GIVE_PRESENT_5:                // ·¹º§ 5 ¼±¹°»óÀÚ Áá½À´Ï´Ù.
+    case NOTICE_EVENT_GIVE_PRESENT_5:                // ë ˆë²¨ 5 ì„ ë¬¼ìƒìž ì¤¬ìŠµë‹ˆë‹¤.
 		{
 			char szBuf[1024];
 			sprintf(szBuf, (*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_2].GetString(), 20,(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX5].GetString());
 			gC_vs_ui.RunPopupMessage(szBuf,C_VS_UI_POPUP_MESSAGE::POPUP_LARGE);
 		}
 		break;
-    case NOTICE_EVENT_GIVE_PRESENT_6:                // ·¹º§ 6 ¼±¹°»óÀÚ Áá½À´Ï´Ù
+    case NOTICE_EVENT_GIVE_PRESENT_6:                // ë ˆë²¨ 6 ì„ ë¬¼ìƒìž ì¤¬ìŠµë‹ˆë‹¤
 		{
 			char szBuf[1024];
 			sprintf(szBuf, (*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_2].GetString(), 25,(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX6].GetString());
 			gC_vs_ui.RunPopupMessage(szBuf,C_VS_UI_POPUP_MESSAGE::POPUP_LARGE);
 		}
 		break;
-    case NOTICE_EVENT_GIVE_PRESENT_7:                // ·¹º§ 7 ¼±¹°»óÀÚ Áá½À´Ï´Ù.
+    case NOTICE_EVENT_GIVE_PRESENT_7:                // ë ˆë²¨ 7 ì„ ë¬¼ìƒìž ì¤¬ìŠµë‹ˆë‹¤.
 		{
 			char szBuf[1024];
 			sprintf(szBuf, (*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_2].GetString(), 30,(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX7].GetString());
 			gC_vs_ui.RunPopupMessage(szBuf,C_VS_UI_POPUP_MESSAGE::POPUP_LARGE);
 		}
 		break;
-    case NOTICE_EVENT_GIVE_PRESENT_8:                // ·¹º§ 8 ¼±¹°»óÀÚ Áá½À´Ï´Ù.
+    case NOTICE_EVENT_GIVE_PRESENT_8:                // ë ˆë²¨ 8 ì„ ë¬¼ìƒìž ì¤¬ìŠµë‹ˆë‹¤.
 		{
 			char szBuf[1024];
 			sprintf(szBuf, (*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_2].GetString(), 35,(*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_BOX8].GetString());
 			gC_vs_ui.RunPopupMessage(szBuf,C_VS_UI_POPUP_MESSAGE::POPUP_LARGE);
 		}
 		break;
-    case NOTICE_EVENT_CAN_OPEN_PRESENT_8:            // ·¹º§ 8 ¼±¹°»óÀÚ ¿­ ¼ö ÀÖ½À´Ï´Ù.
+    case NOTICE_EVENT_CAN_OPEN_PRESENT_8:            // ë ˆë²¨ 8 ì„ ë¬¼ìƒìž ì—´ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
 		{
 			char szBuf[1024];
 			sprintf(szBuf, (*g_pGameStringTable)[STRING_MESSAGE_DAUM_EVENT_3].GetString(), 40);
@@ -385,25 +385,25 @@ void GCNoticeEventHandler::execute ( GCNoticeEvent * pPacket , Player * pPlayer 
 	case NOTICE_EVENT_RACE_WAR_STARTED_IN_OTHER_SERVER:
 		UI_PopupMessage( STRING_MESSAGE_RACE_WAR_STARTED_IN_OTHER_SERVER );
 		break;
-	case NOTICE_EVENT_CANNOT_FIND_STORE:             // ÇØ´ç ÆÇ¸ÅÀÚ¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.
+	case NOTICE_EVENT_CANNOT_FIND_STORE:             // í•´ë‹¹ íŒë§¤ìžë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
 		UI_PopupMessage ( UI_STRING_MESSAGE_CANNOT_FIND_STORE );
 		break;
-    case NOTICE_EVENT_STORE_CLOSED:                  // »óÁ¡ÀÌ ÀÌ¹Ì ´ÝÇû½À´Ï´Ù.
+    case NOTICE_EVENT_STORE_CLOSED:                  // ìƒì ì´ ì´ë¯¸ ë‹«í˜”ìŠµë‹ˆë‹¤.
 		UI_PopupMessage ( UI_STRING_MESSAGE_STORE_CLOSED );
 		break;
-    case NOTICE_EVENT_ITEM_NOT_FOUND:                // ÇØ´ç ¾ÆÀÌÅÛÀÌ ÀÌ¹Ì ÆÇ¸ÅµÇ¾ú°Å³ª ÆÇ¸ÅÀÚ¿¡ ÀÇÇØ Ã¶È¸µÇ¾ú½À´Ï´Ù.
+    case NOTICE_EVENT_ITEM_NOT_FOUND:                // í•´ë‹¹ ì•„ì´í…œì´ ì´ë¯¸ íŒë§¤ë˜ì—ˆê±°ë‚˜ íŒë§¤ìžì— ì˜í•´ ì² íšŒë˜ì—ˆìŠµë‹ˆë‹¤.
 		UI_PopupMessage ( UI_STRING_MESSAGE_ITEM_NOT_FOUND );
 		break;
-    case NOTICE_EVENT_TOO_MUCH_MONEY:                // ÆÇ¸ÅÀÚ°¡ ³Ê¹« ¸¹Àº µ·À» °¡Áö°í ÀÖ¾î¼­ »ì ¼ö ¾ø½À´Ï´Ù.
+    case NOTICE_EVENT_TOO_MUCH_MONEY:                // íŒë§¤ìžê°€ ë„ˆë¬´ ë§Žì€ ëˆì„ ê°€ì§€ê³  ìžˆì–´ì„œ ì‚´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
 		UI_PopupMessage ( UI_STRING_MESSAGE_TOO_MUCH_MONEY );
 		break;
-	case NOTICE_EVENT_NO_INVENTORY_SPACE:           // ÀÎº¥Åä¸®¿¡ ºó ÀÚ¸®°¡ ¾ø½À´Ï´Ù.
+	case NOTICE_EVENT_NO_INVENTORY_SPACE:           // ì¸ë²¤í† ë¦¬ì— ë¹ˆ ìžë¦¬ê°€ ì—†ìŠµë‹ˆë‹¤.
 		UI_PopupMessage ( UI_STRING_MESSAGE_INVENTORY_FULL_MONSTER_KILL_QUEST );
 		break;
-    case NOTICE_EVENT_ALREADY_DISPLAYED:             // ÀÌ¹Ì Áø¿­µÈ ¾ÆÀÌÅÛÀÔ´Ï´Ù.
+    case NOTICE_EVENT_ALREADY_DISPLAYED:             // ì´ë¯¸ ì§„ì—´ëœ ì•„ì´í…œìž…ë‹ˆë‹¤.
 		UI_PopupMessage ( UI_STRING_MESSAGE_ALREADY_DISPLAYED );
 		break;
-    case NOTICE_EVENT_CANNOT_SELL:                   // ÆÈ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÔ´Ï´Ù.
+    case NOTICE_EVENT_CANNOT_SELL:                   // íŒ” ìˆ˜ ì—†ëŠ” ì•„ì´í…œìž…ë‹ˆë‹¤.
 		UI_PopupMessage ( STRING_MESSAGE_CANNOT_SELL );
 		break;
 

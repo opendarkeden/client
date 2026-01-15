@@ -26,7 +26,7 @@ MAttachCreatureEffectGroundGenerator::Generate( const EFFECTGENERATOR_INFO& egIn
 	int direction = egInfo.direction;
 
 	//-----------------------------------------------------------
-	// Sword Wave¸¦ À§ÇÑ ÀÓ½Ã(-_-;) ÄÚµå..
+	// Sword Waveë¥¼ ìœ„í•œ ìž„ì‹œ(-_-;) ì½”ë“œ..
 	//-----------------------------------------------------------
 	if (est==EFFECTSPRITETYPE_SWORD_WAVE_1)
 	{
@@ -36,7 +36,7 @@ MAttachCreatureEffectGroundGenerator::Generate( const EFFECTGENERATOR_INFO& egIn
 
 	MCreature* pCreature = g_pZone->GetCreature( egInfo.creatureID );
 
-	// Creature°¡ »ç¶óÁ³À» °æ¿ì..
+	// Creatureê°€ ì‚¬ë¼ì¡Œì„ ê²½ìš°..
 	if (pCreature == NULL)
 	{	
 		pCreature = g_pZone->GetFakeCreature( egInfo.creatureID );
@@ -47,12 +47,12 @@ MAttachCreatureEffectGroundGenerator::Generate( const EFFECTGENERATOR_INFO& egIn
 		}
 	}
 
-	// Creature¿¡°Ô ºÙÀÌ´Â Effect¸¦ »ý¼ºÇØ¼­ pointer¸¦ ³Ñ°Ü¹Þ´Â´Ù.
+	// Creatureì—ê²Œ ë¶™ì´ëŠ” Effectë¥¼ ìƒì„±í•´ì„œ pointerë¥¼ ë„˜ê²¨ë°›ëŠ”ë‹¤.
 	MAttachEffect* pEffect = pCreature->CreateAttachEffect( 
 											egInfo.effectSpriteType, 
 											egInfo.count, 
 											egInfo.linkCount, 
-											TRUE );	// ¹Ù´Ú¿¡ ºÙÀÌ´Â °ÍÀÌ´Ù.
+											TRUE );	// ë°”ë‹¥ì— ë¶™ì´ëŠ” ê²ƒì´ë‹¤.
 
 	if (pEffect == NULL)
 	{
@@ -64,13 +64,13 @@ MAttachCreatureEffectGroundGenerator::Generate( const EFFECTGENERATOR_INFO& egIn
 
 	pEffect->SetLink( egInfo.nActionInfo, egInfo.pEffectTarget );
 
-	// ºÙ¾î¾ß ÇÏ´Â Ä³¸¯ÅÍ
+	// ë¶™ì–´ì•¼ í•˜ëŠ” ìºë¦­í„°
 	//pEffect->SetAttachCreatureID( creatureID );		
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
 
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 	
 	return true;

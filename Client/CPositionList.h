@@ -2,13 +2,13 @@
 // CPositionList.h
 //----------------------------------------------------------------------
 // 
-// (X,Y)ÁÂÇ¥¸¦ °®°í ÀÖ´Â classÀÌ´Ù.
+// (X,Y)ì¢Œí‘œë¥¼ ê°–ê³  ìˆëŠ” classì´ë‹¤.
 //
-// (X,Y)µéÀÌ 
-// ¹º°¡¸¦ ÀÇ¹ÌÇÏ°ÚÁö¸¸,
-// PositionList class´Â ´ÜÁö ±× ÁÂÇ¥¸¦ ¸ğ¾ÆµĞ °ÍÀÏ »ÓÀÌ´Ù.
+// (X,Y)ë“¤ì´ 
+// ë­”ê°€ë¥¼ ì˜ë¯¸í•˜ê² ì§€ë§Œ,
+// PositionList classëŠ” ë‹¨ì§€ ê·¸ ì¢Œí‘œë¥¼ ëª¨ì•„ë‘” ê²ƒì¼ ë¿ì´ë‹¤.
 //
-// PositionList´Â list·Î ±¸ÇöÇÑ´Ù.
+// PositionListëŠ” listë¡œ êµ¬í˜„í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -27,7 +27,7 @@
 
 //----------------------------------------------------------------------
 //
-// POSITION_NODE class  -  (X,Y) ÁÂÇ¥¸¦ ÀÇ¹ÌÇÑ´Ù.
+// POSITION_NODE class  -  (X,Y) ì¢Œí‘œë¥¼ ì˜ë¯¸í•œë‹¤.
 //
 //----------------------------------------------------------------------
 template <class Type>
@@ -69,14 +69,14 @@ class POSITION_NODE {
 
 //----------------------------------------------------------------------
 //
-// CPositionList class  -  POSITION_NODEÀÇ listÀÌ´Ù.
+// CPositionList class  -  POSITION_NODEì˜ listì´ë‹¤.
 //
 //----------------------------------------------------------------------
 template <class Type>
 class CPositionList {
 	public :
 		//----------------------------------------------------------------------
-		// IMAGEOBJECT_INFO_LIST¸¦ Á¤ÀÇÇÑ´Ù.
+		// IMAGEOBJECT_INFO_LISTë¥¼ ì •ì˜í•œë‹¤.
 		//----------------------------------------------------------------------
 		typedef	POSITION_NODE<Type>				POSITION_NODE_TYPE;
 		typedef	std::list<POSITION_NODE_TYPE>	POSITION_LIST;
@@ -91,12 +91,12 @@ class CPositionList {
 		void		Release();
 
 		//--------------------------------------------------------------
-		// Add    : (x,y)¸¦ Ãß°¡. ÀÌ¹Ì ÀÖ´ÂÁö checkÇØºÁ¾ß ÇÑ´Ù.
+		// Add    : (x,y)ë¥¼ ì¶”ê°€. ì´ë¯¸ ìˆëŠ”ì§€ checkí•´ë´ì•¼ í•œë‹¤.
 		//--------------------------------------------------------------
 		bool		Add(Type x, Type y);
 
 		//--------------------------------------------------------------
-		// Remove : (x,y)¸¦ Á¦°Å
+		// Remove : (x,y)ë¥¼ ì œê±°
 		//--------------------------------------------------------------
 		bool		Remove(Type x, Type y);
 
@@ -164,34 +164,34 @@ CPositionList<Type>::Release()
 //----------------------------------------------------------------------
 // Add(x,y)
 //----------------------------------------------------------------------
-// (x,y)¸¦ Ãß°¡ : ÀÌ¹Ì ÀÖ´ÂÁö checkÇØºÁ¾ß ÇÑ´Ù.
-// ÆíÀÇ»ó.. X, Y¼øÀ¸·Î SortÇØ¼­ Ãß°¡ÇÑ´Ù.
+// (x,y)ë¥¼ ì¶”ê°€ : ì´ë¯¸ ìˆëŠ”ì§€ checkí•´ë´ì•¼ í•œë‹¤.
+// í¸ì˜ìƒ.. X, Yìˆœìœ¼ë¡œ Sortí•´ì„œ ì¶”ê°€í•œë‹¤.
 //----------------------------------------------------------------------
 template <class Type>
 bool
 CPositionList<Type>::Add(Type x, Type y)
 {
-	// node»ı¼º
+	// nodeìƒì„±
 	POSITION_NODE<Type>	node;
 	node.X = x;
 	node.Y = y;
 
 	POSITION_LIST::iterator iPosition = m_listPosition.begin();
 
-	// ÀÌ¹Ì list¿¡ µé¾îÀÖ´Â ¸ğµç position°ú ºñ±³ÇØº¸°í
-	// °°Àº°Ô ¾øÀ» ¶§ Ãß°¡ÇÑ´Ù.
+	// ì´ë¯¸ listì— ë“¤ì–´ìˆëŠ” ëª¨ë“  positionê³¼ ë¹„êµí•´ë³´ê³ 
+	// ê°™ì€ê²Œ ì—†ì„ ë•Œ ì¶”ê°€í•œë‹¤.
 	while (iPosition != m_listPosition.end())
 	{
-		// ÇöÀç µé¾îÀÖ´Â°Ô Ãß°¡ÇÒ·Á´Â°Íº¸´Ù Å¬ °æ¿ì,
-		// ÇöÀç À§Ä¡¿¡ Ãß°¡ÇÏ¸é µÈ´Ù.
+		// í˜„ì¬ ë“¤ì–´ìˆëŠ”ê²Œ ì¶”ê°€í• ë ¤ëŠ”ê²ƒë³´ë‹¤ í´ ê²½ìš°,
+		// í˜„ì¬ ìœ„ì¹˜ì— ì¶”ê°€í•˜ë©´ ëœë‹¤.
 		if (*iPosition > node)
 		{
 			m_listPosition.insert(iPosition, node);
 			return true;
 		}
 
-		// ÀÌ¹Ì ÀÖ´Â °ªÀÌ¸é
-		// Ãß°¡ÇÏÁö ¾Ê´Â´Ù.
+		// ì´ë¯¸ ìˆëŠ” ê°’ì´ë©´
+		// ì¶”ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		if (*iPosition==node)
 		{
 			return false;
@@ -200,8 +200,8 @@ CPositionList<Type>::Add(Type x, Type y)
 		iPosition++;
 	}	
 
-	// listÀÇ ¸ğµç ¿ø¼Òµéº¸´Ù Å©¹Ç·Î 
-	// listÀÇ ³¡¿¡ Ãß°¡ÇÑ´Ù.
+	// listì˜ ëª¨ë“  ì›ì†Œë“¤ë³´ë‹¤ í¬ë¯€ë¡œ 
+	// listì˜ ëì— ì¶”ê°€í•œë‹¤.
 	m_listPosition.push_back( node );
 
 	return true;
@@ -210,31 +210,31 @@ CPositionList<Type>::Add(Type x, Type y)
 //----------------------------------------------------------------------
 // Remove
 //----------------------------------------------------------------------
-// (x,y)¸¦ Á¦°Å
+// (x,y)ë¥¼ ì œê±°
 //----------------------------------------------------------------------
 template <class Type>
 bool		
 CPositionList<Type>::Remove(Type x, Type y)
 {
-	// node»ı¼º
+	// nodeìƒì„±
 	POSITION_NODE<Type>	node;
 	node.X = x;
 	node.Y = y;
 
 	POSITION_LIST::iterator iPosition = m_listPosition.begin();
 
-	// listÀÇ POSITION_NODE¿¡¼­ °°Àº°Ô ÀÖÀ¸¸é Áö¿î´Ù.
+	// listì˜ POSITION_NODEì—ì„œ ê°™ì€ê²Œ ìˆìœ¼ë©´ ì§€ìš´ë‹¤.
 	while (iPosition != m_listPosition.end())
 	{		
-		// °°Àº °ªÀÌ¸é Áö¿î´Ù.
+		// ê°™ì€ ê°’ì´ë©´ ì§€ìš´ë‹¤.
 		if (*iPosition==node)
 		{
 			m_listPosition.erase(iPosition);
 			return true;
 		}
 		
-		// ÇöÀç À§Ä¡¿¡ ÀÖ´Â °ªÀÌ Positionº¸´Ù Å©´Ù¸é
-		// °è¼Ó Å« °ª¸¸ ÀÖÀ¸¹Ç·Î Position°ªÀÌ ¾ø´Â °ÍÀÌ´Ù.
+		// í˜„ì¬ ìœ„ì¹˜ì— ìˆëŠ” ê°’ì´ Positionë³´ë‹¤ í¬ë‹¤ë©´
+		// ê³„ì† í° ê°’ë§Œ ìˆìœ¼ë¯€ë¡œ Positionê°’ì´ ì—†ëŠ” ê²ƒì´ë‹¤.
 		if (*iPosition > node)
 		{			
 			return false;
@@ -243,27 +243,27 @@ CPositionList<Type>::Remove(Type x, Type y)
 		iPosition++;
 	}	
 
-	// ¾ø´Â °æ¿ì
+	// ì—†ëŠ” ê²½ìš°
 	return false;
 }
 
 //----------------------------------------------------------------------
 // Save To File
 //----------------------------------------------------------------------
-// list¸¦ µû¶ó°¡¸é¼­ ¸ğµç positionµéÀ» file¿¡ ÀúÀåÇÑ´Ù.
+// listë¥¼ ë”°ë¼ê°€ë©´ì„œ ëª¨ë“  positionë“¤ì„ fileì— ì €ì¥í•œë‹¤.
 //----------------------------------------------------------------------
 template <class Type>
 void		
 CPositionList<Type>::SaveToFile(class ofstream& file)
 {
 	//----------------------------------------
-	// SizeÀúÀå
+	// Sizeì €ì¥
 	//----------------------------------------
 	WORD size = m_listPosition.size();
 
 	file.write((const char*)&size, 2);
 
-	// ¾Æ¹«°Íµµ ¾øÀ¸¸é return
+	// ì•„ë¬´ê²ƒë„ ì—†ìœ¼ë©´ return
 	if (size==0)
 		return;
 
@@ -273,7 +273,7 @@ CPositionList<Type>::SaveToFile(class ofstream& file)
 	POSITION_NODE<Type>	node;
 
 	//----------------------------------------
-	// °¢°¢ÀÇ POSITION_NODE¸¦ ÀúÀåÇÑ´Ù.
+	// ê°ê°ì˜ POSITION_NODEë¥¼ ì €ì¥í•œë‹¤.
 	//----------------------------------------
 	while (iPosition != m_listPosition.end())
 	{		
@@ -294,25 +294,25 @@ template <class Type>
 void		
 CPositionList<Type>::LoadFromFile(class ifstream& file)
 {
-	// ÀÌÀü¿¡ ÀÖ´ø list¸¦ Á¦°Å
+	// ì´ì „ì— ìˆë˜ listë¥¼ ì œê±°
 	Release();
 
 	WORD size;
 
 	//----------------------------------------
-	// size¸¦ ÀĞ¾î¿Â´Ù.
+	// sizeë¥¼ ì½ì–´ì˜¨ë‹¤.
 	//----------------------------------------
 	file.read((char*)&size, 2);
 
-	// ¾Æ¹«°Íµµ ¾øÀ¸¸é return
+	// ì•„ë¬´ê²ƒë„ ì—†ìœ¼ë©´ return
 	if (size==0)
 		return;
 
 	POSITION_NODE<Type> node;
 
 	//----------------------------------------
-	// size°³¼ö¸¸Å­ POSITION_NODE¸¦ ÀĞ¾î¿À¸é¼­
-	// list¿¡ Ãß°¡½ÃÅ²´Ù.
+	// sizeê°œìˆ˜ë§Œí¼ POSITION_NODEë¥¼ ì½ì–´ì˜¤ë©´ì„œ
+	// listì— ì¶”ê°€ì‹œí‚¨ë‹¤.
 	//----------------------------------------
 	for (int i=0; i<size; i++)
 	{		

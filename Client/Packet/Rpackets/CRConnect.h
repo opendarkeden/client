@@ -2,7 +2,7 @@
 // 
 // Filename    : CRConnect.h 
 // Written By  : crazydog
-// Description : Effect Á¦°Å.
+// Description : Effect ì œê±°.
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -19,9 +19,9 @@
 //
 // class CRConnect;
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ´Ù¸¥ Å¬¶óÀÌ¾ğÆ®·Î Á¢¼ÓÀ» ¿äÃ»ÇÏ´Â°Å´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë‹¤ë¥¸ í´ë¼ì´ì–¸íŠ¸ë¡œ ì ‘ì†ì„ ìš”ì²­í•˜ëŠ”ê±°ë‹¤.
 //
-// ÀÚ±â Ä³¸¯ÅÍ ÀÌ¸§°ú »ó´ëÀÇ Ä³¸¯ÅÍ ÀÌ¸§À» ¾Ë¾Æ¾ß ÇÑ´Ù.
+// ìê¸° ìºë¦­í„° ì´ë¦„ê³¼ ìƒëŒ€ì˜ ìºë¦­í„° ì´ë¦„ì„ ì•Œì•„ì•¼ í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -47,16 +47,16 @@ public :
 	#endif
 
 
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 	// execute packet's handler
 	void execute ( Player * pPlayer ) throw ( ProtocolException , Error );
 
 	// get packet's body size
-	// ÃÖÀûÈ­½Ã, ¹Ì¸® °è»êµÈ Á¤¼ö¸¦ »ç¿ëÇÑ´Ù.
+	// ìµœì í™”ì‹œ, ë¯¸ë¦¬ ê³„ì‚°ëœ ì •ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤.
 	PacketSize_t getPacketSize () const throw () { return szBYTE + m_RequestServerName.size() + szBYTE + m_RequestClientName.size(); }
 	static PacketSize_t getPacketMaxSize() throw() { return  szBYTE + 10 + szBYTE + 10;}
 

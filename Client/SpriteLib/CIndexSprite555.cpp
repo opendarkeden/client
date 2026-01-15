@@ -13,22 +13,22 @@
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// fstream¿¡ save ÇÑ´Ù.    ( file¿¡´Â 5:6:5·Î ÀúÀåÇÑ´Ù. )
+// fstreamì— save í•œë‹¤.    ( fileì—ëŠ” 5:6:5ë¡œ ì €ì¥í•œë‹¤. )
 //----------------------------------------------------------------------
-// Normal»ö¿¡ ´ëÇØ¼­¸¸ 5:6:5·Î ¹Ù²ãÁÖ¸é µÈ´Ù.
+// Normalìƒ‰ì— ëŒ€í•´ì„œë§Œ 5:6:5ë¡œ ë°”ê¿”ì£¼ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 bool	
 CIndexSprite555::SaveToFile(ofstream& file)
 {
-	// width¿Í height¸¦ ÀúÀåÇÑ´Ù.
+	// widthì™€ heightë¥¼ ì €ì¥í•œë‹¤.
 	file.write((const char*)&m_Width , 2);
 	file.write((const char*)&m_Height, 2);
 
-	// NULLÀÌ¸é ÀúÀåÇÏÁö ¾Ê´Â´Ù. ±æÀÌ¸¸ ÀúÀåµÇ´Â °ÍÀÌ´Ù.
+	// NULLì´ë©´ ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤. ê¸¸ì´ë§Œ ì €ì¥ë˜ëŠ” ê²ƒì´ë‹¤.
 	if (m_Pixels==NULL || m_Width==0 || m_Height==0)
 		return false;
 	
-	// ¾ĞÃà µÈ °Í ÀúÀå
+	// ì••ì¶• ëœ ê²ƒ ì €ì¥
 	WORD index;	
 
 	int colorCount, transPair, indexCount;
@@ -42,25 +42,25 @@ CIndexSprite555::SaveToFile(ofstream& file)
 	//--------------------------------
 	for (i=0; i<m_Height; i++)
 	{
-		// ¹İº¹ È¸¼öÀÇ 2 byte
+		// ë°˜ë³µ íšŒìˆ˜ì˜ 2 byte
 		transPair = m_Pixels[i][0];
 				
 		index	= 1;
 
-		// °¢ line¸¶´Ù byte¼ö¸¦ ¼¼¾î¼­ ÀúÀåÇØ¾ßÇÑ´Ù.
+		// ê° lineë§ˆë‹¤ byteìˆ˜ë¥¼ ì„¸ì–´ì„œ ì €ì¥í•´ì•¼í•œë‹¤.
 		for (j=0; j<transPair; j++)
 		{			
 			// transCount = m_Pixels[i][index];
-			index++;	// Åõ¸í ¼ö
-			indexCount = m_Pixels[i][index++];	// index»ö ¼ö
+			index++;	// íˆ¬ëª… ìˆ˜
+			indexCount = m_Pixels[i][index++];	// indexìƒ‰ ìˆ˜
 
-			index += indexCount;	// index»ö¿¡ ´ëÇÑ Á¤º¸ ¼ö ¸¸Å­
+			index += indexCount;	// indexìƒ‰ì— ëŒ€í•œ ì •ë³´ ìˆ˜ ë§Œí¼
 
-			// Normal»ö ¼ö
+			// Normalìƒ‰ ìˆ˜
 			colorCount = m_Pixels[i][index++];
 
 			// m_Pixels[i][index] ~ m_Pixels[i][index+colorCount-1]
-			// 5:5:5¸¦ 5:6:5·Î ¹Ù²ã¼­ ÀúÀåÇÏ°í ´Ù½Ã 5:5:5·Î ¹Ù²ãÁØ´Ù.
+			// 5:5:5ë¥¼ 5:6:5ë¡œ ë°”ê¿”ì„œ ì €ì¥í•˜ê³  ë‹¤ì‹œ 5:5:5ë¡œ ë°”ê¿”ì¤€ë‹¤.
 			for (k=0; k<colorCount; k++)								
 			{
 				m_Pixels[i][index] = CDirectDraw::Convert555to565(m_Pixels[i][index]);
@@ -68,17 +68,17 @@ CIndexSprite555::SaveToFile(ofstream& file)
 			}
 		}
 
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ ÀúÀåÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ ì €ì¥í•œë‹¤.
 		file.write((const char*)&index, 2);
 		file.write((const char*)m_Pixels[i], index<<1);
 
 		//-------------------------------------------------------
-		// m_Pixels[i]¿¡ ÇÑ ÁÙÀ» SaveÇß´Ù.
-		// ÇöÀç ÁÙ¿¡¼­.. Normal color¿¡ ÇØ´çÇÏ´Â ºÎºĞÀ»
-		// ´Ù½Ã 5:6:5¿¡¼­ 5:5:5·Î ¹Ù²ãÁà¾ß ÇÑ´Ù.
+		// m_Pixels[i]ì— í•œ ì¤„ì„ Saveí–ˆë‹¤.
+		// í˜„ì¬ ì¤„ì—ì„œ.. Normal colorì— í•´ë‹¹í•˜ëŠ” ë¶€ë¶„ì„
+		// ë‹¤ì‹œ 5:6:5ì—ì„œ 5:5:5ë¡œ ë°”ê¿”ì¤˜ì•¼ í•œë‹¤.
 		//-------------------------------------------------------
 
-		// ¹İº¹ È¸¼öÀÇ 2 byte
+		// ë°˜ë³µ íšŒìˆ˜ì˜ 2 byte
 		transPair = m_Pixels[i][0];
 				
 		WORD	index	= 1;
@@ -86,16 +86,16 @@ CIndexSprite555::SaveToFile(ofstream& file)
 		for (j=0; j<transPair; j++)
 		{			
 			// transCount = m_Pixels[i][index];
-			index++;	// Åõ¸í ¼ö
-			indexCount = m_Pixels[i][index++];	// index»ö¼ö
+			index++;	// íˆ¬ëª… ìˆ˜
+			indexCount = m_Pixels[i][index++];	// indexìƒ‰ìˆ˜
 
-			index += indexCount;	// index»ö¿¡ ´ëÇÑ Á¤º¸ ¼ö ¸¸Å­
+			index += indexCount;	// indexìƒ‰ì— ëŒ€í•œ ì •ë³´ ìˆ˜ ë§Œí¼
 
-			// Normal»ö ¼ö
+			// Normalìƒ‰ ìˆ˜
 			colorCount = m_Pixels[i][index++];
 
 			// m_Pixels[i][index] ~ m_Pixels[i][index+colorCount-1]
-			// 5:6:5¸¦ 5:5:5·Î ¹Ù²Û´Ù.
+			// 5:6:5ë¥¼ 5:5:5ë¡œ ë°”ê¾¼ë‹¤.
 			for (k=0; k<colorCount; k++)								
 			{
 				m_Pixels[i][index] = CDirectDraw::Convert565to555(m_Pixels[i][index]);
@@ -109,19 +109,19 @@ CIndexSprite555::SaveToFile(ofstream& file)
 }
 
 //----------------------------------------------------------------------
-// fstream¿¡¼­ loadÇÑ´Ù.
+// fstreamì—ì„œ loadí•œë‹¤.
 //----------------------------------------------------------------------
 bool	
 CIndexSprite555::LoadFromFile(ifstream& file)
 {
-	// ÀÌ¹Ì ÀâÇôÀÖ´Â memory¸¦ releaseÇÑ´Ù.
+	// ì´ë¯¸ ì¡í˜€ìˆëŠ” memoryë¥¼ releaseí•œë‹¤.
 	Release();
 
-	// width¿Í height¸¦ LoadÇÑ´Ù.
+	// widthì™€ heightë¥¼ Loadí•œë‹¤.
 	file.read((char*)&m_Width , 2);
 	file.read((char*)&m_Height, 2);	
 
-	// ±æÀÌ°¡ 0ÀÌ¸é ´õ LoadÇÒ°Ô ¾ø°ÚÁö..
+	// ê¸¸ì´ê°€ 0ì´ë©´ ë” Loadí• ê²Œ ì—†ê² ì§€..
 	if (m_Width==0 || m_Height==0) 
 	{	
 		m_bInit = true;
@@ -141,7 +141,7 @@ CIndexSprite555::LoadFromFile(ifstream& file)
 	//--------------------------------
 	for (i=0; i<m_Height; i++)
 	{
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ LoadÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ Loadí•œë‹¤.
 		file.read((char*)&len, 2);
 		
 		m_Pixels[i] = NULL;
@@ -151,14 +151,14 @@ CIndexSprite555::LoadFromFile(ifstream& file)
 
 		
 		//-------------------------------------------------------
-		// m_Pixels[i]¿¡ ÇÑ ÁÙÀ» LoadÇß´Ù.
-		// ÇöÀç ÁÙ¿¡¼­.. Normal color¿¡ ÇØ´çÇÏ´Â ºÎºĞÀ»
-		// 5:6:5¿¡¼­ 5:5:5·Î ¹Ù²ãÁà¾ß ÇÑ´Ù.
+		// m_Pixels[i]ì— í•œ ì¤„ì„ Loadí–ˆë‹¤.
+		// í˜„ì¬ ì¤„ì—ì„œ.. Normal colorì— í•´ë‹¹í•˜ëŠ” ë¶€ë¶„ì„
+		// 5:6:5ì—ì„œ 5:5:5ë¡œ ë°”ê¿”ì¤˜ì•¼ í•œë‹¤.
 		//-------------------------------------------------------
 
 		int transPair, colorCount, indexCount;
 
-		// ¹İº¹ È¸¼öÀÇ 2 byte
+		// ë°˜ë³µ íšŒìˆ˜ì˜ 2 byte
 		transPair = m_Pixels[i][0];
 				
 		WORD	index	= 1;
@@ -166,16 +166,16 @@ CIndexSprite555::LoadFromFile(ifstream& file)
 		for (j=0; j<transPair; j++)
 		{			
 			// transCount = m_Pixels[i][index];
-			index++;	// Åõ¸í ¼ö
-			indexCount = m_Pixels[i][index++];	// indexPair ¼ö
+			index++;	// íˆ¬ëª… ìˆ˜
+			indexCount = m_Pixels[i][index++];	// indexPair ìˆ˜
 
-			index += indexCount;	// index»ö¿¡ ´ëÇÑ Á¤º¸ ¼ö ¸¸Å­
+			index += indexCount;	// indexìƒ‰ì— ëŒ€í•œ ì •ë³´ ìˆ˜ ë§Œí¼
 
-			// Normal»ö ¼ö
+			// Normalìƒ‰ ìˆ˜
 			colorCount = m_Pixels[i][index++];
 
 			// m_Pixels[i][index] ~ m_Pixels[i][index+colorCount-1]
-			// 5:6:5¸¦ 5:5:5·Î ¹Ù²Û´Ù.
+			// 5:6:5ë¥¼ 5:5:5ë¡œ ë°”ê¾¼ë‹¤.
 			for (k=0; k<colorCount; k++)								
 			{
 				m_Pixels[i][index] = CDirectDraw::Convert565to555(m_Pixels[i][index]);

@@ -31,26 +31,26 @@ void GCMorph1Handler::execute ( GCMorph1 * pPacket , Player * pPlayer )
 	}
 
 	//-----------------------------------------------------------
-	// Sound¸¦ Ãâ·ÂÇÏÁö ¾Ê´Â´Ù.
+	// Soundë¥¼ ì¶œë ¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	//-----------------------------------------------------------
 	g_DXSound.SetMute();
 
 	//-----------------------------------------------------------
-	// ID°¡ ´Ù¸£¸é.. ID¸¦ ¹Ù²ã¾ß ÇÑ´Ù.
+	// IDê°€ ë‹¤ë¥´ë©´.. IDë¥¼ ë°”ê¿”ì•¼ í•œë‹¤.
 	//-----------------------------------------------------------
 	int objectID;
 	
 	switch (pPacket->getPCInfo2()->getPCType())
 	{
 		//--------------------------------------------------
-		// SlayerÀÎ °æ¿ì
+		// Slayerì¸ ê²½ìš°
 		//--------------------------------------------------
 		case PC_SLAYER :		
 			objectID = ((PCSlayerInfo2*)pPacket->getPCInfo2())->getObjectID();
 		break;
 
 		//--------------------------------------------------
-		// VampireÀÎ °æ¿ì
+		// Vampireì¸ ê²½ìš°
 		//--------------------------------------------------
 		case PC_VAMPIRE :
 			objectID = ((PCVampireInfo2*)pPacket->getPCInfo2())->getObjectID();			
@@ -63,10 +63,10 @@ void GCMorph1Handler::execute ( GCMorph1 * pPacket , Player * pPlayer )
 
 	if (g_pPlayer->GetID()!=objectID)
 	{
-		// Zone¿¡ µé¾îÀÖ´Â°Åµµ ¹Ù²Û´Ù.
+		// Zoneì— ë“¤ì–´ìžˆëŠ”ê±°ë„ ë°”ê¾¼ë‹¤.
 		g_pZone->RemoveCreature( g_pPlayer->GetID() );
 
-		// »õ·Î¿î ID
+		// ìƒˆë¡œìš´ ID
 		g_pPlayer->SetID( objectID );
 
 		g_pZone->SetPlayer();
@@ -75,38 +75,38 @@ void GCMorph1Handler::execute ( GCMorph1 * pPacket , Player * pPlayer )
 
 	//--------------------------------------------------
 	//
-	//			 Player º¯½Å
+	//			 Player ë³€ì‹ 
 	//
 	//--------------------------------------------------
 	if (g_pPlayer->IsSlayer())
 	{
 		g_pPlayer->ChangeToVampire();
 
-		// ÀÓ½Ã·Î
+		// ìž„ì‹œë¡œ
 		g_pPlayer->SetGuildNumber( 2 );
 	}
 	else
 	{
 		g_pPlayer->ChangeToSlayer();
 
-		// ÀÓ½Ã·Î
+		// ìž„ì‹œë¡œ
 		g_pPlayer->SetGuildNumber( -1 );
 	}
 
 
 	//--------------------------------------------------
-	// Æ¯¼ö ±â¼ú ¼³Á¤
+	// íŠ¹ìˆ˜ ê¸°ìˆ  ì„¤ì •
 	//--------------------------------------------------
 	//g_pPlayer->SetSpecialActionInfo( MAGIC_LIGHT );
 
 	//--------------------------------------------------
-	// °ø°Ý ¸ðµå ¼³Á¤
+	// ê³µê²© ëª¨ë“œ ì„¤ì •
 	//--------------------------------------------------
 //	g_pPlayer->SetAttackModeNormal();
 
 
 	//--------------------------------------------------
-	// QuickSlotÀ» ¾ø¾Ø´Ù. ÇÊ¿äÇÑ°¡? - -;
+	// QuickSlotì„ ì—†ì•¤ë‹¤. í•„ìš”í•œê°€? - -;
 	//--------------------------------------------------	
 	g_pQuickSlot = NULL;
 	g_pArmsBand1 = NULL;
@@ -114,9 +114,9 @@ void GCMorph1Handler::execute ( GCMorph1 * pPacket , Player * pPlayer )
 
 			
 	//--------------------------------------------------
-	//		º¹Àå ÃÊ±âÈ­
+	//		ë³µìž¥ ì´ˆê¸°í™”
 	//--------------------------------------------------
-	// ÇÊ¿ä ¾øÀ» µí..
+	// í•„ìš” ì—†ì„ ë“¯..
 	//--------------------------------------------------
 	DEBUG_ADD( "Remove All Addon" );
 	
@@ -131,13 +131,13 @@ void GCMorph1Handler::execute ( GCMorph1 * pPacket , Player * pPlayer )
 
 	//--------------------------------------------------
 	//
-	//			 playerÀÇ Á¤º¸¸¦ ¼³Á¤ÇÑ´Ù.
+	//			 playerì˜ ì •ë³´ë¥¼ ì„¤ì •í•œë‹¤.
 	//
 	//--------------------------------------------------		
 	switch (pPacket->getPCInfo2()->getPCType())
 	{
 		//--------------------------------------------------
-		// SlayerÀÎ °æ¿ì
+		// Slayerì¸ ê²½ìš°
 		//--------------------------------------------------
 		case PC_SLAYER :
 		{
@@ -146,7 +146,7 @@ void GCMorph1Handler::execute ( GCMorph1 * pPacket , Player * pPlayer )
 		break;
 
 		//--------------------------------------------------
-		// VampireÀÎ °æ¿ì
+		// Vampireì¸ ê²½ìš°
 		//--------------------------------------------------
 		case PC_VAMPIRE :
 		{
@@ -155,7 +155,7 @@ void GCMorph1Handler::execute ( GCMorph1 * pPacket , Player * pPlayer )
 		break;
 
 		//--------------------------------------------------
-		// OustersÀÎ °æ¿ì
+		// Oustersì¸ ê²½ìš°
 		//--------------------------------------------------
 		case PC_OUSTERS :
 		{
@@ -165,20 +165,20 @@ void GCMorph1Handler::execute ( GCMorph1 * pPacket , Player * pPlayer )
 	}
 
 	//--------------------------------------------------
-	//	 GearÀÇ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+	//	 Gearì˜ ì •ë³´ë¥¼ ì €ìž¥í•œë‹¤.
 	//--------------------------------------------------
 	SetGearInfo( pPacket->getGearInfo() );
 
-	// °è»êÀ» ´Ù½ÃÇØÁØ´Ù.
+	// ê³„ì‚°ì„ ë‹¤ì‹œí•´ì¤€ë‹¤.
 	g_pPlayer->CalculateStatus();
 
 	//--------------------------------------------------
-	//	Inventory ÃÊ±âÈ­
+	//	Inventory ì´ˆê¸°í™”
 	//--------------------------------------------------
 	SetInventoryInfo( pPacket->getInventoryInfo() );
 
 	//--------------------------------------------------
-	// ±âÅ¸ Item Á¤º¸ == Mouse¿¡ ºÙ¾î ÀÖ´Â item
+	// ê¸°íƒ€ Item ì •ë³´ == Mouseì— ë¶™ì–´ ìžˆëŠ” item
 	//--------------------------------------------------
 	SetExtraInfo( pPacket->getExtraInfo() );
 	
@@ -189,7 +189,7 @@ void GCMorph1Handler::execute ( GCMorph1 * pPacket , Player * pPlayer )
 
 
 	//-----------------------------------------------------------
-	// Sound¸¦ Ãâ·ÂÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+	// Soundë¥¼ ì¶œë ¥í•  ìˆ˜ ìžˆê²Œ í•œë‹¤.
 	//-----------------------------------------------------------
 	g_DXSound.UnSetMute();
 

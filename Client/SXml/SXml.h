@@ -58,7 +58,7 @@ public:
 //class StrX
 //{
 //private:
-//	char* m_pCSTR; ///< ³»ºÎ ¹®ÀÚ¿­ ¹öÆÛ
+//	char* m_pCSTR; ///< ë‚´ë¶€ ë¬¸ìžì—´ ë²„í¼
 //
 //public:
 //	StrX(const XMLCh* const toTranscode) { m_pCSTR = XMLString::transcode(toTranscode); }
@@ -103,14 +103,14 @@ private:
 	typedef map<string, XMLTree*> CHILDREN_MAP;
 	typedef vector<XMLTree *> CHILDREN_VECTOR;
 
-	string     m_Name;        ///< ³ëµåÀÇ ÀÌ¸§
-	string     m_Text;        ///< ³ëµå¿¡ ¼ÓÇÑ ÅØ½ºÆ®
-	XMLTree*   m_pParent;     ///< ºÎ¸ð ³ëµåÀÇ Æ÷ÀÎÅÍ
+	string     m_Name;        ///< ë…¸ë“œì˜ ì´ë¦„
+	string     m_Text;        ///< ë…¸ë“œì— ì†í•œ í…ìŠ¤íŠ¸
+	XMLTree*   m_pParent;     ///< ë¶€ëª¨ ë…¸ë“œì˜ í¬ì¸í„°
 
-	ATTRIBUTES_MAP m_AttributesMap;  ///< °¡Áö°í ÀÖ´Â ¼Ó¼º°ªµé
-	ATTRIBUTES_VECTOR m_AttributesVector;  ///< °¡Áö°í ÀÖ´Â ¼Ó¼º°ªµé
-	CHILDREN_MAP   m_ChildrenMap;    ///< ÀÚ½Ä ³ëµåµé
-	CHILDREN_VECTOR   m_ChildrenVector;    ///< ÀÚ½Ä ³ëµåµé
+	ATTRIBUTES_MAP m_AttributesMap;  ///< ê°€ì§€ê³  ìžˆëŠ” ì†ì„±ê°’ë“¤
+	ATTRIBUTES_VECTOR m_AttributesVector;  ///< ê°€ì§€ê³  ìžˆëŠ” ì†ì„±ê°’ë“¤
+	CHILDREN_MAP   m_ChildrenMap;    ///< ìžì‹ ë…¸ë“œë“¤
+	CHILDREN_VECTOR   m_ChildrenVector;    ///< ìžì‹ ë…¸ë“œë“¤
 
 public:
 	XMLTree();
@@ -155,8 +155,8 @@ private:
 //class XMLTreeGenerator : public DefaultHandler
 //{
 //private:
-//	XMLTree* m_pRoot;   ///< ÃÖ»óÀ§ ³ëµå
-//	XMLTree* m_pBuffer; ///< XML ÆÄ½Ì¿ë ÀÓ½Ã ³ëµå
+//	XMLTree* m_pRoot;   ///< ìµœìƒìœ„ ë…¸ë“œ
+//	XMLTree* m_pBuffer; ///< XML íŒŒì‹±ìš© ìž„ì‹œ ë…¸ë“œ
 //
 //
 //public:
@@ -200,10 +200,10 @@ public:
 
 
 public:
-	/// \brief ÁöÁ¤µÈ À§Ä¡¿¡ ÀÖ´Â ÆÄÀÏ ¶Ç´Â À¥ ¹®¼­¸¦ ÆÄ½ÌÇÑ´Ù.
+	/// \brief ì§€ì •ëœ ìœ„ì¹˜ì— ìžˆëŠ” íŒŒì¼ ë˜ëŠ” ì›¹ ë¬¸ì„œë¥¼ íŒŒì‹±í•œë‹¤.
 //	void parseURL(const char* pURL);
 
-	/// \brief ÀÎ¼ö·Î ³Ñ°ÜÁö´Â ¹®ÀÚ¿­À» XML ¹®¼­·Î °¡Á¤ÇÏ°í ÆÄ½ÌÇÑ´Ù.
+	/// \brief ì¸ìˆ˜ë¡œ ë„˜ê²¨ì§€ëŠ” ë¬¸ìžì—´ì„ XML ë¬¸ì„œë¡œ ê°€ì •í•˜ê³  íŒŒì‹±í•œë‹¤.
 	char* parse(char* buffer, XMLTree *pTree, bool IsUseOnlyVector = false);
 };
 

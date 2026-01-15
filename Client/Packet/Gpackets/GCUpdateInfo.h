@@ -25,16 +25,16 @@
 #include "NicknameInfo.h"
 #include "BloodBibleSignInfo.h"
 
-#define FLAG_PREMIUM_ZONE			0x10	// premiumÀ¸·Î ¼³Á¤µÈ Á¸ÀÌ´Ù.
-#define FLAG_PREMIUM_PLAY			0x01	// premium play¸¦ ÇÏ´Â ÁßÀÎ°¡?
+#define FLAG_PREMIUM_ZONE			0x10	// premiumìœ¼ë¡œ ì„¤ì •ëœ ì¡´ì´ë‹¤.
+#define FLAG_PREMIUM_PLAY			0x01	// premium playë¥¼ í•˜ëŠ” ì¤‘ì¸ê°€?
 
 //--------------------------------------------------------------------------------
 //
 // class GCUpdateInfo;
 //
-// Å¬¶óÀÌ¾ğÆ®°¡ °ÔÀÓ ¼­¹ö¿¡ Á¢¼ÓÇØ¼­ CGConnect ÆĞÅ¶À» º¸³»¸é, °ÔÀÓ ¼­¹ö´Â Å©¸®Ã³¿Í
-// ¼ÒÀ¯ ¾ÆÀÌÅÛÀ» ·ÎµùÇØ¼­ Á¸¿¡ µé¾î°¥ ÁØºñ¸¦ ÇÏ°Ô µÈ´Ù. ±×´ÙÀ½ PC¿Í ¾ÆÀÌÅÛ Á¤º¸,
-// ±×¸®°í Á¸ Á¤º¸¸¦ GCUpdateInfo¿¡ ´ã¾Æ¼­ Å¬¶óÀÌ¾ğÆ®·Î Àü¼ÛÇÏ°Ô µÈ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ ê²Œì„ ì„œë²„ì— ì ‘ì†í•´ì„œ CGConnect íŒ¨í‚·ì„ ë³´ë‚´ë©´, ê²Œì„ ì„œë²„ëŠ” í¬ë¦¬ì²˜ì™€
+// ì†Œìœ  ì•„ì´í…œì„ ë¡œë”©í•´ì„œ ì¡´ì— ë“¤ì–´ê°ˆ ì¤€ë¹„ë¥¼ í•˜ê²Œ ëœë‹¤. ê·¸ë‹¤ìŒ PCì™€ ì•„ì´í…œ ì •ë³´,
+// ê·¸ë¦¬ê³  ì¡´ ì •ë³´ë¥¼ GCUpdateInfoì— ë‹´ì•„ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•˜ê²Œ ëœë‹¤.
 //
 //--------------------------------------------------------------------------------
 
@@ -48,10 +48,10 @@ public :
 	// destructor
 	~GCUpdateInfo() throw();
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream & iStream) throw(ProtocolException, Error);
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
 
 	// execute packet's handler
@@ -103,22 +103,22 @@ public :
 			NPCInfo* pInfo = *itr;
 			size += pInfo->getSize();
 		}
-		// ¼­¹ö »óÅÂ
+		// ì„œë²„ ìƒíƒœ
 		size += szBYTE;
-		// ÇÁ¸®¹Ì¾ö
+		// í”„ë¦¬ë¯¸ì—„
 		size += szBYTE;
 			// SMS
 		size += szDWORD;
-		// ´Ğ³×ÀÓ
+		// ë‹‰ë„¤ì„
 		size += m_pNicknameInfo->getSize();
 
-		size += szBYTE; // non pk °ü·Ã
+		size += szBYTE; // non pk ê´€ë ¨
 		
 		// GuildUnion
 		size += sizeof(uint);
 		size += szBYTE;
 
-		// blood bible °ü·Ã
+		// blood bible ê´€ë ¨
 		size += m_pBloodBibleSign->getSize();
 
 		// power jjang point
@@ -226,7 +226,7 @@ public :
 	void setServerStat( BYTE ServerStat ) throw() { m_ServerStat = ServerStat; }
 	BYTE getServerStat() const throw() { return m_ServerStat; }
 
-	// premium play °ü·Ã
+	// premium play ê´€ë ¨
 	BYTE isPremiumZone() const { return m_fPremium & FLAG_PREMIUM_ZONE; }
 	BYTE isPremiumPlay() const { return m_fPremium & FLAG_PREMIUM_PLAY; }
 
@@ -254,7 +254,7 @@ private :
 	//--------------------------------------------------------------------------------
 	// PC Information
 	//--------------------------------------------------------------------------------
-	// PCSlayerInfo2 ¶Ç´Â PCVampireInfo2 ¸¦ »ç¿ëÇÑ´Ù.
+	// PCSlayerInfo2 ë˜ëŠ” PCVampireInfo2 ë¥¼ ì‚¬ìš©í•œë‹¤.
 	PCInfo* m_pPCInfo;
 
 	//--------------------------------------------------------------------------------
@@ -278,7 +278,7 @@ private :
 	EffectInfo* m_pEffectInfo;
 
 	//--------------------------------------------------------------------------------
-	// ¸ğÅä»çÀÌÅ¬ÀÌ ÀÖ³ª ¾ø³ª.
+	// ëª¨í† ì‚¬ì´í´ì´ ìˆë‚˜ ì—†ë‚˜.
 	//--------------------------------------------------------------------------------
 	bool m_hasMotorcycle;
 
@@ -291,25 +291,25 @@ private :
 	// quick item slot
 	// gear
 
-	// Àú³Î(PDA)
-	// ¼öÇà Äù½ºÆ® Á¤º¸
-	// °øÁö»çÇ×, ÀÌº¥Æ® Á¤º¸
-	// ÈåÈì.. ¾êµéÀº Ã³À½ PDS¸¦ ÄÓ ¶§ ´Ù¿î¹ŞÀ»±î³ª.. - -;
+	// ì €ë„(PDA)
+	// ìˆ˜í–‰ í€˜ìŠ¤íŠ¸ ì •ë³´
+	// ê³µì§€ì‚¬í•­, ì´ë²¤íŠ¸ ì •ë³´
+	// íí .. ì–˜ë“¤ì€ ì²˜ìŒ PDSë¥¼ ì¼¤ ë•Œ ë‹¤ìš´ë°›ì„ê¹Œë‚˜.. - -;
 
 	//--------------------------------------------------------------------------------
 	// Zone Information
 	//--------------------------------------------------------------------------------
-	// Á¸ ¾ÆÀÌµğ
+	// ì¡´ ì•„ì´ë””
 	ZoneID_t m_ZoneID;	
 
-	// ³ªÅ¸³¯ ÁÂÇ¥ÀÇ ´ë°­ÀÇ À§Ä¡
+	// ë‚˜íƒ€ë‚  ì¢Œí‘œì˜ ëŒ€ê°•ì˜ ìœ„ì¹˜
 	Coord_t m_ZoneX;
 	Coord_t m_ZoneY;
 
 	// Game Time
 	GameTime m_GameTime;
 	
-	// Weather(³¯¾¾ Á¤º¸)
+	// Weather(ë‚ ì”¨ ì •ë³´)
 	Weather m_Weather;
 	WeatherLevel_t m_WeatherLevel;
 
@@ -317,21 +317,21 @@ private :
 	DarkLevel_t m_DarkLevel;
 	LightLevel_t m_LightLevel;
 
-	// Á¸¿¡ ÃâÇöÇÏ´Â NPC ½ºÇÁ¶óÀÌÆ® Å¸ÀÔÀÇ °³¼ö, ½ºÇÁ¶óÀÌÆ® Å¸ÀÔ ¹è¿­
+	// ì¡´ì— ì¶œí˜„í•˜ëŠ” NPC ìŠ¤í”„ë¼ì´íŠ¸ íƒ€ì…ì˜ ê°œìˆ˜, ìŠ¤í”„ë¼ì´íŠ¸ íƒ€ì… ë°°ì—´
 	BYTE m_nNPCs;
 	NPCType_t m_NPCTypes[ maxNPCPerZone ];
 
-	// Á¸¿¡ ÃâÇöÇÏ´Â ¸ó½ºÅÍ ½ºÇÁ¶óÀÌÆ® Å¸ÀÔÀÇ °³¼ö, ½ºÇÁ¶óÀÌÆ® Å¸ÀÔ ¹è¿­
+	// ì¡´ì— ì¶œí˜„í•˜ëŠ” ëª¬ìŠ¤í„° ìŠ¤í”„ë¼ì´íŠ¸ íƒ€ì…ì˜ ê°œìˆ˜, ìŠ¤í”„ë¼ì´íŠ¸ íƒ€ì… ë°°ì—´
 	BYTE m_nMonsters;
 	MonsterType_t m_MonsterTypes[ maxMonsterPerZone ];
 
-	// ÇöÀç Á¸¿¡ Á¸ÀçÇÏ´Â NPCµé¿¡ ´ëÇÑ Á¤º¸
+	// í˜„ì¬ ì¡´ì— ì¡´ì¬í•˜ëŠ” NPCë“¤ì— ëŒ€í•œ ì •ë³´
 	std::list<NPCInfo*> m_NPCInfos;
 
-	// ¼­¹ö »óÅÂ
+	// ì„œë²„ ìƒíƒœ
 	BYTE m_ServerStat;
 
-	// ÇÁ¸®¹Ì¾ö °ü·Ã
+	// í”„ë¦¬ë¯¸ì—„ ê´€ë ¨
 	BYTE m_fPremium;
 	
 	DWORD m_SMS_Charge;
@@ -339,7 +339,7 @@ private :
 	NicknameInfo*	m_pNicknameInfo;
 
 	BYTE    m_NonPK;
-	// ¿¬ÇÕ±æµå Á¤º¸
+	// ì—°í•©ê¸¸ë“œ ì •ë³´
 	uint	m_GuildUnionID;
 	BYTE	m_GuildUnionUserType;
 
@@ -372,7 +372,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GCUpdateInfoPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCUpdateInfoPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketMaxSize() const throw() 
 	{ 
 		PacketSize_t size = 0;
@@ -400,21 +400,21 @@ public :
 
 		size += szBYTE;
 		size += NPCInfo::getMaxSize()* 255;
-		// ¼­¹ö »óÅÂ
+		// ì„œë²„ ìƒíƒœ
 		size += szBYTE;
-		// ÇÁ¸®¹Ì¾ö
+		// í”„ë¦¬ë¯¸ì—„
 		size += szBYTE;
 
 		size += szDWORD;
 		size += NicknameInfo::getMaxSize();
 
-		size += szBYTE; // non pk °ü·Ã
+		size += szBYTE; // non pk ê´€ë ¨
 
 		// GuildUnion
 		size += sizeof(uint);
 		size += szBYTE;
 
-		// blood bible °ü·Ã
+		// blood bible ê´€ë ¨
 		size += BloodBibleSignInfo::getMaxSize();
 
 		// power jjang point

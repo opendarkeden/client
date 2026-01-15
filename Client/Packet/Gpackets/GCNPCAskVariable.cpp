@@ -32,7 +32,7 @@ GCNPCAskVariable::~GCNPCAskVariable()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCNPCAskVariable::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
@@ -55,7 +55,7 @@ void GCNPCAskVariable::read ( SocketInputStream & iStream )
 }
 		    
 //////////////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCNPCAskVariable::write ( SocketOutputStream & oStream ) const 
      throw ( ProtocolException , Error )
@@ -124,8 +124,8 @@ std::string GCNPCAskVariable::getValue( const std::string& name ) const
 
 	if ( itr == m_ScriptParameters.end() )
 	{
-		// name ÀÌ ¾ø´Â °æ¿ì´Ù. NoSuchElement ¸¦ ´øÁ®¾ßÇÏ³ª
-		// °Á name À» µ¹·ÁÁÖµµ·Ï ÇÑ´Ù.
+		// name ì´ ì—†ëŠ” ê²½ìš°ë‹¤. NoSuchElement ë¥¼ ë˜ì ¸ì•¼í•˜ë‚˜
+		// ê± name ì„ ëŒë ¤ì£¼ë„ë¡ í•œë‹¤.
 		return name;
 	}
 

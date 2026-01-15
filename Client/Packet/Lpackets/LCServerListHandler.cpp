@@ -18,9 +18,9 @@
 #endif
 
 //----------------------------------------------------------------------
-// ¼­¹ö·ÎºÎÅÍ Ä³¸¯ÅÍ ¸®½ºÆ®¸¦ ¹Þ¾Ò´Ù. 
-// ÀÌÁ¦ Ä³¸¯ÅÍ °ü¸® ÀÎÅÍÆäÀÌ½ºÀÇ ÀûÀýÇÑ °÷¿¡ Àü¼Û¹ÞÀº °ªÀ» Áý¾î ³Ö¾î¼­
-// Ãâ·ÂÇÏÀÚ.
+// ì„œë²„ë¡œë¶€í„° ìºë¦­í„° ë¦¬ìŠ¤íŠ¸ë¥¼ ë°›ì•˜ë‹¤. 
+// ì´ì œ ìºë¦­í„° ê´€ë¦¬ ì¸í„°íŽ˜ì´ìŠ¤ì˜ ì ì ˆí•œ ê³³ì— ì „ì†¡ë°›ì€ ê°’ì„ ì§‘ì–´ ë„£ì–´ì„œ
+// ì¶œë ¥í•˜ìž.
 //----------------------------------------------------------------------
 void LCServerListHandler::execute ( LCServerList * pPacket , Player * pPlayer )
 	 throw ( ProtocolException , Error )
@@ -31,7 +31,7 @@ void LCServerListHandler::execute ( LCServerList * pPacket , Player * pPlayer )
 
 
 	//-----------------------------------------------------------
-	// Server Information ÃÊ±âÈ­
+	// Server Information ì´ˆê¸°í™”
 	//-----------------------------------------------------------
 	if (g_pServerInformation==NULL)
 	{
@@ -45,7 +45,7 @@ void LCServerListHandler::execute ( LCServerList * pPacket , Player * pPlayer )
 	bool bExistDefault = false;
 
 	//-----------------------------------------------------------
-	// ServerÁ¤º¸ »ý¼º
+	// Serverì •ë³´ ìƒì„±
 	//-----------------------------------------------------------
 	int groupID = g_pServerInformation->GetServerGroupID();
 	ServerGroup* pServerGroup = g_pServerInformation->GetData( groupID );
@@ -72,7 +72,7 @@ void LCServerListHandler::execute ( LCServerList * pPacket , Player * pPlayer )
 				}
 
 				//--------------------------------------------------------------
-				// »õ·Î¿î ServerGroupÀÇ Á¤º¸ »ý¼º
+				// ìƒˆë¡œìš´ ServerGroupì˜ ì •ë³´ ìƒì„±
 				//--------------------------------------------------------------
 				SERVER_INFO* pNewServer = pServerGroup->GetData( pServerInfo->getGroupID() );
 				
@@ -82,7 +82,7 @@ void LCServerListHandler::execute ( LCServerList * pPacket , Player * pPlayer )
 					pServerGroup->AddData( pServerInfo->getGroupID(), pNewServer );
 				}
 
-				// GroupÀÇ Á¤º¸ ¼³Á¤
+				// Groupì˜ ì •ë³´ ì„¤ì •
 				pNewServer->ServerName = pServerInfo->getGroupName().c_str();
 				pNewServer->ServerStatus = (int)pServerInfo->getStat();
 			
@@ -94,7 +94,7 @@ void LCServerListHandler::execute ( LCServerList * pPacket , Player * pPlayer )
 			}	
 		}
 
-		// default ¼±ÅÃ		
+		// default ì„ íƒ		
 		if (currentID==0 || !bExistDefault)
 		{
 			g_pServerInformation->SetServerID( firstID );

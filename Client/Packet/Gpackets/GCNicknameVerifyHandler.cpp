@@ -38,27 +38,27 @@ void GCNicknameVerifyHandler::execute ( GCNicknameVerify * pPacket , Player * pP
 		case NICKNAME_MODIFY_OK:
 			if (g_pTempInformation->GetMode()==TempInformation::MODE_NICKNAME_CHANGE_CUSTOM)
 			{
-				// value1 = ÀÌ¸§, value2 = item type
+				// value1 = ì´ë¦„, value2 = item type
 				if(g_pTempInformation->Value2 != 0)
 				{ 
 					//UseItemOK();
 					switch(g_pTempInformation->Value2)
 					{
-					case 22: // ´Ğ³×ÀÓ ¼öÁ¤
+					case 22: // ë‹‰ë„¤ì„ ìˆ˜ì •
 						gC_vs_ui.Change_Custom_Naming(0, (char*)g_pTempInformation->Value1);
 						break;
-					case 23: // Æê ´Ğ³×ÀÓ ¼öÁ¤ - gc_modify nickname ¿¡¼­ ¼öÁ¤ µÇ°ÚÁö..
+					case 23: // í« ë‹‰ë„¤ì„ ìˆ˜ì • - gc_modify nickname ì—ì„œ ìˆ˜ì • ë˜ê² ì§€..
 						break;
-					case 24: // À¯Àú ´Ğ³×ÀÓ Ãß°¡ - ¼­¹ö¿¡¼­ ¸®½ºÆ®³¯¶ó¿À±â·Î ÇßÀ½
+					case 24: // ìœ ì € ë‹‰ë„¤ì„ ì¶”ê°€ - ì„œë²„ì—ì„œ ë¦¬ìŠ¤íŠ¸ë‚ ë¼ì˜¤ê¸°ë¡œ í–ˆìŒ
 						break;
-					case 25: // ´Ğ³×ÀÓ ¼öÁ¤ (½Ã°£Á¦)
+					case 25: // ë‹‰ë„¤ì„ ìˆ˜ì • (ì‹œê°„ì œ)
 						gC_vs_ui.Change_Custom_Naming(0, (char*)g_pTempInformation->Value1);
 						break;
 					}
 					
 				//	gC_vs_ui.SetChangeableNickName(false);
 				}
-				else // ¿ï¹ö¸° ³×ÀÓ °íÄ¡±â- gc_modify nickname ¿¡¼­ ¼öÁ¤ µÇ°ÚÁö..
+				else // ìš¸ë²„ë¦° ë„¤ì„ ê³ ì¹˜ê¸°- gc_modify nickname ì—ì„œ ìˆ˜ì • ë˜ê² ì§€..
 				{
 				//	gC_vs_ui.SetChangeablePetNickName(false);
 				}

@@ -44,25 +44,25 @@ ITEMOPTION_TABLE*		g_pItemOptionTable = NULL;
 //	"INT",
 //	"HP",
 //	"MP",
-//	"HPÈí¼ö",
-//	"MPÈí¼ö",
-//	"HPÀç»ı·Â",
-//	"MPÀç»ı·Â",
-//	"¸íÁß·ü",
-//	"µğÆæ½º",
-//	"µ¥¹ÌÁö",
-//	"ÇÁ·ÎÅØ¼Ç",
-//	"³»±¸¼º",
-//	"µ¶ ¸¶¹ıÀúÇ×·Â",
-//	"»ê ¸¶¹ıÀúÇ×·Â",
-//	"ÀúÁÖ ¸¶¹ıÀúÇ×·Â",
-//	"ºí·¯µå ¸¶¹ıÀúÇ×·Â",
-//	"½Ã¾ß",
-//	"°ø°İ¼Óµµ",
-//	"Å©¸®Æ¼ÄÃ È÷Æ®",
-//	"Çà¿î",
-//	"¸ğµç ÀúÇ×·Â",
-//	"¸ğµç ´É·ÂÄ¡",
+//	"HPí¡ìˆ˜",
+//	"MPí¡ìˆ˜",
+//	"HPì¬ìƒë ¥",
+//	"MPì¬ìƒë ¥",
+//	"ëª…ì¤‘ë¥ ",
+//	"ë””íœìŠ¤",
+//	"ë°ë¯¸ì§€",
+//	"í”„ë¡œí…ì…˜",
+//	"ë‚´êµ¬ì„±",
+//	"ë… ë§ˆë²•ì €í•­ë ¥",
+//	"ì‚° ë§ˆë²•ì €í•­ë ¥",
+//	"ì €ì£¼ ë§ˆë²•ì €í•­ë ¥",
+//	"ë¸”ëŸ¬ë“œ ë§ˆë²•ì €í•­ë ¥",
+//	"ì‹œì•¼",
+//	"ê³µê²©ì†ë„",
+//	"í¬ë¦¬í‹°ì»¬ íˆíŠ¸",
+//	"í–‰ìš´",
+//	"ëª¨ë“  ì €í•­ë ¥",
+//	"ëª¨ë“  ëŠ¥ë ¥ì¹˜",
 //};
 
 //--------------------------------------------------------------------------
@@ -95,12 +95,12 @@ ITEMOPTION_INFO::~ITEMOPTION_INFO()
 //	//sprintf(str, "E-%s", Name.GetString());
 //	//EName = str;
 //
-//	EName.SaveToFile(file);							// ItemOption ÀÌ¸§	
-//	Name.SaveToFile(file);							// ItemOption ÀÌ¸§
+//	EName.SaveToFile(file);							// ItemOption ì´ë¦„	
+//	Name.SaveToFile(file);							// ItemOption ì´ë¦„
 //	file.write((const char*)&Part, 4);				// ItemOption Part	
-//	file.write((const char*)&PlusPoint, 4);			// Áõ°¡Ä¡
-//	file.write((const char*)&PriceMultiplier, 4);				// °¡Ä¡
-//	//file.write((const char*)&PlusRequireAbility, 4);	// ÇÊ¿ä ´É·Â	
+//	file.write((const char*)&PlusPoint, 4);			// ì¦ê°€ì¹˜
+//	file.write((const char*)&PriceMultiplier, 4);				// ê°€ì¹˜
+//	//file.write((const char*)&PlusRequireAbility, 4);	// í•„ìš” ëŠ¥ë ¥	
 //	
 //
 //	file.write((const char*)&RequireSTR, 4);
@@ -109,7 +109,7 @@ ITEMOPTION_INFO::~ITEMOPTION_INFO()
 //	file.write((const char*)&RequireSUM, 4);
 //	file.write((const char*)&RequireLevel, 4);	
 //
-//	file.write((const char*)&ColorSet, 4);			// ColorSet¹øÈ£
+//	file.write((const char*)&ColorSet, 4);			// ColorSetë²ˆí˜¸
 //	file.write((const char*)&UpgradeOptionType, 4);
 //	file.write((const char*)&PreviousOptionType, 4);
 //}
@@ -120,12 +120,12 @@ ITEMOPTION_INFO::~ITEMOPTION_INFO()
 void			
 ITEMOPTION_INFO::LoadFromFile(class ifstream& file)
 {
-	EName.LoadFromFile(file);							// ItemOption ÀÌ¸§	
-	Name.LoadFromFile(file);							// ItemOption ÀÌ¸§
+	EName.LoadFromFile(file);							// ItemOption ì´ë¦„	
+	Name.LoadFromFile(file);							// ItemOption ì´ë¦„
 	file.read((char*)&Part, 4);				// ItemOption Part	
-	file.read((char*)&PlusPoint, 4);			// Áõ°¡Ä¡
-	file.read((char*)&PriceMultiplier, 4);				// °¡Ä¡
-	//file.read((char*)&PlusRequireAbility, 4);	// ÇÊ¿ä ´É·Â	
+	file.read((char*)&PlusPoint, 4);			// ì¦ê°€ì¹˜
+	file.read((char*)&PriceMultiplier, 4);				// ê°€ì¹˜
+	//file.read((char*)&PlusRequireAbility, 4);	// í•„ìš” ëŠ¥ë ¥	
 	
 	file.read((char*)&RequireSTR, 4);
 	file.read((char*)&RequireDEX, 4);
@@ -134,7 +134,7 @@ ITEMOPTION_INFO::LoadFromFile(class ifstream& file)
 	file.read((char*)&RequireLevel, 4);
 
 	
-	file.read((char*)&ColorSet, 4);			// ColorSet¹øÈ£
+	file.read((char*)&ColorSet, 4);			// ColorSetë²ˆí˜¸
 	file.read((char*)&UpgradeOptionType, 4);
 	file.read((char*)&PreviousOptionType, 4);
 }

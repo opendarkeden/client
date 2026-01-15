@@ -98,7 +98,7 @@ MParty::UnSetPlayerParty() const
 
 		if (pInfo!=NULL)
 		{
-			// party¼³Á¤À» ¾ø¾Ø´Ù.
+			// partyì„¤ì •ì„ ì—†ì•¤ë‹¤.
 			if (g_pZone!=NULL)
 			{
 				MCreature* pCreature = g_pZone->GetCreature( g_pZone->GetCreatureID( pInfo->Name.GetString(), 1 ) );
@@ -121,14 +121,14 @@ MParty::UnSetPlayerParty() const
 bool		
 MParty::AddMember(PARTY_INFO* pInfo)
 {
-	// °ªÀÌ Á¦´ë·Î ¼³Á¤ ¾ÈµÈ °æ¿ì
+	// ê°’ì´ ì œëŒ€ë¡œ ì„¤ì • ì•ˆëœ ê²½ìš°
 	if (pInfo==NULL
 		|| pInfo->Name.GetString()==NULL && pInfo->ID==OBJECTID_NULL)
 	{
 		return false;
 	}
 
-	// party ²Ë Ã¡´ç..
+	// party ê½‰ ì°¼ë‹¹..
 	if (GetSize() >= m_pInfo.capacity())
 	{
 		return false;
@@ -136,7 +136,7 @@ MParty::AddMember(PARTY_INFO* pInfo)
 
 	#ifdef __GAME_CLIENT__
 		
-		// ÀÌ¸§ÀÌ³ª ID°¡ °ªÀÌ ¼³Á¤ ¾ÈµÈ °æ¿ì.. °ª ³Ö¾îÁÖ±â
+		// ì´ë¦„ì´ë‚˜ IDê°€ ê°’ì´ ì„¤ì • ì•ˆëœ ê²½ìš°.. ê°’ ë„£ì–´ì£¼ê¸°
 		if (pInfo->Name.GetString()==NULL)
 		{		
 			MCreature* pCreature = g_pZone->GetCreature( pInfo->ID );

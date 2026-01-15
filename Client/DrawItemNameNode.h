@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // DrawItemNameNode.h
 //----------------------------------------------------------------------
-// È­¸é¿¡ StringÀ» Ãâ·ÂÇÏ±â À§ÇÑ Á¤º¸ÀÌ´Ù.
+// í™”ë©´ì— Stringì„ ì¶œë ¥í•˜ê¸° ìœ„í•œ ì •ë³´ì´ë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__DRAWITEMNAMENODE_H__
@@ -46,7 +46,7 @@ class DRAWITEMNAME_NODE {
 		}
 
 	protected :
-		DWORD			m_Distance;		// player¿ÍÀÇ °Å¸®
+		DWORD			m_Distance;		// playerì™€ì˜ ê±°ë¦¬
 		TYPE_OBJECTID	m_ID;			// Item ID
 		MItem*			m_pItem;		// item
 		RECT			m_Rect;

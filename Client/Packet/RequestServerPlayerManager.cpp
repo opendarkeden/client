@@ -53,7 +53,7 @@ RequestServerPlayerManager::~RequestServerPlayerManager()
 void
 RequestServerPlayerManager::Release()
 {
-	// thread Á¾·á
+	// thread ì¢…ë£Œ
 	TerminateThread(m_hRequestThread, 0);
 	CloseHandle( m_hRequestThread );
 	m_hRequestThread = NULL;
@@ -98,10 +98,10 @@ RequestServerPlayerManager::AddRequestServerPlayer(RequestServerPlayer* pRequest
 	{
 		Lock();
 
-		// ³Ñ ¸¹À» °æ¿ì´Â ´õ ÀÌ»ó ¿äÃ»À» ¾È ¹Şµµ·Ï ÇØ¾ßÇÑ´Ù.
+		// ë„˜ ë§ì„ ê²½ìš°ëŠ” ë” ì´ìƒ ìš”ì²­ì„ ì•ˆ ë°›ë„ë¡ í•´ì•¼í•œë‹¤.
 		if (m_listRequestServerPlayer.size() < g_pClientConfig->MAX_REQUEST_SERVICE)
 		{
-			// ÀÏ´Ü list¿¡ ³Ö¾îµĞ´Ù.
+			// ì¼ë‹¨ listì— ë„£ì–´ë‘”ë‹¤.
 			m_listRequestServerPlayer.push_back( pRequestServerPlayer );
 
 			#if defined(_DEBUG) && defined(OUTPUT_DEBUG)
@@ -163,7 +163,7 @@ RequestServerPlayerManager::Disconnect(const char* pName)
 	{
 		RequestServerPlayer* pPlayer = *iPlayer;
 
-		// °°Àº ÀÌ¸§ÀÇ playerÀÇ Á¢¼ÓÀ» ÇØÁ¦½ÃÅ²´Ù.
+		// ê°™ì€ ì´ë¦„ì˜ playerì˜ ì ‘ì†ì„ í•´ì œì‹œí‚¨ë‹¤.
 		if (pPlayer->getName()==pName)
 		{
 			pPlayer->disconnect(UNDISCONNECTED);
@@ -190,7 +190,7 @@ RequestServerPlayerManager::Broadcast(Packet* pPacket)
 {
 	Lock();
 
-	// ³ª¿¡°Ô Á¢¼ÓÇÑ ¸ğµç playerµé¿¡°Ô packetÀ» Àü¼ÛÇÑ´Ù.
+	// ë‚˜ì—ê²Œ ì ‘ì†í•œ ëª¨ë“  playerë“¤ì—ê²Œ packetì„ ì „ì†¡í•œë‹¤.
 	RequestServerPlayer_LIST::iterator iPlayer = m_listRequestServerPlayer.begin();
 		
 	while (iPlayer != m_listRequestServerPlayer.end())
@@ -216,7 +216,7 @@ RequestServerPlayerManager::ProcessMode(RequestServerPlayer* pPlayer)
 	switch (pPlayer->getRequestMode())
 	{		
 		//------------------------------------------------------
-		// Áö¼ÓÀûÀ¸·Î ÁÂÇ¥¸¦ º¸³»´Â °æ¿ì
+		// ì§€ì†ì ìœ¼ë¡œ ì¢Œí‘œë¥¼ ë³´ë‚´ëŠ” ê²½ìš°
 		//------------------------------------------------------		
 		case REQUEST_CLIENT_MODE_POSITION_REPEATLY :
 		{
@@ -233,7 +233,7 @@ RequestServerPlayerManager::ProcessMode(RequestServerPlayer* pPlayer)
 				int y		= g_pPlayer->GetY();
 				int zoneID	= (g_bZonePlayerInLarge?g_nZoneLarge : g_nZoneSmall);
 
-				// ÁÂÇ¥°¡ ´Ş¶óÁ³À¸¸é º¸³½´Ù.
+				// ì¢Œí‘œê°€ ë‹¬ë¼ì¡Œìœ¼ë©´ ë³´ë‚¸ë‹¤.
 				if (oldX!=x || oldY!=y || oldZoneID!=zoneID
 					|| g_CurrentTime >= sendTime)
 				{
@@ -245,15 +245,15 @@ RequestServerPlayerManager::ProcessMode(RequestServerPlayer* pPlayer)
 
 					pPlayer->sendPacket( &_RCPositionInfo );
 
-					// º¸³½ Á¤º¸ ±â¾ï
+					// ë³´ë‚¸ ì •ë³´ ê¸°ì–µ
 					oldX = x;
 					oldY = y;
 					oldZoneID = zoneID;
 
-					sendTime = g_CurrentTime + 30000;	// 30*1000;  // 30ÃÊ
+					sendTime = g_CurrentTime + 30000;	// 30*1000;  // 30ì´ˆ
 				}
 
-				// 1ÃÊ¿¡ ÇÑ¹ø °»½Å
+				// 1ì´ˆì— í•œë²ˆ ê°±ì‹ 
 				nextTime = g_CurrentTime + 1000;				
 			}
 		}
@@ -299,20 +299,20 @@ RequestServerPlayerManager::Update()
 
 			} catch (NonBlockingIOException& t) {
 
-				// ¹«½Ã..
+				// ë¬´ì‹œ..
 				DEBUG_ADD_ERR( t.toString().c_str() );
 
 			} catch (Throwable &t) 	{
 				
 				DEBUG_ADD_ERR( t.toString().c_str() );
 
-				// ³»°¡ ¿äÃ»ÇÏ°í ÀÖ´Â°Íµµ Â¥¸¥´Ù.
+				// ë‚´ê°€ ìš”ì²­í•˜ê³  ìˆëŠ”ê²ƒë„ ì§œë¥¸ë‹¤.
 				//if (g_pRequestClientPlayerManager!=NULL)
 				{
 				//	g_pRequestClientPlayerManager->Disconnect( pPlayer->getName().c_str() );
 				}
 
-				// exceptionÀÌ ³ª¸é ¹«Á¶°Ç Àß¶ó¹ö¸°´Ù. --;
+				// exceptionì´ ë‚˜ë©´ ë¬´ì¡°ê±´ ì˜ë¼ë²„ë¦°ë‹¤. --;
 				pPlayer->disconnect(UNDISCONNECTED);
 				delete pPlayer;
 
@@ -347,7 +347,7 @@ RequestServerPlayerManager::Init(int port)
 
 	m_pServerSocket = new ServerSocket( port );
 
-	DWORD dwChildThreadID;	// ÀÇ¹Ì ¾ø´ç -- ;
+	DWORD dwChildThreadID;	// ì˜ë¯¸ ì—†ë‹¹ -- ;
 
 	m_hRequestThread = CreateThread(NULL, 
 								0,	// default stack size
@@ -356,7 +356,7 @@ RequestServerPlayerManager::Init(int port)
 								NULL,
 								&dwChildThreadID);
 
-	// priority´Â ³·°Ô
+	// priorityëŠ” ë‚®ê²Œ
 	SetThreadPriority(m_hRequestThread, THREAD_PRIORITY_LOWEST);
 }
 
@@ -368,7 +368,7 @@ RequestServerPlayerManager::WaitRequest()
 {
 	Socket* pSocket = m_pServerSocket->accept();
 
-	// request¿¡ µî·Ï
+	// requestì— ë“±ë¡
 	RequestServerPlayer* pRequestServerPlayer = new RequestServerPlayer( pSocket );
 
 	pRequestServerPlayer->setPlayerStatus( CPS_REQUEST_SERVER_BEGIN_SESSION );
@@ -379,7 +379,7 @@ RequestServerPlayerManager::WaitRequest()
 	
 	if (AddRequestServerPlayer( pRequestServerPlayer ))
 	{
-		// g_pDebugMessage¿¡ lock°É¾î¾ß ÇÑ´Ù. - -;
+		// g_pDebugMessageì— lockê±¸ì–´ì•¼ í•œë‹¤. - -;
 		//DEBUG_ADD_FORMAT("[Request] New Connection from %s:%d", pSocket->getHost().c_str(), pSocket->getPort());
 	}
 

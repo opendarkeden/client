@@ -39,15 +39,15 @@ MScreenEffectManager::Update()
 			const MItem* pItem = g_pInventory->GetItem( invenX, invenY );
 			
 			//---------------------------------------------------------------
-			// ¾ÆÀÌÅÛÀÌ ÀÖÀ¸¸é Å©±â¿¡ µû¶ó¼­ ÀÌÆåÆ®°¡ ¹Ù²ï´Ù.
+			// ì•„ì´í…œì´ ìˆìœ¼ë©´ í¬ê¸°ì— ë”°ë¼ì„œ ì´í™íŠ¸ê°€ ë°”ë€ë‹¤.
 			//---------------------------------------------------------------
 			if (pItem!=NULL)
 			{
-				grid_plus.x = (pItem->GetGridWidth()-1)*30/2;	// Çä¤»¤»¤» ÇÏµåÄÚµù
-				grid_plus.y = (pItem->GetGridHeight()-1)*30/2;	// Çä¤»¤»¤» ÇÏµåÄÚµù
+				grid_plus.x = (pItem->GetGridWidth()-1)*30/2;	// í—‰ã…‹ã…‹ã…‹ í•˜ë“œì½”ë”©
+				grid_plus.y = (pItem->GetGridHeight()-1)*30/2;	// í—‰ã…‹ã…‹ã…‹ í•˜ë“œì½”ë”©
 			}
 			//---------------------------------------
-			// ÇöÀç ÁÂÇ¥¿¡ ¸Â°Ô ¼³Á¤
+			// í˜„ì¬ ì¢Œí‘œì— ë§ê²Œ ì„¤ì •
 			//---------------------------------------
 			point = UI_GetInventoryGridPosition( invenX, invenY );
 			pScreenEffect->SetScreenPosition(point.x, point.y);			
@@ -55,7 +55,7 @@ MScreenEffectManager::Update()
 */
 		//---------------------------------------
 		//
-		// update --> Á¤»óÀûÀ¸·Î µÈ °æ¿ì
+		// update --> ì •ìƒì ìœ¼ë¡œ ëœ ê²½ìš°
 		//
 		//---------------------------------------
 		if (pEffect->Update())
@@ -65,26 +65,26 @@ MScreenEffectManager::Update()
 
 			//-----------------------------------------------
 			//
-			// ÀÌ Effect°¡ ³¡³ª±â Àü¿¡ LinkCount¿¡ ÀÇÇØ¼­
-			// ´ÙÀ½ ¿¬°áµÇ´Â Effect°¡ ÀÖÀ¸¸é »ı¼ºÇØ¾ß ÇÑ´Ù.
+			// ì´ Effectê°€ ëë‚˜ê¸° ì „ì— LinkCountì— ì˜í•´ì„œ
+			// ë‹¤ìŒ ì—°ê²°ë˜ëŠ” Effectê°€ ìˆìœ¼ë©´ ìƒì„±í•´ì•¼ í•œë‹¤.
 			//
-			// ÇöÀçFrameÀÌ EndLinkFrameÀ» ³Ñ¾î°£ °æ¿ì
+			// í˜„ì¬Frameì´ EndLinkFrameì„ ë„˜ì–´ê°„ ê²½ìš°
 			//
 			//-----------------------------------------------
 			if (g_CurrentFrame >= pEffect->GetEndLinkFrame()
 				&& pEffect->GetLinkSize() != 0)
 			{
-				// GenerateNext¿¡¼­ 
-				// pEffectÀÇ EffectTargetÀ» NULL·Î ¸¸µé¾îÁÖ±â ¶§¹®¿¡
-				// ¿©±â¼­ Áö¿ï ÇÊ¿ä ¾ø´Ù.
+				// GenerateNextì—ì„œ 
+				// pEffectì˜ EffectTargetì„ NULLë¡œ ë§Œë“¤ì–´ì£¼ê¸° ë•Œë¬¸ì—
+				// ì—¬ê¸°ì„œ ì§€ìš¸ í•„ìš” ì—†ë‹¤.
 				(*g_pEffectGeneratorTable).GenerateNext( pEffect );
 
-				// pEffect´Â ¿©ÀüÈ÷ Á¸ÀçÇØ¾ß ÇÏ¹Ç·Î Áö¿ì¸é ¾ÈµÈ´Ù.
+				// pEffectëŠ” ì—¬ì „íˆ ì¡´ì¬í•´ì•¼ í•˜ë¯€ë¡œ ì§€ìš°ë©´ ì•ˆëœë‹¤.
 			}			
 		}
 		//---------------------------------------
 		//
-		// ´Ù µÅ¼­ ³¡³­ °æ¿ì
+		// ë‹¤ ë¼ì„œ ëë‚œ ê²½ìš°
 		//
 		//---------------------------------------
 		else
@@ -93,7 +93,7 @@ MScreenEffectManager::Update()
 			iEffect++;
 			
 			//-----------------------------------------------
-			// ´ÙÀ½ ¿¬°áµÇ´Â Effect°¡ ÀÖÀ¸¸é »ı¼ºÇØ¾ß ÇÑ´Ù.
+			// ë‹¤ìŒ ì—°ê²°ë˜ëŠ” Effectê°€ ìˆìœ¼ë©´ ìƒì„±í•´ì•¼ í•œë‹¤.
 			//-----------------------------------------------
 			if (pEffect->GetLinkSize() != 0)
 			{
@@ -102,7 +102,7 @@ MScreenEffectManager::Update()
 /*			else if(pEffect->GetEffectTarget() != NULL && pEffect->GetEffectTarget()->IsEnd())
 			{
 				//------------------------------------------------------------
-				// pEffectÀÇ Á¤º¸¸¦ Âü°íÇØ¼­ GenerateÇÑ´Ù.
+				// pEffectì˜ ì •ë³´ë¥¼ ì°¸ê³ í•´ì„œ Generateí•œë‹¤.
 				//------------------------------------------------------------
 				MEffectTarget* pEffectTarget = pEffect->GetEffectTarget();
 				
@@ -116,21 +116,21 @@ MScreenEffectManager::Update()
 					DEBUG_ADD("Execute Result0");
 #endif
 					
-					// °á°ú ½ÇÇà
+					// ê²°ê³¼ ì‹¤í–‰
 					pResult->Execute();
 					
-					// ¸Ş¸ğ¸® Á¦°Å
+					// ë©”ëª¨ë¦¬ ì œê±°
 					delete pResult;			
 				}
 				
 			}
 */
 			//-----------------------------------------------
-			// Á¦°Å
+			// ì œê±°
 			//-----------------------------------------------
 			delete pEffect;
 
-			// list¿¡¼­ Á¦°ÅÇÑ´Ù.
+			// listì—ì„œ ì œê±°í•œë‹¤.
 			m_listEffect.erase(iTemp);
 		}
 	

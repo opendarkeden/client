@@ -17,7 +17,7 @@ void GCOtherModifyInfoHandler::execute ( GCOtherModifyInfo * pPacket , Player * 
 	__BEGIN_TRY
 		
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -26,7 +26,7 @@ void GCOtherModifyInfoHandler::execute ( GCOtherModifyInfo * pPacket , Player * 
 		
 	}	
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{

@@ -105,7 +105,7 @@
 //	DEBUG_ADD("[CMP3] MP3_CreateDSBuffer");
 //	mp3Buf= MP3_CreateDSBuffer(mp3) ;
 //	DEBUG_ADD("[CMP3] MP3_CreateDSBuffer OK");
-////	if ( mp3Buf == NULL ) DispDebugMsg("MP3 Direct Sound Buffer »ı¼º¿¡ ½ÇÆĞÇß½À´Ï´Ù." ) ;
+////	if ( mp3Buf == NULL ) DispDebugMsg("MP3 Direct Sound Buffer ìƒì„±ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤." ) ;
 ////	mp3 = NULL ;
 ////	SendMessage(BaseWnd, UM_MP3LOADED, 0, 0) ;
 //	if(mp3Buf == NULL)
@@ -121,7 +121,7 @@
 //
 //	if(m_status == STATUS_PLAYING)
 //	{
-//		// ·Îµù ³¡³ª¸é ¹«Á¶°Ç play
+//		// ë¡œë”© ëë‚˜ë©´ ë¬´ì¡°ê±´ play
 //		g_pMP3->Play(false);
 //	}
 //	ExitThread(0) ;
@@ -129,10 +129,10 @@
 //}
 //
 //
-//// DSBUFFER¿¡ ³õÀÎ MP3 À½¾ÇÀ» Àç»ıÇÑ´Ù. ³¡³ª¸é ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+//// DSBUFFERì— ë†“ì¸ MP3 ìŒì•…ì„ ì¬ìƒí•œë‹¤. ëë‚˜ë©´ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //DWORD WINAPI CMP3::PlayMP3Buf (LPVOID param)
 //{
-////	DispDebugMsg("ÇöÀç ·ÎµåµÈ MP3ÆÄÀÏÀ» ¿¬ÁÖÇÕ´Ï´Ù.") ;
+////	DispDebugMsg("í˜„ì¬ ë¡œë“œëœ MP3íŒŒì¼ì„ ì—°ì£¼í•©ë‹ˆë‹¤.") ;
 //	DEBUG_ADD("[CMP3] PlayMP3Buf");
 ////	while(mp3Buf == NULL)
 ////	{
@@ -176,7 +176,7 @@
 ////	mp3Buf = NULL ;
 //
 ////	SendMessage(BaseWnd, UM_MP3PLAYEND, 0, 0) ;
-////	DispDebugMsg("MP3¿¬ÁÖ°¡ ³¡³ª¼­ ¸Ş½ÃÁö¸¦ º¸³À´Ï´Ù.") ;
+////	DispDebugMsg("MP3ì—°ì£¼ê°€ ëë‚˜ì„œ ë©”ì‹œì§€ë¥¼ ë³´ëƒ…ë‹ˆë‹¤.") ;
 //	m_status = STATUS_NULL;
 ////	m_szFilename = "";
 //
@@ -225,13 +225,13 @@
 //	DEBUG_ADD("[CMP3] Open");
 //	if ( mp3Buf != NULL )
 //	{
-////		DispDebugMsg("MP3 ÆÄÀÏ %sÀ» ·ÎµåÇÏ·Á ÇÒ ¶§ mp3Buf°¡ NULL°ªÀÌ ¾Æ´Õ´Ï´Ù.", filename ) ;
+////		DispDebugMsg("MP3 íŒŒì¼ %sì„ ë¡œë“œí•˜ë ¤ í•  ë•Œ mp3Bufê°€ NULLê°’ì´ ì•„ë‹™ë‹ˆë‹¤.", filename ) ;
 //		return -1 ;
 ////		Release();
 //	}
 //	else
 //	{
-////		DispDebugMsg("MP3 ÆÄÀÏ %sÀ» ·ÎµåÇÕ´Ï´Ù.", filename ) ;
+////		DispDebugMsg("MP3 íŒŒì¼ %sì„ ë¡œë“œí•©ë‹ˆë‹¤.", filename ) ;
 //		DWORD threadID ;
 //
 //		g_hLoadThread = CreateThread ( NULL, 0, PrepareMP3Buf, (void *)filename, 0, &threadID) ;
@@ -262,7 +262,7 @@
 //		g_DXSound.SetVolumeLimit( volume );
 //		g_DXSound.AddVolume( mp3Buf, 0 );
 //		
-//		// ¿ø·¡ÀÇ max volumeÀ¸·Î µ¹¸°´Ù.
+//		// ì›ë˜ì˜ max volumeìœ¼ë¡œ ëŒë¦°ë‹¤.
 //		g_DXSound.SetVolumeLimit( maxVolume );
 //		mp3Buf->SetVolume(volume);
 //	}
@@ -330,7 +330,7 @@ DWORD CMP3::Open(LPCSTR lpcszFileName)
 	
 
 
-	// ÀåÄ¡¿ÀÇÂ
+	// ì¥ì¹˜ì˜¤í”ˆ
 	mciOpenParms.lpstrDeviceType = "MPEGVideo";
 	mciOpenParms.lpstrElementName = lpcszFileName;
 
@@ -339,7 +339,7 @@ DWORD CMP3::Open(LPCSTR lpcszFileName)
 							  MCI_OPEN_ELEMENT|MCI_OPEN_TYPE,
 							  (DWORD)(LPVOID)&mciOpenParms);
 
-	// Á¤»óÀûÀ¸·Î ¿ÀÇÂµÇ¾úÀ¸¸é ID ¹ß±Ş
+	// ì •ìƒì ìœ¼ë¡œ ì˜¤í”ˆë˜ì—ˆìœ¼ë©´ ID ë°œê¸‰
 	if (dwResult == 0) {
 
 		muiDeviceID = mciOpenParms.wDeviceID;
@@ -437,7 +437,7 @@ void CMP3::SetPosition(DWORD dwPos)
 }
 
 
-// ÀüÃ¼ ±æÀÌ¸¦ ¹Ğ¸®ÃÊ´ÜÀ§·Î ¹İÈ¯
+// ì „ì²´ ê¸¸ì´ë¥¼ ë°€ë¦¬ì´ˆë‹¨ìœ„ë¡œ ë°˜í™˜
 DWORD CMP3::TotalLength()
 {
   DWORD dwResult;
@@ -447,7 +447,7 @@ DWORD CMP3::TotalLength()
 }
 
 
-// ÀüÃ¼ ±æÀÌ¸¦ mm:ss Çü½ÄÀÇ ¹®ÀÚ¿­°ú ÇÔ²² ¹Ğ¸®ÃÊ´ÜÀ§·Î ¹İÈ¯
+// ì „ì²´ ê¸¸ì´ë¥¼ mm:ss í˜•ì‹ì˜ ë¬¸ìì—´ê³¼ í•¨ê»˜ ë°€ë¦¬ì´ˆë‹¨ìœ„ë¡œ ë°˜í™˜
 DWORD CMP3::TotalLength(LPSTR lpszReturn)
 {
   DWORD dwResult;
@@ -458,7 +458,7 @@ DWORD CMP3::TotalLength(LPSTR lpszReturn)
 }
 
 	
-// Àç»ı À§Ä¡¸¦ ¹Ğ¸®ÃÊ´ÜÀ§·Î ¹İÈ¯
+// ì¬ìƒ ìœ„ì¹˜ë¥¼ ë°€ë¦¬ì´ˆë‹¨ìœ„ë¡œ ë°˜í™˜
 DWORD CMP3::CurrentLength()
 {
   DWORD dwResult;
@@ -468,7 +468,7 @@ DWORD CMP3::CurrentLength()
 }
 
 
-// Àç»ı À§Ä¡¸¦ mm:ss Çü½ÄÀÇ ¹®ÀÚ¿­°ú ÇÔ²² ¹Ğ¸®ÃÊ´ÜÀ§·Î ¹İÈ¯
+// ì¬ìƒ ìœ„ì¹˜ë¥¼ mm:ss í˜•ì‹ì˜ ë¬¸ìì—´ê³¼ í•¨ê»˜ ë°€ë¦¬ì´ˆë‹¨ìœ„ë¡œ ë°˜í™˜
 DWORD CMP3::CurrentLength(LPSTR lpszReturn)
 {
   DWORD dwResult;
@@ -479,7 +479,7 @@ DWORD CMP3::CurrentLength(LPSTR lpszReturn)
 }
 
 
-// Àü´Ş¹ŞÀº Flag¿¡ µû¸¥ PlayerÀÇ »óÅÂ °ªÀ» ¹İÈ¯
+// ì „ë‹¬ë°›ì€ Flagì— ë”°ë¥¸ Playerì˜ ìƒíƒœ ê°’ì„ ë°˜í™˜
 DWORD CMP3::GetStatus(DWORD dwFlag)
 {
   MCI_STATUS_PARMS mciStatusParms;
@@ -492,7 +492,7 @@ DWORD CMP3::GetStatus(DWORD dwFlag)
 }
 
 
-// Àü´Ş ¹ŞÀº ¹Ğ¸®ÃÊ¸¦ mm:ss Çü½ÄÀÇ ¹®ÀÚ¿­·Î º¯È¯ÇØ¼­ ¹İÈ¯
+// ì „ë‹¬ ë°›ì€ ë°€ë¦¬ì´ˆë¥¼ mm:ss í˜•ì‹ì˜ ë¬¸ìì—´ë¡œ ë³€í™˜í•´ì„œ ë°˜í™˜
 void CMP3::MinsFromSecs(DWORD dwLength, LPSTR lpszReturn)
 {
   double dMilliSeconds;
@@ -508,7 +508,7 @@ void CMP3::MinsFromSecs(DWORD dwLength, LPSTR lpszReturn)
 }
 
 
-// Àü´Ş ¹ŞÀº ÄÚµå¿¡ ÇØ´çÇÏ´Â ¿¡·¯ ¸Ş½ÃÁö¸¦ ¹İÈ¯
+// ì „ë‹¬ ë°›ì€ ì½”ë“œì— í•´ë‹¹í•˜ëŠ” ì—ëŸ¬ ë©”ì‹œì§€ë¥¼ ë°˜í™˜
 void CMP3::GetErrorString(DWORD dwErrCode, LPSTR lpszErrString)
 {
 	mciGetErrorString(dwErrCode, lpszErrString, sizeof(lpszErrString));
@@ -516,7 +516,7 @@ void CMP3::GetErrorString(DWORD dwErrCode, LPSTR lpszErrString)
 }
 
 
-// ÁØºñ°¡ µÇ¾úÀ¸¸é true
+// ì¤€ë¹„ê°€ ë˜ì—ˆìœ¼ë©´ true
 bool CMP3::IsReady()
 {
   bool bReturn;
@@ -527,7 +527,7 @@ bool CMP3::IsReady()
 }
 
 
-// ÀÏ½ÃÁ¤Áö »óÅÂÀÌ¸é true
+// ì¼ì‹œì •ì§€ ìƒíƒœì´ë©´ true
 bool CMP3::IsPause()
 {
   bool bReturn;
@@ -537,7 +537,7 @@ bool CMP3::IsPause()
 	return bReturn;
 }
 
-// ÇÃ·¹ÀÌ »óÅÂÀÌ¸é true
+// í”Œë ˆì´ ìƒíƒœì´ë©´ true
 bool CMP3::IsPlay()
 {
   bool bReturn;
@@ -547,7 +547,7 @@ bool CMP3::IsPlay()
 	return bReturn;
 }
 
-// Á¤Áö »óÅÂÀÌ¸é true
+// ì •ì§€ ìƒíƒœì´ë©´ true
 bool CMP3::IsStop()
 {
   bool bReturn;
@@ -558,7 +558,7 @@ bool CMP3::IsStop()
 }
 
 
-// ·¹ÄÚµù »óÅÂÀÌ¸é true
+// ë ˆì½”ë”© ìƒíƒœì´ë©´ true
 bool CMP3::IsRecord()
 {
   bool bReturn;
@@ -568,7 +568,7 @@ bool CMP3::IsRecord()
 	return bReturn;
 }
 
-/* PlayerÀÇ ÁøÇà »óÅÂ¸¦ ¹İÈ¯
+/* Playerì˜ ì§„í–‰ ìƒíƒœë¥¼ ë°˜í™˜
 		MCI_MODE_NOT_READY
 		MCI_MODE_PAUSE
 		MCI_MODE_PLAY

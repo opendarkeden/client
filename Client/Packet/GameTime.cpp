@@ -2,7 +2,7 @@
 //
 // Filename    : GameTime.cpp
 // Written By  : Reiot
-// Description : °ÔÀÓ ³»¿¡¼­ÀÇ ½Ã°£À» ³ªÅ¸³¿
+// Description : ê²Œì„ ë‚´ì—ì„œì˜ ì‹œê°„ì„ ë‚˜íƒ€ëƒ„
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -53,6 +53,6 @@ std::string GameTime::toString () const
 	throw () 
 {
 	StringStream msg;
-	msg << (int)m_Year << "³â " << (int)m_Month << "¿ù " << (int)m_Day << "ÀÏ " << (int)m_Hour << "½Ã " << (int)m_Minute << "ºĞ " << (int)m_Second << "ÃÊ";
+	msg << (int)m_Year << "ë…„ " << (int)m_Month << "ì›” " << (int)m_Day << "ì¼ " << (int)m_Hour << "ì‹œ " << (int)m_Minute << "ë¶„ " << (int)m_Second << "ì´ˆ";
 	return msg.toString();
 }

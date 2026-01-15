@@ -9,20 +9,20 @@
 // Update Utility Functions
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-// Permission Ã¼Å© - ´Ù¸¥ directory¿¡´Â Á¢±ÙÀ» ¸øÇÏµµ·Ï
+// Permission ì²´í¬ - ë‹¤ë¥¸ directoryì—ëŠ” ì ‘ê·¼ì„ ëª»í•˜ë„ë¡
 //----------------------------------------------------------------------
 bool		UUFHasPermission(const char* filename);
 
 
 //----------------------------------------------------------------------
-// Directory »ı¼º/»èÁ¦
+// Directory ìƒì„±/ì‚­ì œ
 //----------------------------------------------------------------------
 bool		UUFCreateDirectory(const char* dirName);
 bool		UUFDeleteDirectory(const char* dirName);
 
 
 //----------------------------------------------------------------------
-// File		Copy / Move / Delete / Rename(Directoryµµ °¡´É)
+// File		Copy / Move / Delete / Rename(Directoryë„ ê°€ëŠ¥)
 //----------------------------------------------------------------------
 bool		UUFCopyFile(const char* FilenameSource, const char* FilenameTarget);
 bool		UUFMoveFile(const char* FilenameSource, const char* FilenameTarget);
@@ -34,7 +34,7 @@ bool		UUFRenameFile(const char* FilenameSource, const char* FilenameTarget);
 //----------------------------------------------------------------------
 // Append Pack (with Index)
 //----------------------------------------------------------------------
-// IndexFileµéÀÌ NULLÀÌ¸é Index´Â Ãß°¡ÇÏÁö ¾Ê´Â´Ù.
+// IndexFileë“¤ì´ NULLì´ë©´ IndexëŠ” ì¶”ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
 //----------------------------------------------------------------------
 bool		UUFAppendPack(const char* FilenameAdd, const char* FilenameOriginal,
 						const char* FilenameIndexAdd=0, const char* FilenameIndexOriginal=0);
@@ -42,14 +42,14 @@ bool		UUFAppendPack(const char* FilenameAdd, const char* FilenameOriginal,
 //----------------------------------------------------------------------
 // Delete SpritePack
 //----------------------------------------------------------------------
-// SpritePack¿¡¼­ Æ¯Á¤ÇÑ SpriteµéÀ» »èÁ¦ÇÑ´Ù.
+// SpritePackì—ì„œ íŠ¹ì •í•œ Spriteë“¤ì„ ì‚­ì œí•œë‹¤.
 //----------------------------------------------------------------------
 //bool		UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal);
 
 //----------------------------------------------------------------------
 // Update SpritePack
 //----------------------------------------------------------------------
-// SpritePack¿¡¼­ Æ¯Á¤ÇÑ spriteµé¸¸ ±³Ã¼ÇÑ´Ù.
+// SpritePackì—ì„œ íŠ¹ì •í•œ spriteë“¤ë§Œ êµì²´í•œë‹¤.
 //----------------------------------------------------------------------
 //bool		UUFUpdateSpritePack(const char* FilenameNew, 
 //								const char* FilenameID, 
@@ -63,7 +63,7 @@ bool		UUFAppendInfo(const char* FilenameAdd, const char* FilenameOriginal);
 //----------------------------------------------------------------------
 // Make SpritePack Index
 //----------------------------------------------------------------------
-// SpritePackÀ» loadÇØ¼­ index¸¦ »ı¼ºÇÑ´Ù.
+// SpritePackì„ loadí•´ì„œ indexë¥¼ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 //bool		UUFMakeSpritePackIndex(const char* Filename);
 

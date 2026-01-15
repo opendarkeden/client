@@ -139,7 +139,7 @@ void SocketAPI::bind_ex ( SOCKET s , const struct sockaddr * addr , uint addrlen
 #if __LINUX__
 		switch ( errno ) {
 		case EADDRINUSE :
-			throw BindException("The address is already in use. kill another server or use another port. ¼ÒÄÏÀÇ ÁÖ¼Ò È¤Àº Æ÷Æ®°¡ ÀÌ¹Ì »ç¿ëÁßÀÔ´Ï´Ù. ±âÁ¸ÀÇ ¼­¹ö ¼ÒÄÏÀ» Á¾·áÇÏ°Å³ª, ´Ù¸¥ Æ÷Æ®¸¦ »ç¿ëÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+			throw BindException("The address is already in use. kill another server or use another port. ì†Œì¼“ì˜ ì£¼ì†Œ í˜¹ì€ í¬íŠ¸ê°€ ì´ë¯¸ ì‚¬ìš©ì¤‘ì…ë‹ˆë‹¤. ê¸°ì¡´ì˜ ì„œë²„ ì†Œì¼“ì„ ì¢…ë£Œí•˜ê±°ë‚˜, ë‹¤ë¥¸ í¬íŠ¸ë¥¼ ì‚¬ìš©í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.");
 		case EINVAL : 
 			throw BindException("The socket is already bound to an address , or the addr_len was wrong, or the socket was not in the AF_UNIX family.");
 		case EACCES : 
@@ -286,7 +286,7 @@ void SocketAPI::connect_ex ( SOCKET s , const struct sockaddr * addr , uint addr
 		case WSAETIMEDOUT : 
 			throw ConnectException("Attempt to connect timed out without establishing a connection.");
 		case WSAEWOULDBLOCK  : 
-			// ¿ÜºÎ¿¡¼­ ÀÌ°Ô catch°¡ ¾ÈµÇ´Â °æ¿ì°¡ ÀÖ°í º° ÀÇ¹Ì ¾ø¾î¼­..  
+			// ì™¸ë¶€ì—ì„œ ì´ê²Œ catchê°€ ì•ˆë˜ëŠ” ê²½ìš°ê°€ ìˆê³  ë³„ ì˜ë¯¸ ì—†ì–´ì„œ..  
 			// 2002.3.15
 			//throw NonBlockingIOException("The socket is marked as nonblocking and the connection cannot be completed immediately.");
 			throw ConnectException("WSAEWOULDBLOCK");
@@ -644,7 +644,7 @@ uint SocketAPI::send_ex ( SOCKET s , const void * buf , uint len , uint flags )
 		case ECONNRESET :
 			throw ConnectException("connection reset by peer.");
 		case EPIPE :
-			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. »ó´ë È£½ºÆ®°¡ ¼Ë´Ù¿îµÇ¾ú°Å³ª ¿¬°áÀÌ ºÒ°¡´ÉÇÏ°Ô µÇ¾î ¼ÒÄÏ¿¬°áÀÌ ÆÄ±«µÇ¾ú½À´Ï´Ù.");
+			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. ìƒëŒ€ í˜¸ìŠ¤íŠ¸ê°€ ì…§ë‹¤ìš´ë˜ì—ˆê±°ë‚˜ ì—°ê²°ì´ ë¶ˆê°€ëŠ¥í•˜ê²Œ ë˜ì–´ ì†Œì¼“ì—°ê²°ì´ íŒŒê´´ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		default : 
 			throw UnknownError(strerror(errno),errno);
 		}//end of switch
@@ -733,7 +733,7 @@ uint SocketAPI::sendto_ex ( SOCKET s , const void * buf , int len , unsigned int
 		case ECONNRESET :
 			throw ConnectException("connection reset by peer.");
 		case EPIPE :
-			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. »ó´ë È£½ºÆ®°¡ ¼Ë´Ù¿îµÇ¾ú°Å³ª ¿¬°áÀÌ ºÒ°¡´ÉÇÏ°Ô µÇ¾î ¼ÒÄÏ¿¬°áÀÌ ÆÄ±«µÇ¾ú½À´Ï´Ù.");
+			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. ìƒëŒ€ í˜¸ìŠ¤íŠ¸ê°€ ì…§ë‹¤ìš´ë˜ì—ˆê±°ë‚˜ ì—°ê²°ì´ ë¶ˆê°€ëŠ¥í•˜ê²Œ ë˜ì–´ ì†Œì¼“ì—°ê²°ì´ íŒŒê´´ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		default : 
 			throw UnknownError(strerror(errno),errno);
 		}	
@@ -800,7 +800,7 @@ uint SocketAPI::recv_ex ( SOCKET s , void * buf , uint len , uint flags )
 		case ECONNRESET :
 			throw ConnectException("connection reset by peer.");
 		case EPIPE :
-			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. »ó´ë È£½ºÆ®°¡ ¼Ë´Ù¿îµÇ¾ú°Å³ª ¿¬°áÀÌ ºÒ°¡´ÉÇÏ°Ô µÇ¾î ¼ÒÄÏ¿¬°áÀÌ ÆÄ±«µÇ¾ú½À´Ï´Ù.");
+			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. ìƒëŒ€ í˜¸ìŠ¤íŠ¸ê°€ ì…§ë‹¤ìš´ë˜ì—ˆê±°ë‚˜ ì—°ê²°ì´ ë¶ˆê°€ëŠ¥í•˜ê²Œ ë˜ì–´ ì†Œì¼“ì—°ê²°ì´ íŒŒê´´ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		default : 
 			throw UnknownError(strerror(errno),errno);
 		}//end of switch
@@ -883,7 +883,7 @@ uint SocketAPI::recvfrom_ex ( SOCKET s , void * buf , int len , uint flags , str
 		case ECONNRESET :
 			throw ConnectException("connection reset by peer.");
 		case EPIPE :
-			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. »ó´ë È£½ºÆ®°¡ ¼Ë´Ù¿îµÇ¾ú°Å³ª ¿¬°áÀÌ ºÒ°¡´ÉÇÏ°Ô µÇ¾î ¼ÒÄÏ¿¬°áÀÌ ÆÄ±«µÇ¾ú½À´Ï´Ù.");
+			throw ConnectException("pipe broken. may be peer host has shut down or has been disabled. ìƒëŒ€ í˜¸ìŠ¤íŠ¸ê°€ ì…§ë‹¤ìš´ë˜ì—ˆê±°ë‚˜ ì—°ê²°ì´ ë¶ˆê°€ëŠ¥í•˜ê²Œ ë˜ì–´ ì†Œì¼“ì—°ê²°ì´ íŒŒê´´ë˜ì—ˆìŠµë‹ˆë‹¤.");
 		default : 
 			throw UnknownError(strerror(errno),errno);
 		}//end of switch
@@ -1204,11 +1204,11 @@ void SocketAPI::shutdown_ex ( SOCKET s , uint how )
 // system call for I/O multiplexing
 //
 // Parameters
-//     maxfdp1   - Å×½ºÆ®ÇÒ ÆÄÀÏ µğ½ºÅ©¸³ÅÍÁß °¡Àå Å« °ª + 1
-//     readset   - ÀÔ·ÂÀÌ µé¾î¿Ô´ÂÁö Å×½ºÆ®ÇÒ ÆÄÀÏ µğ½ºÅ©¸³ÅÍÀÇ ÁıÇÕ
-//     writeset  - Ãâ·ÂÀ» ÇÒ ¼ö ÀÖ´ÂÁö Å×½ºÆ®ÇÒ ÆÄÀÏ µğ½ºÅ©¸³ÅÍÀÇ ÁıÇÕ
-//     exceptset - OOB µ¥ÀÌÅ¸°¡ µé¾î¿Ô´ÂÁö Å×½ºÆ®ÇÒ ÆÄÀÏ µğ½ºÅ©¸³ÅÍÀÇ ÁıÇÕ
-//     timeout   - ¾ó¸¶³ª ±â´Ù¸± °ÍÀÎ°¡? 
+//     maxfdp1   - í…ŒìŠ¤íŠ¸í•  íŒŒì¼ ë””ìŠ¤í¬ë¦½í„°ì¤‘ ê°€ì¥ í° ê°’ + 1
+//     readset   - ì…ë ¥ì´ ë“¤ì–´ì™”ëŠ”ì§€ í…ŒìŠ¤íŠ¸í•  íŒŒì¼ ë””ìŠ¤í¬ë¦½í„°ì˜ ì§‘í•©
+//     writeset  - ì¶œë ¥ì„ í•  ìˆ˜ ìˆëŠ”ì§€ í…ŒìŠ¤íŠ¸í•  íŒŒì¼ ë””ìŠ¤í¬ë¦½í„°ì˜ ì§‘í•©
+//     exceptset - OOB ë°ì´íƒ€ê°€ ë“¤ì–´ì™”ëŠ”ì§€ í…ŒìŠ¤íŠ¸í•  íŒŒì¼ ë””ìŠ¤í¬ë¦½í„°ì˜ ì§‘í•©
+//     timeout   - ì–¼ë§ˆë‚˜ ê¸°ë‹¤ë¦´ ê²ƒì¸ê°€? 
 //
 // Return
 //     positive count of ready descriptors

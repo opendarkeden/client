@@ -83,7 +83,7 @@ int				GetMineActionInfo(int itemType);
 int				GetBombActionInfo(int itemType);
 
 //-----------------------------------------------------------------------------
-// Á¤º¸ ¼³Á¤
+// ì •ë³´ ì„¤ì •
 //-----------------------------------------------------------------------------
 extern int		GetVampireCreatureType(int shape, bool bMale, int coatType);
 extern int		GetOustersCreatureType(int coatType);
@@ -132,7 +132,7 @@ extern void		SkillIllendue(MCreature* pUserCreature, MCreature* pTargetCreature,
 extern void		SkillBlazeWalk(MCreature* pUserCreature, MCreature* pTargetCreature, int skillID, BYTE grade);
 
 //-----------------------------------------------------------------------------
-// Portal °ü·Ã
+// Portal ê´€ë ¨
 //-----------------------------------------------------------------------------
 extern void		MoveIntoPortal(MCreature* pCreature);
 extern void		ComeFromPortal(MCreature* pCreature);
@@ -141,33 +141,33 @@ extern void		ComeFromPortal(MCreature* pCreature);
 // execute action info from mainnode
 //-----------------------------------------------------------------------------
 extern void		ExecuteActionInfoFromMainNode(
-						TYPE_ACTIONINFO nActionInfo,										// »ç¿ë ±â¼ú ¹øÈ£
+						TYPE_ACTIONINFO nActionInfo,										// ì‚¬ìš© ê¸°ìˆ  ë²ˆí˜¸
 					
-						TYPE_SECTORPOSITION startX, TYPE_SECTORPOSITION startY, int startZ, // ±â¼ú »ç¿ëÇÏ´Â »ç¶÷(?) 
-						int direction,														// »ç¿ë ¹æÇâ
+						TYPE_SECTORPOSITION startX, TYPE_SECTORPOSITION startY, int startZ, // ê¸°ìˆ  ì‚¬ìš©í•˜ëŠ” ì‚¬ëŒ(?) 
+						int direction,														// ì‚¬ìš© ë°©í–¥
 						
-						TYPE_OBJECTID targetID,												// ¸ñÇ¥¿¡ ´ëÇÑ Á¤º¸
+						TYPE_OBJECTID targetID,												// ëª©í‘œì— ëŒ€í•œ ì •ë³´
 						TYPE_SECTORPOSITION targetX, TYPE_SECTORPOSITION targetY, int targetZ, 
 						
-						DWORD delayFrame,													// ±â¼úÀÇ (³²Àº) Áö¼Ó ½Ã°£		
+						DWORD delayFrame,													// ê¸°ìˆ ì˜ (ë‚¨ì€) ì§€ì† ì‹œê°„		
 						
-						MActionResult* pActionResult,	// °á°ú Á¤º¸
+						MActionResult* pActionResult,	// ê²°ê³¼ ì •ë³´
 						
 						bool bStartFromMainNode = true,
 
-						int sX = 0, int sY = 0		// ÁÂÇ¥ º¸Á¤
+						int sX = 0, int sY = 0		// ì¢Œí‘œ ë³´ì •
 				);
 
 extern void		AddVampirePortal(
-						int serverID,								// ÀÌÆåÆ®ÀÇ OID
-						const char* ownerName,								// Æ÷Å» ÁÖÀÎ ÀÌ¸§
-						TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY,		// Æ÷Å»ÀÇ ÁÂÇ¥
-						DWORD delayFrame,							// Æ÷Å»ÀÇ Áö¼Ó ½Ã°£
+						int serverID,								// ì´í™íŠ¸ì˜ OID
+						const char* ownerName,								// í¬íƒˆ ì£¼ì¸ ì´ë¦„
+						TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY,		// í¬íƒˆì˜ ì¢Œí‘œ
+						DWORD delayFrame,							// í¬íƒˆì˜ ì§€ì† ì‹œê°„
 						
-						// ¸ñÇ¥ Á¤º¸
-						int zoneID,							// Æ÷Å»ÀÇ ¸ñÇ¥ Á¸ ID
-						TYPE_SECTORPOSITION zoneX,			// Æ÷Å»ÀÇ ¸ñÇ¥ ÁÂÇ¥ x
-						TYPE_SECTORPOSITION zoneY,			// Æ÷Å»ÀÇ ¸ñÇ¥ ÁÂÇ¥ y
+						// ëª©í‘œ ì •ë³´
+						int zoneID,							// í¬íƒˆì˜ ëª©í‘œ ì¡´ ID
+						TYPE_SECTORPOSITION zoneX,			// í¬íƒˆì˜ ëª©í‘œ ì¢Œí‘œ x
+						TYPE_SECTORPOSITION zoneY,			// í¬íƒˆì˜ ëª©í‘œ ì¢Œí‘œ y
 
 						bool bStartFromMainNode = true
 				);

@@ -22,7 +22,7 @@ void GCGetOffMotorCycleFailedHandler::execute ( GCGetOffMotorCycleFailed * pPack
 
 
 	//------------------------------------------
-	// ¾îÂ¶µç °£¿¡.. °ËÁõÀÌ µÇ¾ú´Ù°í º»´Ù.
+	// ì–´ì¨‹ë“  ê°„ì—.. ê²€ì¦ì´ ë˜ì—ˆë‹¤ê³  ë³¸ë‹¤.
 	//------------------------------------------
 	g_pPlayer->SetWaitVerifyNULL();
 

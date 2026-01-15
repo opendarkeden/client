@@ -22,8 +22,8 @@ public:
 		PET_STASH_OK,
 		PET_STASH_NOT_ENOUGH_MONEY,
 		PET_STASH_NO_INVENTORY_SPACE,
-		PET_STASH_RACK_IS_NOT_EMPTY,	// ÇØ´ç À§Ä¡¿¡ ÀÌ¹Ì ´Ù¸¥ Æê ¾ÆÀÌÅÛÀÌ ÀÖ½À´Ï´Ù.
-		PET_STASH_RACK_IS_EMPTY			// Ã£À¸·Á°í ÇÑ À§Ä¡¿¡ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.
+		PET_STASH_RACK_IS_NOT_EMPTY,	// í•´ë‹¹ ìœ„ì¹˜ì— ì´ë¯¸ ë‹¤ë¥¸ íŽ« ì•„ì´í…œì´ ìžˆìŠµë‹ˆë‹¤.
+		PET_STASH_RACK_IS_EMPTY			// ì°¾ìœ¼ë ¤ê³  í•œ ìœ„ì¹˜ì— ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.
 	};
 
 	GCPetStashVerify() throw() { m_Code = PET_STASH_OK; }

@@ -24,22 +24,22 @@ void GCUseBonusPointOKHandler::execute ( GCUseBonusPointOK * pPacket , Player * 
 
 
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 
 	//------------------------------------------------------------
-	// bonus point¸¦ »ç¿ëÇÑ °æ¿ì Ã¼Å©..
+	// bonus pointë¥¼ ì‚¬ìš©í•œ ê²½ìš° ì²´í¬..
 	//------------------------------------------------------------
 	if (g_pTempInformation->GetMode()==TempInformation::MODE_BONUSPOINT_USE)
 	{
 		//------------------------------------------------------------
-		// mode Á¦°Å
+		// mode ì œê±°
 		//------------------------------------------------------------
 		g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 
 		//------------------------------------------------------------
-		// ¼±ÅÃÇÑ part¸¦ ¿Ã·ÁÁØ´Ù.
+		// ì„ íƒí•œ partë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
 		//------------------------------------------------------------
 		/*
 		int incPart = g_pTempInformation->Value1;
@@ -63,7 +63,7 @@ void GCUseBonusPointOKHandler::execute ( GCUseBonusPointOK * pPacket , Player * 
 		int bonusPoint = g_pPlayer->GetBonusPoint();
 
 		//------------------------------------------------------------
-		// bonus point¸¦ ÇÏ³ª »©ÁØ´Ù.
+		// bonus pointë¥¼ í•˜ë‚˜ ë¹¼ì¤€ë‹¤.
 		//------------------------------------------------------------
 		if (bonusPoint-1 >= 0)
 		{

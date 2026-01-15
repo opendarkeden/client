@@ -18,8 +18,8 @@
 //
 // class RequestClientPlayer
 //
-// ´Ù¸¥ Å¬¶óÀÌ¾ğÆ®¿¡ Á¢¼ÓÇØ¼­ ¹º°¡ ¿äÃ»ÇÑ´Ù..
-// ÇÏ³ªÀÇ RequestServerPlayer¿Í Á¢¼ÓÇÏ°Ô µÈ´Ù.
+// ë‹¤ë¥¸ í´ë¼ì´ì–¸íŠ¸ì— ì ‘ì†í•´ì„œ ë­”ê°€ ìš”ì²­í•œë‹¤..
+// í•˜ë‚˜ì˜ RequestServerPlayerì™€ ì ‘ì†í•˜ê²Œ ëœë‹¤.
 //
 //--------------------------------------------------------------------------------
 
@@ -58,7 +58,7 @@ public :
 	const std::string&	getRequestServerIP() const	{ return m_RequestServerIP; }
 
 	// disconnect
-	// Á¤½Ä ·Î±×¾Æ¿ôÀÇ °æ¿ì disconnect(UNDISCONNECTED)
+	// ì •ì‹ ë¡œê·¸ì•„ì›ƒì˜ ê²½ìš° disconnect(UNDISCONNECTED)
 	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( Error );
 	
 	// get debug string
@@ -80,7 +80,7 @@ private :
 	std::string					m_RequestServerName;
 	std::string					m_RequestServerIP;
 
-	// RequestÇÏ°í ÀÖ´Â °Í
+	// Requestí•˜ê³  ìˆëŠ” ê²ƒ
 	REQUEST_CLIENT_MODE			m_RequestMode;
 
 	DWORD						m_ExpireTime;

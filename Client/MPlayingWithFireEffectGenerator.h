@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MAttachZoneEffectGenerator.h
 //----------------------------------------------------------------------
-// ZoneÀÇ ÇÑ ÁöÁ¡¿¡¼­  »ı¼º
+// Zoneì˜ í•œ ì§€ì ì—ì„œ  ìƒì„±
 //----------------------------------------------------------------------
 
 #ifndef	__MPLAYINGWITHFIREEFFECTGENERATOR_H__
@@ -17,7 +17,7 @@ class MPlayingWithFireEffectGenerator : public MEffectGenerator {
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_PLAYING_WITH_FIRE; }
 
 		int m_EffectCount;
-		// Effect»ı¼º
+		// Effectìƒì„±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

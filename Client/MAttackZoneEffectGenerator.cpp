@@ -34,12 +34,12 @@ MAttackZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	
 	int maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);
 
-	// ½ÃÀÛ ÁÂÇ¥
+	// ì‹œìž‘ ì¢Œí‘œ
 	int sx = egInfo.x0;
 	int sy = egInfo.y0;
 	int sz = egInfo.z0;
 
-	// ¸ñÇ¥ ÁÂÇ¥
+	// ëª©í‘œ ì¢Œí‘œ
 	int tx = egInfo.x1; 
 	int ty = egInfo.y1;
 	int tz = egInfo.z1;
@@ -72,13 +72,13 @@ MAttackZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		}
 	}
 	//------------------------------------------------------------
-	// ÇÏµåÄÚµù.. ¤»¤»
+	// í•˜ë“œì½”ë”©.. ã…‹ã…‹
 	//------------------------------------------------------------
 	if (est==EFFECTSPRITETYPE_WIND_DIVIDER_1
 		|| est==EFFECTSPRITETYPE_WIND_DIVIDER_2
 		|| est==EFFECTSPRITETYPE_WIND_DIVIDER_3)
 	{
-		// ¸ñÇ¥±îÁö°¡´Â°Ô ¾Æ´Ï¶ó.. ÀÏÁ¤ÇÑ pixel¼ö ¸¸Å­ °¡¾ßÇÑ´Ù?
+		// ëª©í‘œê¹Œì§€ê°€ëŠ”ê²Œ ì•„ë‹ˆë¼.. ì¼ì •í•œ pixelìˆ˜ ë§Œí¼ ê°€ì•¼í•œë‹¤?
 		int movePixel = egInfo.step * egInfo.count;
 
 		int cx = sx-tx;
@@ -87,25 +87,25 @@ MAttackZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		if (cx==0 || cy==0)
 		{
 			//---------------------------------------------
-			// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+			// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 			//---------------------------------------------
 			TYPE_SECTORPOSITION	sX, sY;
 			sX = g_pTopView->PixelToMapX( sx );
 			sY = g_pTopView->PixelToMapY( sy );
 
 			//---------------------------------------------
-			// ³ª°¡´Â ¹æÇâÀ¸·Î ´ÙÀ½ ÁÂÇ¥¸¦ Á¤ÇÑ´Ù.	
+			// ë‚˜ê°€ëŠ” ë°©í–¥ìœ¼ë¡œ ë‹¤ìŒ ì¢Œí‘œë¥¼ ì •í•œë‹¤.	
 			//---------------------------------------------
 			TYPE_SECTORPOSITION x=sX, y=sY;
 			MCreature::GetPositionToDirection(x,y, egInfo.direction);
 
 			//---------------------------------------------
-			// (x,y)¸¦ ´Ù½Ã pixelÁÂÇ¥·Î ¹Ù²Û´Ù.
+			// (x,y)ë¥¼ ë‹¤ì‹œ pixelì¢Œí‘œë¡œ ë°”ê¾¼ë‹¤.
 			//---------------------------------------------
 			tx = g_pTopView->MapToPixelX( x );
 			ty = g_pTopView->MapToPixelY( y );
 
-			// ´Ù½Ã °è»ê..
+			// ë‹¤ì‹œ ê³„ì‚°..
 			cx = sx - tx;
 			cy = sy - ty;
 		}
@@ -135,24 +135,24 @@ MAttackZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 
 
-	pEffect->SetFrameID( frameID, maxFrame );		// 0¹ø Effect, Max 3 Frame					
+	pEffect->SetFrameID( frameID, maxFrame );		// 0ë²ˆ Effect, Max 3 Frame					
 
-	// ¹ß»ç À§Ä¡ PixelÁÂÇ¥	
+	// ë°œì‚¬ ìœ„ì¹˜ Pixelì¢Œí‘œ	
 	pEffect->SetPixelPosition( sx, sy, sz );	
 
-	// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+	// ëª©í‘œ ìœ„ì¹˜ Pixelì¢Œí‘œ
 	pEffect->SetTarget( tx, ty, tz, egInfo.step );	
 
-	// ¹æÇâ ¼³Á¤
+	// ë°©í–¥ ì„¤ì •
 	pEffect->SetDirection( egInfo.direction );					
 	
-	// Áö¼ÓµÇ´Â Frame (¸ñÇ¥°¡ ÀÖ´Ù¸é º°·Î °ü°è ¾øÀ½ - -;)
+	// ì§€ì†ë˜ëŠ” Frame (ëª©í‘œê°€ ìžˆë‹¤ë©´ ë³„ë¡œ ê´€ê³„ ì—†ìŒ - -;)
 	pEffect->SetCount( egInfo.count, egInfo.linkCount );
 
-	// À§·Â
+	// ìœ„ë ¥
 	pEffect->SetPower(egInfo.power);
 
-	// ºûÀÇ ¹à±â
+	// ë¹›ì˜ ë°ê¸°
 	//pEffect->SetLight( light );
 
 	if (g_pZone->AddEffect( pEffect ))

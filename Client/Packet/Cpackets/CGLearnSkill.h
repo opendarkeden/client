@@ -38,8 +38,8 @@ public:
 	void setSkillDomainType( SkillDomainType_t DomainType) throw() { m_DomainType = DomainType;}
 
 private:
-	SkillType_t       m_SkillType;  // ±â¼úÀÇ Á¾·ù
-	SkillDomainType_t m_DomainType; // ±â¼úÀÇ µµ¸ŞÀÎ
+	SkillType_t       m_SkillType;  // ê¸°ìˆ ì˜ ì¢…ë¥˜
+	SkillDomainType_t m_DomainType; // ê¸°ìˆ ì˜ ë„ë©”ì¸
 };
 
 //////////////////////////////////////////////////////////////////////

@@ -7,12 +7,12 @@
 
 
 //-------------------------------------------------------
-// °¢ »óÈ²¿¡ ¸Â´Â Sound IDÁ¤ÀÇ
+// ê° ìƒí™©ì— ë§žëŠ” Sound IDì •ì˜
 //-------------------------------------------------------
 enum SOUND_ID 
 {
 	//-------------------------------------------------------
-	// slayer Çàµ¿	
+	// slayer í–‰ë™	
 	//-------------------------------------------------------
 	SOUND_SLAYER_ATTACK_BARE,
 	SOUND_SLAYER_ATTACK_KICK,
@@ -96,7 +96,7 @@ enum SOUND_ID
 
 
 	//-------------------------------------------------------
-	// PC VampireÇàµ¿
+	// PC Vampireí–‰ë™
 	//-------------------------------------------------------
 	SOUND_VAMPIRE_CHANGE_MALE,
 	SOUND_VAMPIRE_CHANGE_FEMALE,	
@@ -112,7 +112,7 @@ enum SOUND_ID
 	SOUND_VAMPIRE_MAGIC,
 	
 	//-------------------------------------------------------
-	// µ¥µå ¹Ùµð
+	// ë°ë“œ ë°”ë””
 	//-------------------------------------------------------
 	SOUND_DB_ATTACK,
 	SOUND_DB_DAMAGE,
@@ -121,7 +121,7 @@ enum SOUND_ID
 	SOUND_DB_DRAIN,
 
 	//-------------------------------------------------------
-	// ÅÍ´× µ¥µå
+	// í„°ë‹ ë°ë“œ
 	//-------------------------------------------------------
 	SOUND_TD_ATTACK,
 	SOUND_TD_DAMAGE,
@@ -130,7 +130,7 @@ enum SOUND_ID
 	SOUND_TD_DRAIN,
 
 	//-------------------------------------------------------
-	// ÅÍ´× ¼Ò¿ï
+	// í„°ë‹ ì†Œìš¸
 	//-------------------------------------------------------
 	SOUND_TS_ATTACK,
 	SOUND_TS_DAMAGE,
@@ -139,7 +139,7 @@ enum SOUND_ID
 	SOUND_TS_DRAIN,
 
 	//-------------------------------------------------------
-	// Å°µå
+	// í‚¤ë“œ
 	//-------------------------------------------------------
 	SOUND_K_ATTACK,
 	SOUND_K_DAMAGE,
@@ -148,7 +148,7 @@ enum SOUND_ID
 	SOUND_K_DRAIN,
 
 	//-------------------------------------------------------
-	// ¼ÖÁ® 
+	// ì†”ì ¸ 
 	//-------------------------------------------------------
 	SOUND_S_ATTACK,
 	SOUND_S_DAMAGE,
@@ -157,7 +157,7 @@ enum SOUND_ID
 	SOUND_S_DRAIN,
 
 	//-------------------------------------------------------
-	// Ä¸Æ¾
+	// ìº¡í‹´
 	//-------------------------------------------------------
 	SOUND_C_ATTACK,
 	SOUND_C_DAMAGE,
@@ -166,7 +166,7 @@ enum SOUND_ID
 	SOUND_C_DRAIN,
 
 	//-------------------------------------------------------
-	// ¼¨µµ¿ì À®
+	// ì„€ë„ìš° ìœ™
 	//-------------------------------------------------------
 	SOUND_SW_ATTACK,
 	SOUND_SW_DAMAGE,
@@ -176,7 +176,7 @@ enum SOUND_ID
 	SOUND_SW_MAGIC,
 
 	//-------------------------------------------------------
-	// ´õÆ¼ ½ºÆ®¶óÀÌ´õ
+	// ë”í‹° ìŠ¤íŠ¸ë¼ì´ë”
 	//-------------------------------------------------------
 	SOUND_DS_ATTACK,
 	SOUND_DS_DAMAGE,
@@ -186,7 +186,7 @@ enum SOUND_ID
 	SOUND_DS_MAGIC,
 
 	//-------------------------------------------------------
-	// ºí·¯µå ¿ö·Ï
+	// ë¸”ëŸ¬ë“œ ì›Œë¡
 	//-------------------------------------------------------
 	SOUND_BW_ATTACK,
 	SOUND_BW_DAMAGE,
@@ -196,7 +196,7 @@ enum SOUND_ID
 	SOUND_BW_MAGIC,
 
 	//-------------------------------------------------------
-	// °ñ·¹¸Ó
+	// ê³¨ë ˆë¨¸
 	//-------------------------------------------------------
 	SOUND_GO_MOVE,
 	SOUND_GO_ATTACK,
@@ -206,7 +206,7 @@ enum SOUND_ID
 	SOUND_GO_DRAIN,
 
 	//-------------------------------------------------------
-	// ·¹µå ¾ÆÀÌ
+	// ë ˆë“œ ì•„ì´
 	//-------------------------------------------------------
 	SOUND_RE_ATTACK,
 	SOUND_RE_DAMAGE,
@@ -216,7 +216,7 @@ enum SOUND_ID
 	SOUND_RE_MAGIC,
 
 	//-------------------------------------------------------
-	// ¾ËÄ­
+	// ì•Œì¹¸
 	//-------------------------------------------------------
 	SOUND_AL_ATTACK,
 	SOUND_AL_DAMAGE,
@@ -226,7 +226,7 @@ enum SOUND_ID
 	SOUND_AL_MAGIC,
 
 	//-------------------------------------------------------
-	// Ä«¿À½º °¡µð¾ð
+	// ì¹´ì˜¤ìŠ¤ ê°€ë””ì–¸
 	//-------------------------------------------------------
 	SOUND_CG_ATTACK,
 	SOUND_CG_DAMAGE,
@@ -235,7 +235,7 @@ enum SOUND_ID
 	SOUND_CG_DRAIN,	
 
 	//-------------------------------------------------------
-	// È¯°æ
+	// í™˜ê²½
 	//-------------------------------------------------------
 	SOUND_WORLD_DOG_BARK,
 	SOUND_WORLD_DOG_GRRR,
@@ -253,7 +253,7 @@ enum SOUND_ID
 	SOUND_WORLD_WATER_DROP,
 
 	//-------------------------------------------------------
-	// Slayer °Ë ±â¼ú
+	// Slayer ê²€ ê¸°ìˆ 
 	//-------------------------------------------------------
 	SOUND_SLAYER_SWORD_DI,
 	SOUND_SLAYER_SWORD_TS,
@@ -262,7 +262,7 @@ enum SOUND_ID
 	SOUND_SLAYER_SWORD_THS,
 
 	//-------------------------------------------------------
-	// Slayer µµ ±â¼ú
+	// Slayer ë„ ê¸°ìˆ 
 	//-------------------------------------------------------
 	SOUND_SLAYER_BLADE_SB,
 	SOUND_SLAYER_BLADE_TB,
@@ -271,20 +271,20 @@ enum SOUND_ID
 	SOUND_SLAYER_BLADE_WS,
 
 	//-------------------------------------------------------
-	// Slayer Enchant ±â¼ú
+	// Slayer Enchant ê¸°ìˆ 
 	//-------------------------------------------------------
-	SOUND_SLAYER_ENCHANT_B1,	// bless½ÃÀÛ
-	SOUND_SLAYER_ENCHANT_B2,	// bless¹Ù´Ú¿¡¼­
-	SOUND_SLAYER_ENCHANT_CHW1,	// create holy water½ÃÀÛ
-	SOUND_SLAYER_ENCHANT_CHW2,	// ¿Ï¼º
+	SOUND_SLAYER_ENCHANT_B1,	// blessì‹œìž‘
+	SOUND_SLAYER_ENCHANT_B2,	// blessë°”ë‹¥ì—ì„œ
+	SOUND_SLAYER_ENCHANT_CHW1,	// create holy waterì‹œìž‘
+	SOUND_SLAYER_ENCHANT_CHW2,	// ì™„ì„±
 	SOUND_SLAYER_ENCHANT_CL,	// continual light
 	SOUND_SLAYER_ENCHANT_DH,	// detect hidden
 	SOUND_SLAYER_ENCHANT_L,		// light
-	SOUND_SLAYER_ENCHANT_S1,	// striking ½ÃÀÛ
-	SOUND_SLAYER_ENCHANT_S2,	// striking ³¡?
+	SOUND_SLAYER_ENCHANT_S1,	// striking ì‹œìž‘
+	SOUND_SLAYER_ENCHANT_S2,	// striking ë?
 
 	//-------------------------------------------------------
-	// Slayer Healing ±â¼ú
+	// Slayer Healing ê¸°ìˆ 
 	//-------------------------------------------------------
 	SOUND_SLAYER_HEALING_CCW,	// cure critical wounds
 	SOUND_SLAYER_HEALING_CLW,	// cure light wounds
@@ -293,15 +293,15 @@ enum SOUND_ID
 	SOUND_SLAYER_HEALING_PFC,	// protection from curse
 	SOUND_SLAYER_HEALING_PFP,	// protection from poison
 	SOUND_SLAYER_HEALING_PFPA,	// protection from paralysis
-	SOUND_SLAYER_HEALING_R1,	// restore ½ÃÀÛ
-	SOUND_SLAYER_HEALING_R2,	// restore ³¡	
+	SOUND_SLAYER_HEALING_R1,	// restore ì‹œìž‘
+	SOUND_SLAYER_HEALING_R2,	// restore ë	
 	SOUND_SLAYER_HEALING_RC,	// remove curse
 
 	//-------------------------------------------------------
-	// Vampire ±â¼ú
+	// Vampire ê¸°ìˆ 
 	//-------------------------------------------------------
-	SOUND_VAMPIRE_ACID_ABOLT1,		// acid bolt³¯¾Æ°¡±â
-	SOUND_VAMPIRE_ACID_ABOLT2,		// acid boltÅÍÁú¶§
+	SOUND_VAMPIRE_ACID_ABOLT1,		// acid boltë‚ ì•„ê°€ê¸°
+	SOUND_VAMPIRE_ACID_ABOLT2,		// acid boltí„°ì§ˆë•Œ
 	SOUND_VAMPIRE_MISC_BD,			// blood drain
 	SOUND_VAMPIRE_MISC_H,			// hide
 	SOUND_VAMPIRE_POISON_GP,		// green poison
@@ -312,7 +312,7 @@ enum SOUND_ID
 	SOUND_VAMPIRE_POISON_PH,		// poisonous hand
 
 	//-------------------------------------------------------
-	// È£ºí
+	// í˜¸ë¸”
 	//-------------------------------------------------------
 	SOUND_HB_ATTACK,
 	SOUND_HB_DAMAGE,
@@ -322,10 +322,10 @@ enum SOUND_ID
 	SOUND_HB_MAGIC,
 
 
-	// Ãß°¡ 2001.7.17
+	// ì¶”ê°€ 2001.7.17
 
 	//-------------------------------------------------------
-	// ¹ÚÁã
+	// ë°•ì¥
 	//-------------------------------------------------------
 	SOUND_BAT_DAMAGE,
 	SOUND_BAT_DIE,
@@ -372,7 +372,7 @@ enum SOUND_ID
 	SOUND_VAMPIRE_TRANSFORM,
 	
 	//-------------------------------------------------------
-	// ´Á´ë
+	// ëŠ‘ëŒ€
 	//-------------------------------------------------------
 	SOUND_WOLF_ATTACK,
 	SOUND_WOLF_DAMAGE,
@@ -398,12 +398,12 @@ enum SOUND_ID
 	SOUND_WORLD_WIND,	
 	
 	//-------------------------------------------------------
-	// À¸Èì?
+	// ìœ¼í ?
 	//-------------------------------------------------------
 	SOUND_BLOOD_SWORD,
 
 	//-------------------------------------------------------
-	// ¿¡½ºÆ®·ÎÀÌ´õ
+	// ì—ìŠ¤íŠ¸ë¡œì´ë”
 	//-------------------------------------------------------
 	SOUND_ES_ATTACK,
 	SOUND_ES_DAMAGE,
@@ -412,7 +412,7 @@ enum SOUND_ID
 	SOUND_ES_DRAINED,
 
 	//-------------------------------------------------------
-	// ¸ðµ¥¶ó½º
+	// ëª¨ë°ë¼ìŠ¤
 	//-------------------------------------------------------
 	SOUND_MD_ATTACK,
 	SOUND_MD_DAMAGE,
@@ -421,7 +421,7 @@ enum SOUND_ID
 	SOUND_MD_DRAINED,
 
 	//-------------------------------------------------------
-	// ¹ÂÅÏÆ®
+	// ë®¤í„´íŠ¸
 	//-------------------------------------------------------
 	SOUND_MT_ATTACK,
 	SOUND_MT_DAMAGE,
@@ -430,7 +430,7 @@ enum SOUND_ID
 	SOUND_MT_DRAINED,
 
 	//-------------------------------------------------------
-	// À§µµ¿ìÁî
+	// ìœ„ë„ìš°ì¦ˆ
 	//-------------------------------------------------------
 	SOUND_WD_ATTACK,
 	SOUND_WD_DAMAGE,
@@ -439,15 +439,15 @@ enum SOUND_ID
 	SOUND_WD_DRAINED,
 
 	//-------------------------------------------------------
-	// ÀÌº¥Æ®¿ë
+	// ì´ë²¤íŠ¸ìš©
 	//-------------------------------------------------------
 	SOUND_EVENT_FANFARE,
 
 
-	// 2001. 9. 26 Ãß°¡
+	// 2001. 9. 26 ì¶”ê°€
 
 	//-------------------------------------------------------
-	// ºòÆØ
+	// ë¹…íŒ½
 	//-------------------------------------------------------
 	SOUND_BF_ATTACK,
 	SOUND_BF_DAMAGE,
@@ -456,7 +456,7 @@ enum SOUND_ID
 	SOUND_BF_DRAINED,
 
 	//-------------------------------------------------------
-	// ¹Ýµ¨¶óÀÌÀú
+	// ë°˜ë¸ë¼ì´ì €
 	//-------------------------------------------------------
 	SOUND_VD_ATTACK,
 	SOUND_VD_DAMAGE,
@@ -465,7 +465,7 @@ enum SOUND_ID
 	SOUND_VD_DRAINED,
 
 	//-------------------------------------------------------
-	// ½½·¹ÀÌ¾î ±â¼ú
+	// ìŠ¬ë ˆì´ì–´ ê¸°ìˆ 
 	//-------------------------------------------------------
 	SOUND_SLAYER_BLADE_TS,						// tornado sever
 	SOUND_SLAYER_ENCHANT_DETECTINVISIBILITY,
@@ -477,15 +477,15 @@ enum SOUND_ID
 	SOUND_SLAYER_SWORD_SW,						// sword wave
 
 	//-------------------------------------------------------
-	// ¹ìÆÄÀÌ¾î ±â¼ú
+	// ë±€íŒŒì´ì–´ ê¸°ìˆ 
 	//-------------------------------------------------------
 	SOUND_VAMPIRE_ACIDSWAMP,		
 
 
-	// 2001.11.1 Ãß°¡
+	// 2001.11.1 ì¶”ê°€
 
 	//-------------------------------------------------------
-	// Ä«¿À½º ³ªÀÌÆ®
+	// ì¹´ì˜¤ìŠ¤ ë‚˜ì´íŠ¸
 	//-------------------------------------------------------
 	SOUND_CK_ATTACK,
 	SOUND_CK_DAMAGE,
@@ -495,7 +495,7 @@ enum SOUND_ID
 	SOUND_CK_MAGIC,
 
 	//-------------------------------------------------------
-	// Å©¸²½¼ ½½·ÎÅÍ
+	// í¬ë¦¼ìŠ¨ ìŠ¬ë¡œí„°
 	//-------------------------------------------------------
 	SOUND_CS_ATTACK,
 	SOUND_CS_DAMAGE,
@@ -504,7 +504,7 @@ enum SOUND_ID
 	SOUND_CS_DRAINED,
 
 	//-------------------------------------------------------
-	// ´ÙÅ©½ºÅ©¸®¸Ó
+	// ë‹¤í¬ìŠ¤í¬ë¦¬ë¨¸
 	//-------------------------------------------------------
 	SOUND_DSC_ATTACK,
 	SOUND_DSC_DAMAGE,
@@ -514,7 +514,7 @@ enum SOUND_ID
 	SOUND_DSC_MAGIC,
 
 	//-------------------------------------------------------
-	// ¾ÆÀÌ¾ðÆ¼¾²
+	// ì•„ì´ì–¸í‹°ì“°
 	//-------------------------------------------------------
 	SOUND_IT_ATTACK,
 	SOUND_IT_DAMAGE,
@@ -534,10 +534,10 @@ enum SOUND_ID
 	SOUND_WORLD_WALKIETALKIE,
 
 	//-------------------------------------------------------
-	// 2001.12.17 Ãß°¡
+	// 2001.12.17 ì¶”ê°€
 	//-------------------------------------------------------
 	//-------------------------------------------------------
-	// ÆøÅº ¼Ò¸®
+	// í­íƒ„ ì†Œë¦¬
 	//-------------------------------------------------------
 	SOUND_ITEM_BOOM1,
 	SOUND_ITEM_BOOM2,
@@ -545,7 +545,7 @@ enum SOUND_ID
 	SOUND_ITEM_BOOM4,
 
 	//-------------------------------------------------------
-	// ½½·¹ÀÌ¾î ±â¼ú
+	// ìŠ¬ë ˆì´ì–´ ê¸°ìˆ 
 	//-------------------------------------------------------
 	SOUND_SLAYER_BLADE_BERSERKER,
 	SOUND_SLAYER_BLADE_EARTHQUAKE,
@@ -560,7 +560,7 @@ enum SOUND_ID
 	SOUND_SLAYER_SWORD_WINDDIVIDER,
 
 	//-------------------------------------------------------
-	// ¹ìÆÄÀÌ¾î ±â¼ú
+	// ë±€íŒŒì´ì–´ ê¸°ìˆ 
 	//-------------------------------------------------------
 	SOUND_VAMPIRE_BLOODYBALL,
 	SOUND_VAMPIRE_BLOODYKNIFE,
@@ -571,13 +571,13 @@ enum SOUND_ID
 	SOUND_VAMPIRE_SUMMONCASKET,
 
 	//-------------------------------------------------------
-	// Å©¸®½º¸¶½º ÀÌº¥Æ® »ç¿îµå
+	// í¬ë¦¬ìŠ¤ë§ˆìŠ¤ ì´ë²¤íŠ¸ ì‚¬ìš´ë“œ
 	//-------------------------------------------------------
 	SOUND_XMAS_GIFTBOX,
 	SOUND_XMAS_STAR,
 
 	//-------------------------------------------------------
-	// ½ÅÁ¾ ¸ó½ºÅÍ 3Á¾ º¼¹Ù¸ÞµÎ»ç, µõ°¡°íÀÏ, ¾Ö½¬¹ß·Ï - 2003.4.23
+	// ì‹ ì¢… ëª¬ìŠ¤í„° 3ì¢… ë³¼ë°”ë©”ë‘ì‚¬, ë”¤ê°€ê³ ì¼, ì• ì‰¬ë°œë¡ - 2003.4.23
 	//-------------------------------------------------------
 	SOUND_VOL_MAGIC,
 	SOUND_VOL_DIE,
@@ -604,7 +604,7 @@ enum SOUND_ID
 	SOUND_REQUITAL,
 
 	//------------------------------------------------------------
-	// ¾Æ¿ì½ºÅÍÁî ±âº» 
+	// ì•„ìš°ìŠ¤í„°ì¦ˆ ê¸°ë³¸ 
 	//------------------------------------------------------------
 	SOUND_OUSTERS_ARMSBAND,
 	SOUND_OUSTERS_BOOTS,
@@ -619,10 +619,10 @@ enum SOUND_ID
 	SOUND_OUSTERS_WRISTLET,
 
 	//------------------------------------------------------------
-	// ¾Æ¿ì½ºÅÍÁî ±âº»µ¿ÀÛ
+	// ì•„ìš°ìŠ¤í„°ì¦ˆ ê¸°ë³¸ë™ìž‘
 	//------------------------------------------------------------
-	SOUND_OUSTERS_ATTACK_1, // ÀÏ¹Ý MELEE °ø°Ý
-	SOUND_OUSTERS_ATTACK_2, // Â÷Å©¶÷ ´øÁö±â
+	SOUND_OUSTERS_ATTACK_1, // ì¼ë°˜ MELEE ê³µê²©
+	SOUND_OUSTERS_ATTACK_2, // ì°¨í¬ëžŒ ë˜ì§€ê¸°
 	SOUND_OUSTERS_MAGIC_1,  // 
 	SOUND_OUSTERS_MAGIC_2,
 	SOUND_OUSTERS_DAMAGED,
@@ -633,7 +633,7 @@ enum SOUND_ID
 	SOUND_OUSTERS_DRAIN,
 
 	//------------------------------------------------------------
-	// ¾Æ¿ì½ºÅÍÁî ½ºÅ³
+	// ì•„ìš°ìŠ¤í„°ì¦ˆ ìŠ¤í‚¬
 	//------------------------------------------------------------
 	SOUND_OUSTERS_PROMINENCE,
 	SOUND_OUSTERS_BACK_STAB,
@@ -667,7 +667,7 @@ enum SOUND_ID
 	SOUND_OUSTERS_MEI,
 	
 	//------------------------------------------------------------
-	// 110·¹º§ ½ºÅ³
+	// 110ë ˆë²¨ ìŠ¤í‚¬
 	//------------------------------------------------------------
 	SOUND_SLAYER_BLITZ_SLIDING,
 	SOUND_SLAYER_BLAZE_WALK,
@@ -676,7 +676,7 @@ enum SOUND_ID
 	SOUND_SLAYER_DIVINE_GUIDANCE,
 	SOUND_VAMPIRE_BLOODY_ZENITH,
 
-	// ¸®Á¨Å¸¿ö °ü·Ã
+	// ë¦¬ì  íƒ€ì›Œ ê´€ë ¨
 	SOUND_REGEN_TOWER_REPEAT,
 	SOUND_REGEN_TOWER_START,
 	SOUND_REGEN_TOWER_FLASH,
@@ -685,7 +685,7 @@ enum SOUND_ID
 	SOUND_SWEEPER_REPEAT,
 	SOUND_SWEEPER_END,
 
-	// ¾Æ¿ì½ºÅ³
+	// ì•„ìš°ìŠ¤í‚¬
 	SOUND_DESTRUCTION_SPEAR,
 	SOUND_DUCKING_WALLOP,
 	SOUND_FATAL_SNICK,
@@ -712,29 +712,29 @@ enum SOUND_ID
 	SOUND_WORLD_PIXIE_MOVE,
 	//2004,04,27 sobeit 2nd pet sound add end
 
-	// 2004, 7, 7, sobeit add start - Áúµå·¹ ·¹¾î »ç¿îµå °ü·Ã
-	SOUND_BLIND_SUMMON,		// Áúµå·¹ ¾óÀ½ ¼®»ó ¼ÒÈ¯ ½Ã
-	SOUND_BLIND_DESTORY,	// Áúµå·¹ ¾óÀ½ ¼®»ó ÆÄ±« ½Ã
-	SOUND_PIPE_ROUTING,		// ¸ÍÀÎÀÇ ÇÇ¸® ·çÆÃ ½Ã
-	SOUND_PIPE_DROP,		// ¸ÍÀÎÀÇ ÇÇ¸® µå·Ó ½Ã
-	SOUND_BLINDNESS,		// ºí¶óÀÎµå´Ï½º ½ºÅ³ °É¸± ½Ã
-	SOUND_TRAP_A,			// TRAP_ICICLE_AUGER ½ÃÀü ½Ã
-	SOUND_TRAP_B,			// TRAP_ICICLE_LARGE_AUGER ½ÃÀü ½Ã
-	SOUND_DROP_A,			// ICICLE_DROP ½ÃÀü ½Ã
-	SOUND_SIDE_SUMMON,		// ICE_STICK ½ÃÀü ½Ã
-	SOUND_SIDE_DESTORY,		// ICE_STICK Á¾·á ½Ã
-	SOUND_GLACIER_START,	// ±Û·¡¼Å ½ÃÀü ½Ã - Áúµå·¹ ½ºÅ³
-	SOUND_GLACIER_END,		// ±Û·¡¼Å Á¾·á ½Ã - Áúµå·¹ ½ºÅ³
-	SOUND_ICEAUGER,			// ¾ÆÀÌ½º ¿À°Å ½ÃÀü ½Ã - Áúµå·¹ ½ºÅ³
-	SOUND_ICEHAIL,			// ¾ÆÀÌ½º ÇìÀÏ ½ÃÀü ½Ã - Áúµå·¹ ½ºÅ³
-	SOUND_ICEWAVE,			// ¾ÆÀÌ½º ¿þÀÌºê ½ÃÀü ½Ã - Áúµå·¹ ½ºÅ³
-	SOUND_GDR_GHOST1,		// Áúµå·¹ ·¹¾î À¯·É
-	SOUND_GDR_GHOST2,		// Áúµå·¹ ·¹¾î À¯·É
-	SOUND_GDR_GHOST3,		// Áúµå·¹ ·¹¾î À¯·É
-	SOUND_GDR_GHOST4,		// Áúµå·¹ ·¹¾î À¯·É
-	// 2004, 7, 7, sobeit add end- Áúµå·¹ ·¹¾î »ç¿îµå °ü·Ã
+	// 2004, 7, 7, sobeit add start - ì§ˆë“œë ˆ ë ˆì–´ ì‚¬ìš´ë“œ ê´€ë ¨
+	SOUND_BLIND_SUMMON,		// ì§ˆë“œë ˆ ì–¼ìŒ ì„ìƒ ì†Œí™˜ ì‹œ
+	SOUND_BLIND_DESTORY,	// ì§ˆë“œë ˆ ì–¼ìŒ ì„ìƒ íŒŒê´´ ì‹œ
+	SOUND_PIPE_ROUTING,		// ë§¹ì¸ì˜ í”¼ë¦¬ ë£¨íŒ… ì‹œ
+	SOUND_PIPE_DROP,		// ë§¹ì¸ì˜ í”¼ë¦¬ ë“œë¡­ ì‹œ
+	SOUND_BLINDNESS,		// ë¸”ë¼ì¸ë“œë‹ˆìŠ¤ ìŠ¤í‚¬ ê±¸ë¦´ ì‹œ
+	SOUND_TRAP_A,			// TRAP_ICICLE_AUGER ì‹œì „ ì‹œ
+	SOUND_TRAP_B,			// TRAP_ICICLE_LARGE_AUGER ì‹œì „ ì‹œ
+	SOUND_DROP_A,			// ICICLE_DROP ì‹œì „ ì‹œ
+	SOUND_SIDE_SUMMON,		// ICE_STICK ì‹œì „ ì‹œ
+	SOUND_SIDE_DESTORY,		// ICE_STICK ì¢…ë£Œ ì‹œ
+	SOUND_GLACIER_START,	// ê¸€ëž˜ì…” ì‹œì „ ì‹œ - ì§ˆë“œë ˆ ìŠ¤í‚¬
+	SOUND_GLACIER_END,		// ê¸€ëž˜ì…” ì¢…ë£Œ ì‹œ - ì§ˆë“œë ˆ ìŠ¤í‚¬
+	SOUND_ICEAUGER,			// ì•„ì´ìŠ¤ ì˜¤ê±° ì‹œì „ ì‹œ - ì§ˆë“œë ˆ ìŠ¤í‚¬
+	SOUND_ICEHAIL,			// ì•„ì´ìŠ¤ í—¤ì¼ ì‹œì „ ì‹œ - ì§ˆë“œë ˆ ìŠ¤í‚¬
+	SOUND_ICEWAVE,			// ì•„ì´ìŠ¤ ì›¨ì´ë¸Œ ì‹œì „ ì‹œ - ì§ˆë“œë ˆ ìŠ¤í‚¬
+	SOUND_GDR_GHOST1,		// ì§ˆë“œë ˆ ë ˆì–´ ìœ ë ¹
+	SOUND_GDR_GHOST2,		// ì§ˆë“œë ˆ ë ˆì–´ ìœ ë ¹
+	SOUND_GDR_GHOST3,		// ì§ˆë“œë ˆ ë ˆì–´ ìœ ë ¹
+	SOUND_GDR_GHOST4,		// ì§ˆë“œë ˆ ë ˆì–´ ìœ ë ¹
+	// 2004, 7, 7, sobeit add end- ì§ˆë“œë ˆ ë ˆì–´ ì‚¬ìš´ë“œ ê´€ë ¨
 	
-	// 2004, 10, 6, sobeit add start - 130 ½ºÅ³ »ç¿îµå
+	// 2004, 10, 6, sobeit add start - 130 ìŠ¤í‚¬ ì‚¬ìš´ë“œ
 	SOUND_SLAYER_TURRET_FIRE,
 	SOUND_SLAYER_TURRET_FIRE_START,
 	SOUND_SLAYER_TURRET_FIRE_END,
@@ -743,41 +743,41 @@ enum SOUND_ID
 	SOUND_SLAYER_SWEEPVICE_HIT,
 	SOUND_SLAYER_SWEEPVICE_RESIZE,
 	SOUND_VAMPIRE_SUMMONGOREGRAND,
-	// 2004, 10, 6, sobeit add end - 130 ½ºÅ³ »ç¿îµå
+	// 2004, 10, 6, sobeit add end - 130 ìŠ¤í‚¬ ì‚¬ìš´ë“œ
 	
-	// 2004, 11, 8, sobeit add start - ±×·¹ÀÌÆ® ·¯ÇÇ¾ð µµ³¢
+	// 2004, 11, 8, sobeit add start - ê·¸ë ˆì´íŠ¸ ëŸ¬í”¼ì–¸ ë„ë¼
 	SOUND_GREAT_RUFFIAN_AXE,
 	// 2004, 11, 8, sobeit add end
 
-	// 2004, 12, 14, sobeit add start - 140 ½ºÅ³ »ç¿îµå
+	// 2004, 12, 14, sobeit add start - 140 ìŠ¤í‚¬ ì‚¬ìš´ë“œ
 	SOUND_SLAYER_PLASMA_ROCKET_LAUNCHER,
 	SOUND_SLAYER_BOMBING_STAR,
 	SOUND_SLAYER_INTIMATE_GRAIL,
 	SOUND_OUSTERS_FURY_OF_GNOME,
 	SOUND_OUSTERS_SUMMON_MIGA,
-	// 2004, 12, 14, sobeit add end - 140 ½ºÅ³ »ç¿îµå
+	// 2004, 12, 14, sobeit add end - 140 ìŠ¤í‚¬ ì‚¬ìš´ë“œ
 	
-	// 2005, 1, 11, sobeit add start - »õ·Î¿î ¸ó½ºÅÍµé
+	// 2005, 1, 11, sobeit add start - ìƒˆë¡œìš´ ëª¬ìŠ¤í„°ë“¤
 	//---------------------------------------------
-	// ÇÃ¸®°Å - ÀÚÆøº´
+	// í”Œë¦¬ê±° - ìží­ë³‘
 	//---------------------------------------------
 	SOUND_FLIEGER_BOMB,
 	//---------------------------------------------
-	// ±âÇÁ·¹ÀÌÅÍ - ¹Ú°ÝÆ÷
+	// ê¸°í”„ë ˆì´í„° - ë°•ê²©í¬
 	//---------------------------------------------
 	SOUND_GEFREITER_ATTACK,
 	SOUND_GEFREITER_DAMAGE,
 	SOUND_GEFREITER_DEAD,
 	SOUND_GEFREITER_DRAINED,
 	//---------------------------------------------
-	// ÇÏ¿ìÆ®¸¸ - Àå±³
+	// í•˜ìš°íŠ¸ë§Œ - ìž¥êµ
 	//---------------------------------------------
 	SOUND_HAUPTMANN_DAMAGE,
 	SOUND_HAUPTMANN_DEAD,
 	SOUND_HAUPTMANN_DRAINED,
 	SOUND_HAUPTMANN_MAGIC,
 	//---------------------------------------------
-	// ·î°¡Å×½ºÅ¸ - ½ÅÃ¼º¯ÀÌ
+	// ë£½ê°€í…ŒìŠ¤íƒ€ - ì‹ ì²´ë³€ì´
 	//---------------------------------------------
 	SOUND_LUNGA_TESTA_ATTACK,
 	SOUND_LUNGA_TESTA_DAMAGE,
@@ -785,7 +785,7 @@ enum SOUND_ID
 	SOUND_LUNGA_TESTA_DRAINED,
 	SOUND_LUNGA_TESTA_VAMPIRE_DRAIN,
 	//---------------------------------------------
-	// ¿Àº£¸£½´Ã÷ - SR
+	// ì˜¤ë² ë¥´ìŠˆì¸  - SR
 	//---------------------------------------------
 	SOUND_OBERSCHUTZE_SR_ATTACK,
 	SOUND_OBERSCHUTZE_SR_DAMAGE,
@@ -793,7 +793,7 @@ enum SOUND_ID
 	SOUND_OBERSCHUTZE_SR_DRAINED,
 	SOUND_OBERSCHUTZE_SR_MELEE,
 	//---------------------------------------------
-	// ·ÎÀÌÄ«´Ùºê·ç - Ã¶ÅðÀÎ°£
+	// ë¡œì´ì¹´ë‹¤ë¸Œë£¨ - ì² í‡´ì¸ê°„
 	//---------------------------------------------
 	SOUND_ROI_CADAVRU_ATTACK,
 	SOUND_ROI_CADAVRU_DAMAGE,
@@ -801,7 +801,7 @@ enum SOUND_ID
 	SOUND_ROI_CADAVRU_DRAINED,
 	SOUND_ROI_CADAVRU_VAMPIRE_DRAIN,
 	//---------------------------------------------
-	// ½Ã¾Æ¸Þ½º - ½ÖµÕÀÌ
+	// ì‹œì•„ë©”ìŠ¤ - ìŒë‘¥ì´
 	//---------------------------------------------
 	SOUND_SIAMESE_ATTACK,
 	SOUND_SIAMESE_DAMAGE,
@@ -809,14 +809,14 @@ enum SOUND_ID
 	SOUND_SIAMESE_DRAINED,
 	SOUND_SIAMESE_VAMPIRE_DRAIN,
 	//---------------------------------------------
-	// ½ºÅÍ¸£¸¸ - SMG
+	// ìŠ¤í„°ë¥´ë§Œ - SMG
 	//---------------------------------------------
 	SOUND_STURMMANN_SMG_ATTACK,
 	SOUND_STURMMANN_SMG_DAMAGE,
 	SOUND_STURMMANN_SMG_DEAD,
 	SOUND_STURMMANN_SMG_DRAINED,
 	//---------------------------------------------
-	// ÅÍ±×·¹±× - °ñ·ë
+	// í„°ê·¸ë ˆê·¸ - ê³¨ë£¸
 	//---------------------------------------------
 	SOUND_TUGLEG_ATTACK,
 	SOUND_TUGLEG_DAMAGE,
@@ -824,7 +824,7 @@ enum SOUND_ID
 	SOUND_TUGLEG_DRAINED,
 	SOUND_TUGLEG_MOVE,
 	SOUND_TUGLEG_VAMPIRE_DRAIN,
-	// 2005, 1, 11, sobeit add end - »õ·Î¿î ¸ó½ºÅÍµé
+	// 2005, 1, 11, sobeit add end - ìƒˆë¡œìš´ ëª¬ìŠ¤í„°ë“¤
 	MAX_SOUND
 };
 

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------
 // 
 // Filename    : CGShopRequestList.h 
-// Written By  : ±è¼º¹Î
-// Description : ÇÃ·¹ÀÌ¾î°¡ °¡Áö°í ÀÖ´Â »óÁ¡ ¹öÀü°ú ¼­¹ö°¡ °¡Áö°í ÀÖ´Â »óÁ¡ÀÇ
-//               ¹öÀüÀÌ ´Ù¸¦ °æ¿ì, ÇÃ·¹ÀÌ¾î´Â ¼­¹ö¿¡°Ô »óÇ°ÀÇ ¸®½ºÆ®¸¦ 
-//               ¿äÃ»ÇÏ°Ô µÈ´Ù. ÀÌ ÆĞÅ¶Àº ±×¶§ º¸³»°Ô µÇ´Â ÆĞÅ¶ÀÌ´Ù.
+// Written By  : ê¹€ì„±ë¯¼
+// Description : í”Œë ˆì´ì–´ê°€ ê°€ì§€ê³  ìˆëŠ” ìƒì  ë²„ì „ê³¼ ì„œë²„ê°€ ê°€ì§€ê³  ìˆëŠ” ìƒì ì˜
+//               ë²„ì „ì´ ë‹¤ë¥¼ ê²½ìš°, í”Œë ˆì´ì–´ëŠ” ì„œë²„ì—ê²Œ ìƒí’ˆì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ 
+//               ìš”ì²­í•˜ê²Œ ëœë‹¤. ì´ íŒ¨í‚·ì€ ê·¸ë•Œ ë³´ë‚´ê²Œ ë˜ëŠ” íŒ¨í‚·ì´ë‹¤.
 // 
 //--------------------------------------------------------------------------------
 
@@ -25,10 +25,10 @@ class CGShopRequestList : public Packet {
 
 public :
 	
-	// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+	// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 	void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
 		    
-	// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+	// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 	void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
 
 	// execute packet's handler
@@ -39,7 +39,7 @@ public :
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static CGShopRequestListPacketSize ¸¦ Á¤ÀÇÇØ¼­ ¸®ÅÏÇÏ¶ó.
+	// const static CGShopRequestListPacketSize ë¥¼ ì •ì˜í•´ì„œ ë¦¬í„´í•˜ë¼.
 	PacketSize_t getPacketSize () const throw () { return szObjectID+szShopRackType; }
 
 	#ifdef __DEBUG_OUTPUT__

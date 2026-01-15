@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCShopMarketConditionHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@ void GCShopMarketConditionHandler::execute ( GCShopMarketCondition * pPacket , P
 #ifdef __GAME_CLIENT__
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -32,58 +32,58 @@ void GCShopMarketConditionHandler::execute ( GCShopMarketCondition * pPacket , P
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
 		//------------------------------------------------------
-		// ±×·± creature°¡ ¾ø´Â °æ¿ì
+		// ê·¸ëŸ° creatureê°€ ì—†ëŠ” ê²½ìš°
 		//------------------------------------------------------
 		if (pCreature==NULL)
 		{
 			DEBUG_ADD_FORMAT("[Error] There is no such Creature id=%d", pPacket->getObjectID());
 		}
 		//------------------------------------------------------
-		// NPCÀÎ °æ¿ì
+		// NPCì¸ ê²½ìš°
 		//------------------------------------------------------
 		else if (pCreature->GetClassType()==MCreature::CLASS_NPC)
 		{
 			MNPC* pNPC = (MNPC*)pCreature;
 
 			//------------------------------------------------------
-			// »óÁ¡À» ÀÐ´Â´Ù.
+			// ìƒì ì„ ì½ëŠ”ë‹¤.
 			//------------------------------------------------------
 			MShop* pShop = pNPC->GetShop();
 
 			if (pShop==NULL)
 			{
-				// »óÁ¡ÀÌ ¾ø¾úÀ¸¸é »ý¼ºÇÑ´Ù.
+				// ìƒì ì´ ì—†ì—ˆìœ¼ë©´ ìƒì„±í•œë‹¤.
 				pShop = new MShop;
 				pShop->Init( MShopShelf::MAX_SHELF );
 
-				// NPC¿¡ »óÁ¡ ¼³Á¤
+				// NPCì— ìƒì  ì„¤ì •
 				pNPC->SetShop( pShop );
 
-				// normal item ¼±¹ÝÀ» »ý¼ºÇÑ´Ù.
+				// normal item ì„ ë°˜ì„ ìƒì„±í•œë‹¤.
 				//pNPC->CreateFixedShelf();
 			}
 
 			//------------------------------------------------------
-			// ¼±¹ÝÀÇ °¡°Ý ºñÀ² 
+			// ì„ ë°˜ì˜ ê°€ê²© ë¹„ìœ¨ 
 			//------------------------------------------------------
 			g_pPriceManager->SetMarketCondBuy( pPacket->getMarketCondBuy() );
 			g_pPriceManager->SetMarketCondSell( pPacket->getMarketCondSell() );
 			
 			//------------------------------------------------------
-			// ÆÈ±â À§ÇØ¼­ inventory¸¦ ¿¬´Ù.
+			// íŒ”ê¸° ìœ„í•´ì„œ inventoryë¥¼ ì—°ë‹¤.
 			//------------------------------------------------------
 			UI_OpenInventoryToSell();
 
 		}
 		//------------------------------------------------------
-		// NPC°¡ ¾Æ´Ñ °æ¿ì
+		// NPCê°€ ì•„ë‹Œ ê²½ìš°
 		//------------------------------------------------------
 		else
 		{

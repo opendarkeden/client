@@ -23,7 +23,7 @@ MInteractionObject::MInteractionObject()
 
 MInteractionObject::MInteractionObject(TYPE_INTERACTIONOBJECTTYPE iaotype, TYPE_OBJECTID id, TYPE_OBJECTID ImageObjectID, TYPE_SPRITEID SpriteID, int pX, int pY, TYPE_SECTORPOSITION viewpoint, bool trans, BYTE type)
 {
-	// instance ID¹ß±Ş
+	// instance IDë°œê¸‰
 	m_ID			= id;
 
 	m_InteractionObjectType	 = iaotype;
@@ -83,12 +83,12 @@ MInteractionObject::SetAction(BYTE action)
 	/*
 	m_CurrentFrame = action; 
 
-	// InteractionObjectÀÇ ActionÀÌ º¯°æµÉ ¶§, ¼Ò¸®°¡ ³ª°Ô ÇÑ´Ù.
+	// InteractionObjectì˜ Actionì´ ë³€ê²½ë  ë•Œ, ì†Œë¦¬ê°€ ë‚˜ê²Œ í•œë‹¤.
 	//g_Sound.Play( g_SoundTable[(*g_pInteractionObjectTable)[action].SoundID].pDSBuffer );
 	PlaySound( (*g_pInteractionObjectTable)[action].SoundID, false, m_X, m_Y );
 
-	// InteractionObjectTypeÀÇ Á¾·ù¿¡ µû¶ó¼­ 
-	// ½ÇÇàÇÒ ÇÔ¼ö¸¦ ¼±ÅÃÇÑ´Ù.
+	// InteractionObjectTypeì˜ ì¢…ë¥˜ì— ë”°ë¼ì„œ 
+	// ì‹¤í–‰í•  í•¨ìˆ˜ë¥¼ ì„ íƒí•œë‹¤.
 	switch ((*g_pInteractionObjectTable)[m_InteractionObjectType].Type)
 	{
 		case TYPE_DOOR :
@@ -109,7 +109,7 @@ MInteractionObject::SetAction(BYTE action)
 //----------------------------------------------------------------------
 // Set NextAction
 //----------------------------------------------------------------------
-// actionÀÇ ´ÙÀ½ actionÀ» ¼³Á¤ÇÑ´Ù.
+// actionì˜ ë‹¤ìŒ actionì„ ì„¤ì •í•œë‹¤.
 //----------------------------------------------------------------------
 void			
 MInteractionObject::SetNextAction(BYTE action)
@@ -124,12 +124,12 @@ MInteractionObject::SetNextAction(BYTE action)
 	
 	m_CurrentFrame = nextAction;
 
-	// InteractionObjectÀÇ ActionÀÌ º¯°æµÉ ¶§, ¼Ò¸®°¡ ³ª°Ô ÇÑ´Ù.
+	// InteractionObjectì˜ Actionì´ ë³€ê²½ë  ë•Œ, ì†Œë¦¬ê°€ ë‚˜ê²Œ í•œë‹¤.
 	//g_Sound.Play( g_SoundTable[(*g_pInteractionObjectTable)[action].SoundID].pDSBuffer );
 	PlaySound( (*g_pInteractionObjectTable)[action].SoundID, false, m_X, m_Y );
 
-	// InteractionObjectTypeÀÇ Á¾·ù¿¡ µû¶ó¼­ 
-	// ½ÇÇàÇÒ ÇÔ¼ö¸¦ ¼±ÅÃÇÑ´Ù.
+	// InteractionObjectTypeì˜ ì¢…ë¥˜ì— ë”°ë¼ì„œ 
+	// ì‹¤í–‰í•  í•¨ìˆ˜ë¥¼ ì„ íƒí•œë‹¤.
 	switch ((*g_pInteractionObjectTable)[m_InteractionObjectType].Type)
 	{
 		case TYPE_DOOR :

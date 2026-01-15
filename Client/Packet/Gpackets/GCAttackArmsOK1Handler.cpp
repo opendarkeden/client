@@ -27,15 +27,15 @@ void GCAttackArmsOK1Handler::execute ( GCAttackArmsOK1 * pPacket , Player * pPla
 	// message
 
 	//------------------------------------------------------------------
-	// Player°¡ SkillÀ» ¼º°ø½ÃÅ² °æ¿ì¿¡ ³¯¾Æ¿À´Â PacketÀÌ¹Ç·Î
-	// °á°ú¸¦ ¹İ¿µ½ÃÄÑ¾ß ÇÑ´Ù.
+	// Playerê°€ Skillì„ ì„±ê³µì‹œí‚¨ ê²½ìš°ì— ë‚ ì•„ì˜¤ëŠ” Packetì´ë¯€ë¡œ
+	// ê²°ê³¼ë¥¼ ë°˜ì˜ì‹œì¼œì•¼ í•œë‹¤.
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 
 	//------------------------------------------------------------------
-	// Player°¡ ±â´Ù¸®´ø skillÀÇ ¼º°øÀ¯¹«¸¦ °ËÁõ¹Ş¾Ò´Ù.
+	// Playerê°€ ê¸°ë‹¤ë¦¬ë˜ skillì˜ ì„±ê³µìœ ë¬´ë¥¼ ê²€ì¦ë°›ì•˜ë‹¤.
 	//------------------------------------------------------------------
 	if (g_pPlayer->GetWaitVerify()==MPlayer::WAIT_VERIFY_SKILL_SUCCESS)
 	{		
@@ -47,7 +47,7 @@ void GCAttackArmsOK1Handler::execute ( GCAttackArmsOK1 * pPacket , Player * pPla
 	}
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ı¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -55,18 +55,18 @@ void GCAttackArmsOK1Handler::execute ( GCAttackArmsOK1 * pPacket , Player * pPla
 		DEBUG_ADD("[Error] Zone is Not Init.. yet.");			
 	}
 	//------------------------------------------------------
-	// Á¤»ó.. 
+	// ì •ìƒ.. 
 	//------------------------------------------------------
 	else
 	{
 		MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 
-		// Creature¿¡°Ô Damage ÀÔÈû
+		// Creatureì—ê²Œ Damage ì…í˜
 		/*
 		if (pCreature != NULL)
 		{
-			// ¹Ù·Î ¸Â´Â µ¿ÀÛ
-			// SKILL_ATTACK_GUN1~4?¿¡ ´ëÇÑ °á°ú¸¦ Ç¥ÇöÇØÁØ´Ù.
+			// ë°”ë¡œ ë§ëŠ” ë™ì‘
+			// SKILL_ATTACK_GUN1~4?ì— ëŒ€í•œ ê²°ê³¼ë¥¼ í‘œí˜„í•´ì¤€ë‹¤.
 			pCreature->PacketSpecialActionResult( 
 				g_pPlayer->GetBasicActionInfo() + g_ActionInfoTable.GetMinResultActionInfo(),
 				g_pPlayer->GetID(),
@@ -78,11 +78,11 @@ void GCAttackArmsOK1Handler::execute ( GCAttackArmsOK1 * pPacket , Player * pPla
 		*/
 
 		//------------------------------------------------------
-		// ¸ÂÀº °æ¿ì¸¸ ¸ÂÀº µ¿ÀÛÀº º¸ÀÎ´Ù.
+		// ë§ì€ ê²½ìš°ë§Œ ë§ì€ ë™ì‘ì€ ë³´ì¸ë‹¤.
 		//------------------------------------------------------
 		if (pPacket->getSkillSuccess())
 		{
-			// actionÀÌ ³¡³ª°í ¸Â´Â µ¿ÀÛ
+			// actionì´ ëë‚˜ê³  ë§ëŠ” ë™ì‘
 			if (pCreature!=NULL)
 			{
 				MActionResult* pResult = new MActionResult;
@@ -117,7 +117,7 @@ void GCAttackArmsOK1Handler::execute ( GCAttackArmsOK1 * pPacket , Player * pPla
 		}
 					
 		//------------------------------------------------------
-		// ÃÑ¾Ë »©ÁØ´Ù.
+		// ì´ì•Œ ë¹¼ì¤€ë‹¤.
 		//------------------------------------------------------
 		if (g_pCurrentMagazine==NULL)
 		{

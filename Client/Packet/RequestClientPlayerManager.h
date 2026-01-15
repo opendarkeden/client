@@ -2,13 +2,13 @@
 // RequestClientPlayerManager.h
 //--------------------------------------------------------------------------------
 //
-// Init( port )ÇÏ¸é Request¸¦ ¹Ş¾ÆµéÀÏ ÁØºñ¸¦ ÇÏ°Ô µÈ´Ù.
-//                  ³»ºÎ¿¡¼­ Thread¸¦ »ı¼ºÇØ¼­ 
-//                  WaitRequest()¸¦ È£ÃâÇØ¼­ accept¸¦ Ã³¸®ÇÑ´Ù.
+// Init( port )í•˜ë©´ Requestë¥¼ ë°›ì•„ë“¤ì¼ ì¤€ë¹„ë¥¼ í•˜ê²Œ ëœë‹¤.
+//                  ë‚´ë¶€ì—ì„œ Threadë¥¼ ìƒì„±í•´ì„œ 
+//                  WaitRequest()ë¥¼ í˜¸ì¶œí•´ì„œ acceptë¥¼ ì²˜ë¦¬í•œë‹¤.
 //
-// ±×³É WaitRequest()¸¦ È£ÃâÇÏ¸é ¾ÈµÈ´Ù.. - -;
+// ê·¸ëƒ¥ WaitRequest()ë¥¼ í˜¸ì¶œí•˜ë©´ ì•ˆëœë‹¤.. - -;
 //
-// Update()´Â WaitRequest()¿¡¼­ ¹Ş¾ÆµéÀÎ RequestServerPlayerµéÀ» Ã³¸®ÇÑ´Ù.
+// Update()ëŠ” WaitRequest()ì—ì„œ ë°›ì•„ë“¤ì¸ RequestServerPlayerë“¤ì„ ì²˜ë¦¬í•œë‹¤.
 //
 //
 //--------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ class RequestClientPlayerManager {
 		int			GetSize() const			{ return m_mapRequestClientPlayer.size(); }		
 
 		//----------------------------------------------------------------------
-		// RemoveConnectionInfo - ¿ÜºÎ¿¡¼­ ÇÔºÎ·Î Á¦°ÅÇÏ¸é ¾ÈµÈ´Ù. - -;
+		// RemoveConnectionInfo - ì™¸ë¶€ì—ì„œ í•¨ë¶€ë¡œ ì œê±°í•˜ë©´ ì•ˆëœë‹¤. - -;
 		//----------------------------------------------------------------------
 		void		RemoveConnectionInfo(const char* pName);
 
@@ -103,7 +103,7 @@ class RequestClientPlayerManager {
 		void		Unlock()				{ LeaveCriticalSection(&m_Lock); }
 
 		//----------------------------------------------------------------------
-		// Thread °ü·Ã
+		// Thread ê´€ë ¨
 		//----------------------------------------------------------------------
 		void		RemoveTerminatedThread();
 

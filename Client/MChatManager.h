@@ -2,8 +2,8 @@
 // MChatManager.h
 //----------------------------------------------------------------------
 // Is Accept ID?
-//		IgnoreMode : ¸ğµÎ ¹«½Ã, ID°¡ ÀÖ´Ù¸é acceptÀÌ´Ù.
-//		AcceptMode : ¸ğµÎ Çã¿ë, ID°¡ ÀÖ´Ù¸é IgnoreÀÌ´Ù.
+//		IgnoreMode : ëª¨ë‘ ë¬´ì‹œ, IDê°€ ìˆë‹¤ë©´ acceptì´ë‹¤.
+//		AcceptMode : ëª¨ë‘ í—ˆìš©, IDê°€ ìˆë‹¤ë©´ Ignoreì´ë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef __MCHATMANAGER_H__
@@ -44,7 +44,7 @@ class MChatManager {
 							}
 
 		//-------------------------------------------------------
-		// Remove Curse ¿å Á¦°Å ... - -;;
+		// Remove Curse ìš• ì œê±° ... - -;;
 		//-------------------------------------------------------
 		bool				RemoveCurse(char* str, bool bForce = false) const;
 		void				AddMask(char* str, int percent) const;
@@ -59,14 +59,14 @@ class MChatManager {
 
 	protected :
 		//-------------------------------------------------------
-		// ¿åÁ¦°ÅÇÏ±â À§ÇÑ ÇÔ¼ö..
+		// ìš•ì œê±°í•˜ê¸° ìœ„í•œ í•¨ìˆ˜..
 		//-------------------------------------------------------
 		//bool				RemoveCurseKorean(const char* str, int byteCurse, const MStringMap& mapCurse, bool* isCurse) const;
 		bool				RemoveCurseKorean(const char* str, int byteCurse, const MStringMap& mapCurse, BYTE* isCurse) const;
 
 	protected :
 		//-------------------------------------------------------
-		// ¿åµé.. - -;;
+		// ìš•ë“¤.. - -;;
 		//-------------------------------------------------------
 		MStringMap			m_mapCurseEng;
 		MStringMap			m_mapCurseKor1;
@@ -75,7 +75,7 @@ class MChatManager {
 		MStringMap			m_mapCurseKor4;
 
 		//-------------------------------------------------------
-		// ´ëÈ­ °ÅºÎÇÏ´Â IDµé
+		// ëŒ€í™” ê±°ë¶€í•˜ëŠ” IDë“¤
 		//-------------------------------------------------------
 		bool				m_bIgnoreMode;
 		MStringMap			m_mapID;

@@ -12,7 +12,7 @@
 
 static BYTE	MP3_buffer[MP3BUFSIZE] ;
 
-// ÇÁ·¹ÀÓ ´ÜÀ§·Î ÀÌµ¿ÇÒ ¼ö ÀÖµµ·Ï OffsetÀ» ¸¸µé¾î µĞ´Ù.
+// í”„ë ˆì„ ë‹¨ìœ„ë¡œ ì´ë™í•  ìˆ˜ ìˆë„ë¡ Offsetì„ ë§Œë“¤ì–´ ë‘”ë‹¤.
 static int*	Offset = NULL ;
 
 UINT MP3_Calc_FrameSize (MP3* mp3)
@@ -74,7 +74,7 @@ int MP3_ReadFrame(MP3* mp3)
 	DEBUG_ADD("[MP3_ReadFrame] 3");
 		size = MP3_Calc_FrameSize(mp3) ;
 	DEBUG_ADD_FORMAT("[MP3_ReadFrame] 4 Calc_FrameSize %d", size);
-		// ÇÁ·¹ÀÓ µ¥ÀÌÅ¸ ºÎºĞÀ» ÀĞ¾î¹ö¸°´Ù.
+		// í”„ë ˆì„ ë°ì´íƒ€ ë¶€ë¶„ì„ ì½ì–´ë²„ë¦°ë‹¤.
 		if ( ReadBytes( MP3_buffer, size) < 0 )
 		{
 			mp3->maxframes = i;
@@ -83,10 +83,10 @@ int MP3_ReadFrame(MP3* mp3)
 		}
 	DEBUG_ADD("[MP3_ReadFrame] 5");
 
-		// CRC Ã¼Å©¸¦ ÇÑ´Ù.
+		// CRC ì²´í¬ë¥¼ í•œë‹¤.
 		if (!mp3->Header.ProtectionBit)
 		{
-			// CRC´Â ´Ü¼øÈ÷ ÀĞ¾îµéÀÌ±â¸¸ ÇÏÀÚ
+			// CRCëŠ” ë‹¨ìˆœíˆ ì½ì–´ë“¤ì´ê¸°ë§Œ í•˜ì
 			WORD CheckSum ;
 	DEBUG_ADD("[MP3_ReadFrame] 6");
 			ReadWords(&CheckSum, 1) ;
@@ -106,7 +106,7 @@ LPDIRECTSOUNDBUFFER	MP3_CreateDSBuffer(MP3* mp3)
 	int nFrames = MinFrames(mp3) ;
 	int size = nFrames * 0x1200 ;
 
-	DEBUG_ADD("MP3_CreateDSBuffer°¡ ½ÃÀÛÇÕ´Ï´Ù.") ;
+	DEBUG_ADD("MP3_CreateDSBufferê°€ ì‹œì‘í•©ë‹ˆë‹¤.") ;
 
 	BYTE *dataBuff = new BYTE[size] ;
 
@@ -116,44 +116,44 @@ LPDIRECTSOUNDBUFFER	MP3_CreateDSBuffer(MP3* mp3)
 	DEBUG_ADD("MP3_CreateDSBuffer MP3_ReadFrame OK") ;
 
 	mp3->soundbuf = CreateSoundBuf(mp3, nFrames) ;
-	DEBUG_ADD("»ç¿îµå ¹öÆÛ¸¦ »ı¼ºÇß½À´Ï´Ù.") ;
+	DEBUG_ADD("ì‚¬ìš´ë“œ ë²„í¼ë¥¼ ìƒì„±í–ˆìŠµë‹ˆë‹¤.") ;
 
 	LPSOUNDBUF lpsb = mp3->soundbuf ;
 	DEBUG_ADD_FORMAT("nFrames : %d frame");
 
 	for ( int i = 0 ; i < nFrames ; i++ )
 	{
-		DEBUG_ADD_FORMAT("%d¹øÂ° ÇÁ·¹ÀÓ ÀÛ¾÷ ½ÃÀÛ", i ) ;
+		DEBUG_ADD_FORMAT("%dë²ˆì§¸ í”„ë ˆì„ ì‘ì—… ì‹œì‘", i ) ;
 		if( SeekFrame(mp3, i) == -1)
 		{
 			DEBUG_ADD("SeekFrame return -1");
 			return NULL;
 		}
-		DEBUG_ADD_FORMAT("%d¹øÂ° ÇÁ·¹ÀÓ Çì´õ ÀĞ±â", i ) ;
+		DEBUG_ADD_FORMAT("%dë²ˆì§¸ í”„ë ˆì„ í—¤ë” ì½ê¸°", i ) ;
 		if( MP3_ReadHeader(&mp3->Header) == -1)
 		{
 			DEBUG_ADD("MP3_ReadHeader return -1");
 			return NULL;
 		}
-		DEBUG_ADD_FORMAT("%d¹øÂ° ÇÁ·¹ÀÓ »çÀÌÁî Á¤º¸ ¾ò±â", i ) ;
-		MP3_Calc_FrameSize(mp3) ;	// ½½·Ô ¼ö¸¦ ¾ò¾î¿À±â À§ÇØ 
-		DEBUG_ADD_FORMAT("%d¹øÂ° ÇÁ·¹ÀÓ µğÄÚµù", i ) ;
+		DEBUG_ADD_FORMAT("%dë²ˆì§¸ í”„ë ˆì„ ì‚¬ì´ì¦ˆ ì •ë³´ ì–»ê¸°", i ) ;
+		MP3_Calc_FrameSize(mp3) ;	// ìŠ¬ë¡¯ ìˆ˜ë¥¼ ì–»ì–´ì˜¤ê¸° ìœ„í•´ 
+		DEBUG_ADD_FORMAT("%dë²ˆì§¸ í”„ë ˆì„ ë””ì½”ë”©", i ) ;
 		MP3_Decode(mp3) ;
-		DEBUG_ADD_FORMAT("%d¹øÂ° ÇÁ·¹ÀÓÀÇ µğÄÚµù Á¤º¸¸¦ dataBuff¿¡ º¹»ç", i ) ;
+		DEBUG_ADD_FORMAT("%dë²ˆì§¸ í”„ë ˆì„ì˜ ë””ì½”ë”© ì •ë³´ë¥¼ dataBuffì— ë³µì‚¬", i ) ;
 		memcpy ( &dataBuff[i*0x1200], mp3->soundbuf->databuf, 0x1200 ) ;
 		lpsb->nPushedFrames++ ;
 		lpsb->offWrite += lpsb->bufSize ;
 		lpsb->offWrite %= lpsb->bufSize*lpsb->nPushedFrames ;
-		DEBUG_ADD_FORMAT("%d¹øÂ° ÇÁ·¹ÀÓ Reset", i ) ;
+		DEBUG_ADD_FORMAT("%dë²ˆì§¸ í”„ë ˆì„ Reset", i ) ;
 		Reset(lpsb) ;
-		DEBUG_ADD_FORMAT("%d¹øÂ° ÇÁ·¹ÀÓ ÀÛ¾÷ Á¾·á", i ) ;
+		DEBUG_ADD_FORMAT("%dë²ˆì§¸ í”„ë ˆì„ ì‘ì—… ì¢…ë£Œ", i ) ;
 		mp3->curFrame++ ;
 	}
 
 	static const int samplefrequencies[3] = { 44100, 48000, 32000 };
 
 	//@@@@@@@@@@@@@@@
-	// ¹öÆÛ »ı¼º ·çÆ¾
+	// ë²„í¼ ìƒì„± ë£¨í‹´
 	
 	WAVEFORMATEX wfx ;
 	wfx.wFormatTag		= WAVE_FORMAT_PCM;
@@ -185,7 +185,7 @@ MP3* MP3_Load (LPSTR pathname)
 	MP3*	mp3 = new MP3 ;
 	memset( mp3, 0, sizeof(MP3) ) ;
 
-//	DispDebugMsg("MP3 ÆÄÀÏ %sÀÇ Çì´õ Á¤º¸¸¦ ÀĞÀ¸·Á ÇÕ´Ï´Ù.", pathname ) ;
+//	DispDebugMsg("MP3 íŒŒì¼ %sì˜ í—¤ë” ì •ë³´ë¥¼ ì½ìœ¼ë ¤ í•©ë‹ˆë‹¤.", pathname ) ;
 	if(	MP3_ReadHeader(&mp3->Header) == -1)
 		return NULL;
 
@@ -212,7 +212,7 @@ MP3* MP3_Load (LPSTR pathname)
 				mp3->prevblck[i][j][k] = 0.f ;
 
 	e_mode mode = mp3->Header.Mode ;
-	// channel¼ö¸¦ ±¸ÇÑ´Ù.
+	// channelìˆ˜ë¥¼ êµ¬í•œë‹¤.
 	if (mode == single_channel )
 	{ mp3->channels = 1 ; }
 	else
@@ -230,13 +230,13 @@ void hybrid(MP3 *mp3, int ch, int gr, int sb) ;
 
 int MP3_Decode(MP3* mp3)
 {
-//	if ( mp3 == NULL ) DispDebugMsg("MP3_DecodeÀÇ ÀÎÀÚ·Î NULL°ªÀÌ µé¾î¿Ô½À´Ï´Ù.") ;
+//	if ( mp3 == NULL ) DispDebugMsg("MP3_Decodeì˜ ì¸ìë¡œ NULLê°’ì´ ë“¤ì–´ì™”ìŠµë‹ˆë‹¤.") ;
 	MP3Header *header = &mp3->Header ;
 	int		nSlots = header->nSlots ;
 	int channel ;
 
 	e_mode mode = mp3->Header.Mode ;
-	// channel¼ö¸¦ ±¸ÇÑ´Ù.
+	// channelìˆ˜ë¥¼ êµ¬í•œë‹¤.
 	if (mode == single_channel )
 	{channel = 1 ; mp3->channels = 1 ;}
 	else
@@ -245,7 +245,7 @@ int MP3_Decode(MP3* mp3)
 
 	int offset = GetCurOffset() ;
 
-	ReadSideInfo(channel, &mp3->si ) ;	// side info ¸¦ ÀĞ¾î¿Â´Ù.
+	ReadSideInfo(channel, &mp3->si ) ;	// side info ë¥¼ ì½ì–´ì˜¨ë‹¤.
 
 	Bit_Reserve*	br = mp3->br ;
 	for ( ; nSlots > 0 ; nSlots-- )
@@ -277,19 +277,19 @@ int MP3_Decode(MP3* mp3)
 	if ( bytes_to_discard < 0 )
 		return -1;
 
-	//ÃÊ°úµÈ µ¥ÀÌÅ¸¸¦ ¹æÃâÇÑ´Ù.
+	//ì´ˆê³¼ëœ ë°ì´íƒ€ë¥¼ ë°©ì¶œí•œë‹¤.
 	for ( ; bytes_to_discard > 0 ; bytes_to_discard-- ) br->hgetbits(8) ;
 
 
-//	DispDebugMsg("MP3 ÆÄÀÏ µğÄÚµù Áß") ;
+//	DispDebugMsg("MP3 íŒŒì¼ ë””ì½”ë”© ì¤‘") ;
 	for ( int gr = 0 ; gr < 2 ; gr++ )
 	{
-//		DispDebugMsg("%d¹ø ±×·ìÀ» µğÄÚµùÇÕ´Ï´Ù.", gr) ;
+//		DispDebugMsg("%dë²ˆ ê·¸ë£¹ì„ ë””ì½”ë”©í•©ë‹ˆë‹¤.", gr) ;
 		for ( int ch = 0 ; ch < channel ; ch++ )
 		{
 			mp3->part2Start = br->hsstell() ;
 
-			// ½ÇÁ¦ »ùÇÃÀÇ ¾ĞÃàÀ» Çª´Â ºÎºĞ ///////////////////////////////////
+			// ì‹¤ì œ ìƒ˜í”Œì˜ ì••ì¶•ì„ í‘¸ëŠ” ë¶€ë¶„ ///////////////////////////////////
 			get_scale_factors(mp3, ch, gr) ;
 			hufman_decode(mp3, ch, gr) ;
 			dequntize_sample(mp3, mp3->ro[ch], ch, gr) ;
@@ -333,7 +333,7 @@ int MP3_Decode(MP3* mp3)
 
 
 	}	// granule
-//	DispDebugMsg("MP3 ÆÄÀÏ µğÄÚµù ¿Ï·á") ;
+//	DispDebugMsg("MP3 íŒŒì¼ ë””ì½”ë”© ì™„ë£Œ") ;
 	return 0 ;
 }
 
@@ -343,15 +343,15 @@ int	MP3_WriteToBuffer(MP3* mp3, int num, HANDLE event)
 //	DispDebugMsg("MP3_WriteToBuffer") ;
 	SeekFrame(mp3, num) ;
 
-//	DispDebugMsg("%d¹ø ÇÁ·¹ÀÓ ºÎºĞÀ» Ã£¾Ò½À´Ï´Ù.", num) ;
+//	DispDebugMsg("%dë²ˆ í”„ë ˆì„ ë¶€ë¶„ì„ ì°¾ì•˜ìŠµë‹ˆë‹¤.", num) ;
 	MP3_ReadHeader(&mp3->Header) ;
-//	DispDebugMsg("Çì´õ Á¤º¸¸¦ ÀĞ¾î¿Ô½À´Ï´Ù.") ;
-	MP3_Calc_FrameSize(mp3) ;	// ½½·Ô ¼ö¸¦ ¾ò¾î¿À±â À§ÇØ 
-//	DispDebugMsg("ÇÁ·¹ÀÓ »çÀÌÁî¸¦ °è»êÇß½À´Ï´Ù..") ;
+//	DispDebugMsg("í—¤ë” ì •ë³´ë¥¼ ì½ì–´ì™”ìŠµë‹ˆë‹¤.") ;
+	MP3_Calc_FrameSize(mp3) ;	// ìŠ¬ë¡¯ ìˆ˜ë¥¼ ì–»ì–´ì˜¤ê¸° ìœ„í•´ 
+//	DispDebugMsg("í”„ë ˆì„ ì‚¬ì´ì¦ˆë¥¼ ê³„ì‚°í–ˆìŠµë‹ˆë‹¤..") ;
 	MP3_Decode(mp3) ;
-//	DispDebugMsg("MP3ÆÄÀÏ µğÄÚµùÇÕ´Ï´Ù.") ;
+//	DispDebugMsg("MP3íŒŒì¼ ë””ì½”ë”©í•©ë‹ˆë‹¤.") ;
 	OutputData(mp3->soundbuf) ;
-//	DispDebugMsg("µğÄÚµù µÈ ³»¿ëÀ» ¹öÆÛ¿¡ ±â·ÏÇß½À´Ï´Ù.") ;
+//	DispDebugMsg("ë””ì½”ë”© ëœ ë‚´ìš©ì„ ë²„í¼ì— ê¸°ë¡í–ˆìŠµë‹ˆë‹¤.") ;
 	return 0 ;
 }
 

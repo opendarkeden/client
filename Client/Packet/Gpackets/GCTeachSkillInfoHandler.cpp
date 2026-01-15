@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCTeachSkillInfoHandler.cc
-// Written By  : ±è¼º¹Î 
+// Written By  : ê¹€ì„±ë¯¼ 
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -15,7 +15,7 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ðÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Þ½ÃÁö¸¦ ¹Þ¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Þ½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GCTeachSkillInfoHandler::execute ( GCTeachSkillInfo * pPacket , Player * pPlayer )
@@ -28,10 +28,10 @@ void GCTeachSkillInfoHandler::execute ( GCTeachSkillInfo * pPacket , Player * pP
 	// get/set NPC's object id
 	//pPacket->getObjectID();
 	
-	// SkillÀ» ¹è¿ì±â À§ÇØ¼­ SkillTree¸¦ ¶ç¿î´Ù.
+	// Skillì„ ë°°ìš°ê¸° ìœ„í•´ì„œ SkillTreeë¥¼ ë„ìš´ë‹¤.
 	UI_RunSkillTree( (int)pPacket->getDomainType(), 100 );//pPacket->getMaxLevel() );
 	
-	// ÀÓ½Ã·Î Á¤º¸ ÀúÀå
+	// ìž„ì‹œë¡œ ì •ë³´ ì €ìž¥
 	g_pTempInformation->SetMode(TempInformation::MODE_SKILL_LEARN);
 	g_pTempInformation->Value1	=	pPacket->getDomainType();
 	g_pTempInformation->Value2	=	100;//pPacket->getMaxLevel();

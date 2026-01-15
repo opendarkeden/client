@@ -1,21 +1,21 @@
 //----------------------------------------------------------------------
 // CAnimationFrame.h
 //----------------------------------------------------------------------
-// FrameÀÌ ¹Ù²î¸é¼­ AnimationÀÌ µÇ´Â °Í¿¡ ´ëÇÑ class
+// Frameì´ ë°”ë€Œë©´ì„œ Animationì´ ë˜ëŠ” ê²ƒì— ëŒ€í•œ class
 //----------------------------------------------------------------------
 //
-// ¾î¶² FramePack¿¡¼­ÀÇ Frame ID¿Í 
-// CurrentFrame/MaxFrameÀÇ Á¤º¸¸¦ °®´Â´Ù.
+// ì–´ë–¤ FramePackì—ì„œì˜ Frame IDì™€ 
+// CurrentFrame/MaxFrameì˜ ì •ë³´ë¥¼ ê°–ëŠ”ë‹¤.
 //
 //----------------------------------------------------------------------
 //
 // [ File I/O ]
 //
-// Frame ID¸¸ ÀúÀåµÈ´Ù. MaxFrameÀº ¹Ù²ğ ¼ö ÀÖÀ¸¹Ç·Î ½ÇÇà ½Ã¿¡ °ªÀ» °áÁ¤ÇÑ´Ù.
-// CurrentFrameÀº ´Ã 0ºÎÅÍ ½ÃÀÛµÈ´Ù.
-// Frame ID¸¸ ÀÖÀ¸¸é MaxFrame¿¡ ´ëÇÑ Á¤º¸¸¦ ¾Ë ¼ö ÀÖ´Ù.
-// ±×·¯³ª, ¾î¶² CAnimationFrame°ú °ü·ÃµÈ FramePackÀÌ ¹ºÁö¸¦ ¾Ë ¼ö°¡ ¾ø´Ù.
-// ¾îÂ¶°Å³ª.. ¿ÜºÎ¿¡¼­ ±× Á¤º¸¸¦ °áÁ¤ÇØÁØ´Ù°í ÇÏÀÚ.. - -;;
+// Frame IDë§Œ ì €ì¥ëœë‹¤. MaxFrameì€ ë°”ë€” ìˆ˜ ìˆìœ¼ë¯€ë¡œ ì‹¤í–‰ ì‹œì— ê°’ì„ ê²°ì •í•œë‹¤.
+// CurrentFrameì€ ëŠ˜ 0ë¶€í„° ì‹œì‘ëœë‹¤.
+// Frame IDë§Œ ìˆìœ¼ë©´ MaxFrameì— ëŒ€í•œ ì •ë³´ë¥¼ ì•Œ ìˆ˜ ìˆë‹¤.
+// ê·¸ëŸ¬ë‚˜, ì–´ë–¤ CAnimationFrameê³¼ ê´€ë ¨ëœ FramePackì´ ë­”ì§€ë¥¼ ì•Œ ìˆ˜ê°€ ì—†ë‹¤.
+// ì–´ì¨‹ê±°ë‚˜.. ì™¸ë¶€ì—ì„œ ê·¸ ì •ë³´ë¥¼ ê²°ì •í•´ì¤€ë‹¤ê³  í•˜ì.. - -;;
 //
 //----------------------------------------------------------------------
 
@@ -38,7 +38,7 @@ class CAnimationFrame {
 		~CAnimationFrame();
 
 		//--------------------------------------------------------
-		// ±âº» Frame
+		// ê¸°ë³¸ Frame
 		//--------------------------------------------------------
 		void			SetFrameID(TYPE_FRAMEID FrameID, BYTE max)	{ m_FrameID = FrameID; m_MaxFrame=max; m_CurrentFrame=0; }
 		TYPE_FRAMEID	GetFrameID() const		{ return m_FrameID; }
@@ -55,7 +55,7 @@ class CAnimationFrame {
 		void	LoadFromFile(class ifstream& file);
 
 		//-------------------------------------------------------
-		// Ãâ·Â ¹æ½Ä
+		// ì¶œë ¥ ë°©ì‹
 		//-------------------------------------------------------
 		void	SetBltType(BYTE bltType)	{ m_BltType = bltType; }
 		BYTE	GetBltType() const			{ return m_BltType; }
@@ -66,14 +66,14 @@ class CAnimationFrame {
 
 
 	protected :		
-		// ÇöÀç frame¿¡ ´ëÇÑ Á¤º¸ : CThingFramePack¿¡ ´ëÇÑ °ÍÀÌ´Ù.	
+		// í˜„ì¬ frameì— ëŒ€í•œ ì •ë³´ : CThingFramePackì— ëŒ€í•œ ê²ƒì´ë‹¤.	
 		TYPE_FRAMEID		m_FrameID;
 
-		// Animation FrameÀ» À§ÇÑ Á¤º¸
+		// Animation Frameì„ ìœ„í•œ ì •ë³´
 		BYTE				m_CurrentFrame;	// Current Frame
 		BYTE				m_MaxFrame;		// Max Frame
 	
-		// Ãâ·Â ¹æ½Ä
+		// ì¶œë ¥ ë°©ì‹
 		BYTE				m_BltType;
 };
 

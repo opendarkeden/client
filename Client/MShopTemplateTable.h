@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // MShopTemplateTable.h
 //-----------------------------------------------------------------------------
-// ShopTemplateTableÀº ShopTemplateÀÇ array - mapÀ» »ç¿ëÇÏÀÚ...
+// ShopTemplateTableì€ ShopTemplateì˜ array - mapì„ ì‚¬ìš©í•˜ì...
 //-----------------------------------------------------------------------------
 
 #ifndef __MSHOPTEMPLATE_H__
@@ -23,7 +23,7 @@ class MShopTemplate {
 	public :
 		//UINT				m_ID;
 
-		BYTE				Type;				// »óÁ¡ type
+		BYTE				Type;				// ìƒì  type
 
 		// item class
 		int					Class;

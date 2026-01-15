@@ -29,10 +29,10 @@ void GCRingHandler::execute ( GCRing * pPacket , Player * pPlayer )
 	// 
 //	UI_OnLinePCS(pName, pcsNumber);
 
-	// PCS¿¡ ÀüÈ­°¡ ¿Ô´Ù°í ¾Ë¸°´Ù.
+	// PCSì— ì „í™”ê°€ ì™”ë‹¤ê³  ì•Œë¦°ë‹¤.
 //	UI_PleaseConnectPCS(pName, pcsNumber, slot);
 
-	// ¹øÈ£ ±â¾ï
+	// ë²ˆí˜¸ ê¸°ì–µ
 	g_pUserInformation->OtherPCSNumber[ slot ] = pPacket->getPhoneNumber();
 	g_pUserInformation->PCSUserName[ slot ] = pPacket->getName().c_str();
 

@@ -110,7 +110,7 @@ MQuestInfoManager::LoadFromFile(class ifstream& file)
 	file.read((char*)&infoSize, 4);
 
 	//-----------------------------------------------------
-	// ∞¢ info
+	// Í∞Å info
 	//-----------------------------------------------------
 	for (int i=0; i<infoSize; i++)
 	{		
@@ -119,7 +119,7 @@ MQuestInfoManager::LoadFromFile(class ifstream& file)
 		pData->LoadFromFile( file );
 
 		//-----------------------------------------------------
-		// mapø° √ﬂ∞°«—¥Ÿ.
+		// mapÏóê Ï∂îÍ∞ÄÌïúÎã§.
 		//-----------------------------------------------------
 		if (!AddData( pData->GetID(), pData ))
 		{

@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------
 // CStorageSurface.h
 //----------------------------------------------------------------------
-// SurfaceÀÇ ÀÏºÎºĞÀ» ±â¾ïÇÏ°í ÀÖ´Ù°¡ 
-// ÇÊ¿äÇÑ¶§¿¡ ´Ù½Ã ±â¾ïµÈ ³»¿ëÀº º¹±¸½ÃÄÑ¼­ »ç¿ëÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// Surfaceì˜ ì¼ë¶€ë¶„ì„ ê¸°ì–µí•˜ê³  ìˆë‹¤ê°€ 
+// í•„ìš”í•œë•Œì— ë‹¤ì‹œ ê¸°ì–µëœ ë‚´ìš©ì€ ë³µêµ¬ì‹œì¼œì„œ ì‚¬ìš©í•  ìˆ˜ ìˆê²Œ í•œë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__CSTORAGESURFACE_H__
@@ -28,7 +28,7 @@ class CStorageSurface {
 		//--------------------------------------------------------
 		// Init / Release
 		//--------------------------------------------------------
-		// (Surface°³¼ö, width, height)
+		// (Surfaceê°œìˆ˜, width, height)
 		void					Init(int size, int width, int height);
 		void					Release();
 
@@ -44,9 +44,9 @@ class CStorageSurface {
 		int						GetSize() const		{ return m_Size; }
 
 	protected :
-		int						m_Size;				// surface°³¼ö
-		POINT*					m_pPoint;			// surface¿¡ ±â¾ïµÈ À§Ä¡
-		CDirectDrawSurface*		m_pStorageSurface;	// ±â¾ïµÈ surface³»¿ë
+		int						m_Size;				// surfaceê°œìˆ˜
+		POINT*					m_pPoint;			// surfaceì— ê¸°ì–µëœ ìœ„ì¹˜
+		CDirectDrawSurface*		m_pStorageSurface;	// ê¸°ì–µëœ surfaceë‚´ìš©
 };
 
 

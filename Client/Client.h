@@ -91,10 +91,10 @@ class Player;
 // 80 --> 12 Frame
 // 100 --> 10 Frame
 // 111 --> 9 Frame
-#define	LIMIT_FPS_FOR_CURSOR	24		// ºÎµå·¯¿î(?) Ä¿¼­ Ãâ·ÂÀ» À§ÇÑ ÃÖ¼ÒFPS
+#define	LIMIT_FPS_FOR_CURSOR	24		// ë¶€ë“œëŸ¬ìš´(?) ì»¤ì„œ ì¶œë ¥ì„ ìœ„í•œ ìµœì†ŒFPS
 #define	DELAY_UPDATE_LOGIN		20
 #define	DELAY_UPDATE_WAITING	50
-#define	DELAY_UPDATE_GAME		62//62  ·ÀÖ¹¼ÓËÙÈ«¾Ö±äÁ¿
+#define	DELAY_UPDATE_GAME		62//62  ë å²ºì†é†µí™ì• ê¸´ì¢†
 
 #define SAFE_DELETE(x)		{ if(x!=NULL) delete x; x=NULL; }
 #define SAFE_DELETE_ARRAY(x){ if(x!=NULL) delete []x; x=NULL;}
@@ -128,7 +128,7 @@ extern CAVI					*g_pAvi;
 // Sound PartManager
 extern CSoundPartManager*	g_pSoundManager;
 
-// Cursor °ü¸®
+// Cursor ê´€ë¦¬
 extern CStorageSurface*		g_pCursorSurface;
 
 extern POINT				g_SelectSector;
@@ -161,7 +161,7 @@ extern int					g_ScreenShotNumber;
 // minimize | anotherWnd click--> !ActiveGame
 extern BOOL					g_bActiveApp; // Is application active?
 extern BOOL					g_bActiveGame; // Is Game Active?
-extern BOOL					g_bNeedUpdate; // updateÇØ¾ßµÇ³ª?
+extern BOOL					g_bNeedUpdate; // updateí•´ì•¼ë˜ë‚˜?
 
 
 // FPS
@@ -179,15 +179,15 @@ extern int					g_FrameRate;
 	extern CMessageArray*		g_pDebugMessage;
 #endif
 
-extern bool					g_bPutMessage;		// È­¸é¿¡ debug¸Ş¼¼Áö¸¦ Ãâ·ÂÇÒ±î?
+extern bool					g_bPutMessage;		// í™”ë©´ì— debugë©”ì„¸ì§€ë¥¼ ì¶œë ¥í• ê¹Œ?
 	
-extern bool					g_bNewDraw;			// È­¸éÀ» ´Ù½Ã ±×·È´Â°¡? (Ä¿¼­ Á¦¿Ü)
-extern bool					g_bSmoothCursor;	// ºÎµå·¯¿î(?) cursor¸¦ Ãâ·ÂÇÒ ¼ö ÀÖ³ª?
-extern bool					g_bNetStatusGood;	// ³×Æ®¿÷ »óÅÂ°¡ ÁÁÀº°¡?
+extern bool					g_bNewDraw;			// í™”ë©´ì„ ë‹¤ì‹œ ê·¸ë ¸ëŠ”ê°€? (ì»¤ì„œ ì œì™¸)
+extern bool					g_bSmoothCursor;	// ë¶€ë“œëŸ¬ìš´(?) cursorë¥¼ ì¶œë ¥í•  ìˆ˜ ìˆë‚˜?
+extern bool					g_bNetStatusGood;	// ë„¤íŠ¸ì› ìƒíƒœê°€ ì¢‹ì€ê°€?
 
 extern CMessageArray*		g_pSystemMessage;
 
-extern CMessageArray*		g_pPlayerMessage;  //Íæ¼ÒĞÅÏ¢Àà
+extern CMessageArray*		g_pPlayerMessage;  //é¯¤ì†Œæ–¤å£ìš
 
 extern CMessageArray*		g_pGameMessage;
 extern CMessageArray*		g_pHelpMessage;
@@ -235,7 +235,7 @@ void		StopLoadingThread();
 
 BOOL		InitGame();
 
-// ALT + TAB Ã³¸®
+// ALT + TAB ì²˜ë¦¬
 void		CheckActivate(BOOL bActiveGame);
 
 // Init DX..
@@ -291,11 +291,11 @@ void		MakeScreenShot();
 // UI
 void		UI_ResultReceiver(DWORD message, int left, int right, void *void_ptr);
 
-// ³¯¾¾
+// ë‚ ì”¨
 void		SetWeather(int weather, int level);
 void		SetLightning(DWORD delay);
 
-// file¿­±â
+// fileì—´ê¸°
 bool		FileOpenBinary(const char* filename, class ifstream& file);
 
 // 2004, 3, 29 sobeit add start

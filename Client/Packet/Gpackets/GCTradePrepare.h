@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : GCTradePrepare.h 
-// Written By  : �輺��
+// Written By  : 김성민
 // Description : 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -11,23 +11,23 @@
 #include "PacketFactory.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// ��ȯ �ڵ�
+// 교환 코드
 ////////////////////////////////////////////////////////////////////////////////
 
 enum
 {
-	// ���� ó�� ��ȯ�� ��û���� �÷��̾�� �����ִ� �ڵ�
+	// 제일 처음 교환을 요청받은 플레이어에게 보내주는 코드
 	GC_TRADE_PREPARE_CODE_REQUEST = 0,
 
 	GC_TRADE_PREPARE_CODE_CANCEL,
 
-	// ��ȯ�� ��û���� �÷��̾ ������ ��쿡, ��û�ڿ��� �����ش�.
+	// 교환을 요청받은 플레이어가 응했을 경우에, 요청자에게 보내준다.
 	GC_TRADE_PREPARE_CODE_ACCEPT,
 
-	// ��ȯ�� ��û���� �÷��̾ �ź����� ��쿡, ��û�ڿ��� �����ش�.
+	// 교환을 요청받은 플레이어가 거부했을 경우에, 요청자에게 보내준다.
 	GC_TRADE_PREPARE_CODE_REJECT,
 
-	// ��ȯ�� ��û���� �÷��̾ ���� ��ȯ ���̴�.
+	// 교환을 요청받은 플레이어가 현재 교환 중이다.
 	GC_TRADE_PREPARE_CODE_BUSY,
 
 	GC_TRADE_PREPARE_CODE_MAX
@@ -61,8 +61,8 @@ public:
 	void setCode(BYTE code) { m_Code = code; }
 
 private :
-	ObjectID_t m_TargetObjectID; // ��ȯ�� ���ϴ� ������ OID
-	BYTE       m_Code;           // ��ȯ �ڵ�
+	ObjectID_t m_TargetObjectID; // 교환을 원하는 상대방의 OID
+	BYTE       m_Code;           // 교환 코드
 
 };
 

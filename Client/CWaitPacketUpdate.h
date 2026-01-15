@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // CWaitPacketUpdate.h
 //-----------------------------------------------------------------------------
-// Server¿¡¼­ ¸Ş½ÃÁö°¡ ¿À±â¸¦ ±â´Ù¸®´Â Loop
+// Serverì—ì„œ ë©”ì‹œì§€ê°€ ì˜¤ê¸°ë¥¼ ê¸°ë‹¤ë¦¬ëŠ” Loop
 //-----------------------------------------------------------------------------
 
 #ifndef	__CWAITPACKETUPDATE_H__
@@ -14,17 +14,17 @@ class CWaitPacketUpdate : public CWinUpdate {
 		CWaitPacketUpdate()	{ m_DelayLimit = 0xFFFFFFFF; }
 		~CWaitPacketUpdate() {}
 
-		// ÃÊ±âÈ­
+		// ì´ˆê¸°í™”
 		void		Init();
 
-		// UpdateÇÏ´Â ÇÑ°è ½Ã°£À» ¼³Á¤ÇÑ´Ù.
+		// Updateí•˜ëŠ” í•œê³„ ì‹œê°„ì„ ì„¤ì •í•œë‹¤.
 		void		SetDelay(DWORD delay);		
 
 		// update
 		void		Update();		
 
 	protected :				
-		DWORD		m_DelayLimit;	// ±â´Ù¸®´Â ÇÑ°è ½Ã°£
+		DWORD		m_DelayLimit;	// ê¸°ë‹¤ë¦¬ëŠ” í•œê³„ ì‹œê°„
 };
 
 

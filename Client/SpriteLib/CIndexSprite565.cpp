@@ -13,20 +13,20 @@
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// fstream¿¡ save ÇÑ´Ù.    ( file¿¡´Â 5:6:5·Î ÀúÀåÇÑ´Ù. )
+// fstreamì— save í•œë‹¤.    ( fileì—ëŠ” 5:6:5ë¡œ ì €ì¥í•œë‹¤. )
 //----------------------------------------------------------------------
 bool	
 CIndexSprite565::SaveToFile(ofstream& file)
 {
-	// width¿Í height¸¦ ÀúÀåÇÑ´Ù.
+	// widthì™€ heightë¥¼ ì €ì¥í•œë‹¤.
 	file.write((const char*)&m_Width , 2);
 	file.write((const char*)&m_Height, 2);
 
-	// NULLÀÌ¸é ÀúÀåÇÏÁö ¾Ê´Â´Ù. ±æÀÌ¸¸ ÀúÀåµÇ´Â °ÍÀÌ´Ù.
+	// NULLì´ë©´ ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤. ê¸¸ì´ë§Œ ì €ì¥ë˜ëŠ” ê²ƒì´ë‹¤.
 	if (m_Pixels==NULL || m_Width==0 || m_Height==0)
 		return false;
 	
-	// ¾ĞÃà µÈ °Í ÀúÀå
+	// ì••ì¶• ëœ ê²ƒ ì €ì¥
 	WORD index;	
 
 	int colorCount, transPair, indexCount;
@@ -39,28 +39,28 @@ CIndexSprite565::SaveToFile(ofstream& file)
 	//--------------------------------
 	for (i=0; i<m_Height; i++)
 	{
-		// ¹İº¹ È¸¼öÀÇ 2 byte
+		// ë°˜ë³µ íšŒìˆ˜ì˜ 2 byte
 		transPair = m_Pixels[i][0];
 				
 		index	= 1;
 
-		// °¢ line¸¶´Ù byte¼ö¸¦ ¼¼¾î¼­ ÀúÀåÇØ¾ßÇÑ´Ù.
+		// ê° lineë§ˆë‹¤ byteìˆ˜ë¥¼ ì„¸ì–´ì„œ ì €ì¥í•´ì•¼í•œë‹¤.
 		for (j=0; j<transPair; j++)
 		{			
 			// transCount = m_Pixels[i][index];
-			index++;	// Åõ¸í ¼ö
-			indexCount = m_Pixels[i][index++];	// indexPair ¼ö
+			index++;	// íˆ¬ëª… ìˆ˜
+			indexCount = m_Pixels[i][index++];	// indexPair ìˆ˜
 
-			index += indexCount;		// index»ö¿¡ ´ëÇÑ Á¤º¸ ¼ö ¸¸Å­
+			index += indexCount;		// indexìƒ‰ì— ëŒ€í•œ ì •ë³´ ìˆ˜ ë§Œí¼
 
-			// Normal»ö ¼ö
+			// Normalìƒ‰ ìˆ˜
 			colorCount = m_Pixels[i][index++];
 
-			// Normal»ö ¼ö¸¸Å­ Áõ°¡
+			// Normalìƒ‰ ìˆ˜ë§Œí¼ ì¦ê°€
 			index	+= colorCount;
 		}
 
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ ÀúÀåÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ ì €ì¥í•œë‹¤.
 		file.write((const char*)&index, 2);
 		file.write((const char*)m_Pixels[i], index<<1);
 	}
@@ -69,19 +69,19 @@ CIndexSprite565::SaveToFile(ofstream& file)
 }
 
 //----------------------------------------------------------------------
-// fstream¿¡¼­ loadÇÑ´Ù.
+// fstreamì—ì„œ loadí•œë‹¤.
 //----------------------------------------------------------------------
 bool	
 CIndexSprite565::LoadFromFile(ifstream& file)
 {
-	// ÀÌ¹Ì ÀâÇôÀÖ´Â memory¸¦ releaseÇÑ´Ù.
+	// ì´ë¯¸ ì¡í˜€ìˆëŠ” memoryë¥¼ releaseí•œë‹¤.
 	Release();
 
-	// width¿Í height¸¦ LoadÇÑ´Ù.
+	// widthì™€ heightë¥¼ Loadí•œë‹¤.
 	file.read((char*)&m_Width , 2);
 	file.read((char*)&m_Height, 2);	
 
-	// ±æÀÌ°¡ 0ÀÌ¸é ´õ LoadÇÒ°Ô ¾ø°ÚÁö..
+	// ê¸¸ì´ê°€ 0ì´ë©´ ë” Loadí• ê²Œ ì—†ê² ì§€..
 	if (m_Width==0 || m_Height==0) 
 	{	
 		m_bInit = true;
@@ -100,7 +100,7 @@ CIndexSprite565::LoadFromFile(ifstream& file)
 	//--------------------------------
 	for (i=0; i<m_Height; i++)
 	{
-		// byte¼ö¿Í ½ÇÁ¦ data¸¦ LoadÇÑ´Ù.
+		// byteìˆ˜ì™€ ì‹¤ì œ dataë¥¼ Loadí•œë‹¤.
 		file.read((char*)&len, 2);
 		
 		m_Pixels[i] = NULL;

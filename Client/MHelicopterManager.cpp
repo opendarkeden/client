@@ -59,12 +59,12 @@ MHelicopter::Release()
 //----------------------------------------------------------------------
 // Set ChaseCreature
 //----------------------------------------------------------------------
-// ÇÏ³ªÀÇ creature¸¦ °è¼Ó ÃßÀûÇÏ´Â Effect¸¦ »ý¼ºÇÑ´Ù.
+// í•˜ë‚˜ì˜ creatureë¥¼ ê³„ì† ì¶”ì í•˜ëŠ” Effectë¥¼ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 bool			
 MHelicopter::SetChaseCreature(TYPE_OBJECTID id, int x0, int y0)
 {
-	// playerÀÎ °æ¿ì µû·Î Ã¼Å©ÇÏ´Â°Ô ³ªÀ»¼öµµ ÀÖ°Ú´Âµ¥..
+	// playerì¸ ê²½ìš° ë”°ë¡œ ì²´í¬í•˜ëŠ”ê²Œ ë‚˜ì„ìˆ˜ë„ ìžˆê² ëŠ”ë°..
 	MCreature* pCreature = g_pZone->GetCreature( id );
 
 	if (pCreature!=NULL)
@@ -72,7 +72,7 @@ MHelicopter::SetChaseCreature(TYPE_OBJECTID id, int x0, int y0)
 		m_CreatureID = id;
 
 		//-----------------------------------------------------
-		// Çï±â ¼Ò¸® Ãâ·Â
+		// í—¬ê¸° ì†Œë¦¬ ì¶œë ¥
 		//-----------------------------------------------------
 		if (m_pSound!=NULL)
 		{
@@ -82,14 +82,14 @@ MHelicopter::SetChaseCreature(TYPE_OBJECTID id, int x0, int y0)
 		m_pSound->Play( x0, y0, true );	// loop
 		
 		//-----------------------------------------------------
-		// CretureÀÇ ÁÂÇ¥·Î ¸ñÇ¥ÁÂÇ¥¸¦ ¼³Á¤ÇÑ´Ù.
+		// Cretureì˜ ì¢Œí‘œë¡œ ëª©í‘œì¢Œí‘œë¥¼ ì„¤ì •í•œë‹¤.
 		//-----------------------------------------------------
 		int cx, cy, cz;
 		cx = g_pTopView->MapToPixelX( pCreature->GetX() );
 		cy = g_pTopView->MapToPixelY( pCreature->GetY() );
 		cz = 0;//pCreature->GetZ();
 
-		// testÄÚµå.. À§¿¡¼­ ¾Æ·¡·Î »ç¹Ù»ç¹Ù ³»·Á¿À±â..
+		// testì½”ë“œ.. ìœ„ì—ì„œ ì•„ëž˜ë¡œ ì‚¬ë°”ì‚¬ë°” ë‚´ë ¤ì˜¤ê¸°..
 		int effectSpriteType = EFFECTSPRITETYPE_SUMMON_HELICOPTER;
 		int direction = 2;
 		int step = PIXEL_HELICOPTER_MOVE;
@@ -103,30 +103,30 @@ MHelicopter::SetChaseCreature(TYPE_OBJECTID id, int x0, int y0)
 
 		MChaseEffect* pEffect = new MChaseEffect(bltType);	
 
-		// Effect ID¸¦ ÀúÀåÇØµÐ´Ù.
+		// Effect IDë¥¼ ì €ìž¥í•´ë‘”ë‹¤.
 		m_EffectID = pEffect->GetID();
 		
 		int maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);
 		
-		pEffect->SetFrameID( frameID, maxFrame );		// 0¹ø Effect, Max 3 Frame					
+		pEffect->SetFrameID( frameID, maxFrame );		// 0ë²ˆ Effect, Max 3 Frame					
 
-		// ¹ß»ç À§Ä¡ PixelÁÂÇ¥	
+		// ë°œì‚¬ ìœ„ì¹˜ Pixelì¢Œí‘œ	
 		pEffect->SetPixelPosition( x0, y0, z0 );
 
 		pEffect->SetDirection( direction );
 		
-		// ¸ñÇ¥ Creature
+		// ëª©í‘œ Creature
 		pEffect->SetTraceCreatureID( id );
 		pEffect->SetStepPixel( step );
 		
 
-		// Áö¼ÓµÇ´Â Frame (¸ñÇ¥°¡ ÀÖ´Ù¸é º°·Î °ü°è ¾øÀ½ - -;)
+		// ì§€ì†ë˜ëŠ” Frame (ëª©í‘œê°€ ìžˆë‹¤ë©´ ë³„ë¡œ ê´€ê³„ ì—†ìŒ - -;)
 		//pEffect->SetCount( egInfo.count, egInfo.linkCount );
 
-		// À§·Â
+		// ìœ„ë ¥
 		//pEffect->SetPower(egInfo.power);
 
-		// ºûÀÇ ¹à±â
+		// ë¹›ì˜ ë°ê¸°
 		//pEffect->SetLight( light );
 
 		g_pZone->AddEffect( pEffect );
@@ -191,7 +191,7 @@ MHelicopterManager::Update()
 		bool bDeleteHelicopter = false;
 	
 		//-----------------------------------------------------
-		// Çï±â¿Í °ü·ÃµÈ Effect Ã£±â
+		// í—¬ê¸°ì™€ ê´€ë ¨ëœ Effect ì°¾ê¸°
 		//-----------------------------------------------------
 		MEffect* pEffect = g_pZone->GetEffect( pHelicopter->GetEffectID() );
 
@@ -206,18 +206,18 @@ MHelicopterManager::Update()
 				MChaseEffect *pChaseEffect = (MChaseEffect*)pEffect;
 
 				//-----------------------------------------------------
-				// ¼Ò¸® ³ª´Â À§Ä¡¸¦ ¼öÁ¤ÇÑ´Ù.
+				// ì†Œë¦¬ ë‚˜ëŠ” ìœ„ì¹˜ë¥¼ ìˆ˜ì •í•œë‹¤.
 				//-----------------------------------------------------
 				pHelicopter->UpdateSound( pEffect->GetX(), pEffect->GetY() );
 
 				//-----------------------------------------------------
-				// Player°¡ ºÎ¸¥ Çï±âÀÎ °æ¿ì
+				// Playerê°€ ë¶€ë¥¸ í—¬ê¸°ì¸ ê²½ìš°
 				//-----------------------------------------------------
 				if (pChaseEffect->GetTraceCreatureID()==g_pPlayer->GetID())
 				{
 					if (pChaseEffect->IsChaseOver())
 					{
-						// WayPoint ¼±ÅÃÇÏ´Â UI¸¦ ¶ç¿ö¾ß ÇÑ´Ù.
+						// WayPoint ì„ íƒí•˜ëŠ” UIë¥¼ ë„ì›Œì•¼ í•œë‹¤.
 						if (!UI_IsRunningSelectWayPoint())
 						{
 							UI_RunSelectWayPoint();							
@@ -226,7 +226,7 @@ MHelicopterManager::Update()
 				}
 
 				//-----------------------------------------------------
-				// ¿ÏÀüÈ÷ È­¸é ¹ÛÀ¸·Î »ç¶óÁø °æ¿ì
+				// ì™„ì „ížˆ í™”ë©´ ë°–ìœ¼ë¡œ ì‚¬ë¼ì§„ ê²½ìš°
 				//-----------------------------------------------------
 				else if (pChaseEffect->GetTraceCreatureID()==OBJECTID_NULL
 					&& pChaseEffect->IsChaseOver())
@@ -238,13 +238,13 @@ MHelicopterManager::Update()
 		}
 
 		//---------------------------------------------
-		// ÀÌ¹ø¿¡²¨ Áö¿ï±î ¸»±î?
+		// ì´ë²ˆì—êº¼ ì§€ìš¸ê¹Œ ë§ê¹Œ?
 		//---------------------------------------------
 		if (bDeleteHelicopter)
 		{
 			delete pHelicopter;
 
-			// ÀÓ½Ã·Î ÀúÀåÇØµÎ°í Áö¿î´Ù.
+			// ìž„ì‹œë¡œ ì €ìž¥í•´ë‘ê³  ì§€ìš´ë‹¤.
 			iterator iTemp = iHelicopter;
 			iHelicopter ++;
 
@@ -267,7 +267,7 @@ MHelicopterManager::AddHelicopter(MHelicopter* pHelicopter)
 
 	iterator iHelicopter = find( creatureID );
 
-	// ÀÌ¹Ì ÀÖ´Ù¸é ±âÁ¸¿¡°É Áö¿ö¹ö¸°´Ù.
+	// ì´ë¯¸ ìžˆë‹¤ë©´ ê¸°ì¡´ì—ê±¸ ì§€ì›Œë²„ë¦°ë‹¤.
 	if (iHelicopter != end())
 	{
 		delete iHelicopter->second;
@@ -316,7 +316,7 @@ MHelicopterManager::RemoveHelicopterSoon(TYPE_OBJECTID creatureID)
 //----------------------------------------------------------------------
 // Remove Helicopter
 //----------------------------------------------------------------------
-// È­¸é¿¡¼­ »ç¶óÁ®°¡´Â ¸ð½ÀÀ» º¸¿©ÁØ´Ù.
+// í™”ë©´ì—ì„œ ì‚¬ë¼ì ¸ê°€ëŠ” ëª¨ìŠµì„ ë³´ì—¬ì¤€ë‹¤.
 //----------------------------------------------------------------------
 void
 MHelicopterManager::RemoveHelicopter(TYPE_OBJECTID creatureID)
@@ -333,7 +333,7 @@ MHelicopterManager::RemoveHelicopter(TYPE_OBJECTID creatureID)
 		if (pEffect==NULL)
 		{
 			//-----------------------------------------------------
-			// Effect°¡ ¾ø´Â °æ¿ì.. (Ä³¸¯ÅÍ°¡ »ç¶óÁ³°Å³ª.. ¹¹ ±×·±°Å´Ù)
+			// Effectê°€ ì—†ëŠ” ê²½ìš°.. (ìºë¦­í„°ê°€ ì‚¬ë¼ì¡Œê±°ë‚˜.. ë­ ê·¸ëŸ°ê±°ë‹¤)
 			//-----------------------------------------------------
 			delete pHelicopter;
 
@@ -347,7 +347,7 @@ MHelicopterManager::RemoveHelicopter(TYPE_OBJECTID creatureID)
 
 				if (pChaseEffect->GetTraceCreatureID()!=OBJECTID_NULL)
 				{
-					// ´õ ÀÌ»ó µû¶ó°¡Áö´Â ¾Ê´Â´Ù.
+					// ë” ì´ìƒ ë”°ë¼ê°€ì§€ëŠ” ì•ŠëŠ”ë‹¤.
 					pChaseEffect->SetTraceCreatureID( OBJECTID_NULL );
 
 					int x = pEffect->GetPixelX() - 1000;

@@ -34,14 +34,14 @@ MMovingEffect::~MMovingEffect()
 //----------------------------------------------------------------------
 // Update
 //----------------------------------------------------------------------
-// m_Count°¡ 0ÀÏ¶§±îÁö -1 ÇØÁÖ¸é¼­ FrameÀ» ¹Ù²Û´Ù.
+// m_Countê°€ 0ì¼ë•Œê¹Œì§€ -1 í•´ì£¼ë©´ì„œ Frameì„ ë°”ê¾¼ë‹¤.
 //----------------------------------------------------------------------
 bool
 MMovingEffect::Update()
 {
 	if (g_CurrentFrame < m_EndFrame)
 	{
-		// FrameÀ» ¹Ù²ãÁØ´Ù.
+		// Frameì„ ë°”ê¿”ì¤€ë‹¤.
 		NextFrame();
 		
 		if (m_BltType == BLT_EFFECT)
@@ -49,7 +49,7 @@ MMovingEffect::Update()
 			m_Light = g_pTopView->m_EffectAlphaFPK[m_FrameID][m_Direction][m_CurrentFrame].GetLight();
 		}
 
-		// Sector ÁÂÇ¥ ¼³Á¤
+		// Sector ì¢Œí‘œ ì„¤ì •
 		AffectPosition();
 		
 		return true;

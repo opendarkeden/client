@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCShopListMysterious.cpp 
-// Written By  : �輺��
+// Written By  : 김성민
 // Description :
-// �÷��̾ ���� ���� ������ ������ �ִ� �Ͱ� �ٸ� ���,
-// �÷��̾�� ������ ������ �ִ� ��ǰ ����� �䱸�ϰ� �ȴ�.
-// �� ��Ŷ�� �� �� �÷��̾�� �����ϰ� �Ǵ� ��Ŷ�̴�.
+// 플레이어가 가진 상점 버전이 서버에 있는 것과 다를 경우,
+// 플레이어는 서버에 상점에 있는 상품 목록을 요구하게 된다.
+// 이 패킷은 그 때 플레이어에게 전달하게 되는 패킷이다.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Client_PCH.h"
@@ -40,7 +40,7 @@ GCShopListMysterious::~GCShopListMysterious()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
 void GCShopListMysterious::read ( SocketInputStream & iStream ) 
 	 throw ( ProtocolException , Error )
@@ -75,7 +75,7 @@ void GCShopListMysterious::read ( SocketInputStream & iStream )
 }
 		    
 //////////////////////////////////////////////////////////////////////////////
-// ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
 void GCShopListMysterious::write ( SocketOutputStream & oStream ) const 
      throw ( ProtocolException , Error )

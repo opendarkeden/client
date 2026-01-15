@@ -2,11 +2,11 @@
 // CDirect3D.h
 //----------------------------------------------------------------------
 //
-// Texture·Î »ç¿ëÇÒ Surface¿¡ Ãß°¡µÇ¸é ÁÁÀº(!?) flag
+// Textureë¡œ ì‚¬ìš©í•  Surfaceì— ì¶”ê°€ë˜ë©´ ì¢‹ì€(!?) flag
 //
 //    ddsd.ddsCaps.dwCaps2 |= DDSCAPS2_TEXTUREMANAGE;
 //
-// ±×·¯³ª, Hardware°¡¼ÓÀÌ µÇ´Â »óÅÂ¿©¾ß¸¸ ÇÑ´Ù.
+// ê·¸ëŸ¬ë‚˜, Hardwareê°€ì†ì´ ë˜ëŠ” ìƒíƒœì—¬ì•¼ë§Œ í•œë‹¤.
 //----------------------------------------------------------------------
 #ifndef	__CDIRECT3D_H__
 #define	__CDIRECT3D_H__
@@ -34,7 +34,7 @@ class CDirect3D : public CDirectDraw {
 		~CDirect3D() {}
 
 		//--------------------------------------------------
-		// ÃÊ±âÈ­
+		// ì´ˆê¸°í™”
 		//--------------------------------------------------
 		static bool				Init();
 		static void				Release();
@@ -57,7 +57,7 @@ class CDirect3D : public CDirectDraw {
 		static bool						IsHAL()		{ return m_bHAL; }
 
 		//--------------------------------------------------
-		// Texture »ı¼º °ü·Ã Á¤º¸
+		// Texture ìƒì„± ê´€ë ¨ ì •ë³´
 		//--------------------------------------------------
 		static void		GetTextureSize(int& width, int& height);
 		static DWORD	GetTextureWidthMax()	{ return m_TextureWidthMax; }
@@ -114,14 +114,14 @@ class CDirect3D : public CDirectDraw {
 	    static DWORD					m_dwNumPixelFormats;
 
 		//------------------------------------------------------------------
-		// Texture »ı¼º °ü·Ã Á¤º¸
+		// Texture ìƒì„± ê´€ë ¨ ì •ë³´
 		//------------------------------------------------------------------
-		// ÇÏµå¿ş¾î°¡ Áö¿øÇÏ´Â TextureÀÇ ÃÖ´ë Å©±â
+		// í•˜ë“œì›¨ì–´ê°€ ì§€ì›í•˜ëŠ” Textureì˜ ìµœëŒ€ í¬ê¸°
 		static int						m_TextureWidthMax;
 		static int						m_TextureHeightMax;
 
-		static bool						m_bTexturePow2;		// 2^n¸¸ µÇ´Â°¡?		
-		static bool						m_bTextureSquareOnly;	// Á¤»ç°¢Çü¸¸ µÇ´Â°¡?
+		static bool						m_bTexturePow2;		// 2^në§Œ ë˜ëŠ”ê°€?		
+		static bool						m_bTextureSquareOnly;	// ì •ì‚¬ê°í˜•ë§Œ ë˜ëŠ”ê°€?
 
 	public :
 		// PixelFormat

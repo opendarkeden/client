@@ -50,7 +50,7 @@ class GUILD_INFO {
 };
 
 //----------------------------------------------------------------------
-// MGuildInfoMapper <��帶ũ, SpriteID>
+// MGuildInfoMapper <길드마크, SpriteID>
 //----------------------------------------------------------------------
 class MGuildInfoMapper : public std::map<WORD, GUILD_INFO*> {
 	public :

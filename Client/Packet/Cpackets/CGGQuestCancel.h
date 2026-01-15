@@ -33,7 +33,7 @@ public:
 	void setQuestID(DWORD QuestID) throw() { m_QuestID = QuestID; }
 
 private:
-	DWORD       m_QuestID;  // ±â¼úÀÇ Á¾·ù
+	DWORD       m_QuestID;  // ê¸°ìˆ ì˜ ì¢…ë¥˜
 };
 
 //////////////////////////////////////////////////////////////////////

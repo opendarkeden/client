@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MAroundZoneEffectGenerator.cpp
 //----------------------------------------------------------------------
-// Tile°ú ¸ÂºÙÀº EffectµéÀ» »ý¼ºÇÑ´Ù.
+// Tileê³¼ ë§žë¶™ì€ Effectë“¤ì„ ìƒì„±í•œë‹¤.
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "MAroundZoneEffectGenerator.h"
@@ -30,7 +30,7 @@ MAroundZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 	int est = egInfo.effectSpriteType;
 	//---------------------------------------------
-	// pixelÁÂÇ¥¸¦ MapÀÇ ÁÂÇ¥·Î ¹Ù²ãÁØ´Ù.
+	// pixelì¢Œí‘œë¥¼ Mapì˜ ì¢Œí‘œë¡œ ë°”ê¿”ì¤€ë‹¤.
 	//---------------------------------------------
 	/*
 	int	sX, sY;
@@ -38,7 +38,7 @@ MAroundZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	sY = g_pTopView->PixelToMapY(egInfo.y0);
 
 	//---------------------------------------------
-	// MapÁÂÇ¥¸¦ ´Ù½Ã pixelÁÂÇ¥·Î ¹Ù²Û´Ù.
+	// Mapì¢Œí‘œë¥¼ ë‹¤ì‹œ pixelì¢Œí‘œë¡œ ë°”ê¾¼ë‹¤.
 	//---------------------------------------------
 	POINT pixelPoint;
 	pixelPoint = g_pTopView->MapToPixel(sX, sY);
@@ -94,7 +94,7 @@ MAroundZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		}
 		
 		//----------------------------------------------------------------
-		// ¹Ù´Ú¿¡ Æ¢´Â ¸ÕÁö..
+		// ë°”ë‹¥ì— íŠ€ëŠ” ë¨¼ì§€..
 		//----------------------------------------------------------------
 		///*
 		else if (est==EFFECTSPRITETYPE_GUN_DUST_1)
@@ -165,26 +165,26 @@ MAroundZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		TYPE_FRAMEID	frameID	= (*g_pEffectSpriteTypeTable)[est].FrameID;
 
 		//---------------------------------------------
-		// MaxFrameÀÇ °ªÀ» ¾Ë¾Æ¿Â´Ù.
+		// MaxFrameì˜ ê°’ì„ ì•Œì•„ì˜¨ë‹¤.
 		//---------------------------------------------
 		int maxFrame = g_pTopView->GetMaxEffectFrame(bltType, frameID);
 		
 
 		MEffect*	pEffect;
 		//---------------------------------------------
-		// Effect »ý¼º
+		// Effect ìƒì„±
 		//---------------------------------------------
 		pEffect = new MEffect(bltType);
 
 		pEffect->SetFrameID( frameID, maxFrame );	
 
-		pEffect->SetPixelPosition(pixelPoint.x, pixelPoint.y, egInfo.z0);		// pixelÁÂÇ¥		
+		pEffect->SetPixelPosition(pixelPoint.x, pixelPoint.y, egInfo.z0);		// pixelì¢Œí‘œ		
 
-		pEffect->SetStepPixel(egInfo.step);		// ½ÇÁ¦·Î ¿òÁ÷ÀÌÁö´Â ¾ÊÁö¸¸, ´ÙÀ½ Effect¸¦ À§ÇØ¼­ ´ëÀÔÇØÁØ´Ù.
+		pEffect->SetStepPixel(egInfo.step);		// ì‹¤ì œë¡œ ì›€ì§ì´ì§€ëŠ” ì•Šì§€ë§Œ, ë‹¤ìŒ Effectë¥¼ ìœ„í•´ì„œ ëŒ€ìž…í•´ì¤€ë‹¤.
 
-		pEffect->SetCount( maxFrame, egInfo.linkCount );			// Áö¼ÓµÇ´Â Frame
+		pEffect->SetCount( maxFrame, egInfo.linkCount );			// ì§€ì†ë˜ëŠ” Frame
 
-		// ¹æÇâ ¼³Á¤
+		// ë°©í–¥ ì„¤ì •
 		if(est == EFFECTSPRITETYPE_GREAT_RUFFIAN_2_AXE_THROW) 
 		{
 			pEffect->SetMulti(true);
@@ -193,10 +193,10 @@ MAroundZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		else
 			pEffect->SetDirection( egInfo.direction );
 
-		// À§·Â
+		// ìœ„ë ¥
 		pEffect->SetPower(egInfo.power);
 		
-		// ºûÀÇ ¹à±â
+		// ë¹›ì˜ ë°ê¸°
 		//pEffect->SetLight( light );
 		
 		if(dwWaitCount)
@@ -205,12 +205,12 @@ MAroundZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			pEffect->SetCount( dwWaitCount+maxFrame, egInfo.linkCount );
 			pEffect->SetMulti(true);
 		}
-		// Zone¿¡ Ãß°¡ÇÑ´Ù.
+		// Zoneì— ì¶”ê°€í•œë‹¤.
 		if (g_pZone->AddEffect( pEffect, dwWaitCount))
 		{
 			if (!bOK)
 			{
-				// ´ÙÀ½ Effect »ý¼º Á¤º¸
+				// ë‹¤ìŒ Effect ìƒì„± ì •ë³´
 				pEffect->SetLink( egInfo.nActionInfo, pTarget );
 
 				bOK = true;

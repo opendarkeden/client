@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // CSpritePackList.h
 //----------------------------------------------------------------------
-// ³»ºÎÀûÀ¸·Î stlÀÇ list¸¦ »ç¿ëÇß´Ù.
+// ë‚´ë¶€ì ìœ¼ë¡œ stlì˜ listë¥¼ ì‚¬ìš©í–ˆë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__CSPRITEPACKLIST_H__
@@ -41,7 +41,7 @@ class CSpritePackList {
 		CSprite*	GetSprite(TYPE_SPRITEID n) const;
 
 		//---------------------------------------------------
-		// Ã¹¹øÂ° À§Ä¡ÀÇ List Iterater¸¦ ³Ñ°ÜÁØ´Ù.
+		// ì²«ë²ˆì§¸ ìœ„ì¹˜ì˜ List Iteraterë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 		//---------------------------------------------------
 		SPRITE_LIST::const_iterator	GetIterator() const	{ return m_listSprite.begin(); }
 		SPRITE_LIST* GetListPtr() { return &m_listSprite; }
@@ -58,7 +58,7 @@ class CSpritePackList {
 		virtual void		LoadFromFile(std::ifstream& file) = 0;
 
 	protected :		
-		SPRITE_LIST		m_listSprite;		// CSpriteµéÀ» ÀúÀåÇØµĞ´Ù.
+		SPRITE_LIST		m_listSprite;		// CSpriteë“¤ì„ ì €ì¥í•´ë‘”ë‹¤.
 };
 
 class CSpritePalPackList {
@@ -85,7 +85,7 @@ class CSpritePalPackList {
 		CSpritePal*	GetSprite(TYPE_SPRITEID n) const;
 
 		//---------------------------------------------------
-		// Ã¹¹øÂ° À§Ä¡ÀÇ List Iterater¸¦ ³Ñ°ÜÁØ´Ù.
+		// ì²«ë²ˆì§¸ ìœ„ì¹˜ì˜ List Iteraterë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 		//---------------------------------------------------
 		SPRITEPAL_LIST::const_iterator	GetIterator() const	{ return m_listSprite.begin(); }
 		SPRITEPAL_LIST* GetListPtr() { return &m_listSprite; }
@@ -102,7 +102,7 @@ class CSpritePalPackList {
 		void		LoadFromFile(std::ifstream& file);
 
 	protected :		
-		SPRITEPAL_LIST		m_listSprite;		// CSpriteµéÀ» ÀúÀåÇØµĞ´Ù.
+		SPRITEPAL_LIST		m_listSprite;		// CSpriteë“¤ì„ ì €ì¥í•´ë‘”ë‹¤.
 };
 #endif
 

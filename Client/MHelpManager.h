@@ -4,26 +4,26 @@
 /*
 
 	//---------------------------------------------------------------------------
-	// ÇÏ³ªÀÇ HelpEvent »ı¼º ¿¹Á¦
+	// í•˜ë‚˜ì˜ HelpEvent ìƒì„± ì˜ˆì œ
 	//---------------------------------------------------------------------------
 	pHelpNode = new MCompareHelpNode( HC_PICKED_UP_ITEM );
-		// ¾ÆÀÌÅÛ ÁÖ¿îÀûÀÌ ÀÖ´Ù¸é
+		// ì•„ì´í…œ ì£¼ìš´ì ì´ ìˆë‹¤ë©´
 		pHelpNode->SetTrue( new MCompareHelpNode( HC_USE_ALT_FOR_ITEM ) );
-			// ALT¸¦ »ç¿ëÇÑ ÀûÀÌ ¾ø´Â °æ¿ì
+			// ALTë¥¼ ì‚¬ìš©í•œ ì ì´ ì—†ëŠ” ê²½ìš°
 			pHelpNode->GetTrue()->SetFalse( new MOutputHelpNode( HO_ALT_TO_PICKUP ) );
 
-		// ¾ÆÀÌÅÛ ÁÖ¿îÀûÀÌ ¾ø´Ù¸é
+		// ì•„ì´í…œ ì£¼ìš´ì ì´ ì—†ë‹¤ë©´
 		pHelpNode->SetFalse( new MCompareHelpNode( HC_USE_ALT_FOR_ITEM ) );
-			// ALT¸¦ »ç¿ëÇÑ ÀûÀÌ ÀÖ´Ù¸é
+			// ALTë¥¼ ì‚¬ìš©í•œ ì ì´ ìˆë‹¤ë©´
 			pHelpNode->GetFalse()->SetTrue( new MOutputHelpNode( HO_CLICK_TO_PICKUP ) );
-			// ALT¸¦ »ç¿ëÇÑÀûÀÌ ¾ø´Ù¸é
+			// ALTë¥¼ ì‚¬ìš©í•œì ì´ ì—†ë‹¤ë©´
 			pHelpNode->GetFalse()->SetFalse( new MOutputHelpNode( HO_ALT_TO_PICKUP ) );
 
 	g_pHelpManager[HE_APPEAR_ITEM] = pHelpNode;
 
 
 	//---------------------------------------------------------------------------
-	// event°¡ »ı°åÀ» ¶§, event½ÇÇà..
+	// eventê°€ ìƒê²¼ì„ ë•Œ, eventì‹¤í–‰..
 	//---------------------------------------------------------------------------
 	g_pHelpManager->ProcessEvent( HE_APPEAR_ITEM );
 
@@ -72,15 +72,15 @@ class MHelpNode {
 		virtual void		LoadFromFile(class ifstream& file) = 0;
 
 	public :
-		// NewItem()¿¡ ´ëÇÑ functions pointer
+		// NewItem()ì— ëŒ€í•œ functions pointer
 		typedef MHelpNode*	(*FUNCTION_NEWNODE)();
 
 		//-------------------------------------------------------
-		// ¿øÇÏ´Â classÀÇ ItemÀÇ °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+		// ì›í•˜ëŠ” classì˜ Itemì˜ ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 		//-------------------------------------------------------
 		static MHelpNode*	NewNode(MHelpNode::NODE_TYPE nodeType);
 
-		// °¢ classº°·Î NewItem()¿¡ ´ëÇÑ function pointer
+		// ê° classë³„ë¡œ NewItem()ì— ëŒ€í•œ function pointer
 		static FUNCTION_NEWNODE		s_NewNodeClassTable[MAX_NODE_TYPE];
 };
 
@@ -89,7 +89,7 @@ class MHelpNode {
 //							MCompareHelpNode
 //
 //---------------------------------------------------------------------------
-// CompareType¿¡ µû¶ó¼­ True / False·Î ³ª´¶´Ù.
+// CompareTypeì— ë”°ë¼ì„œ True / Falseë¡œ ë‚˜ë‰œë‹¤.
 //---------------------------------------------------------------------------
 class MCompareHelpNode : public MHelpNode {
 	public :
@@ -134,9 +134,9 @@ class MCompareHelpNode : public MHelpNode {
 		static MHelpNode*	NewNode()					{ return new MCompareHelpNode; }
 
 	protected :
-		HELP_COMPARE		m_pCompareType;			// °Ë»çÇØº¼·Á´Â Á¶°Ç
-		MHelpNode*			m_pTrue;				// Á¶°ÇÀ» ¸¸Á·ÇÏ´Â °æ¿ì
-		MHelpNode*			m_pFalse;				// Á¶°ÇÀ» ¸¸Á·ÇÏÁö ¸øÇÏ´Â °æ¿ì
+		HELP_COMPARE		m_pCompareType;			// ê²€ì‚¬í•´ë³¼ë ¤ëŠ” ì¡°ê±´
+		MHelpNode*			m_pTrue;				// ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ê²½ìš°
+		MHelpNode*			m_pFalse;				// ì¡°ê±´ì„ ë§Œì¡±í•˜ì§€ ëª»í•˜ëŠ” ê²½ìš°
 };
 
 //---------------------------------------------------------------------------
@@ -144,7 +144,7 @@ class MCompareHelpNode : public MHelpNode {
 //							MOutputHelpNode
 //
 //---------------------------------------------------------------------------
-// Ãâ·ÂÇÒ µµ¿ò¸»À» ³ªÅ¸³½´Ù.
+// ì¶œë ¥í•  ë„ì›€ë§ì„ ë‚˜íƒ€ë‚¸ë‹¤.
 //---------------------------------------------------------------------------
 class MOutputHelpNode : public MHelpNode, public std::list<HELP_OUTPUT> {
 	public :

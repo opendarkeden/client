@@ -25,7 +25,7 @@
 //
 // class PacketValidator;
 //
-// ÆĞÅ¶ÀÇ ¼ø¼­¸¦ ÀÎÁõÇÑ´Ù.
+// íŒ¨í‚·ì˜ ìˆœì„œë¥¼ ì¸ì¦í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -68,10 +68,10 @@ private :
 	// Packet ID Set Type 
 	PacketIDSetType m_PacketIDSetType;
 
-	// ÇÃ·¹ÀÌ¾î »óÅÂ
+	// í”Œë ˆì´ì–´ ìƒíƒœ
 	PlayerStatus m_PlayerStatus;
 
-	// Çã¿ëµÇ´Â ÆĞÅ¶ÀÇ ÇØ½¬¸Ê
+	// í—ˆìš©ë˜ëŠ” íŒ¨í‚·ì˜ í•´ì‰¬ë§µ
 	PACKET_ID_SET m_PacketIDSet;
 
 };

@@ -130,7 +130,7 @@ MZLib::AddFileInfo(MFileInfo* pInfo)
 //--------------------------------------------------------------------------
 // Add File
 //--------------------------------------------------------------------------
-// ÀÏ´Ü sizeÃ¼Å©¸¸ ³¡³»°í 
+// ì¼ë‹¨ sizeì²´í¬ë§Œ ëë‚´ê³  
 //--------------------------------------------------------------------------
 bool				
 MZLib::AddFile(const char* filename)
@@ -165,17 +165,17 @@ MZLib::Compress(const char* filename)
 	class ofstream packFile(filename, ios::binary | ios::trunc);
 
 	//--------------------------------------------------------------
-	// header ÀúÀå
+	// header ì €ì¥
 	//--------------------------------------------------------------
 	packFile.write((const char*)m_ZLibHeader, MZLIB_HEADER_SIZE);
 
-	// fileInfo°¡ ÀúÀåµÈ À§Ä¡
+	// fileInfoê°€ ì €ì¥ëœ ìœ„ì¹˜
 	long fpFileInfoFP = packFile.tellp();	
 	packFile.write((const char*)&fpFileInfoFP, 4);
 
 
 	//--------------------------------------------------------------
-	// ÀüÃ¼ filesize °è»ê
+	// ì „ì²´ filesize ê³„ì‚°
 	//--------------------------------------------------------------
 	FILEINFO_LIST::iterator iInfo = m_listFileInfo.begin();
 
@@ -184,13 +184,13 @@ MZLib::Compress(const char* filename)
 		MFileInfo* pInfo = *iInfo;
 
 		//--------------------------------------------------------------
-		// ¾ĞÃà
+		// ì••ì¶•
 		//--------------------------------------------------------------
 		// compress(buffer, bufferSize, data, dataSize)
 		//
-		// [½ÇÇà ÈÄ]
-		// buffer´Â data°¡ ¾ĞÃàµÇ¾î ÀúÀåµÈ´Ù.
-		// bufferSize´Â ¾ĞÃàµÈ bufferÀÇ size°¡ µÈ´Ù.
+		// [ì‹¤í–‰ í›„]
+		// bufferëŠ” dataê°€ ì••ì¶•ë˜ì–´ ì €ì¥ëœë‹¤.
+		// bufferSizeëŠ” ì••ì¶•ëœ bufferì˜ sizeê°€ ëœë‹¤.
 		// 
 		long filesize = pInfo->GetFilesize();
 		unsigned long compLen = max((float)filesize*1.5f , filesize+4096);
@@ -222,12 +222,12 @@ MZLib::Compress(const char* filename)
 	}
 
 	//--------------------------------------------------------------
-	// FileInfo¸¦ packFile³¡¿¡ ÀúÀå
+	// FileInfoë¥¼ packFileëì— ì €ì¥
 	//--------------------------------------------------------------
 	long fpFileInfo = packFile.tellp();	
 	WriteFileInfoToFile( packFile );
 
-	// fileInfo°¡ ÀúÀåµÈ À§Ä¡¸¦ ÀúÀåÇÑ´Ù.
+	// fileInfoê°€ ì €ì¥ëœ ìœ„ì¹˜ë¥¼ ì €ì¥í•œë‹¤.
 	packFile.seekp( fpFileInfoFP );
 	packFile.write((const char*)&fpFileInfo, 4);	
 
@@ -251,7 +251,7 @@ MZLib::Uncompress(const char* filename)
 	}
 
 	//-------------------------------------------------------------
-	// Header ÀĞ±â
+	// Header ì½ê¸°
 	//-------------------------------------------------------------
 	char str[MZLIB_HEADER_SIZE+1];
 
@@ -264,7 +264,7 @@ MZLib::Uncompress(const char* filename)
 	}
 
 	//-------------------------------------------------------------
-	// FileInfoÀĞ±â
+	// FileInfoì½ê¸°
 	//-------------------------------------------------------------
 	long fpFileInfo;
 	packFile.read((char*)&fpFileInfo, 4);
@@ -276,10 +276,10 @@ MZLib::Uncompress(const char* filename)
 		return false;
 	}
 
-	packFile.seekg( fpCurrent );	// ÇÊ¿ä ¾ø³ß..
+	packFile.seekg( fpCurrent );	// í•„ìš” ì—†ë„¹..
 
 	//-------------------------------------------------------------
-	// °¢°¢ÀÇ fileinfo¸¦ ÀÌ¿ëÇØ¼­ ¾ĞÃà ÇØÁ¦
+	// ê°ê°ì˜ fileinfoë¥¼ ì´ìš©í•´ì„œ ì••ì¶• í•´ì œ
 	//-------------------------------------------------------------
 	FILEINFO_LIST::iterator iInfo = m_listFileInfo.begin();
 

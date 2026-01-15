@@ -99,7 +99,7 @@ ProfileManager::HasProfile(const char* pName) const
 //----------------------------------------------------------------------
 // Add Profile
 //----------------------------------------------------------------------
-// ¿ÃπÃ ¿÷∞≈≥™ ∏ª∞≈≥™ ∞¸∞Ëæ¯¥Ÿ.
+// Ïù¥ÎØ∏ ÏûàÍ±∞ÎÇò ÎßêÍ±∞ÎÇò Í¥ÄÍ≥ÑÏóÜÎã§.
 //----------------------------------------------------------------------
 void
 ProfileManager::AddProfile(const char* pName, const char* pFilename)
@@ -110,7 +110,7 @@ ProfileManager::AddProfile(const char* pName, const char* pFilename)
 //----------------------------------------------------------------------
 // Add ProfileNULL
 //----------------------------------------------------------------------
-// ªÛ¥ÎπÊ¿Ã æ∆øπ Profile¿Ã æ¯¥¬ ∞ÊøÏ
+// ÏÉÅÎåÄÎ∞©Ïù¥ ÏïÑÏòà ProfileÏù¥ ÏóÜÎäî Í≤ΩÏö∞
 //----------------------------------------------------------------------
 void
 ProfileManager::AddProfileNULL(const char* pName)
@@ -121,7 +121,7 @@ ProfileManager::AddProfileNULL(const char* pName)
 //----------------------------------------------------------------------
 // Has ProfileNULL
 //----------------------------------------------------------------------
-// ªÛ¥ÎπÊ¿Ã æ∆øπ Profile¿Ã æ¯¥¬∞°?
+// ÏÉÅÎåÄÎ∞©Ïù¥ ÏïÑÏòà ProfileÏù¥ ÏóÜÎäîÍ∞Ä?
 //----------------------------------------------------------------------
 bool			
 ProfileManager::HasProfileNULL(const char* pName) const
@@ -167,7 +167,7 @@ ProfileManager::GetFilename(const char* pName) const
 
 	if (iProfile!=m_Profiles.end())
 	{
-		// NULL∑Œ º≥¡§µ» ∞≈¥¬ æ∆øπ Profile¿Ã æ¯¥¬ ∞ÊøÏ¿Ã¥Ÿ.
+		// NULLÎ°ú ÏÑ§Ï†ïÎêú Í±∞Îäî ÏïÑÏòà ProfileÏù¥ ÏóÜÎäî Í≤ΩÏö∞Ïù¥Îã§.
 		if (iProfile->second==PROFILE_NULL)
 		{
 			return NULL;
@@ -194,24 +194,24 @@ ProfileManager::RequestProfile(const char* pName)
 	}
 
 	/*
-	// Updateø°º≠ √≥∏Æ«—¥Ÿ.
+	// UpdateÏóêÏÑú Ï≤òÎ¶¨ÌïúÎã§.
 #ifdef __GAME_CLIENT__
 	//-------------------------------------------------------
-	// ¡¢º”¡ﬂ¿Ã∞≈≥™ ¡¢º” Ω√µµ ¡ﬂ¿Œ ∞ÊøÏ..
+	// Ï†ëÏÜçÏ§ëÏù¥Í±∞ÎÇò Ï†ëÏÜç ÏãúÎèÑ Ï§ëÏù∏ Í≤ΩÏö∞..
 	//-------------------------------------------------------
 	if (g_pRequestClientPlayerManager->HasConnection(pName)
 		|| g_pRequestClientPlayerManager->HasTryingConnection(pName))
 	{
 	}
 	//-------------------------------------------------------
-	// ¡¢º”¡ﬂ¿Ã æ∆¥— ∞ÊøÏ
+	// Ï†ëÏÜçÏ§ëÏù¥ ÏïÑÎãå Í≤ΩÏö∞
 	//-------------------------------------------------------
 	else
 	{
 		RequestUserInfo* pUserInfo = g_pRequestUserManager->GetUserInfo(pName);
 
 		//-------------------------------------------------------
-		// ªÁøÎ¿⁄ ¡§∫∏∞° ¿÷¥Ÿ∏È ¡¢º” Ω√µµ∏¶ «—¥Ÿ.
+		// ÏÇ¨Ïö©Ïûê Ï†ïÎ≥¥Í∞Ä ÏûàÎã§Î©¥ Ï†ëÏÜç ÏãúÎèÑÎ•º ÌïúÎã§.
 		//-------------------------------------------------------
 		if (pUserInfo!=NULL)
 		{
@@ -220,21 +220,21 @@ ProfileManager::RequestProfile(const char* pName)
 													REQUEST_CLIENT_MODE_PROFILE);
 		}
 		//-------------------------------------------------------
-		// ªÁøÎ¿⁄ ¡§∫∏∞° æ¯¥Ÿ∏È ... º≠πˆø° IP∏¶ ø‰√ª«—¥Ÿ.
+		// ÏÇ¨Ïö©Ïûê Ï†ïÎ≥¥Í∞Ä ÏóÜÎã§Î©¥ ... ÏÑúÎ≤ÑÏóê IPÎ•º ÏöîÏ≤≠ÌïúÎã§.
 		//-------------------------------------------------------
 		else
 		{
 			if (!g_pRequestUserManager->HasRequestingUser( pName ))
 			{
 				#ifdef CONNECT_SERVER
-					// º≠πˆø° IP∏¶ ø‰√ª«—¥Ÿ.
+					// ÏÑúÎ≤ÑÏóê IPÎ•º ÏöîÏ≤≠ÌïúÎã§.
 					CGRequestIP _CGRequestIP;
 					_CGRequestIP.setName( pName );
 
 					g_pSocket->sendPacket( &_CGRequestIP );			
 				#endif
 	
-				// ø‰√ª«ÿµŒ∏È IP∏¶ πﬁ¿ª ∂ß, ProfileManager∏¶ √º≈©«œ∞‘ µ»¥Ÿ.
+				// ÏöîÏ≤≠Ìï¥ÎëêÎ©¥ IPÎ•º Î∞õÏùÑ Îïå, ProfileManagerÎ•º Ï≤¥ÌÅ¨ÌïòÍ≤å ÎêúÎã§.
 				g_pRequestUserManager->AddRequestingUser( pName, RequestUserManager::REQUESTING_FOR_PROFILE );
 			}
 		}
@@ -323,7 +323,7 @@ ProfileManager::Update()
 		const char* pName = iRequire->first.c_str();
 
 		//-------------------------------------------------------
-		// profile¿ª πﬁ¿∫ ∞ÊøÏ
+		// profileÏùÑ Î∞õÏùÄ Í≤ΩÏö∞
 		//-------------------------------------------------------
 		if (HasProfile(pName)
 			|| HasProfileNULL(pName))
@@ -337,7 +337,7 @@ ProfileManager::Update()
 
 		#ifdef __GAME_CLIENT__
 			//-------------------------------------------------------
-			// ¡¢º”¡ﬂ¿Ã∞≈≥™ ¡¢º” Ω√µµ ¡ﬂ¿Œ ∞ÊøÏ..
+			// Ï†ëÏÜçÏ§ëÏù¥Í±∞ÎÇò Ï†ëÏÜç ÏãúÎèÑ Ï§ëÏù∏ Í≤ΩÏö∞..
 			//-------------------------------------------------------
 			if (g_pRequestClientPlayerManager->HasConnection(pName)
 				|| g_pRequestClientPlayerManager->HasTryingConnection(pName)
@@ -345,18 +345,18 @@ ProfileManager::Update()
 			{				
 			}
 			//-------------------------------------------------------
-			// ¡¢º”¡ﬂ¿Ã æ∆¥— ∞ÊøÏ
+			// Ï†ëÏÜçÏ§ëÏù¥ ÏïÑÎãå Í≤ΩÏö∞
 			//-------------------------------------------------------
 			else
 			{
 				RequestUserInfo* pUserInfo = g_pRequestUserManager->GetUserInfo(pName);
 
 				//-------------------------------------------------------
-				// ªÁøÎ¿⁄ ¡§∫∏∞° ¿÷¥Ÿ∏È ¡¢º” Ω√µµ∏¶ «—¥Ÿ.
+				// ÏÇ¨Ïö©Ïûê Ï†ïÎ≥¥Í∞Ä ÏûàÎã§Î©¥ Ï†ëÏÜç ÏãúÎèÑÎ•º ÌïúÎã§.
 				//-------------------------------------------------------
 				if (pUserInfo!=NULL)
 				{
-					if( g_pUserInformation->bKorean == true )	// «—±π πˆ¿¸∏∏ p2p
+					if( g_pUserInformation->bKorean == true )	// ÌïúÍµ≠ Î≤ÑÏ†ÑÎßå p2p
 					{
 						g_pRequestClientPlayerManager->Connect(pUserInfo->IP.c_str(), 
 																pName, 
@@ -364,7 +364,7 @@ ProfileManager::Update()
 					}
 				}
 				//-------------------------------------------------------
-				// ªÁøÎ¿⁄ ¡§∫∏∞° æ¯¥Ÿ∏È ... º≠πˆø° IP∏¶ ø‰√ª«—¥Ÿ.
+				// ÏÇ¨Ïö©Ïûê Ï†ïÎ≥¥Í∞Ä ÏóÜÎã§Î©¥ ... ÏÑúÎ≤ÑÏóê IPÎ•º ÏöîÏ≤≠ÌïúÎã§.
 				//-------------------------------------------------------
 				else
 				{
@@ -372,13 +372,13 @@ ProfileManager::Update()
 					{
 						if( g_pUserInformation->bKorean == true )
 						{
-							// º≠πˆø° IP∏¶ ø‰√ª«—¥Ÿ.
+							// ÏÑúÎ≤ÑÏóê IPÎ•º ÏöîÏ≤≠ÌïúÎã§.
 							CGRequestIP _CGRequestIP;
 							_CGRequestIP.setName( pName );
 
 							g_pSocket->sendPacket( &_CGRequestIP );			
 			
-						// ø‰√ª«ÿµŒ∏È IP∏¶ πﬁ¿ª ∂ß, ProfileManager∏¶ √º≈©«œ∞‘ µ»¥Ÿ.
+						// ÏöîÏ≤≠Ìï¥ÎëêÎ©¥ IPÎ•º Î∞õÏùÑ Îïå, ProfileManagerÎ•º Ï≤¥ÌÅ¨ÌïòÍ≤å ÎêúÎã§.
 						g_pRequestUserManager->AddRequestingUser( pName, RequestUserManager::REQUESTING_FOR_PROFILE );
 						}
 					}
@@ -396,15 +396,15 @@ ProfileManager::Update()
 //----------------------------------------------------------------------
 // Init Profiles
 //----------------------------------------------------------------------
-// «¡∑Œ±◊∑•¿Ã Ω««‡µ… ∂ß «—π¯ Ω««‡Ω√ƒ—¡÷∏È µ»¥Ÿ.
+// ÌîÑÎ°úÍ∑∏Îû®Ïù¥ Ïã§ÌñâÎê† Îïå ÌïúÎ≤à Ïã§ÌñâÏãúÏºúÏ£ºÎ©¥ ÎêúÎã§.
 //
-// Profile/*.bmp ∏¶ ¿–æÓº≠ Profile/*.spr∑Œ πŸ≤„¡÷∏È µ»¥Ÿ.
+// Profile/*.bmp Î•º ÏùΩÏñ¥ÏÑú Profile/*.sprÎ°ú Î∞îÍøîÏ£ºÎ©¥ ÎêúÎã§.
 //----------------------------------------------------------------------
 void		
 ProfileManager::InitProfiles()
 {
 	//-----------------------------------------------------------------
-	// Profile Directory∞° æ¯¿∏∏È ª˝º∫«—¥Ÿ.
+	// Profile DirectoryÍ∞Ä ÏóÜÏúºÎ©¥ ÏÉùÏÑ±ÌïúÎã§.
 	//-----------------------------------------------------------------
 	char CWD[_MAX_PATH];
 
@@ -412,12 +412,12 @@ ProfileManager::InitProfiles()
 	{	
 		if (_chdir( g_pFileDef->getProperty("DIR_PROFILE").c_str()) == 0)
 		{
-			// ¿÷¥Ÿ∏È.. ¥ŸΩ√ ø¯∑° DIR∑Œ..
+			// ÏûàÎã§Î©¥.. Îã§Ïãú ÏõêÎûò DIRÎ°ú..
 			_chdir( CWD );
 		}
 		else
 		{
-			// DIR_PROFILE¿Ã æ¯¥Ÿ∏È.. ª˝º∫..
+			// DIR_PROFILEÏù¥ ÏóÜÎã§Î©¥.. ÏÉùÏÑ±..
 			_mkdir( g_pFileDef->getProperty("DIR_PROFILE").c_str() );
 		}		
 	}
@@ -431,14 +431,14 @@ ProfileManager::InitProfiles()
 	long				hFile;
 
 	//-----------------------------------------------------------------
-	// *.spr file¿ª √£¥¬¥Ÿ.
+	// *.spr fileÏùÑ Ï∞æÎäîÎã§.
 	//-----------------------------------------------------------------
 	if ( (hFile = _findfirst( profileFiles, &FileData )) != -1L )
 	{
 		CSpritePack SPK;
 
-		// [0]¿∫ ¿€¿∫∞≈ (30, 38)
-		// [1]¿∫ ≈´∞≈ (110, 139)		
+		// [0]ÏùÄ ÏûëÏùÄÍ±∞ (30, 38)
+		// [1]ÏùÄ ÌÅ∞Í±∞ (110, 139)		
 		SPK.Init( 2);
 
 		CDirectDrawSurface surface;
@@ -456,18 +456,18 @@ ProfileManager::InitProfiles()
 			sprintf(bmpFilename, "%s\\%s", g_pFileDef->getProperty("DIR_PROFILE").c_str(), FileData.name);
 	
 			//---------------------------------------------------------
-			// bmp∏¶ ¿–æÓº≠ sprite∑Œ πŸ≤€¥Ÿ.
+			// bmpÎ•º ÏùΩÏñ¥ÏÑú spriteÎ°ú Î∞îÍæºÎã§.
 			//---------------------------------------------------------
 			char charName[256], spkFilename[256], spkiFilename[256];
 			int lenFilename = strlen(FileData.name);
 
-			// "¿Ã∏ß.bmp"
+			// "Ïù¥Î¶Ñ.bmp"
 			if (lenFilename< 8)
 			{
 				continue;
 			}
 
-			strncpy( charName, FileData.name, lenFilename-4 );	// .bmp∏¶ ¬•∏•¥Ÿ.
+			strncpy( charName, FileData.name, lenFilename-4 );	// .bmpÎ•º ÏßúÎ•∏Îã§.
 			charName[lenFilename-4] = '\0';
 
 			CDirectDrawSurface bmpSurface;
@@ -477,8 +477,8 @@ ProfileManager::InitProfiles()
 				WORD* lpSurface;
 				unsigned short pitch;
 
-				// surface¿« ≈©±‚∞° default Profile≈©±‚øÕ ¥Ÿ∏£¥Ÿ∏È
-				// size∏¶ ∫Ø∞ÊΩ√ƒ—¡‡æﬂ «—¥Ÿ..	
+				// surfaceÏùò ÌÅ¨Í∏∞Í∞Ä default ProfileÌÅ¨Í∏∞ÏôÄ Îã§Î•¥Îã§Î©¥
+				// sizeÎ•º Î≥ÄÍ≤ΩÏãúÏºúÏ§òÏïº ÌïúÎã§..	
 				RECT bmpRect = { 0, 0, bmpSurface.GetWidth(), bmpSurface.GetHeight() };
 				
 				// SmallSize
@@ -522,9 +522,9 @@ ProfileManager::InitProfiles()
 //----------------------------------------------------------------------
 // Delete Profiles
 //----------------------------------------------------------------------
-// «¡∑Œ±◊∑•¿Ã Ω««‡µ… ∂ß «—π¯ Ω««‡Ω√ƒ—¡÷∏È µ»¥Ÿ.
+// ÌîÑÎ°úÍ∑∏Îû®Ïù¥ Ïã§ÌñâÎê† Îïå ÌïúÎ≤à Ïã§ÌñâÏãúÏºúÏ£ºÎ©¥ ÎêúÎã§.
 //
-// Profile/*.spr »≠¿œ¿ª ∏µŒ ¡ˆøÏ∏È µ»¥Ÿ.
+// Profile/*.spr ÌôîÏùºÏùÑ Î™®Îëê ÏßÄÏö∞Î©¥ ÎêúÎã§.
 //----------------------------------------------------------------------
 void		
 ProfileManager::DeleteProfiles()
@@ -539,7 +539,7 @@ ProfileManager::DeleteProfiles()
 	long				hFile;
 
 	//-----------------------------------------------------------------
-	// *.spk file¿ª √£¥¬¥Ÿ.
+	// *.spk fileÏùÑ Ï∞æÎäîÎã§.
 	//-----------------------------------------------------------------
 	if ( (hFile = _findfirst( profileFiles, &FileData )) != -1L )
 	{
@@ -554,7 +554,7 @@ ProfileManager::DeleteProfiles()
 	}
 
 	//-----------------------------------------------------------------
-	// *.spk.tmp file¿ª √£¥¬¥Ÿ.
+	// *.spk.tmp fileÏùÑ Ï∞æÎäîÎã§.
 	//-----------------------------------------------------------------
 	if ( (hFile = _findfirst( tempProfileFiles, &FileData )) != -1L )
 	{

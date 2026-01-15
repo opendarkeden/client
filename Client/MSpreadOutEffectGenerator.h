@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MSpreadOutEffectGenerator.h
 //----------------------------------------------------------------------
-// Creature√ﬂ¿˚
+// CreatureÏ∂îÏ†Å
 //----------------------------------------------------------------------
 
 #ifndef	__MSPREADOUTEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MSpreadOutEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_SPREAD_OUT; }
 
-		// Effectª˝º∫
+		// EffectÏÉùÏÑ±
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

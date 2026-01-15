@@ -2,9 +2,9 @@
 // MEffectGeneratorTable.h
 //----------------------------------------------------------------------
 //
-//  = EffectGeneratorTableÀº EffectGeneratorÀÇ ArrayÀÌ´Ù.
+//  = EffectGeneratorTableì€ EffectGeneratorì˜ Arrayì´ë‹¤.
 //
-//  = EffectGeneratorTableID·Î EffectGenerator¸¦ ±¸ºĞÇÑ´Ù.
+//  = EffectGeneratorTableIDë¡œ EffectGeneratorë¥¼ êµ¬ë¶„í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ class MEffectGeneratorTable {
 		void	Release();
 
 		//----------------------------------------------------
-		// ÃÖÃÊ Effect»ı¼º 
+		// ìµœì´ˆ Effectìƒì„± 
 		//----------------------------------------------------
 		void	Generate(	int x0, int y0, int z0,
 							BYTE direction,																
@@ -39,7 +39,7 @@ class MEffectGeneratorTable {
 							TYPE_ACTIONINFO nActionInfo,
 							MEffectTarget* pEffectTarget, BYTE temp1 = 0, BYTE temp2 = 0);
 		//----------------------------------------------------
-		// ¿¬°áµÈ ´ÙÀ½ Effect »ı¼º
+		// ì—°ê²°ëœ ë‹¤ìŒ Effect ìƒì„±
 		//----------------------------------------------------
 		void	GenerateNext( MEffect* pEffect );
 

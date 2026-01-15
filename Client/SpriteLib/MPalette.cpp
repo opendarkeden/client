@@ -34,7 +34,7 @@ void MPalette::Init(BYTE size)
 
 void MPalette::operator = (const MPalette& pal)
 {
-	// ¸Þ¸ð¸® ÇØÁ¦
+	// ë©”ëª¨ë¦¬ í•´ì œ
 	Release();
 	
 	m_Size = pal.m_Size;
@@ -45,7 +45,7 @@ void MPalette::operator = (const MPalette& pal)
 }
 
 
-// file save´Â 565¸¦ ±âÁØÀ¸·Î ÇÑ´Ù.
+// file saveëŠ” 565ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œë‹¤.
 bool MPalette555::LoadFromFile(class ifstream &file)
 {
 	Release();
@@ -63,7 +63,7 @@ bool MPalette555::LoadFromFile(class ifstream &file)
 	return true;
 }
 
-// file save´Â 565¸¦ ±âÁØÀ¸·Î ÇÑ´Ù.
+// file saveëŠ” 565ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œë‹¤.
 bool MPalette555::SaveToFile(class ofstream &file)
 {
 	file.write((const char *)&m_Size, 1);

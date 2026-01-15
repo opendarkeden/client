@@ -939,7 +939,7 @@ int MathTable::GetAngleToTarget(int nX, int nY, int nTargetX, int nTargetY)
 	}
 
 	// INVERT angle...
-	nAngle = MAX_ANGLE - nAngle;  // ¿Ö? - -;
+	nAngle = MAX_ANGLE - nAngle;  // ì™œ? - -;
 
 	// CLIP angle...
 	nAngle = ClipAngle ( nAngle );
@@ -950,8 +950,8 @@ int MathTable::GetAngleToTarget(int nX, int nY, int nTargetX, int nTargetY)
 //-----------------------------------------------------------------------------
 // Get AngleDir
 //-----------------------------------------------------------------------------
-// angle¿¡¼­ targetAngle·Î ¹æÇâÀ» Æ²·ÁÇÒ¶§
-// +/- ¾î´À ÂÊÀ¸·Î Æ²±î? ( 0, 1, -1 )
+// angleì—ì„œ targetAngleë¡œ ë°©í–¥ì„ í‹€ë ¤í• ë•Œ
+// +/- ì–´ëŠ ìª½ìœ¼ë¡œ í‹€ê¹Œ? ( 0, 1, -1 )
 //-----------------------------------------------------------------------------
 int MathTable::GetAngleDir(int nAngle, int nTargetAngle)
 {

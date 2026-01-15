@@ -25,7 +25,7 @@ void GCAttackArmsOK2Handler::execute ( GCAttackArmsOK2 * pPacket , Player * pPla
 	// message
 
 	//------------------------------------------------------
-	// ZoneÀÌ ¾ÆÁ÷ »ý¼ºµÇÁö ¾ÊÀº °æ¿ì
+	// Zoneì´ ì•„ì§ ìƒì„±ë˜ì§€ ì•Šì€ ê²½ìš°
 	//------------------------------------------------------
 	if (g_pZone==NULL)
 	{
@@ -36,13 +36,13 @@ void GCAttackArmsOK2Handler::execute ( GCAttackArmsOK2 * pPacket , Player * pPla
 	}	
 
 	//------------------------------------------------------
-	// ´ë»óÀÌ µÇ´Â creature¸¦ ¾ò´Â´Ù.
+	// ëŒ€ìƒì´ ë˜ëŠ” creatureë¥¼ ì–»ëŠ”ë‹¤.
 	//------------------------------------------------------
 	MCreature* pCreature = g_pZone->GetCreature( pPacket->getObjectID() );
 	
 	if (pCreature==NULL)
 	{
-		// ±×·± creature°¡ ¾øÀ» °æ¿ì
+		// ê·¸ëŸ° creatureê°€ ì—†ì„ ê²½ìš°
 		DEBUG_ADD_FORMAT("There's no such creature : ID=%d, Skill=%d", pPacket->getObjectID(), SKILL_ATTACK_MELEE);				
 		
 		if( pPacket->getSkillType() == SKILL_JABBING_VEIN || pPacket->getSkillType() == SKILL_MOLE_SHOT ||
@@ -50,18 +50,18 @@ void GCAttackArmsOK2Handler::execute ( GCAttackArmsOK2 * pPacket , Player * pPla
 					pPacket->getSkillType() == SKILL_ULTIMATE_BLOW || pPacket->getSkillType() == SKILL_HARPOON_BOMB)
 		{
 			TYPE_ACTIONINFO resultActionInfo = pPacket->getSkillType() + g_pActionInfoTable->GetMinResultActionInfo();
-			// ¹Ù·Î ¸Â´Â ¸ð½ÀÀ» º¸ÀÌ°Ô ÇÑ´Ù.
+			// ë°”ë¡œ ë§žëŠ” ëª¨ìŠµì„ ë³´ì´ê²Œ í•œë‹¤.
 			g_pPlayer->PacketSpecialActionResult( 
-									resultActionInfo,	// ±âº» °ø°Ý == ÃÑ!? 
+									resultActionInfo,	// ê¸°ë³¸ ê³µê²© == ì´!? 
 									g_pPlayer->GetID(), 
 									g_pPlayer->GetX(),
 									g_pPlayer->GetY()								
 					);
 		} else
 		{
-			// ¹Ù·Î ¸Â´Â ¸ð½ÀÀ» º¸ÀÌ°Ô ÇÑ´Ù.
+			// ë°”ë¡œ ë§žëŠ” ëª¨ìŠµì„ ë³´ì´ê²Œ í•œë‹¤.
 			g_pPlayer->PacketSpecialActionResult( 
-									RESULT_SKILL_ATTACK_GUN_AR,	// ±âº» °ø°Ý == ÃÑ!? 
+									RESULT_SKILL_ATTACK_GUN_AR,	// ê¸°ë³¸ ê³µê²© == ì´!? 
 									g_pPlayer->GetID(), 
 									g_pPlayer->GetX(),
 									g_pPlayer->GetY()								
@@ -72,12 +72,12 @@ void GCAttackArmsOK2Handler::execute ( GCAttackArmsOK2 * pPacket , Player * pPla
 	{
 		TYPE_ACTIONINFO actionInfo = pPacket->getSkillType();
 		//------------------------------------------------------
-		// Çàµ¿ÇÏ´Â Creature°¡ player¸¦ ¹Ù¶óº¸µµ·Ï ÇÑ´Ù.
+		// í–‰ë™í•˜ëŠ” Creatureê°€ playerë¥¼ ë°”ë¼ë³´ë„ë¡ í•œë‹¤.
 		//------------------------------------------------------
 		pCreature->SetDirectionToPosition( g_pPlayer->GetX(), g_pPlayer->GetY() );
 
 		//------------------------------------------------------
-		// Creature°¡ Player¸¦ °ø°ÝÇÏ´Â ¸ð½À
+		// Creatureê°€ Playerë¥¼ ê³µê²©í•˜ëŠ” ëª¨ìŠµ
 		//------------------------------------------------------
 		//g_pPlayer->PacketSpecialActionResult( SKILL_ATTACK_MELEE + g_ActionInfoTable.GetMinResultActionInfo() );
 
@@ -86,7 +86,7 @@ void GCAttackArmsOK2Handler::execute ( GCAttackArmsOK2 * pPacket , Player * pPla
 		{
 			MActionResult* pResult = new MActionResult;
 			pResult->Add( new MActionResultNodeActionInfo( 
-										actionInfo,	// ±âº» °ø°Ý == ÃÑ!? 
+										actionInfo,	// ê¸°ë³¸ ê³µê²© == ì´!? 
 										pPacket->getObjectID(), 
 										g_pPlayer->GetID(), 
 										g_pPlayer->GetX(),
@@ -94,10 +94,10 @@ void GCAttackArmsOK2Handler::execute ( GCAttackArmsOK2 * pPacket , Player * pPla
 										) 
 						);
 			//------------------------------------------------------
-			// Creature°¡ Çàµ¿À» ÃëÇÏµµ·Ï ÇÑ´Ù.
+			// Creatureê°€ í–‰ë™ì„ ì·¨í•˜ë„ë¡ í•œë‹¤.
 			//------------------------------------------------------
 			pCreature->PacketSpecialActionToOther(
-							actionInfo,	// ±âº» °ø°Ý == ÃÑ!? 
+							actionInfo,	// ê¸°ë³¸ ê³µê²© == ì´!? 
 							g_pPlayer->GetID(), 
 							pResult
 			);
@@ -105,7 +105,7 @@ void GCAttackArmsOK2Handler::execute ( GCAttackArmsOK2 * pPacket , Player * pPla
 		{
 			MActionResult* pResult = new MActionResult;
 			pResult->Add( new MActionResultNodeActionInfo( 
-										pCreature->GetBasicActionInfo(),	// ±âº» °ø°Ý == ÃÑ!? 
+										pCreature->GetBasicActionInfo(),	// ê¸°ë³¸ ê³µê²© == ì´!? 
 										pPacket->getObjectID(), 
 										g_pPlayer->GetID(), 
 										g_pPlayer->GetX(),
@@ -113,10 +113,10 @@ void GCAttackArmsOK2Handler::execute ( GCAttackArmsOK2 * pPacket , Player * pPla
 										) 
 						);
 			//------------------------------------------------------
-			// Creature°¡ Çàµ¿À» ÃëÇÏµµ·Ï ÇÑ´Ù.
+			// Creatureê°€ í–‰ë™ì„ ì·¨í•˜ë„ë¡ í•œë‹¤.
 			//------------------------------------------------------
 			pCreature->PacketSpecialActionToOther(
-							pCreature->GetBasicActionInfo(),	// ±âº» °ø°Ý == ÃÑ!? 
+							pCreature->GetBasicActionInfo(),	// ê¸°ë³¸ ê³µê²© == ì´!? 
 							g_pPlayer->GetID(), 
 							pResult
 			);
@@ -124,14 +124,14 @@ void GCAttackArmsOK2Handler::execute ( GCAttackArmsOK2 * pPacket , Player * pPla
 	}
 
 	//------------------------------------------------------------------
-	// »óÅÂ°ªÀ» ¹Ù²Û´Ù.
+	// ìƒíƒœê°’ì„ ë°”ê¾¼ë‹¤.
 	//------------------------------------------------------------------
 	AffectModifyInfo(g_pPlayer, pPacket);
 
 
 	//------------------------------------------------------------------
-	// UI¿¡ º¸ÀÌ´Â °ÍÀ» ¹Ù²ãÁØ´Ù.
-	// ºñ±³¿¬»êÇÏ´Â°Åº¸´Ù ÀÌ°Ô ´õ ºü¸£Áö ¾ÊÀ»±î.. À½.. - -;
+	// UIì— ë³´ì´ëŠ” ê²ƒì„ ë°”ê¿”ì¤€ë‹¤.
+	// ë¹„êµì—°ì‚°í•˜ëŠ”ê±°ë³´ë‹¤ ì´ê²Œ ë” ë¹ ë¥´ì§€ ì•Šì„ê¹Œ.. ìŒ.. - -;
 	//------------------------------------------------------------------
 	//UI_SetHP( g_pPlayer->GetHP(), g_pPlayer->GetMAX_HP() );
 	//UI_SetMP( g_pPlayer->GetMP(), g_pPlayer->GetMAX_MP() );

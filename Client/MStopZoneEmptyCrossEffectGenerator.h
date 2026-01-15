@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // MStopZoneEmptyCrossEffectGenerator.h
 //----------------------------------------------------------------------
-// 绞磊啊(+) 葛剧栏肺 积己
+// 鞁瀽臧�(+) 氇枒鞙茧 靸濎劚
 //----------------------------------------------------------------------
 
 #ifndef	__MSTOPZONEEMPTYCROSSEFFECTGENERATOR_H__
@@ -16,7 +16,7 @@ class MStopZoneEmptyCrossEffectGenerator : public MEffectGenerator {
 
 		TYPE_EFFECTGENERATORID		GetID()		{ return EFFECTGENERATORID_STOP_ZONE_EMPTY_CROSS; }
 
-		// Effect积己
+		// Effect靸濎劚
 		bool	Generate( const EFFECTGENERATOR_INFO& egInfo );
 };
 

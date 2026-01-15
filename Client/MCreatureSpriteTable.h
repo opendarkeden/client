@@ -1,10 +1,10 @@
 //----------------------------------------------------------------------
 // MCreatureSpriteTable.h
 //----------------------------------------------------------------------
-// CreatureÀÇ SpriteÁ¾·ù¸¦ ÀúÀåÇÏ´Â class
+// Creatureì˜ Spriteì¢…ë¥˜ë¥¼ ì €ì¥í•˜ëŠ” class
 //----------------------------------------------------------------------
 //
-// - µ¿ÀÛ FrameID
+// - ë™ì‘ FrameID
 // - Sprite FilePosition
 // - First SpriteID
 // 
@@ -31,7 +31,7 @@ class ofstream;
 #define FLAG_CREATURESPRITE_NPC					0x20
 #define FLAG_CREATURESPRITE_MONSTER				0x40
 
-// Á¶ÇÕ
+// ì¡°í•©
 #define FLAG_CREATURESPRITE_PLAYER_SLAYER		0x11			// 0001 0001
 #define FLAG_CREATURESPRITE_PLAYER_VAMPIRE		0x12			// 0001 0010
 #define FLAG_CREATURESPRITE_PLAYER_OUSTERS		0x14			// 0001 0100
@@ -47,21 +47,21 @@ class ofstream;
 
 //----------------------------------------------------------------------
 //
-// ÇÑ Á¾·ùÀÇ Creature¿¡ ´ëÇÑ Á¤º¸
+// í•œ ì¢…ë¥˜ì˜ Creatureì— ëŒ€í•œ ì •ë³´
 //
 //----------------------------------------------------------------------
 class CREATURESPRITETABLE_INFO {
 	public :		
-		TYPE_FRAMEID			FrameID;				// µ¿ÀÛ FrameID
+		TYPE_FRAMEID			FrameID;				// ë™ì‘ FrameID
 		long					SpriteFilePosition;		// Sprite FilePosition
 		long					SpriteShadowFilePosition;		// ShadowSprite FilePosition
 		TYPE_SPRITEID			FirstSpriteID;			// First SpriteID
 		TYPE_SPRITEID			LastSpriteID;			// Last SpriteID		
 		TYPE_SPRITEID			FirstShadowSpriteID;	// First SpriteID
 		TYPE_SPRITEID			LastShadowSpriteID;		// Last SpriteID		
-		BYTE					CreatureType;				// ¹¹ÇÏ´Â spriteÀÎ°¡?
+		BYTE					CreatureType;				// ë­í•˜ëŠ” spriteì¸ê°€?
 
-		// ÀÌ°Å´Â ÀúÀåÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+		// ì´ê±°ëŠ” ì €ì¥í•  í•„ìš”ê°€ ì—†ë‹¤.
  		BOOL					bLoad;
 		
 	public :

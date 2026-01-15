@@ -7,7 +7,7 @@
 
 //----------------------------------------------------------------------
 //
-//                       EffectGenerator ╟Э╥ц
+//                       EffectGenerator Й╢─К═╗
 //
 //----------------------------------------------------------------------
 
@@ -17,29 +17,29 @@ typedef	unsigned short TYPE_ACTIONRESULTID;
 
 	
 //------------------------------------------------------
-// ActionInfoюг ╟А╟З - Server©║╪╜ ╟каУ╣х ╟Ф©Л
+// ActionInfoЛ²≤ Й╡╟ЙЁ╪ - ServerЛ≈░Л└° Й╡─Л╕²К░° Й╡╫Л ╟
 //------------------------------------------------------
 enum	ACTIONRESULTNODE_TYPE
 {
 	ACTIONRESULTNODE_NULL = 0,
 
-	ACTIONRESULTNODE_ACTIONINFO,			// ╢ы╦╔ ActionInfo╦╕ ю╞╧ъго╢б ╟Ф©Л			
-	ACTIONRESULTNODE_CHANGE_POSITION,		// дЁ╦╞ем ю╖д║╦╕ ╨╞го╟т го╢б ╟Ф©Л
-	ACTIONRESULTNODE_CHANGE_STATUS,			// дЁ╦╞емюг ╩Себ╦╕ ╨╞го╟т го╢б ╟Ф©Л
-	ACTIONRESULTNODE_CREATURE_DIE,			// ╬Н╤╡ дЁ╦╞ем╟║ ав╢б╢ы.
-	ACTIONRESULTNODE_CREATURE_BURROW,		// ╬Н╤╡ дЁ╦╞ем╟║ ╪Ш╢б╢ы.
-	ACTIONRESULTNODE_CREATURE_INVISIBLE,	// ╬Н╤╡ дЁ╦╞ем╟║ ╬х ╨╦юн╢ы.
-	ACTIONRESULTNODE_CREATURE_VISIBLE,		// ╬Н╤╡ дЁ╦╞ем╟║ ╨╦юн╢ы.
-	ACTIONRESULTNODE_CREATURE_SNIPPING,		// snipping mode╥н..
-	ACTIONRESULTNODE_ADD_EFFECTSTATUS,		// дЁ╦╞ем©║ effectstatus╦╕ ╨ыюн╢ы.
-	ACTIONRESULTNODE_CHANGE_CREATURE_TYPE,	// Creature typeю╩ ╧ы╡ш╢ы.
-	ACTIONRESULTNODE_SUMMON_CASKET,			// ╟Э ╪рх╞
-	ACTIONRESULTNODE_OPEN_CASKET,			// ╟Э©║╪╜ Ё╙╟║╠Б
-	ACTIONRESULTNODE_CREATURE_TURNING,		// дЁ╦╞ем ╣╧╦╝╠Б
-	ACTIONRESULTNODE_REMOVE_ITEM_IN_INVENTORY,			// юн╨╔еД╦╝ ╬фюлеш ╬Ь╬ж╠Б
-	ACTIONRESULTNODE_CHANGE_ITEM_OPTION_IN_INVENTORY,	// юн╨╔еД╦╝ ╬фюлеш ©и╪г ╧ы╡ы╠Б
-	ACTIONRESULTNODE_FAKE_DIE,				// ╟║б╔ дЁ╦╞ем╟║ ав╢б╢ы.
-	ACTIONRESULTNODE_EVENT,					// юл╨╔ф╝╦╕ ╨ыюн╢ы
+	ACTIONRESULTNODE_ACTIONINFO,			// К▀╓К╔╦ ActionInfoК╔╪ Л°═К╟°М∙≤К┼■ Й╡╫Л ╟			
+	ACTIONRESULTNODE_CHANGE_POSITION,		// Л╨░К╕╜М└╟ Л°└Л╧≤К╔╪ КЁ─М∙≤Й╡▄ М∙≤К┼■ Й╡╫Л ╟
+	ACTIONRESULTNODE_CHANGE_STATUS,			// Л╨░К╕╜М└╟Л²≤ Л┐│М┐°К╔╪ КЁ─М∙≤Й╡▄ М∙≤К┼■ Й╡╫Л ╟
+	ACTIONRESULTNODE_CREATURE_DIE,			// Л√╢К√╓ Л╨░К╕╜М└╟Й╟─ Лё╫К┼■К▀╓.
+	ACTIONRESULTNODE_CREATURE_BURROW,		// Л√╢К√╓ Л╨░К╕╜М└╟Й╟─ Л┬╗К┼■К▀╓.
+	ACTIONRESULTNODE_CREATURE_INVISIBLE,	// Л√╢К√╓ Л╨░К╕╜М└╟Й╟─ Л∙┬ КЁ╢Л²╦К▀╓.
+	ACTIONRESULTNODE_CREATURE_VISIBLE,		// Л√╢К√╓ Л╨░К╕╜М└╟Й╟─ КЁ╢Л²╦К▀╓.
+	ACTIONRESULTNODE_CREATURE_SNIPPING,		// snipping modeК║°..
+	ACTIONRESULTNODE_ADD_EFFECTSTATUS,		// Л╨░К╕╜М└╟Л≈░ effectstatusК╔╪ К╤≥Л²╦К▀╓.
+	ACTIONRESULTNODE_CHANGE_CREATURE_TYPE,	// Creature typeЛ²└ К╟■Й╬╪К▀╓.
+	ACTIONRESULTNODE_SUMMON_CASKET,			// Й╢─ Л├▄М≥≤
+	ACTIONRESULTNODE_OPEN_CASKET,			// Й╢─Л≈░Л└° К┌≤Й╟─Й╦╟
+	ACTIONRESULTNODE_CREATURE_TURNING,		// Л╨░К╕╜М└╟ К▐▄К╕╛Й╦╟
+	ACTIONRESULTNODE_REMOVE_ITEM_IN_INVENTORY,			// Л²╦К╡╓М├═К╕╛ Л∙└Л²╢М┘° Л≈├Л∙═Й╦╟
+	ACTIONRESULTNODE_CHANGE_ITEM_OPTION_IN_INVENTORY,	// Л²╦К╡╓М├═К╕╛ Л∙└Л²╢М┘° Л≤╣Л┘≤ К╟■Й╬╦Й╦╟
+	ACTIONRESULTNODE_FAKE_DIE,				// Й╟─Л╖° Л╨░К╕╜М└╟Й╟─ Лё╫К┼■К▀╓.
+	ACTIONRESULTNODE_EVENT,					// Л²╢К╡╓М┼╦К╔╪ К╤≥Л²╦К▀╓
 	ACTIONRESULTNODE_CHANGE_ITEM_GENDER,
 
 	ACTIONRESULTNODE_MAX

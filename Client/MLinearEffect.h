@@ -15,28 +15,28 @@ class MLinearEffect : public MMovingEffect {
 		virtual EFFECT_TYPE		GetEffectType()	const	{ return EFFECT_LINEAR; }
 
 		//--------------------------------------------------------
-		// »õ·Î¿î ¸ñÇ¥ ¼³Á¤
+		// ìƒˆë¡œìš´ ëª©í‘œ ì„¤ì •
 		//--------------------------------------------------------
 		virtual void		SetTarget(int x, int y, int z, WORD stepPixel);
 		
 		//--------------------------------------------------------
-		// ÇÑ ¹øÀÇ Update¿¡ È£ÃâµÉ ÇÔ¼ö..
+		// í•œ ë²ˆì˜ Updateì— í˜¸ì¶œë  í•¨ìˆ˜..
 		//--------------------------------------------------------
 		virtual bool		Update();
 	
 
 	protected :
-		// ¸ñÇ¥ ÁÂÇ¥
+		// ëª©í‘œ ì¢Œí‘œ
 		int			m_TargetX;
 		int			m_TargetY;
 		int			m_TargetZ;
 
-		// ÇÑ ¹ø¿¡ ÀÌµ¿ÇÏ´Â pixel·®
+		// í•œ ë²ˆì— ì´ë™í•˜ëŠ” pixelëŸ‰
 		float		m_StepX;
 		float		m_StepY;
 		float		m_StepZ;		
 	
-		// ÀÌµ¿ÇØ¾ßÇÏ´Â ÀüÃ¼ °Å¸®(pixel)
+		// ì´ë™í•´ì•¼í•˜ëŠ” ì „ì²´ ê±°ë¦¬(pixel)
 		float		m_Len;	
 };
 

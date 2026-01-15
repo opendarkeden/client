@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 //
 // Filename    : GCShopBuyFailHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //
 //////////////////////////////////////////////////////////////////////
@@ -22,10 +22,10 @@ void GCShopBuyFailHandler::execute ( GCShopBuyFail * pPacket , Player * pPlayer 
 	
 #ifdef __GAME_CLIENT__
 
-	// mode¸¦ ¾ø¾Ø´Ù.
+	// modeë¥¼ ì—†ì•¤ë‹¤.
 	g_pTempInformation->SetMode(TempInformation::MODE_NULL);
 
-	// °Å·¡¸¦ ´Ù½Ã È°¼ºÈ­ÇÑ´Ù.
+	// ê±°ëž˜ë¥¼ ë‹¤ì‹œ í™œì„±í™”í•œë‹¤.
 	UI_UnlockItemTrade();
 
 	switch (pPacket->getCode())
@@ -35,7 +35,7 @@ void GCShopBuyFailHandler::execute ( GCShopBuyFail * pPacket , Player * pPlayer 
 		case GC_SHOP_BUY_FAIL_NOT_ENOUGH_BLUE_STAR :
 		case GC_SHOP_BUY_FAIL_NOT_ENOUGH_GREEN_STAR :
 		case GC_SHOP_BUY_FAIL_NOT_ENOUGH_CYAN_STAR :
-			//pPacket->getAmount()	// ºÎÁ·ÇÑ °³¼ö
+			//pPacket->getAmount()	// ë¶€ì¡±í•œ ê°œìˆ˜
 	
 		default :
 			g_pUIDialog->PopupFreeMessageDlg( (*g_pGameStringTable)[STRING_MESSAGE_CANNOT_BUY_NO_ITEM].GetString() );

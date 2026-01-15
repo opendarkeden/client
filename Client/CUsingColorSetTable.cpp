@@ -17,7 +17,7 @@ USINGCOLORSET_TABLE*	g_pUsingColorSetTable = NULL;
 //----------------------------------------------------------------------
 USINGCOLORSET_NODE::USINGCOLORSET_NODE()
 {
-	// ¸ðµÎ »ç¿ëÇÒ ¼ö ¾ø´Ù°í Ã¼Å©ÇÑ´Ù.
+	// ëª¨ë‘ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤ê³  ì²´í¬í•œë‹¤.
 	for (int i=0; i<MAX_COLORSET; i++)
 	{
 		m_bEnable[i] = false;
@@ -62,7 +62,7 @@ USINGCOLORSET_NODE::Disable(int set)
 //----------------------------------------------------------------------
 // Enable ( start ~ end )
 //----------------------------------------------------------------------
-// ÀÏÁ¤ ¿µ¿ªÀ» ¸ðµÎ enable ½ÃÅ²´Ù.
+// ì¼ì • ì˜ì—­ì„ ëª¨ë‘ enable ì‹œí‚¨ë‹¤.
 //----------------------------------------------------------------------
 void			
 USINGCOLORSET_NODE::Enable(int start, int end)
@@ -81,7 +81,7 @@ USINGCOLORSET_NODE::Enable(int start, int end)
 //----------------------------------------------------------------------
 // Disable ( start ~ end )
 //----------------------------------------------------------------------
-// ÀÏÁ¤ ¿µ¿ªÀ» ¸ðµÎ disable ½ÃÅ²´Ù.
+// ì¼ì • ì˜ì—­ì„ ëª¨ë‘ disable ì‹œí‚¨ë‹¤.
 //----------------------------------------------------------------------
 void			
 USINGCOLORSET_NODE::Disable(int start, int end)
@@ -104,11 +104,11 @@ USINGCOLORSET_NODE::Disable(int start, int end)
 void			
 USINGCOLORSET_NODE::SaveToFile(ofstream& file)
 {
-	// °³¼ö ÀúÀå
+	// ê°œìˆ˜ ì €ìž¥
 	int size = MAX_COLORSET;
 	file.write((const char*)&size, 4);
 
-	// enableÁ¤º¸ ÀúÀå
+	// enableì •ë³´ ì €ìž¥
 	for (int i=0; i<MAX_COLORSET; i++)
 	{
 		file.write((const char*)&m_bEnable, 1);
@@ -121,12 +121,12 @@ USINGCOLORSET_NODE::SaveToFile(ofstream& file)
 bool
 USINGCOLORSET_NODE::LoadFromFile(ifstream& file)
 {
-	// °³¼ö ÀÐ±â
+	// ê°œìˆ˜ ì½ê¸°
 	int size;
 	file.read((char*)&size, 4);
 
-	// ÇöÀçÀÇ colorset°ú °³¼ö°¡ ´Ù¸¥ °æ¿ì..
-	// file¿¡¼­´Â ÀÏ´Ü ÀÐ¾îÁØ´Ù.
+	// í˜„ìž¬ì˜ colorsetê³¼ ê°œìˆ˜ê°€ ë‹¤ë¥¸ ê²½ìš°..
+	// fileì—ì„œëŠ” ì¼ë‹¨ ì½ì–´ì¤€ë‹¤.
 	if (MAX_COLORSET != size)
 	{
 		bool temp;
@@ -138,7 +138,7 @@ USINGCOLORSET_NODE::LoadFromFile(ifstream& file)
 		return false;
 	}
 
-	// Á¦´ë·Î µÈ °æ¿ì.. ´Ù ÀÐ¾îµéÀÎ´Ù.
+	// ì œëŒ€ë¡œ ëœ ê²½ìš°.. ë‹¤ ì½ì–´ë“¤ì¸ë‹¤.
 	for (int i=0; i<size; i++)
 	{
 		file.read((char*)&m_bEnable[i], 1);

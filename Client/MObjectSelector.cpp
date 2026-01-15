@@ -45,15 +45,15 @@ MObjectSelector::~MObjectSelector()
 BOOL
 MObjectSelector::CanSelect(MCreature* pCreature)
 {
-	// °­Á¦°ø°İÀÌ¸é ¾Æ¹«³ª ¼±ÅÃ °¡´É..
-	// SelectAllÀÌ¸é ¾Æ¹«³ª ¼±ÅÃ°¡´ÉÇÏ´Ù.
-	// ÇÒ·ç~°É·ÈÀ»¶§..	
-	// SelectByRaceÀÌ¸é SelectEnemyÀÌ¸é (Á¾Á·¿¡ µû¶ó) °ø°İÇÒ Ä³¸¯ÅÍ¸¸ ¼±ÅÃÇÑ´Ù.
-	//                  SelectFriendÀÌ¸é (Á¾Á·¿¡ µû¶ó) °ø°İÇÏÁö ¾ÊÀ» Ä³¸¯ÅÍ¸¸ ¼±ÅÃÇÑ´Ù.	
-	// SelectByGuildÀÌ¸é  SelectEnemyÀÌ¸é (±æµå¿¡ µû¶ó) °ø°İÇÒ Ä³¸¯ÅÍ¸¸ ¼±ÅÃÇÑ´Ù.
-	//                    SelectFriendÀÌ¸é (±æµå¿¡ µû¶ó) °ø°İÇÏÁö ¾ÊÀ» Ä³¸¯ÅÍ¸¸ ¼±ÅÃÇÑ´Ù.
-	// Á¤´ç¹æÀ§°¡ ¼º¸³µÇ´Â °æ¿ì
-	// ÀüÀïÁßÀÏ¶§ »ó´ë ±æµåÀÎ°æ¿ì
+	// ê°•ì œê³µê²©ì´ë©´ ì•„ë¬´ë‚˜ ì„ íƒ ê°€ëŠ¥..
+	// SelectAllì´ë©´ ì•„ë¬´ë‚˜ ì„ íƒê°€ëŠ¥í•˜ë‹¤.
+	// í• ë£¨~ê±¸ë ¸ì„ë•Œ..	
+	// SelectByRaceì´ë©´ SelectEnemyì´ë©´ (ì¢…ì¡±ì— ë”°ë¼) ê³µê²©í•  ìºë¦­í„°ë§Œ ì„ íƒí•œë‹¤.
+	//                  SelectFriendì´ë©´ (ì¢…ì¡±ì— ë”°ë¼) ê³µê²©í•˜ì§€ ì•Šì„ ìºë¦­í„°ë§Œ ì„ íƒí•œë‹¤.	
+	// SelectByGuildì´ë©´  SelectEnemyì´ë©´ (ê¸¸ë“œì— ë”°ë¼) ê³µê²©í•  ìºë¦­í„°ë§Œ ì„ íƒí•œë‹¤.
+	//                    SelectFriendì´ë©´ (ê¸¸ë“œì— ë”°ë¼) ê³µê²©í•˜ì§€ ì•Šì„ ìºë¦­í„°ë§Œ ì„ íƒí•œë‹¤.
+	// ì •ë‹¹ë°©ìœ„ê°€ ì„±ë¦½ë˜ëŠ” ê²½ìš°
+	// ì „ìŸì¤‘ì¼ë•Œ ìƒëŒ€ ê¸¸ë“œì¸ê²½ìš°
 	
 	WORD CurZoneID = g_pZone->GetID();
 	// 2004, 9, 15, sobeit add start
@@ -102,17 +102,17 @@ MObjectSelector::CanSelect(MCreature* pCreature)
 //----------------------------------------------------------------------
 // Can Attack (MCreature*)
 //----------------------------------------------------------------------
-// Á¾Á·ÀÌ³ª, ±æµå¿¡ µû¶ó¼­.. °ø°İÇÒ ´ë»óÀÎ°¡?
+// ì¢…ì¡±ì´ë‚˜, ê¸¸ë“œì— ë”°ë¼ì„œ.. ê³µê²©í•  ëŒ€ìƒì¸ê°€?
 //----------------------------------------------------------------------
 BOOL	
 MObjectSelector::CanAttack(MCreature* pCreature)
 {
-	// °­Á¦ °ø°İÀÌ°Å³ª..
-	// ÇÒ·ç~°É·ÈÀ»¶§..
-	// SelectByRaceÀÌ¸é	CanAttackTribe·Î Ã¼Å©
-	// SelectByGuildÀÌ¸é CanAttackGuild·Î Ã¼Å©
-	// Á¤´ç¹æÀ§°¡ ¼º¸³µÇ´Â °æ¿ì
-	// NPC´Â ¾ğÁ¦³ª ¼±ÅÃ °¡´ÉÇÏ´Ù.
+	// ê°•ì œ ê³µê²©ì´ê±°ë‚˜..
+	// í• ë£¨~ê±¸ë ¸ì„ë•Œ..
+	// SelectByRaceì´ë©´	CanAttackTribeë¡œ ì²´í¬
+	// SelectByGuildì´ë©´ CanAttackGuildë¡œ ì²´í¬
+	// ì •ë‹¹ë°©ìœ„ê°€ ì„±ë¦½ë˜ëŠ” ê²½ìš°
+	// NPCëŠ” ì–¸ì œë‚˜ ì„ íƒ ê°€ëŠ¥í•˜ë‹¤.
 	WORD CurZoneID = g_pZone->GetID();
 
 //	bool bFreePKZone = g_pZoneTable->Get( g_pZone->GetID() )->FreePK;
@@ -150,16 +150,16 @@ MObjectSelector::CanAttack(MCreature* pCreature)
 //	if(pCreature == NULL || g_pZone == NULL)
 //		return FALSE;
 //	DWORD CreatureType = pCreature->GetCreatureType();
-//	if(CreatureType <4 || CreatureType == 651) // ½½·¹ ³²³à, ¹ìÆÄ ³²³à, ¾Æ¿ì½ºÅÍÁî ÀÏ¶§¸¸
+//	if(CreatureType <4 || CreatureType == 651) // ìŠ¬ë ˆ ë‚¨ë…€, ë±€íŒŒ ë‚¨ë…€, ì•„ìš°ìŠ¤í„°ì¦ˆ ì¼ë•Œë§Œ
 //	{
 //		BYTE PkType = g_pZone->GetPKType();
-//		if(PkType != PK_TYPE_NULL)	// ±×³É ÀÏ¹İ ¸Ê
+//		if(PkType != PK_TYPE_NULL)	// ê·¸ëƒ¥ ì¼ë°˜ ë§µ
 //		{
-//			if(PkType == PK_TYPE_DISABLE)		// ´Ù ¿ì¸®Æí..-_-; pk ±İÁö
+//			if(PkType == PK_TYPE_DISABLE)		// ë‹¤ ìš°ë¦¬í¸..-_-; pk ê¸ˆì§€
 //				return FALSE;
-//			else if(PkType == PK_TYPE_ALL)		// ³ª »©°í ´Ù Àû
+//			else if(PkType == PK_TYPE_ALL)		// ë‚˜ ë¹¼ê³  ë‹¤ ì 
 //				return TRUE;
-//			else if(PkType == PK_TYPE_GUILD)	// ¿ì¸® ±æµå »©°í ´Ù Àû..
+//			else if(PkType == PK_TYPE_GUILD)	// ìš°ë¦¬ ê¸¸ë“œ ë¹¼ê³  ë‹¤ ì ..
 //			{
 //				int myGuildID = g_pPlayer->GetGuildNumber();	
 //				int OtherGuildID = pCreature->GetGuildNumber();	
@@ -168,11 +168,11 @@ MObjectSelector::CanAttack(MCreature* pCreature)
 //					myGuildID		== GUILDID_OUSTERS_DEFAULT ||
 //					OtherGuildID	== GUILDID_VAMPIRE_DEFAULT ||
 //					OtherGuildID	== GUILDID_SLAYER_DEFAULT ||
-//					OtherGuildID	== GUILDID_OUSTERS_DEFAULT ) // ±æµå°¡ ¾ø´Â ³à¼® µéÀº..
-//					return TRUE; // È¥ÀÚ ½Î¿ö¶ó..-_-;
+//					OtherGuildID	== GUILDID_OUSTERS_DEFAULT ) // ê¸¸ë“œê°€ ì—†ëŠ” ë…€ì„ ë“¤ì€..
+//					return TRUE; // í˜¼ì ì‹¸ì›Œë¼..-_-;
 //
 //				if(myGuildID == OtherGuildID)
-//					return FALSE; // ¿ì¸® ±æµå...
+//					return FALSE; // ìš°ë¦¬ ê¸¸ë“œ...
 //				else
 //					return TRUE;
 //			}
@@ -182,7 +182,7 @@ MObjectSelector::CanAttack(MCreature* pCreature)
 //	return TRUE;
 //}
 //--------------------------------------------------------------
-// IsWarEnemy - ÀüÀï¿¡ °ü·ÃµÈ ÀûÀÎ°¡?
+// IsWarEnemy - ì „ìŸì— ê´€ë ¨ëœ ì ì¸ê°€?
 //--------------------------------------------------------------
 BOOL	
 MObjectSelector::IsWarEnemy(MCreature* pCreature)
@@ -192,7 +192,7 @@ MObjectSelector::IsWarEnemy(MCreature* pCreature)
 	if(pCreature == NULL || g_pZone == NULL)
 		return bWarSelect;
 
-	// ÇöÀç Á¸ÀÌ ÀüÀï Á¸ÀÎ°¡? ÀüÀïÁßÀÎ Á¸ÀÌ ÀÖÀ»¶§ ¾Æ´ãÀÇ ¼ºÁö±îÁö... ÀüÀïÁ¸À¸·Î ¹Ù²Ù¾î¾ß ÇÑ´Ù.
+	// í˜„ì¬ ì¡´ì´ ì „ìŸ ì¡´ì¸ê°€? ì „ìŸì¤‘ì¸ ì¡´ì´ ìˆì„ë•Œ ì•„ë‹´ì˜ ì„±ì§€ê¹Œì§€... ì „ìŸì¡´ìœ¼ë¡œ ë°”ê¾¸ì–´ì•¼ í•œë‹¤.
 	WORD CurrentZoneID = g_pZone->GetID();
 	if(g_pZone!=NULL && pCreature != NULL)
 	{
@@ -200,12 +200,12 @@ MObjectSelector::IsWarEnemy(MCreature* pCreature)
 			return TRUE;
 		else if(g_pZone->GetPKType() == PK_TYPE_SIEGE)
 		{
-			// 2004, 11, 8, sobeit add start - pCreatureÀÇ ¹«°á¼º È®ÀÎ
+			// 2004, 11, 8, sobeit add start - pCreatureì˜ ë¬´ê²°ì„± í™•ì¸
 			if(pCreature->GetObjectType() != MObject::TYPE_CREATURE || !pCreature->IsAvailableEffectStatus())
 				return FALSE;
 			// 2004, 11, 8, sobeit add end
 
-			// ¼öºñÃø °ø¼º ÀÏ¶§
+			// ìˆ˜ë¹„ì¸¡ ê³µì„± ì¼ë•Œ
 			if(g_pPlayer->HasEffectStatus(EFFECTSTATUS_SIEGE_DEFENDERL)||g_pPlayer->HasEffectStatus(EFFECTSTATUS_SIEGE_REINFORCE))
 			{
 				if(!pCreature->HasEffectStatus(EFFECTSTATUS_SIEGE_DEFENDERL)&&!pCreature->HasEffectStatus(EFFECTSTATUS_SIEGE_REINFORCE))
@@ -229,16 +229,16 @@ MObjectSelector::IsWarEnemy(MCreature* pCreature)
 	}
 //	// 2004, 5, 14 sobeit add start
 //	DWORD CreatureType = pCreature->GetCreatureType();
-//	if(CreatureType <4 || CreatureType == 651) // ½½·¹ ³²³à, ¹ìÆÄ ³²³à, ¾Æ¿ì½ºÅÍÁî ÀÏ¶§¸¸
+//	if(CreatureType <4 || CreatureType == 651) // ìŠ¬ë ˆ ë‚¨ë…€, ë±€íŒŒ ë‚¨ë…€, ì•„ìš°ìŠ¤í„°ì¦ˆ ì¼ë•Œë§Œ
 //	{
 //		BYTE PkType = g_pZone->GetPKType();
-//		if(PkType != PK_TYPE_NULL)	// ±×³É ÀÏ¹İ ¸Ê
+//		if(PkType != PK_TYPE_NULL)	// ê·¸ëƒ¥ ì¼ë°˜ ë§µ
 //		{
-//			if(PkType == PK_TYPE_DISABLE)		// ´Ù ¿ì¸®Æí..-_-; pk ±İÁö
+//			if(PkType == PK_TYPE_DISABLE)		// ë‹¤ ìš°ë¦¬í¸..-_-; pk ê¸ˆì§€
 //				return FALSE;
-//			else if(PkType == PK_TYPE_ALL)		// ³ª »©°í ´Ù Àû
+//			else if(PkType == PK_TYPE_ALL)		// ë‚˜ ë¹¼ê³  ë‹¤ ì 
 //				return TRUE;
-//			else if(PkType == PK_TYPE_GUILD)	// ¿ì¸® ±æµå »©°í ´Ù Àû..
+//			else if(PkType == PK_TYPE_GUILD)	// ìš°ë¦¬ ê¸¸ë“œ ë¹¼ê³  ë‹¤ ì ..
 //			{
 //				int myGuildID = g_pPlayer->GetGuildNumber();	
 //				int OtherGuildID = pCreature->GetGuildNumber();	
@@ -247,11 +247,11 @@ MObjectSelector::IsWarEnemy(MCreature* pCreature)
 //					myGuildID		== GUILDID_OUSTERS_DEFAULT ||
 //					OtherGuildID	== GUILDID_VAMPIRE_DEFAULT ||
 //					OtherGuildID	== GUILDID_SLAYER_DEFAULT ||
-//					OtherGuildID	== GUILDID_OUSTERS_DEFAULT ) // ±æµå°¡ ¾ø´Â ³à¼® µéÀº..
-//					return TRUE; // È¥ÀÚ ½Î¿ö¶ó..-_-;
+//					OtherGuildID	== GUILDID_OUSTERS_DEFAULT ) // ê¸¸ë“œê°€ ì—†ëŠ” ë…€ì„ ë“¤ì€..
+//					return TRUE; // í˜¼ì ì‹¸ì›Œë¼..-_-;
 //
 //				if(myGuildID == OtherGuildID)
-//					return FALSE; // ¿ì¸® ±æµå...
+//					return FALSE; // ìš°ë¦¬ ê¸¸ë“œ...
 //				else
 //					return TRUE;
 //			}
@@ -259,18 +259,18 @@ MObjectSelector::IsWarEnemy(MCreature* pCreature)
 //	}
 //	// 2004, 5, 14 sobeit add end
 
-	if( g_pWarManager->IsExist( CurrentZoneID ) && g_pWarManager->getSize() > 0)		// ÀüÀïÁßÀÌ¸é(¾Æ´ãÀÇ¼ºÁö±îÁö Ã¼Å©ÇÔ)
+	if( g_pWarManager->IsExist( CurrentZoneID ) && g_pWarManager->getSize() > 0)		// ì „ìŸì¤‘ì´ë©´(ì•„ë‹´ì˜ì„±ì§€ê¹Œì§€ ì²´í¬í•¨)
 	{
-//		if(g_pWarManager->IsHolyLand( CurrentZoneID ) )									// ¼º³»ºÎ°¡ ¾Æ´Ñ ¾Æ´ãÀÇ ¼ºÁöÀÎ°æ¿ì
-//		{																				// ¸ğµç ¼º¿¡ ´ëÇØ¼­ °Ë»öÇÑ´Ù.
+//		if(g_pWarManager->IsHolyLand( CurrentZoneID ) )									// ì„±ë‚´ë¶€ê°€ ì•„ë‹Œ ì•„ë‹´ì˜ ì„±ì§€ì¸ê²½ìš°
+//		{																				// ëª¨ë“  ì„±ì— ëŒ€í•´ì„œ ê²€ìƒ‰í•œë‹¤.
 //			const WarInfoMap&			info = g_pWarManager->getWarInfoList();
 //			WarInfoMap::const_iterator	itr = info.begin();
-//			bool						creatureGuildCheck = false;						// Æ÷ÇÔµÇ¾î ÀÖÁö ¾ÊÀ»°æ¿ì Å©¸®ÃÄ±æµå°¡ ÀüÀï±æµå¿¡ Æ÷ÇÔµÇ¾îÀÖ´ÂÁö ¿©ºÎ
+//			bool						creatureGuildCheck = false;						// í¬í•¨ë˜ì–´ ìˆì§€ ì•Šì„ê²½ìš° í¬ë¦¬ì³ê¸¸ë“œê°€ ì „ìŸê¸¸ë“œì— í¬í•¨ë˜ì–´ìˆëŠ”ì§€ ì—¬ë¶€
 //
 //			while(itr != info.end() && bWarSelect == FALSE)
 //			{
 //				WarInfo *info = (*itr).second;
-//				if(info->getWarType() == WAR_GUILD)												// ±æµå-_- ³¢¸®...¸¸.. Á» enum À¸·Î ÇØ¼­ ³Ñ°ÜÁÖÁö..
+//				if(info->getWarType() == WAR_GUILD)												// ê¸¸ë“œ-_- ë¼ë¦¬...ë§Œ.. ì¢€ enum ìœ¼ë¡œ í•´ì„œ ë„˜ê²¨ì£¼ì§€..
 //				{
 //					GuildWarInfo *pInfo = (GuildWarInfo *)info;
 //
@@ -278,7 +278,7 @@ MObjectSelector::IsWarEnemy(MCreature* pCreature)
 //					GuildWarInfo::GuildIDList joinGuild = pInfo->getJoinGuilds();
 //					list<GuildID_t>::const_iterator	itr = joinGuild.Begin();					
 //					
-//					for(int i=0;i<joinGuild.getSize();i++,itr++)						// ³» ±æµå°¡ ÀüÀï ±æµå¿¡ Æ÷ÇÔµÇ¾î ÀÖÀ¸¸é ³»±æµå ¿Ü¿¡ ´Ù¸¥ ±æµå´Â ¸ğµÎ Àû
+//					for(int i=0;i<joinGuild.getSize();i++,itr++)						// ë‚´ ê¸¸ë“œê°€ ì „ìŸ ê¸¸ë“œì— í¬í•¨ë˜ì–´ ìˆìœ¼ë©´ ë‚´ê¸¸ë“œ ì™¸ì— ë‹¤ë¥¸ ê¸¸ë“œëŠ” ëª¨ë‘ ì 
 //					{				
 //						if( *itr == myGuildID )
 //						{
@@ -286,16 +286,16 @@ MObjectSelector::IsWarEnemy(MCreature* pCreature)
 //								bWarSelect = TRUE;
 //							break;
 //						}
-//						if( *itr == pCreature->GetGuildNumber() )						// ÇØ´ç Å©¸®ÃÄ ±æµå¾ÆÀÌµğ°¡ ÀüÀï ¾ÆÀÌµğ¿¡ ¼ÓÇØÀÖ´Â°¡
+//						if( *itr == pCreature->GetGuildNumber() )						// í•´ë‹¹ í¬ë¦¬ì³ ê¸¸ë“œì•„ì´ë””ê°€ ì „ìŸ ì•„ì´ë””ì— ì†í•´ìˆëŠ”ê°€
 //							creatureGuildCheck = true;
 //					}					
 //				}
 //				itr++;
 //			}
-//			if(bWarSelect == FALSE && creatureGuildCheck == true)				// ±æµå¿¡ Æ÷ÇÔµÇ¾î ÀÖÁö ¾ÊÀ¸¸é ÀüÀï ±æµå¿¡ Æ÷ÇÔµÈ ±æµå¸¸ Àû.
+//			if(bWarSelect == FALSE && creatureGuildCheck == true)				// ê¸¸ë“œì— í¬í•¨ë˜ì–´ ìˆì§€ ì•Šìœ¼ë©´ ì „ìŸ ê¸¸ë“œì— í¬í•¨ëœ ê¸¸ë“œë§Œ ì .
 //				bWarSelect = TRUE;
 //		} else
-		{								// ÇØ´ç ¼º¿¡ ´ëÇØ¼­¸¸ °Ë»öÇÑ´Ù.				
+		{								// í•´ë‹¹ ì„±ì— ëŒ€í•´ì„œë§Œ ê²€ìƒ‰í•œë‹¤.				
 			WarInfo *info = g_pWarManager->GetWarInfo( CurrentZoneID );
 			
 			if(info == NULL)
@@ -303,14 +303,14 @@ MObjectSelector::IsWarEnemy(MCreature* pCreature)
 
 			GuildWarInfo *pInfo = (GuildWarInfo *)info;
 
-			if(info->getWarType() == WAR_GUILD)// || info->getWarType() == 2)				// ±æµå-_- ³¢¸®...¸¸.. Á» enum À¸·Î ÇØ¼­ ³Ñ°ÜÁÖÁö..
-			{																	// 2¹øÀº ³ªÁß¿¡... ±æµåÀü ±â´É Ãß°¡ÇÒ¶§¸¦ ´ëºñÇØ¼­..
+			if(info->getWarType() == WAR_GUILD)// || info->getWarType() == 2)				// ê¸¸ë“œ-_- ë¼ë¦¬...ë§Œ.. ì¢€ enum ìœ¼ë¡œ í•´ì„œ ë„˜ê²¨ì£¼ì§€..
+			{																	// 2ë²ˆì€ ë‚˜ì¤‘ì—... ê¸¸ë“œì „ ê¸°ëŠ¥ ì¶”ê°€í• ë•Œë¥¼ ëŒ€ë¹„í•´ì„œ..
 				int myGuildID = g_pPlayer->GetGuildNumber();			
 				GuildWarInfo::GuildIDList joinGuild = pInfo->getJoinGuilds();
 				std::list<GuildID_t>::const_iterator	itr = joinGuild.Begin();
-				bool	creatureGuildCheck = false;								// Æ÷ÇÔµÇ¾î ÀÖÁö ¾ÊÀ»°æ¿ì Å©¸®ÃÄ±æµå°¡ ÀüÀï±æµå¿¡ Æ÷ÇÔµÇ¾îÀÖ´ÂÁö ¿©ºÎ
+				bool	creatureGuildCheck = false;								// í¬í•¨ë˜ì–´ ìˆì§€ ì•Šì„ê²½ìš° í¬ë¦¬ì³ê¸¸ë“œê°€ ì „ìŸê¸¸ë“œì— í¬í•¨ë˜ì–´ìˆëŠ”ì§€ ì—¬ë¶€
 				
-				for(int i=0;i<joinGuild.getSize();i++,itr++)					// ³» ±æµå°¡ ÀüÀï ±æµå¿¡ Æ÷ÇÔµÇ¾î ÀÖÀ¸¸é ³»±æµå ¿Ü¿¡ ´Ù¸¥ ±æµå´Â ¸ğµÎ Àû
+				for(int i=0;i<joinGuild.getSize();i++,itr++)					// ë‚´ ê¸¸ë“œê°€ ì „ìŸ ê¸¸ë“œì— í¬í•¨ë˜ì–´ ìˆìœ¼ë©´ ë‚´ê¸¸ë“œ ì™¸ì— ë‹¤ë¥¸ ê¸¸ë“œëŠ” ëª¨ë‘ ì 
 				{				
 					if( *itr == myGuildID )
 					{
@@ -321,7 +321,7 @@ MObjectSelector::IsWarEnemy(MCreature* pCreature)
 					if( *itr == pCreature->GetGuildNumber() )
 						creatureGuildCheck = true;
 				}
-				if(bWarSelect == FALSE && creatureGuildCheck == true)				// ±æµå¿¡ Æ÷ÇÔµÇ¾î ÀÖÁö ¾ÊÀ¸¸é ÀüÀï ±æµå¿¡ Æ÷ÇÔµÈ ±æµå¸¸ Àû.
+				if(bWarSelect == FALSE && creatureGuildCheck == true)				// ê¸¸ë“œì— í¬í•¨ë˜ì–´ ìˆì§€ ì•Šìœ¼ë©´ ì „ìŸ ê¸¸ë“œì— í¬í•¨ëœ ê¸¸ë“œë§Œ ì .
 					bWarSelect = TRUE;
 			}			
 		}		

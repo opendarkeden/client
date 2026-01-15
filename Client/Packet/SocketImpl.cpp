@@ -277,14 +277,14 @@ uint SocketImpl::send ( const void * buf , uint len , uint flags )
      throw ( IOException , Error )
 {
 	__BEGIN_TRY 
-#ifdef __USE_ENCRY__  //使用加密协议
+#ifdef __USE_ENCRY__  //脢鹿脫脙录脫脙脺脨颅脪茅
 
 	DWORD enlen =len+5;
 	char* enbuf = new char[enlen];
 	
-	//设置封包Key
+	//脡猫脰脙路芒掳眉Key
 	enbuf[4]=m_key;
-	// 设置封包长度
+	// 脡猫脰脙路芒掳眉鲁陇露脠
 	memcpy(enbuf,&enlen,4);
 
 	memcpy(&enbuf[5],buf,len);
@@ -295,7 +295,7 @@ uint SocketImpl::send ( const void * buf , uint len , uint flags )
 	enbuf =NULL;
 	return len;
 	//return SocketAPI::send_ex( m_SocketID , buf , len , flags );
-#else //不使用加密 
+#else //虏禄脢鹿脫脙录脫脙脺 
 	return SocketAPI::send_ex( m_SocketID , buf , len , flags );
 #endif
 	__END_CATCH

@@ -5,9 +5,9 @@
 // 2003.4.21
 // MQuestInfoManager
 //
-// Quest¿¡ ´ëÇÑ Á¤º¸¸¦ °ü¸®ÇÏ´Â ¸Å´ÏÀú ÀÌ´Ù. Ã³À½¿£ ±×³É ¸ó½ºÅÍ Å³ Äù½ºÆ®¿¡¸¸ ¾²¿©¼­
-// ÀÌ¸§À» -_- MMonsterKillQuestInfo ·Î ÇßÀ¸³ª, Á¡Â÷ ±× ¾²ÀÓÀÌ È®´ëµÇ¾î -_- QuestInfo
-// Manager ·Î ¹Ù²î¾ú´Ù. ¸»±×´ë·Î Äù½ºÆ® Á¤º¸¸¦ °ü¸®ÇÏ´Â Å¬·¡½º ÀÌ´Ù.
+// Questì— ëŒ€í•œ ì •ë³´ë¥¼ ê´€ë¦¬í•˜ëŠ” ë§¤ë‹ˆì € ì´ë‹¤. ì²˜ìŒì—” ê·¸ëƒ¥ ëª¬ìŠ¤í„° í‚¬ í€˜ìŠ¤íŠ¸ì—ë§Œ ì“°ì—¬ì„œ
+// ì´ë¦„ì„ -_- MMonsterKillQuestInfo ë¡œ í–ˆìœ¼ë‚˜, ì ì°¨ ê·¸ ì“°ì„ì´ í™•ëŒ€ë˜ì–´ -_- QuestInfo
+// Manager ë¡œ ë°”ë€Œì—ˆë‹¤. ë§ê·¸ëŒ€ë¡œ í€˜ìŠ¤íŠ¸ ì •ë³´ë¥¼ ê´€ë¦¬í•˜ëŠ” í´ë˜ìŠ¤ ì´ë‹¤.
 //
 // by sonee
 ////////////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@ public :
 	DWORD			GetSpriteType()		{ return m_SpriteType;}
 	DWORD			GetGoal()			{ return m_Goal; }
 	
-	// ¾ÆÀÌÅÛ Ã£±â¸é..
+	// ì•„ì´í…œ ì°¾ê¸°ë©´..
 	DWORD			GetItemClass()		{ return m_CreatureType; }
 	DWORD			GetItemType()		{ return m_SpriteType; }
 	const char*		GetName()			{ return m_Name.GetString(); }
@@ -62,7 +62,7 @@ public :
 	void			SetQuestLevel(BYTE level) { m_QuestLevel = level; }
 	void			SetEventQuest(BYTE event) { m_EventQuest = event; }
 
-	// Goal Àº ¼­¹öÀÇ Packet ¿¡ ÀÇÇØ ¹Ù²ğ ¼ö ÀÖ´Ù.
+	// Goal ì€ ì„œë²„ì˜ Packet ì— ì˜í•´ ë°”ë€” ìˆ˜ ìˆë‹¤.
 	void			SetGoal(DWORD goal) { m_Goal = goal; }	
 	void			SetName(const char* str) { m_Name = str; }
 private :
@@ -88,6 +88,6 @@ public :
 
 };
 
-extern		MQuestInfoManager	*g_pQuestInfoManager;					// Äù½ºÆ® ÀÚÃ¼ Á¤º¸
+extern		MQuestInfoManager	*g_pQuestInfoManager;					// í€˜ìŠ¤íŠ¸ ìì²´ ì •ë³´
 
 #endif

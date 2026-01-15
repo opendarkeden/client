@@ -45,7 +45,7 @@ ServerInformation::Release()
 	m_ServerGroupStatus = 0;
 	m_ServerID = 0;
 
-	// ÀÌ¸§À» Áö¿öÁØ´Ù.
+	// ì´ë¦„ì„ ì§€ì›Œì¤€ë‹¤.
 	m_ServerGroupName.Release();
 	m_ServerName.Release();
 }
@@ -57,7 +57,7 @@ bool
 ServerInformation::SetServerGroupID(unsigned int id)	
 { 
 	//-----------------------------------------------------------
-	// GroupÀÇ ÀÌ¸§À» ±â¾ïÇØµĞ´Ù.
+	// Groupì˜ ì´ë¦„ì„ ê¸°ì–µí•´ë‘”ë‹¤.
 	//-----------------------------------------------------------
 	ServerGroup* pGroup = GetData( id );
 
@@ -82,7 +82,7 @@ bool
 ServerInformation::SetServerID(unsigned int id)		
 { 
 	//-----------------------------------------------------------
-	// GroupÃ£±â
+	// Groupì°¾ê¸°
 	//-----------------------------------------------------------
 	ServerGroup* pGroup = GetData( m_ServerGroupID );
 
@@ -92,7 +92,7 @@ ServerInformation::SetServerID(unsigned int id)
 	}
 
 	//-----------------------------------------------------------
-	// Server ÀÌ¸§ Ã£±â
+	// Server ì´ë¦„ ì°¾ê¸°
 	//-----------------------------------------------------------
 	SERVER_INFO* pInfo = pGroup->GetData( id );
 

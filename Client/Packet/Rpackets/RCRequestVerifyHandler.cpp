@@ -32,34 +32,34 @@ void RCRequestVerifyHandler::execute ( RCRequestVerify * pPacket , Player * pPla
 		switch (pPacket->getCode())
 		{
 			//-----------------------------------------------------------------
-			// ±Ó¼Ó¸»ÀÌ Àü´ŞµÇÁö ¾ÊÀº °æ¿ì
+			// ê·“ì†ë§ì´ ì „ë‹¬ë˜ì§€ ì•Šì€ ê²½ìš°
 			//-----------------------------------------------------------------
 			case REQUEST_VERIFY_WHISPER_FAILED :
 			{
 				// info = 5
 				UI_AddChatToHistory( (*g_pGameStringTable)[STRING_MESSAGE_WHISPER_FAILED].GetString(), NULL, 5, RGB(255, 255, 255) );
 
-				// Àß¸øµÈ IP°Å³ª..
-				// ±× IPÀÇ »ç¶÷ÀÌ ´Ù¸¥ »ç¿ëÀÚ·Î Á¢¼ÓÇß°Å³ª ÇØ¼­...
-				// ´õ ÀÌ»ó ¾µ¸ğ¾ø´Â Á¤º¸ÀÌ¹Ç·Î Á¦°ÅÇÑ´Ù.
+				// ì˜ëª»ëœ IPê±°ë‚˜..
+				// ê·¸ IPì˜ ì‚¬ëŒì´ ë‹¤ë¥¸ ì‚¬ìš©ìë¡œ ì ‘ì†í–ˆê±°ë‚˜ í•´ì„œ...
+				// ë” ì´ìƒ ì“¸ëª¨ì—†ëŠ” ì •ë³´ì´ë¯€ë¡œ ì œê±°í•œë‹¤.
 				g_pRequestUserManager->RemoveRequestUser( pRequestClientPlayer->getRequestServerName().c_str() );
 			}
 			break;
 
 			//-----------------------------------------------------------------
-			// Àß¸øµÈ »ç¿ëÀÚ¿¡°Ô ProfileÀ» ¿äÃ»ÇÑ °æ¿ì
+			// ì˜ëª»ëœ ì‚¬ìš©ìì—ê²Œ Profileì„ ìš”ì²­í•œ ê²½ìš°
 			//-----------------------------------------------------------------
 			case REQUEST_VERIFY_PROFILE_WRONG_USER :
 			{
-				// Àß¸øµÈ IP°Å³ª..
-				// ±× IPÀÇ »ç¶÷ÀÌ ´Ù¸¥ »ç¿ëÀÚ·Î Á¢¼ÓÇß°Å³ª ÇØ¼­...
-				// ´õ ÀÌ»ó ¾µ¸ğ¾ø´Â Á¤º¸ÀÌ¹Ç·Î Á¦°ÅÇÑ´Ù.
+				// ì˜ëª»ëœ IPê±°ë‚˜..
+				// ê·¸ IPì˜ ì‚¬ëŒì´ ë‹¤ë¥¸ ì‚¬ìš©ìë¡œ ì ‘ì†í–ˆê±°ë‚˜ í•´ì„œ...
+				// ë” ì´ìƒ ì“¸ëª¨ì—†ëŠ” ì •ë³´ì´ë¯€ë¡œ ì œê±°í•œë‹¤.
 				g_pRequestUserManager->RemoveRequestUser( pRequestClientPlayer->getRequestServerName().c_str() );
 			}
 			break;
 
 			//-----------------------------------------------------------------
-			// ProfileÀÌ ¾Æ¿¹ ¾ø´Â °æ¿ì
+			// Profileì´ ì•„ì˜ˆ ì—†ëŠ” ê²½ìš°
 			//-----------------------------------------------------------------
 			case REQUEST_VERIFY_PROFILE_NOT_EXIST :
 			{
@@ -68,7 +68,7 @@ void RCRequestVerifyHandler::execute ( RCRequestVerify * pPacket , Player * pPla
 			break;
 
 			//-----------------------------------------------------------------
-			// Profile ´Ù º¸³Â´Ù°í ³¯¾Æ¿Â °æ¿ì
+			// Profile ë‹¤ ë³´ëƒˆë‹¤ê³  ë‚ ì•„ì˜¨ ê²½ìš°
 			//-----------------------------------------------------------------
 			case REQUEST_VERIFY_PROFILE_DONE :
 			{

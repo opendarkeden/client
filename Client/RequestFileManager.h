@@ -1,34 +1,34 @@
 //---------------------------------------------------------------------------
 // RequestFileManager.h 
 //---------------------------------------------------------------------------
-// client »çÀÌÀÇ fileÁÖ°í¹Ş±â¸¦ ´ã´çÇÏ´Â ºÎºĞÀÌ´Ù.
+// client ì‚¬ì´ì˜ fileì£¼ê³ ë°›ê¸°ë¥¼ ë‹´ë‹¹í•˜ëŠ” ë¶€ë¶„ì´ë‹¤.
 //
-// ³»°¡ ¿äÃ»ÇÏ´Â°Å´Â ¹Ş°í..
-// ³²ÀÌ ¿äÃ»ÇÏ´Â°Å´Â ÁÖ°í..
+// ë‚´ê°€ ìš”ì²­í•˜ëŠ”ê±°ëŠ” ë°›ê³ ..
+// ë‚¨ì´ ìš”ì²­í•˜ëŠ”ê±°ëŠ” ì£¼ê³ ..
 //
-// °ÔÀÓÀÌ °è¼Ó µ¹¾Æ°¡µµ·Ï ÇÏ¸é¼­ fileÀ» ÁÖ°í¹Ş±â À§ÇØ¼­
-// ´Ù¸¥ thread·Î µ¹¾Æ°¡¾ß ÇÑ´Ù(ÀûÀıÇÑ priority´Â ¹»±î?)...°í »ı°¢Çß´Âµ¥..
-// ¸Å loop¸¶´Ù Á¶±İÁ¶±İ¾¿(¾ó¸¶³ª?) º¸³»ÁÖ´Â°Ô ³ªÀ»Áöµµ ¸ğ¸£°Ú´Ù.
+// ê²Œì„ì´ ê³„ì† ëŒì•„ê°€ë„ë¡ í•˜ë©´ì„œ fileì„ ì£¼ê³ ë°›ê¸° ìœ„í•´ì„œ
+// ë‹¤ë¥¸ threadë¡œ ëŒì•„ê°€ì•¼ í•œë‹¤(ì ì ˆí•œ priorityëŠ” ë­˜ê¹Œ?)...ê³  ìƒê°í–ˆëŠ”ë°..
+// ë§¤ loopë§ˆë‹¤ ì¡°ê¸ˆì¡°ê¸ˆì”©(ì–¼ë§ˆë‚˜?) ë³´ë‚´ì£¼ëŠ”ê²Œ ë‚˜ì„ì§€ë„ ëª¨ë¥´ê² ë‹¤.
 //
-// µ¿½Ã¿¡ ³Ê¹« ¸¹Àº fileµéÀ» ÁÖ°í¹ŞÀ¸¸é ºÎÇÏ°¡ ¸¹ÀÌ °É¸®¹Ç·Î
-// ÇÑ¹ø¿¡ ÇÏ³ª¸¸ ÁÖ°í¹Ş°Ô(ÁÖ°í/¹Ş´Â°Å µû·Î?) ÇÏ´Â°Ô ¾î¶³±î..½Í¾ú´Âµ¥ -_-;
-// ±â´Ù¸®´Â ½Ã°£ÀÌ ³Ñ ±æÁö ¾ÊÀ»±î...½Í¾î¼­.. °Á ´Ù º¸³»±â·Î ÇÏ°Ú´Ù.
-//
-//
-// REQUEST_RECEIVE_MAP : ³»°¡ ¿äÃ»ÇÑ fileµéÀÇ Á¤º¸
-//
-//    - ³²ÇÑÅ× ¿äÃ»ÇÒ·Á´Â fileÀÇ Á¤º¸¸¦ ¿©±â ³Ö¾îµÎ°í ¿äÃ»ÇÏ¸é
-//      ±× fileÀ» ³²ÀÌ º¸³»ÁÙ¶§, ¿©±â¼­ Á¤º¸¸¦ Âü°íÇØ¼­ ¹ŞÀ» ¼ö ÀÖ´Ù.
-//
-//	  - RequestClientPlayer::processCommand()¿¡¼­
-//      fileÀ» ¹Ş´Â ÁßÀÌ¶ó¸é ReceiveMyRequest(RequestClientPlayer*)¸¦ ÇØÁÖ¸é µÈ´Ù.
+// ë™ì‹œì— ë„ˆë¬´ ë§ì€ fileë“¤ì„ ì£¼ê³ ë°›ìœ¼ë©´ ë¶€í•˜ê°€ ë§ì´ ê±¸ë¦¬ë¯€ë¡œ
+// í•œë²ˆì— í•˜ë‚˜ë§Œ ì£¼ê³ ë°›ê²Œ(ì£¼ê³ /ë°›ëŠ”ê±° ë”°ë¡œ?) í•˜ëŠ”ê²Œ ì–´ë–¨ê¹Œ..ì‹¶ì—ˆëŠ”ë° -_-;
+// ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„ì´ ë„˜ ê¸¸ì§€ ì•Šì„ê¹Œ...ì‹¶ì–´ì„œ.. ê± ë‹¤ ë³´ë‚´ê¸°ë¡œ í•˜ê² ë‹¤.
 //
 //
-// REQUESTED_SEND_MAP : ³²ÀÌ ¿äÃ»ÇÏ´Â fileµéÀÇ Á¤º¸
-//    - ´©°¡ ¾î¶² fileÀ» ¿äÃ»ÇÏ¸é.. ÀÏ´Ü ¿©±â Á¤º¸¸¦ ³Ö¾îµÎ°í
+// REQUEST_RECEIVE_MAP : ë‚´ê°€ ìš”ì²­í•œ fileë“¤ì˜ ì •ë³´
+//
+//    - ë‚¨í•œí…Œ ìš”ì²­í• ë ¤ëŠ” fileì˜ ì •ë³´ë¥¼ ì—¬ê¸° ë„£ì–´ë‘ê³  ìš”ì²­í•˜ë©´
+//      ê·¸ fileì„ ë‚¨ì´ ë³´ë‚´ì¤„ë•Œ, ì—¬ê¸°ì„œ ì •ë³´ë¥¼ ì°¸ê³ í•´ì„œ ë°›ì„ ìˆ˜ ìˆë‹¤.
+//
+//	  - RequestClientPlayer::processCommand()ì—ì„œ
+//      fileì„ ë°›ëŠ” ì¤‘ì´ë¼ë©´ ReceiveMyRequest(RequestClientPlayer*)ë¥¼ í•´ì£¼ë©´ ëœë‹¤.
+//
+//
+// REQUESTED_SEND_MAP : ë‚¨ì´ ìš”ì²­í•˜ëŠ” fileë“¤ì˜ ì •ë³´
+//    - ëˆ„ê°€ ì–´ë–¤ fileì„ ìš”ì²­í•˜ë©´.. ì¼ë‹¨ ì—¬ê¸° ì •ë³´ë¥¼ ë„£ì–´ë‘ê³ 
 //		SendOtherRequest(RequestServerPlayer*)
 //
-// µÎ °³ÀÇ class·Î ºĞ¸®ÇÏ´Â°Ô ÁÁ¾ÒÁö ½ÍÀºµ¥... ÇÒ... - -;
+// ë‘ ê°œì˜ classë¡œ ë¶„ë¦¬í•˜ëŠ”ê²Œ ì¢‹ì•˜ì§€ ì‹¶ì€ë°... í• ... - -;
 //---------------------------------------------------------------------------
 
 #ifndef __REQUEST_FILE_MANAGER_H__
@@ -65,19 +65,19 @@ enum REQUEST_FILE_MODE
 //---------------------------------------------------------------------------
 // SendFileInfo
 //---------------------------------------------------------------------------
-// ³²ÀÌ ³ª¿¡°Ô ¿äÃ»ÇÑ °Í
+// ë‚¨ì´ ë‚˜ì—ê²Œ ìš”ì²­í•œ ê²ƒ
 //---------------------------------------------------------------------------
 class SendFileInfo
 {
 	private :
 		REQUEST_FILE_MODE		m_Mode;
 
-		// º¸³»±â Àü¿¡
-		std::string				m_Filename;		// º¸³»ÁÖ´Â fileÀÌ¸§		
-		REQUEST_FILE_TYPE		m_FileType;		// ¾î¶² fileÀÎ°¡?
+		// ë³´ë‚´ê¸° ì „ì—
+		std::string				m_Filename;		// ë³´ë‚´ì£¼ëŠ” fileì´ë¦„		
+		REQUEST_FILE_TYPE		m_FileType;		// ì–´ë–¤ fileì¸ê°€?
 		
-		// º¸³»´Â µ¿¾È		
-		ifstream			m_FileStream;	// º¸³»ÁÖ´Â FilenameÀ» openÇÑ °Í		
+		// ë³´ë‚´ëŠ” ë™ì•ˆ		
+		ifstream			m_FileStream;	// ë³´ë‚´ì£¼ëŠ” Filenameì„ opení•œ ê²ƒ		
 		DWORD					m_FileSizeLeft;
 
 	public :
@@ -86,7 +86,7 @@ class SendFileInfo
 
 		void		StartSend();
 		bool		IsSendMode() const	{ return m_Mode==REQUEST_FILE_MODE_SEND; }
-		DWORD		Send(char* pBuffer);		// Get()ÀÌ ´õ ¾î¿ï¸®´Âµ¥.. - -;
+		DWORD		Send(char* pBuffer);		// Get()ì´ ë” ì–´ìš¸ë¦¬ëŠ”ë°.. - -;
 		void		SendBack(DWORD nBack);
 		void		EndSend();
 
@@ -105,12 +105,12 @@ class ReceiveFileInfo
 	public :
 		REQUEST_FILE_MODE		m_Mode;
 
-		std::string				m_Filename;		// ¿äÃ»ÇÑ filename
-		REQUEST_FILE_TYPE		m_FileType;		// ¾îµğ¿¡ ¾µ fileÀÎ°¡?
+		std::string				m_Filename;		// ìš”ì²­í•œ filename
+		REQUEST_FILE_TYPE		m_FileType;		// ì–´ë””ì— ì“¸ fileì¸ê°€?
 		
-		// ¹Ş´Â µ¿¾È
-		std::string				m_FilenameTemp;	// ¿äÃ»ÇÑ fileÀ» ¹Ş¾Æ¼­ Àá½Ã ÀúÀåÇØµÑ filename
-		ofstream				m_FileStream;		// FilenameTemp¸¦ openÇÑ °Í..		
+		// ë°›ëŠ” ë™ì•ˆ
+		std::string				m_FilenameTemp;	// ìš”ì²­í•œ fileì„ ë°›ì•„ì„œ ì ì‹œ ì €ì¥í•´ë‘˜ filename
+		ofstream				m_FileStream;		// FilenameTempë¥¼ opení•œ ê²ƒ..		
 		DWORD					m_FileSizeLeft;
 
 	public :
@@ -132,13 +132,13 @@ class ReceiveFileInfo
 //---------------------------------------------------------------------------
 // RequestReceiveInfo
 //---------------------------------------------------------------------------
-// ³»°¡ ³²¿¡°Ô ¿äÃ»ÇÑ °Í
+// ë‚´ê°€ ë‚¨ì—ê²Œ ìš”ì²­í•œ ê²ƒ
 //---------------------------------------------------------------------------
 class RequestReceiveInfo
 {
 	private :
-		// ¹Ş±â Àü¿¡
-		std::string				m_RequestUser;	// fileÀ» ³ª¿¡°Ô º¸³»ÁÙ »ç¶÷
+		// ë°›ê¸° ì „ì—
+		std::string				m_RequestUser;	// fileì„ ë‚˜ì—ê²Œ ë³´ë‚´ì¤„ ì‚¬ëŒ
 
 		std::list<ReceiveFileInfo*>	m_FileInfos;
 
@@ -160,12 +160,12 @@ class RequestReceiveInfo
 //---------------------------------------------------------------------------
 // RequestSendInfo
 //---------------------------------------------------------------------------
-// ³²ÀÌ ³ª¿¡°Ô ¿äÃ»ÇÑ °Í
+// ë‚¨ì´ ë‚˜ì—ê²Œ ìš”ì²­í•œ ê²ƒ
 //---------------------------------------------------------------------------
 class RequestSendInfo
 {
 	private :
-		std::string				m_RequestUser;	// ³»°¡ fileÀ» º¸³»ÁÙ »ç¶÷
+		std::string				m_RequestUser;	// ë‚´ê°€ fileì„ ë³´ë‚´ì¤„ ì‚¬ëŒ
 
 		std::list<SendFileInfo*>	m_FileInfos;
 
@@ -192,12 +192,12 @@ class RequestSendInfo
 class RequestFileManager {
 	public :
 		//-----------------------------------------------------------------
-		// ³»°¡ ¿äÃ»ÇÑ °Í : < ¿äÃ»ÇÑ»ç¶÷, ³»°¡ ¿äÃ»ÇÑfileÁ¤º¸ >
+		// ë‚´ê°€ ìš”ì²­í•œ ê²ƒ : < ìš”ì²­í•œì‚¬ëŒ, ë‚´ê°€ ìš”ì²­í•œfileì •ë³´ >
 		//-----------------------------------------------------------------
 		typedef std::map<std::string, RequestReceiveInfo*>		REQUEST_RECEIVE_MAP;
 
 		//-----------------------------------------------------------------
-		// ´Ù¸¥ »ç¶÷ÀÌ ¿äÃ»ÇÑ °Í : < ¿äÃ»ÇÑ»ç¶÷, ´Ù¸¥ »ç¶÷ÀÌ ¿äÃ»ÇÑfileÁ¤º¸ >
+		// ë‹¤ë¥¸ ì‚¬ëŒì´ ìš”ì²­í•œ ê²ƒ : < ìš”ì²­í•œì‚¬ëŒ, ë‹¤ë¥¸ ì‚¬ëŒì´ ìš”ì²­í•œfileì •ë³´ >
 		//-----------------------------------------------------------------
 		typedef std::map<std::string, RequestSendInfo*>			REQUEST_SEND_MAP;
 
@@ -211,7 +211,7 @@ class RequestFileManager {
 		void			Release();
 
 		//--------------------------------------------------------------
-		// MyRequest - ³»°¡ ¿äÃ»ÇÑ fileÃ³¸®
+		// MyRequest - ë‚´ê°€ ìš”ì²­í•œ fileì²˜ë¦¬
 		//--------------------------------------------------------------
 		bool			AddMyRequest(RequestReceiveInfo* pInfo);
 		bool			RemoveMyRequest(const std::string& name);
@@ -219,7 +219,7 @@ class RequestFileManager {
 		bool			ReceiveMyRequest(const std::string& name, RequestClientPlayer* pRequestClientPlayer) throw (ConnectException);
 
 		//--------------------------------------------------------------
-		// OtherRequest - ´Ù¸¥ »ç¶÷ÀÌ ¿äÃ»ÇÑ fileÃ³¸®
+		// OtherRequest - ë‹¤ë¥¸ ì‚¬ëŒì´ ìš”ì²­í•œ fileì²˜ë¦¬
 		//--------------------------------------------------------------
 		bool			AddOtherRequest(RequestSendInfo* pInfo);
 		bool			RemoveOtherRequest(const std::string& name);
@@ -232,8 +232,8 @@ class RequestFileManager {
 		void			Update();
 
 	protected :
-		REQUEST_RECEIVE_MAP			m_MyRequests;		// ³»°¡ ¿äÃ»ÇÑ fileµé
-		REQUEST_SEND_MAP		m_OtherRequests;	// ´Ù¸¥ »ç¶÷ÀÌ ¿äÃ»ÇÑ fileµé
+		REQUEST_RECEIVE_MAP			m_MyRequests;		// ë‚´ê°€ ìš”ì²­í•œ fileë“¤
+		REQUEST_SEND_MAP		m_OtherRequests;	// ë‹¤ë¥¸ ì‚¬ëŒì´ ìš”ì²­í•œ fileë“¤
 };
 
 extern RequestFileManager* g_pRequestFileManager;

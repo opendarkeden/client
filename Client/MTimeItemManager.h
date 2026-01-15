@@ -2,7 +2,7 @@
 // MTimeItemManager.H									- by sonee
 //-----------------------------------------------------------------------------
 // MTimeItemManager
-//  - ½Ã°£ÀÌ ÇÊ¿äÇÑ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ±â·ÏÇÑ´Ù.
+//  - ì‹œê°„ì´ í•„ìš”í•œ ì•„ì´í…œì˜ ì •ë³´ë¥¼ ê¸°ë¡í•œë‹¤.
 //  - 2003.04.04
 //-----------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@
 #include "MTypeDef.h"
 #include <map>
 
-// DWORD ´Â ms °¡ ¾Æ´Ï¶ó ÃÊ´ÜÀ§-_-a
+// DWORD ëŠ” ms ê°€ ì•„ë‹ˆë¼ ì´ˆë‹¨ìœ„-_-a
 
 class MTimeItemManager : public std::map<TYPE_OBJECTID, DWORD>
 {
@@ -27,7 +27,7 @@ public :
 	bool	IsExist( TYPE_OBJECTID objectID );	
 	bool	IsExpired( TYPE_OBJECTID objectID );
 
-	bool	AddTimeItem( TYPE_OBJECTID objectID, DWORD time );			// time Àº second ´ÜÀ§
+	bool	AddTimeItem( TYPE_OBJECTID objectID, DWORD time );			// time ì€ second ë‹¨ìœ„
 	bool	RemoveTimeItem( TYPE_OBJECTID objectID );
 	
 	

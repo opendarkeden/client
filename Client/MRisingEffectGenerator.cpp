@@ -36,7 +36,7 @@ MRisingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		egInfo.nActionInfo <= SKILL_FIRE_CRACKER_WIDE_VOLLEY_4 ||
 		egInfo.nActionInfo ==SKILL_DRAGON_FIRE_CRACKER)
 	{
-		// 3¿¬¹ß
+		// 3ì—°ë°œ
 		int angle = 18;
 		int tx[3],tz[3],step[3];
 		int coord_z = egInfo.step * egInfo.count;
@@ -48,7 +48,7 @@ MRisingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			step[i] = egInfo.step;
 		}
 
-		// -_- ºÎÇÏ º°·Î ¾ÈÅ©°ÚÁö ¤»
+		// -_- ë¶€í•˜ ë³„ë¡œ ì•ˆí¬ê² ì§€ ã…‹
 
 		float Radian = float( angle ) * ( PI / 180.0f );
 		float sinValue = float(coord_z) * sinf( Radian );
@@ -109,7 +109,7 @@ MRisingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			step[i] = egInfo.step;
 		}
 
-		// -_- ºÎÇÏ º°·Î ¾ÈÅ©°ÚÁö ¤»
+		// -_- ë¶€í•˜ ë³„ë¡œ ì•ˆí¬ê² ì§€ ã…‹
 				
 		float Radian = float( angle1 ) * ( PI / 180.0f );
 		float sinValue = float(coord_z) * sinf( Radian );
@@ -171,21 +171,21 @@ MRisingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		MLinearEffect* pEffect = new MLinearEffect(bltType);	
 		
 		
-		pEffect->SetFrameID( frameID, maxFrame );		// 0¹ø Effect, Max 3 Frame							
-		// ¹ß»ç À§Ä¡ PixelÁÂÇ¥	
+		pEffect->SetFrameID( frameID, maxFrame );		// 0ë²ˆ Effect, Max 3 Frame							
+		// ë°œì‚¬ ìœ„ì¹˜ Pixelì¢Œí‘œ	
 		pEffect->SetPixelPosition( egInfo.x0, egInfo.y0, egInfo.z0 );			
-		// ¹æÇâ ¼³Á¤
+		// ë°©í–¥ ì„¤ì •
 		pEffect->SetDirection( egInfo.direction );		
-		// ¸ñÇ¥ À§Ä¡ PixelÁÂÇ¥
+		// ëª©í‘œ ìœ„ì¹˜ Pixelì¢Œí‘œ
 		pEffect->SetTarget( egInfo.x0, egInfo.y0, egInfo.z0+egInfo.step*egInfo.count, egInfo.step );
 		//pEffect->SetTarget( egInfo.x0, egInfo.y0, egInfo.z1, egInfo.step );		
-		// Áö¼ÓµÇ´Â Frame (¸ñÇ¥°¡ ÀÖ´Ù¸é º°·Î °ü°è ¾øÀ½ - -;)
+		// ì§€ì†ë˜ëŠ” Frame (ëª©í‘œê°€ ìžˆë‹¤ë©´ ë³„ë¡œ ê´€ê³„ ì—†ìŒ - -;)
 		pEffect->SetCount( egInfo.count, egInfo.linkCount );
 		
-		// À§·Â
+		// ìœ„ë ¥
 		pEffect->SetPower(egInfo.power);
 		
-		// ºûÀÇ ¹à±â
+		// ë¹›ì˜ ë°ê¸°
 		//pEffect->SetLight( light );
 		
 		if (g_pZone->AddEffect( pEffect ))

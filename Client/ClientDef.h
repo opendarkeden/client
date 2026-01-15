@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // ClientDef.h
 //-----------------------------------------------------------------------------
-// Client¿¡ °ü·ÃµÈ header file   - -;
+// Clientì— ê´€ë ¨ëœ header file   - -;
 //-----------------------------------------------------------------------------
 
 
@@ -46,7 +46,7 @@ extern CSpriteSurface*			g_pLast;
 
 extern CMessageArray*				g_pSystemMessage;
 
-extern CMessageArray*				g_pPlayerMessage;  //Íæ¼ÒĞÅÏ¢Àà
+extern CMessageArray*				g_pPlayerMessage;  //é¯¤ì†Œæ–¤å£ìš
 
 extern CMessageArray*				g_pGameMessage;
 
@@ -60,7 +60,7 @@ enum	CLIENT_MODE
 	MODE_NULL = 0,
 	MODE_OPENING,
 	MODE_MAINMENU,
-	MODE_CHANGE_OPTION,	// 3d°¡¼Ó <--> 2d
+	MODE_CHANGE_OPTION,	// 3dê°€ì† <--> 2d
 	MODE_NEWUSER,
 	MODE_CREATECHARACTER,
 	MODE_WAIT_CREATEPCOK,
@@ -78,7 +78,7 @@ enum	CLIENT_MODE
 	MODE_WAIT_UPDATEINFO,
 	MODE_WAIT_SETPOSITION,		
 	MODE_WAIT_REGISTERPLAYEROK,
-	MODE_WAIT_RECONNECT_LOGIN,	// logoutÇÏ°í ÀÚµ¿ ÀçÁ¢¼Ó
+	MODE_WAIT_RECONNECT_LOGIN,	// logoutí•˜ê³  ìë™ ì¬ì ‘ì†
 	MODE_GAME,
 	MODE_QUIT
 };	
@@ -96,7 +96,7 @@ enum	CLIENT_UPDATE
 
 
 //-----------------------------------------------------------------------------
-// ÇöÀçÀÇ Client Mode¿¡ ´ëÇÑ ¼³Á¤..
+// í˜„ì¬ì˜ Client Modeì— ëŒ€í•œ ì„¤ì •..
 //-----------------------------------------------------------------------------
 extern enum CLIENT_MODE		g_Mode;
 extern enum CLIENT_MODE		g_ModeNext;

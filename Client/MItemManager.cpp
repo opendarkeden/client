@@ -34,8 +34,8 @@ MItemManager::Release()
 {
 	ITEM_MAP::iterator iItem = m_mapItem.begin();
 
-	// ¾ÆÁ÷ map¿¡ ItemÀÌ ³²¾Æ ÀÖ´Â °æ¿ì..
-	// memory¿¡¼­ Á¦°Å½ÃÅ²´Ù.
+	// ì•„ì§ mapì— Itemì´ ë‚¨ì•„ ìˆëŠ” ê²½ìš°..
+	// memoryì—ì„œ ì œê±°ì‹œí‚¨ë‹¤.
 	while (iItem != m_mapItem.end())
 	{
 		MItem* pItem = (*iItem).second;
@@ -64,7 +64,7 @@ MItemManager::Release()
 //----------------------------------------------------------------------
 // Add Item
 //----------------------------------------------------------------------
-// mapItem¿¡ pointer¸¸ ÀúÀå½ÃÄÑ µĞ´Ù.
+// mapItemì— pointerë§Œ ì €ì¥ì‹œì¼œ ë‘”ë‹¤.
 //----------------------------------------------------------------------
 bool		
 MItemManager::AddItem(MItem* pItem)
@@ -74,20 +74,20 @@ MItemManager::AddItem(MItem* pItem)
 	iItem = m_mapItem.find(pItem->GetID());
 	
 	//-----------------------------------------------
-	// ¾ÆÁ÷ ¾ø´Â ItemÀÌ¸é Ãß°¡	
+	// ì•„ì§ ì—†ëŠ” Itemì´ë©´ ì¶”ê°€	
 	//-----------------------------------------------
 	if (iItem == m_mapItem.end())
 	{
 		m_mapItem.insert(ITEM_MAP::value_type(pItem->GetID(), pItem));
 
-		// Âø¿ë ¿©ºÎ Ã¼Å©
+		// ì°©ìš© ì—¬ë¶€ ì²´í¬
 		CheckAffectStatus( pItem );			
 
 		return true;
 	}
 
 	//-----------------------------------------------
-	// ÀÌ¹Ì ÀÖ´Â ItemÀÌ¸é false
+	// ì´ë¯¸ ìˆëŠ” Itemì´ë©´ false
 	//-----------------------------------------------
 	return false;
 }
@@ -95,7 +95,7 @@ MItemManager::AddItem(MItem* pItem)
 //----------------------------------------------------------------------
 // Get Item
 //----------------------------------------------------------------------
-// ItemÀÇ pointer¸¸ ³Ñ°ÜÁØ´Ù.
+// Itemì˜ pointerë§Œ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 MItem*	
 MItemManager::GetItemToModify(TYPE_OBJECTID id)
@@ -103,12 +103,12 @@ MItemManager::GetItemToModify(TYPE_OBJECTID id)
 	ITEM_MAP::iterator	iItem;
 
 	//--------------------------------------------------
-	// ID°¡ idÀÎ Item¸¦ Ã£´Â´Ù.
+	// IDê°€ idì¸ Itemë¥¼ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------
 	iItem = m_mapItem.find(id);
 
 	//--------------------------------------------------
-	// ¾øÀ» °æ¿ì NULLÀ» returnÇÑ´Ù.
+	// ì—†ì„ ê²½ìš° NULLì„ returní•œë‹¤.
 	//--------------------------------------------------
 	if (iItem == m_mapItem.end()) 
 	{
@@ -116,7 +116,7 @@ MItemManager::GetItemToModify(TYPE_OBJECTID id)
 	}
 
 	//--------------------------------------------------
-	// ÀÖÀ¸¸é ±× Item¸¦ returnÇÑ´Ù.
+	// ìˆìœ¼ë©´ ê·¸ Itemë¥¼ returní•œë‹¤.
 	//--------------------------------------------------
 	return (*iItem).second;
 }
@@ -124,7 +124,7 @@ MItemManager::GetItemToModify(TYPE_OBJECTID id)
 //----------------------------------------------------------------------
 // Get Item (const)
 //----------------------------------------------------------------------
-// ItemÀÇ pointer¸¸ ³Ñ°ÜÁØ´Ù.
+// Itemì˜ pointerë§Œ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 MItem*	
 MItemManager::GetItem(TYPE_OBJECTID id) const
@@ -132,12 +132,12 @@ MItemManager::GetItem(TYPE_OBJECTID id) const
 	ITEM_MAP::const_iterator	iItem;
 
 	//--------------------------------------------------
-	// ID°¡ idÀÎ Item¸¦ Ã£´Â´Ù.
+	// IDê°€ idì¸ Itemë¥¼ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------
 	iItem = m_mapItem.find(id);
 
 	//--------------------------------------------------
-	// ¾øÀ» °æ¿ì NULLÀ» returnÇÑ´Ù.
+	// ì—†ì„ ê²½ìš° NULLì„ returní•œë‹¤.
 	//--------------------------------------------------
 	if (iItem == m_mapItem.end()) 
 	{
@@ -145,7 +145,7 @@ MItemManager::GetItem(TYPE_OBJECTID id) const
 	}
 
 	//--------------------------------------------------
-	// ÀÖÀ¸¸é ±× Item¸¦ returnÇÑ´Ù.
+	// ìˆìœ¼ë©´ ê·¸ Itemë¥¼ returní•œë‹¤.
 	//--------------------------------------------------
 	return (*iItem).second;
 }
@@ -155,7 +155,7 @@ MItemManager::GetItem(TYPE_OBJECTID id) const
 //----------------------------------------------------------------------
 // Remove Item
 //----------------------------------------------------------------------
-// mapItem¿¡¼­ Á¦°ÅÇÏ°í ItemÀÇ pointer¸¦ ³Ñ°ÜÁØ´Ù.
+// mapItemì—ì„œ ì œê±°í•˜ê³  Itemì˜ pointerë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 //----------------------------------------------------------------------
 MItem*	
 MItemManager::RemoveItem(TYPE_OBJECTID id)
@@ -163,12 +163,12 @@ MItemManager::RemoveItem(TYPE_OBJECTID id)
 	ITEM_MAP::iterator	iItem;
 
 	//--------------------------------------------------
-	// ID°¡ idÀÎ Item¸¦ Ã£´Â´Ù.
+	// IDê°€ idì¸ Itemë¥¼ ì°¾ëŠ”ë‹¤.
 	//--------------------------------------------------
 	iItem = m_mapItem.find(id);
     
 	//--------------------------------------------------
-	// ±×·± id¸¦ °¡Áø ItemÀÌ ¾ø´Â °æ¿ì
+	// ê·¸ëŸ° idë¥¼ ê°€ì§„ Itemì´ ì—†ëŠ” ê²½ìš°
 	//--------------------------------------------------
 	if (iItem == m_mapItem.end())
 	{
@@ -176,15 +176,15 @@ MItemManager::RemoveItem(TYPE_OBJECTID id)
 	}
 
 	//--------------------------------------------------
-	// Ã£Àº °æ¿ì --> Á¦°Å	
+	// ì°¾ì€ ê²½ìš° --> ì œê±°	
 	//--------------------------------------------------
 	MItem* pItem = (*iItem).second;
 	
-	// map¿¡¼­ Á¦°Å
+	// mapì—ì„œ ì œê±°
 	m_mapItem.erase( iItem );
 
 	//--------------------------------------------------
-	// ¸ğµç ´Ù¸¥ itemµéÀÇ ¼öÄ¡ Ã¼Å©
+	// ëª¨ë“  ë‹¤ë¥¸ itemë“¤ì˜ ìˆ˜ì¹˜ ì²´í¬
 	//--------------------------------------------------
 	CheckAffectStatusAll();
 
@@ -194,15 +194,15 @@ MItemManager::RemoveItem(TYPE_OBJECTID id)
 //----------------------------------------------------------------------
 // Check AffectStatus
 //----------------------------------------------------------------------
-// »ç¿ë°¡´ÉÇÑÁö Ã¼Å©
+// ì‚¬ìš©ê°€ëŠ¥í•œì§€ ì²´í¬
 //----------------------------------------------------------------------
 void			
-MItemManager::CheckAffectStatusAll()				// ¸ğµç ¾ÆÀÌÅÛ
+MItemManager::CheckAffectStatusAll()				// ëª¨ë“  ì•„ì´í…œ
 {
 	ITEM_MAP::iterator iItem = m_mapItem.begin();
 
 	//------------------------------------------------------
-	// ¸ğµç item¸¶´Ù »ç¿ë°¡´ÉÇÑÁö ¾Æ´ÑÁö¸¦ Ã¼Å©ÇÑ´Ù.
+	// ëª¨ë“  itemë§ˆë‹¤ ì‚¬ìš©ê°€ëŠ¥í•œì§€ ì•„ë‹Œì§€ë¥¼ ì²´í¬í•œë‹¤.
 	//------------------------------------------------------
 	while (iItem != m_mapItem.end())
 	{
@@ -220,14 +220,14 @@ MItemManager::CheckAffectStatusAll()				// ¸ğµç ¾ÆÀÌÅÛ
 void			
 MItemManager::CheckAffectStatus(MItem* pItem)
 {
-	// pure virtual·Î ÇÒ·Á´Ù°¡.. ±×³É ¾µ °æ¿ìµµ ÀÖ¾î¼­..
+	// pure virtualë¡œ í• ë ¤ë‹¤ê°€.. ê·¸ëƒ¥ ì“¸ ê²½ìš°ë„ ìˆì–´ì„œ..
 }
 
 //----------------------------------------------------------------------
 // Transfer Item To (id, pItemManager)
 //----------------------------------------------------------------------
-// thisÀÇ ID°¡ idÀÎ MItemÀ» Á¦°ÅÇØ¼­
-// pItemManager¿¡ Ãß°¡½ÃÅ²´Ù.
+// thisì˜ IDê°€ idì¸ MItemì„ ì œê±°í•´ì„œ
+// pItemManagerì— ì¶”ê°€ì‹œí‚¨ë‹¤.
 //----------------------------------------------------------------------
 /*
 bool		
@@ -235,7 +235,7 @@ MItemManager::TransferItemTo(TYPE_OBJECTID id, MItemManager& targetItemManager)
 {
 	MItem* pItem = RemoveItem(id);
 
-	// NULLÀÌ ¾Æ´Ñ °æ¿ì..
+	// NULLì´ ì•„ë‹Œ ê²½ìš°..
 	if (pItem == NULL)
 	{
 		return false;
@@ -246,7 +246,7 @@ MItemManager::TransferItemTo(TYPE_OBJECTID id, MItemManager& targetItemManager)
 */
 
 //----------------------------------------------------------------------
-// ¾ÆÀÌÅÛ Ã£±â
+// ì•„ì´í…œ ì°¾ê¸°
 //----------------------------------------------------------------------
 MItem*
 MItemManager::FindItem( MItemFinder& itemFinder ) const
@@ -274,9 +274,9 @@ MItemManager::FindItem( MItemFinder& itemFinder ) const
 
 	return NULL;
 }
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 //----------------------------------------------------------------------
-// °üÖĞ°ü
+// ê´€æ«“ê´€
 //----------------------------------------------------------------------
 MItem*			
 MItemManager::FindItemAll( MItemFinder& itemFinder, MItem*& pSubInventoryItem) const
@@ -308,13 +308,13 @@ MItemManager::FindItemAll( MItemFinder& itemFinder, MItem*& pSubInventoryItem) c
 }
 #endif
 
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 
 
 //----------------------------------------------------------------------
 // GetItemToModifyAll
 //----------------------------------------------------------------------
-// ¼­ºê ÀÎº¥ ±îÁö »ô»ôÀÌ µÚÁø´Ù..¤»¤»
+// ì„œë¸Œ ì¸ë²¤ ê¹Œì§€ ìƒ…ìƒ…ì´ ë’¤ì§„ë‹¤..ã…‹ã…‹
 //----------------------------------------------------------------------
 	MItem*			
 	MItemManager::GetItemToModifyAll( TYPE_OBJECTID id, MItem*& pSubInventoryItem)

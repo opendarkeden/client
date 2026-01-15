@@ -32,11 +32,11 @@ void LCLoginErrorHandler::execute ( LCLoginError * pPacket , Player * pPlayer )
 
 	if (!g_bNeedUpdate)
 	{
-		// ÀçÀÔ·Â
+		// ìž¬ìž…ë ¥
 		//SetMode( MODE_MAINMENU );
 		g_ModeNext = MODE_LOGIN_WRONG;
 
-		// ETC_ERROR´Â ºñÁ¤»óÀûÀÎ °èÁ¤ÀÌ¶ó°í Ãâ·ÂÇØ¾ß ÇÑ´Ù.
+		// ETC_ERRORëŠ” ë¹„ì •ìƒì ì¸ ê³„ì •ì´ë¼ê³  ì¶œë ¥í•´ì•¼ í•œë‹¤.
 //		if ((ErrorID)pPacket->getErrorID()==ETC_ERROR)
 //		{
 //			g_pUIDialog->PopupFreeMessageDlg((*g_pGameStringTable)[STRING_ERROR_LOGIN_DENY].GetString());

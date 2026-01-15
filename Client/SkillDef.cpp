@@ -18,12 +18,12 @@ int SKILLDOMAIN_NAME[MAX_SKILLDOMAIN] =
 		UI_STRING_MESSAGE_HAN_DOMAIN_ETC,
 		UI_STRING_MESSAGE_HAN_DOMAIN_VAMPIRE,
 		UI_STRING_MESSAGE_HAN_DOMAIN_OUSTERS,
-//	"µµ",
-//	"°Ë",
-//	"ÃÑ",
-//	//"¶óÀÌÇÃ",
-//	"Èú",	
-//	"ÀÎÃ¦Æ®",
-//	"±âÅ¸",
-//	"¹ìÆÄÀÌ¾î"
+//	"ë„",
+//	"ê²€",
+//	"ì´",
+//	//"ë¼ì´í”Œ",
+//	"íž",	
+//	"ì¸ì±ˆíŠ¸",
+//	"ê¸°íƒ€",
+//	"ë±€íŒŒì´ì–´"
 };

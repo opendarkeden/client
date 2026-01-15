@@ -23,7 +23,7 @@
 #endif
 
 
-#define	EXPIRE_DELAY	60000		//60*1000	// 1ºÐ
+#define	EXPIRE_DELAY	60000		//60*1000	// 1ë¶„
 
 void	SendBugReport(const char *bug, ...);
 
@@ -57,8 +57,8 @@ RequestServerPlayer::~RequestServerPlayer ()
 			g_pGameMessage->AddFormat("Close Connection to %s", m_Name.c_str() );
 	#endif
 
-	// ±× ¾î¶² ÇÃ·¹ÀÌ¾î °´Ã¼°¡ »èÁ¦µÉ ¶§¿¡µµ, ±× »óÅÂ´Â ·Î±×¾Æ¿ôÀÌ¾î¾ß ÇÑ´Ù.
-	// Áï ¾î¶² ÇÃ·¹ÀÌ¾î¸¦ Á¢¼Ó Á¾·á ½ÃÅ°·Á¸é, ±× »óÅÂ¸¦ ·Î±×¾Æ¿ôÀ¸·Î ¸¸µé¾î¾ß ÇÑ´Ù.
+	// ê·¸ ì–´ë–¤ í”Œë ˆì´ì–´ ê°ì²´ê°€ ì‚­ì œë  ë•Œì—ë„, ê·¸ ìƒíƒœëŠ” ë¡œê·¸ì•„ì›ƒì´ì–´ì•¼ í•œë‹¤.
+	// ì¦‰ ì–´ë–¤ í”Œë ˆì´ì–´ë¥¼ ì ‘ì† ì¢…ë£Œ ì‹œí‚¤ë ¤ë©´, ê·¸ ìƒíƒœë¥¼ ë¡œê·¸ì•„ì›ƒìœ¼ë¡œ ë§Œë“¤ì–´ì•¼ í•œë‹¤.
 	Assert( m_PlayerStatus == CPS_END_SESSION );
 
 	__END_CATCH
@@ -76,17 +76,17 @@ void RequestServerPlayer::processCommand ()
 	__BEGIN_TRY
 
 	//-----------------------------------------------------------------------
-	// RequestMode¿¡ µû¸¥ Ã³¸®
+	// RequestModeì— ë”°ë¥¸ ì²˜ë¦¬
 	//-----------------------------------------------------------------------
 	switch (m_RequestMode)
 	{
 		//-----------------------------------------------------------------
-		// ProfileÀ» º¸³»´Â Áß..
+		// Profileì„ ë³´ë‚´ëŠ” ì¤‘..
 		//-----------------------------------------------------------------
 		case REQUEST_CLIENT_MODE_PROFILE :
 			if (g_pRequestFileManager->SendOtherRequest(m_Name, this))
 			{
-				// È­ÀÏÀ» º¸³»´Â ÁßÀÌ¹Ç·Î processCommand()°¡ ÇÊ¿ä¾ø´Ù.
+				// í™”ì¼ì„ ë³´ë‚´ëŠ” ì¤‘ì´ë¯€ë¡œ processCommand()ê°€ í•„ìš”ì—†ë‹¤.
 				m_ExpireTime = g_CurrentTime + EXPIRE_DELAY;
 				return;
 			}			
@@ -98,32 +98,32 @@ void RequestServerPlayer::processCommand ()
 	try {
 		try {
 
-			// Çì´õ¸¦ ÀÓ½ÃÀúÀåÇÒ ¹öÆÛ »ý¼º
+			// í—¤ë”ë¥¼ ìž„ì‹œì €ìž¥í•  ë²„í¼ ìƒì„±
 			char header[szPacketHeader];
 			PacketID_t packetID;
 			PacketSize_t packetSize;
 			pPacket = NULL;
 
 			//---------------------------------------------------------
-			// ÀÌ¹ø Loop¿¡¼­ Ã³¸®ÇÑ packetÀÇ °³¼ö
+			// ì´ë²ˆ Loopì—ì„œ ì²˜ë¦¬í•œ packetì˜ ê°œìˆ˜
 			//---------------------------------------------------------
-			// packetÀÌ ³Ê¹« ¸¹Àº °æ¿ì.. 
-			// ´Ù Ã³¸®ÇÏ´Ùº¸¸é .. ½Ã°£ÀÌ ¸¹ÀÌ °É·Á¼­ client°¡ ¾È µ¹¾Æ°£´Ù
-			// ±×·¡¼­ ÀÏÁ¤ °³¼ö¸¸ Ã³¸®ÇÑ´Ù.
+			// packetì´ ë„ˆë¬´ ë§Žì€ ê²½ìš°.. 
+			// ë‹¤ ì²˜ë¦¬í•˜ë‹¤ë³´ë©´ .. ì‹œê°„ì´ ë§Žì´ ê±¸ë ¤ì„œ clientê°€ ì•ˆ ëŒì•„ê°„ë‹¤
+			// ê·¸ëž˜ì„œ ì¼ì • ê°œìˆ˜ë§Œ ì²˜ë¦¬í•œë‹¤.
 			//---------------------------------------------------------
 			int maxProcessPacket = g_pClientConfig->MAX_PROCESS_PACKET;
 			int processedPacket = 0;
 
-			// ÀÔ·Â¹öÆÛ¿¡ µé¾îÀÖ´Â ¿ÏÀüÇÑ ÆÐÅ¶µéÀ» ¸ðÁ¶¸® Ã³¸®ÇÑ´Ù.
+			// ìž…ë ¥ë²„í¼ì— ë“¤ì–´ìžˆëŠ” ì™„ì „í•œ íŒ¨í‚·ë“¤ì„ ëª¨ì¡°ë¦¬ ì²˜ë¦¬í•œë‹¤.
 			while ( true ) {
 			
-				// ÀÔ·Â½ºÆ®¸²¿¡¼­ ÆÐÅ¶Çì´õÅ©±â¸¸Å­ ÀÐ¾îº»´Ù.
-				// ¸¸¾à ÁöÁ¤ÇÑ Å©±â¸¸Å­ ½ºÆ®¸²¿¡¼­ ÀÐÀ» ¼ö ¾ø´Ù¸é,
-				// Insufficient ¿¹¿Ü°¡ ¹ß»ýÇÏ°í, ·çÇÁ¸¦ ºüÁ®³ª°£´Ù.
+				// ìž…ë ¥ìŠ¤íŠ¸ë¦¼ì—ì„œ íŒ¨í‚·í—¤ë”í¬ê¸°ë§Œí¼ ì½ì–´ë³¸ë‹¤.
+				// ë§Œì•½ ì§€ì •í•œ í¬ê¸°ë§Œí¼ ìŠ¤íŠ¸ë¦¼ì—ì„œ ì½ì„ ìˆ˜ ì—†ë‹¤ë©´,
+				// Insufficient ì˜ˆì™¸ê°€ ë°œìƒí•˜ê³ , ë£¨í”„ë¥¼ ë¹ ì ¸ë‚˜ê°„ë‹¤.
 				m_pInputStream->peek( header , szPacketHeader );
 
-				// ÆÐÅ¶¾ÆÀÌµð ¹× ÆÐÅ¶Å©±â¸¦ ¾Ë¾Æ³½´Ù.
-				// ÀÌ¶§ ÆÐÅ¶Å©±â´Â Çì´õ¸¦ Æ÷ÇÔÇÑ´Ù.
+				// íŒ¨í‚·ì•„ì´ë”” ë° íŒ¨í‚·í¬ê¸°ë¥¼ ì•Œì•„ë‚¸ë‹¤.
+				// ì´ë•Œ íŒ¨í‚·í¬ê¸°ëŠ” í—¤ë”ë¥¼ í¬í•¨í•œë‹¤.
 				memcpy( &packetID   , &header[0] , szPacketID );	
 				memcpy( &packetSize , &header[szPacketID] , szPacketSize );
 
@@ -133,7 +133,7 @@ void RequestServerPlayer::processCommand ()
 					//	DEBUG_ADD_FORMAT("ID=%d, size=%d", packetID, packetSize);
 				//#endif
 				
-				// ÆÐÅ¶ ¾ÆÀÌµð°¡ ÀÌ»óÇÏ¸é ÇÁ·ÎÅäÄÝ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+				// íŒ¨í‚· ì•„ì´ë””ê°€ ì´ìƒí•˜ë©´ í”„ë¡œí† ì½œ ì—ëŸ¬ë¡œ ê°„ì£¼í•œë‹¤.
 				if ( packetID >= Packet::PACKET_MAX )
 				{
 					DEBUG_ADD_FORMAT("[PacketError-RequestServerPlayer::processCommand] exceed MAX=%d. packetID=%d", Packet::PACKET_MAX, packetID);		
@@ -155,18 +155,18 @@ void RequestServerPlayer::processCommand ()
 					DEBUG_ADD("[PacketError] invalid packet ORDER");
 
 					//---------------------------------------------------------------
-					// LogoutÇØ¼­ Ä³¸¯ÅÍ ¼±ÅÃÈ­¸éÀ¸·Î °¡´Â °æ¿ì
+					// Logoutí•´ì„œ ìºë¦­í„° ì„ íƒí™”ë©´ìœ¼ë¡œ ê°€ëŠ” ê²½ìš°
 					//---------------------------------------------------------------
 					if (getPlayerStatus()==CPS_WAITING_FOR_GC_RECONNECT_LOGIN)
 					{
-						// ÀÐ¾î³»°í execute´Â ÇÏÁö ¾Ê´Â´Ù.
+						// ì½ì–´ë‚´ê³  executeëŠ” í•˜ì§€ ì•ŠëŠ”ë‹¤.
 						bExecute = FALSE;
 						
-						// À¸ÇìÇì.. ¹«ÇÑ~~ -_-;
+						// ìœ¼í—¤í—¤.. ë¬´í•œ~~ -_-;
 						maxProcessPacket = 0xFFFF;
 					}
 					//---------------------------------------------------------------
-					// ÀÏ¹ÝÀûÀÎ °æ¿ì´Â Á¢¼ÓÀ» ²÷´Â´Ù.
+					// ì¼ë°˜ì ì¸ ê²½ìš°ëŠ” ì ‘ì†ì„ ëŠëŠ”ë‹¤.
 					//---------------------------------------------------------------
 					else
 					{
@@ -174,15 +174,15 @@ void RequestServerPlayer::processCommand ()
 					}				
 				}
 
-				// ÆÐÅ¶ Å©±â°¡ ³Ê¹« Å©¸é ÇÁ·ÎÅäÄÝ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+				// íŒ¨í‚· í¬ê¸°ê°€ ë„ˆë¬´ í¬ë©´ í”„ë¡œí† ì½œ ì—ëŸ¬ë¡œ ê°„ì£¼í•œë‹¤.
 				if ( packetSize > g_pPacketFactoryManager->getPacketMaxSize( packetID ) )
 				{
 					DEBUG_ADD_FORMAT("[PacketError] too large packet SIZE: %d/%d", (int)packetSize, (int)g_pPacketFactoryManager->getPacketMaxSize( packetID ));		
 					throw InvalidProtocolException("too large packet SIZE");
 				}
 				
-				// ÀÔ·Â¹öÆÛ³»¿¡ ÆÐÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-				// ÃÖÀûÈ­½Ã break ¸¦ »ç¿ëÇÏ¸é µÈ´Ù. (¿©±â¼­´Â ÀÏ´Ü exceptionÀ» ¾µ °ÍÀÌ´Ù.)
+				// ìž…ë ¥ë²„í¼ë‚´ì— íŒ¨í‚·í¬ê¸°ë§Œí¼ì˜ ë°ì´íƒ€ê°€ ë“¤ì–´ìžˆëŠ”ì§€ í™•ì¸í•œë‹¤.
+				// ìµœì í™”ì‹œ break ë¥¼ ì‚¬ìš©í•˜ë©´ ëœë‹¤. (ì—¬ê¸°ì„œëŠ” ì¼ë‹¨ exceptionì„ ì“¸ ê²ƒì´ë‹¤.)
 				if ( m_pInputStream->length() < szPacketHeader + packetSize )
 				{
 					DEBUG_ADD_FORMAT("[PacketError] InsufficientDataException: %d/%d", m_pInputStream->length(), szPacketHeader + packetSize);
@@ -193,18 +193,18 @@ void RequestServerPlayer::processCommand ()
 				//if (g_Mode!=MODE_GAME)	
 					//throw InvalidProtocolException("not MODE_GAME");
 
-				// ¿©±â±îÁö ¿Ô´Ù¸é ÀÔ·Â¹öÆÛ¿¡´Â ¿ÏÀüÇÑ ÆÐÅ¶ ÇÏ³ª ÀÌ»óÀÌ µé¾îÀÖ´Ù´Â ¶æÀÌ´Ù.
-				// ÆÐÅ¶ÆÑÅä¸®¸Å´ÏÀú·ÎºÎÅÍ ÆÐÅ¶¾ÆÀÌµð¸¦ »ç¿ëÇØ¼­ ÆÐÅ¶ ½ºÆ®·°Ã³¸¦ »ý¼ºÇÏ¸é µÈ´Ù.
-				// ÆÐÅ¶¾ÆÀÌµð°¡ Àß¸øµÉ °æ¿ì´Â ÆÐÅ¶ÆÑÅä¸®¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.
+				// ì—¬ê¸°ê¹Œì§€ ì™”ë‹¤ë©´ ìž…ë ¥ë²„í¼ì—ëŠ” ì™„ì „í•œ íŒ¨í‚· í•˜ë‚˜ ì´ìƒì´ ë“¤ì–´ìžˆë‹¤ëŠ” ëœ»ì´ë‹¤.
+				// íŒ¨í‚·íŒ©í† ë¦¬ë§¤ë‹ˆì €ë¡œë¶€í„° íŒ¨í‚·ì•„ì´ë””ë¥¼ ì‚¬ìš©í•´ì„œ íŒ¨í‚· ìŠ¤íŠ¸ëŸ­ì²˜ë¥¼ ìƒì„±í•˜ë©´ ëœë‹¤.
+				// íŒ¨í‚·ì•„ì´ë””ê°€ ìž˜ëª»ë  ê²½ìš°ëŠ” íŒ¨í‚·íŒ©í† ë¦¬ë§¤ë‹ˆì €ì—ì„œ ì²˜ë¦¬í•œë‹¤.
 				pPacket = g_pPacketFactoryManager->createPacket( packetID );
 
-				// ÀÌÁ¦ ÀÌ ÆÐÅ¶½ºÆ®·°Ã³¸¦ ÃÊ±âÈ­ÇÑ´Ù.
-				// ÆÐÅ¶ÇÏÀ§Å¬·¡½º¿¡ Á¤ÀÇµÈ read()°¡ virtual ¸ÞÄ¿´ÏÁò¿¡ ÀÇÇØ¼­ È£ÃâµÇ¾î
-				// ÀÚµ¿ÀûÀ¸·Î ÃÊ±âÈ­µÈ´Ù.
+				// ì´ì œ ì´ íŒ¨í‚·ìŠ¤íŠ¸ëŸ­ì²˜ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
+				// íŒ¨í‚·í•˜ìœ„í´ëž˜ìŠ¤ì— ì •ì˜ëœ read()ê°€ virtual ë©”ì»¤ë‹ˆì¦˜ì— ì˜í•´ì„œ í˜¸ì¶œë˜ì–´
+				// ìžë™ì ìœ¼ë¡œ ì´ˆê¸°í™”ëœë‹¤.
 				m_pInputStream->read( pPacket );
 				
-				// ÀÌÁ¦ ÀÌ ÆÐÅ¶½ºÆ®·°Ã³¸¦ °¡Áö°í ÆÐÅ¶ÇÚµé·¯¸¦ ¼öÇàÇÏ¸é µÈ´Ù.
-				// ÆÐÅ¶¾ÆÀÌµð°¡ Àß¸øµÉ °æ¿ì´Â ÆÐÅ¶ÇÚµé·¯¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.			
+				// ì´ì œ ì´ íŒ¨í‚·ìŠ¤íŠ¸ëŸ­ì²˜ë¥¼ ê°€ì§€ê³  íŒ¨í‚·í•¸ë“¤ëŸ¬ë¥¼ ìˆ˜í–‰í•˜ë©´ ëœë‹¤.
+				// íŒ¨í‚·ì•„ì´ë””ê°€ ìž˜ëª»ë  ê²½ìš°ëŠ” íŒ¨í‚·í•¸ë“¤ëŸ¬ë§¤ë‹ˆì €ì—ì„œ ì²˜ë¦¬í•œë‹¤.			
 
 				if (bExecute)
 				{
@@ -225,8 +225,8 @@ void RequestServerPlayer::processCommand ()
 				m_ExpireTime = g_CurrentTime + EXPIRE_DELAY;
 
 				//---------------------------------------------------------	
-				// ÇÑ¹ø¿¡ Ã³¸®ÇÏ´Â packetÀÇ ÇÑ°è °³¼ö¸¦ ³Ñ¾î°£ °æ¿ì
-				// ³ª¸ÓÁö´Â ´ÙÀ½ turn¿¡ Ã³¸®ÇÑ´Ù.
+				// í•œë²ˆì— ì²˜ë¦¬í•˜ëŠ” packetì˜ í•œê³„ ê°œìˆ˜ë¥¼ ë„˜ì–´ê°„ ê²½ìš°
+				// ë‚˜ë¨¸ì§€ëŠ” ë‹¤ìŒ turnì— ì²˜ë¦¬í•œë‹¤.
 				//---------------------------------------------------------
 				if (++processedPacket > maxProcessPacket)
 				{
@@ -238,7 +238,7 @@ void RequestServerPlayer::processCommand ()
 
 		} catch ( InsufficientDataException ) {
 
-			// ´ÜÁö ·çÇÁÀÇ Å»Ãâ Á¶°ÇÀÏ »ÓÀÌ´Ù. »óÀ§·Î Àü´ÞÇÒ ÇÊ¿ä´Â ¾ø´Ù.
+			// ë‹¨ì§€ ë£¨í”„ì˜ íƒˆì¶œ ì¡°ê±´ì¼ ë¿ì´ë‹¤. ìƒìœ„ë¡œ ì „ë‹¬í•  í•„ìš”ëŠ” ì—†ë‹¤.
 			if (g_CurrentTime > m_ExpireTime)
 			{
 				throw InvalidProtocolException("timeout - -;;");			
@@ -269,7 +269,7 @@ void RequestServerPlayer::disconnect ( bool bDisconnected )
 	__BEGIN_TRY
 
 	
-	// file¿äÃ»ÁßÀÌ´ø°Å ÀÖÀ¸¸é Á¦°ÅÇÑ´Ù.
+	// fileìš”ì²­ì¤‘ì´ë˜ê±° ìžˆìœ¼ë©´ ì œê±°í•œë‹¤.
 	if (g_pRequestFileManager!=NULL
 		&& g_pRequestFileManager->HasOtherRequest(m_Name.c_str()))
 	{
@@ -278,20 +278,20 @@ void RequestServerPlayer::disconnect ( bool bDisconnected )
 
 	if ( bDisconnected == UNDISCONNECTED ) {
 
-		// Å¬¶óÀÌ¾ðÆ®¿¡°Ô GCDisconnect ÆÐÅ¶À» Àü¼ÛÇÑ´Ù.
+		// í´ë¼ì´ì–¸íŠ¸ì—ê²Œ GCDisconnect íŒ¨í‚·ì„ ì „ì†¡í•œë‹¤.
 		//GCDisconnect gcDisconnect;
 		//sendPacket( gcDisconnect );
 
-		// Ãâ·Â ¹öÆÛ¿¡ ³²¾ÆÀÖ´Â µ¥ÀÌÅ¸¸¦ Àü¼ÛÇÑ´Ù.
+		// ì¶œë ¥ ë²„í¼ì— ë‚¨ì•„ìžˆëŠ” ë°ì´íƒ€ë¥¼ ì „ì†¡í•œë‹¤.
 		m_pOutputStream->flush();
 	}
 
-	// ¼ÒÄÏ ¿¬°áÀ» ´Ý´Â´Ù.
+	// ì†Œì¼“ ì—°ê²°ì„ ë‹«ëŠ”ë‹¤.
 	m_pSocket->close();
 
-	// ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ¸¦ ·Î±×¾Æ¿ôÀ¸·Î ¸¸µç´Ù.
+	// í”Œë ˆì´ì–´ì˜ ìƒíƒœë¥¼ ë¡œê·¸ì•„ì›ƒìœ¼ë¡œ ë§Œë“ ë‹¤.
 	//cout<< "PlayerStatus : " << (int)m_PlayerStatus << endl;
-	// 2001.10.5 ÁÖ¼®Ã³¸® ..À¸Èì..
+	// 2001.10.5 ì£¼ì„ì²˜ë¦¬ ..ìœ¼í ..
 	//Assert( m_PlayerStatus != CPS_END_SESSION );
 	m_PlayerStatus = CPS_END_SESSION;
 

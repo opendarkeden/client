@@ -1,16 +1,16 @@
 //----------------------------------------------------------------------
 // MItemManager.h
 //----------------------------------------------------------------------
-// MItem¿¡ pointer¸¦ ÀúÀåÇÏ°í ´Ù·ç´Â classÀÌ´Ù.
-// stlÀÇ mapÀ» ÀÌ¿ëÇÑ´Ù.
+// MItemì— pointerë¥¼ ì €ì¥í•˜ê³  ë‹¤ë£¨ëŠ” classì´ë‹¤.
+// stlì˜ mapì„ ì´ìš©í•œë‹¤.
 // 
-//		AddItem()·Î Ãß°¡ÇÏ°í
+//		AddItem()ë¡œ ì¶”ê°€í•˜ê³ 
 //
-//		GetItem()À¸·Î Á¤º¸¸¦ ¾ò°í
+//		GetItem()ìœ¼ë¡œ ì •ë³´ë¥¼ ì–»ê³ 
 //
-//		RemoveItem()·Î Á¦°ÅÇÑ´Ù.
+//		RemoveItem()ë¡œ ì œê±°í•œë‹¤.
 // 
-// pointer¸¸ ÀúÀåÇÏ°í ÀÖ±â ¶§¹®¿¡.. new / delete ´Â ¿ÜºÎ¿¡¼­ ÇØÁà¾ß ÇÑ´Ù.
+// pointerë§Œ ì €ì¥í•˜ê³  ìˆê¸° ë•Œë¬¸ì—.. new / delete ëŠ” ì™¸ë¶€ì—ì„œ í•´ì¤˜ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 
 #ifndef	__MITEMMANAGER_H__
@@ -42,9 +42,9 @@ class MItemManager {
 		//------------------------------------------------------
 		// Add / Get / Remove
 		//------------------------------------------------------
-		bool			AddItem(MItem* pItem);				// Item Ãß°¡
-		MItem*			GetItem(TYPE_OBJECTID id) const;	// Item ÀĞ¾î¿À±â
-		MItem*			RemoveItem(TYPE_OBJECTID id);		// ItemManager¿¡¼­ Item Á¦°Å
+		bool			AddItem(MItem* pItem);				// Item ì¶”ê°€
+		MItem*			GetItem(TYPE_OBJECTID id) const;	// Item ì½ì–´ì˜¤ê¸°
+		MItem*			RemoveItem(TYPE_OBJECTID id);		// ItemManagerì—ì„œ Item ì œê±°
 
 		//------------------------------------------------------
 		// Iterator
@@ -58,22 +58,22 @@ class MItemManager {
 
 	//protected :
 		MItem*			GetItemToModify(TYPE_OBJECTID id);		
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		MItem*			GetItemToModifyAll(TYPE_OBJECTID id , MItem*& pSubInventoryItem);
 	#endif
 				
 
 		//------------------------------------------------------
-		// »ç¿ë°¡´ÉÇÑÁö Ã¼Å©ÇÑ´Ù.
+		// ì‚¬ìš©ê°€ëŠ¥í•œì§€ ì²´í¬í•œë‹¤.
 		//------------------------------------------------------
 		void			CheckAffectStatusAll();
 		virtual void	CheckAffectStatus(MItem* pItem);
 
 		//------------------------------------------------------
-		// ¾ÆÀÌÅÛ Ã£±â
+		// ì•„ì´í…œ ì°¾ê¸°
 		//------------------------------------------------------
 		MItem*			FindItem( MItemFinder& itemFinder ) const;
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖĞ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 è—¤ì†ê´€æ«“ê´€
 		MItem*			FindItemAll( MItemFinder& itemFinder, MItem*& pSubInventoryItem) const;
 	#endif
 		

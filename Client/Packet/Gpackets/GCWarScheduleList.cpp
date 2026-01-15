@@ -44,7 +44,7 @@ GCWarScheduleList::~GCWarScheduleList()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCWarScheduleList::read (SocketInputStream & iStream) 
 	 throw (ProtocolException , Error)
@@ -89,7 +89,7 @@ void GCWarScheduleList::read (SocketInputStream & iStream)
 
 		    
 //////////////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCWarScheduleList::write (SocketOutputStream & oStream) const 
      throw (ProtocolException , Error)
@@ -198,10 +198,10 @@ std::string GCWarScheduleList::toString () const
 	{
 		msg << ", (WarScheduleInfo : "
 			<< ( ((*itr)->warType)?"WAR_TYPE_DIFFERENT_RACE, ":"WAR_TYPE_SAME_RACE, " )
-			<< (*itr)->year << "³â "
-			<< (*itr)->month << "¿ù "
-			<< (*itr)->day << "ÀÏ"
-			<< (*itr)->hour << "½Ã";
+			<< (*itr)->year << "ë…„ "
+			<< (*itr)->month << "ì›” "
+			<< (*itr)->day << "ì¼"
+			<< (*itr)->hour << "ì‹œ";
 
 		if( (*itr)->warType == 0 )
 		{

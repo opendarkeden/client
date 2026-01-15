@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------
 // UserInformation.h
 //----------------------------------------------------------------------
-// ClientÀÇ Á¤º¸ Áß¿¡¼­ º¯ÇÒ ¼ö ÀÖ´Â °Í
+// Clientì˜ ì •ë³´ ì¤‘ì—ì„œ ë³€í•  ìˆ˜ ìˆëŠ” ê²ƒ
 //----------------------------------------------------------------------
 
 #ifndef	__USERINFORMATION_H__
@@ -41,50 +41,50 @@ class UserInformation {
 
 	public :
 
-		// Á¶ÇÕÇü ÇÑ±Û
-		MString			UserID;				// »ç¿ëÀÚÀÇ ID
-		MString			Character[3];		// Ä³¸¯ÅÍ ÀÌ¸§
-		Race			Race[3];		// slayer Ä³¸¯ÅÍÀÎ°¡?
-		MString			CharacterID;		// ¼±ÅÃµÈ Character ID
-		MString			GuildName;			// ³» ±æµå ÀÌ¸§
-		BYTE			GuildGrade;			// ³» ±æµå ¾È¿¡¼­ÀÇ µî±Ş
-		int				PCSNumber;			// ³» pcs ¹øÈ£
-		int				FaceStyle;			// ¾ó±¼ ¸ğ¾ç
-		int				FaceStyleSlot[3];	// ¼±ÅÃÃ¢¿¡¼­ ¾ó±¼ ½ºÅ¸ÀÏ
+		// ì¡°í•©í˜• í•œê¸€
+		MString			UserID;				// ì‚¬ìš©ìì˜ ID
+		MString			Character[3];		// ìºë¦­í„° ì´ë¦„
+		Race			Race[3];		// slayer ìºë¦­í„°ì¸ê°€?
+		MString			CharacterID;		// ì„ íƒëœ Character ID
+		MString			GuildName;			// ë‚´ ê¸¸ë“œ ì´ë¦„
+		BYTE			GuildGrade;			// ë‚´ ê¸¸ë“œ ì•ˆì—ì„œì˜ ë“±ê¸‰
+		int				PCSNumber;			// ë‚´ pcs ë²ˆí˜¸
+		int				FaceStyle;			// ì–¼êµ´ ëª¨ì–‘
+		int				FaceStyleSlot[3];	// ì„ íƒì°½ì—ì„œ ì–¼êµ´ ìŠ¤íƒ€ì¼
 		int				HairColor;
 		int				SkinColor;
 		int				BatColor;
-		MString			WhisperID;			// ¹æ±İ ÀüÀÇ ±Ó¼Ó¸» ´ë»ó
+		MString			WhisperID;			// ë°©ê¸ˆ ì „ì˜ ê·“ì†ë§ ëŒ€ìƒ
 
-		MString			PCSUserName[3];		// »ç¿ëÀÚ ÀÌ¸§
-		int				OtherPCSNumber[3];		// Á¢¼ÓÁßÀÎ ¹øÈ£
+		MString			PCSUserName[3];		// ì‚¬ìš©ì ì´ë¦„
+		int				OtherPCSNumber[3];		// ì ‘ì†ì¤‘ì¸ ë²ˆí˜¸
 
-		// ¿Ï¼ºÇü ÇÑ±Û
-		//MString			UserIDW;			// »ç¿ëÀÚÀÇ ID
-		//MString			CharacterW[3];		// »ç¿ëÀÚÀÇ ID		
-		//MString			CharacterIDW;		// »ç¿ëÀÚÀÇ Character ID
+		// ì™„ì„±í˜• í•œê¸€
+		//MString			UserIDW;			// ì‚¬ìš©ìì˜ ID
+		//MString			CharacterW[3];		// ì‚¬ìš©ìì˜ ID		
+		//MString			CharacterIDW;		// ì‚¬ìš©ìì˜ Character ID
 
 		//
-		int				Slot;				// ¼±ÅÃÇÒ·Á´Â Slot
-//		bool			Invisible;			// Åõ¸í Ä³¸¯ÅÍ(Super User¿ë?)
+		int				Slot;				// ì„ íƒí• ë ¤ëŠ” Slot
+//		bool			Invisible;			// íˆ¬ëª… ìºë¦­í„°(Super Userìš©?)
 
-		DWORD			GlobalSayTime;		// ¸¶Áö¸·À¸·Î ¿ÜÄ¡±â~ÇÑ ½Ã°£.
+		DWORD			GlobalSayTime;		// ë§ˆì§€ë§‰ìœ¼ë¡œ ì™¸ì¹˜ê¸°~í•œ ì‹œê°„.
 
-		bool			GoreLevel;			// ÇÇ Æ¢°Ô ÇÒ±î?
+		bool			GoreLevel;			// í”¼ íŠ€ê²Œ í• ê¹Œ?
 
-		BOOL			KeepConnection;		// Á¢¼Ó À¯ÁöÇØ¾ßÇÏ´Â »óÅÂÀÎ°¡?
-		BOOL			IsMaster;			// ¿î¿µÀÚÀÎ°¡?
-		DWORD			ItemDropEnableTime;	// itemÀ» ¶³¾î¶ß·Áµµ µÇ´Â ½Ã°£
-		bool			HasSkillRestore;	// Restore »ç¿ëÇÒ ¼ö ÀÖ´Â°¡?
-		DWORD			LogoutTime;			// LogoutÀÌ °¡´ÉÇÑ ½Ã°£
-		DWORD			GameVersion;		// GameÀÇ Version
-		bool			HasMagicGroundAttack;	// ºÒ±âµÕ »ç¿ëÇÒ ¼ö ÀÖ´Â°¡?
-		bool			HasMagicHallu;			// Hallu »ç¿ëÇÒ ¼ö ÀÖ´Â°¡?
-		bool			HasMagicBloodySnake;			// Bloody Snake »ç¿ëÇÒ ¼ö ÀÖ´Â°¡?
-		bool			HasMagicBloodyWarp;			// Bloody Warp »ç¿ëÇÒ ¼ö ÀÖ´Â°¡?
+		BOOL			KeepConnection;		// ì ‘ì† ìœ ì§€í•´ì•¼í•˜ëŠ” ìƒíƒœì¸ê°€?
+		BOOL			IsMaster;			// ìš´ì˜ìì¸ê°€?
+		DWORD			ItemDropEnableTime;	// itemì„ ë–¨ì–´ëœ¨ë ¤ë„ ë˜ëŠ” ì‹œê°„
+		bool			HasSkillRestore;	// Restore ì‚¬ìš©í•  ìˆ˜ ìˆëŠ”ê°€?
+		DWORD			LogoutTime;			// Logoutì´ ê°€ëŠ¥í•œ ì‹œê°„
+		DWORD			GameVersion;		// Gameì˜ Version
+		bool			HasMagicGroundAttack;	// ë¶ˆê¸°ë‘¥ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ”ê°€?
+		bool			HasMagicHallu;			// Hallu ì‚¬ìš©í•  ìˆ˜ ìˆëŠ”ê°€?
+		bool			HasMagicBloodySnake;			// Bloody Snake ì‚¬ìš©í•  ìˆ˜ ìˆëŠ”ê°€?
+		bool			HasMagicBloodyWarp;			// Bloody Warp ì‚¬ìš©í•  ìˆ˜ ìˆëŠ”ê°€?
 
-		// ³İ¸¶ºí¿ë
-		bool			IsNetmarble;		// NetMarble ¿ë Å¬¶óÀÌ¾ğÆ® ÀÎ°¡
+		// ë„·ë§ˆë¸”ìš©
+		bool			IsNetmarble;		// NetMarble ìš© í´ë¼ì´ì–¸íŠ¸ ì¸ê°€
 		MString			NetmarbleID;
 		MString			NetmarblePassword;
 		bool			bNetmarbleGoreLevel;
@@ -106,15 +106,15 @@ class UserInformation {
 		void			SetChinese() { bChinese = true; bKorean=bJapanese=bEnglish=false;}
 		void			SetJapanese() { bJapanese = true; bKorean=bChinese=bEnglish=false;}
 		
-		// ¸Ó¸®°¡°İ Á¶Á¤¿ë
+		// ë¨¸ë¦¬ê°€ê²© ì¡°ì •ìš©
 		int				HeadPrice;
 
 		bool			bCompetence;
 		bool			bCompetenceShape;
 		
 		// 2004, 7, 15, sobeit add start
-		bool			IsAutoLogIn;		// ÀÚµ¿ ·Î±×ÀÎ(À¥·Î±×ÀÎ) ¸ğµåÀÎÁö ¾Æ´ÑÁö
-		MString			AutoLogInKeyValue;	// ÀÚµ¿ ·Î±×ÀÎ(À¥·Î±×ÀÎ) ¸ğµåÀÏ¶§ key °ª
+		bool			IsAutoLogIn;		// ìë™ ë¡œê·¸ì¸(ì›¹ë¡œê·¸ì¸) ëª¨ë“œì¸ì§€ ì•„ë‹Œì§€
+		MString			AutoLogInKeyValue;	// ìë™ ë¡œê·¸ì¸(ì›¹ë¡œê·¸ì¸) ëª¨ë“œì¼ë•Œ key ê°’
 		void*			pLogInClientPlayer;
 		// 2004, 7, 15, sobeit add end
 		
@@ -123,7 +123,7 @@ class UserInformation {
 		// 2004, 9, 14, sobeit add end
 		// 2004, 10, 18, sobeit add start
 		DWORD			dwUnionID;
-		BYTE			bUnionGrade; // 0: À¯´Ï¿Â ¸¶½ºÆ® 1: ÀÏ¹İ ¸¶½ºÅÍ 3: nothing
+		BYTE			bUnionGrade; // 0: ìœ ë‹ˆì˜¨ ë§ˆìŠ¤íŠ¸ 1: ì¼ë°˜ ë§ˆìŠ¤í„° 3: nothing
 		// 2004, 10, 18, sobeit add end
 		
 		// 2004, 12, 14, sobeit add start

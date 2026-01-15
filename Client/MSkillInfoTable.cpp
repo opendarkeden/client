@@ -1,11 +1,11 @@
 //----------------------------------------------------------------------
 // MSkillInfoTable.h
 //----------------------------------------------------------------------
-// 促澜 亲格篮 SkillInfo.inf甫 烹秦辑 辑滚俊辑 罐绰 巴捞骨肺
-// 脚版镜 鞘夸啊 绝促.
-//		Name(扁贱 捞抚)
-//		LearnLevel(扁贱 硅快绰 饭骇)
-//		MP(荤侩 MP)
+// 麓脵脌陆 脟脳赂帽脌潞 SkillInfo.inf赂娄 脜毛脟脴录颅 录颅鹿枚驴隆录颅 鹿脼麓脗 掳脥脌脤鹿脟路脦
+// 陆脜掳忙戮碌 脟脢驴盲掳隆 戮酶麓脵.
+//		Name(卤芒录煤 脌脤赂搂)
+//		LearnLevel(卤芒录煤 鹿猫驴矛麓脗 路鹿潞搂)
+//		MP(禄莽驴毛 MP)
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "MSkillManager.h"
@@ -26,53 +26,53 @@
 //----------------------------------------------------------------------
 MSkillInfoTable::MSkillInfoTable()
 {
-	// 扁贱狼 俺荐父怒..
+	// 卤芒录煤脌脟 掳鲁录枚赂赂脜颅..
 	CTypeTable<SKILLINFO_NODE>::Init( MIN_RESULT_ACTIONINFO );
 
 #ifndef __GAME_CLIENT__
 
 	//----------------------------------------------------------------------
-	// 老窜 葛电 skill俊 措茄 default沥焊 汲沥
+	// 脌脧麓脺 赂冒碌莽 skill驴隆 麓毛脟脩 default脕陇潞赂 录鲁脕陇
 	//----------------------------------------------------------------------
 	for (int i=0; i<MIN_RESULT_ACTIONINFO; i++)
 	{
 		#ifdef __INIT_INFO__
 			m_pTypeInfo[i].Set(0, (*g_pActionInfoTable)[i].GetName(), 0, 0, 0, "Not Defined");
 		#else
-			m_pTypeInfo[i].Set(0, "Not defined", 0, 0, 0,"未定义");
+			m_pTypeInfo[i].Set(0, "Not defined", 0, 0, 0,"脦麓露篓脪氓");
 		#endif
 		m_pTypeInfo[i].UnSetPassive();		
 		m_pTypeInfo[i].UnSetActive();
 		m_pTypeInfo[i].SetSkillStep( SKILL_STEP_NULL );
-		m_pTypeInfo[i].SetLearnLevel( -1 );	// 檬扁拳
+		m_pTypeInfo[i].SetLearnLevel( -1 );	// 脙脢卤芒脠颅
 		m_pTypeInfo[i].SetSlayerSkill();		
 	}
 
 	int sid = 0;
 
 	//----------------------------------------------------------------------
-	// 八拌凯
+	// 掳脣掳猫驴颅
 	//----------------------------------------------------------------------
-	m_pTypeInfo[SKILL_DOUBLE_IMPACT].Set(sid++, "Double Impact", 400, 100, 0,"双重打击");
+	m_pTypeInfo[SKILL_DOUBLE_IMPACT].Set(sid++, "Double Impact", 400, 100, 0,"脣芦脰脴麓貌禄梅");
 	m_pTypeInfo[SKILL_DOUBLE_IMPACT].SetMP( 5 );	
 	m_pTypeInfo[SKILL_DOUBLE_IMPACT].SetLearnLevel( 5 );
 	m_pTypeInfo[SKILL_DOUBLE_IMPACT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_DOUBLE_IMPACT].AddNextSkill( SKILL_TRIPLE_SLASHER );
 	
-	m_pTypeInfo[SKILL_TRIPLE_SLASHER].Set(sid++, "Triple Slasher", 200, 130, 1,"三重打击");		
+	m_pTypeInfo[SKILL_TRIPLE_SLASHER].Set(sid++, "Triple Slasher", 200, 130, 1,"脠媒脰脴麓貌禄梅");		
 	m_pTypeInfo[SKILL_TRIPLE_SLASHER].SetMP( 8 );
 	m_pTypeInfo[SKILL_TRIPLE_SLASHER].SetLearnLevel( 10 );
 	m_pTypeInfo[SKILL_TRIPLE_SLASHER].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_TRIPLE_SLASHER].AddNextSkill( SKILL_SWORD_MASTERY );
 
-	m_pTypeInfo[SKILL_SWORD_MASTERY].Set(sid++, "Sword Mastery", 200, 130, 154,"剑法熟练度");
+	m_pTypeInfo[SKILL_SWORD_MASTERY].Set(sid++, "Sword Mastery", 200, 130, 154,"陆拢路篓脢矛脕路露脠");
 	m_pTypeInfo[SKILL_SWORD_MASTERY].SetMP( 8 );
 	m_pTypeInfo[SKILL_SWORD_MASTERY].SetPassive();
 	m_pTypeInfo[SKILL_SWORD_MASTERY].SetLearnLevel( 15 );
 	m_pTypeInfo[SKILL_SWORD_MASTERY].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SWORD_MASTERY].AddNextSkill( SKILL_DANCING_SWORD );
 
-	m_pTypeInfo[SKILL_DANCING_SWORD].Set(sid++, "Dancing Sword", 700, 190, 4,"飞舞之剑");
+	m_pTypeInfo[SKILL_DANCING_SWORD].Set(sid++, "Dancing Sword", 700, 190, 4,"路脡脦猫脰庐陆拢");
 	m_pTypeInfo[SKILL_DANCING_SWORD].SetMP( 12 );
 	m_pTypeInfo[SKILL_DANCING_SWORD].SetLearnLevel( 20 );
 	m_pTypeInfo[SKILL_DANCING_SWORD].SetSkillStep( SKILL_STEP_APPRENTICE );
@@ -80,7 +80,7 @@ MSkillInfoTable::MSkillInfoTable()
 //	m_pTypeInfo[SKILL_DANCING_SWORD].AddNextSkill( SKILL_THUNDER_SPARK );	
 
 	//2004,4,30,sobeit add start
-	m_pTypeInfo[SKILL_FABULOUS_SOUL].Set(sid++, "Fabulous Soul", 600, 160, 382,"奇迹之魂");
+	m_pTypeInfo[SKILL_FABULOUS_SOUL].Set(sid++, "Fabulous Soul", 600, 160, 382,"脝忙录拢脰庐禄锚");
 	m_pTypeInfo[SKILL_FABULOUS_SOUL].SetMP( 0 );
 	m_pTypeInfo[SKILL_FABULOUS_SOUL].SetPassive();
 	m_pTypeInfo[SKILL_FABULOUS_SOUL].SetLearnLevel( 23 );
@@ -88,145 +88,145 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[SKILL_FABULOUS_SOUL].AddNextSkill( SKILL_THUNDER_SPARK );
 	//2004,4,30,sobeit add end
 
-	m_pTypeInfo[SKILL_THUNDER_SPARK].Set(sid++, "Thunder Spark", 600, 160, 2,"雷光闪电");
+	m_pTypeInfo[SKILL_THUNDER_SPARK].Set(sid++, "Thunder Spark", 600, 160, 2,"脌脳鹿芒脡脕碌莽");
 	m_pTypeInfo[SKILL_THUNDER_SPARK].SetMP( 10 );
 	m_pTypeInfo[SKILL_THUNDER_SPARK].SetLearnLevel( 25 );
 	m_pTypeInfo[SKILL_THUNDER_SPARK].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_THUNDER_SPARK].AddNextSkill( SKILL_SHIELD_MASTERY );
 
-	m_pTypeInfo[SKILL_SHIELD_MASTERY].Set(sid++, "Shield Mastery", 200, 130, 155,"盾牌熟练度");
+	m_pTypeInfo[SKILL_SHIELD_MASTERY].Set(sid++, "Shield Mastery", 200, 130, 155,"露脺脜脝脢矛脕路露脠");
 	m_pTypeInfo[SKILL_SHIELD_MASTERY].SetMP( 8 );
 	m_pTypeInfo[SKILL_SHIELD_MASTERY].SetPassive();
 	m_pTypeInfo[SKILL_SHIELD_MASTERY].SetLearnLevel( 30 );
 	m_pTypeInfo[SKILL_SHIELD_MASTERY].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SHIELD_MASTERY].AddNextSkill( SKILL_CROSS_COUNTER );
 
-	m_pTypeInfo[SKILL_CROSS_COUNTER].Set(sid++, "Cross Counter", 400, 210, 5,"反击");
+	m_pTypeInfo[SKILL_CROSS_COUNTER].Set(sid++, "Cross Counter", 400, 210, 5,"路麓禄梅");
 	m_pTypeInfo[SKILL_CROSS_COUNTER].SetMP( 15 );
 	m_pTypeInfo[SKILL_CROSS_COUNTER].SetLearnLevel( 35 );
 	m_pTypeInfo[SKILL_CROSS_COUNTER].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_CROSS_COUNTER].AddNextSkill( SKILL_RAINBOW_SLASHER );
 	
-	m_pTypeInfo[SKILL_RAINBOW_SLASHER].Set(sid++, "Rainbow Slasher", 200, 160, 3,"彩虹攻击");
+	m_pTypeInfo[SKILL_RAINBOW_SLASHER].Set(sid++, "Rainbow Slasher", 200, 160, 3,"虏脢潞莽鹿楼禄梅");
 	m_pTypeInfo[SKILL_RAINBOW_SLASHER].SetMP( 10 );
 	m_pTypeInfo[SKILL_RAINBOW_SLASHER].SetLearnLevel( 40 );
 	m_pTypeInfo[SKILL_RAINBOW_SLASHER].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_RAINBOW_SLASHER].AddNextSkill( SKILL_FLASH_SLIDING );
 
-	m_pTypeInfo[SKILL_FLASH_SLIDING].Set(sid++, "Flash Sliding", 300, 240, 6,"闪电滑行");
+	m_pTypeInfo[SKILL_FLASH_SLIDING].Set(sid++, "Flash Sliding", 300, 240, 6,"脡脕碌莽禄卢脨脨");
 	m_pTypeInfo[SKILL_FLASH_SLIDING].SetMP( 20 );
 	m_pTypeInfo[SKILL_FLASH_SLIDING].SetLearnLevel( 45 );
 	m_pTypeInfo[SKILL_FLASH_SLIDING].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_FLASH_SLIDING].AddNextSkill( SKILL_SNAKE_COMBO );
 
-	m_pTypeInfo[SKILL_SNAKE_COMBO].Set(sid++, "Snake Combo", 700, 190, 8,"灵蛇闪动");
+	m_pTypeInfo[SKILL_SNAKE_COMBO].Set(sid++, "Snake Combo", 700, 190, 8,"脕茅脡脽脡脕露炉");
 	m_pTypeInfo[SKILL_SNAKE_COMBO].SetMP( 12 );
 	m_pTypeInfo[SKILL_SNAKE_COMBO].SetLearnLevel( 50 );
 	m_pTypeInfo[SKILL_SNAKE_COMBO].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SNAKE_COMBO].AddNextSkill( SKILL_SWORD_WAVE );	
 
-	m_pTypeInfo[SKILL_SWORD_WAVE].Set(sid++, "Sword Wave", 500, 240,  9,"波浪之剑");
+	m_pTypeInfo[SKILL_SWORD_WAVE].Set(sid++, "Sword Wave", 500, 240,  9,"虏篓脌脣脰庐陆拢");
 	m_pTypeInfo[SKILL_SWORD_WAVE].SetMP( 20 );
 	m_pTypeInfo[SKILL_SWORD_WAVE].SetLearnLevel( 55 );
 	m_pTypeInfo[SKILL_SWORD_WAVE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SWORD_WAVE].AddNextSkill( SKILL_SWORD_RAY );
 
-	m_pTypeInfo[SKILL_SWORD_RAY].Set(sid++, "Sword Ray", 0, 0, 9 ,"剑气");
+	m_pTypeInfo[SKILL_SWORD_RAY].Set(sid++, "Sword Ray", 0, 0, 9 ,"陆拢脝酶");
 	m_pTypeInfo[SKILL_SWORD_RAY].SetMP( 25 );
 	m_pTypeInfo[SKILL_SWORD_RAY].SetLearnLevel( 61 );
 	m_pTypeInfo[SKILL_SWORD_RAY].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SWORD_RAY].AddNextSkill( SKILL_LIGHTNING_HAND );
 
-	m_pTypeInfo[SKILL_LIGHTNING_HAND].Set(sid++, "Lightning Hand", 300, 270, 7,"电光铁手");
+	m_pTypeInfo[SKILL_LIGHTNING_HAND].Set(sid++, "Lightning Hand", 300, 270, 7,"碌莽鹿芒脤煤脢脰");
 	m_pTypeInfo[SKILL_LIGHTNING_HAND].SetMP( 25 );
 	m_pTypeInfo[SKILL_LIGHTNING_HAND].SetLearnLevel( 65 );
 	m_pTypeInfo[SKILL_LIGHTNING_HAND].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_LIGHTNING_HAND].AddNextSkill( SKILL_REDIANCE );
 	
-	m_pTypeInfo[SKILL_REDIANCE].Set(sid++, "Rediance", 300, 270, 322,"速度激发");
+	m_pTypeInfo[SKILL_REDIANCE].Set(sid++, "Rediance", 300, 270, 322,"脣脵露脠录陇路垄");
 	m_pTypeInfo[SKILL_REDIANCE].SetMP( 25 );
 	m_pTypeInfo[SKILL_REDIANCE].SetLearnLevel( 68 );
 	m_pTypeInfo[SKILL_REDIANCE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_REDIANCE].AddNextSkill( SKILL_WIND_DIVIDER );
 
-	m_pTypeInfo[SKILL_WIND_DIVIDER].Set(sid++, "Wind Divider", 500, 240,  121,"撕裂之风");
+	m_pTypeInfo[SKILL_WIND_DIVIDER].Set(sid++, "Wind Divider", 500, 240,  121,"脣潞脕脩脰庐路莽");
 	m_pTypeInfo[SKILL_WIND_DIVIDER].SetMP( 20 );
 	m_pTypeInfo[SKILL_WIND_DIVIDER].SetLearnLevel( 70 );
 	m_pTypeInfo[SKILL_WIND_DIVIDER].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_WIND_DIVIDER].AddNextSkill( SKILL_EXPANSION );
 
-	m_pTypeInfo[SKILL_EXPANSION].Set(sid++, "Expansion", 700, 270,  11,"体力增幅");
+	m_pTypeInfo[SKILL_EXPANSION].Set(sid++, "Expansion", 700, 270,  11,"脤氓脕娄脭枚路霉");
 	m_pTypeInfo[SKILL_EXPANSION].SetMP( 25 );
 	m_pTypeInfo[SKILL_EXPANSION].SetLearnLevel( 75 );
 	m_pTypeInfo[SKILL_EXPANSION].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_EXPANSION].AddNextSkill( SKILL_THUNDER_BOLT );
 
-	m_pTypeInfo[SKILL_THUNDER_BOLT].Set(sid++, "Thunder Bolt", 700, 270,  10,"雷鸣剑");
+	m_pTypeInfo[SKILL_THUNDER_BOLT].Set(sid++, "Thunder Bolt", 700, 270,  10,"脌脳脙霉陆拢");
 	m_pTypeInfo[SKILL_THUNDER_BOLT].SetMP( 25 );
 	m_pTypeInfo[SKILL_THUNDER_BOLT].SetLearnLevel( 80 );
 	m_pTypeInfo[SKILL_THUNDER_BOLT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_THUNDER_BOLT].AddNextSkill( SKILL_MENTAL_SWORD );
 
-	m_pTypeInfo[SKILL_MENTAL_SWORD].Set(sid++, "Mental Sword", 700, 270,  156,"凝心剑");
+	m_pTypeInfo[SKILL_MENTAL_SWORD].Set(sid++, "Mental Sword", 700, 270,  156,"脛媒脨脛陆拢");
 	m_pTypeInfo[SKILL_MENTAL_SWORD].SetMP( 25 );
 	m_pTypeInfo[SKILL_MENTAL_SWORD].SetLearnLevel( 85 );
 	m_pTypeInfo[SKILL_MENTAL_SWORD].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_MENTAL_SWORD].AddNextSkill( SKILL_LARSLASH );
 
-	m_pTypeInfo[SKILL_LARSLASH].Set(sid++, "Lar Slash", 700, 270,  323,"烈炎剑");
+	m_pTypeInfo[SKILL_LARSLASH].Set(sid++, "Lar Slash", 700, 270,  323,"脕脪脩脳陆拢");
 	m_pTypeInfo[SKILL_LARSLASH].SetMP( 25 );
 	m_pTypeInfo[SKILL_LARSLASH].SetLearnLevel( 88 );
 	m_pTypeInfo[SKILL_LARSLASH].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_LARSLASH].AddNextSkill( SKILL_THUNDER_STORM );
 
-	m_pTypeInfo[SKILL_THUNDER_STORM].Set(sid++, "Thunder Storm", 700, 270,  157,"雷鸣风暴");
+	m_pTypeInfo[SKILL_THUNDER_STORM].Set(sid++, "Thunder Storm", 700, 270,  157,"脌脳脙霉路莽卤漏");
 	m_pTypeInfo[SKILL_THUNDER_STORM].SetMP( 25 );
 	m_pTypeInfo[SKILL_THUNDER_STORM].SetLearnLevel( 90 );
 	m_pTypeInfo[SKILL_THUNDER_STORM].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_THUNDER_STORM].AddNextSkill( SKILL_SHARP_SHIELD );
 
-	m_pTypeInfo[SKILL_SHARP_SHIELD].Set(sid++, "Sharp Shield", 700, 270,  216,"尖刺之盾");
+	m_pTypeInfo[SKILL_SHARP_SHIELD].Set(sid++, "Sharp Shield", 700, 270,  216,"录芒麓脤脰庐露脺");
 	m_pTypeInfo[SKILL_SHARP_SHIELD].SetMP( 25 );
 	m_pTypeInfo[SKILL_SHARP_SHIELD].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SHARP_SHIELD].SetLearnLevel( 100 );
 	m_pTypeInfo[SKILL_SHARP_SHIELD].AddNextSkill( SKILL_WIDE_LIGHTNING );
 
-	m_pTypeInfo[SKILL_WIDE_LIGHTNING].Set(sid++, "Wide Lightning", 700, 270,  217,"大闪电");
+	m_pTypeInfo[SKILL_WIDE_LIGHTNING].Set(sid++, "Wide Lightning", 700, 270,  217,"麓贸脡脕碌莽");
 	m_pTypeInfo[SKILL_WIDE_LIGHTNING].SetMP( 25 );
 	m_pTypeInfo[SKILL_WIDE_LIGHTNING].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_WIDE_LIGHTNING].SetLearnLevel( 100 );
 	m_pTypeInfo[SKILL_WIDE_LIGHTNING].AddNextSkill( SKILL_BLITZ_SLIDING );
 	
-	m_pTypeInfo[SKILL_BLITZ_SLIDING].Set(sid++, "Blitz Sliding", 700, 270,  313,"灭日修罗斩");
+	m_pTypeInfo[SKILL_BLITZ_SLIDING].Set(sid++, "Blitz Sliding", 700, 270,  313,"脙冒脠脮脨脼脗脼脮露");
 	m_pTypeInfo[SKILL_BLITZ_SLIDING].SetMP( 25 );
 	m_pTypeInfo[SKILL_BLITZ_SLIDING].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_BLITZ_SLIDING].SetLearnLevel( 110 );
 	m_pTypeInfo[SKILL_BLITZ_SLIDING].AddNextSkill( SKILL_HIT_CONVERT );
 
-	m_pTypeInfo[SKILL_HIT_CONVERT].Set(sid++, "Hit Convert", 700, 270,  254,"攻击转换");
+	m_pTypeInfo[SKILL_HIT_CONVERT].Set(sid++, "Hit Convert", 700, 270,  254,"鹿楼禄梅脳陋禄禄");
 	m_pTypeInfo[SKILL_HIT_CONVERT].SetMP( 40 );
 	m_pTypeInfo[SKILL_HIT_CONVERT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_HIT_CONVERT].SetLearnLevel( 120 );
 	m_pTypeInfo[SKILL_HIT_CONVERT].AddNextSkill( SKILL_SWORD_OF_THOR );
 
-	// 2004, 9, 8, sobeit add start - 八 130 胶懦
-	m_pTypeInfo[SKILL_SWORD_OF_THOR].Set(sid++, "Sword of Thor", 700, 270,  387,"雷神之剑");
+	// 2004, 9, 8, sobeit add start - 掳脣 130 陆潞脜鲁
+	m_pTypeInfo[SKILL_SWORD_OF_THOR].Set(sid++, "Sword of Thor", 700, 270,  387,"脌脳脡帽脰庐陆拢");
 	m_pTypeInfo[SKILL_SWORD_OF_THOR].SetMP( 40 );
 	m_pTypeInfo[SKILL_SWORD_OF_THOR].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SWORD_OF_THOR].SetLearnLevel( 130 );
 //	m_pTypeInfo[SKILL_SWORD_OF_THOR].AddNextSkill( SKILL_SOUL_CHAIN );
 	m_pTypeInfo[SKILL_SWORD_OF_THOR].AddNextSkill( SKILL_INFINITY_THUNDERBOLT );
-	// 2004, 9, 8, sobeit add end - 八 130 胶懦
+	// 2004, 9, 8, sobeit add end - 掳脣 130 陆潞脜鲁
 
-	// 2004, 11, 11, sobeit add start - 八 140 胶懦
-	m_pTypeInfo[SKILL_INFINITY_THUNDERBOLT].Set(sid++, "Infinity Thunderbolt", 700, 270,  458,"无限闪电");
+	// 2004, 11, 11, sobeit add start - 掳脣 140 陆潞脜鲁
+	m_pTypeInfo[SKILL_INFINITY_THUNDERBOLT].Set(sid++, "Infinity Thunderbolt", 700, 270,  458,"脦脼脧脼脡脕碌莽");
 	m_pTypeInfo[SKILL_INFINITY_THUNDERBOLT].SetMP( 40 );
 	m_pTypeInfo[SKILL_INFINITY_THUNDERBOLT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_INFINITY_THUNDERBOLT].SetLearnLevel( 140 );
 	m_pTypeInfo[SKILL_INFINITY_THUNDERBOLT].AddNextSkill( SKILL_BIKE_CRASH );
-	// 2004, 11, 11, sobeit add end - 八 140 胶懦
+	// 2004, 11, 11, sobeit add end - 掳脣 140 陆潞脜鲁
 
-	m_pTypeInfo[SKILL_BIKE_CRASH].Set(sid++, "Bike Crash", 700, 270,  470,"飞车一击");
+	m_pTypeInfo[SKILL_BIKE_CRASH].Set(sid++, "Bike Crash", 700, 270,  470,"路脡鲁碌脪禄禄梅");
 	m_pTypeInfo[SKILL_BIKE_CRASH].SetMP( 40 );
 	m_pTypeInfo[SKILL_BIKE_CRASH].SetSkillStep( SKILL_STEP_SLAYER_SWORD_ADVANCEMENT );
 	m_pTypeInfo[SKILL_BIKE_CRASH].SetLearnLevel( 150 );
@@ -234,8 +234,8 @@ MSkillInfoTable::MSkillInfoTable()
 #ifdef __NEW_SKILL__
 
 	m_pTypeInfo[SKILL_BIKE_CRASH].AddNextSkill( SKILL_SHINE_SWORD );
-	// add by Coffee 2007-3-2  人类新技能   
-	m_pTypeInfo[SKILL_SHINE_SWORD].Set(sid++, "Shine Sword", 700, 270,  497,"闪耀之剑");
+	// add by Coffee 2007-3-2  脠脣脌脿脨脗录录脛脺   
+	m_pTypeInfo[SKILL_SHINE_SWORD].Set(sid++, "Shine Sword", 700, 270,  497,"脡脕脪芦脰庐陆拢");
 	m_pTypeInfo[SKILL_SHINE_SWORD].SetMP( 40 );
 	m_pTypeInfo[SKILL_SHINE_SWORD].SetSkillStep( SKILL_STEP_SLAYER_SWORD_ADVANCEMENT );
 	m_pTypeInfo[SKILL_SHINE_SWORD].SetLearnLevel( 150 );
@@ -245,29 +245,29 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[SKILL_BIKE_CRASH].AddNextSkill( SKILL_SOUL_CHAIN );
 #endif
 	//----------------------------------------------------------------------
-	// 档 拌凯
+	// 碌碌 掳猫驴颅
 	//----------------------------------------------------------------------
 	sid = 0;
-	m_pTypeInfo[SKILL_SINGLE_BLOW].Set(sid++, "Single Blow", 0, 0,  13,"精准打击");
+	m_pTypeInfo[SKILL_SINGLE_BLOW].Set(sid++, "Single Blow", 0, 0,  13,"戮芦脳录麓貌禄梅");
 	m_pTypeInfo[SKILL_SINGLE_BLOW].SetMP( 8 );
 	m_pTypeInfo[SKILL_SINGLE_BLOW].SetLearnLevel( 5 );
 	m_pTypeInfo[SKILL_SINGLE_BLOW].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SINGLE_BLOW].AddNextSkill( SKILL_SPIRAL_SLAY );
 
-	m_pTypeInfo[SKILL_SPIRAL_SLAY].Set(sid++, "Spiral Slay", 0, 0,  14,"罗旋一击");
+	m_pTypeInfo[SKILL_SPIRAL_SLAY].Set(sid++, "Spiral Slay", 0, 0,  14,"脗脼脨媒脪禄禄梅");
 	m_pTypeInfo[SKILL_SPIRAL_SLAY].SetMP( 10 );
 	m_pTypeInfo[SKILL_SPIRAL_SLAY].SetLearnLevel( 10 );
 	m_pTypeInfo[SKILL_SPIRAL_SLAY].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SPIRAL_SLAY].AddNextSkill( SKILL_CONCENTRATION );
 	
-	m_pTypeInfo[SKILL_CONCENTRATION].Set(sid++, "Concentration", 200, 130, 150,"心神凝聚");	
+	m_pTypeInfo[SKILL_CONCENTRATION].Set(sid++, "Concentration", 200, 130, 150,"脨脛脡帽脛媒戮脹");	
 	m_pTypeInfo[SKILL_CONCENTRATION].SetMP( 8 );
 	m_pTypeInfo[SKILL_CONCENTRATION].SetPassive();
 	m_pTypeInfo[SKILL_CONCENTRATION].SetLearnLevel( 15 );
 	m_pTypeInfo[SKILL_CONCENTRATION].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_CONCENTRATION].AddNextSkill( SKILL_GHOST_BLADE );
 
-	m_pTypeInfo[SKILL_GHOST_BLADE].Set(sid++, "Ghost Blade", 0, 0, 17,"幽灵之刃");
+	m_pTypeInfo[SKILL_GHOST_BLADE].Set(sid++, "Ghost Blade", 0, 0, 17,"脫脛脕茅脰庐脠脨");
 	m_pTypeInfo[SKILL_GHOST_BLADE].SetMP( 12 );
 	m_pTypeInfo[SKILL_GHOST_BLADE].SetLearnLevel( 20 );
 	m_pTypeInfo[SKILL_GHOST_BLADE].SetSkillStep( SKILL_STEP_APPRENTICE );
@@ -275,7 +275,7 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[SKILL_GHOST_BLADE].AddNextSkill( SKILL_WILL_OF_IRON );
 
 	//2004,4,30,sobeit add start
-	m_pTypeInfo[SKILL_WILL_OF_IRON].Set(sid++, "Will Of Iron", 600, 160, 382,"钢铁意志");
+	m_pTypeInfo[SKILL_WILL_OF_IRON].Set(sid++, "Will Of Iron", 600, 160, 382,"赂脰脤煤脪芒脰戮");
 	m_pTypeInfo[SKILL_WILL_OF_IRON].SetMP( 0 );
 	m_pTypeInfo[SKILL_WILL_OF_IRON].SetPassive();
 	m_pTypeInfo[SKILL_WILL_OF_IRON].SetLearnLevel( 23 );
@@ -283,134 +283,134 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[SKILL_WILL_OF_IRON].AddNextSkill( SKILL_TRIPLE_BREAK );
 	//2004,4,30,sobeit add end
 	
-	m_pTypeInfo[SKILL_TRIPLE_BREAK].Set(sid++, "Triple Break", 0, 0, 15,"三倍爆击");
+	m_pTypeInfo[SKILL_TRIPLE_BREAK].Set(sid++, "Triple Break", 0, 0, 15,"脠媒卤露卤卢禄梅");
 	m_pTypeInfo[SKILL_TRIPLE_BREAK].SetMP( 12 );
 	m_pTypeInfo[SKILL_TRIPLE_BREAK].SetLearnLevel( 25 );
 	m_pTypeInfo[SKILL_TRIPLE_BREAK].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_TRIPLE_BREAK].AddNextSkill( SKILL_EVASION );
 	
-	m_pTypeInfo[SKILL_EVASION].Set(sid++, "捞海捞记", 200, 130, 151,"逃脱术");	
+	m_pTypeInfo[SKILL_EVASION].Set(sid++, "脌脤潞拢脌脤录脟", 200, 130, 151,"脤脫脥脩脢玫");	
 	m_pTypeInfo[SKILL_EVASION].SetMP( 8 );
 	m_pTypeInfo[SKILL_EVASION].SetPassive();
 	m_pTypeInfo[SKILL_EVASION].SetLearnLevel( 30 );
 	m_pTypeInfo[SKILL_EVASION].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_EVASION].AddNextSkill( SKILL_WILD_SMASH );
 
-	m_pTypeInfo[SKILL_WILD_SMASH].Set(sid++, "Wild Smash", 0, 0, 16,"野蛮爆击");
+	m_pTypeInfo[SKILL_WILD_SMASH].Set(sid++, "Wild Smash", 0, 0, 16,"脪掳脗霉卤卢禄梅");
 	m_pTypeInfo[SKILL_WILD_SMASH].SetMP( 12 );
 	m_pTypeInfo[SKILL_WILD_SMASH].SetLearnLevel( 35 );
 	m_pTypeInfo[SKILL_WILD_SMASH].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_WILD_SMASH].AddNextSkill( SKILL_SHADOW_WALK );
 
-	m_pTypeInfo[SKILL_SHADOW_WALK].Set(sid++, "Shadow Walk", 0, 0, 19,"尾行之术");
+	m_pTypeInfo[SKILL_SHADOW_WALK].Set(sid++, "Shadow Walk", 0, 0, 19,"脦虏脨脨脰庐脢玫");
 	m_pTypeInfo[SKILL_SHADOW_WALK].SetMP( 20 );
 	m_pTypeInfo[SKILL_SHADOW_WALK].SetLearnLevel( 45 );
 	m_pTypeInfo[SKILL_SHADOW_WALK].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SHADOW_WALK].AddNextSkill( SKILL_POTENTIAL_EXPLOSION );
 	
-	m_pTypeInfo[SKILL_POTENTIAL_EXPLOSION].Set(sid++, "Potential Explosion", 0, 0, 18,"潜力爆炸");
+	m_pTypeInfo[SKILL_POTENTIAL_EXPLOSION].Set(sid++, "Potential Explosion", 0, 0, 18,"脟卤脕娄卤卢脮篓");
 	m_pTypeInfo[SKILL_POTENTIAL_EXPLOSION].SetMP( 25 );
 	m_pTypeInfo[SKILL_POTENTIAL_EXPLOSION].SetLearnLevel( 50 );
 	m_pTypeInfo[SKILL_POTENTIAL_EXPLOSION].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_POTENTIAL_EXPLOSION].AddNextSkill( SKILL_HURRICANE_COMBO );
 
-	m_pTypeInfo[SKILL_HURRICANE_COMBO].Set(sid++, "Hurricane Combo", 0, 0, 21,"狂风骤击");
+	m_pTypeInfo[SKILL_HURRICANE_COMBO].Set(sid++, "Hurricane Combo", 0, 0, 21,"驴帽路莽脰猫禄梅");
 	m_pTypeInfo[SKILL_HURRICANE_COMBO].SetMP( 15 );
 	m_pTypeInfo[SKILL_HURRICANE_COMBO].SetLearnLevel( 55 );
 	m_pTypeInfo[SKILL_HURRICANE_COMBO].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_HURRICANE_COMBO].AddNextSkill( SKILL_TORNADO_SEVER );
 	
-	m_pTypeInfo[SKILL_TORNADO_SEVER].Set(sid++, "Tornado Sever", 0, 0, 22,"断空斩");
+	m_pTypeInfo[SKILL_TORNADO_SEVER].Set(sid++, "Tornado Sever", 0, 0, 22,"露脧驴脮脮露");
 	m_pTypeInfo[SKILL_TORNADO_SEVER].SetMP( 20 );
 	m_pTypeInfo[SKILL_TORNADO_SEVER].SetLearnLevel( 60 );
 	m_pTypeInfo[SKILL_TORNADO_SEVER].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_TORNADO_SEVER].AddNextSkill( SKILL_MULTI_AMPUTATE );
 
-	m_pTypeInfo[SKILL_MULTI_AMPUTATE].Set(sid++, "Multi Amputate", 0, 0, 247,"连续切割");
+	m_pTypeInfo[SKILL_MULTI_AMPUTATE].Set(sid++, "Multi Amputate", 0, 0, 247,"脕卢脨酶脟脨赂卯");
 	m_pTypeInfo[SKILL_MULTI_AMPUTATE].SetMP( 20 );
 	m_pTypeInfo[SKILL_MULTI_AMPUTATE].SetLearnLevel( 61 );
 	m_pTypeInfo[SKILL_MULTI_AMPUTATE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_MULTI_AMPUTATE].AddNextSkill( SKILL_CHARGING_POWER );
 
-	m_pTypeInfo[SKILL_CHARGING_POWER].Set(sid++, "Charging Power", 0, 0, 20,"能量补充");
+	m_pTypeInfo[SKILL_CHARGING_POWER].Set(sid++, "Charging Power", 0, 0, 20,"脛脺脕驴虏鹿鲁盲");
 	m_pTypeInfo[SKILL_CHARGING_POWER].SetMP( 20 );
 	m_pTypeInfo[SKILL_CHARGING_POWER].SetLearnLevel( 65 );
 	m_pTypeInfo[SKILL_CHARGING_POWER].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_CHARGING_POWER].AddNextSkill( SKILL_MOONLIGHT_SEVER );
 	
-	m_pTypeInfo[SKILL_MOONLIGHT_SEVER].Set(sid++, "Moonlight Sever", 0, 0, 24,"断月斩");
+	m_pTypeInfo[SKILL_MOONLIGHT_SEVER].Set(sid++, "Moonlight Sever", 0, 0, 24,"露脧脭脗脮露");
 	m_pTypeInfo[SKILL_MOONLIGHT_SEVER].SetMP( 25 );
 	m_pTypeInfo[SKILL_MOONLIGHT_SEVER].SetLearnLevel( 70 );
 	m_pTypeInfo[SKILL_MOONLIGHT_SEVER].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_MOONLIGHT_SEVER].AddNextSkill( SKILL_EARTHQUAKE );
 
-	m_pTypeInfo[SKILL_EARTHQUAKE].Set(sid++, "Earthquake", 0, 0, 118,"地震术");
+	m_pTypeInfo[SKILL_EARTHQUAKE].Set(sid++, "Earthquake", 0, 0, 118,"碌脴脮冒脢玫");
 	m_pTypeInfo[SKILL_EARTHQUAKE].SetMP( 20 );
 	m_pTypeInfo[SKILL_EARTHQUAKE].SetLearnLevel( 75 );
 	m_pTypeInfo[SKILL_EARTHQUAKE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_EARTHQUAKE].AddNextSkill( SKILL_BERSERKER );
 	
-	m_pTypeInfo[SKILL_BERSERKER].Set(sid++, "Berserker", 0, 0,  23,"狂暴");
+	m_pTypeInfo[SKILL_BERSERKER].Set(sid++, "Berserker", 0, 0,  23,"驴帽卤漏");
 	m_pTypeInfo[SKILL_BERSERKER].SetMP( 25 );
 	m_pTypeInfo[SKILL_BERSERKER].SetLearnLevel( 80 );
 	m_pTypeInfo[SKILL_BERSERKER].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_BERSERKER].AddNextSkill( SKILL_SHADOW_DANCING );
 		
-	m_pTypeInfo[SKILL_SHADOW_DANCING].Set(sid++, "Shadow Dancing", 0, 0,  152,"暗影舞者");
+	m_pTypeInfo[SKILL_SHADOW_DANCING].Set(sid++, "Shadow Dancing", 0, 0,  152,"掳碌脫掳脦猫脮脽");
 	m_pTypeInfo[SKILL_SHADOW_DANCING].SetMP( 35 );
 	m_pTypeInfo[SKILL_SHADOW_DANCING].SetLearnLevel( 85 );
 	m_pTypeInfo[SKILL_SHADOW_DANCING].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SHADOW_DANCING].AddNextSkill( SKILL_TYPHOON );
 
-	m_pTypeInfo[SKILL_TYPHOON].Set(sid++, "Typhoon", 0, 0, 153,"台风强击");
+	m_pTypeInfo[SKILL_TYPHOON].Set(sid++, "Typhoon", 0, 0, 153,"脤篓路莽脟驴禄梅");
 	m_pTypeInfo[SKILL_TYPHOON].SetMP( 35 );
 	m_pTypeInfo[SKILL_TYPHOON].SetLearnLevel( 90 );
 	m_pTypeInfo[SKILL_TYPHOON].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_TYPHOON].AddNextSkill( SKILL_AIR_SHIELD );
 
-	m_pTypeInfo[SKILL_AIR_SHIELD].Set(sid++, "Air Shield", 0, 0,  218,"元气盾");
+	m_pTypeInfo[SKILL_AIR_SHIELD].Set(sid++, "Air Shield", 0, 0,  218,"脭陋脝酶露脺");
 	m_pTypeInfo[SKILL_AIR_SHIELD].SetMP( 35 );
 	m_pTypeInfo[SKILL_AIR_SHIELD].SetLearnLevel( 95 );
 	m_pTypeInfo[SKILL_AIR_SHIELD].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_AIR_SHIELD].AddNextSkill( SKILL_POWER_OF_LAND );
 
-	m_pTypeInfo[SKILL_POWER_OF_LAND].Set(sid++, "Power of Land", 0, 0,  219,"大地能量");
+	m_pTypeInfo[SKILL_POWER_OF_LAND].Set(sid++, "Power of Land", 0, 0,  219,"麓贸碌脴脛脺脕驴");
 	m_pTypeInfo[SKILL_POWER_OF_LAND].SetMP( 35 );
 	m_pTypeInfo[SKILL_POWER_OF_LAND].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_POWER_OF_LAND].SetLearnLevel( 100 );
 	m_pTypeInfo[SKILL_POWER_OF_LAND].AddNextSkill( SKILL_BLAZE_WALK );
 
-	m_pTypeInfo[SKILL_BLAZE_WALK].Set(sid++, "Blaze Walk", 0, 0,  314,"火焰之步");
+	m_pTypeInfo[SKILL_BLAZE_WALK].Set(sid++, "Blaze Walk", 0, 0,  314,"禄冒脩忙脰庐虏陆");
 	m_pTypeInfo[SKILL_BLAZE_WALK].SetMP( 35 );
 	m_pTypeInfo[SKILL_BLAZE_WALK].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_BLAZE_WALK].SetLearnLevel( 110 );
 	m_pTypeInfo[SKILL_BLAZE_WALK].AddNextSkill( SKILL_WILD_TYPHOON );
 
-	m_pTypeInfo[SKILL_WILD_TYPHOON].Set(sid++, "Wild Typhoon", 0, 0,  255,"狂野台风");
+	m_pTypeInfo[SKILL_WILD_TYPHOON].Set(sid++, "Wild Typhoon", 0, 0,  255,"驴帽脪掳脤篓路莽");
 	m_pTypeInfo[SKILL_WILD_TYPHOON].SetMP( 40 );
 	m_pTypeInfo[SKILL_WILD_TYPHOON].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_WILD_TYPHOON].SetLearnLevel( 120 );
 	m_pTypeInfo[SKILL_WILD_TYPHOON].AddNextSkill( SKILL_BURNING_SOUL_CHARGING );
 
-	// 2004, 9, 8, sobeit add start - 档 130 胶懦
-	m_pTypeInfo[SKILL_BURNING_SOUL_CHARGING].Set(sid++, "Burning Sol", 700, 270,  388,"燃烧之魂");
+	// 2004, 9, 8, sobeit add start - 碌碌 130 陆潞脜鲁
+	m_pTypeInfo[SKILL_BURNING_SOUL_CHARGING].Set(sid++, "Burning Sol", 700, 270,  388,"脠录脡脮脰庐禄锚");
 	m_pTypeInfo[SKILL_BURNING_SOUL_CHARGING].SetMP( 40 );
 	m_pTypeInfo[SKILL_BURNING_SOUL_CHARGING].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_BURNING_SOUL_CHARGING].SetLearnLevel( 130 );
 //	m_pTypeInfo[SKILL_BURNING_SOUL_CHARGING].AddNextSkill( SKILL_SOUL_CHAIN );
 	m_pTypeInfo[SKILL_BURNING_SOUL_CHARGING].AddNextSkill( SKILL_SPIT_STREAM );
-	// 2004, 9, 8, sobeit add end - 档 130 胶懦
+	// 2004, 9, 8, sobeit add end - 碌碌 130 陆潞脜鲁
 
-	// 2004, 11, 11, sobeit add start - 档 140 胶懦
-	m_pTypeInfo[SKILL_SPIT_STREAM].Set(sid++, "Spit Stream", 700, 270,  459,"喷流");
+	// 2004, 11, 11, sobeit add start - 碌碌 140 陆潞脜鲁
+	m_pTypeInfo[SKILL_SPIT_STREAM].Set(sid++, "Spit Stream", 700, 270,  459,"脜莽脕梅");
 	m_pTypeInfo[SKILL_SPIT_STREAM].SetMP( 40 );
 	m_pTypeInfo[SKILL_SPIT_STREAM].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SPIT_STREAM].SetLearnLevel( 140 );
 	m_pTypeInfo[SKILL_SPIT_STREAM].AddNextSkill( SKILL_DRAGON_TORNADO );
-	// 2004, 11, 11, sobeit add end - 档 130 胶懦
+	// 2004, 11, 11, sobeit add end - 碌碌 130 陆潞脜鲁
 
-	// by csm 弥籍刮 
-	m_pTypeInfo[SKILL_DRAGON_TORNADO].Set(sid++, "Dragon Tornado", 700, 270,  469,"巨龙卷风");
+	// by csm 脙脰录庐鹿脦 
+	m_pTypeInfo[SKILL_DRAGON_TORNADO].Set(sid++, "Dragon Tornado", 700, 270,  469,"戮脼脕煤戮铆路莽");
 	m_pTypeInfo[SKILL_DRAGON_TORNADO].SetMP( 40 );
 	m_pTypeInfo[SKILL_DRAGON_TORNADO].SetSkillStep( SKILL_STEP_SLAYER_BLADE_ADVANCEMENT );
 	m_pTypeInfo[SKILL_DRAGON_TORNADO].SetLearnLevel( 150 );
@@ -418,7 +418,7 @@ MSkillInfoTable::MSkillInfoTable()
 #ifdef __NEW_SKILL__
 	m_pTypeInfo[SKILL_DRAGON_TORNADO].AddNextSkill( SKILL_BOMB_CRASH_WALK );
 
-	m_pTypeInfo[SKILL_BOMB_CRASH_WALK].Set(sid++, "Bomb Crash Walk", 700, 270,  499,"巨炮轰炸");
+	m_pTypeInfo[SKILL_BOMB_CRASH_WALK].Set(sid++, "Bomb Crash Walk", 700, 270,  499,"戮脼脜脷潞盲脮篓");
 	m_pTypeInfo[SKILL_BOMB_CRASH_WALK].SetMP( 40 );
 	m_pTypeInfo[SKILL_BOMB_CRASH_WALK].SetSkillStep( SKILL_STEP_SLAYER_BLADE_ADVANCEMENT );
 	m_pTypeInfo[SKILL_BOMB_CRASH_WALK].SetLearnLevel( 150 );
@@ -427,106 +427,106 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[SKILL_DRAGON_TORNADO].AddNextSkill( SKILL_SOUL_CHAIN );
 #endif
 	//----------------------------------------------------------------------     
-	// 醚
+	// 脙脩
 	//----------------------------------------------------------------------
 	sid = 0;
-	m_pTypeInfo[SKILL_FAST_RELOAD].Set(sid++, "Fast Reload", 0, 0,  26,"快速装填");
+	m_pTypeInfo[SKILL_FAST_RELOAD].Set(sid++, "Fast Reload", 0, 0,  26,"驴矛脣脵脳掳脤卯");
 	m_pTypeInfo[SKILL_FAST_RELOAD].SetMP( 0 );
 	m_pTypeInfo[SKILL_FAST_RELOAD].SetLearnLevel( 5 );
 	m_pTypeInfo[SKILL_FAST_RELOAD].SetPassive();
 	m_pTypeInfo[SKILL_FAST_RELOAD].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_FAST_RELOAD].AddNextSkill( SKILL_DOUBLE_SHOT );
 
-	m_pTypeInfo[SKILL_DOUBLE_SHOT].Set(sid++, "Double Shot", 0, 0,  27,"二连射");
+	m_pTypeInfo[SKILL_DOUBLE_SHOT].Set(sid++, "Double Shot", 0, 0,  27,"露镁脕卢脡盲");
 	m_pTypeInfo[SKILL_DOUBLE_SHOT].SetMP( 0 );
 	m_pTypeInfo[SKILL_DOUBLE_SHOT].SetLearnLevel( 10 );
 	m_pTypeInfo[SKILL_DOUBLE_SHOT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_DOUBLE_SHOT].AddNextSkill( SKILL_HEART_CATALYST );
 
-//	m_pTypeInfo[SKILL_SMG_MASTERY].Set(sid++, "SMG Mastery", 0, 0, 28,"SMG付胶磐府");
+//	m_pTypeInfo[SKILL_SMG_MASTERY].Set(sid++, "SMG Mastery", 0, 0, 28,"SMG赂露陆潞脜脥赂庐");
 //	m_pTypeInfo[SKILL_SMG_MASTERY].SetMP( 0 );
 //	m_pTypeInfo[SKILL_SMG_MASTERY].SetLearnLevel( 15 );
 //	m_pTypeInfo[SKILL_SMG_MASTERY].SetPassive();
 //	m_pTypeInfo[SKILL_SMG_MASTERY].SetSkillStep( SKILL_STEP_APPRENTICE );
 //	m_pTypeInfo[SKILL_SMG_MASTERY].AddNextSkill( SKILL_TRIPLE_SHOT );
 
-	m_pTypeInfo[SKILL_HEART_CATALYST].Set(sid++, "Heart Catalyst", 0, 0, 329,"快速恢复");
+	m_pTypeInfo[SKILL_HEART_CATALYST].Set(sid++, "Heart Catalyst", 0, 0, 329,"驴矛脣脵禄脰赂麓");
 	m_pTypeInfo[SKILL_HEART_CATALYST].SetMP( 0 );
 	m_pTypeInfo[SKILL_HEART_CATALYST].SetLearnLevel( 15 );
 	m_pTypeInfo[SKILL_HEART_CATALYST].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_HEART_CATALYST].AddNextSkill( SKILL_TRIPLE_SHOT );
 
-	m_pTypeInfo[SKILL_TRIPLE_SHOT].Set(sid++, "Triple Shot", 0, 0,  27,"三连射");
+	m_pTypeInfo[SKILL_TRIPLE_SHOT].Set(sid++, "Triple Shot", 0, 0,  27,"脠媒脕卢脡盲");
 	m_pTypeInfo[SKILL_TRIPLE_SHOT].SetMP( 0 );
 	m_pTypeInfo[SKILL_TRIPLE_SHOT].SetLearnLevel( 20 );
 	m_pTypeInfo[SKILL_TRIPLE_SHOT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_TRIPLE_SHOT].AddNextSkill( SKILL_MULTI_SHOT );
 
-	m_pTypeInfo[SKILL_MULTI_SHOT].Set(sid++, "Multi Shot", 0, 0,  29,"散射");
+	m_pTypeInfo[SKILL_MULTI_SHOT].Set(sid++, "Multi Shot", 0, 0,  29,"脡垄脡盲");
 	m_pTypeInfo[SKILL_MULTI_SHOT].SetMP( 0 );
 	m_pTypeInfo[SKILL_MULTI_SHOT].SetLearnLevel( 25 );
 	m_pTypeInfo[SKILL_MULTI_SHOT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_MULTI_SHOT].AddNextSkill( SKILL_HEAD_SHOT );
 
-	m_pTypeInfo[SKILL_HEAD_SHOT].Set(sid++, "Head Shot", 0, 0,  30,"爆头");
+	m_pTypeInfo[SKILL_HEAD_SHOT].Set(sid++, "Head Shot", 0, 0,  30,"卤卢脥路");
 	m_pTypeInfo[SKILL_HEAD_SHOT].SetMP( 0 );
 	m_pTypeInfo[SKILL_HEAD_SHOT].SetLearnLevel( 30 );
 	m_pTypeInfo[SKILL_HEAD_SHOT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_HEAD_SHOT].AddNextSkill( SKILL_ARMS_MASTERY1 );
 
-	m_pTypeInfo[SKILL_ARMS_MASTERY1].Set(sid++, "Arms Mastery 1", 0, 0, 325,"枪械熟练度 1");
+	m_pTypeInfo[SKILL_ARMS_MASTERY1].Set(sid++, "Arms Mastery 1", 0, 0, 325,"脟鹿脨碌脢矛脕路露脠 1");
 	m_pTypeInfo[SKILL_ARMS_MASTERY1].SetMP( 0 );
 	m_pTypeInfo[SKILL_ARMS_MASTERY1].SetLearnLevel( 35 );
 	m_pTypeInfo[SKILL_ARMS_MASTERY1].SetPassive();
 	m_pTypeInfo[SKILL_ARMS_MASTERY1].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_ARMS_MASTERY1].AddNextSkill( SKILL_QUICK_FIRE );
 
-//	m_pTypeInfo[SKILL_AR_MASTERY].Set(sid++, "AR Mastery", 0, 0, 31,"AR付胶磐府");
+//	m_pTypeInfo[SKILL_AR_MASTERY].Set(sid++, "AR Mastery", 0, 0, 31,"AR赂露陆潞脜脥赂庐");
 //	m_pTypeInfo[SKILL_AR_MASTERY].SetMP( 0 );
 //	m_pTypeInfo[SKILL_AR_MASTERY].SetLearnLevel( 35 );
 //	m_pTypeInfo[SKILL_AR_MASTERY].SetPassive();
 //	m_pTypeInfo[SKILL_AR_MASTERY].SetSkillStep( SKILL_STEP_APPRENTICE );
 //	m_pTypeInfo[SKILL_AR_MASTERY].AddNextSkill( SKILL_QUICK_FIRE );
 	
-	m_pTypeInfo[SKILL_QUICK_FIRE].Set(sid++, "Quick Fire", 0, 0,  27,"急速火焰");
+	m_pTypeInfo[SKILL_QUICK_FIRE].Set(sid++, "Quick Fire", 0, 0,  27,"录卤脣脵禄冒脩忙");
 	m_pTypeInfo[SKILL_QUICK_FIRE].SetMP( 0 );
 	m_pTypeInfo[SKILL_QUICK_FIRE].SetLearnLevel( 40 );
 	m_pTypeInfo[SKILL_QUICK_FIRE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_QUICK_FIRE].AddNextSkill( SKILL_SNIPPING );
 
-	m_pTypeInfo[SKILL_SNIPPING].Set(sid++, "Snipping", 0, 0, 33,"狙击");
+	m_pTypeInfo[SKILL_SNIPPING].Set(sid++, "Snipping", 0, 0, 33,"戮脩禄梅");
 	m_pTypeInfo[SKILL_SNIPPING].SetMP( 0 );
 	m_pTypeInfo[SKILL_SNIPPING].SetLearnLevel( 45 );
 	m_pTypeInfo[SKILL_SNIPPING].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SNIPPING].AddNextSkill( SKILL_LIVENESS );
 
-	m_pTypeInfo[SKILL_LIVENESS].Set(sid++, "Liveness", 0, 0, 176,"灭绝");
+	m_pTypeInfo[SKILL_LIVENESS].Set(sid++, "Liveness", 0, 0, 176,"脙冒戮酶");
 	m_pTypeInfo[SKILL_LIVENESS].SetPassive();
 	m_pTypeInfo[SKILL_LIVENESS].SetLearnLevel( 45 );
 	m_pTypeInfo[SKILL_LIVENESS].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_LIVENESS].AddNextSkill( SKILL_PIERCING );
 
-	m_pTypeInfo[SKILL_PIERCING].Set(sid++, "Piercing", 0, 0, 32,"穿刺射击");
+	m_pTypeInfo[SKILL_PIERCING].Set(sid++, "Piercing", 0, 0, 32,"麓漏麓脤脡盲禄梅");
 	m_pTypeInfo[SKILL_PIERCING].SetMP( 0 );
 	m_pTypeInfo[SKILL_PIERCING].SetLearnLevel( 47 );
 	m_pTypeInfo[SKILL_PIERCING].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_PIERCING].AddNextSkill( SKILL_VIVID_MAGAZINE );
 
-	m_pTypeInfo[SKILL_VIVID_MAGAZINE].Set(sid++, "Vivid Magazine", 0, 0, 335,"大容量填装");
+	m_pTypeInfo[SKILL_VIVID_MAGAZINE].Set(sid++, "Vivid Magazine", 0, 0, 335,"麓贸脠脻脕驴脤卯脳掳");
 	m_pTypeInfo[SKILL_VIVID_MAGAZINE].SetMP( 0 );
 	m_pTypeInfo[SKILL_VIVID_MAGAZINE].SetLearnLevel( 50 );
 	m_pTypeInfo[SKILL_VIVID_MAGAZINE].SetPassive();
 	m_pTypeInfo[SKILL_VIVID_MAGAZINE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_VIVID_MAGAZINE].AddNextSkill( SKILL_THROW_BOMB );
 
-//	m_pTypeInfo[SKILL_SG_MASTERY].Set(sid++, "SG Mastery", 0, 0, 34,"SG付胶磐府");
+//	m_pTypeInfo[SKILL_SG_MASTERY].Set(sid++, "SG Mastery", 0, 0, 34,"SG赂露陆潞脜脥赂庐");
 //	m_pTypeInfo[SKILL_SG_MASTERY].SetMP( 0 );
 //	m_pTypeInfo[SKILL_SG_MASTERY].SetLearnLevel( 50 );
 //	m_pTypeInfo[SKILL_SG_MASTERY].SetPassive();
 //	m_pTypeInfo[SKILL_SG_MASTERY].SetSkillStep( SKILL_STEP_APPRENTICE );
 //	m_pTypeInfo[SKILL_SG_MASTERY].AddNextSkill( SKILL_THROW_BOMB );
 
-	m_pTypeInfo[SKILL_THROW_BOMB].Set(sid++, "Throw Bomb", 0, 0, 36,"炸弹投掷");
+	m_pTypeInfo[SKILL_THROW_BOMB].Set(sid++, "Throw Bomb", 0, 0, 36,"脮篓碌炉脥露脰脌");
 	m_pTypeInfo[SKILL_THROW_BOMB].SetMP( 10 );	
 	m_pTypeInfo[SKILL_THROW_BOMB].SetLearnLevel( 53 );
 	//m_pTypeInfo[SKILL_THROW_BOMB].SetPassive();
@@ -534,130 +534,130 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[SKILL_THROW_BOMB].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_THROW_BOMB].AddNextSkill( SKILL_CONCEALMENT );	
 
-	m_pTypeInfo[SKILL_CONCEALMENT].Set(sid++, "Concealment", 0, 0, 249,"神圣之盾");
+	m_pTypeInfo[SKILL_CONCEALMENT].Set(sid++, "Concealment", 0, 0, 249,"脡帽脢楼脰庐露脺");
 	m_pTypeInfo[SKILL_CONCEALMENT].SetMP( 10 );
 	m_pTypeInfo[SKILL_CONCEALMENT].SetLearnLevel( 55 );
 	m_pTypeInfo[SKILL_CONCEALMENT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_CONCEALMENT].AddNextSkill(SKILL_DETECT_MINE );
 
-	m_pTypeInfo[SKILL_DETECT_MINE].Set(sid++, "Revealer", 0, 0, 35,"启示者");
+	m_pTypeInfo[SKILL_DETECT_MINE].Set(sid++, "Revealer", 0, 0, 35,"脝么脢戮脮脽");
 	m_pTypeInfo[SKILL_DETECT_MINE].SetMP( 20 );
 	m_pTypeInfo[SKILL_DETECT_MINE].SetLearnLevel( 57 );
 	m_pTypeInfo[SKILL_DETECT_MINE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_DETECT_MINE].AddNextSkill( SKILL_TRIDENT );
 	m_pTypeInfo[SKILL_DETECT_MINE].SetActive();	
 
-	m_pTypeInfo[SKILL_TRIDENT].Set(sid++, "Trident", 0, 0, 321,"爆裂射击");
+	m_pTypeInfo[SKILL_TRIDENT].Set(sid++, "Trident", 0, 0, 321,"卤卢脕脩脡盲禄梅");
 	m_pTypeInfo[SKILL_TRIDENT].SetMP( 10 );	
 	m_pTypeInfo[SKILL_TRIDENT].SetLearnLevel( 60 );
 	m_pTypeInfo[SKILL_TRIDENT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_TRIDENT].AddNextSkill( SKILL_ARMS_MASTERY2 );
 	
-//	m_pTypeInfo[SKILL_MAKE_BOMB].Set(sid++, "Make Bomb", 0, 0, 37,"农府俊捞飘赫");
+//	m_pTypeInfo[SKILL_MAKE_BOMB].Set(sid++, "Make Bomb", 0, 0, 37,"脜漏赂庐驴隆脌脤脝庐潞脮");
 //	m_pTypeInfo[SKILL_MAKE_BOMB].SetMP( 10 );	
 //	m_pTypeInfo[SKILL_MAKE_BOMB].SetLearnLevel( 60 );
 //	m_pTypeInfo[SKILL_MAKE_BOMB].SetActive();
 //	m_pTypeInfo[SKILL_MAKE_BOMB].SetSkillStep( SKILL_STEP_APPRENTICE );
 //	m_pTypeInfo[SKILL_MAKE_BOMB].AddNextSkill( SKILL_ARMS_MASTERY2 );
 
-	m_pTypeInfo[SKILL_ARMS_MASTERY2].Set(sid++, "Arms Mastery 2", 0, 0, 324,"枪械熟练度 2");
+	m_pTypeInfo[SKILL_ARMS_MASTERY2].Set(sid++, "Arms Mastery 2", 0, 0, 324,"脟鹿脨碌脢矛脕路露脠 2");
 	m_pTypeInfo[SKILL_ARMS_MASTERY2].SetMP( 0 );
 	m_pTypeInfo[SKILL_ARMS_MASTERY2].SetLearnLevel( 65 );
 	m_pTypeInfo[SKILL_ARMS_MASTERY2].SetPassive();
 	m_pTypeInfo[SKILL_ARMS_MASTERY2].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_ARMS_MASTERY2].AddNextSkill( SKILL_INSTALL_MINE );
 		
-//	m_pTypeInfo[SKILL_SR_MASTERY].Set(sid++, "SR Mastery", 0, 0, 38,"SR付胶磐府");
+//	m_pTypeInfo[SKILL_SR_MASTERY].Set(sid++, "SR Mastery", 0, 0, 38,"SR赂露陆潞脜脥赂庐");
 //	m_pTypeInfo[SKILL_SR_MASTERY].SetMP( 0 );
 //	m_pTypeInfo[SKILL_SR_MASTERY].SetLearnLevel( 65 );
 //	m_pTypeInfo[SKILL_SR_MASTERY].SetPassive();
 //	m_pTypeInfo[SKILL_SR_MASTERY].SetSkillStep( SKILL_STEP_APPRENTICE );
 //	m_pTypeInfo[SKILL_SR_MASTERY].AddNextSkill( SKILL_INSTALL_MINE );
 	
-	m_pTypeInfo[SKILL_INSTALL_MINE].Set(sid++, "Install Mine", 0, 0, 39,"地雷安装");
+	m_pTypeInfo[SKILL_INSTALL_MINE].Set(sid++, "Install Mine", 0, 0, 39,"碌脴脌脳掳虏脳掳");
 	m_pTypeInfo[SKILL_INSTALL_MINE].SetMP( 20 );
 	m_pTypeInfo[SKILL_INSTALL_MINE].SetLearnLevel( 70 );
    	m_pTypeInfo[SKILL_INSTALL_MINE].SetActive();
 	m_pTypeInfo[SKILL_INSTALL_MINE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_INSTALL_MINE].AddNextSkill( SKILL_MAKE_MINE );
 
-	m_pTypeInfo[SKILL_MAKE_MINE].Set(sid++, "Create Mine", 0, 0, 40,"地雷制造");
+	m_pTypeInfo[SKILL_MAKE_MINE].Set(sid++, "Create Mine", 0, 0, 40,"碌脴脌脳脰脝脭矛");
 	m_pTypeInfo[SKILL_MAKE_MINE].SetMP( 20 );
 	m_pTypeInfo[SKILL_MAKE_MINE].SetLearnLevel( 75 );
    	m_pTypeInfo[SKILL_MAKE_MINE].SetActive();
 	m_pTypeInfo[SKILL_MAKE_MINE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_MAKE_MINE].AddNextSkill( SKILL_INSTALL_TRAP );
 
-	m_pTypeInfo[SKILL_INSTALL_TRAP].Set(sid++, "Install Trap", 0, 0, 331,"放置陷阱");
+	m_pTypeInfo[SKILL_INSTALL_TRAP].Set(sid++, "Install Trap", 0, 0, 331,"路脜脰脙脧脻脷氓");
 	m_pTypeInfo[SKILL_INSTALL_TRAP].SetMP( 20 );
 	m_pTypeInfo[SKILL_INSTALL_TRAP].SetLearnLevel( 75 );
    	m_pTypeInfo[SKILL_INSTALL_TRAP].SetActive();
 	m_pTypeInfo[SKILL_INSTALL_TRAP].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_INSTALL_TRAP].AddNextSkill( SKILL_OBSERVING_EYE );
 
-	m_pTypeInfo[SKILL_OBSERVING_EYE].Set(sid++, "Observing Eye", 0, 0, 159,"专注之眼");
+	m_pTypeInfo[SKILL_OBSERVING_EYE].Set(sid++, "Observing Eye", 0, 0, 159,"脳篓脳垄脰庐脩脹");
 	m_pTypeInfo[SKILL_OBSERVING_EYE].SetMP( 20 );
 	m_pTypeInfo[SKILL_OBSERVING_EYE].SetLearnLevel( 85 );
 	m_pTypeInfo[SKILL_OBSERVING_EYE].SetSkillStep( SKILL_STEP_APPRENTICE );
    	m_pTypeInfo[SKILL_OBSERVING_EYE].AddNextSkill( SKILL_MOLE_SHOT );
 
-	m_pTypeInfo[SKILL_MOLE_SHOT].Set(sid++, "Mole Shot", 0, 0, 333,"摩尔散射");
+	m_pTypeInfo[SKILL_MOLE_SHOT].Set(sid++, "Mole Shot", 0, 0, 333,"脛娄露没脡垄脡盲");
 	m_pTypeInfo[SKILL_MOLE_SHOT].SetMP( 20 );
 	m_pTypeInfo[SKILL_MOLE_SHOT].SetLearnLevel( 85 );
 	m_pTypeInfo[SKILL_MOLE_SHOT].SetSkillStep( SKILL_STEP_APPRENTICE );
    	m_pTypeInfo[SKILL_MOLE_SHOT].AddNextSkill( SKILL_BULLET_OF_LIGHT );
 
-	m_pTypeInfo[SKILL_BULLET_OF_LIGHT].Set(sid++, "Bullet of Light", 0, 0, 224,"光之子弹");
+	m_pTypeInfo[SKILL_BULLET_OF_LIGHT].Set(sid++, "Bullet of Light", 0, 0, 224,"鹿芒脰庐脳脫碌炉");
 	m_pTypeInfo[SKILL_BULLET_OF_LIGHT].SetMP( 20 );
 	m_pTypeInfo[SKILL_BULLET_OF_LIGHT].SetLearnLevel( 85 );
 	m_pTypeInfo[SKILL_BULLET_OF_LIGHT].SetSkillStep( SKILL_STEP_APPRENTICE );
    	m_pTypeInfo[SKILL_BULLET_OF_LIGHT].AddNextSkill( SKILL_GUN_SHOT_GUIDANCE );
 
-	m_pTypeInfo[SKILL_GUN_SHOT_GUIDANCE].Set(sid++, "Gunshot Guidance", 0, 0, 225,"炮火支援");
+	m_pTypeInfo[SKILL_GUN_SHOT_GUIDANCE].Set(sid++, "Gunshot Guidance", 0, 0, 225,"脜脷禄冒脰搂脭庐");
 	m_pTypeInfo[SKILL_GUN_SHOT_GUIDANCE].SetMP( 20 );
 	m_pTypeInfo[SKILL_GUN_SHOT_GUIDANCE].SetLearnLevel( 95 );
 	m_pTypeInfo[SKILL_GUN_SHOT_GUIDANCE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_GUN_SHOT_GUIDANCE].AddNextSkill( SKILL_JABBING_VEIN );
 
-	m_pTypeInfo[SKILL_JABBING_VEIN].Set(sid++, "Jabbing Vein", 0, 0, 315,"放血术");
+	m_pTypeInfo[SKILL_JABBING_VEIN].Set(sid++, "Jabbing Vein", 0, 0, 315,"路脜脩陋脢玫");
 	m_pTypeInfo[SKILL_JABBING_VEIN].SetMP( 20 );
 	m_pTypeInfo[SKILL_JABBING_VEIN].SetLearnLevel( 110 );
 	m_pTypeInfo[SKILL_JABBING_VEIN].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_JABBING_VEIN].AddNextSkill( SKILL_ULTIMATE_BLOW );
 
-	m_pTypeInfo[SKILL_ULTIMATE_BLOW].Set(sid++, "Ultimate Blow", 0, 0, 256,"终极突袭");
+	m_pTypeInfo[SKILL_ULTIMATE_BLOW].Set(sid++, "Ultimate Blow", 0, 0, 256,"脰脮录芦脥禄脧庐");
 	m_pTypeInfo[SKILL_ULTIMATE_BLOW].SetMP( 25 );
 	m_pTypeInfo[SKILL_ULTIMATE_BLOW].SetLearnLevel( 120 );
 	m_pTypeInfo[SKILL_ULTIMATE_BLOW].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_ULTIMATE_BLOW].AddNextSkill( SKILL_INSTALL_TURRET );
 	
 
-	// 2004, 9, 8, sobeit add start - 醚 130 胶懦
-	m_pTypeInfo[SKILL_INSTALL_TURRET].Set(sid++, "Install Turret", 700, 270,  389,"安装炮塔");
+	// 2004, 9, 8, sobeit add start - 脙脩 130 陆潞脜鲁
+	m_pTypeInfo[SKILL_INSTALL_TURRET].Set(sid++, "Install Turret", 700, 270,  389,"掳虏脳掳脜脷脣镁");
 	m_pTypeInfo[SKILL_INSTALL_TURRET].SetMP( 40 );
 	m_pTypeInfo[SKILL_INSTALL_TURRET].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_INSTALL_TURRET].SetLearnLevel( 130 );
 //	m_pTypeInfo[SKILL_INSTALL_TURRET].AddNextSkill( SKILL_SOUL_CHAIN );
 	m_pTypeInfo[SKILL_INSTALL_TURRET].AddNextSkill( SKILL_PLASMA_ROCKET_LAUNCHER );
-	// 2004, 9, 8, sobeit add end - 醚 130 胶懦
+	// 2004, 9, 8, sobeit add end - 脙脩 130 陆潞脜鲁
 
-	// 2004, 11, 11, sobeit add start - 醚 140 胶懦
-	m_pTypeInfo[SKILL_PLASMA_ROCKET_LAUNCHER].Set(sid++, "Plasma Rocket Luncher", 700, 270,  460,"离子火箭发射器");
+	// 2004, 11, 11, sobeit add start - 脙脩 140 陆潞脜鲁
+	m_pTypeInfo[SKILL_PLASMA_ROCKET_LAUNCHER].Set(sid++, "Plasma Rocket Luncher", 700, 270,  460,"脌毛脳脫禄冒录媒路垄脡盲脝梅");
 	m_pTypeInfo[SKILL_PLASMA_ROCKET_LAUNCHER].SetMP( 40 );
 	m_pTypeInfo[SKILL_PLASMA_ROCKET_LAUNCHER].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_PLASMA_ROCKET_LAUNCHER].SetLearnLevel( 140 );
 	m_pTypeInfo[SKILL_PLASMA_ROCKET_LAUNCHER].AddNextSkill( SKILL_HARPOON_BOMB );
-	// 2004, 11, 11, sobeit add end - 醚 140 胶懦
+	// 2004, 11, 11, sobeit add end - 脙脩 140 陆潞脜鲁
 
-	m_pTypeInfo[SKILL_HARPOON_BOMB].Set(sid++, "Harpoon Bomb", 700, 270,  471,"鱼叉炸弹");
+	m_pTypeInfo[SKILL_HARPOON_BOMB].Set(sid++, "Harpoon Bomb", 700, 270,  471,"脫茫虏忙脮篓碌炉");
 	m_pTypeInfo[SKILL_HARPOON_BOMB].SetMP( 40 );
 	m_pTypeInfo[SKILL_HARPOON_BOMB].SetSkillStep( SKILL_STEP_SLAYER_GUN_BOMB_ADVANCEMENT );
 	m_pTypeInfo[SKILL_HARPOON_BOMB].SetLearnLevel( 150 );
 	
 #ifdef __NEW_SKILL__
-	// add by Coffee  人类新技能
+	// add by Coffee  脠脣脌脿脨脗录录脛脺
 	m_pTypeInfo[SKILL_HARPOON_BOMB].AddNextSkill( SKILL_SATELLITE_BOMB );
-	m_pTypeInfo[SKILL_SATELLITE_BOMB].Set(sid++, "Satellite Bomb", 0, 0, 500,"卫星轰击");
+	m_pTypeInfo[SKILL_SATELLITE_BOMB].Set(sid++, "Satellite Bomb", 0, 0, 500,"脦脌脨脟潞盲禄梅");
 	m_pTypeInfo[SKILL_SATELLITE_BOMB].SetMP( 60 );
 	m_pTypeInfo[SKILL_SATELLITE_BOMB].SetLearnLevel( 150 );
 	m_pTypeInfo[SKILL_SATELLITE_BOMB].SetSkillStep( SKILL_STEP_SLAYER_GUN_BOMB_ADVANCEMENT );
@@ -671,187 +671,187 @@ MSkillInfoTable::MSkillInfoTable()
 	// Heal
 	//----------------------------------------------------------------------	
 	sid = 0;
-	m_pTypeInfo[MAGIC_CURE_LIGHT_WOUNDS].Set(sid++, "Cure Light Wounds", 0, 0, 41,"治疗术");
+	m_pTypeInfo[MAGIC_CURE_LIGHT_WOUNDS].Set(sid++, "Cure Light Wounds", 0, 0, 41,"脰脦脕脝脢玫");
 	m_pTypeInfo[MAGIC_CURE_LIGHT_WOUNDS].SetMP( 6 );
 	m_pTypeInfo[MAGIC_CURE_LIGHT_WOUNDS].SetLearnLevel( 5 );
 	m_pTypeInfo[MAGIC_CURE_LIGHT_WOUNDS].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_CURE_LIGHT_WOUNDS].AddNextSkill( SKILL_HOLY_ARROW );	
 	
-	m_pTypeInfo[SKILL_HOLY_ARROW].Set(sid++, "HOLY_ARROW", 0, 0, 214,"神圣箭矢");
+	m_pTypeInfo[SKILL_HOLY_ARROW].Set(sid++, "HOLY_ARROW", 0, 0, 214,"脡帽脢楼录媒脢赂");
 	m_pTypeInfo[SKILL_HOLY_ARROW].SetMP( 4 );
 	m_pTypeInfo[SKILL_HOLY_ARROW].SetLearnLevel( 8 );
 	m_pTypeInfo[SKILL_HOLY_ARROW].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_HOLY_ARROW].AddNextSkill( MAGIC_CURE_POISON );	
 
-	m_pTypeInfo[MAGIC_CURE_POISON].Set(sid++, "Cure Poison", 0, 0, 42,"解毒");
+	m_pTypeInfo[MAGIC_CURE_POISON].Set(sid++, "Cure Poison", 0, 0, 42,"陆芒露戮");
 	m_pTypeInfo[MAGIC_CURE_POISON].SetMP( 4 );
 	m_pTypeInfo[MAGIC_CURE_POISON].SetLearnLevel( 10 );
 	m_pTypeInfo[MAGIC_CURE_POISON].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_CURE_POISON].AddNextSkill( MAGIC_PROTECTION_FROM_POISON );	
 
-	m_pTypeInfo[MAGIC_PROTECTION_FROM_POISON].Set(sid++, "Protection From Poison", 0, 0, 43,"毒液抵抗");
+	m_pTypeInfo[MAGIC_PROTECTION_FROM_POISON].Set(sid++, "Protection From Poison", 0, 0, 43,"露戮脪潞碌脰驴鹿");
 	m_pTypeInfo[MAGIC_PROTECTION_FROM_POISON].SetMP( 6 );
 	m_pTypeInfo[MAGIC_PROTECTION_FROM_POISON].SetLearnLevel( 15 );
 	m_pTypeInfo[MAGIC_PROTECTION_FROM_POISON].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_PROTECTION_FROM_POISON].AddNextSkill( MAGIC_CAUSE_LIGHT_WOUNDS );
 		
-	m_pTypeInfo[MAGIC_CAUSE_LIGHT_WOUNDS].Set(sid++, "Cause Light Wounds", 0, 0, 44,"光击术");
+	m_pTypeInfo[MAGIC_CAUSE_LIGHT_WOUNDS].Set(sid++, "Cause Light Wounds", 0, 0, 44,"鹿芒禄梅脢玫");
 	m_pTypeInfo[MAGIC_CAUSE_LIGHT_WOUNDS].SetMP( 4 );
 	m_pTypeInfo[MAGIC_CAUSE_LIGHT_WOUNDS].SetLearnLevel( 20 );
 	m_pTypeInfo[MAGIC_CAUSE_LIGHT_WOUNDS].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_CAUSE_LIGHT_WOUNDS].AddNextSkill( MAGIC_CURE_SERIOUS_WOUNDS );	
 	
-	m_pTypeInfo[MAGIC_CURE_SERIOUS_WOUNDS].Set(sid++, "Cure Serious Wounds", 0, 0, 45,"伤害治疗术");
+	m_pTypeInfo[MAGIC_CURE_SERIOUS_WOUNDS].Set(sid++, "Cure Serious Wounds", 0, 0, 45,"脡脣潞娄脰脦脕脝脢玫");
 	m_pTypeInfo[MAGIC_CURE_SERIOUS_WOUNDS].SetMP( 4 );
 	m_pTypeInfo[MAGIC_CURE_SERIOUS_WOUNDS].SetLearnLevel( 25 );
 	m_pTypeInfo[MAGIC_CURE_SERIOUS_WOUNDS].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_CURE_SERIOUS_WOUNDS].AddNextSkill( MAGIC_REMOVE_CURSE );	
 	
-	m_pTypeInfo[MAGIC_REMOVE_CURSE].Set(sid++, "Remove Curse", 0, 0, 46,"解除诅咒");
+	m_pTypeInfo[MAGIC_REMOVE_CURSE].Set(sid++, "Remove Curse", 0, 0, 46,"陆芒鲁媒脳莽脰盲");
 	m_pTypeInfo[MAGIC_REMOVE_CURSE].SetMP( 4 );
 	m_pTypeInfo[MAGIC_REMOVE_CURSE].SetLearnLevel( 30 );
 	m_pTypeInfo[MAGIC_REMOVE_CURSE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_REMOVE_CURSE].AddNextSkill( MAGIC_PROTECTION_FROM_CURSE );	
 		
-	m_pTypeInfo[MAGIC_PROTECTION_FROM_CURSE].Set(sid++, "Protection From Curse", 0, 0, 47,"诅咒抗力");//207);
+	m_pTypeInfo[MAGIC_PROTECTION_FROM_CURSE].Set(sid++, "Protection From Curse", 0, 0, 47,"脳莽脰盲驴鹿脕娄");//207);
 	m_pTypeInfo[MAGIC_PROTECTION_FROM_CURSE].SetMP( 12 );
 	m_pTypeInfo[MAGIC_PROTECTION_FROM_CURSE].SetLearnLevel( 35 );
 	m_pTypeInfo[MAGIC_PROTECTION_FROM_CURSE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_PROTECTION_FROM_CURSE].AddNextSkill( MAGIC_RESURRECT );	
 	
-	m_pTypeInfo[MAGIC_RESURRECT].Set(sid++, "Resurrect", 0, 0, 126,"复活");
+	m_pTypeInfo[MAGIC_RESURRECT].Set(sid++, "Resurrect", 0, 0, 126,"赂麓禄卯");
 	m_pTypeInfo[MAGIC_RESURRECT].SetMP( 4 );
 	m_pTypeInfo[MAGIC_RESURRECT].SetLearnLevel( 40 );
 	m_pTypeInfo[MAGIC_RESURRECT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_RESURRECT].AddNextSkill( MAGIC_CAUSE_SERIOUS_WOUNDS );	
 
-	m_pTypeInfo[MAGIC_CAUSE_SERIOUS_WOUNDS].Set(sid++, "Cause Serious Wounds", 0, 0, 48,"高级光击术");
+	m_pTypeInfo[MAGIC_CAUSE_SERIOUS_WOUNDS].Set(sid++, "Cause Serious Wounds", 0, 0, 48,"赂脽录露鹿芒禄梅脢玫");
 	m_pTypeInfo[MAGIC_CAUSE_SERIOUS_WOUNDS].SetMP( 4 );
 	m_pTypeInfo[MAGIC_CAUSE_SERIOUS_WOUNDS].SetLearnLevel( 45 );
 	m_pTypeInfo[MAGIC_CAUSE_SERIOUS_WOUNDS].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_CAUSE_SERIOUS_WOUNDS].AddNextSkill( SKILL_CREATE_HOLY_POTION );	
 
-	m_pTypeInfo[SKILL_CREATE_HOLY_POTION].Set(sid++, "Create Holy Potion", 0, 0, 327,"圣水制造");
+	m_pTypeInfo[SKILL_CREATE_HOLY_POTION].Set(sid++, "Create Holy Potion", 0, 0, 327,"脢楼脣庐脰脝脭矛");
 	m_pTypeInfo[SKILL_CREATE_HOLY_POTION].SetMP( 4 );
 	m_pTypeInfo[SKILL_CREATE_HOLY_POTION].SetLearnLevel( 47 );
 	m_pTypeInfo[SKILL_CREATE_HOLY_POTION].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_CREATE_HOLY_POTION].AddNextSkill( MAGIC_CURE_CRITICAL_WOUNDS );	
 	
-	m_pTypeInfo[MAGIC_CURE_CRITICAL_WOUNDS].Set(sid++, "Cure Critical Wounds", 0, 0, 49,"高级治疗术");
+	m_pTypeInfo[MAGIC_CURE_CRITICAL_WOUNDS].Set(sid++, "Cure Critical Wounds", 0, 0, 49,"赂脽录露脰脦脕脝脢玫");
 	m_pTypeInfo[MAGIC_CURE_CRITICAL_WOUNDS].SetMP( 4 );
 	m_pTypeInfo[MAGIC_CURE_CRITICAL_WOUNDS].SetLearnLevel( 50 );
 	m_pTypeInfo[MAGIC_CURE_CRITICAL_WOUNDS].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_CURE_CRITICAL_WOUNDS].AddNextSkill( MAGIC_PRAYER );	
 	
-	m_pTypeInfo[MAGIC_PRAYER].Set(sid++, "Prayer", 0, 0, 125,"祈祷");
+	m_pTypeInfo[MAGIC_PRAYER].Set(sid++, "Prayer", 0, 0, 125,"脝铆碌禄");
 	m_pTypeInfo[MAGIC_PRAYER].SetMP( 12 );
 	m_pTypeInfo[MAGIC_PRAYER].SetLearnLevel( 55 );
 	m_pTypeInfo[MAGIC_PRAYER].SetPassive();
 	m_pTypeInfo[MAGIC_PRAYER].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_PRAYER].AddNextSkill( SKILL_DENIAL_MAGIC );		
 	
-	m_pTypeInfo[SKILL_DENIAL_MAGIC].Set(sid++, "Denial Magic", 0, 0, 248 ,"魔法免疫");
+	m_pTypeInfo[SKILL_DENIAL_MAGIC].Set(sid++, "Denial Magic", 0, 0, 248 ,"脛搂路篓脙芒脪脽");
 	m_pTypeInfo[SKILL_DENIAL_MAGIC].SetMP( 12 );
 	m_pTypeInfo[SKILL_DENIAL_MAGIC].SetLearnLevel( 65 );
 	m_pTypeInfo[SKILL_DENIAL_MAGIC].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_DENIAL_MAGIC].AddNextSkill( MAGIC_PROTECTION_FROM_ACID );
 
-	m_pTypeInfo[MAGIC_PROTECTION_FROM_ACID].Set(sid++, "Protection From Acid", 0, 0, 50,"酸性防护");
+	m_pTypeInfo[MAGIC_PROTECTION_FROM_ACID].Set(sid++, "Protection From Acid", 0, 0, 50,"脣谩脨脭路脌禄陇");
 	m_pTypeInfo[MAGIC_PROTECTION_FROM_ACID].SetMP( 12 );
 	m_pTypeInfo[MAGIC_PROTECTION_FROM_ACID].SetLearnLevel( 60 );
 	m_pTypeInfo[MAGIC_PROTECTION_FROM_ACID].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_PROTECTION_FROM_ACID].AddNextSkill( MAGIC_SACRIFICE );		
 		
-	m_pTypeInfo[MAGIC_SACRIFICE].Set(sid++, "Sacrifice", 0, 0, 51,"牺牲");
+	m_pTypeInfo[MAGIC_SACRIFICE].Set(sid++, "Sacrifice", 0, 0, 51,"脦镁脡眉");
 	m_pTypeInfo[MAGIC_SACRIFICE].SetMP( 12 );
 	m_pTypeInfo[MAGIC_SACRIFICE].SetLearnLevel( 65 );
 	m_pTypeInfo[MAGIC_SACRIFICE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_SACRIFICE].AddNextSkill( MAGIC_CAUSE_CRITICAL_WOUNDS );		
 	
-	m_pTypeInfo[MAGIC_CAUSE_CRITICAL_WOUNDS].Set(sid++, "Cause Critical Wounds", 0, 0, 52,"裁决之箭");
+	m_pTypeInfo[MAGIC_CAUSE_CRITICAL_WOUNDS].Set(sid++, "Cause Critical Wounds", 0, 0, 52,"虏脙戮枚脰庐录媒");
 	m_pTypeInfo[MAGIC_CAUSE_CRITICAL_WOUNDS].SetMP( 4 );
 	m_pTypeInfo[MAGIC_CAUSE_CRITICAL_WOUNDS].SetLearnLevel( 70 );
 	m_pTypeInfo[MAGIC_CAUSE_CRITICAL_WOUNDS].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_CAUSE_CRITICAL_WOUNDS].AddNextSkill( SKILL_PROTECTION_FROM_BLOOD );	
 
-	m_pTypeInfo[SKILL_PROTECTION_FROM_BLOOD].Set(sid++, "Protection From Blood", 0, 0, 334,"血盾");
+	m_pTypeInfo[SKILL_PROTECTION_FROM_BLOOD].Set(sid++, "Protection From Blood", 0, 0, 334,"脩陋露脺");
 	m_pTypeInfo[SKILL_PROTECTION_FROM_BLOOD].SetMP( 4 );
 	m_pTypeInfo[SKILL_PROTECTION_FROM_BLOOD].SetLearnLevel( 73 );
 	m_pTypeInfo[SKILL_PROTECTION_FROM_BLOOD].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_PROTECTION_FROM_BLOOD].AddNextSkill( MAGIC_CURE_ALL );	
 
-	m_pTypeInfo[MAGIC_CURE_ALL].Set(sid++, "Cure All", 0, 0, 53,"全体治疗");
+	m_pTypeInfo[MAGIC_CURE_ALL].Set(sid++, "Cure All", 0, 0, 53,"脠芦脤氓脰脦脕脝");
 	m_pTypeInfo[MAGIC_CURE_ALL].SetMP( 30 );
 	m_pTypeInfo[MAGIC_CURE_ALL].SetLearnLevel( 75 );
 	m_pTypeInfo[MAGIC_CURE_ALL].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_CURE_ALL].AddNextSkill( SKILL_VIGOR_DROP );
 
-	m_pTypeInfo[SKILL_VIGOR_DROP].Set(sid++, "Vigor Drop", 0, 0, 54,"圣光雨");
+	m_pTypeInfo[SKILL_VIGOR_DROP].Set(sid++, "Vigor Drop", 0, 0, 54,"脢楼鹿芒脫锚");
 	m_pTypeInfo[SKILL_VIGOR_DROP].SetMP( 30 );
 	m_pTypeInfo[SKILL_VIGOR_DROP].SetLearnLevel( 80 );
 	m_pTypeInfo[SKILL_VIGOR_DROP].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_VIGOR_DROP].AddNextSkill( SKILL_PEACE );
 
-	m_pTypeInfo[SKILL_PEACE].Set(sid++, "Peace", 0, 0, 160,"明镜止水");
+	m_pTypeInfo[SKILL_PEACE].Set(sid++, "Peace", 0, 0, 160,"脙梅戮碌脰鹿脣庐");
 	m_pTypeInfo[SKILL_PEACE].SetMP( 30 );
 	m_pTypeInfo[SKILL_PEACE].SetLearnLevel( 85 );
 	m_pTypeInfo[SKILL_PEACE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_PEACE].AddNextSkill( SKILL_ETERNITY );
 
-	m_pTypeInfo[SKILL_ETERNITY].Set(sid++, "Eternity", 0, 0, 328,"转生术");
+	m_pTypeInfo[SKILL_ETERNITY].Set(sid++, "Eternity", 0, 0, 328,"脳陋脡煤脢玫");
 	m_pTypeInfo[SKILL_ETERNITY].SetMP( 30 );
 	m_pTypeInfo[SKILL_ETERNITY].SetLearnLevel( 88 );
 	m_pTypeInfo[SKILL_ETERNITY].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_ETERNITY].AddNextSkill( SKILL_ACTIVATION );
 	
-	m_pTypeInfo[SKILL_ACTIVATION].Set(sid++, "Activation", 0, 0, 162,"天使之赐福");
+	m_pTypeInfo[SKILL_ACTIVATION].Set(sid++, "Activation", 0, 0, 162,"脤矛脢鹿脰庐麓脥赂拢");
 	m_pTypeInfo[SKILL_ACTIVATION].SetMP( 25 );
 	m_pTypeInfo[SKILL_ACTIVATION].SetLearnLevel( 90 );
 	m_pTypeInfo[SKILL_ACTIVATION].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_ACTIVATION].AddNextSkill( MAGIC_REGENERATION );
 
-	m_pTypeInfo[MAGIC_REGENERATION].Set(sid++, "Regeneration", 0, 0, 220,"光辉领域");
+	m_pTypeInfo[MAGIC_REGENERATION].Set(sid++, "Regeneration", 0, 0, 220,"鹿芒禄脭脕矛脫貌");
 	m_pTypeInfo[MAGIC_REGENERATION].SetMP( 30 );
 	m_pTypeInfo[MAGIC_REGENERATION].SetLearnLevel( 95 );
 	m_pTypeInfo[MAGIC_REGENERATION].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_REGENERATION].AddNextSkill( SKILL_TURN_UNDEAD );
 
-	m_pTypeInfo[SKILL_TURN_UNDEAD].Set(sid++, "Turn Undead", 0, 0, 221,"不死转换");
+	m_pTypeInfo[SKILL_TURN_UNDEAD].Set(sid++, "Turn Undead", 0, 0, 221,"虏禄脣脌脳陋禄禄");
 	m_pTypeInfo[SKILL_TURN_UNDEAD].SetMP( 30 );
 	m_pTypeInfo[SKILL_TURN_UNDEAD].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_TURN_UNDEAD].SetLearnLevel( 100 );
 	m_pTypeInfo[SKILL_TURN_UNDEAD].AddNextSkill( SKILL_GREAT_HEAL );
 
-	m_pTypeInfo[SKILL_GREAT_HEAL].Set(sid++, "Great Heal", 0, 0, 316,"强力治愈术");
+	m_pTypeInfo[SKILL_GREAT_HEAL].Set(sid++, "Great Heal", 0, 0, 316,"脟驴脕娄脰脦脫煤脢玫");
 	m_pTypeInfo[SKILL_GREAT_HEAL].SetMP( 30 );
 	m_pTypeInfo[SKILL_GREAT_HEAL].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_GREAT_HEAL].SetLearnLevel( 110 );
 	m_pTypeInfo[SKILL_GREAT_HEAL].AddNextSkill( SKILL_ILLENDUE );
 
-	m_pTypeInfo[SKILL_ILLENDUE].Set(sid++, "Illendue", 0, 0, 257,"修罗-破");
+	m_pTypeInfo[SKILL_ILLENDUE].Set(sid++, "Illendue", 0, 0, 257,"脨脼脗脼-脝脝");
 	m_pTypeInfo[SKILL_ILLENDUE].SetMP( 40 );
 	m_pTypeInfo[SKILL_ILLENDUE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_ILLENDUE].SetLearnLevel( 120 );
 	m_pTypeInfo[SKILL_ILLENDUE].AddNextSkill( SKILL_WHITSUNTIDE );
 	
-	// 2004, 9, 8, sobeit add start - 鳃 130 胶懦
-	m_pTypeInfo[SKILL_WHITSUNTIDE].Set(sid++, "whitsuntide", 700, 270,  390,"太阳风");
+	// 2004, 9, 8, sobeit add start - 脠煤 130 陆潞脜鲁
+	m_pTypeInfo[SKILL_WHITSUNTIDE].Set(sid++, "whitsuntide", 700, 270,  390,"脤芦脩么路莽");
 	m_pTypeInfo[SKILL_WHITSUNTIDE].SetMP( 40 );
 	m_pTypeInfo[SKILL_WHITSUNTIDE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_WHITSUNTIDE].SetLearnLevel( 130 );
 //	m_pTypeInfo[SKILL_WHITSUNTIDE].AddNextSkill( SKILL_SOUL_CHAIN );
 	m_pTypeInfo[SKILL_WHITSUNTIDE].AddNextSkill( SKILL_BOMBING_STAR );
-	// 2004, 9, 8, sobeit add end - 鳃 130 胶懦
+	// 2004, 9, 8, sobeit add end - 脠煤 130 陆潞脜鲁
 
-	// 2004, 11, 11, sobeit add start - 鳃 140 胶懦
-	m_pTypeInfo[SKILL_BOMBING_STAR].Set(sid++, "Bombing Star", 700, 270,  461,"爆破之星");
+	// 2004, 11, 11, sobeit add start - 脠煤 140 陆潞脜鲁
+	m_pTypeInfo[SKILL_BOMBING_STAR].Set(sid++, "Bombing Star", 700, 270,  461,"卤卢脝脝脰庐脨脟");
 	m_pTypeInfo[SKILL_BOMBING_STAR].SetMP( 40 );
 	m_pTypeInfo[SKILL_BOMBING_STAR].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_BOMBING_STAR].SetLearnLevel( 140 );
 	m_pTypeInfo[SKILL_BOMBING_STAR].AddNextSkill( SKILL_PASSING_HEAL );
-	// 2004, 11, 11, sobeit add end - 鳃 140 胶懦
+	// 2004, 11, 11, sobeit add end - 脠煤 140 陆潞脜鲁
 
-	m_pTypeInfo[SKILL_PASSING_HEAL].Set(sid++, "Passing Heal", 700, 270,  472,"传递治疗");
+	m_pTypeInfo[SKILL_PASSING_HEAL].Set(sid++, "Passing Heal", 700, 270,  472,"麓芦碌脻脰脦脕脝");
 	m_pTypeInfo[SKILL_PASSING_HEAL].SetMP( 40 );
 	m_pTypeInfo[SKILL_PASSING_HEAL].SetSkillStep( SKILL_STEP_SLAYER_HEAL_ADVANCEMENT );
 	m_pTypeInfo[SKILL_PASSING_HEAL].SetLearnLevel( 150 );
@@ -859,7 +859,7 @@ MSkillInfoTable::MSkillInfoTable()
 #ifdef __NEW_SKILL__
 	m_pTypeInfo[SKILL_PASSING_HEAL].AddNextSkill( SKILL_ILLUSION_INVERSION );
 // add by Coffee 2007-3-25
-	m_pTypeInfo[SKILL_ILLUSION_INVERSION].Set(sid++, "Illusion Inversion", 700, 270,  501,"恐怖幻觉");
+	m_pTypeInfo[SKILL_ILLUSION_INVERSION].Set(sid++, "Illusion Inversion", 700, 270,  501,"驴脰虏脌禄脙戮玫");
 	m_pTypeInfo[SKILL_ILLUSION_INVERSION].SetMP( 40 );
 	m_pTypeInfo[SKILL_ILLUSION_INVERSION].SetSkillStep( SKILL_STEP_SLAYER_HEAL_ADVANCEMENT );
 	m_pTypeInfo[SKILL_ILLUSION_INVERSION].SetLearnLevel( 150 );
@@ -876,175 +876,175 @@ MSkillInfoTable::MSkillInfoTable()
 	// Enchant
 	//----------------------------------------------------------------------	
 	sid = 0;
-	m_pTypeInfo[MAGIC_CREATE_HOLY_WATER].Set(sid++, "Create Holy Water", 0, 0, 57,"圣水制造");
+	m_pTypeInfo[MAGIC_CREATE_HOLY_WATER].Set(sid++, "Create Holy Water", 0, 0, 57,"脢楼脣庐脰脝脭矛");
 	m_pTypeInfo[MAGIC_CREATE_HOLY_WATER].SetMP( 6 );
 	m_pTypeInfo[MAGIC_CREATE_HOLY_WATER].SetLearnLevel( 5 );
 	m_pTypeInfo[MAGIC_CREATE_HOLY_WATER].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_CREATE_HOLY_WATER].AddNextSkill( SKILL_LIGHT_BALL );
 	
-	m_pTypeInfo[SKILL_LIGHT_BALL].Set(sid++, "Light Ball", 0, 0, 215,"光球");
+	m_pTypeInfo[SKILL_LIGHT_BALL].Set(sid++, "Light Ball", 0, 0, 215,"鹿芒脟貌");
 	m_pTypeInfo[SKILL_LIGHT_BALL].SetMP( 6 );
 	m_pTypeInfo[SKILL_LIGHT_BALL].SetLearnLevel( 8 );
 	m_pTypeInfo[SKILL_LIGHT_BALL].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_LIGHT_BALL].AddNextSkill( MAGIC_LIGHT );
 	
-	m_pTypeInfo[MAGIC_LIGHT].Set(sid++, "Light", 0, 0, 58,"照明术");
+	m_pTypeInfo[MAGIC_LIGHT].Set(sid++, "Light", 0, 0, 58,"脮脮脙梅脢玫");
 	m_pTypeInfo[MAGIC_LIGHT].SetMP( 4 );
 	m_pTypeInfo[MAGIC_LIGHT].SetLearnLevel( 10 );
 	m_pTypeInfo[MAGIC_LIGHT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_LIGHT].AddNextSkill( MAGIC_DETECT_HIDDEN );
 
-	m_pTypeInfo[MAGIC_DETECT_HIDDEN].Set(sid++, "Detect Hidden", 0, 0, 59,"照明术");
+	m_pTypeInfo[MAGIC_DETECT_HIDDEN].Set(sid++, "Detect Hidden", 0, 0, 59,"脮脮脙梅脢玫");
 	m_pTypeInfo[MAGIC_DETECT_HIDDEN].SetMP( 4 );
 	m_pTypeInfo[MAGIC_DETECT_HIDDEN].SetLearnLevel( 15 );
 	m_pTypeInfo[MAGIC_DETECT_HIDDEN].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_DETECT_HIDDEN].AddNextSkill( MAGIC_AURA_BALL );
 	
-	m_pTypeInfo[MAGIC_AURA_BALL].Set(sid++, "Aura Ball", 0, 0, 60,"探测术");
+	m_pTypeInfo[MAGIC_AURA_BALL].Set(sid++, "Aura Ball", 0, 0, 60,"脤陆虏芒脢玫");
 	m_pTypeInfo[MAGIC_AURA_BALL].SetMP( 6 );
 	m_pTypeInfo[MAGIC_AURA_BALL].SetLearnLevel( 20 );
 	m_pTypeInfo[MAGIC_AURA_BALL].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_AURA_BALL].AddNextSkill( MAGIC_BLESS );
 
-	m_pTypeInfo[MAGIC_BLESS].Set(sid++, "Bless", 0, 0, 61,"大地祝福");
+	m_pTypeInfo[MAGIC_BLESS].Set(sid++, "Bless", 0, 0, 61,"麓贸碌脴脳拢赂拢");
 	m_pTypeInfo[MAGIC_BLESS].SetMP( 6 );
 	m_pTypeInfo[MAGIC_BLESS].SetLearnLevel( 25 );
 	m_pTypeInfo[MAGIC_BLESS].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_BLESS].AddNextSkill( MAGIC_CONTINUAL_LIGHT );
 			
-	m_pTypeInfo[MAGIC_CONTINUAL_LIGHT].Set(sid++, "Continual Light", 0, 0, 62,"高级照明术");
+	m_pTypeInfo[MAGIC_CONTINUAL_LIGHT].Set(sid++, "Continual Light", 0, 0, 62,"赂脽录露脮脮脙梅脢玫");
 	m_pTypeInfo[MAGIC_CONTINUAL_LIGHT].SetMP( 10 );
 	m_pTypeInfo[MAGIC_CONTINUAL_LIGHT].SetLearnLevel( 30 );
 	m_pTypeInfo[MAGIC_CONTINUAL_LIGHT].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_CONTINUAL_LIGHT].AddNextSkill( MAGIC_FLARE );
 		
-	m_pTypeInfo[MAGIC_FLARE].Set(sid++, "Flare", 0, 0, 63,"光耀之环");
+	m_pTypeInfo[MAGIC_FLARE].Set(sid++, "Flare", 0, 0, 63,"鹿芒脪芦脰庐禄路");
 	m_pTypeInfo[MAGIC_FLARE].SetMP( 10 );
 	m_pTypeInfo[MAGIC_FLARE].SetLearnLevel( 35 );
 	m_pTypeInfo[MAGIC_FLARE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_FLARE].AddNextSkill( MAGIC_PURIFY );
 
-	m_pTypeInfo[MAGIC_PURIFY].Set(sid++, "Purify", 0, 0, 64,"净化术");
+	m_pTypeInfo[MAGIC_PURIFY].Set(sid++, "Purify", 0, 0, 64,"戮禄禄炉脢玫");
 	m_pTypeInfo[MAGIC_PURIFY].SetMP( 10 );
 	m_pTypeInfo[MAGIC_PURIFY].SetLearnLevel( 40 );
 	m_pTypeInfo[MAGIC_PURIFY].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_PURIFY].AddNextSkill( SKILL_MERCY_GROUND );
 
-	m_pTypeInfo[SKILL_MERCY_GROUND].Set(sid++, "Mercy Ground", 0, 0, 332,"仁慈大地");
+	m_pTypeInfo[SKILL_MERCY_GROUND].Set(sid++, "Mercy Ground", 0, 0, 332,"脠脢麓脠麓贸碌脴");
 	m_pTypeInfo[SKILL_MERCY_GROUND].SetMP( 14 );
 	m_pTypeInfo[SKILL_MERCY_GROUND].SetLearnLevel( 40 );
 	m_pTypeInfo[SKILL_MERCY_GROUND].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_MERCY_GROUND].AddNextSkill( MAGIC_AURA_RING );
 
-	m_pTypeInfo[MAGIC_AURA_RING].Set(sid++, "Aura Ring", 0, 0, 65,"神圣光环");//212);
+	m_pTypeInfo[MAGIC_AURA_RING].Set(sid++, "Aura Ring", 0, 0, 65,"脡帽脢楼鹿芒禄路");//212);
 	m_pTypeInfo[MAGIC_AURA_RING].SetMP( 4 );
 	m_pTypeInfo[MAGIC_AURA_RING].SetLearnLevel( 45 );
 	m_pTypeInfo[MAGIC_AURA_RING].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_AURA_RING].AddNextSkill( MAGIC_STRIKING );
 
-	m_pTypeInfo[MAGIC_STRIKING].Set(sid++, "Striking", 0, 0, 66,"突击");
+	m_pTypeInfo[MAGIC_STRIKING].Set(sid++, "Striking", 0, 0, 66,"脥禄禄梅");
 	m_pTypeInfo[MAGIC_STRIKING].SetMP( 6 );
 	m_pTypeInfo[MAGIC_STRIKING].SetLearnLevel( 50 );
 	m_pTypeInfo[MAGIC_STRIKING].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_STRIKING].AddNextSkill( MAGIC_MEDITATION );
 	
-	m_pTypeInfo[MAGIC_MEDITATION].Set(sid++, "Meditation", 0, 0, 124,"冥想");
+	m_pTypeInfo[MAGIC_MEDITATION].Set(sid++, "Meditation", 0, 0, 124,"脷陇脧毛");
 	m_pTypeInfo[MAGIC_MEDITATION].SetMP( 10 );
 	m_pTypeInfo[MAGIC_MEDITATION].SetLearnLevel( 55 );
 	m_pTypeInfo[MAGIC_MEDITATION].SetPassive();
 	m_pTypeInfo[MAGIC_MEDITATION].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_MEDITATION].AddNextSkill( MAGIC_DETECT_INVISIBILITY );
 
-	m_pTypeInfo[MAGIC_DETECT_INVISIBILITY].Set(sid++, "Detect Invisibility", 0, 0, 67,"侦测隐形");
+	m_pTypeInfo[MAGIC_DETECT_INVISIBILITY].Set(sid++, "Detect Invisibility", 0, 0, 67,"脮矛虏芒脪镁脨脦");
 	m_pTypeInfo[MAGIC_DETECT_INVISIBILITY].SetMP( 10 );
 	m_pTypeInfo[MAGIC_DETECT_INVISIBILITY].SetLearnLevel( 60 );
 	m_pTypeInfo[MAGIC_DETECT_INVISIBILITY].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_DETECT_INVISIBILITY].AddNextSkill( SKILL_REQUITAL );
 
-	m_pTypeInfo[SKILL_REQUITAL].Set(sid++,"Requital", 0, 0, 251 ,"攻击反射");
+	m_pTypeInfo[SKILL_REQUITAL].Set(sid++,"Requital", 0, 0, 251 ,"鹿楼禄梅路麓脡盲");
 	m_pTypeInfo[SKILL_REQUITAL].SetMP( 10 );
 	m_pTypeInfo[SKILL_REQUITAL].SetLearnLevel( 61 );
 	m_pTypeInfo[SKILL_REQUITAL].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_REQUITAL].AddNextSkill(MAGIC_AURA_SHIELD );
 
-	m_pTypeInfo[MAGIC_AURA_SHIELD].Set(sid++, "Aura Shield", 0, 0, 69,"圣光盾");
+	m_pTypeInfo[MAGIC_AURA_SHIELD].Set(sid++, "Aura Shield", 0, 0, 69,"脢楼鹿芒露脺");
 	m_pTypeInfo[MAGIC_AURA_SHIELD].SetMP( 12 );
 	m_pTypeInfo[MAGIC_AURA_SHIELD].SetLearnLevel( 65 );
 	m_pTypeInfo[MAGIC_AURA_SHIELD].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_AURA_SHIELD].AddNextSkill( MAGIC_VISIBLE );
 
-	m_pTypeInfo[MAGIC_VISIBLE].Set(sid++, "Visible", 0, 0, 71,"明目术");
+	m_pTypeInfo[MAGIC_VISIBLE].Set(sid++, "Visible", 0, 0, 71,"脙梅脛驴脢玫");
 	m_pTypeInfo[MAGIC_VISIBLE].SetMP( 12 );
 	m_pTypeInfo[MAGIC_VISIBLE].SetLearnLevel( 70 );
 	m_pTypeInfo[MAGIC_VISIBLE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[MAGIC_VISIBLE].AddNextSkill( SKILL_ENERGY_DROP );
 
-	m_pTypeInfo[SKILL_ENERGY_DROP].Set(sid++, "Aura Storm", 0, 0, 54,"圣光风暴");
+	m_pTypeInfo[SKILL_ENERGY_DROP].Set(sid++, "Aura Storm", 0, 0, 54,"脢楼鹿芒路莽卤漏");
 	m_pTypeInfo[SKILL_ENERGY_DROP].SetMP( 12 );
 	m_pTypeInfo[SKILL_ENERGY_DROP].SetLearnLevel( 75 );
 	m_pTypeInfo[SKILL_ENERGY_DROP].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_ENERGY_DROP].AddNextSkill( SKILL_SANCTUARY );
 
-	m_pTypeInfo[SKILL_SANCTUARY].Set(sid++, "Sanctuary", 0, 0, 163,"避难所");
+	m_pTypeInfo[SKILL_SANCTUARY].Set(sid++, "Sanctuary", 0, 0, 163,"卤脺脛脩脣霉");
 	m_pTypeInfo[SKILL_SANCTUARY].SetMP( 12 );
 	m_pTypeInfo[SKILL_SANCTUARY].SetLearnLevel( 85 );
 	m_pTypeInfo[SKILL_SANCTUARY].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SANCTUARY].AddNextSkill( SKILL_HOLY_ARMOR );	
 
-	m_pTypeInfo[SKILL_HOLY_ARMOR].Set(sid++, "Holy Armor", 0, 0, 330,"神圣装甲");
+	m_pTypeInfo[SKILL_HOLY_ARMOR].Set(sid++, "Holy Armor", 0, 0, 330,"脡帽脢楼脳掳录脳");
 	m_pTypeInfo[SKILL_HOLY_ARMOR].SetMP( 38 );
 	m_pTypeInfo[SKILL_HOLY_ARMOR].SetLearnLevel( 90 );
 	m_pTypeInfo[SKILL_HOLY_ARMOR].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_HOLY_ARMOR].AddNextSkill( SKILL_REFLECTION );	
 	
-	m_pTypeInfo[SKILL_REFLECTION].Set(sid++, "Reflection", 0, 0, 165,"反弹");
+	m_pTypeInfo[SKILL_REFLECTION].Set(sid++, "Reflection", 0, 0, 165,"路麓碌炉");
 	m_pTypeInfo[SKILL_REFLECTION].SetMP( 12 );
 	m_pTypeInfo[SKILL_REFLECTION].SetLearnLevel( 90 );
 	m_pTypeInfo[SKILL_REFLECTION].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_REFLECTION].AddNextSkill( SKILL_REBUKE );
 	
-	m_pTypeInfo[SKILL_REBUKE].Set(sid++, "Rebuke", 0, 0, 222,"群体催眠");
+	m_pTypeInfo[SKILL_REBUKE].Set(sid++, "Rebuke", 0, 0, 222,"脠潞脤氓麓脽脙脽");
 	m_pTypeInfo[SKILL_REBUKE].SetMP( 12 );
 	m_pTypeInfo[SKILL_REBUKE].SetLearnLevel( 95 );	
 	m_pTypeInfo[SKILL_REBUKE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_REBUKE].AddNextSkill( SKILL_SPIRIT_GUARD );
 	
-	m_pTypeInfo[SKILL_SPIRIT_GUARD].Set(sid++, "Spirit Guard", 0, 0, 223,"精灵护卫");
+	m_pTypeInfo[SKILL_SPIRIT_GUARD].Set(sid++, "Spirit Guard", 0, 0, 223,"戮芦脕茅禄陇脦脌");
 	m_pTypeInfo[SKILL_SPIRIT_GUARD].SetMP( 12 );
 	m_pTypeInfo[SKILL_SPIRIT_GUARD].SetLearnLevel( 100 );
 	m_pTypeInfo[SKILL_SPIRIT_GUARD].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SPIRIT_GUARD].AddNextSkill( SKILL_DIVINE_GUIDANCE );
 
-	m_pTypeInfo[SKILL_DIVINE_GUIDANCE].Set(sid++, "Divine Guidance", 0, 0, 317,"神之诅咒");
+	m_pTypeInfo[SKILL_DIVINE_GUIDANCE].Set(sid++, "Divine Guidance", 0, 0, 317,"脡帽脰庐脳莽脰盲");
 	m_pTypeInfo[SKILL_DIVINE_GUIDANCE].SetMP( 12 );
 	m_pTypeInfo[SKILL_DIVINE_GUIDANCE].SetLearnLevel( 110 );
 	m_pTypeInfo[SKILL_DIVINE_GUIDANCE].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_DIVINE_GUIDANCE].AddNextSkill( SKILL_LIGHTNESS );
 
-	m_pTypeInfo[SKILL_LIGHTNESS].Set(sid++, "Lightness", 0, 0, 258,"终极照明术");
+	m_pTypeInfo[SKILL_LIGHTNESS].Set(sid++, "Lightness", 0, 0, 258,"脰脮录芦脮脮脙梅脢玫");
 	m_pTypeInfo[SKILL_LIGHTNESS].SetMP( 40 );
 	m_pTypeInfo[SKILL_LIGHTNESS].SetLearnLevel( 100 );
 	m_pTypeInfo[SKILL_LIGHTNESS].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_LIGHTNESS].AddNextSkill( SKILL_SWEEP_VICE_1 );
 
-	// 2004, 9, 8, sobeit add start - 牢忙 130 胶懦
-	m_pTypeInfo[SKILL_SWEEP_VICE_1].Set(sid++, "Sweep vice", 700, 270,  391,"幻灭之钳");
+	// 2004, 9, 8, sobeit add start - 脌脦脙娄 130 陆潞脜鲁
+	m_pTypeInfo[SKILL_SWEEP_VICE_1].Set(sid++, "Sweep vice", 700, 270,  391,"禄脙脙冒脰庐脟炉");
 	m_pTypeInfo[SKILL_SWEEP_VICE_1].SetMP( 40 );
 	m_pTypeInfo[SKILL_SWEEP_VICE_1].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_SWEEP_VICE_1].SetLearnLevel( 130 );
 //	m_pTypeInfo[SKILL_SWEEP_VICE_1].AddNextSkill( SKILL_SOUL_CHAIN );
 	m_pTypeInfo[SKILL_SWEEP_VICE_1].AddNextSkill( SKILL_INTIMATE_GRAIL );
-	// 2004, 9, 8, sobeit add end - 牢忙 130 胶懦
+	// 2004, 9, 8, sobeit add end - 脌脦脙娄 130 陆潞脜鲁
 
-	// 2004, 11, 11, sobeit add start - 牢忙 140 胶懦
-	m_pTypeInfo[SKILL_INTIMATE_GRAIL].Set(sid++, "Intimate Grail", 700, 270,  462,"亲密圣杯");
+	// 2004, 11, 11, sobeit add start - 脌脦脙娄 140 陆潞脜鲁
+	m_pTypeInfo[SKILL_INTIMATE_GRAIL].Set(sid++, "Intimate Grail", 700, 270,  462,"脟脳脙脺脢楼卤颅");
 	m_pTypeInfo[SKILL_INTIMATE_GRAIL].SetMP( 40 );
 	m_pTypeInfo[SKILL_INTIMATE_GRAIL].SetSkillStep( SKILL_STEP_APPRENTICE );
 	m_pTypeInfo[SKILL_INTIMATE_GRAIL].SetLearnLevel( 140 );
 	m_pTypeInfo[SKILL_INTIMATE_GRAIL].AddNextSkill( SKILL_ROTTEN_APPLE );
-	// 2004, 11, 11, sobeit add end - 牢忙 140 胶懦
+	// 2004, 11, 11, sobeit add end - 脌脦脙娄 140 陆潞脜鲁
 
-	m_pTypeInfo[SKILL_ROTTEN_APPLE].Set(sid++, "Rotten Apple", 700, 270,  473,"烂苹果");
+	m_pTypeInfo[SKILL_ROTTEN_APPLE].Set(sid++, "Rotten Apple", 700, 270,  473,"脌脙脝禄鹿没");
 	m_pTypeInfo[SKILL_ROTTEN_APPLE].SetMP( 40 );
 	m_pTypeInfo[SKILL_ROTTEN_APPLE].SetSkillStep( SKILL_STEP_SLAYER_ENCHANT_ADVANCEMENT );
 	m_pTypeInfo[SKILL_ROTTEN_APPLE].SetLearnLevel( 150 );
@@ -1053,7 +1053,7 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[SKILL_ROTTEN_APPLE].AddNextSkill( SKILL_HEAVEN_GROUND );
 	// 2005, 1, 3, sobeit add end - 
 	// add by Coffee 2007-3-25
-	m_pTypeInfo[SKILL_HEAVEN_GROUND].Set(sid++, "Heaven Ground", 700, 270,  502,"天神降临");
+	m_pTypeInfo[SKILL_HEAVEN_GROUND].Set(sid++, "Heaven Ground", 700, 270,  502,"脤矛脡帽陆碌脕脵");
 	m_pTypeInfo[SKILL_HEAVEN_GROUND].SetMP( 40 );
 	m_pTypeInfo[SKILL_HEAVEN_GROUND].SetSkillStep( SKILL_STEP_SLAYER_ENCHANT_ADVANCEMENT );
 	m_pTypeInfo[SKILL_HEAVEN_GROUND].SetLearnLevel( 150 );
@@ -1063,80 +1063,80 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[SKILL_ROTTEN_APPLE].AddNextSkill( SKILL_SOUL_CHAIN );
 #endif
 	//----------------------------------------------------------------------
-	// 轨橇付过
+	// 鹿矛脟脕赂露鹿媒
 	//----------------------------------------------------------------------
 	sid = 0;
-	m_pTypeInfo[MAGIC_HIDE].Set(sid++, "Hide", 0, 0, 96,"隐蔽");
+	m_pTypeInfo[MAGIC_HIDE].Set(sid++, "Hide", 0, 0, 96,"脪镁卤脦");
 	m_pTypeInfo[MAGIC_HIDE].SetVampireSkill();	
 	m_pTypeInfo[MAGIC_HIDE].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[MAGIC_HIDE].SetMP( 8 );
 	m_pTypeInfo[MAGIC_HIDE].SetLearnLevel( 3 );
 	m_pTypeInfo[MAGIC_HIDE].AddNextSkill( SKILL_HANDS_OF_WISDOM );
 
-	m_pTypeInfo[SKILL_HANDS_OF_WISDOM].Set(sid++, "Hands of Wisdom", 0, 0, 213,"智慧之触");
+	m_pTypeInfo[SKILL_HANDS_OF_WISDOM].Set(sid++, "Hands of Wisdom", 0, 0, 213,"脰脟禄脹脰庐麓楼");
 	m_pTypeInfo[SKILL_HANDS_OF_WISDOM].SetVampireSkill();
 	m_pTypeInfo[SKILL_HANDS_OF_WISDOM].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[SKILL_HANDS_OF_WISDOM].SetMP( 15 );
 	m_pTypeInfo[SKILL_HANDS_OF_WISDOM].SetLearnLevel( 5 );
 	m_pTypeInfo[SKILL_HANDS_OF_WISDOM].AddNextSkill( MAGIC_POISONOUS_HANDS );
 
-	m_pTypeInfo[MAGIC_POISONOUS_HANDS].Set(sid++, "Poisonous Hands", 0, 0, 74,"剧毒之触");
+	m_pTypeInfo[MAGIC_POISONOUS_HANDS].Set(sid++, "Poisonous Hands", 0, 0, 74,"戮莽露戮脰庐麓楼");
 	m_pTypeInfo[MAGIC_POISONOUS_HANDS].SetVampireSkill();
 	m_pTypeInfo[MAGIC_POISONOUS_HANDS].SetSkillStep( SKILL_STEP_VAMPIRE_POISON );
 	m_pTypeInfo[MAGIC_POISONOUS_HANDS].SetMP( 15 );
 	m_pTypeInfo[MAGIC_POISONOUS_HANDS].SetLearnLevel( 6 );
 	m_pTypeInfo[MAGIC_POISONOUS_HANDS].AddNextSkill( MAGIC_ACID_TOUCH );
 
-	m_pTypeInfo[MAGIC_ACID_TOUCH].Set(sid++, "Acid Touch", 0, 0, 79,"酸性之触");
+	m_pTypeInfo[MAGIC_ACID_TOUCH].Set(sid++, "Acid Touch", 0, 0, 79,"脣谩脨脭脰庐麓楼");
 	m_pTypeInfo[MAGIC_ACID_TOUCH].SetVampireSkill();
 	m_pTypeInfo[MAGIC_ACID_TOUCH].SetSkillStep( SKILL_STEP_VAMPIRE_ACID );
 	m_pTypeInfo[MAGIC_ACID_TOUCH].SetMP( 20 );
 	m_pTypeInfo[MAGIC_ACID_TOUCH].SetLearnLevel( 9 );
 	m_pTypeInfo[MAGIC_ACID_TOUCH].AddNextSkill( MAGIC_GREEN_POISON );
 	
-	m_pTypeInfo[MAGIC_GREEN_POISON].Set(sid++, "Green Poison", 0, 0, 75,"荧绿之毒");
+	m_pTypeInfo[MAGIC_GREEN_POISON].Set(sid++, "Green Poison", 0, 0, 75,"脫芦脗脤脰庐露戮");
 	m_pTypeInfo[MAGIC_GREEN_POISON].SetVampireSkill();
 	m_pTypeInfo[MAGIC_GREEN_POISON].SetSkillStep( SKILL_STEP_VAMPIRE_POISON );
 	m_pTypeInfo[MAGIC_GREEN_POISON].SetMP( 25 );
 	m_pTypeInfo[MAGIC_GREEN_POISON].SetLearnLevel( 12 );
 	m_pTypeInfo[MAGIC_GREEN_POISON].AddNextSkill( MAGIC_DARKNESS );
 
-	m_pTypeInfo[MAGIC_DARKNESS].Set(sid++, "Darkness", 0, 0, 97,"黑暗神力");
+	m_pTypeInfo[MAGIC_DARKNESS].Set(sid++, "Darkness", 0, 0, 97,"潞脷掳碌脡帽脕娄");
 	m_pTypeInfo[MAGIC_DARKNESS].SetVampireSkill();
 	m_pTypeInfo[MAGIC_DARKNESS].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[MAGIC_DARKNESS].SetMP( 10 );
 	m_pTypeInfo[MAGIC_DARKNESS].SetLearnLevel( 15 );
 	m_pTypeInfo[MAGIC_DARKNESS].AddNextSkill( MAGIC_YELLOW_POISON );
 
-	m_pTypeInfo[MAGIC_YELLOW_POISON].Set(sid++, "Yellow Poison", 0, 0, 76,"艳黄之毒");
+	m_pTypeInfo[MAGIC_YELLOW_POISON].Set(sid++, "Yellow Poison", 0, 0, 76,"脩脼禄脝脰庐露戮");
 	m_pTypeInfo[MAGIC_YELLOW_POISON].SetVampireSkill();
 	m_pTypeInfo[MAGIC_YELLOW_POISON].SetSkillStep( SKILL_STEP_VAMPIRE_POISON );
 	m_pTypeInfo[MAGIC_YELLOW_POISON].SetMP( 30 );
 	m_pTypeInfo[MAGIC_YELLOW_POISON].SetLearnLevel( 18 );
 	m_pTypeInfo[MAGIC_YELLOW_POISON].AddNextSkill( MAGIC_TRANSFORM_TO_BAT );
 
-	m_pTypeInfo[MAGIC_TRANSFORM_TO_BAT].Set(sid++, "Transform to Bat", 0, 0, 99,"变身-蝙蝠");
+	m_pTypeInfo[MAGIC_TRANSFORM_TO_BAT].Set(sid++, "Transform to Bat", 0, 0, 99,"卤盲脡铆-貌霉貌冒");
 	m_pTypeInfo[MAGIC_TRANSFORM_TO_BAT].SetVampireSkill();
 	m_pTypeInfo[MAGIC_TRANSFORM_TO_BAT].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[MAGIC_TRANSFORM_TO_BAT].SetMP( 45 );
 	m_pTypeInfo[MAGIC_TRANSFORM_TO_BAT].SetLearnLevel( 45 );
 	m_pTypeInfo[MAGIC_TRANSFORM_TO_BAT].AddNextSkill( MAGIC_ACID_BOLT );
 
-	m_pTypeInfo[MAGIC_ACID_BOLT].Set(sid++, "Acid Bolt", 0, 0, 80,"酸矢");
+	m_pTypeInfo[MAGIC_ACID_BOLT].Set(sid++, "Acid Bolt", 0, 0, 80,"脣谩脢赂");
 	m_pTypeInfo[MAGIC_ACID_BOLT].SetVampireSkill();
 	m_pTypeInfo[MAGIC_ACID_BOLT].SetSkillStep( SKILL_STEP_VAMPIRE_ACID );
 	m_pTypeInfo[MAGIC_ACID_BOLT].SetMP( 30 );
 	m_pTypeInfo[MAGIC_ACID_BOLT].SetLearnLevel( 21 );
 	m_pTypeInfo[MAGIC_ACID_BOLT].AddNextSkill( MAGIC_GREEN_STALKER );
 	
-	m_pTypeInfo[MAGIC_GREEN_STALKER].Set(sid++, "Green Stalker", 0, 0, 77,"毒雾");
+	m_pTypeInfo[MAGIC_GREEN_STALKER].Set(sid++, "Green Stalker", 0, 0, 77,"露戮脦铆");
 	m_pTypeInfo[MAGIC_GREEN_STALKER].SetVampireSkill();
 	m_pTypeInfo[MAGIC_GREEN_STALKER].SetSkillStep( SKILL_STEP_VAMPIRE_POISON );
 	m_pTypeInfo[MAGIC_GREEN_STALKER].SetMP( 35 );
 	m_pTypeInfo[MAGIC_GREEN_STALKER].SetLearnLevel( 24 );
 	m_pTypeInfo[MAGIC_GREEN_STALKER].AddNextSkill( MAGIC_BLOODY_TUNNEL );
 
-	m_pTypeInfo[MAGIC_BLOODY_TUNNEL].Set(sid++, "Bloody Tunnel", 0, 0,  117,"血之漩涡");
+	m_pTypeInfo[MAGIC_BLOODY_TUNNEL].Set(sid++, "Bloody Tunnel", 0, 0,  117,"脩陋脰庐盲枚脦脨");
 	m_pTypeInfo[MAGIC_BLOODY_TUNNEL].SetVampireSkill();
 	m_pTypeInfo[MAGIC_BLOODY_TUNNEL].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 	m_pTypeInfo[MAGIC_BLOODY_TUNNEL].SetMP( 0 );
@@ -1144,7 +1144,7 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[MAGIC_BLOODY_TUNNEL].AddNextSkill( MAGIC_PARALYZE );
 
 
-	m_pTypeInfo[MAGIC_PARALYZE].Set(sid++, "Paralyze", 0, 0, 83,"麻痹");
+	m_pTypeInfo[MAGIC_PARALYZE].Set(sid++, "Paralyze", 0, 0, 83,"脗茅卤脭");
 	m_pTypeInfo[MAGIC_PARALYZE].SetVampireSkill();
 	m_pTypeInfo[MAGIC_PARALYZE].SetSkillStep( SKILL_STEP_VAMPIRE_CURSE );
 	m_pTypeInfo[MAGIC_PARALYZE].SetMP( 30 );
@@ -1152,7 +1152,7 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[MAGIC_PARALYZE].AddNextSkill( MAGIC_BLOODY_MARK );
 
 	
-	m_pTypeInfo[MAGIC_BLOODY_MARK].Set(sid++, "Bloody Mark", 0, 0,  116,"血之印记");
+	m_pTypeInfo[MAGIC_BLOODY_MARK].Set(sid++, "Bloody Mark", 0, 0,  116,"脩陋脰庐脫隆录脟");
 	m_pTypeInfo[MAGIC_BLOODY_MARK].SetVampireSkill();
 	m_pTypeInfo[MAGIC_BLOODY_MARK].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 	m_pTypeInfo[MAGIC_BLOODY_MARK].SetMP( 0 );
@@ -1160,147 +1160,147 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[MAGIC_BLOODY_MARK].AddNextSkill( MAGIC_DARKBLUE_POISON );
 
 
-	m_pTypeInfo[MAGIC_DARKBLUE_POISON].Set(sid++, "DarkBlue Poison", 0, 0, 78,"幽暗之毒");
+	m_pTypeInfo[MAGIC_DARKBLUE_POISON].Set(sid++, "DarkBlue Poison", 0, 0, 78,"脫脛掳碌脰庐露戮");
 	m_pTypeInfo[MAGIC_DARKBLUE_POISON].SetVampireSkill();
 	m_pTypeInfo[MAGIC_DARKBLUE_POISON].SetSkillStep( SKILL_STEP_VAMPIRE_POISON );
 	m_pTypeInfo[MAGIC_DARKBLUE_POISON].SetMP( 43 );
 	m_pTypeInfo[MAGIC_DARKBLUE_POISON].SetLearnLevel( 30 );
 	m_pTypeInfo[MAGIC_DARKBLUE_POISON].AddNextSkill( MAGIC_TRANSFORM_TO_WOLF );
 
-	m_pTypeInfo[MAGIC_TRANSFORM_TO_WOLF].Set(sid++, "Transform to Wolf", 0, 0, 98,"变身-狼");
+	m_pTypeInfo[MAGIC_TRANSFORM_TO_WOLF].Set(sid++, "Transform to Wolf", 0, 0, 98,"卤盲脡铆-脌脟");
 	m_pTypeInfo[MAGIC_TRANSFORM_TO_WOLF].SetVampireSkill();
 	m_pTypeInfo[MAGIC_TRANSFORM_TO_WOLF].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[MAGIC_TRANSFORM_TO_WOLF].SetMP( 45 );
 	m_pTypeInfo[MAGIC_TRANSFORM_TO_WOLF].SetLearnLevel( 39 );
 	m_pTypeInfo[MAGIC_TRANSFORM_TO_WOLF].AddNextSkill( SKILL_POISON_STRIKE );
 
-	m_pTypeInfo[SKILL_POISON_STRIKE].Set(sid++, "Poison Strike", 0, 0, 130,"毒性攻击");
+	m_pTypeInfo[SKILL_POISON_STRIKE].Set(sid++, "Poison Strike", 0, 0, 130,"露戮脨脭鹿楼禄梅");
 	m_pTypeInfo[SKILL_POISON_STRIKE].SetVampireSkill();
 	m_pTypeInfo[SKILL_POISON_STRIKE].SetSkillStep( SKILL_STEP_VAMPIRE_POISON );
 	m_pTypeInfo[SKILL_POISON_STRIKE].SetMP( 30 );
 	m_pTypeInfo[SKILL_POISON_STRIKE].SetLearnLevel( 36 );
 	m_pTypeInfo[SKILL_POISON_STRIKE].AddNextSkill( MAGIC_DOOM );
 
-	m_pTypeInfo[MAGIC_DOOM].Set(sid++, "Doom", 0, 0, 84,"毁灭");
+	m_pTypeInfo[MAGIC_DOOM].Set(sid++, "Doom", 0, 0, 84,"禄脵脙冒");
 	m_pTypeInfo[MAGIC_DOOM].SetVampireSkill();
 	m_pTypeInfo[MAGIC_DOOM].SetSkillStep( SKILL_STEP_VAMPIRE_CURSE );
 	m_pTypeInfo[MAGIC_DOOM].SetMP( 30 );
 	m_pTypeInfo[MAGIC_DOOM].SetLearnLevel( 36 );
 	m_pTypeInfo[MAGIC_DOOM].AddNextSkill( MAGIC_ACID_BALL );
 	
-	m_pTypeInfo[MAGIC_ACID_BALL].Set(sid++, "Acid Ball", 0, 0, 81,"酸球");	
+	m_pTypeInfo[MAGIC_ACID_BALL].Set(sid++, "Acid Ball", 0, 0, 81,"脣谩脟貌");	
 	m_pTypeInfo[MAGIC_ACID_BALL].SetVampireSkill();
 	m_pTypeInfo[MAGIC_ACID_BALL].SetSkillStep( SKILL_STEP_VAMPIRE_ACID );
 	m_pTypeInfo[MAGIC_ACID_BALL].SetMP( 45 );
 	m_pTypeInfo[MAGIC_ACID_BALL].SetLearnLevel( 42 );
 	m_pTypeInfo[MAGIC_ACID_BALL].AddNextSkill( MAGIC_INVISIBILITY );
 	
-	m_pTypeInfo[MAGIC_INVISIBILITY].Set(sid++, "Invisibllity", 0, 0, 100,"侦测隐形");
+	m_pTypeInfo[MAGIC_INVISIBILITY].Set(sid++, "Invisibllity", 0, 0, 100,"脮矛虏芒脪镁脨脦");
 	m_pTypeInfo[MAGIC_INVISIBILITY].SetVampireSkill();
 	m_pTypeInfo[MAGIC_INVISIBILITY].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[MAGIC_INVISIBILITY].SetMP( 45 );
 	m_pTypeInfo[MAGIC_INVISIBILITY].SetLearnLevel( 42 );
 	m_pTypeInfo[MAGIC_INVISIBILITY].AddNextSkill( MAGIC_RAPID_GLIDING );
 
-	m_pTypeInfo[MAGIC_RAPID_GLIDING].Set(sid++, "Rapid Gliding", 0, 0, 244,"快速滑行");	
+	m_pTypeInfo[MAGIC_RAPID_GLIDING].Set(sid++, "Rapid Gliding", 0, 0, 244,"驴矛脣脵禄卢脨脨");	
 	m_pTypeInfo[MAGIC_RAPID_GLIDING].SetVampireSkill();
 	m_pTypeInfo[MAGIC_RAPID_GLIDING].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[MAGIC_RAPID_GLIDING].SetMP( 33 );
 	m_pTypeInfo[MAGIC_RAPID_GLIDING].SetLearnLevel( 47 );
 	m_pTypeInfo[MAGIC_RAPID_GLIDING].AddNextSkill( SKILL_NAIL_MASTERY );
 
-	m_pTypeInfo[SKILL_NAIL_MASTERY].Set(sid++,"Nail Mastery", 0, 0, 246,"利爪熟练度");
+	m_pTypeInfo[SKILL_NAIL_MASTERY].Set(sid++,"Nail Mastery", 0, 0, 246,"脌没脳娄脢矛脕路露脠");
 	m_pTypeInfo[SKILL_NAIL_MASTERY].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[SKILL_NAIL_MASTERY].SetVampireSkill();
 	m_pTypeInfo[SKILL_NAIL_MASTERY].SetPassive();
 	m_pTypeInfo[SKILL_NAIL_MASTERY].SetLearnLevel( 57 );
 	m_pTypeInfo[SKILL_NAIL_MASTERY].AddNextSkill( SKILL_TRANSFUSION );
 
-	m_pTypeInfo[SKILL_TRANSFUSION].Set(sid++, "Transfusion", 0, 0, 167,"血液互补");
+	m_pTypeInfo[SKILL_TRANSFUSION].Set(sid++, "Transfusion", 0, 0, 167,"脩陋脪潞禄楼虏鹿");
 	m_pTypeInfo[SKILL_TRANSFUSION].SetVampireSkill();
 	m_pTypeInfo[SKILL_TRANSFUSION].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 	m_pTypeInfo[SKILL_TRANSFUSION].SetMP( 55 );
 	m_pTypeInfo[SKILL_TRANSFUSION].SetLearnLevel( 50 );
 	m_pTypeInfo[SKILL_TRANSFUSION].AddNextSkill( SKILL_ACID_STRIKE );
 
-	m_pTypeInfo[SKILL_ACID_STRIKE].Set(sid++, "Acid Strike", 0, 0, 132,"酸性攻击");
+	m_pTypeInfo[SKILL_ACID_STRIKE].Set(sid++, "Acid Strike", 0, 0, 132,"脣谩脨脭鹿楼禄梅");
 	m_pTypeInfo[SKILL_ACID_STRIKE].SetVampireSkill();
 	m_pTypeInfo[SKILL_ACID_STRIKE].SetSkillStep( SKILL_STEP_VAMPIRE_ACID );
 	m_pTypeInfo[SKILL_ACID_STRIKE].SetMP( 55 );
 	m_pTypeInfo[SKILL_ACID_STRIKE].SetLearnLevel( 65 );
 	m_pTypeInfo[SKILL_ACID_STRIKE].AddNextSkill( MAGIC_ACID_SWAMP );
 
-	m_pTypeInfo[MAGIC_ACID_SWAMP].Set(sid++, "Acid Swamp", 0, 0, 82,"酸性沼泽");
+	m_pTypeInfo[MAGIC_ACID_SWAMP].Set(sid++, "Acid Swamp", 0, 0, 82,"脣谩脨脭脮脫脭贸");
 	m_pTypeInfo[MAGIC_ACID_SWAMP].SetVampireSkill();
 	m_pTypeInfo[MAGIC_ACID_SWAMP].SetSkillStep( SKILL_STEP_VAMPIRE_ACID );
 	m_pTypeInfo[MAGIC_ACID_SWAMP].SetMP( 55 );
 	m_pTypeInfo[MAGIC_ACID_SWAMP].SetLearnLevel( 65 );
 	m_pTypeInfo[MAGIC_ACID_SWAMP].AddNextSkill( SKILL_POISON_STORM );
 
-	m_pTypeInfo[SKILL_POISON_STORM].Set(sid++, "Poison Storm", 0, 0, 131,"毒液风暴");
+	m_pTypeInfo[SKILL_POISON_STORM].Set(sid++, "Poison Storm", 0, 0, 131,"露戮脪潞路莽卤漏");
 	m_pTypeInfo[SKILL_POISON_STORM].SetVampireSkill();
 	m_pTypeInfo[SKILL_POISON_STORM].SetSkillStep( SKILL_STEP_VAMPIRE_POISON );
 	m_pTypeInfo[SKILL_POISON_STORM].SetMP( 30 );
 	m_pTypeInfo[SKILL_POISON_STORM].SetLearnLevel( 36 );
 	m_pTypeInfo[SKILL_POISON_STORM].AddNextSkill( MAGIC_SEDUCTION );
 
-	m_pTypeInfo[MAGIC_SEDUCTION].Set(sid++, "Seduction", 0, 0, 119,"诱惑");
+	m_pTypeInfo[MAGIC_SEDUCTION].Set(sid++, "Seduction", 0, 0, 119,"脫脮禄贸");
 	m_pTypeInfo[MAGIC_SEDUCTION].SetVampireSkill();
 	m_pTypeInfo[MAGIC_SEDUCTION].SetSkillStep( SKILL_STEP_VAMPIRE_CURSE );
 	m_pTypeInfo[MAGIC_SEDUCTION].SetMP( 55 );
 	m_pTypeInfo[MAGIC_SEDUCTION].SetLearnLevel( 48 );
 	m_pTypeInfo[MAGIC_SEDUCTION].AddNextSkill( MAGIC_BLOODY_NAIL );
 
-	m_pTypeInfo[SKILL_BLOODY_WAVE].Set(sid++, "Bloody Wave", 0, 0, 174,"血浪");
+	m_pTypeInfo[SKILL_BLOODY_WAVE].Set(sid++, "Bloody Wave", 0, 0, 174,"脩陋脌脣");
 	m_pTypeInfo[SKILL_BLOODY_WAVE].SetVampireSkill();
 	m_pTypeInfo[SKILL_BLOODY_WAVE].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 	m_pTypeInfo[SKILL_BLOODY_WAVE].SetMP( 90 );
 	m_pTypeInfo[SKILL_BLOODY_WAVE].SetLearnLevel( 64 );
 	m_pTypeInfo[SKILL_BLOODY_WAVE].AddNextSkill( SKILL_BLOODY_STRIKE );
 
-	m_pTypeInfo[SKILL_BLOODY_STRIKE].Set(sid++, "Bloody Strike", 0, 0, 250,"血腥攻击");
+	m_pTypeInfo[SKILL_BLOODY_STRIKE].Set(sid++, "Bloody Strike", 0, 0, 250,"脩陋脨脠鹿楼禄梅");
 	m_pTypeInfo[SKILL_BLOODY_STRIKE].SetVampireSkill();
 	m_pTypeInfo[SKILL_BLOODY_STRIKE].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 	m_pTypeInfo[SKILL_BLOODY_STRIKE].SetMP( 76 );
 	m_pTypeInfo[SKILL_BLOODY_STRIKE].SetLearnLevel( 66 );
 	m_pTypeInfo[SKILL_BLOODY_STRIKE].AddNextSkill( SKILL_ACID_STORM );
 		
-	m_pTypeInfo[MAGIC_BLOODY_NAIL].Set(sid++, "Bloody Nail", 0, 0, 127,"血爪");
+	m_pTypeInfo[MAGIC_BLOODY_NAIL].Set(sid++, "Bloody Nail", 0, 0, 127,"脩陋脳娄");
 	m_pTypeInfo[MAGIC_BLOODY_NAIL].SetVampireSkill();
 	m_pTypeInfo[MAGIC_BLOODY_NAIL].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 	m_pTypeInfo[MAGIC_BLOODY_NAIL].SetMP( 60 );
 	m_pTypeInfo[MAGIC_BLOODY_NAIL].SetLearnLevel( 75 );
 	m_pTypeInfo[MAGIC_BLOODY_NAIL].AddNextSkill( MAGIC_BLOODY_KNIFE  );
 
-	m_pTypeInfo[SKILL_ACID_STORM].Set(sid++, "Acid Storm", 0, 0, 133,"酸性风暴");
+	m_pTypeInfo[SKILL_ACID_STORM].Set(sid++, "Acid Storm", 0, 0, 133,"脣谩脨脭路莽卤漏");
 	m_pTypeInfo[SKILL_ACID_STORM].SetVampireSkill();
 	m_pTypeInfo[SKILL_ACID_STORM].SetSkillStep( SKILL_STEP_VAMPIRE_ACID );
 	m_pTypeInfo[SKILL_ACID_STORM].SetMP( 55 );
 	m_pTypeInfo[SKILL_ACID_STORM].SetLearnLevel( 65 );
 	m_pTypeInfo[SKILL_ACID_STORM].AddNextSkill( SKILL_EXTREME );
 
-	m_pTypeInfo[MAGIC_BLOODY_KNIFE].Set(sid++, "Bloody Knife", 0, 0, 128,"血刃");
+	m_pTypeInfo[MAGIC_BLOODY_KNIFE].Set(sid++, "Bloody Knife", 0, 0, 128,"脩陋脠脨");
 	m_pTypeInfo[MAGIC_BLOODY_KNIFE].SetVampireSkill();
 	m_pTypeInfo[MAGIC_BLOODY_KNIFE].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 	m_pTypeInfo[MAGIC_BLOODY_KNIFE].SetMP( 63 );
 	m_pTypeInfo[MAGIC_BLOODY_KNIFE].SetLearnLevel( 58 );
 	m_pTypeInfo[MAGIC_BLOODY_KNIFE].AddNextSkill( SKILL_BLOODY_WAVE );
 
-	m_pTypeInfo[SKILL_EXTREME].Set(sid++, "Dark Revenge", 0, 0, 134,"黑暗复仇者");
+	m_pTypeInfo[SKILL_EXTREME].Set(sid++, "Dark Revenge", 0, 0, 134,"潞脷掳碌赂麓鲁冒脮脽");
 	m_pTypeInfo[SKILL_EXTREME].SetVampireSkill();
 	m_pTypeInfo[SKILL_EXTREME].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[SKILL_EXTREME].SetMP( 63 );
 	m_pTypeInfo[SKILL_EXTREME].SetLearnLevel( 63 );
 	m_pTypeInfo[SKILL_EXTREME].AddNextSkill( MAGIC_BLOODY_BALL );
 
-	m_pTypeInfo[MAGIC_BLOODY_BALL].Set(sid++, "Bloody Ball", 0, 0, 129,"血球");
+	m_pTypeInfo[MAGIC_BLOODY_BALL].Set(sid++, "Bloody Ball", 0, 0, 129,"脩陋脟貌");
 	m_pTypeInfo[MAGIC_BLOODY_BALL].SetVampireSkill();
 	m_pTypeInfo[MAGIC_BLOODY_BALL].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 	m_pTypeInfo[MAGIC_BLOODY_BALL].SetMP( 65 );
 	m_pTypeInfo[MAGIC_BLOODY_BALL].SetLearnLevel( 66 );
 	m_pTypeInfo[MAGIC_BLOODY_BALL].AddNextSkill( MAGIC_SUMMON_CASKET );
 
-	m_pTypeInfo[MAGIC_SUMMON_CASKET].Set(sid++, "Summon Casket", 0, 0, 120,"召唤-棺材");
+	m_pTypeInfo[MAGIC_SUMMON_CASKET].Set(sid++, "Summon Casket", 0, 0, 120,"脮脵禄陆-鹿脳虏脛");
 	m_pTypeInfo[MAGIC_SUMMON_CASKET].SetVampireSkill();
 	m_pTypeInfo[MAGIC_SUMMON_CASKET].SetSkillStep( SKILL_STEP_VAMPIRE_SUMMON );
 	m_pTypeInfo[MAGIC_SUMMON_CASKET].SetMP( 70 );
@@ -1314,84 +1314,84 @@ MSkillInfoTable::MSkillInfoTable()
 //	m_pTypeInfo[SKILL_CHARM].SetLearnLevel( 73 );
 //	m_pTypeInfo[SKILL_CHARM].AddNextSkill( MAGIC_DEATH );	
 
-	m_pTypeInfo[SKILL_STONE_SKIN].Set(sid++, "Stone Skin", 0, 0, 338,"石之肌肤");
+	m_pTypeInfo[SKILL_STONE_SKIN].Set(sid++, "Stone Skin", 0, 0, 338,"脢炉脰庐录隆路么");
 	m_pTypeInfo[SKILL_STONE_SKIN].SetVampireSkill();
 	m_pTypeInfo[SKILL_STONE_SKIN].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[SKILL_STONE_SKIN].SetMP( 10 );
 	m_pTypeInfo[SKILL_STONE_SKIN].SetLearnLevel( 68 );
 	m_pTypeInfo[SKILL_STONE_SKIN].AddNextSkill( SKILL_TRANSFORM_TO_WERWOLF );
 
-	m_pTypeInfo[SKILL_TRANSFORM_TO_WERWOLF].Set(sid++, "Transform To Werwolf", 0, 0, 336,"变身-狼人");
+	m_pTypeInfo[SKILL_TRANSFORM_TO_WERWOLF].Set(sid++, "Transform To Werwolf", 0, 0, 336,"卤盲脡铆-脌脟脠脣");
 	m_pTypeInfo[SKILL_TRANSFORM_TO_WERWOLF].SetVampireSkill();
 	m_pTypeInfo[SKILL_TRANSFORM_TO_WERWOLF].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[SKILL_TRANSFORM_TO_WERWOLF].SetMP( 10 );
 	m_pTypeInfo[SKILL_TRANSFORM_TO_WERWOLF].SetLearnLevel( 72 );
 	m_pTypeInfo[SKILL_TRANSFORM_TO_WERWOLF].AddNextSkill( SKILL_GRAY_DARKNESS );
 		
-	m_pTypeInfo[SKILL_GRAY_DARKNESS].Set(sid++, "Gray Darkness", 0, 0, 339,"黑暗神力");
+	m_pTypeInfo[SKILL_GRAY_DARKNESS].Set(sid++, "Gray Darkness", 0, 0, 339,"潞脷掳碌脡帽脕娄");
 	m_pTypeInfo[SKILL_GRAY_DARKNESS].SetVampireSkill();
 	m_pTypeInfo[SKILL_GRAY_DARKNESS].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[SKILL_GRAY_DARKNESS].SetMP( 10 );
 	m_pTypeInfo[SKILL_GRAY_DARKNESS].SetLearnLevel( 78 );
 	m_pTypeInfo[SKILL_GRAY_DARKNESS].AddNextSkill( SKILL_ACID_ERUPTION );
 	
-	m_pTypeInfo[SKILL_ACID_ERUPTION].Set(sid++, "Acid Eruption", 0, 0, 340,"酸性喷发");
+	m_pTypeInfo[SKILL_ACID_ERUPTION].Set(sid++, "Acid Eruption", 0, 0, 340,"脣谩脨脭脜莽路垄");
 	m_pTypeInfo[SKILL_ACID_ERUPTION].SetVampireSkill();
 	m_pTypeInfo[SKILL_ACID_ERUPTION].SetSkillStep( SKILL_STEP_VAMPIRE_ACID );
 	m_pTypeInfo[SKILL_ACID_ERUPTION].SetMP( 60 );
 	m_pTypeInfo[SKILL_ACID_ERUPTION].SetLearnLevel( 80 );
 	m_pTypeInfo[SKILL_ACID_ERUPTION].AddNextSkill( SKILL_TALON_OF_CROW );
 
-	m_pTypeInfo[SKILL_TALON_OF_CROW].Set(sid++, "Talon Of Crow", 0, 0, 337,"吸血神鸦");
+	m_pTypeInfo[SKILL_TALON_OF_CROW].Set(sid++, "Talon Of Crow", 0, 0, 337,"脦眉脩陋脡帽脩禄");
 	m_pTypeInfo[SKILL_TALON_OF_CROW].SetVampireSkill();
 	m_pTypeInfo[SKILL_TALON_OF_CROW].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[SKILL_TALON_OF_CROW].SetMP( 20 );
 	m_pTypeInfo[SKILL_TALON_OF_CROW].SetLearnLevel( 86 );
 	m_pTypeInfo[SKILL_TALON_OF_CROW].AddNextSkill( MAGIC_HOWL );
 
-	m_pTypeInfo[MAGIC_HOWL].Set(sid++, "Howl", 0, 0, 122,"战争咆哮");
+	m_pTypeInfo[MAGIC_HOWL].Set(sid++, "Howl", 0, 0, 122,"脮陆脮霉脜脴脧酶");
 	m_pTypeInfo[MAGIC_HOWL].SetVampireSkill();
 	m_pTypeInfo[MAGIC_HOWL].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[MAGIC_HOWL].SetMP( 10 );
 	m_pTypeInfo[MAGIC_HOWL].SetLearnLevel( 40 );
 	m_pTypeInfo[MAGIC_HOWL].AddNextSkill( MAGIC_DEATH );
 	
-	m_pTypeInfo[MAGIC_DEATH].Set(sid++, "Death", 0, 0, 86,"致死术");
+	m_pTypeInfo[MAGIC_DEATH].Set(sid++, "Death", 0, 0, 86,"脰脗脣脌脢玫");
 	m_pTypeInfo[MAGIC_DEATH].SetVampireSkill();
 	m_pTypeInfo[MAGIC_DEATH].SetSkillStep( SKILL_STEP_VAMPIRE_CURSE );
 	m_pTypeInfo[MAGIC_DEATH].SetMP( 55 );
 	m_pTypeInfo[MAGIC_DEATH].SetLearnLevel( 79 );
 	m_pTypeInfo[MAGIC_DEATH].AddNextSkill( MAGIC_HALLUCINATION );
 
-	m_pTypeInfo[MAGIC_HALLUCINATION].Set(sid++, "Hallucination", 0, 0, 85,"迷幻术");
+	m_pTypeInfo[MAGIC_HALLUCINATION].Set(sid++, "Hallucination", 0, 0, 85,"脙脭禄脙脢玫");
 	m_pTypeInfo[MAGIC_HALLUCINATION].SetVampireSkill();
 	m_pTypeInfo[MAGIC_HALLUCINATION].SetSkillStep( SKILL_STEP_VAMPIRE_CURSE );
 	m_pTypeInfo[MAGIC_HALLUCINATION].SetMP( 40 );
 	m_pTypeInfo[MAGIC_HALLUCINATION].SetLearnLevel( 120 );
 	m_pTypeInfo[MAGIC_HALLUCINATION].AddNextSkill( MAGIC_BLOODY_SPEAR );
 	
-	m_pTypeInfo[MAGIC_BLOODY_SPEAR].Set(sid++, "Bloody Spear", 0, 0, 169,"血矛");
+	m_pTypeInfo[MAGIC_BLOODY_SPEAR].Set(sid++, "Bloody Spear", 0, 0, 169,"脩陋脙卢");
 	m_pTypeInfo[MAGIC_BLOODY_SPEAR].SetVampireSkill();
 	m_pTypeInfo[MAGIC_BLOODY_SPEAR].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 	m_pTypeInfo[MAGIC_BLOODY_SPEAR].SetMP( 90 );
 	m_pTypeInfo[MAGIC_BLOODY_SPEAR].SetLearnLevel( 94 );
 	m_pTypeInfo[MAGIC_BLOODY_SPEAR].AddNextSkill( MAGIC_BLOODY_WALL );
 
-	m_pTypeInfo[MAGIC_BLOODY_WALL].Set(sid++, "Bloody Wall", 0, 0, 168,"血墙");
+	m_pTypeInfo[MAGIC_BLOODY_WALL].Set(sid++, "Bloody Wall", 0, 0, 168,"脩陋脟陆");
 	m_pTypeInfo[MAGIC_BLOODY_WALL].SetVampireSkill();
 	m_pTypeInfo[MAGIC_BLOODY_WALL].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 	m_pTypeInfo[MAGIC_BLOODY_WALL].SetMP( 75 );
 	m_pTypeInfo[MAGIC_BLOODY_WALL].SetLearnLevel( 95 );
 	m_pTypeInfo[MAGIC_BLOODY_WALL].AddNextSkill( SKILL_MEPHISTO );	
 	
-	m_pTypeInfo[SKILL_MEPHISTO].Set(sid++, "Mephistopheles", 0, 0, 171,"死亡契约");
+	m_pTypeInfo[SKILL_MEPHISTO].Set(sid++, "Mephistopheles", 0, 0, 171,"脣脌脥枚脝玫脭录");
 	m_pTypeInfo[SKILL_MEPHISTO].SetVampireSkill();
 	m_pTypeInfo[SKILL_MEPHISTO].SetSkillStep( SKILL_STEP_VAMPIRE_SUMMON );
 	m_pTypeInfo[SKILL_MEPHISTO].SetMP( 90 );
 	m_pTypeInfo[SKILL_MEPHISTO].SetLearnLevel( 96 );
 	m_pTypeInfo[SKILL_MEPHISTO].AddNextSkill( MAGIC_BLOODY_BREAKER );
 
-	m_pTypeInfo[MAGIC_BLOODY_BREAKER].Set(0, "Bloody Breaker", 0, 0, 243,"血腥破坏");
+	m_pTypeInfo[MAGIC_BLOODY_BREAKER].Set(0, "Bloody Breaker", 0, 0, 243,"脩陋脨脠脝脝禄碌");
 	m_pTypeInfo[MAGIC_BLOODY_BREAKER].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 	m_pTypeInfo[MAGIC_BLOODY_BREAKER].SetVampireSkill();
 	m_pTypeInfo[MAGIC_BLOODY_BREAKER].SetMP( 60 );
@@ -1399,14 +1399,14 @@ MSkillInfoTable::MSkillInfoTable()
 //	m_pTypeInfo[MAGIC_BLOODY_BREAKER].AddNextSkill( SKILL_BLOODY_STRIKE );
 	m_pTypeInfo[MAGIC_BLOODY_BREAKER].AddNextSkill( MAGIC_BLOODY_ZENITH );
 
-	m_pTypeInfo[MAGIC_BLOODY_ZENITH].Set(0, "Bloody Zenith", 0, 0, 318,"血腥巅峰");
+	m_pTypeInfo[MAGIC_BLOODY_ZENITH].Set(0, "Bloody Zenith", 0, 0, 318,"脩陋脨脠谩脹路氓");
 	m_pTypeInfo[MAGIC_BLOODY_ZENITH].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 	m_pTypeInfo[MAGIC_BLOODY_ZENITH].SetVampireSkill();
 	m_pTypeInfo[MAGIC_BLOODY_ZENITH].SetMP( 60 );
 	m_pTypeInfo[MAGIC_BLOODY_ZENITH].SetLearnLevel( 110 );
 	m_pTypeInfo[MAGIC_BLOODY_ZENITH].AddNextSkill( MAGIC_METEOR );
 
-//	m_pTypeInfo[SKILL_BLOODY_STRIKE].Set(sid++, "Bloody Strike", 0, 0, 136,"喉矾叼 胶飘扼捞农");
+//	m_pTypeInfo[SKILL_BLOODY_STRIKE].Set(sid++, "Bloody Strike", 0, 0, 136,"潞铆路炉碌冒 陆潞脝庐露贸脌脤脜漏");
 //	m_pTypeInfo[SKILL_BLOODY_STRIKE].SetVampireSkill();
 //	m_pTypeInfo[SKILL_BLOODY_STRIKE].SetSkillStep( SKILL_STEP_VAMPIRE_BLOOD );
 //	m_pTypeInfo[SKILL_BLOODY_STRIKE].SetMP( 76 );
@@ -1434,7 +1434,7 @@ MSkillInfoTable::MSkillInfoTable()
 //	m_pTypeInfo[MAGIC_SUMMON_SERVANT].SetLearnLevel( 100 );
 //	m_pTypeInfo[MAGIC_SUMMON_SERVANT].AddNextSkill( MAGIC_METEOR );	
 
-	m_pTypeInfo[MAGIC_METEOR].Set(sid++, "Meteor Strike", 0, 0, 242,"陨石术");
+	m_pTypeInfo[MAGIC_METEOR].Set(sid++, "Meteor Strike", 0, 0, 242,"脭脡脢炉脢玫");
 	m_pTypeInfo[MAGIC_METEOR].SetVampireSkill();
 	m_pTypeInfo[MAGIC_METEOR].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[MAGIC_METEOR].SetMP( 70 );
@@ -1455,48 +1455,48 @@ MSkillInfoTable::MSkillInfoTable()
 //	m_pTypeInfo[SKILL_BLOODY_STORM].SetLearnLevel( 100 );
 //	m_pTypeInfo[SKILL_BLOODY_STORM].AddNextSkill( SKILL_SOUL_CHAIN );
 
-	// 2004, 9, 8, sobeit add start - 轨颇捞绢 130 胶懦
-	m_pTypeInfo[SKILL_VIOLENT_PHANTOM].Set(sid++, "Violent phantom", 0, 0, 392,"暴力幻影");
+	// 2004, 9, 8, sobeit add start - 鹿矛脝脛脌脤戮卯 130 陆潞脜鲁
+	m_pTypeInfo[SKILL_VIOLENT_PHANTOM].Set(sid++, "Violent phantom", 0, 0, 392,"卤漏脕娄禄脙脫掳");
 	m_pTypeInfo[SKILL_VIOLENT_PHANTOM].SetVampireSkill();
 	m_pTypeInfo[SKILL_VIOLENT_PHANTOM].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[SKILL_VIOLENT_PHANTOM].SetMP( 20 );
 	m_pTypeInfo[SKILL_VIOLENT_PHANTOM].SetLearnLevel( 130 );
 	m_pTypeInfo[SKILL_VIOLENT_PHANTOM].AddNextSkill( SKILL_SUMMON_GORE_GLAND );
 
-	m_pTypeInfo[SKILL_SUMMON_GORE_GLAND].Set(sid++, "Summon Gore gland", 0, 0, 393,"招唤-血腥脉管");
+	m_pTypeInfo[SKILL_SUMMON_GORE_GLAND].Set(sid++, "Summon Gore gland", 0, 0, 393,"脮脨禄陆-脩陋脨脠脗枚鹿脺");
 	m_pTypeInfo[SKILL_SUMMON_GORE_GLAND].SetVampireSkill();
 	m_pTypeInfo[SKILL_SUMMON_GORE_GLAND].SetSkillStep( SKILL_STEP_VAMPIRE_SUMMON );
 	m_pTypeInfo[SKILL_SUMMON_GORE_GLAND].SetMP( 20 );
 	m_pTypeInfo[SKILL_SUMMON_GORE_GLAND].SetLearnLevel( 130 );
 //	m_pTypeInfo[SKILL_SUMMON_GORE_GLAND].AddNextSkill( SKILL_SOUL_CHAIN );
 	m_pTypeInfo[SKILL_SUMMON_GORE_GLAND].AddNextSkill( SKILL_SET_AFIRE );
-	// 2004, 9, 8, sobeit add end - 轨颇捞绢 130 胶懦
+	// 2004, 9, 8, sobeit add end - 鹿矛脝脛脌脤戮卯 130 陆潞脜鲁
 
-	// 2004, 11, 11, sobeit add start - 轨颇捞绢 140 胶懦
-	m_pTypeInfo[SKILL_SET_AFIRE].Set(sid++, "Set Afire", 0, 0, 463,"点燃");
+	// 2004, 11, 11, sobeit add start - 鹿矛脝脛脌脤戮卯 140 陆潞脜鲁
+	m_pTypeInfo[SKILL_SET_AFIRE].Set(sid++, "Set Afire", 0, 0, 463,"碌茫脠录");
 	m_pTypeInfo[SKILL_SET_AFIRE].SetVampireSkill();
 	m_pTypeInfo[SKILL_SET_AFIRE].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
 	m_pTypeInfo[SKILL_SET_AFIRE].SetMP( 20 );
 	m_pTypeInfo[SKILL_SET_AFIRE].SetLearnLevel( 140 );
 	m_pTypeInfo[SKILL_SET_AFIRE].AddNextSkill( SKILL_NOOSE_OF_WRAITH );
 
-	m_pTypeInfo[SKILL_NOOSE_OF_WRAITH].Set(sid++, "Noose of Wraith", 0, 0, 464, "缚魂术");
+	m_pTypeInfo[SKILL_NOOSE_OF_WRAITH].Set(sid++, "Noose of Wraith", 0, 0, 464, "赂驴禄锚脢玫");
 	m_pTypeInfo[SKILL_NOOSE_OF_WRAITH].SetVampireSkill();
 	m_pTypeInfo[SKILL_NOOSE_OF_WRAITH].SetSkillStep( SKILL_STEP_VAMPIRE_SUMMON );
 	m_pTypeInfo[SKILL_NOOSE_OF_WRAITH].SetMP( 20 );
 	m_pTypeInfo[SKILL_NOOSE_OF_WRAITH].SetLearnLevel( 140 );
 	m_pTypeInfo[SKILL_NOOSE_OF_WRAITH].AddNextSkill( SKILL_ABERRATION );
-	// 2004, 11, 11, sobeit add end - 轨颇捞绢 140 胶懦
+	// 2004, 11, 11, sobeit add end - 鹿矛脝脛脌脤戮卯 140 陆潞脜鲁
 
-	//2005.1.5 by csm  2瞒 傈流 轨颇捞绢 胶懦眠啊 
-	m_pTypeInfo[SKILL_ABERRATION].Set(sid++, "Aberration", 0, 0, 475, "心态失常");
+	//2005.1.5 by csm  2脗梅 脌眉脕梅 鹿矛脝脛脌脤戮卯 陆潞脜鲁脙脽掳隆 
+	m_pTypeInfo[SKILL_ABERRATION].Set(sid++, "Aberration", 0, 0, 475, "脨脛脤卢脢搂鲁拢");
 	m_pTypeInfo[SKILL_ABERRATION].SetVampireSkill();
 	m_pTypeInfo[SKILL_ABERRATION].SetSkillStep( SKILL_STEP_VAMPIRE_ADVANCEMENT );
 	m_pTypeInfo[SKILL_ABERRATION].SetMP( 20 );
 	m_pTypeInfo[SKILL_ABERRATION].SetLearnLevel( 150 );
 	m_pTypeInfo[SKILL_ABERRATION].AddNextSkill( SKILL_WILD_WOLF );
 
-	m_pTypeInfo[SKILL_WILD_WOLF].Set(sid++, "Wild Wolf", 0, 0, 474, "野狼");
+	m_pTypeInfo[SKILL_WILD_WOLF].Set(sid++, "Wild Wolf", 0, 0, 474, "脪掳脌脟");
 	m_pTypeInfo[SKILL_WILD_WOLF].SetVampireSkill();
 	m_pTypeInfo[SKILL_WILD_WOLF].SetSkillStep( SKILL_STEP_VAMPIRE_ADVANCEMENT );
 	m_pTypeInfo[SKILL_WILD_WOLF].SetMP( 20 );
@@ -1507,7 +1507,7 @@ MSkillInfoTable::MSkillInfoTable()
 	// 2007-2-15 add by coffee start
 	m_pTypeInfo[SKILL_WILD_WOLF].AddNextSkill( SKILL_BLLODY_SCARIFY );
 
-	m_pTypeInfo[SKILL_BLLODY_SCARIFY].Set(150, "Bloody Scarify", 0, 0, 505, "血之烙印");
+	m_pTypeInfo[SKILL_BLLODY_SCARIFY].Set(150, "Bloody Scarify", 0, 0, 505, "脩陋脰庐脌脫脫隆");
 	m_pTypeInfo[SKILL_BLLODY_SCARIFY].SetVampireSkill();
 	m_pTypeInfo[SKILL_BLLODY_SCARIFY].SetSkillStep( SKILL_STEP_VAMPIRE_ADVANCEMENT );
 	m_pTypeInfo[SKILL_BLLODY_SCARIFY].SetMP( 120 );
@@ -1520,7 +1520,7 @@ MSkillInfoTable::MSkillInfoTable()
 #ifdef __NEW_SKILL__
 	// 2007-2-15 add by coffee end
 	// 2007-2-25  add by coffee start
-	m_pTypeInfo[SKILL_BLOOD_CURSE].Set(150, "Blood Curse", 0, 0, 506, "血之诅咒");
+	m_pTypeInfo[SKILL_BLOOD_CURSE].Set(150, "Blood Curse", 0, 0, 506, "脩陋脰庐脳莽脰盲");
 	m_pTypeInfo[SKILL_BLOOD_CURSE].SetVampireSkill();
 	m_pTypeInfo[SKILL_BLOOD_CURSE].SetSkillStep( SKILL_STEP_VAMPIRE_ADVANCEMENT );
 	m_pTypeInfo[SKILL_BLOOD_CURSE].SetMP( 70 );
@@ -1531,57 +1531,57 @@ MSkillInfoTable::MSkillInfoTable()
 	// end
 
 	//----------------------------------------------------------------------
-	// 酒快胶磐令
+	// 戮脝驴矛陆潞脜脥脕卯
 	//----------------------------------------------------------------------
 	sid = 0;
 	int skillID;
 
 	int NumSkillIcon = 259;
 	skillID = SKILL_FLOURISH;
-	m_pTypeInfo[skillID].Set(sid++, "FLOURISH", 7, 21, NumSkillIcon++,"活跃攻击");
+	m_pTypeInfo[skillID].Set(sid++, "FLOURISH", 7, 21, NumSkillIcon++,"禄卯脭戮鹿楼禄梅");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_EVADE );
 	
 	skillID = SKILL_EVADE;
-	m_pTypeInfo[skillID].Set(sid++, "EVADE", 22, 84, NumSkillIcon++,"回避术");
+	m_pTypeInfo[skillID].Set(sid++, "EVADE", 22, 84, NumSkillIcon++,"禄脴卤脺脢玫");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SHARP_ROUND);
 	
 	skillID = SKILL_SHARP_ROUND;
-	m_pTypeInfo[skillID].Set(sid++, "SHARP_ROUND", 151, 81, NumSkillIcon++,"旋风烈斩");
+	m_pTypeInfo[skillID].Set(sid++, "SHARP_ROUND", 151, 81, NumSkillIcon++,"脨媒路莽脕脪脮露");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_HIDE_SIGHT);
 	
 	skillID = SKILL_HIDE_SIGHT;
-	m_pTypeInfo[skillID].Set(sid++, "HIDE_SIGHT", 168, 272, NumSkillIcon++,"精确打击");
+	m_pTypeInfo[skillID].Set(sid++, "HIDE_SIGHT", 168, 272, NumSkillIcon++,"戮芦脠路麓貌禄梅");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_BACK_STAB);
 	
 	skillID = SKILL_BACK_STAB;
-	m_pTypeInfo[skillID].Set(sid++, "BACK_STAB", 17, 144, NumSkillIcon++,"背刺");
+	m_pTypeInfo[skillID].Set(sid++, "BACK_STAB", 17, 144, NumSkillIcon++,"卤鲁麓脤");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_BLUNTING);
 	
 	skillID = SKILL_BLUNTING;
-	m_pTypeInfo[skillID].Set(sid++, "BLUNTING", 213, 95, NumSkillIcon++,"防御崩坏");
+	m_pTypeInfo[skillID].Set(sid++, "BLUNTING", 213, 95, NumSkillIcon++,"路脌脫霉卤脌禄碌");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_GAMMA_CHOP);
 	
 	skillID = SKILL_GAMMA_CHOP;
-	m_pTypeInfo[skillID].Set(sid++, "GAMMA_CHOP", 271, 219, NumSkillIcon++,"伽玛斩");
+	m_pTypeInfo[skillID].Set(sid++, "GAMMA_CHOP", 271, 219, NumSkillIcon++,"脵陇脗锚脮露");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_CROSS_GUARD);
 	
 	skillID = SKILL_CROSS_GUARD;
-	m_pTypeInfo[skillID].Set(sid++, "CROSS_GUARD", 71, 199, NumSkillIcon++,"十字护卫");
+	m_pTypeInfo[skillID].Set(sid++, "CROSS_GUARD", 71, 199, NumSkillIcon++,"脢庐脳脰禄陇脦脌");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_KASAS_ARROW);
@@ -1591,250 +1591,250 @@ MSkillInfoTable::MSkillInfoTable()
 	//////////////////////////////////////////////////////////////////////////
 	
 	skillID = SKILL_KASAS_ARROW;
-	m_pTypeInfo[skillID].Set(sid++, "KASAS_ARROW", 298,	34, NumSkillIcon++,"卡萨之箭");
+	m_pTypeInfo[skillID].Set(sid++, "KASAS_ARROW", 298,	34, NumSkillIcon++,"驴篓脠酶脰庐录媒");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_HANDS_OF_FIRE);
 	
 	skillID = SKILL_HANDS_OF_FIRE;
-	m_pTypeInfo[skillID].Set(sid++, "HANDS_OF_FIRE", 403, 153, NumSkillIcon++,"火焰之触");
+	m_pTypeInfo[skillID].Set(sid++, "HANDS_OF_FIRE", 403, 153, NumSkillIcon++,"禄冒脩忙脰庐麓楼");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_PROMINENCE);
 	
 	skillID = SKILL_PROMINENCE;
-	m_pTypeInfo[skillID].Set(sid++, "PROMINENCE", 166, 285, NumSkillIcon++,"地狱火海");
+	m_pTypeInfo[skillID].Set(sid++, "PROMINENCE", 166, 285, NumSkillIcon++,"碌脴脫眉禄冒潞拢");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_RING_OF_FLARE);
 	
 	skillID = SKILL_RING_OF_FLARE;
-	m_pTypeInfo[skillID].Set(sid++, "RING_OF_FLARE", 190, 345, NumSkillIcon++,"光耀之环");
+	m_pTypeInfo[skillID].Set(sid++, "RING_OF_FLARE", 190, 345, NumSkillIcon++,"鹿芒脪芦脰庐禄路");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_BLAZE_BOLT);
 	
 	skillID = SKILL_BLAZE_BOLT;
-	m_pTypeInfo[skillID].Set(sid++, "BLAZE_BOLT", 288, 424, NumSkillIcon++,"烈焰之矢");
+	m_pTypeInfo[skillID].Set(sid++, "BLAZE_BOLT", 288, 424, NumSkillIcon++,"脕脪脩忙脰庐脢赂");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_ICE_FIELD);
 	
 	skillID = SKILL_ICE_FIELD;
-	m_pTypeInfo[skillID].Set(sid++, "ICE_FIELD", 129, 157, NumSkillIcon++,"冰之领域");
+	m_pTypeInfo[skillID].Set(sid++, "ICE_FIELD", 129, 157, NumSkillIcon++,"卤霉脰庐脕矛脫貌");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_WATER_BARRIER);
 	
 	skillID = SKILL_WATER_BARRIER;
-	m_pTypeInfo[skillID].Set(sid++, "WATER_BARRIER", 112, 223, NumSkillIcon++,"水之壁障");
+	m_pTypeInfo[skillID].Set(sid++, "WATER_BARRIER", 112, 223, NumSkillIcon++,"脣庐脰庐卤脷脮脧");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_HANDS_OF_NIZIE);
 	
 	skillID = SKILL_HANDS_OF_NIZIE;
-	m_pTypeInfo[skillID].Set(sid++, "HANDS_OF_NIZIE", 357, 257, NumSkillIcon++,"水神之触");
+	m_pTypeInfo[skillID].Set(sid++, "HANDS_OF_NIZIE", 357, 257, NumSkillIcon++,"脣庐脡帽脰庐麓楼");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_NYMPH_RECOVERY);
 	
 	skillID = SKILL_NYMPH_RECOVERY;
-	m_pTypeInfo[skillID].Set(sid++, "NYMPH_RECOVERY", 438, 289, NumSkillIcon++,"治愈女神");
+	m_pTypeInfo[skillID].Set(sid++, "NYMPH_RECOVERY", 438, 289, NumSkillIcon++,"脰脦脫煤脜庐脡帽");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_LIBERTY);
 	
 	skillID = SKILL_LIBERTY;
-	m_pTypeInfo[skillID].Set(sid++, "LIBERTY", 201, 407, NumSkillIcon++,"诅咒净化");
+	m_pTypeInfo[skillID].Set(sid++, "LIBERTY", 201, 407, NumSkillIcon++,"脳莽脰盲戮禄禄炉");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_TENDRIL);
 	
 	skillID = SKILL_TENDRIL;
-	m_pTypeInfo[skillID].Set(sid++, "TENDRIL", 304, 104, NumSkillIcon++,"藤蔓");
+	m_pTypeInfo[skillID].Set(sid++, "TENDRIL", 304, 104, NumSkillIcon++,"脤脵脗没");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_GNOMES_WHISPER);
 	
 	skillID = SKILL_GNOMES_WHISPER;
-	m_pTypeInfo[skillID].Set(sid++, "GNOMES_WHISPER", 222, 160, NumSkillIcon++,"真实视野");
+	m_pTypeInfo[skillID].Set(sid++, "GNOMES_WHISPER", 222, 160, NumSkillIcon++,"脮忙脢碌脢脫脪掳");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_STONE_AUGER);
 	
 	skillID = SKILL_STONE_AUGER;
-	m_pTypeInfo[skillID].Set(sid++, "STONE_AUGER", 308, 161, NumSkillIcon++,"石钻冲击");
+	m_pTypeInfo[skillID].Set(sid++, "STONE_AUGER", 308, 161, NumSkillIcon++,"脢炉脳锚鲁氓禄梅");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_REFUSAL_ETHER);
 	
 	skillID = SKILL_REFUSAL_ETHER;
-	m_pTypeInfo[skillID].Set(sid++, "REFUSAL_ETHER", 245, 296, NumSkillIcon++,"净化之息");
+	m_pTypeInfo[skillID].Set(sid++, "REFUSAL_ETHER", 245, 296, NumSkillIcon++,"戮禄禄炉脰庐脧垄");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_EARTHS_TEETH);
 	
 	skillID = SKILL_EARTHS_TEETH;
-	m_pTypeInfo[skillID].Set(sid++, "EARTHS_TEETH", 376, 425, NumSkillIcon++,"大地之牙");
+	m_pTypeInfo[skillID].Set(sid++, "EARTHS_TEETH", 376, 425, NumSkillIcon++,"麓贸碌脴脰庐脩脌");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_ABSORB_SOUL);
 	
 	skillID = SKILL_ABSORB_SOUL;
-	m_pTypeInfo[skillID].Set(sid++, "ABSORB_SOUL", MAKELONG(159, 13), MAKELONG(17, 14), NumSkillIcon++,"灵魂吸收");
+	m_pTypeInfo[skillID].Set(sid++, "ABSORB_SOUL", MAKELONG(159, 13), MAKELONG(17, 14), NumSkillIcon++,"脕茅禄锚脦眉脢脮");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ETC );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SUMMON_SYLPH);
 	
 	skillID = SKILL_SUMMON_SYLPH;
-	m_pTypeInfo[skillID].Set(sid++, "SUMMON_SYLPH", MAKELONG(76, 148), MAKELONG(17, 30), NumSkillIcon++,"召唤-精灵");
+	m_pTypeInfo[skillID].Set(sid++, "SUMMON_SYLPH", MAKELONG(76, 148), MAKELONG(17, 30), NumSkillIcon++,"脮脵禄陆-戮芦脕茅");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ETC );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_DRIFTING_SOUL);
 	
 	skillID = SKILL_DRIFTING_SOUL;
-	m_pTypeInfo[skillID].Set(sid++, "DRIFTING_SOUL", 266, 232, NumSkillIcon++,"灵魂漂流");
+	m_pTypeInfo[skillID].Set(sid++, "DRIFTING_SOUL", 266, 232, NumSkillIcon++,"脕茅禄锚脝炉脕梅");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_CRITICAL_MAGIC);
 	
 	skillID = SKILL_CRITICAL_MAGIC;
-	m_pTypeInfo[skillID].Set(sid++, "CRITICAL_MAGIC", 240, 492, NumSkillIcon++,"魔法爆击");
+	m_pTypeInfo[skillID].Set(sid++, "CRITICAL_MAGIC", 240, 492, NumSkillIcon++,"脛搂路篓卤卢禄梅");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_EMISSION_WATER);
 
 	skillID = SKILL_EMISSION_WATER;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_EMISSION_WATER", 71, 94, 309,"液体喷发");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_EMISSION_WATER", 71, 94, 309,"脪潞脤氓脜莽路垄");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_BEAT_HEAD);
 
 	skillID = SKILL_BEAT_HEAD;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_BEAT_HEAD", 229, 84, 310,"致命打击");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_BEAT_HEAD", 229, 84, 310,"脰脗脙眉麓貌禄梅");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );	
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_FIRE_OF_SOUL_STONE);
 
 	skillID = SKILL_FIRE_OF_SOUL_STONE;
-	m_pTypeInfo[skillID].Set(sid++, "FIRE_OF_SOUL_STONE", 110, 138, NumSkillIcon++,"火之灵石");
+	m_pTypeInfo[skillID].Set(sid++, "FIRE_OF_SOUL_STONE", 110, 138, NumSkillIcon++,"禄冒脰庐脕茅脢炉");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_ICE_OF_SOUL_STONE);
 	
 	skillID = SKILL_ICE_OF_SOUL_STONE;
-	m_pTypeInfo[skillID].Set(sid++, "ICE_OF_SOUL_STONE", 94, 258, NumSkillIcon++,"冰之灵石");
+	m_pTypeInfo[skillID].Set(sid++, "ICE_OF_SOUL_STONE", 94, 258, NumSkillIcon++,"卤霉脰庐脕茅脢炉");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SAND_OF_SOUL_STONE);
 	
 	skillID = SKILL_SAND_OF_SOUL_STONE;
-	m_pTypeInfo[skillID].Set(sid++, "SAND_OF_SOUL_STONE", 204, 213,   NumSkillIcon++,"沙之灵石");
+	m_pTypeInfo[skillID].Set(sid++, "SAND_OF_SOUL_STONE", 204, 213,   NumSkillIcon++,"脡鲁脰庐脕茅脢炉");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_BLOCK_HEAD);
 	
 	skillID = SKILL_BLOCK_HEAD;
-	m_pTypeInfo[skillID].Set(sid++, "BLOCK_HEAD", 226, 156, NumSkillIcon++,"眩晕");
+	m_pTypeInfo[skillID].Set(sid++, "BLOCK_HEAD", 226, 156, NumSkillIcon++,"脩拢脭脦");
 	m_pTypeInfo[skillID].SetOustersSkill();	
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_DIVINE_SPIRITS );
 	
 	skillID = SKILL_DIVINE_SPIRITS;
-	m_pTypeInfo[skillID].Set(sid++, "DIVINE_SPIRITS", MAKELONG(85, 154), MAKELONG(78, 98),  311,"神之精灵");
+	m_pTypeInfo[skillID].Set(sid++, "DIVINE_SPIRITS", MAKELONG(85, 154), MAKELONG(78, 98),  311,"脡帽脰庐戮芦脕茅");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ETC );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_TELEPORT );
 
 	skillID = SKILL_TELEPORT;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_TELEPORT",  MAKELONG(141, 271),MAKELONG(195, 357) , 357,"瞬间移动");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_TELEPORT",  MAKELONG(141, 271),MAKELONG(195, 357) , 357,"脣虏录盲脪脝露炉");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ETC );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SOUL_REBIRTH );
 
 	skillID = SKILL_SOUL_REBIRTH;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_SOUL_REBIRTH", 368, 347, 358,"复活");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_SOUL_REBIRTH", 368, 347, 358,"赂麓禄卯");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_ICE_LANCE );
 
 	skillID = SKILL_ICE_LANCE;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_ICE_LANCE", 337, 515, 359,"疾风冰矛");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_ICE_LANCE", 337, 515, 359,"录虏路莽卤霉脙卢");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_ICE_LANCE_MASTERY );
 
 	skillID = SKILL_ICE_LANCE_MASTERY;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_ICE_LANCE_MASTERY", 337, 800, 359,"疾风冰矛熟练度");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_ICE_LANCE_MASTERY", 337, 800, 359,"录虏路莽卤霉脙卢脢矛脕路露脠");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_EXPLOSION_WATER );
 
 	skillID = SKILL_EXPLOSION_WATER;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_EXPLOSION_WATER", 455, 621, 360,"制约喷泉");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_EXPLOSION_WATER", 455, 621, 360,"脰脝脭录脜莽脠陋");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_FROZEN_ARMOR );
 
 	skillID = SKILL_FROZEN_ARMOR;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_FROZEN_ARMOR", 399, 561, 361,"寒冰护甲");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_FROZEN_ARMOR", 399, 561, 361,"潞庐卤霉禄陇录脳");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_FIRE_PIERCING );
 
 	skillID = SKILL_FIRE_PIERCING;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_FIRE_PIERCING", 233, 555, 362,"烈焰指");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_FIRE_PIERCING", 233, 555, 362,"脕脪脩忙脰赂");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SUMMON_OF_FIRE_ELEMENTAL );
 
 	skillID = SKILL_SUMMON_OF_FIRE_ELEMENTAL;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_SUMMON_OF_FIRE_ELEMENTAL", 199, 617, 363,"召唤-火元素");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_SUMMON_OF_FIRE_ELEMENTAL", 199, 617, 363,"脮脵禄陆-禄冒脭陋脣脴");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_MAGNUM_SPEAR );
 
 	skillID = SKILL_MAGNUM_SPEAR;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_MAGNUM_SPEAR",294, 591, 364,"赤雨流焰");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_MAGNUM_SPEAR",294, 591, 364,"鲁脿脫锚脕梅脩忙");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_MAGNUM_SPEAR_MASTERY );
 
 	skillID = SKILL_MAGNUM_SPEAR_MASTERY;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_MAGNUM_SPEAR_MASTERY",263, 800, 364,"赤雨流焰熟练度");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_MAGNUM_SPEAR_MASTERY",263, 800, 364,"鲁脿脫锚脕梅脩忙脢矛脕路露脠");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_HELLFIRE );
 
 	skillID = SKILL_HELLFIRE;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_HELLFIRE", 204, 702, 365,"地狱火");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_HELLFIRE", 204, 702, 365,"碌脴脫眉禄冒");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 //	m_pTypeInfo[skillID].AddNextSkill( SKILL_SUMMON_OF_WATER_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SUMMON_MIGA );
 
 	skillID = SKILL_SUMMON_MIGA;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_SUMMON_MIGA", 204, 860, 466,"招唤-Miga");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_SUMMON_MIGA", 204, 860, 466,"脮脨禄陆-Miga");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SUMMON_OF_WATER_ELEMENTAL );
 
 	skillID = SKILL_SUMMON_OF_WATER_ELEMENTAL;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_SUMMON_OF_WATER_ELEMENTAL", 378, 621, 366,"召唤-水元素");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_SUMMON_OF_WATER_ELEMENTAL", 378, 621, 366,"脮脵禄陆-脣庐脭陋脣脴");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SOUL_REBIRTH_MASTERY );
 
 	skillID = SKILL_SOUL_REBIRTH_MASTERY;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_SOUL_REBIRTH_MASTERY", 416, 688, 367,"复活强化熟练度");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_SOUL_REBIRTH_MASTERY", 416, 688, 367,"赂麓禄卯脟驴禄炉脢矛脕路露脠");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
@@ -1842,135 +1842,135 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_ICE_HORIZON );
 
 	skillID = SKILL_ICE_HORIZON;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_ICE_HORIZON", 416, 860, 467,"冰冻地平线");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_ICE_HORIZON", 416, 860, 467,"卤霉露鲁碌脴脝陆脧脽");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_REACTIVE_ARMOR );
 
 	skillID = SKILL_REACTIVE_ARMOR;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_REACTIVE_ARMOR", 139, 521, 368,"大地护甲");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_REACTIVE_ARMOR", 139, 521, 368,"麓贸碌脴禄陇录脳");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_REACTIVE_ARMOR_MASTERY );
 
 	skillID = SKILL_REACTIVE_ARMOR_MASTERY;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_REACTIVE_ARMOR_MASTERY", 139, 800, 368,"大地护甲熟练度");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_REACTIVE_ARMOR_MASTERY", 139, 800, 368,"麓贸碌脴禄陇录脳脢矛脕路露脠");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_GROUND_BLESS );
 
 	skillID = SKILL_GROUND_BLESS;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_GROUND_BLESS", 85 , 583, 369,"大地祝福");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_GROUND_BLESS", 85 , 583, 369,"麓贸碌脴脳拢赂拢");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SUMMON_OF_GROUND_ELEMENTAL );
 
 	skillID = SKILL_SUMMON_OF_GROUND_ELEMENTAL;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_SUMMON_OF_GROUND_ELEMENTAL", 37 ,650, 370,"神耀印记");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_SUMMON_OF_GROUND_ELEMENTAL", 37 ,650, 370,"脡帽脪芦脫隆录脟");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_METEOR_STORM );
 
 	skillID = SKILL_METEOR_STORM;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_METEOR_STORM", 100, 702, 371,"流星雨");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_METEOR_STORM", 100, 702, 371,"脕梅脨脟脫锚");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 //	m_pTypeInfo[skillID].AddNextSkill( SKILL_SHARP_CHAKRAM );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_FURY_OF_GNOME );
 
 	skillID = SKILL_FURY_OF_GNOME;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_FURY_OF_GNOME", 100, 860, 468,"大地之怒");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_FURY_OF_GNOME", 100, 860, 468,"麓贸碌脴脰庐脜颅");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_ELEMENTAL );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SHARP_CHAKRAM );
 
 	skillID = SKILL_SHARP_CHAKRAM;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_SHARP_CHAKRAM",34, 291, 372,"锐利之轮");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_SHARP_CHAKRAM",34, 291, 372,"脠帽脌没脰庐脗脰");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SHIFT_BREAK );
 
 	skillID = SKILL_SHIFT_BREAK;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_SHIFT_BREAK", 154,331 , 373,"回旋斩");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_SHIFT_BREAK", 154,331 , 373,"禄脴脨媒脮露");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_WATER_SHIELD );
 
 	skillID = SKILL_WATER_SHIELD;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_WATER_SHIELD", 263, 287, 374,"水之祈祷");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_WATER_SHIELD", 263, 287, 374,"脣庐脰庐脝铆碌禄");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_DESTRUCTION_SPEAR );
 
 	skillID = SKILL_DESTRUCTION_SPEAR;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_DESTRUCTION_SPEAR", 84, 352, 375,"致命爆发");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_DESTRUCTION_SPEAR", 84, 352, 375,"脰脗脙眉卤卢路垄");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_DESTRUCTION_SPEAR_MASTERY );
 	
 	skillID = SKILL_DESTRUCTION_SPEAR_MASTERY;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_DESTRUCTION_SPEAR_MASTERY", 84, 510, 375,"致命爆发熟练度");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_DESTRUCTION_SPEAR_MASTERY", 84, 510, 375,"脰脗脙眉卤卢路垄脢矛脕路露脠");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_BLESS_FIRE );
 
 	skillID = SKILL_BLESS_FIRE;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_BLESS_FIRE", 210, 380, 376,"火之祈祷");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_BLESS_FIRE", 210, 380, 376,"禄冒脰庐脝铆碌禄");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_FATAL_SNICK );
 
 	skillID = SKILL_FATAL_SNICK;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_FATAL_SNICK", 340, 343, 377,"致残之蛇");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_FATAL_SNICK", 340, 343, 377,"脰脗虏脨脰庐脡脽");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_FATAL_SNICK_MASTERY );
 
 	skillID = SKILL_FATAL_SNICK_MASTERY;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_FATAL_SNICK_MASTERY", 340, 510, 377,"致残之蛇熟练度");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_FATAL_SNICK_MASTERY", 340, 510, 377,"脰脗虏脨脰庐脡脽脢矛脕路露脠");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SAND_CROSS );
 
 	skillID = SKILL_SAND_CROSS;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_SAND_CROSS", 47, 413, 378,"沙之祈祷");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_SAND_CROSS", 47, 413, 378,"脡鲁脰庐脝铆碌禄");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetPassive();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_DUCKING_WALLOP );
 
 	skillID = SKILL_DUCKING_WALLOP;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_DUCKING_WALLOP", 152, 412, 379,"光速冲击");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_DUCKING_WALLOP", 152, 412, 379,"鹿芒脣脵鲁氓禄梅");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_CHARGING_ATTACK );
 
 	skillID = SKILL_CHARGING_ATTACK;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_CHARGING_ATTACK", 285, 409, 380,"精灵之怒");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_CHARGING_ATTACK", 285, 409, 380,"戮芦脕茅脰庐脜颅");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_DISTANCE_BLITZ );
 
 	skillID = SKILL_DISTANCE_BLITZ;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_DISTANCE_BLITZ", 224, 450, 381,"雷神斩");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_DISTANCE_BLITZ", 224, 450, 381,"脌脳脡帽脮露");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 //	m_pTypeInfo[skillID].AddNextSkill( SKILL_SOUL_CHAIN );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SHARP_HAIL );
 
 	skillID = SKILL_SHARP_HAIL;
-	m_pTypeInfo[skillID].Set(sid++, "SKILL_SHARP_HAIL", 224, 565, 465,"尖锐冰雹");
+	m_pTypeInfo[skillID].Set(sid++, "SKILL_SHARP_HAIL", 224, 565, 465,"录芒脠帽卤霉卤垄");
 	m_pTypeInfo[skillID].SetOustersSkill();
 	m_pTypeInfo[skillID].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT );
 	m_pTypeInfo[skillID].AddNextSkill( SKILL_SOUL_CHAIN );
 
-	//扁鸥 拌凯
-	m_pTypeInfo[SKILL_SOUL_CHAIN].Set(sid++, "Soul Chain", MAKELONG(250, 400), MAKELONG(20,40), 175,"灵魂锁链");
+	//卤芒脜赂 掳猫驴颅
+	m_pTypeInfo[SKILL_SOUL_CHAIN].Set(sid++, "Soul Chain", MAKELONG(250, 400), MAKELONG(20,40), 175,"脕茅禄锚脣酶脕麓");
 //	m_pTypeInfo[SKILL_SOUL_CHAIN].SetVampireSkill();
 	m_pTypeInfo[SKILL_SOUL_CHAIN].SetSkillStep( SKILL_STEP_ETC );
 //	m_pTypeInfo[SKILL_SOUL_CHAIN].SetSkillStep( SKILL_STEP_VAMPIRE_INNATE );
@@ -1980,14 +1980,14 @@ MSkillInfoTable::MSkillInfoTable()
 	
 	
 	
-	m_pTypeInfo[SKILL_MAGIC_ELUSION].Set(sid++, "Magic Elusion", 0, 0, 226,"魔法回避");
+	m_pTypeInfo[SKILL_MAGIC_ELUSION].Set(sid++, "Magic Elusion", 0, 0, 226,"脛搂路篓禄脴卤脺");
 	m_pTypeInfo[SKILL_MAGIC_ELUSION].SetSlayerSkill();
 	m_pTypeInfo[SKILL_MAGIC_ELUSION].SetSkillStep( SKILL_STEP_ETC );
 	m_pTypeInfo[SKILL_MAGIC_ELUSION].SetMP( 50 );
 	m_pTypeInfo[SKILL_MAGIC_ELUSION].SetLearnLevel( 0 );
 	m_pTypeInfo[SKILL_MAGIC_ELUSION].AddNextSkill( SKILL_ILLUSION_OF_AVENGE );
 
-	m_pTypeInfo[SKILL_ILLUSION_OF_AVENGE].Set(sid++, "Illusion Of Avenge", 0, 0, 227,"复仇幻想");
+	m_pTypeInfo[SKILL_ILLUSION_OF_AVENGE].Set(sid++, "Illusion Of Avenge", 0, 0, 227,"赂麓鲁冒禄脙脧毛");
 	m_pTypeInfo[SKILL_ILLUSION_OF_AVENGE].SetSlayerSkill();
 	m_pTypeInfo[SKILL_ILLUSION_OF_AVENGE].SetSkillStep( SKILL_STEP_ETC );
 	m_pTypeInfo[SKILL_ILLUSION_OF_AVENGE].SetMP( 50 );
@@ -1995,21 +1995,21 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[SKILL_ILLUSION_OF_AVENGE].AddNextSkill( SKILL_POISON_MESH );
 
 
-	m_pTypeInfo[SKILL_POISON_MESH].Set(sid++, "Poison Mesh", 0, 0, 228,"毒网");
+	m_pTypeInfo[SKILL_POISON_MESH].Set(sid++, "Poison Mesh", 0, 0, 228,"露戮脥酶");
 	m_pTypeInfo[SKILL_POISON_MESH].SetSlayerSkill();
 	m_pTypeInfo[SKILL_POISON_MESH].SetSkillStep( SKILL_STEP_ETC );
 	m_pTypeInfo[SKILL_POISON_MESH].SetMP( 50 );
 	m_pTypeInfo[SKILL_POISON_MESH].SetLearnLevel( 0 );
 	m_pTypeInfo[SKILL_POISON_MESH].AddNextSkill( SKILL_WILL_OF_LIFE );
 
-	m_pTypeInfo[SKILL_WILL_OF_LIFE].Set(sid++, "Will Of Life", 0, 0, 229,"生命意志");
+	m_pTypeInfo[SKILL_WILL_OF_LIFE].Set(sid++, "Will Of Life", 0, 0, 229,"脡煤脙眉脪芒脰戮");
 	m_pTypeInfo[SKILL_WILL_OF_LIFE].SetSlayerSkill();
 	m_pTypeInfo[SKILL_WILL_OF_LIFE].SetSkillStep( SKILL_STEP_ETC );
 	m_pTypeInfo[SKILL_WILL_OF_LIFE].SetMP( 50 );
 	m_pTypeInfo[SKILL_WILL_OF_LIFE].SetLearnLevel( 0 );
 	m_pTypeInfo[SKILL_WILL_OF_LIFE].AddNextSkill( SKILL_DELEO_EFFICIO );
 
-	// 2004, 9, 4, sobeit add start - 酒快胶磐令 傍己傈 胶懦
+	// 2004, 9, 4, sobeit add start - 戮脝驴矛陆潞脜脥脕卯 掳酶录潞脌眉 陆潞脜鲁
 	m_pTypeInfo[SKILL_DELEO_EFFICIO].Set(sid++, "Deleo Efficio", 0, 0, 385,"Deleo Efficio"); // 385
 	m_pTypeInfo[SKILL_DELEO_EFFICIO].SetOustersSkill();
 	m_pTypeInfo[SKILL_DELEO_EFFICIO].SetSkillStep( SKILL_STEP_ETC );
@@ -2024,62 +2024,62 @@ MSkillInfoTable::MSkillInfoTable()
 	m_pTypeInfo[SKILL_REPUTO_FACTUM].SetLearnLevel( 0 );
 	m_pTypeInfo[SKILL_REPUTO_FACTUM].AddNextSkill( SKILL_HALO );
 	//m_pTypeInfo[SKILL_REPUTO_FACTUM].AddNextSkill( SKILL_WILL_OF_LIFE );
-	// 2004, 9, 4, sobeit add end - 酒快胶磐令 傍己傈 胶懦
+	// 2004, 9, 4, sobeit add end - 戮脝驴矛陆潞脜脥脕卯 掳酶录潞脌眉 陆潞脜鲁
 	
-	// 酒快胶磐令 铰流 胶懦
-	// By csm 酒快胶磐令 铰流 傍烹 胶懦 
-	m_pTypeInfo[SKILL_HALO].Set(sid++, "halo", 0, 0, 476,"光晕"); 
+	// 戮脝驴矛陆潞脜脥脕卯 陆脗脕梅 陆潞脜鲁
+	// By csm 戮脝驴矛陆潞脜脥脕卯 陆脗脕梅 掳酶脜毛 陆潞脜鲁 
+	m_pTypeInfo[SKILL_HALO].Set(sid++, "halo", 0, 0, 476,"鹿芒脭脦"); 
 	m_pTypeInfo[SKILL_HALO].SetOustersSkill();
 	m_pTypeInfo[SKILL_HALO].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT_ADVANCEMENT );
 	m_pTypeInfo[SKILL_HALO].SetMP( 50 );
 	m_pTypeInfo[SKILL_HALO].SetLearnLevel( 150 );
 	m_pTypeInfo[SKILL_HALO].AddNextSkill( SKILL_DESTINIES );
 
-	m_pTypeInfo[SKILL_DESTINIES].Set(sid++, "Destinies", 0, 0, 477,"命运"); 
+	m_pTypeInfo[SKILL_DESTINIES].Set(sid++, "Destinies", 0, 0, 477,"脙眉脭脣"); 
 	m_pTypeInfo[SKILL_DESTINIES].SetOustersSkill();
 	m_pTypeInfo[SKILL_DESTINIES].SetSkillStep( SKILL_STEP_OUSTERS_EARTH_ADVANCEMENT );
 	m_pTypeInfo[SKILL_DESTINIES].SetMP( 50 );
 	m_pTypeInfo[SKILL_DESTINIES].SetLearnLevel( 150 );
 	m_pTypeInfo[SKILL_DESTINIES].AddNextSkill( SKILL_FIERCE_FLAME );
 
-	m_pTypeInfo[SKILL_FIERCE_FLAME].Set(sid++, "Fierce Flame", 0, 0, 478,"烈火"); 
+	m_pTypeInfo[SKILL_FIERCE_FLAME].Set(sid++, "Fierce Flame", 0, 0, 478,"脕脪禄冒"); 
 	m_pTypeInfo[SKILL_FIERCE_FLAME].SetOustersSkill();
 	m_pTypeInfo[SKILL_FIERCE_FLAME].SetSkillStep( SKILL_STEP_OUSTERS_FIRE_ADVANCEMENT );
 	m_pTypeInfo[SKILL_FIERCE_FLAME].SetMP( 50 );
 	m_pTypeInfo[SKILL_FIERCE_FLAME].SetLearnLevel( 150 );
 	m_pTypeInfo[SKILL_FIERCE_FLAME].AddNextSkill( SKILL_SHADOW_OF_STORM );
 
-	m_pTypeInfo[SKILL_SHADOW_OF_STORM].Set(sid++, "Shadow Of Storm", 0, 0, 479,"风暴之影"); 
+	m_pTypeInfo[SKILL_SHADOW_OF_STORM].Set(sid++, "Shadow Of Storm", 0, 0, 479,"路莽卤漏脰庐脫掳"); 
 	m_pTypeInfo[SKILL_SHADOW_OF_STORM].SetOustersSkill();
 	m_pTypeInfo[SKILL_SHADOW_OF_STORM].SetSkillStep( SKILL_STEP_OUSTERS_WATER_ADVANCEMENT );
 	m_pTypeInfo[SKILL_SHADOW_OF_STORM].SetMP( 50 );
 	m_pTypeInfo[SKILL_SHADOW_OF_STORM].SetLearnLevel( 150 );
 
-	// add by Coffee 2007-5-1 魔灵火法新技能
+	// add by Coffee 2007-5-1 脛搂脕茅禄冒路篓脨脗录录脛脺
 	m_pTypeInfo[SKILL_SHADOW_OF_STORM].AddNextSkill( SKILL_DUMMY_DRAKE );
 
-	m_pTypeInfo[SKILL_DUMMY_DRAKE].Set(sid++, "Dummy Drake", 0, 0, 508,"德雷克傀儡"); 
+	m_pTypeInfo[SKILL_DUMMY_DRAKE].Set(sid++, "Dummy Drake", 0, 0, 508,"碌脗脌脳驴脣驴镁脌脺"); 
 	m_pTypeInfo[SKILL_DUMMY_DRAKE].SetOustersSkill();
 	m_pTypeInfo[SKILL_DUMMY_DRAKE].SetSkillStep( SKILL_STEP_OUSTERS_FIRE_ADVANCEMENT );
 	m_pTypeInfo[SKILL_DUMMY_DRAKE].SetMP( 100 );
 	m_pTypeInfo[SKILL_DUMMY_DRAKE].SetLearnLevel( 150 );
 	m_pTypeInfo[SKILL_DUMMY_DRAKE].AddNextSkill( SKILL_HYDRO_CONVERGENCE );
-	// 水法
-	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].Set(sid++, "Hydro Convergence", 0, 0, 509,"复合水疗"); 
+	// 脣庐路篓
+	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].Set(sid++, "Hydro Convergence", 0, 0, 509,"赂麓潞脧脣庐脕脝"); 
 	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].SetOustersSkill();
 	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].SetSkillStep( SKILL_STEP_OUSTERS_WATER_ADVANCEMENT );
 	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].SetMP( 100 );
 	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].SetLearnLevel( 150 );
 	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].AddNextSkill( SKILL_SUMMON_CLAY );
-	// 土法
-	m_pTypeInfo[SKILL_SUMMON_CLAY].Set(sid++, "Summon Clay", 0 ,0, 510,"粘土召唤");
+	// 脥脕路篓
+	m_pTypeInfo[SKILL_SUMMON_CLAY].Set(sid++, "Summon Clay", 0 ,0, 510,"脮鲁脥脕脮脵禄陆");
 	m_pTypeInfo[SKILL_SUMMON_CLAY].SetOustersSkill();
 	m_pTypeInfo[SKILL_SUMMON_CLAY].SetSkillStep( SKILL_STEP_OUSTERS_EARTH_ADVANCEMENT );
 	m_pTypeInfo[SKILL_SUMMON_CLAY].SetMP( 100 );
 	m_pTypeInfo[SKILL_SUMMON_CLAY].SetLearnLevel( 150 );
 	m_pTypeInfo[SKILL_SUMMON_CLAY].AddNextSkill( SKILL_HETER_CHAKRAM );
-	// 敏战
-	m_pTypeInfo[SKILL_HETER_CHAKRAM].Set(sid++, "Heter Chakram", 0 ,0, 507,"夏布利基因");
+	// 脙么脮陆
+	m_pTypeInfo[SKILL_HETER_CHAKRAM].Set(sid++, "Heter Chakram", 0 ,0, 507,"脧脛虏录脌没禄霉脪貌");
 	m_pTypeInfo[SKILL_HETER_CHAKRAM].SetOustersSkill();
 	m_pTypeInfo[SKILL_HETER_CHAKRAM].SetSkillStep( SKILL_STEP_OUSTERS_COMBAT_ADVANCEMENT );
 	m_pTypeInfo[SKILL_HETER_CHAKRAM].SetMP( 75 );
@@ -2091,171 +2091,171 @@ MSkillInfoTable::MSkillInfoTable()
 	
 	//----------------------------------------------------------------------
 	//
-	//							扁鸥 扁贱甸
+	//							卤芒脜赂 卤芒录煤碌茅
 	//
 	//----------------------------------------------------------------------
-	// SkillTree俊绰 救 绝瘤父, Icon阑 急琶秦辑 荤侩且 荐 乐绰 扁贱甸
+	// SkillTree驴隆麓脗 戮脠 戮酶脕枚赂赂, Icon脌禄 录卤脜脙脟脴录颅 禄莽驴毛脟脪 录枚 脌脰麓脗 卤芒录煤碌茅
 	//----------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------
-	// 己荐 带瘤扁
+	// 录潞录枚 麓酶脕枚卤芒
 	//----------------------------------------------------------------------
-	m_pTypeInfo[MAGIC_THROW_HOLY_WATER].Set(0, "Throw Holy Water", 0, 0,  101,"圣水投掷");
+	m_pTypeInfo[MAGIC_THROW_HOLY_WATER].Set(0, "Throw Holy Water", 0, 0,  101,"脢楼脣庐脥露脰脌");
 	m_pTypeInfo[MAGIC_THROW_HOLY_WATER].SetMP( 0 );
 
-	// 磐房 傍拜
-	m_pTypeInfo[SKILL_TURRET_FIRE].Set(0, "Turret Fire", 0, 0, 389,"炮塔火力");
+	// 脜脥路驴 掳酶掳脻
+	m_pTypeInfo[SKILL_TURRET_FIRE].Set(0, "Turret Fire", 0, 0, 389,"脜脷脣镁禄冒脕娄");
 	m_pTypeInfo[SKILL_TURRET_FIRE].SetMP( 0 );
 	//----------------------------------------------------------------------
-	// 器呕
+	// 脝梅脜禄
 	//----------------------------------------------------------------------
-	m_pTypeInfo[SUMMON_HELICOPTER].Set(0, "Call Helicopter", 0, 0,  115,"招唤-直升机");
+	m_pTypeInfo[SUMMON_HELICOPTER].Set(0, "Call Helicopter", 0, 0,  115,"脮脨禄陆-脰卤脡媒禄煤");
 	m_pTypeInfo[SUMMON_HELICOPTER].SetMP( 0 );
 
 	//----------------------------------------------------------------------
-	// 软趋
+	// 脠铆脟梅
 	//----------------------------------------------------------------------
-	m_pTypeInfo[SKILL_BLOOD_DRAIN].Set(0, "Blood Drain", 0, 0,  102,"吸血");
+	m_pTypeInfo[SKILL_BLOOD_DRAIN].Set(0, "Blood Drain", 0, 0,  102,"脦眉脩陋");
 	m_pTypeInfo[SKILL_BLOOD_DRAIN].SetVampireSkill();
 	m_pTypeInfo[SKILL_BLOOD_DRAIN].SetMP( 0 );
 
 	//----------------------------------------------------------------------
-	// 气藕 
+	// 脝酶脜潞 
 	//----------------------------------------------------------------------	
-	m_pTypeInfo[BOMB_SPLINTER].Set(0, "Bomb-Splinter", 0, 0, 137,"子母炸弹");
+	m_pTypeInfo[BOMB_SPLINTER].Set(0, "Bomb-Splinter", 0, 0, 137,"脳脫脛赂脮篓碌炉");
 	m_pTypeInfo[BOMB_SPLINTER].SetMP( 0 );
 
-	m_pTypeInfo[BOMB_ACER].Set(0, "Bomb-Acer", 0, 0, 138,"精英炸弹");
+	m_pTypeInfo[BOMB_ACER].Set(0, "Bomb-Acer", 0, 0, 138,"戮芦脫垄脮篓碌炉");
 	m_pTypeInfo[BOMB_ACER].SetMP( 0 );
 
-	m_pTypeInfo[BOMB_BULLS].Set(0, "Bomb-Bulls", 0, 0, 139,"公牛炸弹");
+	m_pTypeInfo[BOMB_BULLS].Set(0, "Bomb-Bulls", 0, 0, 139,"鹿芦脜拢脮篓碌炉");
 	m_pTypeInfo[BOMB_BULLS].SetMP( 0 );
 
-	m_pTypeInfo[BOMB_STUN].Set(0, "Bomb-Stun", 0, 0, 140,"致盲炸弹");
+	m_pTypeInfo[BOMB_STUN].Set(0, "Bomb-Stun", 0, 0, 140,"脰脗脙陇脮篓碌炉");
 	m_pTypeInfo[BOMB_STUN].SetMP( 0 );
 
-	m_pTypeInfo[BOMB_CROSSBOW].Set(0, "Bomb-Crossbow", 0, 0, 141,"弩弓炸弹");
+	m_pTypeInfo[BOMB_CROSSBOW].Set(0, "Bomb-Crossbow", 0, 0, 141,"氓贸鹿颅脮篓碌炉");
 	m_pTypeInfo[BOMB_CROSSBOW].SetMP( 0 );
 
-	m_pTypeInfo[BOMB_TWISTER].Set(0, "Bomb-Twister", 0, 0, 142,"扭曲炸弹");
+	m_pTypeInfo[BOMB_TWISTER].Set(0, "Bomb-Twister", 0, 0, 142,"脜陇脟煤脮篓碌炉");
 	m_pTypeInfo[BOMB_TWISTER].SetMP( 0 );
 
 	//----------------------------------------------------------------------
-	// 瘤汾
+	// 脕枚路脷
 	//----------------------------------------------------------------------
-	m_pTypeInfo[MINE_ANKLE_KILLER].Set(0, "Mine-AnkleKiller", 0, 0, 143,"地雷-AnkleKiller");
+	m_pTypeInfo[MINE_ANKLE_KILLER].Set(0, "Mine-AnkleKiller", 0, 0, 143,"碌脴脌脳-AnkleKiller");
 	m_pTypeInfo[MINE_ANKLE_KILLER].SetMP( 0 );
 	
-	m_pTypeInfo[MINE_POMZ].Set(0, "Mine-Pomz", 0, 0, 144,"地雷Pomz");
+	m_pTypeInfo[MINE_POMZ].Set(0, "Mine-Pomz", 0, 0, 144,"碌脴脌脳Pomz");
 	m_pTypeInfo[MINE_POMZ].SetMP( 0 );
 
-	m_pTypeInfo[MINE_AP_C1].Set(0, "Mine-AP-C1", 0, 0, 145,"地雷AP-C1");
+	m_pTypeInfo[MINE_AP_C1].Set(0, "Mine-AP-C1", 0, 0, 145,"碌脴脌脳AP-C1");
 	m_pTypeInfo[MINE_AP_C1].SetMP( 0 );
 	
-	m_pTypeInfo[MINE_DIAMONDBACK].Set(0, "Mine-DiamondBack", 0, 0, 146,"地雷DiamondBack");
+	m_pTypeInfo[MINE_DIAMONDBACK].Set(0, "Mine-DiamondBack", 0, 0, 146,"碌脴脌脳DiamondBack");
 	m_pTypeInfo[MINE_DIAMONDBACK].SetMP( 0 );
 
-	m_pTypeInfo[MINE_SWIFT_EX].Set(0, "Mine-Swift-EX", 0, 0, 147,"地雷Swift-EX");
+	m_pTypeInfo[MINE_SWIFT_EX].Set(0, "Mine-Swift-EX", 0, 0, 147,"碌脴脌脳Swift-EX");
 	m_pTypeInfo[MINE_SWIFT_EX].SetMP( 0 );
 
-	m_pTypeInfo[MINE_SIDEWINDER].Set(0, "Mine-SideWinder", 0, 0, 148,"地雷SideWinder");
+	m_pTypeInfo[MINE_SIDEWINDER].Set(0, "Mine-SideWinder", 0, 0, 148,"碌脴脌脳SideWinder");
 	m_pTypeInfo[MINE_SIDEWINDER].SetMP( 0 );
 
-	m_pTypeInfo[MINE_COBRA].Set(0, "Mine-Cobra", 0, 0, 149,"地雷Cobra");
+	m_pTypeInfo[MINE_COBRA].Set(0, "Mine-Cobra", 0, 0, 149,"碌脴脌脳Cobra");
 	m_pTypeInfo[MINE_COBRA].SetMP( 0 );
 
 	//----------------------------------------------------------------------
-	// 戳措 扁贱
+	// 麓脕麓毛 卤芒录煤
 	//----------------------------------------------------------------------
-	m_pTypeInfo[MAGIC_EAT_CORPSE].Set(0, "Eat Corpse", 0, 0, 123,"吞噬尸体");
+	m_pTypeInfo[MAGIC_EAT_CORPSE].Set(0, "Eat Corpse", 0, 0, 123,"脥脤脢脡脢卢脤氓");
 	m_pTypeInfo[MAGIC_EAT_CORPSE].SetVampireSkill();
 	m_pTypeInfo[MAGIC_EAT_CORPSE].SetMP( 0 );
 
 	
-	m_pTypeInfo[SKILL_BITE_OF_DEATH].Set(0, "Bite Of Death",0 , 0, 341,"死亡之吻");
+	m_pTypeInfo[SKILL_BITE_OF_DEATH].Set(0, "Bite Of Death",0 , 0, 341,"脣脌脥枚脰庐脦脟");
 	m_pTypeInfo[SKILL_BITE_OF_DEATH].SetVampireSkill();
 	m_pTypeInfo[SKILL_BITE_OF_DEATH].SetMP( 0 );
 
 	//----------------------------------------------------------------------
-	// 函脚 秦力
+	// 潞炉陆脜 脟脴脕娄
 	//----------------------------------------------------------------------
-	// 戳措 函脚 秦力
-	// 冠零 函脚 秦力
-	m_pTypeInfo[MAGIC_UN_TRANSFORM].Set(0, "Untransform", 0, 0, 103,"还原");
+	// 麓脕麓毛 潞炉陆脜 脟脴脕娄
+	// 鹿脷脕茫 潞炉陆脜 脟脴脕娄
+	m_pTypeInfo[MAGIC_UN_TRANSFORM].Set(0, "Untransform", 0, 0, 103,"禄鹿脭颅");
 	m_pTypeInfo[MAGIC_UN_TRANSFORM].SetVampireSkill();
 	m_pTypeInfo[MAGIC_UN_TRANSFORM].SetMP( 0 );
 	
-		// Invisible 秦力
-	m_pTypeInfo[MAGIC_UN_INVISIBILITY].Set(0, "Uninvisiblity", 0, 0, 104,"现形");
+		// Invisible 脟脴脕娄
+	m_pTypeInfo[MAGIC_UN_INVISIBILITY].Set(0, "Uninvisiblity", 0, 0, 104,"脧脰脨脦");
 	m_pTypeInfo[MAGIC_UN_INVISIBILITY].SetVampireSkill();
 	m_pTypeInfo[MAGIC_UN_INVISIBILITY].SetMP( 0 );
 
 	//----------------------------------------------------------------------
-	// 包俊辑 唱啊扁 [货扁贱3]
+	// 掳眉驴隆录颅 鲁陋掳隆卤芒 [禄玫卤芒录煤3]
 	//----------------------------------------------------------------------
-	m_pTypeInfo[MAGIC_OPEN_CASKET].Set(0, "Open Casket", 0, 0, 103,"开棺");
+	m_pTypeInfo[MAGIC_OPEN_CASKET].Set(0, "Open Casket", 0, 0, 103,"驴陋鹿脳");
 	m_pTypeInfo[MAGIC_OPEN_CASKET].SetVampireSkill();
 	m_pTypeInfo[MAGIC_OPEN_CASKET].SetMP( 0 );
 
 	//----------------------------------------------------------------------
 	// HolyLandBonus Skills
 	//----------------------------------------------------------------------
-	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_ARMEGA].Set(0, "Blood Bible Armega", 0, 0, 230,"血之圣书 基罗");
+	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_ARMEGA].Set(0, "Blood Bible Armega", 0, 0, 230,"脩陋脰庐脢楼脢茅 禄霉脗脼");
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_ARMEGA].SetVampireSkill();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_ARMEGA].SetPassive();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_ARMEGA].SetMP( 0 );
 
-	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_MIHOLE].Set(0, "Blood Bible MIhole", 0, 0, 231,"血之圣书 阿伊尼");
+	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_MIHOLE].Set(0, "Blood Bible MIhole", 0, 0, 231,"脩陋脰庐脢楼脢茅 掳垄脪脕脛谩");
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_MIHOLE].SetVampireSkill();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_MIHOLE].SetPassive();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_MIHOLE].SetMP( 0 );
 
-	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_KIRO].Set(0, "Blood Bible Kiro", 0, 0, 232,"血之圣书 格雷高厉");
+	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_KIRO].Set(0, "Blood Bible Kiro", 0, 0, 232,"脩陋脰庐脢楼脢茅 赂帽脌脳赂脽脌梅");
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_KIRO].SetVampireSkill();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_KIRO].SetPassive();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_KIRO].SetMP( 0 );
 
-	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_INI].Set(0, "Blood Bible Ini", 0, 0, 233,"圣书 孔切里亚");
+	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_INI].Set(0, "Blood Bible Ini", 0, 0, 233,"脢楼脢茅 驴脳脟脨脌茂脩脟");
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_INI].SetVampireSkill();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_INI].SetPassive();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_INI].SetMP( 0 );
 
-	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_GREGORI].Set(0, "Blood Bible Gregori", 0, 0, 234,"血之圣书 雷吉奥斯");
+	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_GREGORI].Set(0, "Blood Bible Gregori", 0, 0, 234,"脩陋脰庐脢楼脢茅 脌脳录陋掳脗脣鹿");
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_GREGORI].SetVampireSkill();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_GREGORI].SetPassive();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_GREGORI].SetMP( 0 );
 
-	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_CONCILIA].Set(0, "Blood Bible Concilia", 0, 0, 235,"血之圣书 希而里");
+	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_CONCILIA].Set(0, "Blood Bible Concilia", 0, 0, 235,"脩陋脰庐脢楼脢茅 脧拢露酶脌茂");
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_CONCILIA].SetVampireSkill();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_CONCILIA].SetPassive();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_CONCILIA].SetMP( 0 );
 
-	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_LEGIOS].Set(0, "Blood Bible Legios", 0, 0, 236,"血之圣书 加弗");
+	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_LEGIOS].Set(0, "Blood Bible Legios", 0, 0, 236,"脩陋脰庐脢楼脢茅 录脫赂楼");
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_LEGIOS].SetVampireSkill();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_LEGIOS].SetPassive();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_LEGIOS].SetMP( 0 );
 
-	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_HILLEL].Set(0, "Blood Bible Hillel", 0, 0, 237,"血之圣书 内玛");
+	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_HILLEL].Set(0, "Blood Bible Hillel", 0, 0, 237,"脩陋脰庐脢楼脢茅 脛脷脗锚");
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_HILLEL].SetVampireSkill();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_HILLEL].SetPassive();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_HILLEL].SetMP( 0 );
 
-	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_JAVE].Set(0, "Blood Bible Jave", 0, 0, 238,"血之圣书 阿罗萨");
+	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_JAVE].Set(0, "Blood Bible Jave", 0, 0, 238,"脩陋脰庐脢楼脢茅 掳垄脗脼脠酶");
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_JAVE].SetVampireSkill();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_JAVE].SetPassive();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_JAVE].SetMP( 0 );
 
-	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_NEMA].Set(0, "Blood Bible Nema", 0, 0, 239,"血之圣书 察斯法");
+	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_NEMA].Set(0, "Blood Bible Nema", 0, 0, 239,"脩陋脰庐脢楼脢茅 虏矛脣鹿路篓");
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_NEMA].SetVampireSkill();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_NEMA].SetPassive();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_NEMA].SetMP( 0 );
 
-	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_AROSA].Set(0, "Blood Bible Arosa", 0, 0, 240,"血之圣书 阿罗萨");
+	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_AROSA].Set(0, "Blood Bible Arosa", 0, 0, 240,"脩陋脰庐脢楼脢茅 掳垄脗脼脠酶");
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_AROSA].SetVampireSkill();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_AROSA].SetPassive();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_AROSA].SetMP( 0 );
 
-	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_CHASPA].Set(0, "Blood Bible Chaspa", 0, 0, 241,"血之圣书 察斯帕");
+	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_CHASPA].Set(0, "Blood Bible Chaspa", 0, 0, 241,"脩陋脰庐脢楼脢茅 虏矛脣鹿脜脕");
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_CHASPA].SetVampireSkill();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_CHASPA].SetPassive();
 	m_pTypeInfo[SKILL_HOLYLAND_BLOOD_BIBLE_CHASPA].SetMP( 0 );
@@ -2322,33 +2322,33 @@ MSkillInfoTable::MSkillInfoTable()
 
 
 	//------------------------------------------------------------------------------------------------
-	// EffectStatus 侩 Skill 甸
+	// EffectStatus 驴毛 Skill 碌茅
 	//------------------------------------------------------------------------------------------------
-	m_pTypeInfo[SKILL_LOVE_CHAIN].Set(0, "Love Chain", 0, 0, 245,"爱你爱你");
-	m_pTypeInfo[SKILL_TRANSLATION].Set(0, "Translation", 0, 0, 253,"语言翻译器");
-	m_pTypeInfo[SKILL_MEGAPHONE].Set(0, "Mega Phone", 0, 0, 312,"扩音机");
-	m_pTypeInfo[SKILL_MUTE].Set(0, "Mute", 0, 0, 320,"口罩");
-	m_pTypeInfo[FAMILY_BONUS].Set(0, "Family Bonus", 0, 0, 326,"公会积分");	
+	m_pTypeInfo[SKILL_LOVE_CHAIN].Set(0, "Love Chain", 0, 0, 245,"掳庐脛茫掳庐脛茫");
+	m_pTypeInfo[SKILL_TRANSLATION].Set(0, "Translation", 0, 0, 253,"脫茂脩脭路颅脪毛脝梅");
+	m_pTypeInfo[SKILL_MEGAPHONE].Set(0, "Mega Phone", 0, 0, 312,"脌漏脪么禄煤");
+	m_pTypeInfo[SKILL_MUTE].Set(0, "Mute", 0, 0, 320,"驴脷脮脰");
+	m_pTypeInfo[FAMILY_BONUS].Set(0, "Family Bonus", 0, 0, 326,"鹿芦禄谩禄媒路脰");	
 	
 
-	m_pTypeInfo[SKILL_CLIENT_CAN_ENTER_GDR_LAIR].Set(0, "Can Enter GDR Lair", 0, 0,  383,"可以进入GDR巢穴");
-	m_pTypeInfo[SKILL_CLIENT_BLINDNESS].Set(0, "Blindness", 0, 0,  78,"致盲");
-	m_pTypeInfo[SKILL_PLEASURE_EXPLOSION].Set(0, "Pleasure Station", 0, 0,  384,"愉悦引爆");
+	m_pTypeInfo[SKILL_CLIENT_CAN_ENTER_GDR_LAIR].Set(0, "Can Enter GDR Lair", 0, 0,  383,"驴脡脪脭陆酶脠毛GDR鲁虏脩篓");
+	m_pTypeInfo[SKILL_CLIENT_BLINDNESS].Set(0, "Blindness", 0, 0,  78,"脰脗脙陇");
+	m_pTypeInfo[SKILL_PLEASURE_EXPLOSION].Set(0, "Pleasure Station", 0, 0,  384,"脫盲脭脙脪媒卤卢");
 
-	m_pTypeInfo[SKILL_CLIENT_EXP_BONUS_EVENT].Set(0, "Exp Bonus", 0, 0,  483,"经验值奖励");
+	m_pTypeInfo[SKILL_CLIENT_EXP_BONUS_EVENT].Set(0, "Exp Bonus", 0, 0,  483,"戮颅脩茅脰碌陆卤脌酶");
 
-	//m_pTypeInfo[SKILL_CLIENT_DRAGON_EYES].Set(0, "Dragon Eyes", 0, 0,  384,"靛饭帮狼 传"); - 酒捞能捞 绝栏骨肺 老窜 公矫..せ
+	//m_pTypeInfo[SKILL_CLIENT_DRAGON_EYES].Set(0, "Dragon Eyes", 0, 0,  384,"碌氓路鹿掳茂脌脟 麓芦"); - 戮脝脌脤脛脺脌脤 戮酶脌赂鹿脟路脦 脌脧麓脺 鹿芦陆脙..陇禄
 	
 	
 	//----------------------------------------------------------------------
-	// Skill Step俊 蝶扼辑..
+	// Skill Step驴隆 碌没露贸录颅..
 	//----------------------------------------------------------------------
-	// m_listSkillStep阑 备己秦林搁 贸府且锭 祈窍促.
+	// m_listSkillStep脌禄 卤赂录潞脟脴脕脰赂茅 脙鲁赂庐脟脪露搂 脝铆脟脧麓脵.
 	//----------------------------------------------------------------------
 #endif
 
 	//----------------------------------------------------------------------
-	// 官差绰 沥焊甸 檬扁拳
+	// 鹿脵虏卯麓脗 脕陇潞赂碌茅 脙脢卤芒脠颅
 	//----------------------------------------------------------------------
 	Init();
 }
@@ -2378,7 +2378,7 @@ MSkillInfoTable::Init()
 	}
 
 	
-	// delay 汲沥
+	// delay 录鲁脕陇
 	m_pTypeInfo[SUMMON_HELICOPTER].SetDelayTime( 3000 );
 //	m_pTypeInfo[MAGIC_BLOODY_TUNNEL].SetDelayTime( 3000 );
 //	m_pTypeInfo[MAGIC_BLOODY_MARK].SetDelayTime( 3000 );
@@ -2415,37 +2415,37 @@ MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
 			i=i;
 		}
 
-		// 利例茄 skillType俊 loading茄促.
+		// 脌没脌媒脟脩 skillType驴隆 loading脟脩麓脵.
 		m_pTypeInfo[skillType].LoadFromFileServerSkillInfo( file );
 	}
 
-	m_pTypeInfo[MAGIC_THROW_HOLY_WATER].minRange = 8;		// 弥家 荤沥芭府
-	m_pTypeInfo[MAGIC_THROW_HOLY_WATER].maxRange = 8;		// 弥家 荤沥芭府
+	m_pTypeInfo[MAGIC_THROW_HOLY_WATER].minRange = 8;		// 脙脰录脪 禄莽脕陇掳脜赂庐
+	m_pTypeInfo[MAGIC_THROW_HOLY_WATER].maxRange = 8;		// 脙脰录脪 禄莽脕陇掳脜赂庐
 
-	m_pTypeInfo[BOMB_SPLINTER].minRange = 6;		// 弥家 荤沥芭府
-	m_pTypeInfo[BOMB_SPLINTER].maxRange = 6;		// 弥家 荤沥芭府
+	m_pTypeInfo[BOMB_SPLINTER].minRange = 6;		// 脙脰录脪 禄莽脕陇掳脜赂庐
+	m_pTypeInfo[BOMB_SPLINTER].maxRange = 6;		// 脙脰录脪 禄莽脕陇掳脜赂庐
 
-	m_pTypeInfo[BOMB_ACER].minRange = 6;		// 弥家 荤沥芭府
-	m_pTypeInfo[BOMB_ACER].maxRange = 6;		// 弥家 荤沥芭府
+	m_pTypeInfo[BOMB_ACER].minRange = 6;		// 脙脰录脪 禄莽脕陇掳脜赂庐
+	m_pTypeInfo[BOMB_ACER].maxRange = 6;		// 脙脰录脪 禄莽脕陇掳脜赂庐
 
-	m_pTypeInfo[BOMB_BULLS].minRange = 6;		// 弥家 荤沥芭府
-	m_pTypeInfo[BOMB_BULLS].maxRange = 6;		// 弥家 荤沥芭府
+	m_pTypeInfo[BOMB_BULLS].minRange = 6;		// 脙脰录脪 禄莽脕陇掳脜赂庐
+	m_pTypeInfo[BOMB_BULLS].maxRange = 6;		// 脙脰录脪 禄莽脕陇掳脜赂庐
 
-	m_pTypeInfo[BOMB_STUN].minRange = 6;		// 弥家 荤沥芭府
-	m_pTypeInfo[BOMB_STUN].maxRange = 6;		// 弥家 荤沥芭府
+	m_pTypeInfo[BOMB_STUN].minRange = 6;		// 脙脰录脪 禄莽脕陇掳脜赂庐
+	m_pTypeInfo[BOMB_STUN].maxRange = 6;		// 脙脰录脪 禄莽脕陇掳脜赂庐
 
-	m_pTypeInfo[BOMB_CROSSBOW].minRange = 6;		// 弥家 荤沥芭府
-	m_pTypeInfo[BOMB_CROSSBOW].maxRange = 6;		// 弥家 荤沥芭府
+	m_pTypeInfo[BOMB_CROSSBOW].minRange = 6;		// 脙脰录脪 禄莽脕陇掳脜赂庐
+	m_pTypeInfo[BOMB_CROSSBOW].maxRange = 6;		// 脙脰录脪 禄莽脕陇掳脜赂庐
 
-	m_pTypeInfo[BOMB_TWISTER].minRange = 6;		// 弥家 荤沥芭府
-	m_pTypeInfo[BOMB_TWISTER].maxRange = 6;		// 弥家 荤沥芭府
+	m_pTypeInfo[BOMB_TWISTER].minRange = 6;		// 脙脰录脪 禄莽脕陇掳脜赂庐
+	m_pTypeInfo[BOMB_TWISTER].maxRange = 6;		// 脙脰录脪 禄莽脕陇掳脜赂庐
 
 	m_pTypeInfo[MAGIC_RAPID_GLIDING].minRange = 2;
 	m_pTypeInfo[MAGIC_RAPID_GLIDING].maxRange = 6;
 	
 	m_pTypeInfo[SKILL_ULTIMATE_BLOW].minRange = 1;
 	m_pTypeInfo[SKILL_ULTIMATE_BLOW].maxRange = 3;
-	// add by Coffee 2007-2-25  //血之烙印
+	// add by Coffee 2007-2-25  //脩陋脰庐脌脫脫隆
 // 	SKILLDOMAIN_BLADE,
 // 	SKILLDOMAIN_SWORD,
 // 	SKILLDOMAIN_GUN,
@@ -2457,7 +2457,7 @@ MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
 
 	//modify by viva : Notice
 #ifdef __NEW_SKILL__
-	m_pTypeInfo[SKILL_BLLODY_SCARIFY].Set(150, "Bloody Scarify", 0, 0, 505, "血之烙印");
+	m_pTypeInfo[SKILL_BLLODY_SCARIFY].Set(150, "Bloody Scarify", 0, 0, 505, "脩陋脰庐脌脫脫隆");
 	m_pTypeInfo[SKILL_BLLODY_SCARIFY].DomainType = SKILLDOMAIN_VAMPIRE;
 	m_pTypeInfo[SKILL_BLLODY_SCARIFY].minDamage =60;
 	m_pTypeInfo[SKILL_BLLODY_SCARIFY].maxDamage =200;
@@ -2470,7 +2470,7 @@ MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
 	m_pTypeInfo[SKILL_BLLODY_SCARIFY].maxRange=6;
 	m_pTypeInfo[SKILL_BLLODY_SCARIFY].SetLearnLevel(150);
 
-	m_pTypeInfo[SKILL_BLOOD_CURSE].Set(150, "Blood Curse", 0, 0, 506, "血之诅咒");
+	m_pTypeInfo[SKILL_BLOOD_CURSE].Set(150, "Blood Curse", 0, 0, 506, "脩陋脰庐脳莽脰盲");
 	m_pTypeInfo[SKILL_BLOOD_CURSE].DomainType = SKILLDOMAIN_VAMPIRE;
 	m_pTypeInfo[SKILL_BLOOD_CURSE].minDamage =60;
 	m_pTypeInfo[SKILL_BLOOD_CURSE].maxDamage =220;
@@ -2483,7 +2483,7 @@ MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
 	m_pTypeInfo[SKILL_BLOOD_CURSE].maxRange=6;
 	m_pTypeInfo[SKILL_BLOOD_CURSE].SetLearnLevel(150);
 
-	m_pTypeInfo[SKILL_SHINE_SWORD].Set(150, "Shine Sword", 700, 270,  497,"闪耀之剑");
+	m_pTypeInfo[SKILL_SHINE_SWORD].Set(150, "Shine Sword", 700, 270,  497,"脡脕脪芦脰庐陆拢");
 	m_pTypeInfo[SKILL_SHINE_SWORD].DomainType = SKILLDOMAIN_SWORD;
 	m_pTypeInfo[SKILL_SHINE_SWORD].minDamage =60;
 	m_pTypeInfo[SKILL_SHINE_SWORD].maxDamage =165;
@@ -2497,7 +2497,7 @@ MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
 	m_pTypeInfo[SKILL_SHINE_SWORD].SetLearnLevel(150);
 
 
-	m_pTypeInfo[SKILL_BOMB_CRASH_WALK].Set(150, "Bomb Crash Walk", 700, 270,  499,"巨炮轰炸");
+	m_pTypeInfo[SKILL_BOMB_CRASH_WALK].Set(150, "Bomb Crash Walk", 700, 270,  499,"戮脼脜脷潞盲脮篓");
 	m_pTypeInfo[SKILL_BOMB_CRASH_WALK].DomainType = SKILLDOMAIN_BLADE;
 	m_pTypeInfo[SKILL_BOMB_CRASH_WALK].minDamage =60;
 	m_pTypeInfo[SKILL_BOMB_CRASH_WALK].maxDamage =185;
@@ -2510,7 +2510,7 @@ MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
 	m_pTypeInfo[SKILL_BOMB_CRASH_WALK].maxRange=7;
 	m_pTypeInfo[SKILL_BOMB_CRASH_WALK].SetLearnLevel(150);
 
-	m_pTypeInfo[SKILL_SATELLITE_BOMB].Set(150, "Satellite Bomb", 0, 0, 500,"卫星轰击");
+	m_pTypeInfo[SKILL_SATELLITE_BOMB].Set(150, "Satellite Bomb", 0, 0, 500,"脦脌脨脟潞盲禄梅");
 	m_pTypeInfo[SKILL_SATELLITE_BOMB].DomainType = SKILLDOMAIN_GUN;
 	m_pTypeInfo[SKILL_SATELLITE_BOMB].minDamage =60;
 	m_pTypeInfo[SKILL_SATELLITE_BOMB].maxDamage =155;
@@ -2523,7 +2523,7 @@ MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
 	m_pTypeInfo[SKILL_SATELLITE_BOMB].maxRange=7;
 	m_pTypeInfo[SKILL_SATELLITE_BOMB].SetLearnLevel(150);
 
-	m_pTypeInfo[SKILL_ILLUSION_INVERSION].Set(150, "Illusion Inversion", 700, 270,  501,"恐怖幻觉");
+	m_pTypeInfo[SKILL_ILLUSION_INVERSION].Set(150, "Illusion Inversion", 700, 270,  501,"驴脰虏脌禄脙戮玫");
 	m_pTypeInfo[SKILL_ILLUSION_INVERSION].DomainType = SKILLDOMAIN_HEAL;
 	m_pTypeInfo[SKILL_ILLUSION_INVERSION].minDamage =60;
 	m_pTypeInfo[SKILL_ILLUSION_INVERSION].maxDamage =220;
@@ -2537,7 +2537,7 @@ MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
 	m_pTypeInfo[SKILL_ILLUSION_INVERSION].SetLearnLevel(150);
 
 
-	m_pTypeInfo[SKILL_HEAVEN_GROUND].Set(150, "Heaven Ground", 700, 270,  502,"天神降临");
+	m_pTypeInfo[SKILL_HEAVEN_GROUND].Set(150, "Heaven Ground", 700, 270,  502,"脤矛脡帽陆碌脕脵");
 	m_pTypeInfo[SKILL_HEAVEN_GROUND].DomainType = SKILLDOMAIN_ENCHANT;
 	m_pTypeInfo[SKILL_HEAVEN_GROUND].minDamage =60;
 	m_pTypeInfo[SKILL_HEAVEN_GROUND].maxDamage =220;
@@ -2550,7 +2550,7 @@ MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
 	m_pTypeInfo[SKILL_HEAVEN_GROUND].maxRange=6;
 	m_pTypeInfo[SKILL_HEAVEN_GROUND].SetLearnLevel(150);
 
-	m_pTypeInfo[SKILL_DUMMY_DRAKE].Set(150, "Dummy Drake", 0, 0, 508,"德雷克傀儡"); 
+	m_pTypeInfo[SKILL_DUMMY_DRAKE].Set(150, "Dummy Drake", 0, 0, 508,"碌脗脌脳驴脣驴镁脌脺"); 
 	m_pTypeInfo[SKILL_DUMMY_DRAKE].DomainType = SKILLDOMAIN_OUSTERS;
 	m_pTypeInfo[SKILL_DUMMY_DRAKE].minDamage =60;
 	m_pTypeInfo[SKILL_DUMMY_DRAKE].maxDamage =220;
@@ -2566,7 +2566,7 @@ MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
 	m_pTypeInfo[SKILL_DUMMY_DRAKE].ElementalDomain= SKILLINFO_NODE::ELEMENTAL_DOMAIN_FIRE;
 	m_pTypeInfo[SKILL_DUMMY_DRAKE].SkillTypeList.push_back(349);
 
-	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].Set(150, "Hydro Convergence", 0, 0, 509,"复合水疗");
+	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].Set(150, "Hydro Convergence", 0, 0, 509,"赂麓潞脧脣庐脕脝");
 	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].DomainType = SKILLDOMAIN_OUSTERS;
 	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].minDamage =60;
 	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].maxDamage =150;
@@ -2582,7 +2582,7 @@ MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
 	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].ElementalDomain= SKILLINFO_NODE::ELEMENTAL_DOMAIN_WATER;
  	m_pTypeInfo[SKILL_HYDRO_CONVERGENCE].SkillTypeList.push_back(351);
 
-	m_pTypeInfo[SKILL_SUMMON_CLAY].Set(150, "Summon Clay", 0, 0, 510,"粘土召唤");
+	m_pTypeInfo[SKILL_SUMMON_CLAY].Set(150, "Summon Clay", 0, 0, 510,"脮鲁脥脕脮脵禄陆");
 	m_pTypeInfo[SKILL_SUMMON_CLAY].DomainType = SKILLDOMAIN_OUSTERS;
 	m_pTypeInfo[SKILL_SUMMON_CLAY].minDamage =60;
 	m_pTypeInfo[SKILL_SUMMON_CLAY].maxDamage =150;
@@ -2598,7 +2598,7 @@ MSkillInfoTable::LoadFromFileServerSkillInfo(class ifstream& file)
 	m_pTypeInfo[SKILL_SUMMON_CLAY].ElementalDomain= SKILLINFO_NODE::ELEMENTAL_DOMAIN_EARTH;
  	m_pTypeInfo[SKILL_SUMMON_CLAY].SkillTypeList.push_back(352);
 
-	m_pTypeInfo[SKILL_HETER_CHAKRAM].Set(150, "Heter Chakram", 0 ,0, 507,"夏布利基因");
+	m_pTypeInfo[SKILL_HETER_CHAKRAM].Set(150, "Heter Chakram", 0 ,0, 507,"脧脛虏录脌没禄霉脪貌");
 	m_pTypeInfo[SKILL_HETER_CHAKRAM].DomainType = SKILLDOMAIN_OUSTERS;
 	m_pTypeInfo[SKILL_HETER_CHAKRAM].minDamage =60;
 	m_pTypeInfo[SKILL_HETER_CHAKRAM].maxDamage =150;

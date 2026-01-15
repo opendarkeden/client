@@ -19,11 +19,11 @@ ShowTimeChecker::ShowTimeChecker()
 {
 	Loop = false;
 
-	// MinDelay ~ MaxDelay ªÁ¿Ãø°¥¬ ≤¿ «— π¯ º“∏Æ∞° ≥™æﬂ«—¥Ÿ.
+	// MinDelay ~ MaxDelay ÏÇ¨Ïù¥ÏóêÎäî Íº≠ Ìïú Î≤à ÏÜåÎ¶¨Í∞Ä ÎÇòÏïºÌïúÎã§.
 	MinDelay = 60000;
 	MaxDelay = 60000;
 
-	// StartHour∫Œ≈Õ EndHour ªÁ¿Ãø°∏∏ º“∏Æ∞° ≥≠¥Ÿ. (0~24Ω√∏È ¡æ¿œ?)
+	// StartHourÎ∂ÄÌÑ∞ EndHour ÏÇ¨Ïù¥ÏóêÎßå ÏÜåÎ¶¨Í∞Ä ÎÇúÎã§. (0~24ÏãúÎ©¥ Ï¢ÖÏùº?)
 	StartHour = 0;
 	EndHour = 24;
 
@@ -37,8 +37,8 @@ ShowTimeChecker::~ShowTimeChecker()
 //-----------------------------------------------------------------------------
 // Is Show Time
 //-----------------------------------------------------------------------------
-// MinDelay~MaxDelayªÁ¿Ã..
-// StartHour~EndHourªÁ¿Ãø° ø¨¡÷..
+// MinDelay~MaxDelayÏÇ¨Ïù¥..
+// StartHour~EndHourÏÇ¨Ïù¥Ïóê Ïó∞Ï£º..
 //-----------------------------------------------------------------------------
 bool					
 ShowTimeChecker::IsShowTime() const
@@ -46,8 +46,8 @@ ShowTimeChecker::IsShowTime() const
 	if (IsShowHour())
 	{
 		//----------------------------------------------------------------
-		// π›∫π √‚∑¬¿Ã∞≈≥™..
-		// √‚∑¬«“ Ω√∞£¿Ã ¡ˆ≥µ≥™?
+		// Î∞òÎ≥µ Ï∂úÎ†•Ïù¥Í±∞ÎÇò..
+		// Ï∂úÎ†•Ìï† ÏãúÍ∞ÑÏù¥ ÏßÄÎÇ¨ÎÇò?
 		//----------------------------------------------------------------
 		return Loop || g_CurrentTime >= NextPlayTime;		
 	}
@@ -58,9 +58,9 @@ ShowTimeChecker::IsShowTime() const
 //-----------------------------------------------------------------------------
 // IsShowHour
 //-----------------------------------------------------------------------------
-// StartHour~EndHourªÁ¿Ã∞° æ∆¥— ∞ÊøÏ..
+// StartHour~EndHourÏÇ¨Ïù¥Í∞Ä ÏïÑÎãå Í≤ΩÏö∞..
 // false : x
-// true : ∫∏ø©¡ÿ¥Ÿ. º“∏Æ≥Ω¥Ÿ.. µÓµÓ.
+// true : Î≥¥Ïó¨Ï§ÄÎã§. ÏÜåÎ¶¨ÎÇ∏Îã§.. Îì±Îì±.
 //-----------------------------------------------------------------------------
 bool					
 ShowTimeChecker::IsShowHour() const
@@ -70,7 +70,7 @@ ShowTimeChecker::IsShowHour() const
 		int hour = g_pGameTime->GetHour();
 
 		//----------------------------------------------------------------
-		// Ω√∞£¥Î √º≈©
+		// ÏãúÍ∞ÑÎåÄ Ï≤¥ÌÅ¨
 		//----------------------------------------------------------------
 		if (StartHour <= EndHour)
 		{
@@ -98,7 +98,7 @@ ShowTimeChecker::IsShowHour() const
 //-----------------------------------------------------------------------------
 // Set NextShowTime
 //-----------------------------------------------------------------------------
-// ¥Ÿ¿Ωø° √‚∑¬«“ Ω√∞£¿ª ∞·¡§«—¥Ÿ.
+// Îã§ÏùåÏóê Ï∂úÎ†•Ìï† ÏãúÍ∞ÑÏùÑ Í≤∞Ï†ïÌïúÎã§.
 //-----------------------------------------------------------------------------
 void					
 ShowTimeChecker::SetNextShowTime()
@@ -124,11 +124,11 @@ ShowTimeChecker::SaveToFile(class ofstream& file)
 {
 	file.write((const char*)&Loop, 1);
 
-	// MinDelay ~ MaxDelay ªÁ¿Ãø°¥¬ ≤¿ «— π¯ º“∏Æ∞° ≥™æﬂ«—¥Ÿ.
+	// MinDelay ~ MaxDelay ÏÇ¨Ïù¥ÏóêÎäî Íº≠ Ìïú Î≤à ÏÜåÎ¶¨Í∞Ä ÎÇòÏïºÌïúÎã§.
 	file.write((const char*)&MinDelay, 4);
 	file.write((const char*)&MaxDelay, 4);
 	
-	// StartHour∫Œ≈Õ EndHour ªÁ¿Ãø°∏∏ º“∏Æ∞° ≥≠¥Ÿ. (0~24Ω√∏È ¡æ¿œ?)
+	// StartHourÎ∂ÄÌÑ∞ EndHour ÏÇ¨Ïù¥ÏóêÎßå ÏÜåÎ¶¨Í∞Ä ÎÇúÎã§. (0~24ÏãúÎ©¥ Ï¢ÖÏùº?)
 	file.write((const char*)&StartHour, 1);
 	file.write((const char*)&EndHour, 1);
 }
@@ -141,11 +141,11 @@ ShowTimeChecker::LoadFromFile(class ifstream& file)
 {
 	file.read((char*)&Loop, 1);
 
-	// MinDelay ~ MaxDelay ªÁ¿Ãø°¥¬ ≤¿ «— π¯ º“∏Æ∞° ≥™æﬂ«—¥Ÿ.
+	// MinDelay ~ MaxDelay ÏÇ¨Ïù¥ÏóêÎäî Íº≠ Ìïú Î≤à ÏÜåÎ¶¨Í∞Ä ÎÇòÏïºÌïúÎã§.
 	file.read((char*)&MinDelay, 4);
 	file.read((char*)&MaxDelay, 4);
 	
-	// StartHour∫Œ≈Õ EndHour ªÁ¿Ãø°∏∏ º“∏Æ∞° ≥≠¥Ÿ. (0~24Ω√∏È ¡æ¿œ?)
+	// StartHourÎ∂ÄÌÑ∞ EndHour ÏÇ¨Ïù¥ÏóêÎßå ÏÜåÎ¶¨Í∞Ä ÎÇúÎã§. (0~24ÏãúÎ©¥ Ï¢ÖÏùº?)
 	file.read((char*)&StartHour, 1);
 	file.read((char*)&EndHour, 1);
 }

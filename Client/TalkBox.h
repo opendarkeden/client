@@ -64,17 +64,17 @@ class PCTalkBox : public MStringList
 		void				SetAnswerID(unsigned int id)		{ m_AnswerID = id; }
 		unsigned int		GetAnswerID() const					{ return m_AnswerID; }
 			
-		std::vector<int>	m_AnswerIDMap;	// ½Ã°£ÀÌ ¾ø¾î¼­ ¾îÂ¿ ¼ö ¾ø´Ù-_-;
+		std::vector<int>	m_AnswerIDMap;	// ì‹œê°„ì´ ì—†ì–´ì„œ ì–´ì©” ìˆ˜ ì—†ë‹¤-_-;
 
 	protected :
 		TALKBOX_TYPE		m_Type;
 
-		MString				m_Content;		// ´ëÈ­ ÁÖÁ¦
+		MString				m_Content;		// ëŒ€í™” ì£¼ì œ
 
-		unsigned int		m_NPCID;		// ´ëÈ­ÇÏ´Â NPCÀÇ ID
-		unsigned int		m_CreatureType;	// ´ëÈ­ÇÏ´Â NPCÀÇ CreatureType
-		unsigned int		m_ScriptID;		// ´ëÈ­ ID
-		unsigned int		m_AnswerID;		// ´ë´ä ¹øÈ£		
+		unsigned int		m_NPCID;		// ëŒ€í™”í•˜ëŠ” NPCì˜ ID
+		unsigned int		m_CreatureType;	// ëŒ€í™”í•˜ëŠ” NPCì˜ CreatureType
+		unsigned int		m_ScriptID;		// ëŒ€í™” ID
+		unsigned int		m_AnswerID;		// ëŒ€ë‹µ ë²ˆí˜¸		
 		
 };
 

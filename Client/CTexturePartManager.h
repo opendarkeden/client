@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------
 // CTexturePartManager.h
 //----------------------------------------------------------------------
-// Æ¯Á¤File(ASPK)¿¡ ´ëÇØ¼­
-// FileIndex(ASPKI)¸¦ ÂüÁ¶ÇØ¼­
-// ÀÏºÎÀÇ AlphaSprite¸¦ LoadÇØ¼­ »ç¿ëÇÏ°Ô ÇÏ´Â class
+// íŠ¹ì •File(ASPK)ì— ëŒ€í•´ì„œ
+// FileIndex(ASPKI)ë¥¼ ì°¸ì¡°í•´ì„œ
+// ì¼ë¶€ì˜ AlphaSpriteë¥¼ Loadí•´ì„œ ì‚¬ìš©í•˜ê²Œ í•˜ëŠ” class
 //----------------------------------------------------------------------
 
 #ifndef	__CTEXTUREPARTMANAGER_H__
@@ -23,7 +23,7 @@ class CTexturePartManager : public CPartManager<WORD, WORD, CSpriteSurface*>
 {
 	public :
 		typedef std::list<CSpriteSurface*>	SPRITESURFACE_LIST;
-		typedef std::map<int, int>			SPRITE_PALETTE;			// »ç¿ëÇÑ ½ºÇÁ¶óÀÌÆ® ¾ÆÀÌµğ°¡ ¸¶Áö¸·¿¡ »ç¿ëÇÑ ÆÄ·¹Æ® ¹øÈ£
+		typedef std::map<int, int>			SPRITE_PALETTE;			// ì‚¬ìš©í•œ ìŠ¤í”„ë¼ì´íŠ¸ ì•„ì´ë””ê°€ ë§ˆì§€ë§‰ì— ì‚¬ìš©í•œ íŒŒë ˆíŠ¸ ë²ˆí˜¸
 
 	public :
 		//CTexturePartManager(CAlphaSpritePack* pASPK, WORD partSize=100);
@@ -37,15 +37,15 @@ class CTexturePartManager : public CPartManager<WORD, WORD, CSpriteSurface*>
 		void				Init(const char* aspkFilename, WORD partSize);
 		void				Release();
 	
-		// data³»¿ëÀ» ÃÊ±âÈ­ ½ÃÅ²´Ù.
+		// dataë‚´ìš©ì„ ì´ˆê¸°í™” ì‹œí‚¨ë‹¤.
 		void				Clear();
 
 		//---------------------------------------------------
-		// aspkÀÇ id¹øÂ° AlphaSprite¸¦ ³Ñ°Ü¹Ş´Â´Ù.
+		// aspkì˜ idë²ˆì§¸ AlphaSpriteë¥¼ ë„˜ê²¨ë°›ëŠ”ë‹¤.
 		//---------------------------------------------------
 		CSpriteSurface*		GetTexture(TYPE_SPRITEID id, int index);
 
-		// AlphaSpriteÀÇ ¿ø·¡ Å©±â¸¦ ³Ñ°ÜÁØ´Ù.
+		// AlphaSpriteì˜ ì›ë˜ í¬ê¸°ë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 		int					GetWidth(TYPE_SPRITEID id)	{ return m_pWidth[id]; }
 		int					GetHeight(TYPE_SPRITEID id)	{ return m_pHeight[id]; }
 
@@ -53,24 +53,24 @@ class CTexturePartManager : public CPartManager<WORD, WORD, CSpriteSurface*>
 		int					GetSpriteHeight(TYPE_SPRITEID id)	{ return m_ASPK[id].GetHeight(); }
 
 		//---------------------------------------------------
-		// Áö¿ö¾ß ÇÒ °Íµé
+		// ì§€ì›Œì•¼ í•  ê²ƒë“¤
 		//---------------------------------------------------
 		void				DeleteRemoved();
 		int					GetUsedPalette(int spriteID);
 
 	protected :
-//		bool				m_bOpen;		// ASPK FileÀ» OpenÇß´Â°¡?
+//		bool				m_bOpen;		// ASPK Fileì„ Opení–ˆëŠ”ê°€?
 //		class ifstream		m_ASPKFile;		// ASPK File
-//		CFileIndexTable		m_ASPKIndex;	// ASPK Index Á¤º¸
+//		CFileIndexTable		m_ASPKIndex;	// ASPK Index ì •ë³´
 		CAlphaSpritePalPack	m_ASPK;			// ASPK
 
 		//CAlphaSpritePack	*m_pASPK;			// ASPK
 		
-		// Texture Ãâ·ÂÇÒ¶§ÀÇ Å©±â
+		// Texture ì¶œë ¥í• ë•Œì˜ í¬ê¸°
 		int					*m_pWidth;
 		int					*m_pHeight;
 
-		// Áö¿ö¾ßÇÒ °Íµé..
+		// ì§€ì›Œì•¼í•  ê²ƒë“¤..
 		SPRITESURFACE_LIST	m_listRemoved;
 		SPRITE_PALETTE		m_historySprPal;
 		MPalettePack		m_EffectAlphaPPK;

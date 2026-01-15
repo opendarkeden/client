@@ -36,9 +36,9 @@ CWinUpdate::~CWinUpdate()
 void
 CWinUpdate::Update()
 {
-	// ÇöÀç ½Ã°£
+	// í˜„ì¬ ì‹œê°„
 	SetCurrentTime();
 
-	// °¡Àå ÃÖ±Ù¿¡ Update()¸¦ È£ÃâÇÑ ½Ã°£À» ±â¾ï½ÃÄÑ µĞ´Ù.
+	// ê°€ì¥ ìµœê·¼ì— Update()ë¥¼ í˜¸ì¶œí•œ ì‹œê°„ì„ ê¸°ì–µì‹œì¼œ ë‘”ë‹¤.
 	m_LastTime = m_CurrentTime;
 }

@@ -24,8 +24,8 @@
 //
 // class Throwable
 //
-// Exception �� Error �� ���̽� Ŭ�����̴�. ���� �޽�� �� ����Ÿ��
-// �����س��� �ִ�.
+// Exception °ú Error ÀÇ º£ÀÌ½º Å¬·¡½ºÀÌ´Ù. °ü·Ã ¸Þ½îµå ¹× µ¥ÀÌÅ¸¸¦
+// ±¸ÇöÇØ³õ°í ÀÖ´Ù.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -101,10 +101,10 @@ private :
 
 //--------------------------------------------------------------------------------
 //
-// Throwable�� �ʿ��ϱ� ������ �Ʒ��� �����ߴ�.
-// Exception/Error�� ������ ��� �޽���� ��/�Ʒ��� ���õǾ�� �Ѵ�.
-// __END_CATCH�� Throwable�� �޼ҵ� ���ÿ� ����� �� ������ ������
-// ������ �Ѵ�.
+// ThrowableÀÌ ÇÊ¿äÇÏ±â ¶§¹®¿¡ ¾Æ·¡¿¡ Á¤ÀÇÇß´Ù.
+// Exception/Error¸¦ ´øÁö´Â ¸ðµç ¸Þ½îµåÀÇ À§/¾Æ·¡¿¡ ¸í½ÃµÇ¾î¾ß ÇÑ´Ù.
+// __END_CATCH´Â ThrowableÀÇ ¸Þ¼Òµå ½ºÅÃ¿¡ µî·ÏÇÑ ÈÄ »óÀ§·Î ´øÁö´Â
+// ¿ªÇÒÀ» ÇÑ´Ù.
 //
 //--------------------------------------------------------------------------------
 
@@ -183,10 +183,10 @@ public :
 	//
 	// I/O Exception
 	//
-	// ����, ����, IPC ����½� �߻��� �� �ִ� ����
+	// ÆÄÀÏ, ¼ÒÄÏ, IPC ÀÔÃâ·Â½Ã ¹ß»ýÇÒ ¼ö ÀÖ´Â ¿¹¿Ü
 	//
 	//////////////////////////////////////////////////////////////////////
-	// ����, ����, IPC ����½� �߻��� �� �ִ� ����
+	// ÆÄÀÏ, ¼ÒÄÏ, IPC ÀÔÃâ·Â½Ã ¹ß»ýÇÒ ¼ö ÀÖ´Â ¿¹¿Ü
 	class IOException : public Exception {
 	public :
 		IOException () throw () : Exception () {}
@@ -198,7 +198,7 @@ public :
 		//
 		// Non Blocking I/O Exception
 		//
-		// I/O �� nonblocking �� �߻��� ���
+		// I/O ½Ã nonblocking ÀÌ ¹ß»ýÇÒ °æ¿ì
 		//
 		//////////////////////////////////////////////////////////////////////
 		class NonBlockingIOException : public IOException {
@@ -212,7 +212,7 @@ public :
 		//
 		// Interrupted I/O Exception
 		//
-		// I/O �� ���ͷ�Ʈ�� �ɸ� ���
+		// I/O ½Ã ÀÎÅÍ·´Æ®°¡ °É¸° °æ¿ì
 		//
 		//////////////////////////////////////////////////////////////////////
 		class InterruptedIOException : public IOException {
@@ -226,7 +226,7 @@ public :
 		//
 		// EOF Exception
 		//
-		// I/O �� EOF �� ���� ���
+		// I/O ½Ã EOF ¸¦ ¸¸³­ °æ¿ì
 		//
 		//////////////////////////////////////////////////////////////////////
 		class EOFException : public IOException {
@@ -276,7 +276,7 @@ public :
 		//
 		// Time out Exception
 		//
-		// ���� �ð��� ������ ���
+		// ÁöÁ¤ ½Ã°£ÀÌ Áö³µÀ» °æ¿ì
 		//
 		//////////////////////////////////////////////////////////////////////
 		class TimeoutException : public IOException {
@@ -290,7 +290,7 @@ public :
 		//
 		// Socket Exception
 		//
-		// Ư�� ���Ͽ��� �߻��ϴ� ���ܵ�
+		// Æ¯È÷ ¼ÒÄÏ¿¡¼­ ¹ß»ýÇÏ´Â ¿¹¿Üµé
 		//
 		//////////////////////////////////////////////////////////////////////
 		class SocketException : public IOException {
@@ -304,7 +304,7 @@ public :
 			//
 			// Bind Exception
 			//
-			// bind()�� �߻��ϴ� ����
+			// bind()½Ã ¹ß»ýÇÏ´Â ¿¹¿Ü
 			//
 			//////////////////////////////////////////////////////////////////////
 			class BindException : public SocketException {
@@ -318,7 +318,7 @@ public :
 			//
 			// Connect Exception
 			//
-			// ���� ������ ���� ��� ( ���� ���� �߻��Ѵٰ� ���� �ȴ�. )
+			// ¼ÒÄÏ ¿¬°áÀÌ ²÷±æ °æ¿ì ( °¡Àå ¸¹ÀÌ ¹ß»ýÇÑ´Ù°í º¸¸é µÈ´Ù. )
 			//
 			//////////////////////////////////////////////////////////////////////
 			class ConnectException : public SocketException {
@@ -332,7 +332,7 @@ public :
 		//
 		// Protocol Exception
 		//
-		// ��Ŷ �Ľ��Ҷ� �߻��ϴ� ���ܵ�
+		// ÆÐÅ¶ ÆÄ½ÌÇÒ¶§ ¹ß»ýÇÏ´Â ¿¹¿Üµé
 		//
 		//////////////////////////////////////////////////////////////////////
 		class ProtocolException : public IOException {
@@ -346,7 +346,7 @@ public :
 			//
 			// Idle Exception
 			//
-			// ���� �ð����� peer �κ��� �Է��� ���� ���
+			// ÀÏÁ¤ ½Ã°£µ¿¾È peer ·ÎºÎÅÍ ÀÔ·ÂÀÌ ¾ø´Â °æ¿ì
 			//
 			//////////////////////////////////////////////////////////////////////
 			class IdleException : public ProtocolException {
@@ -361,7 +361,7 @@ public :
 			//
 			// Invalid Protocol Exception
 			//
-			// �߸��� ��������
+			// Àß¸øµÈ ÇÁ·ÎÅäÄÝ
 			//
 			//////////////////////////////////////////////////////////////////////
 			class InvalidProtocolException : public ProtocolException {
@@ -375,7 +375,7 @@ public :
 			//
 			// Insufficient Data Exception
 			//
-			// ���� ��Ŷ ����Ÿ�� �����ϰ� �������� �ʾ��� ���
+			// ¾ÆÁ÷ ÆÐÅ¶ µ¥ÀÌÅ¸°¡ ¿ÏÀüÇÏ°Ô µµÂøÇÏÁö ¾Ê¾ÒÀ» °æ¿ì
 			//
 			//////////////////////////////////////////////////////////////////////
 			class InsufficientDataException : public ProtocolException {
@@ -402,8 +402,8 @@ public :
 
 			//////////////////////////////////////////////////////////////////////
 			// 
-			// �������� ����, �ý��� ���� ���������ؼ� ������ ©��� �� ���
-			// �� ���ܸ� ����Ѵ�.
+			// ÇÁ·ÎÅäÄÝ ¿¹¿Ü, ½Ã½ºÅÛ ¿¹¿Ü µîÀ¸·ÎÀÎÇØ¼­ Á¢¼ÓÀ» Â©¶ó¾ß ÇÒ °æ¿ì
+			// ÀÌ ¿¹¿Ü¸¦ »ç¿ëÇÑ´Ù.
 			// 
 			//////////////////////////////////////////////////////////////////////
 			class DisconnectException : public ProtocolException {
@@ -415,7 +415,7 @@ public :
 
 			//////////////////////////////////////////////////////////////////////
 			// 
-			// Ư�� ��Ȳ�� �����ؾ� �Ǵ� ��Ŷ�� ������ ���
+			// Æ¯Á¤ »óÈ²¶§ ¹«½ÃÇØ¾ß µÇ´Â ÆÐÅ¶ÀÌ µé¾î¿ÔÀ» °æ¿ì
 			// 
 			//////////////////////////////////////////////////////////////////////
 			class IgnorePacketException : public ProtocolException {
@@ -430,7 +430,7 @@ public :
 	//
 	// Thread Exception
 	//
-	// ������ �� ����ȭ �����鿡�� �߻��ϴ� ���ܵ�
+	// ¾²·¹µå ¹× µ¿±âÈ­ µµ±¸µé¿¡¼­ ¹ß»ýÇÏ´Â ¿¹¿Üµé
 	//
 	//////////////////////////////////////////////////////////////////////
 	class ThreadException : public Exception {
@@ -444,7 +444,7 @@ public :
 		//
 		// Mutex Exception
 		//
-		// ���ؽ����� �߻��ϴ� ���ܵ�
+		// ¹ÂÅØ½º¿¡¼­ ¹ß»ýÇÏ´Â ¿¹¿Üµé
 		//
 		//////////////////////////////////////////////////////////////////////
 		class MutexException : public ThreadException {
@@ -458,7 +458,7 @@ public :
 			//
 			// Mutex Attribute Exception
 			//
-			// ���ؽ� �Ӽ����� �߻��ϴ� ���ܵ�
+			// ¹ÂÅØ½º ¼Ó¼º¿¡¼­ ¹ß»ýÇÏ´Â ¿¹¿Üµé
 			//
 			//////////////////////////////////////////////////////////////////////
 			class MutexAttrException : public MutexException {
@@ -473,7 +473,7 @@ public :
 		//
 		// Conditional Variable Exception
 		//
-		// Conditional Variable ���� �߻��ϴ� ���� (�̸��� �ʹ� ���.. - -)
+		// Conditional Variable ¿¡¼­ ¹ß»ýÇÏ´Â ¿¹¿Ü (ÀÌ¸§ÀÌ ³Ê¹« ±æ´Ù.. - -)
 		//
 		//////////////////////////////////////////////////////////////////////
 		class CondVarException : public ThreadException {
@@ -487,7 +487,7 @@ public :
 		//
 		// Semaphore Exception
 		//
-		// Semaphore ���� �߻��ϴ� ����
+		// Semaphore ¿¡¼­ ¹ß»ýÇÏ´Â ¿¹¿Ü
 		//
 		//////////////////////////////////////////////////////////////////////
 		class SemaphoreException : public ThreadException {
@@ -502,7 +502,7 @@ public :
 	//
 	// SQL Exception 
 	//
-	// SQL ���� ����
+	// SQL °ü·Ã ¿¹¿Ü
 	//
 	//////////////////////////////////////////////////////////////////////
 	class SQLException : public Exception {
@@ -516,7 +516,7 @@ public :
 		//
 		// SQL Warning
 		//
-		// SQL ������� ��Ÿ���� ����~~
+		// SQL °æ°í¹®À» ³ªÅ¸³»´Â ¿¹¿Ü~~
 		//
 		//////////////////////////////////////////////////////////////////////
 		class SQLWarning : public SQLException {
@@ -531,7 +531,7 @@ public :
 		//
 		// SQL Connect Exception
 		//
-		// SQL�� ���� ���� �õ��� ������ ���, ������ �������� ��� ��
+		// SQL¿¡ ´ëÇÑ ¿¬°á ½Ãµµ°¡ ½ÇÆÐÇÑ °æ¿ì, ¿¬°áÀÌ ²÷¾îÁ³À» °æ¿ì µî
 		//
 		//////////////////////////////////////////////////////////////////////
 		class SQLConnectException : public SQLException {
@@ -558,7 +558,7 @@ public :
 	//
 	// Runtime Exception
 	//
-	// ��Ÿ�ӿ� �߻������� generic �� �뵵�� ���� �� �ִ� ���ܵ�
+	// ·±Å¸ÀÓ¿¡ ¹ß»ý°¡´ÉÇÑ generic ÇÑ ¿ëµµ·Î »ç¿ëµÉ ¼ö ÀÖ´Â ¿¹¿Üµé
 	//
 	//////////////////////////////////////////////////////////////////////
 	class RuntimeException : public Exception {
@@ -572,7 +572,7 @@ public :
 		//
 		// Invalid Arguemnt Exception
 		//
-		// �Լ�, ����Լ��� �Ķ���Ͱ� �߸��� ��� 
+		// ÇÔ¼ö, ¸â¹öÇÔ¼öÀÇ ÆÄ¶ó¹ÌÅÍ°¡ Àß¸øµÈ °æ¿ì 
 		//
 		//////////////////////////////////////////////////////////////////////
 		class InvalidArgumentException : public RuntimeException {
@@ -586,7 +586,7 @@ public :
 		//
 		// Out Of Bound Exception
 		//
-		// ���״��. Out Of Bound!
+		// ¸»±×´ë·Î. Out Of Bound!
 		//
 		//////////////////////////////////////////////////////////////////////
 		class OutOfBoundException : public RuntimeException {
@@ -600,7 +600,7 @@ public :
 		//
 		// Interrupted Exception
 		//
-		// System Call ���� ���ͷ�Ʈ ������ ���
+		// System Call µîÀÌ ÀÎÅÍ·´Æ® ´çÇßÀ» °æ¿ì
 		//
 		//////////////////////////////////////////////////////////////////////
 		class InterruptedException : public RuntimeException {
@@ -614,7 +614,7 @@ public :
 		//
 		// No Such Element Exception
 		//
-		// �÷��ǿ��� Ư�� Ű���� �˻������� �׷� ������Ʈ�� ���� ���
+		// ÄÃ·º¼Ç¿¡¼­ Æ¯Á¤ Å°°ªÀ» °Ë»öÇßÀ»¶§ ±×·± ¿¤¸®¸ÕÆ®°¡ ¾ø´Â °æ¿ì
 		//
 		//////////////////////////////////////////////////////////////////////
 		class NoSuchElementException : public RuntimeException {
@@ -628,7 +628,7 @@ public :
 		//
 		// Duplicated Exception
 		//
-		// �÷����� Ư�� Ű�� �ߺ��Ǿ��� �� 
+		// ÄÃ·º¼ÇÀÇ Æ¯Á¤ Å°°¡ Áßº¹µÇ¾úÀ» ¶§ 
 		//
 		//////////////////////////////////////////////////////////////////////
 		class DuplicatedException : public RuntimeException {
@@ -642,7 +642,7 @@ public :
 	//
 	// Game Exception
 	//
-	// ���ӿ��� goto �뵵�� ����ϴ� ���ܵ�.. -_-;
+	// °ÔÀÓ¿¡¼­ goto ¿ëµµ·Î »ç¿ëÇÏ´Â ¿¹¿Üµé.. -_-;
 	//
 	//////////////////////////////////////////////////////////////////////
 	class GameException : public Exception {
@@ -656,7 +656,7 @@ public :
 		//
 		// Portal Exception
 		//
-		// PC �� ��Ż�� �������...�
+		// PC °¡ Æ÷Å»À» ¹â¾ÒÀ»¶§...Ä
 
 		//
 		//////////////////////////////////////////////////////////////////////
@@ -720,8 +720,8 @@ public :
 	//
 	// Log Error
 	//
-	// �Ϲ����� �����ʹ� �޸� LogError�� ����Ʈ �α����Ͽ� �α׵� �� ����.
-	// (�����غ���. �α׸Ŵ��� ��ü�� ������ ��� �α��Ѵٴ� ���ΰ�?)
+	// ÀÏ¹ÝÀûÀÎ ¿¡·¯¿Í´Â ´Þ¸® LogError´Â µðÆúÆ® ·Î±×ÆÄÀÏ¿¡ ·Î±×µÉ ¼ö ¾ø´Ù.
+	// (»ý°¢ÇØº¸¶ó. ·Î±×¸Å´ÏÀú ÀÚÃ¼ÀÇ ¿¡·¯¸¦ ¾î¶»°Ô ·Î±×ÇÑ´Ù´Â ¸»ÀÎ°¡?)
 	//
 	//////////////////////////////////////////////////////////////////////
 	class LogError : public Error {

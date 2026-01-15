@@ -19,17 +19,17 @@ void SubServerInfo::read ( SocketInputStream & iStream )
 	__BEGIN_TRY
 	try {
 
-	// ÀÌ¸§ Å©±â
+	// ì´ë¦„ í¬ê¸°
 	BYTE szServerName;
 	iStream.read( m_ServerID );
 
-	// ÀÌ¸§ Å©±â¸¦ ÀĞ´Â´Ù.
+	// ì´ë¦„ í¬ê¸°ë¥¼ ì½ëŠ”ë‹¤.
 	iStream.read( szServerName );
 
-	// ½ÇÁ¦ ÀÌ¸§À» ÀĞ´Â´Ù.
+	// ì‹¤ì œ ì´ë¦„ì„ ì½ëŠ”ë‹¤.
 	iStream.read( m_ServerName, szServerName );
 
-	// ¼­¹ö »óÅÂ¸¦ ÀĞ´Â´Ù.
+	// ì„œë²„ ìƒíƒœë¥¼ ì½ëŠ”ë‹¤.
 	iStream.read( m_ServerStat );
 
 	} catch( Throwable & t ) {
@@ -49,18 +49,18 @@ void SubServerInfo::write ( SocketOutputStream & oStream ) const
 
 	try {
 
-	// ÀÌ¸§ Å©±â
+	// ì´ë¦„ í¬ê¸°
 	BYTE szServerName = m_ServerName.size();
 
 	oStream.write( m_ServerID );
 
-	// ÀÌ¸§ Å©±â¸¦ ¾´´Ù
+	// ì´ë¦„ í¬ê¸°ë¥¼ ì“´ë‹¤
 	oStream.write( szServerName );
 
-	// ½ÇÁ¦ ÀÌ¸§À» ¾´´Ù
+	// ì‹¤ì œ ì´ë¦„ì„ ì“´ë‹¤
 	oStream.write( m_ServerName );
 
-	// ¼­¹ö »óÅÂ¸¦ ¾´´Ù
+	// ì„œë²„ ìƒíƒœë¥¼ ì“´ë‹¤
 	oStream.write( m_ServerStat );
 
 	} catch (Throwable & t ) {

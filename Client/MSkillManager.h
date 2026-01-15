@@ -4,43 +4,43 @@
 //
 // < SKILLINFO_NODE >
 //
-//		ÇÏ³ªÀÇ Skill¿¡ ´ëÇÑ Á¤º¸·Î¼­
-//			- SkillID, SkillÀÌ¸§
-//			- Ãâ·Â ÁÂÇ¥, Ãâ·ÂSpriteID
-//			- ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Â ±â¼úµé...µîÀÇ Á¤º¸°¡ ÀÖ´Ù.
+//		í•˜ë‚˜ì˜ Skillì— ëŒ€í•œ ì •ë³´ë¡œì„œ
+//			- SkillID, Skillì´ë¦„
+//			- ì¶œë ¥ ì¢Œí‘œ, ì¶œë ¥SpriteID
+//			- ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆëŠ” ê¸°ìˆ ë“¤...ë“±ì˜ ì •ë³´ê°€ ìˆë‹¤.
 //
 //
 // < SkillInfoTable >
 //
-//		SKILLINFO_NODEÀÇ arrayÀÌ´Ù.
-//		ACTIONINFO¿¡ Á¤ÇØÁø ¼ø¼­(ID)¿¡ µû¸¥´Ù.
+//		SKILLINFO_NODEì˜ arrayì´ë‹¤.
+//		ACTIONINFOì— ì •í•´ì§„ ìˆœì„œ(ID)ì— ë”°ë¥¸ë‹¤.
 //
 //
 // < MSkillDomain >
 //
-//		SkillID(==ACTIONINFO)µéÀÇ ÁıÇÕÀÌ´Ù.
-//		SkillDef.h¿¡ ÁöÁ¤µÈ Skillµé¿¡ ´ëÇØ¼­ 
-//		¹è¿î°Í/¹è¿ï°Í/¸ø¹è¿î°Í..À¸·Î ³ª´©±â À§ÇÑ °Í.
-//		stlÀÇ mapÀ» ÀÌ¿ëÇØ¼­ SkillID¸¸ ÀúÀåÇÑ´Ù.
-//		(!) SkillID¿¡ µû¶ó¼­ MSkillInfoTableÀ» ÂüÁ¶ÇØ¼­ Á¤º¸¸¦ ¾òÀ» ¼ö ÀÖ´Ù.
+//		SkillID(==ACTIONINFO)ë“¤ì˜ ì§‘í•©ì´ë‹¤.
+//		SkillDef.hì— ì§€ì •ëœ Skillë“¤ì— ëŒ€í•´ì„œ 
+//		ë°°ìš´ê²ƒ/ë°°ìš¸ê²ƒ/ëª»ë°°ìš´ê²ƒ..ìœ¼ë¡œ ë‚˜ëˆ„ê¸° ìœ„í•œ ê²ƒ.
+//		stlì˜ mapì„ ì´ìš©í•´ì„œ SkillIDë§Œ ì €ì¥í•œë‹¤.
+//		(!) SkillIDì— ë”°ë¼ì„œ MSkillInfoTableì„ ì°¸ì¡°í•´ì„œ ì •ë³´ë¥¼ ì–»ì„ ìˆ˜ ìˆë‹¤.
 //
 //
 // < MSkillManager >
 //
-//		SkillDomainÀÇ arrayÀÌ´Ù.
+//		SkillDomainì˜ arrayì´ë‹¤.
 //
 //----------------------------------------------------------------------
 //
 /*
 	//---------------------------------------------------------------------
 	//
-	// Skill Tree ÀüÃ¼¸¦ ÃÊ±âÈ­ ÇÏ´Â ¹æ¹ı
+	// Skill Tree ì „ì²´ë¥¼ ì´ˆê¸°í™” í•˜ëŠ” ë°©ë²•
 	//
 	//---------------------------------------------------------------------
 	g_SkillManager.Init( MAX_SKILLDOMAIN );
 
 	//---------------------------------------------------------------------
-	// ±âº» ±â¼ú·ÎºÎÅÍ skill tree¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+	// ê¸°ë³¸ ê¸°ìˆ ë¡œë¶€í„° skill treeë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 	//---------------------------------------------------------------------
 	g_SkillManager[SKILLDOMAIN_BLADE].SetRootSkill( SKILL_SINGLE_BLOW );
 	g_SkillManager[SKILLDOMAIN_SWORD].SetRootSkill( SKILL_DOUBLE_IMPACT );
@@ -51,22 +51,22 @@
 	g_SkillManager[SKILLDOMAIN_VAMPIRE].SetRootSkill( MAGIC_HIDE );	
 
 
-	// ³»ºÎ¿¡¼­ ÇÏ¹Ç·Î..	  2001.7.10
-	 g_SkillManager.Init()¸¸ ÇÏ¸é µÈ´Ù.
+	// ë‚´ë¶€ì—ì„œ í•˜ë¯€ë¡œ..	  2001.7.10
+	 g_SkillManager.Init()ë§Œ í•˜ë©´ ëœë‹¤.
 
 
 	class ofstream logFile("log\\sword.txt");
 
 	//---------------------------------------------------------------------
 	//
-	// g_SkillManager¿¡¼­
-	// Sword DomainÀÇ SkillµéÀ» °¡Áö°í ÀÛ¾÷ÇÑ´Ù.
+	// g_SkillManagerì—ì„œ
+	// Sword Domainì˜ Skillë“¤ì„ ê°€ì§€ê³  ì‘ì—…í•œë‹¤.
 	//
 	//---------------------------------------------------------------------
 	MSkillDomain& swordDomain = g_SkillManager[SKILLDOMAIN_SWORD];
 
 	//---------------------------------------------------------------------
-	// ¸î°¡Áö skillÀ» ¹è¿ü´Ù°í Ç¥½ÃÇÑ´Ù.
+	// ëª‡ê°€ì§€ skillì„ ë°°ì› ë‹¤ê³  í‘œì‹œí•œë‹¤.
 	//---------------------------------------------------------------------
 	swordDomain.LearnSkill( SKILL_DOUBLE_IMPACT );
 	swordDomain.LearnSkill( SKILL_TRIPLE_SLASHER );
@@ -76,32 +76,32 @@
 	swordDomain.LearnSkill( SKILL_CROSS_COUNTER );
 
 	//---------------------------------------------------------------------
-	// Sword DomainÀÇ ¸ğµç ±â¼úµéÀ» Ãâ·ÂÇÑ´Ù.
+	// Sword Domainì˜ ëª¨ë“  ê¸°ìˆ ë“¤ì„ ì¶œë ¥í•œë‹¤.
 	//---------------------------------------------------------------------
 	swordDomain.SetBegin();
 	
 	while (swordDomain.IsNotEnd())
 	{
-		// skillÀÇ id¿Í status
+		// skillì˜ idì™€ status
 		ACTIONINFO					id		= swordDomain.GetSkillID();
 		MSkillDomain::SKILLSTATUS	status	= swordDomain.GetSkillStatus();
 
 		//---------------------------------------
-		// status´Â ´ÙÀ½°ú °°´Ù. 
+		// statusëŠ” ë‹¤ìŒê³¼ ê°™ë‹¤. 
 		//---------------------------------------
-		//	MSkillDomain::SKILLSTATUS_LEARNED		// ¹è¿ü´Ù.
-		//	MSkillDomain::SKILLSTATUS_NEXT			// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-		//	MSkillDomain::SKILLSTATUS_OTHER			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù.	
+		//	MSkillDomain::SKILLSTATUS_LEARNED		// ë°°ì› ë‹¤.
+		//	MSkillDomain::SKILLSTATUS_NEXT			// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆë‹¤.
+		//	MSkillDomain::SKILLSTATUS_OTHER			// ì•„ì§ì€ ë°°ìš¸ ìˆ˜ ì—†ë‹¤.	
 		//---------------------------------------
 		
 		//---------------------------------------
-		// id¸¦ ¾Ë¸é g_SkillInfoTable¿¡¼­ 
-		// ±× idÀÇ skill¿¡ ´ëÇÑ Á¤º¸¸¦ ¾òÀ» ¼ö ÀÖ´Ù.
+		// idë¥¼ ì•Œë©´ g_SkillInfoTableì—ì„œ 
+		// ê·¸ idì˜ skillì— ëŒ€í•œ ì •ë³´ë¥¼ ì–»ì„ ìˆ˜ ìˆë‹¤.
 		//---------------------------------------
 		logFile << "[" << id << "] " << g_SkillInfoTable[id].GetName()
 				<< " = " << (int)status << endl;
 
-		// ´ÙÀ½
+		// ë‹¤ìŒ
 		swordDomain.Next();
 	}
 
@@ -134,14 +134,14 @@ class SKILLINFO_NODE {
 	public :
 		enum ELEMENTAL_DOMAIN
 		{
-			ELEMENTAL_DOMAIN_NO_DOMAIN = -1,     // ¹«¼Ó¼º
-			ELEMENTAL_DOMAIN_FIRE,              // ºÒ°è¿­
-			ELEMENTAL_DOMAIN_WATER,             // ¹°°è¿­
-			ELEMENTAL_DOMAIN_EARTH,             // ´ëÁö°è¿­
-			ELEMENTAL_DOMAIN_WIND,              // ¹Ù¶÷°è¿­
-			ELEMENTAL_DOMAIN_COMBAT,            // ÀüÅõ ÀÏ¹İ °è¿­
-			ELEMENTAL_DOMAIN_ELEMENTAL_COMBAT,  // ÀüÅõ Á¤·É °è¿­
-			ELEMENTAL_DOMAIN_ETC,               // ±âÅ¸(°è¿­±¸ºĞ¾øÀ½)
+			ELEMENTAL_DOMAIN_NO_DOMAIN = -1,     // ë¬´ì†ì„±
+			ELEMENTAL_DOMAIN_FIRE,              // ë¶ˆê³„ì—´
+			ELEMENTAL_DOMAIN_WATER,             // ë¬¼ê³„ì—´
+			ELEMENTAL_DOMAIN_EARTH,             // ëŒ€ì§€ê³„ì—´
+			ELEMENTAL_DOMAIN_WIND,              // ë°”ëŒê³„ì—´
+			ELEMENTAL_DOMAIN_COMBAT,            // ì „íˆ¬ ì¼ë°˜ ê³„ì—´
+			ELEMENTAL_DOMAIN_ELEMENTAL_COMBAT,  // ì „íˆ¬ ì •ë ¹ ê³„ì—´
+			ELEMENTAL_DOMAIN_ETC,               // ê¸°íƒ€(ê³„ì—´êµ¬ë¶„ì—†ìŒ)
 			
 			ELEMENTAL_DOMAIN_MAX
 		};
@@ -177,7 +177,7 @@ class SKILLINFO_NODE {
 		// Add NextSkill
 		//------------------------------------------------------
 		bool			AddNextSkill(ACTIONINFO id);
-		//bool			RemoveNextSkill(ACTIONINFO id);	// ÇÊ¿ä ¾ø´Â ÇÔ¼ö´ç..
+		//bool			RemoveNextSkill(ACTIONINFO id);	// í•„ìš” ì—†ëŠ” í•¨ìˆ˜ë‹¹..
 
 		//------------------------------------------------------
 		// Get
@@ -192,20 +192,20 @@ class SKILLINFO_NODE {
 		int					GetMP() const				{ return m_MP; }
 
 		//------------------------------------------------------
-		// ÇöÀç PlayerÀÇ skill»óÅÂ¿¡ ´ëÇÑ Á¤º¸
+		// í˜„ì¬ Playerì˜ skillìƒíƒœì— ëŒ€í•œ ì •ë³´
 		//------------------------------------------------------
 		void				SetExpLevel(int lev)		{ m_ExpLevel = lev; }
 		int					GetExpLevel() const			{ return m_ExpLevel; }
 		
 		//------------------------------------------------------
-		// Passive SkillÀÎ°¡? - Àû¿ëÀº µÇÁö¸¸ »ç¿ë ºÒ°¡ ½ºÅ³
+		// Passive Skillì¸ê°€? - ì ìš©ì€ ë˜ì§€ë§Œ ì‚¬ìš© ë¶ˆê°€ ìŠ¤í‚¬
 		//------------------------------------------------------
 		bool			IsPassive() const	{ return m_bPassive; }
 		void			SetPassive()		{ m_bPassive = true; }
 		void			UnSetPassive()		{ m_bPassive = false; }
 
 		//------------------------------------------------------
-		// (Always) Active SkillÀÎ°¡? - ¹«±â¿¡ ±¸¾Ö¹ŞÁö ¾Ê°í Ç×»ó »ç¿ë °¡´É
+		// (Always) Active Skillì¸ê°€? - ë¬´ê¸°ì— êµ¬ì• ë°›ì§€ ì•Šê³  í•­ìƒ ì‚¬ìš© ê°€ëŠ¥
 		//------------------------------------------------------
 		bool			IsActive() const	{ return m_bActive; }
 		void			SetActive()			{ m_bActive = true; }
@@ -230,7 +230,7 @@ class SKILLINFO_NODE {
 		int					GetLearnLevel() const	{ return m_LearnLevel; }						
 
 		//------------------------------------------------------
-		// Á¾Á· ½ºÅ³ ±¸ºĞ
+		// ì¢…ì¡± ìŠ¤í‚¬ êµ¬ë¶„
 		//------------------------------------------------------
 		void				SetVampireSkill()		{ m_eSkillRace = RACE_VAMPIRE; }
 		bool				IsVampireSkill()		{ return m_eSkillRace == RACE_VAMPIRE; }
@@ -240,19 +240,19 @@ class SKILLINFO_NODE {
 		bool				IsOustersSkill()		{ return m_eSkillRace == RACE_OUSTERS; }
 		
 		//------------------------------------------------------
-		// ±â¼ú »ç¿ë Delay
+		// ê¸°ìˆ  ì‚¬ìš© Delay
 		//------------------------------------------------------
-		void				SetDelayTime(DWORD delay);		// ±â¼ú »ç¿ëÈÄ ´Ù½Ã »ç¿ëÇÒ ¼ö ÀÖ´Â delay½Ã°£ ¼³Á¤
+		void				SetDelayTime(DWORD delay);		// ê¸°ìˆ  ì‚¬ìš©í›„ ë‹¤ì‹œ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” delayì‹œê°„ ì„¤ì •
 		DWORD				GetDelayTime() const	{ return m_DelayTime; }
 
-		bool				IsAvailableTime() const;		// Áö±İ »ç¿ë °¡´ÉÇÑ°¡?
-		void				SetAvailableTime(int delay = 0);				// Áö±İ ¹Ù·Î »ç¿ë °¡´ÉÇÏ´Ù.
-		DWORD				GetAvailableTimeLeft() const;	// ³²Àº »ç¿ë ½Ã°£
+		bool				IsAvailableTime() const;		// ì§€ê¸ˆ ì‚¬ìš© ê°€ëŠ¥í•œê°€?
+		void				SetAvailableTime(int delay = 0);				// ì§€ê¸ˆ ë°”ë¡œ ì‚¬ìš© ê°€ëŠ¥í•˜ë‹¤.
+		DWORD				GetAvailableTimeLeft() const;	// ë‚¨ì€ ì‚¬ìš© ì‹œê°„
 		
-		void				SetNextAvailableTime();			// ´ÙÀ½ »ç¿ë °¡´ÉÇÑ ½Ã°£À» °áÁ¤ÇÑ´Ù.
+		void				SetNextAvailableTime();			// ë‹¤ìŒ ì‚¬ìš© ê°€ëŠ¥í•œ ì‹œê°„ì„ ê²°ì •í•œë‹¤.
 
 		//------------------------------------------------------
-		// »ç¿ë °¡´ÉÇÑ ±â¼úÀÎ°¡?
+		// ì‚¬ìš© ê°€ëŠ¥í•œ ê¸°ìˆ ì¸ê°€?
 		//------------------------------------------------------
 		bool				IsEnable() const		{ return m_bEnable; }
 		void				SetEnable(bool enable=true);
@@ -272,69 +272,69 @@ class SKILLINFO_NODE {
 
 	protected :
 		
-		int				m_Level;			// ±â¼úÀÇ level		
+		int				m_Level;			// ê¸°ìˆ ì˜ level		
 
-		MString			m_Name;				// ±â¼ú ÀÌ¸§
-		MString			m_HName;			// ±â¼úÀÇ ¿µ¹® ÀÌ¸§.
+		MString			m_Name;				// ê¸°ìˆ  ì´ë¦„
+		MString			m_HName;			// ê¸°ìˆ ì˜ ì˜ë¬¸ ì´ë¦„.
 
-		int				m_X, m_Y;			// È­¸é¿¡¼­ÀÇ Ãâ·Â ½ÃÀÛ À§Ä¡
-		TYPE_SPRITEID	m_SpriteID;			// ±â¼úÀÇ Icon Sprite
+		int				m_X, m_Y;			// í™”ë©´ì—ì„œì˜ ì¶œë ¥ ì‹œì‘ ìœ„ì¹˜
+		TYPE_SPRITEID	m_SpriteID;			// ê¸°ìˆ ì˜ Icon Sprite
 
-		int				m_MP;				// MP ¼Òºñ·®
+		int				m_MP;				// MP ì†Œë¹„ëŸ‰
 
-		SKILLID_LIST	m_listNextSkill;	// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Â ±â¼úµé		
+		SKILLID_LIST	m_listNextSkill;	// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆëŠ” ê¸°ìˆ ë“¤		
 
-		bool			m_bPassive;			// passive skillÀÎ°¡?
+		bool			m_bPassive;			// passive skillì¸ê°€?
 
-		bool			m_bActive;			// Ç×»ó »ç¿ë°¡´ÉÇÑ skillÀÎ°¡?
-
-		//------------------------------------------------------
-		// ÇöÀç PlayerÀÇ skill»óÅÂ¿¡ ´ëÇÑ Á¤º¸
-		//------------------------------------------------------
-		int				m_ExpLevel;			// ½ºÅ³ ·¹º§
-		int				m_SkillExp;			// ½ºÅ³ °æÇèÄ¡
+		bool			m_bActive;			// í•­ìƒ ì‚¬ìš©ê°€ëŠ¥í•œ skillì¸ê°€?
 
 		//------------------------------------------------------
-		// SkillÀÇ ´Ü°è
+		// í˜„ì¬ Playerì˜ skillìƒíƒœì— ëŒ€í•œ ì •ë³´
+		//------------------------------------------------------
+		int				m_ExpLevel;			// ìŠ¤í‚¬ ë ˆë²¨
+		int				m_SkillExp;			// ìŠ¤í‚¬ ê²½í—˜ì¹˜
+
+		//------------------------------------------------------
+		// Skillì˜ ë‹¨ê³„
 		//------------------------------------------------------
 		SKILL_STEP		m_SkillStep;
 
 		//------------------------------------------------------
-		// ±â¼ú ¹è¿ï ¼ö ÀÖ´Â ·¹º§
+		// ê¸°ìˆ  ë°°ìš¸ ìˆ˜ ìˆëŠ” ë ˆë²¨
 		//------------------------------------------------------
 		int				m_LearnLevel;
 
 		//------------------------------------------------------
-		// Á¾Á· ±â¼ú ±¸ºĞ
+		// ì¢…ì¡± ê¸°ìˆ  êµ¬ë¶„
 		//------------------------------------------------------
 		Race			m_eSkillRace;
 
 		//------------------------------------------------------
-		// ±â¼ú »ç¿ë Delay
+		// ê¸°ìˆ  ì‚¬ìš© Delay
 		//------------------------------------------------------
-		DWORD			m_DelayTime;		// ±â¼ú »ç¿ëÈÄ ´Ù½Ã »ç¿ë°¡´ÉÇÑ delay
-		DWORD			m_AvailableTime;	// ´Ù½Ã »ç¿ë °¡´ÉÇÑ ½Ã°£
+		DWORD			m_DelayTime;		// ê¸°ìˆ  ì‚¬ìš©í›„ ë‹¤ì‹œ ì‚¬ìš©ê°€ëŠ¥í•œ delay
+		DWORD			m_AvailableTime;	// ë‹¤ì‹œ ì‚¬ìš© ê°€ëŠ¥í•œ ì‹œê°„
 		
 		//------------------------------------------------------
-		// »ç¿ë°¡´ÉÇÑ ±â¼úÀÎ°¡?
+		// ì‚¬ìš©ê°€ëŠ¥í•œ ê¸°ìˆ ì¸ê°€?
 		//------------------------------------------------------
 		bool			m_bEnable;	
 
 	public :
-		int			DomainType;		// ±× ±â¼úÀÌ ¾î´À µµ¸ŞÀÎ¿¡ ¼ÓÇÏ´Â°¡.
-		int			minDamage;		// ÃÖ¼Ò µ¥¹ÌÁö ¶Ç´Â È¿°úÄ¡.
-		int			maxDamage;		// ÃÖ´ë µ¥¹ÌÁö ¶Ç´Â È¿°úÄ¡.
-		int			minDelay;		// ÃÖ¼Ò »ç¿ë µô·¹ÀÌ.
-		int			maxDelay;		// ÃÖ´ë »ç¿ë µô·¹ÀÌ.
-		int			minCastTime;	// ÃÖ¼Ò Ä³½ºÆÃ Å¸ÀÓ.
-		int			maxCastTime;	// ÃÖ´ë Ä³½ºÆÃ Å¸ÀÓ.		
-		int			minDuration;	// ÃÖ¼Ò Áö¼Ó ½Ã°£
-		int			maxDuration;	// ÃÖ´ë Áö¼Ó ½Ã°£
-		int			minRange;		// ÃÖ¼Ò »çÁ¤°Å¸®
-		int			maxRange;		// ÃÖ´ë »çÁ¤°Å¸®
-		int			maxExp;			// ±× ±â¼úÀÇ 100% °æÇèÄ¡. 1 È¸´ç + 1 ¾¿ ¿Ã¶ó°¨
+		int			DomainType;		// ê·¸ ê¸°ìˆ ì´ ì–´ëŠ ë„ë©”ì¸ì— ì†í•˜ëŠ”ê°€.
+		int			minDamage;		// ìµœì†Œ ë°ë¯¸ì§€ ë˜ëŠ” íš¨ê³¼ì¹˜.
+		int			maxDamage;		// ìµœëŒ€ ë°ë¯¸ì§€ ë˜ëŠ” íš¨ê³¼ì¹˜.
+		int			minDelay;		// ìµœì†Œ ì‚¬ìš© ë”œë ˆì´.
+		int			maxDelay;		// ìµœëŒ€ ì‚¬ìš© ë”œë ˆì´.
+		int			minCastTime;	// ìµœì†Œ ìºìŠ¤íŒ… íƒ€ì„.
+		int			maxCastTime;	// ìµœëŒ€ ìºìŠ¤íŒ… íƒ€ì„.		
+		int			minDuration;	// ìµœì†Œ ì§€ì† ì‹œê°„
+		int			maxDuration;	// ìµœëŒ€ ì§€ì† ì‹œê°„
+		int			minRange;		// ìµœì†Œ ì‚¬ì •ê±°ë¦¬
+		int			maxRange;		// ìµœëŒ€ ì‚¬ì •ê±°ë¦¬
+		int			maxExp;			// ê·¸ ê¸°ìˆ ì˜ 100% ê²½í—˜ì¹˜. 1 íšŒë‹¹ + 1 ì”© ì˜¬ë¼ê°
 		
-		// ¾Æ¿ì½ºÅÍÁî¿ë
+		// ì•„ìš°ìŠ¤í„°ì¦ˆìš©
 	public:
 		int			SkillPoint;
 		int			LevelUpPoint;
@@ -350,7 +350,7 @@ class SKILLINFO_NODE {
 		int			Stone3;
 		int			Stone4;
 		int			ElementalDomain;
-		BYTE		CanDelete; // ½ºÅ³À» ¾Æ¿¹ »èÁ¦ ÇÒ¼ö ÀÖ´ÂÁö..
+		BYTE		CanDelete; // ìŠ¤í‚¬ì„ ì•„ì˜ˆ ì‚­ì œ í• ìˆ˜ ìˆëŠ”ì§€..
 		
 };
 
@@ -359,9 +359,9 @@ class SKILLINFO_NODE {
 //	MSkillSet
 //
 //----------------------------------------------------------------------
-// SkillID(==ACTIONINFO)µéÀÇ ÁıÇÕÀÌ´Ù.
+// SkillID(==ACTIONINFO)ë“¤ì˜ ì§‘í•©ì´ë‹¤.
 //----------------------------------------------------------------------
-const BYTE	FLAG_SKILL_ENABLE		= 1;		// ÇöÀç(!) »ç¿ë°¡´ÉÇÑ°¡?
+const BYTE	FLAG_SKILL_ENABLE		= 1;		// í˜„ì¬(!) ì‚¬ìš©ê°€ëŠ¥í•œê°€?
 
 class SKILLID_NODE {
 	public :
@@ -401,21 +401,21 @@ class MSkillSet : public std::map<ACTIONINFO, SKILLID_NODE> {
 		// Skill
 		//------------------------------------------------------
 		bool			AddSkill(ACTIONINFO id, BYTE flag=FLAG_SKILL_ENABLE);		
-		bool			RemoveSkill(ACTIONINFO id);		// SkillID Á¦°Å
+		bool			RemoveSkill(ACTIONINFO id);		// SkillID ì œê±°
 		
 		//------------------------------------------------------
 		// Enable?
 		//------------------------------------------------------
-		bool			IsEnableSkill(ACTIONINFO id) const;	// idÀÇ skillÀÌ »ç¿ë °¡´ÉÇÑ°¡?
-		bool			EnableSkill(ACTIONINFO id);		// »ç¿ë°¡´É
-		bool			DisableSkill(ACTIONINFO id);	// »ç¿ë ºÒ°¡´É
+		bool			IsEnableSkill(ACTIONINFO id) const;	// idì˜ skillì´ ì‚¬ìš© ê°€ëŠ¥í•œê°€?
+		bool			EnableSkill(ACTIONINFO id);		// ì‚¬ìš©ê°€ëŠ¥
+		bool			DisableSkill(ACTIONINFO id);	// ì‚¬ìš© ë¶ˆê°€ëŠ¥
 
 		//------------------------------------------------------
-		// ÇöÀç »ç¿ë°¡´ÉÇÑ skillµé Ã¼Å©
+		// í˜„ì¬ ì‚¬ìš©ê°€ëŠ¥í•œ skillë“¤ ì²´í¬
 		//------------------------------------------------------
-		// SetAvailableSkillsÇÏ¸é ÀÚµ¿À¸·Î CheckMPµµ µÈ´Ù.
+		// SetAvailableSkillsí•˜ë©´ ìë™ìœ¼ë¡œ CheckMPë„ ëœë‹¤.
 		//------------------------------------------------------
-		void			SetAvailableSkills();	// ÀüÃ¼ Ã¼Å©
+		void			SetAvailableSkills();	// ì „ì²´ ì²´í¬
 		void			CheckMP();				// mp check
 
 		void			SetAvailableVampireSkills();
@@ -429,19 +429,19 @@ class MSkillSet : public std::map<ACTIONINFO, SKILLID_NODE> {
 //	MSkillDomain
 //
 //----------------------------------------------------------------------
-// ÇÑ SkillDomainÀ» °ü¸®ÇÑ´Ù.
+// í•œ SkillDomainì„ ê´€ë¦¬í•œë‹¤.
 //----------------------------------------------------------------------
 class MSkillDomain {
 	public :
 		enum SKILLSTATUS
 		{
-			SKILLSTATUS_NULL = 0,		// ¾ø´Â SkillÀÌ´Ù.
-			SKILLSTATUS_LEARNED,		// ¹è¿ü´Ù.
-			SKILLSTATUS_NEXT,			// ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Ù.
-			SKILLSTATUS_OTHER			// ¾ÆÁ÷Àº ¹è¿ï ¼ö ¾ø´Ù.			
+			SKILLSTATUS_NULL = 0,		// ì—†ëŠ” Skillì´ë‹¤.
+			SKILLSTATUS_LEARNED,		// ë°°ì› ë‹¤.
+			SKILLSTATUS_NEXT,			// ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆë‹¤.
+			SKILLSTATUS_OTHER			// ì•„ì§ì€ ë°°ìš¸ ìˆ˜ ì—†ë‹¤.			
 		};
 
-		// <SkillID>¿Í <Skill½Àµæ »óÅÂ>
+		// <SkillID>ì™€ <SkillìŠµë“ ìƒíƒœ>
 		typedef	std::map<ACTIONINFO, SKILLSTATUS>		SKILLID_MAP;
 	
 		// Skill Step List
@@ -456,7 +456,7 @@ class MSkillDomain {
 		~MSkillDomain();
 
 		//----------------------------------------------------------------------
-		// Add Skill - ÇÏÀ§ÀÇ skillµéÀ» ¸ğÁ¶¸® domain¿¡ Ãß°¡ÇÑ´Ù.
+		// Add Skill - í•˜ìœ„ì˜ skillë“¤ì„ ëª¨ì¡°ë¦¬ domainì— ì¶”ê°€í•œë‹¤.
 		//----------------------------------------------------------------------
 		bool		AddSkill(ACTIONINFO id);
 
@@ -467,37 +467,37 @@ class MSkillDomain {
 		void			ClearSkillList();
 
 		//------------------------------------------------------
-		// Set Root Skill - domainÀÇ ÃÖ»óÀ§ skillºÎÅÍ 
-		//					ÇÏÀ§ skillµéÀ» Ãß°¡ÇÑ´Ù.
+		// Set Root Skill - domainì˜ ìµœìƒìœ„ skillë¶€í„° 
+		//					í•˜ìœ„ skillë“¤ì„ ì¶”ê°€í•œë‹¤.
 		//------------------------------------------------------
 		bool			SetRootSkill(ACTIONINFO id, bool reset = true);		
 
 		//------------------------------------------------------
 		// Set SkillStatus
 		//------------------------------------------------------
-		// SkillÀÇ »óÅÂ º¯°æ
+		// Skillì˜ ìƒíƒœ ë³€ê²½
 		//bool			SetSkillStatus(ACTIONINFO id, SKILLSTATUS status);	
 
 		//------------------------------------------------------
 		// Get SkillStatus
 		//------------------------------------------------------
-		// SkillÀÇ »óÅÂ´Â?
+		// Skillì˜ ìƒíƒœëŠ”?
 		SKILLSTATUS		GetSkillStatus(ACTIONINFO id) const;	
 		
-		//bool			RemoveSkill(ACTIONINFO id);				// Skill Á¦°Å
+		//bool			RemoveSkill(ACTIONINFO id);				// Skill ì œê±°
 
 		//------------------------------------------------------
 		// New Skill
 		//------------------------------------------------------
 		bool			HasNewSkill() const		{ return m_bNewSkill; }
-		void			SetNewSkill()			{ m_bNewSkill = true; }	// »õ·Î ¹è¿ï skill point°¡ »ı°å´Ù.
+		void			SetNewSkill()			{ m_bNewSkill = true; }	// ìƒˆë¡œ ë°°ìš¸ skill pointê°€ ìƒê²¼ë‹¤.
 		void			UnSetNewSkill()			{ m_bNewSkill = false; }
 		
 		//------------------------------------------------------
 		// Learn Skill
 		//------------------------------------------------------
-		bool			LearnSkill(ACTIONINFO id);		// skillÀ» ¹è¿î´Ù.
-		bool			UnLearnSkill(ACTIONINFO id);	// ¹è¿î skillÀ» ¸ø ¹è¿î°É·Î ÇÑ´Ù.
+		bool			LearnSkill(ACTIONINFO id);		// skillì„ ë°°ìš´ë‹¤.
+		bool			UnLearnSkill(ACTIONINFO id);	// ë°°ìš´ skillì„ ëª» ë°°ìš´ê±¸ë¡œ í•œë‹¤.
 
 		//------------------------------------------------------
 		// Iterator
@@ -541,14 +541,14 @@ class MSkillDomain {
 		//------------------------------------------------------
 		const ExpInfo&	GetExpInfo(int level) const;
 
-		// 2004, 11, 9, sobeit add start - °­Á¦·Î ¹è¿ï¼ö ÀÖ´Ù°í ¼¼ÆÃÇÑ´Ù.-_-
+		// 2004, 11, 9, sobeit add start - ê°•ì œë¡œ ë°°ìš¸ìˆ˜ ìˆë‹¤ê³  ì„¸íŒ…í•œë‹¤.-_-
 		void		AddNextSkillForce(ACTIONINFO id);
 		bool		IsAvailableDeleteSkill(ACTIONINFO id);
 		// 2004, 11, 9, sobeit add end
 	protected :	
 
 		//----------------------------------------------------------------------
-		// Remove NextSkill - ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ°Ô Ç¥½ÃµÈ ±â¼úµéÀ» Á¦°ÅÇÑ´Ù.
+		// Remove NextSkill - ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆê²Œ í‘œì‹œëœ ê¸°ìˆ ë“¤ì„ ì œê±°í•œë‹¤.
 		//----------------------------------------------------------------------
 		void		RemoveNextSkill(ACTIONINFO id);
 		void		AddNextSkill(ACTIONINFO id);
@@ -561,7 +561,7 @@ class MSkillDomain {
 		//------------------------------------------------------
 		// Add Skill Step
 		//------------------------------------------------------
-		// ss¿¡ ai¸¦ Ãß°¡ÇÑ´Ù.
+		// ssì— aië¥¼ ì¶”ê°€í•œë‹¤.
 		void		AddSkillStep(SKILL_STEP ss, ACTIONINFO ai);
 
 
@@ -569,11 +569,11 @@ class MSkillDomain {
 		SKILLID_MAP::const_iterator	m_iterator;
 		SKILLID_MAP					m_mapSkillID;		
 		
-		int							m_MaxLevel;			// domainÀÇ ÃÖ°í ±â¼ú level
-		int							m_MaxLearnedLevel;	// ÇöÀç ¹è¿î°Í Áß¿¡¼­ MAX skill ID
-		ACTIONINFO*					m_pLearnedSkillID;	// ¹è¿î skill ID		
+		int							m_MaxLevel;			// domainì˜ ìµœê³  ê¸°ìˆ  level
+		int							m_MaxLearnedLevel;	// í˜„ì¬ ë°°ìš´ê²ƒ ì¤‘ì—ì„œ MAX skill ID
+		ACTIONINFO*					m_pLearnedSkillID;	// ë°°ìš´ skill ID		
 
-		// »õ·Î¿î skillÀ» ¹è¿ï ¼ö ÀÖ´Â°¡?
+		// ìƒˆë¡œìš´ skillì„ ë°°ìš¸ ìˆ˜ ìˆëŠ”ê°€?
 		bool				 		m_bNewSkill;
 
 		// Domain Level
@@ -598,7 +598,7 @@ class MSkillInfoTable : public CTypeTable<SKILLINFO_NODE> {
 		MSkillInfoTable();
 		~MSkillInfoTable();
 
-		// ¹Ù²î´Â Á¤º¸¸¸ ÃÊ±âÈ­
+		// ë°”ë€ŒëŠ” ì •ë³´ë§Œ ì´ˆê¸°í™”
 		void			Init();
 
 		void			LoadFromFileServerSkillInfo(class ifstream& file);

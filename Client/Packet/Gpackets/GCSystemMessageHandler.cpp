@@ -14,7 +14,7 @@
 #include "Client.h"
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Ş½ÃÁö¸¦ ¹Ş¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Ş½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GCSystemMessageHandler::execute ( GCSystemMessage * pPacket , Player * pPlayer )
@@ -26,7 +26,7 @@ void GCSystemMessageHandler::execute ( GCSystemMessage * pPacket , Player * pPla
 	static char previous1[128] = { NULL, };
 	switch(pPacket->getType())
 	{ 
-		case SYSTEM_MESSAGE_HOLY_LAND :		// ¾Æ´ãÀÇ ¼ºÁö °ü·Ã
+		case SYSTEM_MESSAGE_HOLY_LAND :		// ì•„ë‹´ì˜ ì„±ì§€ ê´€ë ¨
 			if(g_pUserOption->DoNotShowHolyLandMsg)
 				return;
 			break;
@@ -34,20 +34,20 @@ void GCSystemMessageHandler::execute ( GCSystemMessage * pPacket , Player * pPla
 		case SYSTEM_MESSAGE_NORMAL:
 			break;
 
-		case SYSTEM_MESSAGE_OPERATOR:	// ¿î¿µÀÚ ¸»¾¸
+		case SYSTEM_MESSAGE_OPERATOR:	// ìš´ì˜ì ë§ì”€
 			break;
 	
-		case SYSTEM_MESSAGE_MASTER_LAIR:	// ¸¶½ºÅÍ ·¹¾î °ü·Ã
+		case SYSTEM_MESSAGE_MASTER_LAIR:	// ë§ˆìŠ¤í„° ë ˆì–´ ê´€ë ¨
 			if(g_pUserOption->DoNotShowLairMsg)
 				return;
 			break;
 
-		case SYSTEM_MESSAGE_COMBAT:		// ÀüÀï °ü·Ã
+		case SYSTEM_MESSAGE_COMBAT:		// ì „ìŸ ê´€ë ¨
 			if(g_pUserOption->DoNotShowWarMsg)
 				return;
 			break;
 	
-		case SYSTEM_MESSAGE_INFO: 		// Æ¯Á¤ÇÑ Á¤º¸ °ü·Ã
+		case SYSTEM_MESSAGE_INFO: 		// íŠ¹ì •í•œ ì •ë³´ ê´€ë ¨
 			break;
 			
 		case SYSTEM_MESSAGE_RANGER_CHAT:
@@ -60,7 +60,7 @@ void GCSystemMessageHandler::execute ( GCSystemMessage * pPacket , Player * pPla
 			}
 			return;
 	
-		case SYSTEM_MESSAGE_PLAYER:	    // add by Coffee 2007-8-2 Ôö¼ÓÍæ¼Ò·¢ËÍ¹«¸æ
+		case SYSTEM_MESSAGE_PLAYER:	    // add by Coffee 2007-8-2 è—¤ì†é¯¤ì†Œë™ç®‡ë¬´ë©©
 			char* message = (char*)pPacket->getMessage().c_str();
 
 			if (NULL != message)
@@ -71,7 +71,7 @@ void GCSystemMessageHandler::execute ( GCSystemMessage * pPacket , Player * pPla
 // 					BOOL bExist = FALSE;
 // 
 // 					//--------------------------------------------------------------------
-// 					// ÀÌ¹Ì ÀÖ´Â ¸Ş¼¼ÁöÀÎÁö °Ë»çÇÑ´Ù.
+// 					// ì´ë¯¸ ìˆëŠ” ë©”ì„¸ì§€ì¸ì§€ ê²€ì‚¬í•œë‹¤.
 // 					//--------------------------------------------------------------------
 // 					for (int i=0; i<g_pPlayerMessage->GetSize(); i++)
 // 					{
@@ -82,7 +82,7 @@ void GCSystemMessageHandler::execute ( GCSystemMessage * pPacket , Player * pPla
 // 					}
 // 
 // 					//--------------------------------------------------------------------
-// 					// ¾ø´Â°Å¸é Ãß°¡ÇÑ´Ù.		
+// 					// ì—†ëŠ”ê±°ë©´ ì¶”ê°€í•œë‹¤.		
 // 					//--------------------------------------------------------------------
 // 					if (!bExist)
 // 					{
@@ -90,7 +90,7 @@ void GCSystemMessageHandler::execute ( GCSystemMessage * pPacket , Player * pPla
 // 					}
 // 				}
 // 				//--------------------------------------------------------------------
-// 				// »õ·Î¿î ¸Ş¼¼ÁöÀÌ¸é Ãß°¡ÇÑ´Ù.
+// 				// ìƒˆë¡œìš´ ë©”ì„¸ì§€ì´ë©´ ì¶”ê°€í•œë‹¤.
 // 				//--------------------------------------------------------------------
 // 				else
 // 				{
@@ -107,7 +107,7 @@ void GCSystemMessageHandler::execute ( GCSystemMessage * pPacket , Player * pPla
 	static char previous[128] = { NULL, };
 
 	const char* message = pPacket->getMessage().c_str();
-	// add by Coffee 2007-8-2 Ôö¼ÓÏµÍ³ĞÅÏ¢Çø±ğ
+	// add by Coffee 2007-8-2 è—¤ì†æºå›ºæ–¤å£í˜ê¹
 		char *pMsg = NULL;
 		if (message!=NULL && pPacket->getType() != SYSTEM_MESSAGE_PLAYER )
 		{
@@ -119,14 +119,14 @@ void GCSystemMessageHandler::execute ( GCSystemMessage * pPacket , Player * pPla
 		message = pPacket->getMessage().c_str();
 	// add end by Coffee 2007-8-2
 	//--------------------------------------------------------------------
-	// system message¿¡ Ãâ·Â
+	// system messageì— ì¶œë ¥
 	//--------------------------------------------------------------------
 	if (strcmp(previous, message)==0)
 	{
 		BOOL bExist = FALSE;
 
 		//--------------------------------------------------------------------
-		// ÀÌ¹Ì ÀÖ´Â ¸Ş¼¼ÁöÀÎÁö °Ë»çÇÑ´Ù.
+		// ì´ë¯¸ ìˆëŠ” ë©”ì„¸ì§€ì¸ì§€ ê²€ì‚¬í•œë‹¤.
 		//--------------------------------------------------------------------
 		for (int i=0; i<g_pSystemMessage->GetSize(); i++)
 		{
@@ -137,7 +137,7 @@ void GCSystemMessageHandler::execute ( GCSystemMessage * pPacket , Player * pPla
 		}
 
 		//--------------------------------------------------------------------
-		// ¾ø´Â°Å¸é Ãß°¡ÇÑ´Ù.		
+		// ì—†ëŠ”ê±°ë©´ ì¶”ê°€í•œë‹¤.		
 		//--------------------------------------------------------------------
 		if (!bExist)
 		{
@@ -145,7 +145,7 @@ void GCSystemMessageHandler::execute ( GCSystemMessage * pPacket , Player * pPla
 		}
 	}
 	//--------------------------------------------------------------------
-	// »õ·Î¿î ¸Ş¼¼ÁöÀÌ¸é Ãß°¡ÇÑ´Ù.
+	// ìƒˆë¡œìš´ ë©”ì„¸ì§€ì´ë©´ ì¶”ê°€í•œë‹¤.
 	//--------------------------------------------------------------------
 	else
 	{

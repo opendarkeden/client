@@ -22,7 +22,7 @@ extern CMessageArray*		g_pNoticeMessage;
 
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Ş½ÃÁö¸¦ ¹Ş¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Ş½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void CRWhisperHandler::execute ( CRWhisper * pPacket , Player * pPlayer )
@@ -35,11 +35,11 @@ void CRWhisperHandler::execute ( CRWhisper * pPacket , Player * pPlayer )
 	RequestServerPlayer* pRequestServerPlayer = dynamic_cast<RequestServerPlayer*>( pPlayer );
 		
 	//-------------------------------------------------------------------
-	// ³ªÇÑÅ× ¿À´Â°Ô ¸Â´ÂÁö È®ÀÎÇÑ´Ù.
+	// ë‚˜í•œí…Œ ì˜¤ëŠ”ê²Œ ë§ëŠ”ì§€ í™•ì¸í•œë‹¤.
 	//-------------------------------------------------------------------
-	if (g_Mode!=MODE_GAME						// °ÔÀÓ ÁßÀÌ ¾Æ´Ï°Å³ª
-		&& g_Mode!=MODE_WAIT_UPDATEINFO			// ·Îµù ÁßÀÌ ¾Æ´Ï°Å³ª..
-		&& g_Mode!=MODE_WAIT_SETPOSITION		// ÁÂÇ¥ ±â´Ù¸®´Â °æ¿ì
+	if (g_Mode!=MODE_GAME						// ê²Œì„ ì¤‘ì´ ì•„ë‹ˆê±°ë‚˜
+		&& g_Mode!=MODE_WAIT_UPDATEINFO			// ë¡œë”© ì¤‘ì´ ì•„ë‹ˆê±°ë‚˜..
+		&& g_Mode!=MODE_WAIT_SETPOSITION		// ì¢Œí‘œ ê¸°ë‹¤ë¦¬ëŠ” ê²½ìš°
 		|| g_pPlayer==NULL
 		|| g_pChatManager==NULL
 		|| g_pUserInformation==NULL 
@@ -47,12 +47,12 @@ void CRWhisperHandler::execute ( CRWhisper * pPacket , Player * pPlayer )
 		|| pPacket->getTargetName() != g_pUserInformation->CharacterID.GetString()
 		|| pPacket->getWorldID() != g_pUserInformation->WorldID)
 	{		
-		// ¾Æ´Ï¸é ...
+		// ì•„ë‹ˆë©´ ...
 		RCRequestVerify _RCRequestVerify;
 		_RCRequestVerify.setCode( REQUEST_VERIFY_WHISPER_FAILED );
 		pRequestServerPlayer->sendPacket( &_RCRequestVerify );
 
-		// º¸³»°í
+		// ë³´ë‚´ê³ 
 		try {
 			pRequestServerPlayer->processOutput();
 		} catch (Throwable& t)	{
@@ -62,9 +62,9 @@ void CRWhisperHandler::execute ( CRWhisper * pPacket , Player * pPlayer )
 	else
 	{
 		//-------------------------------------------------------------------
-		// ±Ó¸» º¸³½ ¾ÖÀÇ IP¸¦ ±â¾ïÇØµÎÀÚ.
+		// ê·“ë§ ë³´ë‚¸ ì• ì˜ IPë¥¼ ê¸°ì–µí•´ë‘ì.
 		//-------------------------------------------------------------------
-		// »ç¿ëÀÚ Á¤º¸ ´Ù½Ã ¼³Á¤
+		// ì‚¬ìš©ì ì •ë³´ ë‹¤ì‹œ ì„¤ì •
 
 		if (!g_pRequestUserManager->HasRequestUser(pPacket->getName().c_str()))
 		{
@@ -73,7 +73,7 @@ void CRWhisperHandler::execute ( CRWhisper * pPacket , Player * pPlayer )
 			g_pRequestUserManager->AddRequestUser( pPacket->getName().c_str(), pIP );
 		}
 
-		// IP, Port ´Ù½Ã ¼³Á¤.
+		// IP, Port ë‹¤ì‹œ ì„¤ì •.
 		//RequestUserInfo* pUserInfo = g_pRequestUserManager->GetUserInfo( pPacket->getName().c_str() );
 
 		//if (pUserInfo!=NULL)
@@ -97,7 +97,7 @@ void CRWhisperHandler::execute ( CRWhisper * pPacket , Player * pPlayer )
 			|| g_pChatManager->IsAcceptID( strName ))
 		{
 			//--------------------------------------------------
-			// message°¡ ¿©·¯°³ÀÏ ¼ö ÀÖ´ç..
+			// messageê°€ ì—¬ëŸ¬ê°œì¼ ìˆ˜ ìˆë‹¹..
 			//--------------------------------------------------
 			for (int i=0; i<numMessage; i++)
 			{
@@ -111,9 +111,9 @@ void CRWhisperHandler::execute ( CRWhisper * pPacket , Player * pPlayer )
 				strcpy(str, pString->msg.c_str());
 
 				//--------------------------------------------------
-				// ¿å Á¦°Å
-				// ¿î¿µÀÚ°¡ ÇÑ ¸»µµ ¾Æ´Ï°í ³ªµµ ¿î¿µÀÚ°¡ ¾Æ´Ï¸é filterÇÑ´Ù.
-				// --> ¿î¿µÀÚÀÇ ¸»Àº ´Ù º¸ÀÌ°í ¿î¿µÀÚ´Â ´Ù º»´Ù.
+				// ìš• ì œê±°
+				// ìš´ì˜ìê°€ í•œ ë§ë„ ì•„ë‹ˆê³  ë‚˜ë„ ìš´ì˜ìê°€ ì•„ë‹ˆë©´ filterí•œë‹¤.
+				// --> ìš´ì˜ìì˜ ë§ì€ ë‹¤ ë³´ì´ê³  ìš´ì˜ìëŠ” ë‹¤ ë³¸ë‹¤.
 				//--------------------------------------------------
 				if (!bMasterWords && !g_pUserInformation->IsMaster 
 					&& !g_pPlayer->HasEffectStatus( EFFECTSTATUS_GHOST )
@@ -126,18 +126,18 @@ void CRWhisperHandler::execute ( CRWhisper * pPacket , Player * pPlayer )
 
 					#ifndef _DEBUG
 						//--------------------------------------------------
-						// Á¾Á·ÀÌ ´Ù¸¥ °æ¿ì
+						// ì¢…ì¡±ì´ ë‹¤ë¥¸ ê²½ìš°
 						//--------------------------------------------------
 						Race race = (Race)pPacket->getRace();
 						if (g_pPlayer->GetRace() != race)
 						{
-							// INT´Â 150±îÁöÀÌ¹Ç·Î..  
+							// INTëŠ” 150ê¹Œì§€ì´ë¯€ë¡œ..  
 							int percent = min(75, 25+g_pPlayer->GetINT()*100/(min(2, g_pPlayer->GetRace()+1)*150));
 							g_pChatManager->AddMask(str, percent);
 						}
 //						else if (g_pPlayer->IsVampire() && !bVampireSay)
 //						{
-//							// INT´Â 300±îÁöÀÌ¹Ç·Î..  
+//							// INTëŠ” 300ê¹Œì§€ì´ë¯€ë¡œ..  
 //							int percent = min(75, 25+g_pPlayer->GetINT()*100/300);
 //							g_pChatManager->AddMask(str, percent);
 //						}
@@ -150,16 +150,16 @@ void CRWhisperHandler::execute ( CRWhisper * pPacket , Player * pPlayer )
 				
 				if ( bMasterWords )
 				{
-					// ¿î¿µÀÚÀÏ°æ¿ì ½Ã½ºÅÛ ¸Ş½ÃÁö·Îµµ Âï¾îÁØ´Ù.
+					// ìš´ì˜ìì¼ê²½ìš° ì‹œìŠ¤í…œ ë©”ì‹œì§€ë¡œë„ ì°ì–´ì¤€ë‹¤.
 					g_pNoticeMessage->AddFormat("%s>%s",strName,str);
 				}
 
-				// ±Ó¼Ó¸» ´ë»ó ¼³Á¤ ID+' '
+				// ê·“ì†ë§ ëŒ€ìƒ ì„¤ì • ID+' '
 				char strWhisperID[128];
 				sprintf(strWhisperID, "%s ", pPacket->getName().c_str());
 				g_pUserInformation->WhisperID = strWhisperID;
 
-				// [µµ¿ò¸»] ±Ó¼Ó¸» ¹ŞÀ» ¶§
+				// [ë„ì›€ë§] ê·“ì†ë§ ë°›ì„ ë•Œ
 //				__BEGIN_HELP_EVENT
 //					ExecuteHelpEvent( HE_CHAT_WHISPERED );	
 //				__END_HELP_EVENT
@@ -171,7 +171,7 @@ void CRWhisperHandler::execute ( CRWhisper * pPacket , Player * pPlayer )
 	}
 
 	//-------------------------------------------------------------------
-	// ²÷´Â´Ù.
+	// ëŠëŠ”ë‹¤.
 	//-------------------------------------------------------------------
 	throw DisconnectException("Disconnect after Whisper");
 	/*

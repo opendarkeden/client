@@ -32,7 +32,7 @@ MEffectManager::Release()
 {
 	EFFECT_LIST::iterator iEffect = m_listEffect.begin();
 
-	// ´Ù Áö¿î´ç..
+	// ë‹¤ ì§€ìš´ë‹¹..
 	while (iEffect != m_listEffect.end())
 	{
 		MEffect* pEffect = *iEffect;
@@ -53,7 +53,7 @@ MEffectManager::AddEffect(MEffect* pEffect)
 {
 	if (pEffect != NULL)
 	{
-		// list¿¡ Ãß°¡
+		// listì— ì¶”ê°€
 		m_listEffect.push_front( pEffect );
 	}
 }
@@ -73,11 +73,11 @@ MEffectManager::Update()
 
 		if (pEffect->Update())
 		{
-			// º¸Åë?ÀÇ °æ¿ì
+			// ë³´í†µ?ì˜ ê²½ìš°
 		}
 		else
 		{
-			// Effect°¡ ³¡³­ °æ¿ì(´õ ÀÌ»ó updateÇÒ ÇÊ¿ä°¡ ¾ø´Â °æ¿ì)
+			// Effectê°€ ëë‚œ ê²½ìš°(ë” ì´ìƒ updateí•  í•„ìš”ê°€ ì—†ëŠ” ê²½ìš°)
 		}
 
 		iEffect ++;
