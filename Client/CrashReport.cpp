@@ -338,10 +338,11 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 }
 #else
 // Stub implementation for non-Windows platforms
-LONG __stdcall RecordExceptionInfo( void* pExp )
+LONG __stdcall RecordExceptionInfo( struct _EXCEPTION_POINTERS* pExp )
 {
     // Crash reporting not implemented on non-Windows platforms
     // Just return to continue execution
+    (void)pExp;  // Suppress unused parameter warning
     return 0;
 }
 #endif // PLATFORM_WINDOWS

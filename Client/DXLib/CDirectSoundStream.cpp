@@ -2,6 +2,10 @@
 // CDirectSoundStream.cpp
 //-----------------------------------------------------------------------------
 
+// Only compile DirectSoundStream implementation on Windows platforms
+// On non-Windows platforms (macOS/Linux with SDL2), we only use the stub class from CDirectSoundStream.h
+#ifdef PLATFORM_WINDOWS
+
 #include "CDirectSoundStream.h"
 #include "CDirectSound.h"
 
@@ -686,3 +690,4 @@ CDirectSoundStream::SetVolumeLimit(LONG volume)
 	}
 	
 }
+#endif /* PLATFORM_WINDOWS */

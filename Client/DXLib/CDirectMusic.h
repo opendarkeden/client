@@ -10,6 +10,18 @@
 #include <DMusicF.h>
 #else
 #include "../../basic/Platform.h"
+
+// Forward declarations for DirectMusic interfaces on non-Windows platforms
+struct IDirectMusic;
+struct IDirectMusicPerformance;
+struct IDirectMusicPort;
+struct IDirectMusicLoader;
+struct IDirectMusicSegment;
+struct IDirectMusicSegmentState;
+
+// DirectMusic type definitions
+typedef long MUSIC_TIME;
+typedef long long REFERENCE_TIME;
 #endif
 
 typedef enum DIRECTMUSIC_TYPE	

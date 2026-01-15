@@ -2,6 +2,10 @@
 // CDirectMusic.cpp
 //----------------------------------------------------------------------
 
+// Only compile DirectMusic implementation on Windows platforms
+// On non-Windows platforms (macOS/Linux with SDL2), we only use the stub class from CDirectMusic.h
+#ifdef PLATFORM_WINDOWS
+
 #include "CDirectSound.h"
 #include "CDirectMusic.h"
 
@@ -765,3 +769,5 @@ CDirectMusic::CreateLoader()
     return true;
 }
 
+
+#endif /* PLATFORM_WINDOWS */

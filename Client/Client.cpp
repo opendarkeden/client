@@ -921,7 +921,6 @@ long FAR PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
                 case SC_SIZE:
                 case SC_MAXIMIZE:
                 case SC_MONITORPOWER:
-				case SC_SCREENSAVE :
                     if( CDirectDraw::IsFullscreen() )
                         return 1;
                     break;
@@ -1700,7 +1699,7 @@ InitApp(int nCmdShow)
 	//get_rand_str(rnd_PROGRAM_TITLE,5);
     // Set up and register window class
     wc.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
-    wc.lpfnWndProc = WindowProc;
+    wc.lpfnWndProc = (void*)WindowProc;
     wc.cbClsExtra = 0;
     wc.cbWndExtra = 0;
     wc.hInstance = g_hInstance;
@@ -1928,7 +1927,7 @@ CheckTerriblePatch()
 	//-----------------------------------------------------------------------------
 	// Load
 	//-----------------------------------------------------------------------------
-	class ifstream	fileAppendInfo;
+	std::ifstream fileAppendInfo;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_APPENDPATCH").c_str(), fileAppendInfo))
 		return false;
 	apt.LoadFromFile( fileAppendInfo );
@@ -4149,25 +4148,29 @@ _APICheck.init();
 		InitCrashReport();
 #endif
 	if (InitApp(nCmdShow))
-	{	
+	{
 
-		
+#ifdef PLATFORM_WINDOWS
 		DDSCAPS2 ddsCaps2;
 		DWORD dwTotal;
 		DWORD dwFree;
-		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2)); 
-		ddsCaps2.dwCaps = DDSCAPS_VIDEOMEMORY;//DDSCAPS_TEXTURE; 
+		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2));
+		ddsCaps2.dwCaps = DDSCAPS_VIDEOMEMORY;//DDSCAPS_TEXTURE;
 		HRESULT hr = CDirectDraw::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
 
 		DDCAPS	driverCaps;
 		ZeroMemory( &driverCaps, sizeof(driverCaps) );
 		driverCaps.dwSize = sizeof(driverCaps);
-		
+
 		hr = CDirectDraw::GetDD()->GetCaps( &driverCaps, NULL );
-		
+
 		g_dwVideoMemory = driverCaps.dwVidMemTotal;
-//		g_dwVideoMemory = driverCaps.dwVidMemFree; 
-		
+//		g_dwVideoMemory = driverCaps.dwVidMemFree;
+#else
+		// On non-Windows platforms, set a default video memory value
+		g_dwVideoMemory = 256 * 1024 * 1024;  // 256 MB default
+#endif
+
 		// ³Ý¸¶ºí¿ë
 		if(bNetmarble)
 		{
@@ -4266,11 +4269,12 @@ _APICheck.init();
 
 					//if (g_CurrentTime - lastTime > g_UpdateDelay)
 					{
-						// CDirectDraw°¡ ÀÛµ¿ÁßÀÌÁö ¾ÊÀ» °æ¿ì¿¡´Â return
+						// CDirectDraw가 작동중이지 않을 경우에는 return
 						//if (g_bActiveApp)// && CDirectDraw::IsActive())
+#ifdef PLATFORM_WINDOWS
 						if (g_pUpdate!=NULL)
 						{
-							// ³ëÆÄ½É.. À¸Èì.. --;;
+							// 노파식.. 으이으.. --;;
 							CWinUpdate*	pCurrentUpdate = g_pUpdate;
 
 							pCurrentUpdate->Update();
@@ -4280,7 +4284,10 @@ _APICheck.init();
 							#endif
 
 						}
-
+#else
+						// On non-Windows platforms, game update is handled differently
+						// TODO: Implement SDL2-based game loop
+#endif
 						//lastTime = g_CurrentTime;
 					}
 #ifdef __NPROTECT__

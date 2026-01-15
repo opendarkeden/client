@@ -1,6 +1,11 @@
 //----------------------------------------------------------------------
 // CDirectDrawSurface.cpp
 //----------------------------------------------------------------------
+
+// Only compile DirectDrawSurface implementation on Windows platforms
+// On non-Windows platforms (macOS/Linux with SDL2), we only use the stub class from CDirectDrawSurface.h
+#ifdef PLATFORM_WINDOWS
+
 #include <stdio.h>
 #include "CDirectDrawSurface.h"
 //#include "DebugInfo.h"
@@ -1796,3 +1801,5 @@ CDirectDrawSurface::SaveToBMP(const char * szFilename)
 
 	return true;
 }
+
+#endif /* PLATFORM_WINDOWS */

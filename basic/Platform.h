@@ -56,6 +56,32 @@ extern "C" {
 #endif
 
 /* ============================================================================
+ * Calling Conventions
+ * ============================================================================ */
+
+/* Define calling conventions for non-Windows platforms */
+#ifndef PLATFORM_WINDOWS
+	#ifndef __cdecl
+		#define __cdecl
+	#endif
+	#ifndef __stdcall
+		#define __stdcall
+	#endif
+	#ifndef WINAPI
+		#define WINAPI
+	#endif
+	#ifndef APIENTRY
+		#define APIENTRY
+	#endif
+	#ifndef CALLBACK
+		#define CALLBACK
+	#endif
+	#ifndef INLINE
+		#define INLINE inline
+	#endif
+#endif
+
+/* ============================================================================
  * Basic Type Definitions (from Typedef.h)
  * ============================================================================ */
 
@@ -77,6 +103,21 @@ typedef uintptr_t		ULONG_PTR;
 typedef intptr_t		LONG_PTR;
 typedef uintptr_t		DWORD_PTR;
 typedef long			LONG;
+typedef int				BOOL;
+
+/* WAVEFORMATEX structure for audio format */
+#ifndef _WAVEFORMATEX_
+#define _WAVEFORMATEX_
+typedef struct _WAVEFORMATEX {
+	WORD wFormatTag;
+	WORD nChannels;
+	DWORD nSamplesPerSec;
+	DWORD nAvgBytesPerSec;
+	WORD nBlockAlign;
+	WORD wBitsPerSample;
+	WORD cbSize;
+} WAVEFORMATEX, *LPWAVEFORMATEX, *PWAVEFORMATEX;
+#endif
 
 /* Windows path constants */
 #ifndef _MAX_PATH
@@ -144,7 +185,7 @@ typedef WORD			char_t;
 	typedef void*			HFONT;
 	typedef void*			HINSTANCE;
 	typedef void*			HANDLE;
-	typedef DWORD			LPDWORD;
+	typedef DWORD*			LPDWORD;
 	typedef const char*		LPCSTR;
 	typedef char*			LPSTR;
 	typedef const char*		LPCTSTR;
@@ -378,6 +419,8 @@ typedef WORD			char_t;
 
 	/* Window messages */
 	#define WM_DESTROY 0x0002
+	#define WM_CLOSE 0x0010
+	#define WM_QUIT 0x0012
 	#define WM_SYSCOMMAND 0x0112
 	#define WM_MOVE 0x0003
 	#define WM_KEYDOWN 0x0100
@@ -937,6 +980,517 @@ typedef struct _devicemode {
 } DEVMODE, *PDEVMODE, *LPDEVMODE;
 
 #endif /* RECT_DEFINED */
+
+/* ============================================================================
+ * Windows File and Process API Stubs
+ * ============================================================================ */
+
+/* File time structure (must be defined before WIN32_FIND_DATA) */
+#ifndef FILETIME_DEFINED
+#define FILETIME_DEFINED
+typedef struct _FILETIME {
+	DWORD dwLowDateTime;
+	DWORD dwHighDateTime;
+} FILETIME, *PFILETIME, *LPFILETIME;
+#endif
+
+/* Security attributes structure */
+#ifndef SECURITY_ATTRIBUTES_DEFINED
+#define SECURITY_ATTRIBUTES_DEFINED
+typedef struct _SECURITY_ATTRIBUTES {
+	DWORD nLength;
+	LPVOID lpSecurityDescriptor;
+	BOOL bInheritHandle;
+} SECURITY_ATTRIBUTES, *PSECURITY_ATTRIBUTES, *LPSECURITY_ATTRIBUTES;
+#endif
+
+/* Find file data structure */
+#ifndef WIN32_FIND_DATA_DEFINED
+#define WIN32_FIND_DATA_DEFINED
+typedef struct _WIN32_FIND_DATAA {
+	DWORD dwFileAttributes;
+	FILETIME ftCreationTime;
+	FILETIME ftLastAccessTime;
+	FILETIME ftLastWriteTime;
+	DWORD nFileSizeHigh;
+	DWORD nFileSizeLow;
+	DWORD dwReserved0;
+	DWORD dwReserved1;
+	char cFileName[MAX_PATH];
+	char cAlternateFileName[14];
+} WIN32_FIND_DATA, *PWIN32_FIND_DATA, *LPWIN32_FIND_DATA;
+#endif
+
+/* Process access rights */
+#ifndef PROCESS_ALL_ACCESS
+	#define PROCESS_ALL_ACCESS (0xFFFF)
+#endif
+
+/* Display settings constants */
+#ifndef CDS_RESET
+	#define CDS_RESET 0x40000000
+#endif
+#ifndef CDS_UPDATEREGISTRY
+	#define CDS_UPDATEREGISTRY 0x00000001
+#endif
+#ifndef DISP_CHANGE_SUCCESSFUL
+	#define DISP_CHANGE_SUCCESSFUL 0
+#endif
+#ifndef DISP_CHANGE_RESTART
+	#define DISP_CHANGE_RESTART 1
+#endif
+#ifndef DISP_CHANGE_FAILED
+	#define DISP_CHANGE_FAILED -1
+#endif
+
+/* Find file handles */
+typedef void* HANDLE;
+typedef void* HWND;
+typedef void* HINSTANCE;
+typedef void* HMODULE;
+typedef void* HKEY;
+
+/* Registry constants */
+#ifndef HKEY_LOCAL_MACHINE
+	#define HKEY_LOCAL_MACHINE ((HKEY)0x80000002)
+#endif
+
+#ifndef KEY_ALL_ACCESS
+	#define KEY_ALL_ACCESS (0xF003F)
+#endif
+
+#ifndef REG_SZ
+	#define REG_SZ 1
+#endif
+
+#ifndef ERROR_SUCCESS
+	#define ERROR_SUCCESS 0
+#endif
+
+/* Stub implementations for file and process operations */
+#ifndef DeleteFile
+static inline BOOL DeleteFileA(LPCSTR lpFileName) {
+	(void)lpFileName;
+	return FALSE;
+}
+#define DeleteFile DeleteFileA
+#endif
+
+#ifndef CopyFile
+static inline BOOL CopyFileA(LPCSTR lpExistingFileName, LPCSTR lpNewFileName, BOOL bFailIfExists) {
+	(void)lpExistingFileName; (void)lpNewFileName; (void)bFailIfExists;
+	return FALSE;
+}
+#define CopyFile CopyFileA
+#endif
+
+#ifndef SetCurrentDirectory
+static inline BOOL SetCurrentDirectoryA(LPCSTR lpPathName) {
+	(void)lpPathName;
+	return FALSE;
+}
+#define SetCurrentDirectory SetCurrentDirectoryA
+#endif
+
+#ifndef GetModuleFileName
+static inline DWORD GetModuleFileNameA(HMODULE hModule, LPSTR lpFilename, DWORD nSize) {
+	(void)hModule;
+	if (lpFilename && nSize > 0) {
+		lpFilename[0] = '\0';
+		return 0;
+	}
+	return 0;
+}
+#define GetModuleFileName GetModuleFileNameA
+#endif
+
+#ifndef GetWindowThreadProcessId
+static inline DWORD GetWindowThreadProcessId(HWND hWnd, LPDWORD lpdwProcessId) {
+	(void)hWnd;
+	if (lpdwProcessId) *lpdwProcessId = 0;
+	return 0;
+}
+#endif
+
+#ifndef TerminateProcess
+static inline BOOL TerminateProcess(HANDLE hProcess, UINT uExitCode) {
+	(void)hProcess; (void)uExitCode;
+	return FALSE;
+}
+#endif
+
+#ifndef FindClose
+static inline BOOL FindClose(HANDLE hFindFile) {
+	(void)hFindFile;
+	return FALSE;
+}
+#endif
+
+#ifndef FindFirstFileA
+static inline HANDLE FindFirstFileA(LPCSTR lpFileName, LPWIN32_FIND_DATA lpFindFileData) {
+	(void)lpFileName; (void)lpFindFileData;
+	return (HANDLE)INVALID_HANDLE_VALUE;
+}
+#define FindFirstFile FindFirstFileA
+#endif
+
+#ifndef FindNextFileA
+static inline BOOL FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATA lpFindFileData) {
+	(void)hFindFile; (void)lpFindFileData;
+	return FALSE;
+}
+#define FindNextFile FindNextFileA
+#endif
+
+#ifndef INVALID_HANDLE_VALUE
+	#define INVALID_HANDLE_VALUE ((HANDLE)(-1))
+#endif
+
+#ifndef CreateMutexA
+static inline HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpMutexAttributes, BOOL bInitialOwner, LPCSTR lpName) {
+	(void)lpMutexAttributes; (void)bInitialOwner; (void)lpName;
+	return (HANDLE)NULL;
+}
+#define CreateMutex CreateMutexA
+#endif
+
+#ifndef ReleaseMutex
+static inline BOOL ReleaseMutex(HANDLE hMutex) {
+	(void)hMutex;
+	return FALSE;
+}
+#endif
+
+#ifndef OpenProcess
+static inline HANDLE OpenProcess(DWORD dwDesiredAccess, BOOL bInheritHandle, DWORD dwProcessId) {
+	(void)dwDesiredAccess; (void)bInheritHandle; (void)dwProcessId;
+	return (HANDLE)NULL;
+}
+#endif
+
+#ifndef ChangeDisplaySettingsA
+static inline LONG ChangeDisplaySettingsA(LPDEVMODE lpDevMode, DWORD dwflags) {
+	(void)lpDevMode; (void)dwflags;
+	return DISP_CHANGE_FAILED;
+}
+#define ChangeDisplaySettings ChangeDisplaySettingsA
+#endif
+
+#ifndef GetLastError
+static inline DWORD GetLastError() {
+	return 0;
+}
+#endif
+
+#ifndef _chdir
+	#define _chdir chdir
+#endif
+
+/* Unix-style function name mappings for Windows compatibility */
+#ifndef _access
+	#define _access access
+#endif
+
+#ifndef _getcwd
+	#define _getcwd getcwd
+#endif
+
+#ifndef _rmdir
+	#define _rmdir rmdir
+#endif
+
+/* _P_OVERLAY for spawn function */
+#ifndef _P_OVERLAY
+	#define _P_OVERLAY 2
+#endif
+
+/* Registry types */
+#ifndef REGSAM
+typedef DWORD REGSAM;
+#endif
+
+#ifndef PHKEY
+typedef HKEY* PHKEY;
+#endif
+
+/* Registry functions */
+#ifndef RegOpenKeyExA
+static inline LONG RegOpenKeyExA(HKEY hKey, LPCSTR lpSubKey, DWORD ulOptions, REGSAM samDesired, PHKEY phkResult) {
+	(void)hKey; (void)lpSubKey; (void)ulOptions; (void)samDesired;
+	if (phkResult) *phkResult = NULL;
+	return ERROR_SUCCESS;
+}
+#define RegOpenKeyEx RegOpenKeyExA
+#endif
+
+#ifndef RegQueryValueExA
+static inline LONG RegQueryValueExA(HKEY hKey, LPCSTR lpValueName, LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData, LPDWORD lpcbData) {
+	(void)hKey; (void)lpValueName; (void)lpReserved; (void)lpType;
+	if (lpData && lpcbData && *lpcbData > 0) {
+		lpData[0] = '\0';
+		*lpcbData = 1;
+	}
+	return ERROR_SUCCESS;
+}
+#define RegQueryValueEx RegQueryValueExA
+#endif
+
+#ifndef RegSetValueExA
+static inline LONG RegSetValueExA(HKEY hKey, LPCSTR lpValueName, DWORD Reserved, DWORD dwType, const BYTE* lpData, DWORD cbData) {
+	(void)hKey; (void)lpValueName; (void)Reserved; (void)dwType; (void)lpData; (void)cbData;
+	return ERROR_SUCCESS;
+}
+#define RegSetValueEx RegSetValueExA
+#endif
+
+#ifndef RegCloseKey
+static inline LONG RegCloseKey(HKEY hKey) {
+	(void)hKey;
+	return ERROR_SUCCESS;
+}
+#endif
+
+/* Registry access mask type */
+#ifndef REGSAM_DEFINED
+	#define REGSAM_DEFINED
+#endif
+
+#ifndef EnumDisplaySettingsA
+static inline BOOL EnumDisplaySettingsA(LPCSTR lpszDeviceName, DWORD iModeNum, LPDEVMODE lpDevMode) {
+	(void)lpszDeviceName; (void)iModeNum;
+	if (lpDevMode) {
+		lpDevMode->dmBitsPerPel = 32;
+		lpDevMode->dmPelsWidth = 1024;
+		lpDevMode->dmPelsHeight = 768;
+		lpDevMode->dmDisplayFrequency = 60;
+	}
+	return FALSE;
+}
+#define EnumDisplaySettings EnumDisplaySettingsA
+#endif
+
+#ifndef Sleep
+	/* Sleep for specified milliseconds */
+	#ifdef PLATFORM_WINDOWS
+		/* Use Windows Sleep */
+	#else
+		/* Unix: use usleep */
+		#include <unistd.h>
+		static inline void Sleep(DWORD dwMilliseconds) {
+			usleep(dwMilliseconds * 1000);
+		}
+	#endif
+#endif
+
+/* Spawn functions */
+#ifndef _spawnl
+static inline intptr_t _spawnl(int mode, const char* cmdname, const char* arg0, ...) {
+	(void)mode; (void)cmdname; (void)arg0;
+	return -1;
+}
+#endif
+
+/* _finddata_t structure for file finding */
+#ifndef _FINDDATA_T_DEFINED
+#define _FINDDATA_T_DEFINED
+struct _finddata_t {
+	unsigned attrib;
+	time_t time_create;
+	time_t time_access;
+	time_t time_write;
+	long size;
+	char name[512];
+};
+#endif
+
+/* Find functions (Unix-style) */
+#ifndef _findfirst
+static inline long _findfirst(const char* filename, struct _finddata_t* finddata) {
+	(void)filename; (void)finddata;
+	return -1;
+}
+#endif
+
+#ifndef _findnext
+static inline int _findnext(long handle, struct _finddata_t* finddata) {
+	(void)handle; (void)finddata;
+	return -1;
+}
+#endif
+
+#ifndef _findclose
+static inline int _findclose(long handle) {
+	(void)handle;
+	return 0;
+}
+#endif
+
+/* MSG structure for Windows messages */
+#ifndef tagMSG_DEFINED
+#define tagMSG_DEFINED
+typedef struct tagMSG {
+	HWND hwnd;
+	UINT message;
+	WPARAM wParam;
+	LPARAM lParam;
+	DWORD time;
+	POINT pt;
+} MSG, *PMSG, *LPMSG;
+#endif
+
+/* Message processing functions */
+#ifndef GetMessage
+static inline BOOL GetMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax) {
+	(void)hWnd; (void)wMsgFilterMin; (void)wMsgFilterMax;
+	if (lpMsg) {
+		lpMsg->message = WM_QUIT;
+		return FALSE;
+	}
+	return FALSE;
+}
+#endif
+
+#ifndef TranslateMessage
+static inline BOOL TranslateMessage(const MSG* lpMsg) {
+	(void)lpMsg;
+	return FALSE;
+}
+#endif
+
+#ifndef DispatchMessage
+static inline LRESULT DispatchMessage(const MSG* lpMsg) {
+	(void)lpMsg;
+	return 0;
+}
+#endif
+
+#ifndef WaitMessage
+static inline BOOL WaitMessage() {
+	return FALSE;
+}
+#endif
+
+/* PeekMessage flags */
+#ifndef PM_NOREMOVE
+	#define PM_NOREMOVE 0x0000
+#endif
+
+/* Console constants */
+#ifndef MIN_CLRSCR
+	#define MIN_CLRSCR 0
+#endif
+
+#ifndef MIN_SHOWWND
+	#define MIN_SHOWWND 1
+#endif
+
+#ifndef MIN_HIDEWND
+	#define MIN_HIDEWND 2
+#endif
+
+/* PeekMessage function */
+#ifndef PeekMessageA
+static inline BOOL PeekMessageA(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax, UINT wRemoveMsg) {
+	(void)hWnd; (void)wMsgFilterMin; (void)wMsgFilterMax; (void)wRemoveMsg;
+	return FALSE;
+}
+#define PeekMessage PeekMessageA
+#endif
+
+/* System parameters info */
+#ifndef SPI_SETSCREENSAVERRUNNING
+	#define SPI_SETSCREENSAVERRUNNING 17
+#endif
+
+/* OS version info */
+#ifndef OSVERSIONINFO_DEFINED
+#define OSVERSIONINFO_DEFINED
+typedef struct _OSVERSIONINFOA {
+	DWORD dwOSVersionInfoSize;
+	DWORD dwMajorVersion;
+	DWORD dwMinorVersion;
+	DWORD dwBuildNumber;
+	DWORD dwPlatformId;
+	char szCSDVersion[128];
+} OSVERSIONINFOA, *POSVERSIONINFOA, *LPOSVERSIONINFOA;
+#define OSVERSIONINFO OSVERSIONINFOA
+#endif
+
+#ifndef VER_PLATFORM_WIN32_WINDOWS
+	#define VER_PLATFORM_WIN32_WINDOWS 1
+#endif
+
+#ifndef VER_PLATFORM_WIN32_NT
+	#define VER_PLATFORM_WIN32_NT 2
+#endif
+
+/* DirectInput key codes */
+#ifndef DIK_NUMPADENTER
+	#define DIK_NUMPADENTER 0x9C
+#endif
+
+/* Version checking */
+#ifndef GetVersionExA
+static inline BOOL GetVersionExA(LPOSVERSIONINFOA lpVersionInformation) {
+	if (lpVersionInformation) {
+		lpVersionInformation->dwOSVersionInfoSize = sizeof(OSVERSIONINFOA);
+		lpVersionInformation->dwMajorVersion = 5;
+		lpVersionInformation->dwMinorVersion = 1;
+		lpVersionInformation->dwBuildNumber = 2600;
+		lpVersionInformation->dwPlatformId = VER_PLATFORM_WIN32_NT;
+		lpVersionInformation->szCSDVersion[0] = '\0';
+	}
+	return TRUE;
+}
+#define GetVersionEx GetVersionExA
+#endif
+
+/* Exception handling */
+/* Exception filter type (must be defined before EXCEPTION_POINTERS) */
+#ifndef LPTOP_LEVEL_EXCEPTION_FILTER
+typedef long (*LPTOP_LEVEL_EXCEPTION_FILTER)(struct _EXCEPTION_POINTERS*);
+#endif
+
+#ifndef EXCEPTION_POINTERS_DEFINED
+#define EXCEPTION_POINTERS_DEFINED
+typedef struct _EXCEPTION_POINTERS {
+	DWORD ExceptionCode;
+	DWORD ExceptionFlags;
+	void* ExceptionRecord;
+	void* ExceptionAddress;
+	DWORD NumberParameters;
+	void* ExceptionInformation[15];
+} EXCEPTION_POINTERS, *PEXCEPTION_POINTERS;
+#endif
+
+#ifndef SetUnhandledExceptionFilter
+static inline LPTOP_LEVEL_EXCEPTION_FILTER SetUnhandledExceptionFilter(LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter) {
+	(void)lpTopLevelExceptionFilter;
+	return NULL;
+}
+#endif
+
+/* DirectDraw caps */
+#ifndef DDSCAPS_VIDEOMEMORY
+	#define DDSCAPS_VIDEOMEMORY 0x00000040
+#endif
+
+typedef struct _DDCAPS {
+	DWORD dwSize;
+	DWORD dwCaps;
+	DWORD dwCaps2;
+	DWORD dwCKeyCaps;
+	DWORD dwFXCaps;
+	DWORD dwFXAlphaCaps;
+	DWORD dwPalCaps;
+	DWORD dwSVCaps;
+	DWORD dwAlphaCaps;
+	DWORD dwVideoPortCaps;
+	DWORD dwVideoPortCaps2;
+	DWORD dwVidMemTotal;
+	DWORD dwVidMemFree;
+	DWORD dwMaxVisibleOverhead;
+} DDCAPS;
 
 #ifdef __cplusplus
 }

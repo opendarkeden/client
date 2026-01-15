@@ -5,7 +5,11 @@
 #include "common.h"
 //#include "dslib.h"
 #include "bit_res.h"
+#ifdef PLATFORM_WINDOWS
 #include <dsound.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 
 typedef int	OFFSET ;
 

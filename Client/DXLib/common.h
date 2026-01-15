@@ -9,6 +9,7 @@ enum e_channels { both, left, right };
 
 typedef unsigned int        UINT;
 typedef unsigned char BYTE;
+typedef int                 BOOL;
 
 inline  UINT BYTES2UINT( BYTE a, BYTE b, BYTE c, BYTE d )
 {

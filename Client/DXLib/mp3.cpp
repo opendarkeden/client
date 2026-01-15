@@ -3,7 +3,7 @@
 #include "reader.h"
 #include "huffman.h"
 #include "soundbuf.h"
-#include "DXLib\CDirectSound.h"
+#include "CDirectSound.h"
 #include "debuginfo.h"
 #include <math.h>
 

@@ -2,6 +2,10 @@
 // CDirectDraw.cpp
 //----------------------------------------------------------------------
 
+// Only compile DirectDraw implementation on Windows platforms
+// On non-Windows platforms (macOS/Linux with SDL2), we only use the stub class from CDirectDraw.h
+#ifdef PLATFORM_WINDOWS
+
 #include "CDirectDraw.h"
 
 /*-----------------------------------------------------------------------------
@@ -1133,3 +1137,5 @@ DWORD CDirectDraw::Get_BPP()
 
    return ddpf.dwRGBBitCount;
 }
+
+#endif /* PLATFORM_WINDOWS */

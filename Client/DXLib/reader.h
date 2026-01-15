@@ -1,7 +1,11 @@
 #ifndef _MP3_READER_H_
 #define _MP3_READER_H_
 
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "mp3.h"
 #include <stdio.h>
 

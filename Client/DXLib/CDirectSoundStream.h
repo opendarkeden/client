@@ -35,6 +35,8 @@ typedef struct _MMCKINFO {
 } MMCKINFO, *LPMMCKINFO;
 
 /* WAVE format structure */
+#ifndef _WAVEFORMATEX_
+#define _WAVEFORMATEX_
 typedef struct _WAVEFORMATEX {
     WORD    wFormatTag;
     WORD    nChannels;
@@ -44,6 +46,7 @@ typedef struct _WAVEFORMATEX {
     WORD    wBitsPerSample;
     WORD    cbSize;
 } WAVEFORMATEX, *LPWAVEFORMATEX;
+#endif
 
 /* DirectSound buffer position notify structure */
 typedef struct _DSBPOSITIONNOTIFY {

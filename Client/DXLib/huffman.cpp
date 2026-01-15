@@ -1,6 +1,6 @@
 
-#include <fstream.h>
-#include <strstrea.h>
+#include <fstream>
+#include <strstream>
 #ifdef  __WIN32__
 #define STRICT
 #ifdef PLATFORM_WINDOWS

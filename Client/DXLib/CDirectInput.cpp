@@ -1,3 +1,11 @@
+//----------------------------------------------------------------------
+// CDirectInput.cpp
+//----------------------------------------------------------------------
+
+// Only compile DirectInput implementation on Windows platforms
+// On non-Windows platforms (macOS/Linux with SDL2), we only use the stub class from CDirectInput.h
+#ifdef PLATFORM_WINDOWS
+
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
 #else
@@ -951,10 +959,12 @@ BOOL CDirectInput::Init(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
 	{
 		return TRUE;
 	}
-	
+
 	return FALSE;
-		//MessageBox(NULL, 
-		//				"Error Initializing DirectInput", 
-		//				"DX Library", 
+		//MessageBox(NULL,
+		//				"Error Initializing DirectInput",
+		//				"DX Library",
 		//				MB_ICONERROR | MB_OK);
 }
+
+#endif /* PLATFORM_WINDOWS */

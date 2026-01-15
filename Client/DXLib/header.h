@@ -2,7 +2,9 @@
 #define _MP3_HEADER_H_
 
 #include "common.h"
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#endif
 
 struct MP3Header
 {

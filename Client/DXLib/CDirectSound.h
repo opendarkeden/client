@@ -34,11 +34,15 @@ class CDirectSound
 		//---------------------------------------------------------
 		// Init / Release
 		//---------------------------------------------------------
-		bool					Init(HWND);									// 초기화 
+		bool					Init(HWND);									// 초기화
 		void					Release();									// 제거
 		void					ReleaseDuplicateBuffer();
 
+#ifdef PLATFORM_WINDOWS
 		bool					IsInit() const		{ return m_bInit; }
+#else
+		bool					IsInit() const;
+#endif
 
 		//---------------------------------------------------------
 		// Load / Release / Duplicate
@@ -60,9 +64,15 @@ class CDirectSound
 		//---------------------------------------------------------
 		// Mute
 		//---------------------------------------------------------
-		bool					IsMute() const	{ return m_bMute; }
-		void					SetMute()		{ m_bMute = true; }
-		void					UnSetMute()		{ m_bMute = false; }
+#ifdef PLATFORM_WINDOWS
+		bool					IsMute() const		{ return m_bMute; }
+		void					SetMute()			{ m_bMute = true; }
+		void					UnSetMute()			{ m_bMute = false; }
+#else
+		bool					IsMute() const;
+		void					SetMute();
+		void					UnSetMute();
+#endif
 
 		//---------------------------------------------------------
 		// Frequency
@@ -76,9 +86,13 @@ class CDirectSound
 		bool					SetMaxVolume(LPDIRECTSOUNDBUFFER buffer);
 		bool					AddVolume(LPDIRECTSOUNDBUFFER, int);		// 볼륨 높임
 		bool					SubVolume(LPDIRECTSOUNDBUFFER, int);		// 볼륨 내림				
-		bool					SubVolumeFromMax(LPDIRECTSOUNDBUFFER, int);	// Max부터 볼륨 내림				
+		bool					SubVolumeFromMax(LPDIRECTSOUNDBUFFER, int);	// Max부터 볼륨 내림
 		void					SetVolumeLimit(LONG volume);
+#ifdef PLATFORM_WINDOWS
 		LONG					GetVolumeLimit() const	{ return m_MaxVolume; }
+#else
+		LONG					GetVolumeLimit() const;
+#endif
 
 		//---------------------------------------------------------
 		// Pan
@@ -87,10 +101,14 @@ class CDirectSound
 		bool					LeftPan(LPDIRECTSOUNDBUFFER, int);			// 왼쪽 팬
 		bool					CenterToRightPan(LPDIRECTSOUNDBUFFER, int);			// center부터 오른쪽 팬
 		bool					CenterToLeftPan(LPDIRECTSOUNDBUFFER, int);			// center부터 왼쪽 팬
-		bool					CenterPan(LPDIRECTSOUNDBUFFER);				// 가운데 팬				
+		bool					CenterPan(LPDIRECTSOUNDBUFFER);				// 가운데 팬
 		bool					ChangePan(LPDIRECTSOUNDBUFFER buffer, int pan);	// -10000 ~ 10000
 
-		LPDIRECTSOUND			GetDS() const		{ return m_pDS;	}
+#ifdef PLATFORM_WINDOWS
+		LPDIRECTSOUND			GetDS() const		{ return m_pDS; }
+#else
+		LPDIRECTSOUND			GetDS() const;
+#endif
 
 		
 

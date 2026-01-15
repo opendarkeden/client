@@ -21,12 +21,10 @@
 struct IDirectSound;
 struct IDirectSoundBuffer;
 struct IDirectSoundNotify;
-struct _WAVEFORMATEX;
 
 /* Type definitions */
 typedef struct IDirectSoundBuffer* LPDIRECTSOUNDBUFFER;
 typedef struct IDirectSoundNotify* LPDIRECTSOUNDNOTIFY;
-typedef struct _WAVEFORMATEX* LPWAVEFORMATEX;
 typedef void* HMMIO;
 typedef DWORD FOURCC;
 
@@ -44,19 +42,6 @@ typedef struct {
     DWORD   dwSize;
 } MMCKINFO;
 
-/* WAVE format structure - only define if not already defined */
-#ifndef WAVEFORMATEX_DEFINED
-#define WAVEFORMATEX_DEFINED
-typedef struct _WAVEFORMATEX {
-    WORD    wFormatTag;
-    WORD    nChannels;
-    DWORD   nSamplesPerSec;
-    DWORD   nAvgBytesPerSec;
-    WORD    nBlockAlign;
-    WORD    wBitsPerSample;
-    WORD    cbSize;
-} WAVEFORMATEX, *LPWAVEFORMATEX;
-#endif
 
 /* Multimedia constants */
 #define MMIO_READ      0

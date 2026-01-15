@@ -1,6 +1,10 @@
 #include "reader.h"
 #include "common.h"
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "mp3.h"
 #include <string.h>
 #include <stdio.h>
