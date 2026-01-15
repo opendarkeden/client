@@ -28,42 +28,42 @@
 //----------------------------------------------------------------------------
 // Globals
 //
-// C_VS_UI_GAME Object°¡ ½ÇÇàÁß¿¡ ÀÖÀ» ¶§ À¯È¿ÇÏ´Ù.
+// C_VS_UI_GAME Objectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¿ï¿½Ï´ï¿½.
 //----------------------------------------------------------------------------
 bool gbl_item_lock; // no static member, 'static GLOBAL!'
-						  // ÃÊ±âÈ­´Â C_VS_UI_GAME::Start()¿¡¼­ ÇØÁØ´Ù.
+						  // ï¿½Ê±ï¿½È­ï¿½ï¿½ C_VS_UI_GAME::Start()ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 bool gbl_gear_lock;
 
 bool gbl_item_trade_lock;
 
-// shop¿¡¼­ ¹°°ÇÀ» »ì¶§´Â »ì¹°°Ç¿¡ ´ëÇÑ price¸¦ Ãâ·ÂÇØÁà¾ßÇÏ°í,
-// ÆÈ ¶§µµ ¶ÇÇÑ ±×·¡¾ßÇÑ´Ù.
-bool gbl_sell_running; // »ç´Â Áß..
-bool gbl_buy_running; // ÆÄ´Â Áß..
-bool gbl_repair_running; // °íÄ¡´Â Áß...
-bool gbl_silvering_running; // Àºµµ±Ý ÇÏ´ÂÁß
-bool gbl_buy_storage_running; // °íÄ¡´Â Áß...
-bool gbl_exchange_ask_running; // ±³È¯ÇÒ·¡? ¶° ÀÖ´Â Áß.. --;		// by sigi
-bool gbl_exchange_cancel_running; // ±³È¯Ãë¼ÒÇÒ·¡? ¶° ÀÖ´Â Áß.. --;	// by sigi
-bool gbl_party_ask_running; // ÆÄÆ¼ÇÒ·¡? ¶° ÀÖ´Â Áß.. --;
-bool gbl_party_cancel_running; // ÆÄÆ¼Ãë¼ÒÇÒ·¡? ¶° ÀÖ´Â Áß.. --;
-bool gbl_enchant_running; // EnchantÇÒ·¡? ¶° ÀÖ´Â Áß.. --;
-bool gbl_use_pet_food_running; // Æê ¸ÔÀÌ ¸ÔÀÏ·¡? ¶° ÀÖ´ÂÁß
-bool gbl_keep_petitem_running; // Æê ¸Â±æ·¡? ¶° ÀÖ´ÂÁß
-bool gbl_get_keep_petitem_running; // Æê Ã£À»? ¶° ÀÖ´ÂÁß
-bool gbl_use_askitem_running; // ¹«½¼¹«½¼ item »ç¿ëÇÒ·¡? ¶° ÀÖ´ÂÁß
+// shopï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ì¶§ï¿½ï¿½ ï¿½ì¹°ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½ priceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½,
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+bool gbl_sell_running; // ï¿½ï¿½ï¿½ ï¿½ï¿½..
+bool gbl_buy_running; // ï¿½Ä´ï¿½ ï¿½ï¿½..
+bool gbl_repair_running; // ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½...
+bool gbl_silvering_running; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ï¿½ï¿½
+bool gbl_buy_storage_running; // ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½...
+bool gbl_exchange_ask_running; // ï¿½ï¿½È¯ï¿½Ò·ï¿½? ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½.. --;		// by sigi
+bool gbl_exchange_cancel_running; // ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½Ò·ï¿½? ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½.. --;	// by sigi
+bool gbl_party_ask_running; // ï¿½ï¿½Æ¼ï¿½Ò·ï¿½? ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½.. --;
+bool gbl_party_cancel_running; // ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½Ò·ï¿½? ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½.. --;
+bool gbl_enchant_running; // Enchantï¿½Ò·ï¿½? ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½.. --;
+bool gbl_use_pet_food_running; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï·ï¿½? ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½
+bool gbl_keep_petitem_running; // ï¿½ï¿½ ï¿½Â±æ·¡? ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½
+bool gbl_get_keep_petitem_running; // ï¿½ï¿½ Ã£ï¿½ï¿½? ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½
+bool gbl_use_askitem_running; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ item ï¿½ï¿½ï¿½ï¿½Ò·ï¿½? ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½
 //bool gbl_option_running; // by sigi
-bool gbl_tutorial_exit_ask_running; // ¹«±â¼±ÅÃÇÑ°Å ¾È¹Ù²Ù±¸ ³ª°¥·¡? ¶°ÀÖ´ÂÁß..		//by larosel
-bool gbl_no_search_result_running; // °Ë»ö°á°ú ¾øÀ½ ¶° ÀÖ´Â Áß
-bool gbl_deposit_limit_running; // °Ë»ö°á°ú ¾øÀ½ ¶° ÀÖ´Â Áß
-bool gbl_withdraw_limit_running; // °Ë»ö°á°ú ¾øÀ½ ¶° ÀÖ´Â Áß
-bool gbl_exchange_limit_running; // °Ë»ö°á°ú ¾øÀ½ ¶° ÀÖ´Â Áß
-bool gbl_bring_fee_limit_running; // °Ë»ö°á°ú ¾øÀ½ ¶° ÀÖ´Â Áß
-bool gbl_getitem_from_itemlist_running;	// ¾ÆÀÌÅÛ ¸®½ºÆ®¿¡¼­ ¾ÆÀÌÅÛ °¡Á®¿Ã¶§
+bool gbl_tutorial_exit_ask_running; // ï¿½ï¿½ï¿½â¼±ï¿½ï¿½ï¿½Ñ°ï¿½ ï¿½È¹Ù²Ù±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½? ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½..		//by larosel
+bool gbl_no_search_result_running; // ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½
+bool gbl_deposit_limit_running; // ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½
+bool gbl_withdraw_limit_running; // ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½
+bool gbl_exchange_limit_running; // ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½
+bool gbl_bring_fee_limit_running; // ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½
+bool gbl_getitem_from_itemlist_running;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½
 bool gbl_trans_item_running;
 bool	gbl_skip_escape = false;
 
-bool gbl_swap_advancement_item_running; // ½ÂÁ÷ ¾ÆÀÌÅÛ°ú ±³È¯Áß
+bool gbl_swap_advancement_item_running; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½È¯ï¿½ï¿½
 Race	g_eRaceInterface;
 
 extern int					g_Dimension ;
@@ -285,7 +285,7 @@ void ExecF_UsePetFood(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 	{
 	case DIALOG_EXECID_OK:
 		{
-			#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+			#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 				if(((C_VS_UI_ASK_DIALOG*)p_this_dialog)->GetdwTemporayValue())
 				{
 					MSubInventory* pSubInventory = (MSubInventory*)((C_VS_UI_ASK_DIALOG*)p_this_dialog)->GetpTemporayValue();
@@ -550,9 +550,9 @@ void ExecF_TutorialExitAsk(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 	switch (id)
 	{
 		case DIALOG_EXECID_OK:
-			// ÁÖ¼® by sigi
+			// ï¿½Ö¼ï¿½ by sigi
 			//gpC_base->SendMessage( UI_TUTORIAL_EXIT_ACCEPT, TRUE );
-			gC_vs_ui.RunTutorialExitAccept();	// ¹Ù·Î ½ÇÇà by sigi
+			gC_vs_ui.RunTutorialExitAccept();	// ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ by sigi
 			gbl_tutorial_exit_ask_running = false;
 		break;
 
@@ -573,7 +573,7 @@ void ExecF_TutorialExitAsk(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 //-----------------------------------------------------------------------------
 // Lock/Unlock Item
 //
-// LockµÇ¸é Item Áý±â/³õ±â/¹Ù²Ù±â°¡ ºÒ°¡´ÉÇØÁø´Ù. UnlockÀº ±×°ÍÀ» ÇØÁ¦ÇÑ´Ù.
+// Lockï¿½Ç¸ï¿½ Item ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½/ï¿½Ù²Ù±â°¡ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. Unlockï¿½ï¿½ ï¿½×°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::LockItem()
 {
@@ -629,7 +629,7 @@ void C_VS_UI_GAME::ChangeToSlayerInterface()
 	g_descriptor_manager.Unset();
 
 //	gbl_vampire_interface = false;
-	g_eRaceInterface = RACE_SLAYER; // ousters interface Ãß°¡
+	g_eRaceInterface = RACE_SLAYER; // ousters interface ï¿½ß°ï¿½
 
 	DeleteNew(m_pC_tribe_interface);
 
@@ -644,7 +644,7 @@ void C_VS_UI_GAME::ChangeToSlayerInterface()
 	wsprintf(sz_filename2,"UserSet\\%s-%d.set", g_char_slot_ingame.sz_name.c_str(),g_pUserInformation->WorldID);
 	wsprintf(sz_filename3,"UserSet\\%s-%d-%d.set", g_char_slot_ingame.sz_name.c_str(),g_Dimension,g_pUserInformation->WorldID);
 		
-	ifstream file(sz_filename3, ios::binary | ios::nocreate);
+	ifstream file(sz_filename3, ios::binary);
 	
 	if(file.is_open())
 	{
@@ -652,7 +652,7 @@ void C_VS_UI_GAME::ChangeToSlayerInterface()
 		file.close();
 	} else
 	{
-		file.open(sz_filename2, ios::binary | ios::nocreate);
+		file.open(sz_filename2, ios::binary);
 
 		if(file.is_open())
 		{
@@ -660,7 +660,7 @@ void C_VS_UI_GAME::ChangeToSlayerInterface()
 			file.close();
 		} else
 		{
-			file.open(sz_filename, ios::binary | ios::nocreate);
+			file.open(sz_filename, ios::binary);
 
 			if(file.is_open())
 			{
@@ -697,7 +697,7 @@ void C_VS_UI_GAME::ChangeToVampireInterface()
 	g_descriptor_manager.Unset();
 
 //	gbl_vampire_interface = true;
-	g_eRaceInterface = RACE_VAMPIRE; // ouster interface Ãß°¡
+	g_eRaceInterface = RACE_VAMPIRE; // ouster interface ï¿½ß°ï¿½
 
 	DeleteNew(m_pC_tribe_interface);
 
@@ -714,7 +714,7 @@ void C_VS_UI_GAME::ChangeToVampireInterface()
 	wsprintf(sz_filename2, "UserSet\\%s-%d.set", g_char_slot_ingame.sz_name.c_str(),g_pUserInformation->WorldID);
 	wsprintf(sz_filename3, "UserSet\\%s-%d-%d.set", g_char_slot_ingame.sz_name.c_str(),g_Dimension,g_pUserInformation->WorldID);
 	
-	ifstream file(sz_filename3, ios::binary | ios::nocreate);
+	ifstream file(sz_filename3, ios::binary);
 	
 	if(file.is_open())
 	{
@@ -722,14 +722,14 @@ void C_VS_UI_GAME::ChangeToVampireInterface()
 		file.close();
 	} else
 	{
-		file.open(sz_filename2, ios::binary | ios::nocreate);
+		file.open(sz_filename2, ios::binary);
 		if(file.is_open())
 		{
 			gpC_vs_ui_window_manager->LoadFromFile(file);
 			file.close();
 		} else
 		{
-			file.open(sz_filename, ios::binary | ios::nocreate);
+			file.open(sz_filename, ios::binary);
 			if(file.is_open())
 			{
 				gpC_vs_ui_window_manager->LoadFromFile(file);
@@ -867,7 +867,7 @@ C_VS_UI_GAME::C_VS_UI_GAME()
 	m_pC_dialog_Campaign_Help = NULL;
 	m_pC_Quest_Npc_Dialog = NULL;
 	m_pC_WebBrowser = NULL;
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 		m_pC_SubInventory = NULL;
 	#endif
 }
@@ -908,7 +908,7 @@ C_VS_UI_GAME::~C_VS_UI_GAME()
 	DeleteNew(m_pC_dialog_Campaign_Help);
 	DeleteNew(m_pC_Quest_Npc_Dialog);
 	DeleteNew(m_pC_WebBrowser);
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 		DeleteNew(m_pC_SubInventory);
 	#endif
 	DeleteNew(m_pC_sms_message);
@@ -1390,14 +1390,14 @@ void	C_VS_UI_GAME::RunGameMenu()
 //-----------------------------------------------------------------------------
 // C_VS_UI_GAME::ClosePopupWindow
 //
-// ÇÏ³ª¶óµµ ´ÝÈ÷¸é true¸¦ ¹ÝÈ¯ÇÑ´Ù.
+// ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ trueï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 bool	C_VS_UI_GAME::ClosePopupWindow()
 {
 	//
-	// Inventory/Gear´Â ÇÑ½ÖÀÇ Popup Window·Î º»´Ù. ÀÌ µÑÀÌ °°ÀÌ ¶° ÀÖ´Ù¸é °°ÀÌ ´ÝÈ÷´Â °ÍÀÌ´Ù.
-	// ±×µéÀº pinned WindowÀÌ¹Ç·Î °íÁ¤µÇ¾î ÀÖ´Â »óÁ¡ Interface°°Àº no pinned WindowÀÇ À§¿¡
-	// Ãâ·ÂµÈ´Ù. µû¶ó¼­ Inventory/Gear -> Other Window ¼øÀ¸·Î closeÇÑ´Ù.
+	// Inventory/Gearï¿½ï¿½ ï¿½Ñ½ï¿½ï¿½ï¿½ Popup Windowï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
+	// ï¿½×µï¿½ï¿½ï¿½ pinned Windowï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ Interfaceï¿½ï¿½ï¿½ï¿½ no pinned Windowï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ÂµÈ´ï¿½. ï¿½ï¿½ï¿½ï¿½ Inventory/Gear -> Other Window ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ closeï¿½Ñ´ï¿½.
 	//
 	bool charinfo_closed = false;
 
@@ -1413,7 +1413,7 @@ bool	C_VS_UI_GAME::ClosePopupWindow()
 		return true;
 	}
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 		if(IsRunningSubInventory())
 		{
 			CloseSubInventory();
@@ -1656,14 +1656,14 @@ bool	C_VS_UI_GAME::ClosePopupWindow()
 	}
 	
 	// by sigi
-	// Ã¥ ÀÐ°í ÀÖÀ¸¸é Ã¥ ´Ý±â
+	// Ã¥ ï¿½Ð°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¥ ï¿½Ý±ï¿½
 	if (IsRunningBookcase() && m_pC_bookcase->IsReadingBook())
 	{
 		m_pC_bookcase->CloseBook();
 
 		return true;
 	}
-	// ¾Æ´Ï¸é.. bookcase ´Ý±â
+	// ï¿½Æ´Ï¸ï¿½.. bookcase ï¿½Ý±ï¿½
 	else if (IsRunningBookcase())
 	{
 //		gpC_base->SendMessage(UI_CLOSE_BOOKCASE);		
@@ -1887,7 +1887,7 @@ void	C_VS_UI_GAME::AddChatToHistory(char * str, char * sz_id, CHAT_LINE_CONDITIO
 //	}
 //	else
 	{
-		// ÀÏ¹ÝÃ¤ÆÃÃ¢À¸·Î...
+		// ï¿½Ï¹ï¿½Ã¤ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½...
 		m_pC_chatting->AddChatToHistory(str, sz_id, condition, color);
 	}
 }
@@ -2021,7 +2021,7 @@ MItem * C_VS_UI_GAME::RemoveItemInGear(int slot)
 		break;
 	}
 
-	return false;
+	return NULL;
 }
 
 //-----------------------------------------------------------------------------
@@ -2071,7 +2071,7 @@ const MItem * C_VS_UI_GAME::GetGearItem(int slot) const
 		break;
 	}
 
-	return false;
+	return NULL;
 }
 const MItem * C_VS_UI_GAME::GetGearItem_PickUp(int &slot) const
 {
@@ -2343,7 +2343,7 @@ void	C_VS_UI_GAME::CloseSkillTree()
 //-----------------------------------------------------------------------------
 // FinishItemSelling
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::FinishItemSelling()
 {
@@ -2374,7 +2374,7 @@ void C_VS_UI_GAME::OpenInventoryToSell()
 //-----------------------------------------------------------------------------
 // FinishItemRepairing
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::FinishItemRepairing()
 {
@@ -2391,7 +2391,7 @@ void C_VS_UI_GAME::FinishItemRepairing()
 //-----------------------------------------------------------------------------
 // FinishItemSilvering
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::FinishItemSilvering()
 {
@@ -2467,7 +2467,7 @@ void C_VS_UI_GAME::SetPetStorage(MStorage* pStorage)
 //-----------------------------------------------------------------------------
 // CloseShop
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseShop()
 {
@@ -2487,7 +2487,7 @@ void C_VS_UI_GAME::CloseShop()
 //-----------------------------------------------------------------------------
 // CloseStorage
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseStorage()
 {
@@ -2501,7 +2501,7 @@ void C_VS_UI_GAME::CloseStorage()
 //-----------------------------------------------------------------------------
 // ClosePetStorage
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::ClosePetStorage()
 {
@@ -2515,7 +2515,7 @@ void C_VS_UI_GAME::ClosePetStorage()
 //-----------------------------------------------------------------------------
 // CloseExchange
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseExchange()
 {
@@ -2531,7 +2531,7 @@ void C_VS_UI_GAME::CloseExchange()
 //-----------------------------------------------------------------------------
 // CloseExchangeAsk
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseExchangeAsk()
 {
@@ -2550,7 +2550,7 @@ void C_VS_UI_GAME::CloseExchangeAsk()
 //-----------------------------------------------------------------------------
 // CloseExchangeCancel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseExchangeCancel()
 {
@@ -2569,7 +2569,7 @@ void C_VS_UI_GAME::CloseExchangeCancel()
 //-----------------------------------------------------------------------------
 // CloseGameMenuOption
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 /*
 void C_VS_UI_GAME::CloseOption()
@@ -2590,7 +2590,7 @@ void C_VS_UI_GAME::CloseOption()
 //-----------------------------------------------------------------------------
 // RunShop
 //
-// ShopÀ» ½ÇÇàÇÑ´Ù.
+// Shopï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunShop()
 {
@@ -2602,7 +2602,7 @@ void C_VS_UI_GAME::RunShop()
 
 		m_pC_tribe_interface->DoCommonActionBeforeEventOccured();
 
-		// Shop Window¿Í ÇÔ²² ¶ç¿ï °ÍµéÀ» ½ÇÇàÇÑ´Ù.
+		// Shop Windowï¿½ï¿½ ï¿½Ô²ï¿½ ï¿½ï¿½ï¿½ ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		m_pC_tribe_interface->ShopRunningAnnounced();
 		m_pC_shop->Start();
 		gbl_buy_running = true;
@@ -2612,7 +2612,7 @@ void C_VS_UI_GAME::RunShop()
 //-----------------------------------------------------------------------------
 // RunStorage
 //
-// StorageÀ» ½ÇÇàÇÑ´Ù.
+// Storageï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunStorage()
 {
@@ -2631,7 +2631,7 @@ void C_VS_UI_GAME::RunStorage()
 //-----------------------------------------------------------------------------
 // RunPetStorage
 //
-// StorageÀ» ½ÇÇàÇÑ´Ù.
+// Storageï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunPetStorage()
 {
@@ -2650,7 +2650,7 @@ void C_VS_UI_GAME::RunPetStorage()
 //-----------------------------------------------------------------------------
 // RunStorageBuy
 //
-// StorageÀ» ½ÇÇàÇÑ´Ù.
+// Storageï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunStorageBuy(int price)
 {
@@ -2673,7 +2673,7 @@ void C_VS_UI_GAME::RunStorageBuy(int price)
 //-----------------------------------------------------------------------------
 // RunOption
 //
-// ¿É¼ÇÃ¢ ¶ç¿ì±â
+// ï¿½É¼ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunOption()
 {
@@ -2697,7 +2697,7 @@ void C_VS_UI_GAME::RunOption()
 //-----------------------------------------------------------------------------
 // RunSkillView //by larosel
 //
-// ½ºÅ³ÀÎÆ÷¸¦ ½ÇÇàÇÑ´Ù.
+// ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 //void C_VS_UI_GAME::RunSkillView()
 //{
@@ -2717,7 +2717,7 @@ void C_VS_UI_GAME::RunOption()
 //-----------------------------------------------------------------------------
 // CloseSkillView
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 //void C_VS_UI_GAME::CloseSkillView()
 //{
@@ -2736,7 +2736,7 @@ void C_VS_UI_GAME::RunOption()
 //-----------------------------------------------------------------------------
 // RunDescDialog //by larosel
 //
-// ¼³¸íÃ¢À» ½ÇÇàÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunDescDialog(int type, void *ptr, void *ptr2)
 {
@@ -2756,7 +2756,7 @@ void C_VS_UI_GAME::RunDescDialog(int type, void *ptr, void *ptr2)
 //-----------------------------------------------------------------------------
 // CloseDescDialog
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseDescDialog()
 {
@@ -2772,7 +2772,7 @@ void C_VS_UI_GAME::CloseDescDialog()
 //-----------------------------------------------------------------------------
 // RunFileDialog //by larosel
 //
-// ÆÄÀÏÃ¢À» ½ÇÇàÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunFileDialog(C_VS_UI_FILE_DIALOG::MODE Mode, char *type)
 {
@@ -2792,7 +2792,7 @@ void C_VS_UI_GAME::RunFileDialog(C_VS_UI_FILE_DIALOG::MODE Mode, char *type)
 //-----------------------------------------------------------------------------
 // CloseFileDialog
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseFileDialog()
 {
@@ -2811,7 +2811,7 @@ void C_VS_UI_GAME::CloseFileDialog()
 //-----------------------------------------------------------------------------
 // RunElevator //by larosel
 //
-// ¿¤¸®º£ÀÌÅÍ ÀÎÅÍÆäÀÌ½º¸¦ ½ÇÇàÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunElevator()
 {
@@ -2831,7 +2831,7 @@ void C_VS_UI_GAME::RunElevator()
 //-----------------------------------------------------------------------------
 // CloseElevator
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseElevator()
 {
@@ -2847,7 +2847,7 @@ void C_VS_UI_GAME::CloseElevator()
 //-----------------------------------------------------------------------------
 // RunBookcase //by larosel
 //
-// Ã¥ÀåÀ» ½ÇÇàÇÑ´Ù.
+// Ã¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunBookcase()
 {
@@ -2867,7 +2867,7 @@ void C_VS_UI_GAME::RunBookcase()
 //-----------------------------------------------------------------------------
 // CloseBookcase
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseBookcase()
 {
@@ -2883,7 +2883,7 @@ void C_VS_UI_GAME::CloseBookcase()
 //-----------------------------------------------------------------------------
 // RunBriefing //by larosel
 //
-// ºê¸®ÇÎÀ» ½ÇÇàÇÑ´Ù.
+// ï¿½ê¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunBriefing()
 {
@@ -2904,7 +2904,7 @@ void C_VS_UI_GAME::RunBriefing()
 //-----------------------------------------------------------------------------
 // CloseBriefing //by larosel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseBriefing()
 {
@@ -2920,7 +2920,7 @@ void C_VS_UI_GAME::CloseBriefing()
 //-----------------------------------------------------------------------------
 // RunComputer //by larosel
 //
-// ÄÄÇ»ÅÍ¸¦ ½ÇÇàÇÑ´Ù.
+// ï¿½ï¿½Ç»ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunComputer()
 {
@@ -2954,7 +2954,7 @@ void C_VS_UI_GAME::RunComputer()
 //-----------------------------------------------------------------------------
 // CloseComputer //by larosel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseComputer()
 {
@@ -2972,7 +2972,7 @@ void C_VS_UI_GAME::CloseComputer()
 //-----------------------------------------------------------------------------
 // RunTutorialExit //by larosel
 //
-// Æ©Åä¸®¾ó ³ª°¡±â¸¦ ½ÇÇàÇÑ´Ù.
+// Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunTutorialExit()
 {
@@ -2993,14 +2993,14 @@ void C_VS_UI_GAME::RunTutorialExit()
 //-----------------------------------------------------------------------------
 // CloseTutorialExit //by larosel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseTutorialExit()
 {
 	if (!m_pC_tutorial_exit)
 		return;
 
-	// askµµ ±¦È÷ ÇÑ ¹ø ´Ý¾ÆÁØ´Ù -_-; by sigi
+	// askï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ý¾ï¿½ï¿½Ø´ï¿½ -_-; by sigi
 	CloseTutorialExitAsk();
 
 	DeleteNew(m_pC_tutorial_exit);
@@ -3012,7 +3012,7 @@ void C_VS_UI_GAME::CloseTutorialExit()
 //-----------------------------------------------------------------------------
 // RunTutorialExitAsk	// by larosel
 //
-// Æ©Åä¸®¾ó ³ª°¡±âÈ®ÀÎÀ» ½ÇÇàÇÑ´Ù.
+// Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunTutorialExitAsk(const int select, const char* pName)
 {
@@ -3041,7 +3041,7 @@ void C_VS_UI_GAME::RunTutorialExitAccept()
 //-----------------------------------------------------------------------------
 // CloseTutorialExitAsk
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseTutorialExitAsk()
 {
@@ -3061,7 +3061,7 @@ void C_VS_UI_GAME::CloseTutorialExitAsk()
 //-----------------------------------------------------------------------------
 // RunHorn //by larosel
 //
-// ½½·¹ÀÌ¾î Æ÷Å»À» ½ÇÇàÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunHorn(int currentZoneID)
 {
@@ -3082,7 +3082,7 @@ void C_VS_UI_GAME::RunHorn(int currentZoneID)
 //-----------------------------------------------------------------------------
 // CloseHorn //by larosel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseHorn()
 {
@@ -3108,7 +3108,7 @@ bool	C_VS_UI_GAME::IsRunningHorn() const
 //-----------------------------------------------------------------------------
 // RunMailBox //by larosel
 //
-// ¸ÞÀÏÇÔ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunMailBox()
 {
@@ -3119,7 +3119,7 @@ void C_VS_UI_GAME::RunMailBox()
 //-----------------------------------------------------------------------------
 // CloseMailBox //by larosel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseMailBox()
 {
@@ -3186,7 +3186,7 @@ void	C_VS_UI_GAME::AddHelpMail(DWORD id,  bool open)
 //-----------------------------------------------------------------------------
 // RunFindingMine //by larosel
 //
-// ½½·¹ÀÌ¾î Æ÷Å»À» ½ÇÇàÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunFindingMine()
 {
@@ -3207,7 +3207,7 @@ void C_VS_UI_GAME::RunFindingMine()
 //-----------------------------------------------------------------------------
 // CloseFindingMine //by larosel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseFindingMine()
 {
@@ -3233,7 +3233,7 @@ bool	C_VS_UI_GAME::IsRunningFindingMine() const
 //-----------------------------------------------------------------------------
 // RunSlayerPortal //by larosel
 //
-// ½½·¹ÀÌ¾î Æ÷Å»À» ½ÇÇàÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunSlayerPortal()
 {
@@ -3254,7 +3254,7 @@ void C_VS_UI_GAME::RunSlayerPortal()
 //-----------------------------------------------------------------------------
 // CloseSlayerPortal //by larosel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseSlayerPortal()
 {
@@ -3280,7 +3280,7 @@ bool	C_VS_UI_GAME::IsRunningSlayerPortal() const
 //-----------------------------------------------------------------------------
 // RunTeamList //by larosel
 //
-// ½½·¹ÀÌ¾î Æ÷Å»À» ½ÇÇàÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunTeamList(bool ready, bool IsUnion)
 {
@@ -3301,7 +3301,7 @@ void C_VS_UI_GAME::RunTeamList(bool ready, bool IsUnion)
 //-----------------------------------------------------------------------------
 // CloseTeamList //by larosel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseTeamList()
 {
@@ -3338,7 +3338,7 @@ bool	C_VS_UI_GAME::IsRunningTeamList(bool IsUnion) const
 //-----------------------------------------------------------------------------
 // RunTeamMemberList //by larosel
 //
-// ½½·¹ÀÌ¾î Æ÷Å»À» ½ÇÇàÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunTeamMemberList()
 {
@@ -3359,7 +3359,7 @@ void C_VS_UI_GAME::RunTeamMemberList()
 //-----------------------------------------------------------------------------
 // CloseTeamMemberList //by larosel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseTeamMemberList()
 {
@@ -3405,7 +3405,7 @@ void C_VS_UI_GAME::RunTeamInfo(bool ready, void *info, bool IsUnion)
 //-----------------------------------------------------------------------------
 // CloseTeamInfo //by larosel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseTeamInfo()
 {
@@ -3458,7 +3458,7 @@ void C_VS_UI_GAME::RunTeamMemberInfo(C_VS_UI_TEAM_MEMBER_INFO::MEMBER_INFO *info
 //-----------------------------------------------------------------------------
 // CloseTeamMemberInfo //by larosel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseTeamMemberInfo()
 {
@@ -3504,7 +3504,7 @@ void C_VS_UI_GAME::RunTeamRegist(bool member, int reg_fee, int rank, char *date,
 //-----------------------------------------------------------------------------
 // CloseTeamRegist //by larosel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseTeamRegist()
 {
@@ -3564,9 +3564,9 @@ bool	C_VS_UI_GAME::IsRunningTeamRegist() const
 }
 
 //-----------------------------------------------------------------------------
-// RunExchangeAsk ( ±³È¯ÇÒ·Á´Â »ç¶÷ ÀÌ¸§ )
+// RunExchangeAsk ( ï¿½ï¿½È¯ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ )
 //
-// ±³È¯ÇÒ°Å³Ä°í ¹¯´Â´Ù.
+// ï¿½ï¿½È¯ï¿½Ò°Å³Ä°ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunExchangeAsk(const char* pName)
 {
@@ -3666,7 +3666,7 @@ void C_VS_UI_GAME::RunFriendDeleteAsk(const char* pName)
 //-----------------------------------------------------------------------------
 // RunExchangeCancel
 //
-// ±³È¯ÇÒ°Å³Ä°í ¹¯´Â´Ù.
+// ï¿½ï¿½È¯ï¿½Ò°Å³Ä°ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunExchangeCancel(const char* pName)
 {
@@ -3689,7 +3689,7 @@ void C_VS_UI_GAME::RunExchangeCancel(const char* pName)
 //-----------------------------------------------------------------------------
 // RunExchange
 //
-// ±³È¯Ã¢À» ½ÇÇàÇÑ´Ù.
+// ï¿½ï¿½È¯Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunExchange()
 {
@@ -4227,7 +4227,7 @@ void C_VS_UI_GAME::HotKey_Mark()
 		m_pC_hotkey->HotKey_Mark();
 }
 
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 	void C_VS_UI_GAME::HotKey_Inventory(bool IsCheckSubInventory)
 #else
 	void C_VS_UI_GAME::HotKey_Inventory()
@@ -4236,7 +4236,7 @@ void C_VS_UI_GAME::HotKey_Mark()
 	assert(m_pC_hotkey);
 
 	//if (!gpC_window_manager->GetShowState(m_pC_gamemenu))
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 		if (!m_pC_gamemenu)
 			m_pC_hotkey->HotKey_Inventory(IsCheckSubInventory);
 	#else
@@ -4362,14 +4362,14 @@ void C_VS_UI_GAME::HotKey_ExtendChat()		// ctrl + e
 void C_VS_UI_GAME::HotKey_ESC()
 {
 	//
-	// ESCÅ°ÀÇ ÀÛ¿ë
+	// ESCÅ°ï¿½ï¿½ ï¿½Û¿ï¿½
 	//
-	// (1) Window°¡ ÀÌµ¿ÁßÀÎ°¡? -> Window¸¦ Á¤Áö½ÃÅ²´Ù.
-	// (2) ¹öÆ°À» ´©¸£°í ÀÖ´Â°¡? -> ´­¸²À» ÇØÁ¦ÇÑ´Ù.
-	// (3) Popup Window°¡ ¶° ÀÖ´Â°¡? -> Window¸¦ ´Ý´Â´Ù.
-	// (3-2) event lockÀ» ÇØÁ¦ÇÑ´Ù.
-	// (4) ItemÀ» µé°í ÀÖ´Â°¡? -> GameMenu¸¦ È£ÃâÇÑ´Ù. ÀÌ¶§´Â Àá½Ã Mouse pointer´Â ItemÀÌ ¾Æ´Ñ
-	//										¿ø·¡ÀÇ °ÍÀ¸·Î º¯ÇÑ´Ù.
+	// (1) Windowï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½Î°ï¿½? -> Windowï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½.
+	// (2) ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½? -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	// (3) Popup Windowï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´Â°ï¿½? -> Windowï¿½ï¿½ ï¿½Ý´Â´ï¿½.
+	// (3-2) event lockï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	// (4) Itemï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½? -> GameMenuï¿½ï¿½ È£ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½Ì¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Mouse pointerï¿½ï¿½ Itemï¿½ï¿½ ï¿½Æ´ï¿½
+	//										ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//
 
 	if( gbl_skip_escape )
@@ -4382,15 +4382,15 @@ void C_VS_UI_GAME::HotKey_ESC()
 	if (p_window != NULL) // (1)
 	{
 		p_window->ClearInputState();
-		gpC_window_manager->CancelPushStateOfCurrentPushedWindow(); // !Áß¿ä
+		gpC_window_manager->CancelPushStateOfCurrentPushedWindow(); // !ï¿½ß¿ï¿½
 	}
 	else if (gpC_window_manager->CancelPushStateOfCurrentPushedWindow() == false) // (2)
 	{
 		//
-		// Popup Window¸¦ ´ÝÀ» ¶§´Â ¿ì¼± MessageBox¸¦ °í·ÁÇÑ´Ù. ±×µéÀ» topmost Window¶ó¼­
-		// °¡Àå¸ÕÀú Ã³¸®µÇ±æ ¿øÇÑ´Ù. ÀÌ°ÍÀº hot-key Á¤Ã¥(VS_UI.cpp ÂüÁ¶)¿¡ µû¸¥ °ÍÀÌ´Ù.
-		// ±×·¯´Ï±î escape¸¸Àº °¢ Window¿¡ ¸Â´Â Ã³¸®¸¦ ÇÏ°ÔÇÏ±â À§ÇØ¼­ Window¿¡ message¸¦
-		// º¸³½´Ù(topmost Window¸¸).
+		// Popup Windowï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼± MessageBoxï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½×µï¿½ï¿½ï¿½ topmost Windowï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ç±ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½Ì°ï¿½ï¿½ï¿½ hot-key ï¿½ï¿½Ã¥(VS_UI.cpp ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
+		// ï¿½×·ï¿½ï¿½Ï±ï¿½ escapeï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Windowï¿½ï¿½ ï¿½Â´ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½Ï°ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ Windowï¿½ï¿½ messageï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(topmost Windowï¿½ï¿½).
 		//
 		Window * p_first_window = gpC_window_manager->GetFirstPriorityWindow();
 		if (p_first_window != NULL)
@@ -4404,9 +4404,9 @@ void C_VS_UI_GAME::HotKey_ESC()
 			}
 /*
 		//
-		// Inventory/Gear´Â ÇÑ½ÖÀÇ Popup Window·Î º»´Ù. ÀÌ µÑÀÌ °°ÀÌ ¶° ÀÖ´Ù¸é °°ÀÌ ´ÝÈ÷´Â °ÍÀÌ´Ù.
-		// ±×µéÀº pinned WindowÀÌ¹Ç·Î °íÁ¤µÇ¾î ÀÖ´Â »óÁ¡ Interface°°Àº no pinned WindowÀÇ À§¿¡
-		// Ãâ·ÂµÈ´Ù. µû¶ó¼­ Inventory/Gear -> Other Window ¼øÀ¸·Î closeÇÑ´Ù.
+		// Inventory/Gearï¿½ï¿½ ï¿½Ñ½ï¿½ï¿½ï¿½ Popup Windowï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
+		// ï¿½×µï¿½ï¿½ï¿½ pinned Windowï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ Interfaceï¿½ï¿½ï¿½ï¿½ no pinned Windowï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ÂµÈ´ï¿½. ï¿½ï¿½ï¿½ï¿½ Inventory/Gear -> Other Window ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ closeï¿½Ñ´ï¿½.
 		//
 		if (m_pC_tribe_interface->CloseInventoryGearWindow() == false)
 		{
@@ -4586,7 +4586,7 @@ void C_VS_UI_GAME::Start()
 //		char sz_filename[512];
 //		wsprintf(sz_filename, "UserSet\\%s.set", g_char_slot_ingame.sz_name.c_str());
 //		
-//		ifstream file(sz_filename, ios::binary | ios::nocreate);
+//		ifstream file(sz_filename, ios::binary);
 //		
 //		if(file)
 //		{
@@ -4643,7 +4643,7 @@ void C_VS_UI_GAME::Start()
 		ChangeToOustersInterface();		
 	}	
 
-	// Client °ø¿ë Inventory data structure.
+	// Client ï¿½ï¿½ï¿½ï¿½ Inventory data structure.
 	g_pInventory->Init(C_VS_UI_INVENTORY::GRID_X, C_VS_UI_INVENTORY::GRID_Y);
 	g_pSlayerGear->Init();
 	g_pVampireGear->Init();
@@ -4685,7 +4685,7 @@ void C_VS_UI_GAME::SelectSkill(int id)
 //-----------------------------------------------------------------------------
 // RequestDie
 //
-// ´ÙÀÌ-_-½ÅÃ»? ¾ÆÀÌÄÜ ¶ç¿ò
+// ï¿½ï¿½ï¿½ï¿½-_-ï¿½ï¿½Ã»? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RequestDie(DWORD timer)
 {
@@ -4703,7 +4703,7 @@ void C_VS_UI_GAME::RequestDie(DWORD timer)
 //-----------------------------------------------------------------------------
 // FinishRequestDie
 //
-// ÆÄÆ¼½ÅÃ» ¾ÆÀÌÄÜ ´ÝÀ½
+// ï¿½ï¿½Æ¼ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::FinishRequestDie()
 {
@@ -4730,7 +4730,7 @@ bool	C_VS_UI_GAME::IsRunningRequestDie() const
 //-----------------------------------------------------------------------------
 // RequestParty
 //
-// ÆÄÆ¼½ÅÃ» ¾ÆÀÌÄÜ ¶ç¿ò
+// ï¿½ï¿½Æ¼ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RequestParty(const char *name, DWORD timer)
 {
@@ -4748,7 +4748,7 @@ void C_VS_UI_GAME::RequestParty(const char *name, DWORD timer)
 //-----------------------------------------------------------------------------
 // FinishRequestParty
 //
-// ÆÄÆ¼½ÅÃ» ¾ÆÀÌÄÜ ´ÝÀ½
+// ï¿½ï¿½Æ¼ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::FinishRequestParty()
 {
@@ -4779,9 +4779,9 @@ bool	C_VS_UI_GAME::IsRunningPartyAsk() const
 }
 
 //-----------------------------------------------------------------------------
-// RunPartyAsk ( ½ÅÃ»ÇÑ »ç¶÷ ÀÌ¸§ )
+// RunPartyAsk ( ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ )
 //
-// ÆÄÆ¼¿¡ °¡ÀÔÇÒ°Å³Ä°í ¹¯´Â´Ù.
+// ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò°Å³Ä°ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunPartyAsk(const char* pName, C_VS_UI_REQUEST_PARTY::REQUEST_PARTY type)
 {
@@ -4812,7 +4812,7 @@ void C_VS_UI_GAME::RunPartyAsk(const char* pName, C_VS_UI_REQUEST_PARTY::REQUEST
 //-----------------------------------------------------------------------------
 // RunPartyCancel
 //
-// ÆÄÆ¼¿¡ Âü°¡ÇÏ´Â°Å ±âµÑ¸®´ÂÁß..
+// ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Â°ï¿½ ï¿½ï¿½Ñ¸ï¿½ï¿½ï¿½ï¿½ï¿½..
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunPartyCancel(const char* pName)
 {
@@ -4835,7 +4835,7 @@ void C_VS_UI_GAME::RunPartyCancel(const char* pName)
 //-----------------------------------------------------------------------------
 // RunEnchant
 //
-// EnchantÇÒ·¡ ÇÏ°í ¹¯´ÂÁß...
+// Enchantï¿½Ò·ï¿½ ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunEnchant(int value)
 {
@@ -4858,7 +4858,7 @@ void C_VS_UI_GAME::RunEnchant(int value)
 //-----------------------------------------------------------------------------
 // CloseEnchant
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseEnchant()
 {
@@ -4878,9 +4878,9 @@ void C_VS_UI_GAME::CloseEnchant()
 //-----------------------------------------------------------------------------
 // RunUsePetFood
 //
-// Æê ¸ÔÀÌ ¸ÔÀÏ·¡ ÇÏ°í ¹¯´ÂÁß...
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 //-----------------------------------------------------------------------------
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 	void C_VS_UI_GAME::RunUsePetFood(DWORD UsingObjectID, MItem* SubInventory)
 #else
 	void C_VS_UI_GAME::RunUsePetFood()
@@ -4893,7 +4893,7 @@ void C_VS_UI_GAME::CloseEnchant()
 	
 	// center
 
-	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+	#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 		m_pC_use_pet_food_dialog = new C_VS_UI_ASK_DIALOG(-1, 50, 5, 1, ExecF_UsePetFood, DIALOG_CANCEL | DIALOG_OK, 
 			C_VS_UI_ASK_DIALOG::ASK_USE_PET_FOOD, UsingObjectID, SubInventory);	// by sigi
 	#else
@@ -4912,7 +4912,7 @@ void C_VS_UI_GAME::CloseEnchant()
 //-----------------------------------------------------------------------------
 // CloseUsePetFood
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseUsePetFood()
 {
@@ -4931,7 +4931,7 @@ void C_VS_UI_GAME::CloseUsePetFood()
 //-----------------------------------------------------------------------------
 // RunKeepPetItemFood
 //
-// ÆêÀ» º¸°ü ÇÒ·¡? ÇÏ°í ¹¯´ÂÁß...
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½? ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunKeepPetItemDialog()
 {
@@ -4954,7 +4954,7 @@ void C_VS_UI_GAME::RunKeepPetItemDialog()
 //-----------------------------------------------------------------------------
 // CloseKeepPetItemDialog
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseKeepPetItemDialog()
 {
@@ -4973,7 +4973,7 @@ void C_VS_UI_GAME::CloseKeepPetItemDialog()
 //-----------------------------------------------------------------------------
 // RunGetKeepPetItemDialog
 //
-// ÆêÀ» º¸°ü ÇÒ·¡? ÇÏ°í ¹¯´ÂÁß...
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½? ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunGetKeepPetItemDialog()
 {
@@ -4996,7 +4996,7 @@ void C_VS_UI_GAME::RunGetKeepPetItemDialog()
 //-----------------------------------------------------------------------------
 // CloseKeepPetItemDialog
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseGetKeepPetItemDialog()
 {
@@ -5014,7 +5014,7 @@ void C_VS_UI_GAME::CloseGetKeepPetItemDialog()
 //-----------------------------------------------------------------------------
 // RunNoSearchResult
 //
-// °Ë»ö°á°ú ¾øÀ½
+// ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunNoSearchResult()
 {
@@ -5037,7 +5037,7 @@ void C_VS_UI_GAME::RunNoSearchResult()
 //-----------------------------------------------------------------------------
 // RunDepositLimit
 //
-// °Ë»ö°á°ú ¾øÀ½
+// ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunDepositLimit()
 {
@@ -5075,7 +5075,7 @@ void	C_VS_UI_GAME::RunBringFeeLimit()
 //-----------------------------------------------------------------------------
 // RunWithdrawLimit
 //
-// °Ë»ö°á°ú ¾øÀ½
+// ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunWithdrawLimit()
 {
@@ -5099,7 +5099,7 @@ void C_VS_UI_GAME::RunWithdrawLimit()
 //-----------------------------------------------------------------------------
 // ClosePartyAsk
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::ClosePartyAsk()
 {
@@ -5120,7 +5120,7 @@ void C_VS_UI_GAME::ClosePartyAsk()
 //-----------------------------------------------------------------------------
 // ClosePartyCancel
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::ClosePartyCancel()
 {
@@ -5140,7 +5140,7 @@ void C_VS_UI_GAME::ClosePartyCancel()
 //-----------------------------------------------------------------------------
 // CloseNoSearchResult
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseNoSearchResult()
 {
@@ -5160,7 +5160,7 @@ void C_VS_UI_GAME::CloseNoSearchResult()
 //-----------------------------------------------------------------------------
 // CloseDepositLimit
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseDepositLimit()
 {
@@ -5180,7 +5180,7 @@ void C_VS_UI_GAME::CloseDepositLimit()
 //-----------------------------------------------------------------------------
 // CloseWithdrawLimit
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseWithdrawLimit()
 {
@@ -5220,7 +5220,7 @@ void C_VS_UI_GAME::RunPartyManager()
 //-----------------------------------------------------------------------------
 // ClosePartyManager
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::ClosePartyManager()
 {
@@ -5551,7 +5551,7 @@ void	C_VS_UI_GAME::CloseTransItem()
 //-----------------------------------------------------------------------------
 // RequestResurrect
 //
-// ´ÙÀÌ-_-½ÅÃ»? ¾ÆÀÌÄÜ ¶ç¿ò
+// ï¿½ï¿½ï¿½ï¿½-_-ï¿½ï¿½Ã»? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RequestResurrect(bool f1, bool f2, bool eternity, bool IsSiegeAttacker)
 {
@@ -5577,7 +5577,7 @@ void C_VS_UI_GAME::SetDelayRequestResurrect( C_VS_UI_REQUEST_RESURRECT::RESURREC
 //-----------------------------------------------------------------------------
 // FinishRequestResurrect
 //
-// ÆÄÆ¼½ÅÃ» ¾ÆÀÌÄÜ ´ÝÀ½
+// ï¿½ï¿½Æ¼ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::FinishRequestResurrect()
 {
@@ -5619,7 +5619,7 @@ void C_VS_UI_GAME::ChangeToOustersInterface()
 	g_descriptor_manager.Unset();
 
 //	gbl_vampire_interface = true;
-	g_eRaceInterface = RACE_OUSTERS; // ousters interface Ãß°¡
+	g_eRaceInterface = RACE_OUSTERS; // ousters interface ï¿½ß°ï¿½
 
 	DeleteNew(m_pC_tribe_interface);
 
@@ -5636,7 +5636,7 @@ void C_VS_UI_GAME::ChangeToOustersInterface()
 	wsprintf(sz_filename2, "UserSet\\%s-%d.set", g_char_slot_ingame.sz_name.c_str(),g_pUserInformation->WorldID);
 	wsprintf(sz_filename3, "UserSet\\%s-%d-%d.set", g_char_slot_ingame.sz_name.c_str(),g_Dimension,g_pUserInformation->WorldID);
 	
-	ifstream file(sz_filename3, ios::binary | ios::nocreate);
+	ifstream file(sz_filename3, ios::binary);
 	
 	if(file.is_open())
 	{
@@ -5644,14 +5644,14 @@ void C_VS_UI_GAME::ChangeToOustersInterface()
 		file.close();
 	} else
 	{
-		file.open(sz_filename2, ios::binary | ios::nocreate);
+		file.open(sz_filename2, ios::binary);
 		if(file.is_open())
 		{
 			gpC_vs_ui_window_manager->LoadFromFile(file);
 			file.close();
 		} else
 		{
-			file.open(sz_filename, ios::binary | ios::nocreate);
+			file.open(sz_filename, ios::binary);
 			if(file.is_open())
 			{
 				gpC_vs_ui_window_manager->LoadFromFile(file);
@@ -5673,7 +5673,7 @@ void C_VS_UI_GAME::ChangeToOustersInterface()
 //-----------------------------------------------------------------------------
 // RunMixingForge
 //
-// MixingForgeÀ» ½ÇÇàÇÑ´Ù.
+// MixingForgeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunMixingForge(C_VS_UI_MIXING_FORGE::FORGE_CLASS forge_class, C_VS_UI_MIXING_FORGE::FORGE_TYPE forge_type)
 {
@@ -5694,7 +5694,7 @@ void C_VS_UI_GAME::RunMixingForge(C_VS_UI_MIXING_FORGE::FORGE_CLASS forge_class,
 //-----------------------------------------------------------------------------
 // CloseMixingForge
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseMixingForge()
 {
@@ -6199,7 +6199,7 @@ void C_VS_UI_GAMEMENU::Run(id_t id)
 			break;
 
 		case CONTINUE:
-			//gC_vs_ui.HotKey_ESC(); // ¹öÆ° ´­¸®´Â °Í°ú u_window¿¡¼­ push window ÇØÁ¦ ¿ì¼±¼øÀ§ ¹®Á¦°¡ ÀÖ¾î¼­ ¾ÈµÊ.
+			//gC_vs_ui.HotKey_ESC(); // ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í°ï¿½ u_windowï¿½ï¿½ï¿½ï¿½ push window ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼±ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾î¼­ ï¿½Èµï¿½.
 			gpC_base->SendMessage(UI_GAMEMENU_CONTINUE);
 			break;
 	}
@@ -6224,7 +6224,7 @@ bool C_VS_UI_GAMEMENU::MouseControl(UINT message, int _x, int _y)
 -----------------------------------------------------------------------------*/
 void C_VS_UI_GAMEMENU::KeyboardControl(UINT message, UINT key, long extra)
 {
-	// ¸¸¾à IME toggleµÇ¾î ÀÖÀ» °æ¿ì¸¦ ´ëºñÇÏ¿© scan code·Î ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ IME toggleï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¸¦ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ scan codeï¿½ï¿½ ï¿½Ñ´ï¿½.
 
 	id_t id = INVALID_ID;
 	if (message == WM_KEYDOWN)
@@ -6507,7 +6507,7 @@ void	C_VS_UI_GAME::CloseNaming()
 //-----------------------------------------------------------------------------
 // RunUseSMSItemDialog
 //
-// sms ¾ÆÀÌÅÛÀ» »ç¿ë ÇÒ·¡?? ÇÏ°í ¹¯´ÂÁß...
+// sms ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½?? ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::RunAskUseItemDialog(int AskType)
 {
@@ -6532,7 +6532,7 @@ void C_VS_UI_GAME::RunAskUseItemDialog(int AskType)
 //-----------------------------------------------------------------------------
 // CloseKeepPetItemDialog
 //
-// ÀÌ¹Ì finishµÈ »óÅÂÀÌ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
+// ï¿½Ì¹ï¿½ finishï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 //-----------------------------------------------------------------------------
 void C_VS_UI_GAME::CloseAskUseItemDialog()
 {
@@ -6605,13 +6605,13 @@ void C_VS_UI_GAME::SetNickNameList(void* pData)
 		BYTE TempType = 0;
 		std::vector<C_VS_UI_NicknameInfo*>::iterator itr = TempList->begin();
 
-		// ¸®½ºÆ®ÀÇ Á© Ã·¿£ ´Ð³×ÀÓ ¾ø¾Ö´Â °É Ãß°¡ÇÑ´Ù. - start
+		// ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ Ã·ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½. - start
 		C_VS_UI_NicknameInfo * FirstInfo = new C_VS_UI_NicknameInfo;
 		FirstInfo->setNicknameID(0xffff);
 		FirstInfo->setNicknameType(C_VS_UI_NicknameInfo::NICK_CUSTOM);
 		FirstInfo->setNickname((*g_pNickNameStringTable)[0].GetString());
 		m_NickNameList.push_back(FirstInfo);
-		// ¸®½ºÆ®ÀÇ Á© Ã·¿£ ´Ð³×ÀÓ ¾ø¾Ö´Â °É Ãß°¡ÇÑ´Ù. -end
+		// ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ Ã·ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½. -end
 
 		while(itr != TempList->end())
 		{
@@ -6626,7 +6626,7 @@ void C_VS_UI_GAME::SetNickNameList(void* pData)
 			TempInfo->setNicknameIndex(TempIndex);
 			TempInfo->setNicknameType(TempType);
 			
-			// Ä¿½ºÅÒ ´Ð³×ÀÓ ÀÏ¶§
+			// Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½
 			if(TempType == C_VS_UI_NicknameInfo::NICK_CUSTOM_FORCED)
 			{
 				TempInfo->setNickname(TempInfo2->getNickname());
@@ -6638,7 +6638,7 @@ void C_VS_UI_GAME::SetNickNameList(void* pData)
 //				else
 					TempInfo->setNickname(TempInfo2->getNickname());
 			}
-			else // ´Ð³×ÀÓ ÀÎµ¦½º°¡ ÀÖÀ» ¶§
+			else // ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			{
 				if(TempIndex >= g_pNickNameStringTable->GetSize())
 					TempIndex = 0;
@@ -6666,13 +6666,13 @@ void C_VS_UI_GAME::AddNickNameList(void* pData)
 	TempInfo->setNicknameIndex(TempIndex);
 	TempInfo->setNicknameType(TempType);
 	
-	// Ä¿½ºÅÒ ´Ð³×ÀÓ ÀÏ¶§
+	// Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½Ï¶ï¿½
 	if(TempType == C_VS_UI_NicknameInfo::NICK_CUSTOM_FORCED ||
 		TempType == C_VS_UI_NicknameInfo::NICK_CUSTOM)
 	{
 		TempInfo->setNickname(TempInfo2->getNickname());
 	}
-	else // ´Ð³×ÀÓ ÀÎµ¦½º°¡ ÀÖÀ» ¶§
+	else // ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	{
 		if(TempIndex >= g_pNickNameStringTable->GetSize())
 			TempIndex = 0;
@@ -6918,7 +6918,7 @@ void	C_VS_UI_GAME::DeleteQuestItem(int nSlot)
 	m_pC_quest_manager->DeleteQuestItem(nSlot);
 }
 
-// 2004, 10, 25, sobeit add start - ¼¼À² º¯°æ
+// 2004, 10, 25, sobeit add start - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void	C_VS_UI_GAME::RunModifyTax()
 {
 	if(m_pC_dialog_Modify_Tax)
@@ -7084,7 +7084,7 @@ bool	C_VS_UI_GAME::IsRunningSwapAdvancementItem() const
 // 2005, 1, 3, sobeit add end
 
 
-// 2005, 1, 11, sobeit add start - ºÒ¿ìÀÌ¿ôµ½±â Ã¢
+// 2005, 1, 11, sobeit add start - ï¿½Ò¿ï¿½ï¿½Ì¿ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¢
 void	C_VS_UI_GAME::Run_Campaign_Help_Unfortunate_Neighbors(int value)
 {
 	if(m_pC_dialog_Campaign_Help)
@@ -7099,7 +7099,7 @@ void	C_VS_UI_GAME::Run_Campaign_Help_Unfortunate_Neighbors(int value)
 // 2005, 1, 11, sobeit add end
 
 
-// 2005, 1, 17, sobeit add start - Äù½ºÆ® °ü·Ã
+// 2005, 1, 17, sobeit add start - ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 void	C_VS_UI_GAME::SetQuestNpcDialog(void* pVoid)
 {
 	if(NULL == pVoid) 
@@ -7111,8 +7111,8 @@ void	C_VS_UI_GAME::SetQuestNpcDialog(void* pVoid)
 	m_pC_Quest_Npc_Dialog->SetQuestNpcDialog((C_VS_UI_NPC_DIALOG*)pVoid);
 	
 }
-// 2005, 1, 17, sobeit add end - Äù½ºÆ® °ü·Ã
-// 2005, 1, 24, sobeit add start - ¾ÆÀÌÅÛ ¹Þ±â ÀÌº¥Æ®
+// 2005, 1, 17, sobeit add end - ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+// 2005, 1, 24, sobeit add start - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ±ï¿½ ï¿½Ìºï¿½Æ®
 void	C_VS_UI_GAME::Run_Confirm_GetItemEvent(int value)
 {
 	if (m_pC_get_event_item != NULL)
@@ -7173,7 +7173,7 @@ bool C_VS_UI_GAME::IsInRectPointWebBrowser(int X, int Y)
 	return m_pC_WebBrowser->IsInRectPoint(X, Y);
 }
 // 2005, 2, 1, sobeit add end
-#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 Ôö¼Ó°üÖÐ°ü
+#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Ð°ï¿½
 
 // 2005, 2, 24, sobeit add start
 void	C_VS_UI_GAME::RunSubInventory(MItem* pItem)

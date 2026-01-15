@@ -1664,12 +1664,30 @@ typedef long long __int64;
 #ifndef PLATFORM_WINDOWS
 #include <stdio.h>
 #include <stdarg.h>
+#include <unistd.h>
+#include <stdlib.h>
 static inline int wsprintf(char* buf, const char* fmt, ...) {
     va_list args;
     va_start(args, fmt);
     int result = vsprintf(buf, fmt, args);
     va_end(args);
     return result;
+}
+
+/* Windows API stubs for file operations */
+#define FILE_ATTRIBUTE_DIRECTORY (0x00000010)
+
+static inline DWORD GetLogicalDrives() {
+    /* macOS stub - return no drives */
+    return 0;
+}
+
+static inline DWORD GetCurrentDirectory(DWORD nBufferLength, LPSTR lpBuffer) {
+    /* macOS stub - get current working directory */
+    if (getcwd(lpBuffer, nBufferLength) != NULL) {
+        return (DWORD)strlen(lpBuffer);
+    }
+    return 0;
 }
 #endif
 

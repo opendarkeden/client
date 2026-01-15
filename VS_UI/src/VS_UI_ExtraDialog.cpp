@@ -258,7 +258,7 @@ void C_VS_UI_EDIT_DIALOG::Show()
 //-----------------------------------------------------------------------------
 void	C_VS_UI_EDIT_DIALOG::ScrollButton(bool up)
 {
-	const _MAX_NUM = m_max_val;
+	const int _MAX_NUM = m_max_val;
 
 	int cur_val;
 	char * p_temp = NULL;
@@ -2133,7 +2133,7 @@ bool C_VS_UI_DESC_DIALOG::MouseControl(UINT message, int _x, int _y)
 //		}
 //		else
 		{
-			if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+			if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 			{
 				MoveReady();
 				SetOrigin(_x, _y);
@@ -2433,7 +2433,7 @@ void C_VS_UI_FILE_DIALOG::Start(char *type)
 			
 			memcpy(name,p_type,p_type_end-p_type);
 			name[p_type_end-p_type+1]='\0';
-			m_filter.insert(&m_filter[i],name);
+			m_filter.insert(m_filter.begin() + i, name);
 			p_type=p_type_end+1;
 		}
 		//m_filter = type;
@@ -2631,7 +2631,7 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 						{
 							m_select_file_num.clear();
 						}						
-						m_select_file_num.insert(&m_select_file_num[m_select_file_num.size()], m_select);
+						m_select_file_num.insert(m_select_file_num.end(), m_select);
 					} 
 					else		// �׳� Ŭ���������
 					{
@@ -2645,7 +2645,7 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 			}
 			else
 			{
-				if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+				if (gpC_mouse_pointer->GetPickUpItem() == NULL && re)
 				{
 					MoveReady();
 					SetOrigin(_x, _y);
@@ -3226,15 +3226,15 @@ void C_VS_UI_FILE_DIALOG::RefreshFileList(char *sz_dirname)
 			{
 				if(m_vs_file_list[i] > sz_filename || m_vs_file_list[i][0] != '\\')
 				{
-					m_vs_file_list.insert(&m_vs_file_list[i], sz_filename);
-					m_vs_file_list_attr.insert(&m_vs_file_list_attr[i], fd.dwFileAttributes);
+					m_vs_file_list.insert(m_vs_file_list.begin() + i, sz_filename);
+					m_vs_file_list_attr.insert(m_vs_file_list_attr.begin() + i, fd.dwFileAttributes);
 					break;
 				}
 			}
 			if(i == m_vs_file_list.size())
 			{
-				m_vs_file_list.insert(&m_vs_file_list[i], sz_filename);
-				m_vs_file_list_attr.insert(&m_vs_file_list_attr[i], fd.dwFileAttributes);
+				m_vs_file_list.insert(m_vs_file_list.begin() + i, sz_filename);
+				m_vs_file_list_attr.insert(m_vs_file_list_attr.begin() + i, fd.dwFileAttributes);
 			}
 		}
 		else
@@ -3267,15 +3267,15 @@ void C_VS_UI_FILE_DIALOG::RefreshFileList(char *sz_dirname)
 			{
 				if(m_vs_file_list[i] > sz_filename && m_vs_file_list[i][0] != '\\')
 				{
-					m_vs_file_list.insert(&m_vs_file_list[i], sz_filename);
-					m_vs_file_list_attr.insert(&m_vs_file_list_attr[i], fd.dwFileAttributes);
+					m_vs_file_list.insert(m_vs_file_list.begin() + i, sz_filename);
+					m_vs_file_list_attr.insert(m_vs_file_list_attr.begin() + i, fd.dwFileAttributes);
 					break;
 				}
 			}
 			if(i == m_vs_file_list.size())
 			{
-				m_vs_file_list.insert(&m_vs_file_list[i], sz_filename);
-				m_vs_file_list_attr.insert(&m_vs_file_list_attr[i], fd.dwFileAttributes);
+				m_vs_file_list.insert(m_vs_file_list.begin() + i, sz_filename);
+				m_vs_file_list_attr.insert(m_vs_file_list_attr.begin() + i, fd.dwFileAttributes);
 			}
 		}
 
