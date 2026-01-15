@@ -13,10 +13,45 @@
 
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#include <DSound.h>
 #else
 #include "../../basic/Platform.h"
+
+/* Forward declarations for DirectSound types */
+struct IDirectSound;
+struct IDirectSoundBuffer;
+struct IDirectSoundNotify;
+struct _WAVEFORMATEX;
+
+/* Type definitions */
+typedef struct IDirectSoundBuffer* LPDIRECTSOUNDBUFFER;
+typedef struct IDirectSoundNotify* LPDIRECTSOUNDNOTIFY;
+typedef struct _WAVEFORMATEX* LPWAVEFORMATEX;
+typedef void* HMMIO;
+
+/* Multimedia structures */
+typedef struct {
+    DWORD   dwFlags;
+    DWORD   dwOffset;
+    DWORD   dwCallback;
+} DSBPOSITIONNOTIFY;
+
+typedef struct {
+    FOURCC  ckid;
+    FOURCC  fccType;
+    DWORD   dwDataOffset;
+    DWORD   dwSize;
+} MMCKINFO;
+
+/* Multimedia constants */
+#define MMIO_READ      0
+#define MMIO_ALLOCBUF  0x10000
+#define FOURCC(a,b,c,d) (((DWORD)(a)<<0)|((DWORD)(b)<<8)|((DWORD)(c)<<16)|((DWORD)(d)<<24))
+
+/* Volume constants */
+#define DSBVOLUME_MAX     0
+#define DSBVOLUME_MIN    -10000
 #endif
-#include <DSound.h>
 
 class CDirectSoundStream {
 	public :

@@ -5,8 +5,29 @@
 #ifndef __CDIRECTMUSIC_H__
 #define __CDIRECTMUSIC_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <DMusicI.h>
 #include <DMusicF.h>
+#else
+#include "../basic/Platform.h"
+
+/* Forward declarations for DirectMusic types */
+struct IDirectMusic;
+struct IDirectMusicPerformance;
+struct IDirectMusicPort;
+struct IDirectMusicLoader;
+struct IDirectMusicSegment;
+struct IDirectMusicSegmentState;
+
+/* DirectMusic time types */
+typedef long long MUSIC_TIME;
+typedef long long REFERENCE_TIME;
+
+/* DirectMusic constants */
+#define DDSCAPS_OFFSCREENPLAIN  0x00000001
+#define DDSCAPS_TEXTURE         0x00000400
+#define DD_OK                   0x00000000
+#endif
 
 typedef enum DIRECTMUSIC_TYPE	
 {

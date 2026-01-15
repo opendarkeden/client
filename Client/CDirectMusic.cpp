@@ -8,11 +8,13 @@
 //----------------------------------------------------------------------
 // Global
 //----------------------------------------------------------------------
- 
+
+// Global instance - defined in platform-specific files
+#ifdef PLATFORM_WINDOWS
 CDirectMusic		g_DXMusic;
 
 //----------------------------------------------------------------------
-// 
+//
 // constructor / destructor
 //
 //----------------------------------------------------------------------
@@ -760,8 +762,12 @@ CDirectMusic::CreateLoader()
 
 		return false;
     }
-    
+
 
     return true;
 }
 
+#else
+// Non-Windows platforms: Use SDL backend implementation from CDirectMusic_Adapter.cpp
+// DirectMusic methods are implemented there
+#endif

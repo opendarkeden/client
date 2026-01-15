@@ -30,6 +30,8 @@
 #define GAMMA_MASK555_4PIXEL_G				00000011111000000000001111100000b
 #define GAMMA_MASK555_4PIXEL_B				00000000000111110000000000011111b
 
+#ifdef PLATFORM_WINDOWS
+
 //----------------------------------------------------------------------
 // static
 //----------------------------------------------------------------------
@@ -1796,3 +1798,8 @@ CDirectDrawSurface::SaveToBMP(const char * szFilename)
 
 	return true;
 }
+
+#else
+// Non-Windows platforms: Use SDL backend implementation from CDirectDraw_SDL.cpp
+// DirectDraw surface methods are implemented there
+#endif

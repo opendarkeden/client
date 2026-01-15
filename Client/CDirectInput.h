@@ -138,9 +138,111 @@
 #ifndef __CDIRECTINPUT_H__
 #define __CDIRECTINPUT_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <dinput.h>
+#else
+#include "../basic/Platform.h"
 
+/* Forward declarations for DirectInput types */
+typedef struct IDirectInput IDirectInput;
+typedef struct IDirectInputDevice IDirectInputDevice;
+
+/* DirectInput constants */
+#define BUFFER_SIZE 32
+#define DIRECTINPUT_VERSION 0x0800
+
+/* HRESULT constants */
+#define DI_OK                   0x00000000
+#define DIERR_INPUTLOST         0x8001001B
+#define DIERR_NOTACQUIRED       0x8001001C
+#define DIERR_ACQUIRED          0x8001001D
+
+/* Mouse offset constants (DIMOFS_*) */
+#define DIMOFS_X                0x00000000
+#define DIMOFS_Y                0x00000004
+#define DIMOFS_Z                0x00000008
+#define DIMOFS_BUTTON0          0x00000010
+#define DIMOFS_BUTTON1          0x00000014
+#define DIMOFS_BUTTON2          0x00000018
+#define DIMOFS_BUTTON3          0x0000001C
+#define DIMOFS_BUTTON4          0x00000020
+#define DIMOFS_BUTTON5          0x00000024
+#define DIMOFS_BUTTON6          0x00000028
+#define DIMOFS_BUTTON7          0x0000002C
+
+/* SystemParametersInfo constants */
+#define SPI_GETMOUSE            0x0003
+#define SPI_SETMOUSE            0x0004
+
+/* DISCL flags */
+#define DISCL_EXCLUSIVE         0x00000001
+#define DISCL_NONEXCLUSIVE      0x00000002
+#define DISCL_FOREGROUND        0x00000004
+#define DISCL_BACKGROUND        0x00000008
+
+/* DIDEVICEOBJECTDATA structure for buffered input */
+typedef struct DIDEVICEOBJECTDATA {
+    DWORD   dwOfs;
+    DWORD   dwData;
+    DWORD   dwTimeStamp;
+    DWORD   dwSequence;
+    size_t  uAppData;
+} DIDEVICEOBJECTDATA, *LPDIDEVICEOBJECTDATA;
+
+/* Keyboard constants - subset of DIK_* values */
+#define DIK_ESCAPE          0x01
+#define DIK_1               0x02
+#define DIK_2               0x03
+#define DIK_3               0x04
+#define DIK_4               0x05
+#define DIK_5               0x06
+#define DIK_6               0x07
+#define DIK_7               0x08
+#define DIK_8               0x09
+#define DIK_9               0x0A
+#define DIK_0               0x0B
+#define DIK_RETURN          0x1C
+#define DIK_LCONTROL        0x1D
+#define DIK_LSHIFT          0x2A
+#define DIK_SPACE           0x39
+#define DIK_F1              0x3B
+#define DIK_F2              0x3C
+#define DIK_F3              0x3D
+#define DIK_F4              0x3E
+#define DIK_F5              0x3F
+#define DIK_F6              0x40
+#define DIK_F7              0x41
+#define DIK_F8              0x42
+#define DIK_F9              0x43
+#define DIK_F10             0x44
+#define DIK_F11             0x57
+#define DIK_F12             0x58
+#define DIK_HOME            0x47
+#define DIK_END             0x4F
+#define DIK_UP              0xC8
+#define DIK_DOWN            0xD0
+#define DIK_LEFT            0xCB
+#define DIK_RIGHT           0xCD
+
+/* GUID definitions (simplified) */
+#ifndef GUID_DEFINED
+#define GUID_DEFINED
+typedef struct _GUID {
+    unsigned long  Data1;
+    unsigned short Data2;
+    unsigned short Data3;
+    unsigned char  Data4[8];
+} GUID;
+#endif
+
+extern const GUID GUID_SysMouse;
+extern const GUID GUID_SysKeyboard;
+
+#endif
+
+#ifndef PLATFORM_WINDOWS
 #define BUFFER_SIZE           32
+#endif
 
 /*-----------------------------------------------------------------------------
   Class Direct Input

@@ -7,11 +7,14 @@
 //    (C) Copyright 1995-1997 Microsoft Corp.  All rights reserved.
 //-----------------------------------------------------------------------------
 #include "DirectXlib_PCH.h"
+#include "CDirectSetup.h"
+
+#ifdef PLATFORM_WINDOWS
+
 #include <windowsx.h>
 #include <ddraw.h>
 #include <dinput.h>
 #include <dmusici.h>
-#include "CDirectSetup.h"
 
 typedef HRESULT(WINAPI * DIRECTDRAWCREATE)( GUID*, LPDIRECTDRAW*, IUnknown* );
 typedef HRESULT(WINAPI * DIRECTDRAWCREATEEX)( GUID*, VOID**, REFIID, IUnknown* );
@@ -319,13 +322,26 @@ CDirectSetup::GetVersion( DWORD* pdwDXVersion, DWORD* pdwDXPlatform )
     (*pdwDXVersion) = 0x700;
     pDD7->Release();
 
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // End of checks
     ///////////////////////////////////////////////////////////////////////////
 
     // Close open libraries and return
     FreeLibrary( DDHinst );
-    
+
     return;
 }
+
+#else
+// Non-Windows platforms: DirectX not applicable
+
+VOID
+CDirectSetup::GetVersion( DWORD* pdwDXVersion, DWORD* pdwDXPlatform )
+{
+    // DirectX version check not applicable on non-Windows platforms
+    (*pdwDXPlatform) = 0;
+    (*pdwDXVersion) = 0;
+}
+
+#endif

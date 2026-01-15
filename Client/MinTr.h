@@ -3,8 +3,14 @@
 #ifndef ___MIN_TRACE___
 #define ___MIN_TRACE___
 
+#ifdef PLATFORM_WINDOWS
 #include <TCHAR.H>
 #include <WTYPES.H>
+#else
+#include <wchar.h>
+#include <ctype.h>
+#include <string.h>
+#endif
 #include <stdio.h>
 /* 
    이 값이 1이면 MinTrace가 적용되고

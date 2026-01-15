@@ -5,8 +5,12 @@
 #ifndef __CDIRECTMUSIC_H__
 #define __CDIRECTMUSIC_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <DMusicI.h>
 #include <DMusicF.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 
 typedef enum DIRECTMUSIC_TYPE	
 {

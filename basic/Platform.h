@@ -100,6 +100,22 @@ typedef WORD			char_t;
 		#define S_FALSE		1
 	#endif
 
+	/* HRESULT macros */
+	#ifndef SUCCEEDED
+		#define SUCCEEDED(hr)	(((HRESULT)(hr)) >= 0)
+	#endif
+	#ifndef FAILED
+		#define FAILED(hr)		(((HRESULT)(hr)) < 0)
+	#endif
+
+	/* VOID type */
+	#ifndef VOID
+		typedef void		VOID;
+	#endif
+
+	/* Additional Windows types */
+	typedef long			LONG;
+	typedef void*			LPVOID;
 	typedef void*			HWND;
 	typedef void*			HINSTANCE;
 	typedef void*			HANDLE;
@@ -117,6 +133,17 @@ typedef WORD			char_t;
 		(void)hWnd; (void)uType;
 		fprintf(stderr, "[%s] %s\n", lpCaption, lpText);
 		return 1;
+	}
+
+	/* SystemParametersInfo constants */
+	#define SPI_GETMOUSE			0x0003
+	#define SPI_SETMOUSE			0x0004
+
+	/* Stub for SystemParametersInfo */
+	static inline BOOL SystemParametersInfo(UINT uiAction, UINT uiParam, void* pvParam, UINT fWinIni) {
+		(void)uiAction; (void)uiParam; (void)pvParam; (void)fWinIni;
+		// Non-Windows platforms don't have mouse acceleration settings in the same way
+		return FALSE;
 	}
 #endif
 

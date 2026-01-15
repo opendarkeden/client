@@ -8,7 +8,10 @@
 
 #define MSB		0x80
 
+// Global instance - defined in platform-specific files
+#ifdef PLATFORM_WINDOWS
 CDirectInput*	g_pDXInput = NULL;
+#endif
 
 const char*		CDirectInput::s_KeyName[256] = 
 { 	
@@ -234,6 +237,8 @@ NULL, // 0xda
 	"RWIN",		//0xDC//RightWindowskey
 	"APPS",		//0xDD//AppMenukey
 };
+
+#ifdef PLATFORM_WINDOWS
 
 /*-----------------------------------------------------------------------------
 - GetMouseAcceleration
@@ -952,10 +957,15 @@ BOOL CDirectInput::Init(HWND hWnd, HINSTANCE hInst, E_EXCLUSIVE ex)
 	{
 		return TRUE;
 	}
-	
+
 	return FALSE;
-		//MessageBox(NULL, 
-		//				"Error Initializing DirectInput", 
-		//				"DX Library", 
+		//MessageBox(NULL,
+		//				"Error Initializing DirectInput",
+		//				"DX Library",
 		//				MB_ICONERROR | MB_OK);
 }
+
+#else
+// Non-Windows platforms: Use SDL backend implementation from CDirectInput_Adapter.cpp
+// All methods are implemented there
+#endif

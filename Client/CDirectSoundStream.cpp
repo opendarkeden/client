@@ -5,6 +5,8 @@
 #include "CDirectSoundStream.h"
 #include "CDirectSound.h"
 
+#ifdef PLATFORM_WINDOWS
+
 //-----------------------------------------------------------------------------
 //
 // constructor / destructor
@@ -680,9 +682,14 @@ CDirectSoundStream::SetVolumeLimit(LONG volume)
 	{
 		m_MaxVolume = DSBVOLUME_MIN;
 	}
-	else 
+	else
 	{
 		m_MaxVolume = volume;
 	}
-	
+
 }
+
+#else
+// Non-Windows platforms: Use SDL backend implementation from CDirectSoundStream_Adapter.cpp
+// DirectSound stream methods are implemented there
+#endif

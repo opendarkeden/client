@@ -9,14 +9,20 @@
 
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
-#else
-#include "../../basic/Platform.h"
-#endif
 #include <MMSystem.h>
 #include <DSound.h>
+typedef std::list<LPDIRECTSOUNDBUFFER>	LPDIRECTSOUNDBUFFER_LIST;
+#else
+#include "../../basic/Platform.h"
 #include <list>
+#include <cstring>
 
-typedef	std::list<LPDIRECTSOUNDBUFFER>	LPDIRECTSOUNDBUFFER_LIST;
+/* Forward declarations for DirectSound types */
+typedef struct IDirectSound* LPDIRECTSOUND;
+typedef struct IDirectSoundBuffer* LPDIRECTSOUNDBUFFER;
+typedef struct _WAVEFORMATEX* LPWAVEFORMATEX;
+typedef std::list<LPDIRECTSOUNDBUFFER>	LPDIRECTSOUNDBUFFER_LIST;
+#endif
 
 class CDirectSound
 {
