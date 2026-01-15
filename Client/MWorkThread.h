@@ -54,8 +54,17 @@
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
 #else
-#include "../../basic/Platform.h"
+#include "../basic/Platform.h"
+// Type definitions for thread function pointer
+typedef DWORD (*LPTHREAD_START_ROUTINE)(void* lpParameter);
+
+// CRITICAL_SECTION mapping to platform mutex
+#define CRITICAL_SECTION platform_mutex_t
+#define EnterCriticalSection(mutex) platform_mutex_lock(*(mutex))
+#define LeaveCriticalSection(mutex) platform_mutex_unlock(*(mutex))
+// InitializeCriticalSection and DeleteCriticalSection will need to be handled in implementation
 #endif
+
 #include <deque>
 #include "MWorkNode.h"
 

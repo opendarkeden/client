@@ -6,6 +6,9 @@
 	#include <windows.h>
 #else
 	#include "../basic/Platform.h"
+	#include <fstream>
+	#include <cstring>
+	using namespace std;
 #endif
 
 class CSpritePalBase
@@ -32,8 +35,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	bool LoadFromFile(std::ifstream &file);
-	bool SaveToFile(std::ofstream &file);
+	bool LoadFromFile(ifstream &file);
+	bool SaveToFile(ofstream &file);
 	
 	//--------------------------------------------------------
 	// Get Functions

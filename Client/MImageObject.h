@@ -48,11 +48,12 @@
 #ifndef	__MIMAGEOBJECT_H__
 #define	__MIMAGEOBJECT_H__
 
-class ofstream;
-class ifstream;
+#include <fstream>
 #include "MTypeDef.h"
 #include "MObject.h"
 #include "DrawTypeDef.h"
+
+using namespace std;
 
 #define	IMAGEOBJECT_NULL	0xFFFF
 #define OBJECT_TRANS_FLAG	1
@@ -81,8 +82,8 @@ class MImageObject : public MObject {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		virtual void	SaveToFile(class ofstream& file);
-		virtual void	LoadFromFile(class ifstream& file);
+		virtual void	SaveToFile(ofstream& file);
+		virtual void	LoadFromFile(ifstream& file);
 
 		//-------------------------------------------------------
 		// Is...
