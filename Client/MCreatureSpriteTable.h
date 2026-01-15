@@ -15,7 +15,7 @@
 
 
 #include "MObject.h"
-#include "SpriteLib\DrawTypeDef.h"
+#include "SpriteLib/DrawTypeDef.h"
 #include "CTypeTable.h"
 #include "MString.h"
 class ifstream;

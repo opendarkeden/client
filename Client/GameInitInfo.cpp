@@ -552,14 +552,14 @@ InitInfomation()
 		(*g_pUsingColorSetTable)[USINGCOLORSET_NONE].Disable(0, MAX_USINGCOLORSET);
 		(*g_pUsingColorSetTable)[USINGCOLORSET_ALL].Enable(0, MAX_USINGCOLORSET);
 		
-		for (i=0; i<MAX_COLORSET; i++)
+		for (int i=0; i<MAX_COLORSET; i++)
 		{
 			(*g_pUsingColorSetTable)[USINGCOLORSET_SKIN].Enable(i*MAX_COLORSET_SEED_MODIFY);
 			(*g_pUsingColorSetTable)[USINGCOLORSET_SKIN].Enable(i*MAX_COLORSET_SEED_MODIFY + 1);
 			(*g_pUsingColorSetTable)[USINGCOLORSET_SKIN].Enable(i*MAX_COLORSET_SEED_MODIFY + 2);
 		}
 
-		for (i=0; i<MAX_COLORSET; i++)
+		for (int i=0; i<MAX_COLORSET; i++)
 		{
 			(*g_pUsingColorSetTable)[USINGCOLORSET_ITEM].Enable(i*MAX_COLORSET_SEED_MODIFY);
 			(*g_pUsingColorSetTable)[USINGCOLORSET_ITEM].Enable(i*MAX_COLORSET_SEED_MODIFY + 7);

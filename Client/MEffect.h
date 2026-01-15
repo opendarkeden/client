@@ -57,7 +57,7 @@
 
 #pragma warning(disable:4786)
 
-#include "FrameLib\CAnimationFrame.h"
+#include "framelib/CAnimationFrame.h"
 #include "MTypeDef.h"
 #include "MObject.h"
 #include "MEffectTarget.h"

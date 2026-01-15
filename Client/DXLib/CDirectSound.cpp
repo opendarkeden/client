@@ -6,6 +6,8 @@
 //#include "DebugInfo.h"
 #include "Profiler.h"
 
+#ifdef PLATFORM_WINDOWS
+
 //----------------------------------------------------------------------
 // Global
 //----------------------------------------------------------------------
@@ -935,3 +937,101 @@ CDirectSound::ChangePan(LPDIRECTSOUNDBUFFER buffer, int pan)
 
 	return false;
 }
+
+#else
+// Non-Windows platforms: Use SDL backend implementation from CDirectSound_Adapter.cpp
+// All methods are stub implementations that do nothing
+CDirectSound		g_DXSound;
+
+CDirectSound::CDirectSound()
+{
+	m_pDS = NULL;
+	m_bInit = false;
+	m_bMute = false;
+	m_MaxVolume = 0;
+}
+
+CDirectSound::~CDirectSound()
+{
+}
+
+bool CDirectSound::Init(HWND hwnd)
+{
+	(void)hwnd;
+	return false;
+}
+
+void CDirectSound::Release()
+{
+}
+
+bool CDirectSound::IsInit() const
+{
+	return false;
+}
+
+bool CDirectSound::AddFrequency(LPDIRECTSOUNDBUFFER lpBuffer, int nFreq)
+{
+	(void)lpBuffer; (void)nFreq;
+	return false;
+}
+
+bool CDirectSound::SubFrequency(LPDIRECTSOUNDBUFFER lpBuffer, int nFreq)
+{
+	(void)lpBuffer; (void)nFreq;
+	return false;
+}
+
+bool CDirectSound::SetMaxVolume(LPDIRECTSOUNDBUFFER buffer)
+{
+	(void)buffer;
+	return false;
+}
+
+bool CDirectSound::AddVolume(LPDIRECTSOUNDBUFFER lpBuffer, int nAdd)
+{
+	(void)lpBuffer; (void)nAdd;
+	return false;
+}
+
+bool CDirectSound::SubVolume(LPDIRECTSOUNDBUFFER lpBuffer, int nSub)
+{
+	(void)lpBuffer; (void)nSub;
+	return false;
+}
+
+void CDirectSound::ReleaseTerminatedDuplicateBuffer()
+{
+}
+
+bool CDirectSound::IsMute() const
+{
+	return m_bMute;
+}
+
+void CDirectSound::SetMute()
+{
+	m_bMute = true;
+}
+
+void CDirectSound::UnSetMute()
+{
+	m_bMute = false;
+}
+
+LONG CDirectSound::GetVolumeLimit() const
+{
+	return m_MaxVolume;
+}
+
+void CDirectSound::SetVolumeLimit(LONG volume)
+{
+	m_MaxVolume = volume;
+}
+
+LPDIRECTSOUND CDirectSound::GetDS() const
+{
+	return m_pDS;
+}
+
+#endif

@@ -15,6 +15,8 @@
 	#include "../basic/Platform.h"
 #endif
 
+#include <fstream>
+
 class CFileIndexTable {
 	public :
 		CFileIndexTable();

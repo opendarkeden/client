@@ -12,7 +12,7 @@
 #else
 #include "../../basic/Platform.h"
 #endif
-#include "Packet\Types\ModifyDef.h"
+#include "Packet/Types/ModifyDef.h"
 
 class MStatus {
 	public :

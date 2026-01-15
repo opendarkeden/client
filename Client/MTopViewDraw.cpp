@@ -8,7 +8,9 @@
 //----------------------------------------------------------------------
 #pragma warning(disable:4786)
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include "DX3D.h"
+#endif
 #include <math.h>
 #include <list>
 #include <stdio.h>

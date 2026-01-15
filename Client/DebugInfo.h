@@ -4,7 +4,10 @@
 // CMessageArray를 통한..
 // Debug정보를 표시해주는가?
 //-----------------------------------------------------------------------------
+
+#ifdef PLATFORM_WINDOWS
 #include "MinTr.h"
+#endif
 
 #ifndef	__DEBUGINFO_H__
 #define	__DEBUGINFO_H__

@@ -2,7 +2,9 @@
 // CShadowPartManager.cpp
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include "DX3D.h"
+#endif
 #include "CFileIndexTable.h"
 #include "CShadowPartManager.h"
 #include "MGameTime.h"
@@ -110,7 +112,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 	m_pWidth = new int [allSize];
 	m_pHeight = new int [allSize];
 
-	for (i=0; i<allSize; i++)
+	for (int i=0; i<allSize; i++)
 	{
 		m_pWidth[i] = 0;
 		m_pHeight[i] = 0;
@@ -122,7 +124,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 
 	if (CDirect3D::IsTexturePow2())
 	{
-		for (i=0; i<allSize; i++)
+		for (int i=0; i<allSize; i++)
 		{
 			if ((*pSSPK)[i].IsInit())
 			{
@@ -151,7 +153,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 	}
 	else
 	{
-		for (i=0; i<allSize; i++)
+		for (int i=0; i<allSize; i++)
 		{
 			if ((*pSSPK)[i].IsInit())
 			{
@@ -278,7 +280,7 @@ CShadowPartManager::Clear()
 	CPartManager<WORD, WORD, CSpriteSurface*>::Init( m_nIndex, m_nPart );
 
 	// NULL로 초기화
-	for (i=0; i<m_nPart; i++)
+	for (int i=0; i<m_nPart; i++)
 	{
 		m_pData[i] = NULL;
 	}

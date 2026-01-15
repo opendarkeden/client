@@ -333,7 +333,7 @@ MChatManager::RemoveCurse(char* str, bool bForce) const
 		//------------------------------------------------------------
 		// 찾아낸 욕들에 mask를 씌운다.
 		//------------------------------------------------------------
-		for (i=0; i<index; i++)
+		for (int i=0; i<index; i++)
 		{
 			if ( isCurse[i] )
 			{
@@ -447,7 +447,7 @@ MChatManager::RemoveCurse(char* str, bool bForce) const
 		// 찾아낸 욕들에 mask를 씌운다.
 		//------------------------------------------------------------
 		
-		for (i=0; i<index; i++)
+		for (int i=0; i<index; i++)
 		{
 			if ( isCurse[i] )
 			{

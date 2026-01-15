@@ -37,7 +37,9 @@
 #include "RankBonusDef.h"
 #include "MTestDef.h"
 #include "MTimeItemManager.h"
+#ifdef PLATFORM_WINDOWS
 #include "MinTr.h"
+#endif
 #include "MFakeCreature.h"
 #include "SystemAvailabilities.h"
 #include "MGameStringTable.h"

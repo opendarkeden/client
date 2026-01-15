@@ -57,7 +57,9 @@
 
 #pragma warning(disable:4786)
 
+#ifdef PLATFORM_WINDOWS
 #include "DX3D.h"
+#endif
 #include "MViewDef.h"
 #include <map>
 #include <queue>

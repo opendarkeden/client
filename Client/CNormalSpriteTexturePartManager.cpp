@@ -2,7 +2,9 @@
 // CSpriteTexturePartManager.cpp
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include "DX3D.h"
+#endif
 #include "CFileIndexTable.h"
 #include "CSpriteTexturePartManager.h"
 
@@ -92,7 +94,7 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 	m_pWidth = new int [allSize];
 	m_pHeight = new int [allSize];
 
-	for (i=0; i<allSize; i++)
+	for (int i=0; i<allSize; i++)
 	{
 		m_pWidth[i] = 0;
 		m_pHeight[i] = 0;
@@ -104,7 +106,7 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 
 	if (CDirect3D::IsTexturePow2())
 	{
-		for (i=0; i<allSize; i++)
+		for (int i=0; i<allSize; i++)
 		{
 			if ((*pSPK)[i].IsInit())
 			{
@@ -133,7 +135,7 @@ CNormalSpriteTexturePartManager::Init(CSpritePack* pSPK, WORD partSize)
 	}
 	else
 	{
-		for (i=0; i<allSize; i++)
+		for (int i=0; i<allSize; i++)
 		{
 			if ((*pSPK)[i].IsInit())
 			{
@@ -261,7 +263,7 @@ CNormalSpriteTexturePartManager::Clear()
 	CPartManager<WORD, WORD, CSpriteSurface*>::Init( m_nIndex, m_nPart );
 
 	// NULL로 초기화
-	for (i=0; i<m_nPart; i++)
+	for (int i=0; i<m_nPart; i++)
 	{
 		m_pData[i] = NULL;
 	}
@@ -470,7 +472,7 @@ CNormalSpriteTexturePartManager::GetTexture(TYPE_SPRITEID id)
 
 			int width2 = width << 1;
 
-			for (i=0; i<height; i++)
+			for (int i=0; i<height; i++)
 			{
 				memset(pSurface, 0, width2);
 				pSurface = (WORD*)((BYTE*)pSurface + pitch);

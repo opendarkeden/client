@@ -270,7 +270,7 @@ void CSpritePal::SetPixel(BYTE *pSource, WORD pitch, WORD width, WORD height)
 	register int i;
 	register int j;
 
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		index = 0;
 		count = 0;
@@ -439,7 +439,7 @@ bool CSpritePal::LoadFromFile(class ifstream &file)
 
 	BYTE *tempData = m_pData;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		m_pPixels[i] = tempData;
 		tempData += indexArray[i];
@@ -479,7 +479,7 @@ bool CSpritePal::SaveToFile(class ofstream &file)
 
 	WORD index;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		if(i == m_Height -1)
 		{

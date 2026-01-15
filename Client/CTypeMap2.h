@@ -23,6 +23,13 @@ class CTypeMap2 : public std::map<unsigned int, DataType*> {
 	public :
 		typedef	std::map<unsigned int, DataType*>	TYPE_MAP;
 
+		// Bring base class methods into scope
+		using std::map<unsigned int, DataType*>::begin;
+		using std::map<unsigned int, DataType*>::end;
+		using std::map<unsigned int, DataType*>::find;
+		using std::map<unsigned int, DataType*>::clear;
+		using std::map<unsigned int, DataType*>::insert;
+
 	public :
 		CTypeMap2();
 		virtual ~CTypeMap2();
@@ -68,7 +75,7 @@ template <class DataType>
 void
 CTypeMap2<DataType>::Release()
 {
-	TYPE_MAP::iterator iData = begin();
+	typename TYPE_MAP::iterator iData = begin();
 
 	while (iData != end())
 	{
@@ -89,7 +96,7 @@ template <class DataType>
 bool				
 CTypeMap2<DataType>::AddData( unsigned int id, DataType* pData )
 {
-	TYPE_MAP::iterator	iData = find( id );
+	typename TYPE_MAP::iterator	iData = find( id );
 
 	if (iData != end())
 	{
@@ -113,7 +120,7 @@ template <class DataType>
 DataType*	
 CTypeMap2<DataType>::GetData( unsigned int id )
 {
-	TYPE_MAP::iterator	iData = find( id );
+	typename TYPE_MAP::iterator	iData = find( id );
 
 	if (iData == end())
 	{
@@ -132,7 +139,7 @@ template <class DataType>
 const DataType*	
 CTypeMap2<DataType>::GetData( unsigned int id ) const
 {
-	TYPE_MAP::const_iterator	iData = find( id );
+	typename TYPE_MAP::const_iterator	iData = find( id );
 
 	if (iData == end())
 	{
@@ -151,7 +158,7 @@ template <class DataType>
 bool				
 CTypeMap2<DataType>::RemoveData( unsigned int id )
 {
-	TYPE_MAP::iterator	iData = find( id );
+	typename TYPE_MAP::iterator	iData = find( id );
 
 	if (iData == end())
 	{

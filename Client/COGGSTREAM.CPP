@@ -2,7 +2,7 @@
 
 	stream.c
 
-	½ºÆ®¸² °ü¸® (sound classÀÇ friend class)
+	ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (sound classï¿½ï¿½ friend class)
 
 
 
@@ -13,6 +13,7 @@
 #include "dxlib/CDirectSound.h"
 #include "coggstream.h"
 
+#ifdef PLATFORM_WINDOWS
 
 CDirectSoundBuffer::CDirectSoundBuffer(HWND hwnd, unsigned int stereo, unsigned int freq, unsigned int bit)
 {
@@ -104,7 +105,7 @@ HRESULT CDirectSoundBuffer::createBuffer (IDirectSoundBuffer **buf, DSBUFFERDESC
 	
 	if (FAILED(temp_buf->QueryInterface(IID_IDirectSoundBuffer, (void**)buf)))
 	{	deleteBuffer (*buf); return SOUND_ERR_CANNOT_GET_INTERFACE;}
-	//	À§ ÇÔ¼ö¸¦ ¾²±â À§ÇØ¼­´Â dxguid.lib¸¦ ¸µÅ©ÇÏ°í WIN32_DCOMÀ» ¼±¾ðÇÑ´Ù.
+	//	ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ dxguid.libï¿½ï¿½ ï¿½ï¿½Å©ï¿½Ï°ï¿½ WIN32_DCOMï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 
 	deleteBuffer (temp_buf);
 
@@ -1025,14 +1026,14 @@ EnterCriticalSection (&str->cs);
 						str->play_size = 0;
 
 						if (str->next_pos != NULL && (str->pos.option == STREAM_PERMIT_NEXT_ON || str->pos.option == STREAM_PERMIT_NEXT_NOW))
-							// »õ Æ÷Áö¼Ç Á¤º¸¸¦ °»½ÅÇÑ´Ù.
+							// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						{
 							
 							str->streamSetCurrentPosition (str->next_pos);
 
 						} 
 						else 
-							// ÇöÀç Æ÷Áö¼Ç Á¤º¸¸¦ ¼öÁ¤ÇØ¼­ loop
+							// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ loop
 						{
 							
 							str->pos.start_pos = str->pos.loop_start_pos;
@@ -1130,3 +1131,21 @@ HRESULT	COGGSTREAM::streamPermitNextPosition(DWORD flag)
 	return STREAM_ERR_OK;
 
 }
+#else
+// Non-Windows platforms: Minimal stub implementations
+CDirectSoundBuffer::CDirectSoundBuffer(HWND hwnd, unsigned int stereo, unsigned int freq, unsigned int bit)
+{
+	(void)hwnd; (void)stereo; (void)freq; (void)bit;
+	dsp = NULL;
+	buffer = NULL;
+	stream_stop = FALSE;
+}
+
+CDirectSoundBuffer::~CDirectSoundBuffer()
+{
+}
+
+// Note: All other methods are implemented in the Windows section above
+// and will be linked from there when PLATFORM_WINDOWS is defined
+
+#endif

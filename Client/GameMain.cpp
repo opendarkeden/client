@@ -3144,7 +3144,7 @@ LoadZoneInfo(int n)
 			Race MyRace = g_pPlayer->GetRace();
 			DEBUG_ADD("bSlayer OK");
 
-			for (i=0; i<numSafe; i++)
+			for (int i=0; i<numSafe; i++)
 			{			
 				zoneInfoFile.read((char*)&rect2, SIZE_B_RECT);
 

@@ -71,6 +71,10 @@ typedef unsigned short	WORD;
 typedef unsigned int	UINT;
 typedef unsigned long   DWORD;
 
+/* Color type definitions */
+typedef DWORD			COLORREF;
+#define RGB(r,g,b)		((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
+
 /* id_t conflicts with POSIX on macOS/Linux, only define on Windows */
 #ifdef PLATFORM_WINDOWS
 typedef DWORD			id_t;
@@ -124,9 +128,53 @@ typedef WORD			char_t;
 	typedef char*			LPSTR;
 	typedef const char*		LPCTSTR;
 	typedef char*			LPTSTR;
+	typedef const wchar_t*	LPCWSTR;
+	typedef wchar_t*		LPWSTR;
+	typedef intptr_t		LPARAM;
+	typedef intptr_t		WPARAM;
+	typedef unsigned int		UINT;
 
 	/* MessageBox constants */
 	#define MB_OK			0x00000000L
+
+	/* Character type macros */
+	#ifndef _T
+		#define _T(x)		x
+	#endif
+	#ifndef TEXT
+		#define TEXT(x)	x
+	#endif
+
+	/* TCHAR and related types */
+	#ifndef UNICODE
+		typedef char			TCHAR;
+		#define _tcscat		strcat
+		#define _tcscpy		strcpy
+		#define _tcslen		strlen
+		#define _tcschr		strchr
+		#define _tcsrchr		strrchr
+		#define _stprintf	sprintf
+		#define _tprintf		printf
+		#define _tmain		main
+	#else
+		typedef wchar_t		TCHAR;
+		#define _tcscat		wcscat
+		#define _tcscpy		wcscpy
+		#define _tcslen		wcslen
+		#define _tcschr		wcschr
+		#define _tcsrchr		wcsrchr
+		#define _stprintf	swprintf
+		#define _tprintf		wprintf
+		#define _tmain		wmain
+	#endif
+
+	typedef TCHAR*			LPTSTR;
+	typedef const TCHAR*	LPCTSTR;
+
+	/* _TCHAR alias for compatibility with older code */
+	#ifndef _TCHAR
+		#define _TCHAR	TCHAR
+	#endif
 
 	/* Stub for MessageBox - just prints to stderr */
 	static inline int MessageBox(void* hWnd, const char* lpText, const char* lpCaption, unsigned int uType) {
@@ -145,6 +193,10 @@ typedef WORD			char_t;
 		// Non-Windows platforms don't have mouse acceleration settings in the same way
 		return FALSE;
 	}
+
+	/* Windows timing functions */
+	#define GetTickCount()		platform_get_ticks()
+	#define timeGetTime()		platform_get_ticks()
 #endif
 
 /* ============================================================================

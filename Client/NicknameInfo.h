@@ -1,11 +1,11 @@
 #ifndef __NICKNAME_INFO_H__
 #define __NICKNAME_INFO_H__
 
-#include "packet\Types.h"
+#include "Packet/Types.h"
 
-#include "packet\Packet.h"
-#include "packet\SocketInputStream.h"
-#include "packet\SocketOutputStream.h"
+#include "Packet/Packet.h"
+#include "Packet/SocketInputStream.h"
+#include "Packet/SocketOutputStream.h"
 
 #include <string>
 

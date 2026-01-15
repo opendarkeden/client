@@ -3,7 +3,12 @@
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
 #include "Profiler.h"
+
+#ifdef PLATFORM_WINDOWS
 #include <MMSystem.h>
+#endif
+
+using namespace std;
 
 
 //----------------------------------------------------------------------
@@ -71,7 +76,7 @@ ProfilerInfo::End()
 //----------------------------------------------------------------------
 // Write To File
 //----------------------------------------------------------------------
-void		
+void
 ProfilerInfo::WriteToFile(ofstream& file) const
 {	
 	char str[256];

@@ -1814,7 +1814,7 @@ CGameUpdate::DXKeyboardEvent(CDirectInput::E_KEYBOARD_EVENT event, DWORD key)
 										// 3/4´Â INT¸¦ ¿Ã¸°´Ù.
 										_CGUseBonusPoint.setWhich( INC_INT );
 
-										for (i=0; i<strValue; i++)
+										for (int i=0; i<strValue; i++)
 										{
 											g_pSocket->sendPacket( &_CGUseBonusPoint );
 

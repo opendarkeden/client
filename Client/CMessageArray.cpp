@@ -11,6 +11,37 @@
 
 #define __LOGGING__
 
+// Platform-specific includes
+#ifdef PLATFORM_WINDOWS
+	#include <io.h>
+	#include <fcntl.h>
+#else
+	#include <unistd.h>
+	#include <fcntl.h>
+#endif
+
+// Platform-specific I/O functions
+#ifdef PLATFORM_WINDOWS
+	#define PLATFORM_WRITE(fd, buf, len)	_write(fd, buf, len)
+	#define PLATFORM_OPEN	_open
+	#define PLATFORM_CLOSE	_close
+	#define PLATFORM_LSEEK	_lseek
+#else
+	#define PLATFORM_WRITE(fd, buf, len)	write(fd, buf, len)
+	#define PLATFORM_OPEN	open
+	#define PLATFORM_CLOSE	close
+	#define PLATFORM_LSEEK	lseek
+#endif
+
+// Platform-specific file flags
+#ifndef PLATFORM_WINDOWS
+	#define _O_WRONLY    O_WRONLY
+	#define _O_TEXT      0
+	#define _O_APPEND    O_APPEND
+	#define _O_CREAT     O_CREAT
+	#define _O_TRUNC     O_TRUNC
+#endif
+
 #if defined(OUTPUT_DEBUG) && defined(__GAME_CLIENT__)
 	CRITICAL_SECTION			g_Lock;
 
@@ -80,7 +111,7 @@ CMessageArray::Init(int max, int length, const char* filename)
 		m_Filename = new char [strlen(filename)+1];
 		strcpy(m_Filename, filename);
 
-		m_LogFile = _open(filename, _O_WRONLY | _O_TEXT | _O_CREAT | _O_TRUNC);
+		m_LogFile = PLATFORM_OPEN(filename, _O_WRONLY | _O_TEXT | _O_CREAT | _O_TRUNC);
 
 		if (m_LogFile!=-1)
 		{
@@ -121,7 +152,7 @@ CMessageArray::Release()
 	// file log
 	if (m_bLog)
 	{
-		_close(m_LogFile);
+		PLATFORM_CLOSE(m_LogFile);
 		m_bLog = false;
 
 		if (m_Filename != NULL)
@@ -152,16 +183,16 @@ CMessageArray::Add(const char *str)
 	{ 
 		// [ TEST CODE ] 시간 출력
 		//sprintf(g_MessageBuffer, "[%4d] ", timeGetTime() % 10000);
-		//_write( m_LogFile, g_MessageBuffer, strlen(g_MessageBuffer) );
+		//PLATFORM_WRITE( m_LogFile, g_MessageBuffer, strlen(g_MessageBuffer) );
 
 		//m_LogFile << str << endl;
-		_write( m_LogFile, str, len );
-		_write( m_LogFile, "\n", 1 );
+		PLATFORM_WRITE( m_LogFile, str, len );
+		PLATFORM_WRITE( m_LogFile, "\n", 1 );
 
 		// [ TEST CODE ] 화일 닫고 다시 열기
 		#ifdef OUTPUT_FILE_LOG
-			_close( m_LogFile );
-			m_LogFile = _open(m_Filename, _O_WRONLY | _O_TEXT | _O_APPEND | _O_CREAT);
+			PLATFORM_CLOSE( m_LogFile );
+			m_LogFile = PLATFORM_OPEN(m_Filename, _O_WRONLY | _O_TEXT | _O_APPEND | _O_CREAT);
 		#endif
 	}	
 
@@ -205,16 +236,16 @@ CMessageArray::AddToFile(const char *str)
 	{
 		// [ TEST CODE ] 시간 출력
 		//sprintf(g_MessageBuffer, "[%4d] ", timeGetTime() % 10000);
-		//_write( m_LogFile, g_MessageBuffer, strlen(g_MessageBuffer) );
+		//PLATFORM_WRITE( m_LogFile, g_MessageBuffer, strlen(g_MessageBuffer) );
 
 		//m_LogFile << str << endl;
-		_write( m_LogFile, str, strlen( str ) );
-		_write( m_LogFile, "\n", 1 );
+		PLATFORM_WRITE( m_LogFile, str, strlen( str ) );
+		PLATFORM_WRITE( m_LogFile, "\n", 1 );
 
 		// [ TEST CODE ] 화일 닫고 다시 열기
 		#ifdef OUTPUT_FILE_LOG
-			_close( m_LogFile );
-			m_LogFile = _open(m_Filename, _O_WRONLY | _O_TEXT | _O_APPEND | _O_CREAT);
+			PLATFORM_CLOSE( m_LogFile );
+			m_LogFile = PLATFORM_OPEN(m_Filename, _O_WRONLY | _O_TEXT | _O_APPEND | _O_CREAT);
 		#endif
 	}	
 
@@ -244,16 +275,16 @@ CMessageArray::AddFormatVL(const char* format, va_list& vl)
 	{
 		// [ TEST CODE ] 시간 출력
 		//sprintf(g_MessageBuffer, "[%4d] ", timeGetTime() % 10000);
-		//_write( m_LogFile, g_MessageBuffer, strlen(g_MessageBuffer) );
+		//PLATFORM_WRITE( m_LogFile, g_MessageBuffer, strlen(g_MessageBuffer) );
 
 		//m_LogFile << str << endl;
-		_write( m_LogFile, Buffer, len );
-		_write( m_LogFile, "\n", 1 );
+		PLATFORM_WRITE( m_LogFile, Buffer, len );
+		PLATFORM_WRITE( m_LogFile, "\n", 1 );
 
 		// [ TEST CODE ] 화일 닫고 다시 열기
 		#ifdef OUTPUT_FILE_LOG
-			_close( m_LogFile );
-			m_LogFile = _open(m_Filename, _O_WRONLY | _O_TEXT | _O_APPEND | _O_CREAT);
+			PLATFORM_CLOSE( m_LogFile );
+			m_LogFile = PLATFORM_OPEN(m_Filename, _O_WRONLY | _O_TEXT | _O_APPEND | _O_CREAT);
 		#endif
 	}	
 
@@ -309,16 +340,16 @@ CMessageArray::AddFormat(const char* format, ...)
 	{
 		// [ TEST CODE ] 시간 출력
 		//sprintf(g_MessageBuffer, "[%4d] ", timeGetTime() % 10000);
-		//_write( m_LogFile, g_MessageBuffer, strlen(g_MessageBuffer) );
+		//PLATFORM_WRITE( m_LogFile, g_MessageBuffer, strlen(g_MessageBuffer) );
 
 		//m_LogFile << str << endl;
-		_write( m_LogFile, Buffer, len );
-		_write( m_LogFile, "\n", 1 );
+		PLATFORM_WRITE( m_LogFile, Buffer, len );
+		PLATFORM_WRITE( m_LogFile, "\n", 1 );
 
 		// [ TEST CODE ] 화일 닫고 다시 열기
 		#ifdef OUTPUT_FILE_LOG
-			_close( m_LogFile );
-			m_LogFile = _open(m_Filename, _O_WRONLY | _O_TEXT | _O_APPEND | _O_CREAT);
+			PLATFORM_CLOSE( m_LogFile );
+			m_LogFile = PLATFORM_OPEN(m_Filename, _O_WRONLY | _O_TEXT | _O_APPEND | _O_CREAT);
 		#endif
 	}	
 
@@ -363,8 +394,8 @@ CMessageArray::Next()
 	if (m_bLog)
 	{
 		//m_LogFile << str << endl;
-		_write( m_LogFile, m_ppMessage[m_Current], strlen( m_ppMessage[m_Current] ) );
-		_write( m_LogFile, "\n", 1 );
+		PLATFORM_WRITE( m_LogFile, m_ppMessage[m_Current], strlen( m_ppMessage[m_Current] ) );
+		PLATFORM_WRITE( m_LogFile, "\n", 1 );
 	}	
 
 	m_Current++; 

@@ -55,8 +55,13 @@
 
 
 
+#ifdef PLATFORM_WINDOWS
 static LPCTSTR g_pszMinTraceTitle     = _T("MinTrace 2003");
 static LPCTSTR g_pszMinTraceClassName = _T("__MinTrace Window__");
+#else
+static const char* g_pszMinTraceTitle     = "MinTrace 2003";
+static const char* g_pszMinTraceClassName = "__MinTrace Window__";
+#endif
 
 #define MIN_UNICOD		0xFFFF0000
 #define MIN_NOTUNI		0x00000000
@@ -66,36 +71,52 @@ static LPCTSTR g_pszMinTraceClassName = _T("__MinTrace Window__");
 #define MIN_WAR			0x0044
 
 //-----------------------------------------------------------------------------
-// 설명 : _MinTraceA 
+// 설명 : _MinTraceA
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 inline void _MinTraceA(LPCSTR p)
 {
-    COPYDATASTRUCT cd; 
-    HWND hWnd = ::FindWindow (g_pszMinTraceClassName, g_pszMinTraceTitle); 
+    COPYDATASTRUCT cd;
+    HWND hWnd = ::FindWindow (g_pszMinTraceClassName, g_pszMinTraceTitle);
     if (hWnd)
-    {  
+    {
         cd.dwData = MIN_NOTUNI;
         cd.cbData = (strlen(p)+1)*sizeof(char);
-        cd.lpData = (void *)p; 
-        ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);  
-    } 
+        cd.lpData = (void *)p;
+        ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);
+    }
 }
+#else
+inline void _MinTraceA(LPCSTR p)
+{
+    // Non-Windows: output to stderr
+    fprintf(stderr, "[MinTrace] %s\n", p ? p : "");
+}
+#endif
 
 //-----------------------------------------------------------------------------
-// 설명 : _MinTraceW (유니코드) 
+// 설명 : _MinTraceW (유니코드)
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 inline void _MinTraceW(LPCWSTR p)
 {
-    COPYDATASTRUCT cd; 
-    HWND hWnd = ::FindWindow (g_pszMinTraceClassName, g_pszMinTraceTitle); 
+    COPYDATASTRUCT cd;
+    HWND hWnd = ::FindWindow (g_pszMinTraceClassName, g_pszMinTraceTitle);
     if (hWnd)
-    {  
+    {
         cd.dwData = MIN_UNICOD;
         cd.cbData = (wcslen(p)+1)*sizeof(wchar_t);
-        cd.lpData = (void *)p; 
-        ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);  
-    } 
+        cd.lpData = (void *)p;
+        ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);
+    }
 }
+#else
+inline void _MinTraceW(LPCWSTR p)
+{
+    // Non-Windows: output to stderr
+    fprintf(stderr, "[MinTrace] %ls\n", p ? p : L"");
+}
+#endif
 
 //-----------------------------------------------------------------------------
 // 설명 : 일반 트레이스
@@ -121,6 +142,7 @@ inline void _MinTrace(LPCTSTR pFormat, ...)
 //-----------------------------------------------------------------------------
 // 설명 : _MinTraceErrA 
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 inline void _MinTraceErrA(LPCSTR p)
 {
     COPYDATASTRUCT cd; 
@@ -132,11 +154,18 @@ inline void _MinTraceErrA(LPCSTR p)
         cd.lpData = (void *)p; 
         ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);  
     } 
+#else
+inline void _MinTraceErrA(LPCSTR p)
+{
+    fprintf(stderr, "[_MinTraceErrA] %s\n", p ? p : "");
+}
+#endif
 }
 
 //-----------------------------------------------------------------------------
 // 설명 : _MinTraceErrW (유니코드) 
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 inline void _MinTraceErrW(LPCWSTR p)
 {
     COPYDATASTRUCT cd; 
@@ -148,6 +177,12 @@ inline void _MinTraceErrW(LPCWSTR p)
         cd.lpData = (void *)p; 
         ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);  
     } 
+#else
+inline void _MinTraceErrW(LPCWSTR p)
+{
+    fprintf(stderr, "[_MinTraceErrW] %s\n", p ? p : "");
+}
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -174,6 +209,7 @@ inline void _MinTraceErr(LPCTSTR pFormat, ...)
 //-----------------------------------------------------------------------------
 // 설명 : _MinTraceWarA 
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 inline void _MinTraceWarA(LPCSTR p)
 {
     COPYDATASTRUCT cd; 
@@ -185,11 +221,18 @@ inline void _MinTraceWarA(LPCSTR p)
         cd.lpData = (void *)p; 
         ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);  
     } 
+#else
+inline void _MinTraceWarA(LPCSTR p)
+{
+    fprintf(stderr, "[_MinTraceWarA] %s\n", p ? p : "");
+}
+#endif
 }
 
 //-----------------------------------------------------------------------------
 // 설명 : _MinTraceWarW (유니코드) 
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 inline void _MinTraceWarW(LPCWSTR p)
 {
     COPYDATASTRUCT cd; 
@@ -201,6 +244,12 @@ inline void _MinTraceWarW(LPCWSTR p)
         cd.lpData = (void *)p; 
         ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);  
     } 
+#else
+inline void _MinTraceWarW(LPCWSTR p)
+{
+    fprintf(stderr, "[_MinTraceWarW] %s\n", p ? p : "");
+}
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -284,22 +333,29 @@ inline void _ClMinTrace(COLORREF col, LPCTSTR pFormat, ...)
 }
 
 //-----------------------------------------------------------------------------
-// 설명 : _CmdMinTraceA 
+// 설명 : _CmdMinTraceA
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 inline void _CmdMinTraceA(int nCmd, LPCSTR p)
 {
-    COPYDATASTRUCT cd; 
-    HWND hWnd = ::FindWindow (g_pszMinTraceClassName, g_pszMinTraceTitle); 
+    COPYDATASTRUCT cd;
+    HWND hWnd = ::FindWindow (g_pszMinTraceClassName, g_pszMinTraceTitle);
     if (hWnd)
-    {  
+    {
 		char buf[1024];
 		sprintf(buf, "%8d,%s", nCmd, p);
         cd.dwData = MIN_NOTUNI | MIN_CMD;
         cd.cbData = (strlen(buf)+1)*sizeof(char);
         cd.lpData = (void *)&buf;
-        ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);  
-    } 
+        ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);
+    }
 }
+#else
+inline void _CmdMinTraceA(int nCmd, LPCSTR p)
+{
+    fprintf(stderr, "[CmdMinTrace] cmd=%d %s\n", nCmd, p ? p : "");
+}
+#endif
 
 //-----------------------------------------------------------------------------
 // 설명 : _CmdMinTraceW

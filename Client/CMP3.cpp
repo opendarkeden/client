@@ -271,7 +271,9 @@
 ////	g_DXSound.SetVolumeLimit(volume);
 //}
 
-CMP3::CMP3(LPCSTR lpcszFileName) 
+#ifdef PLATFORM_WINDOWS
+
+CMP3::CMP3(LPCSTR lpcszFileName)
 {
 	muiDeviceID = 0;
 
@@ -613,3 +615,140 @@ void CMP3::SetVolume(DWORD dwVolume)
 	mmsError = waveOutSetVolume(0, dwVolume);
 	return;
 }
+#else
+// Non-Windows platforms: Stub implementation
+// MP3 playback not implemented - would need SDL_mixer or similar
+
+CMP3::CMP3(LPCSTR lpcszFileName)
+{
+	muiDeviceID = 0;
+	m_bLoop = false;
+	m_oldVolume = 0xffffffff;
+}
+
+CMP3::~CMP3()
+{
+}
+
+void CMP3::Close()
+{
+}
+
+DWORD CMP3::Open(LPCSTR lpcszFileName)
+{
+	(void)lpcszFileName;
+	return 0;
+}
+
+DWORD CMP3::Play(bool bLoop)
+{
+	(void)bLoop;
+	return 0;
+}
+
+DWORD CMP3::Pause()
+{
+	return 0;
+}
+
+DWORD CMP3::Stop()
+{
+	return 0;
+}
+
+BOOL CMP3::Home()
+{
+	return FALSE;
+}
+
+BOOL CMP3::End()
+{
+	return FALSE;
+}
+
+DWORD CMP3::GetPosition()
+{
+	return 0;
+}
+
+void CMP3::SetPosition(DWORD dwPos)
+{
+	(void)dwPos;
+}
+
+DWORD CMP3::TotalLength()
+{
+	return 0;
+}
+
+DWORD CMP3::TotalLength(LPSTR lpszReturn)
+{
+	if (lpszReturn) lpszReturn[0] = '\0';
+	return 0;
+}
+
+DWORD CMP3::CurrentLength()
+{
+	return 0;
+}
+
+DWORD CMP3::CurrentLength(LPSTR lpszReturn)
+{
+	if (lpszReturn) lpszReturn[0] = '\0';
+	return 0;
+}
+
+DWORD CMP3::GetStatus(DWORD dwFlag)
+{
+	(void)dwFlag;
+	return 0;
+}
+
+void CMP3::MinsFromSecs(DWORD dwLength, LPSTR lpszReturn)
+{
+	if (lpszReturn) lpszReturn[0] = '\0';
+	(void)dwLength;
+}
+
+void CMP3::GetErrorString(DWORD dwErrCode, LPSTR lpszErrString)
+{
+	if (lpszErrString) lpszErrString[0] = '\0';
+	(void)dwErrCode;
+}
+
+bool CMP3::IsReady()
+{
+	return false;
+}
+
+bool CMP3::IsPause()
+{
+	return false;
+}
+
+bool CMP3::IsPlay()
+{
+	return false;
+}
+
+bool CMP3::IsStop()
+{
+	return true;
+}
+
+DWORD CMP3::StatusMode()
+{
+	return 0;
+}
+
+void CMP3::SetVolume(DWORD dwVolume)
+{
+	(void)dwVolume;
+}
+
+DWORD CMP3::GetVolume()
+{
+	return 0;
+}
+
+#endif

@@ -3691,7 +3691,7 @@ WinMain(HINSTANCE hInstance,
 		}
 		//////////////////////////////////////////////////////////////////////////
 		/* Delete by Sonic 2006-6-21
-		for (i=0; i<strlen(checkStr); i++)
+		for (int i=0; i<strlen(checkStr); i++)
 		{
 			if (checkStr[i]!=str[i])
 			{
@@ -3751,7 +3751,7 @@ WinMain(HINSTANCE hInstance,
 			// Ã¢¸ðµå ½ÃÀÛ..
 			g_bTestMode = true;
 			char checkTestMode[] = "TestMode";
-			for (i=0; i<strlen(checkTestMode); i++)
+			for (int i=0; i<strlen(checkTestMode); i++)
 			{
 				if (checkTestMode[i]!=str[i])
 				{
