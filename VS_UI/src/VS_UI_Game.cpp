@@ -522,7 +522,7 @@ void ExecF_Use_AskItem(C_VS_UI_DIALOG * p_this_dialog, id_t id)
 				if(p_cur_item->GetItemClass() == ITEM_CLASS_EVENT_GIFT_BOX &&
 				p_cur_item->GetItemType() >= 22 && p_cur_item->GetItemType() <= 25)
 				{
-					gpC_base->SendMessage(UI_RUN_NAMING_CHANGE, (int)p_cur_item);
+					gpC_base->SendMessage(UI_RUN_NAMING_CHANGE, (int)(intptr_t)p_cur_item);
 					//gC_vs_ui.RunNamingChange(p_cur_item);
 				}
 				else

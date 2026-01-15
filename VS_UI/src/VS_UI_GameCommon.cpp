@@ -2882,7 +2882,7 @@ bool C_VS_UI_GEAR::MouseControl(UINT message, int _x, int _y)
 						else
 						{
 							const MItem* pAddedItem = gC_vs_ui.GetGearCoreZapItem(m_focus_slot);
-							g_descriptor_manager.Set(DID_ITEM, x+m_p_slot_rect[m_focus_slot].x, y+m_p_slot_rect[m_focus_slot].y, (void *)p_selected_item, 0, (int)pAddedItem);
+							g_descriptor_manager.Set(DID_ITEM, x+m_p_slot_rect[m_focus_slot].x, y+m_p_slot_rect[m_focus_slot].y, (void *)p_selected_item, 0, (int)(intptr_t)pAddedItem);
 						}
 					}
 					//						m_focus_slot = NOT_SELECTED;
@@ -9449,7 +9449,8 @@ void	C_VS_UI_SKILL::SetHotkey(HOTKEY hotkey, ACTIONINFO id)
 			if (m_skill_hotkey_buf[i][j] == id)
 			{
 				//				m_skill_hotkey_buf[i][j] = NOT_SELECTED;
-				for(int k = j; k < GRADE_MAX-1; k++)
+				int k;
+				for(k = j; k < GRADE_MAX-1; k++)
 					m_skill_hotkey_buf[i][k] = m_skill_hotkey_buf[i][k+1];
 				m_skill_hotkey_buf[i][k] = NOT_SELECTED;
 				return;
@@ -11282,25 +11283,26 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 					p_guild_mark = g_pGuildMarkManager->GetGuildMarkSmall(g_pParty->GetMemberInfo(i-1)->guildID);
 				}
 			}
-			
-			
-			for(int find = 0; find < m_v_face_name.size(); find++)
+
+
+			int idx;
+			for(idx = 0; idx < m_v_face_name.size(); idx++)
 			{
-				if(strcmp(m_v_face_name[find].c_str(), name.c_str()) == 0)break;
+				if(strcmp(m_v_face_name[idx].c_str(), name.c_str()) == 0)break;
 			}
-			
-			if(find == m_v_face_name.size())	// �̸� ��ü�� ����� �ȵ������� search&load
+
+			if(idx == m_v_face_name.size())	// 이름 전체를 찾지 못했으면 search&load
 			{
 				C_SPRITE_PACK *temp_spk = NULL;
 				if(g_pProfileManager->HasProfile(name.c_str()))
 				{
 					const char *filename = g_pProfileManager->GetFilename(name.c_str());
 					temp_spk = new C_SPRITE_PACK(filename);
-					
+
 					m_vp_face.push_back(temp_spk);
 					m_v_face_name.push_back(name);
 				}
-				
+
 				if(g_pProfileManager->HasProfileNULL(name.c_str()))
 				{
 					if(temp_spk)
@@ -11312,10 +11314,10 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 					m_v_face_name.push_back(name);
 				}
 			}
-			
+
 			point.x = x + 9;
 			point.y = y + window_default_height + inc_y + i*window_gap +1;
-			
+
 			m_p_image_spk->BltLocked(point.x -1, point.y -1, FACE_GRID);
 			m_p_image_spk->BltLocked(point.x +33, point.y +24, NAME_GRID);
 			if(i == 0)
@@ -11347,8 +11349,8 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 				else
 					m_p_image_spk->BltLocked(x +away_x, y +away_y +window_default_height + inc_y + i*window_gap, AWAY_BUTTON);
 			}
-			
-			if(m_v_face_name.empty() || find == m_v_face_name.size() || (find < m_v_face_name.size() && m_vp_face[find] == NULL))
+
+			if(m_v_face_name.empty() || idx == m_v_face_name.size() || (idx < m_v_face_name.size() && m_vp_face[idx] == NULL))
 			{	// default face
 				if(spriteID < 0 || spriteID >= m_p_face_spk->GetSize())spriteID = 0;
 				
@@ -11363,10 +11365,10 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 				//user face
 				if(i == 0 && g_char_slot_ingame.HP == 0 || i != 0 && g_pParty->GetMemberInfo(i-1)->HP == 0)
 				{
-					m_vp_face[find]->BltLockedColor(point.x, point.y, 0, rgb_RED);
+					m_vp_face[idx]->BltLockedColor(point.x, point.y, 0, rgb_RED);
 				}
 				else
-					m_vp_face[find]->BltLocked(point.x, point.y, 0);
+					m_vp_face[idx]->BltLocked(point.x, point.y, 0);
 			}
 			
 			//��� ��ũ ���
@@ -11378,7 +11380,7 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 			
 			if(Timer() && i == m_away_focused)
 			{
-				if(m_v_face_name.empty() || find == m_v_face_name.size() || (find < m_v_face_name.size() && m_vp_face[find] == NULL))
+				if(m_v_face_name.empty() || idx == m_v_face_name.size() || (idx < m_v_face_name.size() && m_vp_face[idx] == NULL))
 				{	// default face
 					if(spriteID < 0 || spriteID >= m_p_face_spk->GetSize())spriteID = 0;
 					
@@ -11388,7 +11390,7 @@ void	C_VS_UI_PARTY_MANAGER::Show()
 				else
 				{
 					//user face
-					m_vp_face[find]->BltLocked(point.x-65, point.y, 1);
+					m_vp_face[idx]->BltLocked(point.x-65, point.y, 1);
 				}
 				
 			}
@@ -14700,7 +14702,7 @@ bool	C_VS_UI_INFO::SkillInfoMouseControl(UINT message, int _x, int _y)
 						int level = (*g_pSkillManager)[m_skill_domain].GetDomainLevel();
 						int exp_remain = (*g_pSkillManager)[m_skill_domain].GetDomainExpRemain();
 						
-						if(level >= 0 && exp >= 0)
+						if(level >= 0 && exp_remain >= 0)
 						{
 							char sz_temp[100];
 							std::string sstr;
@@ -16224,7 +16226,8 @@ void	C_VS_UI_INFO::_Show1()
 					{
 						MSkillDomain::SKILL_STEP_LIST list = *((*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].GetSkillStepList(step));
 						MSkillDomain::SKILL_STEP_LIST::iterator ss = list.begin()+max(m_pC_skill_scroll_bar->GetScrollPos(),0);
-						for(int i = 0; i < min( 8, list.size() - max(m_pC_skill_scroll_bar->GetScrollPos(),0)); i++)
+						int i;
+						for(i = 0; i < min( 8, list.size() - max(m_pC_skill_scroll_bar->GetScrollPos(),0)); i++)
 						{
 							const ACTIONINFO SkillID = (ACTIONINFO)*ss;
 							MSkillDomain::SKILLSTATUS status = (*g_pSkillManager)[SKILLDOMAIN_VAMPIRE].GetSkillStatus(SkillID);
@@ -17198,7 +17201,8 @@ void	C_VS_UI_INFO::_Show2()
 				gpC_global_resource->m_pC_info_spk->BltLocked(AddPosition.x + pSkin->GetPoint( slayerpos+ 4 + 3 ).x,   
 					AddPosition.y+field2_gap*4+ pSkin->GetPoint( slayerpos+ 4 + 3 ).y, C_GLOBAL_RESOURCE::TITLE_MP);
 
-				for(int i = 5; i <= 8; i++ )
+				int i;
+				for(i = 5; i <= 8; i++ )
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked(AddPosition.x + pSkin->GetPoint( slayerpos + i + 3 ).x,
 						AddPosition.y + pSkin->GetPoint( slayerpos + i + 3 ).y + field2_gap * i, C_GLOBAL_RESOURCE::TITLE_TOHIT + i - 5 );
@@ -17599,11 +17603,12 @@ void	C_VS_UI_INFO::_Show2()
 					gpC_global_resource->m_pC_info_spk->BltLockedClip(x +field1_x4+53, y+field1_y+field1_gap*3+3, rect, C_GLOBAL_RESOURCE::LARGE_BAR);
 					gpC_global_resource->m_pC_info_spk->BltLocked(x +field1_x4+93, y+field1_y+field1_gap*3+3, C_GLOBAL_RESOURCE::LARGE_BAR_RIGHT);
 				}
-				
-				// str, dex, int, hp, mp, tohit, damage, defence, protection���
+
+				// str, dex, int, hp, mp, tohit, damage, defence, protection의
 				AddPosition.x = x + field2_x;
 				AddPosition.y = y + field2_y;
-				for( int i = 0; i < 8 ; i ++ )
+				int i;
+				for( i = 0; i < 8 ; i ++ )
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked( AddPosition.x + pSkin->GetPoint( vampirepos + 4+i ).x,
 						AddPosition.y + pSkin->GetPoint( vampirepos + 4 +i ).y + field2_gap * i,
@@ -17982,7 +17987,8 @@ void	C_VS_UI_INFO::_Show2()
 				int line_count = 0; 
 				AddPosition.x = x+ field2_x;
 				AddPosition.y = y+field2_y;
-				for( int i =0;i<4;i++ )
+				int i;
+				for( i =0;i<4;i++ )
 				{
 					gpC_global_resource->m_pC_info_spk->BltLocked( AddPosition.x + pSkin->GetPoint( ousterspos + 10 + i).x,
 						AddPosition.y + pSkin->GetPoint( ousterspos+10+i).y + field2_gap*i, C_GLOBAL_RESOURCE::TITLE_STR + i );
@@ -22324,7 +22330,7 @@ C_VS_UI_MINIMAP::C_VS_UI_MINIMAP()
 	
 	m_p_minimap_surface = new CSpriteSurface;
 	
-	m_p_minimap_surface->InitOffsurface(200, 100, DDSCAPS_SYSTEMMEMORY);
+	m_p_minimap_surface->InitOffsurface(200, 100);
 	m_p_minimap_surface->SetTransparency(0xffff);
 	
 	m_surface_w = 200;
@@ -22551,7 +22557,8 @@ void C_VS_UI_MINIMAP::MouseControlExtra(UINT message, int _x, int _y)
 			//				if(m_map_h > m_map_w)map_w = map_w * m_map_w / m_map_h;
 			//			}
 			
-			for(int i = 0; i < m_portal.size(); i++)
+			int i;
+	for(i = 0; i < m_portal.size(); i++)
 			{
 				int x = m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
 				int y = m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
@@ -22808,7 +22815,7 @@ void C_VS_UI_MINIMAP::Show()
 		_color = CDirectDraw::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(int i = 0; i < m_portal.size(); i++)
+	for(i = 0; i < m_portal.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
 			_y = y+m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
@@ -23147,9 +23154,15 @@ void C_VS_UI_MINIMAP::SetZone(int zone_id)
 		POINT point = {0, 0};
 		DeleteNew(m_p_minimap_surface);
 		m_p_minimap_surface = new CSpriteSurface;
-		m_p_minimap_surface->InitOffsurface(m_surface_w, m_surface_h, DDSCAPS_SYSTEMMEMORY);
+		m_p_minimap_surface->InitOffsurface(m_surface_w, m_surface_h);
 		m_p_minimap_surface->SetTransparency( 0xffff );
+#ifdef PLATFORM_WINDOWS
 		m_p_minimap_surface->FillSurface(0x0000);
+#else
+		// SDL backend: Fill the entire surface with color 0x0000
+		RECT fillRect = {0, 0, m_surface_w, m_surface_h};
+		m_p_minimap_surface->FillRect(&fillRect, 0x0000);
+#endif
 		
 		m_p_minimap_surface->Lock();
 		m_p_minimap_surface->BltSprite(&point, &minimapSPK[0]);
@@ -23294,11 +23307,12 @@ void C_VS_UI_MINIMAP::SetNPC(MINIMAP_NPC npc)
 {
 	if(npc.id >= 560 && npc.id <= 563)	// �� ��¡�� ��ħ��
 	{
-		for(int i = 0; i < m_shrine.size(); i++)
+		int i;
+		for(i = 0; i < m_shrine.size(); i++)
 		{
 			if(npc.id == m_shrine[i].id)break;
 		}
-		
+
 		if(i == m_shrine.size())
 		{
 			MINIMAP_SHRINE shrine;
@@ -23312,11 +23326,12 @@ void C_VS_UI_MINIMAP::SetNPC(MINIMAP_NPC npc)
 	}
 	else if(npc.id >= 526 && npc.id <= 537)	// ��ȣ����
 	{
-		for(int i = 0; i < m_shrine.size(); i++)
+		int i;
+		for(i = 0; i < m_shrine.size(); i++)
 		{
 			if(npc.id == m_shrine[i].id)break;
 		}
-		
+
 		if(i == m_shrine.size())
 		{
 			MINIMAP_SHRINE shrine;
@@ -23330,11 +23345,12 @@ void C_VS_UI_MINIMAP::SetNPC(MINIMAP_NPC npc)
 	}
 	else if(npc.id >= 538 && npc.id <= 549)	// ���� ����
 	{
-		for(int i = 0; i < m_shrine.size(); i++)
+		int i;
+		for(i = 0; i < m_shrine.size(); i++)
 		{
 			if(npc.id == m_shrine[i].id)break;
 		}
-		
+
 		if(i == m_shrine.size())
 		{
 			MINIMAP_SHRINE shrine;
@@ -23356,11 +23372,12 @@ void C_VS_UI_MINIMAP::SetNPC(MINIMAP_NPC npc)
 	}
 	else
 	{
-		for(int i = 0; i < m_npc.size(); i++)
+		int i;
+		for(i = 0; i < m_npc.size(); i++)
 		{
-			if(npc.id == m_npc[i].id && npc.id != 659 && npc.id != 672 && npc.id != 673 )break; // ���� ������ ������
+			if(npc.id == m_npc[i].id && npc.id != 659 && npc.id != 672 && npc.id != 673 )break; // 중복npc는 제외한다
 		}
-		
+
 		if(i == m_npc.size())
 		{
 			m_npc.push_back(npc);
@@ -23380,7 +23397,8 @@ void C_VS_UI_MINIMAP::SetPortal(RECT rect, int id)
 		/*|| */!g_pSystemAvailableManager->ZoneFiltering( id ) )
 		return;
 	
-	for(int i = 0; i < m_portal.size(); i++)
+	int i;
+	for(i = 0; i < m_portal.size(); i++)
 	{
 		if(m_portal_zone_id[i] == id &&
 			m_portal[i].top <= rect.bottom +5 &&
@@ -24871,11 +24889,12 @@ void	C_VS_UI_TEAM_MEMBER_LIST::AddMemberList(const TEAM_MEMBER_LIST &member_list
 		m_v_member_list.push_back(member_list);
 	else
 	{
-		for(int i = 0; i < m_v_member_list.size(); i++)
+		int i;
+		for(i = 0; i < m_v_member_list.size(); i++)
 		{
 			if(convert_table[member_list.member_grade] < convert_table[m_v_member_list[i].member_grade])
 			{
-				m_v_member_list.insert(&m_v_member_list[i], member_list);
+				m_v_member_list.insert(m_v_member_list.begin() + i, member_list);
 				break;
 			}
 		}
@@ -25491,7 +25510,7 @@ void	C_VS_UI_FRIEND_INFO::Start(bool bl_set_load)
 //look by viva : friend show
 void	C_VS_UI_FRIEND_INFO::Show()
 {
-	const barHeight = scroll_down_y - (scroll_up_y+m_friend_spk.GetHeight(SCROLL_UP_BUTTON)) - m_friend_spk.GetHeight(SCROLL_TAG);
+	const int barHeight = scroll_down_y - (scroll_up_y+m_friend_spk.GetHeight(SCROLL_UP_BUTTON)) - m_friend_spk.GetHeight(SCROLL_TAG);
 
 	if(m_ButtonID_Down == KIND_ID)
 	{
@@ -26133,7 +26152,7 @@ void C_VS_UI_FRIEND_CHATTING_INFO::Show()
 //	//		m_v_pHistory_List.push_back(pHistory);
 //		}
 //	}
-	const barHeight = scroll_down_y - (scroll_up_y+m_chatting_spk.GetHeight(SCROLL_UP_BUTTON)) - m_chatting_spk.GetHeight(SCROLL_TAG);
+	const int barHeight = scroll_down_y - (scroll_up_y+m_chatting_spk.GetHeight(SCROLL_UP_BUTTON)) - m_chatting_spk.GetHeight(SCROLL_TAG);
 	if(m_pList->blIsShow == 1)
 	{
 		while(m_scroll+9 < m_pList->m_v_pHistory_List.size())
@@ -28282,7 +28301,7 @@ void	C_VS_UI_TEAM_REGIST::Run(id_t id)
 				m_introduction = sz_intro;
 				m_team_name = sz_team_name;
 				
-				gpC_base->SendMessage(UI_REGIST_GUILD_TEAM, (int)m_team_name.c_str(), 0, (void *)m_introduction.c_str());
+				gpC_base->SendMessage(UI_REGIST_GUILD_TEAM, (int)(intptr_t)m_team_name.c_str()), 0, (void *)m_introduction.c_str());
 				
 				DeleteNew(sz_intro);
 				DeleteNew(sz_team_name);
@@ -30433,7 +30452,7 @@ void	C_VS_UI_XMAS_CARD::Run(id_t id)
 				m_szTreeMessage += "%";
 				m_szTreeMessage += psz_from;
 				
-				gpC_base->SendMessage(UI_USE_XMAS_TREE, (int)m_pItem, 0, (void*)m_szTreeMessage.c_str());
+				gpC_base->SendMessage(UI_USE_XMAS_TREE, (int)(intptr_t)m_pItem, 0, (void*)m_szTreeMessage.c_str());
 
 				DeleteNew(psz_to);
 				DeleteNew(psz_msg);
@@ -30442,7 +30461,7 @@ void	C_VS_UI_XMAS_CARD::Run(id_t id)
 			else
 			{
 				// ���׸��� �ֽ��ϴ�.
-				gpC_base->SendMessage(UI_USE_XMAS_TREE, (int)m_pItem, 0, NULL);
+				gpC_base->SendMessage(UI_USE_XMAS_TREE, (int)(intptr_t)m_pItem, 0, NULL);
 			}
 		}
 		break;
@@ -34032,7 +34051,7 @@ C_VS_UI_LOTTERY_CARD::C_VS_UI_LOTTERY_CARD( int step)
 		POINT point = {0, 0};
 		
 		m_p_cover_surface = new CSpriteSurface;
-		m_p_cover_surface->InitOffsurface(coverSPK[0].GetWidth(), coverSPK[0].GetHeight(), DDSCAPS_SYSTEMMEMORY);
+		m_p_cover_surface->InitOffsurface(coverSPK[0].GetWidth(), coverSPK[0].GetHeight());
 		m_p_cover_surface->SetTransparency(0xffff);
 		
 		m_p_cover_surface->Lock();
@@ -34716,7 +34735,7 @@ C_VS_UI_WORLDMAP::C_VS_UI_WORLDMAP()
 	
 	m_p_minimap_surface = new CSpriteSurface;
 	
-	m_p_minimap_surface->InitOffsurface(m_pC_minimap_spk->GetWidth(MINIMAP_MAIN), m_pC_minimap_spk->GetHeight(MINIMAP_MAIN), DDSCAPS_SYSTEMMEMORY);
+	m_p_minimap_surface->InitOffsurface(m_pC_minimap_spk->GetWidth(MINIMAP_MAIN), m_pC_minimap_spk->GetHeight(MINIMAP_MAIN));
 	m_p_minimap_surface->SetTransparency(0xffff);
 	
 	m_surface_w = m_pC_minimap_spk->GetWidth(MINIMAP_MAIN);
@@ -34943,7 +34962,8 @@ void C_VS_UI_WORLDMAP::MouseControlExtra(UINT message, int _x, int _y)
 			//				if(m_map_h > m_map_w)map_w = map_w * m_map_w / m_map_h;
 			//			}
 			
-			for(int i = 0; i < m_portal.size(); i++)
+			int i;
+	for(i = 0; i < m_portal.size(); i++)
 			{
 				int x = m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
 				int y = m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
@@ -35200,7 +35220,7 @@ void C_VS_UI_WORLDMAP::Show()
 		_color = CDirectDraw::Color(r, g, b);
 		r = color*2/3, g = (color-10)*2/3, b = color*2/3;
 		_color2 = CDirectDraw::Color(r, g, b);
-		for(int i = 0; i < m_portal.size(); i++)
+	for(i = 0; i < m_portal.size(); i++)
 		{
 			_x = x+m_map_start_point.x + (m_portal[i].left+m_portal[i].right)/2*map_w/m_map_w;
 			_y = y+m_map_start_point.y + (m_portal[i].top+m_portal[i].bottom)/2*map_h/m_map_h;
@@ -35539,9 +35559,15 @@ void C_VS_UI_WORLDMAP::SetZone(int zone_id)
 		POINT point = {0, 0};
 		DeleteNew(m_p_minimap_surface);
 		m_p_minimap_surface = new CSpriteSurface;
-		m_p_minimap_surface->InitOffsurface(m_surface_w, m_surface_h, DDSCAPS_SYSTEMMEMORY);
+		m_p_minimap_surface->InitOffsurface(m_surface_w, m_surface_h);
 		m_p_minimap_surface->SetTransparency( 0xffff );
+#ifdef PLATFORM_WINDOWS
 		m_p_minimap_surface->FillSurface(0x0000);
+#else
+		// SDL backend: Fill the entire surface with color 0x0000
+		RECT fillRect = {0, 0, m_surface_w, m_surface_h};
+		m_p_minimap_surface->FillRect(&fillRect, 0x0000);
+#endif
 		
 		m_p_minimap_surface->Lock();
 		m_p_minimap_surface->BltSprite(&point, &minimapSPK[0]);
@@ -35685,11 +35711,12 @@ void C_VS_UI_WORLDMAP::SetNPC(MINIMAP_NPC npc)
 {
 	if(npc.id >= 560 && npc.id <= 563)	// �� ��¡�� ��ħ��
 	{
-		for(int i = 0; i < m_shrine.size(); i++)
+		int i;
+		for(i = 0; i < m_shrine.size(); i++)
 		{
 			if(npc.id == m_shrine[i].id)break;
 		}
-		
+
 		if(i == m_shrine.size())
 		{
 			MINIMAP_SHRINE shrine;
@@ -35703,11 +35730,12 @@ void C_VS_UI_WORLDMAP::SetNPC(MINIMAP_NPC npc)
 	}
 	else if(npc.id >= 526 && npc.id <= 537)	// ��ȣ����
 	{
-		for(int i = 0; i < m_shrine.size(); i++)
+		int i;
+		for(i = 0; i < m_shrine.size(); i++)
 		{
 			if(npc.id == m_shrine[i].id)break;
 		}
-		
+
 		if(i == m_shrine.size())
 		{
 			MINIMAP_SHRINE shrine;
@@ -35721,11 +35749,12 @@ void C_VS_UI_WORLDMAP::SetNPC(MINIMAP_NPC npc)
 	}
 	else if(npc.id >= 538 && npc.id <= 549)	// ���� ����
 	{
-		for(int i = 0; i < m_shrine.size(); i++)
+		int i;
+		for(i = 0; i < m_shrine.size(); i++)
 		{
 			if(npc.id == m_shrine[i].id)break;
 		}
-		
+
 		if(i == m_shrine.size())
 		{
 			MINIMAP_SHRINE shrine;
@@ -35747,11 +35776,12 @@ void C_VS_UI_WORLDMAP::SetNPC(MINIMAP_NPC npc)
 	}
 	else
 	{
-		for(int i = 0; i < m_npc.size(); i++)
+		int i;
+		for(i = 0; i < m_npc.size(); i++)
 		{
-			if(npc.id == m_npc[i].id && npc.id != 659 && npc.id != 672 && npc.id != 673 )break; // ���� ������ ������
+			if(npc.id == m_npc[i].id && npc.id != 659 && npc.id != 672 && npc.id != 673 )break; // 중복npc는 제외한다
 		}
-		
+
 		if(i == m_npc.size())
 		{
 			m_npc.push_back(npc);
@@ -35771,7 +35801,8 @@ void C_VS_UI_WORLDMAP::SetPortal(RECT rect, int id)
 		/*|| */!g_pSystemAvailableManager->ZoneFiltering( id ) )
 		return;
 	
-	for(int i = 0; i < m_portal.size(); i++)
+	int i;
+	for(i = 0; i < m_portal.size(); i++)
 	{
 		if(m_portal_zone_id[i] == id &&
 			m_portal[i].top <= rect.bottom +5 &&

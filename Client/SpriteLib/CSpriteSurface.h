@@ -237,6 +237,16 @@ class CSpriteSurface {
 		// GDI text rendering (stub for SDL backend - text rendering not implemented)
 		void				GDI_Text(int x, int y, const char* text, DWORD color);
 
+		// FillSurface (compatibility with CDirectDrawSurface)
+		void				FillSurface(WORD color);
+
+		// Clipping methods (compatibility with CDirectDrawSurface)
+		void				SetClip(RECT* rect);
+		void				SetClipNULL();
+
+		// Blt method (compatibility with CDirectDrawSurface)
+		void				Blt(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect);
+
 	protected:
 		bool	ClippingRectToPoint(RECT*& pRect, POINT*& pPoint);
 

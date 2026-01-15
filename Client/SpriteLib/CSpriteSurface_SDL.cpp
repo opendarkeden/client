@@ -352,3 +352,91 @@ S_SURFACEINFO* CSpriteSurface::GetDDSD()
 	return &ddsd_buffer;
 }
 
+/* ============================================================================
+ * Clipping Methods (compatibility with CDirectDrawSurface)
+ * ============================================================================ */
+
+void CSpriteSurface::SetClip(RECT* rect)
+{
+	/* Stub: SDL backend doesn't use clipping rectangles in the same way */
+	/* SDL uses SDL_Rect for clipping with SDL_RenderSetClipRect */
+}
+
+void CSpriteSurface::SetClipNULL()
+{
+	/* Stub: Reset clipping - not applicable for SDL backend */
+}
+
+/* ============================================================================
+ * Blt Method (compatibility with CDirectDrawSurface)
+ * ============================================================================ */
+
+void CSpriteSurface::Blt(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect)
+{
+	/* Stub: Basic blit from source surface to this surface */
+	/* In practice, this should copy pixels from SourceSurface to this surface */
+	if (!pPoint || !SourceSurface) {
+		return;
+	}
+
+	/* Get source and destination info */
+	S_SURFACEINFO src_info, dst_info;
+	SourceSurface->GetSurfaceInfo(&src_info);
+	this->GetSurfaceInfo(&dst_info);
+
+	if (!src_info.p_surface || !dst_info.p_surface) {
+		return;
+	}
+
+	/* Calculate dimensions */
+	int src_x = pRect ? pRect->left : 0;
+	int src_y = pRect ? pRect->top : 0;
+	int src_w = pRect ? (pRect->right - pRect->left) : src_info.width;
+	int src_h = pRect ? (pRect->bottom - pRect->top) : src_info.height;
+
+	/* Clamp to source surface bounds */
+	if (src_x + src_w > src_info.width) src_w = src_info.width - src_x;
+	if (src_y + src_h > src_info.height) src_h = src_info.height - src_y;
+
+	/* Clamp to destination surface bounds */
+	if (pPoint->x + src_w > dst_info.width) src_w = dst_info.width - pPoint->x;
+	if (pPoint->y + src_h > dst_info.height) src_h = dst_info.height - pPoint->y;
+
+	/* Copy pixels line by line */
+	WORD* src_pixels = (WORD*)src_info.p_surface;
+	WORD* dst_pixels = (WORD*)dst_info.p_surface;
+
+	for (int y = 0; y < src_h; y++) {
+		for (int x = 0; x < src_w; x++) {
+			int src_offset = (src_y + y) * (src_info.pitch / 2) + (src_x + x);
+			int dst_offset = (pPoint->y + y) * (dst_info.pitch / 2) + (pPoint->x + x);
+			dst_pixels[dst_offset] = src_pixels[src_offset];
+		}
+	}
+}
+
+/* ============================================================================
+ * FillSurface Method (compatibility with CDirectDrawSurface)
+ * ============================================================================ */
+
+void CSpriteSurface::FillSurface(WORD color)
+{
+	/* Fill the entire surface with the specified color */
+	if (m_backend_surface == SPRITECTL_INVALID_SURFACE) {
+		return;
+	}
+
+	/* Lock surface to get pixel data */
+	spritectl_surface_info_t info;
+	if (spritectl_lock_surface(m_backend_surface, &info) == 0) {
+		WORD* pixels = (WORD*)info.pixels;
+		int pixel_count = info.width * info.height;
+
+		/* Fill all pixels with the specified color */
+		for (int i = 0; i < pixel_count; i++) {
+			pixels[i] = color;
+		}
+
+		spritectl_unlock_surface(m_backend_surface);
+	}
+}

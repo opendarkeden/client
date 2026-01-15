@@ -52,7 +52,19 @@ class C_VS_UI_WEBBROWSER
 {
 public:
     C_VS_UI_WEBBROWSER() {}
-    // Stub implementation - web browser features not available
+    ~C_VS_UI_WEBBROWSER() {}
+
+    // Stub implementation - web browser features not available on non-Windows platforms
+    bool Start(void* hwndApp, char* pURL, void* pWebOjbect) { return false; }
+    void Finish() {}
+    void SetWebBrowserSize(int StartX, int StartY, int Width, int Height) {}
+    void SetWebBrowserStyle(unsigned long dwstyle) {}
+    unsigned long GetWebBrowserStyle() { return 0; }
+    int GetMouseCursorInfo() { return 0; }
+    bool IsInRectPoint(int X, int Y) { return false; }
+
+private:
+    bool m_IsMouseInWebBrowser;
 };
 
 #endif // PLATFORM_WINDOWS

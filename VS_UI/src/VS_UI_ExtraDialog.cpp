@@ -1257,7 +1257,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			
 			m_pack_file.SetRAR(RPK_HELP, RPK_PASSWORD);
 			
-			switch(int(void_ptr))
+			switch((int)(intptr_t)void_ptr)
 			{
 			case MAIN:
 				{
@@ -1997,7 +1997,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			temp = new CSpritePack;
 			temp->Init( 1 );		// �ӽ÷� 1���� loading.. - -;;
 
-			int id = (int)void_ptr;
+			int id = (int)(intptr_t)void_ptr;
 			int sprID = (*g_pSkillInfoTable)[id].GetSpriteID();
 
 			bool re = temp->LoadFromFileData( 0, sprID, SPK_SKILL_ICON, SPKI_SKILL_ICON );
@@ -2781,7 +2781,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	//DrawAlphaBox(&rect, 255, 255, 255, 20);
 	
 
-	gpC_global_resource->DrawDialog2(Rect(x, y, w, h), GetAttributes()->alpha);
+	gpC_global_resource->DrawDialog2(x, y, w, h, GetAttributes()->alpha);
 	
 	//----------------------------------------------------------------------------------------
 	// ���ÿ��� ǥ��

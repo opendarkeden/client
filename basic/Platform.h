@@ -362,6 +362,9 @@ typedef WORD			char_t;
 	#ifndef TEXT
 		#define TEXT(x)	x
 	#endif
+	#ifndef _L
+		#define _L(x)		x
+	#endif
 
 	/* TCHAR and related types */
 	#ifndef UNICODE
@@ -1082,6 +1085,18 @@ typedef struct tagMINMAXINFO {
     POINT ptMaxTrackSize;
 } MINMAXINFO, *PMINMAXINFO, *LPMINMAXINFO;
 
+/* SYSTEMTIME structure (date and time) */
+typedef struct _SYSTEMTIME {
+    WORD wYear;
+    WORD wMonth;
+    WORD wDayOfWeek;
+    WORD wDay;
+    WORD wHour;
+    WORD wMinute;
+    WORD wSecond;
+    WORD wMilliseconds;
+} SYSTEMTIME, *PSYSTEMTIME, *LPSYSTEMTIME;
+
 /* DEVMODE structure (display mode settings) */
 #define ENUM_CURRENT_SETTINGS ((DWORD)-1)
 #define DM_BITSPERPEL 0x00040000
@@ -1696,6 +1711,12 @@ static inline int wsprintf(char* buf, const char* fmt, ...) {
 #ifndef VK_ESCAPE
 #define VK_ESCAPE 0x1B
 #endif
+#ifndef VK_TAB
+#define VK_TAB 0x09
+#endif
+#ifndef VK_BACK
+#define VK_BACK 0x08
+#endif
 #ifndef VK_SPACE
 #define VK_SPACE  0x20
 #endif
@@ -1745,6 +1766,26 @@ static inline DWORD GetCurrentDirectory(DWORD nBufferLength, LPSTR lpBuffer) {
         return (DWORD)strlen(lpBuffer);
     }
     return 0;
+}
+
+/* GetLocalTime - fill SYSTEMTIME structure with current local time */
+static inline void GetLocalTime(LPSYSTEMTIME lpSystemTime) {
+    /* macOS stub - get current local time */
+    if (lpSystemTime) {
+        struct tm* now;
+        time_t aclock;
+        time(&aclock);
+        now = localtime(&aclock);
+
+        lpSystemTime->wYear = now->tm_year + 1900;
+        lpSystemTime->wMonth = now->tm_mon + 1;
+        lpSystemTime->wDayOfWeek = now->tm_wday;
+        lpSystemTime->wDay = now->tm_mday;
+        lpSystemTime->wHour = now->tm_hour;
+        lpSystemTime->wMinute = now->tm_min;
+        lpSystemTime->wSecond = now->tm_sec;
+        lpSystemTime->wMilliseconds = 0;
+    }
 }
 #endif
 
