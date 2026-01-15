@@ -12,7 +12,14 @@
 #ifndef __CD3DTEXTUREEFFECT_H__
 #define __CD3DTEXTUREEFFECT_H__
 
-#include "CDirect3D.h"
+#ifdef PLATFORM_WINDOWS
+	#include <D3D.h>
+	#include <ddraw.h>
+	#include "CDirectDraw.h"
+#else
+	#include "basic/Platform.h"  // For RECT, WORD, etc.
+	#include "CD3DMath.h"  // For D3DTLVERTEX
+#endif
 
 class CD3DTextureEffect {
 	public :

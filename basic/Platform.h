@@ -75,6 +75,8 @@ typedef void*			PVOID;
 typedef void*			ADDRESS_MODE;
 typedef uintptr_t		ULONG_PTR;
 typedef intptr_t		LONG_PTR;
+typedef uintptr_t		DWORD_PTR;
+typedef long			LONG;
 
 /* Windows path constants */
 #ifndef _MAX_PATH
@@ -112,6 +114,8 @@ typedef WORD			char_t;
 	#endif
 
 	typedef long			HRESULT;
+	typedef intptr_t		LRESULT;
+	typedef uintptr_t		UINT_PTR;
 	#ifndef S_OK
 		#define S_OK		0
 	#endif
@@ -330,13 +334,64 @@ typedef WORD			char_t;
 	#define PBS_SMOOTH 0x01
 	#define PBM_SETRANGE (WM_USER+1)
 	#define PBM_SETSTEP (WM_USER+4)
+	#define PBM_SETPOS (WM_USER+2)
+	#define PBM_STEPIT (WM_USER+5)
+
+	/* Window class styles */
+	#define CS_HREDRAW 0x0001
+	#define CS_VREDRAW 0x0002
+	#define CS_DBLCLKS 0x0008
+
+	/* WNDCLASS structure (Windows window class registration) */
+	typedef struct tagWNDCLASS {
+		UINT style;
+		void* lpfnWndProc;
+		int cbClsExtra;
+		int cbWndExtra;
+		void* hInstance;
+		void* hIcon;
+		void* hCursor;
+		void* hbrBackground;
+		const char* lpszMenuName;
+		const char* lpszClassName;
+	} WNDCLASS, *PWNDCLASS, *LPWNDCLASS;
 
 	/* Message macros */
 	#define MAKELPARAM(l, h) ((LPARAM)(((DWORD_PTR)(l) & 0xFFFF) | ((DWORD_PTR)(h) << 16)))
+	#define WM_USER 0x0400
 
 	/* SendMessage stub - no-op on non-Windows */
 	static inline LRESULT SendMessage(void* hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 		(void)hWnd; (void)Msg; (void)wParam; (void)lParam;
+		return 0;
+	}
+
+	/* SetWindowText stub - no-op on non-Windows */
+	static inline BOOL SetWindowText(void* hWnd, const char* lpText) {
+		(void)hWnd; (void)lpText;
+		return TRUE;
+	}
+
+	/* ShowWindow stub - no-op on non-Windows */
+	static inline BOOL ShowWindow(void* hWnd, int nCmdShow) {
+		(void)hWnd; (void)nCmdShow;
+		return TRUE;
+	}
+
+	/* CreateWindowEx stub - returns NULL on non-Windows (no window creation) */
+	static inline void* CreateWindowEx(DWORD dwExStyle, const char* lpClassName,
+	                                    const char* lpWindowName, DWORD dwStyle,
+	                                    int X, int Y, int nWidth, int nHeight,
+	                                    void* hWndParent, void* hMenu, void* hInstance, void* lpParam) {
+		(void)dwExStyle; (void)lpClassName; (void)lpWindowName; (void)dwStyle;
+		(void)X; (void)Y; (void)nWidth; (void)nHeight;
+		(void)hWndParent; (void)hMenu; (void)hInstance; (void)lpParam;
+		return NULL; // No window creation on non-Windows platforms
+	}
+
+	/* RegisterClass stub - returns 0 (atom) on non-Windows */
+	static inline unsigned short RegisterClass(const WNDCLASS* lpWndClass) {
+		(void)lpWndClass;
 		return 0;
 	}
 

@@ -131,103 +131,44 @@ class CDirect3D : public CDirectDraw {
 #else
 	// Non-Windows platforms: Direct3D not available
 	// This file provides stub definitions for compilation only
+	#include "basic/Platform.h"  // For DWORD, etc.
 	#include "CD3DMath.h"  // For D3DVECTOR, D3DMATRIX, D3DTLVERTEX types
 
 	// Direct3D is not supported on non-Windows platforms
 	// All CDirect3D functionality will be stubbed
 	#pragma message("CDirect3D: Direct3D not supported on this platform - using stubs")
 
-	// Define minimal types needed for stub
-	#ifndef FALSE
-		#define FALSE 0
-		#define TRUE 1
+	// Define stub types for compilation only
+	// These are opaque pointer types for non-Windows platforms
+	#ifndef LPDIRECT3D7
+		typedef void* LPDIRECT3D7;
 	#endif
-	typedef int BOOL;
-	typedef unsigned char BYTE;
-	typedef unsigned long DWORD;
-	typedef unsigned short WORD;
-	typedef long LONG;
-	typedef int HRESULT;
-	typedef void* HANDLE;
 
-	// Rectangle structure
-	typedef struct tagRECT {
-		LONG left;
-		LONG top;
-		LONG right;
-		LONG bottom;
-	} RECT;
+	#ifndef LPDIRECT3DDEVICE7
+		typedef void* LPDIRECT3DDEVICE7;
+	#endif
 
-	// GUID structure
-	typedef struct _GUID {
-		DWORD Data1;
-		WORD  Data2;
-		WORD  Data3;
-		BYTE  Data4[8];
-	} GUID;
+	// D3DMATERIAL7 stub
+	#ifndef D3DMATERIAL7_DEFINED
+	#define D3DMATERIAL7_DEFINED
+	typedef struct D3DMATERIAL7 {
+		D3DVALUE dvDiffuse;
+		D3DVALUE dvAmbient;
+		D3DVALUE dvSpecular;
+		D3DVALUE dvEmissive;
+		D3DVALUE dvPower;
+		DWORD dwRampSize;
+	} D3DMATERIAL7, *LPD3DMATERIAL7;
+	#endif
 
-	// Pixel format structure
-	typedef struct _DDPIXELFORMAT {
-		DWORD dwSize;
-		DWORD dwFlags;
-		DWORD dwFourCC;
-		union {
-			DWORD  dwRGBBitCount;
-			DWORD  dwYUVBitCount;
-			DWORD  dwZBufferBitDepth;
-			DWORD  dwAlphaBitDepth;
-			DWORD  dwLuminanceBitCount;
-			DWORD  dwBumpBitCount;
-		};
-		union {
-			DWORD dwRBitMask;
-			DWORD dwYBitMask;
-			DWORD dwStencilBitDepth;
-			DWORD dwLuminanceBitMask;
-			DWORD dwBumpDuBitMask;
-			DWORD dwOperations;
-		};
-		union {
-			DWORD dwGBitMask;
-			DWORD dwUBitMask;
-			DWORD dwZBitMask;
-			DWORD dwBumpDvBitMask;
-			struct {
-				WORD wFlipMSTypes;
-				WORD wZFBSTypes;
-			};
-		};
-		union {
-			DWORD dwBBitMask;
-			DWORD dwVBitMask;
-			DWORD dwStencilBitMask;
-			DWORD dwBumpLuminanceBitMask;
-		};
-		DWORD dwLuminanceAlphaBitMask;
-	} DDPIXELFORMAT;
-
-	// Material structure
-	typedef struct _D3DMATERIAL7 {
-		D3DVALUE   dvDiffuse;
-		D3DVALUE   dvAmbient;
-		D3DVALUE   dvSpecular;
-		D3DVALUE   dvEmissive;
-		D3DVALUE   dvPower;
-		DWORD      dwRampSize;
-	} D3DMATERIAL7;
-
-	// Stub types for Direct3D
-	typedef void* LPDIRECT3D7;
-	typedef void* LPDIRECT3DDEVICE7;
-	typedef void* LPDIRECTDRAWSURFACE7;
-	typedef void* LPDDPIXELFORMAT;
-
-	// Transform state constants
-	#define D3DTRANSFORMSTATE_WORLD 1
-	#define D3DPT_TRIANGLELIST 2
-	#define D3DPT_TRIANGLESTRIP 3
-	#define D3DFVF_VERTEX 4
-	#define D3DFVF_TLVERTEX 5
+	// Transform state and primitive type constants
+	#ifndef D3DTRANSFORMSTATE_WORLD
+		#define D3DTRANSFORMSTATE_WORLD 1
+		#define D3DPT_TRIANGLELIST 2
+		#define D3DPT_TRIANGLESTRIP 3
+		#define D3DFVF_VERTEX 4
+		#define D3DFVF_TLVERTEX 5
+	#endif
 
 	// Stub for CDirect3D - provides minimal interface for compilation
 	class CDirect3D {
@@ -258,4 +199,6 @@ class CDirect3D : public CDirectDraw {
 		static bool IsTexturePow2() { return true; }
 		static bool IsTextureSquareOnly() { return false; }
 	};
-#endif
+#endif /* PLATFORM_WINDOWS */
+
+#endif /* __CDIRECT3D_H__ */

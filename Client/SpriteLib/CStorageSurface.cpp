@@ -2,7 +2,7 @@
 // CStorageSurface.cpp
 //----------------------------------------------------------------------
 #include "client_PCH.h"
-#include "CDirectDrawSurface.h"
+#include "CSpriteSurface.h"
 #include "CStorageSurface.h"
 //#include "DebugInfo.h"
 
@@ -45,8 +45,8 @@ CStorageSurface::Init(int size, int width, int height)
 
 	// 새로 설정.. 메모리 잡기
 	m_Size = size;
-	m_pPoint = new POINT [m_Size];	
-	m_pStorageSurface = new CDirectDrawSurface [m_Size];
+	m_pPoint = new POINT [m_Size];
+	m_pStorageSurface = new CSpriteSurface [m_Size];
 
 	
 	for (int i=0; i<m_Size; i++)	
@@ -90,7 +90,7 @@ CStorageSurface::Release()
 // pSurface의 pPoint부분을 읽어서 i번째 surface에 기억시켜둔다.
 //----------------------------------------------------------------------
 void				
-CStorageSurface::Store(int i, CDirectDrawSurface* pSurface, POINT* pPoint)
+CStorageSurface::Store(int i, CSpriteSurface* pSurface, POINT* pPoint)
 {
 	// i가 없는 surface번호일 경우..
 	if (i<0 || i>=m_Size)
@@ -151,7 +151,7 @@ CStorageSurface::Store(int i, CDirectDrawSurface* pSurface, POINT* pPoint)
 // i번째 surface를 pSurface의 원래위치(m_pPoint)로 출력해준다.
 //----------------------------------------------------------------------
 void				
-CStorageSurface::Restore(int i, CDirectDrawSurface* pSurface, POINT* pPoint) const
+CStorageSurface::Restore(int i, CSpriteSurface* pSurface, POINT* pPoint) const
 {
 	// i가 없는 surface번호일 경우..
 	if (i<0 || i>=m_Size)

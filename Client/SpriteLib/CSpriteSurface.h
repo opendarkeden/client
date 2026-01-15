@@ -216,6 +216,14 @@ class CSpriteSurface {
 		int					GetHeight() const;
 		bool				InitTextureSurface(int width, int height, void* pixels = NULL, void* pixelFormat = NULL);
 
+		// Off-screen surface initialization (compatibility with CDirectDrawSurface)
+		bool				InitOffsurface(int width, int height);
+		void				SetTransparency(int value);
+		int					GetTransparency() const;
+
+		// GDI text rendering (stub for SDL backend - text rendering not implemented)
+		void				GDI_Text(int x, int y, const char* text, DWORD color);
+
 	protected:
 		bool	ClippingRectToPoint(RECT*& pRect, POINT*& pPoint);
 
@@ -224,6 +232,7 @@ class CSpriteSurface {
 		spritectl_surface_t m_backend_surface;
 		int m_width;
 		int m_height;
+		int m_transparency;  // Transparency value for compatibility
 #endif
 };
 

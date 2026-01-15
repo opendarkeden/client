@@ -70,6 +70,16 @@
 
 		// Default constructor
 		_D3DVERTEX() : x(0), y(0), z(0), nx(0), ny(0), nz(0), tu(0), tv(0) {}
+
+		// Constructor with D3DVECTOR for position and normal
+		_D3DVERTEX(const _D3DVECTOR& v, const _D3DVECTOR& n, D3DVALUE _tu, D3DVALUE _tv)
+			: x(v.x), y(v.y), z(v.z), nx(n.x), ny(n.y), nz(n.z), tu(_tu), tv(_tv) {}
+
+		// Full constructor with separate floats
+		_D3DVERTEX(D3DVALUE _x, D3DVALUE _y, D3DVALUE _z,
+		           D3DVALUE _nx, D3DVALUE _ny, D3DVALUE _nz,
+		           D3DVALUE _tu, D3DVALUE _tv)
+			: x(_x), y(_y), z(_z), nx(_nx), ny(_ny), nz(_nz), tu(_tu), tv(_tv) {}
 	} D3DVERTEX, *LPD3DVERTEX;
 
 	typedef struct _D3DTLVERTEX {
@@ -86,6 +96,16 @@
 
 		// Default constructor
 		_D3DTLVERTEX() : sx(0), sy(0), sz(0), rhw(0), color(0), specular(0), tu(0), tv(0) {}
+
+		// Constructor with D3DVECTOR position
+		_D3DTLVERTEX(const _D3DVECTOR& v, D3DVALUE _rhw, D3DVALUE _color,
+		             D3DVALUE _specular, D3DVALUE _tu, D3DVALUE _tv)
+			: sx(v.x), sy(v.y), sz(v.z), rhw(_rhw), color(_color), specular(_specular), tu(_tu), tv(_tv) {}
+
+		// Full constructor for transformed/lit vertices
+		_D3DTLVERTEX(D3DVALUE _sx, D3DVALUE _sy, D3DVALUE _sz, D3DVALUE _rhw,
+		             D3DVALUE _color, D3DVALUE _specular, D3DVALUE _tu, D3DVALUE _tv)
+			: sx(_sx), sy(_sy), sz(_sz), rhw(_rhw), color(_color), specular(_specular), tu(_tu), tv(_tv) {}
 	} D3DTLVERTEX, *LPD3DTLVERTEX;
 #endif
 

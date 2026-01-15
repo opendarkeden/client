@@ -17,7 +17,7 @@
 #else
 	#include "../basic/Platform.h"
 #endif
-class CDirectDrawSurface;
+class CSpriteSurface;
 
 
 class CStorageSurface {
@@ -35,8 +35,8 @@ class CStorageSurface {
 		//--------------------------------------------------------
 		// Store / Restore		
 		//--------------------------------------------------------
-		void					Store(int i, CDirectDrawSurface* pSurface, POINT* pPoint);
-		void					Restore(int i, CDirectDrawSurface* pSurface, POINT* pPoint=NULL) const;
+		void					Store(int i, CSpriteSurface* pSurface, POINT* pPoint);
+		void					Restore(int i, CSpriteSurface* pSurface, POINT* pPoint=NULL) const;
 
 		//--------------------------------------------------------
 		// Get
@@ -46,7 +46,7 @@ class CStorageSurface {
 	protected :
 		int						m_Size;				// surface개수
 		POINT*					m_pPoint;			// surface에 기억된 위치
-		CDirectDrawSurface*		m_pStorageSurface;	// 기억된 surface내용
+		CSpriteSurface*			m_pStorageSurface;	// 기억된 surface내용
 };
 
 

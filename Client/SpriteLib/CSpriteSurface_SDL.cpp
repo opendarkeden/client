@@ -47,6 +47,7 @@ CSpriteSurface::CSpriteSurface()
 	: m_backend_surface(SPRITECTL_INVALID_SURFACE)
 	, m_width(0)
 	, m_height(0)
+	, m_transparency(0)
 {
 }
 
@@ -89,6 +90,35 @@ void CSpriteSurface::Release()
 	}
 	m_width = 0;
 	m_height = 0;
+	m_transparency = 0;
+}
+
+/* ============================================================================
+ * DirectX Compatibility Methods
+ * ============================================================================ */
+
+bool CSpriteSurface::InitOffsurface(int width, int height)
+{
+	/* Off-screen surface is the same as a regular surface in SDL2 */
+	return Init(width, height);
+}
+
+void CSpriteSurface::SetTransparency(int value)
+{
+	m_transparency = value;
+}
+
+int CSpriteSurface::GetTransparency() const
+{
+	return m_transparency;
+}
+
+void CSpriteSurface::GDI_Text(int x, int y, const char* text, DWORD color)
+{
+	/* TODO: Implement text rendering using SDL2_ttf or similar
+	 * For now, this is a stub - text rendering is not implemented in SDL backend
+	 */
+	(void)x; (void)y; (void)text; (void)color;
 }
 
 /* ============================================================================
