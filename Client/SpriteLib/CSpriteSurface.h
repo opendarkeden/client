@@ -222,6 +222,8 @@ class CSpriteSurface {
 		void				UnlockSDL();
 		bool				IsLock();
 		void				GetSurfaceInfo(S_SURFACEINFO* info);
+		// GetDDSD compatibility wrapper - returns pointer to internal surface info
+		S_SURFACEINFO*		GetDDSD();
 #endif
 		bool				InitTextureSurface(int width, int height, void* pixels = NULL, void* pixelFormat = NULL);
 

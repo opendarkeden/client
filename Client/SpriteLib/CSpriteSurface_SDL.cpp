@@ -340,3 +340,15 @@ void CSpriteSurface::GetSurfaceInfo(S_SURFACEINFO* info)
 	}
 }
 
+/* ============================================================================
+ * GetDDSD Compatibility Wrapper (for Windows API compatibility)
+ * ============================================================================ */
+
+S_SURFACEINFO* CSpriteSurface::GetDDSD()
+{
+	/* Static buffer for surface info - returned as pointer for compatibility */
+	static S_SURFACEINFO ddsd_buffer;
+	GetSurfaceInfo(&ddsd_buffer);
+	return &ddsd_buffer;
+}
+

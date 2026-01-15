@@ -23,30 +23,30 @@ extern RECT g_GameRect;
 Window* g_desc_dialog_window_id = NULL;
 /*
 
-char * C_VS_UI_EDIT_DIALOG::m_sz_question_msg[1] = {"ÀÌ ¾ÆÀÌÅÛ            °³¸¦ »ç½Ã°Ú½À´Ï±î?"};
+char * C_VS_UI_EDIT_DIALOG::m_sz_question_msg[1] = {"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½            ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã°Ú½ï¿½ï¿½Ï±ï¿½?"};
 
-// ÁÖ¼®Ã³¸® by sigi
-//char * C_VS_UI_MONEY_DIALOG::m_sz_question_msg[1] = {"¹ö¸± ±Ý¾×À» ÀÔ·ÂÇÏ¼¼¿ä."};
-//char * C_VS_UI_MONEY_DIALOG::m_sz_question_msg_for_storage[1] = {"º¸°üÇÒ ±Ý¾×À» ÀÔ·ÂÇÏ¼¼¿ä."};
+// ï¿½Ö¼ï¿½Ã³ï¿½ï¿½ by sigi
+//char * C_VS_UI_MONEY_DIALOG::m_sz_question_msg[1] = {"ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½."};
+//char * C_VS_UI_MONEY_DIALOG::m_sz_question_msg_for_storage[1] = {"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½."};
 
 char * C_VS_UI_MONEY_DIALOG::m_sz_question_msg[MAX_MONEY_DIALOG_TYPE][1] = {	// by sigi
-	{  "¹ö¸± ±Ý¾×À» ÀÔ·ÂÇÏ¼¼¿ä." } ,
-	{  "º¸°üÇÒ ±Ý¾×À» ÀÔ·ÂÇÏ¼¼¿ä." } ,
-	{  "Ã£À» ±Ý¾×À» ÀÔ·ÂÇÏ¼¼¿ä." } ,
-	{  "°Å·¡ÇÒ ±Ý¾×À» ÀÔ·ÂÇÏ¼¼¿ä." } ,
-	{  "»©³¾ ±Ý¾×À» ÀÔ·ÂÇÏ¼¼¿ä." } ,
+	{  "ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½." } ,
+	{  "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½." } ,
+	{  "Ã£ï¿½ï¿½ ï¿½Ý¾ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½." } ,
+	{  "ï¿½Å·ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½." } ,
+	{  "ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¾ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½." } ,
 };
 
 char * C_VS_UI_ASK_DIALOG::m_sz_question_msg[MAX_ASK_DIALOG_TYPE][2] = {	// by sigi
-	{  "º¸°üÇÔÀ» $%d¿¡ »ç½Ã°Ú½À´Ï±î?"  },	
-	{  "%s ´Ô°ú °Å·¡ÇÏ°Ú½À´Ï±î?"  },
-	{  "%s ´ÔÀÇ ÀÀ´äÀ» ±â´Ù¸³´Ï´Ù." ,  "Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä."   },
-//	{  "¼±ÅÃÇÏ½Å ¹«±â´Â %sÀÔ´Ï´Ù.", "°áÁ¤ÇÏ½Ã°Ú½À´Ï±î?" },					// by larosel
-	{  "%s ´ÔÀÌ ´ç½ÅÀÇ %s¿¡ °¡ÀÔÀ» ¿äÃ»ÇÏ°í ÀÖ½À´Ï´Ù."  },
-	{  "%s ´ÔÀÌ ´ç½ÅÀ» %s¿¡ ÃÊÃ»ÇÏ¼Ì½À´Ï´Ù."  },
-	{  "%s ´ÔÀÇ ÀÀ´äÀ» ±â´Ù¸³´Ï´Ù.",   "Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä."  },
-	{  "°Ë»ö °á°ú¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù."  },
-	{  "ÀÌ ¾ÆÀÌÅÛÀ» EnchantÇÏ½Ã°Ú½À´Ï±î?",   "Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä."  },
+	{  "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ $%dï¿½ï¿½ ï¿½ï¿½Ã°Ú½ï¿½ï¿½Ï±ï¿½?"  },	
+	{  "%s ï¿½Ô°ï¿½ ï¿½Å·ï¿½ï¿½Ï°Ú½ï¿½ï¿½Ï±ï¿½?"  },
+	{  "%s ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½Ï´ï¿½." ,  "ï¿½ï¿½ï¿½ï¿½Ï½Ã·ï¿½ï¿½ï¿½ Cancelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½."   },
+//	{  "ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ %sï¿½Ô´Ï´ï¿½.", "ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?" },					// by larosel
+	{  "%s ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ %sï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï°ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½."  },
+	{  "%s ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ %sï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï¼Ì½ï¿½ï¿½Ï´ï¿½."  },
+	{  "%s ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½Ï´ï¿½.",   "ï¿½ï¿½ï¿½ï¿½Ï½Ã·ï¿½ï¿½ï¿½ Cancelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½."  },
+	{  "ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."  },
+	{  "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Enchantï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?",   "ï¿½ï¿½ï¿½ï¿½Ï½Ã·ï¿½ï¿½ï¿½ Cancelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½."  },
 };
 */
 //-----------------------------------------------------------------------------
@@ -65,9 +65,10 @@ C_VS_UI_EDIT_DIALOG::C_VS_UI_EDIT_DIALOG(int _x, int _y, int center_x, int cente
 	if(max_val < 0)
 		max_val = 0;
 
-	m_max_val = max_val;	
+	m_max_val = max_val;
 	m_lev_value.SetDigitOnlyMode(true);
-	for(int digit_count = 0, number = max_val; number > 0; number/=10, digit_count++);
+	int digit_count, number;
+	for(digit_count = 0, number = max_val; number > 0; number/=10, digit_count++);
 	m_lev_value.SetByteLimit(digit_count);
 	Attach(&m_lev_value);
 	m_default_val = cur_val;
@@ -108,7 +109,7 @@ int	C_VS_UI_EDIT_DIALOG::GetValue() const
 	g_Convert_DBCS_Ascii2SingleByte(m_lev_value.GetString(), m_lev_value.Size(), p_temp);
 	if (p_temp == NULL)
 	{
-		// stringÀÌ ¾ø´Ù.
+		// stringï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		cur_val = m_default_val;
 	}
 	else
@@ -138,7 +139,7 @@ void C_VS_UI_EDIT_DIALOG::Start()
 	m_bl_up_focused = false;
 	m_bl_down_focused = false;
 
-	char sz_temp[10];	// by sigi (¿ø·¡´Â 2¿´´ç - -;)
+	char sz_temp[10];	// by sigi (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ - -;)
 	wsprintf(sz_temp, "%d", m_default_val);
 	m_lev_value.AddString(sz_temp);
 
@@ -264,7 +265,7 @@ void	C_VS_UI_EDIT_DIALOG::ScrollButton(bool up)
 	g_Convert_DBCS_Ascii2SingleByte(m_lev_value.GetString(), m_lev_value.Size(), p_temp);
 	if (p_temp == NULL)
 	{
-		// stringÀÌ ¾ø´Ù. backspaceÇÏ°í ÇßÀ» ¶§.
+		// stringï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. backspaceï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
 		cur_val = m_default_val;
 	}
 	else
@@ -294,7 +295,7 @@ void	C_VS_UI_EDIT_DIALOG::ScrollButton(bool up)
 //-----------------------------------------------------------------------------
 // C_VS_UI_EDIT_DIALOG::KeyboardControl
 //
-// ¹Ù·Î ¼ýÀÚ ÀÔ·ÂÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_EDIT_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 {
@@ -306,7 +307,8 @@ void	C_VS_UI_EDIT_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 //			num[0] = (char)key;
 //			m_lev_value.AddString(num);
 //		}
-	for(int digit_count = 0, number = m_max_val; number > 0; number/=10, digit_count++);
+	int digit_count, number;
+	for(digit_count = 0, number = m_max_val; number > 0; number/=10, digit_count++);
 	if (message == WM_CHAR)
 		if ((char)key >= '0' && (char)key <= '9')
 		{
@@ -371,9 +373,9 @@ void	C_VS_UI_MONEY_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 	// by sigi
 	switch (m_type)
 	{
-		// º¸°üÇÔ¿¡ ³Ö±â
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½Ö±ï¿½
 		case MONEY_DEPOSIT :
-			// ÇöÀç °¡Áö°í ÀÖ´Â ¸¸Å­¸¸ ³ÖÀ» ¼ö ÀÖ°í º¸°üÇÔ¿¡ µ·ÀÇ limitÀÌ»óÀº ³ÖÀ»¼ö ¾ø´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ limitï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			_MAX_MONEY =  min(g_pMoneyManager->GetMoney(), g_pStorage->GetMoneyManager()->GetMaxAddMoney());
 			break;
 
@@ -381,25 +383,25 @@ void	C_VS_UI_MONEY_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 			_MAX_MONEY = min(g_pMoneyManager->GetMoney(), g_pTradeManager->GetOtherMoneyManager()->GetMaxAddMoney());
 			break;
 
-		// ¹ö¸®±â
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		case MONEY_DROP : 
 				_MAX_MONEY = g_pMoneyManager->GetMoney();	
 			break;
 		
-		// º¸°üÇÔ¿¡¼­ ²¨³»±â
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		case MONEY_WITHDRAW : 
-			// º¸°üÇÔ¿¡ ÀÖ´Â ¸¸Å­¸¸ Ã£À» ¼ö ÀÖ°í ÀÎº¥Åä¸®¿¡ µ·ÀÇ limitÀÌ»óÀº ³ÖÀ»¼ö ¾ø´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Å­ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ limitï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			_MAX_MONEY = min(g_pStorage->GetMoneyManager()->GetMoney(), g_pMoneyManager->GetMaxAddMoney());
 			break;
 
 		case MONEY_WITHDRAW_FROM_EXCHANGE:
 			_MAX_MONEY = g_pTradeManager->GetMyMoneyManager()->GetMoney();
 			break;
-		case MONEY_BRING_FEE :			// ÃÑ ¼¼±Ý¿¡¼­ °¡Áö°í ÀÖ´Â µ·À» »©¾ß 20¾ï ¾È³Ñ´Â´Ù...
+		case MONEY_BRING_FEE :			// ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 20ï¿½ï¿½ ï¿½È³Ñ´Â´ï¿½...
 			_MAX_MONEY = min(gC_vs_ui.GetTotalFee(),g_pMoneyManager->GetMaxAddMoney());
 			break;
 		case MODIFY_TAX:
-			_MAX_MONEY = 10; // ¼¼À²Àº 10 ±îÁö¸¸
+			_MAX_MONEY = 10; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 10 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			break;
 		case MONEY_SELL_ITEM:
 			_MAX_MONEY = 2000000000;
@@ -508,7 +510,7 @@ int	C_VS_UI_MONEY_DIALOG::GetValue() const
 	g_Convert_DBCS_Ascii2SingleByte(m_lev_value.GetString(), m_lev_value.Size(), p_temp);
 	if (p_temp == NULL)
 	{
-		// stringÀÌ ¾ø´Ù.
+		// stringï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		cur_val = 0;
 	}
 	else
@@ -531,10 +533,10 @@ int	C_VS_UI_MONEY_DIALOG::GetValue() const
 //
 // 
 //-----------------------------------------------------------------------------
-C_VS_UI_MONEY_DIALOG::C_VS_UI_MONEY_DIALOG(int _x, int _y, int center_x, int center_y, void (*exec_fp)(C_VS_UI_DIALOG *, id_t), WORD dd_button, int digit_count, TYPE_MONEY_DIALOG type) :	// type Ãß°¡ by sigi
+C_VS_UI_MONEY_DIALOG::C_VS_UI_MONEY_DIALOG(int _x, int _y, int center_x, int center_y, void (*exec_fp)(C_VS_UI_DIALOG *, id_t), WORD dd_button, int digit_count, TYPE_MONEY_DIALOG type) :	// type ï¿½ß°ï¿½ by sigi
 							C_VS_UI_DIALOG(_x, _y, center_x, center_y, exec_fp, dd_button)
 {
-	/*	// ÁÖ¼®Ã³¸® by sigi
+	/*	// ï¿½Ö¼ï¿½Ã³ï¿½ï¿½ by sigi
 	if (!gC_vs_ui.IsRunningStorage())
 		SetMessage(m_sz_question_msg, 1);//, SMO_NOFIT);
 	else
@@ -583,23 +585,23 @@ C_VS_UI_MONEY_DIALOG::~C_VS_UI_MONEY_DIALOG()
 
 void	C_VS_UI_ASK_DIALOG::InitString()
 {
-	/*	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_BUY_STORAGE] = "º¸°üÇÔÀ» $%d¿¡ »ç½Ã°Ú½À´Ï±î?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_TRADE_OTHER_PLAYER]= "%s ´Ô°ú °Å·¡ÇÏ°Ú½À´Ï±î?";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_WAIT_OTHER_PLAYER]= "%s ´ÔÀÇ ÀÀ´äÀ» ±â´Ù¸³´Ï´Ù.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_CANCEL]	="Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_REQUEST_JOIN]= "%s ´ÔÀÌ ´ç½ÅÀÇ %s¿¡ °¡ÀÔÀ» ¿äÃ»ÇÏ°í ÀÖ½À´Ï´Ù.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_INVITE]= "%s ´ÔÀÌ ´ç½ÅÀ» %s¿¡ ÃÊÃ»ÇÏ¼Ì½À´Ï´Ù.";
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_FIND_RESULT]= "°Ë»ö °á°ú¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù." ;
-	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENCHANT_CONFIRM]= "ÀÌ ¾ÆÀÌÅÛÀ» EnchantÇÏ½Ã°Ú½À´Ï±î?";
+	/*	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_BUY_STORAGE] = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ $%dï¿½ï¿½ ï¿½ï¿½Ã°Ú½ï¿½ï¿½Ï±ï¿½?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_TRADE_OTHER_PLAYER]= "%s ï¿½Ô°ï¿½ ï¿½Å·ï¿½ï¿½Ï°Ú½ï¿½ï¿½Ï±ï¿½?";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_WAIT_OTHER_PLAYER]= "%s ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½Ï´ï¿½.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_CANCEL]	="ï¿½ï¿½ï¿½ï¿½Ï½Ã·ï¿½ï¿½ï¿½ Cancelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_REQUEST_JOIN]= "%s ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ %sï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï°ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_INVITE]= "%s ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ %sï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï¼Ì½ï¿½ï¿½Ï´ï¿½.";
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_CANNOT_FIND_RESULT]= "ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½." ;
+	(*g_pGameStringTable)[UI_STRING_MESSAGE_ENCHANT_CONFIRM]= "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Enchantï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?";
 
-  {  "º¸°üÇÔÀ» $%d¿¡ »ç½Ã°Ú½À´Ï±î?"  },	
-	{  "%s ´Ô°ú °Å·¡ÇÏ°Ú½À´Ï±î?"  },
-	{  "%s ´ÔÀÇ ÀÀ´äÀ» ±â´Ù¸³´Ï´Ù." ,  "Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä."   },
-	{  "%s ´ÔÀÌ ´ç½ÅÀÇ %s¿¡ °¡ÀÔÀ» ¿äÃ»ÇÏ°í ÀÖ½À´Ï´Ù."  },
-	{  "%s ´ÔÀÌ ´ç½ÅÀ» %s¿¡ ÃÊÃ»ÇÏ¼Ì½À´Ï´Ù."  },
-	{  "%s ´ÔÀÇ ÀÀ´äÀ» ±â´Ù¸³´Ï´Ù.",   "Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä."  },
-	{  "°Ë»ö °á°ú¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù."  },
-	{  "ÀÌ ¾ÆÀÌÅÛÀ» EnchantÇÏ½Ã°Ú½À´Ï±î?",   "Ãë¼ÒÇÏ½Ã·Á¸é CancelÀ» ´©¸£¼¼¿ä."  },
+  {  "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ $%dï¿½ï¿½ ï¿½ï¿½Ã°Ú½ï¿½ï¿½Ï±ï¿½?"  },	
+	{  "%s ï¿½Ô°ï¿½ ï¿½Å·ï¿½ï¿½Ï°Ú½ï¿½ï¿½Ï±ï¿½?"  },
+	{  "%s ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½Ï´ï¿½." ,  "ï¿½ï¿½ï¿½ï¿½Ï½Ã·ï¿½ï¿½ï¿½ Cancelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½."   },
+	{  "%s ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ %sï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï°ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½."  },
+	{  "%s ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ %sï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï¼Ì½ï¿½ï¿½Ï´ï¿½."  },
+	{  "%s ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½Ï´ï¿½.",   "ï¿½ï¿½ï¿½ï¿½Ï½Ã·ï¿½ï¿½ï¿½ Cancelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½."  },
+	{  "ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."  },
+	{  "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Enchantï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?",   "ï¿½ï¿½ï¿½ï¿½Ï½Ã·ï¿½ï¿½ï¿½ Cancelï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½."  },
 */
 	//m_sz_question_msg
 	m_sz_question_msg[0][0]=(*g_pGameStringTable)[UI_STRING_MESSAGE_ASK_DIALOG_BUY_STORAGE].GetString();
@@ -700,7 +702,7 @@ C_VS_UI_ASK_DIALOG::C_VS_UI_ASK_DIALOG(int _x, int _y, int center_x, int center_
 
 	switch (type)
 	{	
-		// ¼ýÀÚ°¡ ÇÏ³ª µé¾î°¡´Â °æ¿ì.. - -;
+		// ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½ï¿½ï¿½.. - -;
 		case ASK_STORAGE_BUY :
 		{
 			m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+20];
@@ -778,7 +780,7 @@ C_VS_UI_ASK_DIALOG::C_VS_UI_ASK_DIALOG(int _x, int _y, int center_x, int center_
 		{
 			switch(value)
 			{
-			case 0:		// ÀÏ¹Ý ¾ÆÀÌÅÛ ÀÎÃ¾Æ®
+			case 0:		// ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¾Æ®
 				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+1];
 				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
 				m_sz_question_msg_temp[1] = new char [strlen(m_sz_question_msg[type][1])+1];
@@ -787,26 +789,26 @@ C_VS_UI_ASK_DIALOG::C_VS_UI_ASK_DIALOG(int _x, int _y, int center_x, int center_
 				SetMessage(m_sz_question_msg_temp, 2, SMO_NOFIT);	
 				break;
 				
-			case 1:		// Æê ÀÎÃ¾Æ®
+			case 1:		// ï¿½ï¿½ ï¿½ï¿½Ã¾Æ®
 				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][0])+1];
 				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][0]);
 				
 				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
 				break;
 				
-			case 2:		// Æê ºÎÈ°
+			case 2:		// ï¿½ï¿½ ï¿½ï¿½È°
 				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][2])+1];
 				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][2]);
 				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
 				break;
 
-			case 3:		// Æê Ç»¸®Å¸½º
+			case 3:		// ï¿½ï¿½ Ç»ï¿½ï¿½Å¸ï¿½ï¿½
 				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][3])+1];
 				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][3]);
 				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
 				break;
 
-			case 4:		// Æê º¯½Å
+			case 4:		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				m_sz_question_msg_temp[0] = new char [strlen(m_sz_question_msg[type][4])+1];
 				sprintf(m_sz_question_msg_temp[0], m_sz_question_msg[type][4]);
 				SetMessage(m_sz_question_msg_temp, 1, SMO_NOFIT);	
@@ -949,7 +951,7 @@ bool C_VS_UI_ASK_DIALOG::MouseControl(UINT message, int _x, int _y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_ASK_DIALOG::KeyboardControl
 //
-// ¹Ù·Î ¼ýÀÚ ÀÔ·ÂÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_ASK_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 {
@@ -1012,16 +1014,16 @@ void C_VS_UI_NPC_DIALOG::InitNpcDlg(int sprite_num, const char* pname , bool IsS
 			12, 13, 22, 159, 160,
 			161, 19,
 			93, 92, 94, 219, 220,
-			253, 254, 255,//°ñ·¹¸Ó*2, ·¹º£Ä«
-			217,//¹ÙÅä¸®
-			250,251,252,//Çï±âÁ¶Á¾»ç
-			296, //¾ß¸¶¸ðÅä
-			297, //µ¥´Ï½º
-			362, 363, 364, 365, 366, //¶ó¼¾¼º 4¸í+ºí¶óµåÅ×ÆäÁî
-			302, 303, 311,//Æ©Åä¸®¾ó Ãß°¡
-			368, //¸®½ºÅä¾î NPC ºê¸®ÄÝ¶óÄ«½º Å¬·Ð
-			370, //µå·Îº£Å¸ ¿ÊÆÊ ·¹ÀÌºì
-			427, 428, 429, 430,	// À¯·áÈ­ Á¸ ±×¸®ÇÇ½º, ·Îºóº¤½ºÅÍ, ¸ÓÇÇ, Ä«¸£¸à¹ö¸¸
+			253, 254, 255,//ï¿½ñ·¹¸ï¿½*2, ï¿½ï¿½ï¿½ï¿½Ä«
+			217,//ï¿½ï¿½ï¿½ä¸®
+			250,251,252,//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			296, //ï¿½ß¸ï¿½ï¿½ï¿½ï¿½ï¿½
+			297, //ï¿½ï¿½ï¿½Ï½ï¿½
+			362, 363, 364, 365, 366, //ï¿½ó¼¾¼ï¿½ 4ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			302, 303, 311,//Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ß°ï¿½
+			368, //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ NPC ï¿½ê¸®ï¿½Ý¶ï¿½Ä«ï¿½ï¿½ Å¬ï¿½ï¿½
+			370, //ï¿½ï¿½Îºï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
+			427, 428, 429, 430,	// ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ ï¿½×¸ï¿½ï¿½Ç½ï¿½, ï¿½Îºóº¤½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		};
 
 		const int g_npc_num[g_npc_size] = 
@@ -1035,16 +1037,16 @@ void C_VS_UI_NPC_DIALOG::InitNpcDlg(int sprite_num, const char* pname , bool IsS
 			31, 32, 33, 34, 35,
 			36, 37,
 			38, 39, 40, 41, 42,
-			48, 47, 49, //°ñ·¹¸Ó*2, ·¹º£Ä«
-			43,//¹ÙÅä¸®
-			44, 44, 44,//Çï±âÁ¶Á¾»ç
-			45, //¾ß¸¶¸ðÅä
-			46, //µ¥´Ï½º
-			50, 51, 52, 53, 54,//¶ó¼¾¼º 4¸í+ºí¶óµåÅ×ÆäÁî
+			48, 47, 49, //ï¿½ñ·¹¸ï¿½*2, ï¿½ï¿½ï¿½ï¿½Ä«
+			43,//ï¿½ï¿½ï¿½ä¸®
+			44, 44, 44,//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			45, //ï¿½ß¸ï¿½ï¿½ï¿½ï¿½ï¿½
+			46, //ï¿½ï¿½ï¿½Ï½ï¿½
+			50, 51, 52, 53, 54,//ï¿½ó¼¾¼ï¿½ 4ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			45, 46, 45,
-			39, //¸®½ºÅä¾î NPC ºê¸®ÄÝ¶óÄ«½º Å¬·Ð
-			35, //µå·Îº£Å¸ ¿ÊÆÊ ·¹ÀÌºì
-			55, 56, 57, 58,	// À¯·áÈ­ Á¸ ±×¸®ÇÇ½º, ·Îºóº¤½ºÅÍ, ¸ÓÇÇ, Ä«¸£¸à¹ö¸¸
+			39, //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ NPC ï¿½ê¸®ï¿½Ý¶ï¿½Ä«ï¿½ï¿½ Å¬ï¿½ï¿½
+			35, //ï¿½ï¿½Îºï¿½Å¸ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
+			55, 56, 57, 58,	// ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ ï¿½×¸ï¿½ï¿½Ç½ï¿½, ï¿½Îºóº¤½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		};
 
 		m_id = sprite_num;
@@ -1065,7 +1067,7 @@ void C_VS_UI_NPC_DIALOG::InitNpcDlg(int sprite_num, const char* pname , bool IsS
 
 		if(m_iSprite != -1)
 		{
-			m_p_NPCFace.Init( 2 );		// ÀÓ½Ã·Î 1°³¸¸ loading.. - -;;
+			m_p_NPCFace.Init( 2 );		// ï¿½Ó½Ã·ï¿½ 1ï¿½ï¿½ï¿½ï¿½ loading.. - -;;
 
 			bool re;
 			re = m_p_NPCFace.LoadFromFileData( 0, 0, SPK_NPCFACE, SPKI_NPCFACE );
@@ -1077,7 +1079,7 @@ void C_VS_UI_NPC_DIALOG::InitNpcDlg(int sprite_num, const char* pname , bool IsS
 			m_client_rect.w -= m_p_NPCFace[0].GetWidth();
 		}
 	}
-	// 2005, 1, 14, sobeit add start - npc ¾ó±¼ ´ë½Å ItemDescription ÀÌ¹ÌÁö¸¦º¸¿©ÁØ´Ù. - Äù½ºÆ® ¶«½Ã...
+	// 2005, 1, 14, sobeit add start - npc ï¿½ï¿½ ï¿½ï¿½ï¿½ ItemDescription ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½. - ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½...
 	else
 	{
 		if(sprite_num == 0)
@@ -1088,7 +1090,7 @@ void C_VS_UI_NPC_DIALOG::InitNpcDlg(int sprite_num, const char* pname , bool IsS
 		{
 			m_iSprite = sprite_num;
 
-			m_p_NPCFace.Init( 1 );		// ÀÓ½Ã·Î 1°³¸¸ loading.. - -;;
+			m_p_NPCFace.Init( 1 );		// ï¿½Ó½Ã·ï¿½ 1ï¿½ï¿½ï¿½ï¿½ loading.. - -;;
 
 			bool re;
 			re = m_p_NPCFace.LoadFromFileData( 0, m_iSprite, SPK_ITEM, SPKI_ITEM );
@@ -1130,7 +1132,7 @@ bool C_VS_UI_NPC_DIALOG::MouseControl(UINT message, int _x, int _y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_NPC_DIALOG::KeyboardControl
 //
-// ¹Ù·Î ¼ýÀÚ ÀÔ·ÂÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_NPC_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 {
@@ -1445,12 +1447,12 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			{
 				title_color = g_pClientConfig->COLOR_NAME_ITEM_RARE_OPTION;
 			} 
-			// add by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈýÊôÐÔ×°±¸ÎªºìÉ«
+			// add by Sonic 2006.10.28 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½Îªï¿½ï¿½É«
 			else if(p_item->GetItemOptionListCount() > 2)
 			{
 				title_color = g_pClientConfig->COLOR_NAME_VAMPIRE; //Red
 			}
-			// end by Sonic 2006.10.28 Ôö¼ÓÏÔÊ¾ÈýÊôÐÔ×°±¸ÎªºìÉ«
+			// end by Sonic 2006.10.28 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½Îªï¿½ï¿½É«
 			else
 				title_color = RGB_YELLOW;						// Normal Item
 			pi = gpC_base->m_desc_msg_pi;
@@ -1487,12 +1489,12 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			e_name+=" )";
 
 			wsprintf(sz_temp, "%s %s",h_name.c_str(),e_name.c_str());			
-			// ÀÌ¸§ÀÌ ³Ê¹« ±æ¸é ÁÙ¿©ÁÖÀÚ.	ReduceString2 ´Â µÚÂÊ¿¡ "..." Âï¾îÁÖ±â~ 	by sonee
+			// ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ï¿½ï¿½.	ReduceString2 ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¿ï¿½ "..." ï¿½ï¿½ï¿½ï¿½Ö±ï¿½~ 	by sonee
 			ReduceString2(sz_temp,55);			
 			SetDescTitle(sz_temp);
 
 			// weight
-//			wsprintf(sz_temp, "\t¹«°Ô : %d", p_item->GetWeight());
+//			wsprintf(sz_temp, "\tï¿½ï¿½ï¿½ï¿½ : %d", p_item->GetWeight());
 //			temp_string = sz_temp;
 //			m_rep_string.push_back(temp_string);
 			
@@ -1539,7 +1541,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			}
 			
 			// Damage
-			if (p_item->GetMaxDamage() != -1) // damage°¡ ÀÖ´Â°¡?
+			if (p_item->GetMaxDamage() != -1) // damageï¿½ï¿½ ï¿½Ö´Â°ï¿½?
 			{
 				wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_DAMAGE].GetString(), p_item->GetMinDamage(), p_item->GetMaxDamage());
 				temp_string = sz_temp;
@@ -1547,7 +1549,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			}
 			
 			// critical hit
-			if (p_item->GetCriticalHit() != -1) // Å©¸®Æ¼ÄÃÈ÷Æ®°¡ ÀÖ´Â°¡?
+			if (p_item->GetCriticalHit() != -1) // Å©ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´Â°ï¿½?
 			{
 				wsprintf(sz_temp, (*g_pGameStringTable)[UI_STRING_MESSAGE_DESC_DIALOG_CRITICALHIT].GetString(), p_item->GetCriticalHit());
 				temp_string = sz_temp;
@@ -1621,7 +1623,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			// Pile size
 //			if (p_item->IsPileItem() == true)
 //			{
-//				wsprintf(sz_temp, "\t¾ÆÀÌÅÛ °³¼ö : %d°³", p_item->GetNumber());
+//				wsprintf(sz_temp, "\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : %dï¿½ï¿½", p_item->GetNumber());
 //				temp_string = sz_temp;
 //				m_rep_string.push_back(temp_string);
 //			}
@@ -1633,21 +1635,21 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 				ITEMOPTION_INFO& optionInfo = (*g_pItemOptionTable)[option];
 				
 				char pPartName[20];
-				strcpy(pPartName, ITEMOPTION_INFO::ITEMOPTION_PARTNAME[optionInfo.Part]); // OptionÀÌ Àû¿ëµÇ´Â ¼öÄ¡ÀÇ ÀÌ¸§
+				strcpy(pPartName, ITEMOPTION_INFO::ITEMOPTION_PARTNAME[optionInfo.Part]); // Optionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ì¸ï¿½
 				if(p_item->IsVampireItem() && strstr(pPartName,"MP") != NULL)
 					*strstr(pPartName,"MP") = 'H';
 
-				BYTE PlusPoint	= optionInfo.PlusPoint; // Àû¿ëµÇ´Â ¼öÄ¡
+				BYTE PlusPoint	= optionInfo.PlusPoint; // ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½Ä¡
 				
 				if (pPartName)
 				{
 					if(!strcmp(pPartName, "Durability"))
 					{
-						sprintf(sz_temp, "\t¿É¼Ç : %s +%d", pPartName, PlusPoint-100);
+						sprintf(sz_temp, "\tï¿½É¼ï¿½ : %s +%d", pPartName, PlusPoint-100);
 						strcat(sz_temp, "%");
 					}
 					else
-						sprintf(sz_temp, "\t¿É¼Ç : %s +%d", pPartName, PlusPoint);
+						sprintf(sz_temp, "\tï¿½É¼ï¿½ : %s +%d", pPartName, PlusPoint);
 					
 					temp_string = sz_temp;
 					m_rep_string.push_back(temp_string);
@@ -1669,7 +1671,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 					if(p_item->IsVampireItem() && strstr(pPartName,"MP") != NULL)
 						*strstr(pPartName,"MP") = 'H';
 					
-					BYTE PlusPoint	= optionInfo.PlusPoint; // Àû¿ëµÇ´Â ¼öÄ¡
+					BYTE PlusPoint	= optionInfo.PlusPoint; // ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½Ä¡
 					
 					if (pPartName)
 					{
@@ -1727,7 +1729,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 					if(p_item->IsVampireItem() && strstr(pPartName,"MP") != NULL)
 						*strstr(pPartName,"MP") = 'H';
 					
-					BYTE PlusPoint	= optionInfo.PlusPoint; // Àû¿ëµÇ´Â ¼öÄ¡
+					BYTE PlusPoint	= optionInfo.PlusPoint; // ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½Ä¡
 					
 					if (pPartName)
 					{
@@ -1778,7 +1780,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 				char sz_buf1 [50];
 				MItem* p_AddItem = (MItem*)void_ptr2;
 			
-				// ÄÚ¾îÀìÀÇ ItemDescription.spk ¿¡¼­ÀÇ ÀÎµ¦½º¸¦ ¾ò¾î¿ÀÀÚ
+				// ï¿½Ú¾ï¿½ï¿½ï¿½ï¿½ï¿½ ItemDescription.spk ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				std::string AddedFileName;
 				std::string temp_string;
 				AddedFileName += p_AddItem->GetEName();
@@ -1789,7 +1791,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 				temp_string = sz_buf1;
 
 				corezapID = atoi(temp_string.c_str()+1);
-				// ÄÚ¾îÀìÀÇ ItemDescription.spk ¿¡¼­ÀÇ ÀÎµ¦½º¸¦ ¾ò¾î¿ÀÀÚ
+				// ï¿½Ú¾ï¿½ï¿½ï¿½ï¿½ï¿½ ItemDescription.spk ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 				//corezapID = 
 				if(p_AddItem->GetItemClass() == ITEM_CLASS_CORE_ZAP && p_AddItem->GetItemType()>=0 && p_AddItem->GetItemType()<=3)
@@ -1993,7 +1995,7 @@ C_VS_UI_DESC_DIALOG::C_VS_UI_DESC_DIALOG(id_t type, void* void_ptr, void* void_p
 			
 			CSpritePack *temp;
 			temp = new CSpritePack;
-			temp->Init( 1 );		// ÀÓ½Ã·Î 1°³¸¸ loading.. - -;;
+			temp->Init( 1 );		// ï¿½Ó½Ã·ï¿½ 1ï¿½ï¿½ï¿½ï¿½ loading.. - -;;
 
 			int id = (int)void_ptr;
 			int sprID = (*g_pSkillInfoTable)[id].GetSpriteID();
@@ -2104,7 +2106,7 @@ void C_VS_UI_DESC_DIALOG::Start()
 bool C_VS_UI_DESC_DIALOG::MouseControl(UINT message, int _x, int _y)
 {
 	Window::MouseControl(message, _x, _y);
-	_x-=x;_y-=y;//À©µµ¿ì ÀÌµ¿À» À§ÇÑ
+	_x-=x;_y-=y;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	bool re = m_pC_scroll_bar->MouseControl(message, _x, _y);
 	re &= m_pC_button_group->MouseControl(message, _x, _y);
 
@@ -2153,15 +2155,15 @@ bool C_VS_UI_DESC_DIALOG::MouseControl(UINT message, int _x, int _y)
 //-----------------------------------------------------------------------------
 // C_VS_UI_DESC_DIALOG::KeyboardControl
 //
-// ¹Ù·Î ¼ýÀÚ ÀÔ·ÂÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_DESC_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 {
 	if (message == WM_KEYDOWN)
 		switch (key)
 		{
-			case VK_RETURN: // ok·Î °£ÁÖ. !cancelÀº ¹Ýµå½Ã ok¿Í ÇÔ²² ÀÖ´Ù.
-			case VK_ESCAPE: // ¾Æ¹«°Íµµ ¾ÈÇÔ.
+			case VK_RETURN: // okï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. !cancelï¿½ï¿½ ï¿½Ýµï¿½ï¿½ okï¿½ï¿½ ï¿½Ô²ï¿½ ï¿½Ö´ï¿½.
+			case VK_ESCAPE: // ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½.
 				Run(CLOSE_ID);
 				break;
 		}
@@ -2395,7 +2397,7 @@ C_VS_UI_FILE_DIALOG::~C_VS_UI_FILE_DIALOG()
 //-----------------------------------------------------------------------------
 // C_VS_UI_FILE_DIALOG::Start
 //
-// ¿©·¯°³ÀÇ ÆÄÀÏ °Ë»ö °¡´É.	; ·Î ±¸ºÐ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½.	; ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 // ex> C_VS_UI_FILE_DIALOG::Start(".bmp;.jpg;.pcx;.tga;.gif"); by sonee
 //-----------------------------------------------------------------------------
 void C_VS_UI_FILE_DIALOG::Start(char *type)
@@ -2403,7 +2405,7 @@ void C_VS_UI_FILE_DIALOG::Start(char *type)
 	PI_Processor::Start();
 	m_pC_button_group->Init();
 
-	// type ¿¡ ¸î°¡ÁöÀÇ ÆÄÀÏ Á¾·ù°¡ ÀÖ´ÂÁö °Ë»öÇÑ´Ù.
+	// type ï¿½ï¿½ ï¿½î°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½.
 	int nType,i;
 
 	for(i=0,nType=1;i<strlen(type);i++)
@@ -2441,7 +2443,7 @@ void C_VS_UI_FILE_DIALOG::Start(char *type)
 	m_select_file_num.clear();
 
 
-	// ÆÄÀÏ ´ÙÀÌ¾Ë·Î±×¿¡ µé¾î°¡´Â ¾ÆÀÌÄÜ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾Ë·Î±×¿ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_p_icon_spk=new C_SPRITE_PACK(SPK_FILE_DIALOG);
 
 
@@ -2450,12 +2452,12 @@ void C_VS_UI_FILE_DIALOG::Start(char *type)
 
 	if(mp_open_current_directory == NULL)
 	{
-		// System¿¡ ºÎÂøµÈ ¸ðµç drive¸¦ ÀÐ´Â´Ù.
+		// Systemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ driveï¿½ï¿½ ï¿½Ð´Â´ï¿½.
 		DWORD drives = GetLogicalDrives();
 		
-		// °¢ bit¸¦ °Ë»çÇÏ¿© Á¸ÀçÇÏ´Â drive buffer¸¦ ¸¸µç´Ù.
+		// ï¿½ï¿½ bitï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ drive bufferï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 		DWORD index = 1;
-		char	find_drive_name = 'a'; // a, b, c, d ... ¼Ò¹®ÀÚ·Î...
+		char	find_drive_name = 'a'; // a, b, c, d ... ï¿½Ò¹ï¿½ï¿½Ú·ï¿½...
 		char	find_drive_name_buf[sizeof(DWORD)*8];
 		memset(find_drive_name_buf, 0, sizeof(DWORD)*8);
 		
@@ -2495,7 +2497,7 @@ void C_VS_UI_FILE_DIALOG::Start(char *type)
 			mp_open_current_directory[i] = buf;
 		}
 		
-		// Window°¡ ¸¸µé¾îÁö¸é¼­ directory¸¦ ÃÊ±âÈ­ ½ÃÅ²´Ù.
+		// Windowï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é¼­ directoryï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½Å²ï¿½ï¿½.
 		char temp[MAX_PATH];
 		DWORD char_count = GetCurrentDirectory(MAX_PATH, temp);
 		assert(char_count > 0);
@@ -2527,7 +2529,7 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 	
 	Window::MouseControl(message, _x, _y);
 	_x-=x;
-	_y-=y;//À©µµ¿ì ÀÌµ¿À» À§ÇÑ
+	_y-=y;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	bool re = m_pC_button_group->MouseControl(message, _x, _y);
 	g_descriptor_manager.Unset();
 	re&=m_pC_scroll_bar->MouseControl(message, _x, _y);	
@@ -2590,7 +2592,7 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 				//if(message == M_LB_DOUBLECLICK && m_select != -1)
 				if( m_select == m_old_select && m_select != -1)			// Double Click Check
 				{
-					if(m_vs_file_list_attr[m_select] & FILE_ATTRIBUTE_DIRECTORY) // µð·ºÅä¸®ÀÏ °æ¿ì ÇØ´çµð·ºÅä¸®·Î ¿Å±è
+					if(m_vs_file_list_attr[m_select] & FILE_ATTRIBUTE_DIRECTORY) // ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½Å±ï¿½
 					{
 						char name[200];
 						strcpy(name, mp_open_current_directory[mi_open_drive_index]);					
@@ -2605,14 +2607,14 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 						m_select = -1;
 						m_tempselect = -1;
 					}
-					else if(m_mode==MODE_PROFILE_SELECT)				// MODE_PROFILE_SELECT ´Â ÆÄÀÏ´õºíÅ¬¸¯À» Áö¿øÇÑ´Ù. 
+					else if(m_mode==MODE_PROFILE_SELECT)				// MODE_PROFILE_SELECT ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. 
 					{
 						Run(OK_ID);
 					}
 					
 					m_pC_scroll_bar->SetPosMax(m_vs_file_list.size()-12);				
 				}
-				if(m_select!=-1&&m_mode!=MODE_PROFILE_SELECT)	// ÇÁ·ÎÇÊ ¸ðµå°¡ ¾Æ´Ï¸é
+				if(m_select!=-1&&m_mode!=MODE_PROFILE_SELECT)	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½å°¡ ï¿½Æ´Ï¸ï¿½
 				{
 					if(!(m_vs_file_list_attr[m_select] & FILE_ATTRIBUTE_DIRECTORY))	
 					{
@@ -2631,13 +2633,13 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 						}						
 						m_select_file_num.insert(&m_select_file_num[m_select_file_num.size()], m_select);
 					} 
-					else		// ±×³É Å¬¸¯ÇßÀ»°æ¿ì
+					else		// ï¿½×³ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					{
 						if(!g_GetCtrlPushState())	
 							m_select_file_num.clear();
 					}
 				}
-				//m_stay_openfolder=GetTickCount();			// ±äÀÌ¸§µîÀ» Ç¥½ÃÇØÁÙ¶§ ¾²´Â Å¸ÀÌ¸Ó
+				//m_stay_openfolder=GetTickCount();			// ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½
 				Timer(true);
 				STAY_FOLDER=0xfffffffe;
 			}
@@ -2657,8 +2659,8 @@ bool C_VS_UI_FILE_DIALOG::MouseControl(UINT message, int _x, int _y)
 		break;
 
 	case M_MOVING:		
-		// µå¶óÀÌºê ¹Ú½º°¡ ¿­·ÈÀ» °æ¿ì ¸¶¿ì½º¸¦ °®´Ù ³õ¾ÒÀ»¶§ 1ÃÊÀÌ»ó ÇØ´ç µå¶óÀÌºê¿¡ À§Ä¡ÇØÀÖÀ¸¸é
-		// ÀÌ¸§ÀÌ ¾ÐÃàµÈ °æ¿ì Ç® ³×ÀÓÀ» Ãâ·ÂÇÏ¿© ÁØ´Ù.	
+		// ï¿½ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½Ìºê¿¡ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ç® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ø´ï¿½.	
 		m_flag_preview_image=true;
 		if( _y > 35 && _x > 30 && _y < 49 && _x < 340 )
 			STAY_FOLDER=0;
@@ -2740,7 +2742,7 @@ bool	C_VS_UI_FILE_DIALOG::Timer(bool reset)
 //-----------------------------------------------------------------------------
 // C_VS_UI_FILE_DIALOG::KeyboardControl
 //
-// ¹Ù·Î ¼ýÀÚ ÀÔ·ÂÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+// ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½Ñ´ï¿½.
 //-----------------------------------------------------------------------------
 void	C_VS_UI_FILE_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 {	
@@ -2748,11 +2750,11 @@ void	C_VS_UI_FILE_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 	{
 		switch (key)
 		{		
-		case VK_RETURN: // ok·Î °£ÁÖ. !cancelÀº ¹Ýµå½Ã ok¿Í ÇÔ²² ÀÖ´Ù.
+		case VK_RETURN: // okï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. !cancelï¿½ï¿½ ï¿½Ýµï¿½ï¿½ okï¿½ï¿½ ï¿½Ô²ï¿½ ï¿½Ö´ï¿½.
 			Run(OK_ID);
 			break;
 
-		case VK_ESCAPE: // ¾Æ¹«°Íµµ ¾ÈÇÔ.
+		case VK_ESCAPE: // ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½.
 			Run(CANCEL_ID);
 			break;		
 		}
@@ -2762,8 +2764,8 @@ void	C_VS_UI_FILE_DIALOG::KeyboardControl(UINT message, UINT key, long extra)
 //-----------------------------------------------------------------------------
 // C_VS_UI_FILE_DIALOG::Show
 //
-// ¹®ÀÚ¿­ Ã³¸®ÇÔ¼ö¶û ÇÔ¼ö¸íµéÀÌ Á» ±æ¾î¼­ ¼Ò½º³»¿ë¿ª½Ã Á» ±é´Ï´Ù.
-// ¼Óµµ¿¡´Â º°´Ù¸¥ ÁöÀåÀ» ÁÖÁö ¾Ê½À´Ï´Ù. 
+// ï¿½ï¿½ï¿½Ú¿ï¿½ Ã³ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½î¼­ ï¿½Ò½ï¿½ï¿½ï¿½ï¿½ë¿ªï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ï´ï¿½.
+// ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½. 
 //-----------------------------------------------------------------------------
 void	C_VS_UI_FILE_DIALOG::Show()
 {
@@ -2774,7 +2776,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	int i,j;
 	// 600,133
 
-	// ¹Ì¸®º¸±â
+	// ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½
 	//SetRect(&rect, x+w,y,x+w+55,y+77);
 	//DrawAlphaBox(&rect, 255, 255, 255, 20);
 	
@@ -2782,7 +2784,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	gpC_global_resource->DrawDialog2(Rect(x, y, w, h), GetAttributes()->alpha);
 	
 	//----------------------------------------------------------------------------------------
-	// ¼±ÅÃ¿µ¿ª Ç¥½Ã
+	// ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
 	switch(m_mode)
 	{
 	case MODE_PROFILE_SELECT :
@@ -2811,7 +2813,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 		break;
 	}
 	//----------------------------------------------------------------------------------------
-	// ¾ÆÀÌÄÜ ºÎºÐ Ãâ·Â		
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ï¿½ï¿½		
 	if(gpC_base->m_p_DDSurface_back->Lock())
 	{
 		for(i = 0; i < m_scroll_max && i+m_pC_scroll_bar->GetScrollPos() < m_vs_file_list.size(); i++){
@@ -2821,14 +2823,14 @@ void	C_VS_UI_FILE_DIALOG::Show()
 		}
 		m_pC_button_group->Show();
 		//----------------------------------------------------------------------------------------
-		// ÇöÀç ¿ÀÇÂµÈ Æú´õ¸í Ãâ·Â
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		m_p_icon_spk->BltLocked(x+m_string_x-19, y+37,OPENFOLDER_ID);
 		gpC_base->m_p_DDSurface_back->Unlock();
 	}
 
 	g_FL2_GetDC();	
-	// ¿­¸° Æú´õ¸íÀÇ ±æÀÌ°¡ ±æ°æ¿ì Àß¶óÁØ´Ù 
-	// 38ÀÚ ÀÌ»ó µÇÁö ¾Êµµ·Ï ÇÑ´Ù. 
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¶ï¿½ï¿½Ø´ï¿½ 
+	// 38ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½. 
 	title+= mp_open_current_directory[mi_open_drive_index];
 	title.erase(strlen(mp_open_current_directory[mi_open_drive_index])-2,2);
 	for(i=0;i<m_filter.size();i++){title+=m_filter[i].c_str();title+=";";}
@@ -2839,7 +2841,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	g_PrintColorStr(x+m_string_x, y+37, name, gpC_base->m_desc_menu_pi, RGB_WHITE);
 
 	//----------------------------------------------------------------------------------------
-	// Å¸ÀÌÆ² Ãâ·Â
+	// Å¸ï¿½ï¿½Æ² ï¿½ï¿½ï¿½
 	if(m_mode==MODE_PROFILE_SELECT)	
 		strcpy(name,(*g_pGameStringTable)[UI_STRING_MESSAGE_FILE_DIALOG_SELECT_PROFILE_PICTURE].GetString());
 	else strcpy(name,(*g_pGameStringTable)[UI_STRING_MESSAGE_FILE_DIALOG_SELECT_FILE].GetString());
@@ -2853,8 +2855,8 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	g_PrintColorStr(titleX, titleY, name,gpC_base->m_desc_menu_pi, RGB_WHITE);
 
 	for(i = 0; i < m_scroll_max && i+m_pC_scroll_bar->GetScrollPos() < m_vs_file_list.size(); i++) {		
-		// ÀÌ¸§µé Ãâ·Â
-		// ÆÄÀÏÀÌ¸§ÀÌ ³Ê¹« ±æ¸é Àû´çÈ÷ ÀÚ¸¥´Ù. 
+		// ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½. 
 		strcpy(name, m_vs_file_list[i+m_pC_scroll_bar->GetScrollPos()].c_str());
 		ReduceString(name,38);
 		if(name[0]=='\\')	p_name=&name[1];		else			p_name=&name[0];
@@ -2866,8 +2868,8 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	m_pC_scroll_bar->Show(x, y);
 	
 	//----------------------------------------------------------------------------------------
-	// Drive List Ãâ·Â
-	//drive ¼±ÅÃ open µÇ¾îÀÖÀ¸¸é
+	// Drive List ï¿½ï¿½ï¿½
+	//drive ï¿½ï¿½ï¿½ï¿½ open ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(m_bl_open_drive) {
 		SetRect(&rect, x+m_string_x-5,y+37+m_string_gap-3, x+m_string_x-5 + 350, y+37+m_string_gap-3+m_string_gap*mi_open_drive_count);
 		
@@ -2897,14 +2899,14 @@ void	C_VS_UI_FILE_DIALOG::Show()
 	}
 	
 	//----------------------------------------------------------------------------------------
-	// ±äÀÌ¸§ Àû¾îÁÖ±â
+	// ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	dwNow=GetTickCount();
-	//if((dwNow-m_stay_openfolder)>=1000)			// 1ÃÊ ÀÌ»ó ÁöÃ¼½Ã
+	//if((dwNow-m_stay_openfolder)>=1000)			// 1ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½
 	if(Timer(false))
 	{
 		std::string title;
 		if(STAY_FOLDER==0)
-		{				// ÇöÀç ¿­¸° Æú´õ
+		{				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			title+=mp_open_current_directory[mi_open_drive_index];
 			title.erase(title.size()-2,2);
 			for(i=0;i<m_filter.size();i++) {title+=m_filter[i].c_str();	title+=';';}
@@ -2918,7 +2920,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 			}
 		}
 		else if(STAY_FOLDER!=-1&&m_bl_open_drive&&STAY_FOLDER!=0xfffffffe)	
-		{		// µå¶óÀÌºê ¸®½ºÆ® Áß 			
+		{		// ï¿½ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ 			
 			title+=mp_open_current_directory[STAY_FOLDER-1];
 			title.erase(title.size()-2,2);
 			for(i=0;i<m_filter.size();i++){title+=m_filter[i].c_str();	title+=';';}
@@ -2932,7 +2934,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 			}			
 		} 
 		else
-		{				// ÆÄÀÏ¿¡¼­ °¡¸¸È÷ ÀÖÀ»°æ¿ì
+		{				// ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if(m_tempselect != -1 && m_tempselect >= m_pC_scroll_bar->GetScrollPos() && m_tempselect < m_pC_scroll_bar->GetScrollPos()+m_scroll_max)
 			if(m_vs_file_list[m_tempselect].size()>38)	
 			{
@@ -2947,7 +2949,7 @@ void	C_VS_UI_FILE_DIALOG::Show()
 		}
 	}
 	//---------------------------------------------------------------------------------------------------
-	// ¹Ì¸®º¸±â
+	// ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½
 	// 
 	if(m_tempselect != -1 && m_tempselect >= m_pC_scroll_bar->GetScrollPos() && m_tempselect < m_pC_scroll_bar->GetScrollPos()+m_scroll_max && m_flag_preview_image)	
 	{
@@ -3010,14 +3012,14 @@ bool	C_VS_UI_FILE_DIALOG::IsPixel(int _x, int _y)
 }
 
 //---------------------------------------------------------------------------
-// ¼¼¹ÌÄÝ·ÐÀ¸·Î ±¸ºÐµÈ ¹®ÀÚ »Ì¾Æ³»±â
-// GetFileNameInString ÇÔ¼ö¸¦ »ç¿ëÇÏ°í ³ª¼­ ¹ÝÈ¯µÈ °ªÀº ¹Ýµå½Ã delete ÇØÁÖ¼¼¿ä.
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ðµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¾Æ³ï¿½ï¿½ï¿½
+// GetFileNameInString ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ýµï¿½ï¿½ delete ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.
 // usage>
 // char *name=GetFileNameInString(str,2);
 // MessageBox(NULL,name,name,MB_OK);
 // delete name;
 
-// ÆÄÀÏÀÌ¸§¿¡¼­ ÆÄÀÏÀÇ ÃÑ °¹¼ö
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 static int GetSizeFileInString(char *str)
 {
 	if(str==NULL||strlen(str)<=1)
@@ -3033,7 +3035,7 @@ static int GetSizeFileInString(char *str)
 	return nFile;
 }
 
-// ÇØ´ç ¹øÈ£¿¡ ´ëÇÑ ÆÄÀÏ ÃßÃâ
+// ï¿½Ø´ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 static const std::string GetFileNameInString(char *str,int n)
 {
 	if(str==NULL||strlen(str)<=1) return NULL;
@@ -3092,7 +3094,7 @@ void	C_VS_UI_FILE_DIALOG::Run(id_t id)
 	//	m_bl_open_drive = !m_bl_open_drive;
 	//	break;
 	case OK_ID :
-		// SendMessage ·Î ÆÄÀÏÀÌ¸§À» º¸³»µµ·Ï ÇÑ´Ù.
+		// SendMessage ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		//
 		if( m_mode == MODE_PROFILE_SELECT )
 		{
@@ -3109,7 +3111,7 @@ void	C_VS_UI_FILE_DIALOG::Run(id_t id)
 		{
 			if( m_select_file_num.size() > 0 )
 			{
-				// ÆÄÀÏÀÌ ¿©·¯°³ ¼±ÅÃµÈ °æ¿ì¿¡´Â ¼¼¹ÌÄÝ·ÐÀ¸·Î ÆÄÀÏÀ» ±¸ºÐÇÑ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				std::string multiple_filename;
 				
 				for( i = 0; i < m_select_file_num.size(); i++ )
@@ -3120,7 +3122,7 @@ void	C_VS_UI_FILE_DIALOG::Run(id_t id)
 				multiple_filename.erase(multiple_filename.end()-1, multiple_filename.end());	
 				gpC_base->SendMessage(UI_CLOSE_FILE_DIALOG, m_mode, 0, (void *) multiple_filename.c_str());
 				
-				// µð¹ö±ëÇÏ·Á°í ³ÖÀº ÄÚµåÀÔ´Ï´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½Ô´Ï´ï¿½.
 				//for(i=0;i<IsNumFileInString((char*)multiple_filename.c_str());i++)
 				//{
 				//	char *name=GetFileNameInString((char*)multiple_filename.c_str(),i);
@@ -3176,16 +3178,16 @@ void	C_VS_UI_FILE_DIALOG::Finish()
 - RefreshFileList
 -
 
-  `file ÀÌ ±²ÀåÈ÷ ¸¹À» °æ¿ì °è¼Ó ÀÌ Method¸¦ ½ÇÇàÇÏ¸é ¾öÃ»³­ ¼ÓµµÀúÇÏ°¡ ÀÏ¾î³­´Ù.
-   µû¶ó¼­ °»½ÅÀÌ ÇÊ¿äÇÒ °æ¿ì¿¡¸¸ ÀÌ Method¸¦ ½ÇÇàÇÑ´Ù.
+  `file ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ Methodï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ï¾î³­ï¿½ï¿½.
+   ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ Methodï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 
-  `GetCurrentDirectory()·Î ¾òÀº dirÀ» refreshÇÑ´Ù.
+  `GetCurrentDirectory()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ dirï¿½ï¿½ refreshï¿½Ñ´ï¿½.
 -----------------------------------------------------------------------------*/
 void C_VS_UI_FILE_DIALOG::RefreshFileList(char *sz_dirname)
 {
 	HANDLE				hFind;
 	WIN32_FIND_DATA	fd;
-	BOOL					next_ok = true; // FindNextFile(hFind, &fd)ÀÌ BOOLÀ» ¹ÝÈ¯ÇÏ¹Ç·Î...
+	BOOL					next_ok = true; // FindNextFile(hFind, &fd)ï¿½ï¿½ BOOLï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï¹Ç·ï¿½...
 	std::string			sz_filename;
 	int					n;
 
@@ -3203,7 +3205,7 @@ void C_VS_UI_FILE_DIALOG::RefreshFileList(char *sz_dirname)
 	hFind = FindFirstFile(sz_dirname, &fd);
 	while (hFind != INVALID_HANDLE_VALUE && next_ok)
 	{
-		// '\.'Àº »ý·«ÇÑ´Ù.
+		// '\.'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		//if ((fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) && fd.cFileName == ".")
 		if (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 			if (fd.cFileName[0] == '.' && 
@@ -3314,7 +3316,7 @@ void C_VS_UI_FILE_DIALOG::ChangeDir(char *sz_cur_dirname, char *sz_pathname)
 	{
 		//
 		// add dir name
-		// `directory nameÀÇ Ãß°¡°¡ °¡´ÉÇÑ°¡? ±×·¸Áö ¾Ê´Ù¸é ¾Æ¹«ÀÏµµ ÇÏÁö ¾Ê´Â´Ù.
+		// `directory nameï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½? ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ê´Ù¸ï¿½ ï¿½Æ¹ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 		//
 		if ((strlen(sz_pathname) + strlen(sz_cur_dirname) + 1 <= MAX_PATH) &&
 			 sz_cur_dirname[1] != '.') // '.' = current dir -.-
@@ -3341,7 +3343,7 @@ void C_VS_UI_FILE_DIALOG::ChangeDir(char *sz_cur_dirname, char *sz_pathname)
 
 /*-----------------------------------------------------------------------------
 - 
-- \.. ¸¦ °Ë»öÇÑ´Ù.
+- \.. ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ñ´ï¿½.
 -----------------------------------------------------------------------------*/
 bool C_VS_UI_FILE_DIALOG::GetParentDir(char *sz_name)
 {

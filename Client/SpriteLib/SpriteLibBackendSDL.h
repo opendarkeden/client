@@ -16,6 +16,11 @@
 
 #ifdef SPRITELIB_BACKEND_SDL
 
+/* Open extern "C" block for C linkage (matching where types are declared) */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <SDL.h>
 
 /* ============================================================================

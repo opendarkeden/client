@@ -26,15 +26,19 @@
 // Stub for CImm class (from Immersion library)
 class CImm {
 public:
-    enum FORCE_UI_TYPE {
-        FORCE_UI_BUTTON = 1
+    enum FORCE_UI_ID {
+        FORCE_UI_DRAG,
+        FORCE_UI_WINDOW,
+        FORCE_UI_BUTTON,
+        FORCE_UI_GRID,
+        FORCE_UI_MAX,
     };
-    void ForceUI(int type) {}
+    void ForceUI(unsigned int ID) {}
 };
 
 // Stub for global Immersion device pointer
-static CImm* gpC_Imm_stub = nullptr;
-#define gpC_Imm gpC_Imm_stub
+static CImm gpC_Imm_instance;
+#define gpC_Imm (&gpC_Imm_instance)
 
 // GetTickCount stub
 inline DWORD GetTickCount() {

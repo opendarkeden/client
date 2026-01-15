@@ -1636,12 +1636,6 @@ typedef struct _DDCAPS {
 	DWORD dwMaxVisibleOverhead;
 } DDCAPS;
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* __PLATFORM_H__ */
-
 /* SetRect function */
 static inline void SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
     if (lprc) {
@@ -1650,3 +1644,50 @@ static inline void SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBo
         lprc->right = xRight;
         lprc->bottom = yBottom;
     }
+}
+
+/* max and min macros for compatibility with Windows code */
+#ifndef PLATFORM_WINDOWS
+#ifndef max
+#define max(a, b) (((a) > (b)) ? (a) : (b))
+#endif
+#ifndef min
+#define min(a, b) (((a) < (b)) ? (a) : (b))
+#endif
+/* __int64 Windows type - use long long on macOS */
+typedef long long __int64;
+/* _atoi64 Windows function - use atoll on macOS */
+#define _atoi64(x) atoll(x)
+#endif
+
+/* wsprintf stub for macOS - writes formatted output to string */
+#ifndef PLATFORM_WINDOWS
+#include <stdio.h>
+#include <stdarg.h>
+static inline int wsprintf(char* buf, const char* fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    int result = vsprintf(buf, fmt, args);
+    va_end(args);
+    return result;
+}
+#endif
+
+/* SetSurfaceInfo for SDL backend - copies S_SURFACEINFO */
+#ifndef PLATFORM_WINDOWS
+#include "2d.h"
+static inline void SetSurfaceInfo(S_SURFACEINFO* dest, const S_SURFACEINFO* src) {
+    if (dest && src) {
+        dest->p_surface = src->p_surface;
+        dest->width = src->width;
+        dest->height = src->height;
+        dest->pitch = src->pitch;
+    }
+}
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __PLATFORM_H__ */

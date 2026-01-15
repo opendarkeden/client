@@ -2460,13 +2460,13 @@ bool C_VS_UI_TRIBE::MouseControl(UINT message, int _x, int _y)
 					wsprintf(szTemp,"%d",(goal_exp-g_char_slot_ingame.EXP_REMAIN)*100/max(1, (goal_exp)));
 					
 					temp[1] = szTemp;
-					for(i = 3; i <= 13; i += 4)
+					for(int i = 3; i <= 13; i += 4)
 					{
 						if(temp[1].size() > i)temp[1].insert(temp[1].size()-i, ",");
 					}
 //					wsprintf(szTemp,"%d",LeftExp);
 //					temp[2] = szTemp;
-//					for(i = 3; i <= 13; i += 4)
+//					for(int i = 3; i <= 13; i += 4)
 //					{
 //						if(temp[2].size() > i)temp[2].insert(temp[2].size()-i, ",");
 //					}
@@ -8227,7 +8227,7 @@ void C_VS_UI_INVENTORY::Show()
 			
 			std::string sstr = money_buf;
 			
-			for(i = 3; i <= 13; i += 4)
+			for(int i = 3; i <= 13; i += 4)
 				if(sstr.size() > i)sstr.insert(sstr.size()-i, ",");
 			
 			WriteLogLine(__LINE__);
@@ -13989,7 +13989,7 @@ bool	C_VS_UI_INFO::CharacterInfoMouseControl(UINT message, int _x, int _y)
 				// 숫자사이에 ,넣기
 				wsprintf(temp, "%d", num2);
 				std::string sstr2 = temp;
-				for(i = 3; i <= 13; i += 4)
+				for(int i = 3; i <= 13; i += 4)
 				{
 					if(sstr2.size() > i)sstr2.insert(sstr2.size()-i, ",");
 				}
@@ -14276,7 +14276,7 @@ grade :			str[2]=NULL;
 				const __int64 goal_exp = g_pExperienceTable->GetVampireInfo(g_char_slot_ingame.level).GoalExp;
 				wsprintf(szTemp,"%d", (goal_exp - g_char_slot_ingame.EXP_REMAIN)*100/max(1, (goal_exp)));
 				temp[1] = szTemp;
-				for(i = 3; i <= 13; i += 4)
+				for(int i = 3; i <= 13; i += 4)
 					if(temp[1].size() > i)temp[1].insert(temp[1].size()-i, ",");
 				wsprintf(temp_str[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EXP_DESCRIPTION_NEW].GetString(), temp[0].c_str(), temp[1].c_str());
 				int fame = g_pFameInfoTable->GetFameForLevel( SKILLDOMAIN_VAMPIRE, g_char_slot_ingame.level );
@@ -14479,7 +14479,7 @@ grade :			str[2]=NULL;
 					const __int64 goal_exp = g_pExperienceTable->GetOustersInfo(g_char_slot_ingame.level).GoalExp;
 					wsprintf(szTemp,"%d", (goal_exp - g_char_slot_ingame.EXP_REMAIN)*100/max(1, (goal_exp)));
 					temp[1] = szTemp;
-					for(i = 3; i <= 13; i += 4)
+					for(int i = 3; i <= 13; i += 4)
 						if(temp[1].size() > i)temp[1].insert(temp[1].size()-i, ",");
 					wsprintf(temp_str[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EXP_DESCRIPTION_NEW].GetString(), temp[0].c_str(), temp[1].c_str());
 					int fame = g_pFameInfoTable->GetFameForLevel( SKILLDOMAIN_OUSTERS, g_char_slot_ingame.level );
@@ -14707,13 +14707,13 @@ bool	C_VS_UI_INFO::SkillInfoMouseControl(UINT message, int _x, int _y)
 							// 숫자사이에 ,넣기
 							wsprintf(sz_temp, "%d", exp_remain);
 							sstr = sz_temp;
-							for(i = 3; i <= 13; i += 4)
+							for(int i = 3; i <= 13; i += 4)
 								if(sstr.size() > i)sstr.insert(sstr.size()-i, ",");
 								
 								const __int64 goal_exp = (*g_pSkillManager)[m_skill_domain].GetExpInfo(level).GoalExp;
 								wsprintf(sz_temp, "%d", (goal_exp - exp_remain)*100/max(1, (goal_exp)));
 								std::string sstr2 = sz_temp;
-								for(i = 3; i <= 13; i += 4)
+								for(int i = 3; i <= 13; i += 4)
 									if(sstr2.size() > i)sstr2.insert(sstr2.size()-i, ",");
 									
 									wsprintf(temp_str[0], (*g_pGameStringTable)[UI_STRING_MESSAGE_HPBAR_EXP_DESCRIPTION_NEW].GetString(), sstr.c_str(), sstr2.c_str());
@@ -26628,7 +26628,7 @@ void C_VS_UI_TEAM_INFO::Show()
 			// 숫자사이에 ,넣기
 			wsprintf(sz_string, "%d", m_ready_info.REG_FEE);
 			std::string sstr = sz_string;
-			for(i = 3; i <= 13; i += 4)
+			for(int i = 3; i <= 13; i += 4)
 				if(sstr.size() > i)sstr.insert(sstr.size()-i, ",");
 				
 				wsprintf(sz_string, (*g_pGameStringTable)[UI_STRING_MESSAGE_TEAM_INFO_REG_FEE].GetString(), sstr.c_str());
@@ -30815,7 +30815,7 @@ void	C_VS_UI_BRING_FEE::Show()
 		wsprintf(money_buf, "%d", m_BringFee);
 		sstr = money_buf;
 		
-		for(i = 3; i <= 13; i += 4)
+		for(int i = 3; i <= 13; i += 4)
 			if(sstr.size() > i)
 				sstr.insert(sstr.size()-i, ",");
 			

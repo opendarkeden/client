@@ -115,8 +115,8 @@ void C_VS_UI_DESC::ShowDesc(int x, int y)
 					RECT rt;
 					rt.left = max(-(m_desc_x+x), rect.x);
 					rt.top = max(-(m_desc_y + blt_y+y), rect.y);
-					rt.right = std::min((int)(rect.x+rect.w), (int)g_GameRect.right-m_desc_x);
-					rt.bottom = std::min((int)(rect.y+rect.h), (int)g_GameRect.bottom-(m_desc_y + blt_y));
+					rt.right = min((int)(rect.x+rect.w), (int)g_GameRect.right-m_desc_x);
+					rt.bottom = min((int)(rect.y+rect.h), (int)g_GameRect.bottom-(m_desc_y + blt_y));
 					
 					if(rt.left < rt.right && rt.top < rt.bottom)
 					{
