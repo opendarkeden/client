@@ -27,14 +27,16 @@ class CFramePack : public TArray<Type, TYPE_FRAMEID> {
 		CFramePack();
 		~CFramePack();
 
-		
 		//--------------------------------------------------------
 		// File I/O
 		//--------------------------------------------------------
-		bool		SaveToFile(class ofstream& packFile, class ofstream& indexFile);		
+		bool		SaveToFile(std::ofstream& packFile, std::ofstream& indexFile);
 
 	protected :
-
+		// Bring base class members into scope
+		using TArray<Type, TYPE_FRAMEID>::m_Size;
+		using TArray<Type, TYPE_FRAMEID>::m_pData;
+		using TArray<Type, TYPE_FRAMEID>::s_SIZEOF_SizeType;
 };
 
 
@@ -50,12 +52,12 @@ class CFramePack : public TArray<Type, TYPE_FRAMEID> {
 //
 //----------------------------------------------------------------------
 template <class Type>
-CFramePack<Type>::CFramePack<Type>()
+CFramePack<Type>::CFramePack()
 {
 }
 
 template <class Type>
-CFramePack<Type>::~CFramePack<Type>()
+CFramePack<Type>::~CFramePack()
 {
 }
 
@@ -73,7 +75,7 @@ CFramePack<Type>::~CFramePack<Type>()
 //----------------------------------------------------------------------
 template <class Type>
 bool
-CFramePack<Type>::SaveToFile(class ofstream& packFile, class ofstream& indexFile)
+CFramePack<Type>::SaveToFile(std::ofstream& packFile, std::ofstream& indexFile)
 {
 	//--------------------------------------------------
 	// Size저장 : 0이라도 개수는 저장한다.
@@ -107,7 +109,7 @@ CFramePack<Type>::SaveToFile(class ofstream& packFile, class ofstream& indexFile
 	//--------------------------------------------------
 	// index 저장
 	//--------------------------------------------------
-	for (i=0; i<m_Size; i++)
+	for (TYPE_FRAMEID i=0; i<m_Size; i++)
 	{
 		indexFile.write((const char*)&pIndex[i], 4);
 	}

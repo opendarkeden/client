@@ -130,6 +130,7 @@ typedef WORD			char_t;
 	typedef char*			LPTSTR;
 	typedef const wchar_t*	LPCWSTR;
 	typedef wchar_t*		LPWSTR;
+	typedef unsigned char*	LPBYTE;
 	typedef intptr_t		LPARAM;
 	typedef intptr_t		WPARAM;
 	typedef unsigned int		UINT;

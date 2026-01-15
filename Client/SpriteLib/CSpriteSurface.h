@@ -212,7 +212,7 @@ class CSpriteSurface {
 		void*				GetSurfacePointer();
 		int					GetWidth() const;
 		int					GetHeight() const;
-		bool				InitTextureSurface(int width, int height, void* pixels = NULL);
+		bool				InitTextureSurface(int width, int height, void* pixels = NULL, void* pixelFormat = NULL);
 
 	protected:
 		bool	ClippingRectToPoint(RECT*& pRect, POINT*& pPoint);

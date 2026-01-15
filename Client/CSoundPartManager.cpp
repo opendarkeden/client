@@ -16,16 +16,18 @@ CSoundPartManager::Release()
 	if (m_pData!=NULL)
 	{
 		for (int i=0; i<m_nPart; i++)
-		{		
+		{
 			if (m_pData[i]!=NULL)
 			{
+#ifdef PLATFORM_WINDOWS
 				m_pData[i]->Stop();
 				m_pData[i]->Release();
+#endif
 				m_pData[i] = NULL;
 			}
 		}
 	}
-	
+
 	//---------------------------------------------------
 	// base class release
 	//---------------------------------------------------
@@ -44,10 +46,12 @@ CSoundPartManager::Stop()
 	if (m_pData!=NULL)
 	{
 		for (int i=0; i<m_nPart; i++)
-		{		
+		{
 			if (m_pData[i]!=NULL)
 			{
-				m_pData[i]->Stop();				
+#ifdef PLATFORM_WINDOWS
+				m_pData[i]->Stop();
+#endif
 			}
 		}
 	}

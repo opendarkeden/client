@@ -33,7 +33,9 @@
 #include "SP.h"
 #include "FR.h"
 #include "VolumeLib.h"
+#ifdef PLATFORM_WINDOWS
 #include "WinLib.h"
+#endif
 
 
 #include "MZone.h"

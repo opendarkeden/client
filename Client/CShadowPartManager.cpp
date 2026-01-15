@@ -17,7 +17,7 @@
 //#define	new			DEBUG_NEW
 //#define	delete		DEBUG_DELETE
 
-extern bool FileOpenBinary(const char* filename, ifstream& fil);
+extern bool FileOpenBinary(const char* filename, std::ifstream& fil);
 
 extern bool		g_bZonePlayerInLarge;
 
@@ -76,7 +76,7 @@ CShadowPartManager::Init(const char* SSPKFilename, WORD partSize)
 	Release();
 	///*
 	// Index File을 Load한다.
-	ifstream indexFile;//(indexFilename, ios::binary);
+	std::ifstream indexFile;//(indexFilename, ios::binary);
 //	if (!FileOpenBinary(indexFilename, indexFile))
 //		return;
 //
@@ -480,7 +480,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 				}
 			#endif
 
-			return false;
+			return NULL;
 		}
 		
 		#ifdef OUTPUT_DEBUG
@@ -524,7 +524,7 @@ CShadowPartManager::GetTexture(TYPE_SPRITEID id)
 		if (!pTextureSurface->Lock())
 		{
 			delete pTextureSurface;
-			return false;
+			return NULL;
 		}
 			/*
 		DDSURFACEDESC2 ddsd;

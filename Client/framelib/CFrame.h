@@ -26,8 +26,8 @@
 #else
 #include "../../basic/Platform.h"
 #endif
-class ofstream;
-class ifstream;
+std::ofstream;
+std::ifstream;
 #include "DrawTypeDef.h"
 #include "TArray.h"
 
@@ -56,8 +56,8 @@ class CFrame {
 		//---------------------------------------------------------------
 		// file I/O
 		//---------------------------------------------------------------
-		void	SaveToFile(class ofstream& file);
-		void	LoadFromFile(class ifstream& file);
+		void	SaveToFile(std::ofstream& file);
+		void	LoadFromFile(std::ifstream& file);
 
 		//---------------------------------------------------------------
 		// get		
@@ -123,8 +123,8 @@ class CEffectFrame : public CFrame {
 		//---------------------------------------------------------------
 		// File I/O
 		//---------------------------------------------------------------
-		void	SaveToFile(class ofstream& file);
-		void	LoadFromFile(class ifstream& file);
+		void	SaveToFile(std::ofstream& file);
+		void	LoadFromFile(std::ifstream& file);
 
 		// Get
 		char	GetLight() const		{ return m_Light; }		

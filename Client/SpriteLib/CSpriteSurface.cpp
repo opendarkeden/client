@@ -13755,10 +13755,11 @@ int CSpriteSurface::GetHeight() const
 #endif
 }
 
-bool CSpriteSurface::InitTextureSurface(int width, int height, void* pixels)
+bool CSpriteSurface::InitTextureSurface(int width, int height, void* pixels, void* pixelFormat)
 {
 #ifdef SPRITELIB_BACKEND_SDL
 	(void)pixels;
+	(void)pixelFormat;  // Store for future use if needed
 	// Create or resize the surface
 	if (m_backend_surface) {
 		spritectl_surface_release(m_backend_surface);
@@ -13771,7 +13772,7 @@ bool CSpriteSurface::InitTextureSurface(int width, int height, void* pixels)
 	m_height = height;
 	return true;
 #else
-	(void)width; (void)height; (void)pixels;
+	(void)width; (void)height; (void)pixels; (void)pixelFormat;
 	return false;
 #endif
 }
