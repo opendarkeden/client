@@ -19,6 +19,12 @@ APICheck::~APICheck()
 
 }
 
+#ifdef PLATFORM_WINDOWS
+
+#include <Windows.h>
+#include <process.h>
+#include <cstring>
+
 BOOL APICheck::GetWsAddr()
 {
 
@@ -53,15 +59,15 @@ BOOL APICheck::CheckApi()
 		ExitProcess(0);
 // 		hProc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, GetCurrentProcessId());
 //         bOK = ::VirtualProtectEx  ( hProc,
-// 				        			(LPVOID)m_hsend, 
-// 						        	5, 
-// 							        PAGE_READWRITE,
-// 							        &dwIdOld);
+// 				        			(LPVOID)m_hsend,
+// 						        	5,
+// 						        PAGE_READWRITE,
+// 						        &dwIdOld);
 //        bOK = ::WriteProcessMemory( hProc,
-// 					        		(LPVOID)m_hsend, 
-// 							        m_bSaveSend, 
-// 							        5,
-// 									NULL);
+// 					        		(LPVOID)m_hsend,
+// 						        m_bSaveSend,
+// 						        5,
+// 								NULL);
 // 	   CloseHandle(hProc);
 	}
 	memcpy(&btemp[0],m_hrecv,1);
@@ -70,15 +76,15 @@ BOOL APICheck::CheckApi()
 		ExitProcess(0);
 // 		hProc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, GetCurrentProcessId());
 //         bOK = ::VirtualProtectEx  ( hProc,
-// 				        			(LPVOID)m_hrecv, 
-// 						        	5, 
-// 							        PAGE_READWRITE,
-// 							        &dwIdOld);
+// 				        			(LPVOID)m_hrecv,
+// 						        	5,
+// 						        PAGE_READWRITE,
+// 						        &dwIdOld);
 //        bOK = ::WriteProcessMemory( hProc,
-// 					        		(LPVOID)m_hrecv, 
-// 							        m_bSaveRecv, 
-// 							        5,
-// 									NULL);
+// 					        		(LPVOID)m_hrecv,
+// 						        m_bSaveRecv,
+// 						        5,
+// 								NULL);
 // 	   CloseHandle(hProc);
 	}
 	int		checklen=37;
@@ -116,11 +122,32 @@ BOOL APICheck::CheckApi()
 	{
 		g_ppProceAddress[i]= (DWORD)GetProcAddress(LoadLibrary(g_szCheckDLL[i*2]),g_szCheckDLL[i*2+1]);
 		memcpy(&code,&g_ppProceAddress[i],1);
-		if (code == 0xB9 || code == 0xE9)   // Èç¹ûÓÐ½ø³Ì
+		if (code == 0xB9 || code == 0xE9)   // í•´í‚¹æ£€æµ‹
 		{
 			::ExitProcess(0);
 		}
 	}
-	
+
 	return true;
 }
+
+#else
+// Non-Windows platforms: WinSock/API check not applicable
+#include <cstring>
+
+BOOL APICheck::GetWsAddr()
+{
+	return FALSE;
+}
+
+BOOL APICheck::CheckApi()
+{
+	return FALSE;
+}
+
+void APICheck::init()
+{
+	// Empty on non-Windows
+}
+
+#endif

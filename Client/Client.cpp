@@ -43,7 +43,11 @@ APICheck _APICheck;
 //-----------------------------------------------------------------------------
 // Include files
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <stdio.h>
 #include <stdarg.h>
 #include <io.h>

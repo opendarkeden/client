@@ -1,24 +1,31 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : SystemTypes.h
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SYSTEM_TYPES_H__
 #define __SYSTEM_TYPES_H__
-//#define __WINDOWS__
-	#pragma warning ( disable : 4786 )
+
+/* Platform detection */
+#if defined(_WIN32) || defined(_WIN64)
+	#ifndef PLATFORM_WINDOWS
+		#define PLATFORM_WINDOWS
+	#endif
+#elif defined(__APPLE__)
+	#define PLATFORM_MACOS
+#elif defined(__linux__)
+	#define PLATFORM_LINUX
+#endif
+
+#ifdef PLATFORM_WINDOWS
 	#include <Windows.h>
-#if defined(__WINDOWS__)
-	// 4786 - STL의 심볼명의 길이가 255를 넘어갈 때
-	#pragma warning ( disable : 4786 )
-	#include <Windows.h>
-#elif defined(__LINUX__)
+#elif defined(__LINUX__) || defined(PLATFORM_MACOS)
 	#include <sys/types.h>
-#endif#endif
- 
+#endif
+
 #include <iostream>
-#include <fstream.h>
+#include <fstream>
 #include <string>
 
 //using namespace std;
@@ -32,16 +39,18 @@ typedef unsigned short ushort;
 typedef unsigned int uint;
 typedef unsigned long ulong;
 
-#if defined(__LINUX__) || defined(__WIN_CONSOLE__)
+#if defined(__LINUX__) || defined(__WIN_CONSOLE__) || defined(PLATFORM_MACOS)
 	typedef unsigned char  BYTE;
 	typedef unsigned short WORD;
 	typedef unsigned long DWORD;
 	typedef unsigned long long ulonglong;
-#else
+#elif defined(_MSC_VER) /* MSVC compiler */
 	typedef unsigned __int64 ulonglong;
+#else
+	typedef unsigned long long ulonglong;
 #endif
 
-#if defined(__LINUX__)
+#if defined(__LINUX__) || defined(PLATFORM_MACOS)
 	const char separatorChar = '/';
 	const std::string separator = "/";
 #elif defined(__WINDOWS__)
@@ -86,7 +95,7 @@ const uint szUserNum = sizeof(UserNum_t);
 //////////////////////////////////////////////////////////////////////////////
 // SubServerInfo
 //////////////////////////////////////////////////////////////////////////////
-enum ServerStatus 
+enum ServerStatus
 {
 	SERVER_FREE,
 	SERVER_NORMAL,
@@ -99,7 +108,7 @@ enum ServerStatus
 enum WorldStatus
 {
 	WORLD_OPEN,
-	WORLD_CLOSE	
+	WORLD_CLOSE
 };
 
 typedef unsigned long IP_t;

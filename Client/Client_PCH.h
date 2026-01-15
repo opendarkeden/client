@@ -31,8 +31,8 @@ typedef long LONG;
 
 /* RECT definition for non-Windows platforms */
 #ifndef PLATFORM_WINDOWS
-#ifndef tagRECT_defined
-#define tagRECT_defined
+#ifndef RECT_DEFINED
+#define RECT_DEFINED
 typedef struct tagRECT {
 	LONG left;
 	LONG top;
@@ -42,16 +42,22 @@ typedef struct tagRECT {
 #endif
 
 /* POINT definition */
+#ifndef POINT_DEFINED
+#define POINT_DEFINED
 typedef struct tagPOINT {
 	LONG x;
 	LONG y;
 } POINT, *PPOINT, *LPPOINT;
+#endif
 
 /* SIZE definition */
+#ifndef SIZE_DEFINED
+#define SIZE_DEFINED
 typedef struct tagSIZE {
 	LONG cx;
 	LONG cy;
 } SIZE, *PSIZE, *LPSIZE;
+#endif
 
 #endif /* PLATFORM_WINDOWS */
 

@@ -9,7 +9,11 @@
 #define __UPDATE_DEF_H__
 
 #include "Types.h"
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 
 //--------------------------------------------------------------------------------
 //

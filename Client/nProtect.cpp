@@ -9,7 +9,11 @@
 
 #pragma warning(disable:4786)
 
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <process.h>
 #include "nProtect.h"
 #include "DebugInfo.h"

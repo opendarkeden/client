@@ -21,7 +21,11 @@
 #ifndef	__MANIMATIONOBJECT_H__
 #define	__MANIMATIONOBJECT_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 class ofstream;
 class ifstream;
 #include "MTypeDef.h"

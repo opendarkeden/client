@@ -20,7 +20,7 @@ APPEND_PATCH_NODE::Append(const char* orgFilename) const
 	//-------------------------------------------------------------
 	// append화일 체크..
 	//-------------------------------------------------------------
-	class ifstream appendFile(appendFilename.GetString(), ios::binary | ios::nocreate);		
+	std::ifstream appendFile(appendFilename.GetString(), std::ios::binary );		
 
 	int n;
 	char buffer[4096];
@@ -39,7 +39,7 @@ APPEND_PATCH_NODE::Append(const char* orgFilename) const
 			SetProgressBarText("패치 화일을 적용시키고 있습니다.");
 		#endif
 
-		class fstream orgFile(orgFilename, ios::binary | ios::ate | ios::in | ios::out);
+		std::fstream orgFile(orgFilename, std::ios::binary | std::ios::ate | std::ios::in | std::ios::out);
 		
 		if (orgFile.is_open())
 		{
@@ -68,7 +68,7 @@ APPEND_PATCH_NODE::Append(const char* orgFilename) const
 			appendFile.close();
 			
 			// 개수 변경
-			orgFile.seekp( 0, ios::beg );
+			orgFile.seekp( 0, std::ios::beg );
 			WORD afterNum = max(afterSpkSize, orgSpkSize);	// 큰 개수로 설정 - -;
 
 			orgFile.write((const char*)&afterSpkSize, 2);
@@ -90,7 +90,7 @@ APPEND_PATCH_NODE::Append(const char* orgFilename) const
 // Save To File
 //-----------------------------------------------------------------------------
 void		
-APPEND_PATCH_NODE::SaveToFile(class ofstream& file)
+APPEND_PATCH_NODE::SaveToFile(std::ofstream& file)
 {
 	appendFilename.SaveToFile( file );
 	file.write((const char*)&appendFilesize, 4);
@@ -104,7 +104,7 @@ APPEND_PATCH_NODE::SaveToFile(class ofstream& file)
 // Load From File
 //-----------------------------------------------------------------------------
 void		
-APPEND_PATCH_NODE::LoadFromFile(class ifstream& file)
+APPEND_PATCH_NODE::LoadFromFile(std::ifstream& file)
 {
 	appendFilename.LoadFromFile( file );
 	file.read((char*)&appendFilesize, 4);
@@ -188,7 +188,7 @@ AppendPatch::SetFinalInfo(long finalFilesize, WORD finalSpkSize)
 bool		
 AppendPatch::SetFinalInfo(const char* currentFilename)
 {
-	class ifstream file(currentFilename, ios::binary | ios::nocreate);
+	std::ifstream file(currentFilename, std::ios::binary );
 
 	if (!file.is_open())
 	{
@@ -197,7 +197,7 @@ AppendPatch::SetFinalInfo(const char* currentFilename)
 
 	// appSpkSize - Pack 개수
 	file.read((char*)&m_finalSpkSize, 2);
-	file.seekg( 0, ios::end );
+	file.seekg( 0, std::ios::end );
 
 	// appendFilesize - AppendPack 크기
 	m_finalFilesize = file.tellg();	
@@ -263,7 +263,7 @@ AppendPatch::AddAppendInfo(const char* currentFilename)
 	long appendFilesize;
 	WORD appSpkSize;
 
-	class ifstream file(currentFilename, ios::binary | ios::nocreate);
+	std::ifstream file(currentFilename, std::ios::binary );
 
 	if (!file.is_open())
 	{
@@ -272,7 +272,7 @@ AppendPatch::AddAppendInfo(const char* currentFilename)
 
 	// appSpkSize - Pack 개수
 	file.read((char*)&appSpkSize, 2);
-	file.seekg( 0, ios::end );
+	file.seekg( 0, std::ios::end );
 
 	// appendFilesize - AppendPack 크기
 	appendFilesize = file.tellg();
@@ -292,7 +292,7 @@ AppendPatch::AddAppendInfo(const char* currentFilename)
 		*(pBS+1) = '\0';		// 'Data\\Image\\' 까지
 	}
 
-	pBS = strrchr(currentFilename, '\\');	// '\\NewXX.spk'
+	pBS = (char*)strrchr(currentFilename, '\\');	// '\\NewXX.spk'
 	if (pBS==NULL)
 	{
 		strcat(appendFilename, currentFilename);
@@ -367,7 +367,7 @@ AppendPatch::ExecutePatch() const
 bool
 AppendPatch::CheckFinalInfo() const
 {
-	class ifstream orgFile(m_orgFilename.GetString(), ios::binary | ios::nocreate);
+	std::ifstream orgFile(m_orgFilename.GetString(), std::ios::binary );
 		
 	if (orgFile.is_open())
 	{
@@ -379,7 +379,7 @@ AppendPatch::CheckFinalInfo() const
 			return false;
 		}
 
-		orgFile.seekg( 0, ios::end );
+		orgFile.seekg( 0, std::ios::end );
 		long fpEnd = orgFile.tellg();
 
 		if (fpEnd != m_finalFilesize)
@@ -429,7 +429,7 @@ AppendPatch::CalculateFinalInfo() const
 // Save To File
 //-----------------------------------------------------------------------------
 void		
-AppendPatch::SaveToFile(class ofstream& file)
+AppendPatch::SaveToFile(std::ofstream& file)
 {	
 	m_orgFilename.SaveToFile( file );
 	file.write((const char*)&m_orgFilesize, 4);
@@ -456,7 +456,7 @@ AppendPatch::SaveToFile(class ofstream& file)
 // Load From File
 //-----------------------------------------------------------------------------
 void		
-AppendPatch::LoadFromFile(class ifstream& file)
+AppendPatch::LoadFromFile(std::ifstream& file)
 {
 	Release();
 

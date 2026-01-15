@@ -6,6 +6,11 @@ CAVI::CAVI()
 	bEndFlag=0;
 }
 
+#ifdef PLATFORM_WINDOWS
+
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib, "winmm.lib")
 
 int CAVI::OpenMPG(HWND hwnd, LPSTR szName, int w, int h)
 {
@@ -17,8 +22,8 @@ int CAVI::OpenMPG(HWND hwnd, LPSTR szName, int w, int h)
 	MciDgvOpenParms.lpstrElementName=szName;
 
 	if(mciSendCommand(NULL, MCI_OPEN,
-					  MCI_OPEN_ELEMENT | 
-					  MCI_OPEN_TYPE | 
+					  MCI_OPEN_ELEMENT |
+					  MCI_OPEN_TYPE |
 					  MCI_DGV_OPEN_WS,
 					  (DWORD)&MciDgvOpenParms))
 	{
@@ -27,9 +32,9 @@ int CAVI::OpenMPG(HWND hwnd, LPSTR szName, int w, int h)
 	}
 	dwID = MciDgvOpenParms.wDeviceID;
 
-	// À§Ä¡ ¼³Á¤
+	// ìœ„ì¹˜ ì¡°ì •
 	MCI_DGV_RECT_PARMS MciDgvRectParms;
-	// Áß°£À¸·Î
+	// ì¶”ê°€ì •ë³´
 	RECT Rect;
 	GetClientRect(hwnd, &Rect);
 	int x = (Rect.right - w) / 2;
@@ -63,8 +68,8 @@ int CAVI::OpenAVI(HWND hwnd, LPSTR szName, int w, int h)
 	MciDgvOpenParms.lpstrElementName=szName;
 
 	if(mciSendCommand(NULL, MCI_OPEN,
-					  MCI_OPEN_ELEMENT | 
-					  MCI_OPEN_TYPE | 
+					  MCI_OPEN_ELEMENT |
+					  MCI_OPEN_TYPE |
 					  MCI_DGV_OPEN_WS,
 					  (DWORD)&MciDgvOpenParms))
 	{
@@ -73,9 +78,9 @@ int CAVI::OpenAVI(HWND hwnd, LPSTR szName, int w, int h)
 	}
 	dwID = MciDgvOpenParms.wDeviceID;
 
-	// À§Ä¡ ¼³Á¤
+	// ìœ„ì¹˜ ì¡°ì •
 	MCI_DGV_RECT_PARMS MciDgvRectParms;
-	// Áß°£À¸·Î
+	// ì¶”ê°€ì •ë³´
 	RECT Rect;
 	GetClientRect(hwnd, &Rect);
 	int x = (Rect.right - w) / 2;
@@ -116,7 +121,7 @@ int CAVI::Play()
 
 	MCI_PLAY_PARMS MciPlayParms;
 	MciPlayParms.dwCallback=(DWORD)hwnd;
-	mciSendCommand(dwID, MCI_PLAY, MCI_NOTIFY, 
+	mciSendCommand(dwID, MCI_PLAY, MCI_NOTIFY,
 				   (DWORD)&MciPlayParms);
 
 	return TRUE;
@@ -130,3 +135,12 @@ void CAVI::Stop()
 		mciSendCommand(dwID, MCI_STOP, MCI_WAIT,(DWORD)&MciPlayParms);
 	}
 }
+
+#else
+// Non-Windows platforms: Video playback not implemented
+int CAVI::OpenMPG(HWND hwnd, LPSTR szName, int w, int h) { return FALSE; }
+int CAVI::OpenAVI(HWND hwnd, LPSTR szName, int w, int h) { return FALSE; }
+void CAVI::Close() {}
+int CAVI::Play() { return FALSE; }
+void CAVI::Stop() {}
+#endif

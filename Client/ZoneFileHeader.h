@@ -5,7 +5,11 @@
 #ifndef	__ZONEFILEHEADER_H__
 #define	__ZONEFILEHEADER_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "MString.h"
 #include "MZoneDef.h"
 class ifstream;

@@ -109,7 +109,7 @@ private :
 	uint m_Head;
 	uint m_Tail;
 	// ·â°üĞòÁĞ
-	byte m_Sequence;
+	BYTE m_Sequence;
 //add by viva 2008-12-31
 public :
 	WORD m_EncryptKey;

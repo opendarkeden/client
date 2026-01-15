@@ -23,15 +23,57 @@
 #else
 	/* Non-Windows platform: Use stub types */
 	#include "../basic/Platform.h"
+	#include <cstring>
+
+	/* Basic type definitions if not already defined */
+	#ifndef LONG_DEFINED
+	#define LONG_DEFINED
+	typedef long LONG;
+	#endif
+
+	#ifndef LPVOID_DEFINED
+	#define LPVOID_DEFINED
+	typedef void* LPVOID;
+	#endif
+
+	/* Forward declarations */
+	typedef struct tagPIXELFORMAT* LPDDPIXELFORMAT;
 
 	/* Forward declarations for DirectDraw types */
 	typedef struct IDirectDraw* LPDIRECTDRAW7;
 	typedef struct IDirectDrawSurface* LPDIRECTDRAWSURFACE7;
 	typedef struct IDirectDrawGammaControl* LPDIRECTDRAWGAMMACONTROL;
 
+	/* DDPIXELFORMAT structure - must be defined before DDSURFACEDESC2 */
+	typedef struct tagPIXELFORMAT {
+		DWORD dwSize;
+		DWORD dwFlags;
+		DWORD dwFourCC;
+		DWORD dwRGBBitCount;
+		DWORD dwRBitMask;
+		DWORD dwGBitMask;
+		DWORD dwBBitMask;
+		DWORD dwRGBAlphaBitMask;
+	} DDPIXELFORMAT, *LPDDPIXELFORMAT;
+
+	/* DDSCAPS2 structure */
+	typedef struct {
+		DWORD dwCaps;
+		DWORD dwCaps2;
+		DWORD dwCaps3;
+		DWORD dwCaps4;
+		DWORD dwVolumeDepth;
+	} DDSCAPS2;
+
 	typedef struct {
 		DWORD dwSize;
-		/* Other fields omitted for stub */
+		DWORD dwFlags;
+		DWORD dwHeight;
+		DWORD dwWidth;
+		LPVOID lpSurface;
+		DDPIXELFORMAT ddpfPixelFormat;
+		DDSCAPS2 ddsCaps;
+		LONG lPitch;
 	} DDSURFACEDESC2;
 
 	typedef struct {
@@ -40,9 +82,60 @@
 		WORD blue[256];
 	} DDGAMMARAMP;
 
+	/* Common Windows types - define if not already defined */
+	#ifndef RECT_DEFINED
+	#define RECT_DEFINED
+	typedef struct tagRECT {
+		LONG left;
+		LONG top;
+		LONG right;
+		LONG bottom;
+	} RECT, *PRECT, *LPRECT;
+	#endif
+
+	#ifndef POINT_DEFINED
+	#define POINT_DEFINED
+	typedef struct tagPOINT {
+		LONG x;
+		LONG y;
+	} POINT, *PPOINT, *LPPOINT;
+	#endif
+
+	#ifndef COLORREF_DEFINED
+	#define COLORREF_DEFINED
+	typedef DWORD COLORREF;
+	#endif
+
+	#ifndef SIZE_DEFINED
+	#define SIZE_DEFINED
+	typedef struct tagSIZE {
+		LONG cx;
+		LONG cy;
+	} SIZE, *PSIZE, *LPSIZE;
+	#endif
+
 	/* Use uint64_t for QWORD on non-Windows */
 	#include <cstdint>
 	typedef uint64_t QWORD;
+
+	/* DirectDraw constants */
+	#define DDSD_CAPS 0x00000001
+	#define DDSD_HEIGHT 0x00000002
+	#define DDSD_WIDTH 0x00000004
+	#define DDSD_PITCH 0x00000008
+	#define DDSD_PIXELFORMAT 0x00001000
+	#define DDSD_LPSURFACE 0x00000800
+
+	/* GDI types */
+	#ifndef HBITMAP_DEFINED
+	#define HBITMAP_DEFINED
+	typedef void* HBITMAP;
+	#endif
+
+	/* Memory utilities */
+	#ifndef ZeroMemory
+	#define ZeroMemory(p, s) memset((p), 0, (s))
+	#endif
 
 	#define DDSCL_FULLSCREEN 0
 	#define DDSCL_EXCLUSIVE 0

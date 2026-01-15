@@ -7,7 +7,11 @@
 #ifndef	__MSTATUS_H__
 #define	__MSTATUS_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "Packet\Types\ModifyDef.h"
 
 class MStatus {

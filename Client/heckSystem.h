@@ -1,7 +1,11 @@
 // heckSystem.h: interface for the CheckSystem class.
 //
 //////////////////////////////////////////////////////////////////////
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 
 
 class CheckSystem  

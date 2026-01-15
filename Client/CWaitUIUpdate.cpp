@@ -9,7 +9,11 @@
 //-----------------------------------------------------------------------------
 // Include files
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <MMSystem.h>
 #include <string>
 #include "Client.h"

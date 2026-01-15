@@ -11,7 +11,11 @@
 
 #define NUM_PLAY_NOTIFICATIONS  16
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <DSound.h>
 
 class CDirectSoundStream {

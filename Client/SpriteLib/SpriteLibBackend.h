@@ -28,8 +28,8 @@ typedef long LONG;
 #endif
 
 /* Only define if not already defined (e.g., by client_PCH.h) */
-#ifndef tagRECT_defined
-#define tagRECT_defined
+#ifndef RECT_DEFINED
+#define RECT_DEFINED
 typedef struct tagRECT {
 	LONG left;
 	LONG top;

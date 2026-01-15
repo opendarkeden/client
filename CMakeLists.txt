@@ -41,6 +41,48 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	add_subdirectory(examples)
 endif()
 
+# Dark Eden Client Executable
+if(USE_SDL_BACKEND OR NOT WIN32)
+	# Collect all Client source files
+	file(GLOB_RECURSE CLIENT_SOURCES
+		Client/*.cpp
+		Client/*.h
+	)
+
+	# Add DarkEden executable
+	add_executable(DarkEden ${CLIENT_SOURCES})
+
+	# Set output directory
+	set_target_properties(DarkEden PROPERTIES
+		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+	)
+
+	# Link libraries
+	target_link_libraries(DarkEden PRIVATE
+		SpriteLib
+		dxlib
+		basic
+		${SDL2_LIBRARIES}
+	)
+
+	# Include directories
+	target_include_directories(DarkEden PRIVATE
+		${CMAKE_CURRENT_SOURCE_DIR}
+		${CMAKE_CURRENT_SOURCE_DIR}/Client
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/Packet
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/framelib
+		${SDL2_INCLUDE_DIRS}
+	)
+
+	# Compile definitions
+	target_compile_definitions(DarkEden PRIVATE
+		USE_SDL_BACKEND
+		SPRITELIB_BACKEND_SDL
+	)
+
+	message(STATUS "DarkEden executable will be built from ${CLIENT_SOURCES_COUNT} source files")
+endif()
+
 # Print configuration summary
 message(STATUS "")
 message(STATUS "=== Dark Eden Client Configuration ===")

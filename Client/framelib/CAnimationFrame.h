@@ -22,7 +22,11 @@
 #ifndef	__CANIMATIONFRAME_H__
 #define	__CANIMATIONFRAME_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "DrawTypeDef.h"
 class ofstream;
 class ifstream;

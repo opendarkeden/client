@@ -7,7 +7,11 @@
 #ifndef	__TEMPINFORMATION_H__
 #define	__TEMPINFORMATION_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 
 class TempInformation {
 	public :

@@ -7,7 +7,11 @@
 #ifndef	__CWINUPDATE_H__
 #define	__CWINUPDATE_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <MMSystem.h>
 
 class CWinUpdate {

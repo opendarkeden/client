@@ -15,7 +15,11 @@
 				채워진다.
 *********************************************************************/
 #include "Client_PCH.h"
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <memory.h>
 #include "MemoryPool.h"
 

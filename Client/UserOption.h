@@ -7,7 +7,11 @@
 #ifndef	__USEROPTION_H__
 #define	__USEROPTION_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 
 class UserOption {
 	public :

@@ -1,6 +1,10 @@
 //#define NETMARBLE_DEBUG
 #include "Client_PCH.h"
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "Assert.h"
 #include "NMCrypt.h"
 #include "MString.h"

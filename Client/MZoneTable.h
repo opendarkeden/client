@@ -15,7 +15,11 @@
 #ifndef	__MZONETABLE_H__
 #define	__MZONETABLE_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "MTypeDef.h"
 #include "MString.h"
 #include <map>

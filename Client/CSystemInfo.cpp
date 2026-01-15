@@ -13,7 +13,11 @@
 								Hyper Thread Enable 여부
 *********************************************************************/
 #include "Client_PCH.h"
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "CSystemInfo.h"
 
 #pragma warning( disable : 4035 )		// disable 시켜버리자-_-;

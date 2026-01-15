@@ -10,7 +10,11 @@
 	purpose:	치명적인 오류가 발생했을때 로그를 남긴다.
 *********************************************************************/
 #include "Client_PCH.h"
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "CrashReport.h"
 #include <imagehlp.h>
 #include "Properties.h"

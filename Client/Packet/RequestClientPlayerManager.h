@@ -18,7 +18,11 @@
 
 #pragma warning(disable:4786)
 
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <list>
 #include <map>
 #include <string>

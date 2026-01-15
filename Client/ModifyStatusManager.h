@@ -5,7 +5,11 @@
 #ifndef __MODIFYSTATUSMANAGER_H__
 #define __MODIFYSTATUSMANAGER_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "MFunctionManager.h"
 
 class MODIFY_VALUE {

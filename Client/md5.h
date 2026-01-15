@@ -1,6 +1,10 @@
 ////////////////////////////////////////////////////////////////////
 ///md5.h this is the head of the class md5.
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <fstream.h>
 
 #ifndef __MD5CLASS__

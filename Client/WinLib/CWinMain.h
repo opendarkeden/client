@@ -82,7 +82,11 @@ WinMain(HINSTANCE hInstance,
 #ifndef	__CWINMAIN_H__
 #define	__CWINMAIN_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "CWinMainInfo.h"
 class CWinUpdate;
 

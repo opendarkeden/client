@@ -1,6 +1,10 @@
 #include "DirectXlib_Pch.h"
 #include "Client_PCH.h"
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "dxlib\CDirectSound.h"
 #include "CMP3.h"
 #include "DebugInfo.h"

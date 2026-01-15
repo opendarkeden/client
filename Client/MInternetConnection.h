@@ -20,7 +20,11 @@
 #ifndef __MINTERNET_CONNECTION_H__
 #define __MINTERNET_CONNECTION_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <WinINet.h>
 #include <fstream>
 

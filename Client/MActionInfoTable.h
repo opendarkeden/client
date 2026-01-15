@@ -107,7 +107,11 @@
 #ifndef	__MACTIONINFOTABLE_H__
 #define	__MACTIONINFOTABLE_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "MTypeDef.h"
 #include "DrawTypeDef.h"
 #include "MActionResultDef.h"

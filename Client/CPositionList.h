@@ -15,7 +15,11 @@
 #ifndef	__CPOSITIONLIST_H__
 #define	__CPOSITIONLIST_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <list>
 //#include <fstream.h>
 

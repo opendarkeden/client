@@ -5,7 +5,11 @@
 #ifndef __CLIENTFUNCTION_H__
 #define __CLIENTFUNCTION_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "MTypeDef.h"
 
 extern const char*	GetWhisperID();

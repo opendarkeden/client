@@ -14,9 +14,13 @@
 #include <deque>
 #include <bitset>
 #include <algorithm>
-#include <iostream.h>
-#include <fstream.h>
-#include <windows.h>
+#include <iostream>
+#include <fstream>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #pragma warning(pop)
 
 using std::string;

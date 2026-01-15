@@ -7,7 +7,11 @@
 #ifndef	__DRAWTEXTNODE_H__
 #define	__DRAWTEXTNODE_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 
 #define	FLAG_DRAWTEXT_OUTLINE			0x01	// ¿Ü°û¼±
 

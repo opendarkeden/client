@@ -16,7 +16,11 @@
 #include <algorithm>
 #include <iostream.h>
 #include <fstream.h>
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #pragma warning(pop)
 
 using std::string;

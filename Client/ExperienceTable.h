@@ -8,7 +8,11 @@
 #ifndef __EXPERIENCETABLE_H__
 #define __EXPERIENCETABLE_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "ExpInfo.h"
 #include "RaceType.h"
 class ifstream;

@@ -5,7 +5,11 @@
 #ifndef __PACKETFUNCTION_H__
 #define __PACKETFUNCTION_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "MTypeDef.h"
 //#include "SkillDef.h"
 #include "Packet\Types\PacketItemDef.h"

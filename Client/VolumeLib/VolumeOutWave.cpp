@@ -1,7 +1,11 @@
 // VolumeOutWave.cpp : Module interface implementation.
 // Developer : Alex Chmut
 // Created : 8/11/98
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <MMSystem.h>
 #include "VolumeOutWave.h"
 

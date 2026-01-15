@@ -7,7 +7,11 @@
 #ifndef __CLIENT_COMMUNICATION_MANAGER_H__
 #define __CLIENT_COMMUNICATION_MANAGER_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "Types.h"
 #include "Exception.h"
 #include "DatagramSocket.h"

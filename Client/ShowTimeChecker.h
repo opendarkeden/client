@@ -5,7 +5,11 @@
 #ifndef __SHOWTIMECHECKER_H__
 #define __SHOWTIMECHECKER_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 class ofstream;
 class ifstream;
 

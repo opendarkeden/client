@@ -5,7 +5,11 @@
 #ifndef __MONSTER_NAME_TABLE_H__
 #define	__MONSTER_NAME_TABLE_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include "MString.h"
 #include "CTypeTable.h"
 

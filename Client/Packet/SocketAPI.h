@@ -9,27 +9,39 @@
 #ifndef __SOCKET_API_H__
 #define __SOCKET_API_H__
 
+/* Platform detection */
+#if defined(_WIN32) || defined(_WIN64)
+	#ifndef PLATFORM_WINDOWS
+		#define PLATFORM_WINDOWS
+	#endif
+#elif defined(__APPLE__)
+	#define PLATFORM_MACOS
+#elif defined(__linux__)
+	#define PLATFORM_LINUX
+#endif
+
 // include files
 #include "Types.h"
 #include "Exception.h"
 
-#if __WINDOWS__
+#if defined(PLATFORM_WINDOWS)
 #include <WinSock.h>
-#elif __LINUX__
+#elif defined(PLATFORM_LINUX) || defined(PLATFORM_MACOS)
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 #endif
 
 
 //////////////////////////////////////////////////
 //
-// Windows¿¡¼­´Â SOCKET°ú INVALID_SOCKET¿¡ unsigned int¸¦
-// »ç¿ëÇÑ´Ù. ¸¸¾à Windows¶ó¸é WinSock.h¸¦ includeÇßÀ¸¹Ç·Î
-// SOCKET°ú INVALID_SOCKETÀÌ Á¤ÀÇµÇ¾î ÀÖ°Ô µÈ´Ù.
+// Windowsì—ì„œëŠ” SOCKETê³¼ INVALID_SOCKETì„ unsigned intìœ¼ë¡œ
+// ì •ì˜í•œë‹¤. ê·¸ëŸ¬ë‚˜ Windowsì—ì„œ WinSock.hë¥¼ includeí•˜ì§€ ì•Šìœ¼ë©´
+// SOCKETê³¼ INVALID_SOCKETì´ ì •ì˜ë˜ì–´ ìˆì§€ ì•Šë‹¤.
 //
 //////////////////////////////////////////////////
-#if __LINUX__
+#if defined(PLATFORM_LINUX) || defined(PLATFORM_MACOS)
 
 	typedef int SOCKET;
 	static const int INVALID_SOCKET = -1;

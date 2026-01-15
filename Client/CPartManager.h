@@ -70,7 +70,11 @@
 #ifndef	__CPARTMANAGER_H__
 #define	__CPARTMANAGER_H__
 
+#ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <list>
 #include "DebugInfo.h"
 

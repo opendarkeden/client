@@ -1,7 +1,11 @@
 #ifndef EXECRYPTOR_H
 #define EXECRYPTOR_H
 
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 
 // EXECryptor API v. 2.1.16
 

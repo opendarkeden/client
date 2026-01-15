@@ -7,7 +7,11 @@
 //    (C) Copyright 1995-1997 Microsoft Corp.  All rights reserved.
 //-----------------------------------------------------------------------------
 
-#include <windows.h>
+#ifdef PLATFORM_WINDOWS
+#include <Windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <windowsx.h>
 #include <ddraw.h>
 #include <dinput.h>
