@@ -18,6 +18,7 @@
 #include "Unicorn.h"
 #endif
 #include "SP.h"
+#include "../hangul/Fl2.h"  // For full PrintInfo definition
 #include "CSpriteSurface.h"
 //#include "VS_UI_Exception.h"
 #include "VS_UI_ui_result_receiver.h"

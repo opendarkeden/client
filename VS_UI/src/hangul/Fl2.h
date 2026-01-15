@@ -13,13 +13,27 @@
 
 #include "CI.h"
 #include <string>
+#ifdef PLATFORM_WINDOWS
 #include <ddraw.h>
+#endif
 
+// NOTE: Do not include SP.h here as it defines a stub PrintInfo that conflicts
+// with the full definition below. Files that need SP.h should include it separately.
+
+#ifdef PLATFORM_WINDOWS
 void	g_SetFL2Surface(LPDIRECTDRAWSURFACE7 surface);
 
 extern LPDIRECTDRAWSURFACE7	gpC_fl2_surface;
+#else
+void	g_SetFL2Surface(void* surface);
+extern void*	gpC_fl2_surface;
+#endif
+
 extern HDC gh_FL2_DC;
 
+// PrintInfo definition - skip if already defined in SP.h
+#ifndef PrintInfo_DEFINED
+#define PrintInfo_DEFINED
 struct PrintInfo
 {
 	HFONT		hfont;
@@ -28,6 +42,7 @@ struct PrintInfo
 	int		bk_mode;
 	UINT		text_align;
 };
+#endif
 
 //----------------------------------------------------------------------------
 // Public

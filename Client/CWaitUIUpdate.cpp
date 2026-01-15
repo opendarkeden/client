@@ -22,8 +22,8 @@
 #include "PacketDef.h"
 #include "VS_UI.h"
 #include "ServerInformation.h"
-#include "packet\cpackets\CLGetServerList.h"
-#include "packet\cpackets\CLChangeServer.h"
+#include "packet/cpackets/CLGetServerList.h"
+#include "packet/cpackets/CLChangeServer.h"
 #include "CWaitUIUpdate.h"
 #include "MTestDef.h"
 

@@ -4,7 +4,7 @@
 
 #include "VS_UI_Util.h"
 //#include "VS_UI_GameCommon.h"
-#include "RarFile.h"
+#include "../../RarFile.h"
 #include <vector>
 
 #ifndef _VS_UI_DESC_H_
@@ -48,13 +48,13 @@ protected:
 
 	std::string						m_desc_title;
 
-	// descriptionÀ» Ãâ·ÂÇÑ´Ù
+	// descriptionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 	void	ShowDesc(int x = 0, int y = 0);
 
-	// descriptionÀ» ºÒ·¯¿Â´Ù
+	// descriptionï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Â´ï¿½
 	bool	LoadDesc(const char *szFilename, int row, int col, bool bl_title = false, int CoreZapID = -1);
 	bool	LoadDescFromString(const char *szString, int row, int col, bool bl_title = false, int CoreZapID = -1);
-	// descriptionÀÇ Ãâ·ÂÁÂÇ¥¸¦ Á¤ÇÑ´Ù. 
+	// descriptionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½. 
 	void	SetDesc(int dx, int dy, COLORREF color = BLACK, PrintInfo &pi = gpC_base->m_desc_msg_pi)
 	{
 		m_desc_x = dx;

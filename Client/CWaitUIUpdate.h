@@ -7,7 +7,7 @@
 #ifndef	__CWAITUIUPDATE_H__
 #define	__CWaitUIUPDATE_H__
 
-#include "CWinUpdate.h"
+#include "WinLib/CWinUpdate.h"
 #include "CDirectInput.h"
 
 class CWaitUIUpdate : public CWinUpdate {

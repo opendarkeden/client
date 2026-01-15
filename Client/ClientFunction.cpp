@@ -6,6 +6,9 @@
 #include "SkillDef.h"
 #include "MItemOptionTable.h"
 
+// Forward declarations (common to all builds)
+extern RECT g_GameRect;
+
 #ifdef __GAME_CLIENT__
 	#include "MTopView.h"
 	#include "MInventory.h"
@@ -113,11 +116,16 @@ UnInitSound()
 			else		
 			{
 				// Replace됐으면 원래것을 메모리에서 지운다.
+#ifdef PLATFORM_WINDOWS
 				LPDIRECTSOUNDBUFFER pOld;
 				if (g_pSoundManager->SetData( soundID, pBuffer, pOld )!=0xFFFF)
 				{
 					pOld->Release();
 				}
+#else
+				// SDL backend: SetData manages buffer lifecycle internally
+				g_pSoundManager->SetData( soundID, pBuffer);
+#endif
 
 				// Play
 				g_DXSound.Play( pBuffer, false );				
@@ -421,6 +429,7 @@ DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 	#else
 		int reverseAlpha = 31-alpha;
 
+#ifdef PLATFORM_WINDOWS
 		WORD color;
 		//------------------------------------------------
 		// Lock 상태로 만든다.
@@ -464,6 +473,9 @@ DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 		{
 			gpC_base->m_p_DDSurface_back->Unlock();
 		}
+#else
+		// SDL backend: Alpha blending not implemented for editor builds
+#endif
 	#endif
 }
 

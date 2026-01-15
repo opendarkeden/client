@@ -12,11 +12,11 @@
 #include "Client_PCH.h"
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#include <imagehlp.h>
 #else
 #include "../../basic/Platform.h"
 #endif
 #include "CrashReport.h"
-#include <imagehlp.h>
 #include "Properties.h"
 #include "MCrashReportManager.h"
 #include "ServerInfo.h"
@@ -228,6 +228,7 @@ tSGMB pSGMB = NULL;
 
 extern BOOL GetWinVersion(char *szVersion);
 
+#ifdef PLATFORM_WINDOWS
 LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 {
 	if( g_pSocket != NULL )
@@ -291,15 +292,15 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 
 	int frameNum;
 	DWORD imageType = IMAGE_FILE_MACHINE_I386;
-	
+
 	HANDLE hThread;
 	HANDLE hSWProcess = GetCurrentProcess();
 	if(DuplicateHandle( hSWProcess, GetCurrentThread(), hSWProcess, &hThread, 0, false, DUPLICATE_SAME_ACCESS ) != 0)
 	{
-		
+
 		STACKFRAME64 s; // in/out stackframe
 		memset( &s, '\0', sizeof s );
-		
+
 		HINSTANCE hImagehlpDll = LoadLibrary( "dbghelp.dll" );
 		if ( hImagehlpDll != NULL )
 		{
@@ -313,7 +314,7 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 				s.AddrPC.Mode = AddrModeFlat;
 				s.AddrFrame.Offset = Context->Ebp;
 				s.AddrFrame.Mode = AddrModeFlat;
-				
+
 				for ( frameNum = 0; ; ++ frameNum )
 				{
 					if ( ! pSW( imageType, hSWProcess, hThread, &s, NULL, NULL, pSFTA, pSGMB, NULL ) )
@@ -326,7 +327,7 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 			}
 			FreeLibrary( hImagehlpDll );
 		}
-		
+
 		CloseHandle( hThread );
 	}
 	cr.SetCallStack(callStack.c_str());
@@ -335,6 +336,15 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 
 	return EXCEPTION_EXECUTE_HANDLER;
 }
+#else
+// Stub implementation for non-Windows platforms
+LONG __stdcall RecordExceptionInfo( void* pExp )
+{
+    // Crash reporting not implemented on non-Windows platforms
+    // Just return to continue execution
+    return 0;
+}
+#endif // PLATFORM_WINDOWS
 
 //void RecordExceptionInfo( unsigned int u, _EXCEPTION_POINTERS* pExp )
 //{

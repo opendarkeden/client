@@ -76,10 +76,16 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/header
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/widget
 		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/hangul
-		${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/Imm
 		${CMAKE_CURRENT_SOURCE_DIR}/game/vs_ui
 		${SDL2_INCLUDE_DIRS}
 	)
+
+	# Add Immersion library include path only on Windows
+	if(WIN32)
+		target_include_directories(DarkEden PRIVATE
+			${CMAKE_CURRENT_SOURCE_DIR}/VS_UI/src/Imm
+		)
+	endif()
 
 	# Compile definitions
 	target_compile_definitions(DarkEden PRIVATE

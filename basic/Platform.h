@@ -70,6 +70,9 @@ typedef unsigned char	BYTE;
 typedef unsigned short	WORD;
 typedef unsigned int	UINT;
 typedef unsigned long   DWORD;
+typedef unsigned long long DWORD64;
+typedef void*			PVOID;
+typedef void*			ADDRESS_MODE;
 
 /* Color type definitions */
 typedef DWORD			COLORREF;
@@ -121,6 +124,8 @@ typedef WORD			char_t;
 	typedef long			LONG;
 	typedef void*			LPVOID;
 	typedef void*			HWND;
+	typedef void*			HDC;
+	typedef void*			HFONT;
 	typedef void*			HINSTANCE;
 	typedef void*			HANDLE;
 	typedef DWORD			LPDWORD;

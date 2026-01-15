@@ -125,7 +125,9 @@ BYTE GetCreatureActionCountMax( const MCreature* pCreature, int action );
 
 #include "VS_UI.h" // KJTINC
 #include "VS_UI_Mouse_pointer.h"
+#ifdef PLATFORM_WINDOWS
 #include "CImm.h"
+#endif
 
 extern	DWORD	g_CurrentTime;
 extern	int		g_x;

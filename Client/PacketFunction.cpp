@@ -63,7 +63,9 @@
 //#include "MFileDef.h"
 #include "Properties.h"
 
+#ifdef PLATFORM_WINDOWS
 #include "CImm.h"
+#endif
 
 #include "DebugInfo.h"
 #include "MEventManager.h"

@@ -1,5 +1,5 @@
 // RarFile.h: interface for the CRarFile class.
-// Made by ¾¦°« 2001. 7. 24
+// Made by ï¿½ï¿½ï¿½ï¿½ 2001. 7. 24
 //////////////////////////////////////////////////////////////////////
 
 #ifndef _RAR_FILE_HEADER_
@@ -7,7 +7,11 @@
 
 #pragma warning(disable:4786)
 
+#ifdef PLATFORM_WINDOWS
 #include <windows.h>
+#else
+#include "../../basic/Platform.h"
+#endif
 #include <string>
 #include <vector>
 
@@ -67,31 +71,31 @@ private:
 	int m_size;
 
 public:
-	// »ý¼ºÀÚ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CRarFile();
 	CRarFile(const char *rar_filename, const char *pass);
 
-	// ¼Ò¸êÀÚ
+	// ï¿½Ò¸ï¿½ï¿½ï¿½
 	~CRarFile();
 
-	// ÀÐ¾î¿Â rarÀ» ÇØÁ¦ÇÑ´Ù.
+	// ï¿½Ð¾ï¿½ï¿½ rarï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	void Release();
 
-	// rarÆÄÀÏ ÀÌ¸§ & ÆÐ½º ¼¼ÆÃ
+	// rarï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ & ï¿½Ð½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	void SetRAR(const char *rar_filename, const char *pass);
 
-	// ÆÄÀÏ ¿­±â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	bool Open(const char *in_filename);
 
-	// ÆÄÀÏ¿¡¼­ ÀÐ±â
+	// ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½
 	char*	Read(char *buf, int size);
 	char*	Read(int size);
 	bool	GetString(char* buf, int size);
 
-	// ÆÄÀÏÀÌ ¿­·È³ª?
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½È³ï¿½?
 	bool	IsSet()	{ return (m_rar_filename !=""); }
 
-	//	ÆÄÀÏÀÇ ³¡ÀÌ¸é true else false
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ true else false
 	bool	IsEOF(int plus = 0);
 
 	std::vector<std::string> *GetList(char *filter = NULL);

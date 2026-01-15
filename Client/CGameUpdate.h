@@ -7,7 +7,7 @@
 #ifndef	__CGAMEUPDATE_H__
 #define	__CGAMEUPDATE_H__
 
-#include "CWinUpdate.h"
+#include "WinLib/CWinUpdate.h"
 #include "CDirectInput.h"
 
 class CGameUpdate : public CWinUpdate {

@@ -11,16 +11,16 @@
 #ifndef __VS_UI_WEBBROWSER_H__
 #define __VS_UI_WEBBROWSER_H__
 
+#ifdef PLATFORM_WINDOWS
 //#include <ddraw.h>
 #include "EXDISP.H"
 #include "ATLBASE.H"
-
 
 //-----------------------------------------------------------------------------
 // MWEBBROWSER
 //
 //-----------------------------------------------------------------------------
-class C_VS_UI_WEBBROWSER 
+class C_VS_UI_WEBBROWSER
 {
 public:
 	
@@ -46,5 +46,15 @@ public:
 //	IWebBrowser2* GetIWebBrowser2() {return m_pWebBrowser;}
 };
 
+#else
+// WebBrowser not available on non-Windows platforms
+class C_VS_UI_WEBBROWSER
+{
+public:
+    C_VS_UI_WEBBROWSER() {}
+    // Stub implementation - web browser features not available
+};
+
+#endif // PLATFORM_WINDOWS
 
 #endif

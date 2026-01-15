@@ -66,8 +66,8 @@ APICheck _APICheck;
 #include "VS_UI.h"
 #include "MMusic.h"
 #include "UIDialog.h"
-#include "UpdateManager.h"
-#include "MZLib.h"
+#include "Updater/UpdateManager.h"
+#include "MZLib/MZlib.h"
 #include <Commctrl.h>
 #include "AppendPatchInfo.h"
 #include "EffectSpriteTypeDef.h"
