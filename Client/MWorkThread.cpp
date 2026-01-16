@@ -4,6 +4,10 @@
 #include "Client_PCH.h"
 #include "MWorkThread.h"
 
+#ifdef PLATFORM_WINDOWS
+
+// Windows implementation (original code)
+
 //----------------------------------------------------------------------
 //
 // constructor / destructor
@@ -493,3 +497,61 @@ MWorkThread::AddLast(MWorkNode* pNode)
 	//------------------------------------------------------------
 	SetEvent( m_hHasWorkEvent );
 }
+
+#else
+// Non-Windows platforms (macOS/Linux) - Stub implementations
+
+#include "MWorkThread.h"
+
+MWorkThread::MWorkThread()
+{
+	m_hWorkThread = 0;
+	m_hHasWorkEvent = 0;
+	m_hEndWorkEvent = 0;
+	m_hStopWorkEvent = 0;
+	m_pCurrentWork = NULL;
+}
+
+MWorkThread::~MWorkThread()
+{
+	Release();
+}
+
+void MWorkThread::Init(LPTHREAD_START_ROUTINE FileThreadProc, int priority)
+{
+	(void)FileThreadProc;
+	(void)priority;
+	// Not implemented on non-Windows
+}
+
+void MWorkThread::Release()
+{
+	ReleaseWork();
+}
+
+void MWorkThread::ReleaseWork()
+{
+	// Stub implementation
+}
+
+void MWorkThread::Execute()
+{
+	// Stub implementation - not functional on non-Windows
+}
+
+void MWorkThread::Remove(int type)
+{
+	(void)type;
+}
+
+void MWorkThread::AddFirst(MWorkNode* pNode)
+{
+	(void)pNode;
+}
+
+void MWorkThread::AddLast(MWorkNode* pNode)
+{
+	(void)pNode;
+}
+
+#endif /* PLATFORM_WINDOWS */

@@ -1,6 +1,6 @@
 #include "client_PCH.h"
 #include "MPalette.h"
-#include <fstream.h>
+#include <fstream>\nusing namespace std;
 
 MPalette::MPalette()
 {

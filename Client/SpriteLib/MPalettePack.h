@@ -1,3 +1,4 @@
+#include <fstream>
 #ifndef __MPALETTE_PACK_H__
 #define __MPALETTE_PACK_H__
 

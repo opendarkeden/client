@@ -1,3 +1,4 @@
+#include <fstream>
 #ifndef __CSPRITE_PAL__
 #define __CSPRITE_PAL__
 

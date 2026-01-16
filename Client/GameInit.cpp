@@ -104,8 +104,8 @@ extern RECT g_GameRect;
 // ToT SafeDelete 도 없고..ToT 2003.5.11 by sonee
 
 extern int					g_Dimension ;
-
-BOOL g_bEnable3DHAL = TRUE;
+// g_bEnable3DHAL is defined in VS_UI_Title.cpp (VS_UI library)
+extern BOOL g_bEnable3DHAL;
 
 //----------------------------------------------------------------------
 // Title Loading - 2001.8.20 우헤헤 자꾸 늘어나는 global - -;;
@@ -1137,16 +1137,18 @@ InitMusic()
 #else
 	if( g_DXSound.IsInit() )
 	{
+		// SDL backend stub - OGG streaming not implemented
 		if( g_pSoundBufferForOGG == NULL )
 		{
-			g_pSoundBufferForOGG = new CDirectSoundBuffer(g_hWnd, SOUND_STEREO, SOUND_44K, SOUND_16BIT);
+			// g_pSoundBufferForOGG = new CDirectSoundBuffer(g_hWnd, SOUND_STEREO, SOUND_44K, SOUND_16BIT);
+			g_pSoundBufferForOGG = NULL; // Stub: not implemented on SDL
 		}
 		if( g_pOGG == NULL )
 		{
 #ifdef _MT
-			g_pOGG = new COGGSTREAM(g_hWnd, g_pSoundBufferForOGG, 44100, 11025, 8800);
+			g_pOGG = new COGGSTREAM(NULL, g_pSoundBufferForOGG, 44100, 11025, 8800);
 #else
-			g_pOGG = new COGGSTREAM(g_hWnd, g_pSoundBufferForOGG, 44100, 11025, 8800,1);
+			g_pOGG = new COGGSTREAM(NULL, g_pSoundBufferForOGG, 44100, 11025, 8800,1);
 #endif
 			int volume = (g_pUserOption->VolumeMusic - 15) * 250;
 

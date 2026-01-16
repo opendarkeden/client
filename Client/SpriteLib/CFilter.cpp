@@ -99,7 +99,7 @@ CFilter::SetFilter(WORD* pSurface, WORD pitch, WORD width, WORD height)
 	//------------------------------------------------------------
 	WORD*	pSurfaceTemp;
 	BYTE*	pFilter;
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		pSurfaceTemp = pSurface;
 
@@ -159,7 +159,7 @@ CFilter::SetFilterDarkness(const CFilter& filter, BYTE DarkBits)
 	register int j;
 
 	// 각 filter값마다 DarkBits만큼 어둡게 한다.
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		for (j=0; j<m_Width; j++)
 		{
@@ -694,7 +694,7 @@ CFilter::Blt4444(WORD* pSurface, WORD pitch)
 	BYTE* pFilter;
 	WORD* pSurfaceTemp;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		pSurfaceTemp = pSurface;
 		pFilter = m_ppFilter[i];
@@ -735,7 +735,7 @@ CFilter::Blt4444Color(WORD* pSurface, WORD pitch, WORD color)
 	BYTE* pFilter;
 	WORD* pSurfaceTemp;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		pSurfaceTemp = pSurface;
 		pFilter = m_ppFilter[i];

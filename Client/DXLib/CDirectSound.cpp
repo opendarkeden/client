@@ -4,7 +4,7 @@
 
 #include "CDirectSound.h"
 //#include "DebugInfo.h"
-#include "Profiler.h"
+//#include "Profiler.h"
 
 #ifdef PLATFORM_WINDOWS
 

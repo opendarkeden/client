@@ -52,6 +52,13 @@ set(DXLIB_SOURCES
 	# Platform backend
 	DXLibBackendSDL.cpp
 
+	# Core DirectDraw/Sound/Music implementations
+	CDirectDraw.cpp
+	CDirectDrawSurface.cpp
+	CDirectSound.cpp
+	CDirectMusic.cpp
+	CDirectSoundStream.cpp
+
 	# Static member definitions for CDirectDraw
 	CDirectDraw_StaticMembers.cpp
 

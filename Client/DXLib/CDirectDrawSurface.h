@@ -187,16 +187,23 @@ protected :
 	int					m_Height;
 
 	// surface가 back surface인가를 나타내는 flag.
-	bool					m_bBackSurface;	
+	bool					m_bBackSurface;
 
 	// Lock이 된 상태인가?
-	bool					m_bLock;	
+	bool					m_bLock;
 
-	// 실제 크기보다 작은.. Clip이 되어서 보여지는 영역을 설정	
+	// 실제 크기보다 작은.. Clip이 되어서 보여지는 영역을 설정
 	int					m_ClipRight;
 	int					m_ClipBottom;
 	int					m_ClipLeft;
 	int					m_ClipTop;
+
+	// Surface descriptor (used by Lock/Unlock)
+#ifdef PLATFORM_WINDOWS
+	DDSURFACEDESC2		m_ddsd;
+#else
+	DDSURFACEDESC2		m_ddsd;  // Stub for macOS - minimal implementation
+#endif
 
 	static	void		(*s_GammaFunction)(void *pDest, int len, int p);
 };

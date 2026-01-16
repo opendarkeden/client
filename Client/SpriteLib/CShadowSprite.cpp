@@ -242,7 +242,7 @@ CShadowSprite::SetPixel(WORD *pSource, WORD pitch, WORD width, WORD height)
 	register int i;
 	register int j;
 
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		index = 0;
 		count = 0;
@@ -344,7 +344,7 @@ CShadowSprite::SetPixel(CIndexSprite& ispr)
 	// height�� ��ŭ memory���
 	m_Pixels = new WORD* [m_Height];
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{			
 		pPixels		= ispr.GetPixelLine( i );
 		
@@ -407,7 +407,7 @@ CShadowSprite::SetPixel(CSprite& spr)
 	// height�� ��ŭ memory���
 	m_Pixels = new WORD* [m_Height];
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{			
 		pPixels		= spr.GetPixelLine( i );
 		
@@ -519,7 +519,7 @@ CShadowSprite::Blt(WORD *pDest, WORD pitch)
 	register int i;
 	register int j;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -574,7 +574,7 @@ CShadowSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<pRect->bottom; i++)
+	for (int i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -704,7 +704,7 @@ CShadowSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 	register int	i;
 	register int	j;
 
-	for (i=pRect->top; i<pRect->bottom; i++)
+	for (int i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -807,7 +807,7 @@ CShadowSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<pRect->bottom; i++)
+	for (int i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -995,7 +995,7 @@ CShadowSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 	register int i;
 	register int j;
 
-	for (i=pRect->top; i<pRect->bottom; i++)
+	for (int i=pRect->top; i<pRect->bottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -1046,7 +1046,7 @@ CShadowSprite::BltDarkness(WORD *pDest, WORD pitch, BYTE DarkBits)
 	register int i;
 	register int j;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -1104,7 +1104,7 @@ CShadowSprite::BltDarknessClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE Da
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<pRect->bottom; i++)
+	for (int i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1239,7 +1239,7 @@ CShadowSprite::BltDarknessClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 	register int	i;
 	register int	j;
 
-	for (i=pRect->top; i<pRect->bottom; i++)
+	for (int i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1346,7 +1346,7 @@ CShadowSprite::BltDarknessClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE D
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<pRect->bottom; i++)
+	for (int i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1544,7 +1544,7 @@ CShadowSprite::BltDarknessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 	register int i;
 	register int j;
 
-	for (i=pRect->top; i<pRect->bottom; i++)
+	for (int i=pRect->top; i<pRect->bottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -1737,7 +1737,7 @@ CShadowSprite::Blt4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel)
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<pRect->bottom; i++)
+	for (int i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1865,7 +1865,7 @@ CShadowSprite::Blt4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 	register int	i;
 	register int	j;
 
-	for (i=pRect->top; i<pRect->bottom; i++)
+	for (int i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1968,7 +1968,7 @@ CShadowSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD pixel
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<pRect->bottom; i++)
+	for (int i=pRect->top; i<pRect->bottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2159,7 +2159,7 @@ CShadowSprite::Blt4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD pixe
 	register int i;
 	register int j;
 
-	for (i=pRect->top; i<pRect->bottom; i++)
+	for (int i=pRect->top; i<pRect->bottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -2344,7 +2344,7 @@ CShadowSprite::BltSmallClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE shift
 	//---------------------------------------------
 	int stepY = 1 << shift;		// y�� �ǳʶ�� pixel��
 	int endY = pRect->bottom << shift;
-	for (i=pRect->top; i<endY; i+=stepY)
+	for (int i=pRect->top; i<endY; i+=stepY)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2485,7 +2485,7 @@ CShadowSprite::BltSmallClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE shif
 
 	int stepY = 1 << shift;		// y�� �ǳʶ�� pixel��
 	int endY = pRect->bottom << shift;
-	for (i=pRect->top; i<endY; i+=stepY)
+	for (int i=pRect->top; i<endY; i+=stepY)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2591,7 +2591,7 @@ CShadowSprite::BltSmallClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE shif
 	//---------------------------------------------
 	int stepY = 1 << shift;		// y�� �ǳʶ�� pixel��
 	int endY = pRect->bottom << shift;
-	for (i=pRect->top; i<endY; i+=stepY)
+	for (int i=pRect->top; i<endY; i+=stepY)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2792,7 +2792,7 @@ CShadowSprite::BltSmallClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE shi
 	
 	int stepY = 1 << shift;		// y�� �ǳʶ�� pixel��
 	int endY = pRect->bottom << shift;
-	for (i=pRect->top; i<endY; i+=stepY)
+	for (int i=pRect->top; i<endY; i+=stepY)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -2940,7 +2940,7 @@ CShadowSprite::BltSmall4444(WORD *pDest, WORD pitch, WORD pixel, BYTE shift)
 
 	int stepY = 1 << shift;		// y�� �ǳʶ�� pixel��		
 	
-	for (i=0; i<m_Height; i+=stepY)
+	for (int i=0; i<m_Height; i+=stepY)
 	{
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -3038,7 +3038,7 @@ CShadowSprite::BltSmall4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect, WORD p
 	//---------------------------------------------
 	int stepY = 1 << shift;		// y�� �ǳʶ�� pixel��
 	int endY = pRect->bottom << shift;
-	for (i=pRect->top; i<endY; i+=stepY)
+	for (int i=pRect->top; i<endY; i+=stepY)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3182,7 +3182,7 @@ CShadowSprite::BltSmall4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect, WORD 
 
 	int stepY = 1 << shift;		// y�� �ǳʶ�� pixel��
 	int endY = pRect->bottom << shift;
-	for (i=pRect->top; i<endY; i+=stepY)
+	for (int i=pRect->top; i<endY; i+=stepY)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3291,7 +3291,7 @@ CShadowSprite::BltSmall4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD 
 	//---------------------------------------------
 	int stepY = 1 << shift;		// y�� �ǳʶ�� pixel��
 	int endY = pRect->bottom << shift;
-	for (i=pRect->top; i<endY; i+=stepY)
+	for (int i=pRect->top; i<endY; i+=stepY)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3495,7 +3495,7 @@ CShadowSprite::BltSmall4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD
 	
 	int stepY = 1 << shift;		// y�� �ǳʶ�� pixel��
 	int endY = pRect->bottom << shift;
-	for (i=pRect->top; i<endY; i+=stepY)
+	for (int i=pRect->top; i<endY; i+=stepY)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;

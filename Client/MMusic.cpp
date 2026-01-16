@@ -4,6 +4,10 @@
 #include "Client_PCH.h"
 #include "MMusic.h"
 
+#ifdef PLATFORM_WINDOWS
+
+// Windows implementation (original code)
+
 
 //----------------------------------------------------------------------
 // Global
@@ -274,3 +278,117 @@ bool MMusic::RePlay()
 	return false;
 }
 
+#else
+// Non-Windows platforms (macOS/Linux) - Stub implementations
+
+#include "MMusic.h"
+
+MMusic		g_Music;
+
+bool MMusic::ErrorMsg()
+{
+	return false;
+}
+
+MMusic::MMusic()
+{
+	m_hwnd = NULL;
+	m_bLoad = false;
+	m_bPlay = false;
+	m_bInit = false;
+	m_bPause = false;
+	m_Volume = 0;
+}
+
+MMusic::~MMusic()
+{
+}
+
+bool MMusic::Init(HWND hwnd)
+{
+	(void)hwnd;
+	m_bInit = true;
+	m_bPause = false;
+	return false;  // Not implemented on non-Windows
+}
+
+void MMusic::SetVolume(WORD volume)
+{
+	m_Volume = volume;
+}
+
+void MMusic::UnInit()
+{
+	if(m_bInit && m_bLoad)
+	{
+		Stop();
+	}
+}
+
+bool MMusic::Play(LPCSTR filename)
+{
+	(void)filename;
+	if (m_bInit)
+	{
+		if(m_bLoad)
+		{
+			Stop();
+		}
+		m_bLoad = true;
+		m_bPlay = true;
+		m_bPause = false;
+		return false;  // Not implemented on non-Windows
+	}
+	return false;
+}
+
+bool MMusic::Stop()
+{
+	if (m_bInit)
+	{
+		if(!m_bPlay) return true;
+		m_bLoad = false;
+		m_bPlay = false;
+		m_bPause = false;
+		return true;
+	}
+	return false;
+}
+
+bool MMusic::Pause()
+{
+	if (m_bInit)
+	{
+		if(!m_bLoad || !m_bPlay) return true;
+		m_bPlay = false;
+		m_bPause = true;
+		return true;
+	}
+	return false;
+}
+
+bool MMusic::Resume()
+{
+	if (m_bInit)
+	{
+		if(!m_bLoad || m_bPlay) return false;
+		m_bPlay = true;
+		m_bPause = false;
+		return true;
+	}
+	return false;
+}
+
+bool MMusic::RePlay()
+{
+	if (m_bInit)
+	{
+		if(!m_bLoad) return false;
+		m_bPlay = true;
+		m_bPause = false;
+		return true;
+	}
+	return false;
+}
+
+#endif /* PLATFORM_WINDOWS */

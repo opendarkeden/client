@@ -154,6 +154,9 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		Client/DebugInfo.cpp
 		Client/ClientConfig.cpp
 		Client/UtilityFunction.cpp
+		Client/GameFunctions.cpp
+		Client/RenderingFunctions.cpp
+		Client/UIUtilityFunctions.cpp
 
 		# Events & Time
 		Client/MEventManager.cpp
@@ -233,14 +236,29 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		Client/WinLib/*.cpp
 	)
 
+	# Add additional source files
+	list(APPEND CLIENT_MAIN_SOURCES
+		Client/nProtectStub.cpp
+		Client/NPGameLib.cpp
+		Client/COGGSTREAM.cpp
+	)
+
 	# Remove files that are already compiled in VS_UI library
 	list(REMOVE_ITEM CLIENT_MAIN_SOURCES
 		${VS_UI_CLIENT_SOURCES}
+		# Explicitly remove files that duplicate globals in Client.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/GlobalVariables.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/GCNotifyWinHandler.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/GCNotifyWin.cpp
+		# Exclude MitemTableinit2.cpp - duplicates InitItem2() from MitemTableInit.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Client/MitemTableinit2.cpp
 	)
 
-	# Note: Handler files are now included - they contain client-side packet handlers
-	# But exclude server-side handlers (Cpackets directory = Client->Game packets)
+	# Note: Cpackets contains CG (Client to Game) handlers
+	# These are server-side handlers that shouldn't be compiled in the client
+	# The client-side packet handling is done through different mechanisms
 	list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*Cpackets/.*Handler\\.cpp")
+
 
 	# Exclude Windows-specific files
 	if(NOT WIN32)
@@ -250,9 +268,17 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*GameMain.*")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*EXECryptor.*")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*GetWinVer.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*\\.bak.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*_bak-.*")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MInternetConnection.*")
-		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MWorkThread.*")
-		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MMusic\\.cpp")
+		# Exclude Handler files in Client root only (not in Packet subdirectories)
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX "^Client/[^/]+Handler\\.cpp")
+		# Exclude Client.cpp and ClientFunction.cpp - they're already in VS_UI library
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX "^Client/Client\\.cpp")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX "^Client/ClientFunction\\.cpp")
+		# MWorkThread and MMusic are needed on all platforms
+		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MWorkThread.*")
+		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*MMusic\\.cpp")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*PacketFunction\\.cpp")
 		# ProfileManager needed on all platforms
 		# list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*ProfileManager\\.cpp")

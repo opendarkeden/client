@@ -107,7 +107,7 @@ CAlphaSprite::operator = (const CAlphaSprite& Sprite)
 	// �޸� ���
 	m_Pixels = new WORD* [m_Height];
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		// �ݺ� ȸ���� 2 byte
 		int	count = Sprite.m_Pixels[i][0], 
@@ -566,7 +566,7 @@ CAlphaSprite::BltClip(WORD* pDest, WORD pitch, RECT* pRect)
 	register int j;
 	int rectBottom = pRect->bottom;	
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -738,7 +738,7 @@ CAlphaSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -866,7 +866,7 @@ CAlphaSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -968,7 +968,7 @@ CAlphaSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1147,7 +1147,7 @@ CAlphaSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 
 	int rectBottom = pRect->bottom;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -1264,7 +1264,7 @@ CAlphaSprite::Blt4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1392,7 +1392,7 @@ CAlphaSprite::Blt4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1494,7 +1494,7 @@ CAlphaSprite::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1648,7 +1648,7 @@ CAlphaSprite::Blt4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 
 	int rectBottom = pRect->bottom;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -1770,7 +1770,7 @@ CAlphaSprite::Blt4444NotTransClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1902,7 +1902,7 @@ CAlphaSprite::Blt4444NotTransClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2007,7 +2007,7 @@ CAlphaSprite::Blt4444NotTransClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2167,7 +2167,7 @@ CAlphaSprite::Blt4444NotTransClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 
 	int rectBottom = pRect->bottom;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -2291,7 +2291,7 @@ CAlphaSprite::BltAlphaClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha)
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2421,7 +2421,7 @@ CAlphaSprite::BltAlphaClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2525,7 +2525,7 @@ CAlphaSprite::BltAlphaClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2708,7 +2708,7 @@ CAlphaSprite::BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alph
 
 	int rectBottom = pRect->bottom;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;

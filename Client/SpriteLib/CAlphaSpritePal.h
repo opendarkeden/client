@@ -1,3 +1,4 @@
+#include <fstream>
 #ifndef __CALPHASPRITEPAL_H__
 #define __CALPHASPRITEPAL_H__
 

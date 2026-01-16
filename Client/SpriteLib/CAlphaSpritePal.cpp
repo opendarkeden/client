@@ -48,7 +48,7 @@ void CAlphaSpritePal::SetPixel(BYTE *pSource, WORD pitch, BYTE *pSourceAlpha, WO
 	register int i;
 	register int j;
 
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		index = 0;
 		count = 0;
@@ -365,7 +365,7 @@ CAlphaSpritePal::BltClip(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pal)
 	register int j;
 	int rectBottom = pRect->bottom;	
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -537,7 +537,7 @@ CAlphaSpritePal::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pal
 	//---------------------------------------------
 	// 출력해야하는 모든 줄에 대해서..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -665,7 +665,7 @@ CAlphaSpritePal::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pa
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -767,7 +767,7 @@ CAlphaSpritePal::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pa
 	//---------------------------------------------
 	// 출력해야하는 모든 줄에 대해서..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -946,7 +946,7 @@ CAlphaSpritePal::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect, MPalette &p
 
 	int rectBottom = pRect->bottom;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_pPixels[i];
 		pDestTemp	= pDest;
@@ -1063,7 +1063,7 @@ CAlphaSpritePal::Blt4444ClipLeft(WORD* pDest, WORD pitch, RECT* pRect, MPalette 
 	//---------------------------------------------
 	// 출력해야하는 모든 줄에 대해서..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -1191,7 +1191,7 @@ CAlphaSpritePal::Blt4444ClipRight(WORD* pDest, WORD pitch, RECT* pRect, MPalette
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -1293,7 +1293,7 @@ CAlphaSpritePal::Blt4444ClipWidth(WORD* pDest, WORD pitch, RECT* pRect, MPalette
 	//---------------------------------------------
 	// 출력해야하는 모든 줄에 대해서..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -1447,7 +1447,7 @@ CAlphaSpritePal::Blt4444ClipHeight(WORD *pDest, WORD pitch, RECT* pRect, MPalett
 
 	int rectBottom = pRect->bottom;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_pPixels[i];
 		pDestTemp	= pDest;
@@ -1569,7 +1569,7 @@ CAlphaSpritePal::Blt4444NotTransClipLeft(WORD* pDest, WORD pitch, RECT* pRect, M
 	//---------------------------------------------
 	// 출력해야하는 모든 줄에 대해서..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -1701,7 +1701,7 @@ CAlphaSpritePal::Blt4444NotTransClipRight(WORD* pDest, WORD pitch, RECT* pRect, 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -1806,7 +1806,7 @@ CAlphaSpritePal::Blt4444NotTransClipWidth(WORD* pDest, WORD pitch, RECT* pRect, 
 	//---------------------------------------------
 	// 출력해야하는 모든 줄에 대해서..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -1966,7 +1966,7 @@ CAlphaSpritePal::Blt4444NotTransClipHeight(WORD *pDest, WORD pitch, RECT* pRect,
 
 	int rectBottom = pRect->bottom;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_pPixels[i];
 		pDestTemp	= pDest;
@@ -2090,7 +2090,7 @@ CAlphaSpritePal::BltAlphaClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE alp
 	//---------------------------------------------
 	// 출력해야하는 모든 줄에 대해서..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -2220,7 +2220,7 @@ CAlphaSpritePal::BltAlphaClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE al
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -2324,7 +2324,7 @@ CAlphaSpritePal::BltAlphaClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE al
 	//---------------------------------------------
 	// 출력해야하는 모든 줄에 대해서..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -2507,7 +2507,7 @@ CAlphaSpritePal::BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE a
 
 	int rectBottom = pRect->bottom;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_pPixels[i];
 		pDestTemp	= pDest;

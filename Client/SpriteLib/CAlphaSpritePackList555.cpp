@@ -7,6 +7,8 @@
 #include "CAlphaSpritePackList555.h"
 #include <fstream>
 
+using namespace std;
+
 //----------------------------------------------------------------------
 //
 // member functions

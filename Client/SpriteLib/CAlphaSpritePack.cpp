@@ -140,7 +140,7 @@ CAlphaSpritePack::SaveToFile(ofstream& spkFile, ofstream& indexFile)
 	//--------------------------------------------------
 	// index 저장
 	//--------------------------------------------------
-	for (i=0; i<m_nSprites; i++)
+	for (int i=0; i<m_nSprites; i++)
 	{
 		indexFile.write((const char*)&pIndex[i], 4);
 	}
@@ -295,14 +295,14 @@ CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, const char*
 		return false;
 	}
 
-	std::ifstream spkFile(spkFilename, ios::binary | );
+	std::ifstream spkFile(spkFilename, ios::binary);
 
 	if (!spkFile.is_open())
 	{
 		return false;
 	}
 
-	std::ifstream indexFile(indexFilename, ios::binary | );
+	std::ifstream indexFile(indexFilename, ios::binary);
 
 	if (!indexFile.is_open())
 	{

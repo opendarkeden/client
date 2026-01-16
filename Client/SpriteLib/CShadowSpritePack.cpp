@@ -160,7 +160,7 @@ CShadowSpritePack::SaveToFile(ofstream& spkFile, ofstream& indexFile)
 	//--------------------------------------------------
 	// index 저장
 	//--------------------------------------------------
-	for (i=0; i<m_nSprites; i++)
+	for (int i=0; i<m_nSprites; i++)
 	{
 		indexFile.write((const char*)&pIndex[i], 4);
 	}

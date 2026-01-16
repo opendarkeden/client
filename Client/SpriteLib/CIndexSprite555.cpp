@@ -40,7 +40,7 @@ CIndexSprite555::SaveToFile(ofstream& file)
 	//--------------------------------
 	// 5:6:5
 	//--------------------------------
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		// 반복 회수의 2 byte
 		transPair = m_Pixels[i][0];
@@ -139,7 +139,7 @@ CIndexSprite555::LoadFromFile(ifstream& file)
 	//--------------------------------
 	// 5:6:5
 	//--------------------------------
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		// byte수와 실제 data를 Load한다.
 		file.read((char*)&len, 2);

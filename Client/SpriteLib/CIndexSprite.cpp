@@ -138,7 +138,7 @@ CIndexSprite::SetColorSet()
 	set = 0;
 	int r,g,b;
 
-	for (i=0; i<MAX_COLORSET_SEED; i++)
+	for (int i=0; i<MAX_COLORSET_SEED; i++)
 	{
 		r = rgbPoint[i][0];
 		g = rgbPoint[i][1];
@@ -219,7 +219,7 @@ CIndexSprite::SetColorSet()
 	//----------------------------------------------------------------------
 	// Darkness���� �����Ѵ�.
 	//----------------------------------------------------------------------
-	for (i=0; i<MAX_COLORSET; i++)
+	for (int i=0; i<MAX_COLORSET; i++)
 	{
 		for (j=0; j<MAX_COLORGRADATION; j++)
 		{
@@ -282,7 +282,7 @@ CIndexSprite::SaveIndexTableToFile(std::ofstream& file)
 	//----------------------------------------------------------------------
 	// WORD	CIndexSprite::ColorSet[MAX_COLORSET][MAX_COLORGRADATION];
 	//----------------------------------------------------------------------
-	for (i=0; i<MAX_COLORSET; i++)
+	for (int i=0; i<MAX_COLORSET; i++)
 	{
 		for (j=0; j<MAX_COLORGRADATION; j++)
 		{
@@ -293,7 +293,7 @@ CIndexSprite::SaveIndexTableToFile(std::ofstream& file)
 	//----------------------------------------------------------------------
 	//	WORD	CIndexSprite::GradationValue[MAX_COLORGRADATION];
 	//----------------------------------------------------------------------
-	for (i=0; i<MAX_COLORSET; i++)
+	for (int i=0; i<MAX_COLORSET; i++)
 	{
 		file.write((const char*)&GradationValue[i], 2);
 	}
@@ -303,7 +303,7 @@ CIndexSprite::SaveIndexTableToFile(std::ofstream& file)
 	//----------------------------------------------------------------------
 	for (k=0; k<MAX_DARKBIT; k++)
 	{
-		for (i=0; i<MAX_COLORSET; i++)
+		for (int i=0; i<MAX_COLORSET; i++)
 		{
 			for (j=0; j<MAX_COLORGRADATION; j++)
 			{
@@ -342,7 +342,7 @@ CIndexSprite::LoadIndexTableFromFile(std::ifstream& file)
 	//----------------------------------------------------------------------
 	// WORD	CIndexSprite::ColorSet[MAX_COLORSET][MAX_COLORGRADATION];
 	//----------------------------------------------------------------------
-	for (i=0; i<MAX_COLORSET; i++)
+	for (int i=0; i<MAX_COLORSET; i++)
 	{
 		for (j=0; j<MAX_COLORGRADATION; j++)
 		{
@@ -353,7 +353,7 @@ CIndexSprite::LoadIndexTableFromFile(std::ifstream& file)
 	//----------------------------------------------------------------------
 	//	WORD	CIndexSprite::GradationValue[MAX_COLORGRADATION];
 	//----------------------------------------------------------------------
-	for (i=0; i<MAX_COLORSET; i++)
+	for (int i=0; i<MAX_COLORSET; i++)
 	{
 		file.read((char*)&GradationValue[i], 2);
 	}
@@ -363,7 +363,7 @@ CIndexSprite::LoadIndexTableFromFile(std::ifstream& file)
 	//----------------------------------------------------------------------
 	for (k=0; k<MAX_DARKBIT; k++)
 	{
-		for (i=0; i<MAX_COLORSET; i++)
+		for (int i=0; i<MAX_COLORSET; i++)
 		{
 			for (j=0; j<MAX_COLORGRADATION; j++)
 			{
@@ -520,7 +520,7 @@ CIndexSprite::operator = (const CIndexSprite& Sprite)
 	//--------------------------------
 	// 5:6:5
 	//--------------------------------
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		// �ݺ� ȸ���� 2 byte
 		transPair = Sprite.m_Pixels[i][0];
@@ -1105,7 +1105,7 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 	ofstream colorFile("color.txt");
 	ofstream spriteFile("sprite.txt");
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		for (int j=0; j<m_Width; j++)
 		{
@@ -1488,7 +1488,7 @@ CIndexSprite::GenerateFromIndex(WORD** ppColor,
 	//ofstream colorFile("color.txt");
 	//ofstream spriteFile("sprite.txt");
 
-	//for (i=0; i<m_Height; i++)
+	//for (int i=0; i<m_Height; i++)
 	//{
 		//for (int j=0; j<m_Width; j++)
 		//{
@@ -1535,7 +1535,7 @@ CIndexSprite::GetIndexInfo(WORD**& ppIndex)
 	register int k;
 	register int l;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{			
 		pPixels	= m_Pixels[i];
 		pDest	= ppIndex[i];
@@ -1758,7 +1758,7 @@ CIndexSprite::Blt(WORD *pDest, WORD pitch)
 	int rectBottom = m_Height;	
 
 	
-	//for (i=0; i<rectBottom; i++)	
+	//for (int i=0; i<rectBottom; i++)	
 	if (rectBottom > 0)
 	{
 		i = rectBottom-1;
@@ -1854,7 +1854,7 @@ CIndexSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2070,7 +2070,7 @@ CIndexSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;	
 	int rectRight = pRect->right;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2234,7 +2234,7 @@ CIndexSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2510,7 +2510,7 @@ CIndexSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 
 	int colorSet, colorGradation;
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -2663,7 +2663,7 @@ CIndexSprite::BltDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE Dar
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2871,7 +2871,7 @@ CIndexSprite::BltDarknessClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3026,7 +3026,7 @@ CIndexSprite::BltDarknessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE Da
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3301,7 +3301,7 @@ CIndexSprite::BltDarknessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE D
 
 	int colorSet, colorGradation;
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -3454,7 +3454,7 @@ CIndexSprite::BltAlphaClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha)
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3661,7 +3661,7 @@ CIndexSprite::BltAlphaClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3816,7 +3816,7 @@ CIndexSprite::BltAlphaClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -4090,7 +4090,7 @@ CIndexSprite::BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alph
 
 	int colorSet, colorGradation;
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -4163,7 +4163,7 @@ CIndexSprite::BltWave(WORD *pDest, WORD pitch)
 	int rectBottom = m_Height;	
 
 	
-	//for (i=0; i<rectBottom; i++)	
+	//for (int i=0; i<rectBottom; i++)	
 	if (rectBottom > 0)
 	{
 		i = rectBottom-1;
@@ -4352,7 +4352,7 @@ CIndexSprite::BltColorClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -4564,7 +4564,7 @@ CIndexSprite::BltColorClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -4722,7 +4722,7 @@ CIndexSprite::BltColorClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -5002,7 +5002,7 @@ CIndexSprite::BltColorClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 	int colorSet, colorGradation;
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -5159,7 +5159,7 @@ CIndexSprite::BltColorSetClipLeft(WORD *pDest, WORD pitch, RECT* pRect, WORD col
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -5372,7 +5372,7 @@ CIndexSprite::BltColorSetClipRight(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -5531,7 +5531,7 @@ CIndexSprite::BltColorSetClipWidth(WORD *pDest, WORD pitch, RECT* pRect, WORD co
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -5813,7 +5813,7 @@ CIndexSprite::BltColorSetClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD c
 		colorGradation;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -5891,7 +5891,7 @@ CIndexSprite::BltEffect(WORD *pDest, WORD pitch)
 	int rectBottom = m_Height;	
 
 	
-	//for (i=0; i<rectBottom; i++)	
+	//for (int i=0; i<rectBottom; i++)	
 	if (rectBottom > 0)
 	{
 		i = rectBottom-1;
@@ -5982,7 +5982,7 @@ CIndexSprite::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	// ����ؾ��ϴ� ��� �ٿ� ���ؼ�..
 	//---------------------------------------------
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -6189,7 +6189,7 @@ CIndexSprite::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;	
 	int rectRight = pRect->right;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -6350,7 +6350,7 @@ CIndexSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -6619,7 +6619,7 @@ CIndexSprite::BltEffectClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 
 	//int colorSet, colorGradation;
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -7004,7 +7004,7 @@ CIndexSprite::BltBrightnessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BYTE D
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -7212,7 +7212,7 @@ CIndexSprite::BltBrightnessClipRight(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -7367,7 +7367,7 @@ CIndexSprite::BltBrightnessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, BYTE 
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -7642,7 +7642,7 @@ CIndexSprite::BltBrightnessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE
 
 	int colorSet, colorGradation;
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;

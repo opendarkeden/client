@@ -40,7 +40,7 @@ CSprite555::SaveToFile(ofstream& file)
 	//--------------------------------
 	// 5:5:5
 	//--------------------------------
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		// 반복 회수의 2 byte
 		int	count = m_Pixels[i][0], 
@@ -175,7 +175,7 @@ CSprite555::LoadFromFile(ifstream& file)
 	register int j;
 	register int k;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{			
 		// byte수와 실제 data를 Load한다.
 		file.read((char*)&len, 2);

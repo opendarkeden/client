@@ -1373,7 +1373,7 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 		// 4����
 		//------------------
 		case 0 :			
-			for (i=pRect->top; i<rectBottom; i++)
+			for (int i=pRect->top; i<rectBottom; i++)
 			{
 				lpTargetTemp = lpTargetSurface;	
 
@@ -1392,7 +1392,7 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 		// 1�� + 4����
 		//------------------
 		case 1 :
-			for (i=pRect->top; i<rectBottom; i++)
+			for (int i=pRect->top; i<rectBottom; i++)
 			{
 				lpTargetTemp = lpTargetSurface;	
 
@@ -1417,7 +1417,7 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 		// 2�� + 4����
 		//------------------
 		case 2 :
-			for (i=pRect->top; i<rectBottom; i++)
+			for (int i=pRect->top; i<rectBottom; i++)
 			{
 				lpTargetTemp = lpTargetSurface;	
 
@@ -1440,7 +1440,7 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 		// 1�� + 2�� + 4����
 		//------------------
 		case 3 :
-			for (i=pRect->top; i<rectBottom; i++)
+			for (int i=pRect->top; i<rectBottom; i++)
 			{
 				lpTargetTemp = lpTargetSurface;	
 
@@ -1490,7 +1490,7 @@ CSpriteSurface::ChangeBrightnessBit(RECT*  pRect, BYTE DarkBits)
 	
 	QWORD* pSourceTemp;
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		// step��ŭ �����ʿ��� ����Ѵ�. 
 		// 4-step��ŭ�� �� ����Ѵ�.
@@ -1656,7 +1656,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 		// ��Ȯ�� 4�� ����� �Ǵ� ���..
 		//-----------------------------------------------------
 		case 0 :
-			for (i=pRect->top; i<rectBottom; i++)
+			for (int i=pRect->top; i<rectBottom; i++)
 			{
 				lpTargetTemp = lpTargetSurface;	
 
@@ -1707,7 +1707,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 		// 1�� ���  4����...
 		//-----------------------------------------------------
 		case 1 :
-			for (i=pRect->top; i<rectBottom; i++)
+			for (int i=pRect->top; i<rectBottom; i++)
 			{
 				lpTargetTemp = lpTargetSurface;	
 
@@ -1792,7 +1792,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 		// 2�����.. 4����...
 		//-----------------------------------------------------
 		case 2 :
-			for (i=pRect->top; i<rectBottom; i++)
+			for (int i=pRect->top; i<rectBottom; i++)
 			{
 				lpTargetTemp = lpTargetSurface;	
 			
@@ -1877,7 +1877,7 @@ CSpriteSurface::BltColorAlpha(RECT* pRect, WORD color, BYTE alpha2)
 		// 1�� ��� 2�����.. 4����...
 		//-----------------------------------------------------
 		case 3 :
-			for (i=pRect->top; i<rectBottom; i++)
+			for (int i=pRect->top; i<rectBottom; i++)
 			{
 				lpTargetTemp = lpTargetSurface;	
 

@@ -35,6 +35,7 @@ set(SPRITELIB_SOURCES
 
 	# SDL-specific CSpriteSurface implementation
 	CSpriteSurface_SDL.cpp
+	CSpriteSurface_Adapter.cpp
 
 	# SDL-specific CSprite implementation
 	CSprite_SDL.cpp
@@ -42,6 +43,7 @@ set(SPRITELIB_SOURCES
 	# Base class implementations (constructors/destructors/static members)
 	CSprite.cpp
 	CIndexSprite.cpp
+	CAlphaSprite.cpp
 
 	# Sprite format implementations (needed for vtables)
 	CSprite555.cpp
@@ -52,6 +54,34 @@ set(SPRITELIB_SOURCES
 	CIndexSprite555.cpp
 	CIndexSprite565.cpp
 	CSpritePalBase.cpp
+
+	# Sprite pack implementations (minimal set)
+	CSpritePack.cpp
+	CSpritePackList.cpp
+
+	# Alpha sprite pack implementations (minimal set)
+	CAlphaSpritePack.cpp
+
+	# Shadow sprites (temporarily disabled - has compilation errors)
+	CShadowSprite.cpp
+	# CShadowSpritePack.cpp
+
+	# Utilities
+	CFileIndexTable.cpp
+	CFilter.cpp
+	CFilterPack.cpp
+	CStorageSurface.cpp
+
+	# Other sprite classes (minimal set)
+	CSpriteDef.cpp
+	CSpriteOutlineManager.cpp
+	# CSpriteSet.cpp  # Temporarily disabled
+	# CSpriteSetManager.cpp  # Temporarily disabled
+	CSpritePal.cpp
+
+	# Palette
+	MPalette.cpp
+	MPalettePack.cpp
 )
 
 # SpriteLib headers

@@ -3,6 +3,8 @@
 //#include "CSprite555.h"
 //#include "CSprite565.h"
 //#include <fstream>
+
+using namespace std;
 //
 //void CSpritePack::Init(WORD size, bool b565)
 //{

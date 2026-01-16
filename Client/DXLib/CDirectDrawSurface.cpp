@@ -1802,4 +1802,85 @@ CDirectDrawSurface::SaveToBMP(const char * szFilename)
 	return true;
 }
 
+#else
+// Non-Windows platforms (macOS/Linux) - Stub implementations
+
+#include "CDirectDrawSurface.h"
+
+// Static member initialization
+void (*CDirectDrawSurface::s_GammaFunction)(void *pDest, int len, int p) = nullptr;
+
+// Constructor
+CDirectDrawSurface::CDirectDrawSurface()
+{
+	m_pDDSurface = nullptr;
+	m_Width = 0;
+	m_Height = 0;
+	m_ClipLeft = 0;
+	m_ClipTop = 0;
+	m_ClipRight = 0;
+	m_ClipBottom = 0;
+	m_bBackSurface = false;
+	m_bLock = false;
+}
+
+// Destructor
+CDirectDrawSurface::~CDirectDrawSurface()
+{
+	// Stub - no resources to release
+}
+
+bool CDirectDrawSurface::InitOffsurface(int wWidth, int wHeight, DWORD dwCaps)
+{
+	m_Width = wWidth;
+	m_Height = wHeight;
+	m_ClipRight = wWidth;
+	m_ClipBottom = wHeight;
+	(void)dwCaps;
+	return true;
+}
+
+bool CDirectDrawSurface::InitFromBMP(LPCSTR szBitmap, DWORD dwCaps)
+{
+	(void)szBitmap;
+	(void)dwCaps;
+	return false;  // Stub - not implemented on non-Windows
+}
+
+bool CDirectDrawSurface::SaveToBMP(const char* szFilename)
+{
+	(void)szFilename;
+	return false;  // Stub - not implemented on non-Windows
+}
+
+bool CDirectDrawSurface::Lock()
+{
+	// Stub implementation for macOS
+	ZeroMemory(&m_ddsd, sizeof(m_ddsd));
+	m_ddsd.dwSize = sizeof(m_ddsd);
+	m_ddsd.lPitch = m_Width * 2;  // Assume 16-bit color
+	m_bLock = true;
+	return true;
+}
+
+bool CDirectDrawSurface::Unlock()
+{
+	m_bLock = false;
+	return true;
+}
+
+void CDirectDrawSurface::Blt(RECT* pDest, CDirectDrawSurface* pSrc, RECT* pSrcRect)
+{
+	// Stub - not implemented on non-Windows
+	(void)pDest;
+	(void)pSrc;
+	(void)pSrcRect;
+}
+
+void CDirectDrawSurface::FillSurface(WORD color)
+{
+	// Stub - not implemented on non-Windows
+	(void)color;
+}
+
 #endif /* PLATFORM_WINDOWS */

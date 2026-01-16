@@ -33,9 +33,9 @@
 #else
 // Non-Windows platforms: empty macros
 #define export
-#define import
+#define import extern
 #define DllExport
-#define DllImport
+#define DllImport extern
 #define DllClass
 #endif
 

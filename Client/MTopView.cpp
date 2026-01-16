@@ -22147,7 +22147,7 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 					g_pOGG->streamClose();
 				
 				if( g_pSoundBufferForOGG == NULL )
-					g_pSoundBufferForOGG = new CDirectSoundBuffer(g_hWnd, SOUND_STEREO, SOUND_44K, SOUND_16BIT);
+					g_pSoundBufferForOGG = NULL; // SDL backend: CDirectSoundBuffer not implemented
 				
 				if( g_pOGG == NULL )
 #ifdef _MT
@@ -22160,7 +22160,7 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 					fclose(g_oggfile );
 				g_oggfile = fopen("data\\music\\Silence_of_Battlefield.ogg","rb");
 				g_pOGG->streamLoad(g_oggfile, NULL);
-				g_pOGG->streamPlay(SOUND_PLAY_REPEAT);
+				g_pOGG->streamPlay(0);
 				int volume = (g_pUserOption->VolumeMusic - 15) * 250;
 				g_pOGG->streamVolume( max( -10000, min( -1, volume ) ) );
 			}
@@ -22339,7 +22339,7 @@ MTopView::ExcuteOustersFinEvent()
 					g_pOGG->streamClose();
 				
 				if( g_pSoundBufferForOGG == NULL )
-					g_pSoundBufferForOGG = new CDirectSoundBuffer(g_hWnd, SOUND_STEREO, SOUND_44K, SOUND_16BIT);
+					g_pSoundBufferForOGG = NULL; // SDL backend: CDirectSoundBuffer not implemented
 				
 				if( g_pOGG == NULL )
 #ifdef _MT
@@ -22352,7 +22352,7 @@ MTopView::ExcuteOustersFinEvent()
 					fclose(g_oggfile );
 				g_oggfile = fopen("data\\music\\chaos.ogg","rb");
 				g_pOGG->streamLoad(g_oggfile, NULL);
-				g_pOGG->streamPlay(SOUND_PLAY_REPEAT);
+				g_pOGG->streamPlay(0);
 				int volume = (g_pUserOption->VolumeMusic - 15) * 250;
 				g_pOGG->streamVolume( max( -10000, min( -1, volume ) ) );
 			}

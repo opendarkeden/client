@@ -1,3 +1,4 @@
+#include <fstream>
 //----------------------------------------------------------------------
 // CDirectDrawSurface.h
 //----------------------------------------------------------------------
@@ -188,22 +189,56 @@ class CSpriteSurface {
 		{
 			EFFECT_DARKER = 0,
 			EFFECT_GRAY_SCALE,
-			EFFECT_GRAY_SCALE_VARIOUS,
+			EFFECT_LIGHTEN,
+			EFFECT_DARKEN,
+			EFFECT_COLOR_DODGE,
 			EFFECT_SCREEN,
-			EFFECT_SCREEN_ALPHA,
+			EFFECT_DODGE_BURN,
+			EFFECT_DIFFERENT,
+			EFFECT_GRADATION,
+			EFFECT_SIMPLE_OUTLINE,
 			EFFECT_WIPE_OUT,
 			EFFECT_NET,
+			EFFECT_GRAY_SCALE_VARIOUS,
+			EFFECT_SCREEN_ALPHA,
 			MAX_EFFECT
 		};
 
-		static void		SetEffect(enum FUNCTION_EFFECT func) {}
-		static void		SetPalEffect(enum FUNCTION_EFFECT func) {}
-		static void		memcpyEffect(WORD* pDest, WORD* pSource, WORD pixels) {}
-		static void		memcpyPalEffect(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal) {}
+		static void		SetEffect(enum FUNCTION_EFFECT func);
+		static void		SetPalEffect(enum FUNCTION_EFFECT func);
+		static void		memcpyEffect(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyPalEffect(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
 
-		static void		memcpyEffectDarker(WORD* pDest, WORD* pSource, WORD pixels) {}
-		static void		memcpyPalEffectDarker(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal) {}
-		static void		memcpyEffectGradation(WORD* pDest, WORD* pSource, WORD pixels) {}
+		// Effect functions - implemented in CSpriteSurface.cpp
+		static void		memcpyEffectDarker(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectLighten(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectDarken(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectColorDodge(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectScreen(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectDodgeBurn(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectDifferent(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectGrayScale(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectSimpleOutline(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectWipeOut(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectNet(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectGrayScaleVarious(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectScreenAlpha(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		memcpyEffectGradation(WORD* pDest, WORD* pSource, WORD pixels);
+
+		static void		memcpyPalEffectDarker(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectGrayScale(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectLighten(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectDarken(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectColorDodge(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectScreen(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectDodgeBurn(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectDifferent(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectGradation(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectSimpleOutline(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectWipeOut(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectNet(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectGrayScaleVarious(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
+		static void		memcpyPalEffectScreenAlpha(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal);
 
 		static FUNCTION_MEMCPYEFFECT		s_pMemcpyEffectFunction;
 		static FUNCTION_MEMCPYPALEFFECT		s_pMemcpyPalEffectFunction;
@@ -275,6 +310,15 @@ class CSpriteSurface {
 		int m_width;
 		int m_height;
 		int m_transparency;  // Transparency value for compatibility
+
+		// Clipping rectangles (compatibility with CDirectDrawSurface)
+		int m_ClipLeft;
+		int m_ClipTop;
+		int m_ClipRight;
+		int m_ClipBottom;
+
+		// Surface description (compatibility with CDirectDrawSurface)
+		S_SURFACEINFO m_ddsd;  // Using SDL-compatible surface info structure
 #endif
 };
 

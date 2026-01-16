@@ -515,4 +515,87 @@ void CSpriteSurface::Gamma4Pixel555(void *pDest, int len, int p)
 	Gamma4Pixel565(pDest, len, p);
 }
 
+/* ============================================================================
+ * Missing Methods for Linker Compatibility
+ * ============================================================================ */
+
+void* CSpriteSurface::GetSurfacePointer()
+{
+	if (m_backend_surface == SPRITECTL_INVALID_SURFACE) return NULL;
+
+	// Lock surface to get pointer
+	spritectl_surface_info_t info;
+	if (spritectl_lock_surface(m_backend_surface, &info) == 0) {
+		// Note: In a real implementation, you'd keep this locked
+		// For now, return the pointer (caller is responsible for unlocking)
+		return info.pixels;
+	}
+	return NULL;
+}
+
+void* CSpriteSurface::Lock(RECT* rect, unsigned long* pitch)
+{
+	if (m_backend_surface == SPRITECTL_INVALID_SURFACE) return NULL;
+
+	spritectl_surface_info_t info;
+	if (spritectl_lock_surface(m_backend_surface, &info) == 0) {
+		if (pitch != NULL) {
+			*pitch = info.pitch;
+		}
+		return info.pixels;
+	}
+	return NULL;
+}
+
+void CSpriteSurface::Unlock()
+{
+	if (m_backend_surface != SPRITECTL_INVALID_SURFACE) {
+		spritectl_unlock_surface(m_backend_surface);
+	}
+}
+
+bool CSpriteSurface::InitTextureSurface(int width, int height, void* tex1, void* tex2)
+{
+	// OpenGL texture surface initialization
+	// For SDL backend, just create a regular surface
+	(void)tex1; (void)tex2; // Unused parameters
+	return Init(width, height);
+}
+
+bool CSpriteSurface::Restore()
+{
+	// Restore surface after lost device (Windows-specific)
+	// For SDL backend, this is a no-op
+	return true;
+}
+
+void CSpriteSurface::SetEffect(FUNCTION_EFFECT effect)
+{
+	s_pMemcpyEffectFunction = s_pMemcpyEffectFunctionTable[effect];
+}
+
+void CSpriteSurface::SetPalEffect(FUNCTION_EFFECT effect)
+{
+	s_pMemcpyPalEffectFunction = s_pMemcpyPalEffectFunctionTable[effect];
+}
+
+// Static effect methods
+void CSpriteSurface::memcpyEffect(unsigned short* dest, unsigned short* src, unsigned short pixels)
+{
+	if (s_pMemcpyEffectFunction != NULL) {
+		s_pMemcpyEffectFunction(dest, src, pixels);
+	} else {
+		// Default: simple copy
+		for (int i = 0; i < pixels; i++) {
+			dest[i] = src[i];
+		}
+	}
+}
+
+void CSpriteSurface::memcpyEffectGradation(unsigned short* dest, unsigned short* src, unsigned short pixels)
+{
+	// Gradation effect - simple copy for now
+	memcpyEffect(dest, src, pixels);
+}
+
 #endif /* SPRITELIB_BACKEND_SDL */

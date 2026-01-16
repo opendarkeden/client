@@ -36,7 +36,7 @@ void CSpritePal::SetPixel(BYTE *pSource, WORD pitch, WORD width, WORD height)
 	register int i;
 	register int j;
 
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		index = 0;
 		count = 0;
@@ -283,7 +283,7 @@ CSpritePal::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect, MPalette &pa
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -409,7 +409,7 @@ CSpritePal::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect, MPalette &p
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -509,7 +509,7 @@ CSpritePal::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect, MPalette &p
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_pPixels[i];
 		pDestTemp = pDest;		
@@ -688,7 +688,7 @@ CSpritePal::BltEffectClipHeight(WORD *pDest, WORD pitch, RECT* pRect, MPalette &
 	register int j;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_pPixels[i];
 		pDestTemp	= pDest;

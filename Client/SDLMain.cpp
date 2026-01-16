@@ -38,7 +38,8 @@ enum GameMode {
 
 /* Global flags */
 bool g_bRunning = true;
-bool g_bActiveApp = true;
+// g_bActiveApp is defined in Client.cpp (VS_UI library)
+extern BOOL g_bActiveApp;
 
 /*---------------------------------------------------------------------------
  *

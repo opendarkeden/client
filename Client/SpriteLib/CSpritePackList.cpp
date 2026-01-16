@@ -178,7 +178,7 @@ CSpritePackList::ChangeSprite(TYPE_SPRITEID n, TYPE_SPRITEID m)
 	//------------------------------------------------------
 	temp = m-n;
 	SPRITE_LIST::iterator	iSecondSprite = iFirstSprite;
-	for (i=n; i<temp; i++)
+	for (int i=n; i<temp; i++)
 		iSecondSprite++;
 	
 	//------------------------------------------------------
@@ -231,7 +231,7 @@ CSpritePackList::SaveToFile(ofstream& spkFile, ofstream& indexFile)
 	//--------------------------------------------------
 	// index 저장
 	//--------------------------------------------------
-	for (i=0; i<size; i++)
+	for (int i=0; i<size; i++)
 	{
 		indexFile.write((const char*)&pIndex[i], 4);
 	}

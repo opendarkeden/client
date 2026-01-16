@@ -38,7 +38,7 @@ CSprite565::SaveToFile(ofstream& file)
 	//--------------------------------
 	// 5:6:5
 	//--------------------------------
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		// 반복 회수의 2 byte
 		int	count = m_Pixels[i][0], 

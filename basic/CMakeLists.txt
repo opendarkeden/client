@@ -37,6 +37,7 @@ set(BASIC_SOURCES
 	Directory.cpp
 	BasicData.cpp
 	Timer2.cpp
+	BasicException.cpp
 )
 
 # Platform-specific sources

@@ -72,7 +72,7 @@ bool CSpritePalBase::LoadFromFile(std::ifstream &file)
 
 	BYTE *tempData = m_pData;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		m_pPixels[i] = tempData;
 		tempData += indexArray[i];
@@ -112,7 +112,7 @@ bool CSpritePalBase::SaveToFile(std::ofstream &file)
 
 	WORD index;
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		if(i == m_Height -1)
 		{

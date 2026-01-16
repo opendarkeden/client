@@ -160,7 +160,7 @@ CSprite::operator = (const CSprite& Sprite)
 	// �޸� ���
 	m_Pixels = new WORD* [m_Height];
 
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		// �ݺ� ȸ���� 2 byte
 		int	count = Sprite.m_Pixels[i][0], 
@@ -264,7 +264,7 @@ CSprite::SetPixel(WORD *pSource, WORD pitch, WORD width, WORD height)
 	register int i;
 	register int j;
 
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		index = 0;
 		count = 0;
@@ -377,7 +377,7 @@ CSprite::SetPixelNoColorkey(WORD *pSource, WORD pitch, WORD width, WORD height)
 	register int i;
 	register int j;
 
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		index = 0;
 		count = 0;
@@ -539,7 +539,7 @@ CSprite::GetTightColorRect(WORD *pSource, WORD pitch, WORD width, WORD height, W
 	{
 		pSourceTemp2 = pSourceTemp;
 
-		for (i=0; i<height; i++)
+		for (int i=0; i<height; i++)
 		{
 			if (*pSourceTemp2!=colorkey)
 			{
@@ -559,7 +559,7 @@ CSprite::GetTightColorRect(WORD *pSource, WORD pitch, WORD width, WORD height, W
 	// top ���ϱ�
 	//-------------------------------------------------------
 	pSourceTemp = pSource;
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		pSourceTemp2 = pSourceTemp;
 
@@ -587,7 +587,7 @@ CSprite::GetTightColorRect(WORD *pSource, WORD pitch, WORD width, WORD height, W
 	{
 		pSourceTemp2 = pSourceTemp;
 
-		for (i=0; i<height; i++)
+		for (int i=0; i<height; i++)
 		{
 			if (*pSourceTemp2!=colorkey)
 			{
@@ -607,7 +607,7 @@ CSprite::GetTightColorRect(WORD *pSource, WORD pitch, WORD width, WORD height, W
 	// bottom ���ϱ�
 	//-------------------------------------------------------
 	pSourceTemp = (WORD*)((BYTE*)pSource + (height-1)*pitch);
-	for (i=height-1; i>=0; i--)
+	for (int i=height-1; i>=0; i--)
 	{
 		pSourceTemp2 = pSourceTemp;
 
@@ -796,7 +796,7 @@ CSprite::BltClip(WORD* pDest, WORD pitch, RECT* pRect)
 	register int j;
 	int rectBottom = pRect->bottom;	
 
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -989,7 +989,7 @@ CSprite::BltClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1115,7 +1115,7 @@ CSprite::BltClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1215,7 +1215,7 @@ CSprite::BltClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1397,7 +1397,7 @@ CSprite::BltClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 	register int j;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -1598,7 +1598,7 @@ CSprite::BltHalfClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1724,7 +1724,7 @@ CSprite::BltHalfClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -1824,7 +1824,7 @@ CSprite::BltHalfClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2005,7 +2005,7 @@ CSprite::BltHalfClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 	register int j;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -2127,7 +2127,7 @@ CSprite::BltAlphaClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha)
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2257,7 +2257,7 @@ CSprite::BltAlphaClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha)
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2360,7 +2360,7 @@ CSprite::BltAlphaClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE alpha)
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2545,7 +2545,7 @@ CSprite::BltAlphaClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE alpha)
 	register int j;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -2664,7 +2664,7 @@ CSprite::BltColorClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE rgb)
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2794,7 +2794,7 @@ CSprite::BltColorClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE rgb)
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -2897,7 +2897,7 @@ CSprite::BltColorClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE rgb)
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3080,7 +3080,7 @@ CSprite::BltColorClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE rgb)
 	register int j;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -3130,7 +3130,7 @@ CSprite::BltScale(WORD *pDest, WORD pitch, BYTE scale)
 	register int j;
 
 	int rectBottom = m_Height;
-	for (i=0; i<rectBottom; i++)
+	for (int i=0; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -3192,7 +3192,7 @@ CSprite::BltScaleClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE scale)
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3321,7 +3321,7 @@ CSprite::BltScaleClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE scale)
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3424,7 +3424,7 @@ CSprite::BltScaleClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE scale)
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3607,7 +3607,7 @@ CSprite::BltScaleClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE scale)
 	register int j;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -3727,7 +3727,7 @@ CSprite::BltDarknessClipLeft(WORD* pDest, WORD pitch, RECT* pRect, BYTE DarkBits
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3856,7 +3856,7 @@ CSprite::BltDarknessClipRight(WORD* pDest, WORD pitch, RECT* pRect, BYTE DarkBit
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -3959,7 +3959,7 @@ CSprite::BltDarknessClipWidth(WORD* pDest, WORD pitch, RECT* pRect, BYTE DarkBit
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -4142,7 +4142,7 @@ CSprite::BltDarknessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, BYTE DarkBi
 	register int j;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -4260,7 +4260,7 @@ CSprite::BltColorSetClipLeft(WORD* pDest, WORD pitch, RECT* pRect, WORD colorSet
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -4389,7 +4389,7 @@ CSprite::BltColorSetClipRight(WORD* pDest, WORD pitch, RECT* pRect, WORD colorSe
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -4492,7 +4492,7 @@ CSprite::BltColorSetClipWidth(WORD* pDest, WORD pitch, RECT* pRect, WORD colorSe
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -4675,7 +4675,7 @@ CSprite::BltColorSetClipHeight(WORD *pDest, WORD pitch, RECT* pRect, WORD colorS
 	register int j;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -4786,7 +4786,7 @@ CSprite::BltEffectClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -4912,7 +4912,7 @@ CSprite::BltEffectClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -5012,7 +5012,7 @@ CSprite::BltEffectClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;		
@@ -5191,7 +5191,7 @@ CSprite::BltEffectClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 	register int j;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -5482,7 +5482,7 @@ CSprite::BltAlphaFilterClipLeft(WORD *pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;	
@@ -5920,7 +5920,7 @@ CSprite::BltAlphaFilterClipRight(WORD *pDest, WORD pitch, RECT* pRect)
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;	
@@ -6238,7 +6238,7 @@ CSprite::BltAlphaFilterClipWidth(WORD *pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;	
@@ -6832,7 +6832,7 @@ CSprite::BltAlphaFilterClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 	register int j;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -7053,7 +7053,7 @@ CSprite::BltAlphaFilterDarkness(WORD *pDest, WORD pitch, BYTE DarkBits)
 	register int j;
 
 	int rectBottom = m_Height;
-	for (i=0; i<rectBottom; i++)
+	for (int i=0; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -7216,7 +7216,7 @@ CSprite::BltAlphaFilterDarknessClipLeft(WORD *pDest, WORD pitch, RECT* pRect, BY
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;	
@@ -7656,7 +7656,7 @@ CSprite::BltAlphaFilterDarknessClipRight(WORD *pDest, WORD pitch, RECT* pRect, B
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;	
@@ -7966,7 +7966,7 @@ CSprite::BltAlphaFilterDarknessClipWidth(WORD *pDest, WORD pitch, RECT* pRect, B
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pDestTemp = pDest;	
@@ -8557,7 +8557,7 @@ CSprite::BltAlphaFilterDarknessClipHeight(WORD *pDest, WORD pitch, RECT* pRect, 
 	register int j;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pDestTemp	= pDest;
@@ -8831,7 +8831,7 @@ CSprite::BltDarkerFilterClipLeft(WORD* pDest, WORD pitch, RECT* pRect)
 	//---------------------------------------------
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pFilter		= s_pFilter->GetFilter( i );
@@ -8963,7 +8963,7 @@ CSprite::BltDarkerFilterClipRight(WORD* pDest, WORD pitch, RECT* pRect)
 
 	int rectBottom = pRect->bottom;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pFilter		= s_pFilter->GetFilter( i );
@@ -9067,7 +9067,7 @@ CSprite::BltDarkerFilterClipWidth(WORD* pDest, WORD pitch, RECT* pRect)
 	int rectBottom = pRect->bottom;
 	int rectLeft = pRect->left;
 	int rectRight = pRect->right;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{
 		pPixels = m_Pixels[i];
 		pFilter		= s_pFilter->GetFilter( i );
@@ -9257,7 +9257,7 @@ CSprite::BltDarkerFilterClipHeight(WORD *pDest, WORD pitch, RECT* pRect)
 	register int j;
 
 	int rectBottom = pRect->bottom;
-	for (i=pRect->top; i<rectBottom; i++)
+	for (int i=pRect->top; i<rectBottom; i++)
 	{			
 		pPixels		= m_Pixels[i];
 		pFilter		= s_pFilter->GetFilter( i );
@@ -9763,7 +9763,7 @@ CSprite::GetFileSize()
 	//--------------------------------
 	// 5:6:5
 	//--------------------------------
-	for (i=0; i<m_Height; i++)
+	for (int i=0; i<m_Height; i++)
 	{
 		// �ݺ� ȸ���� 2 byte
 		int	count = m_Pixels[i][0], 
