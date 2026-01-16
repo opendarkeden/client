@@ -119,7 +119,7 @@ class GCRideMotorCycleFailedHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCRideMotorCycleFailed * pGCRideMotorCycleFailed , Player * pPlayer ) throw ( Error );
+	static void execute ( GCRideMotorCycleFailed * pGCRideMotorCycleFailed , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

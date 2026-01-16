@@ -177,7 +177,7 @@ class GCSkillToTileOK3Handler {
 public :
 
 	// execute packet's handler
-	static void execute(GCSkillToTileOK3* pGCSkillToTileOK3, Player* pPlayer) throw(Error);
+	static void execute(GCSkillToTileOK3* pGCSkillToTileOK3, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

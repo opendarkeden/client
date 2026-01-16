@@ -14,7 +14,7 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCAddMonsterCorpseHandler::execute ( GCAddMonsterCorpse * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

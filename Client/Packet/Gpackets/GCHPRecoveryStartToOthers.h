@@ -144,7 +144,7 @@ class GCHPRecoveryStartToOthersHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCHPRecoveryStartToOthers * pGCHPRecoveryStartToOthers , Player * pPlayer ) throw ( Error );
+	static void execute ( GCHPRecoveryStartToOthers * pGCHPRecoveryStartToOthers , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

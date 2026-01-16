@@ -123,7 +123,7 @@ class CGRequestIPHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( CGRequestIP * pCGRequestIP , Player * pPlayer ) throw ( Error );
+	static void execute ( CGRequestIP * pCGRequestIP , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

@@ -129,7 +129,7 @@ class GCAttackMeleeOK3Handler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCAttackMeleeOK3 * pGCAttackMeleeOK3 , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAttackMeleeOK3 * pGCAttackMeleeOK3 , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

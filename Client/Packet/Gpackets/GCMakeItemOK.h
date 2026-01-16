@@ -120,7 +120,7 @@ class GCMakeItemOKHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCMakeItemOK * pGCMakeItemOK , Player * pPlayer ) throw ( Error );
+	static void execute ( GCMakeItemOK * pGCMakeItemOK , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

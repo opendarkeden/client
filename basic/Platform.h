@@ -783,6 +783,9 @@ typedef WORD			char_t;
 		#define PASCAL
 	#endif
 
+	/* FARPROC - pointer to a function (Windows callback type) */
+	typedef int (*FARPROC)();
+
 	/* Callback function type */
 	typedef long (__cdecl *WNDPROC)(void*, unsigned int, unsigned long, long long);
 

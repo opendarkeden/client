@@ -48,7 +48,7 @@ public:
 class GCModifyInformationHandler 
 {
 public:
-	static void execute(GCModifyInformation* pGCModifyInformation, Player* pPlayer) throw(Error);
+	static void execute(GCModifyInformation* pGCModifyInformation, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

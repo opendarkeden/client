@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAddBatHandler::execute ( GCAddBat * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -24,7 +24,7 @@ void GCAddBatHandler::execute ( GCAddBat * pPacket , Player * pPlayer )
 
 	int batCreatureType = 185;
 
-	_MinTrace("%d\n", pPacket->getBatColor() );
+	// _MinTrace("%d\n", pPacket->getBatColor() ); // Windows-only debug trace
 
 	//------------------------------------------------------
 	// Zone이 아직 생성되지 않은 경우

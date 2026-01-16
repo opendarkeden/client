@@ -149,7 +149,7 @@ class GCSkillToObjectOK2Handler {
 public :
 
 	// execute packet's handler
-	static void execute(GCSkillToObjectOK2* pGCSkillToObjectOK2, Player* pPlayer) throw(Error);
+	static void execute(GCSkillToObjectOK2* pGCSkillToObjectOK2, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

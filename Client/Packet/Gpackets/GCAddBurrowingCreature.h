@@ -136,7 +136,7 @@ class GCAddBurrowingCreatureHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCAddBurrowingCreature * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAddBurrowingCreature * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

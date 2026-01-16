@@ -54,13 +54,13 @@ uint write_ex ( int fd , const void * buf , uint len )
 // exception version of fcntl ()
 //
 int fcntl_ex ( int fd , int cmd ) 
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 //
 // exception version of fcntl ()
 //
 int fcntl_ex ( int fd , int cmd , long arg ) 
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 //
 // is this stream is nonblocking?
@@ -68,7 +68,7 @@ int fcntl_ex ( int fd , int cmd , long arg )
 // using fcntl_ex()
 //
 bool getfilenonblocking_ex ( int fd ) 
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 //
 // make this strema blocking/nonblocking
@@ -76,13 +76,13 @@ bool getfilenonblocking_ex ( int fd )
 // using fcntl_ex()
 //
 void setfilenonblocking_ex ( int fd , bool on ) 
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 //
 // exception version of ioctl ()
 //
 void ioctl_ex ( int fd , int request , void * argp )
-    throw ( Error );
+    throw ( ProtocolException , Error );
 	
 //
 // make this stream blocking/nonblocking
@@ -90,7 +90,7 @@ void ioctl_ex ( int fd , int request , void * argp )
 // using ioctl_ex()
 //
 void setfilenonblocking_ex2 ( int fd , bool on )
-     throw ( Error );
+     throw ( ProtocolException , Error );
 
 //
 // how much bytes available in this stream?
@@ -98,19 +98,19 @@ void setfilenonblocking_ex2 ( int fd , bool on )
 // using ioctl_ex()
 //
 uint availablefile_ex ( int fd )
-     throw ( Error );
+     throw ( ProtocolException , Error );
 
 //
 // exception version of dup()
 //
 int dup_ex ( int fd )
-    throw ( Error );
+    throw ( ProtocolException , Error );
 
 //
 // exception version of lseek()
 //
 long lseek_ex( int fd , long offset , int whence )
-     throw ( Error );
+     throw ( ProtocolException , Error );
 
 };//end of namespace FileAPI
 

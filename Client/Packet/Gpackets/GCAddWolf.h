@@ -201,7 +201,7 @@ class GCAddWolfHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCAddWolf* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCAddWolf* pPacket, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

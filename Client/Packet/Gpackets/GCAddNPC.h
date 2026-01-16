@@ -171,7 +171,7 @@ class GCAddNPCHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCAddNPC * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAddNPC * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

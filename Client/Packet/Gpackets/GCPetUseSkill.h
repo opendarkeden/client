@@ -73,7 +73,7 @@ public:
 class GCPetUseSkillHandler 
 {
 public:
-	static void execute(GCPetUseSkill* pGCPetUseSkill, Player* pPlayer) throw(Error);
+	static void execute(GCPetUseSkill* pGCPetUseSkill, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

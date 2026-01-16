@@ -21,7 +21,7 @@ void GCUseOKHandler::execute ( GCUseOK * pPacket , Player * pPlayer )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 
 	// message
 
@@ -54,7 +54,7 @@ void GCUseSkillCardOKHandler::execute ( GCUseSkillCardOK * pPacket , Player * pP
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 
 	// message
 

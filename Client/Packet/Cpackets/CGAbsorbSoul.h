@@ -145,7 +145,7 @@ class CGAbsorbSoulHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGAbsorbSoul* pCGAbsorbSoul, Player* player) throw(Error);
+	static void execute(CGAbsorbSoul* pCGAbsorbSoul, Player* player) throw ( ProtocolException , Error );
 };
 
 #endif

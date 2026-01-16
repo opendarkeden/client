@@ -13,7 +13,7 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCMorphVampire2Handler::execute ( GCMorphVampire2 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

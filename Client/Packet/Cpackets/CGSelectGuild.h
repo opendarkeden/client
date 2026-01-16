@@ -109,7 +109,7 @@ class CGSelectGuildHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGSelectGuild* pCGSelectGuild, Player* pPlayer) throw(Error);
+	static void execute(CGSelectGuild* pCGSelectGuild, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

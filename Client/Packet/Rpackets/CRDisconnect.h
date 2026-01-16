@@ -111,7 +111,7 @@ class CRDisconnectHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( CRDisconnect * pCRDisconnect , Player * pPlayer ) throw ( Error );
+	static void execute ( CRDisconnect * pCRDisconnect , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

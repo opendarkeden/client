@@ -70,7 +70,7 @@ public:
 class GCAddNicknameHandler 
 {
 public:
-	static void execute(GCAddNickname* pGCAddNickname, Player* pPlayer) throw(Error);
+	static void execute(GCAddNickname* pGCAddNickname, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

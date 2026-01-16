@@ -134,7 +134,7 @@ public :
 	public :
 
 		// execute packet's handler
-		static void execute ( CGSkillToObject * pCGSkillToObject , Player * pPlayer ) throw ( Error );
+		static void execute ( CGSkillToObject * pCGSkillToObject , Player * pPlayer ) throw ( ProtocolException , Error );
 
 	};
 #endif

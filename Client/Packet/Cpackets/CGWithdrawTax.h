@@ -106,7 +106,7 @@ public:
 #ifndef __GAME_CLIENT__
 
 	// execute packet's handler
-	static void execute(CGWithdrawTax* pCGWithdrawTax, Player* pPlayer) throw(Error);
+	static void execute(CGWithdrawTax* pCGWithdrawTax, Player* pPlayer) throw ( ProtocolException , Error );
 #endif
 
 };

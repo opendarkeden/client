@@ -159,16 +159,16 @@ public:
 	void setINT (Attr_t inte) throw (Error) { if (inte > maxSlayerAttr) throw Error("INT out of range"); m_INT = inte; }
 
 	// get/set STR Exp
-	Exp_t getSTRExp () const throw(Error) { return m_STRExp; };
-	void setSTRExp(Exp_t STRExp) throw(Error) { m_STRExp = STRExp; }
+	Exp_t getSTRExp () const throw ( ProtocolException , Error ) { return m_STRExp; };
+	void setSTRExp(Exp_t STRExp) throw ( ProtocolException , Error ) { m_STRExp = STRExp; }
 
 	// get/set DEX Exp
-	Exp_t getDEXExp () const throw(Error) { return m_DEXExp; };
-	void setDEXExp(Exp_t DEXExp) throw(Error) { m_DEXExp = DEXExp; }
+	Exp_t getDEXExp () const throw ( ProtocolException , Error ) { return m_DEXExp; };
+	void setDEXExp(Exp_t DEXExp) throw ( ProtocolException , Error ) { m_DEXExp = DEXExp; }
 
 	// get/set INT Exp
-	Exp_t getINTExp () const throw(Error) { return m_INTExp; };
-	void setINTExp(Exp_t INTExp) throw(Error) { m_INTExp = INTExp; }
+	Exp_t getINTExp () const throw ( ProtocolException , Error ) { return m_INTExp; };
+	void setINTExp(Exp_t INTExp) throw ( ProtocolException , Error ) { m_INTExp = INTExp; }
 
 
 	Rank_t getRank () const throw () { return m_Rank; }

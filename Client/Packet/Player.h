@@ -45,10 +45,10 @@ public :
 
 	// constructor
 	Player() throw (Error);
-	Player ( Socket * pSocket ) throw ( Error );
+	Player ( Socket * pSocket ) throw ( ProtocolException , Error );
 	
 	// destructor
-	virtual ~Player () throw ( Error );
+	virtual ~Player () throw ( ProtocolException , Error );
 
 	// read socket's receive buffer and fill input buffer
 	virtual void processInput () throw ( IOException , Error );
@@ -66,7 +66,7 @@ public :
 	// ÇÃ·¹ÀÌ¾îÀÇ ¿¬°áÀ» Á¾·áÇÒ ¶§, »ó´ëÆíÀÌ ÀûÀýÇÏ°Ô ·Î±×¾Æ¿ôÇÏÁö ¾ÊÀ» °æ¿ì ¼ÒÄÏÀÇ ¿¬°áÀÌ 
 	// ÀÌ¹Ì ²÷°Ü ÀÖÀ¸¹Ç·Î disconnect(DISCONNECTED) ¸¦ »ç¿ëÇØ¼­ ¿¬°áÀ» Á¾·áÇØ¾ß ÇÑ´Ù. ¹Ý¸é, 
 	// Á¤´çÇÏ°Ô ·Î±×¾Æ¿ôÀ» ÇÑ °æ¿ì¿¡´Â disconnect(UNDISCONNECTED) ¸¦ »ç¿ëÇØ¾ß ÇÑ´Ù.
-	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( Error );
+	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( ProtocolException , Error );
 	
 	// get/set socket
 	Socket * getSocket () throw () { return m_pSocket; }
@@ -77,7 +77,7 @@ public :
 	void setID ( const std::string & id ) throw () { m_ID = id; }
 
 	// get debug std::string
-	virtual std::string toString () const throw ( Error );
+	virtual std::string toString () const throw ( ProtocolException , Error );
 
 	//add by viva
 	void setKey(WORD EncryptKey, WORD HashKey) throw();

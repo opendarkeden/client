@@ -80,7 +80,7 @@ public:
 class GCGQuestStatusInfoHandler 
 {
 public:
-	static void execute(GCGQuestStatusInfo* pGCGQuestStatusInfo, Player* pPlayer) throw(Error);
+	static void execute(GCGQuestStatusInfo* pGCGQuestStatusInfo, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

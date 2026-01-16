@@ -83,7 +83,7 @@ public:
 class GCGQuestStatusModifyHandler 
 {
 public:
-	static void execute(GCGQuestStatusModify* pGCGQuestStatusModify, Player* pPlayer) throw(Error);
+	static void execute(GCGQuestStatusModify* pGCGQuestStatusModify, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

@@ -76,7 +76,7 @@ public:
 class GCExecuteElementHandler 
 {
 public:
-	static void execute(GCExecuteElement* pGCExecuteElement, Player* pPlayer) throw(Error);
+	static void execute(GCExecuteElement* pGCExecuteElement, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

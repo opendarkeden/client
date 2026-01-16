@@ -156,7 +156,7 @@ class GCKnocksTargetBackOK4Handler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCKnocksTargetBackOK4 * pGCKnocksTargetBackOK4 , Player * pPlayer ) throw ( Error );
+	static void execute ( GCKnocksTargetBackOK4 * pGCKnocksTargetBackOK4 , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

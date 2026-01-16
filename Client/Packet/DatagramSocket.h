@@ -31,13 +31,13 @@ class DatagramSocket {
 public :
 
 	// constructor for UDP Client Socket
-	DatagramSocket () throw ( Error );
+	DatagramSocket () throw ( ProtocolException , Error );
 
 	// constructor for UDP Server Socket
-	DatagramSocket ( uint port ) throw ( Error );
+	DatagramSocket ( uint port ) throw ( ProtocolException , Error );
 
 	// destructor
-	~DatagramSocket () throw ( Error );
+	~DatagramSocket () throw ( ProtocolException , Error );
 
 	// send datagram to peer
 	uint send ( Datagram * pDatagram ) throw ( ConnectException , Error );

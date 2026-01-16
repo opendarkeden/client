@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCRequestedIPHandler::execute ( GCRequestedIP * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
@@ -36,7 +36,11 @@ void GCRequestedIPHandler::execute ( GCRequestedIP * pPacket , Player * pPlayer 
 		const char* pName = pPacket->getName().c_str();
 
 		struct in_addr sa;
+#ifdef PLATFORM_WINDOWS
 		sa.S_un.S_addr = pPacket->getIP();
+#else
+		sa.s_addr = pPacket->getIP();
+#endif
 
 		const char* pIP = inet_ntoa( sa );
 

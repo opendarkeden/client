@@ -122,7 +122,7 @@ class GCThrowItemOK2Handler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCThrowItemOK2 * pGCThrowItemOK2 , Player * pPlayer ) throw ( Error );
+	static void execute ( GCThrowItemOK2 * pGCThrowItemOK2 , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

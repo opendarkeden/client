@@ -143,7 +143,7 @@ class GCSkillToSelfOK2Handler {
 public :
 
 	// execute packet's handler
-	static void execute(GCSkillToSelfOK2* pGCSkillToSelfOK2, Player* pPlayer) throw(Error);
+	static void execute(GCSkillToSelfOK2* pGCSkillToSelfOK2, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

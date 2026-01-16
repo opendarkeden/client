@@ -123,7 +123,7 @@ class GCHPRecoveryEndToOthersHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCHPRecoveryEndToOthers * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCHPRecoveryEndToOthers * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

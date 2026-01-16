@@ -168,7 +168,7 @@ class GCAddMonsterCorpseHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCAddMonsterCorpse * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAddMonsterCorpse * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

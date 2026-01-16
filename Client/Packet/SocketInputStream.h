@@ -46,10 +46,10 @@ class SocketInputStream {
 public :
 	
 	// constructor
-	SocketInputStream ( Socket * sock , uint BufferSize = DefaultSocketInputBufferSize ) throw ( Error );
+	SocketInputStream ( Socket * sock , uint BufferSize = DefaultSocketInputBufferSize ) throw ( ProtocolException , Error );
 	
 	// destructor
-	virtual ~SocketInputStream () throw ( Error );
+	virtual ~SocketInputStream () throw ( ProtocolException , Error );
 
 	
 //////////////////////////////////////////////////

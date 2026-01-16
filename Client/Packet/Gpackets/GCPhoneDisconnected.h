@@ -129,7 +129,7 @@ class GCPhoneDisconnectedHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCPhoneDisconnected * pGCPhoneDisconnected , Player * pPlayer ) throw ( Error );
+	static void execute ( GCPhoneDisconnected * pGCPhoneDisconnected , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

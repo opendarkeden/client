@@ -135,7 +135,7 @@ public :
 	public :
 
 		// execute packet's handler
-		static void execute ( CGRideMotorCycle * pCGRideMotorCycle , Player * pPlayer ) throw ( Error );
+		static void execute ( CGRideMotorCycle * pCGRideMotorCycle , Player * pPlayer ) throw ( ProtocolException , Error );
 
 	};
 #endif

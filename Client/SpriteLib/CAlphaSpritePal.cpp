@@ -4,9 +4,18 @@
 
 #include "CSpriteSurface.h"
 
-
 int		CAlphaSpritePal::s_Value1	= 0;
 int		CAlphaSpritePal::s_Value2	= 0;
+
+// Constructor and destructor for vtable
+CAlphaSpritePal::CAlphaSpritePal()
+{
+}
+
+CAlphaSpritePal::~CAlphaSpritePal()
+{
+}
+
 
 void CAlphaSpritePal::SetPixel(BYTE *pSource, WORD pitch, BYTE *pSourceAlpha, WORD alphaPitch, WORD width, WORD height)
 {

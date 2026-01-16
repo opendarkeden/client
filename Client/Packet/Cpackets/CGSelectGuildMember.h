@@ -115,7 +115,7 @@ class CGSelectGuildMemberHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGSelectGuildMember* pCGSelectGuildMember, Player* pPlayer) throw(Error);
+	static void execute(CGSelectGuildMember* pCGSelectGuildMember, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

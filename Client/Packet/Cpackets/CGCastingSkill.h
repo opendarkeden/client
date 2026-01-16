@@ -117,7 +117,7 @@ class CGCastingSkillHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( CGCastingSkill * pCGCastingSkill , Player * pPlayer ) throw ( Error );
+	static void execute ( CGCastingSkill * pCGCastingSkill , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 #endif

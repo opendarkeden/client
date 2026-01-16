@@ -105,7 +105,7 @@ class CGAcceptUnionHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGAcceptUnion* pCGAcceptUnion, Player* pPlayer) throw(Error);
+	static void execute(CGAcceptUnion* pCGAcceptUnion, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

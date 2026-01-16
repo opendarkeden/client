@@ -105,7 +105,7 @@ class CGRequestUnionHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGRequestUnion* pCGRequestUnion, Player* pPlayer) throw(Error);
+	static void execute(CGRequestUnion* pCGRequestUnion, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

@@ -135,7 +135,7 @@ class GCCrossCounterOK3Handler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCCrossCounterOK3 * pGCCrossCounterOK3 , Player * pPlayer ) throw ( Error );
+	static void execute ( GCCrossCounterOK3 * pGCCrossCounterOK3 , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

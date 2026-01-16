@@ -122,7 +122,7 @@ class GCGetOffMotorCycleHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCGetOffMotorCycle * pGCGetOffMotorCycle , Player * pPlayer ) throw ( Error );
+	static void execute ( GCGetOffMotorCycle * pGCGetOffMotorCycle , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

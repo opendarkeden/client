@@ -115,7 +115,7 @@ class GCAddOustersCorpseHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCAddOustersCorpse* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCAddOustersCorpse* pPacket, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

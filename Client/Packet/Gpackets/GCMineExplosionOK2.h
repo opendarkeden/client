@@ -166,7 +166,7 @@ class GCMineExplosionOK2Handler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCMineExplosionOK2 * pGCMineExplosionOK2 , Player * pPlayer ) throw ( Error );
+	static void execute ( GCMineExplosionOK2 * pGCMineExplosionOK2 , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

@@ -138,7 +138,7 @@ class GCAttackHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCAttack * pGCAttack , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAttack * pGCAttack , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

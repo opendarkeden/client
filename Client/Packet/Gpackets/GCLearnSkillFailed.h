@@ -121,7 +121,7 @@ class  GCLearnSkillFailedHandler {
 public :
 
 	// execute packet's handler
-	static void execute (  GCLearnSkillFailed * pGCLearnSkillFailed , Player * pPlayer ) throw ( Error );
+	static void execute (  GCLearnSkillFailed * pGCLearnSkillFailed , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

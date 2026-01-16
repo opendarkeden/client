@@ -16,7 +16,7 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCAddVampireFromTransformationHandler::execute ( GCAddVampireFromTransformation * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

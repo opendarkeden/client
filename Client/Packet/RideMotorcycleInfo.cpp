@@ -66,7 +66,7 @@ void RideMotorcycleInfo::read ( SocketInputStream & iStream )
 
 	iStream.read( m_ListNum );
 
-	for( i = 0; i < m_ListNum; i++ ) 
+	for( int i = 0; i < m_ListNum; i++ ) 
 	{
 		RideMotorcycleSlotInfo * pRideMotorcycleSlotInfo = new RideMotorcycleSlotInfo();
 		pRideMotorcycleSlotInfo->read( iStream );

@@ -65,7 +65,7 @@ namespace SocketAPI {
 // exception version of socket ()
 //
 SOCKET socket_ex ( int domain , int type , int protocol ) 
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
@@ -85,7 +85,7 @@ void connect_ex ( SOCKET s , const struct sockaddr * name , uint namelen )
 // exception version of listen ()
 //
 void listen_ex ( SOCKET s , uint backlog ) 
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
@@ -99,13 +99,13 @@ SOCKET accept_ex ( SOCKET s , struct sockaddr * addr , uint * addrlen )
 // exception version of getsockopt ()
 //
 void getsockopt_ex ( SOCKET s , int level , int optname , void * optval , uint * optlen )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 //
 // exception version of setsockopt ()
 //
 void setsockopt_ex ( SOCKET s , int level , int optname , const void * optval , uint optlen )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
@@ -155,35 +155,35 @@ void closesocket_ex ( SOCKET s )
 // in UNIX , ioctl() used instead
 //
 void ioctlsocket_ex ( SOCKET s , long cmd , ulong * argp )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
 // check if socket is nonblocking mode
 //
 bool getsocketnonblocking_ex ( SOCKET s )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
 // make socket nonblocking mode
 //
 void setsocketnonblocking_ex ( SOCKET s , bool on )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
 // get amount of data in socket input buffer
 //
 uint availablesocket_ex ( SOCKET s )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //
 // exception version of shutdown()
 //
 void shutdown_ex ( SOCKET s , uint how )
-	throw ( Error );
+	throw ( ProtocolException , Error );
 
 
 //

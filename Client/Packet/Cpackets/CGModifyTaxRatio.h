@@ -103,7 +103,7 @@ class CGModifyTaxRatioHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGModifyTaxRatio* pCGModifyTaxRatio, Player* pPlayer) throw(Error);
+	static void execute(CGModifyTaxRatio* pCGModifyTaxRatio, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

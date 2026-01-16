@@ -136,7 +136,7 @@ class GCPhoneConnectedHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCPhoneConnected * pGCPhoneConnected , Player * pPlayer ) throw ( Error );
+	static void execute ( GCPhoneConnected * pGCPhoneConnected , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

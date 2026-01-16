@@ -14,6 +14,7 @@
 #include "Properties.h"
 #include <stdlib.h>			// atoi()
 #include <fstream>
+#include <iostream>
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 const char Properties::Comment = '#';
@@ -66,7 +67,7 @@ void Properties::load ()
 	if ( m_Filename.empty() )
 		throw Error("filename not specified");
 		
-	std::ifstream ifile( m_Filename.c_str() , ios::in );
+	std::ifstream ifile( m_Filename.c_str() , std::ios::in );
 	
 	if ( ! ifile )
 		throw FileNotExistException( m_Filename.c_str() );
@@ -140,7 +141,7 @@ void Properties::save ()
 	if ( m_Filename.empty() )
 		throw Error("filename not specified");
 
-	std::ofstream ofile( m_Filename.c_str() , ios::out | ios::trunc );
+	std::ofstream ofile( m_Filename.c_str() , std::ios::out | std::ios::trunc );
 	
 	for ( std::map< std::string , std::string , StringCompare >::iterator itr = m_Properties.begin() ;
 		  itr != m_Properties.end() ;

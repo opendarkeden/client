@@ -27,10 +27,10 @@ class RequestServerPlayer : public Player {
 public :
 	
 	// constructor
-	RequestServerPlayer ( Socket * pSocket ) throw ( Error );
+	RequestServerPlayer ( Socket * pSocket ) throw ( ProtocolException , Error );
 	
 	// destructor
-	~RequestServerPlayer () throw ( Error );
+	~RequestServerPlayer () throw ( ProtocolException , Error );
 
 public :
 
@@ -44,7 +44,7 @@ public :
 	//virtual void processOutput () throw ( IOException , Error );
 	
 	// send packet to player's output buffer
-	//virtual void sendPacket ( Packet * packet ) throw ( Error );
+	//virtual void sendPacket ( Packet * packet ) throw ( ProtocolException , Error );
 
 
 	uint	send(const char* pBuffer, uint nBytes) throw( ProtocolException , Error );
@@ -52,13 +52,13 @@ public :
 
 	// disconnect
 	// 정식 로그아웃의 경우 disconnect(UNDISCONNECTED)
-	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( Error );
+	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( ProtocolException , Error );
 	
 	void				setName(const char* pName)	{ m_Name = pName; }
 	const std::string&	getName() const	{ return m_Name; }
 
 	// get debug string
-	virtual std::string toString () const throw ( Error );
+	virtual std::string toString () const throw ( ProtocolException , Error );
 	
 public :
 

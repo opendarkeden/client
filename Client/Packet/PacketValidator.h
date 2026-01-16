@@ -36,7 +36,7 @@ public :
 	~PacketValidator () throw ();
 
 	// init
-	void init () throw ( Error );
+	void init () throw ( ProtocolException , Error );
 
 	// add packet id set
 	void addPacketIDSet ( PlayerStatus playerStatus , PacketIDSet * pPacketID ) throw ( DuplicatedException , Error );

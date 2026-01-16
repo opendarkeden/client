@@ -126,7 +126,7 @@ class RCConnectVerifyHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( RCConnectVerify * pRCConnectVerify , Player * pPlayer ) throw ( Error );
+	static void execute ( RCConnectVerify * pRCConnectVerify , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

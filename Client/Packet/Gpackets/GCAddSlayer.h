@@ -93,7 +93,7 @@ public:
 class GCAddSlayerHandler 
 {
 public:
-	static void execute(GCAddSlayer* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCAddSlayer* pPacket, Player* pPlayer) throw ( ProtocolException , Error );
 };
 
 #endif

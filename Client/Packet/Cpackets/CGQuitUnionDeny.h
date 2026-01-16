@@ -105,7 +105,7 @@ class CGQuitUnionDenyHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGQuitUnionDeny* pCGQuitUnionDeny, Player* pPlayer) throw(Error);
+	static void execute(CGQuitUnionDeny* pCGQuitUnionDeny, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

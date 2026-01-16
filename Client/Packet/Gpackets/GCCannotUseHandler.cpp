@@ -26,7 +26,7 @@ void GCCannotUseHandler::execute ( GCCannotUse * pPacket , Player * pPlayer )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 
 	
 	if(g_pPlayer->GetWaitVerify() == MPlayer::WAIT_VERIFY_LOVE_CHAIN)

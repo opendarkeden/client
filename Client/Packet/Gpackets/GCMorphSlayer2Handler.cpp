@@ -14,7 +14,7 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCMorphSlayer2Handler::execute ( GCMorphSlayer2 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

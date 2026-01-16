@@ -131,7 +131,7 @@ class GCAddVampireFromTransformationHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCAddVampireFromTransformation * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAddVampireFromTransformation * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

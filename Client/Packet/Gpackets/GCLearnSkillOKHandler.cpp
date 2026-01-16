@@ -17,11 +17,11 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCLearnSkillOKHandler::execute ( GCLearnSkillOK * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 		
 	// mode 제거
 	// 제거안하면 계속 배울 수 있다.- -;

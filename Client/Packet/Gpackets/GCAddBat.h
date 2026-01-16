@@ -152,7 +152,7 @@ public:
 class GCAddBatHandler 
 {
 public:
-	static void execute(GCAddBat* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCAddBat* pPacket, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

@@ -120,7 +120,7 @@ class CGLotterySelectHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGLotterySelect* pCGLotterySelect, Player* pPlayer) throw(Error);
+	static void execute(CGLotterySelect* pCGLotterySelect, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

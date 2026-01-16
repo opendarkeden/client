@@ -113,7 +113,7 @@ class CGDisplayItemHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGDisplayItem* pCGDisplayItem, Player* pPlayer) throw(Error);
+	static void execute(CGDisplayItem* pCGDisplayItem, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

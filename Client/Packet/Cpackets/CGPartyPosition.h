@@ -123,7 +123,7 @@ class CGPartyPositionHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGPartyPosition* pCGPartyPosition, Player* player) throw(Error);
+	static void execute(CGPartyPosition* pCGPartyPosition, Player* player) throw ( ProtocolException , Error );
 };
 
 #endif

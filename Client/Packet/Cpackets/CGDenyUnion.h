@@ -105,7 +105,7 @@ class CGDenyUnionHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGDenyUnion* pCGDenyUnion, Player* pPlayer) throw(Error);
+	static void execute(CGDenyUnion* pCGDenyUnion, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

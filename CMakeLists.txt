@@ -235,8 +235,9 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		${VS_UI_CLIENT_SOURCES}
 	)
 
-	# Exclude server-side Handler files (only for server, not client)
-	list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*Handler\\.cpp")
+	# Note: Handler files are now included - they contain client-side packet handlers
+	# But exclude server-side handlers (Cpackets directory = Client->Game packets)
+	list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*Cpackets/.*Handler\\.cpp")
 
 	# Exclude Windows-specific files
 	if(NOT WIN32)
@@ -316,7 +317,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	target_compile_definitions(DarkEden PRIVATE
 		USE_SDL_BACKEND
 		SPRITELIB_BACKEND_SDL
-		__GAME_CLIENT__
+		__GAME_CLIENT__=1
 	)
 
 	# Platform-specific definitions

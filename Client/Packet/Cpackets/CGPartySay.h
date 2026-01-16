@@ -117,7 +117,7 @@ class CGPartySayHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGPartySay* pCGPartySay, Player* player) throw(Error);
+	static void execute(CGPartySay* pCGPartySay, Player* player) throw ( ProtocolException , Error );
 };
 
 #endif

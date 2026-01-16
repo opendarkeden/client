@@ -77,7 +77,7 @@ public:
 class GCFlagWarStatusHandler 
 {
 public:
-	static void execute(GCFlagWarStatus* pGCFlagWarStatus, Player* pPlayer) throw(Error);
+	static void execute(GCFlagWarStatus* pGCFlagWarStatus, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

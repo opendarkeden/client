@@ -142,23 +142,23 @@ public :
 
 	// get/set PC info
 	PCInfo* getPCInfo() const throw() { return m_pPCInfo; }
-	void setPCInfo(PCInfo* pPCInfo) throw(Error) { m_pPCInfo = pPCInfo; }
+	void setPCInfo(PCInfo* pPCInfo) throw ( ProtocolException , Error ) { m_pPCInfo = pPCInfo; }
 
 	// get/set Inventory Info
 	InventoryInfo* getInventoryInfo() const throw() { return m_pInventoryInfo; }
-	void setInventoryInfo(InventoryInfo* pInventoryInfo) throw(Error) { m_pInventoryInfo = pInventoryInfo; }
+	void setInventoryInfo(InventoryInfo* pInventoryInfo) throw ( ProtocolException , Error ) { m_pInventoryInfo = pInventoryInfo; }
 
 	// get/set Gear Info
 	GearInfo* getGearInfo() const throw() { return m_pGearInfo; }
-	void setGearInfo(GearInfo* pGearInfo) throw(Error) { m_pGearInfo = pGearInfo; }
+	void setGearInfo(GearInfo* pGearInfo) throw ( ProtocolException , Error ) { m_pGearInfo = pGearInfo; }
 
 	// get/set ExtraInfo
 	ExtraInfo* getExtraInfo() const throw() { return m_pExtraInfo; }
-	void setExtraInfo(ExtraInfo* pExtraInfo) throw(Error) { m_pExtraInfo = pExtraInfo; }
+	void setExtraInfo(ExtraInfo* pExtraInfo) throw ( ProtocolException , Error ) { m_pExtraInfo = pExtraInfo; }
 
 	// get/set EffectInfo
 	EffectInfo* getEffectInfo() const throw() { return m_pEffectInfo; }
-	void setEffectInfo(EffectInfo* pEffectInfo) throw(Error) { m_pEffectInfo = pEffectInfo; }
+	void setEffectInfo(EffectInfo* pEffectInfo) throw ( ProtocolException , Error ) { m_pEffectInfo = pEffectInfo; }
 
 	// get/set hasMotorcycle
 	bool hasMotorcycle() const throw() { return m_hasMotorcycle; }
@@ -204,7 +204,7 @@ public :
 
 	// get/set # of NPC
 	uint getNPCCount() const throw() { return m_nNPCs; }
-	void setNPCCount(uint n) throw(Error) { Assert(n <= maxNPCPerZone); m_nNPCs = n; }
+	void setNPCCount(uint n) throw ( ProtocolException , Error ) { Assert(n <= maxNPCPerZone); m_nNPCs = n; }
 
 	// get/set NPC type
 	NPCType_t getNPCType(uint n) const throw() { Assert(n < maxNPCPerZone); return m_NPCTypes[n]; }
@@ -212,7 +212,7 @@ public :
 
 	// get/set # of monster
 	uint getMonsterCount() const throw() { return m_nMonsters; }
-	void setMonsterCount(uint n) throw(Error) { Assert(n <= maxMonsterPerZone); m_nMonsters = n; }
+	void setMonsterCount(uint n) throw ( ProtocolException , Error ) { Assert(n <= maxMonsterPerZone); m_nMonsters = n; }
 
 	// get/set Monster type
 	MonsterType_t getMonsterType(uint n) const throw() { Assert(n < maxMonsterPerZone); return m_MonsterTypes[n]; }

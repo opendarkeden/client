@@ -140,7 +140,7 @@ class GCAddEffectToTileHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCAddEffectToTile * pGCAddEffectToTile , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAddEffectToTile * pGCAddEffectToTile , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

@@ -129,7 +129,7 @@ public :
 	public :
 
 		// execute packet's handler
-		static void execute ( CGUseBonusPoint * pCGUseBonusPoint , Player * pPlayer ) throw ( Error );
+		static void execute ( CGUseBonusPoint * pCGUseBonusPoint , Player * pPlayer ) throw ( ProtocolException , Error );
 
 	};
 #endif

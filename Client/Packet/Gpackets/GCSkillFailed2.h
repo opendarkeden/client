@@ -140,7 +140,7 @@ class  GCSkillFailed2Handler {
 public :
 
 	// execute packet's handler
-	static void execute (  GCSkillFailed2 * pGCSkillFailed2 , Player * pPlayer ) throw ( Error );
+	static void execute (  GCSkillFailed2 * pGCSkillFailed2 , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

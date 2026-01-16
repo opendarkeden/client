@@ -8,7 +8,9 @@
 
 // include files
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <WTYPES.H>
+#endif
 #include "StringStream.h"
 #include <stdio.h>
 

@@ -164,7 +164,7 @@ class GCSkillToInventoryOK1Handler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCSkillToInventoryOK1 * pGCSkillToInventoryOK1 , Player * pPlayer ) throw ( Error );
+	static void execute ( GCSkillToInventoryOK1 * pGCSkillToInventoryOK1 , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

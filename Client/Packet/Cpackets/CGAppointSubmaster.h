@@ -112,7 +112,7 @@ class CGAppointSubmasterHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGAppointSubmaster* pCGAppointSubmaster, Player* pPlayer) throw(Error);
+	static void execute(CGAppointSubmaster* pCGAppointSubmaster, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

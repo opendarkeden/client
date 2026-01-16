@@ -124,7 +124,7 @@ class GCAddVampireCorpseHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCAddVampireCorpse * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAddVampireCorpse * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

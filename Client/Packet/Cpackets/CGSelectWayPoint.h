@@ -72,7 +72,7 @@ class CGSelectWayPointFactory : public PacketFactory
 		class CGSelectWayPointHandler 
 		{
 		public:
-			static void execute(CGSelectWayPoint* pCGSelectWayPoint, Player* pPlayer) throw(Error);
+			static void execute(CGSelectWayPoint* pCGSelectWayPoint, Player* pPlayer) throw ( ProtocolException , Error );
 		};
 	#endif
 

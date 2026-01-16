@@ -123,7 +123,7 @@ class CRConnectHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( CRConnect * pCRConnect , Player * pPlayer ) throw ( Error );
+	static void execute ( CRConnect * pCRConnect , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

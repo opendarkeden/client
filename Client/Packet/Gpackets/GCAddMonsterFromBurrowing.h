@@ -131,7 +131,7 @@ public:
 class GCAddMonsterFromBurrowingHandler 
 {
 public:
-	static void execute ( GCAddMonsterFromBurrowing * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCAddMonsterFromBurrowing * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

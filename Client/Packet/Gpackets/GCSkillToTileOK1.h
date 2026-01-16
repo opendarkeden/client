@@ -179,7 +179,7 @@ class GCSkillToTileOK1Handler {
 public :
 
 	// execute packet's handler
-	static void execute(GCSkillToTileOK1* pGCSkillToTileOK1, Player* pPlayer) throw(Error);
+	static void execute(GCSkillToTileOK1* pGCSkillToTileOK1, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

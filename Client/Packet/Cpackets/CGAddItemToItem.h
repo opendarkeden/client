@@ -66,7 +66,7 @@ public:
 class CGAddItemToItemHandler 
 {
 public:
-	static void execute(CGAddItemToItem* pCGAddItemToItem, Player* pPlayer) throw(Error);
+	static void execute(CGAddItemToItem* pCGAddItemToItem, Player* pPlayer) throw ( ProtocolException , Error );
 };
 #endif
 

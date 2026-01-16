@@ -119,7 +119,7 @@ class  GCSelectRankBonusFailedHandler {
 public :
 
 	// execute packet's handler
-	static void execute( GCSelectRankBonusFailed* pGCSelectRankBonusFailed, Player* pPlayer) throw(Error);
+	static void execute( GCSelectRankBonusFailed* pGCSelectRankBonusFailed, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

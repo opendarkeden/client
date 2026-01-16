@@ -112,7 +112,7 @@ class CGSelectQuestHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGSelectQuest* pCGSelectQuest, Player* pPlayer) throw(Error);
+	static void execute(CGSelectQuest* pCGSelectQuest, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

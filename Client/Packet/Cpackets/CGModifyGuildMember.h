@@ -122,7 +122,7 @@ class CGModifyGuildMemberHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGModifyGuildMember* pCGModifyGuildMember, Player* pPlayer) throw(Error);
+	static void execute(CGModifyGuildMember* pCGModifyGuildMember, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

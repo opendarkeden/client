@@ -136,7 +136,7 @@ class GCRingHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCRing * pGCRing , Player * pPlayer ) throw ( Error );
+	static void execute ( GCRing * pGCRing , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

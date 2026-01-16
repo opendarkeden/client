@@ -97,7 +97,7 @@ class CGRequestUnionInfoHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGRequestUnionInfo* pCGRequestUnionInfo, Player* pPlayer) throw(Error);
+	static void execute(CGRequestUnionInfo* pCGRequestUnionInfo, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

@@ -130,7 +130,7 @@ class CRRequestHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( CRRequest * pCRRequest , Player * pPlayer ) throw ( Error );
+	static void execute ( CRRequest * pCRRequest , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

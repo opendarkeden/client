@@ -17,7 +17,7 @@ extern void SetPetInfo(PetInfo* pPetInfo, TYPE_OBJECTID objectID);
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAddVampireHandler::execute ( GCAddVampire * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

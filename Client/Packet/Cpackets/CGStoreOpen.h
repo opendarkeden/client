@@ -95,7 +95,7 @@ class CGStoreOpenHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGStoreOpen* pCGStoreOpen, Player* pPlayer) throw(Error);
+	static void execute(CGStoreOpen* pCGStoreOpen, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

@@ -116,7 +116,7 @@ class GCMPRecoveryEndHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCMPRecoveryEnd * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCMPRecoveryEnd * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

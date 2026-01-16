@@ -108,7 +108,7 @@ class CGRequestGuildMemberListHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGRequestGuildMemberList* pCGRequestGuildMemberList, Player* pPlayer) throw(Error);
+	static void execute(CGRequestGuildMemberList* pCGRequestGuildMemberList, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

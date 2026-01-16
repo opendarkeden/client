@@ -130,7 +130,7 @@ class GCTakeOffHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCTakeOff * pGCTakeOff , Player * pPlayer ) throw ( Error );
+	static void execute ( GCTakeOff * pGCTakeOff , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

@@ -16,11 +16,11 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCLearnSkillReadyHandler::execute ( GCLearnSkillReady * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-#if __GAME_CLIENT__
+#ifdef __GAME_CLIENT__
 
 
 	// 임시로 skill관련 정보를 저장한다.

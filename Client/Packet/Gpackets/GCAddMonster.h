@@ -149,7 +149,7 @@ class GCAddMonsterHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCAddMonster* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCAddMonster* pPacket, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

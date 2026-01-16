@@ -95,7 +95,7 @@ public:
 class GCSystemAvailabilitiesHandler 
 {
 public:
-	static void execute(GCSystemAvailabilities* pGCSystemAvailabilities, Player* pPlayer) throw(Error);
+	static void execute(GCSystemAvailabilities* pGCSystemAvailabilities, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

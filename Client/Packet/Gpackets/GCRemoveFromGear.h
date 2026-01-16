@@ -123,7 +123,7 @@ class GCRemoveFromGearHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCRemoveFromGear * pGCRemoveFromGear , Player * pPlayer ) throw ( Error );
+	static void execute ( GCRemoveFromGear * pGCRemoveFromGear , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

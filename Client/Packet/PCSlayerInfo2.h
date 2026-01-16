@@ -165,14 +165,14 @@ public :
 		m_INT[attrType] = inte; 
 	}
 
-	Exp_t getSTRExp () const throw(Error) { return m_STRExp; };
-	void setSTRExp(Exp_t STRExp) throw(Error) { m_STRExp = STRExp; }
+	Exp_t getSTRExp () const throw ( ProtocolException , Error ) { return m_STRExp; };
+	void setSTRExp(Exp_t STRExp) throw ( ProtocolException , Error ) { m_STRExp = STRExp; }
 
-	Exp_t getDEXExp () const throw(Error) { return m_DEXExp; };
-	void setDEXExp(Exp_t DEXExp) throw(Error) { m_DEXExp = DEXExp; }
+	Exp_t getDEXExp () const throw ( ProtocolException , Error ) { return m_DEXExp; };
+	void setDEXExp(Exp_t DEXExp) throw ( ProtocolException , Error ) { m_DEXExp = DEXExp; }
 
-	Exp_t getINTExp () const throw(Error) { return m_INTExp; };
-	void setINTExp(Exp_t INTExp) throw(Error) { m_INTExp = INTExp; }
+	Exp_t getINTExp () const throw ( ProtocolException , Error ) { return m_INTExp; };
+	void setINTExp(Exp_t INTExp) throw ( ProtocolException , Error ) { m_INTExp = INTExp; }
 
 	HP_t getHP (AttrType attrType = ATTR_CURRENT) const throw () { return m_HP[attrType]; }
 	void setHP (HP_t hp, AttrType attrType = ATTR_CURRENT) throw () { m_HP[attrType] = hp; }

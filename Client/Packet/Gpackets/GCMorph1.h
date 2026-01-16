@@ -78,15 +78,15 @@ public :
 
 	// get/set PC info
 	PCInfo * getPCInfo2 () const throw () { return m_pPCInfo; }
-	void setPCInfo2 ( PCInfo * pPCInfo ) throw ( Error ) { m_pPCInfo = pPCInfo; }
+	void setPCInfo2 ( PCInfo * pPCInfo ) throw ( ProtocolException , Error ) { m_pPCInfo = pPCInfo; }
 
 	// get/set Inventory Info
 	InventoryInfo * getInventoryInfo () const throw() { return m_pInventoryInfo; }
-	void setInventoryInfo ( InventoryInfo * pInventoryInfo ) throw ( Error ) { m_pInventoryInfo = pInventoryInfo; }
+	void setInventoryInfo ( InventoryInfo * pInventoryInfo ) throw ( ProtocolException , Error ) { m_pInventoryInfo = pInventoryInfo; }
 
 	// get/set Gear Info
 	GearInfo * getGearInfo () const throw() { return m_pGearInfo; }
-	void setGearInfo ( GearInfo * pGearInfo ) throw ( Error ) { m_pGearInfo = pGearInfo; }
+	void setGearInfo ( GearInfo * pGearInfo ) throw ( ProtocolException , Error ) { m_pGearInfo = pGearInfo; }
 
 	// get/set ExtraInfo
 	ExtraInfo * getExtraInfo() const throw() { return m_pExtraInfo; }

@@ -117,7 +117,7 @@ class CGQuitUnionHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGQuitUnion* pCGQuitUnion, Player* pPlayer) throw(Error);
+	static void execute(CGQuitUnion* pCGQuitUnion, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

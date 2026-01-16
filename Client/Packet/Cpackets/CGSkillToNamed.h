@@ -131,7 +131,7 @@ class CGSkillToNamedHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGSkillToNamed* pCGSkillToNamed, Player* pPlayer) throw(Error);
+	static void execute(CGSkillToNamed* pCGSkillToNamed, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

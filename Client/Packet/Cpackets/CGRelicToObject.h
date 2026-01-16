@@ -131,7 +131,7 @@ class CGRelicToObjectHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGRelicToObject* pCGRelicToObject, Player* pPlayer) throw(Error);
+	static void execute(CGRelicToObject* pCGRelicToObject, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

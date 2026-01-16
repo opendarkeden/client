@@ -73,7 +73,7 @@ public:
 class GCGQuestInventoryHandler 
 {
 public:
-	static void execute(GCGQuestInventory* pGCGQuestInventory, Player* pPlayer) throw(Error);
+	static void execute(GCGQuestInventory* pGCGQuestInventory, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

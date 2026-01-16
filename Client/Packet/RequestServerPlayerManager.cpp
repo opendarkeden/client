@@ -9,6 +9,69 @@
 #include "DebugInfo.h"
 #include "ServerInfo.h"
 
+// Platform-specific threading includes
+#ifdef PLATFORM_WINDOWS
+	#include <windows.h>
+	#include <process.h>
+#elif defined(__APPLE__) || defined(__linux__)
+	#include <pthread.h>
+	#include <unistd.h>
+
+	// Additional Windows type definitions
+	typedef DWORD* LPDWORD;
+	typedef void* (*LPTHREAD_START_ROUTINE)(void*);
+	typedef void* LPVOID;
+
+	// Undefine macros that conflict with our stub functions
+	#undef CloseHandle
+
+	// Stub constants
+	#define STILL_ACTIVE ((DWORD)-1)
+	#define THREAD_PRIORITY_NORMAL 0
+	#define THREAD_PRIORITY_LOWEST -2
+
+	// Stub functions
+	static inline BOOL TerminateThread(HANDLE thread, DWORD exitCode) {
+		return (pthread_cancel((pthread_t)(size_t)thread) == 0);
+	}
+
+	static inline BOOL CloseHandle(HANDLE handle) {
+		return TRUE;
+	}
+
+	static inline HANDLE GetCurrentThread() {
+		return (HANDLE)pthread_self();
+	}
+
+	static inline BOOL SetThreadPriority(HANDLE thread, int priority) {
+		return TRUE;
+	}
+
+	// Stub thread creation
+	static inline HANDLE _beginthreadex(void* security, unsigned stack_size,
+		LPTHREAD_START_ROUTINE start_proc, LPVOID arg,
+		unsigned flags, DWORD* thread_id) {
+		pthread_t thread;
+		if (pthread_create(&thread, NULL, (void*(*)(void*))start_proc, arg) == 0) {
+			if (thread_id) *thread_id = (unsigned long)thread;
+			return (HANDLE)(size_t)thread;
+		}
+		return (HANDLE)0;
+	}
+
+	// Stub CreateThread (Windows API)
+	static inline HANDLE CreateThread(void* security, unsigned stack_size,
+		LPTHREAD_START_ROUTINE start_proc, LPVOID arg,
+		unsigned flags, DWORD* thread_id) {
+		pthread_t thread;
+		if (pthread_create(&thread, NULL, (void*(*)(void*))start_proc, arg) == 0) {
+			if (thread_id) *thread_id = (unsigned long)thread;
+			return (HANDLE)(size_t)thread;
+		}
+		return (HANDLE)0;
+	}
+#endif
+
 //#include "Rpackets/RCPositionInfo.h"
 
 #if defined(_DEBUG) && defined(OUTPUT_DEBUG)

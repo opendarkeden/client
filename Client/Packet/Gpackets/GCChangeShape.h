@@ -159,7 +159,7 @@ class GCChangeShapeHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCChangeShape * pGCChangeShape , Player * pPlayer ) throw ( Error );
+	static void execute ( GCChangeShape * pGCChangeShape , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

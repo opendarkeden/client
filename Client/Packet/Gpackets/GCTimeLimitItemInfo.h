@@ -44,8 +44,8 @@ public :
 
 public:
 
-	DWORD	getTimeLimit(ObjectID_t objectID) const throw(Error);
-	void	addTimeLimit(ObjectID_t objectID, DWORD time) throw(Error);
+	DWORD	getTimeLimit(ObjectID_t objectID) const throw ( ProtocolException , Error );
+	void	addTimeLimit(ObjectID_t objectID, DWORD time) throw ( ProtocolException , Error );
 	
 	ItemTimeLimitMap	m_TimeLimitItemInfos;
 };

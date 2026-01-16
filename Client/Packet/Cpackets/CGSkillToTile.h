@@ -145,7 +145,7 @@ class CGSkillToTileHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( CGSkillToTile * pCGSkillToTile , Player * pPlayer ) throw ( Error );
+	static void execute ( CGSkillToTile * pCGSkillToTile , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 #endif

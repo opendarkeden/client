@@ -100,7 +100,7 @@ class CGStoreSignHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGStoreSign* pCGStoreSign, Player* pPlayer) throw(Error);
+	static void execute(CGStoreSign* pCGStoreSign, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

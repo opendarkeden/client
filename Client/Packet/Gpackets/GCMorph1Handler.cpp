@@ -16,7 +16,7 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCMorph1Handler::execute ( GCMorph1 * pPacket , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

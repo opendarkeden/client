@@ -151,7 +151,7 @@ class GCSkillToObjectOK6Handler {
 public :
 
 	// execute packet's handler
-	static void execute(GCSkillToObjectOK6* pGCSkillToObjectOK6, Player* pPlayer) throw(Error);
+	static void execute(GCSkillToObjectOK6* pGCSkillToObjectOK6, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

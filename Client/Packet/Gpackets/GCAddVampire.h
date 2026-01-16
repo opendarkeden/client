@@ -115,7 +115,7 @@ public:
 class GCAddVampireHandler 
 {
 public:
-	static void execute(GCAddVampire* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCAddVampire* pPacket, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

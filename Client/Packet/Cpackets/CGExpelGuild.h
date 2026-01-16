@@ -105,7 +105,7 @@ class CGExpelGuildHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGExpelGuild* pCGExpelGuild, Player* pPlayer) throw(Error);
+	static void execute(CGExpelGuild* pCGExpelGuild, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif

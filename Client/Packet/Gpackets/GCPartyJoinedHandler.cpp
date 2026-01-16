@@ -12,8 +12,8 @@
 #include "ProfileManager.h"
 #include "RequestUserManager.h"
 #include "TempInformation.h"
-					
-#include "..\Cpackets/CGRequestIP.h"
+
+#include "Cpackets/CGRequestIP.h"
 #include "ClientDef.h"
 #include "UIFunction.h"
 
@@ -71,8 +71,12 @@ void GCPartyJoinedHandler::execute (GCPartyJoined * pPacket , Player * pPlayer)
 				pNewInfo->Name		= pInfo->name.c_str();
 				pNewInfo->bMale		= (pInfo->sex==1);				
 				pNewInfo->hairStyle	= UI_GetFaceStyle(pNewInfo->bMale, pInfo->hair_style);
-				
+
+#ifdef PLATFORM_WINDOWS
 				sa.S_un.S_addr = pInfo->ip;
+#else
+				sa.s_addr = pInfo->ip;
+#endif
 				pNewInfo->IP		= inet_ntoa( sa );
 
 				//---------------------------------------------------------

@@ -140,7 +140,7 @@ public :
 	public :
 
 		// execute packet's handler
-		static void execute ( CGBloodDrain * pCGBloodDrain , Player * player ) throw ( Error );
+		static void execute ( CGBloodDrain * pCGBloodDrain , Player * player ) throw ( ProtocolException , Error );
 	};
 #endif
 

@@ -247,7 +247,7 @@ void SocketInputStream::read ( Packet * pPacket )
 //////////////////////////////////////////////////////////////////////
 // peek data from buffer
 //////////////////////////////////////////////////////////////////////
-bool SocketInputStream::peek ( char * buf , uint len )
+bool SocketInputStream::peek ( char * buf , uint len ) throw ( ProtocolException , Error )
 {
 //	__BEGIN_TRY
 			
@@ -377,7 +377,7 @@ void SocketInputStream::skip ( uint len )
 // 즉 내 맘대로야~~~ 이히히히히히~
 //
 //////////////////////////////////////////////////////////////////////
-uint SocketInputStream::fill ()
+uint SocketInputStream::fill () throw ( IOException , Error )
 {
 	__BEGIN_TRY
 		
@@ -772,7 +772,7 @@ WORD SocketInputStream::EncryptData(WORD EncryptKey, char* buf, int len)
 	
 	if(m_HashTable == NULL) return EncryptKey;
 
-	for(i = 0; i<len; i++)
+	for(int i = 0; i<len; i++)
 	{
 		*(buf + i) ^= m_HashTable[EncryptKey];
 		if(++EncryptKey == 512)	EncryptKey = 0;

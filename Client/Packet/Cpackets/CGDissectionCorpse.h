@@ -137,7 +137,7 @@ class CGDissectionCorpseHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( CGDissectionCorpse * pCGDissectionCorpse , Player * pPlayer ) throw ( Error );
+	static void execute ( CGDissectionCorpse * pCGDissectionCorpse , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 #endif

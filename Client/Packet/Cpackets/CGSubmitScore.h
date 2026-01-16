@@ -125,7 +125,7 @@ class CGSubmitScoreHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGSubmitScore* pCGSubmitScore, Player* player) throw(Error);
+	static void execute(CGSubmitScore* pCGSubmitScore, Player* player) throw ( ProtocolException , Error );
 };
 #endif
 

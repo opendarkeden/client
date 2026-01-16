@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCFlagWarStatusHandler::execute ( GCFlagWarStatus * pGCFlagWarStatus , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 #ifdef __GAME_CLIENT__
 	DWORD endTime = pGCFlagWarStatus->getTimeRemain() * 1000 + timeGetTime();

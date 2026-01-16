@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCSystemAvailabilitiesHandler::execute ( GCSystemAvailabilities * pGCSystemAvailabilities , Player * pPlayer )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	

@@ -100,7 +100,7 @@ class CGRequestStoreInfoHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGRequestStoreInfo* pCGRequestStoreInfo, Player* pPlayer) throw(Error);
+	static void execute(CGRequestStoreInfo* pCGRequestStoreInfo, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

@@ -99,7 +99,7 @@ class GCDropItemToZoneHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCDropItemToZone* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCDropItemToZone* pPacket, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

@@ -109,7 +109,7 @@ class CGUndisplayItemHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGUndisplayItem* pCGUndisplayItem, Player* pPlayer) throw(Error);
+	static void execute(CGUndisplayItem* pCGUndisplayItem, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 

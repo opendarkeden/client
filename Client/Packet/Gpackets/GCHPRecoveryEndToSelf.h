@@ -116,7 +116,7 @@ class GCHPRecoveryEndToSelfHandler {
 public :
 
 	// execute packet's handler
-	static void execute ( GCHPRecoveryEndToSelf * pPacket , Player * pPlayer ) throw ( Error );
+	static void execute ( GCHPRecoveryEndToSelf * pPacket , Player * pPlayer ) throw ( ProtocolException , Error );
 
 };
 

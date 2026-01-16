@@ -116,7 +116,7 @@ class CGRegistGuildHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGRegistGuild* pCGRegistGuild, Player* pPlayer) throw(Error);
+	static void execute(CGRegistGuild* pCGRegistGuild, Player* pPlayer) throw ( ProtocolException , Error );
 
 };
 #endif
