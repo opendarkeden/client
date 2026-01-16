@@ -155,14 +155,14 @@ extern int  g_nGameVersion;
 void
 StartTitleLoading()
 {
-//	class ifstream	titleFile;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
+//	std::ifstream	titleFile;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
 //	if (!FileOpenBinary("data\\ui\\spk\\Title.spk", titleFile))
 //		return;
 //
 //	g_TitleSPK.LoadFromFile(titleFile);
 //	titleFile.close();
 //
-//	class ifstream	titleAniFile;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
+//	std::ifstream	titleAniFile;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
 //	if (!FileOpenBinary("data\\ui\\spk\\TitleAni.spk", titleAniFile))
 //		return;
 //
@@ -258,11 +258,11 @@ StartTitleLoading()
 		}
 
 		CFileIndexTable	FIT;
-		class ifstream indexFile(g_pFileDef->getProperty("FILE_SPRITEINDEX_UI").c_str(), ios::binary);
+		std::ifstream indexFile(g_pFileDef->getProperty("FILE_SPRITEINDEX_UI").c_str(), ios::binary);
 		FIT.LoadFromFile( indexFile );
 		indexFile.close();
 
-		class ifstream spkFile(g_pFileDef->getProperty("FILE_SPRITE_UI").c_str(), ios::binary);
+		std::ifstream spkFile(g_pFileDef->getProperty("FILE_SPRITE_UI").c_str(), ios::binary);
 		if(g_MyFull)
 			spkFile.seekg( FIT[5] );
 		else
@@ -465,7 +465,7 @@ PrepareLoadingAddonSPK()
 	//------------------------------------------------------------
 	if (g_AddonSPKNum==0)
 	{
-		class ifstream	AddonFileIndex2;//(FILE_ISPRITE_ADDON, ios::binary);
+		std::ifstream	AddonFileIndex2;//(FILE_ISPRITE_ADDON, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_ISPRITEINDEX_ADDON").c_str(), AddonFileIndex2))
 			return false;
 
@@ -553,7 +553,7 @@ LoadingAddonSPK(bool bLoadingAll)
 		// loading 안 된 부분이 있으면 loading한다.
 		if (!g_AddonSPKLoaded[i])
 		{
-//			class ifstream	addonFile;
+//			std::ifstream	addonFile;
 //
 //			if (!FileOpenBinary(FILE_ISPRITE_ADDON, addonFile))
 //				return false;	
@@ -813,7 +813,7 @@ InitSurface()
 	///	indexTable.close();
 	//#endif
 	
-	//class ifstream indexTable2;//(FILE_INFO_USINGCOLORSET, ios::binary);
+	//std::ifstream indexTable2;//(FILE_INFO_USINGCOLORSET, ios::binary);
 	//if (!FileOpenBinary(FILE_INDEXTABLE, indexTable2))
 	//	return FALSE;
 	//CIndexSprite::LoadIndexTableFromFile( indexTable2 );
@@ -1608,7 +1608,7 @@ InitGame()
 	//---------------------------------------------------------------------
 	// nick name string table Loading
 	//---------------------------------------------------------------------
-	class ifstream gameStringTableTable;//(FILE_INFO_gameStringTable, ios::binary);
+	std::ifstream gameStringTableTable;//(FILE_INFO_gameStringTable, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_NICKNAME_STRING").c_str(), gameStringTableTable))
 		return FALSE;
 	(*g_pNickNameStringTable).LoadFromFile_NickNameString(gameStringTableTable);
@@ -1619,7 +1619,7 @@ InitGame()
 	//---------------------------------------------------------------------
 	// GameStringTable Loading
 	//---------------------------------------------------------------------
-	class ifstream gameStringTableTable2;//(FILE_INFO_gameStringTable, ios::binary);
+	std::ifstream gameStringTableTable2;//(FILE_INFO_gameStringTable, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_STRING").c_str(), gameStringTableTable2))
 		return FALSE;
 	(*g_pGameStringTable).LoadFromFile(gameStringTableTable2);
@@ -1723,7 +1723,7 @@ InitGame()
 
 		/*
 		#if defined(_DEBUG) && defined(OUTPUT_DEBUG)
-			class ifstream guildInfoFile2(FILE_INFO_GUILD_INFO_MAPPER, ios::binary | ios::nocreate);	
+			std::ifstream guildInfoFile2(FILE_INFO_GUILD_INFO_MAPPER, ios::binary | ios::nocreate);	
 
 			if (!guildInfoFile2.is_open())
 			{
@@ -2838,7 +2838,7 @@ InitGameObject()
 	int nStartV = 73*25;
 #ifdef __GAME_CLIENT__
 	int version;
-	class ifstream versionFile;//(g_pFileDef->getProperty("FILE_INFO_ACTION").c_str(), ios::binary);
+	std::ifstream versionFile;//(g_pFileDef->getProperty("FILE_INFO_ACTION").c_str(), ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_INFO_VERSION").c_str(), versionFile))
 	{
 		return FALSE;

@@ -159,7 +159,8 @@ MActionInfo::MActionInfo()
 	m_fSelectCreature = FLAG_ACTIONINFO_SELECT_ALL;
 	m_bUseGrade = false;
 	m_bUseActionStep = false;
-	
+
+	int i;
 	for( i = 0 ; i< MAX_ACTION_STEP ;i ++ )
 	{
 		m_ActionStep[i] = 0;
@@ -330,6 +331,7 @@ MActionInfo::SaveToFile(std::ofstream& file)
 	file.write((const char*)&flag, sizeof(char) );
 	if( m_bUseActionStep )
 	{
+		int i;
 		for( i = 0;i<MAX_ACTION_STEP; i++)
 		{
 			file.write((const char*)&m_ActionStep[i],sizeof( TYPE_ACTIONINFO ) );
@@ -420,6 +422,7 @@ MActionInfo::LoadFromFile(std::ifstream& file)
 	
 	if( m_bUseActionStep )
 	{
+	int i;
 		for( i = 0;i<MAX_ACTION_STEP; i++)
 		{
 			file.read((char*)&m_ActionStep[i],sizeof( TYPE_ACTIONINFO ) );

@@ -70,23 +70,23 @@ MAroundZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 			switch(egInfo.step%4)
 			{
 			case 0:
-				pixelPoint.x = pixelPoint.x - rand()%(TILE_X<<1) - g_TILE_X_HALF;
-				pixelPoint.y = pixelPoint.y - rand()%(TILE_Y<<1) - g_TILE_Y_HALF;
+				pixelPoint.x = pixelPoint.x - rand()%(TILE_X<<1) - 24;
+				pixelPoint.y = pixelPoint.y - rand()%(TILE_Y<<1) - 24;
 				break;
 
 			case 1:
-				pixelPoint.x = pixelPoint.x - rand()%(TILE_X<<1) - g_TILE_X_HALF;
-				pixelPoint.y = pixelPoint.y + rand()%(TILE_Y<<1) + g_TILE_Y_HALF;
+				pixelPoint.x = pixelPoint.x - rand()%(TILE_X<<1) - 24;
+				pixelPoint.y = pixelPoint.y + rand()%(TILE_Y<<1) + 24;
 				break;
 
 			case 2:
-				pixelPoint.x = pixelPoint.x + rand()%(TILE_X<<1) + g_TILE_X_HALF;
-				pixelPoint.y = pixelPoint.y - rand()%(TILE_Y<<1) - g_TILE_Y_HALF;
+				pixelPoint.x = pixelPoint.x + rand()%(TILE_X<<1) + 24;
+				pixelPoint.y = pixelPoint.y - rand()%(TILE_Y<<1) - 24;
 				break;
 
 			case 3:
-				pixelPoint.x = pixelPoint.x + rand()%(TILE_X<<1) + g_TILE_X_HALF;
-				pixelPoint.y = pixelPoint.y + rand()%(TILE_Y<<1) + g_TILE_Y_HALF;
+				pixelPoint.x = pixelPoint.x + rand()%(TILE_X<<1) + 24;
+				pixelPoint.y = pixelPoint.y + rand()%(TILE_Y<<1) + 24;
 				break;
 
 			}
@@ -114,8 +114,8 @@ MAroundZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 				break;
 			}
 
-			//pixelPoint.x += (rand()%g_TILE_X_HALF) - (g_TILE_X_HALF>>1);
-			//pixelPoint.y += (rand()%g_TILE_Y_HALF) - (g_TILE_Y_HALF>>1);
+			//pixelPoint.x += (rand()%24) - (24>>1);
+			//pixelPoint.y += (rand()%24) - (24>>1);
 			pixelPoint.x += (rand()%(TILE_X<<1)) - TILE_X;
 			pixelPoint.y += (rand()%(TILE_Y<<1)) - TILE_Y;
 		} 
@@ -147,10 +147,10 @@ MAroundZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 				case DIRECTION_UP			:				DirY = -1;	break;
 				case DIRECTION_RIGHT		: DirX = +1;				break;
 			}
-//			pixelPoint.x += ((((TempCount)*(g_TILE_X_HALF))*DirX)+1);
-//			pixelPoint.y += ((((TempCount)*(g_TILE_Y_HALF))*DirY)+1);
-			pixelPoint.x += ((((TempCount+1)*(g_TILE_X_HALF))*DirX));
-			pixelPoint.y += ((((TempCount+1)*(g_TILE_Y_HALF))*DirY));
+//			pixelPoint.x += ((((TempCount)*(24))*DirX)+1);
+//			pixelPoint.y += ((((TempCount)*(24))*DirY)+1);
+			pixelPoint.x += ((((TempCount+1)*(24))*DirX));
+			pixelPoint.y += ((((TempCount+1)*(24))*DirY));
 			dwWaitCount = (TempCount);
 		}
 		else if(est == EFFECTSPRITETYPE_GREAT_RUFFIAN_2_AXE_THROW)

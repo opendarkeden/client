@@ -107,28 +107,28 @@ MAttachZoneEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 		est = EFFECTSPRITETYPE_GREEN_BLOOD_GROUND_2_1 + rand()%4;
 		
 		pixelPoint.x += (rand()%TILE_X_HALF) - (TILE_X_HALF>>1);
-		pixelPoint.y += (rand()%g_TILE_Y_HALF) - (g_TILE_Y_HALF>>1);
+		pixelPoint.y += (rand()%24) - (24>>1);
 	}
 	else if (est==EFFECTSPRITETYPE_GREEN_BLOOD_GROUND_1_1)
 	{
 		est = EFFECTSPRITETYPE_GREEN_BLOOD_GROUND_1_1 + rand()%5;
 		
 		pixelPoint.x += (rand()%TILE_X_HALF) - (TILE_X_HALF>>1);
-		pixelPoint.y += (rand()%g_TILE_Y_HALF) - (g_TILE_Y_HALF>>1);
+		pixelPoint.y += (rand()%24) - (24>>1);
 	}
 	if (est==EFFECTSPRITETYPE_BLOOD_GROUND_2_1)
 	{
 		est = EFFECTSPRITETYPE_BLOOD_GROUND_2_1 + rand()%4;
 		
 		pixelPoint.x += (rand()%TILE_X_HALF) - (TILE_X_HALF>>1);
-		pixelPoint.y += (rand()%g_TILE_Y_HALF) - (g_TILE_Y_HALF>>1);
+		pixelPoint.y += (rand()%24) - (24>>1);
 	}
 	else if (est==EFFECTSPRITETYPE_BLOOD_GROUND_1_1)
 	{
 		est = EFFECTSPRITETYPE_BLOOD_GROUND_1_1 + rand()%5;
 		
 		pixelPoint.x += (rand()%TILE_X_HALF) - (TILE_X_HALF>>1);
-		pixelPoint.y += (rand()%g_TILE_Y_HALF) - (g_TILE_Y_HALF>>1);
+		pixelPoint.y += (rand()%24) - (24>>1);
 	}
 	else if( est == EFFECTSPRITETYPE_GREAT_RUFFIAN_1_AXE_GROUND)
 	{

@@ -18,7 +18,9 @@
 
 #include "PackFileManager.h"
 #include "MTypeDef.h"
+#ifdef PLATFORM_WINDOWS
 #include <DSound.h>
+#endif
 
 //--------------------------------------------------------------------------
 // WavePackFileInfo
