@@ -19,6 +19,7 @@ extern "C" {
 
 #ifdef USE_API
 void SafeGetDate(int *Day, int *Month, int *Year);
+#ifdef PLATFORM_WINDOWS
 DWORD __declspec(dllexport) __stdcall EXECryptor_GetHardwareID();
 
 void __declspec(dllexport) _stdcall EXECryptor_EncryptStr(const char *Src, char *Dst);
@@ -28,13 +29,33 @@ bool __declspec(dllexport) _stdcall EXECryptor_SecureRead(const char *Name, char
 
 int __declspec(dllexport) _stdcall EXECryptor_GetTrialDaysLeft(int TrialPeriod);
 int __declspec(dllexport) _stdcall EXECryptor_GetTrialRunsLeft(int TrialRuns);
+#else
+// Non-Windows: stub declarations
+DWORD __stdcall EXECryptor_GetHardwareID();
+void __stdcall EXECryptor_EncryptStr(const char *Src, char *Dst);
+void __stdcall EXECryptor_DecryptStr(const char *Src, char *Dst);
+bool __stdcall EXECryptor_SecureWrite(const char *Name, const char *Value);
+bool __stdcall EXECryptor_SecureRead(const char *Name, char *Value);
+int __stdcall EXECryptor_GetTrialDaysLeft(int TrialPeriod);
+int __stdcall EXECryptor_GetTrialRunsLeft(int TrialRuns);
+#endif
+#endif
 
+#ifdef PLATFORM_WINDOWS
 int __declspec(dllexport) _stdcall EXECryptor_MessageBoxA(HWND hWnd, LPCSTR lpText,
   LPCSTR lpCaption, UINT uType);
 FARPROC __declspec(dllexport) _stdcall EXECryptor_GetProcAddr(HMODULE hModule, LPCSTR lpProcName);
 
 void __declspec(dllexport) _stdcall EXECryptor_AntiDebug();
 void __declspec(dllexport) _stdcall EXECryptor_ProtectImport();
+#else
+// Non-Windows: stub declarations
+int __stdcall EXECryptor_MessageBoxA(HWND hWnd, LPCSTR lpText,
+  LPCSTR lpCaption, UINT uType);
+FARPROC __stdcall EXECryptor_GetProcAddr(HMODULE hModule, LPCSTR lpProcName);
+void __stdcall EXECryptor_AntiDebug();
+void __stdcall EXECryptor_ProtectImport();
+#endif
 #endif
 
 #ifdef USE_CRYPT_REG
@@ -166,7 +187,5 @@ DWORD __declspec(dllexport) _stdcall EXECryptor_RegConst_7();
 	__asm _emit 0FCh \
 	__asm _emit 0FFh \
 	__asm _emit 0FAh
-
-#endif
 
 #endif

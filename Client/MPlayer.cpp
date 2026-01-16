@@ -2049,9 +2049,11 @@ MPlayer::SelfSpecialAction()
 
 							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 								MItem* pSubInventory = NULL;
-								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MVampirePortalItemFinder( false ) , pSubInventory );
+								MVampirePortalItemFinder finder1( false );
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( finder1 , pSubInventory );
 							#else
-								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MVampirePortalItemFinder( false ) );
+								MVampirePortalItemFinder finder1( false );
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( finder1 );
 							#endif
 								
 								
@@ -2114,9 +2116,11 @@ MPlayer::SelfSpecialAction()
 								// 사용된(Marked=true) VampirePortalItem을 찾는다.
 							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 								MItem* pSubInventory = NULL;
-								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MVampirePortalItemFinder( true ) , pSubInventory );
+								MVampirePortalItemFinder finder2( true );
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( finder2 , pSubInventory );
 							#else
-								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MVampirePortalItemFinder( true ) );
+								MVampirePortalItemFinder finder2( true );
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( finder2 );
 							#endif
 								
 								
@@ -2177,9 +2181,11 @@ MPlayer::SelfSpecialAction()
 
 							#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 								MItem* pSubInventory = NULL;
-								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MSlayerPortalItemFinder() , pSubInventory);
+								MSlayerPortalItemFinder finder3;
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( finder3 , pSubInventory);
 							#else
-								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MSlayerPortalItemFinder() );
+								MSlayerPortalItemFinder finder3;
+								MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( finder3 );
 							#endif
 								
 								
@@ -2606,9 +2612,11 @@ MPlayer::SelfSpecialAction()
 
 					#ifdef __TEST_SUB_INVENTORY__   // add by Coffee 2007-8-9 藤속관櫓관
 						MItem* pSubInventory = NULL;
-						MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( MOustersSummonGemItemFinder(), pSubInventory );
+						MOustersSummonGemItemFinder finder4;
+						MItem* pItem = ((MItemManager*)g_pInventory)->FindItemAll( finder4, pSubInventory );
 					#else
-						MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( MOustersSummonGemItemFinder() );
+						MOustersSummonGemItemFinder finder4;
+						MItem* pItem = ((MItemManager*)g_pInventory)->FindItem( finder4 );
 					#endif
 						
 						if( pItem != NULL )
@@ -6516,8 +6524,11 @@ MPlayer::AffectUsedActionInfo(TYPE_ACTIONINFO nUsedActionInfo)
 				&& soundID < g_pSoundTable->GetSize())
 			{
 				DEBUG_ADD_FORMAT("ForceAction-AffectUsedActionInfo(%d, %s)", soundID, strrchr((*g_pSoundTable)[soundID].Filename.GetString(), '\\'));
-		
+
+#ifdef PLATFORM_WINDOWS
+				// Force feedback only supported on Windows with IFC
 				gpC_Imm->ForceAction( soundID );
+#endif
 			}
 		}
 
@@ -6871,7 +6882,10 @@ MPlayer::ActionToSendPacket()
 				if (soundID < g_pSoundTable->GetSize())
 				{
 					DEBUG_ADD_FORMAT("ForceAction-ActionToSendPacket(%d, %s)", soundID, strrchr((*g_pSoundTable)[soundID].Filename.GetString(), '\\'));
+#ifdef PLATFORM_WINDOWS
+					// Force feedback only supported on Windows with IFC
 					gpC_Imm->ForceAction( soundID );
+#endif
 				}
 			}
 
@@ -7455,8 +7469,8 @@ MPlayer::ActionToSendPacket()
 		//-------------------------------------------------
 		// Force Feel
 		//-------------------------------------------------
-		if (g_pUserOption->UseForceFeel && gpC_Imm!=NULL && gpC_Imm->IsDevice())				
-		{				
+		if (g_pUserOption->UseForceFeel && gpC_Imm!=NULL && gpC_Imm->IsDevice())
+		{
 			if ((*g_pActionInfoTable)[m_nUsedActionInfo].IsWeaponTypeGunAny())
 			{
 				soundID = SOUND_SLAYER_ATTACK_AR;
@@ -7465,7 +7479,10 @@ MPlayer::ActionToSendPacket()
 			if (soundID < g_pSoundTable->GetSize())
 			{
 				DEBUG_ADD_FORMAT("ForceAction-ActionToSendPacket(%d, %s)", soundID, strrchr((*g_pSoundTable)[soundID].Filename.GetString(), '\\'));
+#ifdef PLATFORM_WINDOWS
+				// Force feedback only supported on Windows with IFC
 				gpC_Imm->ForceAction( soundID );
+#endif
 			}
 		}
 	}

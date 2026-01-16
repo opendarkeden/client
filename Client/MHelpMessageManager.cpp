@@ -1,5 +1,8 @@
 #include "Client_PCH.h"
 #include "MHelpMessageManager.h"
+#include <fstream>
+
+using namespace std;
 
 #define dSTRING_LEN 2048
 
@@ -39,8 +42,8 @@ MHelpMessageManager:: ~MHelpMessageManager()
 }
 
 void MHelpMessageManager::LoadFromFile(const char * filename)
-{	
-	ifstream file(filename, ios::binary| );
+{
+	std::ifstream file(filename, std::ios::binary);
 	if(!file)
 	{
 		return;
@@ -55,7 +58,7 @@ void MHelpMessageManager::LoadFromFile(const char * filename)
 
 void MHelpMessageManager::SaveToFile(const char * filename)
 {
-	ofstream file(filename, ios::binary);
+	std::ofstream file(filename, std::ios::binary);
 	if(file)
 	{
 		SaveToFile(file);
@@ -77,8 +80,8 @@ bool MHelpMessageManager::LoadHelpMessageRpk(const char *helprpkfilename)
 	char *token;
 	int  levtemp[7],i,Sendercnt;
 	bool detail_flag = false;
-	char * iskeyword = NULL,* isMessagetype = NULL,* isEvent = NULL ,* isTitle = NULL;
-	char * isLevel = NULL,	* isDetail= NULL,   * isDetailEnd= NULL,* isSender = NULL;
+	const char * iskeyword = NULL,* isMessagetype = NULL,* isEvent = NULL ,* isTitle = NULL;
+	const char * isLevel = NULL,	* isDetail= NULL,   * isDetailEnd= NULL,* isSender = NULL;
 	m_pack_file.GetString(sztemp, dSTRING_LEN);
 	Sendercnt = atoi(sztemp);
 	m_pack_file.GetString(sztemp, dSTRING_LEN);
@@ -248,8 +251,8 @@ void MHelpMessageManager::LoadFromFile(std::ifstream &file)
 	int  levtemp[7];
 	int i;
 	bool detail_flag = false;
-	char * iskeyword = NULL,* isMessagetype = NULL,* isEvent = NULL ,* isTitle = NULL;
-	char * isLevel = NULL,	* isDetail= NULL,   * isDetailEnd= NULL,* isSender = NULL;
+	const char * iskeyword = NULL,* isMessagetype = NULL,* isEvent = NULL ,* isTitle = NULL;
+	const char * isLevel = NULL,	* isDetail= NULL,   * isDetailEnd= NULL,* isSender = NULL;
 
 	file.getline(sztemp, dSTRING_LEN);			
 	m_SenderCnt = atoi(sztemp);
@@ -425,7 +428,7 @@ void MHelpMessageManager::SaveToFile(std::ofstream &file)
 	for(i = 0; i< m_SenderCnt; i++)
 	{
 		const MString& strSender = MHelpMessageManager::Instance().getSender(i);
-		file << strSender << "\r\n";
+		file << strSender.GetString() << "\r\n";
 	}
 	m_KeyCnt = this->getMessageSize();
 	file <<  m_KeyCnt << "\r\n";
@@ -433,14 +436,14 @@ void MHelpMessageManager::SaveToFile(std::ofstream &file)
 	{
 		const MHelpMessage& message = MHelpMessageManager::Instance().getMessage(i);
 		file << "[===KeyWord===]" << "\r\n" ;
-		file <<  message.m_strKeyword  << "\r\n";
+		file <<  message.m_strKeyword.GetString()  << "\r\n";
 		file << "[===MessageType===]" << "\r\n" ;
 		file << "    " << message.m_messageType << "\r\n";
 		file << "	[===Event===]" << "\r\n" ;
 		strlen =  message.m_strEvent.GetLength();
 		if( strlen > 0 )
 		{
-			file << "	  " <<  message.m_strEvent  << "\r\n";
+			file << "	  " <<  message.m_strEvent.GetString()  << "\r\n";
 		}
 		else
 		{
@@ -460,7 +463,7 @@ void MHelpMessageManager::SaveToFile(std::ofstream &file)
 			strlen =  message.m_strTitle[j].GetLength();
 			if( strlen > 0 )
 			{
-				file << "		   " <<   message.m_strTitle[j]<< "\r\n";
+				file << "		   " <<   message.m_strTitle[j].GetString()<< "\r\n";
 			}
 			else
 			{
@@ -475,7 +478,7 @@ void MHelpMessageManager::SaveToFile(std::ofstream &file)
 			file << "		[==Detail==]" << "\r\n" ;
 			strlen =  message.m_strDetail[j].GetLength();
 			if( strlen > 0 )
-				file <<  message.m_strDetail[j] << "\r\n" ;
+				file <<  message.m_strDetail[j].GetString() << "\r\n" ;
 			file << "{End}" << "\r\n" ;
 		}
 	}

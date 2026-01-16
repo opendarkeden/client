@@ -6,6 +6,11 @@
 
 #include "UtilityFunction.h"
 
+#ifndef PLATFORM_WINDOWS
+#include <sys/statvfs.h>
+#endif
+#include <SDL_image.h>
+
 
 bool LoadJPG(LPCTSTR lpszFileName, int &width, int &height, int &bpp, unsigned char** p_data);
 bool SaveJPG(LPCTSTR lpszFileName, int &width, int &height, int &bpp, unsigned char* p_data);
@@ -258,12 +263,12 @@ IsValidID(const char* strID, const char* strPermit)
 				bExistEnglish = 1;
 			}
 			//--------------------------------------------------------
-			// 숫자거나 
+			// 숫자거나
 			// 허용된 문자인 경우는 괜찮다..
 			//--------------------------------------------------------
 			else if (ch>='0' && ch<='9'
-					|| strPermit!=NULL && strchr(strPermit, ch)!='\0')
-			{				
+					|| strPermit!=NULL && strchr(strPermit, ch)!=NULL)
+			{
 			}
 			//--------------------------------------------------------
 			// 이상한 문자 쓰면 안된다.				
@@ -931,16 +936,17 @@ bool SaveJPG(LPCTSTR lpszFileName, int &width, int &height, int &bpp, unsigned c
 //-----------------------------------------------------------------------------
 unsigned long
 GetDiskFreeSpace(const char* pDrive)
-{	
+{
+#ifdef PLATFORM_WINDOWS
 	DWORD dwSectorsPerCluster;
 	DWORD dwBytesPerSector;
 	DWORD dwNumberOfFreeClusters;
 	DWORD dwTotalNumberOfClusters;
 
-	GetDiskFreeSpace(pDrive,
-						&dwSectorsPerCluster, 
-						&dwBytesPerSector, 
-						&dwNumberOfFreeClusters, 
+	::GetDiskFreeSpaceA(pDrive,
+						&dwSectorsPerCluster,
+						&dwBytesPerSector,
+						&dwNumberOfFreeClusters,
 						&dwTotalNumberOfClusters);
 
 	DWORD bytesPerCluster = dwSectorsPerCluster * dwBytesPerSector;
@@ -948,11 +954,20 @@ GetDiskFreeSpace(const char* pDrive)
 	//DWORD totalBytes = dwTotalNumberOfClusters * bytesPerCluster;
 
 	return freeBytes;
+#else
+	// macOS/Linux implementation using statvfs
+	struct statvfs buf;
+	const char* drive = (pDrive != NULL && pDrive[0] != '\0') ? pDrive : "/";
+	if (statvfs(drive, &buf) != 0) {
+		return 0;
+	}
+	unsigned long freeBytes = (unsigned long)(buf.f_bavail * buf.f_bsize);
+	return freeBytes;
+#endif
 }
 // SDL backend implementation of LoadImageToSurface
 #ifndef PLATFORM_WINDOWS
-#include "../SpriteLib/CSpriteSurface.h"
-#include <SDL2/SDL_image.h>
+#include "SpriteLib/CSpriteSurface.h"
 
 bool LoadImageToSurface(const char* pFilename, CSpriteSurface& surface)
 {
@@ -987,7 +1002,7 @@ bool LoadImageToSurface(const char* pFilename, CSpriteSurface& surface)
 	}
 
 	// Convert to RGB565 format
-	SDL_Surface* converted = SDL_ConvertSurfaceFormat(loaded, SDL_PIXELFORMAT_RGB565);
+	SDL_Surface* converted = SDL_ConvertSurfaceFormat(loaded, SDL_PIXELFORMAT_RGB565, 0);
 	if (converted == NULL) {
 		SDL_FreeSurface(loaded);
 		return false;

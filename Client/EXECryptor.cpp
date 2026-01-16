@@ -16,8 +16,9 @@
   __asm _emit 090h; \
 
 #ifdef USE_API
-extern "C" 
-DWORD __declspec(dllexport) _stdcall EXECryptor_GetDate()
+#ifdef PLATFORM_WINDOWS
+extern "C"
+DWORD  _stdcall EXECryptor_GetDate()
 {
   FILETIME t1,t2;
   WORD dt,tt;
@@ -26,6 +27,15 @@ DWORD __declspec(dllexport) _stdcall EXECryptor_GetDate()
   FileTimeToDosDateTime(&t2,&dt,&tt);
   return dt;
 }
+#else
+// Non-Windows: stub implementation
+extern "C"
+DWORD _stdcall EXECryptor_GetDate()
+{
+  return 0;
+}
+#endif
+#endif
 
 void SafeGetDate(int *Day, int *Month, int *Year)
 {
@@ -35,7 +45,7 @@ void SafeGetDate(int *Day, int *Month, int *Year)
   *Year = (dt >> 9)+1980;
 }
 
-DWORD __declspec(dllexport) __stdcall EXECryptor_GetHardwareID()
+DWORD  __stdcall EXECryptor_GetHardwareID()
 {
   EMIT5
   __asm _emit 0EBh;
@@ -44,7 +54,7 @@ DWORD __declspec(dllexport) __stdcall EXECryptor_GetHardwareID()
   return 0;
 }
 
-void __declspec(dllexport) _stdcall EXECryptor_EncryptStr(const char *Src, char *Dst)
+void  _stdcall EXECryptor_EncryptStr(const char *Src, char *Dst)
 {
   EMIT5
   strcpy(Dst,Src);
@@ -53,7 +63,7 @@ void __declspec(dllexport) _stdcall EXECryptor_EncryptStr(const char *Src, char 
   __asm _emit 001h;
 }
 
-void __declspec(dllexport) _stdcall EXECryptor_DecryptStr(const char *Src, char *Dst)
+void  _stdcall EXECryptor_DecryptStr(const char *Src, char *Dst)
 {
   EMIT5
   strcpy(Dst,Src);
@@ -62,7 +72,7 @@ void __declspec(dllexport) _stdcall EXECryptor_DecryptStr(const char *Src, char 
   __asm _emit 002h;
 }
 
-int __declspec(dllexport) _stdcall EXECryptor_GetTrialDaysLeft(int TrialPeriod)
+int  _stdcall EXECryptor_GetTrialDaysLeft(int TrialPeriod)
 {
 	return TrialPeriod;
   __asm _emit 0EBh;
@@ -70,7 +80,7 @@ int __declspec(dllexport) _stdcall EXECryptor_GetTrialDaysLeft(int TrialPeriod)
   __asm _emit 016h;
 }
 
-int __declspec(dllexport) _stdcall EXECryptor_GetTrialRunsLeft(int TrialRuns)
+int  _stdcall EXECryptor_GetTrialRunsLeft(int TrialRuns)
 {
 	return TrialRuns;
   __asm _emit 0EBh;
@@ -81,7 +91,7 @@ int __declspec(dllexport) _stdcall EXECryptor_GetTrialRunsLeft(int TrialRuns)
 const
   char *TestKeyPath = "Software\\EXECryptorTestKeys";
 
-bool __declspec(dllexport) _stdcall EXECryptor_SecureWrite(const char *Name, const char *Value)
+bool  _stdcall EXECryptor_SecureWrite(const char *Name, const char *Value)
 {
   DWORD Disposition;
   HKEY KeyHandle;
@@ -94,7 +104,7 @@ bool __declspec(dllexport) _stdcall EXECryptor_SecureWrite(const char *Name, con
     return false;
 }
 
-bool __declspec(dllexport) _stdcall EXECryptor_SecureRead(const char *Name, char *Value)
+bool  _stdcall EXECryptor_SecureRead(const char *Name, char *Value)
 {
   HKEY KeyHandle;
   DWORD sz,tp;
@@ -111,20 +121,20 @@ bool __declspec(dllexport) _stdcall EXECryptor_SecureRead(const char *Name, char
   return Result;
 }
 
-int __declspec(dllexport) _stdcall EXECryptor_MessageBoxA(HWND hWnd, LPCSTR lpText,
+int  _stdcall EXECryptor_MessageBoxA(HWND hWnd, LPCSTR lpText,
   LPCSTR lpCaption, UINT uType)
 {
   EMIT5
   return MessageBoxA(hWnd, lpText, lpCaption, uType);
 }
 
-FARPROC __declspec(dllexport) _stdcall EXECryptor_GetProcAddr(HMODULE hModule, LPCSTR lpProcName)
+FARPROC  _stdcall EXECryptor_GetProcAddr(HMODULE hModule, LPCSTR lpProcName)
 {
   EMIT5
   return GetProcAddress(hModule, lpProcName);
 }
 
-void __declspec(dllexport) _stdcall EXECryptor_AntiDebug()
+void  _stdcall EXECryptor_AntiDebug()
 {
   EMIT5
   __asm _emit 0EBh;
@@ -132,7 +142,7 @@ void __declspec(dllexport) _stdcall EXECryptor_AntiDebug()
   __asm _emit 014h;
 }
 
-void __declspec(dllexport) _stdcall EXECryptor_ProtectImport()
+void  _stdcall EXECryptor_ProtectImport()
 {
   EMIT5
   __asm _emit 0EBh;
@@ -159,7 +169,7 @@ static TInitialize _TInitialize;
 #ifdef USE_CRYPT_REG
 #ifdef USE_STD_SERIALS
 
-TVerifyResult __declspec(dllexport) _stdcall EXECryptor_VerifySerialNumber(const char *RegName,
+TVerifyResult  _stdcall EXECryptor_VerifySerialNumber(const char *RegName,
   const char *SerialNumber, int CurrentYear, int CurrentMonth,
   TSerialNumberInfo *SNInfo, const char *HardwareID)
 {
@@ -172,7 +182,7 @@ TVerifyResult __declspec(dllexport) _stdcall EXECryptor_VerifySerialNumber(const
 
 #else
 
-void __declspec(dllexport) _stdcall EXECryptor_SetCodeKey(const void *Key, int Size)
+void  _stdcall EXECryptor_SetCodeKey(const void *Key, int Size)
 {
   EMIT5
   __asm _emit 0EBh;
@@ -182,7 +192,7 @@ void __declspec(dllexport) _stdcall EXECryptor_SetCodeKey(const void *Key, int S
 
 #endif
 
-TVerifyResult __declspec(dllexport) _stdcall EXECryptor_IsRegistered()
+TVerifyResult  _stdcall EXECryptor_IsRegistered()
 {
   EMIT5
   __asm _emit 0EBh;
@@ -191,49 +201,49 @@ TVerifyResult __declspec(dllexport) _stdcall EXECryptor_IsRegistered()
   return vrOK;
 }
 
-__declspec(dllexport) DWORD _stdcall EXECryptor_RegConst_0()
+ DWORD _stdcall EXECryptor_RegConst_0()
 {
   EMIT5
   return 0;
 }
 
-__declspec(dllexport) DWORD _stdcall EXECryptor_RegConst_1()
+ DWORD _stdcall EXECryptor_RegConst_1()
 {
   EMIT5
   return 1;
 }
 
-__declspec(dllexport) DWORD _stdcall EXECryptor_RegConst_2()
+ DWORD _stdcall EXECryptor_RegConst_2()
 {
   EMIT5
   return 2;
 }
 
-__declspec(dllexport) DWORD _stdcall EXECryptor_RegConst_3()
+ DWORD _stdcall EXECryptor_RegConst_3()
 {
   EMIT5
   return 3;
 }
 
-__declspec(dllexport) DWORD _stdcall EXECryptor_RegConst_4()
+ DWORD _stdcall EXECryptor_RegConst_4()
 {
   EMIT5
   return 4;
 }
 
-__declspec(dllexport) DWORD _stdcall EXECryptor_RegConst_5()
+ DWORD _stdcall EXECryptor_RegConst_5()
 {
   EMIT5
   return 5;
 }
 
-__declspec(dllexport) DWORD _stdcall EXECryptor_RegConst_6()
+ DWORD _stdcall EXECryptor_RegConst_6()
 {
   EMIT5
   return 6;
 }
 
-__declspec(dllexport) DWORD _stdcall EXECryptor_RegConst_7()
+ DWORD _stdcall EXECryptor_RegConst_7()
 {
   EMIT5
   return 7;

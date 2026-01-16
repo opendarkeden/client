@@ -95,10 +95,11 @@ MGuildMarkManager::Release()
 // guildMarkSPK(+SPKIndex)에 추가하고 그 때의 ID를
 // guildID와 연결해서 guildMarkSpriteMapper에 추가해두면 된다.
 //----------------------------------------------------------------------
-bool		
+bool
 MGuildMarkManager::CreateGuildMark(WORD guildID, const char* pFilename)
 {
 #if defined(__GAME_CLIENT__) || defined(__GUILD_MANAGER_TOOL__)
+#ifdef PLATFORM_WINDOWS
 	if (pFilename==NULL)
 	{
 		return false;
@@ -112,16 +113,16 @@ MGuildMarkManager::CreateGuildMark(WORD guildID, const char* pFilename)
 	{
 		return false;
 	}
-	
+
 	const POINT bigSize = { 40, 40 };
 	const POINT smallSize = { 20, 20 };
-	
+
 	CDirectDrawSurface surface;
 	surface.InitOffsurface( bigSize.x, bigSize.y, DDSCAPS_SYSTEMMEMORY );
-		
+
 	RECT destBigRect = { 0, 0, bigSize.x, bigSize.y };
 	RECT destSmallRect = { 0, 0, smallSize.x, smallSize.y };
-	
+
 	//-----------------------------------------------------
 	// CSprite생성
 	//-----------------------------------------------------
@@ -155,19 +156,20 @@ MGuildMarkManager::CreateGuildMark(WORD guildID, const char* pFilename)
 	surface.Blt(&destBigRect, &bmpSurface, &bmpRect);
 	surface.LockW(lpSurface, pitch);
 	pSprite->SetPixel(lpSurface, pitch, bigSize.x, bigSize.y);
-	surface.Unlock();	
+	surface.Unlock();
 
 	// SmallSize
 	surface.FillSurface( 0 );
 	surface.Blt(&destSmallRect, &bmpSurface, &bmpRect);
-	surface.LockW(lpSurface, pitch);				
+	surface.LockW(lpSurface, pitch);
 	pSpriteSmall->SetPixel(lpSurface, pitch, smallSize.x, smallSize.y);
-	surface.Unlock();	
+	surface.Unlock();
 
 	//-----------------------------------------------------
 	// add
 	//-----------------------------------------------------
 	AddGuildMark(guildID, pSprite, pSpriteSmall);
+#endif // PLATFORM_WINDOWS
 #endif
 	return true;
 }
@@ -805,9 +807,10 @@ MGuildMarkManager::GetLevelMarkSmall(WORD level)
 
 
 
-bool		
+bool
 MGuildMarkManager::CreateGuildMark(const char* pFilename, CSprite *&pSprite, CSprite *&pSpriteSmall)
 {
+#ifdef PLATFORM_WINDOWS
 	if (pFilename==NULL)
 	{
 		return false;
@@ -821,16 +824,16 @@ MGuildMarkManager::CreateGuildMark(const char* pFilename, CSprite *&pSprite, CSp
 	{
 		return false;
 	}
-	
+
 	const POINT bigSize = { 40, 40 };
 	const POINT smallSize = { 20, 20 };
-	
+
 	CDirectDrawSurface surface;
 	surface.InitOffsurface( bigSize.x, bigSize.y, DDSCAPS_SYSTEMMEMORY );
-		
+
 	RECT destBigRect = { 0, 0, bigSize.x, bigSize.y };
 	RECT destSmallRect = { 0, 0, smallSize.x, smallSize.y };
-	
+
 	//-----------------------------------------------------
 	// CSprite생성
 	//-----------------------------------------------------
@@ -861,18 +864,22 @@ MGuildMarkManager::CreateGuildMark(const char* pFilename, CSprite *&pSprite, CSp
 	surface.Blt(&destBigRect, &bmpSurface, &bmpRect);
 	surface.LockW(lpSurface, pitch);
 	pSprite->SetPixel(lpSurface, pitch, bigSize.x, bigSize.y);
-	surface.Unlock();	
+	surface.Unlock();
 
 	// SmallSize
 	surface.FillSurface( 0 );
 	surface.Blt(&destSmallRect, &bmpSurface, &bmpRect);
-	surface.LockW(lpSurface, pitch);				
+	surface.LockW(lpSurface, pitch);
 	pSpriteSmall->SetPixel(lpSurface, pitch, smallSize.x, smallSize.y);
-	surface.Unlock();	
+	surface.Unlock();
 
 	//-----------------------------------------------------
 	// add
 	//-----------------------------------------------------
 //	AddGuildMark(guildID, pSprite, pSpriteSmall);
 	return true;
+#else
+	// SDL backend: not implemented
+	return false;
+#endif
 }

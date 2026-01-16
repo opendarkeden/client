@@ -10,7 +10,7 @@
 //
 //---------------------------------------------------------------------------------
 void				
-ExpInfo::LoadFromFile(class ifstream& file)
+ExpInfo::LoadFromFile(std::ifstream& file)
 {
 	file.read((char*)&GoalExp, 4);
 	file.read((char*)&AccumExp, 4);

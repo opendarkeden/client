@@ -701,7 +701,8 @@ CWaitUIUpdate::UpdateDraw()
 
 		if(g_TitleSpriteAlpha > 0)
 		{
-			g_TitleSpriteAlpha = std::max(0, (int)(31-(timeGetTime()-oldTime)*16/1000));
+			int alpha = (int)(31-(timeGetTime()-oldTime)*16/1000);
+			g_TitleSpriteAlpha = (alpha > 0) ? alpha : 0;
 			DrawTitleLoading();
 
 			if(g_TitleSpriteAlpha <= 0)

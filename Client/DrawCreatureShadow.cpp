@@ -15,7 +15,7 @@
 #include <math.h>
 #include <list>
 #include <stdio.h>
-#include <fstream.h>
+#include <fstream>
 #include "MZone.h"
 #include "MCreature.h"
 #include "MFakeCreature.h"
@@ -542,7 +542,7 @@ MTopView::DrawCreatureShadow(POINT* pPoint, MCreature* pCreature)
 					if (pSprite!=NULL)
 					{
 						// tile의 중심에서 세운다.
-						pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSpriteImage->GetWidth()>>1);
+						pointTemp.x = pPoint->x + 24 - (pSpriteImage->GetWidth()>>1);
 
 						pointTemp.y = pPoint->y + TILE_Y - pSpriteImage->GetHeight();
 

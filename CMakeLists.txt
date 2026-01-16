@@ -19,6 +19,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # Find SDL2 (needed for engine and DXLib)
 if(BUILD_ENGINE OR USE_SDL_BACKEND OR NOT WIN32)
 	find_package(SDL2 REQUIRED)
+	find_package(SDL2_image REQUIRED)
+	find_package(SDL2_ttf REQUIRED)
 endif()
 
 # Subdirectories
@@ -152,6 +154,8 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		SpriteLib
 		SDL2::SDL2
 		SDL2::SDL2main
+		SDL2_image::SDL2_image
+		SDL2_ttf::SDL2_ttf
 	)
 
 	# Platform-specific definitions
@@ -190,6 +194,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*D3D.*")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*Direct3.*")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*GameMain.*")
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*EXECryptor.*")
 	endif()
 
 	# Add DarkEden executable

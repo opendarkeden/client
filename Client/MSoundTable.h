@@ -17,6 +17,9 @@
 #include "CTypeTable.h"
 #include "MString.h"
 #include "SoundDef.h"
+#include <fstream>
+
+using namespace std;
 
 
 //----------------------------------------------------------------------
