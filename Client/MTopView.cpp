@@ -7554,12 +7554,12 @@ MTopView::DrawFade()
 				// 2D 5:6:5
 				if (CDirectDraw::Is565())
 				{
-					m_pSurface->GammaBox565(&rect, m_FadeValue);
+					//m_pSurface->GammaBox565(&rect, m_FadeValue);
 				}
 				// 2D 5:5:5
 				else
 				{
-					m_pSurface->GammaBox555(&rect, m_FadeValue);
+					//m_pSurface->GammaBox555(&rect, m_FadeValue);
 				}
 #endif
 			}
@@ -9874,49 +9874,49 @@ MTopView::DrawTextList()
 							if (CDirectDraw::Is565())
 							{
 								rect2 = rect;
-								m_pSurface->GammaBox565(&rect2, 15);
+								//m_pSurface->GammaBox565(&rect2, 15);
 								
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X;
 								rect2.top	= rect.bottom;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X + 6;
 								rect2.bottom = rect.bottom + 2;								
-								m_pSurface->GammaBox565(&rect2, 15);
+								//m_pSurface->GammaBox565(&rect2, 15);
 
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X+1;
 								rect2.top	= rect.bottom + 2;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X+1 + 4;
 								rect2.bottom = rect.bottom + 2 + 2;
-								m_pSurface->GammaBox565(&rect2, 15);
+								//m_pSurface->GammaBox565(&rect2, 15);
 
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X+2;
 								rect2.top	= rect.bottom + 4;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X+2 + 2;
 								rect2.bottom = rect.bottom + 4 + 2;
-								m_pSurface->GammaBox565(&rect2, 15);								
+								//m_pSurface->GammaBox565(&rect2, 15);								
 							}
 							// 2D 5:5:5
 							else
 							{
 								rect2 = rect;
-								m_pSurface->GammaBox555(&rect2, 15);
+								//m_pSurface->GammaBox555(&rect2, 15);
 								
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X;
 								rect2.top	= rect.bottom;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X + 6;
 								rect2.bottom = rect.bottom + 2;								
-								m_pSurface->GammaBox555(&rect2, 15);
+								//m_pSurface->GammaBox555(&rect2, 15);
 
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X+1;
 								rect2.top	= rect.bottom + 2;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X+1 + 4;
 								rect2.bottom = rect.bottom + 2 + 2;
-								m_pSurface->GammaBox555(&rect2, 15);
+								//m_pSurface->GammaBox555(&rect2, 15);
 
 								rect2.left	= rect.left + CHAT_BOX_TAIL_X+2;
 								rect2.top	= rect.bottom + 4;
 								rect2.right = rect.left + CHAT_BOX_TAIL_X+2 + 2;
 								rect2.bottom = rect.bottom + 4 + 2;
-								m_pSurface->GammaBox555(&rect2, 15);
+								//m_pSurface->GammaBox555(&rect2, 15);
 							}					
 
 							
@@ -10652,12 +10652,12 @@ MTopView::DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 				// 2D 5:6:5
 				if (CDirectDraw::Is565())
 				{
-					m_pSurface->GammaBox565(pRect, alpha);
+					//m_pSurface->GammaBox565(pRect, alpha);
 				}
 				// 2D 5:5:5
 				else
 				{
-					m_pSurface->GammaBox555(pRect, alpha);
+					//m_pSurface->GammaBox555(pRect, alpha);
 				}
 			}
 			//-------------------------------------------------
@@ -11493,11 +11493,11 @@ MTopView::DrawTestHelp()
 					
 				if (CDirectDraw::Is565())
 				{
-					m_pSurface->GammaBox565(&rect, 15);
+					//m_pSurface->GammaBox565(&rect, 15);
 				}
 				else
 				{
-					m_pSurface->GammaBox555(&rect, 15);
+					//m_pSurface->GammaBox555(&rect, 15);
 				}
 
 				m_pSurface->Unlock();
@@ -11620,9 +11620,9 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	//------------------------------------------------------------
 	// Clip¿µ¿ª ¾È¿¡¼­¸¸ Ãâ·ÂÇÑ´Ù.
 	//------------------------------------------------------------
-	int clipRight = m_pSurface->GetClipRight();
-	int clipBottom	= m_pSurface->GetClipBottom();
-	m_pSurface->SetClipRightBottom(g_GameRect.right, g_GameRect.bottom);		
+// 	int clipRight = m_pSurface->GetClipRight();
+// 	int clipBottom	= m_pSurface->GetClipBottom();
+// 	m_pSurface->SetClipRightBottom(g_GameRect.right, g_GameRect.bottom);		
 
 	//------------------------------------------------------------
 	// TileÀ» Ã³À½ ±×¸± ¶§, ´Ù~ ±×¸°´Ù.
@@ -11951,11 +11951,13 @@ MTopView::Draw(int firstPointX,int firstPointY)
 	//------------------------------------------------------------
 	// Á¤»óÀûÀÎ Ãâ·Â
 	//------------------------------------------------------------
-	//m_pSurface->SetClipNULL();	
+	//m_pSurface->SetClipNULL();
+#ifdef PLATFORM_WINDOWS
 	m_pSurface->SetClipRightBottom(clipRight, clipBottom);
+#endif
 
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
-		DEBUG_ADD("Draw OK");		
+		DEBUG_ADD("Draw OK");
 	#endif
 }
 

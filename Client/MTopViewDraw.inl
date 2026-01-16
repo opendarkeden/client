@@ -3,10 +3,10 @@
 extern RECT g_GameRect;
 //----------------------------------------------------------------------
 //
-// Define Function¤¤
+// Define Functionï¿½ï¿½
 //
 //----------------------------------------------------------------------
-// Ã³Àý.. - -;;
+// Ã³ï¿½ï¿½.. - -;;
 //----------------------------------------------------------------------
 // DRAW_ALPHASPRITE
 //----------------------------------------------------------------------
@@ -319,6 +319,7 @@ extern RECT g_GameRect;
 //----------------------------------------------------------------------
 // DRAW_ALPHA_BOX_2D
 //----------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 #define DRAW_ALPHA_BOX_2D( rect, boxColor )						\
 		if (boxColor==0)										\
 		{														\
@@ -335,12 +336,23 @@ extern RECT g_GameRect;
 		{														\
 			m_pSurface->BltColorAlpha(&rect, boxColor, 15);		\
 		}
+#else
+#define DRAW_ALPHA_BOX_2D( rect, boxColor )						\
+		if (boxColor==0)										\
+		{														\
+			/* GammaBox not available on macOS */				\
+		}														\
+		else													\
+		{														\
+			m_pSurface->BltColorAlpha(&rect, boxColor, 15);		\
+		}
+#endif
 
 //----------------------------------------------------------------------
 // DRAW_CHAT_BOX_OUTLINE
 //----------------------------------------------------------------------
 #define	MIN_CHAT_BOX_WIDTH	60
-#define CHAT_BOX_TAIL_X		29				// Ã¤ÆÃ ²¿¸®Ç¥ ºÙ´Â xÀ§Ä¡
+#define CHAT_BOX_TAIL_X		29				// Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¥ ï¿½Ù´ï¿½ xï¿½ï¿½Ä¡
 #define MIN_CHAT_LARGE_BOX_WIDTH	90
 
 #define DRAW_CHAT_BOX_OUTLINE( rect, color )					\
@@ -375,7 +387,7 @@ extern RECT g_GameRect;
 
 
 //----------------------------------------------------------------------
-// DRAW_CHAT_BOX_TAIL ( ¿ø·¡ ¹Ú½º, »ö±ò )
+// DRAW_CHAT_BOX_TAIL ( ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½, ï¿½ï¿½ï¿½ï¿½ )
 //----------------------------------------------------------------------
 #define DRAW_CHAT_BOX_TAIL_LOCKED( rect, color )					\
 		{															\
@@ -433,8 +445,8 @@ extern RECT g_GameRect;
 //----------------------------------------------------------------------
 // Affect Orbit Position
 //----------------------------------------------------------------------
-// pEffect°¡ AttachOrbitEffect¶ó¸é..
-// point¿¡ orbitPositionÀ» ´õÇØÁØ´Ù.
+// pEffectï¿½ï¿½ AttachOrbitEffectï¿½ï¿½ï¿½..
+// pointï¿½ï¿½ orbitPositionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 //----------------------------------------------------------------------
 #define AFFECT_ORBIT_EFFECT_POSITION( pEffect, point )					\
 		if (pEffect->GetEffectType()==MEffect::EFFECT_ATTACH_ORBIT)		\
@@ -447,8 +459,8 @@ extern RECT g_GameRect;
 //----------------------------------------------------------------------
 // Is BackGround Orbit Position
 //----------------------------------------------------------------------
-// pEffect°¡ AttachOrbitEffect¶ó¸é..
-// pointÀÇ yÁÂÇ¥¿¡ µû¶ó Back, Fore¸¦ °áÁ¤ÇÑ´Ù.
+// pEffectï¿½ï¿½ AttachOrbitEffectï¿½ï¿½ï¿½..
+// pointï¿½ï¿½ yï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Back, Foreï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------
 #define AFFECT_ORBIT_EFFECT_BACKGROUND( pEffect, bBackground )					\
 		if (pEffect->GetEffectType()==MEffect::EFFECT_ATTACH_ORBIT)		\

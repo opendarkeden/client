@@ -5,7 +5,7 @@
 #else
 #include "../../basic/Platform.h"
 #endif
-#include "Assert.h"
+#include "assert.h"
 #include "NMCrypt.h"
 #include "MString.h"
 
@@ -182,7 +182,7 @@ ParsingNetmarble(const char* pCommandLine, NETMARBLE_INFO &info)
 	{
 		MessageBox( NULL, "넷마블 홈페이지를 통해서 다시 실행해주세요.","NetmarbleDarkEden",MB_OK);
 		exit(0);
-		Assert( bResult );
+		assert( bResult );
 	}
 
 	info.WorldID = g_ServPort/10;
@@ -360,7 +360,7 @@ char* _StrTok(const char* str, const char sep)
 
 	if(str) {
 		int slen = strlen(str);
-		Assert(slen < TOK_BUFSIZE);		// ASSERT
+		assert(slen < TOK_BUFSIZE);		// ASSERT
 
 		strcpy(buf, str);
 		pnow = buf;

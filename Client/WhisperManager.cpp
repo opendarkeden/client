@@ -7,8 +7,8 @@
 #include "RequestUserManager.h"
 #include "MGameStringTable.h"
 
-#include "Cpackets\CGRequestIP.h"
-#include "Cpackets\CGWhisper.h"
+#include "Cpackets/CGRequestIP.h"
+#include "Cpackets/CGWhisper.h"
 #include "ClientPlayer.h"
 #include "DebugInfo.h"
 #include "ServerInfo.h"

@@ -52,8 +52,10 @@ ZONESOUND_NODE::~ZONESOUND_NODE()
 {
 	if (m_pBuffer!=NULL)
 	{
+#ifdef PLATFORM_WINDOWS
 		m_pBuffer->Stop();
 		m_pBuffer->Release();
+#endif
 		m_pBuffer = NULL;
 	}
 }
@@ -161,7 +163,7 @@ ZONESOUND_NODE::Play(int x, int y, bool bLoop)
 				//-----------------------------------------------------------
 				if (pBuffer==NULL)
 				{
-					DEBUG_ADD_FORMAT("[Error] Failed to Load WAV. id=%d, fn=%s", m_SoundID, (*g_pSoundTable)[m_SoundID].Filename );
+					DEBUG_ADD_FORMAT("[Error] Failed to Load WAV. id=%d, fn=%s", m_SoundID, (const char*)(*g_pSoundTable)[m_SoundID].Filename );
 
 					return;
 				}
@@ -174,7 +176,9 @@ ZONESOUND_NODE::Play(int x, int y, bool bLoop)
 					LPDIRECTSOUNDBUFFER pOld;
 					if ((*g_pSoundManager).SetData( m_SoundID, pBuffer, pOld )!=0xFFFF)
 					{
+#ifdef PLATFORM_WINDOWS
 						pOld->Release();
+#endif
 					}
 					
 					//-----------------------------------------------------------
@@ -281,7 +285,9 @@ ZONESOUND_NODE::StopLoop()
 	{
 		if (g_DXSound.IsPlay( m_pBuffer ))
 		{
+#ifdef PLATFORM_WINDOWS
 			m_pBuffer->Play(0, 0, 0);	// loop를 멈춘다.
+#endif
 		}
 	}
 

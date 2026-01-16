@@ -5,7 +5,9 @@
 #include "Client_PCH.h"
 #include "UserOption.h"
 #include "KeyAccelerator.h"
+#ifdef PLATFORM_WINDOWS
 #include <DInput.h>
+#endif
 #include <cstdio>
 
 

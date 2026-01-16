@@ -7,8 +7,8 @@
 #include "RequestServerPlayer.h"
 #include "ProfileManager.h"
 
-#include "packet\Rpackets\RCRequestedFile.h"
-#include "packet\Rpackets\RCRequestVerify.h"
+#include "packet/Rpackets/RCRequestedFile.h"
+#include "packet/Rpackets/RCRequestVerify.h"
 
 #include "ServerInfo.h"
 #include "DebugInfo.h"
@@ -88,7 +88,7 @@ ReceiveFileInfo::StartReceive(DWORD filesize)
 		m_FileStream.close();
 	}
 
-	m_FileStream.open( m_FilenameTemp.c_str() , ios::out | ios::binary | ios::trunc );
+	m_FileStream.open( m_FilenameTemp.c_str() , std::ios::out | std::ios::binary | std::ios::trunc );
 
 	// 받아야할 byte수
 	m_FileSizeLeft = filesize;
@@ -244,15 +244,15 @@ SendFileInfo::StartSend()
 {
 	m_Mode = REQUEST_FILE_MODE_SEND;
 
-	m_FileStream.open( m_Filename.c_str(), ios::in | ios::binary);// |  );
+	m_FileStream.open( m_Filename.c_str(), std::ios::in | std::ios::binary);// |  );
 
 	if (m_FileStream.is_open())
 	{
-		m_FileStream.seekg( 0, ios::end );
+		m_FileStream.seekg( 0, std::ios::end );
 
 		m_FileSizeLeft = m_FileStream.tellg();	// filesize를 알아오기 위해서
 
-		m_FileStream.seekg( 0, ios::beg );
+		m_FileStream.seekg( 0, std::ios::beg );
 	}
 	else
 	{
@@ -283,7 +283,7 @@ SendFileInfo::Send(char* pBuffer)
 void
 SendFileInfo::SendBack(DWORD nBack)
 {
-	m_FileStream.seekg( -nBack, ios::cur );
+	m_FileStream.seekg( -nBack, std::ios::cur );
 	m_FileSizeLeft += nBack;
 }
 

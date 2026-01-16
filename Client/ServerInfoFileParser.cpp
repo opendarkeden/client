@@ -1,6 +1,8 @@
 #include "Client_PCH.h"
 #include "ServerInfoFileParser.h"
 #include "Mintr.h"
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 ServerInfoFileParser * g_pConfigForeign = NULL;
@@ -17,7 +19,7 @@ ServerInfoFileParser::~ServerInfoFileParser()
 
 std::string			ServerInfoFileParser::getProperty(int dimension, std::string key)
 {
-	std::ifstream file( m_FileName.c_str(), ios::in );
+	std::ifstream file( m_FileName.c_str() );
 
 	bool bStart = false;
 	int dim=0;

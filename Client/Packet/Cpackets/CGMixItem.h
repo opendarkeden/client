@@ -41,8 +41,8 @@ public:
 	CoordInven_t getY() const throw() { return m_InvenY; }
 	void setY(CoordInven_t InvenY) throw() { m_InvenY = InvenY; }
 
-	ObjectID_t getTargetObjectID( uint index ) const throw() { Assert(index<2); return m_TargetObjectID[index]; }
-	void setTargetObjectID( uint index, ObjectID_t oid ) throw() { Assert(index<2); m_TargetObjectID[index] = oid; }
+	ObjectID_t getTargetObjectID( uint index ) const throw() { assert(index<2); return m_TargetObjectID[index]; }
+	void setTargetObjectID( uint index, ObjectID_t oid ) throw() { assert(index<2); m_TargetObjectID[index] = oid; }
 
 private:
 	ObjectID_t   m_ObjectID; // 아이템의 object id 

@@ -2,7 +2,9 @@
 // ProfileManager.cpp
 //----------------------------------------------------------------------
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <direct.h>
+#endif
 #include <io.h>
 #include "CDirectDraw.h"
 #include "CSpritePack.h"

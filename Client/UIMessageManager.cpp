@@ -5,8 +5,10 @@
 // Áö±Ý UI¿¡¼­ Å¸ÀÌ¹Ö ¹®Á¦°¡ ÀÖ¾î¼­ ¸ø °íÄ¡°í ÀÖÀ½.
 //-----------------------------------------------------------------------------
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <io.h>
 #include <process.h>
+#endif
 #include <stdio.h>
 #include "Client.h"
 #include "UIMessageManager.h"
@@ -46,35 +48,35 @@
 #include "CGameUpdate.h"
 #include "MTestDef.h"
 
-#include "Packet\CPackets\CGRequestNewbieItem.h"
-#include "Packet\CPackets\CGSilverCoating.h"
-#include "Packet\CPackets\CLChangeServer.h"
-#include "Packet\CPackets\CLGetServerList.h"
-#include "Packet\CPackets\CGSelectPortal.h"
-#include "Packet\CPackets\CGSelectWayPoint.h"
-#include "Packet\CPackets\CGPartyInvite.h"
-#include "Packet\CPackets\CGPartyLeave.h"
-#include "packet\Cpackets\CGResurrect.h"
-#include "packet\Cpackets\CLSelectWorld.h"
-#include "packet\Cpackets\CLSelectServer.h"
-#include "packet\Cpackets\CLQueryCharacterName.h"
-#include "packet/CPackets\CGRelicToObject.h"
-#include "packet/CPackets\CGSelectGuild.h"
-#include "packet/CPackets\CGSelectGuildMember.h"
-#include "packet/CPackets\CGRequestGuildMemberList.h"
-#include "packet/CPackets\CGTryJoinGuild.h"
-#include "packet/CPackets\CGJoinGuild.h"
-#include "packet/CPackets\CGRegistGuild.h"
-#include "packet/CPackets\CGModifyGuildMember.h"
-#include "packet/CPackets\CGAddItemToItem.h"
-#include "packet/CPackets\CGModifyGuildIntro.h"
-#include "packet/CPackets\CGModifyGuildMemberIntro.h"
-#include "packet/CPackets\CGSkillToNamed.H"
-#include "packet/CPackets\CGSelectRankBonus.H"
-#include "packet/CPackets\CGWithdrawTax.H"
-#include "packet/CPackets\CGTypeStringList.h"
-#include "packet/CPackets\CGLotterySelect.h"
-#include "packet/CPackets\CGTakeOutGood.h"
+#include "Packet/CPackets/CGRequestNewbieItem.h"
+#include "Packet/CPackets/CGSilverCoating.h"
+#include "Packet/CPackets/CLChangeServer.h"
+#include "Packet/CPackets/CLGetServerList.h"
+#include "Packet/CPackets/CGSelectPortal.h"
+#include "Packet/CPackets/CGSelectWayPoint.h"
+#include "Packet/CPackets/CGPartyInvite.h"
+#include "Packet/CPackets/CGPartyLeave.h"
+#include "packet/Cpackets/CGResurrect.h"
+#include "packet/Cpackets/CLSelectWorld.h"
+#include "packet/Cpackets/CLSelectServer.h"
+#include "packet/Cpackets/CLQueryCharacterName.h"
+#include "packet/CPackets/CGRelicToObject.h"
+#include "packet/CPackets/CGSelectGuild.h"
+#include "packet/CPackets/CGSelectGuildMember.h"
+#include "packet/CPackets/CGRequestGuildMemberList.h"
+#include "packet/CPackets/CGTryJoinGuild.h"
+#include "packet/CPackets/CGJoinGuild.h"
+#include "packet/CPackets/CGRegistGuild.h"
+#include "packet/CPackets/CGModifyGuildMember.h"
+#include "packet/CPackets/CGAddItemToItem.h"
+#include "packet/CPackets/CGModifyGuildIntro.h"
+#include "packet/CPackets/CGModifyGuildMemberIntro.h"
+#include "packet/CPackets/CGSkillToNamed.H"
+#include "packet/CPackets/CGSelectRankBonus.H"
+#include "packet/CPackets/CGWithdrawTax.H"
+#include "packet/CPackets/CGTypeStringList.h"
+#include "packet/CPackets/CGLotterySelect.h"
+#include "packet/CPackets/CGTakeOutGood.h"
 #include "packet/CPackets/CGMixItem.h"					// -_- ºñ¢O ¾î½Ã½ºÆ®¿¡¼­ ÀÌ·¸°Ô ÇÏ¸é ³ª¿Â´Ù°íÇÏ±æ·¡
 #include "packet/CPackets/CGDownSkill.h"
 #include "packet/GPackets/GCMiniGameScores.h"
@@ -84,27 +86,27 @@
 #include "packet/CPackets/CGSelectRegenZone.h"
 #include "packet/CPackets/CGTameMonster.h"
 #include "packet/CPackets/CGPetGamble.h"
-#include "packet/CPackets\CGUseMessageItemFromInventory.h"
-#include "packet\Cpackets\CGPartySay.h"
-#include "packet\Cpackets\CGDepositPet.h"
-#include "packet\Cpackets\CGWithdrawPet.h"
-#include "packet\Cpackets\CGSMSSend.h"
-#include "packet\Cpackets\CGSMSAddressList.h"
-#include "packet\Cpackets\CGDeleteSMSAddress.h"
-#include "packet\Cpackets\CGAddSMSAddress.h"
-#include "packet\Cpackets\CGSelectNickname.h"
-#include "packet\Cpackets\CGModifyNickname.h"
-#include "packet\Cpackets\CGGQuestAccept.h"
-#include "packet\Cpackets\CGGQuestCancel.h"
-#include "packet\Cpackets\CGUseItemFromGQuestInventory.h"
+#include "packet/CPackets/CGUseMessageItemFromInventory.h"
+#include "packet/Cpackets/CGPartySay.h"
+#include "packet/Cpackets/CGDepositPet.h"
+#include "packet/Cpackets/CGWithdrawPet.h"
+#include "packet/Cpackets/CGSMSSend.h"
+#include "packet/Cpackets/CGSMSAddressList.h"
+#include "packet/Cpackets/CGDeleteSMSAddress.h"
+#include "packet/Cpackets/CGAddSMSAddress.h"
+#include "packet/Cpackets/CGSelectNickname.h"
+#include "packet/Cpackets/CGModifyNickname.h"
+#include "packet/Cpackets/CGGQuestAccept.h"
+#include "packet/Cpackets/CGGQuestCancel.h"
+#include "packet/Cpackets/CGUseItemFromGQuestInventory.h"
 
 #include "RequestFunction.h"
 #include "RequestServerPlayerManager.h"
 #include "RequestUserManager.h"
 #include "ClientCommunicationManager.h"
 #include "WhisperManager.h"
-#include "packet\Rpackets\RCSay.h"
-#include "packet\Cpackets\CGGuildChat.h"
+#include "packet/Rpackets/RCSay.h"
+#include "packet/Cpackets/CGGuildChat.h"
 #include "CMP3.h"
 #include "RankBonusTable.h"
 #include "Profiler.h"
@@ -118,31 +120,31 @@
 #include "MTimeItemManager.h"
 #include "MFakeCreature.h"
 
-#include "packet\Cpackets\CGRequestUnion.h"
-#include "packet\Cpackets\CGQuitUnion.h"
-#include "packet\Cpackets\CGExpelGuild.h"
-#include "Packet\Cpackets\CGRequestGuildList.h"
-#include "Packet\Cpackets\CGRequestUnionInfo.h"
-#include "Packet\Cpackets\CGAcceptUnion.h"
-#include "Packet\Cpackets\CGDenyUnion.h"
-#include "Packet\Cpackets\CGQuitUnionAccept.h"
-#include "Packet\Cpackets\CGQuitUnionDeny.h"
-#include "Packet\Cpackets\CGRangerSay.h"
-#include "Packet\Cpackets\CGModifyTaxRatio.h"
-#include "Packet\Cpackets\CGAppointSubmaster.h"
+#include "packet/Cpackets/CGRequestUnion.h"
+#include "packet/Cpackets/CGQuitUnion.h"
+#include "packet/Cpackets/CGExpelGuild.h"
+#include "Packet/Cpackets/CGRequestGuildList.h"
+#include "Packet/Cpackets/CGRequestUnionInfo.h"
+#include "Packet/Cpackets/CGAcceptUnion.h"
+#include "Packet/Cpackets/CGDenyUnion.h"
+#include "Packet/Cpackets/CGQuitUnionAccept.h"
+#include "Packet/Cpackets/CGQuitUnionDeny.h"
+#include "Packet/Cpackets/CGRangerSay.h"
+#include "Packet/Cpackets/CGModifyTaxRatio.h"
+#include "Packet/Cpackets/CGAppointSubmaster.h"
 //
-#include "packet\Cpackets\CGRequestUnion.h"
-#include "packet\Cpackets\CGQuitUnion.h"
-#include "packet\Cpackets\CGExpelGuild.h"
-#include "Packet\Cpackets\CGRequestGuildList.h"
-#include "Packet\Cpackets\CGRequestUnionInfo.h"
-#include "Packet\Cpackets\CGAcceptUnion.h"
-#include "Packet\Cpackets\CGDenyUnion.h"
-#include "Packet\Cpackets\CGQuitUnionAccept.h"
-#include "Packet\Cpackets\CGQuitUnionDeny.h"
-#include "Packet\Cpackets\CGRangerSay.h"
-#include "Packet\Cpackets\CGModifyTaxRatio.h"
-#include "Packet\Cpackets\CGAppointSubmaster.h"
+#include "packet/Cpackets/CGRequestUnion.h"
+#include "packet/Cpackets/CGQuitUnion.h"
+#include "packet/Cpackets/CGExpelGuild.h"
+#include "Packet/Cpackets/CGRequestGuildList.h"
+#include "Packet/Cpackets/CGRequestUnionInfo.h"
+#include "Packet/Cpackets/CGAcceptUnion.h"
+#include "Packet/Cpackets/CGDenyUnion.h"
+#include "Packet/Cpackets/CGQuitUnionAccept.h"
+#include "Packet/Cpackets/CGQuitUnionDeny.h"
+#include "Packet/Cpackets/CGRangerSay.h"
+#include "Packet/Cpackets/CGModifyTaxRatio.h"
+#include "Packet/Cpackets/CGAppointSubmaster.h"
 
 #include "Packet/Cpackets/CGDisplayItem.h"
 #include "Packet/Cpackets/CGUndisplayItem.h"
@@ -157,15 +159,15 @@
 #include "Packet/Gpackets/GCAddStoreItem.h"
 //
 
-#include "Packet\Cpackets\CGUsePowerPoint.h"
-#include "Packet\Cpackets\CGRequestPowerPoint.h"
-#include "Packet\Cpackets\CGDonationMoney.h"
-#include "Packet\Cpackets\CGGetEventItem.h"
-#include "Packet\Cpackets\CGUseMessageItemFromInventory.h"
+#include "Packet/Cpackets/CGUsePowerPoint.h"
+#include "Packet/Cpackets/CGRequestPowerPoint.h"
+#include "Packet/Cpackets/CGDonationMoney.h"
+#include "Packet/Cpackets/CGGetEventItem.h"
+#include "Packet/Cpackets/CGUseMessageItemFromInventory.h"
 
 //add by viva
-#include "Packet\Cpackets\CGConnectSetKey.h"
-#include "Packet\Gpackets\GCFriendChatting.h"
+#include "Packet/Cpackets/CGConnectSetKey.h"
+#include "Packet/Gpackets/GCFriendChatting.h"
 //end
 
 //-----------------------------------------------------------------------------
@@ -1279,6 +1281,7 @@ UIMessageManager::Execute_UI_RUN_NEWUSER_REGISTRATION(int left, int right, void*
 			// Á¾·á..
 			SetMode( MODE_QUIT );
 
+#ifdef PLATFORM_WINDOWS
 			char str[256];
 
 			GetWindowsDirectory(
@@ -1287,12 +1290,13 @@ UIMessageManager::Execute_UI_RUN_NEWUSER_REGISTRATION(int left, int right, void*
 			);
 
 			sprintf(str, "%s\\Explorer.exe", str);
-			
+
 			CDirectDraw::GetDD()->RestoreDisplayMode();
 #ifdef __YHDK2__
 			_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://www.yhdk2.cn", NULL);
 #else
 			_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://www.ttdk2.com", NULL);
+#endif
 #endif
 
 			//_spawnl(_P_NOWAIT, str, "Explorer.exe", "http://www.ttdk2.cn", NULL);
@@ -2669,15 +2673,22 @@ UIMessageManager::Execute_UI_CHAT_RETURN(int left, int right, void* void_ptr)
 								// '@'»©°í ³ª¸ÓÁö Ãß°¡..
 								CToken strToken(str+1);
 
-								// [¸í·É]+[ ]+[³»¿ë] À¸·Î ÀÌ·ç¾îÁ®ÀÖ´Ù°í º¸¸é µÈ´Ù.										
+								// [¸í·É]+[ ]+[³»¿ë] À¸·Î ÀÌ·ç¾îÁ®ÀÖ´Ù°í º¸¸é µÈ´Ù.
 								const char* pCommand = strToken.GetToken();
 								const char* pData = strToken.GetEnd();
 
 								char pLwrCommand[128];
 								strcpy(pLwrCommand, pCommand);
+#ifdef PLATFORM_WINDOWS
 								strcpy(pLwrCommand, _strlwr(pLwrCommand));
+#else
+								// Simple lowercase conversion for macOS
+								for (int i = 0; pLwrCommand[i]; i++) {
+									pLwrCommand[i] = tolower(pLwrCommand[i]);
+								}
+#endif
 
-								
+
 								DEBUG_ADD_FORMAT("[Command] %s %s", pCommand, pData);
 								
 								//-------------------------------------------------------
@@ -7891,6 +7902,7 @@ UIMessageManager::Execute_UI_CLOSE_OPTION(int left, int right, void* void_ptr)
 
 	if (g_Mode==MODE_MAINMENU)
 	{
+#ifdef PLATFORM_WINDOWS
 		if (CDirect3D::IsHAL())
 		{
 			// 3D°¡¼Ó ÁßÀÎµ¥.. °¡¼Ó ²ô´Â °æ¿ì
@@ -7900,6 +7912,7 @@ UIMessageManager::Execute_UI_CLOSE_OPTION(int left, int right, void* void_ptr)
 			}
 		}
 		else
+#endif
 		{
 			// 3D°¡¼Ó ¾Æ´Ñµ¥.. °¡¼Ó ÇÏ´Â °æ¿ì
 			if (g_bEnable3DHAL && g_pUserOption->Use3DHAL)
@@ -9796,20 +9809,22 @@ UIMessageManager::Execute_GO_BILING_PAGE(int left, int right, void* void_ptr)
 	{
 		// Á¾·á..
 		SetMode( MODE_QUIT );
-		
+
+#ifdef PLATFORM_WINDOWS
 		char str[256];
-		
+
 		GetWindowsDirectory(
 			str,  // address of buffer for Windows directory
 			255        // size of directory buffer
 			);
-		
+
 		sprintf(str, "%s\\Explorer.exe", str);
-		
+
 		CDirectDraw::GetDD()->RestoreDisplayMode();
-		
+
 	//	_spawnl(_P_NOWAIT, str, "Explorer.exe", g_pClientConfig->URL_HOMEPAGE_BILING.GetString(), NULL);
-	}	
+#endif
+	}
 }
 
 void 

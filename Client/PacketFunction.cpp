@@ -6,7 +6,11 @@
 //-----------------------------------------------------------------------------
 
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <WINDOWS.H>
+#else
+#include <netinet/in.h>
+#endif
 #include < nb30.h >
 #include < wsipx.h >
 #include < wsnwlink.h >

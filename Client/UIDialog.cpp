@@ -322,8 +322,8 @@ UIDialog::ShowPCTalkDlg()
 //-----------------------------------------------------------------------------
 // NPC 대화 선택 dialog
 //-----------------------------------------------------------------------------
-void 
-UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
+void
+UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
 {
 	//-----------------------------------------------------------
 	// 뭔가를 선택했을 때, 
@@ -1005,7 +1005,8 @@ UIDialog::PopupFreeMessageDlg(const char* msg, int x, int y, WORD fButton, bool 
 		dlgSizeY = 1;
 		char* str = (char*)msg + 40;
 
-		for (int i=40; i>0; i--)
+		int i;
+		for (i=40; i>0; i--)
 		{
 			if (*str==' ')
 			{

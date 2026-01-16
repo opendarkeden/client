@@ -92,8 +92,8 @@ class PackFileManager {
 		// Load Data
 		//---------------------------------------------------------------
 		void				SetDataFilename(const char* pFilename)	{ m_DataFilename = pFilename; }
-		bool				GetInputFileStream(const char* pFilename, ifstream& file) const;
-		bool				GetInputFileStream(DWORD id, ifstream& file) const;
+		bool				GetInputFileStream(const char* pFilename, std::ifstream& file) const;
+		bool				GetInputFileStream(DWORD id, std::ifstream& file) const;
 
 		//---------------------------------------------------------------
 		// Merge
@@ -352,7 +352,7 @@ template <class FileInfoType>
 bool					
 PackFileManager<FileInfoType>::SaveToFileInfo(const char* pFilename)
 {
-	std::ofstream file(pFilename, std::ios::binary | ios::trunc);
+	std::ofstream file(pFilename, std::ios::binary | std::ios::trunc);
 
 	// 개수
 	WORD num = m_IDInfos.size();
@@ -417,7 +417,7 @@ template <class FileInfoType>
 bool					
 PackFileManager<FileInfoType>::SaveToFileData(const char* pFilename)
 {
-	std::ofstream file(pFilename, std::ios::binary | ios::trunc);
+	std::ofstream file(pFilename, std::ios::binary | std::ios::trunc);
 
 	// 개수
 	WORD num = m_IDInfos.size();
@@ -450,7 +450,7 @@ PackFileManager<FileInfoType>::SaveToFileData(const char* pFilename)
 //--------------------------------------------------------------------------
 template <class FileInfoType>
 bool
-PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, ifstream& file) const
+PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, std::ifstream& file) const
 {
 	if (m_DataFilename.c_str()==NULL 
 		|| pFilename==NULL)
@@ -464,7 +464,7 @@ PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, ifstrea
 	{
 		FileInfoType* pInfo = iInfo->second;
 
-		file.open(m_DataFilename.c_str(), ios::binary);
+		file.open(m_DataFilename.c_str(), std::ios::binary);
 
 		file.seekg( pInfo->GetFilePosition() );
 
@@ -479,7 +479,7 @@ PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, ifstrea
 //--------------------------------------------------------------------------
 template <class FileInfoType>
 bool
-PackFileManager<FileInfoType>::GetInputFileStream(DWORD id, ifstream& file) const
+PackFileManager<FileInfoType>::GetInputFileStream(DWORD id, std::ifstream& file) const
 {
 	if (m_DataFilename.c_str()==NULL)
 	{
@@ -492,7 +492,7 @@ PackFileManager<FileInfoType>::GetInputFileStream(DWORD id, ifstream& file) cons
 	{
 		FileInfoType* pInfo = iInfo->second;
 
-		file.open(m_DataFilename.c_str(), ios::binary);
+		file.open(m_DataFilename.c_str(), std::ios::binary);
 
 		file.seekg( pInfo->GetFilePosition() );
 
@@ -515,8 +515,8 @@ PackFileManager<FileInfoType>::Merge(const char* pInfoFilenameOrg,
 {
 	//class fstream fileInfoOrg(pInfoFilenameOrg, ios::in | ios::out | std::ios::binary | ios::ate);	
 	//class fstream fileDataOrg(pDataFilenameOrg, ios::in | ios::out | std::ios::binary | ios::ate);
-	//std::ifstream fileInfoApp(pInfoFilenameApp, ios::binary);
-	//std::ifstream fileDataApp(pDataFilenameApp, ios::binary);
+	//std::ifstream fileInfoApp(pInfoFilenameApp, std::ios::binary);
+	//std::ifstream fileDataApp(pDataFilenameApp, std::ios::binary);
 
 	// pInfoFilenameOrg의 개수 변경
 	// pInfoFilenameOrg의 끝에 pInfoFilenameApp를 붙인다.

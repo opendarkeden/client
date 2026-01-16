@@ -445,7 +445,7 @@ WorldPlayerConfigTable::LoadFromFile(const char* pFilename)
 		return;
 	}
 
-	std::ifstream file(pFilename, ios::binary | );
+	std::ifstream file(pFilename, ios::binary);
 
 	if (file.is_open())
 	{
