@@ -127,7 +127,7 @@ void PCSlayerInfo::read ( SocketInputStream & iStream )
 	//--------------------------------------------------------------------------------
 	// read colors
 	//--------------------------------------------------------------------------------
-	for ( i = 0 ; i < SLAYER_COLOR_MAX ; i ++ )
+	for (int i = 0 ; i < SLAYER_COLOR_MAX ; i ++ )
 		iStream.read( m_Colors[i] );
 
 
@@ -224,7 +224,7 @@ void PCSlayerInfo::write ( SocketOutputStream & oStream ) const
 	//--------------------------------------------------------------------------------
 	// write colors
 	//--------------------------------------------------------------------------------
-	for ( i = 0 ; i < SLAYER_COLOR_MAX ; i ++ )
+	for (int i = 0 ; i < SLAYER_COLOR_MAX ; i ++ )
 		oStream.write( m_Colors[i] );
 
 	} catch (Throwable & t ) {
@@ -282,3 +282,5 @@ std::string PCSlayerInfo::toString () const
 	return msg.toString();
 }
 #endif
+
+//----------------------------------------------------------------------

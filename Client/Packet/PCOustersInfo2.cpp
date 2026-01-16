@@ -317,4 +317,7 @@ string PCOustersInfo2::toString () const
 
 	return msg.toString();
 }
+
+//----------------------------------------------------------------------
+
 #endif

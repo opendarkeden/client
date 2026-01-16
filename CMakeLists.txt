@@ -15,7 +15,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Build options
 option(BUILD_TESTS "Build test programs" ON)
-option(USE_SDL_BACKEND "Use SDL backend instead of native Windows APIs" OFF)
+
+# Auto-enable SDL backend on non-Windows platforms
+if(WIN32)
+	option(USE_SDL_BACKEND "Use SDL backend instead of native Windows APIs" OFF)
+else()
+	set(USE_SDL_BACKEND ON CACHE BOOL "Use SDL backend instead of native Windows APIs" FORCE)
+endif()
+
 option(BUILD_ENGINE "Build new SDL-based engine" ON)
 
 # Set output directories
@@ -56,6 +63,12 @@ endif()
 add_subdirectory(basic)
 add_subdirectory(Client/DXLib)
 add_subdirectory(Client/SpriteLib)
+
+# Additional libraries from VC6 project
+add_subdirectory(Client/MZLib)
+add_subdirectory(Client/VolumeLib)
+add_subdirectory(Client/framelib)
+add_subdirectory(Client/DEUtil)
 
 if(BUILD_ENGINE)
 	add_subdirectory(engine/sprite)
@@ -178,6 +191,10 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		basic
 		dxlib
 		SpriteLib
+		mzlib
+		volumelib
+		framelib
+		deutil
 		SDL2::SDL2
 		SDL2::SDL2main
 		SDL2_image::SDL2_image
@@ -209,6 +226,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	# Collect remaining Client source files (excluding those already in VS_UI)
 	file(GLOB CLIENT_MAIN_SOURCES
 		Client/*.cpp
+		Client/Packet/*.cpp
 		Client/Packet/**/*.cpp
 	)
 
@@ -252,6 +270,10 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		SpriteLib
 		dxlib
 		basic
+		mzlib
+		volumelib
+		framelib
+		deutil
 		VS_UI
 		SDL2::SDL2
 		SDL2::SDL2main

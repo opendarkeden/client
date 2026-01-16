@@ -239,4 +239,6 @@ std::string PCVampireInfo::toString () const
 
 	return msg.toString();
 }
+
+//----------------------------------------------------------------------
 #endif

@@ -85,7 +85,7 @@ void PCItemInfo::read ( SocketInputStream & iStream )
 	iStream.read( m_MainColor );
 	iStream.read( m_ListNum );
 
-	for (i = 0; i < m_ListNum; i++) 
+	for (int i = 0; i < m_ListNum; i++) 
 	{
 		SubItemInfo* pSubItemInfo = new SubItemInfo();
 		pSubItemInfo->read(iStream);

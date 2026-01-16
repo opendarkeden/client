@@ -40,7 +40,7 @@ MFileInfo::Set( const char* filename )
 {
 	m_Filename = filename;
 
-	std::ifstream file(filename, ios::binary | );
+	std::ifstream file(filename, ios::binary);
 
 	if (!file.is_open())
 	{
@@ -243,7 +243,7 @@ MZLib::Compress(const char* filename)
 bool
 MZLib::Uncompress(const char* filename)
 {
-	std::ifstream packFile(filename, ios::binary | );
+	std::ifstream packFile(filename, ios::binary);
 
 	if (!packFile.is_open())
 	{
@@ -374,7 +374,7 @@ MZLib::InitFileBuffer(long bytes)
 bool
 MZLib::ReadBufferFromFile(const char* filename)
 {
-	std::ifstream file(filename, ios::binary | );
+	std::ifstream file(filename, ios::binary);
 
 	if (!file.is_open())
 	{

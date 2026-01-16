@@ -38,6 +38,14 @@ set(SPRITELIB_SOURCES
 
 	# SDL-specific CSprite implementation
 	CSprite_SDL.cpp
+
+	# Sprite format implementations (needed for vtables)
+	CSprite555.cpp
+	CSprite565.cpp
+	CAlphaSprite555.cpp
+	CAlphaSprite565.cpp
+	CIndexSprite555.cpp
+	CIndexSprite565.cpp
 )
 
 # SpriteLib headers

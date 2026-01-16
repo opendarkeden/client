@@ -144,9 +144,9 @@ void ClientPlayer::processCommand ()
 				// 패킷아이디 및 패킷크기를 알아낸다.
 				// 이때 패킷크기는 헤더를 포함한다.
 
-				memcpy( &packetID   , &header[0] , szPacketID ); 	
+				memcpy( &packetID   , &header[0] , szPacketID );
 				memcpy( &packetSize , &header[szPacketID] , szPacketSize );
-				byte seq = header[szPacketID+szPacketSize];
+				BYTE seq = header[szPacketID+szPacketSize];
 
 #ifdef __DEBUG_OUTPUT__
 				ofstream file("packetID.log", ios::out | ios::app);
@@ -472,6 +472,7 @@ std::string ClientPlayer::toString () const
 // 암호화 코드를 설정한다.
 
 void ClientPlayer::setEncryptCode()
+	throw (Error)
 {
 #ifdef __USE_ENCRYPTER__
     __BEGIN_TRY

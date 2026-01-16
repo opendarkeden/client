@@ -5,7 +5,7 @@
 #include "CSpriteSurface.h"
 #include "CShadowSprite.h"
 #include "CShadowSpritePack.h"
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 //

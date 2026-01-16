@@ -4,7 +4,7 @@
 
 #include "CAlphaSprite.h"
 #include "CAlphaSpritePackList.h"
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 //

@@ -5,7 +5,7 @@
 #include "CSprite565.h"
 #include "CSpritePackList.h"
 #include "CSpritePackList565.h"
-#include <fstream.h>
+#include <fstream>
 
 
 //----------------------------------------------------------------------

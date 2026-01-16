@@ -178,4 +178,6 @@ string PCSlayerInfo3::toString () const
 
 	return msg.toString();
 }
+
+//----------------------------------------------------------------------
 #endif

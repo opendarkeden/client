@@ -2,7 +2,7 @@
 //#include "CIndexSpritePack.h"
 //#include "CIndexSprite555.h"
 //#include "CIndexSprite565.h"
-//#include <fstream.h>
+//#include <fstream>
 //
 //void CIndexSpritePack::Init(WORD size, bool b565)
 //{

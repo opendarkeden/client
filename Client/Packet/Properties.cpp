@@ -8,10 +8,12 @@
 
 // include files
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#endif
 #include "Properties.h"
 #include <stdlib.h>			// atoi()
-#include "fstream"
+#include <fstream>
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 const char Properties::Comment = '#';

@@ -23,7 +23,6 @@ void	SendBugReport(const char *bug, ...);
 // constructor
 //--------------------------------------------------------------------------------
 ClientCommunicationManager::ClientCommunicationManager ()
-    throw ( Error )
 : m_pDatagramSocket(NULL)
 {
     __BEGIN_TRY
@@ -46,7 +45,6 @@ ClientCommunicationManager::ClientCommunicationManager ()
 // destructor
 //--------------------------------------------------------------------------------
 ClientCommunicationManager::~ClientCommunicationManager ()
-    throw ( Error )
 {
     __BEGIN_TRY
 

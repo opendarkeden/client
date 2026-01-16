@@ -58,7 +58,7 @@ void ModifyInfo::read ( SocketInputStream & iStream )
 
 	iStream.read(m_LongCount);
 
-	for (s=0; s<m_LongCount; s++)
+	for (int s=0; s<m_LongCount; s++)
 	{
 		iStream.read(long_data.type);
 		iStream.read(long_data.value);

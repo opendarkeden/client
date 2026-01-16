@@ -246,3 +246,5 @@ std::string PCOustersInfo::toString () const
 
 	return msg.toString();
 }
+
+//----------------------------------------------------------------------

@@ -322,4 +322,6 @@ string PCVampireInfo2::toString () const
 
 	return msg.toString();
 }
+
+//----------------------------------------------------------------------
 #endif

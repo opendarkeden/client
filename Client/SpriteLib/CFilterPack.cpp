@@ -4,7 +4,7 @@
 
 #include "CFilter.h"
 #include "CFilterPack.h"
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 //

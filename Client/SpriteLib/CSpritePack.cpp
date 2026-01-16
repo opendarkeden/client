@@ -2,7 +2,7 @@
 //#include "CSpritePack.h"
 //#include "CSprite555.h"
 //#include "CSprite565.h"
-//#include <fstream.h>
+//#include <fstream>
 //
 //void CSpritePack::Init(WORD size, bool b565)
 //{

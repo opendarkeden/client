@@ -4,7 +4,7 @@
 
 #include "CSprite.h"
 #include "CSpritePackList.h"
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 //

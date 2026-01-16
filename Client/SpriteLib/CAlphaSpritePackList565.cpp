@@ -5,7 +5,7 @@
 #include "CAlphaSprite565.h"
 #include "CAlphaSpritePackList.h"
 #include "CAlphaSpritePackList565.h"
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 //

@@ -14,8 +14,8 @@
 #include <deque>
 #include <bitset>
 #include <algorithm>
-#include <iostream.h>
-#include <fstream.h>
+#include <iostream>
+#include <fstream>
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
 #else
@@ -29,4 +29,6 @@ using std::map;
 using std::list;
 using std::deque;
 using std::bitset;
+using std::ifstream;
+using std::ofstream;
 
