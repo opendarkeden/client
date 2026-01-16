@@ -79,10 +79,15 @@ string XMLUtil::WideCharToString(const wchar_t * wstr, int wstrlen)
 	char szTemp[5120];
 
 	string strBuffer;
-	strBuffer.reserve( wstrlen * 2 + 1 );		// capacity 를 충분하게.. 
+	strBuffer.reserve( wstrlen * 2 + 1 );		// capacity 를 충분하게..
 	int nCopied = WideCharToMultiByte(
+#ifdef _WIN32
 		CP_OEMCP,
 		WC_COMPOSITECHECK,
+#else
+		CP_UTF8,
+		0,
+#endif
 		wstr,									// wide string
 		wstrlen,								// length of wide string
 		szTemp, //const_cast<LPSTR>(strBuffer.data()),	// mbcs string (unicode)
@@ -413,7 +418,7 @@ XMLTree::Save( const char* pFilename )
 {
 	std::ofstream file( pFilename, ios::out | ios::trunc );
 
-	if ( file == NULL ) return;
+	if ( !file.is_open() ) return;
 
 	file << "<?xml version=\"1.0\" encoding=\"euc-kr\"?>" << endl;
 	

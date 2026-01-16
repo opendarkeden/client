@@ -52,6 +52,9 @@ set(DXLIB_SOURCES
 	# Platform backend
 	DXLibBackendSDL.cpp
 
+	# Static member definitions for CDirectDraw
+	CDirectDraw_StaticMembers.cpp
+
 	# Adapter layers - Input (always available)
 	CDirectInput_Adapter.cpp
 )

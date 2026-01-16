@@ -44,8 +44,10 @@ set(SPRITELIB_SOURCES
 	CSprite565.cpp
 	CAlphaSprite555.cpp
 	CAlphaSprite565.cpp
+	CAlphaSpritePal.cpp
 	CIndexSprite555.cpp
 	CIndexSprite565.cpp
+	CSpritePalBase.cpp
 )
 
 # SpriteLib headers

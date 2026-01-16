@@ -12,6 +12,10 @@
 class CAlphaSpritePal : public CSpritePalBase
 {
 public:
+	// Constructor and destructor (for vtable)
+	CAlphaSpritePal();
+	virtual ~CAlphaSpritePal();
+
 	void SetPixel(BYTE *pSource, WORD pitch, BYTE *pSourceAlpha, WORD alphaPitch, WORD width, WORD height);
 	
 	//---------------------------------------------------------

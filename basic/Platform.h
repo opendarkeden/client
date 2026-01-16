@@ -650,6 +650,12 @@ typedef WORD			char_t;
 	#define VK_ESCAPE 0x1B
 	#define VK_SCROLL 0x91
 
+	/* Code page constants */
+	#define CP_ACP 0
+	#define CP_OEMCP 1
+	#define CP_UTF8 65001
+	#define WC_COMPOSITECHECK 0x00000200
+
 	/* System command values */
 	#define SC_HOTKEY 0xF150
 	#define SC_KEYMENU 0xF100
@@ -674,6 +680,27 @@ typedef WORD			char_t;
 	static inline LRESULT SendMessage(void* hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
 		(void)hWnd; (void)Msg; (void)wParam; (void)lParam;
 		return 0;
+	}
+
+	/* WideCharToMultiByte stub - basic conversion for non-Windows */
+	static inline int WideCharToMultiByte(UINT CodePage, DWORD dwFlags,
+		LPCWSTR lpWideCharStr, int cchWideChar,
+		LPSTR lpMultiByteStr, int cbMultiByte,
+		LPCSTR lpDefaultChar, BOOL* lpUsedDefaultChar) {
+		(void)CodePage; (void)dwFlags; (void)lpDefaultChar; (void)lpUsedDefaultChar;
+		/* Basic UTF-16 to UTF-8 conversion for non-Windows platforms */
+		if (cchWideChar == -1) {
+			/* Find null terminator */
+			int len = 0;
+			while (lpWideCharStr[len]) len++;
+			cchWideChar = len;
+		}
+		/* Simple conversion - just copy lower byte (works for ASCII) */
+		for (int i = 0; i < cchWideChar && i < cbMultiByte - 1; i++) {
+			lpMultiByteStr[i] = (char)(lpWideCharStr[i] & 0xFF);
+		}
+		lpMultiByteStr[cchWideChar < cbMultiByte ? cchWideChar : cbMultiByte - 1] = '\0';
+		return cchWideChar;
 	}
 
 	/* SetWindowText stub - no-op on non-Windows */

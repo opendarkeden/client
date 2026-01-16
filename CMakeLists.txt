@@ -89,11 +89,12 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*Imm.*")
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*WinMain.*")
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*WebBrowser.*")
-		# Exclude Windows-specific Korean input method files
-		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/src/hangul/.*")
+		# Exclude Windows-specific Korean input method files (except macOS stub)
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/src/hangul/Ci\\.cpp")
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/src/hangul/FL2\\.cpp")
 		# Exclude Windows-specific edit widget (uses IMM/GDI)
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*U_edit.*")
-		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*u_window.*")
+		# Note: u_window.cpp is now cross-platform compatible
 	endif()
 
 	# Client files that VS_UI depends on (按需编译)
@@ -228,6 +229,8 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		Client/*.cpp
 		Client/Packet/*.cpp
 		Client/Packet/**/*.cpp
+		Client/SXml/*.cpp
+		Client/WinLib/*.cpp
 	)
 
 	# Remove files that are already compiled in VS_UI library
@@ -254,6 +257,8 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*ProfileManager\\.cpp")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*VolumeOut.*\\.cpp")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*WavePackFileManager\\.cpp")
+		# Exclude Windows-specific WinMain files
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX "WinLib/CWinMain\\.cpp")
 		# Exclude Client.cpp on non-Windows (uses WinMain)
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX "Client/Client\\.cpp")
 	endif()

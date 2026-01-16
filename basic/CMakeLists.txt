@@ -35,6 +35,7 @@ endif()
 # Basic library sources
 set(BASIC_SOURCES
 	Directory.cpp
+	BasicData.cpp
 )
 
 # Platform-specific sources

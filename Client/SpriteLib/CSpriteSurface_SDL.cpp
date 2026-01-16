@@ -311,6 +311,35 @@ bool CSpriteSurface::IsLock()
  * Get Surface Info (for compatibility with Windows code)
  * ============================================================================ */
 
+int CSpriteSurface::GetSurfacePitch() const
+{
+	/* Return the pitch (bytes per row) of the surface */
+	if (m_backend_surface == SPRITECTL_INVALID_SURFACE) {
+		return 0;
+	}
+
+	/* Lock surface to get pitch */
+	spritectl_surface_info_t info;
+	if (spritectl_lock_surface((spritectl_surface_t)m_backend_surface, &info) == 0) {
+		int pitch = info.pitch;
+		spritectl_unlock_surface((spritectl_surface_t)m_backend_surface);
+		return pitch;
+	}
+
+	/* Default: width * 2 for RGB565 format */
+	return m_width * 2;
+}
+
+int CSpriteSurface::GetWidth() const
+{
+	return m_width;
+}
+
+int CSpriteSurface::GetHeight() const
+{
+	return m_height;
+}
+
 void CSpriteSurface::GetSurfaceInfo(S_SURFACEINFO* info)
 {
 	/* Fill surface info structure for SDL backend */
