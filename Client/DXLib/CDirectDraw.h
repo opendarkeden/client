@@ -148,6 +148,7 @@
   Class DirectDraw
   `CDirectDrawSurface���� ��ӹ޴´�. ���� member���� static���� �Ͽ��� �Ѵ�.
 -----------------------------------------------------------------------------*/
+#ifdef PLATFORM_WINDOWS
 class CDirectDraw
 {	
 protected:
@@ -330,6 +331,114 @@ public :
 
 	static bool		s_bUseIMEHandle;
 };
+#elif defined(PLATFORM_MACOS) || defined(PLATFORM_LINUX)
+//-------------------------------------------------------------------------------------------------
+// Non-Windows (macOS/Linux) Stub Class Definition
+//-------------------------------------------------------------------------------------------------
+
+class CDirectDraw
+{
+public:
+	// Static methods for color conversion (inline implementations)
+	static inline WORD	Color(const BYTE& r, const BYTE& g, const BYTE& b)
+	{
+		// For 5:6:5 format: R at bits 11-15, G at bits 5-10, B at bits 0-4
+		return ((r & 0x1F) << 11) | ((g & 0x3F) << 5) | (b & 0x1F);
+	}
+
+	static inline BYTE	Red(const WORD& c)
+	{
+		// Extract R component (bits 11-15)
+		return (c >> 11) & 0x1F;
+	}
+
+	static inline BYTE	Green(const WORD& c)
+	{
+		// Extract G component (bits 5-10)
+		return (c >> 5) & 0x3F;
+	}
+
+	static inline BYTE	Blue(const WORD& c)
+	{
+		// Extract B component (bits 0-4)
+		return c & 0x1F;
+	}
+
+	// Bitmask methods (declared here, implemented in .cpp)
+	static int		Get_Count_Rbit();
+	static int		Get_Count_Gbit();
+	static int		Get_Count_Bbit();
+	static DWORD		Get_R_Bitmask();
+	static DWORD		Get_G_Bitmask();
+	static DWORD		Get_B_Bitmask();
+	static DWORD		Get_BPP();
+
+	// Simple property methods
+	static inline bool		IsFullscreen()			{ return true; }
+	static inline WORD		GetScreenWidth()		{ return 800; }
+	static inline WORD		GetScreenHeight()		{ return 600; }
+	static inline bool		IsMMX()	 				{ return false; }
+	static inline bool		IsSupportGammaControl()	{ return false; }
+	static inline bool		Is565()	 				{ return true; }
+
+	// Gamma control methods (stub implementations for macOS - no-op)
+	static inline void		SetGammaRamp(WORD step = (WORD)-1) { }
+	static inline void		RestoreGammaRamp() { }
+	static inline void		SetAddGammaRamp(WORD rStep = 0, WORD gStep = 0, WORD bStep = 0) { }
+
+	// Display methods (stub implementations for macOS - no-op)
+	static inline void		Flip() { }
+	static inline void		FlipToGDISurface() { }
+	static inline void		OnMove() { }
+	static inline bool		RestoreAllSurfaces() { return true; }
+	static inline void		ReleaseSurface() { }
+	static inline void		ReleaseAll() { }
+
+	// Color conversion (5:5:5 to 5:6:5 and vice versa)
+	static inline WORD	Convert555to565(WORD pixel)
+	{
+		return ((pixel & 0x7FE0) << 1) | (pixel & 0x001F);
+	}
+
+	static inline WORD	Convert565to555(WORD pixel)
+	{
+		return (((pixel & 0xFFE0) >> 1) & 0x7FE0) | (pixel & 0x001F);
+	}
+
+public:
+	// Static member variables
+	static WORD		s_wMASK_SHIFT[5];
+	static DWORD	s_dwMASK_SHIFT[5];
+	static QWORD	s_qwMASK_SHIFT[5];
+
+	static WORD		s_wMASK_RGB[6];
+	static DWORD	s_dwMASK_RGB[6];
+	static QWORD	s_qwMASK_RGB[6];
+
+	static QWORD	s_qwMASK_ALPHA0;
+	static QWORD	s_qwMASK_ALPHA1;
+	static DWORD	s_dwMASK_ALPHA0;
+	static DWORD	s_dwMASK_ALPHA1;
+	static WORD		s_wMASK_ALPHA0;
+	static WORD		s_wMASK_ALPHA1;
+
+	static BYTE		s_bSHIFT_R;
+	static BYTE		s_bSHIFT_G;
+	static BYTE		s_bSHIFT_B;
+
+	static BYTE		s_bSHIFT4_R;
+	static BYTE		s_bSHIFT4_G;
+	static BYTE		s_bSHIFT4_B;
+
+	static WORD		RED;
+	static WORD		GREEN;
+	static WORD		BLUE;
+	static WORD		WHITE;
+
+	static bool		s_bUseIMEHandle;
+};
+
+#endif // PLATFORM_WINDOWS || PLATFORM_MACOS || PLATFORM_LINUX
 
 
 #endif

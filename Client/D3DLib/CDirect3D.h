@@ -138,7 +138,7 @@ class CDirect3D : public CDirectDraw {
 #else
 	// Non-Windows platforms: Direct3D not available
 	// This file provides stub definitions for compilation only
-	#include "basic/Platform.h"  // For DWORD, etc.
+	// #include "basic/Platform.h"  // Already included in Client_PCH.h
 	#include "CD3DMath.h"  // For D3DVECTOR, D3DMATRIX, D3DTLVERTEX types
 
 	// Direct3D is not supported on non-Windows platforms
@@ -153,6 +153,17 @@ class CDirect3D : public CDirectDraw {
 		#define D3DERR_INVALIDCALL (-1)
 	#endif
 
+	// D3DCLEAR flags
+	#ifndef D3DCLEAR_TARGET
+		#define D3DCLEAR_TARGET 0x00000001
+	#endif
+	#ifndef D3DCLEAR_ZBUFFER
+		#define D3DCLEAR_ZBUFFER 0x00000002
+	#endif
+	#ifndef D3DCLEAR_STENCIL
+		#define D3DCLEAR_STENCIL 0x00000004
+	#endif
+
 	// Define stub types for compilation only
 	// These are opaque pointer types for non-Windows platforms
 	#ifndef LPDIRECT3D7
@@ -163,6 +174,17 @@ class CDirect3D : public CDirectDraw {
 	// We must include CDirectDraw.h to get the proper definition that's
 	// consistent with the dxlib library compilation
 	#include "../DXLib/CDirectDraw.h"
+
+	// D3DRECT structure
+	#ifndef D3DRECT_DEFINED
+	#define D3DRECT_DEFINED
+	typedef struct _D3DRECT {
+		LONG x1;
+		LONG y1;
+		LONG x2;
+		LONG y2;
+	} D3DRECT, *LPD3DRECT;
+	#endif
 
 	// D3DPRIMITIVETYPE - use DWORD instead of enum for implicit int conversion
 	#ifndef D3DPRIMITIVETYPE
@@ -243,6 +265,12 @@ class CDirect3D : public CDirectDraw {
 		HRESULT SetTexture(DWORD dwStage, struct IDirectDrawSurface7* lpTexture) { return D3D_OK; }
 		HRESULT SetRenderState(DWORD dwRenderStateType, DWORD dwRenderState) { return D3D_OK; }
 
+		// Clear stub - clears the viewport
+		HRESULT Clear(DWORD dwCount, const D3DRECT* lpRects, DWORD dwFlags, DWORD dwColor, float dvZ, DWORD dwStencil) {
+			(void)dwCount; (void)lpRects; (void)dwFlags; (void)dwColor; (void)dvZ; (void)dwStencil;
+			return D3D_OK;
+		}
+
 		// GetCaps stub - returns D3D_OK but doesn't fill in structure
 		HRESULT GetCaps(void* pD3DHWDevDesc, void* pD3DHELDevDesc) {
 			(void)pD3DHWDevDesc; (void)pD3DHELDevDesc;
@@ -255,6 +283,7 @@ class CDirect3D : public CDirectDraw {
 	#endif
 
 	// Stub for CDirect3D - provides minimal interface for compilation
+	#pragma message("CDirect3D: About to define CDirect3D stub class")
 	class CDirect3D {
 	public:
 		CDirect3D() {}

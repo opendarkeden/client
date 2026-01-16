@@ -122,10 +122,24 @@ public :
 	//------------------------------------------------------------
 	// Get
 	//------------------------------------------------------------
-	inline void *	GetSurfacePointer() { return m_ddsd.lpSurface; }
-	inline long		GetSurfacePitch() { return m_ddsd.lPitch; }
-	inline LPDIRECTDRAWSURFACE7 &	GetSurface() { return m_pDDSurface; } const
-	inline DDSURFACEDESC2 * GetDDSD() { return &m_ddsd; }
+#ifdef PLATFORM_WINDOWS
+		inline void *	GetSurfacePointer() { return m_ddsd.lpSurface; }
+#else
+		inline void *	GetSurfacePointer() { return nullptr; }  // Stub for macOS
+#endif
+#ifdef PLATFORM_WINDOWS
+		inline long		GetSurfacePitch() { return m_ddsd.lPitch; }
+#else
+		inline long		GetSurfacePitch() { return m_Width * 2; }  // Stub for macOS (16-bit color)
+#endif
+#ifdef PLATFORM_WINDOWS
+		inline LPDIRECTDRAWSURFACE7 &	GetSurface() { return m_pDDSurface; } const
+#else
+		inline void *		GetSurface() { return nullptr; }  // Stub for macOS
+#endif
+#ifdef PLATFORM_WINDOWS
+		inline DDSURFACEDESC2 * GetDDSD() { return &m_ddsd; }
+#endif
 	inline int		GetWidth() const	{ return m_Width; } // no const...
 	inline int		GetHeight() const	{ return m_Height; } // no const...
 

@@ -12,7 +12,11 @@
 #endif
 #include "CSpriteSetManager.h"
 #include "COrderedList.h"
-#include "CDirectDraw.h"
+#ifdef PLATFORM_WINDOWS
+	#include "CDirectDraw.h"
+#else
+	#include "../DXLib/CDirectDraw.h"
+#endif
 #include <VECTOR>
 
 template <class Type>

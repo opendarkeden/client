@@ -161,6 +161,8 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	# Platform-specific definitions
 	if(NOT WIN32)
 		target_compile_definitions(VS_UI PRIVATE PLATFORM_MACOS)
+		# Also pass PLATFORM_MACOS to Client files compiled into VS_UI
+		target_compile_definitions(VS_UI PUBLIC PLATFORM_MACOS)
 	endif()
 
 	message(STATUS "VS_UI library will be built from ${VS_UI_SRC_SOURCES} VS_UI files + ${VS_UI_CLIENT_SOURCES} Client files")
@@ -253,6 +255,11 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		USE_SDL_BACKEND
 		SPRITELIB_BACKEND_SDL
 	)
+
+	# Platform-specific definitions
+	if(NOT WIN32)
+		target_compile_definitions(DarkEden PRIVATE PLATFORM_MACOS)
+	endif()
 
 	message(STATUS "DarkEden executable will be built from remaining Client files (VS_UI compiled separately)")
 endif()

@@ -19,6 +19,8 @@
 
 #ifdef PLATFORM_WINDOWS
 #include "DX3D.h"
+#else
+#include "DX3D.h"  // Also include on non-Windows platforms for stub definitions
 #endif
 #include <math.h>
 #include <list>
@@ -11297,7 +11299,6 @@ MTopView::DrawEventString(int& strX, int& strY)
 //----------------------------------------------------------------------
 // Debug¿¡ ÇÊ¿äÇÑ Á¤º¸¸¦ Ãâ·ÂÇÑ´Ù.
 //----------------------------------------------------------------------
-void
 void MTopView::DrawDebugInfo(void* pSurface)
 {
 	#ifdef PLATFORM_WINDOWS
@@ -11338,23 +11339,23 @@ void MTopView::DrawDebugInfo(void* pSurface)
 		int zoneID = (g_bZonePlayerInLarge)? g_nZoneLarge : g_nZoneSmall;
 
 		sprintf(str, "ID = %d / %d¸í [Weapon=%s] [align=%d]", g_pPlayer->GetID(), m_pZone->GetCreatureNumber(), attackMode, g_pPlayer->GetAlignment());	
-		pSurface->GDI_Text(10,35, str, RGB(220,220,220));
+		pSurfaceCast->GDI_Text(10,35, str, RGB(220,220,220));
 
 		sprintf(str, " [ZoneID=%d] XY=(%d, %d), sXY=(%d, %d), SerXY=(%d, %d)", zoneID, g_pPlayer->GetX(), g_pPlayer->GetY(), g_pPlayer->GetSX(), g_pPlayer->GetSY(), g_pPlayer->GetServerX(), g_pPlayer->GetServerY());	
-		pSurface->GDI_Text(10,56, str, RGB(220,220,220));
+		pSurfaceCast->GDI_Text(10,56, str, RGB(220,220,220));
 
 		sprintf(str, "SX = %d, SY = %d, HP=%d, MP=%d", g_pPlayer->GetSX(), g_pPlayer->GetSY(), g_pPlayer->GetHP(), g_pPlayer->GetMP());
 		//sprintf(str, "[Wait Move = %d]", g_pPlayer->GetSendMove());
-		pSurface->GDI_Text(10,72, str, RGB(220,220,220));
+		pSurfaceCast->GDI_Text(10,72, str, RGB(220,220,220));
 
 		sprintf(str, "ActionCount = [%d] %d/%d", g_pPlayer->GetAction(), g_pPlayer->GetActionCount(), g_pPlayer->GetActionCountMax());
-		pSurface->GDI_Text(10,88, str, RGB(220,220,220));
+		pSurfaceCast->GDI_Text(10,88, str, RGB(220,220,220));
 
 		sprintf(str, "MoveCount = %d/%d", g_pPlayer->GetMoveCount(), g_pPlayer->GetMoveCountMax());
-		pSurface->GDI_Text(10,104, str, RGB(220,220,220));
+		pSurfaceCast->GDI_Text(10,104, str, RGB(220,220,220));
 
 		sprintf(str, "Dark/Light/Sight = %d/%d/%d", m_DarkBits, g_pPlayer->GetLightSight() + g_pPlayer->GetItemLightSight(), g_pPlayer->GetSight());
-		pSurface->GDI_Text(10,120, str, RGB(220,220,220));
+		pSurfaceCast->GDI_Text(10,120, str, RGB(220,220,220));
 
 		if (g_pProfiler!=NULL && g_pProfiler->HasProfileInfo(g_ProfileInfoName.GetString()))
 		{
@@ -11363,7 +11364,7 @@ void MTopView::DrawDebugInfo(void* pSurface)
 			float avgTime = g_pProfiler->GetAverageTime(g_ProfileInfoName.GetString());
 
 			sprintf(str, "%s = %d / %d = %7.3f", g_ProfileInfoName.GetString(), totalTime, times, avgTime);
-			pSurface->GDI_Text(10,136, str, RGB(220,220,220));		
+			pSurfaceCast->GDI_Text(10,136, str, RGB(220,220,220));		
 		}		
 		
 
@@ -11401,7 +11402,7 @@ void MTopView::DrawDebugInfo(void* pSurface)
 			&& g_pRequestClientPlayerManager!=NULL)
 		{
 			sprintf(str, "Request Other/My = %d/%d", g_pRequestServerPlayerManager->GetSize(), g_pRequestClientPlayerManager->GetSize());
-			pSurface->GDI_Text(10,225, str, RGB(220,220,220));	
+			pSurfaceCast->GDI_Text(10,225, str, RGB(220,220,220));	
 		}
 
 		//#if defined(OUTPUT_DEBUG) && defined(_DEBUG)
@@ -11450,7 +11451,7 @@ void MTopView::DrawDebugInfo(void* pSurface)
 						infoStr[3][g_bSlideScreenShot]
 				);
 
-		pSurface->GDI_Text(150,580, str, 0xFFFFFF);		
+		pSurfaceCast->GDI_Text(150,580, str, 0xFFFFFF);		
 
 		// ³²Àº Texture¸Þ¸ð¸® test
 		DDSCAPS2 ddsCaps2;
@@ -11461,7 +11462,7 @@ void MTopView::DrawDebugInfo(void* pSurface)
 		HRESULT hr = CDirectDraw::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
 
 		sprintf(str, "Texture = %ld/%ld", dwFree, dwTotal);
-		pSurface->GDI_Text(500,580, str, 0xFFFFFF);		
+		pSurfaceCast->GDI_Text(500,580, str, 0xFFFFFF);		
 
 	
 	#endif
@@ -17078,8 +17079,8 @@ int
 	//---------------------------------------------------------
 	//  °¢ string Ãâ·Â...
 	//---------------------------------------------------------
-	int start = g_pClientConfig->MAX_CHATSTRING-numString; 
-	for (i=start; i<g_pClientConfig->MAX_CHATSTRING; i++)
+	int start = g_pClientConfig->MAX_CHATSTRING-numString;
+	for (int i=start; i<g_pClientConfig->MAX_CHATSTRING; i++)
 	{
 		const char *str = pCreature->GetChatString(i);
 		

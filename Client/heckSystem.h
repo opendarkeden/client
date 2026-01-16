@@ -1,6 +1,9 @@
 // heckSystem.h: interface for the CheckSystem class.
 //
 //////////////////////////////////////////////////////////////////////
+#ifndef __HECKSYSTEM_H__
+#define __HECKSYSTEM_H__
+
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
 #else
@@ -8,7 +11,7 @@
 #endif
 
 
-class CheckSystem  
+class CheckSystem
 {
 public:
 	BOOL GetSystem();

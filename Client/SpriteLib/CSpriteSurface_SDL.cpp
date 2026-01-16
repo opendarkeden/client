@@ -475,3 +475,15 @@ void CSpriteSurface::Gamma4Pixel565(void *pDest, int len, int p)
 		dest[i] = (r << 11) | (g << 5) | b;
 	}
 }
+
+/* ============================================================================
+ * Gamma4Pixel555 - Alias to Gamma4Pixel565 for compatibility
+ * RGB555 and RGB565 have same structure (5-6-5 vs 5-5-5)
+ * SDL backend uses RGB565 only, so Gamma4Pixel555 maps to Gamma4Pixel565
+ * ============================================================================ */
+void CSpriteSurface::Gamma4Pixel555(void *pDest, int len, int p)
+{
+	// RGB555 and RGB565 are structurally similar
+	// In SDL backend, we always use RGB565, so just call Gamma4Pixel565
+	Gamma4Pixel565(pDest, len, p);
+}

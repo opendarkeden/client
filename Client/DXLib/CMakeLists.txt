@@ -28,6 +28,10 @@ endif()
 # Non-Windows platforms must use SDL
 if(NOT WIN32)
 	add_definitions(-DDXLIB_USE_SDL_BACKEND)
+	# Define platform-specific macros
+	if(APPLE)
+		add_definitions(-DPLATFORM_MACOS)
+	endif()
 	find_package(SDL2 REQUIRED)
 	find_package(SDL2_mixer)
 	message(STATUS "DXLib: Using SDL2 backend (required on this platform)")

@@ -1139,3 +1139,105 @@ DWORD CDirectDraw::Get_BPP()
 }
 
 #endif /* PLATFORM_WINDOWS */
+
+//-------------------------------------------------------------------------------------------------
+// Non-Windows (macOS/Linux) Stub Implementations
+//-------------------------------------------------------------------------------------------------
+#ifndef PLATFORM_WINDOWS
+
+// Static member initialization for macOS
+WORD								CDirectDraw::m_ScreenWidth			= 800;
+WORD								CDirectDraw::m_ScreenHeight			= 600;
+bool								CDirectDraw::m_bFullscreen			= true;
+bool								CDirectDraw::m_b565					= true;
+bool								CDirectDraw::m_b3D					= true;
+bool								CDirectDraw::m_bMMX					= false;
+bool								CDirectDraw::m_bGammaControl		= false;
+WORD								CDirectDraw::m_GammaStep = 100;
+WORD								CDirectDraw::m_AddGammaStep[3] = {0, 0, 0};
+
+RECT								CDirectDraw::m_rcWindow;
+RECT								CDirectDraw::m_rcScreen;
+RECT								CDirectDraw::m_rcViewport;
+
+// Mask initialization
+WORD								CDirectDraw::s_wMASK_SHIFT[5] = {0, 0, 0, 0, 0};
+DWORD								CDirectDraw::s_dwMASK_SHIFT[5] = {0, 0, 0, 0, 0};
+QWORD								CDirectDraw::s_qwMASK_SHIFT[5] = {0, 0, 0, 0, 0};
+
+WORD								CDirectDraw::s_wMASK_RGB[6] = {0, 0, 0, 0, 0, 0};
+DWORD								CDirectDraw::s_dwMASK_RGB[6] = {0, 0, 0, 0, 0, 0};
+QWORD								CDirectDraw::s_qwMASK_RGB[6] = {0, 0, 0, 0, 0, 0};
+
+QWORD								CDirectDraw::s_qwMASK_ALPHA0 = 0;
+QWORD								CDirectDraw::s_qwMASK_ALPHA1 = 0;
+DWORD								CDirectDraw::s_dwMASK_ALPHA0 = 0;
+DWORD								CDirectDraw::s_dwMASK_ALPHA1 = 0;
+WORD								CDirectDraw::s_wMASK_ALPHA0 = 0;
+WORD								CDirectDraw::s_wMASK_ALPHA1 = 0;
+
+// Shift counts for 5:6:5 format (most common on macOS/SDL)
+BYTE								CDirectDraw::s_bSHIFT_R = 11;  // R at bits 11-15
+BYTE								CDirectDraw::s_bSHIFT_G = 5;   // G at bits 5-10
+BYTE								CDirectDraw::s_bSHIFT_B = 0;   // B at bits 0-4
+
+// Shift counts for 4:4:4:4 format
+BYTE								CDirectDraw::s_bSHIFT4_R = 12;
+BYTE								CDirectDraw::s_bSHIFT4_G = 8;
+BYTE								CDirectDraw::s_bSHIFT4_B = 4;
+
+// Basic colors (5:6:5 format)
+WORD								CDirectDraw::RED = 0xF800;
+WORD								CDirectDraw::GREEN = 0x07E0;
+WORD								CDirectDraw::BLUE = 0x001F;
+WORD								CDirectDraw::WHITE = 0xFFFF;
+
+bool								CDirectDraw::s_bUseIMEHandle = false;
+
+//-------------------------------------------------------------------------------------------------
+// Bitmask methods for macOS
+//-------------------------------------------------------------------------------------------------
+
+int CDirectDraw::Get_Count_Rbit()
+{
+	// For 5:6:5 format, R uses 5 bits
+	return 5;
+}
+
+int CDirectDraw::Get_Count_Gbit()
+{
+	// For 5:6:5 format, G uses 6 bits
+	return 6;
+}
+
+int CDirectDraw::Get_Count_Bbit()
+{
+	// For 5:6:5 format, B uses 5 bits
+	return 5;
+}
+
+DWORD CDirectDraw::Get_R_Bitmask()
+{
+	// 5:6:5 format: R is at bits 11-15
+	return 0xF800;
+}
+
+DWORD CDirectDraw::Get_G_Bitmask()
+{
+	// 5:6:5 format: G is at bits 5-10
+	return 0x07E0;
+}
+
+DWORD CDirectDraw::Get_B_Bitmask()
+{
+	// 5:6:5 format: B is at bits 0-4
+	return 0x001F;
+}
+
+DWORD CDirectDraw::Get_BPP()
+{
+	// SDL2 typically uses 16-bit color
+	return 16;
+}
+
+#endif /* !PLATFORM_WINDOWS */
