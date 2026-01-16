@@ -22,7 +22,8 @@ extern bool					g_bZonePlayerInLarge;
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAddNPCHandler::execute ( GCAddNPC * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

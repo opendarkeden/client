@@ -54,7 +54,7 @@ using namespace FileAPI;
 //
 //////////////////////////////////////////////////////////////////////
 SOCKET SocketAPI::socket_ex ( int domain , int type , int protocol ) 
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -319,7 +319,7 @@ void SocketAPI::connect_ex ( SOCKET s , const struct sockaddr * addr , uint addr
 //
 //////////////////////////////////////////////////////////////////////
 void SocketAPI::listen_ex ( SOCKET s , uint backlog ) 
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -473,7 +473,7 @@ SOCKET SocketAPI::accept_ex ( SOCKET s , struct sockaddr * addr , uint * addrlen
 //
 //////////////////////////////////////////////////////////////////////
 void SocketAPI::getsockopt_ex ( SOCKET s , int level , int optname , void * optval , uint * optlen )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -541,7 +541,7 @@ void SocketAPI::getsockopt_ex ( SOCKET s , int level , int optname , void * optv
 //
 //////////////////////////////////////////////////////////////////////
 void SocketAPI::setsockopt_ex ( SOCKET s , int level , int optname , const void * optval , uint optlen )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -1010,7 +1010,7 @@ void SocketAPI::closesocket_ex ( SOCKET s )
 //
 /////////////////////////////////////////////////////////////////////
 void SocketAPI::ioctlsocket_ex ( SOCKET s , long cmd , ulong * argp )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -1057,7 +1057,7 @@ void SocketAPI::ioctlsocket_ex ( SOCKET s , long cmd , ulong * argp )
 //
 //////////////////////////////////////////////////////////////////////
 bool SocketAPI::getsocketnonblocking_ex ( SOCKET s )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -1090,7 +1090,7 @@ bool SocketAPI::getsocketnonblocking_ex ( SOCKET s )
 //
 //////////////////////////////////////////////////////////////////////
 void SocketAPI::setsocketnonblocking_ex ( SOCKET s , bool on )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -1122,7 +1122,7 @@ void SocketAPI::setsocketnonblocking_ex ( SOCKET s , bool on )
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketAPI::availablesocket_ex ( SOCKET s )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -1157,7 +1157,7 @@ uint SocketAPI::availablesocket_ex ( SOCKET s )
 //
 //////////////////////////////////////////////////////////////////////
 void SocketAPI::shutdown_ex ( SOCKET s , uint how )
-	 throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 

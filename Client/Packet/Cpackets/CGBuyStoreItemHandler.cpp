@@ -16,7 +16,8 @@
 // 확인하고, 일반 아이템과 모터 사이클 처리부분으로 분기한다.
 //////////////////////////////////////////////////////////////////////////////
 void CGBuyStoreItemHandler::execute (CGBuyStoreItem* pPacket , Player* pPlayer)
-	 throw (ProtocolException , Error)
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 	//__BEGIN_DEBUG_EX

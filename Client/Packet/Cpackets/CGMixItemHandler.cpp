@@ -19,7 +19,8 @@ void sendCannotUse(CGMixItem* pPacket, Player* pPlayer);
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGMixItemHandler::execute(CGMixItem* pPacket, Player* pPlayer)
-	throw (ProtocolException, Error)
+	
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 

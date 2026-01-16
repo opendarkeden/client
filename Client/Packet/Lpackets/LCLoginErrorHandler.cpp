@@ -20,7 +20,8 @@ extern BOOL		g_bNeedUpdate;
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void LCLoginErrorHandler::execute ( LCLoginError * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 

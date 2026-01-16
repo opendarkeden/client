@@ -32,7 +32,7 @@
 //
 //--------------------------------------------------------------------------------
 RequestClientPlayer::RequestClientPlayer ( Socket * pSocket )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 : Player(pSocket), m_PlayerStatus(CPS_NONE)
 {
 	m_RequestMode = REQUEST_CLIENT_MODE_NULL;
@@ -70,7 +70,7 @@ RequestClientPlayer::readInputStream ( char * buf , uint len )
 //
 //--------------------------------------------------------------------------------
 RequestClientPlayer::~RequestClientPlayer ()
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
@@ -291,7 +291,7 @@ void RequestClientPlayer::processCommand ()
 // disconnect player
 //--------------------------------------------------------------------------------
 void RequestClientPlayer::disconnect ( bool bDisconnected )
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -331,7 +331,7 @@ void RequestClientPlayer::disconnect ( bool bDisconnected )
 //
 //--------------------------------------------------------------------------------
 std::string RequestClientPlayer::toString () const
-       throw ( Error )
+       throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

@@ -14,7 +14,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCAddMonsterFromBurrowingHandler::execute ( GCAddMonsterFromBurrowing * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

@@ -17,7 +17,8 @@ extern int g_C2G;
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCCreateItemHandler::execute ( GCCreateItem * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

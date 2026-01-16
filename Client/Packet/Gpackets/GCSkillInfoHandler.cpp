@@ -19,7 +19,8 @@
 // 끝이 나면 게임 서버로 CGReady 패킷을 보내면 된다.
 //----------------------------------------------------------------------
 void GCSkillInfoHandler::execute ( GCSkillInfo * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 

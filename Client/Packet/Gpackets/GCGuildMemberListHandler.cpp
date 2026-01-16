@@ -14,7 +14,8 @@
 //
 //////////////////////////////////////////////////////////////////////
 void GCGuildMemberListHandler::execute ( GCGuildMemberList * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	

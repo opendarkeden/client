@@ -23,7 +23,8 @@
 // 출력하자.
 //----------------------------------------------------------------------
 void LCServerListHandler::execute ( LCServerList * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 

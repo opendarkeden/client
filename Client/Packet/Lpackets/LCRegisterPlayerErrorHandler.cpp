@@ -21,7 +21,8 @@ extern BOOL		g_bNeedUpdate;
 //
 //--------------------------------------------------------------------------------
 void LCRegisterPlayerErrorHandler::execute ( LCRegisterPlayerError * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 

@@ -25,7 +25,8 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCAddItemToItemVerifyHandler::execute ( GCAddItemToItemVerify * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 	__BEGIN_DEBUG

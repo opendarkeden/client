@@ -13,7 +13,9 @@
 #include "MTradeManager.h"
 
 void GCTradeMoneyHandler::execute ( GCTradeMoney * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	

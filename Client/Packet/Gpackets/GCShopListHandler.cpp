@@ -16,7 +16,9 @@
 #include "UIFunction.h"
 
 void GCShopListHandler::execute ( GCShopList * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 

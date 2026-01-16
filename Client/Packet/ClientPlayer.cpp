@@ -37,7 +37,7 @@ void	SendBugReport(const char *bug, ...);
 //
 //--------------------------------------------------------------------------------
 ClientPlayer::ClientPlayer ( Socket * pSocket )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 : m_PlayerStatus(CPS_NONE)
 {
 	__BEGIN_TRY
@@ -76,7 +76,7 @@ ClientPlayer::ClientPlayer ( Socket * pSocket )
 //
 //--------------------------------------------------------------------------------
 ClientPlayer::~ClientPlayer ()
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -346,7 +346,7 @@ void ClientPlayer::processCommand ()
 // disconnect player
 //--------------------------------------------------------------------------------
 void ClientPlayer::disconnect ( bool bDisconnected )
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -451,7 +451,7 @@ Packet * ClientPlayer::getOldPacket ( PacketID_t packetID )
 //
 //--------------------------------------------------------------------------------
 std::string ClientPlayer::toString () const
-       throw ( Error )
+       throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -472,7 +472,7 @@ std::string ClientPlayer::toString () const
 // 암호화 코드를 설정한다.
 
 void ClientPlayer::setEncryptCode()
-	throw (Error)
+	throw( Error )
 {
 #ifdef __USE_ENCRYPTER__
     __BEGIN_TRY

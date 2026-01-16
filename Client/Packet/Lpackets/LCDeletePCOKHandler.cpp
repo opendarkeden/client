@@ -24,7 +24,8 @@
 //
 //--------------------------------------------------------------------------------
 void LCDeletePCOKHandler::execute ( LCDeletePCOK * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 

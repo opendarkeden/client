@@ -44,8 +44,8 @@ ServerSocket::ServerSocket ( uint port , uint backlog )
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-ServerSocket::~ServerSocket () 
-	throw ( Error )
+ServerSocket::~ServerSocket ()
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -63,7 +63,7 @@ ServerSocket::~ServerSocket ()
 // close socket
 //////////////////////////////////////////////////////////////////////
 void ServerSocket::close ()
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -75,8 +75,8 @@ void ServerSocket::close ()
 //////////////////////////////////////////////////////////////////////
 // accept new connection
 //////////////////////////////////////////////////////////////////////
-Socket * ServerSocket::accept () 
-	throw ( Error )
+Socket * ServerSocket::accept ()
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

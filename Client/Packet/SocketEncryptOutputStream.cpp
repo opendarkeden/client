@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-SocketEncryptOutputStream::SocketEncryptOutputStream ( Socket * sock , uint BufferLen ) 
+SocketEncryptOutputStream::SocketEncryptOutputStream ( Socket * sock , uint BufferLen )
 	throw ( Error )
 : SocketOutputStream(sock, BufferLen)
 {

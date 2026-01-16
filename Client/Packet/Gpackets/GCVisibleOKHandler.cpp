@@ -14,7 +14,8 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCVisibleOKHandler::execute ( GCVisibleOK * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

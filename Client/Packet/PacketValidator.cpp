@@ -51,7 +51,7 @@ PacketValidator::~PacketValidator ()
 // initialize packet validators
 //----------------------------------------------------------------------
 void PacketValidator::init ()
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 

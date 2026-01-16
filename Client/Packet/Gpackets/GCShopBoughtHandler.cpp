@@ -15,7 +15,9 @@
 #include "MShopShelf.h"
 
 void GCShopBoughtHandler::execute ( GCShopBought * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	

@@ -23,7 +23,8 @@ extern bool					g_bZonePlayerInLarge;
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCPartyPositionHandler::execute ( GCPartyPosition * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 		

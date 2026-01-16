@@ -14,7 +14,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCGQuestStatusModifyHandler::execute ( GCGQuestStatusModify * pGCGQuestStatusModify , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 //	__BEGIN_DEBUG_EX

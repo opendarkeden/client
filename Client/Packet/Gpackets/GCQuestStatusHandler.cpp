@@ -18,7 +18,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCQuestStatusHandler::execute ( GCQuestStatus * pGCMonsterKillQuestStatus , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 		

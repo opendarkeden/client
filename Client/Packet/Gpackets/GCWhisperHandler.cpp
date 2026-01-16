@@ -23,7 +23,8 @@ extern CMessageArray*		g_pNoticeMessage;
 //
 //////////////////////////////////////////////////////////////////////
 void GCWhisperHandler::execute ( GCWhisper * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	

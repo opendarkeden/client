@@ -17,7 +17,9 @@
 #include "UIFunction.h"
 
 void GCTradeErrorHandler::execute ( GCTradeError * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	

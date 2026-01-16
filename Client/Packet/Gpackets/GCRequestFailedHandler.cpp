@@ -16,7 +16,9 @@
 #include "UIFunction.h"
 
 void GCRequestFailedHandler::execute ( GCRequestFailed * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	

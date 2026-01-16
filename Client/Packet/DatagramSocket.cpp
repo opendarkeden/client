@@ -23,8 +23,8 @@
 // 되기 때문이다.
 //
 //////////////////////////////////////////////////////////////////////
-DatagramSocket::DatagramSocket () 
-	throw ( Error )
+DatagramSocket::DatagramSocket ()
+	throw ( ProtocolException , Error )
 : m_SocketID(INVALID_SOCKET)
 {
 	__BEGIN_TRY 
@@ -44,8 +44,8 @@ DatagramSocket::DatagramSocket ()
 // UDP 서버 소켓은 소켓을 생성하고, port 를 바인딩시키면 준비가 완료된다.
 //
 //////////////////////////////////////////////////////////////////////
-DatagramSocket::DatagramSocket ( uint port ) 
-	throw ( Error )
+DatagramSocket::DatagramSocket ( uint port )
+	throw ( ProtocolException , Error )
 : m_SocketID(INVALID_SOCKET)
 {
 	__BEGIN_TRY 
@@ -76,7 +76,7 @@ DatagramSocket::DatagramSocket ( uint port )
 // destructor
 //////////////////////////////////////////////////////////////////////
 DatagramSocket::~DatagramSocket ()
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	

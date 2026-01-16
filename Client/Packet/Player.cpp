@@ -56,7 +56,7 @@ Player::Player ()
 //
 //////////////////////////////////////////////////////////////////////
 Player::Player ( Socket * pSocket )
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 : m_pSocket(pSocket), m_pInputStream(NULL), m_pOutputStream(NULL)
 {
 	__BEGIN_TRY
@@ -83,7 +83,7 @@ Player::Player ( Socket * pSocket )
 //
 //////////////////////////////////////////////////////////////////////
 Player::~Player ()
-	 throw ( Error )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -264,7 +264,7 @@ void Player::sendPacket ( Packet * pPacket )
 //
 //////////////////////////////////////////////////////////////////////
 void Player::disconnect ( bool bDisconnected )
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -314,7 +314,7 @@ void Player::setSocket ( Socket * pSocket )
 //
 //////////////////////////////////////////////////////////////////////
 std::string Player::toString () const
-       throw ( Error )
+       throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

@@ -22,7 +22,8 @@
 //
 //////////////////////////////////////////////////////////////////////
 void GCKickMessageHandler::execute ( GCKickMessage * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY 
 	

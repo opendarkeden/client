@@ -28,7 +28,8 @@ extern bool					g_bZonePlayerInLarge;
 // 
 //----------------------------------------------------------------------
 void RCPositionInfoHandler::execute ( RCPositionInfo * pPacket )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 

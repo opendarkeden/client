@@ -33,7 +33,7 @@ void	SendBugReport(const char *bug, ...);
 //
 //--------------------------------------------------------------------------------
 RequestServerPlayer::RequestServerPlayer ( Socket * pSocket )
-	 throw ( Error )
+	throw ( ProtocolException , Error )
 : Player(pSocket), m_PlayerStatus(CPS_NONE)
 {
 	m_RequestMode = REQUEST_CLIENT_MODE_NULL;
@@ -48,7 +48,7 @@ RequestServerPlayer::RequestServerPlayer ( Socket * pSocket )
 //
 //--------------------------------------------------------------------------------
 RequestServerPlayer::~RequestServerPlayer ()
-	 throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
@@ -264,7 +264,7 @@ void RequestServerPlayer::processCommand ()
 // disconnect player
 //--------------------------------------------------------------------------------
 void RequestServerPlayer::disconnect ( bool bDisconnected )
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -319,7 +319,7 @@ RequestServerPlayer::send(const char* pBuffer, uint nBytes)
 //
 //--------------------------------------------------------------------------------
 std::string RequestServerPlayer::toString () const
-       throw ( Error )
+       throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

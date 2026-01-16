@@ -343,8 +343,8 @@ void FileAPI::close_ex ( int fd )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-int FileAPI::fcntl_ex ( int fd , int cmd ) 
-	throw ( Error )
+int FileAPI::fcntl_ex ( int fd , int cmd )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -395,8 +395,8 @@ int FileAPI::fcntl_ex ( int fd , int cmd )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-int FileAPI::fcntl_ex ( int fd , int cmd , long arg ) 
-	throw ( Error )
+int FileAPI::fcntl_ex ( int fd , int cmd , long arg )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -450,8 +450,8 @@ int FileAPI::fcntl_ex ( int fd , int cmd , long arg )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-bool FileAPI::getfilenonblocking_ex ( int fd ) 
-     throw ( Error )
+bool FileAPI::getfilenonblocking_ex ( int fd )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -483,8 +483,8 @@ bool FileAPI::getfilenonblocking_ex ( int fd )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void FileAPI::setfilenonblocking_ex ( int fd , bool on ) 
-     throw ( Error )
+void FileAPI::setfilenonblocking_ex ( int fd , bool on )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -526,7 +526,7 @@ void FileAPI::setfilenonblocking_ex ( int fd , bool on )
 //
 //////////////////////////////////////////////////////////////////////
 void FileAPI::ioctl_ex ( int fd , int request , void * argp )
-    throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -571,7 +571,7 @@ void FileAPI::ioctl_ex ( int fd , int request , void * argp )
 //
 //////////////////////////////////////////////////////////////////////
 void FileAPI::setfilenonblocking_ex2 ( int fd , bool on )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -604,7 +604,7 @@ void FileAPI::setfilenonblocking_ex2 ( int fd , bool on )
 //
 //////////////////////////////////////////////////////////////////////
 uint FileAPI::availablefile_ex ( int fd )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -629,7 +629,7 @@ uint FileAPI::availablefile_ex ( int fd )
 //
 //////////////////////////////////////////////////////////////////////
 int FileAPI::dup_ex ( int fd )
-    throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -666,7 +666,7 @@ int FileAPI::dup_ex ( int fd )
 //
 //////////////////////////////////////////////////////////////////////
 long FileAPI::lseek_ex ( int fd , long offset , int whence )
-     throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 

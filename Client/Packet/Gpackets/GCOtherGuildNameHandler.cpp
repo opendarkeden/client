@@ -12,7 +12,8 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void GCOtherGuildNameHandler::execute(GCOtherGuildName* pPacket, Player* pPlayer)
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	// Other Info 검색후에-_- 파티 매니저도 검색해서 길드이름을 넣어준다.

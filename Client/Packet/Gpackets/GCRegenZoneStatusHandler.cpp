@@ -16,7 +16,8 @@
 //
 //////////////////////////////////////////////////////////////////////
 void GCRegenZoneStatusHandler::execute ( GCRegenZoneStatus * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
+	 
+throw ( ProtocolException , Error )
 {
 	if( g_pRegenTowerInfoManager == NULL )
 		return;

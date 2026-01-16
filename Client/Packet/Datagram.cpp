@@ -53,7 +53,7 @@ Datagram::~Datagram ()
 // 내부 버퍼에 들어있는 내용을 외부 버퍼로 복사한다.
 //////////////////////////////////////////////////////////////////////
 void Datagram::read ( char * buf , uint len )
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -74,7 +74,7 @@ void Datagram::read ( char * buf , uint len )
 // 내부 버퍼에 들어있는 내용을 외부 스트링으로 복사한다.
 //////////////////////////////////////////////////////////////////////
 void Datagram::read ( std::string & str , uint len )
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -172,7 +172,7 @@ void Datagram::read ( DatagramPacket * & pPacket )
 // 외부 버퍼에 들어있는 내용을 내부 버퍼로 복사한다.
 //////////////////////////////////////////////////////////////////////
 void Datagram::write ( const char * buf , uint len )
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -197,7 +197,7 @@ void Datagram::write ( const char * buf , uint len )
 //
 //////////////////////////////////////////////////////////////////////
 void Datagram::write ( const std::string & str )
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -252,8 +252,8 @@ void Datagram::write ( const DatagramPacket * pPacket )
 // 데이터그램소켓에서 읽어들인 데이터를 내부버퍼에 복사한다.
 //
 //////////////////////////////////////////////////////////////////////
-void Datagram::setData ( char * data , uint len ) 
-	throw ( Error ) 
+void Datagram::setData ( char * data , uint len )
+	throw ( ProtocolException , Error ) 
 { 
 	__BEGIN_TRY
 
@@ -270,7 +270,7 @@ void Datagram::setData ( char * data , uint len )
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void Datagram::setData ( uint len )
-	throw ( Error )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -286,8 +286,8 @@ void Datagram::setData ( uint len )
 //////////////////////////////////////////////////////////////////////
 // set address
 //////////////////////////////////////////////////////////////////////
-void Datagram::setAddress ( SOCKADDR_IN * pSockAddr ) 
-	throw ( Error ) 
+void Datagram::setAddress ( SOCKADDR_IN * pSockAddr )
+	throw ( ProtocolException , Error ) 
 { 
 	__BEGIN_TRY
 
