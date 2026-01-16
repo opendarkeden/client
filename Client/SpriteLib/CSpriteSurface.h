@@ -175,6 +175,7 @@ class CSpriteSurface {
 		static void		memcpyScale(WORD* pDest, WORD destPitch, WORD* pSource, WORD pixels);
 		static void		memcpyDarkness(WORD* pDest, WORD* pSource, WORD pixels);
 		static void		memcpyBrightness(WORD* pDest, WORD* pSource, WORD pixels);
+		static void		Gamma4Pixel565(void *pDest, int len, int p);
 
 		static WORD		memcpyAlpha1Pixel(WORD pDest, WORD pSource) { return 0; }
 

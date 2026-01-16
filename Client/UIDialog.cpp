@@ -323,7 +323,7 @@ UIDialog::ShowPCTalkDlg()
 // NPC 대화 선택 dialog
 //-----------------------------------------------------------------------------
 void
-UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
+UIDialog::ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 {
 	//-----------------------------------------------------------
 	// 뭔가를 선택했을 때, 
@@ -1072,7 +1072,7 @@ UIDialog::PopupFreeMessageDlg(const char* msg, int x, int y, WORD fButton, bool 
 // ProcessCannotBuyDlg
 //-----------------------------------------------------------------------------
 void		
-UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id)
+UIDialog::ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, id_t id)
 {
 	//if (id==DIALOG_OK)
 	//{

@@ -114,6 +114,11 @@ typedef intptr_t		LONG_PTR;
 typedef uintptr_t		DWORD_PTR;
 typedef long			LONG;
 typedef int				BOOL;
+
+	/* Define id_t for cross-platform compatibility (unsigned int on all platforms) */
+	typedef unsigned int   id_t;
+	/* Define id_t for cross-platform compatibility (unsigned int on all platforms) */
+	typedef unsigned int   id_t;
 #ifndef TRUE
 #define TRUE 1
 #endif
@@ -307,6 +312,8 @@ typedef WORD			char_t;
 #ifndef PLATFORM_WINDOWS
 	/* Windows-compatible type definitions for non-Windows platforms */
 	typedef int				BOOL;
+	/* Define id_t for cross-platform compatibility (unsigned int on all platforms) */
+	typedef unsigned int   id_t;
 	#ifndef TRUE
 		#define TRUE	1
 	#endif

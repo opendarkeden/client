@@ -62,7 +62,7 @@ class UIDialog {
 		void			PopupPCTalkDlg(int x=-1, int y=-1);		// -1은 center를 의미한다.(default)
 		void			HidePCTalkDlg();
 		void			ShowPCTalkDlg();
-		static void		ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, unsigned long id);
+		static void		ProcessPCTalkDlg(C_VS_UI_DIALOG * pDlg, id_t id);
 		void			ClosePCTalkDlg();
 
 		//---------------------------------------------------------
@@ -70,7 +70,7 @@ class UIDialog {
 		//---------------------------------------------------------
 		//void			PopupMessageDlg(UIDIALOG_MESSAGE msg, int x=-1, int y=-1);		// -1은 center를 의미한다.(default)		
 		void			PopupFreeMessageDlg(const char* msg, int x=-1, int y=-1, WORD fButton = UI_DIALOG_OK, bool IsAfterExit = false);		// -1은 center를 의미한다.(default)				
-		static void		ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, unsigned long id);
+		static void		ProcessMessageDlg(C_VS_UI_DIALOG * pDlg, id_t id);
 		void			CloseMessageDlg();
 
 		//---------------------------------------------------------

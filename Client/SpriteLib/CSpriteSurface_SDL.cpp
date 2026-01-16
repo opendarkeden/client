@@ -440,3 +440,38 @@ void CSpriteSurface::FillSurface(WORD color)
 		spritectl_unlock_surface(m_backend_surface);
 	}
 }
+
+/* ============================================================================
+ * Gamma Correction
+ * ============================================================================ */
+
+void CSpriteSurface::Gamma4Pixel565(void *pDest, int len, int p)
+{
+	// TODO: [SDL_BACKEND] Implement optimized gamma correction algorithm
+	// Current implementation uses basic RGB scaling
+	// Original Windows implementation uses x86 assembly
+	WORD* dest = (WORD*)pDest;
+	int light = p;
+	
+	for (int i = 0; i < len; i++) {
+		WORD pixel = dest[i];
+		
+		// Extract RGB565 components
+		int r = (pixel >> 11) & 0x1F;
+		int g = (pixel >> 5) & 0x3F;
+		int b = pixel & 0x1F;
+		
+		// Apply gamma correction
+		r = (r * light) >> 5;
+		g = (g * light) >> 5;
+		b = (b * light) >> 5;
+		
+		// Clamp values
+		if (r > 31) r = 31;
+		if (g > 63) g = 63;
+		if (b > 31) b = 31;
+		
+		// Recombine to RGB565
+		dest[i] = (r << 11) | (g << 5) | b;
+	}
+}

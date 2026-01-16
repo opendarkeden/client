@@ -11298,8 +11298,13 @@ MTopView::DrawEventString(int& strX, int& strY)
 // Debug¿¡ ÇÊ¿äÇÑ Á¤º¸¸¦ Ãâ·ÂÇÑ´Ù.
 //----------------------------------------------------------------------
 void
-MTopView::DrawDebugInfo(CDirectDrawSurface* pSurface)
-{ 
+void MTopView::DrawDebugInfo(void* pSurface)
+{
+	#ifdef PLATFORM_WINDOWS
+		CDirectDrawSurface* pSurfaceCast = (CDirectDrawSurface*)pSurface;
+	#else
+		CSpriteSurface* pSurfaceCast = (CSpriteSurface*)pSurface;
+	#endif
 	#ifdef	OUTPUT_DEBUG		
 		//----------------------------------------------------------------
 		// debug¿ë code

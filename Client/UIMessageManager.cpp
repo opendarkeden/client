@@ -7003,7 +7003,7 @@ UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* voi
 		// ¼±¹° »óÀÚ ÇÏµå ÄÚµù-¤µ-;
 		if(pItem->GetItemClass() == ITEM_CLASS_EVENT_GIFT_BOX && pItem->GetItemType() > 1 && pItem->IsTrade() == false)	//
 		{
-			MItem* pFindItem = ((MItemManager*)g_pInventory)->FindItem( MEventGiftBoxItemFinder() );
+			MEventGiftBoxItemFinder finder;\n\t	MItem* pFindItem = ((MItemManager*)g_pInventory)->FindItem( finder );
 			if(pFindItem != NULL)
 			{
 				// ÀÌ¹Ì ±³È¯¿¡ ¿Ã¶ó°£°Ô ÀÖ´Ù
@@ -10647,7 +10647,7 @@ UIMessageManager::Execute_UI_SMS_RECORD(int left, int right, void* void_ptr)
 		g_pTempInformation->SetMode(TempInformation::MODE_SMS_ADD_ADDRESS);
 		g_pTempInformation->Value1 = (int)left;
 		g_pTempInformation->Value2 = (int)right;
-		g_pTempInformation->Value3 = (int)void_ptr;
+		g_pTempInformation->Value3 = (int)(intptr_t)void_ptr;
 
 	}
 

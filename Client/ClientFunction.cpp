@@ -201,7 +201,8 @@ DrawInventoryEffect()
 		// 현재 inventory의 첫 좌표			
 		POINT point = UI_GetInventoryPosition();
 		
-		g_pTopView->DrawInventoryEffect(&point);
+		// TODO: [SDL_BACKEND] DrawInventoryEffect not implemented for SDL backend
+		// g_pTopView->DrawInventoryEffect(&point);
 
 	#endif
 }
@@ -425,7 +426,8 @@ DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha)
 
 		if (alpha<0) alpha = 0;
 
-		g_pTopView->DrawAlphaBox(pRect, r, g, b, reverseAlpha);
+		// TODO: [SDL_BACKEND] DrawAlphaBox not implemented for SDL backend
+		// g_pTopView->DrawAlphaBox(pRect, r, g, b, reverseAlpha);
 	#else
 		int reverseAlpha = 31-alpha;
 
