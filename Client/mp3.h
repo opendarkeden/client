@@ -7,6 +7,9 @@
 #include "bit_res.h"
 #ifdef PLATFORM_WINDOWS
 #include <dsound.h>
+#else
+// Non-Windows: Stub definitions for DirectSound types
+typedef void* LPDIRECTSOUNDBUFFER;
 #endif
 
 typedef int	OFFSET ;

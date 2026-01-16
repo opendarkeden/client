@@ -11,10 +11,10 @@
 
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
+#include <process.h>
 #else
 #include "../../basic/Platform.h"
 #endif
-#include <process.h>
 #include "nProtect.h"
 #include "DebugInfo.h"
 #include "npfgmsdk.h"	

@@ -190,12 +190,14 @@ class CSpriteSurface {
 			EFFECT_GRAY_SCALE,
 			EFFECT_GRAY_SCALE_VARIOUS,
 			EFFECT_SCREEN,
+			EFFECT_SCREEN_ALPHA,
 			EFFECT_WIPE_OUT,
 			EFFECT_NET,
 			MAX_EFFECT
 		};
 
 		static void		SetEffect(enum FUNCTION_EFFECT func) {}
+		static void		SetPalEffect(enum FUNCTION_EFFECT func) {}
 		static void		memcpyEffect(WORD* pDest, WORD* pSource, WORD pixels) {}
 		static void		memcpyPalEffect(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal) {}
 
@@ -250,6 +252,18 @@ class CSpriteSurface {
 
 		// Blt method (compatibility with CDirectDrawSurface)
 		void				Blt(POINT* pPoint, CSpriteSurface* SourceSurface, RECT* pRect);
+
+		//------------------------------------------------------------
+		// Clip methods (compatibility with CDirectDrawSurface)
+		//------------------------------------------------------------
+		inline int		GetClipRight() const		{ return m_width; }  // Stub: return full width
+		inline int		GetClipBottom() const		{ return m_height; } // Stub: return full height
+		inline void		SetClipRight(int Right)		{ /* Stub: no-op */ }
+		inline void		SetClipRightBottom(int Right, int Bottom) { /* Stub: no-op */ }
+		inline void		SetClipLeftTop(int Left, int Top) { /* Stub: no-op */ }
+
+		// GetSurface method (stub for compatibility - returns nullptr)
+		inline void*		GetSurface()				{ return nullptr; }
 
 	protected:
 		bool	ClippingRectToPoint(RECT*& pRect, POINT*& pPoint);

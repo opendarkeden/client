@@ -14431,6 +14431,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 			int CloudPos = g_CurrentFrame % g_GameRect.right;
 			POINT CloudPoint = {0,0};
 			RECT CloudRect = { CloudPos, 0, g_GameRect.left, g_GameRect.top };
+#ifdef PLATFORM_WINDOWS
 			if(CloudPos != g_GameRect.left)
 				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSurface, &CloudRect);
 			if(CloudPos != 0)
@@ -14440,6 +14441,19 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 				CloudRect.right	=  CloudPos;
 				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSurface, &CloudRect);
 			}
+#else
+			// SDL backend: Cast CDirectDrawSurface* to CSpriteSurface* for compatibility
+			CSpriteSurface* pCloudSprite = reinterpret_cast<CSpriteSurface*>(pCloudSurface);
+			if(CloudPos != g_GameRect.left)
+				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSprite, &CloudRect);
+			if(CloudPos != 0)
+			{
+				CloudPoint.x	= g_GameRect.left-CloudPos;
+				CloudRect.left	=  0;
+				CloudRect.right	=  CloudPos;
+				m_pSurface->BltNoColorkey(&CloudPoint, pCloudSprite, &CloudRect);
+			}
+#endif
 			if(bDrawBackGround)
 				m_pSurface->Blt(&point, m_pTileSurface, &rectReuse);
 		}
@@ -22258,7 +22272,13 @@ MTopView::ExcuteOustersFinEvent()
 
 			CDirectDrawSurface *pSurface = g_pEventManager->GetEventBackground((EVENTBACKGROUND_ID)event->parameter4);
 
+#ifdef PLATFORM_WINDOWS
 			m_pSurface->BltNoColorkey(&p, pSurface, &r);
+#else
+			// SDL backend: Cast CDirectDrawSurface* to CSpriteSurface* for compatibility
+			CSpriteSurface* pSpriteSurface = reinterpret_cast<CSpriteSurface*>(pSurface);
+			m_pSurface->BltNoColorkey(&p, pSpriteSurface, &r);
+#endif
 				
 //			m_pSurface->BltSprite(&p, g_pEventManager->GetEventBackground(event->parameter4));
 

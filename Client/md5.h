@@ -63,7 +63,7 @@ private:
 	void SetErr(int nErr);
 	void JustifytoStr();
 protected:
-	fstream Sfile;
+	std::fstream Sfile;
 	ULONG *pM;
 	LPVOID Pointer;
 	ULONG T[4];

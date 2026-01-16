@@ -4,7 +4,15 @@
 #include "Client_PCH.h"
 #include "StdAfx.h"
 #include "md5.h"
+#ifdef PLATFORM_WINDOWS
 #include <conio.h>
+#else
+// Non-Windows stub definitions
+#ifndef PM_REMOVE
+#define PM_REMOVE 0x0001
+#endif
+typedef unsigned char UCHAR;
+#endif
 #include <stdexcept>
 using namespace std;
 

@@ -31,24 +31,26 @@ BOOL CheckSystem::GetSystem()
 		switch (OsInfo.dwPlatformId)
 		{
 		case VER_PLATFORM_WIN32_WINDOWS:
-			if(OsInfo.dwMajorVersion == 3)
+			if(OsInfo.dwMajorVersion == 3) {
 				//MessageBox(0,"꾸鱗溝固:WIN95","斤口",MB_OK);
 				//strcpy(sys.chSystem,"꾸鱗溝固:WIN95");
 				//return FALSE;
-			else if(OsInfo.dwMajorVersion == 4)
+			} else if(OsInfo.dwMajorVersion == 4) {
 				//MessageBox(0,"꾸鱗溝固:WIN98","斤口",MB_OK);
 				//return FALSE;
 				//strcpy(sys.chSystem,"꾸鱗溝固:WIN98");
+			}
 			break;
 		case VER_PLATFORM_WIN32_NT:
-			if(OsInfo.dwMajorVersion == 5)
+			if(OsInfo.dwMajorVersion == 5) {
 				//MessageBox(0,"꾸鱗溝固:WIN2000","斤口",MB_OK);
 				//return TRUE;
 				//strcpy(sys.chSystem,"꾸鱗溝固:WIN2000");
-			else
+			} else {
 				//return TRUE;
 				//MessageBox(0,"꾸鱗溝固:WINNT","斤口",MB_OK);
 				//strcpy(sys.chSystem,"꾸鱗溝固:WINNT");
+			}
 			break;
 		default:
 			//return FALSE;

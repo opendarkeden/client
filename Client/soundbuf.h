@@ -1,10 +1,13 @@
 #ifndef _SOUNDBUF_H_
 #define _SOUNDBUF_H_
 
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
-#include "mp3.h"
-//#include "dslib.h"
 #include <dsound.h>
+#else
+#include "../basic/Platform.h"  // For basic types
+#endif
+#include "mp3.h"
 
 
 struct MP3 ;
