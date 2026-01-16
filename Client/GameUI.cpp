@@ -5,7 +5,9 @@
 //-----------------------------------------------------------------------------
 #include "Client_PCH.h"
 
+#ifdef PLATFORM_WINDOWS
 #include <Winuser.h>
+#endif
 
 #include "Client.h"
 #include "UIFunction.h"
@@ -17,9 +19,9 @@
 #include "MPriceManager.h"
 #include "MMoneyManager.h"
 #include "UIDialog.h"
-#include "Packet\PCSlayerInfo.h"
-#include "Packet\PCVampireInfo.h"
-#include "Packet\PCOustersInfo.h"
+#include "Packet/PCSlayerInfo.h"
+#include "Packet/PCVampireInfo.h"
+#include "Packet/PCOustersInfo.h"
 #include "SkillDef.h"
 #include "ClientFunction.h"
 #include "MGameStringTable.h"

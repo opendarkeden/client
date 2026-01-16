@@ -5,7 +5,7 @@
 #else
 #include "../../basic/Platform.h"
 #endif
-#include <fstream.h>
+#include <fstream>
 
 #ifndef __MD5CLASS__
 #define __MD5CLASS__

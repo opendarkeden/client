@@ -44,8 +44,8 @@
 #include <string>
 #include <list>
 #include <map>
-#include <fstream.h>
-#include "types\RequestTypes.h"
+#include <fstream>
+#include "types/RequestTypes.h"
 class RequestClientPlayer;
 class RequestServerPlayer;
 class ConnectException;

@@ -24,7 +24,7 @@
 #endif
 #include <map>
 #include <string>
-#include <fstream.h>
+#include <fstream>
 
 //--------------------------------------------------------------------------
 // Pack FileInfo
@@ -147,7 +147,7 @@ PackFileManager<FileInfoType>::Release()
 	// ID map
 	// 같은 pointer를 사용하므로...
 	//----------------------------------------------------------
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.begin();
+	FILEINFO_ID_MAP::typename iterator iInfo = m_IDInfos.begin();
 
 	while (iInfo != m_IDInfos.end())
 	{
@@ -172,7 +172,7 @@ template <class FileInfoType>
 bool
 PackFileManager<FileInfoType>::AddInfo(DWORD id, FileInfoType* pInfo)
 {
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );
+	FILEINFO_ID_MAP::typename iterator iInfo = m_IDInfos.find( id );
 
 	if (iInfo != m_IDInfos.end())
 	{
@@ -196,7 +196,7 @@ template <class FileInfoType>
 bool		
 PackFileManager<FileInfoType>::HasInfo(DWORD id)
 {
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );
+	FILEINFO_ID_MAP::typename iterator iInfo = m_IDInfos.find( id );
 
 	if (iInfo != m_IDInfos.end())
 	{
@@ -213,7 +213,7 @@ template <class FileInfoType>
 bool		
 PackFileManager<FileInfoType>::HasInfo(const char* pFilename)
 {
-	FILEINFO_ID_MAP::iterator iInfo = m_NameInfos.find( std::string(pFilename) );
+	FILEINFO_ID_MAP::typename iterator iInfo = m_NameInfos.find( std::string(pFilename) );
 
 	if (iInfo != m_IDInfos.end())
 	{
@@ -230,7 +230,7 @@ template <class FileInfoType>
 FileInfoType*	
 PackFileManager<FileInfoType>::GetInfo(DWORD id) const
 {
-	FILEINFO_ID_MAP::const_iterator iInfo = m_IDInfos.find( id );
+	FILEINFO_ID_MAP::typename const_iterator iInfo = m_IDInfos.find( id );
 
 	if (iInfo != m_IDInfos.end())
 	{
@@ -247,7 +247,7 @@ template <class FileInfoType>
 FileInfoType*	
 PackFileManager<FileInfoType>::GetInfo(const char* pFilename) const
 {
-	FILEINFO_NAME_MAP::const_iterator iInfo = m_IDInfos.find( std::string(pFilename) );
+	FILEINFO_NAME_MAP::typename const_iterator iInfo = m_IDInfos.find( std::string(pFilename) );
 
 	if (iInfo != m_IDInfos.end())
 	{
@@ -264,13 +264,13 @@ template <class FileInfoType>
 bool					
 PackFileManager<FileInfoType>::RemoveInfo(DWORD id)
 {
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );
+	FILEINFO_ID_MAP::typename iterator iInfo = m_IDInfos.find( id );
 
 	if (iInfo != m_IDInfos.end())
 	{
 		FileInfoType* pInfo = iInfo->second;
 
-		FILEINFO_NAME_MAP::iterator iNameInfo = m_NameInfos.find( pInfo->GetFilename() );
+		FILEINFO_NAME_MAP::typename iterator iNameInfo = m_NameInfos.find( pInfo->GetFilename() );
 
 		if (iNameInfo!=m_NameInfos.end())
 		{
@@ -302,13 +302,13 @@ PackFileManager<FileInfoType>::RemoveInfo(const char* pFilename)
 		return false;
 	}
 
-	FILEINFO_NAME_MAP::iterator iNameInfo = m_NameInfos.find( std::string(pFilename) );
+	FILEINFO_NAME_MAP::typename iterator iNameInfo = m_NameInfos.find( std::string(pFilename) );
 
 	if (iInfo != m_NameInfos.end())
 	{
 		FileInfoType* pInfo = iInfo->second;
 
-		FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( pInfo->GetID() );
+		FILEINFO_ID_MAP::typename iterator iInfo = m_IDInfos.find( pInfo->GetID() );
 
 		if (iInfo!=m_IDInfos.end())
 		{
@@ -359,7 +359,7 @@ PackFileManager<FileInfoType>::SaveToFileInfo(const char* pFilename)
 	file.write((const char*)&num, 2);
 
 	// Header 저장
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.begin();
+	FILEINFO_ID_MAP::typename iterator iInfo = m_IDInfos.begin();
 
 	while (iInfo != m_IDInfos.end())
 	{
@@ -424,7 +424,7 @@ PackFileManager<FileInfoType>::SaveToFileData(const char* pFilename)
 	file.write((const char*)&num, 2);	
 
 	// data
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.begin();
+	FILEINFO_ID_MAP::typename iterator iInfo = m_IDInfos.begin();
 
 	while  (iInfo != m_IDInfos.end())
 	{
@@ -458,7 +458,7 @@ PackFileManager<FileInfoType>::GetInputFileStream(const char* pFilename, ifstrea
 		return false;
 	}
 
-	FILEINFO_NAME_MAP::iterator iInfo = m_NameInfos.find( std::string(pFilename) );
+	FILEINFO_NAME_MAP::typename iterator iInfo = m_NameInfos.find( std::string(pFilename) );
 
 	if (iInfo != m_NameInfos.end())
 	{
@@ -486,7 +486,7 @@ PackFileManager<FileInfoType>::GetInputFileStream(DWORD id, ifstream& file) cons
 		return;
 	}
 
-	FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );
+	FILEINFO_ID_MAP::typename iterator iInfo = m_IDInfos.find( id );
 
 	if (iInfo != m_IDInfos.end())
 	{

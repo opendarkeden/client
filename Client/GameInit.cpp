@@ -8,7 +8,9 @@
 // Include files
 //-----------------------------------------------------------------------------
 #include "Client_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <MMSystem.h>
+#endif
 #include "Client.h"
 #include "GameObject.h"
 #include "AddonDef.h"

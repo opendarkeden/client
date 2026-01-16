@@ -21,6 +21,7 @@
 #ifndef	__MOBJECT_H__
 #define	__MOBJECT_H__
 
+#include "Client_PCH.h"
 #include "MTypeDef.h"
 #include <fstream>
 using namespace std;

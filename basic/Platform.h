@@ -103,6 +103,7 @@ typedef unsigned char	BYTE;
 typedef unsigned short	WORD;
 typedef unsigned int	UINT;
 typedef unsigned long   DWORD;
+typedef unsigned long   ULONG;
 typedef unsigned long long DWORD64;
 typedef unsigned long long ULONGLONG;
 typedef long long LONGLONG;
@@ -113,6 +114,12 @@ typedef intptr_t		LONG_PTR;
 typedef uintptr_t		DWORD_PTR;
 typedef long			LONG;
 typedef int				BOOL;
+#ifndef TRUE
+#define TRUE 1
+#endif
+#ifndef FALSE
+#define FALSE 0
+#endif
 
 /* WAVEFORMATEX structure for audio format */
 #ifndef _WAVEFORMATEX_

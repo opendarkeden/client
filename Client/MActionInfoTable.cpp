@@ -70,7 +70,7 @@ ACTION_INFO_NODE::SetChildMode()
 // Save
 //----------------------------------------------------------------------
 void			
-ACTION_INFO_NODE::SaveToFile(class ofstream& file)
+ACTION_INFO_NODE::SaveToFile(std::ofstream& file)
 {			
 	file.write((const char*)&EffectGeneratorID, SIZE_EFFECTGENERATORID);			
 	file.write((const char*)&EffectSpriteType, SIZE_EFFECTSPRITETYPE);
@@ -87,7 +87,7 @@ ACTION_INFO_NODE::SaveToFile(class ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-ACTION_INFO_NODE::LoadFromFile(class ifstream& file)
+ACTION_INFO_NODE::LoadFromFile(std::ifstream& file)
 {			
 	file.read((char*)&EffectGeneratorID, SIZE_EFFECTGENERATORID);			
 	file.read((char*)&EffectSpriteType, SIZE_EFFECTSPRITETYPE);
@@ -243,7 +243,7 @@ MActionInfo::SetChildMode()
 // Save
 //----------------------------------------------------------------------
 void			
-MActionInfo::SaveToFile(class ofstream& file)
+MActionInfo::SaveToFile(std::ofstream& file)
 {
 	// 임시로 계산.. - -;
 	// startframe이 늦은 만큼 delay도 줄어든다
@@ -354,7 +354,7 @@ MActionInfo::SaveToFile(class ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-MActionInfo::LoadFromFile(class ifstream& file)
+MActionInfo::LoadFromFile(std::ifstream& file)
 {
 	m_Name.LoadFromFile( file );
 
@@ -506,7 +506,7 @@ MActionInfoTable::SetChildMode()
 // Save To File
 //----------------------------------------------------------------------
 void		
-MActionInfoTable::SaveToFile(class ofstream& file)
+MActionInfoTable::SaveToFile(std::ofstream& file)
 {
 	file.write((const char*)&m_nMinResultActionInfo, 4);
 	file.write((const char*)&m_nMaxResultActionInfo, 4);
@@ -518,7 +518,7 @@ MActionInfoTable::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-MActionInfoTable::LoadFromFile(class ifstream& file)
+MActionInfoTable::LoadFromFile(std::ifstream& file)
 {
 	file.read((char*)&m_nMinResultActionInfo, 4);
 	file.read((char*)&m_nMaxResultActionInfo, 4);
