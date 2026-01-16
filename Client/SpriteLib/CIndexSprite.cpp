@@ -586,11 +586,12 @@ CIndexSprite::GetColorToGradation(BYTE spriteGradation)
 	//WORD spriteGradation = (color >> 10) + ((color >> 5) & 0x1F) + (color & 0x1F);
 
 	//-------------------------------------------------------
-	// spriteGradation���� ���� ����� 
+	// spriteGradation���� ���� �����
 	// GradationValue�� ã�ƾ� �Ѵ�.
 	//-------------------------------------------------------
-	for (int g=0; g<MAX_COLORGRADATION; g++)
-	{			
+	int g;
+	for (g=0; g<MAX_COLORGRADATION; g++)
+	{
 		if (spriteGradation > GradationValue[g])
 		{
 			break;
@@ -598,7 +599,7 @@ CIndexSprite::GetColorToGradation(BYTE spriteGradation)
 	}
 
 	// ���� ���� ������ ���
-	if (g==0 ||	g==MAX_COLORGRADATION-1)
+	if (g==0 || g==MAX_COLORGRADATION-1)
 	{
 		return g;
 	}
@@ -606,7 +607,7 @@ CIndexSprite::GetColorToGradation(BYTE spriteGradation)
 	// ��� ����
 	WORD value1 = GradationValue[g-1] - spriteGradation;
 	WORD value2 = spriteGradation - GradationValue[g-1];
-	
+
 	// ���� ���� �����Ѵ�.
 	if (value1 < value2)
 	{
@@ -616,9 +617,9 @@ CIndexSprite::GetColorToGradation(BYTE spriteGradation)
 	{
 		return g;
 	}
-	
-	// ���� ����.. ??	
-	return g-1;	
+
+	// ���� ����.. ??
+	return g-1;
 }
 
 //-----------------------------------------------------------------------------
@@ -661,7 +662,7 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 	WORD	*pSourceTemp2;
 	pSourceTemp = pSource;
 
-	for (register i=0; i<height; i++)
+	for (register int i=0; i<height; i++)
 	{
 		pSourceTemp2 = pSourceTemp;
 
@@ -703,10 +704,10 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 	//--------------------------------------------------
 	// üũ üũ~
 	//--------------------------------------------------
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		//--------------------------------------------------
-		// �޸� ���
+		// 메모리 할당
 		//--------------------------------------------------
 		ppColor[i] = new WORD [width];
 		ppIndex[i] = new WORD [width];
@@ -811,9 +812,9 @@ CIndexSprite::SetPixel(WORD* pSource, WORD sourcePitch,
 
 
 	//--------------------------------------------------
-	// ppColor�� ppIndex�� �����ش�.
+	// ppColor와 ppIndex를 삭제한다.
 	//--------------------------------------------------
-	for (i=0; i<height; i++)
+	for (int i=0; i<height; i++)
 	{
 		delete [] ppColor[i];
 		delete [] ppIndex[i];

@@ -203,6 +203,7 @@ class CSpriteSurface {
 
 		static void		memcpyEffectDarker(WORD* pDest, WORD* pSource, WORD pixels) {}
 		static void		memcpyPalEffectDarker(WORD* pDest, BYTE* pSource, WORD pixels, MPalette &pal) {}
+		static void		memcpyEffectGradation(WORD* pDest, WORD* pSource, WORD pixels) {}
 
 		static FUNCTION_MEMCPYEFFECT		s_pMemcpyEffectFunction;
 		static FUNCTION_MEMCPYPALEFFECT		s_pMemcpyPalEffectFunction;

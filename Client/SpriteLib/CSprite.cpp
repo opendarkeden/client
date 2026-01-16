@@ -113,25 +113,23 @@ void
 CSprite::Release()
 {
 #ifdef SPRITELIB_BACKEND_SDL
-#ifdef SPRITELIB_BACKEND_SDL
 	if (m_backend_sprite != SPRITECTL_INVALID_SPRITE) {
 		spritectl_destroy_sprite(m_backend_sprite);
 		m_backend_sprite = SPRITECTL_INVALID_SPRITE;
 		m_backend_dirty = false;
 	}
 #endif
-		for (int i=0; i<m_Height; i++)
-			delete [] m_Pixels[i];
-			//free(m_Pixels[i]);
-		delete [] m_Pixels;
-		//free(m_Pixels);
+	for (int i=0; i<m_Height; i++)
+		delete [] m_Pixels[i];
+		//free(m_Pixels[i]);
+	delete [] m_Pixels;
+	//free(m_Pixels);
 
-		//s_Delete++;
+	//s_Delete++;
 
-		m_Pixels	= NULL;
-		m_Width		= 0;
-		m_Height	= 0;		
-	}
+	m_Pixels	= NULL;
+	m_Width		= 0;
+	m_Height	= 0;
 
 	m_bInit		= false;
 }

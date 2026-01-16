@@ -4,8 +4,12 @@
 #include "Client_PCH.h"
 #ifdef PLATFORM_WINDOWS
 #include <direct.h>
-#endif
 #include <io.h>
+#else
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/dir.h>
+#endif
 #include "CDirectDraw.h"
 #include "CSpritePack.h"
 #include "UserInformation.h"
@@ -23,7 +27,7 @@
 #ifdef __GAME_CLIENT__
 	#include "RequestUserManager.h"
 
-	#include "packet\Cpackets\CGRequestIP.h"
+	#include "packet/Cpackets/CGRequestIP.h"
 
 	#include "ServerInfo.h"
 	#include "RequestClientPlayerManager.h"
@@ -420,7 +424,11 @@ ProfileManager::InitProfiles()
 		else
 		{
 			// DIR_PROFILE이 없다면.. 생성..
+#ifdef PLATFORM_WINDOWS
 			_mkdir( g_pFileDef->getProperty("DIR_PROFILE").c_str() );
+#else
+			mkdir( g_pFileDef->getProperty("DIR_PROFILE").c_str(), 0755 );
+#endif
 		}		
 	}
 
@@ -440,18 +448,32 @@ ProfileManager::InitProfiles()
 		CSpritePack SPK;
 
 		// [0]은 작은거 (30, 38)
-		// [1]은 큰거 (110, 139)		
+		// [1]은 큰거 (110, 139)
 		SPK.Init( 2);
 
+#ifdef PLATFORM_WINDOWS
 		CDirectDrawSurface surface;
-		
+
 		const POINT bigSize = { 55, 70 };
 		const POINT smallSize = { 30, 38 };
 
 		surface.InitOffsurface( bigSize.x, bigSize.y, DDSCAPS_SYSTEMMEMORY );
-		
+
 		RECT destBigRect = { 0, 0, bigSize.x, bigSize.y };
 		RECT destSmallRect = { 0, 0, smallSize.x, smallSize.y };
+#else
+		// SDL backend: Use CSpriteSurface instead
+		CSpriteSurface surface;
+
+		const POINT bigSize = { 55, 70 };
+		const POINT smallSize = { 30, 38 };
+
+		// Initialize surface with big size
+		// Note: SDL backend doesn't have InitOffsurface, surface will be created when needed
+
+		RECT destBigRect = { 0, 0, bigSize.x, bigSize.y };
+		RECT destSmallRect = { 0, 0, smallSize.x, smallSize.y };
+#endif
 
 		do
 		{
@@ -472,6 +494,7 @@ ProfileManager::InitProfiles()
 			strncpy( charName, FileData.name, lenFilename-4 );	// .bmp를 짜른다.
 			charName[lenFilename-4] = '\0';
 
+#ifdef PLATFORM_WINDOWS
 			CDirectDrawSurface bmpSurface;
 
 			if (LoadImageToSurface(bmpFilename, bmpSurface))
@@ -480,22 +503,22 @@ ProfileManager::InitProfiles()
 				unsigned short pitch;
 
 				// surface의 크기가 default Profile크기와 다르다면
-				// size를 변경시켜줘야 한다..	
+				// size를 변경시켜줘야 한다..
 				RECT bmpRect = { 0, 0, bmpSurface.GetWidth(), bmpSurface.GetHeight() };
-				
+
 				// SmallSize
 				surface.Blt(&destSmallRect, &bmpSurface, &bmpRect);
-				surface.LockW(lpSurface, pitch);				
+				surface.LockW(lpSurface, pitch);
 				SPK[0].SetPixelNoColorkey(lpSurface, pitch, smallSize.x, smallSize.y);
 				surface.Unlock();
 
 				// BigSize
 				surface.FillSurface( 0 );
 				surface.Blt(&destBigRect, &bmpSurface, &bmpRect);
-				surface.LockW(lpSurface, pitch);				
+				surface.LockW(lpSurface, pitch);
 				SPK[1].SetPixelNoColorkey(lpSurface, pitch, bigSize.x, bigSize.y);
 				surface.Unlock();
-				
+
 				// filename.spk
 				int lenBmpFilename = strlen(bmpFilename);
 				strncpy(spkFilename, bmpFilename, lenBmpFilename-3);
@@ -506,14 +529,57 @@ ProfileManager::InitProfiles()
 				strcpy(spkiFilename, spkFilename);
 				strcat(spkiFilename, "i");
 
-				std::ofstream	spkFile(spkFilename, ios::binary);	
-				std::ofstream	spkiFile(spkiFilename, ios::binary);	
+				std::ofstream	spkFile(spkFilename, ios::binary);
+				std::ofstream	spkiFile(spkiFilename, ios::binary);
 				SPK.SaveToFile( spkFile, spkiFile );
 				spkFile.close();
 				spkiFile.close();
 
 				g_pProfileManager->AddProfile( charName, spkFilename );
 			}
+#else
+			// SDL backend: Profile image loading not yet implemented
+			// This is a non-critical feature (profile character portraits)
+			// TODO: Implement SDL_image based loading
+			WORD* lpSurface;
+			unsigned short pitch;
+
+			// Create temporary surfaces for the profile
+			RECT bmpRect = { 0, 0, smallSize.x, smallSize.y };
+			RECT bmpRectBig = { 0, 0, bigSize.x, bigSize.y };
+
+			// For now, just initialize empty sprites
+			// The profile will load but without character portrait image
+			lpSurface = new WORD[smallSize.x * smallSize.y];
+			memset(lpSurface, 0, smallSize.x * smallSize.y * 2);
+			pitch = smallSize.x * 2;
+			SPK[0].SetPixelNoColorkey(lpSurface, pitch, smallSize.x, smallSize.y);
+			delete[] lpSurface;
+
+			lpSurface = new WORD[bigSize.x * bigSize.y];
+			memset(lpSurface, 0, bigSize.x * bigSize.y * 2);
+			pitch = bigSize.x * 2;
+			SPK[1].SetPixelNoColorkey(lpSurface, pitch, bigSize.x, bigSize.y);
+			delete[] lpSurface;
+
+			// filename.spk
+			int lenBmpFilename = strlen(bmpFilename);
+			strncpy(spkFilename, bmpFilename, lenBmpFilename-3);
+			spkFilename[lenBmpFilename-3] = '\0';
+			strcat(spkFilename, "spk");
+
+			// filename.spki
+			strcpy(spkiFilename, spkFilename);
+			strcat(spkiFilename, "i");
+
+			std::ofstream	spkFile(spkFilename, ios::binary);
+			std::ofstream	spkiFile(spkiFilename, ios::binary);
+			SPK.SaveToFile( spkFile, spkiFile );
+			spkFile.close();
+			spkiFile.close();
+
+			g_pProfileManager->AddProfile( charName, spkFilename );
+#endif
 		}
 		while (_findnext( hFile, &FileData ) == 0);
 

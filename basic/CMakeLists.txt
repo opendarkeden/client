@@ -36,6 +36,7 @@ endif()
 set(BASIC_SOURCES
 	Directory.cpp
 	BasicData.cpp
+	Timer2.cpp
 )
 
 # Platform-specific sources
@@ -105,5 +106,6 @@ install(FILES
 	BasicMemory.h
 	BasicException.h
 	DLL.h
+	timer2.h
 	DESTINATION include/basic
 )

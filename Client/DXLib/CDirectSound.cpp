@@ -1034,4 +1034,103 @@ LPDIRECTSOUND CDirectSound::GetDS() const
 	return m_pDS;
 }
 
+bool CDirectSound::IsPlay(LPDIRECTSOUNDBUFFER buffer) const
+{
+	(void)buffer;
+	return false;
+}
+
+bool CDirectSound::NewPlay(LPDIRECTSOUNDBUFFER buffer, bool bLoop)
+{
+	(void)buffer; (void)bLoop;
+	return false;
+}
+
+bool CDirectSound::Play(LPDIRECTSOUNDBUFFER buffer, bool bLoop, bool bDuplicate)
+{
+	(void)buffer; (void)bLoop; (void)bDuplicate;
+	return false;
+}
+
+bool CDirectSound::Stop(LPDIRECTSOUNDBUFFER buffer)
+{
+	(void)buffer;
+	return false;
+}
+
+LPDIRECTSOUNDBUFFER CDirectSound::LoadWav(LPSTR filename)
+{
+	(void)filename;
+	return NULL;
+}
+
+LPDIRECTSOUNDBUFFER CDirectSound::CreateBuffer(LPVOID sdat, DWORD size, DWORD caps, LPWAVEFORMATEX wfx)
+{
+	(void)sdat; (void)size; (void)caps; (void)wfx;
+	return NULL;
+}
+
+void CDirectSound::Release(LPDIRECTSOUNDBUFFER buffer)
+{
+	(void)buffer;
+}
+
+LPDIRECTSOUNDBUFFER CDirectSound::DuplicateSoundBuffer(LPDIRECTSOUNDBUFFER buffer, bool bAutoRelease)
+{
+	(void)buffer; (void)bAutoRelease;
+	return NULL;
+}
+
+void CDirectSound::ReleaseDuplicateBuffer()
+{
+}
+
+bool CDirectSound::RightPan(LPDIRECTSOUNDBUFFER buffer, int nPan)
+{
+	(void)buffer; (void)nPan;
+	return false;
+}
+
+bool CDirectSound::LeftPan(LPDIRECTSOUNDBUFFER buffer, int nPan)
+{
+	(void)buffer; (void)nPan;
+	return false;
+}
+
+bool CDirectSound::CenterToRightPan(LPDIRECTSOUNDBUFFER buffer, int nPan)
+{
+	(void)buffer; (void)nPan;
+	return false;
+}
+
+bool CDirectSound::CenterToLeftPan(LPDIRECTSOUNDBUFFER buffer, int nPan)
+{
+	(void)buffer; (void)nPan;
+	return false;
+}
+
+bool CDirectSound::CenterPan(LPDIRECTSOUNDBUFFER buffer)
+{
+	(void)buffer;
+	return false;
+}
+
+bool CDirectSound::ChangePan(LPDIRECTSOUNDBUFFER buffer, int pan)
+{
+	(void)buffer; (void)pan;
+	return false;
+}
+
+bool CDirectSound::SubVolumeFromMax(LPDIRECTSOUNDBUFFER buffer, int nSub)
+{
+	(void)buffer; (void)nSub;
+	return false;
+}
+
+bool CDirectSound::DirectSoundFailed(const char *str)
+{
+	(void)str;
+	return false;
+}
+
 #endif

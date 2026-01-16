@@ -39,6 +39,10 @@ set(SPRITELIB_SOURCES
 	# SDL-specific CSprite implementation
 	CSprite_SDL.cpp
 
+	# Base class implementations (constructors/destructors/static members)
+	CSprite.cpp
+	CIndexSprite.cpp
+
 	# Sprite format implementations (needed for vtables)
 	CSprite555.cpp
 	CSprite565.cpp
