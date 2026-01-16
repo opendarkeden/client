@@ -29,7 +29,7 @@ NPC_INFO::Release()
 // Save To File
 //----------------------------------------------------------------------
 void		
-NPC_INFO::SaveToFile(class ofstream& file)
+NPC_INFO::SaveToFile(std::ofstream& file)
 {
 	//--------------------------------------------------
 	// ListShopTemplateID
@@ -62,7 +62,7 @@ NPC_INFO::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-NPC_INFO::LoadFromFile(class ifstream& file)
+NPC_INFO::LoadFromFile(std::ifstream& file)
 {
 	Release();
 
@@ -124,7 +124,7 @@ SERVERNPC_INFO::Release()
 // Save To File
 //----------------------------------------------------------------------
 void		
-SERVERNPC_INFO::SaveToFile(class ofstream& file)
+SERVERNPC_INFO::SaveToFile(std::ofstream& file)
 {
 	//--------------------------------------------------
 	// ListShopTemplateID
@@ -156,7 +156,7 @@ SERVERNPC_INFO::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void		
-SERVERNPC_INFO::LoadFromFile(class ifstream& file)
+SERVERNPC_INFO::LoadFromFile(std::ifstream& file)
 {
 	Release();
 

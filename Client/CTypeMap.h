@@ -103,7 +103,7 @@ CTypeMap<DataType>::AddData( unsigned int id, DataType* pData )
 	//------------------------------------------------------
 	// 없는 경우 --> 추가
 	//------------------------------------------------------
-	insert(TYPE_MAP::value_type(id, pData));
+	this->insert(typename TYPE_MAP::value_type(id, pData));
 
 	return true;
 }
@@ -145,7 +145,7 @@ CTypeMap<DataType>::RemoveData( unsigned int id )
 	// 있으면 지워줘야 한다.
 	delete (*iData).second;
 
-	erase( iData );
+	this->erase( iData );
 
 	return true;
 }
@@ -154,8 +154,8 @@ CTypeMap<DataType>::RemoveData( unsigned int id )
 // Save To File
 //----------------------------------------------------------------------
 template <class DataType>
-void		
-CTypeMap<DataType>::SaveToFile(ofstream& file)
+void
+CTypeMap<DataType>::SaveToFile(std::ofstream& file)
 {
 	typename TYPE_MAP::iterator iData = this->begin();
 
@@ -184,8 +184,8 @@ CTypeMap<DataType>::SaveToFile(ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 template <class DataType>
-void		
-CTypeMap<DataType>::LoadFromFile(ifstream& file)
+void
+CTypeMap<DataType>::LoadFromFile(std::ifstream& file)
 {
 	//-----------------------------------------------------
 	// 기존에 있던것 제거

@@ -12,7 +12,7 @@
 // include files
 #include "DatagramPacket.h"
 #include "PacketFactory.h"
-#include "types\GuildTypes.h"
+#include "types/GuildTypes.h"
 
 
 //----------------------------------------------------------------------

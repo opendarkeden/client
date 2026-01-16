@@ -67,6 +67,8 @@
 #include "SectorSoundInfo.h"
 
 #include <fstream>
+#include <map>
+using namespace std;
 using namespace std;
 
 class MItem;

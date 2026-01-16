@@ -20,6 +20,7 @@
 #include "MEffect.h"
 #include "MZone.h"
 #include "MTopView.h"
+#include "UserOption.h"
 #include "MEffectGeneratorTable.h"
 #include "MZoneTable.h"
 #include "CMessageArray.h"
@@ -32,7 +33,7 @@
 #include "MHelicopterManager.h"
 #include "MParty.h"
 #include "MTestDef.h"
-#include <fstream.h>
+#include <fstream>
 #include "SkillDef.h"
 #include "mintr.h"
 #include "MNPC.h"
@@ -618,7 +619,7 @@ MZone::ReleaseObject()
 // //MZoneSoundTable
 //----------------------------------------------------------------------
 bool		
-MZone::SaveToFileSectorSound(class ofstream& file)
+MZone::SaveToFileSectorSound(std::ofstream& file)
 {
 	//-----------------------------------------------------------
 	// 크기
@@ -687,7 +688,7 @@ MZone::SaveToFileSectorSound(class ofstream& file)
 // //MZoneSoundTable을 Loading한다.
 //----------------------------------------------------------------------
 bool		
-MZone::LoadFromFileSectorSound(class ifstream& file)
+MZone::LoadFromFileSectorSound(std::ifstream& file)
 {
 	m_bZoneSoundLoaded = false;
 
@@ -902,7 +903,7 @@ MZone::LoadFromFileSectorSound(class ifstream& file)
 //   ImageObject수,  ImageObject수 * (ImageObject, ImageObjectSectorInfo)
 //----------------------------------------------------------------------
 bool		
-MZone::LoadFromFile(class ifstream& file)
+MZone::LoadFromFile(std::ifstream& file)
 {
 	//-------------------------------------------------
 	// Header

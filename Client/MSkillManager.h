@@ -122,6 +122,8 @@
 #include "RaceType.h"
 
 #include <fstream>
+#include <list>
+#include <map>
 using namespace std;
 
 

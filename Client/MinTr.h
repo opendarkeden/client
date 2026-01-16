@@ -160,7 +160,6 @@ inline void _MinTraceErrA(LPCSTR p)
     fprintf(stderr, "[_MinTraceErrA] %s\n", p ? p : "");
 }
 #endif
-}
 
 //-----------------------------------------------------------------------------
 // 설명 : _MinTraceErrW (유니코드) 
@@ -180,10 +179,11 @@ inline void _MinTraceErrW(LPCWSTR p)
 #else
 inline void _MinTraceErrW(LPCWSTR p)
 {
-    fprintf(stderr, "[_MinTraceErrW] %s\n", p ? p : "");
+    // On non-Windows platforms, just note that a wide char error occurred
+    fprintf(stderr, "[_MinTraceErrW] (wide char error)\n");
+    (void)p; // Suppress unused parameter warning
 }
 #endif
-}
 
 //-----------------------------------------------------------------------------
 // 설명 : 에러 트레이스
@@ -227,7 +227,6 @@ inline void _MinTraceWarA(LPCSTR p)
     fprintf(stderr, "[_MinTraceWarA] %s\n", p ? p : "");
 }
 #endif
-}
 
 //-----------------------------------------------------------------------------
 // 설명 : _MinTraceWarW (유니코드) 
@@ -247,11 +246,11 @@ inline void _MinTraceWarW(LPCWSTR p)
 #else
 inline void _MinTraceWarW(LPCWSTR p)
 {
-    fprintf(stderr, "[_MinTraceWarW] %s\n", p ? p : "");
+    // On non-Windows platforms, just note that a wide char warning occurred
+    fprintf(stderr, "[_MinTraceWarW] (wide char warning)\n");
+    (void)p; // Suppress unused parameter warning
 }
 #endif
-}
-
 //-----------------------------------------------------------------------------
 // 설명 : 일반 트레이스
 //-----------------------------------------------------------------------------
@@ -276,51 +275,56 @@ inline void _MinTraceWar(LPCTSTR pFormat, ...)
 //-----------------------------------------------------------------------------
 // 설명 : _ClMinTraceA
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 inline void _ClMinTraceA(COLORREF col, LPCSTR p)
 {
-    COPYDATASTRUCT cd; 
-    HWND hWnd = ::FindWindow (g_pszMinTraceClassName, g_pszMinTraceTitle); 
+    COPYDATASTRUCT cd;
+    HWND hWnd = ::FindWindow (g_pszMinTraceClassName, g_pszMinTraceTitle);
     if (hWnd)
-    {  
+    {
 		char buf[1024];
 		sprintf(buf, "%8d,%s", col, p);
         cd.dwData = MIN_NOTUNI | MIN_COL;
         cd.cbData = (strlen(buf)+1)*sizeof(char);
         cd.lpData = (void *)buf;
-        ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);  
-    } 
+        ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);
+    }
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // 설명 : _ClMinTraceW
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 inline void _ClMinTraceW(COLORREF col, LPCWSTR p)
 {
 #ifdef UNICODE
-    COPYDATASTRUCT cd; 
-    HWND hWnd = ::FindWindow (g_pszMinTraceClassName, g_pszMinTraceTitle); 
+    COPYDATASTRUCT cd;
+    HWND hWnd = ::FindWindow (g_pszMinTraceClassName, g_pszMinTraceTitle);
     if (hWnd)
-    {  
+    {
 		_TCHAR buf[1024*sizeof(_TCHAR)];
 		swprintf(buf, _T("%8d,%s"), col, p);
         cd.dwData = MIN_UNICOD | MIN_COL;
         cd.cbData = (wcslen(buf)+1)*sizeof(_TCHAR);
         cd.lpData = (void *)buf;
-        ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);  
-    } 
+        ::SendMessage (hWnd, WM_COPYDATA, 0, (LPARAM)&cd);
+    }
 #endif
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // 설명 : 컬러 트레이스
 //-----------------------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 inline void _ClMinTrace(COLORREF col, LPCTSTR pFormat, ...)
 {
     va_list args;
 	va_start(args, pFormat);
-	
+
     _TCHAR buffer [1024*sizeof(_TCHAR)];
-	
+
 #ifdef UNICODE
 	vswprintf(buffer, pFormat, args);
     _ClMinTraceW(col, buffer);
@@ -328,9 +332,13 @@ inline void _ClMinTrace(COLORREF col, LPCTSTR pFormat, ...)
 	vsprintf(buffer, pFormat, args);
     _ClMinTraceA(col, buffer);
 #endif
-	
+
     va_end(args);
 }
+#else
+// Stub for non-Windows platforms
+inline void _ClMinTrace(COLORREF col, LPCTSTR pFormat, ...) { (void)col; (void)pFormat; }
+#endif
 
 //-----------------------------------------------------------------------------
 // 설명 : _CmdMinTraceA

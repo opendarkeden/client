@@ -290,8 +290,8 @@ MGuildMarkManager::LoadGuildMark(WORD guildID)
 		strcpy(spkiFilename, m_GuildMarkSPKFilename.GetString());
 		strcat(spkiFilename, "i");
 
-		class ifstream spkFile(m_GuildMarkSPKFilename.GetString(), ios::binary | ios::nocreate);
-		class ifstream spkiFile(spkiFilename, ios::binary | ios::nocreate);
+		std::ifstream spkFile(m_GuildMarkSPKFilename.GetString(), ios::binary );
+		std::ifstream spkiFile(spkiFilename, ios::binary );
 
 		TYPE_SPRITEID maxSpkSize = 0;
 
@@ -386,7 +386,7 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 		// file에 sprite를 추가한다.
 		// index도 추가해야 한다.
 		//---------------------------------------------------------
-		class ifstream spkInputFile(m_GuildMarkSPKFilename.GetString(), ios::binary | ios::nocreate);
+		std::ifstream spkInputFile(m_GuildMarkSPKFilename.GetString(), ios::binary );
 
 		TYPE_SPRITEID maxSpkSize = 0;
 
@@ -401,8 +401,8 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 		}
 
 		
-		class ofstream spkFile(m_GuildMarkSPKFilename.GetString(), ios::binary | ios::ate);
-		class ofstream spkiFile(spkiFilename, ios::binary | ios::ate);
+		std::ofstream spkFile(m_GuildMarkSPKFilename.GetString(), ios::binary | ios::ate);
+		std::ofstream spkiFile(spkiFilename, ios::binary | ios::ate);
 		
 		if (spkFile.is_open()
 			&& spkiFile.is_open())
@@ -483,7 +483,7 @@ MGuildMarkManager::SaveGuildMark(WORD guildID, CSprite* pSprite, CSprite* pSprit
 			//class fstream mapperFile(m_GuildMarkSpriteMapperFilename.GetString(), ios::binary | ios::ate | ios::in | ios::out);
 			//g_pGuildInfoMapper->ChangeValueToFile(m_GuildMarkSpriteMapperFilename.GetString(), guildID);
 
-			class ofstream file(m_GuildMarkSpriteMapperFilename.GetString(), ios::binary);
+			std::ofstream file(m_GuildMarkSpriteMapperFilename.GetString(), ios::binary);
 
 			if (file.is_open())
 			{
@@ -535,9 +535,9 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		// (SPKApp의 0 --> orgSize가 된다)
 		// (SPKAppIndex의 0 --> fpOrg-2(size부분)가 된다.)
 		//---------------------------------------------------------
-		class ifstream spkInputFile(pSPKFilenameOrg, ios::binary | ios::nocreate);
-		class ifstream spkInputFileApp(pSPKFilenameApp, ios::binary | ios::nocreate);
-		class ifstream spkiInputFileApp(pSPKIFilenameApp, ios::binary | ios::nocreate);
+		std::ifstream spkInputFile(pSPKFilenameOrg, ios::binary );
+		std::ifstream spkInputFileApp(pSPKFilenameApp, ios::binary );
+		std::ifstream spkiInputFileApp(pSPKIFilenameApp, ios::binary );
 
 		TYPE_SPRITEID orgSize = 0;			// 원래 개수
 		TYPE_SPRITEID appSize = 0;			// 추가할 개수
@@ -618,8 +618,8 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		//-----------------------------------------------------------------------------
 		// GuildMark.spki 를 수정해서 추가한다.
 		//-----------------------------------------------------------------------------
-		class ofstream spkiFileOrg(pSPKIFilenameOrg, ios::binary | ios::ate);
-		class ifstream spkiFileApp(pSPKIFilenameApp, ios::binary | ios::nocreate);
+		std::ofstream spkiFileOrg(pSPKIFilenameOrg, ios::binary | ios::ate);
+		std::ifstream spkiFileApp(pSPKIFilenameApp, ios::binary );
 
 		TYPE_SPRITEID newSize = orgSize + appSize;
 
@@ -653,8 +653,8 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		MGuildInfoMapper mapperOrg;
 		MGuildInfoMapper mapperApp;
 
-		class ifstream mapperFileOrg(pIDMapperFilenameOrg, ios::binary | ios::nocreate);
-		class ifstream mapperFileApp(pIDMapperFilenameApp, ios::binary | ios::nocreate);
+		std::ifstream mapperFileOrg(pIDMapperFilenameOrg, ios::binary );
+		std::ifstream mapperFileApp(pIDMapperFilenameApp, ios::binary );
 
 		if (mapperFileOrg.is_open())
 		{
@@ -702,7 +702,7 @@ MGuildMarkManager::MergeGuildMark(const char* pSPKFilenameOrg,
 		}
 
 		// MapperOrg를 다시 저장한다.
-		class ofstream mapperOutputFileOrg(pIDMapperFilenameOrg, ios::binary);
+		std::ofstream mapperOutputFileOrg(pIDMapperFilenameOrg, ios::binary);
 		mapperOrg.SaveToFile( mapperOutputFileOrg );
 		mapperOutputFileOrg.close();
 

@@ -189,15 +189,19 @@ class MTopView : public MRequestMode {
 		void		Draw(int firstPointX, int firstPointY);
 
 		// Test용 도움말
-		void		DrawDebugInfo(CDirectDrawSurface* pSurface);			
+#ifdef PLATFORM_WINDOWS
+		void		DrawDebugInfo(CDirectDrawSurface* pSurface);
+#else
+		void		DrawDebugInfo(CSpriteSurface* pSurface);
+#endif
 		void		DrawTestHelp();
-		
+
 		void		DrawMinimap(int x, int y, BYTE scale);
 
 		void		DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha);
 
 		void		DrawEffect(POINT* pPoint, EFFECT_LIST::const_iterator iEffect, BYTE size);
-		
+
 		void		DrawInventoryEffect(POINT* pPoint);
 
 		void		DrawTitleEffect(POINT* pPoint);

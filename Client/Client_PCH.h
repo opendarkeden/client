@@ -12,6 +12,9 @@
 #ifndef __CLIENT_PCH_H__
 #define __CLIENT_PCH_H__
 
+/* Define this as a game client build */
+#define __GAME_CLIENT__
+
 /* Platform types */
 #include "../basic/Platform.h"
 

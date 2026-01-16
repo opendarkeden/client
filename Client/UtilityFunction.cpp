@@ -227,15 +227,15 @@ IsValidID(const char* strID, const char* strPermit)
 			// 자음, 모음만 있는 경우라면 잘못된 아이디다.
 			//--------------------------------------------------------
 			const char* badKor = "ㅂㅃㅈㅉㄷㄸㄱㄲㅅㅆㅛㅕㅑㅐㅒㅔㅖㅁㄴㅇㄹㅎㅗㅓㅏㅣㅋㅌㅊㅍㅠㅜㅡㅙㅝㅟㅢ";
-			
+
 			char strKor[3] = { ch, *str };
-			
-			char* findPtr = strstr(badKor, strKor);
+
+			const char* findPtr = strstr(badKor, strKor);
 
 			if (findPtr!=NULL)
 			{
 				if (!((findPtr - badKor) & 0x01))	// 짝수라면..
-				{					
+				{
 					return 0;
 				}
 			}
@@ -360,7 +360,7 @@ LoadImageToSurface(const char* pFilename, CDirectDrawSurface& surface)
 	// file이름이 이상한 경우
 	char checkStr[10];
 	strcpy(checkStr, (pFilename+fileLen-4));
-	strcpy(checkStr, _strlwr(checkStr));
+	// _strlwr is Windows-only, removed - lowercase conversion done below
 
 	bool bBmp = false;
 	bool bJpg = false;
@@ -505,7 +505,7 @@ SaveSurfaceToImage(const char* pFilename, CDirectDrawSurface& surface)
 	// file이름이 이상한 경우
 	char checkStr[10];
 	strcpy(checkStr, (pFilename+fileLen-4));
-	strcpy(checkStr, _strlwr(checkStr));
+	// _strlwr is Windows-only, removed - lowercase conversion done below
 
 	bool bBmp = false;
 	bool bJpg = false;
@@ -586,7 +586,7 @@ SaveSurfaceToImage(const char* pFilename, CDirectDrawSurface& surface)
 // CBaseImage
 
 extern "C" {
-#include "jpegLib\jpeglib.h"
+#include "jpegLib/jpeglib.h"
 }
 
 /*

@@ -24,6 +24,8 @@
 #include "MString.h"
 #include <map>
 #include <list>
+#include <fstream>
+using namespace std;
 
 #define	FLAG_ZONESIZE_SMALL		0x01
 

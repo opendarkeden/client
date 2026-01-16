@@ -29,7 +29,7 @@ extern	LONG g_TILESURFACE_OUTLINE_RIGHT;
 extern	LONG g_TILESURFACE_OUTLINE_DOWN;
 BYTE GetCreatureActionCountMax( const MCreature* pCreature, int action );
 
-extern POINT GetNextTileByDirection(int TileX, int TileY, byte Dir);
+extern POINT GetNextTileByDirection(int TileX, int TileY, BYTE Dir);
 #define MoveNextPosition()					\
 											\
 		MovePosition( m_NextX, m_NextY );	\
@@ -1185,7 +1185,7 @@ MFakeCreature::SetDestination(TYPE_SECTORPOSITION sX, TYPE_SECTORPOSITION sY)
 		if (y1 > g_pZone->GetHeight())	
 			y1 = g_pZone->GetHeight();
 		
-//		int size = x1-x0;	// byte수
+//		int size = x1-x0;	// BYTE수
 		for (int i=y0; i<y1; i++)
 		{			
 			for (int j=x0; j<x1; j++)

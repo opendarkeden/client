@@ -49,7 +49,7 @@ ExperienceTable::Release()
 // LoadFromFileSTR
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileSTR(class ifstream& file)
+ExperienceTable::LoadFromFileSTR(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
@@ -70,7 +70,7 @@ ExperienceTable::LoadFromFileSTR(class ifstream& file)
 // Load From File DEX
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileDEX(class ifstream& file)
+ExperienceTable::LoadFromFileDEX(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
@@ -91,7 +91,7 @@ ExperienceTable::LoadFromFileDEX(class ifstream& file)
 // Load From File INT
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileINT(class ifstream& file)
+ExperienceTable::LoadFromFileINT(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
@@ -112,7 +112,7 @@ ExperienceTable::LoadFromFileINT(class ifstream& file)
 // Load From File Vampire
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileVampire(class ifstream& file)
+ExperienceTable::LoadFromFileVampire(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
@@ -133,7 +133,7 @@ ExperienceTable::LoadFromFileVampire(class ifstream& file)
 // Load From File Ousters
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileOusters(class ifstream& file)
+ExperienceTable::LoadFromFileOusters(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
@@ -154,7 +154,7 @@ ExperienceTable::LoadFromFileOusters(class ifstream& file)
 // Load From File Slayer Rank
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileSlayerRank(class ifstream& file)
+ExperienceTable::LoadFromFileSlayerRank(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
@@ -175,7 +175,7 @@ ExperienceTable::LoadFromFileSlayerRank(class ifstream& file)
 // Load From File Vampire Rank
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileVampireRank(class ifstream& file)
+ExperienceTable::LoadFromFileVampireRank(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
@@ -196,7 +196,7 @@ ExperienceTable::LoadFromFileVampireRank(class ifstream& file)
 // Load From File Ousters Rank
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFileOustersRank(class ifstream& file)
+ExperienceTable::LoadFromFileOustersRank(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
@@ -217,7 +217,7 @@ ExperienceTable::LoadFromFileOustersRank(class ifstream& file)
 // Load From File Ousters Rank
 //---------------------------------------------------------------------------------
 void		
-ExperienceTable::LoadFromFilePetExp(class ifstream& file)
+ExperienceTable::LoadFromFilePetExp(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);
@@ -235,7 +235,7 @@ ExperienceTable::LoadFromFilePetExp(class ifstream& file)
 }
 
 void
-ExperienceTable::LoadFromFileAdvanceMent(class ifstream& file)
+ExperienceTable::LoadFromFileAdvanceMent(std::ifstream& file)
 {
 	int num, level;
 	file.read((char*)&num, 4);

@@ -104,6 +104,8 @@ typedef unsigned short	WORD;
 typedef unsigned int	UINT;
 typedef unsigned long   DWORD;
 typedef unsigned long long DWORD64;
+typedef unsigned long long ULONGLONG;
+typedef long long LONGLONG;
 typedef void*			PVOID;
 typedef void*			ADDRESS_MODE;
 typedef uintptr_t		ULONG_PTR;

@@ -4109,7 +4109,7 @@ bool	C_VS_UI_OUSTERS_SKILL_INFO::MouseControl(UINT message, int _x, int _y)
 
 	case M_LEFTBUTTON_DOWN:
 	case M_LB_DOUBLECLICK:
-		if (gpC_mouse_pointer->GetPickUpItem() == false && re)
+		if (!gpC_mouse_pointer->GetPickUpItem() && re)
 		{
 			MoveReady();
 			SetOrigin(_x, _y);
@@ -7236,8 +7236,8 @@ void	C_VS_UI_ARROW_TILE::Show()
 	rect.top = y+50;
 	rect.right = rect.left+100;
 	rect.bottom = rect.top + 20;
-	gpC_base->m_p_DDSurface_back->FillRect(&rect, CDirectDraw::Color(3,3,3));	
-	gpC_global_resource->DrawOutBox(Rect(rect.left-2, rect.top-2, rect.right-rect.left+4, rect.bottom-rect.top+4) );
+	gpC_base->m_p_DDSurface_back->FillRect(&rect, CDirectDraw::Color(3,3,3));
+	gpC_global_resource->DrawOutBox(rect.left-2, rect.top-2, rect.right-rect.left+4, rect.bottom-rect.top+4);
 
 	rect.left = x+400;
 	rect.top = y+50;
@@ -8143,16 +8143,16 @@ void	C_VS_UI_CRAZY_MINE::Show()
 	rect.top = y+60;
 	rect.right = rect.left+100;
 	rect.bottom = rect.top + 130;
-	gpC_base->m_p_DDSurface_back->FillRect(&rect, CDirectDraw::Color(3,3,3));	
-	gpC_global_resource->DrawOutBox(Rect(rect.left-2, rect.top-2, rect.right-rect.left+4, rect.bottom-rect.top+4) );
+	gpC_base->m_p_DDSurface_back->FillRect(&rect, CDirectDraw::Color(3,3,3));
+	gpC_global_resource->DrawOutBox(rect.left-2, rect.top-2, rect.right-rect.left+4, rect.bottom-rect.top+4);
 
 	rect.left = x+40;
 	rect.top = y+30;
 	rect.right = rect.left + 70;
 	rect.bottom = rect.top + 20;
-	
-	gpC_base->m_p_DDSurface_back->FillRect(&rect, CDirectDraw::Color(3,3,3));	
-	gpC_global_resource->DrawOutBox(Rect(rect.left-2, rect.top-2, rect.right-rect.left+4, rect.bottom-rect.top+4) );
+
+	gpC_base->m_p_DDSurface_back->FillRect(&rect, CDirectDraw::Color(3,3,3));
+	gpC_global_resource->DrawOutBox(rect.left-2, rect.top-2, rect.right-rect.left+4, rect.bottom-rect.top+4);
 
 	rect.left = x+200;
 	rect.top = y+30;
@@ -9503,7 +9503,7 @@ void	C_VS_UI_REGEN_TOWER_MINIMAP::Show()
 			{ 204, 4, 304, 104 }
 		};
 
-		const map_width = 128, map_height=256;
+		const int map_width = 128, map_height=256;
 		
 		for(int i = 0; i < g_pRegenTowerInfoManager->GetSize(); i++ )
 		{
@@ -9595,7 +9595,7 @@ bool	C_VS_UI_REGEN_TOWER_MINIMAP::MouseControl(UINT message, int _x, int _y)
 		{ 204, 4, 304, 104 }
 	};
 
-	const map_width = 128, map_height=256;
+	const int map_width = 128, map_height=256;
 
 	_x-=x; _y-=y;
 	switch(message)
@@ -9629,7 +9629,7 @@ bool	C_VS_UI_REGEN_TOWER_MINIMAP::MouseControl(UINT message, int _x, int _y)
 		{
 			gpC_base->SendMessage(UI_WARP_REGEN_TOWER, m_selected);
 		}else
-		if (gpC_mouse_pointer->GetPickUpItem() == false)
+		if (!gpC_mouse_pointer->GetPickUpItem())
 		{
 			MoveReady();
 			SetOrigin(_x, _y);
@@ -9905,7 +9905,7 @@ void	C_VS_UI_PET_INFO::Run(id_t id)
 				if(szName != NULL)
 				{
 					m_PetInfo.NICK_NAME = szName;
-					gpC_base->SendMessage(UI_CHANGE_CUSTOM_NAMING, (int)m_PetInfo.NICK_NAME.c_str(),0);
+					gpC_base->SendMessage(UI_CHANGE_CUSTOM_NAMING, (int)(intptr_t)m_PetInfo.NICK_NAME.c_str(),0);
 				}
 				DeleteNew(szName);
 			}
@@ -10397,8 +10397,8 @@ void C_VS_UI_HELPDESC::Show()
 			
 	DWORD color;
 	
-	char *isfont = NULL;
-	char *istag  = NULL;
+	const char *isfont = NULL;
+	const char *istag  = NULL;
 	
 	while(itr!=EndItr)
 	{		
@@ -10503,8 +10503,8 @@ void C_VS_UI_HELPDESC::Show()
 			
 	DWORD color;
 	
-	char *isfont = NULL;
-	char *istag  = NULL;
+	const char *isfont = NULL;
+	const char *istag  = NULL;
 
 	g_FL2_GetDC();
 
@@ -10717,8 +10717,13 @@ void  C_VS_UI_HELPDESC::DrawImg(int m_width, int m_height ,const char * filename
 		CDirectDrawSurface *pSurface = GetJpgFileLoading(filename);
 		RECT re = {x ,  y+30 , x+ 500, y +400};
 		gpC_base->m_p_DDSurface_back->SetClip(&re);
-		
+
+#ifdef PLATFORM_WINDOWS
 		gpC_base->m_p_DDSurface_back->BltNoColorkey( &p, pSurface, &r );
+#else
+		// SDL backend: cast CDirectDrawSurface* to CSpriteSurface*
+		gpC_base->m_p_DDSurface_back->BltNoColorkey( &p, reinterpret_cast<CSpriteSurface*>(pSurface), &r );
+#endif
 		// add by Sonic 2006.9.26
 		RECT clientrect = {0,0,800,600};
 		if(g_MyFull)
@@ -11001,7 +11006,7 @@ bool C_VS_UI_HELPDESC::MouseControl(UINT message, int _x, int _y)
 
 void C_VS_UI_HELPDESC::LoadCustomstr(char * customstrfilename)
 {
-	ifstream file(customstrfilename, ios::binary| ios::nocreate);
+	ifstream file(customstrfilename, ios::binary);
 	if(!file) return;
 	char sztemp[1024];
 	
@@ -11036,8 +11041,8 @@ void C_VS_UI_HELPDESC::HelpDescPasing()
 	std::string tempindex;												// spk ���ؽ�
 	std::string tempappend;												// �̾��
 	char *pCur = NULL;													// �Ѷ����� �о����� �����ϴ� ����
-	char *istag = NULL;													//��ũ�� �ִ��� �˻��ϴ� ����
-	char *isfont = NULL;												//��ũ�� �ִ��� �˻��ϴ� ����
+	const char *istag = NULL;													//��ũ�� �ִ��� �˻��ϴ� ����
+	const char *isfont = NULL;												//��ũ�� �ִ��� �˻��ϴ� ����
 	
 	int NullSizex = 0,NullSizey = 0;
 	
@@ -11317,16 +11322,16 @@ char* C_VS_UI_HELPDESC::findkey(const char* tagstr ,char* keyword)
 {
 	if(tagstr == NULL) return NULL;
 	
-	char *s = strstr(tagstr, keyword );
+	const char *s = strstr(tagstr, keyword );
 	if(s == NULL )
 		return NULL;
 	
 	static char Buffer[512];  // ������ static  ���� �ؾ��Ѵ� �޸� ħ���� �������ؼ� (�߿��ϴ�)
 	memset( Buffer, 0, 512 );
 	
-	char *start = strstr( s, "'" );
+	const char *start = strstr( s, "'" );
 	start++;
-	char *end = strstr( start,"'" );
+	const char *end = strstr( start,"'" );
 	
 	memcpy( Buffer, start, end-start);
 	return Buffer;
@@ -12101,7 +12106,7 @@ void	C_VS_UI_SMS_MESSAGE::Run(id_t id)
 					}
 				}
 				if(m_szOtherNum.size()<=g_char_slot_ingame.m_SMS_Charge && g_char_slot_ingame.m_SMS_Charge)
-					gpC_base->SendMessage(UI_SEND_SMS_MESSAGE, (int)m_szMyNum.c_str(), (int)m_szSMSMessage.c_str(), &m_szOtherNum);
+					gpC_base->SendMessage(UI_SEND_SMS_MESSAGE, (int)(intptr_t)m_szMyNum.c_str(), (int)(intptr_t)m_szSMSMessage.c_str(), &m_szOtherNum);
 				else
 					gpC_base->SendMessage(UI_MESSAGE_BOX, UI_STRING_MESSAGE_SMS_FAIL_NOT_ENOUGH_CHARGE, 0, 	NULL);
 			}
@@ -12506,7 +12511,7 @@ void	C_VS_UI_SMS_LIST::Run(id_t id)
 				if(m_SelectPos< m_Addresses.size())
 				{
 					AddressUnit* _AddressUnit = m_Addresses[m_SelectPos];
-					gpC_base->SendMessage(UI_SMS_ADD_SEND_LIST,(int)_AddressUnit->Number.c_str(),0,NULL);
+					gpC_base->SendMessage(UI_SMS_ADD_SEND_LIST, (int)(intptr_t)_AddressUnit->Number.c_str(), 0, NULL);
 				}
 			}
 			break;
@@ -13017,8 +13022,8 @@ void	C_VS_UI_SMS_RECORD::Run(id_t id)
 				m_szNum += szNum;
 				m_szID = szID;
 				m_szName = szName;
-		
-				gpC_base->SendMessage(UI_SMS_RECORD, (int)m_szName.c_str(), (int)m_szID.c_str(), (void*)m_szNum.c_str());
+
+			gpC_base->SendMessage(UI_SMS_RECORD, (int)(intptr_t)m_szName.c_str(), (int)(intptr_t)m_szID.c_str(), (void*)m_szNum.c_str());
 			}
 				
 			DeleteNew(szNum);
@@ -13819,7 +13824,7 @@ void	C_VS_UI_NAMING_CHANGE::Run(id_t id)
 			if(szName != NULL)
 			{
 				m_szEditName = szName;
-				gpC_base->SendMessage(UI_CHANGE_CUSTOM_NAMING, (int)m_szEditName.c_str(), (int)m_PenItem->GetID(), (void*)m_PenItem);
+				gpC_base->SendMessage(UI_CHANGE_CUSTOM_NAMING, (int)(intptr_t)m_szEditName.c_str(), (int)m_PenItem->GetID(), (void*)m_PenItem);
 			//	gpC_base->SendMessage(UI_CLOSE_NAMING_CHANGE);
 			}
 			DeleteNew(szName);
@@ -17984,7 +17989,7 @@ void	C_VS_UI_POWER_JJANG::SetItemList()
 	// ����..Ŭ���� ����� ����Ÿ..
 	BYTE MaxItem = 0;
 	ifstream file("data\\info\\PowerjjangItem.inf",ios::binary);
-	file.read(&MaxItem, 1);
+	file.read((char*)&MaxItem, 1);
 	file.read((char*)&m_AvailablePoint, 2);
 	for(int i = 0; i < MaxItem; i++)
 	{

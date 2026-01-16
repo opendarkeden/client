@@ -11,6 +11,7 @@
 #include "MString.h"
 
 #include <fstream>
+#include <map>
 using namespace std;
 
 //----------------------------------------------------------------------
