@@ -51,10 +51,10 @@ class RankBonusInfo {
 
 	public :
 		RankBonusInfo();
-		void		LoadFromFile(ifstream& file);		
+		void		LoadFromFile(std::ifstream& file);		
 
 #ifndef __GAME_CLIEMT__
-		void		SaveToFile(ofstream& file);
+		void		SaveToFile(std::ofstream& file);
 #endif
 
 	private:

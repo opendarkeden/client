@@ -8,7 +8,7 @@
 // Save To File
 //----------------------------------------------------------------------
 void	
-SPRITE_FILEPOSITION_NODE::SaveToFile(class ofstream &file)
+SPRITE_FILEPOSITION_NODE::SaveToFile(std::ofstream &file)
 {
 	file.write((const char*)&SpriteID, SIZE_SPRITEID);
 	file.write((const char*)&FilePosition, 4);
@@ -18,7 +18,7 @@ SPRITE_FILEPOSITION_NODE::SaveToFile(class ofstream &file)
 // Load From File
 //----------------------------------------------------------------------
 void	
-SPRITE_FILEPOSITION_NODE::LoadFromFile(class ifstream &file)
+SPRITE_FILEPOSITION_NODE::LoadFromFile(std::ifstream &file)
 {
 	file.read((char*)&SpriteID, SIZE_SPRITEID);
 	file.read((char*)&FilePosition, 4);

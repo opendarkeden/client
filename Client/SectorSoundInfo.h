@@ -54,8 +54,8 @@ class SECTORSOUND_INFO
 					||	Y!=info.Y;
 		}
 
-		void	SaveToFile(ofstream& file) const;
-		void	LoadFromFile(ifstream& file);
+		void	SaveToFile(std::ofstream& file) const;
+		void	LoadFromFile(std::ifstream& file);
 };
 
 

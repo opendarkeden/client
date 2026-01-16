@@ -53,18 +53,18 @@ class NPC_SCRIPT {
 		int					GetSubjectSize() const	{ return SubjectTable.GetSize(); }
 		int					GetContentSize() const	{ return ContentTable.GetSize(); }
 
-		void				SaveToFile(ofstream& file);
-		void				LoadFromFile(ifstream& file);
+		void				SaveToFile(std::ofstream& file);
+		void				LoadFromFile(std::ifstream& file);
 };
 
 //---------------------------------------------------------------------------
 // MNPCScriptTable
 //---------------------------------------------------------------------------
 class MNPCScriptTable : public CTypeMap2<NPC_SCRIPT> {
-	public :	
-		
-		void		SaveToFile(ofstream& file);
-		void		LoadFromFile(ifstream& file);
+	public :
+
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 
 		int			GetSubjectSize(int scriptID) const;
 		int			GetContentSize(int scriptID) const;

@@ -36,7 +36,7 @@ CREATURESPRITETABLE_INFO::~CREATURESPRITETABLE_INFO()
 // Save To File
 //----------------------------------------------------------------------
 void			
-CREATURESPRITETABLE_INFO::SaveToFile(class ofstream& file)
+CREATURESPRITETABLE_INFO::SaveToFile(std::ofstream& file)
 {
 	file.write((const char*)&FrameID, SIZE_FRAMEID);	
 	file.write((const char*)&SpriteFilePosition, 4);
@@ -52,7 +52,7 @@ CREATURESPRITETABLE_INFO::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void			
-CREATURESPRITETABLE_INFO::LoadFromFile(class ifstream& file)
+CREATURESPRITETABLE_INFO::LoadFromFile(std::ifstream& file)
 {
 	file.read((char*)&FrameID, SIZE_FRAMEID);
 	file.read((char*)&SpriteFilePosition, 4);

@@ -36,8 +36,8 @@ class MFileInfo {
 		long			GetStartBuffer() const	{ return m_StartBuffer; }
 		long			GetCompressSize() const	{ return m_CompressSize; }
 
-		void			SaveToFile(ofstream& file);
-		void			LoadFromFile(ifstream& file);
+		void			SaveToFile(std::ofstream& file);
+		void			LoadFromFile(std::ifstream& file);
 
 	protected :
 		MString			m_Filename;
@@ -68,13 +68,13 @@ class MZLib {
 		static void			ReleasePackBuffer();
 		static void			ReleaseFileBuffer();
 		static bool			ReadBufferFromFile(const char* filename);
-		static void			WriteBufferToFile(ofstream& packFile, long bytes);
-		static void			ReadBufferFromFile(ifstream& packFile, long bytes);
+		static void			WriteBufferToFile(std::ofstream& packFile, long bytes);
+		static void			ReadBufferFromFile(std::ifstream& packFile, long bytes);
 
 		void				ReleaseFileInfo();
 		void				AddFileInfo(MFileInfo* pInfo);
-		void				WriteFileInfoToFile(ofstream& packFile);
-		bool				ReadFileInfoFromFile(ifstream& packFile);
+		void				WriteFileInfoToFile(std::ofstream& packFile);
+		bool				ReadFileInfoFromFile(std::ifstream& packFile);
 
 	protected :
 		FILEINFO_LIST		m_listFileInfo;

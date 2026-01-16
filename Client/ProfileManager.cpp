@@ -504,8 +504,8 @@ ProfileManager::InitProfiles()
 				strcpy(spkiFilename, spkFilename);
 				strcat(spkiFilename, "i");
 
-				class ofstream	spkFile(spkFilename, ios::binary);	
-				class ofstream	spkiFile(spkiFilename, ios::binary);	
+				std::ofstream	spkFile(spkFilename, ios::binary);	
+				std::ofstream	spkiFile(spkiFilename, ios::binary);	
 				SPK.SaveToFile( spkFile, spkiFile );
 				spkFile.close();
 				spkiFile.close();

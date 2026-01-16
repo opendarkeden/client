@@ -4,7 +4,7 @@
 #include "Client_PCH.h"
 #include "MLoadingSPKWorkNode.h"
 
-extern bool		FileOpenBinary(const char* filename, class ifstream& file);
+extern bool		FileOpenBinary(const char* filename, std::ifstream& file);
 
 //----------------------------------------------------------------------
 // MLoadingSPKWorkNode1 :: Execute
@@ -26,7 +26,7 @@ MLoadingSPKWorkNode1::Execute(MWorkNode*& pRemainNode)
 	// Load SpriteFilePositionArray 
 	//
 	//---------------------------------------------------
-	class ifstream file;
+	std::ifstream file;
 	if (!FileOpenBinary(m_SFPAFilename, file))
 	{
 		// -_-;;
@@ -43,7 +43,7 @@ MLoadingSPKWorkNode1::Execute(MWorkNode*& pRemainNode)
 	// SPK Load
 	//
 	//---------------------------------------------------
-	class ifstream spkFile;
+	std::ifstream spkFile;
 	if (!FileOpenBinary(m_SPKFilename, spkFile))
 	{
 		// -_-;;
@@ -137,7 +137,7 @@ MLoadingSPKWorkNode2::Execute(MWorkNode*& pRemainNode)
 	// SPK Load
 	//
 	//---------------------------------------------------
-	class ifstream spkFile;
+	std::ifstream spkFile;
 	if (!FileOpenBinary(m_SPKFilename, spkFile))
 	{
 		// -_-;;
@@ -228,7 +228,7 @@ MLoadingSPKWorkNode3::Execute(MWorkNode*& pRemainNode)
 	//-------------------------------------------------------------
 	if (sprite.IsNotInit())
 	{	
-		class ifstream spkFile;
+		std::ifstream spkFile;
 		if (!FileOpenBinary(m_SPKFilename, spkFile))
 		{
 			// -_-;;
@@ -276,7 +276,7 @@ MLoadingSPKWorkNode4::Execute(MWorkNode*& pRemainNode)
 {
 	//m_bExecute = TRUE;
 
-	class ifstream spkFile;
+	std::ifstream spkFile;
 	if (!FileOpenBinary(m_SPKFilename, spkFile))
 	{
 		// -_-;;

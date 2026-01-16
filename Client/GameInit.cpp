@@ -10,6 +10,12 @@
 #include "Client_PCH.h"
 #ifdef PLATFORM_WINDOWS
 #include <MMSystem.h>
+#else
+// macOS: BSD sockets headers for network functions
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <arpa/inet.h>
 #endif
 #include "Client.h"
 #include "GameObject.h"
@@ -696,7 +702,12 @@ InitSurface()
 		delete g_pBack;
 	}
 	g_pBack = new CSpriteSurface;
-	g_pBack->InitBacksurface();	
+#ifdef PLATFORM_WINDOWS
+	g_pBack->InitBacksurface();
+#else
+	// SDL backend: Initialize surface differently
+	g_pBack->Init(800, 600);
+#endif
 
 	//--------------------------------------------------------
 	// 임시로 로딩화면 구성..
@@ -740,8 +751,12 @@ InitSurface()
 		{
 			delete g_pLast;
 		}
-		g_pLast = new CSpriteSurface;	
+		g_pLast = new CSpriteSurface;
+#ifdef PLATFORM_WINDOWS
 		g_pLast->InitOffsurface(g_GameRect.right, g_GameRect.bottom, DDSCAPS_SYSTEMMEMORY);
+#else
+		g_pLast->InitOffsurface(g_GameRect.right, g_GameRect.bottom);
+#endif
 		g_pLast->SetTransparency( 0 );
 		g_pLast->FillSurface( CDirectDraw::Color(30,30,30) );
 
@@ -808,7 +823,7 @@ InitSurface()
 	CIndexSprite::SetColorSet();
 
 	//#ifdef OUTPUT_DEBUG
-	//	class ofstream indexTable(FILE_INDEXTABLE, ios::binary);
+	//	std::ofstream indexTable(FILE_INDEXTABLE, ios::binary);
 	//	CIndexSprite::SaveIndexTableToFile( indexTable );
 	///	indexTable.close();
 	//#endif
@@ -861,7 +876,7 @@ InitSurface()
 	indexSurface1.Unlock();
 	//indexSurface2.Unlock();
 
-	class ofstream file("test.ispr", ios::binary);
+	std::ofstream file("test.ispr", ios::binary);
 	is.SaveToFile( file );
 	file.close();
 
@@ -989,6 +1004,7 @@ InitSound()
 		//-----------------------------------------------------------
 		// RAM 체크해서.. 적당하게 잡아준다.
 		//-----------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 		MEMORYSTATUS ms;
 		ZeroMemory(&ms, sizeof(MEMORYSTATUS));
 		ms.dwLength = sizeof(MEMORYSTATUS);
@@ -1003,6 +1019,10 @@ InitSound()
 			// 이것도 임시코드지만.. - -;
 			g_pClientConfig->MAX_SOUNDPART = 100;
 		}
+#else
+		// macOS: Use default sound part count
+		g_pClientConfig->MAX_SOUNDPART = 100;
+#endif
 
 		// ( 전체 개수, 메모리 허용 개수 )
 		g_pSoundManager->Init( g_pSoundTable->GetSize(), g_pClientConfig->MAX_SOUNDPART );
@@ -1162,6 +1182,7 @@ InitDraw()
 	//                 DirectDraw
 	//
 	//--------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 	//if (g_bHAL)
 	if( g_bHAL )
 	{
@@ -1187,16 +1208,19 @@ InitDraw()
 			{
 				CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
 			}
-		}	
-		
+		}
+	}
+#endif // PLATFORM_WINDOWS
+
+#ifdef PLATFORM_WINDOWS
 		//--------------------------------------------------------
 		// Video Memory 얼마인가?
 		//--------------------------------------------------------
 		DDSCAPS2 ddsCaps2;
 		DWORD dwTotal;
 		DWORD dwFree;
-		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2)); 
-		ddsCaps2.dwCaps = DDSCAPS_VIDEOMEMORY;//DDSCAPS_TEXTURE; 
+		ZeroMemory(&ddsCaps2, sizeof(ddsCaps2));
+		ddsCaps2.dwCaps = DDSCAPS_VIDEOMEMORY;//DDSCAPS_TEXTURE;
 		HRESULT hr = CDirectDraw::GetDD()->GetAvailableVidMem(&ddsCaps2, &dwTotal, &dwFree);
 
 		DEBUG_ADD_FORMAT("[VidemoMemory from GetAvailableVidMem()] Before Init Draw = %d/%d", dwFree, dwTotal);
@@ -1210,24 +1234,24 @@ InitDraw()
 		DDCAPS	driverCaps;
 		ZeroMemory( &driverCaps, sizeof(driverCaps) );
 		driverCaps.dwSize = sizeof(driverCaps);
-		
+
 		hr = CDirectDraw::GetDD()->GetCaps( &driverCaps, NULL );
 		if (hr!=DD_OK)
-		{	
+		{
 			InitFail("[Error] GetCaps to Get VidMem");
 			return FALSE;
 		}
-		
+
 		#ifdef	OUTPUT_DEBUG
 			if (driverCaps.dwCaps2 & DDCAPS2_NONLOCALVIDMEMCAPS)
-			{			
-				DEBUG_ADD_FORMAT("DDCAPS2_NONLOCALVIDMEMCAPS Enable");		
+			{
+				DEBUG_ADD_FORMAT("DDCAPS2_NONLOCALVIDMEMCAPS Enable");
 			}
 			else
 			{
 				DEBUG_ADD_FORMAT("DDCAPS2_NONLOCALVIDMEMCAPS Disable");
 			}
-		#endif	
+		#endif
 
 		dwTotal = driverCaps.dwVidMemTotal;
 		dwFree = driverCaps.dwVidMemFree;
@@ -1250,18 +1274,18 @@ InitDraw()
 		// 하드웨어 가속 사용 가능
 		//--------------------------------------------------------
 		bool bUse3D = ( enoughMemory && g_bHAL && ( CDirect3D::CheckHAL() ));
-		
+
 		if (bUse3D)
-		{		
+		{
 			DEBUG_ADD("[ InitGame ]  Init 3D");
 
 			if (CDirect3D::Init())
-			{			
+			{
 				g_bEnable3DHAL = TRUE;
 
 
 				D3DDEVICEDESC7 devDesc;
-				
+
 				CDirect3D::GetDevice()->GetCaps( &devDesc );
 
 				#ifdef	OUTPUT_DEBUG
@@ -1316,8 +1340,19 @@ InitDraw()
 			}
 
 			g_bEnable3DHAL = FALSE;
-		}	
-	}
+		}
+#endif // PLATFORM_WINDOWS
+
+#ifndef PLATFORM_WINDOWS
+	//--------------------------------------------------------
+	//
+	// SDL Backend - DirectX not available
+	//
+	//--------------------------------------------------------
+	DEBUG_ADD("[ InitGame ]  SDL backend - no DirectX initialization");
+#endif // PLATFORM_WINDOWS
+
+#ifdef PLATFORM_WINDOWS
 	//--------------------------------------------------------
 	//
 	// 무조건 3D가속 안 할때
@@ -1326,7 +1361,7 @@ InitDraw()
 	else
 	{
 		DEBUG_ADD("[ InitGame ]  Init 2D");
-		
+
 		if (g_bFullScreen)
 		{
 			if(g_MyFull)
@@ -1348,12 +1383,15 @@ InitDraw()
 			{
 				CDirectDraw::Init(g_hWnd, 800, 600, CDirectDraw::WINDOWMODE, true, g_bUseIMEWindow);
 			}
-		}		
+		}
 	}
+#endif // PLATFORM_WINDOWS
 
 	CSpriteSurface::InitEffectTable();
 
+#ifdef PLATFORM_WINDOWS
 	CDirectDrawSurface::SetGammaFunction();
+#endif
 
 	return TRUE;
 }
@@ -1656,18 +1694,22 @@ InitGame()
 	//----------------------------------------------------------------------
 	DEBUG_ADD("[ InitGame ]  Socket - Before WSAStartup");
 
+#ifdef PLATFORM_WINDOWS
 	WORD wVersionRequested;
-	WSADATA wsaData;	
-  
+	WSADATA wsaData;
+
 	wVersionRequested = MAKEWORD( 2, 0 );
- 
-	if (WSAStartup( wVersionRequested, &wsaData ) != 0)	
+
+	if (WSAStartup( wVersionRequested, &wsaData ) != 0)
 	{
 	    // Tell the user that we couldn't find a useable
-	    // WinSock DLL.                                 
+	    // WinSock DLL.
 	    MessageBox( g_hWnd, "couldn't find a useable WinSock DLL.", NULL, MB_OK);
 		return FALSE;
 	}
+#else
+	// macOS: BSD sockets don't need WSAStartup
+#endif
 
 //	#ifdef _DEBUG
 //		bool bMerge = false;
@@ -1723,7 +1765,7 @@ InitGame()
 
 		/*
 		#if defined(_DEBUG) && defined(OUTPUT_DEBUG)
-			std::ifstream guildInfoFile2(FILE_INFO_GUILD_INFO_MAPPER, ios::binary | ios::nocreate);	
+			std::ifstream guildInfoFile2(FILE_INFO_GUILD_INFO_MAPPER, ios::binary | );	
 
 			if (!guildInfoFile2.is_open())
 			{
@@ -1777,7 +1819,7 @@ InitGame()
 				}
 
 				// g_pGuildInfoMapper 저장
-				class ofstream guildInfoFile(FILE_INFO_GUILD_INFO_MAPPER, ios::binary);	
+				std::ofstream guildInfoFile(FILE_INFO_GUILD_INFO_MAPPER, ios::binary);	
 				g_pGuildInfoMapper->SaveToFile(guildInfoFile);
 				guildInfoFile.close();
 				
@@ -2512,16 +2554,18 @@ void ReleaseAllObjects()
 	SAFE_DELETE( g_pLast );
 	
 
-	//----------------------------------------------------------------		
+	//----------------------------------------------------------------
 	// Socket
 	//----------------------------------------------------------------
 	DEBUG_ADD("[Release] Socket");
 	ReleaseSocket();
 
 	//----------------------------------------------------------------
-	// 냠.. 
+	// WinSock Cleanup (Windows only)
 	//----------------------------------------------------------------
-	WSACleanup();	
+#ifdef PLATFORM_WINDOWS
+	WSACleanup();
+#endif
 
 	//----------------------------------------------------------------
 	// Volume
@@ -2674,11 +2718,15 @@ void ReleaseAllObjects()
 	//----------------------------------------------------------------
 	DEBUG_ADD("[Release] CDirect3D");
 
+#ifdef PLATFORM_WINDOWS
 	CDirect3D::Release();
+#endif
 
 	DEBUG_ADD("[Release] CDirectDraw");
-	
+
+#ifdef PLATFORM_WINDOWS
 	CDirectDraw::ReleaseAll();
+#endif
 
 	//---------------------------------------------------------------------
 	// Profiler

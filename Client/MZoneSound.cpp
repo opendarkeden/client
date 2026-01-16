@@ -24,7 +24,7 @@ ZONESOUND_INFO::~ZONESOUND_INFO()
 // Save To File
 //-----------------------------------------------------------------------------
 void					
-ZONESOUND_INFO::SaveToFile(class ofstream& file)
+ZONESOUND_INFO::SaveToFile(std::ofstream& file)
 {
 	file.write((const char*)&ID, 2);				// ZoneSound의 ID
 	file.write((const char*)&SoundID, SIZE_SOUNDID);		// SoundID
@@ -36,7 +36,7 @@ ZONESOUND_INFO::SaveToFile(class ofstream& file)
 // Load From File
 //-----------------------------------------------------------------------------
 void					
-ZONESOUND_INFO::LoadFromFile(class ifstream& file)
+ZONESOUND_INFO::LoadFromFile(std::ifstream& file)
 {
 	file.read((char*)&ID, 2);				// ZoneSound의 ID
 	file.read((char*)&SoundID, SIZE_SOUNDID);		// SoundID

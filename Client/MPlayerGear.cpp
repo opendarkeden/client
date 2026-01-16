@@ -339,10 +339,11 @@ MPlayerGear::ModifyDurability(BYTE n, int changeValue)
 //----------------------------------------------------------------------
 // 모든 item의 item상태를 체크한다.
 //----------------------------------------------------------------------
-void			
+void
 MPlayerGear::CheckItemStatusAll()
 {
-	for (BYTE i=0; i<m_Size; i++)
+	BYTE i;
+	for (i=0; i<m_Size; i++)
 	{
 		m_pItemStatus[i] = ITEM_STATUS_OK;
 	}

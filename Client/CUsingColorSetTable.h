@@ -37,8 +37,8 @@ class USINGCOLORSET_NODE {
 		//-------------------------------------------------
 		// File I/O
 		//-------------------------------------------------
-		void			SaveToFile(ofstream& file);
-		bool			LoadFromFile(ifstream& file);
+		void			SaveToFile(std::ofstream& file);
+		bool			LoadFromFile(std::ifstream& file);
 
 	protected :
 		bool			m_bEnable[MAX_COLORSET];

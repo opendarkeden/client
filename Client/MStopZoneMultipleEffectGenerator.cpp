@@ -74,19 +74,19 @@ MStopZoneMultipleEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	{
 		int n = 0;
 	
-		ex[n] = egInfo.x0 - rand()%randX - g_TILE_X_HALF;
+		ex[n] = egInfo.x0 - rand()%randX - 24;
 		ey[n] = egInfo.y0 - rand()%randY;
 
 		n++;
-		ex[n] = egInfo.x0 - rand()%randX - g_TILE_X_HALF;
+		ex[n] = egInfo.x0 - rand()%randX - 24;
 		ey[n] = egInfo.y0 + rand()%randY;
 
 		n++;
-		ex[n] = egInfo.x0 + rand()%randX + g_TILE_X_HALF;
+		ex[n] = egInfo.x0 + rand()%randX + 24;
 		ey[n] = egInfo.y0 - rand()%randY;
 
 		n++;
-		ex[n] = egInfo.x0 + rand()%randX + g_TILE_X_HALF;
+		ex[n] = egInfo.x0 + rand()%randX + 24;
 		ey[n] = egInfo.y0 + rand()%randY;
 
 		for (int j=0; j<numEffect; j++)

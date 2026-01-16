@@ -243,8 +243,8 @@ LONG	g_TILESURFACE_WIDTH                =1056;
 LONG	g_TILESURFACE_HEIGHT               =744;
 LONG	g_TILESURFACE_OUTLINE_RIGHT        =912;
 LONG	g_TILESURFACE_OUTLINE_DOWN         =672;
-LONG		g_TILE_X_HALF=24;
-LONG		g_TILE_Y_HALF=12;
+LONG	g_TILE_X_HALF = 24;
+LONG	g_TILE_Y_HALF = 12;
 // end
 //-----------------------------------------------------------------------------
 // define function
@@ -1418,7 +1418,7 @@ color
 
 			/*
 			{
-				class ofstream file("inputtest.txt", ios::app);
+				std::ofstream file("inputtest.txt", ios::app);
 				file << "input!" << (char)wParam << endl;
 				file.close();
 			}
@@ -1918,7 +1918,7 @@ CheckTerriblePatch()
 	//-----------------------------------------------------------------------------
 	// Save
 	//-----------------------------------------------------------------------------
-	class ofstream fileAppendInfo2(FILE_INFO_APPENDPATCH, ios::binary);
+	std::ofstream fileAppendInfo2(FILE_INFO_APPENDPATCH, ios::binary);
 	apt.SaveToFile( fileAppendInfo2 );
 	fileAppendInfo2.close();
 #endif
@@ -2031,7 +2031,7 @@ CheckTerriblePatchOLD()
 	};
 
 	WORD spkSize;
-	class ifstream imageObjectFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
+	std::ifstream imageObjectFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, imageObjectFile))
 		return false;
 	imageObjectFile.read((char*)&spkSize, 2);	// SpriteÀÇ °³¼ö
@@ -2061,7 +2061,7 @@ CheckTerriblePatchOLD()
 
 		for (int i=0; i<numWrite; i++)
 		{
-			class ifstream newfile(newSpkFilename[i], ios::binary | ios::nocreate);				
+			std::ifstream newfile(newSpkFilename[i], ios::binary | );				
 			
 			//-------------------------------------------------------------
 			// ÆÐÄ¡ È­ÀÏÀÌ ¾ø´Â °æ¿ì.. ´ÙÀ½²¨ Ã¼Å©
@@ -2075,7 +2075,7 @@ CheckTerriblePatchOLD()
 				SetProgressBarText("ÆÐÄ¡ È­ÀÏÀ» Àû¿ë½ÃÅ°°í ÀÖ½À´Ï´Ù.");
 				UpdateProgressBar();
 
-				class ofstream imageObjectFile(FILE_SPRITE_IMAGEOBJECT, ios::binary | ios::ate);
+				std::ofstream imageObjectFile(FILE_SPRITE_IMAGEOBJECT, ios::binary | ios::ate);
 
 				newfile.seekg( 2 );	// sizeºÎºÐ Á¦¿Ü
 				imageObjectFile.seekp( writePosition[i] );
@@ -2134,8 +2134,8 @@ CheckTerriblePatchOLD()
 		for (int i=0; i<numAppend; i++)
 		{
 			
-			class fstream orgFile(orgFilename[i], ios::in | ios::out | ios::binary | ios::nocreate | ios::ate);
-			class ifstream appFile(appFilename[i], ios::binary | ios::nocreate);		
+			class fstream orgFile(orgFilename[i], ios::in | ios::out | ios::binary |  | ios::ate);
+			std::ifstream appFile(appFilename[i], ios::binary | );		
 		
 			//-------------------------------------------------------------
 			// ¿ø·¡ È­ÀÏÀÌ ¾ø´Â °æ¿ì - -;
@@ -2240,7 +2240,7 @@ ConvertScreenEffect()
 	// Screen SpritePack È®ÀÎ
 	//------------------------------------------------------------	
 	
-//	class ifstream fileSPK2(FILE_SPRITE_SCREENEFFECT, ios::binary | ios::nocreate);
+//	std::ifstream fileSPK2(FILE_SPRITE_SCREENEFFECT, ios::binary | );
 //	if (fileSPK2.is_open())
 //	{
 //		TYPE_SPRITEID num;
@@ -2255,7 +2255,7 @@ ConvertScreenEffect()
 //		fileSPK2.close();
 //	}
 	
-/*	class ifstream fileSPK2("Data\\Info\\EffectScreenConvert.inf", ios::binary | ios::nocreate);
+/*	std::ifstream fileSPK2("Data\\Info\\EffectScreenConvert.inf", ios::binary | );
 	if (fileSPK2.is_open())
 	{
 		fileSPK2.close();
@@ -2442,7 +2442,7 @@ ConvertScreenEffect()
 	//------------------------------------------------------------	
 	COrderedList<int> intList;
 
-	class ifstream efpkFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
+	std::ifstream efpkFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
 	CEffectFramePack	EFPK;
 	EFPK.LoadFromFile( efpkFile );
 	efpkFile.close();
@@ -2491,8 +2491,8 @@ ConvertScreenEffect()
 	 
 	CAlphaSprite565		ASPR;
 
-	class ifstream aspkiFile(FILE_ASPRITEINDEX_ALPHAEFFECT, ios::binary);
-	class ifstream aspkFile(FILE_ASPRITE_ALPHAEFFECT, ios::binary);	
+	std::ifstream aspkiFile(FILE_ASPRITEINDEX_ALPHAEFFECT, ios::binary);
+	std::ifstream aspkFile(FILE_ASPRITE_ALPHAEFFECT, ios::binary);	
 
 	TYPE_SPRITEID totalNum;
 	int spriteNum = intList.GetSize();
@@ -2603,8 +2603,8 @@ ConvertScreenEffect()
 	//------------------------------------------------------------	
 	// FramePackÀúÀå
 	//------------------------------------------------------------	
-	class ofstream fileFPK(FILE_EFRAME_SCREENEFFECT, ios::binary);
-	class ofstream fileFPKI(FILE_EFRAMEINDEX_SCREENEFFECT, ios::binary);
+	std::ofstream fileFPK(FILE_EFRAME_SCREENEFFECT, ios::binary);
+	std::ofstream fileFPKI(FILE_EFRAMEINDEX_SCREENEFFECT, ios::binary);
 	NewEFPK.SaveToFile( fileFPK, fileFPKI );
 	fileFPK.close();
 	fileFPKI.close();
@@ -2612,8 +2612,8 @@ ConvertScreenEffect()
 	//------------------------------------------------------------	
 	// SpritePack ÀúÀå
 	//------------------------------------------------------------	
-	class ofstream fileSPK(FILE_SPRITE_SCREENEFFECT, ios::binary);
-	class ofstream fileSPKI(FILE_SPRITEINDEX_SCREENEFFECT, ios::binary);
+	std::ofstream fileSPK(FILE_SPRITE_SCREENEFFECT, ios::binary);
+	std::ofstream fileSPKI(FILE_SPRITEINDEX_SCREENEFFECT, ios::binary);
 	pSPK->SaveToFile( fileSPK, fileSPKI );
 	fileSPK.close();
 	fileSPKI.close();
@@ -2634,7 +2634,7 @@ ConvertScreenEffect()
 	//------------------------------------------------------------	
 	// º¯È¯ Ã¼Å©
 	//------------------------------------------------------------	
-	class ofstream fileCheck("Data\\Info\\EffectScreenConvert.inf", ios::binary);	
+	std::ofstream fileCheck("Data\\Info\\EffectScreenConvert.inf", ios::binary);	
 	int a = 1;
 	fileCheck.write((const char*)&a, 4);
 	fileCheck.close();
@@ -2653,7 +2653,7 @@ ApplyPatch()
 	//-----------------------------------------------------------------
 	// ÇöÀç version
 	//-----------------------------------------------------------------
-//	class ifstream versionFile(FILE_INFO_VERSION, ios::binary);
+//	std::ifstream versionFile(FILE_INFO_VERSION, ios::binary);
 //	int version;
 //	versionFile.read((char*)&version, 4);
 //	versionFile.close();
@@ -2780,7 +2780,7 @@ ApplyPatch()
 //	//-----------------------------------------------------------------
 //	// »õ versionÀúÀå
 //	//-----------------------------------------------------------------
-//	class ofstream versionFile2(FILE_INFO_VERSION, ios::binary);
+//	std::ofstream versionFile2(FILE_INFO_VERSION, ios::binary);
 //	versionFile2.write((const char*)&newVersion, 4);
 //	versionFile2.close();
 //	
@@ -2822,7 +2822,7 @@ ApplyPatch()
 //			{
 //				sprintf(filename, "Data\\UI\\txt\\%s", FileData.name);
 //				
-//				class ifstream file( filename, ios::binary );
+//				std::ifstream file( filename, ios::binary );
 //				file.seekg( 0, ios::end );
 //				
 //				long fp = file.tellg();
@@ -2880,7 +2880,7 @@ ApplyPatch()
 			{
 				sprintf(filename, "Log\\%s", FileData.name);
 				
-				class ifstream file( filename, ios::binary );
+				std::ifstream file( filename, ios::binary );
 				file.seekg( 0, ios::end );
 				
 				long fp = file.tellg();
@@ -3081,8 +3081,8 @@ WinMain(HINSTANCE hInstance,
 		g_TILESURFACE_HEIGHT               =888;
 		g_TILESURFACE_OUTLINE_RIGHT        =1152;
 		g_TILESURFACE_OUTLINE_DOWN         =816;
-		g_TILE_X_HALF=24;
-		g_TILE_Y_HALF=12;
+		g_TILE_X_HALF = 24;
+		g_TILE_Y_HALF = 12;
 	}
 	else if (lpCmdLine[strlen(lpCmdLine)-1] == '4')
 	{
@@ -3109,8 +3109,8 @@ WinMain(HINSTANCE hInstance,
 		g_TILESURFACE_HEIGHT               =888;
 		g_TILESURFACE_OUTLINE_RIGHT        =1152;
 		g_TILESURFACE_OUTLINE_DOWN         =816;
-		g_TILE_X_HALF=24;
-		g_TILE_Y_HALF=12;
+		g_TILE_X_HALF = 24;
+		g_TILE_Y_HALF = 12;
 	}
 	lpCmdLine[strlen(lpCmdLine)-1]=0x0;
 
@@ -3120,12 +3120,12 @@ WinMain(HINSTANCE hInstance,
 
 	/*
 	CIndexSpritePack ISPK;
-	class ifstream ispkFile("f:\\vcpp\\clientinfo\\Data\\AppendPatch\\New18Creature.ispk", ios::binary);
+	std::ifstream ispkFile("f:\\vcpp\\clientinfo\\Data\\AppendPatch\\New18Creature.ispk", ios::binary);
 	ISPK.LoadFromFile(ispkFile);
 	ispkFile.close();
 
-	class ofstream ispkFile2("f:\\vcpp\\clientinfo\\Data\\AppendPatch\\New18Creature.ispk", ios::binary);
-	class ofstream ispkFile3("f:\\vcpp\\clientinfo\\Data\\AppendPatch\\New18Creature.ispki", ios::binary);
+	std::ofstream ispkFile2("f:\\vcpp\\clientinfo\\Data\\AppendPatch\\New18Creature.ispk", ios::binary);
+	std::ofstream ispkFile3("f:\\vcpp\\clientinfo\\Data\\AppendPatch\\New18Creature.ispki", ios::binary);
 	ISPK.SaveToFile(ispkFile2, ispkFile3);
 	ispkFile2.close();
 	ispkFile3.close();
@@ -3374,9 +3374,9 @@ WinMain(HINSTANCE hInstance,
 	*/
 
 	/*
-	class ifstream file("ImageObject.spk", ios::binary);
-	class ofstream file2("ImageObject-2.spk", ios::binary);
-	class ofstream file2index("ImageObject-2.spki", ios::binary);
+	std::ifstream file("ImageObject.spk", ios::binary);
+	std::ofstream file2("ImageObject-2.spk", ios::binary);
+	std::ofstream file2index("ImageObject-2.spki", ios::binary);
 	CSpritePack SPK;
 	SPK.LoadFromFile(file);
 	SPK.SaveToFile(file2, file2index);
@@ -3413,7 +3413,7 @@ WinMain(HINSTANCE hInstance,
 //	return 0;
 
 	/*
-	class ifstream file("f:\\vcpp\\clientexpo\\data\\image\\creatureshadow.cfpk", ios::binary);
+	std::ifstream file("f:\\vcpp\\clientexpo\\data\\image\\creatureshadow.cfpk", ios::binary);
 	CCreatureFramePack CFPK;
 	CFPK.LoadFromFile(file);
 	file.close();
@@ -3426,8 +3426,8 @@ WinMain(HINSTANCE hInstance,
 		CFPK2[i] = CFPK[i];
 	}
 
-	class ofstream file2("f:\\CreatureShadow.cfpk", ios::binary);
-	class ofstream fileindex2("f:\\CreatureShadow.cfpki", ios::binary);
+	std::ofstream file2("f:\\CreatureShadow.cfpk", ios::binary);
+	std::ofstream fileindex2("f:\\CreatureShadow.cfpki", ios::binary);
 	CFPK2.SaveToFile(file2, fileindex2);
 	file2.close();
 	fileindex2.close();
@@ -3502,7 +3502,7 @@ WinMain(HINSTANCE hInstance,
 	//---------------------------------------------------
 	/*
 	CSpritePack tileSPK;
-	class ifstream	fileSPK;//(FILE_ISPRITE_ADDON, ios::binary);
+	std::ifstream	fileSPK;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary(FILE_SPRITE_TILE, fileSPK))
 		return false;
 	tileSPK.LoadFromFile(fileSPK);
@@ -3928,7 +3928,7 @@ WinMain(HINSTANCE hInstance,
 	//----------------------------------------------------------------
 	// Updater.exe¸¦ update ½ÃÅ²´Ù.
 	//----------------------------------------------------------------
-//	class ifstream updaterNewFile(UPDATER_NEW_FILENAME, ios::binary | ios::nocreate);
+//	std::ifstream updaterNewFile(UPDATER_NEW_FILENAME, ios::binary | );
 
 	// »õ·Î¿î updater½ÇÇàÈ­ÀÏÀÌ Á¸ÀçÇÏ¸é..
 	if (!_access(UPDATER_NEW_FILENAME, 0))//updaterNewFile)

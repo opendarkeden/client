@@ -197,7 +197,7 @@ MCreatureWear::NewItemFromAddonInfo(int Addon)
 {
 	if (Addon >= ADDON_MAX)
 	{
-		return false;
+		return NULL;
 	}
 
 	ADDON_INFO& addon = m_Addon[Addon];

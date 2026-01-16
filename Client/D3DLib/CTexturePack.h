@@ -30,8 +30,8 @@ class CTexturePack {
 		//--------------------------------------------------------
 		// file I/O
 		//--------------------------------------------------------
-		//void			SaveToFile(ofstream& spkFile, ofstream& indexFile);
-		//void			LoadFromFile(ifstream& file);		
+		//void			SaveToFile(std::ofstream& spkFile, ofstream& indexFile);
+		//void			LoadFromFile(std::ifstream& file);		
 		
 		//--------------------------------------------------------
 		// size

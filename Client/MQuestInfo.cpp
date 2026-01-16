@@ -1,7 +1,7 @@
 #include "Client_PCH.h"
 #include "MQuestInfo.h"
 
-void	MQuestInfo::LoadFromFile(class ifstream& file)
+void	MQuestInfo::LoadFromFile(std::ifstream& file)
 {
 	BYTE Type;
 	file.read((char*)&Type, sizeof( BYTE ) );
@@ -11,7 +11,7 @@ void	MQuestInfo::LoadFromFile(class ifstream& file)
 	m_Type = (QUEST_INFO_TYPE) Type;
 }
 
-void	MQuestInfo::SaveToFile(class ofstream& file)
+void	MQuestInfo::SaveToFile(std::ofstream& file)
 {
 	BYTE Type = (int)GetType();
 

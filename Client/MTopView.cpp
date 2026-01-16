@@ -23,7 +23,7 @@
 #include <math.h>
 #include <list>
 #include <stdio.h>
-#include <fstream.h>
+#include <fstream>
 #include "MZone.h"
 #include "MCreature.h"
 #include "MFakeCreature.h"
@@ -139,7 +139,7 @@ extern CMessageArray*	g_pNoticeMessage;
 
 extern MScreenEffectManager*	g_pInventoryEffectManager;
 
-extern bool FileOpenBinary(const char* filename, class ifstream& file);
+extern bool FileOpenBinary(const char* filename, std::ifstream& file);
 //GameNew Mode  add by sonc 2006.9.27
 extern	LONG g_SECTOR_WIDTH;
 extern	LONG g_SECTOR_HEIGHT;
@@ -443,6 +443,7 @@ MTopView::Init()
 	//------------------------------------------
 	// ÀûÀýÇÑ Texture Memory °è»ê
 	//------------------------------------------
+#ifdef PLATFORM_WINDOWS
 	DDSCAPS2 ddsCaps2;
 	DWORD dwTotal;
 	DWORD dwFree;
@@ -466,6 +467,11 @@ MTopView::Init()
 	
 	num = max(num, 30);	// 30º¸´Ù´Â Ä¿¾ßÇÑ´Ù.
 	num = min(num, 60);	// 60ÀÌ ÃÖ°í´Ù.
+#else
+	// Stub for macOS - use default values
+	int num = 30;  // Default number of effect textures
+	DEBUG_ADD("[TextureMemory] Using default value for macOS");
+#endif
 	
 	//num = 20;
 
@@ -993,6 +999,7 @@ MTopView::SetSurface(CSpriteSurface*& pSurface)
 void
 MTopView::ClearShadowManager()
 {
+#ifdef PLATFORM_WINDOWS
 	if (CDirect3D::IsHAL())
 	{
 //		if (m_pImageObjectShadowManager!=NULL) m_pImageObjectShadowManager->Clear();
@@ -1000,6 +1007,7 @@ MTopView::ClearShadowManager()
 //		if (m_pOustersShadowManager!=NULL) m_pOustersShadowManager->Clear();
 //		if (m_pCreatureShadowManager!=NULL) m_pCreatureShadowManager->Clear();
 	}
+#endif
 }
 
 //----------------------------------------------------------------------
@@ -1071,7 +1079,7 @@ MTopView::ClearShadowManager()
 //----------------------------------------------------------------------
 // Restore Surface
 //----------------------------------------------------------------------
-void	
+void
 MTopView::RestoreSurface()
 {
 	m_bDrawRequest = false;
@@ -1080,6 +1088,7 @@ MTopView::RestoreSurface()
 	{
 		CDirectDraw::RestoreAllSurfaces();
 
+#ifdef PLATFORM_WINDOWS
 		if (CDirect3D::IsHAL())
 		{
 			CDirect3D::Restore();
@@ -1089,15 +1098,16 @@ MTopView::RestoreSurface()
 			rect3d.x1 = 0;
 			rect3d.y1 = 0;
 			rect3d.x2 = CLIPSURFACE_WIDTH;
-			rect3d.y2 = CLIPSURFACE_HEIGHT;			
+			rect3d.y2 = CLIPSURFACE_HEIGHT;
 
-			CDirect3D::GetDevice()->Clear( 1UL, (D3DRECT *)&rect3d, 
+			CDirect3D::GetDevice()->Clear( 1UL, (D3DRECT *)&rect3d,
 										D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
 										0x00000000, 1.0f, 0L );
 			*/
 		}
+#endif
 
-	//	CDirectDraw::Flip();		
+	//	CDirectDraw::Flip();
 	}
 
 	if (m_pSurface!=NULL)
@@ -1118,12 +1128,13 @@ MTopView::RestoreSurface()
 	ClearItemNameList();
 
 	//------------------------------------------------------------
-	// °¡¼ÓÀ» »ç¿ëÇÏ´Â °æ¿ì¿¡´Â 
+	// °¡¼ÓÀ» »ç¿ëÇÏ´Â °æ¿ì¿¡´Â
 	// Texture°¡ VideoMemory¿¡ ¿Ã¶ó°¡ ÀÖÀ¸¹Ç·Î RestoreÇØ¾ß ÇÑ´Ù.
 	// ´Ù½Ã Load.. - -;;
 	//------------------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 	if (CDirect3D::IsHAL())
-	{	
+	{
 		//------------------------------------------------------------
 		// Part Manager
 		//------------------------------------------------------------
@@ -1240,6 +1251,7 @@ MTopView::RestoreSurface()
 ////			InitMinimapTexture();
 //		}		
 	}
+#endif // PLATFORM_WINDOWS
 	/*
 	if (CDirect3D::IsHAL())
 	{
@@ -1248,7 +1260,7 @@ MTopView::RestoreSurface()
 		// Load  EffectPack
 		//
 		//------------------------------------------------------------
-		class ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
+		std::ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 		m_EffectAlphaSPK.LoadFromFile(effectFile2);
 		effectFile2.close();	
 
@@ -1327,11 +1339,12 @@ MTopView::InitSurfaces()
 //	//-----------------------------------------------
 //	if (m_p3DBoxHPSurface!=NULL)
 //	{
-//		delete m_p3DBoxHPSurface;	
+//		delete m_p3DBoxHPSurface;
 //		m_p3DBoxHPSurface = NULL;
 //	}
 
 
+#ifdef PLATFORM_WINDOWS
 	if (CDirect3D::IsHAL())
 	{
 		// ÀÏ´Ü video memory¿¡ »ý¼ºÀÌ µÇµµ·Ï ÇØº¸°í..
@@ -1339,14 +1352,14 @@ MTopView::InitSurfaces()
 //		if (!m_pTileSurface->InitOffsurface(TILESURFACE_WIDTH, TILESURFACE_HEIGHT))
 		{
 			DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface vidmem failed");
-			
-			m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH, 
-											g_TILESURFACE_HEIGHT, 
+
+			m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH,
+											g_TILESURFACE_HEIGHT,
 											DDSCAPS_SYSTEMMEMORY);
-			
-			DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface sysmem OK");			
+
+			DEBUG_ADD("[ InitGame ]  MTopView::InitSurface() - TileSurface sysmem OK");
 		}
-		
+
 		//-----------------------------------------------
 		// free
 		//-----------------------------------------------
@@ -1365,15 +1378,23 @@ MTopView::InitSurfaces()
 
 
 	}
+#endif
 	//----------------------------------------------------------------
 	// 2D
 	//----------------------------------------------------------------
-	else 
+#ifdef PLATFORM_WINDOWS
+	else
 	{
-		m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH, 
+		m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH,
 									g_TILESURFACE_HEIGHT,
 									DDSCAPS_SYSTEMMEMORY);
 	}
+#else
+	{
+		m_pTileSurface->InitOffsurface(g_TILESURFACE_WIDTH,
+									g_TILESURFACE_HEIGHT);
+	}
+#endif
 
 	//m_pTileSurface->InitOffsurface(TILESURFACE_WIDTH, 
 	//								TILESURFACE_HEIGHT,
@@ -1558,8 +1579,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  ImageObject Shadow SpritePack	
 	//------------------------------------------------------------
-	class ofstream	ImageObjectSFile(FILE_SSPRITE_IMAGEOBJECT, ios::binary);	
-	class ofstream	ImageObjectSIndexFile(FILE_SSPRITEINDEX_IMAGEOBJECT, ios::binary);	
+	std::ofstream	ImageObjectSFile(FILE_SSPRITE_IMAGEOBJECT, ios::binary);	
+	std::ofstream	ImageObjectSIndexFile(FILE_SSPRITEINDEX_IMAGEOBJECT, ios::binary);	
 
 	m_ImageObjectSSPK.SaveToFile(ImageObjectSFile, ImageObjectSIndexFile);
 
@@ -1578,7 +1599,7 @@ MTopView::InitSprites()
 	// 3d°¡¼ÓÀÌ µÇ¸é m_pImageObjectShadowManager¸¦ »ç¿ëÇÏ°í
 	// ¾Æ´Ï¸é, m_ImageObjectSSPK¸¦ »ç¿ëÇÑ´Ù.
 	/*
-	class ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
+	std::ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITE_IMAGEOBJECT, ImageObjectShadowFile2))
 		return false;
 	m_ImageObjectSSPK.LoadFromFile(ImageObjectShadowFile2);
@@ -1604,7 +1625,7 @@ MTopView::InitSprites()
 //	}
 //	else
 	{
-// 		class ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
+// 		std::ifstream	ImageObjectShadowFile2;//(FILE_SSPRITE_IMAGEOBJECT, ios::binary);
 //		if (!FileOpenBinary(FILE_SSPRITE_IMAGEOBJECT, ImageObjectShadowFile2))
 //			return false;
 		m_ImageObjectSSPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_SSPRITE_IMAGEOBJECT").c_str());
@@ -1632,7 +1653,7 @@ MTopView::InitSprites()
 	{
 		/*
 		WORD size;
-		class ifstream CreaturePackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
+		std::ifstream CreaturePackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 		if (!FileOpenBinary(FILE_ISPRITEINDEX_CREATURE, CreaturePackIndexFile))
 			return false;
 		CreaturePackIndexFile.read((char*)&size, 2);	// SpriteÀÇ °³¼ö
@@ -1685,8 +1706,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Creature SpritePack	
 	//------------------------------------------------------------
-	class ofstream	creatureShadowFile(FILE_SSPRITE_CREATURE, ios::binary);	
-	class ofstream	creatureShadowIndexFile(FILE_SSPRITEINDEX_CREATURE, ios::binary);
+	std::ofstream	creatureShadowFile(FILE_SSPRITE_CREATURE, ios::binary);	
+	std::ofstream	creatureShadowIndexFile(FILE_SSPRITEINDEX_CREATURE, ios::binary);
 	m_CreatureSSPK.SaveToFile(creatureShadowFile, creatureShadowIndexFile);
 	creatureShadowFile.close();
 	creatureShadowIndexFile.close();
@@ -1698,7 +1719,7 @@ MTopView::InitSprites()
 	// ³²
 	/*
 	CSpritePack CreatureShadowSPK;
-	class ifstream	CreatureShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
+	std::ifstream	CreatureShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary("Data\\Image\\CreatureShadow.spk", CreatureShadowFile2))
 		return false;
 	CreatureShadowSPK.LoadFromFile(CreatureShadowFile2);
@@ -1714,8 +1735,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// ³² - Save  ShadowSpritePack	
 	//------------------------------------------------------------
-	class ofstream	CreatureShadowFile(FILE_SSPRITE_CREATURE, ios::binary);	
-	class ofstream	CreatureShadowIndexFile(FILE_SSPRITEINDEX_CREATURE, ios::binary);	
+	std::ofstream	CreatureShadowFile(FILE_SSPRITE_CREATURE, ios::binary);	
+	std::ofstream	CreatureShadowIndexFile(FILE_SSPRITEINDEX_CREATURE, ios::binary);	
 
 	m_CreatureSSPK.SaveToFile(CreatureShadowFile, CreatureShadowIndexFile);
 
@@ -1734,7 +1755,7 @@ MTopView::InitSprites()
 	
 	// ÀüÃ¼ °³¼ö¸¸ Àâ¾ÆµÐ´Ù.
 	/*
-	class ifstream CreatureShadowPackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
+	std::ifstream CreatureShadowPackIndexFile;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITEINDEX_CREATURE, CreatureShadowPackIndexFile))
 		return false;
 	CreatureShadowPackIndexFile.read((char*)&size, 2);	// SpriteÀÇ °³¼ö
@@ -1745,7 +1766,7 @@ MTopView::InitSprites()
 	/*
 	// ÀÓ½Ã·Î Load
 	// ÀüÃ¼ loadingÇØµÎ´Â ºÎºÐ
-	class ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, ios::binary);
+	std::ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITE_CREATURE, CreatureShadowFile2))
 		return false;
 	m_CreatureSSPK.LoadFromFile(CreatureShadowFile2);
@@ -1777,14 +1798,14 @@ MTopView::InitSprites()
 //	else
 	{
 		/*
-		class ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, ios::binary);
+		std::ifstream	CreatureShadowFile2;//(FILE_SSPRITE_Creature, ios::binary);
 		if (!FileOpenBinary(FILE_SSPRITE_CREATURE, CreatureShadowFile2))
 			return false;
 		m_CreatureSSPK.LoadFromFile(CreatureShadowFile2);
 		CreatureShadowFile2.close();
 		*/
 		/*
-		class ifstream indexFile;//(indexFilename, ios::binary);
+		std::ifstream indexFile;//(indexFilename, ios::binary);
 		if (!FileOpenBinary(FILE_SSPRITEINDEX_CREATURE, indexFile))
 			return false;
 
@@ -1902,8 +1923,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Clothes SpritePack	
 	//------------------------------------------------------------
-	class ofstream	clothesFile("Clothes.spk", ios::binary);	
-	class ofstream	clothesIndexFile("Clothes.spki", ios::binary);	
+	std::ofstream	clothesFile("Clothes.spk", ios::binary);	
+	std::ofstream	clothesIndexFile("Clothes.spki", ios::binary);	
 
 	ClothesSPK.SaveToFile(clothesFile, clothesIndexFile);
 
@@ -1918,7 +1939,7 @@ MTopView::InitSprites()
 /*	
 	if (m_AddonSPK.GetSize()==0)
 	{
-		class ifstream	AddonFile2;//(FILE_ISPRITE_ADDON, ios::binary);
+		std::ifstream	AddonFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 		if (!FileOpenBinary(FILE_ISPRITE_ADDON, AddonFile2))
 			return false;
 		
@@ -2016,7 +2037,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	// ³²
 	/*
-	class ifstream	AddonMaleShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
+	std::ifstream	AddonMaleShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITE_ADDON_MALE, AddonMaleShadowFile2))
 		return false;
 	m_AddonMaleShadowSPK.LoadFromFile(AddonMaleShadowFile2);
@@ -2029,7 +2050,7 @@ MTopView::InitSprites()
 	/*
 	// ³²
 	CSpritePack AddonMaleShadowSPK;
-	class ifstream	AddonMaleShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
+	std::ifstream	AddonMaleShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary("Data\\Image\\addonMaleShadow.spk", AddonMaleShadowFile2))
 		return false;
 	AddonMaleShadowSPK.LoadFromFile(AddonMaleShadowFile2);
@@ -2045,8 +2066,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// ³² - Save  ShadowSpritePack	
 	//------------------------------------------------------------
-	class ofstream	AddonMaleShadowFile(FILE_SSPRITE_ADDON_MALE, ios::binary);	
-	class ofstream	AddonMaleShadowIndexFile(FILE_SSPRITEINDEX_ADDON_MALE, ios::binary);	
+	std::ofstream	AddonMaleShadowFile(FILE_SSPRITE_ADDON_MALE, ios::binary);	
+	std::ofstream	AddonMaleShadowIndexFile(FILE_SSPRITEINDEX_ADDON_MALE, ios::binary);	
 
 	m_AddonMaleSSPK.SaveToFile(AddonMaleShadowFile, AddonMaleShadowIndexFile);
 
@@ -2059,7 +2080,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	// Male
 	/*
-	class ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
+	std::ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 	if (!FileOpenBinary(FILE_SSPRITE_ADDON, AddonShadowFile2))
 		return false;
 	m_AddonSSPK.LoadFromFile(AddonShadowFile2);
@@ -2095,7 +2116,7 @@ MTopView::InitSprites()
 //	else
 	{
 		/*
-		class ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
+		std::ifstream	AddonShadowFile2;//(FILE_ISPRITE_ADDON, ios::binary);
 		if (!FileOpenBinary(FILE_SSPRITE_ADDON, AddonShadowFile2))
 			return false;
 		m_AddonSSPK.LoadFromFile(AddonShadowFile2);
@@ -2144,8 +2165,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  ItemTile SpritePack	
 	//------------------------------------------------------------
-	class ofstream	itemTileFile(FILE_SPRITE_ITEMTILE, ios::binary);	
-	class ofstream	itemTileIndexFile(FILE_SPRITEINDEX_ITEMTILE, ios::binary);	
+	std::ofstream	itemTileFile(FILE_SPRITE_ITEMTILE, ios::binary);	
+	std::ofstream	itemTileIndexFile(FILE_SPRITEINDEX_ITEMTILE, ios::binary);	
 
 	m_ItemTileSPK.SaveToFile(itemTileFile, itemTileIndexFile);
 
@@ -2158,7 +2179,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_ItemTileISPK.GetSize()==0)
 	{
-//		class ifstream	itemTileFile2;//(FILE_SPRITE_ITEMTILE, ios::binary);
+//		std::ifstream	itemTileFile2;//(FILE_SPRITE_ITEMTILE, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_ISPRITE_ITEMTILE").c_str(), itemTileFile2))
 //			return false;
 //		m_ItemTileISPK.LoadFromFileRunning(g_pFileDef->getProperty("FILE_ISPRITE_ITEMTILE").c_str());
@@ -2179,7 +2200,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_ItemDropISPK.GetSize()==0)
 	{
-//		class ifstream	itemDropFile2;//(FILE_SPRITE_itemDrop, ios::binary);
+//		std::ifstream	itemDropFile2;//(FILE_SPRITE_itemDrop, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_ISPRITE_ITEMDROP").c_str(), itemDropFile2))
 //			return false;
 //		m_ItemDropISPK.LoadFromFileRunning(itemDropFile2);
@@ -2200,7 +2221,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_ItemBrokenSPK.GetSize()==0)
 	{
-//		class ifstream	itemBrokenFile2;//(FILE_SPRITE_itemBroken, ios::binary);
+//		std::ifstream	itemBrokenFile2;//(FILE_SPRITE_itemBroken, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_ITEMBROKEN").c_str(), itemBrokenFile2))
 //			return false;
 //		m_ItemBrokenSPK.LoadFromFileRunning(itemBrokenFile2);
@@ -2251,8 +2272,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Tile SpritePack	
 	//------------------------------------------------------------
-	class ofstream	tileFile(FILE_SPRITE_TILE, ios::binary);	
-	class ofstream	tileIndexFile(FILE_SPRITEINDEX_TILE, ios::binary);	
+	std::ofstream	tileFile(FILE_SPRITE_TILE, ios::binary);	
+	std::ofstream	tileIndexFile(FILE_SPRITEINDEX_TILE, ios::binary);	
 
 	m_TileSPK.SaveToFile(tileFile, tileIndexFile);
 
@@ -2262,7 +2283,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Load  Tile SpritePack	
 	//------------------------------------------------------------	
-	class ifstream	tileFile2(FILE_SPRITE_TILE, ios::binary);
+	std::ifstream	tileFile2(FILE_SPRITE_TILE, ios::binary);
 	m_TileSPK.LoadFromFile(tileFile2);
 	tileFile2.close();
 	*/
@@ -2280,7 +2301,7 @@ MTopView::InitSprites()
 	// TileSPK Index¸¦ LoadÇÑ´Ù.
 	CFileIndexTable		TileIndex;
 
-	class ifstream TilePackIndexFile(FILE_SPRITEINDEX_TILE, ios::binary);
+	std::ifstream TilePackIndexFile(FILE_SPRITEINDEX_TILE, ios::binary);
 	TileIndex.LoadFromFile( TilePackIndexFile );
 	TilePackIndexFile.close();	
 
@@ -2300,7 +2321,7 @@ MTopView::InitSprites()
 	///*
 //	if (m_TileSPK.GetSize()==0)
 //	{
-//		class ifstream TilePackIndexFile;//(FILE_SPRITEINDEX_TILE, ios::binary);
+//		std::ifstream TilePackIndexFile;//(FILE_SPRITEINDEX_TILE, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITEINDEX_TILE").c_str(), TilePackIndexFile))
 //			return false;
 //		
@@ -2331,12 +2352,12 @@ MTopView::InitSprites()
 	
 	/* TILE INDEX ¸¸µé±â
 	CSpritePack spk;
-	class ifstream TilePackIndexFile(FILE_SPRITE_TILE, ios::binary);
+	std::ifstream TilePackIndexFile(FILE_SPRITE_TILE, ios::binary);
 	spk.LoadFromFile(TilePackIndexFile);	
 	TilePackIndexFile.close();	
 
-	class ofstream TilePackIndexFile2(FILE_SPRITE_TILE, ios::binary);
-	class ofstream TilePackIndexFile3(FILE_SPRITEINDEX_TILE, ios::binary);
+	std::ofstream TilePackIndexFile2(FILE_SPRITE_TILE, ios::binary);
+	std::ofstream TilePackIndexFile3(FILE_SPRITEINDEX_TILE, ios::binary);
 	spk.SaveToFile(TilePackIndexFile2, TilePackIndexFile3);
 	TilePackIndexFile2.close();
 	TilePackIndexFile3.close();
@@ -2346,7 +2367,7 @@ MTopView::InitSprites()
 
 
 	/*
-	class ifstream	TilePackFile(FILE_SPRITE_TILE, ios::binary);		
+	std::ifstream	TilePackFile(FILE_SPRITE_TILE, ios::binary);		
 	m_TileSPK.LoadFromFilePart(TilePackFile, TileSFPArray);
 	TilePackFile.close();
 	*/
@@ -2362,12 +2383,12 @@ MTopView::InitSprites()
 	// Index¾ø´Â SPK¿¡ Index»ý¼ºÇÏ±â
 	/*
 	CSpritePack tempSPK;
-	class ifstream	ioFile2(FILE_SPRITE_IMAGEOBJECT, ios::binary);
+	std::ifstream	ioFile2(FILE_SPRITE_IMAGEOBJECT, ios::binary);
 	tempSPK.LoadFromFile(ioFile2);
 	ioFile2.close();
 
-	class ofstream	ioFile(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
-	class ofstream	ioIndexFile(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);	
+	std::ofstream	ioFile(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
+	std::ofstream	ioIndexFile(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);	
 
 	tempSPK.SaveToFile(ioFile, ioIndexFile);
 
@@ -2382,7 +2403,7 @@ MTopView::InitSprites()
 	// ImageObjectSPK Index¸¦ LoadÇÑ´Ù.
 	CFileIndexTable		ImageObjectIndex;
 
-	class ifstream ImageObjectPackIndexFile(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);
+	std::ifstream ImageObjectPackIndexFile(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);
 	ImageObjectIndex.LoadFromFile( ImageObjectPackIndexFile );
 	ImageObjectPackIndexFile.close();	
 
@@ -2402,7 +2423,7 @@ MTopView::InitSprites()
 	if (m_ImageObjectSPK.GetSize()==0)
 	{
 		
-//		class ifstream ImageObjectPackIndexFile;//(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);
+//		std::ifstream ImageObjectPackIndexFile;//(FILE_SPRITEINDEX_IMAGEOBJECT, ios::binary);
 //		if (!FileOpenBinary(FILE_SPRITEINDEX_IMAGEOBJECT, ImageObjectPackIndexFile))
 //			return false;
 //
@@ -2446,7 +2467,7 @@ MTopView::InitSprites()
 //	DrawTitleLoading();
 
 	/*
-	class ifstream	ImageObjectPackFile(FILE_SPRITE_IMAGEOBJECT, ios::binary);		
+	std::ifstream	ImageObjectPackFile(FILE_SPRITE_IMAGEOBJECT, ios::binary);		
 	m_ImageObjectSPK.LoadFromFilePart(ImageObjectPackFile, ImageObjectSFPArray);
 	ImageObjectPackFile.close();	
 	*/
@@ -2646,8 +2667,8 @@ MTopView::InitSprites()
 	// Save  EffectSPK
 	//
 	//------------------------------------------------------------
-	class ofstream	effectFile(FILE_ASPRITE_ALPHAEFFECT, ios::binary);	
-	class ofstream	effectIndexFile(FILE_ASPRITEINDEX_ALPHAEFFECT, ios::binary);	
+	std::ofstream	effectFile(FILE_ASPRITE_ALPHAEFFECT, ios::binary);	
+	std::ofstream	effectIndexFile(FILE_ASPRITEINDEX_ALPHAEFFECT, ios::binary);	
 
 	m_EffectAlphaSPK.SaveToFile(effectFile, effectIndexFile);
 
@@ -2663,7 +2684,7 @@ MTopView::InitSprites()
 	// 3d°¡¼ÓÀÌ µÇ¸é m_pAlphaEffectTextureManager¸¦ »ç¿ëÇÏ°í
 	// ¾Æ´Ï¸é, m_EffectAlphaSPK¸¦ »ç¿ëÇÑ´Ù.
 /*
-	class ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
+	std::ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 	if (!FileOpenBinary(FILE_ASPRITE_ALPHAEFFECT, effectFile2))
 		return false;
 	m_EffectAlphaSPK.LoadFromFile(effectFile2);
@@ -2699,12 +2720,12 @@ MTopView::InitSprites()
 //	}
 //	else
 	{
-		//class ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
+		//std::ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 		//if (!FileOpenBinary(FILE_ASPRITE_ALPHAEFFECT, effectFile2))
 		//	return false;
 		//m_EffectAlphaSPK.LoadFromFile(effectFile2);
 		//effectFile2.close();	
-//		class ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
+//		std::ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 //		if (!FileOpenBinary(FILE_ASPRITEINDEX_ALPHAEFFECT, effectFileIndex))
 //			return false;
 //		
@@ -2756,12 +2777,12 @@ MTopView::InitSprites()
 //	}
 //	else
 	{
-		//class ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
+		//std::ifstream	effectFile2;//(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 		//if (!FileOpenBinary(FILE_ASPRITE_ALPHAEFFECT, effectFile2))
 		//	return false;
 		//m_EffectAlphaSPK.LoadFromFile(effectFile2);
 		//effectFile2.close();	
-//		class ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
+//		std::ifstream effectFileIndex;//(FILE_ISPRITEINDEX_CREATURE, ios::binary);
 //		if (!FileOpenBinary(FILE_SPRITEINDEX_SCREENEFFECT, effectFileIndex))
 //			return false;
 //		
@@ -2802,7 +2823,7 @@ MTopView::InitSprites()
 //	}
 //	else
 	{
-//		class ifstream	effectFile2;
+//		std::ifstream	effectFile2;
 //		if (!FileOpenBinary(FILE_SSPRITE_SHADOWEFFECT, effectFile2))
 //			return false;
 //		m_EffectShadowSPK.LoadFromFile(effectFile2);
@@ -2813,7 +2834,7 @@ MTopView::InitSprites()
 //	UI_DrawProgress(12);
 //	DrawTitleLoading();
 
-	//class ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
+	//std::ifstream	effectFile2(FILE_ASPRITE_ALPHAEFFECT, ios::binary);
 	//m_EffectAlphaSPK.LoadFromFile(effectFile2);
 	//effectFile2.close();	
 	
@@ -2880,8 +2901,8 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Etc SpritePack	
 	//------------------------------------------------------------
-	class ofstream	EtcFile(FILE_SPRITE_ETC, ios::binary);	
-	class ofstream	EtcIndexFile(FILE_SPRITEINDEX_ETC, ios::binary);	
+	std::ofstream	EtcFile(FILE_SPRITE_ETC, ios::binary);	
+	std::ofstream	EtcIndexFile(FILE_SPRITEINDEX_ETC, ios::binary);	
 
 	m_EtcSPK.SaveToFile(EtcFile, EtcIndexFile);
 
@@ -2894,7 +2915,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	if (m_EtcSPK.GetSize()==0)
 	{
-		class ifstream	EtcFile2;//(FILE_SPRITE_ETC, ios::binary);
+		std::ifstream	EtcFile2;//(FILE_SPRITE_ETC, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_ETC").c_str(), EtcFile2))
 			return false;
 		m_EtcSPK.LoadFromFile(EtcFile2);
@@ -2908,7 +2929,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 //	if (m_InteractionObjectSPK.GetSize()==0)
 //	{
-//		class ifstream	ioFile2;//(FILE_SPRITE_ETC, ios::binary);
+//		std::ifstream	ioFile2;//(FILE_SPRITE_ETC, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_INTERACTIONOBJECT").c_str(), ioFile2))
 //			return false;
 //		m_InteractionObjectSPK.LoadFromFile(ioFile2);
@@ -2918,7 +2939,7 @@ MTopView::InitSprites()
 //	if (m_InteractionObjectSSPK.GetSize()==0)
 //	{
 //		/*
-//		class ifstream	ioFile3;//(FILE_SPRITE_ETC, ios::binary);
+//		std::ifstream	ioFile3;//(FILE_SPRITE_ETC, ios::binary);
 //		if (!FileOpenBinary(FILE_SSPRITE_INTERACTIONOBJECT, ioFile3))
 //			return false;
 //		m_InteractionObjectSSPK.LoadFromFile(ioFile2);
@@ -2963,8 +2984,8 @@ MTopView::InitSprites()
 	// Save  NormalEffect Shadow SpritePack	
 	//------------------------------------------------------------
 	
-	class ofstream	NormalEffectFile(FILE_SPRITE_NORMALEFFECT, ios::binary);	
-	class ofstream	NormalEffectIndexFile(FILE_SPRITEINDEX_NORMALEFFECT, ios::binary);	
+	std::ofstream	NormalEffectFile(FILE_SPRITE_NORMALEFFECT, ios::binary);	
+	std::ofstream	NormalEffectIndexFile(FILE_SPRITEINDEX_NORMALEFFECT, ios::binary);	
 
 	m_EffectNormalSPK.SaveToFile(NormalEffectFile, NormalEffectIndexFile);
 
@@ -2977,7 +2998,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_EffectNormalSPK.GetSize()==0)
 	{
-//		class ifstream	NormalEffectFile2;//(FILE_SPRITE_NORMALEFFECT, ios::binary);
+//		std::ifstream	NormalEffectFile2;//(FILE_SPRITE_NORMALEFFECT, ios::binary);
 //		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_NORMALEFFECT").c_str(), NormalEffectFile2))
 //			return false;
 //		m_EffectNormalSPK.LoadFromFile(NormalEffectFile2);
@@ -2998,7 +3019,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------
 	if (m_WeatherSPK.GetSize()==0)
 	{
-		class ifstream	WeatherFile2;//(FILE_SPRITE_WEATHER, ios::binary);
+		std::ifstream	WeatherFile2;//(FILE_SPRITE_WEATHER, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_WEATHER").c_str(), WeatherFile2))
 			return false;
 		m_WeatherSPK.LoadFromFile(WeatherFile2);
@@ -3092,7 +3113,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	class ofstream	MapTest1("Data\\Image\\map_a.spr", ios::binary);		
+	std::ofstream	MapTest1("Data\\Image\\map_a.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest1 );
 	MapTest1.close();
 
@@ -3107,7 +3128,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	class ofstream	MapTest2("Data\\Image\\map_h.spr", ios::binary);		
+	std::ofstream	MapTest2("Data\\Image\\map_h.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest2 );
 	MapTest2.close();
 
@@ -3122,7 +3143,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	class ofstream	MapTest3("Data\\Image\\map_e.spr", ios::binary);		
+	std::ofstream	MapTest3("Data\\Image\\map_e.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest3 );
 	MapTest3.close();
 
@@ -3137,7 +3158,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	class ofstream	MapTest4("Data\\Image\\map_c.spr", ios::binary);		
+	std::ofstream	MapTest4("Data\\Image\\map_c.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest4 );
 	MapTest4.close();
 
@@ -3152,7 +3173,7 @@ MTopView::InitSprites()
 	//------------------------------------------------------------	
 	// Save  Minimap Sprite
 	//------------------------------------------------------------	
-	class ofstream	MapTest5("Data\\Image\\map_d.spr", ios::binary);		
+	std::ofstream	MapTest5("Data\\Image\\map_d.spr", ios::binary);		
 	m_pMinimapSPR->SaveToFile( MapTest5 );
 	MapTest5.close();
 
@@ -3171,7 +3192,7 @@ MTopView::InitSprites()
 	/*
 	if (m_GuildSPK.GetSize()==0)
 	{
-		class ifstream	guildFile2;//(FILE_SPRITE_WEATHER, ios::binary);
+		std::ifstream	guildFile2;//(FILE_SPRITE_WEATHER, ios::binary);
 		if (!FileOpenBinary(FILE_SPRITE_GUILD, guildFile2))
 			return false;
 		m_GuildSPK.LoadFromFile(guildFile2);
@@ -3238,7 +3259,7 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	// Save  Light2D FilterPack
 	//------------------------------------------------------------
-	class ofstream	FilterLight2DFile(FILE_FILTER_LIGHT2D, ios::binary);		
+	std::ofstream	FilterLight2DFile(FILE_FILTER_LIGHT2D, ios::binary);		
 	m_Filter.SaveToFile(FilterLight2DFile);
 	FilterLight2DFile.close();	
 	*/
@@ -3246,7 +3267,7 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	// Load  Light2D FilterPack
 	//------------------------------------------------------------	
-	//class ifstream	FilterLight2DFile2(FILE_FILTER_LIGHT2D, ios::binary);
+	//std::ifstream	FilterLight2DFile2(FILE_FILTER_LIGHT2D, ios::binary);
 	//m_Filter.LoadFromFile(FilterLight2DFile2);
 	//FilterLight2DFile2.close();
 
@@ -3280,7 +3301,8 @@ MTopView::InitFilters()
 		m_p2DLightPixelHeight = NULL;
 	}
 
-	
+
+#ifdef PLATFORM_WINDOWS
 	if (CDirect3D::IsHAL())
 	{
 		/*
@@ -3335,7 +3357,7 @@ MTopView::InitFilters()
 		//------------------------------------------------------------	
 		// Save  Light3D FilterPack
 		//------------------------------------------------------------
-		class ofstream	LightFilter3DFile(FILE_FILTER_LIGHT3D, ios::binary);
+		std::ofstream	LightFilter3DFile(FILE_FILTER_LIGHT3D, ios::binary);
 		m_LightFTP.SaveToFile(LightFilter3DFile);
 		LightFilter3DFile.close();	
 
@@ -3344,7 +3366,7 @@ MTopView::InitFilters()
 		//------------------------------------------------------------	
 		// Load  Light3D FilterPack
 		//------------------------------------------------------------	
-		class ifstream	LightFilter3DFile2;//(FILE_FILTER_LIGHT3D, ios::binary);
+		std::ifstream	LightFilter3DFile2;//(FILE_FILTER_LIGHT3D, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_FILTER_LIGHT3D").c_str(), LightFilter3DFile2))
 			return false;
 		m_LightFTP.LoadFromFile(LightFilter3DFile2);
@@ -3359,6 +3381,7 @@ MTopView::InitFilters()
 		m_pLightBufferTexture->InitTextureSurface(SCREENLIGHT_WIDTH, SCREENLIGHT_HEIGHT, 0, CDirect3D::GetPixelFormat4444());	
 	
 	}
+#endif
 	//------------------------------------------------------------	
 	//
 	//  2D ½Ã¾ßÃ³¸®¸¦ À§ÇÑ Light Filter
@@ -3418,7 +3441,7 @@ MTopView::InitFilters()
 		//------------------------------------------------------------	
 		// Save  Light2D FilterPack
 		//------------------------------------------------------------
-		class ofstream	LightFilter2DFile(FILE_FILTER_LIGHT2D, ios::binary);
+		std::ofstream	LightFilter2DFile(FILE_FILTER_LIGHT2D, ios::binary);
 		m_LightFTP.SaveToFile(LightFilter2DFile);
 		LightFilter2DFile.close();	
 		*/
@@ -3431,7 +3454,7 @@ MTopView::InitFilters()
 		//------------------------------------------------------------	
 		// Load  Light2D FilterPack
 		//------------------------------------------------------------	
-		class ifstream	LightFilter2DFile2;//(FILE_FILTER_LIGHT2D, ios::binary);
+		std::ifstream	LightFilter2DFile2;//(FILE_FILTER_LIGHT2D, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_FILTER_LIGHT2D").c_str(), LightFilter2DFile2))
 			return false;
 		m_LightFTP.LoadFromFile(LightFilter2DFile2);
@@ -3526,7 +3549,8 @@ MTopView::InitFilters()
 		};
 		*/
 
-		for (int i=0; i<SCREENLIGHT_WIDTH; i++)
+		int i;
+		for (i=0; i<SCREENLIGHT_WIDTH; i++)
 		{
 			m_p2DLightPixelWidth[i] = pPixelWidth[i];
 		}
@@ -3591,7 +3615,7 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	// Save  Light3D FilterPack
 	//------------------------------------------------------------
-	class ofstream	ImageObjectFilterFile(FILE_FILTER_IMAGEOBJECT, ios::binary);
+	std::ofstream	ImageObjectFilterFile(FILE_FILTER_IMAGEOBJECT, ios::binary);
 	m_ImageObjectFilter.SaveToFile(ImageObjectFilterFile);
 	ImageObjectFilterFile.close();	
 	*/
@@ -3601,7 +3625,7 @@ MTopView::InitFilters()
 	//------------------------------------------------------------	
 	if (m_ImageObjectFilter.IsNotInit())
 	{
-		class ifstream	ImageObjectFilterFile2;//(FILE_FILTER_IMAGEOBJECT, ios::binary);
+		std::ifstream	ImageObjectFilterFile2;//(FILE_FILTER_IMAGEOBJECT, ios::binary);
 		if (!FileOpenBinary(g_pFileDef->getProperty("FILE_FILTER_IMAGEOBJECT").c_str(), ImageObjectFilterFile2))
 			return false;
 		m_ImageObjectFilter.LoadFromFile(ImageObjectFilterFile2);
@@ -3855,8 +3879,8 @@ MTopView::InitCreatureFrames()
 	}
 
 	
-	class ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
-	class ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
+	std::ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
+	std::ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
 	m_CreatureFPK.SaveToFile(packFile, indexFile);	
 	packFile.close();
 	indexFile.close();	
@@ -3864,7 +3888,7 @@ MTopView::InitCreatureFrames()
 	
 	///*
 	// Load from File
-	class ifstream file;//(FILE_CFRAME_CREATURE, ios::binary);
+	std::ifstream file;//(FILE_CFRAME_CREATURE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_CREATURE").c_str(), file))
 		return false;
 	m_CreatureFPK.LoadFromFile(file);
@@ -3889,8 +3913,8 @@ MTopView::InitCreatureFrames()
 		}
 	}
 	
-	class ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
-	class ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
+	std::ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
+	std::ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
 	m_CreatureFPK.SaveToFile(packFile, indexFile);	
 	packFile.close();
 	indexFile.close();
@@ -3967,8 +3991,8 @@ MTopView::InitCreatureFrames()
 		}
 	}
 
-	class ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
-	class ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
+	std::ofstream packFile(FILE_CFRAME_CREATURE, ios::binary);
+	std::ofstream indexFile(FILE_CFRAMEINDEX_CREATURE, ios::binary);
 	m_CreatureFPK.SaveToFile(packFile, indexFile);	
 	packFile.close();
 	indexFile.close();	
@@ -3979,7 +4003,7 @@ MTopView::InitCreatureFrames()
 	// Creature Shadow FPK - Loading
 	//
 	//------------------------------------------------------------
-	class ifstream fileShadow;//(FILE_CFRAME_CREATURE, ios::binary);
+	std::ifstream fileShadow;//(FILE_CFRAME_CREATURE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_CREATURE_SHADOW").c_str(), fileShadow))
 		return false;
 	m_CreatureShadowFPK.LoadFromFile(fileShadow);
@@ -4052,19 +4076,19 @@ MTopView::InitCreatureFrames()
 
 	///*
 	
-	class ifstream AdvancementOustersFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AdvancementOustersFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_OUSTERS").c_str(), AdvancementOustersFile))
 		return false;
 	m_AdvancementOustersFPK.LoadFromFile(AdvancementOustersFile);
 	AdvancementOustersFile.close();	
 
-	class ifstream AdvancementOustersShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AdvancementOustersShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_OUSTERS_SHADOW").c_str(), AdvancementOustersFile))
 		return false;
 	m_AdvancementOustersShadowFPK.LoadFromFile(AdvancementOustersFile);
 	AdvancementOustersFile.close();	
 
-	class ifstream AdvancementVampireManFile;
+	std::ifstream AdvancementVampireManFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_MAN").c_str(), 
 		AdvancementVampireManFile))
 		return false;
@@ -4073,54 +4097,54 @@ MTopView::InitCreatureFrames()
 
 	//add by viva
 	//--------------------------------vampire.cfpk
-	class ifstream NewVampireFile;
+	std::ifstream NewVampireFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_NEW_CLASS_VAMPIRE").c_str(), NewVampireFile))	return false;
 	m_NewVampireFPK.LoadFromFile( NewVampireFile );
 	NewVampireFile.close();
 	//--------------------------------vampireShdow.cfpk
-	class ifstream NewVampireShadowFile;
+	std::ifstream NewVampireShadowFile;
 	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_NEW_CLASS_VAMPIRE_SHADOW").c_str(), NewVampireShadowFile))	return false;
 	m_NewVampireShadowFPK.LoadFromFile( NewVampireShadowFile );
 	NewVampireShadowFile.close();
 
 	//--------------------------------SlayerMan.cfpk(AddonMan.cfpk)
-	class ifstream NewSlayerManFile;
+	std::ifstream NewSlayerManFile;
 	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_MAN").c_str(), NewSlayerManFile))	return false;
 	m_NewSlayerManFPK.LoadFromFile( NewSlayerManFile );
 	NewSlayerManFile.close();
 	//--------------------------------SlayerManShadow.cfpk(AddonManShadow.cfpk)
-	class ifstream NewSlayerManShadowFile;
+	std::ifstream NewSlayerManShadowFile;
 	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_MAN_SHADOW").c_str(), NewSlayerManShadowFile))	return false;
 	m_NewSlayerManShadowFPK.LoadFromFile( NewSlayerManShadowFile );
 	NewSlayerManShadowFile.close();
 
 	//---------------------------------SlayerWoman.cfpk(AddonWoman.cfpk)
-	class ifstream NewSlayerWomanFile;
+	std::ifstream NewSlayerWomanFile;
 	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_WOMAN").c_str(), NewSlayerWomanFile))	return false;
 	m_NewSlayerWomanFPK.LoadFromFile( NewSlayerWomanFile );
 	NewSlayerWomanFile.close();
 	//---------------------------------SlayerWoman.cfpk(AddonManShadow.cfpk)
-	class ifstream NewSlayerWomanShadowFile;
+	std::ifstream NewSlayerWomanShadowFile;
 	if(!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_SLAYER_WOMAN_SHADOW").c_str(), NewSlayerWomanShadowFile))	return false;
 	m_NewSlayerWomanShadowFPK.LoadFromFile( NewSlayerWomanShadowFile );
 	NewSlayerWomanShadowFile.close();
 	////end
 
-	class ifstream AdvancementVampireManShadowFile;
+	std::ifstream AdvancementVampireManShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_MAN_SHADOW").c_str(), 
 		AdvancementVampireManShadowFile))
 		return false;
 	m_AdvancementVampireManShadowFPK.LoadFromFile( AdvancementVampireManShadowFile );
 	AdvancementVampireManShadowFile.close();
 
-	class ifstream AdvancementVampireWomanFile;
+	std::ifstream AdvancementVampireWomanFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_WOMAN").c_str(), 
 		AdvancementVampireWomanFile))
 		return false;
 	m_AdvancementVampireWomanFPK.LoadFromFile( AdvancementVampireWomanFile );
 	AdvancementVampireWomanFile.close();
 
-	class ifstream AdvancementVampireWomanShadowFile;
+	std::ifstream AdvancementVampireWomanShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_WOMAN_SHADOW").c_str(), 
 		AdvancementVampireWomanShadowFile))
 		return false;
@@ -4128,14 +4152,14 @@ MTopView::InitCreatureFrames()
 	AdvancementVampireWomanShadowFile.close();
 
 
-	class ifstream AdvancementSlayerManFile;
+	std::ifstream AdvancementSlayerManFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_MAN").c_str(), 
 		AdvancementSlayerManFile))
 		return false;
 	m_AdvancementSlayerManFPK.LoadFromFile( AdvancementSlayerManFile );
 	AdvancementSlayerManFile.close();
 
-	class ifstream AdvancementSlayerManShadowFile;
+	std::ifstream AdvancementSlayerManShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_MAN_SHADOW").c_str(), 
 		AdvancementSlayerManShadowFile))
 		return false;
@@ -4143,14 +4167,14 @@ MTopView::InitCreatureFrames()
 	AdvancementSlayerManShadowFile.close();
 
 
-	class ifstream AdvancementSlayerWomanFile;
+	std::ifstream AdvancementSlayerWomanFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_WOMAN").c_str(), 
 		AdvancementSlayerWomanFile))
 		return false;
 	m_AdvancementSlayerWomanFPK.LoadFromFile( AdvancementSlayerWomanFile );
 	AdvancementSlayerWomanFile.close();
 
-	class ifstream AdvancementSlayerWomanShadowFile;
+	std::ifstream AdvancementSlayerWomanShadowFile;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_WOMAN_SHADOW").c_str(), 
 		AdvancementSlayerWomanShadowFile))
 		return false;
@@ -4161,25 +4185,25 @@ MTopView::InitCreatureFrames()
 	//------------------------------------------------
 	// Load from File
 	//------------------------------------------------
-	class ifstream AdvancementSlayerFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AdvancementSlayerFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER").c_str(), AdvancementSlayerFile))
 		return false;
 	m_AdvancementSlayerFPK.LoadFromFile(AdvancementSlayerFile);
 	AdvancementSlayerFile.close();
 
-	class ifstream AdvancementVampireFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AdvancementVampireFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE").c_str(), AdvancementVampireFile))
 		return false;
 	m_AdvancementVampireFPK.LoadFromFile(AdvancementVampireFile);
 	AdvancementVampireFile.close();
 	
-	class ifstream AdvancementSlayerShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AdvancementSlayerShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_SLAYER_SHADOW").c_str(), AdvancementSlayerFile))
 		return false;
 	m_AdvancementSlayerShadowFPK.LoadFromFile(AdvancementSlayerFile);
 	AdvancementSlayerFile.close();
 
-	class ifstream AdvancementVampireShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AdvancementVampireShadowFile;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADVANCEMENT_CLASS_VAMPIRE_SHADOW").c_str(), AdvancementVampireFile))
 		return false;
 	m_AdvancementVampireShadowFPK.LoadFromFile(AdvancementVampireFile);
@@ -4189,12 +4213,12 @@ MTopView::InitCreatureFrames()
 	//------------------------------------------------
 	// Load from File
 	//------------------------------------------------
-	class ifstream AddonFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AddonFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADDON").c_str(), AddonFile2))
 		return false;
 	m_AddonFPK.LoadFromFile(AddonFile2);
 	AddonFile2.close();
-	class ifstream OustersFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream OustersFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_OUSTERS").c_str(), OustersFile2))
 		return false;
 	m_OustersFPK.LoadFromFile(OustersFile2);
@@ -4204,13 +4228,13 @@ MTopView::InitCreatureFrames()
 	//------------------------------------------------
 	// ±×¸²ÀÚ - Load from File
 	//------------------------------------------------
-	class ifstream AddonShadowFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream AddonShadowFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_ADDON_SHADOW").c_str(), AddonShadowFile2))
 		return false;
 	m_AddonShadowFPK.LoadFromFile(AddonShadowFile2);
 	AddonShadowFile2.close();
 	
-	class ifstream OustersShadowFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ifstream OustersShadowFile2;//(FILE_CFRAME_ADDON_MALE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_CFRAME_OUSTERS_SHADOW").c_str(), OustersShadowFile2))
 		return false;
 	m_OustersShadowFPK.LoadFromFile(OustersShadowFile2);
@@ -4442,14 +4466,14 @@ MTopView::InitCreatureFrames()
 		}
 	}
 
-	class ofstream packFileMale(FILE_CFRAME_ADDON_MALE, ios::binary);
-	class ofstream indexFileMale(FILE_CFRAMEINDEX_ADDON_MALE, ios::binary);
+	std::ofstream packFileMale(FILE_CFRAME_ADDON_MALE, ios::binary);
+	std::ofstream indexFileMale(FILE_CFRAMEINDEX_ADDON_MALE, ios::binary);
 	m_AddonMaleFPK.SaveToFile(packFileMale, indexFileMale);	
 	packFileMale.close();
 	indexFileMale.close();
 
-	class ofstream packFileFemale(FILE_CFRAME_ADDON_FEMALE, ios::binary);
-	class ofstream indexFileFemale(FILE_CFRAMEINDEX_ADDON_FEMALE, ios::binary);
+	std::ofstream packFileFemale(FILE_CFRAME_ADDON_FEMALE, ios::binary);
+	std::ofstream indexFileFemale(FILE_CFRAMEINDEX_ADDON_FEMALE, ios::binary);
 	m_AddonFemaleFPK.SaveToFile(packFileFemale, indexFileFemale);	
 	packFileFemale.close();
 	indexFileFemale.close();
@@ -4502,8 +4526,8 @@ MTopView::InitImageFrames()
 	for (int i=0; i<28; i++)
 		m_ItemTileFPK[i].Set(i, 10, 10);
 
-	class ofstream packFile(FILE_IFRAME_ITEMTILE, ios::binary);
-	class ofstream indexFile(FILE_IFRAMEINDEX_ITEMTILE, ios::binary);
+	std::ofstream packFile(FILE_IFRAME_ITEMTILE, ios::binary);
+	std::ofstream indexFile(FILE_IFRAMEINDEX_ITEMTILE, ios::binary);
 
 	m_ItemTileFPK.SaveToFile(packFile, indexFile);
 
@@ -4513,7 +4537,7 @@ MTopView::InitImageFrames()
 
 	///*
 	// Load from File
-	class ifstream file2;//(FILE_IFRAME_ITEMTILE, ios::binary);
+	std::ifstream file2;//(FILE_IFRAME_ITEMTILE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_IFRAME_ITEMTILE").c_str(), file2))
 		return false;
 	m_ItemTileFPK.LoadFromFile(file2);
@@ -4547,13 +4571,13 @@ MTopView::InitAnimationFrames()
 	//
 	//------------------------------------------------------------
 	
-	class ifstream file2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
+	std::ifstream file2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ANIMATIONOBJECT").c_str(), file2))
 		return false;
 	m_ImageObjectFPK.LoadFromFile(file2);
 	file2.close();
 
-	class ifstream file3;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
+	std::ifstream file3;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ANIMATIONOBJECT_SHADOW").c_str(), file3))
 		return false;
 	m_ImageObjectShadowFPK.LoadFromFile(file3);
@@ -4578,8 +4602,8 @@ MTopView::InitAnimationFrames()
 //	m_InteractionObjectFPK[0][9].Set(0, 0, -48);
 //	
 //
-//	class ofstream iopackFile(g_pFileDef->getProperty("FILE_AFRAME_INTERACTIONOBJECT").c_str(), ios::binary);
-//	class ofstream ioindexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_INTERACTIONOBJECT").c_str(), ios::binary);
+//	std::ofstream iopackFile(g_pFileDef->getProperty("FILE_AFRAME_INTERACTIONOBJECT").c_str(), ios::binary);
+//	std::ofstream ioindexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_INTERACTIONOBJECT").c_str(), ios::binary);
 //	m_InteractionObjectFPK.SaveToFile(iopackFile, ioindexFile);
 //	iopackFile.close();
 //	ioindexFile.close();	
@@ -4587,7 +4611,7 @@ MTopView::InitAnimationFrames()
 
 	///*
 	// Load from File
-//	class ifstream iofile2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
+//	std::ifstream iofile2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 //	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_INTERACTIONOBJECT").c_str(), iofile2))
 //		return false;
 //	m_InteractionObjectFPK.LoadFromFile(iofile2);
@@ -4599,7 +4623,7 @@ MTopView::InitAnimationFrames()
 	// Item Drop
 	//
 	//------------------------------------------------------------	
-	class ifstream itemdropfile2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
+	std::ifstream itemdropfile2;//(FILE_AFRAME_ANIMATIONOBJECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ITEMDROP").c_str(), itemdropfile2))
 		return false;
 	m_ItemDropFPK.LoadFromFile(itemdropfile2);
@@ -4615,8 +4639,8 @@ MTopView::InitAnimationFrames()
 //		}
 //
 //	}
-//	class ofstream itemdropfile3(g_pFileDef->getProperty("FILE_AFRAME_ITEMDROP").c_str(), ios::binary);
-//	class ofstream itemdropfile4(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMDROP").c_str(), ios::binary);
+//	std::ofstream itemdropfile3(g_pFileDef->getProperty("FILE_AFRAME_ITEMDROP").c_str(), ios::binary);
+//	std::ofstream itemdropfile4(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMDROP").c_str(), ios::binary);
 //	m_ItemDropFPK.SaveToFile(itemdropfile3, itemdropfile4);
 //	itemdropfile4.close();
 //	itemdropfile3.close();
@@ -4644,8 +4668,8 @@ MTopView::InitAnimationFrames()
 			int sid = spriteID+nFrame[f];
 
 			// Áß½É¿¡ ¿Àµµ·Ï ÁÂÇ¥ º¸Á¤..
-			int cx = g_TILE_X_HALF - (m_ItemDropSPK[sid].GetWidth()>>1);
-			int cy = g_TILE_Y_HALF - (m_ItemDropSPK[sid].GetHeight()>>1);
+			int cx = 24 - (m_ItemDropSPK[sid].GetWidth()>>1);
+			int cy = 24 - (m_ItemDropSPK[sid].GetHeight()>>1);
 
 			m_ItemDropFPK[i][f].Set( sid, cx, cy );
 		}
@@ -4656,8 +4680,8 @@ MTopView::InitAnimationFrames()
 	//------------------------------------------------------------	
 	// ÀúÀå
 	//------------------------------------------------------------	
-	class ofstream packFile(FILE_AFRAME_ITEMDROP, ios::binary);
-	class ofstream indexFile(FILE_AFRAMEINDEX_ITEMDROP, ios::binary);
+	std::ofstream packFile(FILE_AFRAME_ITEMDROP, ios::binary);
+	std::ofstream indexFile(FILE_AFRAMEINDEX_ITEMDROP, ios::binary);
 	m_ItemDropFPK.SaveToFile(packFile, indexFile);
 	packFile.close();
 	indexFile.close();
@@ -5023,8 +5047,8 @@ MTopView::InitAnimationFrames()
 		m_ItemBrokenFPK[4][j].Set(Ousters[j][0], Ousters[j%(maxOustersItemBroken/3)][1]-30, Ousters[j%(maxOustersItemBroken/3)][2]-10);
 	}
 	
-	class ofstream packFile(g_pFileDef->getProperty("FILE_AFRAME_ITEMBROKEN").c_str(), ios::binary);
-	class ofstream indexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMBROKEN").c_str(), ios::binary);
+	std::ofstream packFile(g_pFileDef->getProperty("FILE_AFRAME_ITEMBROKEN").c_str(), ios::binary);
+	std::ofstream indexFile(g_pFileDef->getProperty("FILE_AFRAMEINDEX_ITEMBROKEN").c_str(), ios::binary);
 
 	m_ItemBrokenFPK.SaveToFile(packFile, indexFile);
 
@@ -5035,7 +5059,7 @@ MTopView::InitAnimationFrames()
 
 	///*
 	// Load from File
-	class ifstream fileItemBroken2;//(FILE_IFRAME_ITEMTILE, ios::binary);
+	std::ifstream fileItemBroken2;//(FILE_IFRAME_ITEMTILE, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_AFRAME_ITEMBROKEN").c_str(), fileItemBroken2))
 		return false;
 	m_ItemBrokenFPK.LoadFromFile(fileItemBroken2);
@@ -5083,8 +5107,8 @@ MTopView::InitEffectFrames()
 		}	
 	}
 
-	class ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
-	class ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
+	std::ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	std::ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
 	m_EffectNormalFPK.SaveToFile(packNormalFile, indexNormalFile);
 	packNormalFile.close();
 	indexNormalFile.close();
@@ -5109,8 +5133,8 @@ MTopView::InitEffectFrames()
 		m_EffectNormalFPK[0][d][4].Set(0, 0, -48);
 	}
 
-	class ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
-	class ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
+	std::ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	std::ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
 	m_EffectNormalFPK.SaveToFile(packNormalFile, indexNormalFile);
 	packNormalFile.close();
 	indexNormalFile.close();
@@ -5123,7 +5147,7 @@ MTopView::InitEffectFrames()
 	//--------------------------------------------------
 	// [ TEST CODE ]
 	/*
-	class ifstream fileFA;//(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	std::ifstream fileFA;//(FILE_EFRAME_NORMALEFFECT, ios::binary);
 	if (!FileOpenBinary("Data\\bomb.frr", fileFA))
 		return false;
 
@@ -5146,8 +5170,8 @@ MTopView::InitEffectFrames()
 		}
 	}
 
-	class ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
-	class ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
+	std::ofstream packNormalFile(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	std::ofstream indexNormalFile(FILE_EFRAMEINDEX_NORMALEFFECT, ios::binary);
 	m_EffectNormalFPK.SaveToFile(packNormalFile, indexNormalFile);
 	packNormalFile.close();
 	indexNormalFile.close();
@@ -5155,7 +5179,7 @@ MTopView::InitEffectFrames()
 
 	///*
 	// Load from NormalFile
-	class ifstream NormalFile2;//(FILE_EFRAME_NORMALEFFECT, ios::binary);
+	std::ifstream NormalFile2;//(FILE_EFRAME_NORMALEFFECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_EFRAME_NORMALEFFECT").c_str(), NormalFile2))
 		return false;
 	m_EffectNormalFPK.LoadFromFile(NormalFile2);
@@ -5164,7 +5188,7 @@ MTopView::InitEffectFrames()
 
 	// ¼¼ºÎÁ¤º¸ Ãâ·ÂÇÏ±â
 	/*
-	class ofstream infoFile("Log\\EffectNormal.txt");	
+	std::ofstream infoFile("Log\\EffectNormal.txt");	
 
 	for (int type=0; type<m_EffectNormalFPK.GetSize(); type++)
 	{
@@ -5294,8 +5318,8 @@ MTopView::InitEffectFrames()
 		m_EffectAlphaFPK[9][d][9].Set(66, -21, -104, 4);
 	}
 
-	class ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
-	class ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
+	std::ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
+	std::ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
 	m_EffectAlphaFPK.SaveToFile(packAlphaFile, indexAlphaFile);
 	packAlphaFile.close();
 	indexAlphaFile.close();
@@ -5303,10 +5327,10 @@ MTopView::InitEffectFrames()
 
 	///*
 	// Load from AlphaFile
-	class ifstream AlphaFile2;//(FILE_EFRAME_ALPHAEFFECT, ios::binary);
+	std::ifstream AlphaFile2;//(FILE_EFRAME_ALPHAEFFECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_EFRAME_ALPHAEFFECT").c_str(), AlphaFile2))
 		return false;
-	//class ifstream AlphaFile2("effect.efpk", ios::binary);
+	//std::ifstream AlphaFile2("effect.efpk", ios::binary);
 	m_EffectAlphaFPK.LoadFromFile(AlphaFile2);
 	AlphaFile2.close();
 	//*/
@@ -5314,7 +5338,7 @@ MTopView::InitEffectFrames()
 	/*
 	// ¼¼ºÎ Á¤º¸ Ãâ·ÂÇÏ±â
 	//m_EffectAlphaFPK.InfoToFile("Log\\Effect.txt");
-	class ofstream infoFile("Log\\Effect.txt");	
+	std::ofstream infoFile("Log\\Effect.txt");	
 
 	for (int type=0; type<m_EffectAlphaFPK.GetSize(); type++)
 	{
@@ -5335,7 +5359,7 @@ MTopView::InitEffectFrames()
 	//---------------------------------------------------------------
 	// °¢ effectÀÇ frame¼ö Ãâ·ÂÇÏ±â
 	//---------------------------------------------------------------
-	class ofstream file("log\\EffectList.txt");
+	std::ofstream file("log\\EffectList.txt");
 	for (int e=0; e<m_EffectAlphaFPK.GetSize(); e++)
 	{
 		DIRECTION_EFFECTFRAME_ARRAY& DEA = m_EffectAlphaFPK[e];
@@ -5387,8 +5411,8 @@ MTopView::InitEffectFrames()
 		}
 	}
 
-	class ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
-	class ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
+	std::ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
+	std::ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
 	m_EffectAlphaFPK.SaveToFile(packAlphaFile, indexAlphaFile);
 	packAlphaFile.close();
 	indexAlphaFile.close();
@@ -5428,8 +5452,8 @@ MTopView::InitEffectFrames()
 		EA = newEA;
 	}
 
-	class ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
-	class ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
+	std::ofstream packAlphaFile(FILE_EFRAME_ALPHAEFFECT, ios::binary);
+	std::ofstream indexAlphaFile(FILE_EFRAMEINDEX_ALPHAEFFECT, ios::binary);
 	m_EffectAlphaFPK.SaveToFile(packAlphaFile, indexAlphaFile);
 	packAlphaFile.close();
 	indexAlphaFile.close();
@@ -5456,8 +5480,8 @@ MTopView::InitEffectFrames()
 //		}
 //		
 //
-//		class ofstream packshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAME_SHADOWEFFECT").c_str(), ios::binary);
-//		class ofstream indexshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAMEINDEX_SHADOWEFFECT").c_str(), ios::binary);
+//		std::ofstream packshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAME_SHADOWEFFECT").c_str(), ios::binary);
+//		std::ofstream indexshadowEffectFile(g_pFileDef->getProperty("FILE_EFRAMEINDEX_SHADOWEFFECT").c_str(), ios::binary);
 //		m_EffectShadowFPK.SaveToFile(packshadowEffectFile, indexshadowEffectFile);
 //		packshadowEffectFile.close();
 //		indexshadowEffectFile.close();
@@ -5465,17 +5489,17 @@ MTopView::InitEffectFrames()
 
 	///*
 	// Load from shadowEffectFile
-	class ifstream shadowEffectFile2;
+	std::ifstream shadowEffectFile2;
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_EFRAME_SHADOWEFFECT").c_str(), shadowEffectFile2))
 		return false;
 	m_EffectShadowFPK.LoadFromFile(shadowEffectFile2);
 	shadowEffectFile2.close();
 
 	// Load from ScreenFile
-	class ifstream ScreenFile2;//(FILE_EFRAME_ScreenEFFECT, ios::binary);
+	std::ifstream ScreenFile2;//(FILE_EFRAME_ScreenEFFECT, ios::binary);
 	if (!FileOpenBinary(g_pFileDef->getProperty("FILE_EFRAME_SCREENEFFECT").c_str(), ScreenFile2))
 		return false;
-	//class ifstream ScreenFile2("effect.efpk", ios::binary);
+	//std::ifstream ScreenFile2("effect.efpk", ios::binary);
 	m_EffectScreenFPK.LoadFromFile(ScreenFile2);
 	ScreenFile2.close();
 
@@ -5497,7 +5521,7 @@ MTopView::LoadMinimap(const char* filename)//, MZoneInfo* pZoneInfo)
 	//------------------------------------------------------------	
 	// Load  Clothes SpritePack	
 	//------------------------------------------------------------
-	class ifstream	MapTest1;
+	std::ifstream	MapTest1;
 	if (!FileOpenBinary(filename, MapTest1))
 		return;
 	m_pMinimapSPR->LoadFromFile( MapTest1 );
@@ -5889,14 +5913,14 @@ MTopView::UseHalfFrame(bool bUse)
 	if (bUse)
 	{
 		// ÀÌ¹Ì LoadingµÈ °Íµé Á¦°Å		
-		class ifstream file(FILE_CFRAME_CREATURE2, ios::binary);
+		std::ifstream file(FILE_CFRAME_CREATURE2, ios::binary);
 		m_CreatureFPK.LoadFromFile(file);
 		file.close();		
 	}
 	else
 	{
 		// ÀÌ¹Ì LoadingµÈ °Íµé Á¦°Å
-		class ifstream file(FILE_CFRAME_CREATURE, ios::binary);
+		std::ifstream file(FILE_CFRAME_CREATURE, ios::binary);
 		m_CreatureFPK.LoadFromFile(file);
 		file.close();
 	}
@@ -5939,8 +5963,8 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 		{
 			
 			// ÇöÀç Zone¿¡¼­ ÇÊ¿äÇÑ SpriteµéÀ» LoadÇÏ¸é µÈ´Ù.
-//			class ifstream	creatureFile;//(FILE_ISPRITE_CREATURE, ios::binary);
-//			class ifstream	creatureShadowFile;
+//			std::ifstream	creatureFile;//(FILE_ISPRITE_CREATURE, ios::binary);
+//			std::ifstream	creatureShadowFile;
 //
 //			//------------------------------------------------------------
 //			// sprite load
@@ -5990,7 +6014,7 @@ MTopView::LoadFromFileCreatureSPK(int spriteType)
 				CSpriteFilePositionArray SFPA;	
 				SFPA.Init( numID );
 
-				class ifstream CreaturePackIndexFile(FILE_ISPRITEINDEX_CREATURE, ios::binary);			
+				std::ifstream CreaturePackIndexFile(FILE_ISPRITEINDEX_CREATURE, ios::binary);			
 				
 				long fp;
 				for (int i=0; i<numID; i++)
@@ -6592,9 +6616,10 @@ MTopView::ReleaseUselessCreatureSPKExcept(const INT_ORDERED_LIST& listUse)
 	//--------------------------------------------------------	
 	m_listLoadedCreatureSprite.Release();
 	m_listLoadedMonsterSprite.Release();
-	
+
 	INT_ORDERED_LIST::DATA_LIST::const_iterator iUse = listUse.GetIterator();
 
+	int i;
 	for (i=0; i<listUse.GetSize(); i++)
 	{
 		int useSpriteType = *iUse;
@@ -6623,7 +6648,7 @@ MTopView::LoadFromFileTileAndImageObjectSet(const CSpriteSetManager &TileSSM, co
 	// Tile ÀÏºÎ Load
 	//
 	//--------------------------------------------------------
-//	class ifstream	TileSPKFile;//(FILE_SPRITE_TILE, ios::binary);	
+//	std::ifstream	TileSPKFile;//(FILE_SPRITE_TILE, ios::binary);	
 //	if (!FileOpenBinary(FILE_SPRITE_TILE, TileSPKFile))
 //		return false;
 //	bool bLoad = m_TileSPK.LoadFromFilePart(TileSPKFile, m_TileSPKI, TileSSM);
@@ -6639,7 +6664,7 @@ MTopView::LoadFromFileTileAndImageObjectSet(const CSpriteSetManager &TileSSM, co
 	// ImageObject ÀÏºÎ Load
 	//
 	//--------------------------------------------------------
-//	class ifstream	ImageObjectSPKFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
+//	std::ifstream	ImageObjectSPKFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
 //	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, ImageObjectSPKFile))
 //		return false;
 //	bLoad = m_ImageObjectSPK.LoadFromFilePart(ImageObjectSPKFile, m_ImageObjectSPKI, ImageObjectSSM);
@@ -6655,7 +6680,7 @@ MTopView::LoadFromFileTileAndImageObjectSet(const CSpriteSetManager &TileSSM, co
 // File¿¡¼­ LargeZone¿¡¼­¸¸ »ç¿ëÇÒ TileSpriteÀ» LoadÇÑ´Ù.
 //----------------------------------------------------------------------
 bool
-MTopView::LoadFromFileTileSPKLargeZone(class ifstream & file)
+MTopView::LoadFromFileTileSPKLargeZone(std::ifstream & file)
 {
 	//------------------------------------------------------------
 	// File¿¡¼­ TileSprite¿¡ ´ëÇÑ Á¤º¸¸¦ LoadÇÑ´Ù.
@@ -6722,7 +6747,7 @@ MTopView::LoadFromFileTileSPKLargeZone(class ifstream & file)
 	//  Load Tile SpriteSet
 	//------------------------------------------------------------
 	/*
-	class ifstream	TilePackFile;//(FILE_SPRITE_TILE, ios::binary);	
+	std::ifstream	TilePackFile;//(FILE_SPRITE_TILE, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_TILE, TilePackFile))
 		return false;
 	
@@ -6762,7 +6787,7 @@ MTopView::LoadFromFileTileSPKLargeZone(class ifstream & file)
 // File¿¡¼­ LargeZone¿¡¼­¸¸ »ç¿ëÇÒ ImageObjectSpriteµéÀ» LoadÇÑ´Ù.
 //----------------------------------------------------------------------
 bool
-MTopView::LoadFromFileImageObjectSPKLargeZone(class ifstream & file)
+MTopView::LoadFromFileImageObjectSPKLargeZone(std::ifstream & file)
 {
 	//------------------------------------------------------------
 	// File¿¡¼­ ImageObjectSprite¿¡ ´ëÇÑ Á¤º¸¸¦ LoadÇÑ´Ù.
@@ -6833,7 +6858,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(class ifstream & file)
 	//  Load ImageObject SpriteSet
 	//------------------------------------------------------------
 	/*
-	class ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
+	std::ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, ImageObjectPackFile))
 		return false;
 	
@@ -6873,7 +6898,7 @@ MTopView::LoadFromFileImageObjectSPKLargeZone(class ifstream & file)
 // File¿¡¼­ SmallZone¿¡¼­¸¸ »ç¿ëÇÒ TileSpriteÀ» LoadÇÑ´Ù.
 //----------------------------------------------------------------------
 bool
-MTopView::LoadFromFileTileSPKSmallZone(class ifstream & file)
+MTopView::LoadFromFileTileSPKSmallZone(std::ifstream & file)
 {
 	//------------------------------------------------------------
 	// File¿¡¼­ TileSprite¿¡ ´ëÇÑ Á¤º¸¸¦ LoadÇÑ´Ù.
@@ -6935,7 +6960,7 @@ MTopView::LoadFromFileTileSPKSmallZone(class ifstream & file)
 	//  Load Tile SpriteSet
 	//------------------------------------------------------------
 	/*
-	class ifstream	TilePackFile;//(FILE_SPRITE_TILE, ios::binary);	
+	std::ifstream	TilePackFile;//(FILE_SPRITE_TILE, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_TILE, TilePackFile))
 		return false;
 
@@ -6975,7 +7000,7 @@ MTopView::LoadFromFileTileSPKSmallZone(class ifstream & file)
 // File¿¡¼­ SmallZone¿¡¼­¸¸ »ç¿ëÇÒ ImageObjectSpriteµéÀ» LoadÇÑ´Ù.
 //----------------------------------------------------------------------
 bool
-MTopView::LoadFromFileImageObjectSPKSmallZone(class ifstream & file)
+MTopView::LoadFromFileImageObjectSPKSmallZone(std::ifstream & file)
 {
 	//------------------------------------------------------------
 	// File¿¡¼­ ImageObjectSprite¿¡ ´ëÇÑ Á¤º¸¸¦ LoadÇÑ´Ù.
@@ -7027,7 +7052,7 @@ MTopView::LoadFromFileImageObjectSPKSmallZone(class ifstream & file)
 	//  Load ImageObject SpriteSet
 	//------------------------------------------------------------
 	/*
-	class ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
+	std::ifstream	ImageObjectPackFile;//(FILE_SPRITE_IMAGEOBJECT, ios::binary);	
 	if (!FileOpenBinary(FILE_SPRITE_IMAGEOBJECT, ImageObjectPackFile))
 		return false;
 	
@@ -7431,11 +7456,12 @@ MTopView::SetFadeStart(char start, char end, char step, BYTE r, BYTE g, BYTE b, 
 {	
 	step = abs(step);
 
-	m_FadeValue	= start; 
+	m_FadeValue	= start;
 	m_FadeEnd	= end;
-	m_FadeInc	= (start<end)? step : -step; 
+	m_FadeInc	= (start<end)? step : -step;
 	m_bFade		= true;
 	m_delayFrame = delay;
+#ifdef PLATFORM_WINDOWS
 	if (CDirect3D::IsHAL())
 	{
 		// 3D °¡¼ÓÀÎ °æ¿ì¿£ 4:4:4ÀÌ´Ù.
@@ -7444,6 +7470,7 @@ MTopView::SetFadeStart(char start, char end, char step, BYTE r, BYTE g, BYTE b, 
 						| ((WORD)b>>1);
 	}
 	else
+#endif
 	{
 		m_FadeColor	= CDirectDraw::Color(r,g,b);
 	}
@@ -7523,6 +7550,7 @@ MTopView::DrawFade()
 			//-------------------------------------------------
 			if (m_FadeColor==0)
 			{
+#ifdef PLATFORM_WINDOWS
 				// 2D 5:6:5
 				if (CDirectDraw::Is565())
 				{
@@ -7533,6 +7561,7 @@ MTopView::DrawFade()
 				{
 					m_pSurface->GammaBox555(&rect, m_FadeValue);
 				}
+#endif
 			}
 			//-------------------------------------------------
 			// ¾Æ´Ï¸é...
@@ -7875,7 +7904,7 @@ MTopView::GetSelectedObject(int x, int y)
 	// Player Creature's ID
 	TYPE_OBJECTID	pid = g_pPlayer->GetID();
 
-	//class ofstream file("log.txt");
+	//std::ofstream file("log.txt");
 
 
 	// ÇöÀç checkÇÏ´Â ÁÂÇ¥
@@ -8819,7 +8848,7 @@ MTopView::GetSelectedObjectSprite(int x, int y)
 	// Player Creature's ID
 	TYPE_OBJECTID	pid = g_pPlayer->GetID();
 
-	//class ofstream file("log.txt");
+	//std::ofstream file("log.txt");
 
 
 	// ÇöÀç checkÇÏ´Â ÁÂÇ¥
@@ -10114,8 +10143,8 @@ MTopView::AddLightFilter2D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		|| bForceLight) // ¹«Á¶°Ç Ãâ·ÂÇØ¾ßÇÏ´Â ºû
 	{
 		// tile ÁÂÇ¥ º¸Á¤ 
-		 //x += g_TILE_X_HALF;
-		 //y += g_TILE_Y_HALF;
+		 //x += 24;
+		 //y += 24;
 
 		// Light FilterÀÇ ¹üÀ§¸¦ ³ÑÁö ¾Êµµ·Ï ÇÑ´Ù.
 		if (range >= m_LightFTP.GetSize())
@@ -10190,8 +10219,8 @@ MTopView::AddLightFilter3D(int x, int y, BYTE range, bool bMapPixel, bool bForce
 		|| bForceLight)	// ¹«Á¶°Ç Ãâ·ÂÇØ¾ßÇÏ´Â ºû
 	{
 		// tile ÁÂÇ¥ º¸Á¤ 
-		//x += g_TILE_X_HALF;
-		//y += g_TILE_Y_HALF;
+		//x += 24;
+		//y += 24;
 
 		// Light FilterÀÇ ¹üÀ§¸¦ ³ÑÁö ¾Êµµ·Ï ÇÑ´Ù.
 		if (range >= m_LightFTP.GetSize())
@@ -10824,6 +10853,7 @@ MTopView::DrawInformation()
 	int iColorType = 0;
 	char* pColorType=NULL;
 	char message[300];
+	int c;
 	for (c=0; c<g_pPlayerMessage->GetSize(); c++)
 	{
 		if ((*g_pPlayerMessage)[c][0] != NULL)
@@ -13341,7 +13371,7 @@ MTopView::DrawZone(int firstPointX,int firstPointY)
 	//---------------------------------------------------------------
 	// Player¸¦ °¡¸®´Â ImageObjectµéÀ» Ã³¸®ÇÒ FilterÀÇ Ãâ·Â ÁÂÇ¥
 	//---------------------------------------------------------------
-	m_FilterPosition.x = g_pPlayer->GetPixelX() - m_FirstZonePixel.x - (m_ImageObjectFilter.GetWidth()>>1) + g_TILE_X_HALF;
+	m_FilterPosition.x = g_pPlayer->GetPixelX() - m_FirstZonePixel.x - (m_ImageObjectFilter.GetWidth()>>1) + 24;
 	m_FilterPosition.y = g_pPlayer->GetPixelY() - m_FirstZonePixel.y - (m_ImageObjectFilter.GetHeight()>>1) 
 						- (g_pPlayer->IsFlyingCreature()? 3:1 )*TILE_Y;
 	//filterPoint.x = 310;	// 410 - 100;
@@ -14672,8 +14702,8 @@ if (!m_pSurface->Lock()) return;
 				// Áß½É ÁÂÇ¥ º¸Á¤
 				CSprite* pSprite = &m_EtcSPK[ frameID[clickFrame] ];
 				
-				selectedPoint.x += g_TILE_X_HALF - (pSprite->GetWidth()>>1);
-				selectedPoint.y += g_TILE_Y_HALF - (pSprite->GetHeight()>>1);
+				selectedPoint.x += 24 - (pSprite->GetWidth()>>1);
+				selectedPoint.y += 24 - (pSprite->GetHeight()>>1);
 				
 				
 				m_pSurface->BltSprite(&selectedPoint, pSprite);
@@ -15325,8 +15355,8 @@ if (!m_pSurface->Lock()) return;
 							// ¿ï··¿ï··~~
 							int size = g_CurrentFrame & 0x00000007;
 
-							int x0 = point.x + g_TILE_X_HALF;
-							int y0 = point.y + g_TILE_Y_HALF;
+							int x0 = point.x + 24;
+							int y0 = point.y + 24;
 							int size4 = size << 4;
 							int size2 = size << 3;
 							RECT rect = 
@@ -15682,8 +15712,8 @@ if (!m_pSurface->Lock()) return;
 								// ¿ï··¿ï··~~
 								int size = g_CurrentFrame & 0x00000007;
 
-								int x0 = point.x + g_TILE_X_HALF;
-								int y0 = point.y + g_TILE_Y_HALF;
+								int x0 = point.x + 24;
+								int y0 = point.y + 24;
 								int size4 = size << 4;
 								int size2 = size << 3;
 								RECT rect = 
@@ -16017,7 +16047,7 @@ if (!m_pSurface->Lock()) return;
 				//----------------------------------------------------------------
 				// playerÀÇ light ÁÂÇ¥ ¼³Á¤
 				//----------------------------------------------------------------
-				int pX = g_pPlayer->GetPixelX() - m_FirstZonePixel.x + g_TILE_X_HALF;
+				int pX = g_pPlayer->GetPixelX() - m_FirstZonePixel.x + 24;
 			int pY = g_pPlayer->GetPixelY() - m_FirstZonePixel.y - TILE_Y;
 			char sh[255]={0};
 			// add by Sonic 2006.9.30 ÐÞÕýÈËÎïÊÓÒ°½¹µã
@@ -18734,8 +18764,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 							//------------------------------------------------
 							// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 							//------------------------------------------------
-							AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-								pPoint->y + g_TILE_Y_HALF, 
+							AddLightFilter3D( pPoint->x + 24, 
+								pPoint->y + 24, 
 								Frame.GetLight(),			// ºûÀÇ ¹à±â
 								false);		// false = screenÁÂÇ¥
 							
@@ -18747,8 +18777,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 						{
 //							DRAW_ALPHASPRITEPAL(pPoint, sprite, m_EffectAlphaSPK, m_EffectAlphaPPK[fid])//, m_EffectAlphaSPKI, m_EffectAlphaSPKFile)					
 								
-								AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-								pPoint->y + g_TILE_Y_HALF, 
+								AddLightFilter2D( pPoint->x + 24, 
+								pPoint->y + 24, 
 								Frame.GetLight(),			// ºûÀÇ ¹à±â
 								false);		// false = screenÁÂÇ¥
 						}
@@ -18809,8 +18839,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 								//------------------------------------------------
 								// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 								//------------------------------------------------
-								AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
+								AddLightFilter3D( pPoint->x + 24, 
+									pPoint->y + 24, 
 									Frame.GetLight(),			// ºûÀÇ ¹à±â
 									false);		// false = screenÁÂÇ¥
 								
@@ -18828,8 +18858,8 @@ MTopView::DrawImageObject(POINT* pPoint, MImageObject* pImageObject)
 //									m_EffectScreenPPK[fid],
 //									CSpriteSurface::EFFECT_SCREEN)
 									
-									AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
+									AddLightFilter2D( pPoint->x + 24, 
+									pPoint->y + 24, 
 									Frame.GetLight(),			// ºûÀÇ ¹à±â
 									false);		// false = screenÁÂÇ¥
 							}
@@ -19366,8 +19396,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 										//------------------------------------------------
 										// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 										//------------------------------------------------
-										AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-														pPoint->y + g_TILE_Y_HALF, 
+										AddLightFilter3D( pPoint->x + 24, 
+														pPoint->y + 24, 
 														Frame.GetLight(),			// ºûÀÇ ¹à±â
 														false);		// false = screenÁÂÇ¥
 									
@@ -19384,8 +19414,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 ////															m_EffectAlphaSPKI, 
 ////															m_EffectAlphaSPKFile)
 
-										AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-													pPoint->y + g_TILE_Y_HALF, 
+										AddLightFilter2D( pPoint->x + 24, 
+													pPoint->y + 24, 
 													Frame.GetLight(),			// ºûÀÇ ¹à±â
 													false);		// false = screenÁÂÇ¥
 									}
@@ -19442,8 +19472,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 								//------------------------------------------------
 								// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 								//------------------------------------------------
-								AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-												pPoint->y + g_TILE_Y_HALF, 
+								AddLightFilter3D( pPoint->x + 24, 
+												pPoint->y + 24, 
 												Frame.GetLight(),			// ºûÀÇ ¹à±â
 												false);		// false = screenÁÂÇ¥
 							
@@ -19460,8 +19490,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //													m_EffectAlphaSPKI, 
 //													m_EffectAlphaSPKFile)
 
-								AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-											pPoint->y + g_TILE_Y_HALF, 
+								AddLightFilter2D( pPoint->x + 24, 
+											pPoint->y + 24, 
 											Frame.GetLight(),			// ºûÀÇ ¹à±â
 											false);		// false = screenÁÂÇ¥
 							}
@@ -19538,8 +19568,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 										//------------------------------------------------
 										// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 										//------------------------------------------------
-										AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-														pPoint->y + g_TILE_Y_HALF, 
+										AddLightFilter3D( pPoint->x + 24, 
+														pPoint->y + 24, 
 														Frame.GetLight(),			// ºûÀÇ ¹à±â
 														false);		// false = screenÁÂÇ¥
 									
@@ -19556,8 +19586,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 ////															m_EffectAlphaSPKI, 
 ////															m_EffectAlphaSPKFile)
 
-										AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-													pPoint->y + g_TILE_Y_HALF, 
+										AddLightFilter2D( pPoint->x + 24, 
+													pPoint->y + 24, 
 													Frame.GetLight(),			// ºûÀÇ ¹à±â
 													false);		// false = screenÁÂÇ¥
 									}
@@ -19657,8 +19687,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 								//------------------------------------------------
 								// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 								//------------------------------------------------
-								AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-												pPoint->y + g_TILE_Y_HALF, 
+								AddLightFilter3D( pPoint->x + 24, 
+												pPoint->y + 24, 
 												Frame.GetLight(),			// ºûÀÇ ¹à±â
 												false);		// false = screenÁÂÇ¥
 							
@@ -19676,8 +19706,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //													m_EffectScreenSPKFile,
 													CSpriteSurface::EFFECT_SCREEN)
 
-								AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-											pPoint->y + g_TILE_Y_HALF, 
+								AddLightFilter2D( pPoint->x + 24, 
+											pPoint->y + 24, 
 											Frame.GetLight(),			// ºûÀÇ ¹à±â
 											false);		// false = screenÁÂÇ¥
 							}
@@ -19755,8 +19785,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 										//------------------------------------------------
 										// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 										//------------------------------------------------
-										AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-														pPoint->y + g_TILE_Y_HALF, 
+										AddLightFilter3D( pPoint->x + 24, 
+														pPoint->y + 24, 
 														Frame.GetLight(),			// ºûÀÇ ¹à±â
 														false);		// false = screenÁÂÇ¥
 									
@@ -19774,8 +19804,8 @@ MTopView::DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEff
 //															m_EffectScreenSPKFile,
 															CSpriteSurface::EFFECT_SCREEN)
 
-										AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-													pPoint->y + g_TILE_Y_HALF, 
+										AddLightFilter2D( pPoint->x + 24, 
+													pPoint->y + 24, 
 													Frame.GetLight(),			// ºûÀÇ ¹à±â
 													false);		// false = screenÁÂÇ¥
 									}
@@ -20453,8 +20483,8 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 					//------------------------------------------------
 					// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 					//------------------------------------------------
-					AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
+					AddLightFilter3D( pPoint->x + 24, 
+									pPoint->y + 24, 
 									Frame.GetLight(),			// ºûÀÇ ¹à±â
 									false);	// false = screenÁÂÇ¥					
 				
@@ -20483,8 +20513,8 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					}
 
 
-					AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
+					AddLightFilter2D( pPoint->x + 24, 
+									pPoint->y + 24, 
 									Frame.GetLight(),			// ºûÀÇ ¹à±â
 									false);		// false = screenÁÂÇ¥
 				}
@@ -20567,8 +20597,8 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 					//------------------------------------------------
 					// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 					//------------------------------------------------
-					AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
+					AddLightFilter3D( pPoint->x + 24, 
+									pPoint->y + 24, 
 									Frame.GetLight(),			// ºûÀÇ ¹à±â
 									false);	// false = screenÁÂÇ¥					
 				
@@ -20603,8 +20633,8 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					}
 
 
-					AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
+					AddLightFilter2D( pPoint->x + 24, 
+									pPoint->y + 24, 
 									Frame.GetLight(),			// ºûÀÇ ¹à±â
 									false);		// false = screenÁÂÇ¥
 				}
@@ -20644,8 +20674,8 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 					//------------------------------------------------
 					// LightFilter¸¦ Ãß°¡ÇÑ´Ù.
 					//------------------------------------------------
-					AddLightFilter3D( pPoint->x + g_TILE_X_HALF, 
-									pPoint->y + g_TILE_Y_HALF, 
+					AddLightFilter3D( pPoint->x + 24, 
+									pPoint->y + 24, 
 									Frame.GetLight(),			// ºûÀÇ ¹à±â
 									false);	// false = screenÁÂÇ¥					
 				
@@ -20661,8 +20691,8 @@ MTopView::DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSelectable)
 //					{
 //						m_pSurface->BltShadowSpriteDarkness(&point, pSprite, 1 );
 //						
-						AddLightFilter2D( pPoint->x + g_TILE_X_HALF, 
-										pPoint->y + g_TILE_Y_HALF, 
+						AddLightFilter2D( pPoint->x + 24, 
+										pPoint->y + 24, 
 										Frame.GetLight(),			// ºûÀÇ ¹à±â
 										false);		// false = screenÁÂÇ¥
 //					}
@@ -20739,7 +20769,7 @@ MTopView::DrawCreatureHPModify(POINT *point, MCreature* pCreature)
 			RGB(150, 255, 150);
 		}
 		
-		g_PrintColorStrOut(point->x + g_TILE_X_HALF - g_GetStringWidth(str, gpC_base->m_chatting_pi.hfont)/2, py, str, gpC_base->m_chatting_pi, color, RGB_BLACK);
+		g_PrintColorStrOut(point->x + 24 - g_GetStringWidth(str, gpC_base->m_chatting_pi.hfont)/2, py, str, gpC_base->m_chatting_pi, color, RGB_BLACK);
 
 		py += 15;
 
@@ -22052,7 +22082,7 @@ MTopView::ExcuteAdvancementQuestEnding(void *pVoid)
 		int SpkIndex = AdvancementQuestEndingEvent->parameter4;
 		if(m_AdvacementQuestEnding.GetSize() == 0)
 		{
-			class ifstream	FinFile;
+			std::ifstream	FinFile;
 			if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_ADVANCEMENT_QUEST").c_str(), FinFile))
 				return false;
 			m_AdvacementQuestEnding.LoadFromFile(FinFile);
@@ -22239,7 +22269,7 @@ MTopView::ExcuteOustersFinEvent()
 
 		if(m_OustersFinSPK.GetSize() == 0)
 		{
-			class ifstream	FinFile;
+			std::ifstream	FinFile;
 			if (!FileOpenBinary(g_pFileDef->getProperty("FILE_SPRITE_OUSTERS_FIN").c_str(), FinFile))
 				return bDrawBackGround;
 			m_OustersFinSPK.LoadFromFile(FinFile);

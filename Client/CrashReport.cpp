@@ -268,7 +268,7 @@ LONG __stdcall RecordExceptionInfo( _EXCEPTION_POINTERS* pExp )
 	}
 
 	int version = 0;
-	class ifstream versionFile(g_pFileDef->getProperty("FILE_INFO_VERSION").c_str(), ios::binary | ios::nocreate);
+	std::ifstream versionFile(g_pFileDef->getProperty("FILE_INFO_VERSION").c_str(), ios::binary | );
 
 	if (versionFile.is_open())
 	{
@@ -364,7 +364,7 @@ LONG __stdcall RecordExceptionInfo( struct _EXCEPTION_POINTERS* pExp )
 //		FileTimeToSystemTime(&fad.ftLastWriteTime, &st);
 //
 //		int version = 0;
-//		class ifstream versionFile(g_pFileDef->getProperty("FILE_INFO_VERSION").c_str(), ios::binary | ios::nocreate);
+//		std::ifstream versionFile(g_pFileDef->getProperty("FILE_INFO_VERSION").c_str(), ios::binary | );
 //
 //		if (versionFile.is_open())
 //		{

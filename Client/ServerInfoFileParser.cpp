@@ -17,7 +17,7 @@ ServerInfoFileParser::~ServerInfoFileParser()
 
 std::string			ServerInfoFileParser::getProperty(int dimension, std::string key)
 {
-	class ifstream file( m_FileName.c_str(), ios::in );
+	std::ifstream file( m_FileName.c_str(), ios::in );
 
 	bool bStart = false;
 	int dim=0;

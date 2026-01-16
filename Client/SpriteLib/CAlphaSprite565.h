@@ -26,7 +26,7 @@ class CAlphaSprite565 : public CAlphaSprite {
 		//---------------------------------------------------------
 		bool		SaveToFile(std::ofstream& file);
 		bool		LoadFromFile(std::ifstream& file);
-		//bool	LoadFromFileToBuffer(ifstream& file);
+		//bool	LoadFromFileToBuffer(std::ifstream& file);
 };
 
 

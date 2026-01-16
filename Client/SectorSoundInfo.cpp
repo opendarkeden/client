@@ -10,7 +10,7 @@
 //
 //----------------------------------------------------------------------
 void
-SECTORSOUND_INFO::SaveToFile(class ofstream& file) const
+SECTORSOUND_INFO::SaveToFile(std::ofstream& file) const
 {
 	file.write((const char*)&ZoneSoundID, 2);
 	file.write((const char*)&X, 1);
@@ -18,7 +18,7 @@ SECTORSOUND_INFO::SaveToFile(class ofstream& file) const
 }
 
 void
-SECTORSOUND_INFO::LoadFromFile(class ifstream& file)
+SECTORSOUND_INFO::LoadFromFile(std::ifstream& file)
 {
 	file.read((char*)&ZoneSoundID, 2);
 	file.read((char*)&X, 1);

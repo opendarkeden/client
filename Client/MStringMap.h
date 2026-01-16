@@ -60,8 +60,8 @@ class MStringMap : public std::map<MString*, MString*, MStringPointerCompare> {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void				SaveToFile(ofstream& file);
-		void				LoadFromFile(ifstream& file);
+		void				SaveToFile(std::ofstream& file);
+		void				LoadFromFile(std::ifstream& file);
 
 	protected :
 		

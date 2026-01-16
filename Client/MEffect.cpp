@@ -4,7 +4,7 @@
 #include "Client_PCH.h"
 #include "MEffect.h"
 #include "MTopView.h"
-#include <fstream.h>
+#include <fstream>
 #include "DebugInfo.h"
 
 //----------------------------------------------------------------------

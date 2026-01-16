@@ -65,7 +65,7 @@ class CShadowPartManager : public CPartManager<WORD, WORD, CSpriteSurface*>
 
 	protected :
 //		bool				m_bOpen;		// SSPK File을 Open했는가?
-//		class ifstream		m_SSPKFile;		// SSPK File
+//		std::ifstream		m_SSPKFile;		// SSPK File
 //		CFileIndexTable		m_SSPKIndex;	// SSPK Index 정보
 		CShadowSpritePack	m_SSPK;			// SSPK
 

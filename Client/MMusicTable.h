@@ -31,8 +31,8 @@ class MUSICTABLE_INFO {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(ofstream& file);		
-		void			LoadFromFile(ifstream& file);		
+		void			SaveToFile(std::ofstream& file);
+		void			LoadFromFile(std::ifstream& file);
 };
 
 typedef CTypeTable<MUSICTABLE_INFO>	MUSIC_TABLE;

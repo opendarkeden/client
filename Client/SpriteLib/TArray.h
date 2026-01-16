@@ -9,8 +9,8 @@
 // Data Type��  Size Type�� Template�̴�.
 //
 // File I/O�� �Ϸ���  Data�� �Ǵ� class�� 
-//      bool		SaveToFile(ofstream& file);
-//		bool		LoadFromFile(ifstream& file);  �� �����Ǿ�� �Ѵ�.
+//      bool		SaveToFile(std::ofstream& file);
+//		bool		LoadFromFile(std::ifstream& file);  �� �����Ǿ�� �Ѵ�.
 //
 //----------------------------------------------------------------------
 

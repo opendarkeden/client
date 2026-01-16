@@ -9,8 +9,8 @@
 // Data Type과  Size Type이 Template이다.
 //
 // File I/O를 하려면  Data가 되는 class에 
-//      bool		SaveToFile(ofstream& file);
-//		bool		LoadFromFile(ifstream& file);  이 구현되어야 한다.
+//      bool		SaveToFile(std::ofstream& file);
+//		bool		LoadFromFile(std::ifstream& file);  이 구현되어야 한다.
 //
 //----------------------------------------------------------------------
 
@@ -47,8 +47,8 @@ class TArray {
 		//--------------------------------------------------------
 		// File I/O
 		//--------------------------------------------------------
-		bool		SaveToFile(ofstream& file);
-		bool		LoadFromFile(ifstream& file);
+		bool		SaveToFile(std::ofstream& file);
+		bool		LoadFromFile(std::ifstream& file);
 
 		//--------------------------------------------------------
 		// Operator overloading
@@ -195,7 +195,7 @@ TArray<DataType, SizeType>::operator += (const TArray<DataType, SizeType>& array
 //----------------------------------------------------------------------
 template <class DataType, class SizeType> 
 bool
-TArray<DataType, SizeType>::SaveToFile(ofstream& file)
+TArray<DataType, SizeType>::SaveToFile(std::ofstream& file)
 {
 	// 0이라도 개수는 저장한다.
 	file.write((const char*)&m_Size, s_SIZEOF_SizeType);
@@ -215,7 +215,7 @@ TArray<DataType, SizeType>::SaveToFile(ofstream& file)
 //----------------------------------------------------------------------
 template <class DataType, class SizeType> 
 bool
-TArray<DataType, SizeType>::LoadFromFile(ifstream& file)
+TArray<DataType, SizeType>::LoadFromFile(std::ifstream& file)
 {
 	// frame 개수
 	file.read((char*)&m_Size, s_SIZEOF_SizeType);

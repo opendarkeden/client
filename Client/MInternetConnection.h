@@ -22,10 +22,12 @@
 
 #ifdef PLATFORM_WINDOWS
 #include <Windows.h>
-#else
-#include "../../basic/Platform.h"
-#endif
 #include <WinINet.h>
+#else
+#include "../basic/Platform.h"
+// macOS: Define stub types for Windows Internet API
+typedef void* HINTERNET;
+#endif
 #include <fstream>
 
 

@@ -54,8 +54,8 @@ class NPC_INFO {
 		//-----------------------------------------------------
 		// File I/O
 		//-----------------------------------------------------
-		void		SaveToFile(ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 };
 
 //----------------------------------------------------------------------
@@ -87,8 +87,8 @@ class	SERVERNPC_INFO {
 		//-----------------------------------------------------
 		// File I/O
 		//-----------------------------------------------------
-		void		SaveToFile(ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 };
 
 

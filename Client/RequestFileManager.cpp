@@ -244,7 +244,7 @@ SendFileInfo::StartSend()
 {
 	m_Mode = REQUEST_FILE_MODE_SEND;
 
-	m_FileStream.open( m_Filename.c_str(), ios::in | ios::binary);// | ios::nocreate );
+	m_FileStream.open( m_Filename.c_str(), ios::in | ios::binary);// |  );
 
 	if (m_FileStream.is_open())
 	{

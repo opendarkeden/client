@@ -277,8 +277,8 @@ class ACTION_INFO_NODE {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(ofstream& file);
-		void			LoadFromFile(ifstream& file);
+		void			SaveToFile(std::ofstream& file);
+		void			LoadFromFile(std::ifstream& file);
 };
 
 
@@ -519,8 +519,8 @@ class MActionInfo : public CTypeTable<ACTION_INFO_NODE> {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void		SaveToFile(ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 
 		//-------------------------------------------------------
 		// Grade 
@@ -655,8 +655,8 @@ class MActionInfoTable : public CTypeTable<MActionInfo> {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void		SaveToFile(ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 
 	protected :
 		// ActionInfo / ResultActionInfo / ClientOnlyActionInfo의 경계값

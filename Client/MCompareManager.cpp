@@ -47,30 +47,30 @@ MCompareManager::~MCompareManager()
 //-----------------------------------------------------------------------------
 void
 MCompareManager::Init()
-{	
-	m_CompareFunction[HC_RANDOM]						= Execute_HC_RANDOM;
+{
+	m_CompareFunction[HC_RANDOM]						= &MCompareManager::Execute_HC_RANDOM;
 
-	m_CompareFunction[HC_PLAYER_IN_SHOP]				= Execute_HC_PLAYER_IN_SHOP;
-	m_CompareFunction[HC_PLAYER_IN_REPAIR]				= Execute_HC_PLAYER_IN_REPAIR;
-	m_CompareFunction[HC_PLAYER_IN_STORAGE]				= Execute_HC_PLAYER_IN_STORAGE;
-	m_CompareFunction[HC_PLAYER_IN_TRADE]				= Execute_HC_PLAYER_IN_TRADE;
-	m_CompareFunction[HC_PLAYER_IN_NORMAL_GAME_MODE]	= Execute_HC_PLAYER_IN_NORMAL_GAME_MODE;
-	m_CompareFunction[HC_PLAYER_IS_SLAYER]				= Execute_HC_PLAYER_IS_SLAYER;
-	m_CompareFunction[HC_PLAYER_IS_VAMPIRE]				= Execute_HC_PLAYER_IS_VAMPIRE;
+	m_CompareFunction[HC_PLAYER_IN_SHOP]				= &MCompareManager::Execute_HC_PLAYER_IN_SHOP;
+	m_CompareFunction[HC_PLAYER_IN_REPAIR]				= &MCompareManager::Execute_HC_PLAYER_IN_REPAIR;
+	m_CompareFunction[HC_PLAYER_IN_STORAGE]				= &MCompareManager::Execute_HC_PLAYER_IN_STORAGE;
+	m_CompareFunction[HC_PLAYER_IN_TRADE]				= &MCompareManager::Execute_HC_PLAYER_IN_TRADE;
+	m_CompareFunction[HC_PLAYER_IN_NORMAL_GAME_MODE]	= &MCompareManager::Execute_HC_PLAYER_IN_NORMAL_GAME_MODE;
+	m_CompareFunction[HC_PLAYER_IS_SLAYER]				= &MCompareManager::Execute_HC_PLAYER_IS_SLAYER;
+	m_CompareFunction[HC_PLAYER_IS_VAMPIRE]				= &MCompareManager::Execute_HC_PLAYER_IS_VAMPIRE;
 
-	m_CompareFunction[HC_NO_SKILL_SELECTED]				= Execute_HC_NO_SKILL_SELECTED;
-	m_CompareFunction[HC_NO_SKILL_FUNCTION_KEY_DEFINED] = Execute_HC_NO_SKILL_FUNCTION_KEY_DEFINED;
+	m_CompareFunction[HC_NO_SKILL_SELECTED]				= &MCompareManager::Execute_HC_NO_SKILL_SELECTED;
+	m_CompareFunction[HC_NO_SKILL_FUNCTION_KEY_DEFINED] = &MCompareManager::Execute_HC_NO_SKILL_FUNCTION_KEY_DEFINED;
 
-	m_CompareFunction[HC_HAS_HEAL_POTION_IN_BELT]		= Execute_HC_HAS_HEAL_POTION_IN_BELT;
-	m_CompareFunction[HC_HAS_HEAL_POTION_IN_INVENTORY]	= Execute_HC_HAS_HEAL_POTION_IN_INVENTORY;
-	m_CompareFunction[HC_HAS_MANA_POTION_IN_BELT]		= Execute_HC_HAS_MANA_POTION_IN_BELT;
-	m_CompareFunction[HC_HAS_MANA_POTION_IN_INVENTORY]	= Execute_HC_HAS_MANA_POTION_IN_INVENTORY;
-	m_CompareFunction[HC_RECEIVE_FIRST_BONUS_POINT]		= Execute_HC_RECEIVE_FIRST_BONUS_POINT;
-	m_CompareFunction[HC_DIDNOT_WHISPER_YET]			= Execute_HC_DIDNOT_WHISPER_YET;
-	m_CompareFunction[HC_ITEM_PICKED_UP]				= Execute_HC_ITEM_PICKED_UP;
-	m_CompareFunction[HC_USED_ALT_FOR_ITEM]				= Execute_HC_USED_ALT_FOR_ITEM;
-	m_CompareFunction[HC_USED_FUNCTION_KEY_FOR_QUICKITEM] = Execute_HC_USED_FUNCTION_KEY_FOR_QUICKITEM;
-	m_CompareFunction[HC_EMPTY_BULLET]					= Execute_HC_EMPTY_BULLET;
+	m_CompareFunction[HC_HAS_HEAL_POTION_IN_BELT]		= &MCompareManager::Execute_HC_HAS_HEAL_POTION_IN_BELT;
+	m_CompareFunction[HC_HAS_HEAL_POTION_IN_INVENTORY]	= &MCompareManager::Execute_HC_HAS_HEAL_POTION_IN_INVENTORY;
+	m_CompareFunction[HC_HAS_MANA_POTION_IN_BELT]		= &MCompareManager::Execute_HC_HAS_MANA_POTION_IN_BELT;
+	m_CompareFunction[HC_HAS_MANA_POTION_IN_INVENTORY]	= &MCompareManager::Execute_HC_HAS_MANA_POTION_IN_INVENTORY;
+	m_CompareFunction[HC_RECEIVE_FIRST_BONUS_POINT]		= &MCompareManager::Execute_HC_RECEIVE_FIRST_BONUS_POINT;
+	m_CompareFunction[HC_DIDNOT_WHISPER_YET]			= &MCompareManager::Execute_HC_DIDNOT_WHISPER_YET;
+	m_CompareFunction[HC_ITEM_PICKED_UP]				= &MCompareManager::Execute_HC_ITEM_PICKED_UP;
+	m_CompareFunction[HC_USED_ALT_FOR_ITEM]				= &MCompareManager::Execute_HC_USED_ALT_FOR_ITEM;
+	m_CompareFunction[HC_USED_FUNCTION_KEY_FOR_QUICKITEM] = &MCompareManager::Execute_HC_USED_FUNCTION_KEY_FOR_QUICKITEM;
+	m_CompareFunction[HC_EMPTY_BULLET]					= &MCompareManager::Execute_HC_EMPTY_BULLET;
 }
 
 //-----------------------------------------------------------------------------

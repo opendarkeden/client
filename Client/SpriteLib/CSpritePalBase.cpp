@@ -46,7 +46,7 @@ void CSpritePalBase::SetEmptySprite()
 	m_bInit = true;
 }
 
-bool CSpritePalBase::LoadFromFile(class ifstream &file)
+bool CSpritePalBase::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
@@ -85,7 +85,7 @@ bool CSpritePalBase::LoadFromFile(class ifstream &file)
 	return true;
 }
 
-bool CSpritePalBase::SaveToFile(class ofstream &file)
+bool CSpritePalBase::SaveToFile(std::ofstream &file)
 {
 	if(IsNotInit())
 	{

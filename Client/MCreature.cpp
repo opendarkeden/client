@@ -670,12 +670,13 @@ MCreature::MCreature()
 	//-------------------------------------------------------
 	// Chatting String
 	//-------------------------------------------------------
+	int i;
 	m_ChatString = new char* [g_pClientConfig->MAX_CHATSTRING];
-	for (int i=0; i<g_pClientConfig->MAX_CHATSTRING; i++)
+	for (i=0; i<g_pClientConfig->MAX_CHATSTRING; i++)
 	{
 		m_ChatString[i] = new char [g_pClientConfig->MAX_CHATSTRINGLENGTH_PLUS1];
 	}
-	
+
 	m_ChatStringCurrent = 0;
 	for (i=0; i<g_pClientConfig->MAX_CHATSTRING; i++)
 	{
@@ -5197,7 +5198,7 @@ MCreature::FadeChatString()
 
 	BYTE b = (m_OriChatColor & 0xFF000000) >> 24;
 
-	BYTE color[3] ={ m_OriChatColor & 0xFF, (m_OriChatColor & 0xFF00)>>8, (m_OriChatColor & 0xFF0000)>>16};
+	BYTE color[3] ={ static_cast<BYTE>(m_OriChatColor & 0xFF), static_cast<BYTE>((m_OriChatColor & 0xFF00)>>8), static_cast<BYTE>((m_OriChatColor & 0xFF0000)>>16) };
 
 
 	if (b>=g_pClientConfig->MIN_CHATSTRING_COLOR256)

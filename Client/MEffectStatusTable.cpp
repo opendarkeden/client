@@ -38,7 +38,7 @@ EFFECTSTATUS_NODE::EFFECTSTATUS_NODE()
 // Save To File
 //----------------------------------------------------------------------
 void			
-EFFECTSTATUS_NODE::SaveToFile(class ofstream& file)
+EFFECTSTATUS_NODE::SaveToFile(std::ofstream& file)
 {
 	file.write((const char*)&bUseEffectSprite, 1);
 	file.write((const char*)&bAttachGround, 1);
@@ -58,7 +58,7 @@ EFFECTSTATUS_NODE::SaveToFile(class ofstream& file)
 // Load From File
 //----------------------------------------------------------------------
 void			
-EFFECTSTATUS_NODE::LoadFromFile(class ifstream& file)
+EFFECTSTATUS_NODE::LoadFromFile(std::ifstream& file)
 {
 	file.read((char*)&bUseEffectSprite, 1);
 	file.read((char*)&bAttachGround, 1);

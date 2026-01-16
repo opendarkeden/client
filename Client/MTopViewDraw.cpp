@@ -14,7 +14,7 @@
 #include <math.h>
 #include <list>
 #include <stdio.h>
-#include <fstream.h>
+#include <fstream>
 #include "MZone.h"
 #include "MCreature.h"
 #include "MFakeCreature.h"
@@ -334,7 +334,7 @@ int GetAdvancementSlayerAttackActionFromItemClass( ITEM_CLASS itemClass, MCreatu
 //add by viva
 int ConvNewSlayerActionFromSlayerAction(int CurAction, MCreatureWear* pCreatureWear)
 {
-	Assert(pCreatureWear!=NULL);
+	assert(pCreatureWear!=NULL);
 	int Action=CurAction;
 	if(CurAction==ACTION_STAND)
 	{
@@ -410,7 +410,7 @@ int ConvNewSlayerActionFromSlayerAction(int CurAction, MCreatureWear* pCreatureW
 }
 int ConvAdvancementSlayerActionFromSlayerAction( int CurAction, MCreatureWear* pCreatureWear )
 {
-	Assert( pCreatureWear != NULL );
+	assert( pCreatureWear != NULL );
 
 	if( ADVANCEMENT_ACTION_START <= CurAction )
 		return CurAction;
@@ -1361,31 +1361,33 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 				DEBUG_ADD("partySight");
 			#endif
 
-			int pX = pCreature->GetPixelX() - m_FirstZonePixel.x + g_TILE_X_HALF;
+			int pX = pCreature->GetPixelX() - m_FirstZonePixel.x + 24;
 			int pY = pCreature->GetPixelY() - m_FirstZonePixel.y - TILE_Y;
 
 			//int addLight = (pCreature->GetCreatureType()==CREATURETYPE_BAT ? 3 : 0);
 	//		int addLight = (pCreature->IsFlyingCreature() ? 3 : 0);
 			// player만큼의 시야라고 생각한다. - -;
 			int creatureLight = g_pPlayer->GetLightSight();// + addLight);
-			
+
+#ifdef PLATFORM_WINDOWS
 			if (CDirect3D::IsHAL())
 			{
-				AddLightFilter3D( pX, 
-									pY - (pCreature->IsFlyingCreature()? 72:0 ),	//g_pPlayer->GetZ(), 
-									creatureLight, 
-									false,	// screenPixel좌표			
-									true);	// 무조건 출력해야하는 빛	
+				AddLightFilter3D( pX,
+									pY - (pCreature->IsFlyingCreature()? 72:0 ),	//g_pPlayer->GetZ(),
+									creatureLight,
+									false,	// screenPixel좌표
+									true);	// 무조건 출력해야하는 빛
 
 				// 오토바이 불빛
 				ADD_MOTORCYCLE_LIGHT_XY_3D( pCreature, pX, pY, true );
 			}
 			else
+#endif
 			{
-				AddLightFilter2D( pX, 
-									pY - pCreature->GetZ(), 
-									creatureLight,  
-									false,	// screenPixel좌표			
+				AddLightFilter2D( pX,
+									pY - pCreature->GetZ(),
+									creatureLight,
+									false,	// screenPixel좌표
 									true);	// 무조건 출력해야하는 빛
 
 				// 오토바이 불빛
@@ -1402,11 +1404,13 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 			#endif
 
 			// 오토바이 불빛
+#ifdef PLATFORM_WINDOWS
 			if (CDirect3D::IsHAL())
-			{		
+			{
 				ADD_MOTORCYCLE_LIGHT_3D( pCreature, false );
 			}
 			else
+#endif
 			{
 				ADD_MOTORCYCLE_LIGHT_2D( pCreature, false );
 			}
@@ -1415,7 +1419,7 @@ MTopView::DrawCreature(POINT* pPoint, MCreature* pCreature)
 		if(gpC_item != NULL && pCreature != NULL && pCreature->GetHeadSkin() != 0)
 		{
 			int spriteID = pCreature->GetHeadSkin();
-			int pX = pCreature->GetPixelX() - m_FirstZonePixel.x + g_TILE_X_HALF-gpC_item->GetWidth(spriteID)/2;
+			int pX = pCreature->GetPixelX() - m_FirstZonePixel.x + 24-gpC_item->GetWidth(spriteID)/2;
 			int pY = pCreature->GetPixelY() - m_FirstZonePixel.y - TILE_Y -18-gpC_item->GetHeight(spriteID);
 			CIndexSprite::SetUsingColorSet(377, 0);
 			gpC_item->BltLocked(pX, pY, spriteID);
@@ -1744,10 +1748,14 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 			int previousClipBottom;
 			if (bCutHeight)
 			{
+#ifdef PLATFORM_WINDOWS
 				previousClipBottom = m_pSurface->GetClipBottom();
-				m_pSurface->SetClipBottom( rect.bottom - g_TILE_Y_HALF );
+				m_pSurface->SetClipBottom( rect.bottom - 24 );
+#else
+				previousClipBottom = rect.bottom; // Stub for macOS
+#endif
 				
-				pointTemp.y += pCreature->GetCutHeightCount() - g_TILE_Y_HALF;
+				pointTemp.y += pCreature->GetCutHeightCount() - 24;
 			}
 			
 			//-----------------------------------------------------------
@@ -1831,8 +1839,8 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 					}
 					else if (wipeValue==64)
 					{
-						CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_SIMPLE_OUTLINE );
-						CIndexSprite::SetEffect( CIndexSprite::EFFECT_SIMPLE_OUTLINE );
+						CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_WIPE_OUT );
+						CIndexSprite::SetEffect( CIndexSprite::EFFECT_WIPE_OUT );
 						
 						m_pSurface->BltIndexSpriteEffect(&pointTemp, pSprite);
 					}
@@ -2040,7 +2048,9 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 
 			if (bCutHeight)
 			{
+#ifdef PLATFORM_WINDOWS
 				m_pSurface->SetClipBottom( previousClipBottom );
+#endif
 			}
 
 			// 2004, 10, 28, sobeit add start  - 몬스터 킬 퀘스트 해당 몬스터에 표시.
@@ -2071,7 +2081,7 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 			if (pSprite!=NULL)
 			{
 				// tile의 중심에서 세운다.
-				pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSprite->GetWidth()>>1);
+				pointTemp.x = pPoint->x + 24 - (pSprite->GetWidth()>>1);
 				pointTemp.y = pPoint->y + TILE_Y - pSprite->GetHeight();
 				
 				//---------------------------------------- 
@@ -2090,7 +2100,7 @@ void	MTopView::DrawVampireCharacter( POINT* pPoint, MCreature* pCreature, int ac
 				}
 				else if (casketValue==64)
 				{
-					CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_SIMPLE_OUTLINE );
+					CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_WIPE_OUT );
 					
 					m_pSurface->BltSpriteEffect(&pointTemp, pSprite);
 				}
@@ -2997,10 +3007,14 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 			int previousClipBottom;
 			if (bCutHeight)
 			{
+#ifdef PLATFORM_WINDOWS
 				previousClipBottom = m_pSurface->GetClipBottom();
-				m_pSurface->SetClipBottom( rect.bottom - g_TILE_Y_HALF );
+				m_pSurface->SetClipBottom( rect.bottom - 24 );
+#else
+					previousClipBottom = rect.bottom; // Stub for macOS
+#endif
 				
-				pointTemp.y += pCreature->GetCutHeightCount() - g_TILE_Y_HALF;
+				pointTemp.y += pCreature->GetCutHeightCount() - 24;
 			}
 			
 			//-----------------------------------------------------------
@@ -3082,8 +3096,8 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 					}
 					else if (wipeValue==64)
 					{
-						CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_SIMPLE_OUTLINE );
-						CIndexSprite::SetEffect( CIndexSprite::EFFECT_SIMPLE_OUTLINE );
+						CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_WIPE_OUT );
+						CIndexSprite::SetEffect( CIndexSprite::EFFECT_WIPE_OUT );
 						
 						m_pSurface->BltIndexSpriteEffect(&pointTemp, pSprite);
 					}
@@ -3271,7 +3285,9 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 
 			if (bCutHeight)
 			{
+#ifdef PLATFORM_WINDOWS
 				m_pSurface->SetClipBottom( previousClipBottom );
+#endif
 			}
 
 			// 2004, 10, 28, sobeit add start  - 몬스터 킬 퀘스트 해당 몬스터에 표시.
@@ -3322,10 +3338,14 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 				int previousClipBottom;
 				if (bCutHeight)
 				{
+#ifdef PLATFORM_WINDOWS
 					previousClipBottom = m_pSurface->GetClipBottom();
-					m_pSurface->SetClipBottom( rect.bottom - g_TILE_Y_HALF );
-					
-					pointTemp.y += pCreature->GetCutHeightCount() - g_TILE_Y_HALF;
+					m_pSurface->SetClipBottom( rect.bottom - 24 );
+#else
+					previousClipBottom = rect.bottom; // Stub for macOS
+#endif
+
+					pointTemp.y += pCreature->GetCutHeightCount() - 24;
 				}
 				
 				//-----------------------------------------------------------
@@ -3382,8 +3402,8 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 						}
 						else if (wipeValue==64)
 						{
-							CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_SIMPLE_OUTLINE );
-							CIndexSprite::SetEffect( CIndexSprite::EFFECT_SIMPLE_OUTLINE );
+							CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_WIPE_OUT );
+							CIndexSprite::SetEffect( CIndexSprite::EFFECT_WIPE_OUT );
 							
 							m_pSurface->BltIndexSpriteEffect(&pointTemp, pSprite);
 						}
@@ -3561,7 +3581,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 			if (pSprite!=NULL)
 			{
 				// tile의 중심에서 세운다.
-				pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSprite->GetWidth()>>1);
+				pointTemp.x = pPoint->x + 24 - (pSprite->GetWidth()>>1);
 				pointTemp.y = pPoint->y + TILE_Y - pSprite->GetHeight();
 				
 				//---------------------------------------- 
@@ -3580,7 +3600,7 @@ void	MTopView::DrawAdvancementClassVampireCharacter( POINT* pPoint, MCreature* p
 				}
 				else if (casketValue==64)
 				{
-					CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_SIMPLE_OUTLINE );
+					CSpriteSurface::SetEffect( CSpriteSurface::EFFECT_WIPE_OUT );
 					
 					m_pSurface->BltSpriteEffect(&pointTemp, pSprite);
 				}
@@ -3747,7 +3767,7 @@ MTopView::DrawSelectedVampireCreature( POINT* pPoint, MCreature* pCreature, int 
 			if (pSprite!=NULL)
 			{
 				// tile의 중심에서 세운다.
-				pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSprite->GetWidth()>>1);
+				pointTemp.x = pPoint->x + 24 - (pSprite->GetWidth()>>1);
 				pointTemp.y = pPoint->y + TILE_Y - pSprite->GetHeight();
 				
 				//---------------------------------------- 
@@ -3960,7 +3980,7 @@ void	MTopView::DrawSelectedAdvancementVampireCreature( POINT* pPoint, MCreature*
 			if (pSprite!=NULL)
 			{
 				// tile의 중심에서 세운다.
-				pointTemp.x = pPoint->x + g_TILE_X_HALF - (pSprite->GetWidth()>>1);
+				pointTemp.x = pPoint->x + 24 - (pSprite->GetWidth()>>1);
 				pointTemp.y = pPoint->y + TILE_Y - pSprite->GetHeight();
 				
 				//---------------------------------------- 

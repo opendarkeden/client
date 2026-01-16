@@ -42,8 +42,8 @@ class GUILD_INFO {
 		//----------------------------------------------------------
 		// File I/O
 		//----------------------------------------------------------
-		void	SaveToFile(ofstream& file);
-		void	LoadFromFile(ifstream& file);
+		void	SaveToFile(std::ofstream& file);
+		void	LoadFromFile(std::ifstream& file);
 
 	protected :
 		TYPE_SPRITEID	m_SpriteID;
@@ -79,8 +79,8 @@ class MGuildInfoMapper : public std::map<WORD, GUILD_INFO*> {
 		//----------------------------------------------------------
 		// File I/O
 		//----------------------------------------------------------
-		void	SaveToFile(ofstream& file);
-		void	LoadFromFile(ifstream& file);
+		void	SaveToFile(std::ofstream& file);
+		void	LoadFromFile(std::ifstream& file);
 //		void	SaveInfoToFile(const char* pFilename);
 		//void	ChangeValueToFile(const char* pFilename, WORD guildID) const;
 

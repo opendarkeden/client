@@ -67,7 +67,7 @@ CSpriteTexturePartManager::Init(const char* spkFilename, WORD partSize)
 
 	///*
 	// Index File을 Load한다.
-//	class ifstream indexFile(indexFilename, ios::binary);
+//	std::ifstream indexFile(indexFilename, ios::binary);
 //	m_SPKIndex.LoadFromFile( indexFile );
 //	indexFile.close();
 //

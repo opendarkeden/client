@@ -50,9 +50,9 @@ class PackFileInfo {
 		//-------------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------------
-		virtual void		SaveToFile(ofstream& file);
-		virtual void		LoadFromFile(ifstream& file);
-		virtual bool		SaveToFileData(ofstream& file);
+		virtual void		SaveToFile(std::ofstream& file);
+		virtual void		LoadFromFile(std::ifstream& file);
+		virtual bool		SaveToFileData(std::ofstream& file);
 
 	protected :
 		DWORD				m_ID;			// ID
@@ -483,7 +483,7 @@ PackFileManager<FileInfoType>::GetInputFileStream(DWORD id, ifstream& file) cons
 {
 	if (m_DataFilename.c_str()==NULL)
 	{
-		return;
+		return false;
 	}
 
 	typename FILEINFO_ID_MAP::iterator iInfo = m_IDInfos.find( id );

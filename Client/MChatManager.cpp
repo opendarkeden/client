@@ -89,7 +89,7 @@ MChatManager::LoadFromFile(const char* filename)
 void				
 MChatManager::LoadFromFileCurse(const char* filename)
 {
-	std::ifstream file(filename, );
+	std::ifstream file(filename);
 
 	if (!file.is_open())
 	{
@@ -582,7 +582,8 @@ MChatManager::RemoveCurseKorean(const char* strKor,
 		//---------------------------------------------------------
 		// 선택한 단어가 욕map에 있는지 찾아본다.
 		//---------------------------------------------------------
-		MStringMap::const_iterator iString = mapCurse.find( &MString(strCheckPtr) );
+		MString tempStr(strCheckPtr);
+		MStringMap::const_iterator iString = mapCurse.find( &tempStr );
 
 		//---------------------------------------------------------
 		// 욕인 경우 (정말 욕일까? - -;)

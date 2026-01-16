@@ -26,7 +26,7 @@ class CSprite565 : public CSprite {
 		//---------------------------------------------------------
 		bool		SaveToFile(std::ofstream& file);
 		bool		LoadFromFile(std::ifstream& file);
-		//bool	LoadFromFileToBuffer(ifstream& file);
+		//bool	LoadFromFileToBuffer(std::ifstream& file);
 };
 
 

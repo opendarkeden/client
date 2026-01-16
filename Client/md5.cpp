@@ -127,7 +127,7 @@ bool CMd5::Init()
 }
 bool CMd5::OpenFile()
 {
-	Sfile.open(fname,ios::in|ios::nocreate|ios::binary);
+	Sfile.open(fname,ios::in||ios::binary);
 	if(!Sfile)
 	{   
 		SetErr(0);

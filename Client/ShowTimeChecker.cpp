@@ -120,7 +120,7 @@ ShowTimeChecker::SetNextShowTime()
 // Save To File
 //-----------------------------------------------------------------------------
 void					
-ShowTimeChecker::SaveToFile(class ofstream& file)
+ShowTimeChecker::SaveToFile(std::ofstream& file)
 {
 	file.write((const char*)&Loop, 1);
 
@@ -137,7 +137,7 @@ ShowTimeChecker::SaveToFile(class ofstream& file)
 // Load From File
 //-----------------------------------------------------------------------------
 void					
-ShowTimeChecker::LoadFromFile(class ifstream& file)
+ShowTimeChecker::LoadFromFile(std::ifstream& file)
 {
 	file.read((char*)&Loop, 1);
 

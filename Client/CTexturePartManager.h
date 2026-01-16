@@ -13,7 +13,7 @@
 #include "CSpriteSurface.h"
 #include <list>
 #include <map>
-//class ifstream;
+//std::ifstream;
 //class CFileIndexTable;
 //class CAlphaSpritePack;
 #include "CAlphaSpritePal.h"
@@ -60,7 +60,7 @@ class CTexturePartManager : public CPartManager<WORD, WORD, CSpriteSurface*>
 
 	protected :
 //		bool				m_bOpen;		// ASPK File을 Open했는가?
-//		class ifstream		m_ASPKFile;		// ASPK File
+//		std::ifstream		m_ASPKFile;		// ASPK File
 //		CFileIndexTable		m_ASPKIndex;	// ASPK Index 정보
 		CAlphaSpritePalPack	m_ASPK;			// ASPK
 

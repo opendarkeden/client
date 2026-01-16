@@ -46,7 +46,7 @@ void MPalette::operator = (const MPalette& pal)
 
 
 // file save는 565를 기준으로 한다.
-bool MPalette555::LoadFromFile(class ifstream &file)
+bool MPalette555::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
@@ -64,7 +64,7 @@ bool MPalette555::LoadFromFile(class ifstream &file)
 }
 
 // file save는 565를 기준으로 한다.
-bool MPalette555::SaveToFile(class ofstream &file)
+bool MPalette555::SaveToFile(std::ofstream &file)
 {
 	file.write((const char *)&m_Size, 1);
 	
@@ -80,7 +80,7 @@ bool MPalette555::SaveToFile(class ofstream &file)
 	return true;
 }
 
-bool MPalette565::LoadFromFile(class ifstream &file)
+bool MPalette565::LoadFromFile(std::ifstream &file)
 {
 	Release();
 	
@@ -96,7 +96,7 @@ bool MPalette565::LoadFromFile(class ifstream &file)
 	return true;
 }
 
-bool MPalette565::SaveToFile(class ofstream &file)
+bool MPalette565::SaveToFile(std::ofstream &file)
 {
 	file.write((const char *)&m_Size, 1);
 	

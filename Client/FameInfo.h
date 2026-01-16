@@ -15,8 +15,8 @@ public :
 	FameInfo();
 	~FameInfo();
 	
-	void	LoadFromFile(ifstream& file);
-	void	SaveToFile(ofstream& file);
+	void	LoadFromFile(std::ifstream& file);
+	void	SaveToFile(std::ofstream& file);
 	DWORD	GetFame( SKILLDOMAIN type );
 
 private :	

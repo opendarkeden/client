@@ -46,8 +46,8 @@ class MSectorInfo {
 		//                  File I/O
 		//
 		//------------------------------------------------
-		void	SaveToFile(ofstream& file);
-		void	LoadFromFile(ifstream& file);
+		void	SaveToFile(std::ofstream& file);
+		void	LoadFromFile(std::ifstream& file);
 
 		//------------------------------------------------
 		// Safety

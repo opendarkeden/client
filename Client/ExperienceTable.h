@@ -51,16 +51,16 @@ class ExperienceTable {
 		//----------------------------------------------------------------
 		// Load From File
 		//----------------------------------------------------------------
-		void				LoadFromFileSTR(ifstream& file);
-		void				LoadFromFileDEX(ifstream& file);
-		void				LoadFromFileINT(ifstream& file);
-		void				LoadFromFileVampire(ifstream& file);
-		void				LoadFromFileOusters(ifstream& file);
-		void				LoadFromFileSlayerRank(ifstream& file);
-		void				LoadFromFileVampireRank(ifstream& file);
-		void				LoadFromFileOustersRank(ifstream& file);
-		void				LoadFromFilePetExp(ifstream& file);
-		void				LoadFromFileAdvanceMent(ifstream& file);
+		void				LoadFromFileSTR(std::ifstream& file);
+		void				LoadFromFileDEX(std::ifstream& file);
+		void				LoadFromFileINT(std::ifstream& file);
+		void				LoadFromFileVampire(std::ifstream& file);
+		void				LoadFromFileOusters(std::ifstream& file);
+		void				LoadFromFileSlayerRank(std::ifstream& file);
+		void				LoadFromFileVampireRank(std::ifstream& file);
+		void				LoadFromFileOustersRank(std::ifstream& file);
+		void				LoadFromFilePetExp(std::ifstream& file);
+		void				LoadFromFileAdvanceMent(std::ifstream& file);
 
 	public :
 		ExpTable			m_STRExp;

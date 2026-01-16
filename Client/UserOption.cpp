@@ -93,7 +93,7 @@ UserOption::~UserOption()
 void	
 UserOption::SaveToFile(const char* filename)
 {
-	// class ofstream file(filename, ios::binary);	
+	// std::ofstream file(filename, ios::binary);	
 	FILE* file = fopen(filename, "w");
 
 	DWORD flag = 0;

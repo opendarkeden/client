@@ -12,7 +12,7 @@
 #include "MSector.h"
 #include "MTopView.h"
 #include "EffectSpriteTypeDef.h"
-#include <fstream.h>
+#include <fstream>
 
 //----------------------------------------------------------------------
 //
@@ -306,11 +306,12 @@ MSector::AddUndergroundCreature(const MCreature* pUndergroundCreature)
 	{
 		BYTE previousPos = POSITION_UNDERGROUNDCREATURE-1;
 
-		// 다~ 검색해서 빈 곳을 찾아서 추가해야 한다. 
+		// 다~ 검색해서 빈 곳을 찾아서 추가해야 한다.
 		OBJECT_MAP::const_iterator iCreature = GetUndergroundCreatureIterator();
 		BYTE currentPos;
-		
-		for (int i=0; i<beforeSize; i++)
+		int i;
+
+		for (i=0; i<beforeSize; i++)
 		{
 			currentPos = iCreature->first;
 
@@ -398,11 +399,12 @@ MSector::AddGroundCreature(const MCreature* pCreature)
 	{
 		BYTE previousPos = POSITION_GROUNDCREATURE-1;
 
-		// 다~ 검색해서 빈 곳을 찾아서 추가해야 한다. 
+		// 다~ 검색해서 빈 곳을 찾아서 추가해야 한다.
 		OBJECT_MAP::const_iterator iCreature = GetGroundCreatureIterator();
 		BYTE currentPos;
-		
-		for (int i=0; i<beforeSize; i++)
+		int i;
+
+		for (i=0; i<beforeSize; i++)
 		{
 			currentPos = iCreature->first;
 
@@ -469,11 +471,12 @@ MSector::AddFlyingCreature(const MCreature* pFlyingCreature)
 	{
 		BYTE previousPos = POSITION_FLYINGCREATURE-1;
 
-		// 다~ 검색해서 빈 곳을 찾아서 추가해야 한다. 
+		// 다~ 검색해서 빈 곳을 찾아서 추가해야 한다.
 		OBJECT_MAP::const_iterator iCreature = GetFlyingCreatureIterator();
 		BYTE currentPos;
-		
-		for (int i=0; i<beforeSize; i++)
+		int i;
+
+		for (i=0; i<beforeSize; i++)
 		{
 			currentPos = iCreature->first;
 
@@ -1780,7 +1783,7 @@ MSector::GetImageObjectIterator() const
 		return m_mapObject.find(POSITION_IMAGEOBJECT);
 	}
 
-	return NULL;
+	return m_mapObject.end();
 }
 
 

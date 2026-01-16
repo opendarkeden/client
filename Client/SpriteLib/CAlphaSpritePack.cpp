@@ -247,7 +247,7 @@ CAlphaSpritePack::LoadFromFilePart(ifstream& file, long filePosition,
 // indexFile을 이용해서 spkFile에서 spriteID번째 sprite를 읽어온다.
 //----------------------------------------------------------------------
 bool
-CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, class ifstream& spkFile, class ifstream& indexFile)
+CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, std::ifstream& spkFile, std::ifstream& indexFile)
 {
 	if (spriteID < 0 || spriteID >= m_nSprites)
 	{
@@ -295,14 +295,14 @@ CAlphaSpritePack::LoadFromFileSprite(int spriteID, int fileSpriteID, const char*
 		return false;
 	}
 
-	class ifstream spkFile(spkFilename, ios::binary | ios::nocreate);
+	std::ifstream spkFile(spkFilename, ios::binary | );
 
 	if (!spkFile.is_open())
 	{
 		return false;
 	}
 
-	class ifstream indexFile(indexFilename, ios::binary | ios::nocreate);
+	std::ifstream indexFile(indexFilename, ios::binary | );
 
 	if (!indexFile.is_open())
 	{

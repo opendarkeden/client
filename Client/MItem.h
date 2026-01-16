@@ -481,8 +481,8 @@ class MItem : public MObject, public CAnimationFrame {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		//void	SaveToFile(ofstream& file);
-		//void	LoadFromFile(ifstream& file);
+		//void	SaveToFile(std::ofstream& file);
+		//void	LoadFromFile(std::ifstream& file);
 
 	public :		
 		// NewItem()에 대한 functions pointer

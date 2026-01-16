@@ -54,8 +54,8 @@ public :
 	
 	bool			IsChief()		{ return m_Chief == 1;}
 	
-	void			LoadFromFile(ifstream& file);
-	void			SaveToFile(ofstream& file);
+	void			LoadFromFile(std::ifstream& file);
+	void			SaveToFile(std::ofstream& file);
 
 	BYTE			GetQuestLevel() { return m_QuestLevel; }
 	BYTE			GetEventQuest()	{ return m_EventQuest; }
@@ -85,7 +85,7 @@ public :
 	void					Init();
 	QUEST_INFO*				GetInfo(DWORD id) ;
 	void					SetInfo(DWORD id, DWORD goal, DWORD time, std::string str);
-	void LoadFromFile(ifstream& file);
+	void LoadFromFile(std::ifstream& file);
 
 };
 

@@ -50,8 +50,8 @@ public :
 		ZoneVersion = MAP_VERSION_2000_05_10;
 	}
 
-	void		SaveToFile(ofstream& file);
-	void		LoadFromFile(ifstream& file);
+	void		SaveToFile(std::ofstream& file);
+	void		LoadFromFile(std::ifstream& file);
 
 };
 

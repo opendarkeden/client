@@ -135,10 +135,10 @@ class MZone {
 		//--------------------------------------------------------------
 		// file I/O
 		//--------------------------------------------------------------		
-		bool		LoadFromFile(ifstream& file);
+		bool		LoadFromFile(std::ifstream& file);
 
-		bool		SaveToFileSectorSound(ofstream& file);
-		bool		LoadFromFileSectorSound(ifstream& file);
+		bool		SaveToFileSectorSound(std::ofstream& file);
+		bool		LoadFromFileSectorSound(std::ifstream& file);
 
 		//--------------------------------------------------------------		
 		// Zone File Header 부분

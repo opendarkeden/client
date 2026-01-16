@@ -218,8 +218,8 @@ UUFCopyFile(const char* FilenameSource, const char* FilenameTarget)
 {				
 	if (UUFHasPermission( FilenameTarget ) && UUFHasPermission( FilenameSource))				
 	{
-		class ifstream fileSource(FilenameSource, ios::binary);
-		class ofstream fileTarget(FilenameTarget, ios::binary);
+		std::ifstream fileSource(FilenameSource, ios::binary);
+		std::ofstream fileTarget(FilenameTarget, ios::binary);
 		
 		// 추가
 		char buffer[SIZE_BUFFER];
@@ -268,7 +268,7 @@ UUFMoveFile(const char* FilenameSource, const char* FilenameTarget)
 	{
 		ifstream file;
 
-		file.open(FilenameTarget, ios::binary | ios::nocreate);
+		file.open(FilenameTarget, ios::binary | );
 		
 		if (file.is_open())
 		{
@@ -396,7 +396,7 @@ UUFAppendPack(const char* FilenameAdd, const char* FilenameOriginal,
 		//
 		//---------------------------------------------------------------
 		// 추가할 수 있게 한다.
-		class ifstream addFile(FilenameAdd, ios::binary);
+		std::ifstream addFile(FilenameAdd, ios::binary);
 		class fstream originalFile(FilenameOriginal, ios::in | ios::out | ios::binary);
 
 		TYPE_PACKSIZE	sourceCount, targetCount;
@@ -484,7 +484,7 @@ UUFAppendPack(const char* FilenameAdd, const char* FilenameOriginal,
 
 
 			// 추가할 수 있게 한다.
-			class ifstream addIndexFile(FilenameIndexAdd, ios::binary);
+			std::ifstream addIndexFile(FilenameIndexAdd, ios::binary);
 			class fstream originalIndexFile(FilenameIndexOriginal, ios::in | ios::out | ios::binary);	
 
 			TYPE_PACKSIZE	targetCount;
@@ -574,7 +574,7 @@ UUFAppendInfo(const char* FilenameAdd, const char* FilenameOriginal)
 		//}
 
 		// 추가할 수 있게 한다.
-		class ifstream sourceFile(FilenameAdd, ios::binary);
+		std::ifstream sourceFile(FilenameAdd, ios::binary);
 		class fstream targetFile(FilenameOriginal, ios::in | ios::out | ios::binary);
 		
 
@@ -709,7 +709,7 @@ UUFUpdateSpritePack(const char* FilenameNew,
 		//
 		//-----------------------------------------------------
 		CSpriteIDTable	SIDT;
-		class ifstream idFile(FilenameID, ios::binary);
+		std::ifstream idFile(FilenameID, ios::binary);
 		SIDT.LoadFromFile( idFile );
 		idFile.close();
 
@@ -763,7 +763,7 @@ UUFUpdateSpritePack(const char* FilenameNew,
 		// New SPK File
 		//
 		//-----------------------------------------------------
-		class ifstream newSPKFile(FilenameNew, ios::binary);		
+		std::ifstream newSPKFile(FilenameNew, ios::binary);		
 		pSPKNew->LoadFromFile( newSPKFile );
 		newSPKFile.close();
 
@@ -772,7 +772,7 @@ UUFUpdateSpritePack(const char* FilenameNew,
 		// Original SPK File
 		//
 		//-----------------------------------------------------		
-		class ifstream originalSPKFile(FilenameOriginal, ios::binary);				
+		std::ifstream originalSPKFile(FilenameOriginal, ios::binary);				
 		pSPKOriginal->LoadFromFile( originalSPKFile );
 		originalSPKFile.close();
 
@@ -797,8 +797,8 @@ UUFUpdateSpritePack(const char* FilenameNew,
 		char indexFilename[80];
 		sprintf(indexFilename, "%s.i%s", filenameOriginal, fileExtNew);
 
-		class ofstream originalSPKFile2(FilenameOriginal, ios::binary);
-		class ofstream originalSPKIndexFile2(indexFilename, ios::binary);
+		std::ofstream originalSPKFile2(FilenameOriginal, ios::binary);
+		std::ofstream originalSPKIndexFile2(indexFilename, ios::binary);
 	
 		pSPKOriginal->SaveToFile( originalSPKFile2, originalSPKIndexFile2 );
 
@@ -899,7 +899,7 @@ UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
 		// Original SPK File
 		//
 		//-----------------------------------------------------		
-		class ifstream originalSPKFile(FilenameOriginal, ios::binary);				
+		std::ifstream originalSPKFile(FilenameOriginal, ios::binary);				
 		pSPKOriginal->LoadFromFile( originalSPKFile );
 		originalSPKFile.close();
 
@@ -910,7 +910,7 @@ UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
 		//
 		//-----------------------------------------------------
 		CSpriteIDTable	SIDT;
-		class ifstream idFile(FilenameID, ios::binary);
+		std::ifstream idFile(FilenameID, ios::binary);
 		SIDT.LoadFromFile( idFile );
 		idFile.close();
 
@@ -925,8 +925,8 @@ UUFDeleteSpritePack(const char* FilenameID, const char* FilenameOriginal)
 		char indexFilename[80];
 		sprintf(indexFilename, "%s.i%s", filenameOriginal, fileExtOriginal);
 
-		class ofstream spkFile(FilenameOriginal, ios::binary);
-		class ofstream indexFile(indexFilename, ios::binary);
+		std::ofstream spkFile(FilenameOriginal, ios::binary);
+		std::ofstream indexFile(indexFilename, ios::binary);
 	
 		//--------------------------------------------------
 		// index file을 생성하기 위한 정보
@@ -1093,7 +1093,7 @@ UUFMakeSpritePackIndex(const char* Filename)
 		//  SPK File
 		//
 		//-----------------------------------------------------
-		class ifstream SPKFile(Filename, ios::binary);		
+		std::ifstream SPKFile(Filename, ios::binary);		
 		pSPK->LoadFromFile( SPKFile );
 		SPKFile.close();
 
@@ -1103,8 +1103,8 @@ UUFMakeSpritePackIndex(const char* Filename)
 		char indexFilename[80];
 		sprintf(indexFilename, "%s.%si", filename, fileExt);
 
-		class ofstream SPKFile2(Filename, ios::binary);
-		class ofstream SPKIndexFile2(indexFilename, ios::binary);
+		std::ofstream SPKFile2(Filename, ios::binary);
+		std::ofstream SPKIndexFile2(indexFilename, ios::binary);
 	
 		pSPK->SaveToFile( SPKFile2, SPKIndexFile2 );
 

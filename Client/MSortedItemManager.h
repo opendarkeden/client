@@ -7,6 +7,8 @@
 
 #pragma warning(disable:4786)
 
+#include <map>
+
 class MItem;
 
 class MSortedItemManager : public std::map<ULONGLONG, MItem*> {

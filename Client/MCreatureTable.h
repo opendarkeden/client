@@ -105,8 +105,8 @@ class ITEM_WEARINFO
 		ITEM_WEARINFO();
 
 		void		operator = (const ITEM_WEARINFO& info);
-		void		SaveToFile(ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 };
 
 
@@ -171,8 +171,8 @@ class CREATURETABLE_INFO {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void				SaveToFile(ofstream& file);
-		void				LoadFromFile(ifstream& file);	
+		void				SaveToFile(std::ofstream& file);
+		void				LoadFromFile(std::ifstream& file);	
 		
 	protected :
 		void				InitActionType(int nMaxAction = 0);				
@@ -201,8 +201,8 @@ class CreatureSpriteTypeMapper {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void				SaveToFile(ofstream& file);
-		void				LoadFromFile(ifstream& file);	
+		void				SaveToFile(std::ofstream& file);
+		void				LoadFromFile(std::ifstream& file);	
 
 	protected :
 		CREATURE_SPRITE_TYPES	m_CreatureSpriteTypes;

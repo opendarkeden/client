@@ -26,8 +26,8 @@ class APPEND_PATCH_NODE
 	public :
 		bool		Append(const char* orgFilename) const;
 
-		void		SaveToFile(ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 
 	public :
 		MString		appendFilename;
@@ -75,8 +75,8 @@ class AppendPatch {
 		//------------------------------------------------------------------
 		// File I / O
 		//------------------------------------------------------------------
-		void		SaveToFile(ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 		const APPEND_PATCH_VECTOR	GetAppendPatchNode() { return m_AppendPatch; }
 
 

@@ -781,9 +781,9 @@ MGridItemManager::FindItemGridOrder( MItemFinder& itemFinder ) const
 			delete [] bCheck[i];
 		}			
 
-		delete [] bCheck;		
+		delete [] bCheck;
 	}
 
-	return false;
+	return NULL;
 }
 

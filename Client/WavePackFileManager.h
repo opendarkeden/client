@@ -30,8 +30,8 @@ class WavePackFileInfo : public PackFileInfo {
 		WavePackFileInfo() {}
 		virtual ~WavePackFileInfo() {}
 
-		virtual bool			SaveToFileData(ofstream& file);
-		LPDIRECTSOUNDBUFFER		LoadFromFileData(ifstream& file);
+		virtual bool			SaveToFileData(std::ofstream& file);
+		LPDIRECTSOUNDBUFFER		LoadFromFileData(std::ifstream& file);
 };
 
 //--------------------------------------------------------------------------

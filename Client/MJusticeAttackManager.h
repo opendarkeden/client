@@ -11,6 +11,9 @@
 
 #pragma warning(disable:4786)
 
+#include <map>
+#include <string>
+
 class MJusticeAttackManager {
 	public :
 		// <이름, 최초의시간>		시간은 의미없지 싶은데.. 걍..

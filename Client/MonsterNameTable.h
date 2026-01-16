@@ -35,8 +35,8 @@ class MonsterNameTable {
 		//------------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------------
-		//void		SaveToFile(ofstream& file);	// 서버에서 읽어온걸 쓴다는 가정하에.. 
-		void		LoadFromFile(ifstream& file);
+		//void		SaveToFile(std::ofstream& file);	// 서버에서 읽어온걸 쓴다는 가정하에.. 
+		void		LoadFromFile(std::ifstream& file);
 
 	public :
 		STRING_TABLE	m_FirstNames;

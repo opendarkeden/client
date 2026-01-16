@@ -41,8 +41,8 @@ class CDataTable {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(ofstream& file);
-		void			LoadFromFile(ifstream& file);
+		void			SaveToFile(std::ofstream& file);
+		void			LoadFromFile(std::ifstream& file);
 
 	protected :		
 		int			m_Size;					// Type 종류 수
@@ -124,7 +124,7 @@ CDataTable<Type>::Release()
 //----------------------------------------------------------------------
 template <class Type>
 void			
-CDataTable<Type>::SaveToFile(ofstream& file)
+CDataTable<Type>::SaveToFile(std::ofstream& file)
 {
 	// size 저장
 	file.write((const char*)&m_Size, 4);
@@ -145,7 +145,7 @@ CDataTable<Type>::SaveToFile(ofstream& file)
 //----------------------------------------------------------------------
 template <class Type>
 void			
-CDataTable<Type>::LoadFromFile(ifstream& file)
+CDataTable<Type>::LoadFromFile(std::ifstream& file)
 {
 	int numSize;
 

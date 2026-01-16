@@ -125,7 +125,7 @@ string XMLUtil::trim(const string& str)
 //////////////////////////////////////////////////////////////////////////////
 void XMLUtil::filelog(char* fmt, ...)
 {
-//	class ofstream file(XML_ERROR_FILENAME, ios::out | ios::app);
+//	std::ofstream file(XML_ERROR_FILENAME, ios::out | ios::app);
 //	if (file.is_open())
 //	{
 //		va_list valist;

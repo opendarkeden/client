@@ -12,8 +12,8 @@ public :
 	~RegenTowerInfo() {}
 	void	LoadFromLine(char *szLine);
 
-	void	LoadFromFile(ifstream& file) { }
-	void	SaveToFile(ofstream& file) { }
+	void	LoadFromFile(std::ifstream& file) { }
+	void	SaveToFile(std::ofstream& file) { }
 	
 	int		num;
 	int		zoneID;	

@@ -15,6 +15,7 @@
 
 #include "MZoneSound.h"
 #include "CTypeMap.h"
+#include "CDirectSound.h"
 #ifdef PLATFORM_WINDOWS
 #include <DSound.h>
 #endif
@@ -61,8 +62,8 @@ class ZONESOUND_NODE
 		//---------------------------------------------------------------
 		// File I/O
 		//---------------------------------------------------------------
-		void					SaveToFile(ofstream& file);
-		void					LoadFromFile(ifstream& file);
+		void					SaveToFile(std::ofstream& file);
+		void					LoadFromFile(std::ifstream& file);
 
 	protected :
 		TYPE_SOUNDID				m_SoundID;				// Sound ID

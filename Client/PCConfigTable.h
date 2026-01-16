@@ -68,8 +68,8 @@ class PlayerConfig {
 		//--------------------------------------------------------
 		// File I/O
 		//--------------------------------------------------------
-		void		SaveToFile(ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 
 	protected :
 		std::string	m_PlayerID;
@@ -104,8 +104,8 @@ class PlayerConfigTable : public std::map<std::string, PlayerConfig*> {
 		//--------------------------------------------------------
 		// File I/O
 		//--------------------------------------------------------
-		void		SaveToFile(ofstream& file);
-		void		LoadFromFile(ifstream& file);
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);
 
 };
 

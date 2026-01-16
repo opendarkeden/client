@@ -38,10 +38,11 @@ MRisingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	{
 		// 3연발
 		int angle = 18;
+		int i;
 		int tx[3],tz[3],step[3];
 		int coord_z = egInfo.step * egInfo.count;
 
-		for(int i=0;i<3;i++)
+		for(i=0;i<3;i++)
 		{
 			tx[i] = egInfo.x0;
 			tz[i] = egInfo.z0 + coord_z;
@@ -97,12 +98,13 @@ MRisingEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 	}
 	else
 	if(egInfo.nActionInfo == SKILL_FIRE_CRACKER_STORM)
-	{		
+	{
 		int angle1 = 10, angle2 = 30;
+		int i;
 		int tx[4],tz[4],step[4];
 		int coord_z = egInfo.step * egInfo.count;
 
-		for(int i=0;i<4;i++)
+		for(i=0;i<4;i++)
 		{
 			tx[i] = egInfo.x0;
 			tz[i] = egInfo.z0 + coord_z;

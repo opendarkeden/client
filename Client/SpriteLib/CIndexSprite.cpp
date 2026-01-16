@@ -264,7 +264,7 @@ CIndexSprite::SetColorSet()
 // Save IndexTable To File
 //----------------------------------------------------------------------
 BOOL
-CIndexSprite::SaveIndexTableToFile(class ofstream& file)
+CIndexSprite::SaveIndexTableToFile(std::ofstream& file)
 {
 	int i,j,k;
 
@@ -319,7 +319,7 @@ CIndexSprite::SaveIndexTableToFile(class ofstream& file)
 // Load IndexTable From File
 //----------------------------------------------------------------------
 BOOL
-CIndexSprite::LoadIndexTableFromFile(class ifstream& file)
+CIndexSprite::LoadIndexTableFromFile(std::ifstream& file)
 {
 	int i,j,k;
 

@@ -1,6 +1,8 @@
 #ifndef __QUEST_INFO_HEADER__
 #define __QUEST_INFO_HEADER__
 
+#include <fstream>
+
 enum QUEST_INFO_TYPE
 {
 	QUEST_INFO_MONSTER_KILL = 0,
@@ -25,8 +27,8 @@ public  :
 	
 	void			SetTimeLimit(DWORD time) { m_TimeLimit = time; }
 	
-	void			LoadFromFile(ifstream& file);
-	void			SaveToFile(ofstream& file );
+	void			LoadFromFile(std::ifstream& file);
+	void			SaveToFile(std::ofstream& file );
 	void			SetType(QUEST_INFO_TYPE type) { m_Type = type; }
 	
 protected :

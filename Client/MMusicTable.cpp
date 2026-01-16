@@ -13,7 +13,7 @@ MUSIC_TABLE*	g_pMusicTable = NULL;
 // Save
 //----------------------------------------------------------------------
 void			
-MUSICTABLE_INFO::SaveToFile(class ofstream& file)
+MUSICTABLE_INFO::SaveToFile(std::ofstream& file)
 {
 	Filename.SaveToFile( file );
 	FilenameWav.SaveToFile( file );
@@ -23,7 +23,7 @@ MUSICTABLE_INFO::SaveToFile(class ofstream& file)
 // Load
 //----------------------------------------------------------------------
 void			
-MUSICTABLE_INFO::LoadFromFile(class ifstream& file)
+MUSICTABLE_INFO::LoadFromFile(std::ifstream& file)
 {
 	Filename.LoadFromFile( file );
 	FilenameWav.LoadFromFile( file );

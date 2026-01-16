@@ -6,7 +6,7 @@
 #include "MTopView.h"
 #include "MTypeDef.h"
 #include "ModifyStatusManager.h"
-#include "packet\types\ModifyDef.h"
+#include "packet/types/ModifyDef.h"
 #include "UIFunction.h"
 #include "MPlayer.h"
 #include "MSkillManager.h"

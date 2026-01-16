@@ -51,8 +51,8 @@ class ITEMOPTION_INFO {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		void			SaveToFile(ofstream& file);		
-		void			LoadFromFile(ifstream& file);		
+		void			SaveToFile(std::ofstream& file);		
+		void			LoadFromFile(std::ifstream& file);		
 };
 
 
@@ -118,7 +118,7 @@ public:
 	MString ITEMOPTION_PARTENAME[MAX_PART];
 		
 
-	void	LoadFromFile(ifstream& file);
+	void	LoadFromFile(std::ifstream& file);
 };
 
 extern	ITEMOPTION_TABLE*		g_pItemOptionTable;

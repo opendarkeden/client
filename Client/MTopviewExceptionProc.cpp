@@ -281,7 +281,7 @@ void	MTopView::InitMapingExceptionProc()
 
 void	MTopView::RegistExceptionProcFunction( DWORD objectID, DrawCreatureExceptionProc proc )
 {
-	Assert( m_ExceptionProcMap.find( objectID ) == m_ExceptionProcMap.end() );
+	assert( m_ExceptionProcMap.find( objectID ) == m_ExceptionProcMap.end() );
 
 	m_ExceptionProcMap[ objectID ] = proc;
 }

@@ -76,7 +76,7 @@ class CAlphaSprite
 		//---------------------------------------------------------
 		virtual bool		SaveToFile(std::ofstream& file) = 0;
 		virtual bool		LoadFromFile(std::ifstream& file) = 0;		
-		//virtual bool		LoadFromFileToBuffer(ifstream& file) = 0;
+		//virtual bool		LoadFromFileToBuffer(std::ifstream& file) = 0;
 		//void		LoadFromBuffer();
 			
 		//---------------------------------------------------------

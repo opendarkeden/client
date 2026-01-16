@@ -271,7 +271,7 @@ CShadowSpritePack::LoadFromFilePart(ifstream& file, long filePosition,
 //
 //----------------------------------------------------------------------
 void			
-CShadowSpritePack::LoadFromFilePart(class ifstream& spkFile, const CSpriteFilePositionArray& fpArray)
+CShadowSpritePack::LoadFromFilePart(std::ifstream& spkFile, const CSpriteFilePositionArray& fpArray)
 {
 	// SpritePack의 memory가 잡혀있지 않으면 그냥 return한다.	
 	if (m_pSprites==NULL)

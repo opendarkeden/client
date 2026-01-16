@@ -71,8 +71,8 @@ class MHelpNode {
 		//------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------
-		virtual void		SaveToFile(ofstream& file) = 0;
-		virtual void		LoadFromFile(ifstream& file) = 0;
+		virtual void		SaveToFile(std::ofstream& file) = 0;
+		virtual void		LoadFromFile(std::ifstream& file) = 0;
 
 	public :
 		// NewItem()에 대한 functions pointer
@@ -130,8 +130,8 @@ class MCompareHelpNode : public MHelpNode {
 		//------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------
-		virtual void		SaveToFile(ofstream& file);
-		virtual void		LoadFromFile(ifstream& file);	
+		virtual void		SaveToFile(std::ofstream& file);
+		virtual void		LoadFromFile(std::ifstream& file);	
 
 	public :
 		static MHelpNode*	NewNode()					{ return new MCompareHelpNode; }
@@ -170,8 +170,8 @@ class MOutputHelpNode : public MHelpNode, public std::list<HELP_OUTPUT> {
 		//------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------
-		virtual void		SaveToFile(ofstream& file);
-		virtual void		LoadFromFile(ifstream& file);	
+		virtual void		SaveToFile(std::ofstream& file);
+		virtual void		LoadFromFile(std::ifstream& file);	
 
 	public :
 		static MHelpNode*	NewNode()					{ return new MOutputHelpNode; }
@@ -208,8 +208,8 @@ class MHelpManager : public CTypeTable<MHelpNode*> {
 		//------------------------------------------------------
 		// File I/O
 		//------------------------------------------------------
-		void		SaveToFile(ofstream& file);
-		void		LoadFromFile(ifstream& file);	
+		void		SaveToFile(std::ofstream& file);
+		void		LoadFromFile(std::ifstream& file);	
 
 	protected :
 		CTypeTable<bool>		m_EventOccured;

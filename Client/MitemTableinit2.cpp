@@ -11,7 +11,7 @@
 #endif
 
 void
-ITEMCLASS_TABLE::InitItem3()
+ITEMCLASS_TABLE::InitItem2()
 {
 InitClass( ITEM_CLASS_EFFECT_ITEM,13 );
 

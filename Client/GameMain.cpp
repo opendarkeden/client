@@ -1858,7 +1858,7 @@ CheckActivate(BOOL bActiveGame)
 LONG
 FileThreadProc(LPVOID lpParameter)
 {
-	class ifstream file;
+	std::ifstream file;
 
 	while ( 1 )
 	{		
@@ -2446,7 +2446,7 @@ LoadZone(int n)
 					filename = pZoneInfo->TeenFilename;
 			}
 
-			class ifstream file;
+			std::ifstream file;
 			if (!FileOpenBinary(filename, file))
 			{
 				// priority¸¦ Á¤»óÀ¸·Î
@@ -2513,7 +2513,7 @@ LoadZone(int n)
 				filename = (*g_pZoneTable).Get(g_nZoneSmall)->TeenFilename;
 		}
 
-		class ifstream file;
+		std::ifstream file;
 		file.open(filename, ios::binary);
 
 		file.seekg(g_pZone->GetTileFilePosition(), ios::beg);
@@ -2665,7 +2665,7 @@ LoadZone(int n)
 					filename = pZoneInfo->TeenFilename;
 			}
 			
-			class ifstream file;
+			std::ifstream file;
 			if (!FileOpenBinary(filename, file))
 			{
 				// priority¸¦ Á¤»óÀ¸·Î
@@ -2728,7 +2728,7 @@ LoadZone(int n)
 				filename = (*g_pZoneTable).Get(g_nZoneLarge)->TeenFilename;
 		}
 
-		class ifstream file;
+		std::ifstream file;
 		file.open(filename, ios::binary);
 
 		file.seekg(g_pZone->GetTileFilePosition(), ios::beg);
@@ -3044,7 +3044,7 @@ LoadZoneInfo(int n)
 	// ZoneInfo
 	//------------------------------------------------
 //	MZoneInfo zoneInfo;
-	class ifstream zoneInfoFile(pZoneInfo->InfoFilename.GetString(), ios::binary | ios::nocreate);
+	std::ifstream zoneInfoFile(pZoneInfo->InfoFilename.GetString(), ios::binary | );
 
 	//------------------------------------------------
 	// FileÀÌ ÀÖ´Â °æ¿ì¸¸ loadingÇÑ´Ù.
@@ -4508,14 +4508,14 @@ SetLightning(DWORD delay)
 // Open File
 //---------------------------------------------------------------------------
 bool 
-FileOpenBinary(const char* filename, class ifstream& file)
+FileOpenBinary(const char* filename, std::ifstream& file)
 {
 	if (file.is_open())
 	{
 		file.close();
 	}
 
-	file.open(filename, ios::binary | ios::nocreate);
+	file.open(filename, ios::binary | );
 	
 	if (!file.is_open())
 	{
@@ -4801,7 +4801,7 @@ UpdateDisconnected()
 	CSpritePack		SPK;
 	CFileIndexTable	FIT;
 	
-	class ifstream indexFile(g_pFileDef->getProperty("FILE_SPRITEINDEX_UI").c_str(), ios::binary);
+	std::ifstream indexFile(g_pFileDef->getProperty("FILE_SPRITEINDEX_UI").c_str(), ios::binary);
 	FIT.LoadFromFile( indexFile );
 	indexFile.close();
 
@@ -4816,7 +4816,7 @@ UpdateDisconnected()
 		|| pSpriteDisconectedCloseFocused->IsNotInit()
 		|| pSpriteDisconectedClosePushed->IsNotInit())
 	{
-		class ifstream spkFile(g_pFileDef->getProperty("FILE_SPRITE_UI").c_str(), ios::binary);
+		std::ifstream spkFile(g_pFileDef->getProperty("FILE_SPRITE_UI").c_str(), ios::binary);
 		
 		if (pSpriteDisconected->IsNotInit())
 		{

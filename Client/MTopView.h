@@ -627,14 +627,14 @@ class MTopView : public MRequestMode {
 		//                  Sprite File
 		//
 		//------------------------------------------------------
-//		class ifstream			m_TileSPKFile;
-//		class ifstream			m_ImageObjectSPKFile;
-//		class ifstream			m_EffectAlphaSPKFile;
-//		class ifstream			m_EffectScreenSPKFile;
-//		class ifstream			m_AddonSPKFile;
-//		class ifstream			m_AddonSSPKFile;
-//		class ifstream			m_CreatureSPKFile;
-//		class ifstream			m_CreatureSSPKFile;
+//		std::ifstream			m_TileSPKFile;
+//		std::ifstream			m_ImageObjectSPKFile;
+//		std::ifstream			m_EffectAlphaSPKFile;
+//		std::ifstream			m_EffectScreenSPKFile;
+//		std::ifstream			m_AddonSPKFile;
+//		std::ifstream			m_AddonSSPKFile;
+//		std::ifstream			m_CreatureSPKFile;
+//		std::ifstream			m_CreatureSSPKFile;
 
 		//------------------------------------------------------
 		//

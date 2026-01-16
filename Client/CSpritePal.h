@@ -37,8 +37,8 @@ public:
 	//--------------------------------------------------------
 	// file I/O
 	//--------------------------------------------------------
-	virtual bool	SaveToFile(ofstream& file) = 0;
-	virtual bool	LoadFromFile(ifstream& file) = 0;		
+	virtual bool	SaveToFile(std::ofstream& file) = 0;
+	virtual bool	LoadFromFile(std::ifstream& file) = 0;		
 
 protected:
 	WORD *		m_pColor;

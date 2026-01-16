@@ -51,8 +51,8 @@ class MInteractionObject : public MAnimationObject {
 		//-------------------------------------------------------
 		// File I/O
 		//-------------------------------------------------------
-		virtual void	SaveToFile(ofstream& file);
-		virtual void	LoadFromFile(ifstream& file);
+		virtual void	SaveToFile(std::ofstream& file);
+		virtual void	LoadFromFile(std::ifstream& file);
 
 	public :
 		enum INTERACTIONOBJECT_TYPE 

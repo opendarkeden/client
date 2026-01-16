@@ -113,18 +113,18 @@ MRippleZonePixelEffectGenerator::Generate( const EFFECTGENERATOR_INFO& egInfo )
 
 		RECT rectEffect = 
 		{
-			egInfo.x0 + (g_TILE_X_HALF>>1),
-			egInfo.y0 + (g_TILE_Y_HALF>>1),
-			egInfo.x0 + g_TILE_X_HALF,
-			egInfo.y0 + g_TILE_Y_HALF,
+			egInfo.x0 + (24>>1),
+			egInfo.y0 + (24>>1),
+			egInfo.x0 + 24,
+			egInfo.y0 + 24,
 		};
 		
 		RECT rectChar =
 		{
 			pt.x,
 			pt.y,
-			pt.x + g_TILE_X_HALF,
-			pt.y + g_TILE_Y_HALF
+			pt.x + 24,
+			pt.y + 24
 		};
 
 		if (rectChar.left <= rectEffect.right
