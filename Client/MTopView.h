@@ -433,6 +433,11 @@ class MTopView : public MRequestMode {
 		void		DrawAttachEffect(POINT* pPoint, ATTACHEFFECT_LIST::const_iterator iEffect, BYTE size, MCreature* pCreature, int type=0);
 		void		DrawGroundEffect();
 		void		DrawEffect(POINT* pPoint, MEffect* pEffect, bool bSeletable);
+		void		DrawEffect(POINT* pPoint, EFFECT_LIST::const_iterator iEffect, BYTE size);
+		void		DrawAlphaBox(RECT* pRect, BYTE r, BYTE g, BYTE b, BYTE alpha);
+		void		DrawTestHelp();
+		void		DrawInventoryEffect(POINT* pPoint);
+		void		DrawMinimap(int x, int y, BYTE scale);
 		void		DrawItemBroken(int x, int y);
 		void		DrawPartyHP(POINT* pPoint, MCreature* pCreature);
 // 		void		DrawBox3D(RECT* pRect, WORD pixel);			

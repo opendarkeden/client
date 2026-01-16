@@ -13,7 +13,6 @@
 // Constructor
 //--------------------------------------------------------------------
 GCMPRecoveryEnd::GCMPRecoveryEnd()
-	throw( Error )
 {
 	__BEGIN_TRY
 	m_CurrentMP = 0;
@@ -24,7 +23,6 @@ GCMPRecoveryEnd::GCMPRecoveryEnd()
 // Destructor
 //--------------------------------------------------------------------
 GCMPRecoveryEnd::~GCMPRecoveryEnd()
-	throw( Error )
 {
 	__BEGIN_TRY
 	__END_CATCH

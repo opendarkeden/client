@@ -122,6 +122,7 @@ if(SPRITELIB_USE_SDL)
 	target_compile_definitions(SpriteLib
 		PUBLIC
 			SPRITELIB_BACKEND_SDL
+			SPRITESURFACE_STANDALONE
 	)
 	target_link_libraries(SpriteLib
 		PUBLIC

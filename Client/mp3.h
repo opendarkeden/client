@@ -8,8 +8,7 @@
 #ifdef PLATFORM_WINDOWS
 #include <dsound.h>
 #else
-// Non-Windows: Stub definitions for DirectSound types
-typedef void* LPDIRECTSOUNDBUFFER;
+// Non-Windows: DirectSound types are defined in Platform.h
 #endif
 
 typedef int	OFFSET ;

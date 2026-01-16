@@ -1,6 +1,10 @@
 #include "DirectXlib_PCH.h"
 #include "mp3.h"
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#else
+#include "../basic/Platform.h"
+#endif
 #include "huffman.h"
 #include <math.h>
 

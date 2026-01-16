@@ -20,7 +20,7 @@
 #include "UIFunction.h"
 
 #include "ClientPlayer.h"
-#include "packet\Cpackets\CGAddMouseToQuickSlot.h"
+#include "packet/Cpackets/CGAddMouseToQuickSlot.h"
 
 // MItem.cpp에 있다.
 bool	IsBombMaterial(const MItem* pItem);

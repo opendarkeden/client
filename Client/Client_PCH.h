@@ -24,6 +24,10 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
+#include <iostream>
+
+/* Use standard namespace for convenience */
+using namespace std;
 
 /* LONG type for non-Windows platforms */
 #ifndef PLATFORM_WINDOWS
@@ -63,5 +67,8 @@ typedef struct tagSIZE {
 #endif
 
 #endif /* PLATFORM_WINDOWS */
+
+/* Exception handling for Packet system */
+#include "Packet/Exception.h"
 
 #endif /* __CLIENT_PCH_H__ */

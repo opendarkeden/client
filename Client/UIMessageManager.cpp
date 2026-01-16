@@ -7003,7 +7003,8 @@ UIMessageManager::Execute_UI_ITEM_SELECT_EXCHANGE(int left, int right, void* voi
 		// ¼±¹° »óÀÚ ÇÏµå ÄÚµù-¤µ-;
 		if(pItem->GetItemClass() == ITEM_CLASS_EVENT_GIFT_BOX && pItem->GetItemType() > 1 && pItem->IsTrade() == false)	//
 		{
-			MEventGiftBoxItemFinder finder;\n\t	MItem* pFindItem = ((MItemManager*)g_pInventory)->FindItem( finder );
+			MEventGiftBoxItemFinder finder;
+			MItem* pFindItem = ((MItemManager*)g_pInventory)->FindItem( finder );
 			if(pFindItem != NULL)
 			{
 				// ÀÌ¹Ì ±³È¯¿¡ ¿Ã¶ó°£°Ô ÀÖ´Ù

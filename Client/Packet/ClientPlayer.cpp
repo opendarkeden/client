@@ -472,7 +472,6 @@ std::string ClientPlayer::toString () const
 // 암호화 코드를 설정한다.
 
 void ClientPlayer::setEncryptCode()
-    throw (Error)
 {
 #ifdef __USE_ENCRYPTER__
     __BEGIN_TRY

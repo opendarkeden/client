@@ -1,7 +1,11 @@
 #include "DirectXlib_PCH.h"
 #include "reader.h"
 #include "common.h"
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#else
+#include "../basic/Platform.h"
+#endif
 #include "mp3.h"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -20,8 +24,13 @@ int	Open(LPSTR pathname)
 	if ( MP3File == NULL ) return -1 ;
 
 	strcpy (MP3FileName, pathname) ;
+#ifdef PLATFORM_WINDOWS
 	struct _stat buf;
 	_stat( MP3FileName, &buf );
+#else
+	struct stat buf;
+	stat( MP3FileName, &buf );
+#endif
 	FileSize = buf.st_size ;
 
 	nSpare = 0 ;

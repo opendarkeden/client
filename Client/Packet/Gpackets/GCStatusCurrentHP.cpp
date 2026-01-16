@@ -13,7 +13,6 @@
 // Constructor
 //--------------------------------------------------------------------
 GCStatusCurrentHP::GCStatusCurrentHP()
-	throw( Error )
 {
 	__BEGIN_TRY
 	m_CurrentHP = 0;
@@ -25,7 +24,6 @@ GCStatusCurrentHP::GCStatusCurrentHP()
 // Destructor
 //--------------------------------------------------------------------
 GCStatusCurrentHP::~GCStatusCurrentHP()
-	throw( Error )
 {
 	__BEGIN_TRY
 	__END_CATCH

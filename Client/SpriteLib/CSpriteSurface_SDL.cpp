@@ -12,7 +12,7 @@
 
 #ifdef SPRITELIB_BACKEND_SDL
 
-#include "client_PCH.h"
+#include "Client_PCH.h"
 #include "CSprite.h"
 #include "CAlphaSprite.h"
 #include "CIndexSprite.h"
@@ -284,8 +284,6 @@ bool CSpriteSurface::ClippingRectToPoint(RECT*& pRect, POINT*& pPoint)
 /* Include the adapter code for BltSprite methods */
 #include "CSpriteSurface_Adapter.cpp"
 
-#endif /* SPRITELIB_BACKEND_SDL */
-
 /* ============================================================================
  * Lock/Unlock Methods (Stub implementations for compatibility)
  * ============================================================================ */
@@ -487,3 +485,5 @@ void CSpriteSurface::Gamma4Pixel555(void *pDest, int len, int p)
 	// In SDL backend, we always use RGB565, so just call Gamma4Pixel565
 	Gamma4Pixel565(pDest, len, p);
 }
+
+#endif /* SPRITELIB_BACKEND_SDL */

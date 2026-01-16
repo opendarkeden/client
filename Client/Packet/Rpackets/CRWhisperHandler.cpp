@@ -14,7 +14,7 @@
 #include "MChatManager.h"
 #include "RequestServerPlayer.h"
 #include "RequestUserManager.h"
-#include "Rpackets\RCRequestVerify.h"
+#include "Rpackets/RCRequestVerify.h"
 #include "UIFunction.h"
 #include "MGameStringTable.h"
 

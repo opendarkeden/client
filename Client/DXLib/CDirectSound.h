@@ -19,7 +19,9 @@ typedef std::list<LPDIRECTSOUNDBUFFER>	LPDIRECTSOUNDBUFFER_LIST;
 
 /* Forward declarations for DirectSound types */
 typedef struct IDirectSound* LPDIRECTSOUND;
+#ifndef LPDIRECTSOUNDBUFFER
 typedef struct IDirectSoundBuffer* LPDIRECTSOUNDBUFFER;
+#endif
 typedef struct _WAVEFORMATEX* LPWAVEFORMATEX;
 typedef std::list<LPDIRECTSOUNDBUFFER>	LPDIRECTSOUNDBUFFER_LIST;
 #endif

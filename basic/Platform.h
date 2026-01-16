@@ -59,7 +59,13 @@ extern "C" {
 
 /* Allow explicit SDL selection on Windows */
 #ifdef PLATFORM_USE_SDL
-	#include <SDL.h>
+	#if __has_include(<SDL2/SDL.h>)
+		#include <SDL2/SDL.h>
+	#elif __has_include(<SDL.h>)
+		#include <SDL.h>
+	#else
+		#include <SDL2/SDL.h>  // Try anyway - include path should be set via CMake
+	#endif
 #endif
 
 /* ============================================================================
@@ -138,6 +144,43 @@ typedef struct _WAVEFORMATEX {
 	WORD wBitsPerSample;
 	WORD cbSize;
 } WAVEFORMATEX, *LPWAVEFORMATEX, *PWAVEFORMATEX;
+#endif
+
+/* WAVE format constants */
+#define WAVE_FORMAT_PCM		1
+#define WAVE_FORMAT_ADPCM	2
+
+/* DirectSound buffer capabilities */
+#ifndef PLATFORM_WINDOWS
+#define DSBCAPS_PRIMARYBUFFER		0x00000001
+#define DSBCAPS_STATIC			0x00000002
+#define DSBCAPS_LOCHARDWARE		0x00000004
+#define DSBCAPS_LOCSOFTWARE		0x00000008
+#define DSBCAPS_CTRL3D			0x00000010
+#define DSBCAPS_CTRLFREQUENCY		0x00000020
+#define DSBCAPS_CTRLPAN			0x00000040
+#define DSBCAPS_CTRLVOLUME		0x00000080
+#define DSBCAPS_CTRLPOSITIONNOTIFY	0x00000100
+#define DSBCAPS_CTRLFX			0x00000200
+#define DSBCAPS_STICKYFOCUS		0x00004000
+#define DSBCAPS_GLOBALFOCUS		0x00008000
+#define DSBCAPS_GETCURRENTPOSITION2	0x00010000
+#define DSBCAPS_MUTE3DATMAX		0x00020000
+#define DSBCAPS_MIXIN			0x00040000
+#define DSBCAPS_TRUEPLAYPOSITION	0x00080000
+#endif
+
+/* DirectSound types for non-Windows platforms */
+#ifndef PLATFORM_WINDOWS
+struct IDirectSound;
+struct IDirectSoundBuffer;
+struct IDirectSoundNotify;
+
+#ifndef LPDIRECTSOUNDBUFFER
+typedef struct IDirectSoundBuffer* LPDIRECTSOUNDBUFFER;
+#endif
+typedef struct IDirectSound* LPDIRECTSOUND;
+typedef struct IDirectSoundNotify* LPDIRECTSOUNDNOTIFY;
 #endif
 
 /* CRITICAL_SECTION for thread synchronization */
@@ -366,6 +409,7 @@ typedef WORD			char_t;
 
 	/* MessageBox constants */
 	#define MB_OK			0x00000000L
+	#define MB_ICONERROR		0x00000010L
 
 	/* Windows parameter annotation macros (for callback function signatures) */
 	#ifndef IN

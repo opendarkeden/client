@@ -11987,6 +11987,7 @@ MTopView::DrawLightBuffer3D()
 		//------------------------------------------------
 		// LightBufferFilter --> Texture
 		//------------------------------------------------
+#ifdef PLATFORM_WINDOWS
 		WORD *lpSurface, pitch;
 		m_pLightBufferTexture->Lock();
 		lpSurface = (WORD*)m_pLightBufferTexture->GetSurfacePointer();
@@ -11997,13 +11998,13 @@ MTopView::DrawLightBuffer3D()
 
 		m_pLightBufferTexture->Unlock();
 		//*/
-		
+
 		//------------------------------------------------
 		// Texture¼³Á¤ÇÏ°í Ãâ·Â
 		//------------------------------------------------
 		RECT rect = { 0, 0, g_GameRect.right, g_GameRect.bottom };
-			
-		DRAW_TEXTURE_SURFACE( m_pLightBufferTexture, &rect )		
+
+		DRAW_TEXTURE_SURFACE( m_pLightBufferTexture, &rect )
 		else
 		{
 			#ifdef OUTPUT_DEBUG_DRAW_PROCESS
@@ -12015,6 +12016,11 @@ MTopView::DrawLightBuffer3D()
 		#ifdef OUTPUT_DEBUG_DRAW_PROCESS
 			DEBUG_ADD( "End DrawLightBuffer3D" );
 		#endif
+#else
+		// SDL/macOS: 3D light buffer rendering not implemented
+		(void)m_pLightBufferTexture;
+		(void)m_DarkBits;
+#endif
 	}
 
 	#ifdef OUTPUT_DEBUG_DRAW_PROCESS
@@ -20983,7 +20989,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			//---------------------------------------------------------------
 			if (IsRequestTrade())
 			{
-				const maxRequestFrames = SPRITEID_ITEM_TRADE_LAST - SPRITEID_ITEM_TRADE + 1;
+				const int maxRequestFrames = SPRITEID_ITEM_TRADE_LAST - SPRITEID_ITEM_TRADE + 1;
 				RequestSpriteID = SPRITEID_ITEM_TRADE + ((g_CurrentFrame>>1) % (maxRequestFrames<<1));
 
 				if (RequestSpriteID > SPRITEID_ITEM_TRADE_LAST)
@@ -21001,7 +21007,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			//---------------------------------------------------------------
 			else if(IsRequestParty())
 			{
-				const maxRequestFrames = SPRITEID_PARTY_REQUEST_LAST - SPRITEID_PARTY_REQUEST + 1;
+				const int maxRequestFrames = SPRITEID_PARTY_REQUEST_LAST - SPRITEID_PARTY_REQUEST + 1;
 				RequestSpriteID = SPRITEID_PARTY_REQUEST + ((g_CurrentFrame>>1) % (maxRequestFrames+4));
 
 				if (RequestSpriteID > SPRITEID_PARTY_REQUEST_LAST)
@@ -21014,7 +21020,7 @@ MTopView::DrawCreatureName(MCreature* pCreature)
 			//---------------------------------------------------------------
 			else if(IsRequestInfo())
 			{
-				const maxRequestFrames = SPRITEID_INFO_REQUEST_LAST - SPRITEID_INFO_REQUEST + 1;
+				const int maxRequestFrames = SPRITEID_INFO_REQUEST_LAST - SPRITEID_INFO_REQUEST + 1;
 				RequestSpriteID = SPRITEID_INFO_REQUEST + ((g_CurrentFrame>>1) % (maxRequestFrames+4));
 
 				if (RequestSpriteID > SPRITEID_INFO_REQUEST_LAST)

@@ -13,7 +13,7 @@
 #include "RequestUserManager.h"
 #include "TempInformation.h"
 					
-#include "..\Cpackets\CGRequestIP.h"
+#include "..\Cpackets/CGRequestIP.h"
 #include "ClientDef.h"
 #include "UIFunction.h"
 

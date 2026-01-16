@@ -1,11 +1,19 @@
 #include "DirectXlib_PCH.h"
+#ifdef PLATFORM_WINDOWS
 #include <wtypes.h>
+#else
+#include "../basic/Platform.h"
+#endif
 #include <memory.h>
 #include "soundbuf.h"
 #include "mp3.h"
 //#include "dslib.h"
 //#include "debug.h"
+#ifdef PLATFORM_WINDOWS
 #include "DXLib\CDirectSound.h"
+#else
+#include "DXLib/CDirectSound.h"
+#endif
 
 const UINT frequencies[3] = { 44100, 48000, 32000 };
 
@@ -88,7 +96,8 @@ Fill :
 	while ( lpsb->bPlaying && lpsb->readyBufs == 1 ) Sleep(5) ;
 	if ( lpsb->nPushedFrames < lpsb->nFrames )	// 버퍼가 여유가 있을 경우 채운다.
 	{
-		lpsb->dsWriteBuf->Lock( lpsb->offWrite, lpsb->bufSize, 
+#ifdef PLATFORM_WINDOWS
+		lpsb->dsWriteBuf->Lock( lpsb->offWrite, lpsb->bufSize,
 			(void**)&audioPtr1, &audioBytes1, (void**)&audioPtr2, &audioBytes2, 0 ) ;
 
 		if ( audioBytes1 >= (DWORD)lpsb->bufSize )
@@ -101,7 +110,12 @@ Fill :
 			memcpy ( audioPtr2, lpsb->databuf + audioBytes1, lpsb->bufSize - audioBytes1 ) ;
 		}
 
-		lpsb->dsWriteBuf->Unlock( audioPtr1, audioBytes1, audioPtr2, lpsb->bufSize - audioBytes1) ;
+		lpsb->dsWriteBuf->Unlock( audioPtr1, audioBytes1, audioBytes2, lpsb->bufSize - audioBytes1) ;
+#else
+		// SDL/macOS: DirectSound buffer operations not implemented
+		(void)audioPtr1; (void)audioPtr2;
+		(void)audioBytes1; (void)audioBytes2;
+#endif
 
 		lpsb->nPushedFrames++ ;
 		lpsb->offWrite += lpsb->bufSize ;
@@ -113,14 +127,16 @@ Fill :
 
 		if ( lpsb->bPlaying == FALSE )
 		{
+#ifdef PLATFORM_WINDOWS
 			g_DXSound.Play(lpsb->dsPlayBuf, TRUE) ;
-			lpsb->bPlaying = TRUE ;			
+#endif
+			lpsb->bPlaying = TRUE ;
 		}
 
 		lpsb->offWrite = 0 ;
 		lpsb->nPushedFrames = 0 ;
 
-		goto Fill ; 
+		goto Fill ;
 	}
 //	DispDebugMsg("디코딩 정보를 기록했습니다.") ;
 

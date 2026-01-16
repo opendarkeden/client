@@ -71,7 +71,7 @@ void GCTradeAddItem::read ( SocketInputStream & iStream )
 	iStream.read( m_Grade );
 	iStream.read( m_EnchantLevel );
 	iStream.read( m_ListNum );
-	for (i = 0; i < m_ListNum; i++) 
+	for (int i = 0; i < m_ListNum; i++) 
 	{
 		SubItemInfo* pInfo = new SubItemInfo();
 		pInfo->read( iStream );

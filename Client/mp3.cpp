@@ -4,7 +4,11 @@
 #include "reader.h"
 #include "huffman.h"
 #include "soundbuf.h"
+#ifdef PLATFORM_WINDOWS
 #include "DXLib\CDirectSound.h"
+#else
+#include "DXLib/CDirectSound.h"
+#endif
 #include "debuginfo.h"
 #include <math.h>
 
@@ -297,8 +301,8 @@ int MP3_Decode(MP3* mp3)
 			///////////////////////////////////////////////////////////////////
 		}
 		stereodecode(mp3, gr);
-		
-		for (ch=0; (unsigned int)ch<mp3->channels; ch++)
+
+		for (int ch=0; (unsigned int)ch<mp3->channels; ch++)
 		{
 			reorder (mp3, mp3->lr[ch], ch, gr);
 			antialias(mp3, ch, gr);
@@ -307,15 +311,15 @@ int MP3_Decode(MP3* mp3)
 			}
 			
 			for (int ss=1;ss<SSLIMIT;ss+=2) // Frequency inversion for polyphase.
-				for (sb=1;sb<SBLIMIT;sb+=2)
+				for (int sb=1;sb<SBLIMIT;sb+=2)
 					mp3->re_hybridOut[sb][ss] = -mp3->re_hybridOut[sb][ss];
-			
+
 			if (ch == 0)
 			{
-				
-				for (ss=0;ss<SSLIMIT;ss++) 
+
+				for (int ss=0;ss<SSLIMIT;ss++)
 				{ // Polyphase synthesis
-					for (sb=0;sb<SBLIMIT;sb++)
+					for (int sb=0;sb<SBLIMIT;sb++)
 					{
 						input_sample(mp3->filter1, mp3->re_hybridOut[sb][ss], sb);
 					}
@@ -323,9 +327,9 @@ int MP3_Decode(MP3* mp3)
 				}
 			}
 			else
-				for (ss=0;ss<SSLIMIT;ss++) 
+				for (int ss=0;ss<SSLIMIT;ss++)
 				{ // Polyphase synthesis
-					for (sb=0;sb<SBLIMIT;sb++)
+					for (int sb=0;sb<SBLIMIT;sb++)
 						input_sample(mp3->filter2, mp3->re_hybridOut[sb][ss], sb);
 					calculate_pcm_samples(ch, mp3->filter2, mp3->soundbuf);
 				}

@@ -23,7 +23,9 @@ struct IDirectSoundBuffer;
 struct IDirectSoundNotify;
 
 /* Type definitions */
+#ifndef LPDIRECTSOUNDBUFFER
 typedef struct IDirectSoundBuffer* LPDIRECTSOUNDBUFFER;
+#endif
 typedef struct IDirectSoundNotify* LPDIRECTSOUNDNOTIFY;
 typedef void* HMMIO;
 typedef DWORD FOURCC;

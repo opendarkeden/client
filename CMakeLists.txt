@@ -1,5 +1,12 @@
 cmake_minimum_required(VERSION 3.10)
 
+# Set SDL2 include path before project() for it to take effect
+if(EXISTS "/opt/homebrew/include/SDL2")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/opt/homebrew/include/SDL2")
+elseif(EXISTS "/usr/local/include/SDL2")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/usr/local/include/SDL2")
+endif()
+
 project(DarkEdenClient VERSION 1.0.0)
 
 # C++ standard
@@ -16,11 +23,33 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
+# Add SDL2 include directory BEFORE add_subdirectory
+if(EXISTS "/opt/homebrew/include/SDL2")
+	include_directories(/opt/homebrew/include/SDL2)
+elseif(EXISTS "/usr/local/include/SDL2")
+	include_directories(/usr/local/include/SDL2)
+endif()
+
 # Find SDL2 (needed for engine and DXLib)
 if(BUILD_ENGINE OR USE_SDL_BACKEND OR NOT WIN32)
 	find_package(SDL2 REQUIRED)
 	find_package(SDL2_image REQUIRED)
 	find_package(SDL2_ttf REQUIRED)
+endif()
+
+# Find JPEG library (needed for UtilityFunction.cpp)
+find_package(JPEG QUIET)
+if(NOT JPEG_FOUND)
+	# Try pkg-config as fallback
+	find_package(PkgConfig QUIET)
+	if(PKG_CONFIG_FOUND)
+		pkg_check_modules(JPEG libjpeg)
+	endif()
+endif()
+if(JPEG_FOUND OR JPEG_LIBRARIES)
+	message(STATUS "JPEG library found: ${JPEG_LIBRARIES}")
+else()
+	message(WARNING "JPEG library not found - JPG loading/saving may not work")
 endif()
 
 # Subdirectories
@@ -121,9 +150,6 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		Client/MHelpMessageManager.cpp
 		Client/MSoundTable.cpp
 		Client/MMonsterKillQuestInfo.cpp
-
-		# Stubs
-		Client/Timer2.cpp
 	)
 
 	# Combine all sources
@@ -183,12 +209,16 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	# Collect remaining Client source files (excluding those already in VS_UI)
 	file(GLOB CLIENT_MAIN_SOURCES
 		Client/*.cpp
+		Client/Packet/**/*.cpp
 	)
 
 	# Remove files that are already compiled in VS_UI library
 	list(REMOVE_ITEM CLIENT_MAIN_SOURCES
 		${VS_UI_CLIENT_SOURCES}
 	)
+
+	# Exclude server-side Handler files (only for server, not client)
+	list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*Handler\\.cpp")
 
 	# Exclude Windows-specific files
 	if(NOT WIN32)
@@ -205,6 +235,8 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*ProfileManager\\.cpp")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*VolumeOut.*\\.cpp")
 		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX ".*WavePackFileManager\\.cpp")
+		# Exclude Client.cpp on non-Windows (uses WinMain)
+		list(FILTER CLIENT_MAIN_SOURCES EXCLUDE REGEX "Client/Client\\.cpp")
 	endif()
 
 	# Add DarkEden executable
@@ -224,6 +256,14 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		SDL2::SDL2
 		SDL2::SDL2main
 	)
+
+	# Link JPEG library if available
+	if(JPEG_LIBRARIES)
+		target_link_libraries(DarkEden PRIVATE ${JPEG_LIBRARIES})
+		if(JPEG_INCLUDE_DIRS)
+			target_include_directories(DarkEden PRIVATE ${JPEG_INCLUDE_DIRS})
+		endif()
+	endif()
 
 	# Include directories
 	target_include_directories(DarkEden PRIVATE
@@ -254,6 +294,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	target_compile_definitions(DarkEden PRIVATE
 		USE_SDL_BACKEND
 		SPRITELIB_BACKEND_SDL
+		__GAME_CLIENT__
 	)
 
 	# Platform-specific definitions

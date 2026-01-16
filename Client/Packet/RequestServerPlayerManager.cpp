@@ -9,7 +9,7 @@
 #include "DebugInfo.h"
 #include "ServerInfo.h"
 
-//#include "Rpackets\RCPositionInfo.h"
+//#include "Rpackets/RCPositionInfo.h"
 
 #if defined(_DEBUG) && defined(OUTPUT_DEBUG)
 	extern CMessageArray*		g_pGameMessage;

@@ -6,7 +6,7 @@
 
 #include "Client_PCH.h"
 #include "GCPartyInvite.h"
-#include "CPackets\CGPartyInvite.h"
+#include "CPackets/CGPartyInvite.h"
 #include "ClientPlayer.h"
 #include "MGameStringTable.h"
 #include "UIDialog.h"

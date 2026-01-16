@@ -9,7 +9,7 @@
 
 #include "Packet.h"
 #include "PacketFactory.h"
-#include "Types\GuildTypes.h"
+#include "Types/GuildTypes.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddBat;

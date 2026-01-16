@@ -18,7 +18,7 @@
 #ifdef __GAME_CLIENT__
 
 	#include "ClientPlayer.h"
-	#include "CPackets\CGTradePrepare.h"
+	#include "CPackets/CGTradePrepare.h"
 	#include "UIFunction.h"
 
 #endif

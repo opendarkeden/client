@@ -16,9 +16,9 @@
 #include "ServerInfo.h"
 #include "ClientDef.h"
 
-#include "Rpackets\CRConnect.h"
-#include "Rpackets\CRWhisper.h"
-#include "Rpackets\CRRequest.h"
+#include "Rpackets/CRConnect.h"
+#include "Rpackets/CRWhisper.h"
+#include "Rpackets/CRRequest.h"
 
 #if defined(_DEBUG) && defined(OUTPUT_DEBUG)
 	extern CMessageArray*		g_pGameMessage;
