@@ -84,6 +84,7 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 	# VS_UI source files
 	file(GLOB_RECURSE VS_UI_SRC_SOURCES
 		VS_UI/src/*.cpp
+		VS_UI/*.cpp  # Include VS_UI root directory for RarFile.cpp
 	)
 
 	# Exclude Windows-specific files
@@ -96,6 +97,10 @@ if(USE_SDL_BACKEND OR NOT WIN32)
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/src/hangul/FL2\\.cpp")
 		# Exclude Windows-specific edit widget (uses IMM/GDI)
 		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX ".*U_edit.*")
+		# Exclude problematic files in VS_UI root directory
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/DebugInfo\\.cpp")
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/MitemTableInit\\.cpp")
+		list(FILTER VS_UI_SRC_SOURCES EXCLUDE REGEX "VS_UI/SXml\\.cpp")
 		# Note: u_window.cpp is now cross-platform compatible
 	endif()
 
